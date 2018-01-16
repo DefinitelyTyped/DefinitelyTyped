@@ -10,6 +10,17 @@ lock.show();
 lock.hide();
 lock.logout(() => {});
 
+lock.checkSession({}, function(error: auth0.Auth0Error, authResult: AuthResult): void {
+  if (error || !authResult) {
+    lock.show();
+  } else {
+    // user has an active session, so we can use the accessToken directly.
+    lock.getUserInfo(authResult.accessToken, function(error, profile) {
+      console.log(error, profile);
+    });
+  }
+});
+
 // Show supports UI arguments
 
 const showOptions : Auth0LockShowOptions = {
@@ -37,7 +48,7 @@ lock.show(showOptions);
 
 // "on" event-driven example
 
-lock.on("authenticated", function(authResult : any) {
+lock.on("authenticated", function(authResult: AuthResult) {
   lock.getProfile(authResult.idToken, function(error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) {
     if (error) {
       // Handle error
@@ -49,7 +60,7 @@ lock.on("authenticated", function(authResult : any) {
   });
 });
 
-lock.on("authenticated", function(authResult : any) {
+lock.on("authenticated", function(authResult: AuthResult) {
   lock.getUserInfo(authResult.accessToken, function(error, profile) {
     if (error) {
       // Handle error

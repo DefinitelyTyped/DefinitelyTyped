@@ -3,7 +3,6 @@
     "rules": {
         "semicolon": [true, "never"],
         "eofline": false,
-        "indent": [true, "spaces", 4],
-        "linebreak-style": [true, "LF"]
+        "indent": [true, "spaces", 4]
     }
 }

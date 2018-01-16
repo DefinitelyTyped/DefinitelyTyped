@@ -116,10 +116,10 @@ configuration = {
     ]
 };
 
-configuration =  {
+configuration = {
     entry: { a: "./a", b: "./b" },
     output: { filename: "[name].js" },
-    plugins: [ new webpack.optimize.CommonsChunkPlugin({ name: "init.js" }) ]
+    plugins: [new webpack.optimize.CommonsChunkPlugin({ name: "init.js" })]
 };
 
 //
@@ -234,7 +234,7 @@ configuration = {
 
 configuration = {
     resolve: {
-        root: __dirname
+        modules: [__dirname]
     }
 };
 
@@ -451,8 +451,8 @@ plugin = new webpack.LoaderOptionsPlugin({
     debug: true
 });
 plugin = new webpack.EnvironmentPlugin(['a', 'b']);
-plugin = new webpack.EnvironmentPlugin({a: true, b: 'c'});
-plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
+plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
+plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
 plugin = new webpack.HashedModuleIdsPlugin();
 plugin = new webpack.HashedModuleIdsPlugin({
     hashFunction: 'sha256',
@@ -531,8 +531,11 @@ webpack({
         source: true,
         timings: true,
         version: true,
-        warnings: true
+        warnings: true,
+        warningsFilter: ["filter", /filter/],
+        excludeAssets: ["filter", "excluded"]
     });
+
     if (jsonStats.errors.length > 0)
         return handleSoftErrors(jsonStats.errors);
     if (jsonStats.warnings.length > 0)
@@ -542,7 +545,7 @@ webpack({
 
 declare const fs: any;
 
-compiler = webpack({ });
+compiler = webpack({});
 compiler.outputFileSystem = fs;
 compiler.run((err, stats) => {
     // ...
@@ -567,47 +570,49 @@ rule = {
 configuration = {
     module: {
         rules: [
-            { oneOf: [
-                {
-                    test: {
-                        and: [
-                            /a.\.js$/,
-                            /b\.js$/
-                        ]
-                    },
-                    loader: "./loader?first"
-                },
-                {
-                    test: [
-                        require.resolve("./a"),
-                        require.resolve("./c"),
-                    ],
-                    issuer: require.resolve("./b"),
-                    use: [
-                        "./loader?second-1",
-                        {
-                            loader: "./loader",
-                            options: "second-2"
+            {
+                oneOf: [
+                    {
+                        test: {
+                            and: [
+                                /a.\.js$/,
+                                /b\.js$/
+                            ]
                         },
-                        {
-                            loader: "./loader",
-                            options: {
-                                get: () => "second-3"
-                            }
-                        }
-                    ]
-                },
-                {
-                    test: {
-                        or: [
+                        loader: "./loader?first"
+                    },
+                    {
+                        test: [
                             require.resolve("./a"),
                             require.resolve("./c"),
+                        ],
+                        issuer: require.resolve("./b"),
+                        use: [
+                            "./loader?second-1",
+                            {
+                                loader: "./loader",
+                                options: "second-2"
+                            },
+                            {
+                                loader: "./loader",
+                                options: {
+                                    get: () => "second-3"
+                                }
+                            }
                         ]
                     },
-                    loader: "./loader",
-                    options: "third"
-                }
-            ]}
+                    {
+                        test: {
+                            or: [
+                                require.resolve("./a"),
+                                require.resolve("./c"),
+                            ]
+                        },
+                        loader: "./loader",
+                        options: "third"
+                    }
+                ]
+            }
         ]
     }
 };
@@ -638,7 +643,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.addDependency('');
 
-    this.resolve('context', 'request', ( err: Error, result: string) => {});
+    this.resolve('context', 'request', (err: Error, result: string) => { });
 
     this.emitWarning('warning message');
     this.emitWarning(new Error('warning message'));
@@ -650,6 +655,6 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 }
 
 (loader as webpack.loader.Loader).raw = true;
-(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
+(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => { };
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);

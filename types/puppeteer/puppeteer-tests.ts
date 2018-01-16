@@ -13,7 +13,7 @@ import * as puppeteer from "puppeteer";
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://news.ycombinator.com", { waitUntil: "networkidle" });
+  await page.goto("https://news.ycombinator.com", { waitUntil: "networkidle0" });
   await page.pdf({ path: "hn.pdf", format: "A4" });
 
   browser.close();
@@ -41,7 +41,7 @@ import * as puppeteer from "puppeteer";
 // The following examples are taken from the docs itself
 puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
-  page.on("console", (...args) => {
+  page.on("console", (...args: any[]) => {
     for (let i = 0; i < args.length; ++i) console.log(`${i}: ${args[i]}`);
   });
   page.evaluate(() => console.log(5, "hello", { foo: "bar" }));
@@ -99,7 +99,7 @@ puppeteer.launch().then(async browser => {
   await page.emulateMedia("screen");
   await page.pdf({ path: "page.pdf" });
 
-  await page.setRequestInterceptionEnabled(true);
+  await page.setRequestInterception(true);
   page.on("request", interceptedRequest => {
     if (
       interceptedRequest.url.endsWith(".png") ||
@@ -109,8 +109,8 @@ puppeteer.launch().then(async browser => {
     else interceptedRequest.continue();
   });
 
-  page.type("Hello"); // Types instantly
-  page.type("World", { delay: 100 }); // Types slower, like a user
+  page.keyboard.type("Hello"); // Types instantly
+  page.keyboard.type("World", { delay: 100 }); // Types slower, like a user
 
   const watchDog = page.waitForFunction("window.innerWidth < 100");
   page.setViewport({ width: 50, height: 50 });
@@ -118,7 +118,7 @@ puppeteer.launch().then(async browser => {
 
   let currentURL: string;
   page
-    .waitForSelector("img")
+    .waitForSelector("img", { visible: true })
     .then(() => console.log("First URL with image: " + currentURL));
   for (currentURL of [
     "https://example.com",
@@ -128,16 +128,16 @@ puppeteer.launch().then(async browser => {
     await page.goto(currentURL);
   }
 
-  page.type("Hello World!");
-  page.press("ArrowLeft");
+  page.keyboard.type("Hello World!");
+  page.keyboard.press("ArrowLeft");
 
   page.keyboard.down("Shift");
   // tslint:disable-next-line prefer-for-of
   for (let i = 0; i < " World".length; i++) {
-    page.press("ArrowLeft");
+    page.keyboard.press("ArrowLeft");
   }
   page.keyboard.up("Shift");
-  page.press("Backspace");
+  page.keyboard.press("Backspace");
   page.keyboard.sendCharacter("嗨");
 
   await page.tracing.start({ path: "trace.json" });
@@ -150,7 +150,7 @@ puppeteer.launch().then(async browser => {
     browser.close();
   });
 
-  const inputElement = await page.$("input[type=submit]");
+  const inputElement = (await page.$("input[type=submit]"))!;
   await inputElement.click();
 });
 
@@ -160,11 +160,124 @@ puppeteer.launch().then(async browser => {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-    ]
+    ],
+    handleSIGINT: true,
+    handleSIGHUP: true,
+    handleSIGTERM: true,
   });
   const page = await browser.newPage();
   await page.goto("https://example.com");
   await page.screenshot({ path: "example.png" });
+
+  browser.close();
+})();
+
+// Test v0.12 features
+(async () => {
+  const browser = await puppeteer.launch({
+    devtools: true,
+    env: {
+      JEST_TEST: true
+    }
+  });
+  const page = await browser.newPage();
+  const button = (await page.$("#myButton"))!;
+  const div = (await page.$("#myDiv"))!;
+  const input = (await page.$("#myInput"))!;
+
+  if (!button)
+    throw new Error('Unable to select myButton');
+
+  if (!input)
+    throw new Error('Unable to select myInput');
+
+  await page.addStyleTag({
+    url: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  });
+
+  console.log(page.url());
+
+  page.type("#myInput", "Hello World!");
+
+  page.on("console", (event: puppeteer.ConsoleMessage, ...args: any[]) => {
+    console.log(event.text, event.type);
+    for (let i = 0; i < args.length; ++i) console.log(`${i}: ${args[i]}`);
+  });
+
+  await button.focus();
+  await button.press("Enter");
+  await button.screenshot({
+    type: "jpeg",
+    omitBackground: true,
+    clip: {
+      x: 0,
+      y: 0,
+      width: 200,
+      height: 100
+    }
+  });
+  console.log(button.toString());
+  input.type("Hello World", { delay: 10 });
+
+  const buttonText = await (await button.getProperty('textContent')).jsonValue();
+
+  await page.deleteCookie(...await page.cookies());
+
+  const metrics = await page.metrics();
+  console.log(metrics.Documents, metrics.Frames, metrics.JSEventListeners);
+
+  const navResponse = await page.waitForNavigation({
+    timeout: 1000
+  });
+  console.log(navResponse.ok, navResponse.status, navResponse.url, navResponse.headers);
+
+  // evaluate example
+  const bodyHandle = (await page.$('body'))!;
+  const html = await page.evaluate(body => body.innerHTML, bodyHandle);
+  await bodyHandle.dispose();
+
+  // getProperties example
+  const handle = await page.evaluateHandle(() => ({ window, document }));
+  const properties = await handle.getProperties();
+  const windowHandle = properties.get('window');
+  const documentHandle = properties.get('document');
+  await handle.dispose();
+
+  // queryObjects example
+  // Create a Map object
+  await page.evaluate(() => (window as any).map = new Map());
+  // Get a handle to the Map object prototype
+  const mapPrototype = await page.evaluateHandle(() => Map.prototype);
+  // Query all map instances into an array
+  const mapInstances = await page.queryObjects(mapPrototype);
+  // Count amount of map objects in heap
+  const count = await page.evaluate(maps => maps.length, mapInstances);
+  await mapInstances.dispose();
+  await mapPrototype.dispose();
+
+  // evaluateHandle example
+  const aHandle = await page.evaluateHandle(() => document.body);
+  const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
+  console.log(await resultHandle.jsonValue());
+  await resultHandle.dispose();
+
+  browser.close();
+})();
+
+// test $eval and $$eval
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  let elementText = await page.$eval('#someElement', (element) => {
+    return element.innerHTML;
+  });
+
+  elementText = await page.$$eval('.someClassName', (elements) => {
+    console.log(elements.length);
+    console.log(elements.item(0).outerHTML);
+    return elements[3].innerHTML;
+  });
 
   browser.close();
 })();

@@ -7,7 +7,6 @@ export interface ClassNameProps {
 /**
  * Property types for general properties.
  *
- * @returns {Object}
  */
 export declare const GeneralPropTypes: {
     showFor: PropTypes.Requireable<any>;
@@ -40,8 +39,6 @@ export interface GeneralPropTypes extends ClassNameProps {
 /**
  * Creates class names from the given arguments.
  *
- * @param {*} args
- * @returns {string}
  */
 export declare function createClassName(...args: any[]): string;
 /**
@@ -78,46 +75,32 @@ export declare function objectKeys(object: object): string[];
  * Returns the values for the given object.
  * This method is used for getting the values for enumerables.
  *
- * @param {Object} object
- * @returns {Array}
  */
 export declare function objectValues(object: object): any[];
 /**
  * Removes properties from the given object.
  * This method is used for removing valid attributes from component props prior to rendering.
  *
- * @param {Object} object
- * @param {Array} remove
- * @returns {Object}
  */
 export declare function removeProps(object: object, remove: string[]): object;
 /**
  * Returns whether or not the given value is defined.
  *
- * @param {*} value
- * @returns {boolean}
  */
 export declare function isDefined(value: any): boolean;
 /**
  * Adds a breakpoint to a class if breakpoint is specified.
  *
- * @param {String} prop
- * @param {String} size
- * @returns {string}
  */
 export declare function addBreakpoint(prop: string, size: string): string;
 /**
  * Sets direction for grid and gutters (horizontal or vertical).
  *
- * @param {boolean} isVertical
- * @param {String} gutters
- * @returns {string}
  */
 export declare function setDirection(isVertical?: boolean, gutters?: string | null): string;
 /**
  * Property types for flexbox utilities.
  *
- * @returns {Object}
  */
 export declare const FlexboxPropTypes: {
     alignX: PropTypes.Requireable<any>;
@@ -156,8 +139,6 @@ export interface FlexboxPropTypes extends GeneralPropTypes {
 /**
  * Parses the flexbox class names from the given properties.
  *
- * @param {Object} props
- * @returns {Object}
  */
 export declare function flexboxClassNames(props: FlexboxPropTypes): {
     [name: string]: boolean | undefined;

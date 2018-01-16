@@ -691,7 +691,7 @@ export class Region extends Object implements DomMixin {
  * Render a template with data by passing in the template selector and the
  * data to render. This is the default renderer that is used by Marionette.
  */
-export class Renderer {
+export namespace Renderer {
     /**
      *  This method returns a string containing the result of applying the
      * template using the data object as the context.
@@ -703,7 +703,7 @@ export class Renderer {
      * that returns valid HTML as a string from the data parameter passed to
      * the function.
      */
-    static render(template: any, data: any): string;
+    function render(template: any, data: any): string;
 }
 
 export interface ViewOptions<TModel extends Backbone.Model> extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
@@ -1614,11 +1614,11 @@ export class Behavior extends Object {
 /**
  * DEPRECATED
  */
-export class Behaviors {
+export namespace Behaviors {
     /**
      * This method defines where your behavior classes are stored. Override this to provide another lookup.
      */
-    static behaviorsLookup(): any;
+    function behaviorsLookup(): any;
 
     /**
      * This method has a default implementation that is simple to override. It
@@ -1626,5 +1626,5 @@ export class Behaviors {
      * Behaviors.behaviorsLookup or elsewhere. Note that it should return the type of the
      * class to instantiate, not an instance of that class.
      */
-    static getBehaviorClass(options: any, key: string): any;
+    function getBehaviorClass(options: any, key: string): any;
 }

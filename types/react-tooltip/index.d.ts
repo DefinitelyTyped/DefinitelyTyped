@@ -11,7 +11,6 @@ declare class ReactTooltip extends React.Component<ReactTooltip.Props> { }
 declare namespace ReactTooltip {
     /**
      * Hide the tooltip manually, the target is optional, if no target passed in, all existing tooltips will be hidden
-     * @param {Element} target
      */
     function hide(target?: Element): void;
 

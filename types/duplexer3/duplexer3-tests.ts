@@ -6,7 +6,7 @@ const readable = new stream.Readable({objectMode: true});
 
 writable._write = (input, encoding, done) => {
     if (readable.push(input)) {
-        return done();
+        done();
     } else {
         readable.once('drain', <(...args: any[]) => void> done);
     }

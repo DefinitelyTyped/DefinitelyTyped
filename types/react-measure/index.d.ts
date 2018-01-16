@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-type MeasurementType = "client" | "offset" | "scroll" | "bounds" | "margin";
+export type MeasurementType = "client" | "offset" | "scroll" | "bounds" | "margin";
 
 interface TopLeft {
     readonly top: number;
@@ -38,11 +38,13 @@ export interface ContentRect {
     entry?: any;
 }
 
-export interface ChildrenOpts {
+export interface MeasuredComponentProps {
     measureRef(ref: Element | null): void;
     measure(): void;
     contentRect: ContentRect;
 }
+
+type MeasuredComponent<T> = React.ComponentType<T & MeasuredComponentProps>;
 
 export interface MeasureProps<T> {
     client?: boolean;
@@ -52,9 +54,11 @@ export interface MeasureProps<T> {
     margin?: boolean;
     innerRef?(ref: Element | null): void;
     onResize?(contentRect: ContentRect): void;
-    children?(arg: ChildrenOpts): React.ReactElement<T>;
+    children?: React.SFC<MeasuredComponentProps>;
 }
 
-export declare function withContentRect(types: MeasurementType | MeasurementType[]): <T>(fn: (arg: ChildrenOpts) => React.ReactElement<T>) => React.ComponentClass<T>;
+export declare function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
+    <T extends {}>(fn: MeasuredComponent<T>) => React.ComponentType<T>;
+
 declare class Measure<T> extends React.Component<MeasureProps<T>> {}
 export default Measure;

@@ -60,9 +60,9 @@ export type Routes<C, R> = Array<Route<C, R>>;
  * @template R Result that every action function resolves to. If the action
  *  returns a Promise, R can be the type the Promise resolves to.
  *
- * @param {Routes<C, R> | Route<C, R>} routes - Single route or array of routes.
- * @param {string | String | Context & C}  pathOrContext - path to resolve or
+ * @param routes - Single route or array of routes.
+ * @param pathOrContext - path to resolve or
  *  context object that contains the path along with other data.
- * @return {Promise<R>} - Result of matched action function wrapped in a Promsie.
+ * @return - Result of matched action function wrapped in a Promsie.
  */
 export function resolve<C, R>(routes: Routes<C, R> | Route<C, R>, pathOrContext: string | String | Context & C): Promise<R>;

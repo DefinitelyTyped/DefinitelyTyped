@@ -9,7 +9,7 @@ import { Location } from 'redux-first-router';
 
 export type To = string | string[] | object;
 
-export type OnClick = false | ((e: React.SyntheticEvent<HTMLElement>) => boolean | undefined);
+export type OnClick = false | ((e: React.MouseEvent<HTMLElement>) => void);
 
 export interface Match<P> {
     params: P;

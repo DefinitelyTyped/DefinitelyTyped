@@ -23,28 +23,24 @@ declare class Memcached extends events.EventEmitter {
      * Touches the given key.
      * @param key The key
      * @param lifetime After how long should the key expire measured in seconds
-     * @param cb
      */
     touch(key: string, lifetime: number, cb: (this: Memcached.CommandData, err: any) => void): void;
 
     /**
      * Get the value for the given key.
      * @param key The key
-     * @param cb
      */
     get(key: string, cb: (this: Memcached.CommandData, err: any, data: any) => void): void;
 
     /**
      * Get the value and the CAS id.
      * @param key The key
-     * @param cb
      */
     gets(key: string, cb: (this: Memcached.CommandData, err: any, data: {[key: string]: any, cas: string}) => void): void;
 
     /**
      * Retrieves a bunch of values from multiple keys.
      * @param keys all the keys that needs to be fetched
-     * @param cb
      */
     getMulti(keys: string[], cb: (this: undefined, err: any, data: {[key: string]: any}) => void): void;
 
@@ -53,8 +49,6 @@ declare class Memcached extends events.EventEmitter {
      *
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
-     * @param lifetime
-     * @param cb
      */
     set(key: string, value: any, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
 
@@ -62,8 +56,6 @@ declare class Memcached extends events.EventEmitter {
      * Replaces the value in memcached.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
-     * @param lifetime
-     * @param cb
      */
     replace(key: string, value: any, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
 
@@ -71,8 +63,6 @@ declare class Memcached extends events.EventEmitter {
      * Add the value, only if it's not in memcached already.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
-     * @param lifetime
-     * @param cb
      */
     add(key: string, value: any, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
 
@@ -80,9 +70,6 @@ declare class Memcached extends events.EventEmitter {
      * Add the value, only if it matches the given CAS value.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
-     * @param cas
-     * @param lifetime
-     * @param cb
      */
     cas(key: string, value: any, cas: string, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
 
@@ -90,7 +77,6 @@ declare class Memcached extends events.EventEmitter {
      * Add the given value string to the value of an existing item.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
-     * @param cb
      */
     append(key: string, value: any, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
 
@@ -98,7 +84,6 @@ declare class Memcached extends events.EventEmitter {
      * Add the given value string to the value of an existing item.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
-     * @param cb
      */
     prepend(key: string, value: any, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
 
@@ -106,7 +91,6 @@ declare class Memcached extends events.EventEmitter {
      * Increment a given key.
      * @param key The key
      * @param amount The increment
-     * @param cb
      */
     incr(key: string, amount: number, cb: (this: Memcached.CommandData, err: any, result: boolean|number) => void): void;
 
@@ -114,59 +98,47 @@ declare class Memcached extends events.EventEmitter {
      * Decrement a given key.
      * @param key The key
      * @param amount The decrement
-     * @param cb
      */
     decr(key: string, amount: number, cb: (this: Memcached.CommandData, err: any, result: boolean|number) => void): void;
 
     /**
      * Remove the key from memcached.
      * @param key The key
-     * @param cb
      */
     del(key: string, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
 
     /**
      * Retrieves the version number of your server.
-     * @param cb
      */
     version(cb: (err: any, version: Memcached.VersionData[]) => void): void;
 
     /**
      * Retrieves your stats settings.
-     * @param cb
      */
     settings(cb: (err: any, settings: Memcached.StatusData[]) => void): void;
 
     /**
      * Retrieves stats from your memcached server.
-     * @param cb
      */
     stats(cb: (err: any, stats: Memcached.StatusData[]) => void): void;
 
     /**
      * Retrieves stats slabs information.
-     * @param cb
      */
     slabs(cb: (err: any, stats: Memcached.StatusData[]) => void): void;
 
     /**
      * Retrieves stats items information.
-     * @param cb
      */
     items(cb: (err: any, stats: Memcached.StatusData[]) => void): void;
 
     /**
      * Inspect cache, see examples for a detailed explanation.
-     * @param server
-     * @param slabid
-     * @param number
-     * @param cb
      */
     cachedump(server: string, slabid: number, number: number, cb: (err: any, cachedump: Memcached.CacheDumpData|Memcached.CacheDumpData[]) => void): void;
 
     /**
      * Flushes the memcached server.
-     * @param cb
      */
     flush(cb: (this: undefined, err: any, results: boolean[]) => void): void;
 

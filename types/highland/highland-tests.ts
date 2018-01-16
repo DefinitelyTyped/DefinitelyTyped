@@ -289,7 +289,7 @@ barStream = fooStream.flatten<Bar>();
 
 fooStream = fooStream.fork();
 
-fooStream = fooStream.merge(fooStreamStream);
+fooStream = _<Foo>([fooStream, fooStream]).merge();
 
 fooStream = fooStream.observe();
 

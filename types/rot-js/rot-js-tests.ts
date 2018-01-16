@@ -59,7 +59,7 @@ SHOW("%f".format(myObj));
 // ----
 
 class Item {
-    constructor(private name: string) { }
+    constructor(private readonly name: string) { }
 
     a() {
         const first = self.name.charAt(0);
@@ -83,7 +83,7 @@ SHOW(template.format(banana, banana));
 // ----
 
 class Animal {
-    constructor(private name: string) { }
+    constructor(private readonly name: string) { }
     adjective(x: string) {
         return `${x} ${this.name}`;
     }

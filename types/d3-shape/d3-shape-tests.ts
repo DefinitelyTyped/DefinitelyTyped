@@ -200,14 +200,14 @@ class Arcer {
             .endAngle(this.endAngle)
             .padAngle(this.padAngle);
     }
-    private startAngle: number;
-    private endAngle: number;
-    private padAngle: number;
-    private innerRadius: number;
-    private outerRadius: number;
-    private cornerRadius: number;
+    private readonly startAngle: number;
+    private readonly endAngle: number;
+    private readonly padAngle: number;
+    private readonly innerRadius: number;
+    private readonly outerRadius: number;
+    private readonly cornerRadius: number;
 
-    private arc: d3Shape.Arc<Arcer, ArcerDatum>;
+    private readonly arc: d3Shape.Arc<Arcer, ArcerDatum>;
 
     getPathString(d?: ArcerDatum) {
         return d ? this.arc(d) : this.arc({ innerRadius: this.innerRadius, outerRadius: this.outerRadius });
@@ -1292,9 +1292,9 @@ class Symbolizer {
                 return type;
             });
     }
-    private size: number;
-    private type: d3Shape.SymbolType;
-    private symbol: d3Shape.Symbol<Symbolizer, SymbolDatum>;
+    private readonly size: number;
+    private readonly type: d3Shape.SymbolType;
+    private readonly symbol: d3Shape.Symbol<Symbolizer, SymbolDatum>;
 
     getPathString(d?: SymbolDatum) {
         return d ? this.symbol(d) : this.symbol();

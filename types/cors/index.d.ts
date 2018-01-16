@@ -2,6 +2,7 @@
 // Project: https://github.com/troygoode/node-cors/
 // Definitions by: Mihhail Lapushkin <https://github.com/mihhail-lapushkin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 
 
@@ -15,7 +16,7 @@ type CustomOrigin = (
 
 declare namespace e {
     interface CorsOptions {
-        origin?: boolean | string | RegExp | string[] | RegExp[] | CustomOrigin;
+        origin?: boolean | string | RegExp | (string | RegExp)[] | CustomOrigin;
         methods?: string | string[];
         allowedHeaders?: string | string[];
         exposedHeaders?: string | string[];

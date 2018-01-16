@@ -71,6 +71,10 @@ export interface Change {
 	};
 }
 
+export var Change: {
+	new(change: Change): Change;
+}
+
 export interface SearchCallBack {
 	(error: Error, result: EventEmitter): void;
 }

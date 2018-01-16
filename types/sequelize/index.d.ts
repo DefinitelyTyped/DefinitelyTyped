@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.0.0
+// Type definitions for Sequelize 4.27.0
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -7,6 +7,8 @@
 //                 Patsakol Tangjitcharoenchai <https://github.com/kukoo1>
 //                 Sebastien Bramille <https://github.com/oktapodia>
 //                 Nick Mueller <https://github.com/morpheusxaut>
+//                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Carven Zhang <https://github.com/zjy01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -17,6 +19,7 @@
 
 import * as _ from "lodash";
 import * as Promise from "bluebird";
+import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
 
@@ -1328,7 +1331,13 @@ declare namespace sequelize {
          * A string or a data type to represent the identifier in the table
          */
         keyType?: DataTypeAbstract;
-
+        /**
+         * A string to represent the name of the field to use as the key for an 1 to many association in the source table. 
+         * 
+         * @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#static-method-hasMany
+         * @see https://github.com/sequelize/sequelize/blob/b4fd46426db9cdbb97074bea121203d565e4195d/lib/associations/has-many.js#L81
+         */
+        sourceKey?: string;
     }
 
     /**
@@ -1694,6 +1703,34 @@ declare namespace sequelize {
 
     }
 
+    interface DataTypeTinyInt extends DataTypeAbstractNumber<DataTypeTinyInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeTinyInt;
+        (length: number): DataTypeTinyInt;
+
+    }
+    interface DataTypeSmallInt extends DataTypeAbstractNumber<DataTypeSmallInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeSmallInt;
+        (length: number): DataTypeSmallInt;
+
+    }
+    interface DataTypeMediumInt extends DataTypeAbstractNumber<DataTypeMediumInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeMediumInt;
+        (length: number): DataTypeMediumInt;
+
+    }
+
     interface DataTypeBigInt extends DataTypeAbstractNumber<DataTypeBigInt> {
 
         /**
@@ -1885,6 +1922,9 @@ declare namespace sequelize {
         CHAR: DataTypeChar;
         TEXT: DataTypeText;
         NUMBER: DataTypeNumber;
+        TINYINT: DataTypeTinyInt;
+        SMALLINT: DataTypeSmallInt;
+        MEDIUMINT: DataTypeMediumInt;
         INTEGER: DataTypeInteger;
         BIGINT: DataTypeBigInt;
         FLOAT: DataTypeFloat;
@@ -3108,7 +3148,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
+        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
     };
 
     /**
@@ -5508,6 +5548,13 @@ declare namespace sequelize {
         quoteIdentifiers?: boolean;
 
         /**
+         * The version of the database. Most times, this is automatically detected and is not needed.
+         *
+         * Defaults to 0
+         */
+        databaseVersion?: number;
+
+        /**
          * Set the default transaction isolation level. See `Sequelize.Transaction.ISOLATION_LEVELS` for possible
          * options.
          *
@@ -5739,6 +5786,7 @@ declare namespace sequelize {
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
          */
         cls: any;
+        useCLS(namespace:cls.Namespace): Sequelize;
 
     }
 
@@ -6055,7 +6103,7 @@ declare namespace sequelize {
          * Normally this is done on process exit, so you only need to call this method if you are creating multiple
          * instances, and want to garbage collect some of them.
          */
-        close(): void;
+        close(): Promise<void>;
 
         /**
          * Returns the database version

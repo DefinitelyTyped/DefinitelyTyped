@@ -16,8 +16,8 @@
             "gulp": [
                 "gulp/v3"
             ],
-            "q": [
-                "q/v0"
+            "micromatch": [
+                "micromatch/v2"
             ]
         },
         "types": [],
