@@ -11,7 +11,7 @@ export interface WithRouterProps {
     location: Location;
     params: Params;
     router: InjectedRouter;
-    routes: PlainRoute[];
+    routes: PlainRoute<any>[];
 }
 
 type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;

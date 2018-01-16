@@ -12,9 +12,10 @@ import {
 type ComponentCallback = (err: any, component: RouteComponent) => any;
 type ComponentsCallback = (err: any, components: RouteComponents) => any;
 
-export interface IndexRouteProps {
+export interface IndexRouteProps<Props> {
     component?: RouteComponent;
     components?: RouteComponents;
+    props?: Props;
     getComponent?(nextState: RouterState, callback: ComponentCallback): void;
     getComponents?(nextState: RouterState, callback: ComponentsCallback): void;
     onEnter?: EnterHook;
@@ -22,7 +23,7 @@ export interface IndexRouteProps {
     onLeave?: LeaveHook;
 }
 
-type IndexRoute = ComponentClass<IndexRouteProps>;
+type IndexRoute = ComponentClass<IndexRouteProps<any>>;
 declare const IndexRoute: IndexRoute;
 
 export default IndexRoute;
