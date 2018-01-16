@@ -37,6 +37,7 @@ interface APIGatewayEventRequestContext {
     },
     stage: string;
     requestId: string;
+    requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
 }
