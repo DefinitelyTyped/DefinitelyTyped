@@ -21,10 +21,10 @@ declare const Route: Route;
 export default Route;
 
 type RouteCallback = (err: any, route: PlainRoute<any>) => void;
-type RoutesCallback = (err: any, routesArray: PlainRoute<any>[]) => void;
+type RoutesCallback = (err: any, routesArray: Array<PlainRoute<any>>) => void;
 
 export interface PlainRoute<Props> extends RouteProps<Props> {
-    childRoutes?: PlainRoute<any>[];
+    childRoutes?: Array<PlainRoute<any>>;
     getChildRoutes?(partialNextState: LocationState, callback: RoutesCallback): void;
     indexRoute?: PlainRoute<any>;
     getIndexRoute?(partialNextState: LocationState, callback: RouteCallback): void;

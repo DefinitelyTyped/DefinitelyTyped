@@ -1,3 +1,3 @@
 import { RouteConfig, PlainRoute } from "react-router";
 
-export function createRoutes(routes: RouteConfig): PlainRoute<any>[];
+export function createRoutes(routes: RouteConfig): Array<PlainRoute<any>>;

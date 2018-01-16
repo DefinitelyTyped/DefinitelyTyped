@@ -23,7 +23,7 @@ export type RouteComponent = ComponentClass<any> | StatelessComponent<any>;
 export interface RouteComponents {
     [name: string]: RouteComponent;
 }
-export type RouteConfig = ReactNode | PlainRoute<any> | PlainRoute<any>[];
+export type RouteConfig = ReactNode | PlainRoute<any> | Array<PlainRoute<any>>;
 
 export type ParseQueryString = (queryString: Search) => Query;
 export type StringifyQuery = (queryObject: Query) => Search;
@@ -42,7 +42,7 @@ export interface RedirectFunction {
 
 export interface RouterState {
     location: Location;
-    routes: PlainRoute<any>[];
+    routes: Array<PlainRoute<any>>;
     params: Params;
     components: RouteComponent[];
 }
@@ -66,12 +66,12 @@ export interface InjectedRouter {
     isActive: ActiveFunction;
 }
 
-export interface RouteComponentProps<P, R, ComponentProps> {
+export interface RouteComponentProps<P, R, ComponentProps = any> {
     location: Location;
     params: P & R;
     route: PlainRoute<ComponentProps>;
     router: InjectedRouter;
-    routes: PlainRoute<any>[];
+    routes: Array<PlainRoute<any>>;
     routeParams: R;
 }
 
