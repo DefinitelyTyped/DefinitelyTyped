@@ -409,6 +409,9 @@ interface KnockoutTasks {
 }
 
 /////////////////////////////////
+type KnockoutObservableType<T> = {
+    [P in keyof T]: KnockoutObservable<T[P]>;
+};
 
 interface KnockoutStatic {
     utils: KnockoutUtils;
@@ -440,7 +443,8 @@ interface KnockoutStatic {
     contextFor(node: any): any;
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
-    toJS(viewModel: any): any;
+    toJS<T>(viewModel: KnockoutObservableArray<T>|T[]): T[];
+    toJS<T>(viewModel: KnockoutObservableType<T>|T): T;
     isObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
     isWriteableObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
     isComputed<T>(instance: KnockoutObservable<T>|T): instance is KnockoutComputed<T>;
