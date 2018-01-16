@@ -1,6 +1,6 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.8
+// Type definitions for React Onsen UI (react-onsenui) 2.9
 // Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>
+// Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>, Jemmyw <https://github.com/jemmyw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -392,6 +392,8 @@ export class Card extends Component<{
     modifier?: string,
 }, any> {}
 
+/** Controls */
+
 /** Pull-to-refresh hook. */
 export class PullHook extends Component<{
     onChange?(e: PullHookChangeEvent): void,
@@ -401,4 +403,27 @@ export class PullHook extends Component<{
     height?: number,
     thresholdHeight?: number,
     fixedContent?: boolean,
+}, any> {}
+
+export class Segment extends Component<{
+    index?: number,
+    tabbarId?: string,
+    modifier?: string,
+    onChange?(): void,
+}, any> {}
+
+export type SpeedDialPosition = 'top' | 'right' | 'bottom' | 'left' |
+    'top right' | 'top left' | 'bottom right' | 'bottom left';
+export type SpeedDialDirection = 'up' | 'down' | 'left' | 'right';
+
+export class SpeedDial extends Component<{
+    modifier?: string,
+    position?: SpeedDialPosition,
+    direction?: SpeedDialDirection,
+    disabled?: boolean,
+}, any> {}
+
+export class SpeedDialItem extends Component<{
+    modifier?: string;
+    onClick?(e?: React.MouseEvent<HTMLElement>): void,
 }, any> {}
