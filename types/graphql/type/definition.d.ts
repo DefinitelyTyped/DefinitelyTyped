@@ -262,9 +262,9 @@ export type GraphQLIsTypeOfFn<TSource, TContext> = (
     info: GraphQLResolveInfo
 ) => boolean | Promise<boolean>;
 
-export type GraphQLFieldResolver<TSource, TContext> = (
+export type GraphQLFieldResolver<TSource, TContext, TArgs = { [argName: string]: any }> = (
     source: TSource,
-    args: { [argName: string]: any },
+    args: TArgs,
     context: TContext,
     info: GraphQLResolveInfo
 ) => any;
@@ -284,11 +284,11 @@ export interface GraphQLResolveInfo {
 
 export type ResponsePath = { prev: ResponsePath, key: string | number } | undefined;
 
-export interface GraphQLFieldConfig<TSource, TContext> {
+export interface GraphQLFieldConfig<TSource, TContext, TArgs = { [argName: string]: any }> {
     type: GraphQLOutputType;
     args?: GraphQLFieldConfigArgumentMap;
-    resolve?: GraphQLFieldResolver<TSource, TContext>;
-    subscribe?: GraphQLFieldResolver<TSource, TContext>;
+    resolve?: GraphQLFieldResolver<TSource, TContext, TArgs>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext, TArgs>;
     deprecationReason?: string;
     description?: string;
     astNode?: FieldDefinitionNode;
@@ -309,13 +309,13 @@ export interface GraphQLFieldConfigMap<TSource, TContext> {
     [fieldName: string]: GraphQLFieldConfig<TSource, TContext>;
 }
 
-export interface GraphQLField<TSource, TContext> {
+export interface GraphQLField<TSource, TContext, TArgs = { [argName: string]: any }> {
     name: string;
     description: string;
     type: GraphQLOutputType;
     args: GraphQLArgument[];
-    resolve?: GraphQLFieldResolver<TSource, TContext>;
-    subscribe?: GraphQLFieldResolver<TSource, TContext>;
+    resolve?: GraphQLFieldResolver<TSource, TContext, TArgs>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext, TArgs>;
     isDeprecated?: boolean;
     deprecationReason?: string;
     astNode?: FieldDefinitionNode;
@@ -455,6 +455,7 @@ export class GraphQLEnumType {
     constructor(config: GraphQLEnumTypeConfig);
     getValues(): GraphQLEnumValue[];
     getValue(name: string): GraphQLEnumValue;
+    isValidValue(value: any): boolean;
     serialize(value: any): string;
     parseValue(value: any): any;
     parseLiteral(valueNode: ValueNode): any;

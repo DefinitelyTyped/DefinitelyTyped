@@ -63,6 +63,7 @@ declare namespace InfiniteScroll {
         loader?: React.ReactElement<any>;
     }
     class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
+    namespace InfiniteScroll {}
 }
 
 export = InfiniteScroll.InfiniteScroll;

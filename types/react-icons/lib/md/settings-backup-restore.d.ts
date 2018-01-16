@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class MdSettingsBackupRestore extends React.Component<IconBaseProps> { }
+declare class MdSettingsBackupRestore extends React.Component<IconBaseProps> { }
+export = MdSettingsBackupRestore;

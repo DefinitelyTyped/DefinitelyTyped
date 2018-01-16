@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
-import BigCalendar from "react-big-calendar";
+import BigCalendar, { Navigate, View } from "react-big-calendar";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const moment: any;
@@ -29,7 +29,7 @@ class CalendarEvent {
 }
 
 // Basic Example Test
-const BasicExample = React.createClass({
+class BasicExample extends React.Component {
     render() {
         return (
             <BigCalendar
@@ -38,23 +38,23 @@ const BasicExample = React.createClass({
             />
         );
     }
-});
+}
 ReactDOM.render(<BasicExample />, document.body);
 const basicExampleHtml = ReactDOMServer.renderToString(<BasicExample />);
 console.log('Test Results -> BasicExample', basicExampleHtml);
 
 // Full API Example Test - based on API Documentation
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-const FullAPIExample = React.createClass({
+class FullAPIExample extends React.Component<any, any> {
     render() {
         return (
             <BigCalendar
                 {...this.props}
                 date={new Date()}
-                view={'string'}
+                view={'day'}
                 events={getEvents()}
-                onNavigate={() => { } }
-                onView={() => { } }
+                onNavigate={(action: Navigate, newDate: Date) => { } }
+                onView={(view: View) => { } }
                 onSelectSlot={(slotInfo) => {
                     const start = slotInfo.start;
                     const end = slotInfo.end;
@@ -66,32 +66,40 @@ const FullAPIExample = React.createClass({
                     const end = slotInfo.end;
                     return true;
                 } }
-                views={{}}
+                views={['day']}
                 toolbar={true}
                 popup={true}
                 popupOffset={20}
                 selectable={true}
                 step={20}
                 rtl={true}
-                eventPropGetter={(event, start, end, isSelected) => { } }
+                eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' }) }
                 titleAccessor={'title'}
-                allDayAccessor={(row:any) => !!row.allDay}
+                allDayAccessor={(event: any) => !!event.allDay}
                 startAccessor={'start'}
-                endAccessor={(row:any) => row.end || row.start}
+                endAccessor={(event: any) => event.end || event.start}
                 min={new Date()}
                 max={new Date()}
                 scrollToTime={new Date()}
                 formats={{}}
-                components={{}}
                 messages={{}}
                 timeslots={24}
                 defaultView={'month'}
                 className={'my-calendar'}
                 elementProps={{id: 'myCalendar'}}
+                components={{
+                    event: Event,
+                    agenda: {
+                        event: EventAgenda
+                    }
+                }}
+                dayPropGetter={customDayPropGetter}
+                slotPropGetter={customSlotPropGetter}
+                defaultDate={new Date()}
             />
         );
     }
-});
+}
 ReactDOM.render(<FullAPIExample />, document.body);
 const fullApiExampleHtml = ReactDOMServer.renderToString(<FullAPIExample />);
 console.log('Test Results -> FullAPIExample', fullApiExampleHtml);
@@ -114,3 +122,42 @@ function getEvents(): CalendarEvent[] {
     ];
     return events;
 };
+
+  class EventAgenda extends React.Component<any, any> {
+    render() {
+      // const { label } = this.props;
+      return (
+        <div>
+          <div>Calendar Events</div>
+        </div>
+      );
+    }
+  }
+
+  const customDayPropGetter = (date: Date) => {
+    if (date.getDate() === 7 || date.getDate() === 15)
+      return {
+        className: 'special-day',
+        style: {
+          border: 'solid 3px ' + (date.getDate() === 7 ? '#faa' : '#afa'),
+        },
+      }
+    else return {}
+  }
+
+  const customSlotPropGetter = (date: Date) => {
+    if (date.getDate() === 7 || date.getDate() === 15)
+      return {
+        className: 'special-day',
+      }
+    else return {}
+  }
+
+  function Event(event: any) {
+    return (
+      <span>
+        <strong>{event.title}</strong>
+        {event.desc && ':  ' + event.desc}
+      </span>
+    )
+  }

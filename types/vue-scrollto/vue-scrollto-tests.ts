@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import * as VueScrollTo from "vue-scrollto";
 
 Vue.use(VueScrollTo);

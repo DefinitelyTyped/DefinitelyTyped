@@ -7,6 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts"/>
 /// <reference path="google-apps-script.cache.d.ts"/>
 /// <reference path="google-apps-script.calendar.d.ts"/>
+/// <reference path="google-apps-script.card.d.ts"/>
 /// <reference path="google-apps-script.charts.d.ts"/>
 /// <reference path="google-apps-script.contacts.d.ts"/>
 /// <reference path="google-apps-script.content.d.ts"/>

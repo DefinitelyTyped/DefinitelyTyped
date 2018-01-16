@@ -1,8 +1,9 @@
-// Type definitions for gl-matrix 2.3.2
+// Type definitions for gl-matrix 2.4
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Mattijs Kneppers <https://github.com/mattijskneppers>, based on definitions by Tat <https://github.com/tatchx>
 //                 Nikolay Babanov <https://github.com/nbabanov>
 //                 Austin Martin <https://github.com/auzmartist>
+//                 Wayne Langman <https://github.com/surtr-isaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'gl-matrix' {
@@ -343,7 +344,7 @@ declare module 'gl-matrix' {
          * @param b the second operand
          * @returns out
          */
-        public static cross(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
+        public static cross(out: vec3, a: vec2 | number[], b: vec2 | number[]): vec2;
 
         /**
          * Performs a linear interpolation between two vec2's
@@ -2942,6 +2943,17 @@ declare module 'gl-matrix' {
          * @function
          */
         public static dot(a: quat, b: quat): number;
+
+        /**
+         * Creates a quaternion from the given euler angle x, y, z.
+         *
+         * @param {quat} out the receiving quaternion
+         * @param {number} x Angle to rotate around X axis in degrees.
+         * @param {number} y Angle to rotate around Y axis in degrees.
+         * @param {number} z Angle to rotate around Z axis in degrees.
+         * @returns {quat} out
+         */
+        public static fromEuler(out: quat, x: number, y: number, z: number): quat;
 
         /**
          * Performs a linear interpolation between two quat's

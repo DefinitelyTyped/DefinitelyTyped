@@ -1,11 +1,10 @@
-// Type definitions for Glob 5.0.10
+// Type definitions for Glob 5.0
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="minimatch" />
 
 import events = require("events");
 import fs = require('fs');
@@ -19,8 +18,8 @@ declare namespace G {
 
     function hasMagic(pattern: string, options?: IOptions): boolean;
 
-    var Glob: IGlobStatic;
-    var GlobSync: IGlobSyncStatic;
+    let Glob: IGlobStatic;
+    let GlobSync: IGlobSyncStatic;
 
     interface IOptions extends minimatch.IOptions {
         cwd?: string;
@@ -63,7 +62,7 @@ declare namespace G {
     }
 
     interface IGlobSyncStatic {
-        new (pattern: string, options?: IOptions): IGlobBase
+        new (pattern: string, options?: IOptions): IGlobBase;
         prototype: IGlobBase;
     }
 

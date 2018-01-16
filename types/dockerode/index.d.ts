@@ -400,10 +400,10 @@ declare namespace Dockerode {
       LinkLocalIPv6Address: string;
       LinkLocalIPv6PrefixLen: number;
       Ports: {
-        [portAndProtocol: string]: {
+        [portAndProtocol: string]: Array<{
           HostIp: string;
           HostPort: string;
-        }
+        }>;
       };
       SandboxKey: string;
       SecondaryIPAddresses?: any;
@@ -944,6 +944,9 @@ declare class Dockerode {
 
   info(callback: Callback<any>): void;
   info(): Promise<any>;
+
+  df(callback: Callback<any>): void;
+  df(): Promise<any>;
 
   version(callback: Callback<any>): void;
   version(): Promise<any>;

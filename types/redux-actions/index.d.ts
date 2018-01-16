@@ -22,8 +22,10 @@ export interface ActionMeta<Payload, Meta> extends Action<Payload> {
     meta: Meta;
 }
 
+export type ReducerMapValue<State, Payload> = Reducer<State, Payload> | ReducerNextThrow<State, Payload> | ReducerMap<State, Payload>;
+
 export interface ReducerMap<State, Payload> {
-    [actionType: string]: Reducer<State, Payload> | ReducerNextThrow<State, Payload>;
+    [actionType: string]: ReducerMapValue<State, Payload>;
 }
 
 export interface ReducerMapMeta<State, Payload, Meta> {

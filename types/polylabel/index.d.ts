@@ -6,10 +6,9 @@
 /**
  * Polylabel returns the pole of inaccessibility coordinate in [x, y] format.
  *
- * @param {Array<number>} polygon - Given polygon coordinates in GeoJSON-like format
- * @param {number} precision - Precision (1.0 by default)
- * @param {boolean} debug - Debugging for Console
- * @return {Array<number>}
+ * @param polygon - Given polygon coordinates in GeoJSON-like format
+ * @param precision - Precision (1.0 by default)
+ * @param debug - Debugging for Console
  * @example
  * var p = polylabel(polygon, 1.0);
  */

@@ -2,235 +2,245 @@
 // Project: https://github.com/atom/atom-keymap
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-/// <reference types="event-kit" />
+import { Disposable } from "event-kit";
 
 declare global {
-	namespace AtomKeymap {
-		/** Objects that appear as parameters to callbacks. */
-		namespace Events {
-			interface FullKeybindingMatch {
-				/** The string of keystrokes that matched the binding. */
-				keystrokes: string;
+    namespace AtomKeymap {
+        /**
+         *  The event objects that are passed into the callbacks which the user provides to
+         *  specific API calls.
+         */
+        namespace Events {
+            /**
+             *  This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
+             *  method, as well as versions of the ::stopPropagation methods that record the
+             *  intent to stop propagation so event bubbling can be properly simulated for
+             *  detached elements.
+             */
+            interface CommandEvent extends CustomEvent {
+                keyBindingAborted: boolean;
+                propagationStopped: boolean;
 
-				/** The KeyBinding that the keystrokes matched. */
-				binding: KeyBinding;
+                abortKeyBinding(): void;
+                stopPropagation(): CustomEvent;
+                stopImmediatePropagation(): CustomEvent;
+            }
 
-				/** The DOM element that was the target of the most recent keyboard event. */
-				keyboardEventTarget: Element;
-			}
+            interface FullKeybindingMatch {
+                /** The string of keystrokes that matched the binding. */
+                keystrokes: string;
 
-			interface PartialKeybindingMatch {
-				/** The string of keystrokes that matched the binding. */
-				keystrokes: string;
+                /** The KeyBinding that the keystrokes matched. */
+                binding: KeyBinding;
 
-				/** The KeyBindings that the keystrokes partially matched. */
-				partiallyMatchedBindings: KeyBinding[];
+                /** The DOM element that was the target of the most recent keyboard event. */
+                keyboardEventTarget: Element;
+            }
 
-				/** DOM element that was the target of the most recent keyboard event. */
-				keyboardEventTarget: Element;
-			}
+            interface PartialKeybindingMatch {
+                /** The string of keystrokes that matched the binding. */
+                keystrokes: string;
 
-			interface FailedKeybindingMatch {
-				/** The string of keystrokes that failed to match the binding. */
-				keystrokes: string;
+                /** The KeyBindings that the keystrokes partially matched. */
+                partiallyMatchedBindings: KeyBinding[];
 
-				/** The DOM element that was the target of the most recent keyboard event. */
-				keyboardEventTarget: Element;
-			}
+                /** DOM element that was the target of the most recent keyboard event. */
+                keyboardEventTarget: Element;
+            }
 
-			interface FailedKeymapFileRead {
-				/** The error message. */
-				message: string;
+            interface FailedKeybindingMatch {
+                /** The string of keystrokes that failed to match the binding. */
+                keystrokes: string;
 
-				/** The error stack trace. */
-				stack: string;
-			}
+                /** The DOM element that was the target of the most recent keyboard event. */
+                keyboardEventTarget: Element;
+            }
 
-			interface KeymapLoaded {
-				/** The path of the keymap file. */
-				path: string;
-			}
+            interface FailedKeymapFileRead {
+                /** The error message. */
+                message: string;
 
-			interface AddedKeystrokeResolver {
-				/** The currently resolved keystroke string. If your function returns a falsy
-				 *  value, this is how Atom will resolve your keystroke.
-				 */
-				keystroke: string;
+                /** The error stack trace. */
+                stack: string;
+            }
 
-				/** The raw DOM 3 `KeyboardEvent` being resolved. See the DOM API documentation
-				 *  for more details.
-				 */
-				event: KeyboardEvent;
+            interface KeymapLoaded {
+                /** The path of the keymap file. */
+                path: string;
+            }
 
-				/** The OS-specific name of the current keyboard layout. */
-				layoutName: string;
+            interface AddedKeystrokeResolver {
+                /**
+                 *  The currently resolved keystroke string. If your function returns a falsy
+                 *  value, this is how Atom will resolve your keystroke.
+                 */
+                keystroke: string;
 
-				/** An object mapping DOM 3 `KeyboardEvent.code` values to objects with the
-				 *  typed character for that key in each modifier state, based on the current
-				 *  operating system layout.
-				 */
-				keymap: object;
-			}
-		}
+                /**
+                 *  The raw DOM 3 `KeyboardEvent` being resolved. See the DOM API documentation
+                 *  for more details.
+                 */
+                event: KeyboardEvent;
 
-		/** Objects that appear as parameters to functions. */
-		namespace Options {
-			interface BuildKeyEvent {
-				ctrl?: boolean;
-				alt?: boolean;
-				shift?: boolean;
-				cmd?: boolean;
-				which?: number;
-				target?: Element;
-			}
-		}
+                /** The OS-specific name of the current keyboard layout. */
+                layoutName: string;
 
-		/** The static side to each exported class. Should generally only be used internally. */
-		namespace Statics {
-			/* tslint:disable:no-unnecessary-qualifier */
-			/** The static side to the KeymapManager class. */
-			interface KeymapManager {
-				/** Create a keydown DOM event. */
-				buildKeydownEvent(key: string, options?: AtomKeymap.Options.BuildKeyEvent): void;
+                /**
+                 *  An object mapping DOM 3 `KeyboardEvent.code` values to objects with the
+                 *  typed character for that key in each modifier state, based on the current
+                 *  operating system layout.
+                 */
+                keymap: object;
+            }
+        }
 
-				/** Create a keyup DOM event. */
-				buildKeyupEvent(key: string, options?: AtomKeymap.Options.BuildKeyEvent): void;
+        /**
+         *  The option objects that the user is expected to fill out and provide to
+         *  specific API calls.
+         */
+        namespace Options {
+            interface BuildKeyEvent {
+                ctrl?: boolean;
+                alt?: boolean;
+                shift?: boolean;
+                cmd?: boolean;
+                which?: number;
+                target?: Element;
+            }
+        }
 
-				/** Create a new KeymapManager. */
-				new (options?: { defaultTarget?: HTMLElement }): AtomKeymap.KeymapManager;
-			}
-			/* tslint:enable:no-unnecessary-qualifier */
-		}
+        interface KeyBinding {
+            // Properties
+            enabled: boolean;
+            source: string;
+            command: string;
+            keystrokes: string;
+            keystrokeArray: string[];
+            keystrokeCount: number;
+            selector: string;
+            specificity: number;
 
-		/** This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
-		 *  method, as well as versions of the ::stopPropagation methods that record the
-		 *  intent to stop propagation so event bubbling can be properly simulated for
-		 *  detached elements.
-		 */
-		interface CommandEvent extends CustomEvent {
-			keyBindingAborted: boolean;
-			propagationStopped: boolean;
+            // Comparison
+            /** Determines whether the given keystroke matches any contained within this binding. */
+            matches(keystroke: string): boolean;
 
-			abortKeyBinding(): void;
-			stopPropagation(): CustomEvent;
-			stopImmediatePropagation(): CustomEvent;
-		}
+            /**
+             *  Compare another KeyBinding to this instance.
+             *  Returns <= -1 if the argument is considered lesser or of lower priority.
+             *  Returns 0 if this binding is equivalent to the argument.
+             *  Returns >= 1 if the argument is considered greater or of higher priority.
+             */
+            compare(other: KeyBinding): number;
+        }
 
-		interface KeyBinding {
-			// Properties
-			enabled: boolean;
-			source: string;
-			command: string;
-			keystrokes: string;
-			keystrokeArray: string[];
-			keystrokeCount: number;
-			selector: string;
-			specificity: number;
+        /**
+         *  Allows commands to be associated with keystrokes in a context-sensitive way.
+         *  In Atom, you can access a global instance of this object via `atom.keymaps`.
+         */
+        interface KeymapManager {
+            defaultTarget: HTMLElement;
 
-			// Comparison
-			/** Determines whether the given keystroke matches any contained within this binding. */
-			matches(keystroke: string): boolean;
+            partialMatchTimeout: number;
 
-			/** Compare another KeyBinding to this instance.
-			 *  Returns <= -1 if the argument is considered lesser or of lower priority.
-			 *  Returns 0 if this binding is equivalent to the argument.
-			 *  Returns >= 1 if the argument is considered greater or of higher priority.
-			 */
-			compare(other: KeyBinding): number;
-		}
+            /** Clear all registered key bindings and enqueued keystrokes. For use in tests. */
+            clear(): void;
 
-		/** Allows commands to be associated with keystrokes in a context-sensitive way.
-		 *  In Atom, you can access a global instance of this object via `atom.keymaps`.
-		 */
-		/** Instance side of KeymapManager class. */
-		interface KeymapManager {
-			defaultTarget: HTMLElement;
+            /** Unwatch all watched paths. */
+            destroy(): void;
 
-			partialMatchTimeout: number;
+            // Event Subscription
+            /**
+             *  Invoke the given callback when one or more keystrokes completely match a
+             *  key binding.
+             */
+            onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void):
+                Disposable;
 
-			/** Clear all registered key bindings and enqueued keystrokes. For use in tests. */
-			clear(): void;
+            /** Invoke the given callback when one or more keystrokes partially match a binding. */
+            onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) =>
+                void): Disposable;
 
-			/** Unwatch all watched paths. */
-			destroy(): void;
+            /** Invoke the given callback when one or more keystrokes fail to match any bindings. */
+            onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) =>
+                void): Disposable;
 
-			// Event Subscription
-			/** Invoke the given callback when one or more keystrokes completely match a key binding. */
-			onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void):
-				EventKit.Disposable;
+            /** Invoke the given callback when a keymap file is reloaded. */
+            onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
-			/** Invoke the given callback when one or more keystrokes partially match a binding. */
-			onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) =>
-				void): EventKit.Disposable;
+            /** Invoke the given callback when a keymap file is unloaded. */
+            onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
-			/** Invoke the given callback when one or more keystrokes fail to match any bindings. */
-			onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) =>
-				void): EventKit.Disposable;
+            /** Invoke the given callback when a keymap file not able to be loaded. */
+            onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void):
+                Disposable;
 
-			/** Invoke the given callback when a keymap file is reloaded. */
-			onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void):
-				EventKit.Disposable;
+            // Adding and Removing Bindings
+            /** Construct KeyBindings from an object grouping them by CSS selector. */
+            build(source: string, bindings: { [key: string]: { [key: string]: string }},
+                priority?: number): KeyBinding[];
 
-			/** Invoke the given callback when a keymap file is unloaded. */
-			onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void):
-				EventKit.Disposable;
+            /** Add sets of key bindings grouped by CSS selector. */
+            add(source: string, bindings: { [key: string]: { [key: string]: string }},
+                priority?: number): Disposable;
 
-			/** Invoke the given callback when a keymap file not able to be loaded. */
-			onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void):
-				EventKit.Disposable;
+            // Accessing Bindings
+            /** Get all current key bindings. */
+            getKeyBindings(): KeyBinding[];
 
-			// Adding and Removing Bindings
-			/** Construct KeyBindings from an object grouping them by CSS selector. */
-			build(source: string, bindings: { [key: string]: { [key: string]: string }},
-				priority?: number): KeyBinding[];
+            /** Get the key bindings for a given command and optional target. */
+            findKeyBindings(params?: {
+                keystrokes?: string, // e.g. 'ctrl-x ctrl-s'
+                command?: string, // e.g. 'editor:backspace'
+                target?: Element,
+            }): KeyBinding[];
 
-			/** Add sets of key bindings grouped by CSS selector. */
-			add(source: string, bindings: { [key: string]: { [key: string]: string }},
-				priority?: number): EventKit.Disposable;
+            // Managing Keymap Files
+            /** Load the key bindings from the given path. */
+            loadKeymap(bindingsPath: string, options?: { watch?: boolean, priority?: number }):
+                void;
 
-			// Accessing Bindings
-			/** Get all current key bindings. */
-			getKeyBindings(): KeyBinding[];
+            /**
+             *  Cause the keymap to reload the key bindings file at the given path whenever
+             *  it changes.
+             */
+            watchKeymap(filePath: string, options?: { priority: number }): void;
 
-			/** Get the key bindings for a given command and optional target. */
-			findKeyBindings(params?: {
-				keystrokes?: string, // e.g. 'ctrl-x ctrl-s'
-				command?: string, // e.g. 'editor:backspace'
-				target?: Element,
-			}): KeyBinding[];
+            // Managing Keyboard Events
+            /**
+             *  Dispatch a custom event associated with the matching key binding for the
+             *  given `KeyboardEvent` if one can be found.
+             */
+            handleKeyboardEvent(event: KeyboardEvent): void;
 
-			// Managing Keymap Files
-			/** Load the key bindings from the given path. */
-			loadKeymap(bindingsPath: string, options?: { watch?: boolean, priority?: number }):
-				void;
+            /** Translates a keydown event to a keystroke string. */
+            keystrokeForKeyboardEvent(event: KeyboardEvent): string;
 
-			/** Cause the keymap to reload the key bindings file at the given path whenever
-			 *  it changes.
-			 */
-			watchKeymap(filePath: string, options?: { priority: number }): void;
+            /** Customize translation of raw keyboard events to keystroke strings. */
+            addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string):
+                Disposable;
 
-			// Managing Keyboard Events
-			/** Dispatch a custom event associated with the matching key binding for the
-			 *  given `KeyboardEvent` if one can be found.
-			 */
-			handleKeyboardEvent(event: KeyboardEvent): void;
+            /**
+             *  Get the number of milliseconds allowed before pending states caused by
+             *  partial matches of multi-keystroke bindings are terminated.
+             */
+            getPartialMatchTimeout(): number;
+        }
 
-			/** Translates a keydown event to a keystroke string. */
-			keystrokeForKeyboardEvent(event: KeyboardEvent): string;
+        /** The static side to the KeymapManager class. */
+        interface KeymapManagerStatic {
+            /** Create a keydown DOM event. */
+            buildKeydownEvent(key: string, options?: Options.BuildKeyEvent): void;
 
-			/** Customize translation of raw keyboard events to keystroke strings. */
-			addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string):
-				EventKit.Disposable;
+            /** Create a keyup DOM event. */
+            buildKeyupEvent(key: string, options?: Options.BuildKeyEvent): void;
 
-			/** Get the number of milliseconds allowed before pending states caused by
-			 *  partial matches of multi-keystroke bindings are terminated.
-			 */
-			getPartialMatchTimeout(): number;
-		}
-	}
+            /** Create a new KeymapManager. */
+            new (options?: { defaultTarget?: HTMLElement }): KeymapManager;
+        }
+    }
 }
 
-declare const KeymapManager: AtomKeymap.Statics.KeymapManager;
+declare const KeymapManager: AtomKeymap.KeymapManagerStatic;
 export = KeymapManager;

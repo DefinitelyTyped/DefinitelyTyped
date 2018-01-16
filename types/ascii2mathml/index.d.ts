@@ -28,7 +28,7 @@ interface ascii2mathml {
 
     /**
      * Converts ASCIIMath expression to MathML markup.
-     * @param asciimath {string} ASCIIMath expression
+     * @param asciimath ASCIIMath expression
      * @param options Options
      */
     (asciimath: string, options?: Options): string;

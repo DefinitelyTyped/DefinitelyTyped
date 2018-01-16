@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class GoDiffAdded extends React.Component<IconBaseProps> { }
+declare class GoDiffAdded extends React.Component<IconBaseProps> { }
+export = GoDiffAdded;

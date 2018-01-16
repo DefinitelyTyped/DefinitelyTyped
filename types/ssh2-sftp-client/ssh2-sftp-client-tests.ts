@@ -19,6 +19,7 @@ client.put(new Buffer('content'), '/remote/path').then(() => null);
 client.put(fs.createReadStream('Hello World'), '/remote/path').then(() => null);
 
 client.mkdir('/remote/path/dir', true).then(() => null);
+client.rmdir('/remote/path/dir', true).then(() => null);
 
 client.delete('remote/path').then(() => null);
 

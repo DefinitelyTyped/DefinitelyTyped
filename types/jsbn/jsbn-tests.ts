@@ -1,16 +1,15 @@
-
-var BigInteger = jsbn.BigInteger;
+import {BigInteger} from 'jsbn';
 
 // constructor tests
 var x = new BigInteger("AABB", 16);
 x = new BigInteger("75643564363473453456342378564387956906736546456235345");
 
 // method tests
-var isBigInteger: jsbn.BigInteger;
+var isBigInteger: BigInteger;
 var isNumber: number;
 var isBoolean: boolean;
 var isString: string;
-var isDivmod: jsbn.BigInteger[];
+var isDivmod: BigInteger[];
 var isByteArray: number[];
 
 x.copyTo(x);
