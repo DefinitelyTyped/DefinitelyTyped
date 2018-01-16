@@ -6,7 +6,7 @@
 import * as React from 'react';
 
 export type ReactTableFunction = () => void;
-export type AccessorFunction = (row: object) => any;
+export type AccessorFunction = (row: any) => any;
 export type Accessor = string | string[] | object | AccessorFunction;
 export type Aggregator = (values: any, rows: any) => any;
 export type TableCellRenderer = ((data: any, column: any) => React.ReactNode) | React.ReactNode;

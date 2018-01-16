@@ -23,7 +23,7 @@ const columns: Column[] = [
   {
     Header: 'Stats',
     columns: [
-      { Header: "Visits", accessor: "visits" }
+      { Header: "Visits", accessor: (row: any) => row.visits }
     ]
   }
 ];
