@@ -40,6 +40,7 @@ declare class Chart {
 }
 declare class PluginServiceStatic {
     register(plugin?: PluginServiceRegistrationOptions): void;
+    unregister(plugin?: PluginServiceRegistrationOptions): void;
 }
 
 interface PluginServiceRegistrationOptions {
