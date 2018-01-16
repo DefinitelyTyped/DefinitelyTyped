@@ -799,6 +799,12 @@
             "asOfVersion": "2.2.33"
         },
         {
+            "libraryName": "Linq4JS",
+            "typingsPackageName": "linq4js",
+            "sourceRepoURL": "https://github.com/morrisjdev/Linq4JS",
+            "asOfVersion": "2.1.8"
+        },
+        {
             "libraryName": "LinqSharp",
             "typingsPackageName": "linqsharp",
             "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
