@@ -1,0 +1,7 @@
+{
+	"extends": "dtslint/dt.json",
+	"rules": {
+		// TODOs
+		"no-unnecessary-class": false
+	}
+}

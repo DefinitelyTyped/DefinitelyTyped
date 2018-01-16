@@ -1,0 +1,29 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Heavy use of Function type in this older package.
+        "ban-types": false,
+        "jsdoc-format": false,
+        "no-misused-new": false,
+
+        // these are disabled because of rfc176 module exports
+        "strict-export-declare-modifiers": false,
+        "no-single-declare-module": false,
+        "no-declare-current-package": false,
+        "no-self-import": false,
+
+        // We use interfaces in a number of places to express things (including
+        // mixins in particular, but also including extending a global
+        // interface) which TS currently can't express correctly.
+        "no-empty-interface": false,
+
+        "no-duplicate-imports": false,
+        "no-unnecessary-qualifier": false,
+        "prefer-const": false,
+        "no-void-expression": false,
+        "only-arrow-functions": false,
+        "no-submodule-imports": false,
+        
+        "no-unnecessary-class": false
+    }
+}

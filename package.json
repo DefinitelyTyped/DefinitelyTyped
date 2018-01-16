@@ -1,41 +1,27 @@
 {
   "private": true,
-  "name": "DefinitelyTyped",
+  "name": "definitely-typed",
   "version": "0.0.1",
-  "homepage": "https://github.com/borisyankov/DefinitelyTyped",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped",
   "repository": {
     "type": "git",
-    "url": "https://github.com/borisyankov/DefinitelyTyped.git"
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/borisyankov/DefinitelyTyped/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/borisyankov/DefinitelyTyped/issues"
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">=7.8.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/dt --changes",
-    "changes": "./node_modules/.bin/dt --changes",
-    "lint": "./node_modules/.bin/dt --lint",
-    "tscparams": "./node_modules/.bin/dt --tscparams --no-tests --no-headers",
-    "all": "./node_modules/.bin/dt",
-    "dry": "./node_modules/.bin/dt --dry --changes",
-    "list": "./node_modules/.bin/dt --dry --print-files --print-refmap",
-    "last": "./node_modules/.bin/dt --dry --print-files --print-refmap --changes",
-    "files": "./node_modules/.bin/dt --dry --print-files",
-    "refmap": "./node_modules/.bin/dt --dry --print-refmap",
-    "help": "./node_modules/.bin/dt -h"
-  },
-  "dependencies": {
+    "compile-scripts": "tsc -p scripts",
+    "not-needed": "node scripts/not-needed.js",
+    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
+    "lint": "dtslint types"
   },
   "devDependencies": {
-    "definition-tester": "0.2.0",
-    "typescript": "1.4.1"
+    "dtslint": "github:Microsoft/dtslint#production",
+    "types-publisher": "Microsoft/types-publisher#production"
   }
 }

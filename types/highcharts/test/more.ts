@@ -1,0 +1,1 @@
+HighchartsMore(Highcharts);

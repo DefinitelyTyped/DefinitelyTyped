@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "chrome.d.ts",
+        "edge.d.ts",
+        "firefox.d.ts",
+        "http.d.ts",
+        "ie.d.ts",
+        "opera.d.ts",
+        "remote.d.ts",
+        "safari.d.ts",
+        "testing.d.ts",
+        "test/index.ts",
+        "test/chrome.ts",
+        "test/firefox.ts",
+        "test/remote.ts",
+        "test/testing.ts"
+    ]
+}

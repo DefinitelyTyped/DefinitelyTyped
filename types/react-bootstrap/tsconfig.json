@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "noUnusedLocals": false
+    },
+    "files": [
+        "index.d.ts",
+        "lib/utils/capitalize.d.ts",
+        "test/react-bootstrap-tests.tsx",
+        "test/react-bootstrap-individual-components-tests.tsx",
+        "lib/utils/deprecationWarning.d.ts",
+        "lib/utils/PropTypes.d.ts",
+        "lib/utils/splitComponentProps.d.ts",
+        "lib/utils/StyleConfig.d.ts"
+    ]
+}

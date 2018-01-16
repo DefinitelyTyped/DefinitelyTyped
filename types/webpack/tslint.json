@@ -1,0 +1,10 @@
+{
+	"extends": "dtslint/dt.json",
+	"rules": {
+		// TODO
+		"no-any-union": false,
+		"no-unnecessary-qualifier": false,
+		"no-void-expression": false,
+		"space-within-parens": false
+	}
+}

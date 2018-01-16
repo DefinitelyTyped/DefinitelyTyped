@@ -1,0 +1,433 @@
+// Type definitions for D3JS d3-scale-chromatic module 1.1
+// Project: https://github.com/d3/d3-scale-chromatic/
+// Definitions by: Hugues Stefanski <https://github.com/Ledragon>,
+//                 Alex Ford <https://github.com/gustavderdrache>,
+//                 Boris Yankov <https://github.com/borisyankov>,
+//                 Henrique Machado <https://github.com/henriquefm>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.2
+
+// -----------------------------------------------------------------------
+// Categorical
+// -----------------------------------------------------------------------
+/**
+ * An array of eight categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeAccent: ReadonlyArray<string>;
+/**
+ * An array of eight categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeDark2: ReadonlyArray<string>;
+/**
+ * An array of twelve categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemePaired: ReadonlyArray<string>;
+/**
+ * An array of nine categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemePastel1: ReadonlyArray<string>;
+/**
+ * An array of eight categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemePastel2: ReadonlyArray<string>;
+/**
+ * An array of nine categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeSet1: ReadonlyArray<string>;
+/**
+ * An array of eight categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeSet2: ReadonlyArray<string>;
+/**
+ * An array of twelve categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeSet3: ReadonlyArray<string>;
+
+// -----------------------------------------------------------------------
+// Diverging
+// -----------------------------------------------------------------------
+/**
+ * Given a number value in the range [0,1], returns the corresponding color from the “BrBG” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateBrBG(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “BrBG” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeBrBG[9] contains an array of nine strings representing the nine colors of the
+ *  brown-blue-green diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemeBrBG: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “PRGn” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolatePRGn(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “PRGn” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemePRGn[9] contains an array of nine strings representing the nine colors of the
+ *  purple-green diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemePRGn: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “PiYG” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolatePiYG(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “PiYG” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemePiYG[9] contains an array of nine strings representing the nine colors of the
+ *  pink-yellow-green diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemePiYG: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “PuOr” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolatePuOr(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “PuOr” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemePuOr[9] contains an array of nine strings representing the nine colors of the
+ *  purple-orange diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemePuOr: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “RdBu” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateRdBu(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “RdBu” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeRdBu[9] contains an array of nine strings representing the nine colors of the
+ *  red-blue diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemeRdBu: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “RdGy” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateRdGy(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “RdGy” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeRdGy[9] contains an array of nine strings representing the nine colors of the
+ *  red-grey diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemeRdGy: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “RdYlBu” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateRdYlBu(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “RdYlBu” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeRdYlBu[9] contains an array of nine strings representing the nine colors of the
+ *  red-yellow-blue diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemeRdYlBu: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “RdYlGn” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateRdYlGn(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “RdYlGn” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeRdYlGn[9] contains an array of nine strings representing the nine colors of the
+ *  red-yellow-green diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemeRdYlGn: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “Spectral” diverging color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateSpectral(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “Spectral” diverging color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeSpectral[9] contains an array of nine strings representing the nine colors of the
+ *  spectral diverging color scheme. Diverging color schemes support a size k ranging from 3 to 11.
+ */
+export const schemeSpectral: ReadonlyArray<ReadonlyArray<string>>;
+
+// -----------------------------------------------------------------------
+// Sequential
+// -----------------------------------------------------------------------
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “Blues” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateBlues(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “Blues” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeBlues[9] contains an array of nine strings representing the nine colors of the
+ *  blue sequential color scheme. Sequential, single-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeBlues: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “Greens” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateGreens(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “Greens” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeGreens[9] contains an array of nine strings representing the nine colors of the
+ *  green sequential color scheme. Sequential, single-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeGreens: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “Greys” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateGreys(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “Greys” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeGreys[9] contains an array of nine strings representing the nine colors of the
+ *  grey sequential color scheme. Sequential, single-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeGreys: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “Oranges” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateOranges(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “Oranges” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeOranges[9] contains an array of nine strings representing the nine colors of the
+ *  orange sequential color scheme. Sequential, single-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeOranges: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “Purples” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolatePurples(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “Purples” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemePurples[9] contains an array of nine strings representing the nine colors of the
+ *  purple sequential color scheme. Sequential, single-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemePurples: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “Reds” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateReds(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “Reds” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeReds[9] contains an array of nine strings representing the nine colors of the
+ *  red sequential color scheme. Sequential, single-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeReds: ReadonlyArray<ReadonlyArray<string>>;
+
+// -----------------------------------------------------------------------
+// Sequential(Multi-Hue)
+// -----------------------------------------------------------------------
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “BuGn” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateBuGn(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “BuGn” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeBuGn[9] contains an array of nine strings representing the nine colors of the
+ *  blue-green sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeBuGn: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “BuPu” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateBuPu(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “BuPu” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeBuPu[9] contains an array of nine strings representing the nine colors of the
+ *  blue-purple sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeBuPu: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “GnBu” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateGnBu(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “GnBu” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeGnBu[9] contains an array of nine strings representing the nine colors of the
+ *  green-blue sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeGnBu: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “OrRd” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateOrRd(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “OrRd” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeOrRd[9] contains an array of nine strings representing the nine colors of the
+ *  orange-red sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeOrRd: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “PuBuGn” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolatePuBuGn(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “PuBuGn” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemePuBuGn[9] contains an array of nine strings representing the nine colors of the
+ *  purple-blue-green sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemePuBuGn: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “PuBu” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolatePuBu(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “PuBu” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemePuBu[9] contains an array of nine strings representing the nine colors of the
+ *  purple-blue sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemePuBu: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “PuRd” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolatePuRd(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “PuRd” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemePuRd[9] contains an array of nine strings representing the nine colors of the
+ *  purple-red sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemePuRd: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “RdPu” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateRdPu(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “RdPu” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeRdPu[9] contains an array of nine strings representing the nine colors of the
+ *  red-purple sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeRdPu: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “YlGnBu” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateYlGnBu(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “YlGnBu” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeYlGnBu[9] contains an array of nine strings representing the nine colors of the
+ *  yellow-green-blue sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeYlGnBu: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “YlGn” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateYlGn(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “YlGn” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeYlGn[9] contains an array of nine strings representing the nine colors of the
+ *  yellow-green sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeYlGn: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “YlOrBr” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateYlOrBr(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “YlOrBr” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeYlOrBr[9] contains an array of nine strings representing the nine colors of the
+ *  yellow-orange-brown sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeYlOrBr: ReadonlyArray<ReadonlyArray<string>>;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “YlOrRd” sequential color scheme represented as an RGB string.
+ *
+ * @param value Number in the range [0, 1].
+ */
+export function interpolateYlOrRd(value: number): string;
+
+/**
+ * An array of arrays of hexadecimal color strings from the “YlOrRd” sequential color scheme. The kth element of this array contains
+ *  the color scheme of size k; for example, d3.schemeYlOrRd[9] contains an array of nine strings representing the nine colors of the
+ *  yellow-orange-red sequential color scheme. Sequential, multi-hue color schemes support a size k ranging from 3 to 9.
+ */
+export const schemeYlOrRd: ReadonlyArray<ReadonlyArray<string>>;
