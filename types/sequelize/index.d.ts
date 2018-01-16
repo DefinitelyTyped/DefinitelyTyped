@@ -9,6 +9,7 @@
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Carven Zhang <https://github.com/zjy01>
+//                 Nikola Vidic <https://github.com/nidzov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1332,8 +1333,8 @@ declare namespace sequelize {
          */
         keyType?: DataTypeAbstract;
         /**
-         * A string to represent the name of the field to use as the key for an 1 to many association in the source table. 
-         * 
+         * A string to represent the name of the field to use as the key for an 1 to many association in the source table.
+         *
          * @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#static-method-hasMany
          * @see https://github.com/sequelize/sequelize/blob/b4fd46426db9cdbb97074bea121203d565e4195d/lib/associations/has-many.js#L81
          */
@@ -4192,13 +4193,14 @@ declare namespace sequelize {
         /**
          * Adds a new column to a table
          */
-        addColumn(table: string, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
+        addColumn(tableName: string | { tableName?: string, schema?: string }, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
             options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Removes a column from a table
          */
-        removeColumn(table: string, attribute: string, options?: QueryInterfaceOptions): Promise<void>;
+        removeColumn(tableName: string | { tableName?: string, schema?: string }, attribute: string,
+            options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Changes a column
