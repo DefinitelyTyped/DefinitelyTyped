@@ -805,7 +805,7 @@
             "asOfVersion": "0.0.34"
         },
         {
-            "libraryName": "localforage-cordovasqlitedriver module",
+            "libraryName": "localforage-cordovasqlitedriver",
             "typingsPackageName": "localforage-cordovasqlitedriver",
             "sourceRepoURL": "https://github.com/thgreasi/localForage-cordovaSQLiteDriver",
             "asOfVersion": "1.5.0"
