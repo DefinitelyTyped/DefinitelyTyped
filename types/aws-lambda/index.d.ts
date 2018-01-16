@@ -12,6 +12,7 @@
 //                 Daniel Cottone <https://github.com/daniel-cottone>
 //                 Kostya Misura <https://github.com/kostya-misura>
 //                 Markus Tacker <https://github.com/coderbyheart>
+//                 Palmi Valgeirsson <https://github.com/palmithor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
