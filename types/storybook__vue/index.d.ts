@@ -10,7 +10,7 @@
 import Vue, { ComponentOptions } from 'vue';
 
 // Story can be used as template or component
-export type Component = ComponentOptions | string;
+export type Component = ComponentOptions<Vue> | string;
 export type StoryFunction = () => Component;
 export type StoryDecorator = (story: StoryFunction, context: { kind: string, story: string }) => Component | null;
 
@@ -30,7 +30,7 @@ export interface StoryStore {
 }
 export interface StoryObject {
     name: string;
-    render: ComponentOptions.render;
+    render: StoryFunction;
 }
 
 export function addDecorator(decorator: StoryDecorator): void;
