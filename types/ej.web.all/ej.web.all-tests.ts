@@ -180,12 +180,12 @@ module ChartComponent {
                 range: { min: 25, max: 50, interval: 5 },
                 labelFormat: "{value}%",
                 title: { text: "Efficiency" },
-                
+
             },
             commonSeriesOptions:
-			{
+            {
                 type: 'line', enableAnimation: true,
-				tooltip:{ visible :true, template:'Tooltip'},
+                tooltip: { visible: true, template: 'Tooltip' },
                 marker:
                 {
                     shape: 'circle',
@@ -195,30 +195,30 @@ module ChartComponent {
                     },
                     visible: true
                 },
-                 border : {width: 2}                             
-            },	
-            series: 
-			[
-			    {
-                points: [{ x: 2005, y: 28 }, { x: 2006, y: 25 },{ x: 2007, y: 26 }, { x: 2008, y: 27 }, 
-						 { x: 2009, y: 32 }, { x: 2010, y: 35 }, { x: 2011, y: 30 }],						 
-                name: 'India'
-                },						
+                border: { width: 2 }
+            },
+            series:
+            [
                 {
-                points: [{ x: 2005, y: 31 }, { x: 2006, y: 28 },{ x: 2007, y: 30 }, { x: 2008, y: 36 }, 
-						 { x: 2009, y: 36 }, { x: 2010, y: 39 }, { x: 2011, y: 37 }],						 
-                name: 'Germany'
+                    points: [{ x: 2005, y: 28 }, { x: 2006, y: 25 }, { x: 2007, y: 26 }, { x: 2008, y: 27 },
+                        { x: 2009, y: 32 }, { x: 2010, y: 35 }, { x: 2011, y: 30 }],
+                    name: 'India'
                 },
-				{
-                points: [{ x: 2005, y: 36 }, { x: 2006, y: 32 },{ x: 2007, y: 34 }, { x: 2008, y: 41 }, 
-						 { x: 2009, y: 42 }, { x: 2010, y: 42 }, { x: 2011, y: 43 }],						 
-                name: 'England'
-                },					
                 {
-                points: [{ x: 2005, y: 39 }, { x: 2006, y: 36 },{ x: 2007, y: 40 }, { x: 2008, y: 44 }, 
-						 { x: 2009, y: 45 }, { x: 2010, y: 48 }, { x: 2011, y: 46 }],						 
-                name: 'France'
-				}
+                    points: [{ x: 2005, y: 31 }, { x: 2006, y: 28 }, { x: 2007, y: 30 }, { x: 2008, y: 36 },
+                        { x: 2009, y: 36 }, { x: 2010, y: 39 }, { x: 2011, y: 37 }],
+                    name: 'Germany'
+                },
+                {
+                    points: [{ x: 2005, y: 36 }, { x: 2006, y: 32 }, { x: 2007, y: 34 }, { x: 2008, y: 41 },
+                        { x: 2009, y: 42 }, { x: 2010, y: 42 }, { x: 2011, y: 43 }],
+                    name: 'England'
+                },
+                {
+                    points: [{ x: 2005, y: 39 }, { x: 2006, y: 36 }, { x: 2007, y: 40 }, { x: 2008, y: 44 },
+                        { x: 2009, y: 45 }, { x: 2010, y: 48 }, { x: 2011, y: 46 }],
+                    name: 'France'
+                }
             ],
             isResponsive: true,
             load: function () {
@@ -283,14 +283,13 @@ module ChartComponent {
                             theme = "flatlight";
                             break;
                     }
-                    sender.model.theme = theme;                    
+                    sender.model.theme = theme;
                 }
             },
             title: { text: 'Efficiency of oil-fired power production' },
             size: { height: "600" },
-            legend: { visible: true},	
+            legend: { visible: true },
         });
-       chartsample.model.load="loadTheme";
     });
 }
 
@@ -340,7 +339,7 @@ module circulargaugecomponent {
                         backgroundColor: "#f5b43f",
                         border: { color: "#f5b43f" }
                     }]
-            }]	
+            }]
         });
     });
 }
@@ -353,21 +352,21 @@ module ColorPickerComponent {
     });
 }
 
-module ComboBoxComponent{
+module ComboBoxComponent {
     var BikeList = [
         { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
         { empid: "bk4", text: "Discover" }, { empid: "bk5", text: "Dazzler" }, { empid: "bk6", text: "Flame" },
         { empid: "bk7", text: "Fazzer" }, { empid: "bk8", text: "FZ-S" }, { empid: "bk9", text: "Pulsar" },
         { empid: "bk10", text: "Shine" }, { empid: "bk11", text: "R15" }, { empid: "bk12", text: "Unicorn" }
     ];
-    $(function () {        
-        var comboboxInstance =new ej.ComboBox($("#selectCar"), {        
+    $(function () {
+        var comboboxInstance = new ej.ComboBox($("#selectCar"), {
             width: "100%",
             placeholder: "Select a Bike",
-			fields: { text: "text", value: "empid" },
+            fields: { text: "text", value: "empid" },
             dataSource: BikeList,
             autofill: true
-        });  
+        });
     });
 }
 
@@ -428,7 +427,8 @@ $(function () {
             }),
             createNode({ name: "Project", width: 150, height: 100, offsetX: 300, offsetY: 430, labels: [createLabel({ "text": "Find Project \nmanager" })], type: "flow", shape: ej.datavisualization.Diagram.FlowShapes.Decision }),
             createNode({
-                name: "End", width: 150, height: 60, offsetX: 300, offsetY: 555, labels: [createLabel({ "text": "Implement and Deliver" })], type: "flow", shape: ej.datavisualization.Diagram.FlowShapes.Process }),
+                name: "End", width: 150, height: 60, offsetX: 300, offsetY: 555, labels: [createLabel({ "text": "Implement and Deliver" })], type: "flow", shape: ej.datavisualization.Diagram.FlowShapes.Process
+            }),
             createNode({ name: "Decision", width: 250, height: 60, offsetX: 550, offsetY: 60, labels: [createLabel({ "text": "Decision Process for new software ideas" })], type: "flow", shape: ej.datavisualization.Diagram.FlowShapes.Card, fillColor: "#858585", borderColor: "#858585" }),
             createNode({ name: "Reject", width: 150, height: 60, offsetX: 550, offsetY: 285, labels: [createLabel({ "text": "Reject and write report" })], type: "flow", shape: ej.datavisualization.Diagram.FlowShapes.Process }),
             createNode({ name: "Resources", width: 150, height: 60, offsetX: 550, offsetY: 430, labels: [createLabel({ "text": "Hire new resources" })], type: "flow", shape: ej.datavisualization.Diagram.FlowShapes.Process })
@@ -442,7 +442,7 @@ $(function () {
             createConnector({ name: "connector6", sourceNode: "Project", targetNode: "Resources", labels: [createLabel({ "text": "No" })] })
         ]
     });
-    
+
 });
 
 function createNode(option: ej.datavisualization.Diagram.Node) {
@@ -513,7 +513,7 @@ module digitalgaugecomponent {
 }
 
 
-		
+
 module DropDownListComponent {
     var BikeList = [
         { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
@@ -530,12 +530,12 @@ module DropDownListComponent {
             enableFilterSearch: true,
             caseSensitiveSearch: true,
             enableIncrementalSearch: true,
-            enablePopupResize: true, 
+            enablePopupResize: true,
             delimiterChar: ";",
             multiSelectMode: ej.MultiSelectMode.Delimiter,
             maxPopupHeight: "300px",
-            minPopupHeight: "150px", 
-            maxPopupWidth: "500px", 
+            minPopupHeight: "150px",
+            maxPopupWidth: "500px",
             minPopupWidth: "350px",
             showCheckbox: true,
             showRoundedCorner: true
@@ -1085,7 +1085,6 @@ module PivotChartOlap {
             primaryYAxis: { title: { text: "Internet Sales Amount" } },
             legend: { visible: true, rowCount: 2 },
         });
-        sample.model.load = "loadTheme";
     });
 }
 
@@ -1159,7 +1158,6 @@ module PivotChartRelational {
             primaryYAxis: { title: { text: "Amount" } },
             legend: { visible: true },
         });
-        sample.model.load = "loadTheme";
     });
 }
 
@@ -1218,15 +1216,15 @@ module PivotGaugeOlap {
 					length: 120,
 					width: 7
                 },
-				{		
-					type: "marker",
-					markerType: "diamond",
-					distanceFromScale: 5,
-					placement: "center",
-					backgroundColor: "#29A4D9",
-					length: 25,
-					width: 15
-				}],
+                    {
+                        type: "marker",
+                        markerType: "diamond",
+                        distanceFromScale: 5,
+                        placement: "center",
+                        backgroundColor: "#29A4D9",
+                        length: 25,
+                        width: 15
+                    }],
                 ticks: [{
 					type: "major",
                     distanceFromScale: 2,
@@ -1247,7 +1245,7 @@ module PivotGaugeOlap {
 					distanceFromScale: -5,
                     backgroundColor: "#fc0606",
 					border: { color: "#fc0606" }
-                }, 
+                },
 				{
 					distanceFromScale: -5
                 }],
@@ -1265,7 +1263,7 @@ module PivotGaugeOlap {
                 }]
             }]
         });
-    });	
+    });
 }
 
 
@@ -2484,7 +2482,7 @@ module RibbonComponent {
 function colorHandler(args:any) {
     (this._id.indexOf("fillcolor") != -1) ? $("#contenteditor").css('background-color', args.value) : document.execCommand('forecolor', false, args.value);
 }
-function onClick(args) {
+function onClick(args: any) {
     var val, prop = args.text;
     val = (ej.isNullOrUndefined(args.model.text)) ? args.model.activeText : args.model.text;
     if (action1.indexOf(val) != -1)
@@ -2861,14 +2859,15 @@ $(function () {
                 pdfUrl: (<any>window).baseurl + "api/Spreadsheet/PdfExport"
             },
             sheets: [{ rangeSettings: [{ dataSource: (<any>window).defaultData, startCell: "A1" }] }],
-			loadComplete:() => {  
-			var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
-			if (!(<any>spreadsheet).isImport) {
-        spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
-        xlFormat.format({ "style": { "font-weight": "bold" } }, "A1:H1");
-        xlFormat.format({ "type": "currency" }, "E2:H11");
-        spreadsheet.XLRibbon.updateRibbonIcons();
-    }}
+            loadComplete: () => {
+                var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
+                if (!(<any>spreadsheet).isImport) {
+                    spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
+                    xlFormat.format({ "style": { "font-weight": "bold" } }, "A1:H1");
+                    xlFormat.format({ "type": "currency" }, "E2:H11");
+                    spreadsheet.XLRibbon.updateRibbonIcons();
+                }
+            }
         });
     });
 }
@@ -2903,7 +2902,7 @@ var default_data: Array<Object> = [
 	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 55 },
 	{ Category : "Employees", Country : "UK",      JobDescription : "HR Executives",                                               EmployeesCount : 60 },
 	{ Category : "Employees", Country : "UK",      JobDescription: "Accounts",                                                     EmployeesCount: 30  },
-	
+
 	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
 	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
 	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
@@ -2940,7 +2939,6 @@ module sunburstcomponent {
             zoomSettings: { enable: false },
             legend: { visible: true, position: 'top' },
         });
-        sunburstsample.model.load = "loadTheme";
     });
 }
 
@@ -3036,20 +3034,20 @@ module TileViewComponent {
 			tileSize:"medium",
 			imageUrl:'content/images/tile/windows/people_1.png'
         });
-		var tile2 = new ej.Tile($("#tile2"), {
-            imagePosition:"center",		
-			tileSize:"small",
-			imageUrl:'content/images/tile/windows/alerts.png',		 
-	
+        var tile2 = new ej.Tile($("#tile2"), {
+            imagePosition: "center",
+            tileSize: "small",
+            imageUrl: 'content/images/tile/windows/alerts.png',
+
         });
-		var tile3 = new ej.Tile($("#tile3"), {
-            imagePosition:"center",		 
-			tileSize:"small",
-			imageUrl:'content/images/tile/windows/bing.png',		 
+        var tile3 = new ej.Tile($("#tile3"), {
+            imagePosition: "center",
+            tileSize: "small",
+            imageUrl: 'content/images/tile/windows/bing.png',
         });
-		var tile4 = new ej.Tile($("#tile4"), {
-            tileSize:"small",
-		 	imageUrl:'content/images/tile/windows/camera.png',		 
+        var tile4 = new ej.Tile($("#tile4"), {
+            tileSize: "small",
+            imageUrl: 'content/images/tile/windows/camera.png',
         });
         var tile5 = new ej.Tile($("#tile5"), {
             imagePosition: "center",
