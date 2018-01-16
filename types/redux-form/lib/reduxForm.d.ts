@@ -18,7 +18,7 @@ import {
 } from "../index";
 
 export type FormSubmitHandler<FormData = {}, P = {}> =
-    (values: Partial<FormData>, dispatch?: Dispatch<any>, props?: P) => void | FormErrors<FormData> | Promise<any>;
+    (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
 
 export interface SubmitHandler<FormData = {}, P = {}> {
     (

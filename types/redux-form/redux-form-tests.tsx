@@ -233,7 +233,7 @@ const Test = reduxForm<TestFormData>({
     form : "test"
 })(
     class Test extends React.Component<TestProps> {
-        handleSubmitForm = (values: Partial<TestFormData>, dispatch?: Dispatch<any>, props?: {}) => {};
+        handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
 
         render() {
             const { handleSubmit } = this.props;
@@ -386,7 +386,7 @@ const HandleSubmitTestForm = reduxForm<TestFormData>({
 );
 
 class A extends React.Component {
-    handleSubmit = (values: Partial<TestFormData>, dispatch?: Dispatch<any>, props?: {}) => {};
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
     render() {
         return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
     }
