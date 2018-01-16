@@ -1,4 +1,4 @@
-// Type definitions for navigo 6.0
+// Type definitions for navigo 7.0
 // Project: https://github.com/krasimir/navigo
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
