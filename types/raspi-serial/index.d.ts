@@ -19,8 +19,8 @@ export interface Options {
     stopBits?: 1 | 2;
     parity?: 'none' | 'even' | 'mark' | 'odd' | 'space';
 }
-export type ICallback = () => void;
-export type IErrorCallback = (err: Error | string) => void;
+export type Callback = () => void;
+export type ErrorCallback = (err: Error | string) => void;
 export class Serial extends Peripheral {
     private _portId;
     private _options;
@@ -33,8 +33,8 @@ export class Serial extends Peripheral {
     readonly stopBits: number;
     readonly parity: string;
     destroy(): void;
-    open(cb?: ICallback): void;
-    close(cb?: IErrorCallback): void;
-    write(data: Buffer | string, cb?: ICallback): void;
-    flush(cb?: IErrorCallback): void;
+    open(cb?: Callback): void;
+    close(cb?: ErrorCallback): void;
+    write(data: Buffer | string, cb?: Callback): void;
+    flush(cb?: ErrorCallback): void;
 }
