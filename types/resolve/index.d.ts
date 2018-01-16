@@ -1,6 +1,7 @@
 // Type definitions for resolve
 // Project: https://github.com/substack/node-resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
+//                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -88,7 +89,7 @@ declare namespace resolve {
 
   export interface SyncOpts extends Opts {
     // how to read files synchronously (defaults to fs.readFileSync)
-    readFileSync?: (file: string) => Buffer;
+    readFileSync?: (file: string, charset: string) => string | Buffer;
     // function to synchronously test whether a file exists
     isFile?: (file: string) => boolean;
   }

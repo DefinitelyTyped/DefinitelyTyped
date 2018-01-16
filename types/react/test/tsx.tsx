@@ -77,3 +77,35 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
         </React.Fragment>
     </React.Fragment>
 </div>;
+
+// Below tests that setState() works properly for both regular and callback modes
+class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
+    handleSomething = () => {
+      this.setState({ foo: '' }); // $ExpectError
+      this.setState({ foo: true });
+      this.setState({ foo: true, bar: true });
+      this.setState({});
+      this.setState({ foo: true, foo2: true }); // $ExpectError
+      this.setState(() => ({ foo: '' })); // $ExpectError
+      this.setState(() => ({ foo: true }));
+      this.setState(() => ({ foo: true, bar: true }));
+      this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
+      this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
+      this.setState(() => ({ })); // ok!
+      this.setState({ foo: true, bar: undefined}); // $ExpectError
+    }
+}
+
+// Below tests that extended types for state work
+export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
+	foo() {
+		this.setState({ baseProp: 'foobar' });
+	}
+}
+
+// Below tests that & generic still works
+export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
+	foo() {
+		this.setState({ baseProp: 'foobar' });
+	}
+}

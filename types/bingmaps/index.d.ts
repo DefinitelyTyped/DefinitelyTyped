@@ -3,15 +3,29 @@
 // Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="Autosuggest.d.ts" />
+/// <reference path="Clustering.d.ts" />
+/// <reference path="Contour.d.ts" />
+/// <reference path="DataBinning.d.ts" />
+/// <reference path="Directions.d.ts" />
+/// <reference path="DrawingTools.d.ts" />
+/// <reference path="GeoJson.d.ts" />
+/// <reference path="HeatMapLayer.d.ts" />
+/// <reference path="Search.d.ts" />
+/// <reference path="SpatialDataService.d.ts" />
+/// <reference path="SpatialMath.d.ts" />
+/// <reference path="Traffic.d.ts" />
+/// <reference path="WellKnownText.d.ts" />
+
 /**
  *  The Bing Maps V8 developer API.
  */
 declare module Microsoft.Maps {
-	
+
 	//////////////////////////////////////////////
     /// Custom Map Styles
     //////////////////////////////////////////////
-	
+
 	 /** The styles options that can be applied to map elements. */
     export interface IMapElementStyle {
         /**
@@ -67,7 +81,7 @@ declare module Microsoft.Maps {
     export interface ISettingsStyle {
         /** A hex color value that all land is first flushed to before things are drawn on it. */
         landColor?: string;
-		
+
 		/** Specifies whether or not to draw elevation shading on the map. */
 		shadedReliefVisible?: boolean;
     }
@@ -123,7 +137,7 @@ declare module Microsoft.Maps {
         /** A school or other educational building. */
         educationBuilding?: IMapElementStyle;
 
-        /** Restaurant, café, etc. */
+        /** Restaurant, cafï¿½, etc. */
         foodPoint?: IMapElementStyle;
 
         /** Area of forest land. */
@@ -155,7 +169,7 @@ declare module Microsoft.Maps {
 
         /** A building which provides medical services. */
         medicalBuilding?: IMapElementStyle;
-	
+
 		/** A military area. */
         military?: IMapElementStyle;
 
@@ -218,7 +232,7 @@ declare module Microsoft.Maps {
 
 		/** Area of a stadium. */
 		stadium?: IMapElementStyle;
-		
+
         /** A street. */
         street?: IMapElementStyle;
 
@@ -270,7 +284,7 @@ declare module Microsoft.Maps {
         /** The version of the style syntax used. */
         version: string;
     }
-	
+
     //////////////////////////////////////////////
     /// Enumerations
     //////////////////////////////////////////////
@@ -361,7 +375,7 @@ declare module Microsoft.Maps {
 
     /** Contains enum to show how pixels are defined. */
     export enum PixelReference {
-        /** The pixel is defined relative to the map control’s root element, where the top left corner of the map control is (0, 0). */
+        /** The pixel is defined relative to the map controlï¿½s root element, where the top left corner of the map control is (0, 0). */
         control,
 
         /** The pixel is defined relative to the page, where the top left corner of the HTML page is (0, 0). */
@@ -385,7 +399,7 @@ declare module Microsoft.Maps {
 
         /**
         * The subdivision name within the country or region for an address. This element is also commonly treated as the first order administrative
-        * subdivision. An example is a US state, such as “Oregon”.
+        * subdivision. An example is a US state, such as ï¿½Oregonï¿½.
         */
         adminDistrict: string;
 
@@ -395,16 +409,16 @@ declare module Microsoft.Maps {
         /** A string specifying the two-letter ISO country code. */
         countryRegionISO2: string;
 
-        /** The second, third, or fourth order subdivision within a country, dependency, or region. An example is a US county, such as “King”. */
+        /** The second, third, or fourth order subdivision within a country, dependency, or region. An example is a US county, such as ï¿½Kingï¿½. */
         district: string;
 
         /** A nicely formatted address string for the result. */
         formattedAddress: string;
 
-        /** The locality, such as the primary city, that corresponds to an address. An example is “Seattle”. */
+        /** The locality, such as the primary city, that corresponds to an address. An example is ï¿½Seattleï¿½. */
         locality: string;
 
-        /** The post code, postal code, or ZIP code of an address. An example is a US ZIP code, such as “98152”. */
+        /** The post code, postal code, or ZIP code of an address. An example is a US ZIP code, such as ï¿½98152ï¿½. */
         postalCode: string;
     }
 
@@ -470,14 +484,14 @@ declare module Microsoft.Maps {
     export interface ILayer {
     }
 
-    /** 
+    /**
      * @deprecated use IMouseEventArgs
-	 * A LayerMouseEventArgs object is returned by many the mouse event handlers attached to a Layer. 
+	 * A LayerMouseEventArgs object is returned by many the mouse event handlers attached to a Layer.
 	 */
     export interface ILayerMouseEventArgs {
-        /** 
+        /**
 		* @deprecated use target
-		* The IPrimitive shape (pushpin, polyline, polygon) that the event occurred on. 
+		* The IPrimitive shape (pushpin, polyline, polygon) that the event occurred on.
 		*/
         primitive: IPrimitive;
     }
@@ -498,13 +512,13 @@ declare module Microsoft.Maps {
         */
         htmlContent?: string;
 
-        /** The location on the map where the infobox’s anchor is attached. */
+        /** The location on the map where the infoboxï¿½s anchor is attached. */
         location?: Location;
 
-        /** The maximium size that the infobox height can expand to based on it’s content. Default: 126 **/
+        /** The maximium size that the infobox height can expand to based on itï¿½s content. Default: 126 **/
         maxHeight?: number;
 
-        /** The maximium size that the infobox width can expand to based on it’s content. Default: 256 **/
+        /** The maximium size that the infobox width can expand to based on itï¿½s content. Default: 256 **/
         maxWidth?: number;
 
         /**
@@ -599,7 +613,7 @@ declare module Microsoft.Maps {
         /** Custom map styles used to modify the look and feel of the base map. */
         customMapStyle?: ICustomMapStyle;
 
-        /** A boolean value indicating whether to disable the user’s ability to control the using the keyboard. Default: false */
+        /** A boolean value indicating whether to disable the userï¿½s ability to control the using the keyboard. Default: false */
         disableKeyboardInput?: boolean;
 
         /** A boolean value indicating if mousing over the map type selector should open it or not. Default: true */
@@ -670,14 +684,14 @@ declare module Microsoft.Maps {
         navigationBarOrientation?: NavigationBarOrientation;
 
         /**
-        * A boolean value indicating whether to display the “breadcrumb control”. The breadcrumb control shows the current center location’s geography hierarchy.
+        * A boolean value indicating whether to display the ï¿½breadcrumb controlï¿½. The breadcrumb control shows the current center locationï¿½s geography hierarchy.
         * The default value is false. Requires the showLocateMeButton map option to be set to true. The breadcrumb control displays best when the width of the map
         * is at least 400 pixels.
         */
         showBreadcrumb?: boolean;
 
         /**
-        * A boolean value indicating whether to show the map navigation control. Default: true This property can only be set when using the Map constructor.
+        * A boolean value indicating whether to show the map navigation control. Default: trueï¿½This property can only be set when using the Map constructor.
         */
         showDashboard?: boolean;
 
@@ -783,7 +797,7 @@ declare module Microsoft.Maps {
         /** The object that triggered the event. */
         target: Map | IPrimitive;
 
-        /** The type of the object that the event is attached to. Valid values include the following: ‘map’, 'layer', ‘polygon’, ‘polyline’, or ‘pushpin’ */
+        /** The type of the object that the event is attached to. Valid values include the following: ï¿½mapï¿½, 'layer', ï¿½polygonï¿½, ï¿½polylineï¿½, or ï¿½pushpinï¿½ */
         targetType: string;
 
         /**
@@ -1034,7 +1048,7 @@ declare module Microsoft.Maps {
         * When using a string, the uriConstructor will allow you to specify placeholders that will be replaced with the tiles value (i.e. {quadkey}).
         * See the Tile URL Parameters section for a list of supported parameters.
         * Besides using formatted tile URLs, you can also specify a callback function as the uriConstructor. This is useful if you need to be able to
-        * build custom tile URL’s that may require some additional calculations for a tile.
+        * build custom tile URLï¿½s that may require some additional calculations for a tile.
         */
         uriConstructor: string | ((tile: PyramidTileId) => string);
     }
@@ -1109,7 +1123,7 @@ declare module Microsoft.Maps {
     export class AnimatedTileLayer {
         /**
          * @contstructor
-         * @param options Options that define how to animate between the specified tile layers. 
+         * @param options Options that define how to animate between the specified tile layers.
          */
         constructor(options?: IAnimatedTileLayerOptions);
 
@@ -1351,7 +1365,7 @@ declare module Microsoft.Maps {
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach. Supported events:
          * click, dblclick, maptypechanged, mousedown, mousemove, mouseout, mouseover, mouseup, mousewheel, rightclick, viewchange, viewchangeend, viewchangestart
-         * @param handler The callback function to handle the event when triggered. 
+         * @param handler The callback function to handle the event when triggered.
          * @returns The handler id.
          */
         export function addHandler(target: Map, eventName: string, handler: (eventArg?: IMouseEventArgs | IMapTypeChangeEventArgs) => void): IHandlerId;
@@ -1361,7 +1375,7 @@ declare module Microsoft.Maps {
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach. Supported Events:
          * changed, click, dblclick, drag, dragend, dragstart, mousedown, mouseout, mouseover, mouseup
-         * @param handler The callback function to handle the event when triggered. 
+         * @param handler The callback function to handle the event when triggered.
          * @returns The handler id.
          */
         export function addHandler(target: Pushpin, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): IHandlerId;
@@ -1371,7 +1385,7 @@ declare module Microsoft.Maps {
         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
         * @param eventName The type of event to attach. Supported Events:
         * changed, click, dblclick, mousedown, mouseout, mouseover, mouseup
-        * @param handler The callback function to handle the event when triggered. 
+        * @param handler The callback function to handle the event when triggered.
         * @returns The handler id.
         */
         export function addHandler(target: Polyline | Polygon, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): IHandlerId;
@@ -1381,7 +1395,7 @@ declare module Microsoft.Maps {
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach. Supported Events:
          * click, infoboxChanged, mouseenter, mouseleave
-         * @param handler The callback function to handle the event when triggered. 
+         * @param handler The callback function to handle the event when triggered.
          * @returns The handler id.
          */
         export function addHandler(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): IHandlerId;
@@ -1391,7 +1405,7 @@ declare module Microsoft.Maps {
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach. Supported Events:
          * click, dblclick, mousedown, mouseout, mouseover, mouseup, rightclick
-         * @param handler The callback function to handle the event when triggered. 
+         * @param handler The callback function to handle the event when triggered.
          * @returns The handler id.
          */
         export function addHandler(target: Layer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): IHandlerId;
@@ -1400,9 +1414,9 @@ declare module Microsoft.Maps {
         * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
         * @param eventName The type of event to attach. Supported Events:
-        * • entityadded
-        * • entityremoved
-        * @param handler The callback function to handle the event when triggered. 
+        * ï¿½ entityadded
+        * ï¿½ entityremoved
+        * @param handler The callback function to handle the event when triggered.
         * @returns The handler id.
         */
         export function addHandler(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void): IHandlerId;
@@ -1411,7 +1425,7 @@ declare module Microsoft.Maps {
          * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach.
-         * @param handler The callback function to handle the event when triggered. 
+         * @param handler The callback function to handle the event when triggered.
          * @returns The handler id.
          */
         export function addHandler(target: any, eventName: string, handler: (eventArg?: any) => void): IHandlerId;
@@ -1452,7 +1466,7 @@ declare module Microsoft.Maps {
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach. Supported Events:
          * click, infoboxChanged, mouseenter, mouseleave
-         * @param handler The callback function to handle the event when triggered. 
+         * @param handler The callback function to handle the event when triggered.
          */
         export function addOne(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): void;
 
@@ -1469,8 +1483,8 @@ declare module Microsoft.Maps {
          * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach. Supported Events:
-         * • entityadded
-         * • entityremoved
+         * ï¿½ entityadded
+         * ï¿½ entityremoved
          * @param handler The callback function to handle the event when triggered.
          */
         export function addOne(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void): void;
@@ -1525,7 +1539,7 @@ declare module Microsoft.Maps {
         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
         * @param eventName The type of event to attach. Supported Events:
         * click, infoboxChanged, mouseenter, mouseleave
-        * @param handler The callback function to handle the event when triggered. 
+        * @param handler The callback function to handle the event when triggered.
         * @returns The handler id.
         */
         export function addThrottledHandler(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): IHandlerId;
@@ -1545,8 +1559,8 @@ declare module Microsoft.Maps {
          * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
          * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
          * @param eventName The type of event to attach. Supported Events:
-         * • entityadded
-         * • entityremoved
+         * ï¿½ entityadded
+         * ï¿½ entityremoved
          * @param handler The callback function to handle the event when triggered.
          * @param throttleInterval throttle interval (in ms)
          * @returns The handler id.
@@ -1569,7 +1583,7 @@ declare module Microsoft.Maps {
 
         /**
          * Checks if the target has any attached event handler.
-         * @param target The object to check if an event is attached to it. 
+         * @param target The object to check if an event is attached to it.
          * @param eventName The name of the event to check to see is attached.
          * @returns A boolean indicating if the specified event type is attached to the object.
          */
@@ -1650,7 +1664,7 @@ declare module Microsoft.Maps {
         public getHtmlContent(): string;
 
         /**
-        * Gets the location on the map where the infobox’s anchor is attached.
+        * Gets the location on the map where the infoboxï¿½s anchor is attached.
         * @returns The location of the infobox.
         */
         public getLocation(): Location;
@@ -1783,7 +1797,7 @@ declare module Microsoft.Maps {
 
         /**
         * Gets an array of shapes that are in the layer. This can be used to iterate over the individual shapes.
-        * @returns An array of shapes that are in the layer. 
+        * @returns An array of shapes that are in the layer.
         */
         public getPrimitives(): IPrimitive[];
 
@@ -1871,7 +1885,7 @@ declare module Microsoft.Maps {
         public remove(layer: ILayer): void;
 
         /**
-        * Removes a layer from the map at the specified index in the collection.        
+        * Removes a layer from the map at the specified index in the collection.
         * @param idx The index of the layer to remove.
         */
         public removeAt(idx: number): void;
@@ -2093,7 +2107,7 @@ declare module Microsoft.Maps {
         constructor(parentElement: string | HTMLElement, options: IMapLoadOptions);
 
 		/**
-		* Gets the streetside panorama information closest to the specified bounding box and returns using a success callback function. 
+		* Gets the streetside panorama information closest to the specified bounding box and returns using a success callback function.
 		* This information can then be used to set the map view to that streetside panorama.
 		*/
         public static getClosestPanorama(bounds: LocationRect, success: (panoramaInfo: IPanoramaInfo) => void, missingCoverage: () => void): void;
@@ -2336,7 +2350,7 @@ declare module Microsoft.Maps {
         /**
         * Decodes a collection of locations from a compressed string.
         * @param value Compressed string to decode.
-        * @returns An array of locations that have been decoded from the compressed string. 
+        * @returns An array of locations that have been decoded from the compressed string.
         */
         public static decode(value: string): Location[];
 
@@ -2632,7 +2646,7 @@ declare module Microsoft.Maps {
     }
 
     /**
-    * Used to represent the location of a map tile in the quadkey tile pyramid system used by the map. 
+    * Used to represent the location of a map tile in the quadkey tile pyramid system used by the map.
     * If using a tile source where the uriConstructor property is set to a callback function, that callback function will recieve
     * an instance of the PyramidTileId class.
     */
@@ -2674,7 +2688,7 @@ declare module Microsoft.Maps {
         public static areEqual(tileId1: PyramidTileId, tileId2: PyramidTileId): boolean;
 
         /**
-         * Generates a PyramidTileId from a quadkey tile id string. 
+         * Generates a PyramidTileId from a quadkey tile id string.
          * @param quadkey The quadkey tile id string to convert into a PyramidTileId object.
          * @param width The tile's width in pixels. Default value: 256
          * @param height The tile's height in pixels. Default value: 256
@@ -2685,7 +2699,7 @@ declare module Microsoft.Maps {
     /** Provides static functions for generating random test data. */
     export class TestDataGenerator {
         /**
-        * Generates a random hex or rgba color string. 
+        * Generates a random hex or rgba color string.
         * @param withAlpha A boolean indicating if the color should have an alpha value or not. if set to true, a rgba value will be returned with an alpha value of 0.5.
         * @returns A css color string, hex or rgba.
         */

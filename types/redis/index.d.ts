@@ -250,8 +250,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<[string, string]>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
@@ -472,8 +472,8 @@ export interface Commands<R> {
     /**
      * Get all fields and values in a hash.
      */
-    hgetall(key: string, cb: Callback<{ [key: string]: string }>): R;
-    HGETALL(key: string, cb: Callback<{ [key: string]: string }>): R;
+    hgetall(key: string, cb?: Callback<{ [key: string]: string }>): R;
+    HGETALL(key: string, cb?: Callback<{ [key: string]: string }>): R;
 
     /**
      * Increment the integer value of a hash field by the given number.

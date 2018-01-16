@@ -4,6 +4,7 @@
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
+//                 Gabriel Terwesten <https://github.com/blaugold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,12 +17,10 @@ import * as Promise from "bluebird";
  * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
  */
 declare const Bull: {
-  // tslint:disable:unified-signatures
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  (queueName: string, url?: string): Bull.Queue;
+  (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
   new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url?: string): Bull.Queue;
-  // tslint:enable:unified-signatures
+  new (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
 };
 
 declare namespace Bull {
@@ -136,7 +135,7 @@ declare namespace Bull {
     promote(): Promise<void>;
   }
 
-  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
+  type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -458,18 +457,18 @@ declare namespace Bull {
     nextRepeatableJob(name: string, data: any, opts: JobOptions): Promise<Job>;
 
     /**
-     * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
-     * the job when it was added.
+     * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
+     * used for the job when it was added.
      */
-    removeRepeatable(repeat: RepeatOptions): Promise<void>;
+    removeRepeatable(repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
 
     /**
-     * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
-     * the job when it was added.
+     * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
+     * used for the job when it was added.
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: RepeatOptions): Promise<void>;
+    removeRepeatable(name: string, repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
@@ -520,8 +519,6 @@ declare namespace Bull {
      */
     clean(grace: number, status?: JobStatus, limit?: number): Promise<Job[]>;
 
-    // tslint:disable:unified-signatures
-
     /**
      * Listens to queue events
      */
@@ -566,7 +563,7 @@ declare namespace Bull {
     /**
      * The queue has been resumed
      */
-    on(event: 'resumed', callback: EventCallback): this;
+    on(event: 'resumed', callback: EventCallback): this; // tslint:disable-line unified-signatures
 
     /**
      * Old jobs have been cleaned from the queue.
@@ -575,8 +572,6 @@ declare namespace Bull {
      * @see Queue#clean() for details
      */
     on(event: 'cleaned', callback: CleanedEventCallback): this;
-
-    // tslint:enable:unified-signatures
   }
 
   type EventCallback = () => void;

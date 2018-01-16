@@ -12,8 +12,9 @@ function StepSample() {
     type Callback = cucumber.CallbackStepDefinition;
     type Table = cucumber.TableDefinition;
     type HookScenarioResult = cucumber.HookScenarioResult;
+    const Status = cucumber.Status;
 
-    cucumber.defineSupportCode(({setWorldConstructor, defineParameterType, After, Around, Before, registerHandler, Given, When, Then}) => {
+    cucumber.defineSupportCode(({setWorldConstructor, defineParameterType, After, AfterAll, Around, Before, BeforeAll, registerHandler, Given, When, Then}) => {
         setWorldConstructor(function({attach, parameters}) {
             this.attach = attach;
             this.parameters = parameters;
@@ -23,17 +24,37 @@ function StepSample() {
         });
 
         Before((scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === "failed");
+            console.log(scenarioResult.result.status === Status.FAILED);
             callback();
         });
 
         Before({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
-            console.log(scenarioResult.status === "failed");
+            console.log(scenarioResult.result.status === Status.FAILED);
+            callback();
+        });
+
+        Before('@tag', (scenarioResult: HookScenarioResult, callback: Callback) => {
+            console.log(scenarioResult.result.status === Status.FAILED);
+            callback();
+        });
+
+        BeforeAll((callback: Callback) => {
+            console.log("Before all");
+            callback();
+        });
+
+        BeforeAll({ timeout: 1000 }, (callback: Callback) => {
+            console.log("Before all");
+            callback();
+        });
+
+        BeforeAll('@tag', (callback: Callback) => {
+            console.log("Before all");
             callback();
         });
 
         Around((scenarioResult: HookScenarioResult, runScenario: (error: string | null, callback?: () => void) => void) => {
-            if (scenarioResult.status === "failed") {
+            if (scenarioResult.result.status === Status.FAILED) {
                 runScenario(null, () => {
                     console.log('finish tasks');
                 });
@@ -47,6 +68,26 @@ function StepSample() {
 
         After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
             console.log("After");
+            callback();
+        });
+
+        After('@tag', (scenarioResult: HookScenarioResult, callback: Callback) => {
+            console.log("After");
+            callback();
+        });
+
+        AfterAll((callback: Callback) => {
+            console.log("After all");
+            callback();
+        });
+
+        AfterAll({ timeout: 1000 }, (callback: Callback) => {
+            console.log("After all");
+            callback();
+        });
+
+        AfterAll('@tag', (callback: Callback) => {
+            console.log("After all");
             callback();
         });
 
@@ -124,7 +165,13 @@ function StepSample() {
         defineParameterType({
             regexp: /particular/,
             transformer: s => s.toUpperCase(),
-            typeName: 'param'
+            typeName: 'param'  // deprecated but still supported
+        });
+
+        defineParameterType({
+            regexp: /particularly/,
+            transformer: s => s.toUpperCase(),
+            name: 'param'
         });
 
         Given('a {param} step', param => {

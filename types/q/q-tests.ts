@@ -1,4 +1,3 @@
-/* tslint:disable:no-namespace */
 /// <reference types="jquery" />
 
 import Q = require('q');
@@ -154,7 +153,7 @@ Q.nfbind<string>(nodeStyle)('foo').done((result: string) => {
 });
 
 class Repo {
-	private items: any[] = [
+	private readonly items: any[] = [
 		{name: 'Max', cute: false},
 		{name: 'Annie', cute: true}
 	];
@@ -177,7 +176,7 @@ Q.nbind<any[]>(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {
 /**
  * Test: Can "rethrow" rejected promises
  */
-namespace TestCanRethrowRejectedPromises {
+function TestCanRethrowRejectedPromises() {
 	interface Foo {
 		a: number;
 	}

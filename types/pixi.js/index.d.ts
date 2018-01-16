@@ -827,6 +827,7 @@ declare namespace PIXI {
         preserveDrawingBuffer: boolean;
         clearBeforeRender: boolean;
         roundPixels: boolean;
+        backgroundColor: number;
         protected _backgroundColor: number;
         protected _backgroundColorRgba: number[];
         protected _backgroundColorString: string;
@@ -2402,6 +2403,7 @@ declare namespace PIXI {
             spineData: any;
             textures?: TextureDictionary;
         }
+        const shared: Loader;
     }
 
     //////////////////////////////////////////////////////////////////////////////

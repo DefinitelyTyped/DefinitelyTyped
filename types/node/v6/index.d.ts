@@ -385,7 +385,7 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -966,7 +966,7 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
+        id: number;
         process: child.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
@@ -2875,6 +2875,28 @@ declare module "path" {
          */
         name: string;
     }
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
+    }
 
     /**
      * Normalize a string path, reducing '..' and '.' parts.
@@ -2899,7 +2921,7 @@ declare module "path" {
      *
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
-    export function resolve(...pathSegments: any[]): string;
+    export function resolve(...pathSegments: string[]): string;
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
@@ -2951,7 +2973,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
         export function normalize(p: string): string;
@@ -2965,7 +2987,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 
     export module win32 {
@@ -2980,7 +3002,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 }
 
@@ -3648,7 +3670,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
 
@@ -3733,7 +3755,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
         }

@@ -65,6 +65,8 @@ var S3CreateEvent: AWSLambda.S3CreateEvent = {
 var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
+var cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
+var cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
 
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
@@ -108,6 +110,101 @@ str = apiGwEvt.pathParameters["example"];
 str = apiGwEvt.queryStringParameters["example"];
 str = apiGwEvt.stageVariables["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
+
+/* DynamoDB Stream Event */
+var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
+    Records: [
+        {
+            eventID: '1',
+            eventVersion: '1.0',
+            dynamodb: {
+                Keys: {
+                    Id: {
+                        N: '101'
+                    }
+                },
+                NewImage: {
+                    Message: {
+                        S: 'New item!'
+                    },
+                    Id: {
+                        N: '101'
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES',
+                SequenceNumber: '111',
+                SizeBytes: 26
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'INSERT',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        },
+        {
+            eventID: '2',
+            eventVersion: '1.0',
+            dynamodb: {
+                OldImage: {
+                    Message: {
+                        S: 'New item!'
+                    },
+                    Id: {
+                        N: '101'
+                    }
+                },
+                SequenceNumber: '222',
+                Keys: {
+                    Id: {
+                        N: '101'
+                    }
+                },
+                SizeBytes: 59,
+                NewImage: {
+                    Message: {
+                        S: 'This item has changed'
+                    },
+                    Id: {
+                        N: '101'
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'MODIFY',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        },
+        {
+            eventID: '3',
+            eventVersion: '1.0',
+            dynamodb: {
+                Keys: {
+                    Id: {
+                        N: '101'
+                    }
+                },
+                SizeBytes: 38,
+                SequenceNumber: '333',
+                OldImage: {
+                    Message: {
+                        S: 'This item has changed'
+                    },
+                    Id: {
+                        N: '101'
+                    }
+                },
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
+            },
+            awsRegion: 'us-west-2',
+            eventName: 'REMOVE',
+            eventSourceARN:
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
+        }
+    ]
+};
 
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;
@@ -268,6 +365,18 @@ clientCtx = context.clientContext;
 /* CognitoIdentity */
 str = identity.cognitoIdentityId;
 str = identity.cognitoIdentityPoolId;
+
+/* CloudWatch Logs */
+str = cloudwatchLogsEvent.awslogs.data;
+
+str = cloudwatchLogsDecodedData.owner;
+str = cloudwatchLogsDecodedData.logGroup;
+str = cloudwatchLogsDecodedData.logStream;
+str = cloudwatchLogsDecodedData.subscriptionFilters[0];
+str = cloudwatchLogsDecodedData.messageType;
+str = cloudwatchLogsDecodedData.logEvents[0].id;
+num = cloudwatchLogsDecodedData.logEvents[0].timestamp;
+str = cloudwatchLogsDecodedData.logEvents[0].message;
 
 /* ClientContext */
 clientContextClient = clientCtx.client;
@@ -452,5 +561,8 @@ context.fail(str);
 
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+let asyncHandler: AWSLambda.Handler = async (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
-let CustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
+let asyncProxyHandler: AWSLambda.ProxyHandler = async (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+let customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
+let asyncCustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = async (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };

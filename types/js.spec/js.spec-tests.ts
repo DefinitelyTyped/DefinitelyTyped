@@ -17,7 +17,9 @@ S.explainData((value) => true, "a value");
 
 const {path, via, value, predicate}: {path: string[], via: string[], value: any, predicate: S.Predicate} = problems[0];
 
-const problemStr: string = S.explainStr(S.spec.even, 3);
+const problemStr: string = S.problemStr(problems[0]);
+
+const explainStr: string = S.explainStr(S.spec.even, 3);
 S.explainStr((value) => true, "a value");
 
 // $ExpectType void
@@ -45,6 +47,8 @@ const tupleSpec: S.Spec = S.spec.tuple("tuple test", S.spec.bool, S.spec.date, S
 const mapSpec: S.Spec = S.spec.map("map test", { email: S.spec.string, [S.symbol.optional]: { name: S.spec.string } });
 
 const oneOfSpec: S.Spec = S.spec.oneOf("oneOf test", "a", "b", "c");
+
+const predicateSpec: S.Spec = S.spec.predicate("predicate test", (value) => true);
 
 // Predicates
 

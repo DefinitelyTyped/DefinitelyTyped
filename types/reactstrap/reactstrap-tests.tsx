@@ -27,6 +27,11 @@ import {
   CardSubtitle,
   CardText,
   CardTitle,
+  Carousel,
+  CarouselCaption,
+  CarouselControl,
+  CarouselItem,
+  CarouselIndicators,
   Row,
   Col,
   Container,
@@ -73,7 +78,6 @@ import {
   TabContent,
   Table,
   Tag,
-  TetherContent,
   Tooltip
 } from 'reactstrap';
 
@@ -2479,7 +2483,7 @@ class Example85 extends React.Component<any, any> {
         <Button id="Popover1" onClick={this.toggle}>
           Launch Popover
         </Button>
-        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
+        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} onClick={() => {}}>
           <PopoverHeader>Popover Title</PopoverHeader>
           <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
@@ -3500,3 +3504,113 @@ const Example113 = (props: any) => {
       </div>
     );
   };
+
+class Example114 extends React.Component<any, any> {
+private element: HTMLElement;
+
+refFn(r: HTMLElement | null) {
+    if (r) {
+        this.element = r;
+    }
+}
+
+render() {
+    return (
+    <div>
+        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+        Hello world!
+        </Tooltip>
+    </div>
+    );
+}
+}
+
+class Example115 extends React.Component<any, any> {
+    // https://reactstrap.github.io/components/carousel/
+
+    private readonly items = [
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 1',
+          caption: 'Slide 1'
+        },
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 2',
+          caption: 'Slide 2'
+        },
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 3',
+          caption: 'Slide 3'
+        }
+      ];
+
+    private animating: boolean;
+
+    constructor(props: any) {
+      super(props);
+      this.state = { activeIndex: 0 };
+      this.next = this.next.bind(this);
+      this.previous = this.previous.bind(this);
+      this.goToIndex = this.goToIndex.bind(this);
+      this.onExiting = this.onExiting.bind(this);
+      this.onExited = this.onExited.bind(this);
+    }
+
+    onExiting() {
+      this.animating = true;
+    }
+
+    onExited() {
+      this.animating = false;
+    }
+
+    next() {
+      if (this.animating) return;
+      const nextIndex = this.state.activeIndex === this.items.length - 1 ? 0 : this.state.activeIndex + 1;
+      this.setState({ activeIndex: nextIndex });
+    }
+
+    previous() {
+      if (this.animating) return;
+      const nextIndex = this.state.activeIndex === 0 ? this.items.length - 1 : this.state.activeIndex - 1;
+      this.setState({ activeIndex: nextIndex });
+    }
+
+    goToIndex(newIndex: number) {
+      if (this.animating) return;
+      this.setState({ activeIndex: newIndex });
+    }
+
+    render() {
+      const { activeIndex } = this.state;
+
+      const slides = this.items.map((item) => {
+        return (
+          <CarouselItem
+            onExiting={this.onExiting}
+            onExited={this.onExited}
+            key={item.src}
+          >
+            <img src={item.src} alt={item.altText} />
+            <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+          </CarouselItem>
+        );
+      });
+
+      return (
+        <Carousel
+          activeIndex={activeIndex}
+          next={this.next}
+          previous={this.previous}
+        >
+          <CarouselIndicators items={this.items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+          {slides}
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        </Carousel>
+      );
+    }
+  }
