@@ -10,14 +10,14 @@
 //                 Prashant Deva <https://github.com/pdeva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
-    
+
 // Known Issue:
-// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes 
+// There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @connect() decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use connect() as a function call on
 // a separate line instead of as a decorator. Discussed in this github issue:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
-    
+
 import * as React from 'react';
 import * as Redux from 'redux';
 
@@ -25,7 +25,8 @@ type ComponentClass<P> = React.ComponentClass<P>;
 type StatelessComponent<P> = React.StatelessComponent<P>;
 type Component<P> = React.ComponentType<P>;
 type ReactNode = React.ReactNode;
-type Store<S> = Redux.Store<S>;
+type Action<T = any> = Redux.Action<T>;
+type Store<S, A extends Action, N> = Redux.Store<S, A, N>;
 type Dispatch<S> = Redux.Dispatch<S>;
 type ActionCreator<A> = Redux.ActionCreator<A>;
 
@@ -34,7 +35,7 @@ type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: n
 type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
 export interface DispatchProp<S> {
-  dispatch?: Dispatch<S>;
+    dispatch?: Dispatch<S>;
 }
 
 interface AdvancedComponentDecorator<TProps, TOwnProps> {
@@ -288,18 +289,18 @@ export interface ConnectOptions {
     withRef?: boolean
 }
 
-export interface ProviderProps {
+export interface ProviderProps<S, A extends Action, N> {
     /**
      * The single Redux store in your application.
      */
-    store?: Store<any>;
+    store?: Store<S, A, N>;
     children?: ReactNode;
 }
 
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-export class Provider extends React.Component<ProviderProps, {}> { }
+export class Provider<S = any, A extends Action = Action, N = never> extends React.Component<ProviderProps<S, A, N>, {}> { }
 
 /**
  * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this
