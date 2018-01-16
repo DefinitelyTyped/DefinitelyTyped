@@ -18,37 +18,37 @@ module AccordionComponent {
     });
 }
 
-module AutocompleteComponent{
+module AutocompleteComponent {
     var carList = [
-                "Audi S6", "Austin-Healey", "Alfa Romeo", "Aston Martin",
-                "BMW 7", "Bentley Mulsanne", "Bugatti Veyron",
-                "Chevrolet Camaro", "Cadillac",
-                "Duesenberg J", "Dodge Sprinter",
-                "Elantra", "Excavator",
-                "Ford Boss 302", "Ferrari 360", "Ford Thunderbird",
-                "GAZ Siber",
-                "Honda S2000", "Hyundai Santro",
-                "Isuzu Swift", "Infiniti Skyline",
-                "Jaguar XJS",
-                "Kia Sedona EX", "Koenigsegg Agera",
-                "Lotus Esprit", "Lamborghini Diablo",
-                "Mercedes-Benz", "Mercury Coupe", "Maruti Alto 800",
-                "Nissan Qashqai",
-                "Oldsmobile S98", "Opel Superboss",
-                "Porsche 356", "Pontiac Sunbird",
-                "Scion SRS/SC/SD", "Saab Sportcombi", "Subaru Sambar", "Suzuki Swift",
-                "Triumph Spitfire", "Toyota 2000GT",
-                "Volvo P1800", "Volkswagen Shirako"
-            ];
-    $(function () {        
-        var autocompleteInstance =new ej.Autocomplete($("#selectCar"), {        
+        "Audi S6", "Austin-Healey", "Alfa Romeo", "Aston Martin",
+        "BMW 7", "Bentley Mulsanne", "Bugatti Veyron",
+        "Chevrolet Camaro", "Cadillac",
+        "Duesenberg J", "Dodge Sprinter",
+        "Elantra", "Excavator",
+        "Ford Boss 302", "Ferrari 360", "Ford Thunderbird",
+        "GAZ Siber",
+        "Honda S2000", "Hyundai Santro",
+        "Isuzu Swift", "Infiniti Skyline",
+        "Jaguar XJS",
+        "Kia Sedona EX", "Koenigsegg Agera",
+        "Lotus Esprit", "Lamborghini Diablo",
+        "Mercedes-Benz", "Mercury Coupe", "Maruti Alto 800",
+        "Nissan Qashqai",
+        "Oldsmobile S98", "Opel Superboss",
+        "Porsche 356", "Pontiac Sunbird",
+        "Scion SRS/SC/SD", "Saab Sportcombi", "Subaru Sambar", "Suzuki Swift",
+        "Triumph Spitfire", "Toyota 2000GT",
+        "Volvo P1800", "Volkswagen Shirako"
+    ];
+    $(function () {
+        var autocompleteInstance = new ej.Autocomplete($("#selectCar"), {
             width: "100%",
             watermarkText: "Select a car",
             dataSource: carList,
             enableAutoFill: true,
             showPopupButton: true,
             multiSelectMode: "delimiter"
-        });  
+        });
     });
 }
 
@@ -69,7 +69,7 @@ module Bulletgraphcomponent {
             isResponsive: true,
             load: function () {
                 var sender = $("#BulletGraph").data("ejBulletGraph");
-                var bulletTheme = window.themeStyle + window.themeColor + window.themeVarient;
+                var bulletTheme = (<any>window).themeStyle + (<any>window).themeColor + (<any>window).themeVarient;
                 if (bulletTheme) {
                     switch (bulletTheme) {
                         case "flatdark":
@@ -82,17 +82,17 @@ module Bulletgraphcomponent {
                         case "gradientsaffrondark":
                         case "flathigh-contrast-01dark":
                         case "flathigh-contrast-02dark":
-                            theme = "flatdark";
+                            bulletTheme = "flatdark";
                             break;
                         case "flatoffice-365light":
                         case "flatmateriallight":
-                            theme = "material";
+                            bulletTheme = "material";
                             break;
                         default:
-                            theme = "flatlight";
+                            bulletTheme = "flatlight";
                             break;
                     }
-                    sender.model.theme = theme;
+                    sender.model.theme = bulletTheme;
                 }
 
             },
@@ -246,7 +246,7 @@ module ChartComponent {
                     model.primaryYAxis.labelIntersectAction = "rotate45";
                     model.primaryYAxis.edgeLabelPlacement = "hide";
                 }
-                var theme = window.themeStyle + window.themeColor + window.themeVarient;
+                var theme = (<any>window).themeStyle + (<any>window).themeColor + (<any>window).themeVarient;
                 if (theme) {
                     switch (theme) {
                         case "flatdark":
@@ -288,9 +288,9 @@ module ChartComponent {
             },
             title: { text: 'Efficiency of oil-fired power production' },
             size: { height: "600" },
-            legend: { visible: true},
-			load:"loadTheme"
+            legend: { visible: true},	
         });
+       chartsample.model.load="loadTheme";
     });
 }
 
@@ -559,57 +559,55 @@ module ExplorerComponent {
     });
 }
 
-
 module GanttComponent {
-     $(function () {
-         var ganttInstance = new ej.Gantt($("#GanttContainer"), {
-        dataSource: (<any>window).projectData,
-        allowColumnResize: true,
-        allowSorting: true,
-        allowSelection: true,       
-        enableContextMenu: true,
-        taskIdMapping: "taskID",
-        allowDragAndDrop: true,
-        taskNameMapping: "taskName",
-        startDateMapping: "startDate",
-        showColumnChooser: true,
-        showColumnOptions: true,
-        progressMapping: "progress",
-        durationMapping: "duration",
-        endDateMapping: "endDate",
-        childMapping: "subtasks",
-        scheduleStartDate: "02/01/2014",
-        scheduleEndDate: "04/09/2014",
-        //Resources mapping
-        resourceInfoMapping: "resourceId",
-        resourceNameMapping: "resourceName",
-        resourceIdMapping: "resourceId",
-        resources: (<any>window).projectResources,
-        predecessorMapping: "predecessor",
-        showResourceNames: true,
-        toolbarSettings: {
-            showToolbar: true,
-            toolbarItems: ["add","edit","delete","update","cancel","indent","outdent","expandAll","collapseAll","search"]
-        },
-        editSettings: {
-            allowEditing: true,
-            allowAdding: true,
-            allowDeleting: true,
-            allowIndent: true,
-            editMode: "cellEditing"
-        },
-        sizeSettings: {
-            width: "100%",
-            height: "100%"
-        },
-        dragTooltip: { showTooltip: true },
-        showGridCellTooltip: true,
-        treeColumnIndex: 1,
-        isResponsive: true,
+    $(function () {
+        var ganttInstance = new ej.Gantt($("#GanttContainer"), {
+            dataSource: (<any>window).projectData,
+            allowColumnResize: true,
+            allowSorting: true,
+            allowSelection: true,
+            enableContextMenu: true,
+            taskIdMapping: "taskID",
+            allowDragAndDrop: true,
+            taskNameMapping: "taskName",
+            startDateMapping: "startDate",
+            showColumnChooser: true,
+            showColumnOptions: true,
+            progressMapping: "progress",
+            durationMapping: "duration",
+            endDateMapping: "endDate",
+            childMapping: "subtasks",
+            scheduleStartDate: "02/01/2017",
+            scheduleEndDate: "04/09/2017",
+            //Resources mapping
+            resourceInfoMapping: "resourceId",
+            resourceNameMapping: "resourceName",
+            resourceIdMapping: "resourceId",
+            resources: (<any>window).projectResources,
+            predecessorMapping: "predecessor",
+            showResourceNames: true,
+            toolbarSettings: {
+                showToolbar: true,
+                toolbarItems: ["add", "edit", "delete", "update", "cancel", "indent", "outdent", "expandAll", "collapseAll", "search"]
+            },
+            editSettings: {
+                allowEditing: true,
+                allowAdding: true,
+                allowDeleting: true,
+                allowIndent: true,
+                editMode: "cellEditing"
+            },
+            sizeSettings: {
+                width: "100%",
+                height: "100%"
+            },
+            dragTooltip: { showTooltip: true },
+            showGridCellTooltip: true,
+            treeColumnIndex: 1,
+            isResponsive: true,
+        });
     });
-}); 
 }
-
 module GridComponent {
     $(function () {
         var gridInstance = new ej.Grid($("#Grid"), {
@@ -716,7 +714,6 @@ module KanbanComponent {
     });
 }
 
- 
 module lineargaugecomponent {
     $(function () {
         var linearsample = new ej.datavisualization.LinearGauge($("#LinearGauge"), {
@@ -740,12 +737,15 @@ module lineargaugecomponent {
                         backgroundColor: "#E94649",
                         border: { color: "#E94649" }, startWidth: 4, endWidth: 4
                     }]
-            }]		
+            }]
         });
     });
 }
 
-	
+
+
+
+
 module ListBoxComponent {
     $(function () {
         var listboxInstance = new ej.ListBox($("#selectcar"), {
@@ -757,7 +757,7 @@ module ListBoxComponent {
 module ListviewComponent {
     $(function () {
         var listviewInstance = new ej.ListView($("#defaultlistview"), {
-            enableCheckMark: true, 
+            enableCheckMark: true,
 		    width: 400
         });
     });
@@ -1049,43 +1049,43 @@ module PDFViewerComponent {
 
 module PivotChartOlap {
     $(function () {
-        var sample = new ej.PivotChart($("#PivotChart"),{
+        var sample = new ej.PivotChart($("#PivotChart"), {
             dataSource: {
-			data: "http://bi.syncfusion.com/olap/msmdpump.dll", 
-			catalog: "Adventure Works DW 2008 SE",
-			cube: "Adventure Works",
-			rows: [
-				{
-					fieldName: "[Date].[Fiscal]"
-				}
-			],
-			columns: [
-				{
-					fieldName: "[Customer].[Customer Geography]"
-				}
-			],
-			values: [
-				{
-					measures: [
-						{
-							fieldName: "[Measures].[Internet Sales Amount]"
-						}
-                    ],
-					axis: "columns"
-				}
-            ],
-			filters:[]
-        },
-		isResponsive: true,zooming:{enableScrollbar: true},
-        commonSeriesOptions: {
-			type: "column"
-		},
-		size: { height: "460px", width: "100%" },
-		primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
-		primaryYAxis: { title: { text: "Internet Sales Amount" } },
-		legend: { visible: true, rowCount: 2 },
-		load:"loadTheme"
+                data: "http://bi.syncfusion.com/olap/msmdpump.dll",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
+                rows: [
+                    {
+                        fieldName: "[Date].[Fiscal]"
+                    }
+                ],
+                columns: [
+                    {
+                        fieldName: "[Customer].[Customer Geography]"
+                    }
+                ],
+                values: [
+                    {
+                        measures: [
+                            {
+                                fieldName: "[Measures].[Internet Sales Amount]"
+                            }
+                        ],
+                        axis: "columns"
+                    }
+                ],
+                filters: []
+            },
+            isResponsive: true, zooming: { enableScrollbar: true },
+            commonSeriesOptions: {
+                type: "column"
+            },
+            size: { height: "460px", width: "100%" },
+            primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
+            primaryYAxis: { title: { text: "Internet Sales Amount" } },
+            legend: { visible: true, rowCount: 2 },
         });
+        sample.model.load = "loadTheme";
     });
 }
 
@@ -1120,46 +1120,46 @@ var pivot_dataset = [
 module PivotChartRelational {
 
     $(function () {
-        var sample = new ej.PivotChart($("#PivotChart"),{
+        var sample = new ej.PivotChart($("#PivotChart"), {
             dataSource: {
-			data: pivot_dataset,
-			rows: [
-				{
-					fieldName: "Country",
-					fieldCaption: "Country"
-				},
-				{
-					fieldName: "State",
-					fieldCaption: "State"
-				},
-				{
-					fieldName: "Date",
-					fieldCaption: "Date"
-				}
-			],
-			columns: [
-				{
-					fieldName: "Product",
-					fieldCaption: "Product"
-				}
-			],
-			values: [
-				{
-					fieldName: "Amount",
-					fieldCaption: "Amount"
-				}
-			],
-			filters:[]
-		},
-		isResponsive: true,zooming:{enableScrollbar: true},
-		commonSeriesOptions: {
-			type: "column"
-		},
-		size: { height: "460px", width: "100%" },
-		primaryYAxis: { title: { text: "Amount" } },
-		legend: { visible: true },
-		load:"loadTheme"
+                data: pivot_dataset,
+                rows: [
+                    {
+                        fieldName: "Country",
+                        fieldCaption: "Country"
+                    },
+                    {
+                        fieldName: "State",
+                        fieldCaption: "State"
+                    },
+                    {
+                        fieldName: "Date",
+                        fieldCaption: "Date"
+                    }
+                ],
+                columns: [
+                    {
+                        fieldName: "Product",
+                        fieldCaption: "Product"
+                    }
+                ],
+                values: [
+                    {
+                        fieldName: "Amount",
+                        fieldCaption: "Amount"
+                    }
+                ],
+                filters: []
+            },
+            isResponsive: true, zooming: { enableScrollbar: true },
+            commonSeriesOptions: {
+                type: "column"
+            },
+            size: { height: "460px", width: "100%" },
+            primaryYAxis: { title: { text: "Amount" } },
+            legend: { visible: true },
         });
+        sample.model.load = "loadTheme";
     });
 }
 
@@ -1298,128 +1298,128 @@ var pivot_dataset = [
 
 module PivotGaugeRelational {
     $(function () {
-        var sample = new ej.PivotGauge($("#PivotGauge"),{
+        var sample = new ej.PivotGauge($("#PivotGauge"), {
             dataSource: {
-				data: pivot_dataset,
-				rows: [
-					{
-						fieldName: "Country",
-					},
-					{
-						fieldName: "State",
-					}
-				],
-				columns: [
-					{
-						fieldName: "Product",
-					}
-				],
+                data: pivot_dataset,
+                rows: [
+                    {
+                        fieldName: "Country",
+                    },
+                    {
+                        fieldName: "State",
+                    }
+                ],
+                columns: [
+                    {
+                        fieldName: "Product",
+                    }
+                ],
                 values: [
-					{
-						fieldName: "Amount",
-					},
-					{
-						fieldName: "Quantity",
-					}
-				]
-			},
+                    {
+                        fieldName: "Amount",
+                    },
+                    {
+                        fieldName: "Quantity",
+                    }
+                ]
+            },
             enableTooltip: true, isResponsive: true,
             labelFormatSettings: { decimalPlaces: 2 },
-			scales: [{
-				showRanges: true,
-				radius: 150, showScaleBar: true, size: 1,
+            scales: [{
+                showRanges: true,
+                radius: 150, showScaleBar: true, size: 1,
                 border: {
-					width: 0.5
-				},
-				showIndicators: true, showLabels: true,
-                pointers: [{
-					showBackNeedle: true,
-					backNeedleLength: 20,
-					length: 120,
-					width: 7
+                    width: 0.5
                 },
-				{		
-					type: "marker",
-					markerType: "diamond",
-					distanceFromScale: 5,
-					placement: "center",
-					backgroundColor: "#29A4D9",
-					length: 25,
-					width: 15
-				}],
+                showIndicators: true, showLabels: true,
+                pointers: [{
+                    showBackNeedle: true,
+                    backNeedleLength: 20,
+                    length: 120,
+                    width: 7
+                },
+                    {
+                        type: "marker",
+                        markerType: "diamond",
+                        distanceFromScale: 5,
+                        placement: "center",
+                        backgroundColor: "#29A4D9",
+                        length: 25,
+                        width: 15
+                    }],
                 ticks: [{
-					type: "major",
+                    type: "major",
                     distanceFromScale: 2,
-					height: 16,
-					width: 1, color: "#8c8c8c"
-				},
-                {
-					type: "minor",
-					height: 6,
-					width: 1,
-					distanceFromScale: 2,
-                    color: "#8c8c8c"
-                }],
+                    height: 16,
+                    width: 1, color: "#8c8c8c"
+                },
+                    {
+                        type: "minor",
+                        height: 6,
+                        width: 1,
+                        distanceFromScale: 2,
+                        color: "#8c8c8c"
+                    }],
                 labels: [{
                     color: "#8c8c8c"
-				}],
-                ranges: [{
-					distanceFromScale: -5,
-                    backgroundColor: "#fc0606",
-					border: { color: "#fc0606" }
-                }, 
-				{
-					distanceFromScale: -5
                 }],
-				customLabels: [{
-					position: { x: 180, y: 290 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                ranges: [{
+                    distanceFromScale: -5,
+                    backgroundColor: "#fc0606",
+                    border: { color: "#fc0606" }
                 },
-				{
-					position: { x: 180, y: 320 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                    {
+                        distanceFromScale: -5
+                    }],
+                customLabels: [{
+                    position: { x: 180, y: 290 },
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
                 },
-				{
-                    position: { x: 180, y: 150 },
-                    font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
-                }]
+                    {
+                        position: { x: 180, y: 320 },
+                        font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                    },
+                    {
+                        position: { x: 180, y: 150 },
+                        font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                    }]
             }]
         });
-    });	
+    });
 }
 
 module PivotGridOlap {
 
     $(function () {
-        var sample = new ej.PivotGrid($("#PivotGrid"),{
+        var sample = new ej.PivotGrid($("#PivotGrid"), {
             dataSource: {
-			data: "http://bi.syncfusion.com/olap/msmdpump.dll",
-			catalog: "Adventure Works DW 2008 SE",
-			cube: "Adventure Works",
-			rows: [
-				{
-					fieldName: "[Date].[Fiscal]"
-				}
-			],
-			columns: [
-				{
-					fieldName: "[Customer].[Customer Geography]"
-				}
-			],
-            values: [
-				{
-					measures: [
-						{
-							fieldName: "[Measures].[Internet Sales Amount]",
-						}
-                    ],
-					axis: "columns"
-				}
-			],
-			filters:[]
-		},
-        enableGroupingBar: true, 
-        pivotTableFieldListID:"PivotSchemaDesigner"
+                data: "http://bi.syncfusion.com/olap/msmdpump.dll",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
+                rows: [
+                    {
+                        fieldName: "[Date].[Fiscal]"
+                    }
+                ],
+                columns: [
+                    {
+                        fieldName: "[Customer].[Customer Geography]"
+                    }
+                ],
+                values: [
+                    {
+                        measures: [
+                            {
+                                fieldName: "[Measures].[Internet Sales Amount]",
+                            }
+                        ],
+                        axis: "columns"
+                    }
+                ],
+                filters: []
+            },
+            enableGroupingBar: true,
+            pivotTableFieldListID: "PivotSchemaDesigner"
         });
         $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
@@ -1454,41 +1454,41 @@ var pivot_dataset = [
 
 module PivotGridRelational {
     $(function () {
-        var sample = new ej.PivotGrid($("#PivotGrid"),{
+        var sample = new ej.PivotGrid($("#PivotGrid"), {
             dataSource: {
-			data: pivot_dataset,
-			rows: [
-				{
-					fieldName: "Country",
-					fieldCaption: "Country"
-				},
-				{
-					fieldName: "State",
-					fieldCaption: "State"
-				}
-			],
-			columns:                     
-				[{
-					fieldName: "Product",
-					fieldCaption: "Product"
-				}
-			],
-			values: [
-				{
-					fieldName: "Amount",
-                    fieldCaption: "Amount"
-				},
-				{
-					fieldName: "Quantity",
-					fieldCaption: "Quantity"
-				}
-            ],
-			filters:[]
-		},
-        enableGroupingBar: true, 
-        pivotTableFieldListID:"PivotSchemaDesigner"
+                data: pivot_dataset,
+                rows: [
+                    {
+                        fieldName: "Country",
+                        fieldCaption: "Country"
+                    },
+                    {
+                        fieldName: "State",
+                        fieldCaption: "State"
+                    }
+                ],
+                columns:
+                [{
+                    fieldName: "Product",
+                    fieldCaption: "Product"
+                }
+                ],
+                values: [
+                    {
+                        fieldName: "Amount",
+                        fieldCaption: "Amount"
+                    },
+                    {
+                        fieldName: "Quantity",
+                        fieldCaption: "Quantity"
+                    }
+                ],
+                filters: []
+            },
+            enableGroupingBar: true,
+            pivotTableFieldListID: "PivotSchemaDesigner"
         });
-       $("#PivotSchemaDesigner").ejPivotSchemaDesigner(); 
+        $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
 
     });
 }
@@ -1655,7 +1655,7 @@ module rangecomponent {
             },
             loaded: function () {
                 var sender = $("#RangeNavigator").data("ejRangeNavigator");
-                var theme = window.themeStyle + window.themeColor + window.themeVarient;
+                var theme = (<any>window).themeStyle + (<any>window).themeColor + (<any>window).themeVarient;
                 if (theme) {
                     switch (theme) {
                         case "flatazurelight":
@@ -1747,7 +1747,7 @@ function GetData() {
 module RatingComponent {
     $(function () {
 
-        var sample1 = new ej.Rating($("#fullRating"),{
+        var sample1 = new ej.Rating($("#fullRating"), {
             value: 4,
             precision: ej.Rating.Precision.Full,
             allowReset: true,
@@ -1762,8 +1762,8 @@ module RatingComponent {
             shapeWidth: 25,
             showTooltip: true
         });
-		
-        var sample2 = new ej.Rating($("#halfRating"),{
+
+        var sample2 = new ej.Rating($("#halfRating"), {
             precision: ej.Rating.Precision.Half,
             value: 3.5,
             allowReset: true,
@@ -1779,7 +1779,7 @@ module RatingComponent {
             showTooltip: true
         });
 
-        var sample3 = new ej.Rating($("#exactRating"),{
+        var sample3 = new ej.Rating($("#exactRating"), {
             precision: ej.Rating.Precision.Exact,
             value: 3.7,
             allowReset: true,
@@ -1793,7 +1793,7 @@ module RatingComponent {
             shapeHeight: 25,
             shapeWidth: 25,
             showTooltip: true
-        }); 
+        });
     });
 
 }
@@ -1822,7 +1822,7 @@ module RibbonComponent {
                 toolTip: "Pin the Ribbon"
             },
             applicationTab: {
-                 type: ej.Ribbon.ApplicationTabType.Menu, menuItemID: "ribbonmenu", menuSettings: { openOnClick: false } 
+                type: ej.Ribbon.ApplicationTabType.Menu, menuItemID: "ribbonmenu", menuSettings: { openOnClick: false }
             },
             tabs: [{
                 id: "home", text: "HOME", groups: [{
@@ -1846,7 +1846,7 @@ module RibbonComponent {
                         }
                     }]
                 },
-                {
+                    {
                         text: "Clipboard", alignType: ej.Ribbon.AlignType.Columns, content: [{
                             groups: [{
                                 id: "paste",
@@ -1868,8 +1868,8 @@ module RibbonComponent {
                                 height: 70
                             }
                         },
-                        {
-                             groups: [{
+                            {
+                                groups: [{
                                     id: "cut",
                                     text: "Cut",
                                     toolTip: "Cut",
@@ -1899,14 +1899,14 @@ module RibbonComponent {
                                             prefixIcon: "e-icon e-ribbon clearAll"
                                         }
                                     }],
-                                     defaults: {
+                                defaults: {
                                     type: "button",
                                     width: 60,
                                     isBig: false
                                 }
-                            }] 
-                },
-                {
+                            }]
+                    },
+                    {
                         text: "Font", alignType: "rows", content: [{
                             groups: [{
                                 id: "fontfamily",
@@ -2205,7 +2205,7 @@ module RibbonComponent {
                             groups: [{
                                 id: "zoomin",
                                 text: "Zoom In",
-                                toolTip: "Zoom In",                                
+                                toolTip: "Zoom In",
                                 buttonSettings: {
                                     width: 58,
                                     click: "onClick",
@@ -2217,7 +2217,7 @@ module RibbonComponent {
                                 {
                                     id: "zoomout",
                                     text: "Zoom Out",
-                                    toolTip: "Zoom Out",                                    
+                                    toolTip: "Zoom Out",
                                     buttonSettings: {
                                         width: 70,
                                         click: "onClick",
@@ -2229,7 +2229,7 @@ module RibbonComponent {
                                 {
                                     id: "fullscreen",
                                     text: "Full Screen",
-                                    toolTip: "Full Screen",                                    
+                                    toolTip: "Full Screen",
                                     buttonSettings: {
                                         width: 73,
                                         click: "onClick",
@@ -2245,7 +2245,7 @@ module RibbonComponent {
                             }
                         }]
                     }]
-            },{
+            }, {
                     id: "insert", text: "INSERT", groups: [{
                         text: "Tables", alignType: ej.Ribbon.AlignType.Columns, content: [{
                             groups: [{
@@ -2390,7 +2390,7 @@ module RibbonComponent {
                                 }
                                 ],
                                 defaults: {
-                                   type: "button",
+                                    type: "button",
                                     width: 70,
                                     height: 70
                                 }
@@ -2472,8 +2472,8 @@ module RibbonComponent {
                         }
                     ]
                 }
-            ],   
-            create: function createControl(args) {
+            ],
+            create: function createControl(args: any) {
                 var ribbon = $("#defaultRibbon").data("ejRibbon");
                 $("#fontcolor").ejColorPicker({ value: "#FFFF00", modelType: "palette", cssClass: "e-ribbon", toolIcon: "e-fontcoloricon", select: colorHandler });
                 $("#fillcolor").ejColorPicker({ value: "#FF0000", modelType: "palette", cssClass: "e-ribbon", toolIcon: "e-fillcoloricon", select: colorHandler });
@@ -2658,7 +2658,7 @@ module ScheduleComponent {
             }
         });
     });
-}   
+}
 
 module ScrollerComponent {
     $(function () {
@@ -2828,7 +2828,6 @@ module piesparkline4 {
     });
 }
 
-	
 
 
 module SplitterComponent {
@@ -2846,6 +2845,7 @@ module SplitterComponent {
     });
 }
 
+
 module SpreadsheetComponent {
 $(function () {
         var sample = new ej.Spreadsheet($("#basicSpreadsheet"), {
@@ -2861,7 +2861,7 @@ $(function () {
                 pdfUrl: (<any>window).baseurl + "api/Spreadsheet/PdfExport"
             },
             sheets: [{ rangeSettings: [{ dataSource: (<any>window).defaultData, startCell: "A1" }] }],
-			loadComplete: () => {  
+			loadComplete:() => {  
 			var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
 			if (!(<any>spreadsheet).isImport) {
         spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
@@ -2882,13 +2882,13 @@ var default_data: Array<Object> = [
 	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 70 },
 	{ Category : "Employees", Country : "USA", JobDescription : "Management",                                                  EmployeesCount : 40 },
 	{ Category : "Employees", Country : "USA", JobDescription : "Accounts",                                                    EmployeesCount : 60 },
-	
+
 	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 43 },
 	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 125},
 	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 60 },
 	{ Category : "Employees", Country : "India",   JobDescription : "HR Executives",                                               EmployeesCount : 70 },
 	{ Category : "Employees", Country : "India",   JobDescription : "Accounts",                                                    EmployeesCount : 45 },
-	
+
 	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Executive",                       EmployeesCount : 30 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Marketing",                                                   EmployeesCount : 50 },
@@ -2897,7 +2897,7 @@ var default_data: Array<Object> = [
 	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Management",                                                  EmployeesCount : 33 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Accounts",                                                    EmployeesCount : 55 },
-	
+
 	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 45 },
 	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 96 },
 	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 55 },
@@ -2913,22 +2913,22 @@ var default_data: Array<Object> = [
 module sunburstcomponent {
     $(function () {
         var sunburstsample = new ej.SunburstChart($("#Sunburst"), {
-            valueMemberPath: "EmployeesCount",           
+            valueMemberPath: "EmployeesCount",
             levels: [
-                {groupMemberPath: "Country"},
-				{groupMemberPath: "JobDescription"},
-				{groupMemberPath: "JobGroup"},
-				{groupMemberPath: "JobRole"}
+                { groupMemberPath: "Country" },
+                { groupMemberPath: "JobDescription" },
+                { groupMemberPath: "JobGroup" },
+                { groupMemberPath: "JobRole" }
             ],
             dataSource: default_data,
-            dataLabelSettings:{visible:true},
-			tooltip:{visible:false},
-			enableAnimation:false,
-			size:{height:"600"},
-			innerRadius:0.2,
+            dataLabelSettings: { visible: true },
+            tooltip: { visible: false },
+            enableAnimation: false,
+            size: { height: "600" },
+            innerRadius: 0.2,
             load: function () {
                 var sender = $("#Sunburst").data("ejSunburstChart");
-                var SunBurstTheme = window.themeStyle + window.themeColor + window.themeVarient;
+                var SunBurstTheme = (<any>window).themeStyle + (<any>window).themeColor + (<any>window).themeVarient;
                 SunBurstTheme = SunBurstTheme.toString();
                 if (SunBurstTheme.indexOf("dark") > -1 || SunBurstTheme.indexOf("contrast") > -1)
                     SunBurstTheme = "flatdark";
@@ -2936,11 +2936,11 @@ module sunburstcomponent {
                     SunBurstTheme = "flatlight";
                 sender.model.theme = SunBurstTheme;
             },
-			title:{text:"Employees Count"},
-			zoomSettings:{enable:false},
-			legend:{visible:true,position:'top'},
-			load:"loadTheme"
+            title: { text: "Employees Count" },
+            zoomSettings: { enable: false },
+            legend: { visible: true, position: 'top' },
         });
+        sunburstsample.model.load = "loadTheme";
     });
 }
 
@@ -3051,27 +3051,27 @@ module TileViewComponent {
             tileSize:"small",
 		 	imageUrl:'content/images/tile/windows/camera.png',		 
         });
-		var tile5 = new ej.Tile($("#tile5"), {
-            imagePosition:"center",		 
-			tileSize:"small",
-			imageUrl:'content/images/tile/windows/messages.png',		 
+        var tile5 = new ej.Tile($("#tile5"), {
+            imagePosition: "center",
+            tileSize: "small",
+            imageUrl: 'content/images/tile/windows/messages.png',
         });
-		var tile6 = new ej.Tile($("#tile6"), {
-            imagePosition:"center",		 
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/games.png',	
-			caption:{text:"Play"}
+        var tile6 = new ej.Tile($("#tile6"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: 'content/images/tile/windows/games.png',
+            caption: { text: "Play" }
         });
-		var tile7 = new ej.Tile($("#tile7"), {	 
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/map.png',
-			caption:{text:"Maps"}
+        var tile7 = new ej.Tile($("#tile7"), {
+            tileSize: "medium",
+            imageUrl: 'content/images/tile/windows/map.png',
+            caption: { text: "Maps" }
         });
-		var tile8 = new ej.Tile($("#tile8"), {
-            imagePosition:"fill",		 
-			tileSize:"wide",
-			imageUrl:'content/images/tile/windows/sports.png',
-			caption:{text:"Sports"}
+        var tile8 = new ej.Tile($("#tile8"), {
+            imagePosition: "fill",
+            tileSize: "wide",
+            imageUrl: 'content/images/tile/windows/sports.png',
+            caption: { text: "Sports" }
         });
 		var tile9 = new ej.Tile($("#tile9"), {
             imagePosition:"fill",
@@ -3114,13 +3114,13 @@ module TimePickerComponent {
 }
 
 module ToolbarComponent {
-    
+
     $(function () {
-        var sample = new ej.Toolbar($("#editingToolbar"),{
+        var sample = new ej.Toolbar($("#editingToolbar"), {
             width: "100%",
             cssClass: "gradient-lime",
             enableSeparator: true,
-            
+
             isResponsive: true,
             orientation: ej.Orientation.Horizontal,
             showRoundedCorner: true
@@ -3130,10 +3130,10 @@ module ToolbarComponent {
 }
 
 module TooltipComponent {
-    
+
     $(function () {
 
-        var sample1 = new ej.Tooltip($("#link1"),{
+        var sample1 = new ej.Tooltip($("#link1"), {
             content: "ECMAScript (or ES) is a trademarked scripting-language specification standardized by Ecma International in ECMA-262 and ISO/IEC 16262.",
             associate: "mousefollow",
             autoCloseTimeout: 5000,
@@ -3143,7 +3143,7 @@ module TooltipComponent {
             showShadow: true
         });
 
-        var sample2 = new ej.Tooltip($("#link2"),{
+        var sample2 = new ej.Tooltip($("#link2"), {
             content: "The World Wide Web (WWW) is an information space where documents and other web resources are identified by URLs, interlinked by hypertext links, and can be accessed via the Internet.",
             position: {
                 stem: {
@@ -3162,7 +3162,7 @@ module TooltipComponent {
             showShadow: true
         });
 
-        var sample3 = new ej.Tooltip($("#link3"),{
+        var sample3 = new ej.Tooltip($("#link3"), {
             content: 'Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.',
             position: {
                 stem: {
@@ -3223,7 +3223,7 @@ module TreeGridComponent {
         isResponsive: true,
     });
 });
-} 
+}
 
 
 var population_data: Array<Object> = [
@@ -3264,7 +3264,7 @@ module treemapcomponent {
     });
 }
 
- 
+
 
 module TreeViewComponent {
     $(function () {
@@ -3278,9 +3278,9 @@ module TreeViewComponent {
 }
 
 module UploadboxComponent {
-    
+
     $(function () {
-        var sample = new ej.Uploadbox($("#UploadDefault"),{
+        var sample = new ej.Uploadbox($("#UploadDefault"), {
             saveUrl: (<any>window).baseurl + "api/uploadbox/Save",
             removeUrl: (<any>window).baseurl + "api/uploadbox/Remove",
             buttonText: {
