@@ -8,6 +8,8 @@
 
 import * as React from 'react';
 
+type Maybe<T> = T | null | undefined
+
 /**
  *  Components
  */
@@ -84,7 +86,7 @@ interface DraggableDimension {
 }
 
 interface Hooks {
-    onDragStart?: (start: DragStart) => void;
+    onDragStart: Maybe<(start: DragStart) => void>;
     onDragEnd: (result: DropResult) => void;
 }
 
@@ -93,7 +95,7 @@ interface Hooks {
  */
 
 interface DragDropContextInternalProps extends Hooks {
-    children?: React.ReactElement<any>;
+    children: Maybe<React.ReactElement<any>>;
 }
 
 /**
@@ -104,14 +106,14 @@ interface Droppable_MapProps {
     // placeholder is used to hold space when
     // not the user is dragging over a list that
     // is not the source list
-    placeholder?: Placeholder;
+    placeholder: Maybe<Placeholder>;
 }
 
 interface Droppable_OwnProps {
     children: (
         provided: DroppableProvided,
         snapshot: DroppableStateSnapshot
-    ) => React.ReactNode;
+    ) => Maybe<React.ReactNode>;
     droppableId: DroppableId;
     type?: TypeId;
     isDropDisabled?: boolean;
@@ -134,10 +136,10 @@ interface Draggable_MapProps {
     shouldAnimateDisplacement?: boolean;
     // only provided when dragging
     // can be null if not over a droppable
-    direction?: Direction;
+    direction: Maybe<Direction>;
     isDropAnimating?: boolean;
     offset?: Position;
-    dimension?: DraggableDimension;
+    dimension: Maybe<DraggableDimension>;
 }
 
 interface Draggable_OwnProps {
@@ -145,7 +147,7 @@ interface Draggable_OwnProps {
     children: (
         provided: DraggableProvided,
         snapshot: DraggableStateSnapshot
-    ) => React.ReactElement<any>;
+    ) => Maybe<React.ReactNode>;
     index: number;
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
@@ -172,7 +174,7 @@ export interface DropResult {
     draggableId: DraggableId;
     type: TypeId;
     source: DraggableLocation;
-    destination?: DraggableLocation;
+    destination: Maybe<DraggableLocation>;
 }
 
 export interface DraggableLocation {
@@ -218,7 +220,7 @@ export interface DraggingStyle {
     transition: 'none';
 
     // Move the element in response to a user dragging
-    transform?: string;
+    transform: Maybe<string>;
 
     // When dragging or dropping we control the z-index to ensure that
     // the layering is correct
@@ -226,7 +228,7 @@ export interface DraggingStyle {
 }
 
 export interface NotDraggingStyle {
-    transform?: string;
+    transform: Maybe<string>;
     // null: use the global animation style
     // none: skip animation (used in certain displacement situations)
     transition: null | 'none';
@@ -237,7 +239,7 @@ export type DraggableStyle = DraggingStyle | NotDraggingStyle;
 // Props that can be spread onto the element directly
 export interface DraggableProps {
     // inline style
-    style?: DraggableStyle;
+    style: Maybe<DraggableStyle>;
     // used for shared global styles
     'data-react-beautiful-dnd-draggable': string;
 }
@@ -245,10 +247,10 @@ export interface DraggableProps {
 export interface DraggableProvided {
     draggableProps: DraggableProps;
     // will be null if the draggable is disabled
-    dragHandleProps?: DragHandleProps;
+    dragHandleProps: Maybe<DragHandleProps>;
     // The following props will be removed once we move to react 16
-    innerRef(element?: HTMLElement | null): void;
-    placeholder?: Node;
+    innerRef(element: Maybe<HTMLElement>): void;
+    placeholder: Maybe<Node>;
 }
 
 export interface DraggableStateSnapshot {
@@ -259,8 +261,8 @@ export interface DraggableStateSnapshot {
  *  Droppable
  */
 export interface DroppableProvided {
-    innerRef(element?: HTMLElement | null): void;
-    placeholder?: React.ReactNode;
+    innerRef(element: Maybe<HTMLElement>): void;
+    placeholder: Maybe<React.ReactNode>;
 }
 
 export interface DroppableStateSnapshot {
