@@ -27,6 +27,7 @@ export * from "./three-projector";
 export * from "./three-renderpass";
 export * from "./three-shaderpass";
 export * from "./three-smaapass";
+export * from "./three-filmpass";
 export * from "./three-trackballcontrols";
 export * from "./three-transformcontrols";
 export * from "./three-vrcontrols";
