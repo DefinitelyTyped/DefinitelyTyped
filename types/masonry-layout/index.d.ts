@@ -50,6 +50,7 @@ declare namespace Masonry {
         fitWidth?: boolean;
         originLeft?: boolean;
         originTop?: boolean;
+        horizontalOrder?: boolean;
 
         // setup
         containerStyle?: {};
