@@ -16,15 +16,15 @@ declare class PQueue<O extends PQueue.QueueAddOptions = PQueue.DefaultAddOptions
 
     add<T>(fn: PQueue.Task<T>, opts?: O): Promise<T>;
 
-    addAll<TAll>(fns: PQueue.Task<TAll>[], opts?: O): Promise<TAll[]>;
+    addAll<TAll>(fns: Array<PQueue.Task<TAll>>, opts?: O): Promise<TAll[]>;
 
     pause(): void;
 
     start(): void;
 
-    onEmpty(): Promise<void>;
+    onEmpty(): Promise<undefined>;
 
-    onIdle(): Promise<void>;
+    onIdle(): Promise<undefined>;
 
     clear(): void;
 }
