@@ -178,6 +178,10 @@ export interface Client {
 }
 
 export interface ResourceServer {
+  /**
+   * The identifier of the resource server.
+   */
+  identifier?: string;
   scopes?: { description: string, value: string }[];
   /**
    * The algorithm used to sign tokens.
@@ -217,7 +221,7 @@ export interface CreateResourceServer extends ResourceServer {
   /**
    * The identifier of the client.
    */
-  identifier?: string;
+  identifier: string;
 }
 
 export interface CreateClientGrant {
