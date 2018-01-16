@@ -1531,6 +1531,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "xterm.js",
+            "typingsPackageName": "xterm",
+            "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "zetapush-js",
             "typingsPackageName": "zetapush-js",
             "sourceRepoURL": "https://github.com/zetapush/zetapush-js",
