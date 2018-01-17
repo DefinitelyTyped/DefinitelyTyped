@@ -233,6 +233,8 @@ export class Toast extends Component<{
     onPreHide?(): void,
     onPostHide?(): void,
     onDeviceBackButton?(): void,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class ActionSheet extends Component<{
