@@ -1,31 +1,32 @@
-import request = require('request');
+import FormData = require('form-data');
+import fs = require('fs');
 import http = require('http');
+import path = require('path');
+import qs = require('querystring');
+import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
-import fs = require('fs');
-import FormData = require('form-data');
-import path = require('path');
 
-var value: any;
-var str: string;
-var strOrUndef: string | undefined;
-var strOrTrueOrUndef: string | true | undefined;
-var buffer: NodeBuffer = new Buffer('foo');
-var num: number = 0;
-var bool: boolean;
-var date: Date;
-var obj: object;
-var dest: string = 'foo';
+const value: any = 'value';
+let str: string;
+let strOrUndef: string | undefined;
+let strOrTrueOrUndef: string | true | undefined;
+const buffer: NodeBuffer = new Buffer('foo');
+const num = 0;
+let bool: boolean;
+let date: Date;
+let obj: object;
+const dest = 'foo';
 
-var uri: string = 'foo-bar';
-var headers: request.Headers = {};
+const uri = 'foo-bar';
+const headers: request.Headers = {};
 
-var agent: http.Agent;
-var write: stream.Writable = new stream.Writable();
-var req: request.Request = request(uri, function callback() {});
-var form1: FormData;
+let agent: http.Agent;
+let write: stream.Writable = new stream.Writable();
+let req: request.Request = request(uri, function callback() {});
+let form: FormData;
 
-var bodyArr: request.RequestPart[] = [{
+const bodyArr: request.RequestPart[] = [{
 	body: value
 }, {
 	body: value
@@ -52,7 +53,7 @@ var bodyArr: request.RequestPart[] = [{
 
 obj = req.toJSON();
 
-var cookie: request.Cookie = request.cookie('foo')!;
+let cookie: request.Cookie = request.cookie('foo')!;
 str = cookie.key;
 str = cookie.value;
 date = cookie.expires;
@@ -60,16 +61,16 @@ str = cookie.path;
 str = cookie.toString();
 bool = cookie.httpOnly;
 
-var jar: request.CookieJar = request.jar();
+let jar: request.CookieJar = request.jar();
 jar.setCookie(cookie, uri);
 str = jar.getCookieString(uri);
-var cookies: request.Cookie[] = jar.getCookies(uri);
+const cookies: request.Cookie[] = jar.getCookies(uri);
 
-var aws: request.AWSOptions = { secret: 'foo' };
+const aws: request.AWSOptions = { secret: 'foo' };
 str = aws.secret;
 strOrUndef = aws.bucket;
 
-var oauth: request.OAuthOptions = { body_hash: 'foo' };
+let oauth: request.OAuthOptions = { body_hash: 'foo' };
 strOrUndef = oauth.callback;
 strOrUndef = oauth.consumer_key;
 strOrUndef = oauth.consumer_secret;
@@ -79,14 +80,14 @@ strOrUndef = oauth.transport_method;
 strOrUndef = oauth.verifier;
 strOrTrueOrUndef = oauth.body_hash;
 
-var options: request.Options = {
+let options: request.Options = {
 	url: str,
 	uri: str,
 	callback: (error: any, response: any, body: any) => {},
 	jar: value,
 	form: obj,
 	oauth: value,
-	aws: aws,
+	aws,
 	qs: obj,
 	json: value,
 	jsonReviver: (key: string, value: any) => {},
@@ -210,17 +211,10 @@ req = request.delete(uri, callback);
 req = request.delete(options);
 req = request.delete(options, callback);
 
-value = request.initParams(uri);
-value = request.initParams(uri, options);
-value = request.initParams(uri, options, callback);
-value = request.initParams(uri, callback);
-value = request.initParams(options);
-value = request.initParams(options, callback);
-
 req = request.forever(value, value);
 jar = request.jar();
 
-var r = request.defaults(options);
+const r = request.defaults(options);
 r(str);
 r.get(str);
 r.post(str);
@@ -279,7 +273,7 @@ http.createServer((req, resp) => {
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    var x = request('http://mysite.com/doodle.png');
+    const x = request('http://mysite.com/doodle.png');
     req.pipe(x);
     x.pipe(resp);
   }
@@ -301,7 +295,7 @@ request.post('http://service.com/upload').form({key: 'value'});
 // or
 request.post({url: 'http://service.com/upload', form: {key: 'value'}}, (err, httpResponse, body) => { /* ... */ });
 
-var data = {
+const data = {
   // Pass a simple key-value pair
   my_field: 'my_value',
   // Pass data via Buffers
@@ -332,8 +326,8 @@ request.post({url: 'http://service.com/upload', formData: data}, function option
   console.log('Upload successful!  Server responded with:', body);
 });
 
-var requestMultipart = request.post('http://service.com/upload', function optionalCallback(err, httpResponse, body) {});
-var form = requestMultipart.form();
+const requestMultipart = request.post('http://service.com/upload', function optionalCallback(err, httpResponse, body) {});
+form = requestMultipart.form();
 form.append('my_field', 'my_value');
 form.append('my_buffer', new Buffer([1, 2, 3]));
 form.append('custom_file', fs.createReadStream(__dirname + '/unicycle.jpg'), {filename: 'unicycle.jpg'});
@@ -407,11 +401,11 @@ request.get('http://some.server.com/', {
   }
 });
 
-let username = 'username';
-let password = 'password';
-var url = `http://'${username}:${password}'@some.server.com`;
+const username = 'username';
+const password = 'password';
+let url = `http://'${username}:${password}'@some.server.com`;
 
-request({url: url}, (error, response, body) => {
+request({url}, (error, response, body) => {
    // Do more stuff with 'body' here
 });
 
@@ -424,7 +418,7 @@ options = {
 
 function callback(error: any, response: http.IncomingMessage, body: string) {
   if (!error && response.statusCode === 200) {
-    var info = JSON.parse(body);
+    const info = JSON.parse(body);
     console.log(info.stargazers_count + " Stars");
     console.log(info.forks_count + " Forks");
   }
@@ -434,7 +428,6 @@ request(options, callback);
 
 // OAuth1.0 - 3-legged server side flow (Twitter example)
 // step 1
-import qs = require('querystring');
 const CONSUMER_KEY = 'key';
 const CONSUMER_SECRET = 'secret';
 oauth = {
@@ -445,52 +438,52 @@ oauth = {
 };
 url = 'https://api.twitter.com/oauth/request_token';
 
-request.post({url: url, oauth: oauth}, (e, r, body) => {
+request.post({url, oauth}, (e, r, body) => {
   // Ideally, you would take the body in the response
   // and construct a URL that a user clicks on (like a sign in button).
   // The verifier is only available in the response after a user has
   // verified with twitter that they are authorizing your app.
 
   // step 2
-  var req_data = qs.parse(body);
-  var uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
+  const req_data = qs.parse(body);
+  const uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
   // redirect the user to the authorize uri
 
   // step 3
   // after the user is redirected back to your server
-  var auth_data: any = qs.parse(body);
-  var oauth = {
+  const auth_data: any = qs.parse(body);
+  const oauth = {
         consumer_key: CONSUMER_KEY,
         consumer_secret: CONSUMER_SECRET,
         token: auth_data.oauth_token,
         token_secret: req_data.oauth_token_secret as string,
         verifier: auth_data.oauth_verifier
     };
-  var url = 'https://api.twitter.com/oauth/access_token';
+  const url = 'https://api.twitter.com/oauth/access_token';
 
-  request.post({url: url, oauth: oauth}, (e, r, body) => {
+  request.post({url, oauth}, (e, r, body) => {
     // ready to make signed requests on behalf of the user
-    var perm_data: any = qs.parse(body);
-    var oauth = {
+    const perm_data: any = qs.parse(body);
+    const oauth = {
         consumer_key: CONSUMER_KEY,
         consumer_secret: CONSUMER_SECRET,
         token: perm_data.oauth_token,
         token_secret: perm_data.oauth_token_secret
       };
-    var url = 'https://api.twitter.com/1.1/users/show.json';
-    var query = {
+    const url = 'https://api.twitter.com/1.1/users/show.json';
+    const query = {
       screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
-    request.get({url: url, oauth: oauth, qs: query, json: true}, (e, r, user) => {
+    request.get({url, oauth, qs: query, json: true}, (e, r, user) => {
       console.log(user);
     });
   });
 });
 
-var certFile = path.resolve(__dirname, 'ssl/client.crt');
-var keyFile = path.resolve(__dirname, 'ssl/client.key');
-var caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
+const certFile = path.resolve(__dirname, 'ssl/client.crt');
+const keyFile = path.resolve(__dirname, 'ssl/client.key');
+const caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -501,9 +494,6 @@ options = {
 };
 
 request.get(options);
-
-var certFile = path.resolve(__dirname, 'ssl/client.crt');
-var keyFile = path.resolve(__dirname, 'ssl/client.key');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -565,13 +555,13 @@ request({
   });
 
 // requests using baseRequest() will set the 'x-token' header
-var baseRequest = request.defaults({
+const baseRequest = request.defaults({
   headers: {'x-token': 'my-token'}
 });
 
 // requests using specialRequest() will include the 'x-token' header set in
 // baseRequest and will also include the 'special' header
-var specialRequest = baseRequest.defaults({
+const specialRequest = baseRequest.defaults({
   headers: {special: 'special value'}
 });
 
@@ -597,7 +587,7 @@ request.get('http://10.255.255.1', {timeout: 1500}, (err) => {
     process.exit(0);
 });
 
-var rand = Math.floor(Math.random() * 100000000).toString();
+const rand = Math.floor(Math.random() * 100000000).toString();
   request(
     { method: 'PUT'
     , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
@@ -640,22 +630,22 @@ request(
     });
   });
 
-var requestWithJar = request.defaults({jar: true});
+let requestWithJar = request.defaults({jar: true});
 requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-var j = request.jar();
-requestWithJar = request.defaults({jar: j});
+jar = request.jar();
+requestWithJar = request.defaults({jar});
 requestWithJar('http://www.google.com', () => {
   requestWithJar('http://images.google.com');
 });
 
-var j = request.jar();
+jar = request.jar();
 cookie = request.cookie('key1=value1')!;
-var url = 'http://www.google.com';
-j.setCookie(cookie, url);
-request({url: url, jar: j}, () => {
+url = 'http://www.google.com';
+jar.setCookie(cookie, url);
+request({url, jar}, () => {
   request('http://images.google.com');
 });
 
@@ -663,15 +653,15 @@ request({url: url, jar: j}, () => {
 // var FileCookieStore = require('tough-cookie-filestore');
 // NOTE - currently the 'cookies.json' file must already exist!
 // var j = request.jar(new FileCookieStore('cookies.json'));
-requestWithJar = request.defaults({ jar : j });
+requestWithJar = request.defaults({ jar });
 request('http://www.google.com', () => {
   request('http://images.google.com');
 });
 
-var j = request.jar();
-request({url: 'http://www.google.com', jar: j}, () => {
-  var cookie_string = j.getCookieString(url); // "key1=value1; key2=value2; ..."
-  var cookies = j.getCookies(url);
+jar = request.jar();
+request({url: 'http://www.google.com', jar}, () => {
+  const cookie_string = jar.getCookieString(url); // "key1=value1; key2=value2; ..."
+  const cookies = jar.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });
 
@@ -696,7 +686,7 @@ request.get({
   uri: urlModule.parse('http://example.com')
 });
 
-var requestWithOptionalUri = request.defaults({ uri: 'http://example.com' });
+const requestWithOptionalUri = request.defaults({ uri: 'http://example.com' });
 
 requestWithOptionalUri();
 
@@ -737,3 +727,24 @@ requestWithOptionalUri.get({
 requestWithOptionalUri.get({
   uri: urlModule.parse('http://example.com')
 });
+
+//// initParams
+const optionsWithoutUriUrl: request.CoreOptions = {};
+let optionsWithUriUrl: request.RequiredUriUrl = {
+  uri: 'http://example.com',
+};
+
+optionsWithUriUrl = request.initParams(uri);
+optionsWithUriUrl = request.initParams(uri, optionsWithoutUriUrl);
+optionsWithUriUrl = request.initParams(uri, optionsWithoutUriUrl, callback);
+optionsWithUriUrl = request.initParams(uri, callback);
+optionsWithUriUrl = request.initParams(optionsWithUriUrl);
+optionsWithUriUrl = request.initParams(optionsWithUriUrl, callback);
+
+const defaultsForInitParams = request.defaults({});
+options = defaultsForInitParams.initParams(uri);
+options = defaultsForInitParams.initParams(uri, optionsWithoutUriUrl);
+options = defaultsForInitParams.initParams(uri, optionsWithoutUriUrl, callback);
+options = defaultsForInitParams.initParams(uri, callback);
+options = defaultsForInitParams.initParams(optionsWithUriUrl);
+options = defaultsForInitParams.initParams(optionsWithUriUrl, callback);

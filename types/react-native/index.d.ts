@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.51
+// Type definitions for react-native 0.52
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -4363,7 +4363,7 @@ export interface ModalProperties {
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
      * @platform ios
      */
-    onOrientationChange?: () => void;
+    onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
      /**
      * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
      * @platform ios

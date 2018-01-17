@@ -11,8 +11,6 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference types="assertion-error"/>
-
 declare namespace Chai {
     interface ChaiStatic {
         expect: ExpectStatic;
