@@ -1519,6 +1519,12 @@
             "asOfVersion": "2.11.0"
         },
         {
+            "libraryName": "Webix UI",
+            "typingsPackageName": "webix",
+            "sourceRepoURL": "http://webix.com",
+            "asOfVersion": "5.1.1"
+        },
+        {
             "libraryName": "wolfy87-eventemitter",
             "typingsPackageName": "wolfy87-eventemitter",
             "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
