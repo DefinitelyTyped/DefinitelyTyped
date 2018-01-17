@@ -11,7 +11,19 @@ import {
 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
+class StringCarousel extends Carousel<string> {}
+
 class SnapCarouselTest extends React.Component {
+    data = ['Item #1', 'Item #2', 'Item #3'];
+
+    renderItem({ item }: { item: string }): React.ReactNode {
+        return (
+            <View style={styles.item}>
+                <Text>{item}</Text>
+            </View>
+        );
+    }
+
     render(): React.ReactElement<any> {
         return (
             <View>
@@ -19,7 +31,9 @@ class SnapCarouselTest extends React.Component {
                     itemWidth={75}
                     sliderWidth={300}
                 />
-                <Carousel
+                <StringCarousel
+                    data={this.data}
+                    renderItem={item => this.renderItem(item)}
                     itemWidth={75}
                     sliderWidth={300}
                     containerCustomStyle={styles.container}
@@ -30,13 +44,7 @@ class SnapCarouselTest extends React.Component {
                     onLayout={this.onLayout}
                     scrollEndDragDebounceValue={100}
                     vertical={false}
-                >
-                    <View
-                        style={styles.item}
-                    >
-                        <Text>Item #1</Text>
-                    </View>
-                </Carousel>
+                />
                 <Carousel
                     itemHeight={75}
                     sliderHeight={300}
