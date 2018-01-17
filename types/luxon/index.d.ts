@@ -10,6 +10,10 @@ declare module 'luxon' {
         type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
         type ZoneOptions = {
+            keepLocalTime?: boolean;
+            /**
+             * @deprecated since 0.2.12. Use keepLocalTime instead
+             */
             keepCalendarTime?: boolean;
         };
 
@@ -94,11 +98,27 @@ declare module 'luxon' {
                 options?: DateTimeOptions
             ): DateTime;
             static fromSQL(text: string, options?: DateTimeOptions): DateTime;
+            static fromFormat(
+                text: string,
+                format: string,
+                opts?: DateTimeOptions
+            ): DateTime;
+            static fromFormatExplain(
+                text: string,
+                format: string,
+                opts?: DateTimeOptions
+            ): object;
+            /**
+             * @deprecated since 0.3.0. Use fromFormat instead
+             */
             static fromString(
                 text: string,
                 format: string,
                 options?: DateTimeOptions
             ): DateTime;
+            /**
+             * @deprecated 0.3.0. Use fromFormatExplain instead
+             */
             static fromStringExplain(
                 text: string,
                 format: string,
