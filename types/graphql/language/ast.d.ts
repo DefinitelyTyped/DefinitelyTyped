@@ -412,7 +412,7 @@ export interface NonNullTypeNode {
 export type TypeSystemDefinitionNode =
     | SchemaDefinitionNode
     | TypeDefinitionNode
-    | TypeExtensionDefinitionNode
+    | TypeExtensionNode
     | DirectiveDefinitionNode;
 
 export interface SchemaDefinitionNode {
