@@ -656,6 +656,13 @@ export class StereoCamera extends Camera {
     update(camera: PerspectiveCamera): void;
 }
 
+export class ArrayCamera extends PerspectiveCamera {
+    constructor(cameras?: PerspectiveCamera[]);
+
+    cameras: PerspectiveCamera[];
+    isArrayCamera: true;
+}
+
 // Core ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -5134,6 +5141,8 @@ export class WebGLRenderer implements Renderer {
     state: WebGLState;
     allocTextureUnit: any;
 
+    vr: WebVRManager;
+
     /**
      * Return the WebGL context.
      */
@@ -7076,4 +7085,14 @@ export class MorphBlendMesh extends Mesh {
     playAnimation(name: string): void;
     stopAnimation(name: string): void;
     update(delta: number): void;
+}
+
+export interface WebVRManager {
+    enabled: boolean;
+    getDevice(): VRDisplay | null;
+    setDevice(device: VRDisplay | null): void;
+    setPoseTarget(object: Object3D | null): void;
+    getCamera(camera: PerspectiveCamera): PerspectiveCamera | ArrayCamera;
+    submitFrame(): void;
+    dispose(): void;
 }
