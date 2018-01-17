@@ -1373,6 +1373,8 @@ declare namespace kendo.ui {
 
     interface DropTargetEvent {
         sender?: DropTarget;
+        dropTarget?: JQuery;
+        target?: Element;
     }
 
     interface DropTargetDragenterEvent extends DropTargetEvent {
