@@ -589,6 +589,12 @@
             "asOfVersion": "4.2.0"
         },
         {
+            "libraryName": "gulp-typedoc",
+            "typingsPackageName": "gulp-typedoc",
+            "sourceRepoURL": "https://github.com/rogierschouten/gulp-typedoc",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "gulp-typescript",
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
