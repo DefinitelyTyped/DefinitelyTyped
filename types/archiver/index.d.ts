@@ -3,6 +3,7 @@
 // Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>, Crevil <https://github.com/crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as fs from 'fs';
 import * as stream from 'stream';
 import * as glob from 'glob';
 import { ZlibOptions } from 'zlib';
@@ -18,7 +19,9 @@ declare namespace archiver {
     interface EntryData {
         name?: string;
         prefix?: string;
-        stats?: string;
+        stats?: fs.Stats;
+        date?: Date | string;
+        mode?: number;
     }
 
     /** A function that lets you either opt out of including an entry (by returning false), or modify the contents of an entry as it is added (by returning an EntryData) */
