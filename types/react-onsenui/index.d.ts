@@ -352,9 +352,14 @@ export class TabActive extends Component { }
 
 export class TabInactive extends Component { }
 
+export interface TabbarRenderTab {
+    content: JSX.Element,
+    tab: JSX.Element,
+}
+
 export class Tabbar extends Component<{
     index?: number,
-    renderTabs?(): any,
+    renderTabs?(): TabbarRenderTab[],
     position?: "bottom" | "top" | "auto",
     swipeable?: boolean,
     ignoreEdgeWidth?: number,
