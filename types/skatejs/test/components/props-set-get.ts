@@ -20,7 +20,7 @@ export class MyComponent extends Component<Props, State> {
   myArray: string[] = [];
   private someNonPublicApiProp = 'Who are you?';
 
-  private button = document.createElement('button');
+  private readonly button = document.createElement('button');
 
   render() {
     this.button.textContent = 'Hello World';
@@ -33,7 +33,7 @@ export class MyComponent extends Component<Props, State> {
     this.button.removeEventListener('click', this._changeState);
   }
 
-  private _changeState = (event: MouseEvent) => {
+  private readonly _changeState = (event: MouseEvent) => {
     // as Props casting is needed as there is absolutely no way how to differently create
     // type definitions for setter and getter
     // tslint:disable-next-line no-object-literal-type-assertion
