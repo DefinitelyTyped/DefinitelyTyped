@@ -265,6 +265,13 @@ const Test = reduxForm<TestFormData>({
                                 component="select"
                             />
 
+                            <Field
+                                name="field4"
+                                component="input"
+                                onChange={(event, newValue, previousValue) => {}}
+                                onBlur={(event, newValue, previousValue) => {}}
+                            />
+
                             <ImmutableField
                                 name="field3im"
                                 component="select"
