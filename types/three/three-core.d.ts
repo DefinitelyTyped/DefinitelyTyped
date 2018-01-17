@@ -6621,9 +6621,13 @@ export class ConeBufferGeometry extends BufferGeometry {
 export class ConeGeometry extends CylinderGeometry {
     constructor(radius?: number, height?: number, radialSegment?: number, heightSegment?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
 }
+	
+export class DodecahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
 
 export class DodecahedronGeometry extends Geometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 
     parameters: {
         radius: number;
@@ -6648,8 +6652,12 @@ export class ExtrudeGeometry extends Geometry {
     addShape(shape: Shape, options?: any): void;
 }
 
+export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
+
 export class IcosahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class LatheBufferGeometry extends BufferGeometry {
@@ -6673,9 +6681,13 @@ export class LatheGeometry extends Geometry {
         phiLength: number;
     };
 }
+	
+export class OctahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
 
 export class OctahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class ParametricGeometry extends Geometry {
@@ -6708,6 +6720,17 @@ export class PlaneGeometry extends Geometry {
         widthSegments: number;
         heightSegments: number;
     };
+}
+	
+export class PolyhedronBufferGeometry extends BufferGeometry {
+	constructor(vertices: number[], indices: number[], radius: number, detail: number);
+	
+	parameters: {
+		vertices: number[];
+		indices: number[];
+		radius: number;
+		detail: number;
+	}
 }
 
 export class PolyhedronGeometry extends Geometry {
@@ -6796,6 +6819,10 @@ export class SphereGeometry extends Geometry {
         thetaStart: number;
         thetaLength: number;
     };
+}
+	
+export class TetrahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
 }
 
 export class TetrahedronGeometry extends PolyhedronGeometry {
