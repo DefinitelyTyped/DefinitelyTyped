@@ -61,6 +61,13 @@ export interface ChartConfiguration {
         left?: number;
     };
 
+    resize?: {
+        /**
+         * Indicate if the chart should automatically get resized when the window gets resized.
+         */
+        auto?: boolean;
+    };
+
     color?: {
         /**
          * Set custom color pattern.

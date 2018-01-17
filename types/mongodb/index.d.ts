@@ -31,7 +31,7 @@ export class MongoClient extends EventEmitter {
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
     static connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
     static connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
-    /** 
+    /**
      * @deprecated
      * http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#connect
      */
@@ -832,7 +832,7 @@ export interface CollectionAggregationOptions {
     collation?: Object;
     comment?: string
     session?: ClientSession;
-                                  
+
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#insertMany */
@@ -1355,7 +1355,7 @@ export class GridFSBucket {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucket.html#openUploadStream */
     openUploadStream(filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucket.html#openUploadStreamWithId */
-    openUploadStreamWithId(id: string | number | Object, filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
+    openUploadStreamWithId(id: GridFSBucketWriteStreamId, filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucket.html#rename */
     rename(id: ObjectID, filename: string, callback?: GridFSBucketErrorCallback): void;
 }
@@ -1393,6 +1393,7 @@ export interface GridFSBucketOpenUploadStreamOptions {
 
 /** https://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucketReadStream.html */
 export class GridFSBucketReadStream extends Readable {
+    id: ObjectID;
     constructor(chunks: Collection<any>, files: Collection<any>, readPreference: Object, filter: Object, options?: GridFSBucketReadStreamOptions);
 }
 
@@ -1406,12 +1407,13 @@ export interface GridFSBucketReadStreamOptions {
 
 /** https://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucketWriteStream.html */
 export class GridFSBucketWriteStream extends Writable {
+    id: GridFSBucketWriteStreamId;
     constructor(bucket: GridFSBucket, filename: string, options?: GridFSBucketWriteStreamOptions);
 }
 
 /** https://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucketWriteStream.html */
 export interface GridFSBucketWriteStreamOptions {
-    id?: string | number | Object,
+    id?: GridFSBucketWriteStreamId,
     chunkSizeBytes?: number,
     w?: number,
     wtimeout?: number,
@@ -1439,7 +1441,6 @@ export class ChangeStream extends Readable {
 
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/ChangeStream.html#stream */
     stream(options?: { transform: Function }): Cursor;
-
 }
 
 export interface ChangeStreamOptions {
@@ -1450,3 +1451,5 @@ export interface ChangeStreamOptions {
     collation?: Object;
     readPreference?: ReadPreference;
 }
+
+type GridFSBucketWriteStreamId = string | number | Object | ObjectID;

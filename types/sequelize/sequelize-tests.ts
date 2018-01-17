@@ -980,6 +980,7 @@ User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );
+User.count( { col: 'title', distinct: true, where : { access_level : { gt : 5 } } } );
 
 User.findAndCountAll( { offset : 5, limit : 1, include : [User, { model : User, as : 'a' }] } );
 
@@ -1144,6 +1145,9 @@ queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryK
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
+queryInterface.addColumn({tableName:'users', schema:'test'}, 'enum',{ type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] });
+queryInterface.removeColumn('users','so');
+queryInterface.removeColumn({tableName:'users', schema:'test'},'enum');
 queryInterface.createTable( 'hosts', {
     id : {
         type : Sequelize.INTEGER,

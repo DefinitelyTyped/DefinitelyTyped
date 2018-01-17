@@ -44,6 +44,7 @@
         "test/run.ts",
         "test/test.ts",
         "test/controller.ts",
-        "test/route.ts"
+        "test/route.ts",
+        "test/view-utils.ts"
     ]
 }
