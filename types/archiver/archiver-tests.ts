@@ -39,7 +39,7 @@ archiver.append(readStream, {name: 'archiver.d.ts'})
 .append(readStream, {name: 'archiver.d.ts'});
 
 archiver.directory('./path', './someOtherPath');
-archiver.directory('./', "", {});
+archiver.directory('./', '', {});
 archiver.directory('./', false, { name: 'test' });
 archiver.directory('./', false, (entry: Archiver.EntryData) => {
     entry.name = "foobar";
