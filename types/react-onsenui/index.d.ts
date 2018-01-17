@@ -249,7 +249,7 @@ export class ActionSheetButton extends Component<{
 export class ProgressBar extends Component<{
     modifier?: string,
     value?: number,
-    secondaryValue?: boolean,
+    secondaryValue?: number,
     indeterminate?: boolean,
 }, any> {}
 
