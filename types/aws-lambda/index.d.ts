@@ -301,7 +301,7 @@ export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceS
 interface ScheduledEvent {
     account: string;
     region: string;
-    detail: {};
+    detail: any;
     "detail-type": string;
     source: string;
     time: string;

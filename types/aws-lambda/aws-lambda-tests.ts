@@ -24,38 +24,37 @@ var snsMsg: AWSLambda.SNSMessage;
 var snsMsgAttr: AWSLambda.SNSMessageAttribute;
 var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
 var S3EvtRec: AWSLambda.S3EventRecord = {
-    eventVersion: "2.0",
-    eventSource: "aws:s3",
-    awsRegion: "us-east-1",
-    eventTime: "1970-01-01T00:00:00.000Z",
-    eventName: "ObjectCreated:Put",
+    eventVersion: '2.0',
+    eventSource: 'aws:s3',
+    awsRegion: 'us-east-1',
+    eventTime: '1970-01-01T00:00:00.000Z',
+    eventName: 'ObjectCreated:Put',
     userIdentity: {
-        principalId: "AIDAJDPLRKLG7UEXAMPLE"
+        principalId: 'AIDAJDPLRKLG7UEXAMPLE'
     },
-    requestParameters: {
-        sourceIPAddress: "127.0.0.1"
+    requestParameters:{
+        sourceIPAddress: '127.0.0.1'
     },
     responseElements: {
-        "x-amz-request-id": "C3D13FE58DE4C810",
-        "x-amz-id-2":
-            "FMyUVURIY8/IgAtTv8xRjskZQpcIZ9KG4V5Wp6S7S/JRWeUWerMUE5JgHvANOjpD"
+        'x-amz-request-id': 'C3D13FE58DE4C810',
+        'x-amz-id-2': 'FMyUVURIY8/IgAtTv8xRjskZQpcIZ9KG4V5Wp6S7S/JRWeUWerMUE5JgHvANOjpD'
     },
     s3: {
-        s3SchemaVersion: "1.0",
-        configurationId: "testConfigRule",
+        s3SchemaVersion: '1.0',
+        configurationId: 'testConfigRule',
         bucket: {
-            name: "mybucket",
+            name: 'mybucket',
             ownerIdentity: {
-                principalId: "A3NL1KOZZKExample"
+                principalId: 'A3NL1KOZZKExample'
             },
-            arn: "arn:aws:s3:::mybucket"
+            arn: 'arn:aws:s3:::mybucket'
         },
         object: {
-            key: "HappyFace.jpg",
+            key: 'HappyFace.jpg',
             size: 1024,
-            eTag: "d41d8cd98f00b204e9800998ecf8427e",
-            versionId: "096fKKXTRTtl3on89fVO.nfljtsv6qko",
-            sequencer: "0055AED6DCD90281E5"
+            eTag: 'd41d8cd98f00b204e9800998ecf8427e',
+            versionId: '096fKKXTRTtl3on89fVO.nfljtsv6qko',
+            sequencer: '0055AED6DCD90281E5'
         }
     }
 };
@@ -117,93 +116,93 @@ apiGwEvtReqCtx = apiGwEvt.requestContext;
 var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
     Records: [
         {
-            eventID: "1",
-            eventVersion: "1.0",
+            eventID: '1',
+            eventVersion: '1.0',
             dynamodb: {
                 Keys: {
                     Id: {
-                        N: "101"
+                        N: '101'
                     }
                 },
                 NewImage: {
                     Message: {
-                        S: "New item!"
+                        S: 'New item!'
                     },
                     Id: {
-                        N: "101"
+                        N: '101'
                     }
                 },
-                StreamViewType: "NEW_AND_OLD_IMAGES",
-                SequenceNumber: "111",
+                StreamViewType: 'NEW_AND_OLD_IMAGES',
+                SequenceNumber: '111',
                 SizeBytes: 26
             },
-            awsRegion: "us-west-2",
-            eventName: "INSERT",
+            awsRegion: 'us-west-2',
+            eventName: 'INSERT',
             eventSourceARN:
-                "arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899",
-            eventSource: "aws:dynamodb"
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
         },
         {
-            eventID: "2",
-            eventVersion: "1.0",
+            eventID: '2',
+            eventVersion: '1.0',
             dynamodb: {
                 OldImage: {
                     Message: {
-                        S: "New item!"
+                        S: 'New item!'
                     },
                     Id: {
-                        N: "101"
+                        N: '101'
                     }
                 },
-                SequenceNumber: "222",
+                SequenceNumber: '222',
                 Keys: {
                     Id: {
-                        N: "101"
+                        N: '101'
                     }
                 },
                 SizeBytes: 59,
                 NewImage: {
                     Message: {
-                        S: "This item has changed"
+                        S: 'This item has changed'
                     },
                     Id: {
-                        N: "101"
+                        N: '101'
                     }
                 },
-                StreamViewType: "NEW_AND_OLD_IMAGES"
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
             },
-            awsRegion: "us-west-2",
-            eventName: "MODIFY",
+            awsRegion: 'us-west-2',
+            eventName: 'MODIFY',
             eventSourceARN:
-                "arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899",
-            eventSource: "aws:dynamodb"
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
         },
         {
-            eventID: "3",
-            eventVersion: "1.0",
+            eventID: '3',
+            eventVersion: '1.0',
             dynamodb: {
                 Keys: {
                     Id: {
-                        N: "101"
+                        N: '101'
                     }
                 },
                 SizeBytes: 38,
-                SequenceNumber: "333",
+                SequenceNumber: '333',
                 OldImage: {
                     Message: {
-                        S: "This item has changed"
+                        S: 'This item has changed'
                     },
                     Id: {
-                        N: "101"
+                        N: '101'
                     }
                 },
-                StreamViewType: "NEW_AND_OLD_IMAGES"
+                StreamViewType: 'NEW_AND_OLD_IMAGES'
             },
-            awsRegion: "us-west-2",
-            eventName: "REMOVE",
+            awsRegion: 'us-west-2',
+            eventName: 'REMOVE',
             eventSourceARN:
-                "arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899",
-            eventSource: "aws:dynamodb"
+                'arn:aws:dynamodb:us-west-2:account-id:table/ExampleTableWithStream/stream/2015-06-27T00:48:05.899',
+            eventSource: 'aws:dynamodb'
         }
     ]
 };
@@ -291,8 +290,7 @@ cognitoUserPoolEvent.triggerSource === "CustomMessage_VerifyUserAttribute";
 cognitoUserPoolEvent.triggerSource === "CustomMessage_Authentication";
 cognitoUserPoolEvent.triggerSource === "DefineAuthChallenge_Authentication";
 cognitoUserPoolEvent.triggerSource === "CreateAuthChallenge_Authentication";
-cognitoUserPoolEvent.triggerSource ===
-    "VerifyAuthChallengeResponse_Authentication";
+cognitoUserPoolEvent.triggerSource === "VerifyAuthChallengeResponse_Authentication";
 str = cognitoUserPoolEvent.region;
 str = cognitoUserPoolEvent.userPoolId;
 str = cognitoUserPoolEvent.userName;
@@ -307,8 +305,7 @@ cognitoUserPoolEvent.request.session[0].challengeName === "CUSTOM_CHALLENGE";
 cognitoUserPoolEvent.request.session[0].challengeName === "PASSWORD_VERIFIER";
 cognitoUserPoolEvent.request.session[0].challengeName === "SMS_MFA";
 cognitoUserPoolEvent.request.session[0].challengeName === "DEVICE_SRP_AUTH";
-cognitoUserPoolEvent.request.session[0].challengeName ===
-    "DEVICE_PASSWORD_VERIFIER";
+cognitoUserPoolEvent.request.session[0].challengeName === "DEVICE_PASSWORD_VERIFIER";
 cognitoUserPoolEvent.request.session[0].challengeName === "ADMIN_NO_SRP_AUTH";
 b = cognitoUserPoolEvent.request.session[0].challengeResult;
 str = cognitoUserPoolEvent.request.session[0].challengeMetaData;
@@ -338,13 +335,13 @@ switch (cloudformationCustomResourceEvent.RequestType) {
         str = cloudformationCustomResourceEvent.ResponseURL;
         str = cloudformationCustomResourceEvent.ServiceToken;
         str = cloudformationCustomResourceEvent.StackId;
-        break;
+    break;
     case "Update":
         anyObj = cloudformationCustomResourceEvent.OldResourceProperties;
-        break;
+    break;
     case "Delete":
         str = cloudformationCustomResourceEvent.PhysicalResourceId;
-        break;
+    break;
 }
 anyObj = cloudformationCustomResourceResponse.Data;
 str = cloudformationCustomResourceResponse.LogicalResourceId;
@@ -353,6 +350,15 @@ str = cloudformationCustomResourceResponse.Reason;
 str = cloudformationCustomResourceResponse.RequestId;
 str = cloudformationCustomResourceResponse.StackId;
 str = cloudformationCustomResourceResponse.Status;
+
+/* ScheduledEvent */
+str = scheduledEvent.account;
+anyObj = scheduledEvent.detail;
+str = scheduledEvent.id;
+str = scheduledEvent.region;
+str = scheduledEvent.resources[0];
+str = scheduledEvent.source;
+str = scheduledEvent.time;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
@@ -369,15 +375,6 @@ clientCtx = context.clientContext;
 /* CognitoIdentity */
 str = identity.cognitoIdentityId;
 str = identity.cognitoIdentityPoolId;
-
-/* Scheduled Event */
-str = scheduledEvent.account;
-anyObj = scheduledEvent.detail;
-str = scheduledEvent.id;
-str = scheduledEvent.region;
-str = scheduledEvent.resources[0];
-str = scheduledEvent.source;
-str = scheduledEvent.time;
 
 /* CloudWatch Logs */
 str = cloudwatchLogsEvent.awslogs.data;
@@ -439,120 +436,120 @@ function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
 
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
 var CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
-    Records: [
-        {
-            cf: {
-                config: {
-                    distributionId: "EDFDVBD6EXAMPLE",
-                    requestId:
-                        "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
-                },
-                request: {
-                    clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
-                    method: "GET",
-                    uri: "/picture.jpg",
-                    querystring: "size=large",
-                    headers: {
-                        host: [
-                            {
-                                key: "Host",
-                                value: "d111111abcdef8.cloudfront.net"
-                            }
-                        ],
-                        "user-agent": [
-                            {
-                                key: "User-Agent",
-                                value: "curl/7.51.0"
-                            }
-                        ]
-                    },
-                    origin: {
-                        custom: {
-                            customHeaders: {
-                                "my-origin-custom-header": [
-                                    {
-                                        key: "My-Origin-Custom-Header",
-                                        value: "Test"
-                                    }
-                                ]
-                            },
-                            domainName: "example.com",
-                            keepaliveTimeout: 5,
-                            path: "/custom_path",
-                            port: 443,
-                            protocol: "https",
-                            readTimeout: 5,
-                            sslProtocols: ["TLSv1", "TLSv1.1"]
-                        },
-                        s3: {
-                            authMethod: "origin-access-identity",
-                            customHeaders: {
-                                "my-origin-custom-header": [
-                                    {
-                                        key: "My-Origin-Custom-Header",
-                                        value: "Test"
-                                    }
-                                ]
-                            },
-                            domainName: "my-bucket.s3.amazonaws.com",
-                            path: "/s3_path",
-                            region: "us-east-1"
-                        }
-                    }
-                }
+  "Records": [
+    {
+      "cf": {
+        "config": {
+          "distributionId": "EDFDVBD6EXAMPLE",
+          "requestId": "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+        },
+        "request": {
+          "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          "method": "GET",
+          "uri": "/picture.jpg",
+          "querystring": "size=large",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "d111111abcdef8.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                "key": "User-Agent",
+                "value": "curl/7.51.0"
+              }
+            ]
+          },
+          "origin": {
+            "custom": {
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "example.com",
+              "keepaliveTimeout": 5,
+              "path": "/custom_path",
+              "port": 443,
+              "protocol": "https",
+              "readTimeout": 5,
+              "sslProtocols": [
+                "TLSv1",
+                "TLSv1.1"
+              ]
+            },
+            "s3": {
+              "authMethod": "origin-access-identity",
+              "customHeaders": {
+                "my-origin-custom-header": [
+                  {
+                    "key": "My-Origin-Custom-Header",
+                    "value": "Test"
+                  }
+                ]
+              },
+              "domainName": "my-bucket.s3.amazonaws.com",
+              "path": "/s3_path",
+              "region": "us-east-1"
             }
+          }
         }
-    ]
+      }
+    }
+  ]
 };
 
 var CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
-    Records: [
+    "Records": [
         {
-            cf: {
-                config: {
-                    distributionId: "EDFDVBD6EXAMPLE",
-                    requestId:
-                        "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
+            "cf": {
+                "config": {
+                    "distributionId": "EDFDVBD6EXAMPLE",
+                    "requestId": "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
                 },
-                request: {
-                    clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
-                    method: "GET",
-                    uri: "/picture.jpg",
-                    querystring: "size=large",
-                    headers: {
-                        host: [
+                "request": {
+                    "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
+                    "method": "GET",
+                    "uri": "/picture.jpg",
+                    "querystring": "size=large",
+                    "headers": {
+                        "host": [
                             {
-                                key: "Host",
-                                value: "d111111abcdef8.cloudfront.net"
+                                "key": "Host",
+                                "value": "d111111abcdef8.cloudfront.net"
                             }
                         ],
                         "user-agent": [
                             {
-                                key: "User-Agent",
-                                value: "curl/7.18.1"
+                                "key": "User-Agent",
+                                "value": "curl/7.18.1"
                             }
                         ]
                     }
                 },
-                response: {
-                    status: "200",
-                    statusDescription: "OK",
-                    headers: {
-                        server: [
+                "response": {
+                    "status": "200",
+                    "statusDescription": "OK",
+                    "headers": {
+                        "server": [
                             {
-                                key: "Server",
-                                value: "MyCustomOrigin"
+                                "key": "Server",
+                                "value": "MyCustomOrigin"
                             }
                         ],
                         "set-cookie": [
                             {
-                                key: "Set-Cookie",
-                                value: "theme=light"
+                                "key": "Set-Cookie",
+                                "value": "theme=light"
                             },
                             {
-                                key: "Set-Cookie",
-                                value:
-                                    "sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT"
+                                "key": "Set-Cookie",
+                                "value": "sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT"
                             }
                         ]
                     }
@@ -573,33 +570,9 @@ context.fail(error);
 context.fail(str);
 
 /* Handler */
-let handler: AWSLambda.Handler = (
-    event: any,
-    context: AWSLambda.Context,
-    cb: AWSLambda.Callback
-) => {};
-let asyncHandler: AWSLambda.Handler = async (
-    event: any,
-    context: AWSLambda.Context,
-    cb: AWSLambda.Callback
-) => {};
-let proxyHandler: AWSLambda.ProxyHandler = (
-    event: AWSLambda.APIGatewayEvent,
-    context: AWSLambda.Context,
-    cb: AWSLambda.ProxyCallback
-) => {};
-let asyncProxyHandler: AWSLambda.ProxyHandler = async (
-    event: AWSLambda.APIGatewayEvent,
-    context: AWSLambda.Context,
-    cb: AWSLambda.ProxyCallback
-) => {};
-let customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (
-    event: AWSLambda.CustomAuthorizerEvent,
-    context: AWSLambda.Context,
-    cb: AWSLambda.CustomAuthorizerCallback
-) => {};
-let asyncCustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = async (
-    event: AWSLambda.CustomAuthorizerEvent,
-    context: AWSLambda.Context,
-    cb: AWSLambda.CustomAuthorizerCallback
-) => {};
+let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+let asyncHandler: AWSLambda.Handler = async (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+let asyncProxyHandler: AWSLambda.ProxyHandler = async (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+let customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
+let asyncCustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = async (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
