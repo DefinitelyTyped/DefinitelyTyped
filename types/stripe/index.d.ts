@@ -4326,6 +4326,13 @@ declare namespace Stripe {
              * If the subscription has a trial, the beginning of that trial.
              */
             trial_start: number;
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the 
+             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an 
+             * invoice with payment instructions.
+             */
+            billing: "charge_automatically" | "send_invoice";
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
@@ -4376,6 +4383,13 @@ declare namespace Stripe {
              * List of subscription items, each with an attached plan.
              */
             items?: ISubscriptionCreationItem;
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * instructions. Defaults to "charge_automatically".
+             */
+            billing?: "charge_automatically" | "send_invoice";
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4440,6 +4454,13 @@ declare namespace Stripe {
              * customer's trial immediately.
              */
             trial_end?: number;
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * instructions.
+             */
+            billing?: "charge_automatically" | "send_invoice";
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -4451,7 +4472,7 @@ declare namespace Stripe {
 
         interface ISubscriptionListOptions extends IListOptionsCreated {
             /**
-             * The billing mode of the subscriptions to retrieve.
+             * The billing mode of the subscriptions to retrieve. Either "charge_automatically" or "send_invoice".
              */
             billing?: "charge_automatically" | "send_invoice";
 
