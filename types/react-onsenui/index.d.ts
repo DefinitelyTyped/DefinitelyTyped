@@ -346,7 +346,10 @@ export class Switch extends Component<{
  * Tabs
  */
 
-export class Tab extends Component { }
+export class Tab extends Component<{
+    label?: string,
+    icon?: string,
+}> { }
 
 export class TabActive extends Component { }
 
