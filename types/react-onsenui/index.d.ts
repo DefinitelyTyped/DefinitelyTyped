@@ -358,8 +358,8 @@ export class TabActive extends Component { }
 export class TabInactive extends Component { }
 
 export interface TabbarRenderTab {
-    content: JSX.Element,
-    tab: JSX.Element,
+    content: JSX.Element;
+    tab: JSX.Element;
 }
 
 export class Tabbar extends Component<{
@@ -418,8 +418,8 @@ export class Card extends Component<{
     modifier?: string,
 }, any> {}
 
-/** 
- * Controls 
+/**
+ * Controls
  */
 
 /** Pull-to-refresh hook. */
