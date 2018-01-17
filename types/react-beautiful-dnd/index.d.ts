@@ -8,7 +8,7 @@
 
 import * as React from 'react';
 
-type Maybe<T> = T | null | undefined
+export type Maybe<T> = T | null | undefined;
 
 /**
  *  Components
@@ -95,7 +95,7 @@ interface Hooks {
  */
 
 interface DragDropContextInternalProps extends Hooks {
-    children?: Maybe<React.ReactElement<any>>;
+    children?: Maybe<React.ReactNode>;
 }
 
 /**
