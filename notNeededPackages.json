@@ -1219,6 +1219,12 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "rollup",
+            "typingsPackageName": "rollup",
+            "sourceRepoURL": "https://github.com/rollup/rollup",
+            "asOfVersion": "0.54.0"
+        },
+        {
             "libraryName": "route-recognizer",
             "typingsPackageName": "route-recognizer",
             "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
