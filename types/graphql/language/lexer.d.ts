@@ -72,6 +72,7 @@ export const TokenKind: {
     INT: 'Int'
     FLOAT: 'Float'
     STRING: 'String'
+    BLOCK_STRING: 'BlockString'
     COMMENT: 'Comment'
 };
 
