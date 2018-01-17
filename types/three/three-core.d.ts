@@ -6644,10 +6644,10 @@ export class IcosahedronGeometry extends PolyhedronGeometry {
 }
 
 export class LatheBufferGeometry extends BufferGeometry {
-    constructor(points: Vector3[], segments?: number, phiStart?: number, phiLength?: number);
+    constructor(points: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
 
     parameters: {
-        points: Vector3[];
+        points: Vector2[];
         segments: number;
         phiStart: number;
         phiLength: number;
@@ -6655,10 +6655,10 @@ export class LatheBufferGeometry extends BufferGeometry {
 }
 
 export class LatheGeometry extends Geometry {
-    constructor(points: Vector3[], segments?: number, phiStart?: number, phiLength?: number);
+    constructor(points: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
 
     parameters: {
-        points: Vector3[];
+        points: Vector2[];
         segments: number;
         phiStart: number;
         phiLength: number;
