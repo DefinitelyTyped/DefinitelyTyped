@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@feathersjs/socketio-client": ["feathersjs__socketio-client"],
+            "@feathersjs/feathers": ["feathersjs__feathers"]
+
+        }
+    },
+    "files": [
+        "index.d.ts", "feathersjs__socketio-client-tests.ts"
+    ]
+}
