@@ -1846,7 +1846,7 @@ declare module 'ember' {
             be useful, for instance, for retrieving async code from
             the server that is required to enter a route.
             */
-            beforeModel(transition: Transition): Rsvp.Promise<any>;
+            beforeModel(transition: Transition): any;
 
             /**
              * Returns the controller for a particular route or name.
@@ -2207,7 +2207,9 @@ declare module 'ember' {
             actionContext: any;
         }
         const ViewTargetActionSupport: Mixin<ViewTargetActionSupport>;
-        const ViewUtils: {}; // TODO: define interface
+        const ViewUtils: {
+            isSimpleClick(event: Event): boolean;
+        };
 
         // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
         const RSVP: typeof Rsvp;
