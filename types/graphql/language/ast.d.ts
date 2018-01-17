@@ -440,7 +440,7 @@ export type TypeDefinitionNode =
 export interface ScalarTypeDefinitionNode {
     kind: 'ScalarTypeDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     directives?: DirectiveNode[];
 }
@@ -448,7 +448,7 @@ export interface ScalarTypeDefinitionNode {
 export interface ObjectTypeDefinitionNode {
     kind: 'ObjectTypeDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     interfaces?: NamedTypeNode[];
     directives?: DirectiveNode[];
@@ -458,7 +458,7 @@ export interface ObjectTypeDefinitionNode {
 export interface FieldDefinitionNode {
     kind: 'FieldDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     arguments: InputValueDefinitionNode[];
     type: TypeNode;
@@ -468,7 +468,7 @@ export interface FieldDefinitionNode {
 export interface InputValueDefinitionNode {
     kind: 'InputValueDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     type: TypeNode;
     defaultValue?: ValueNode;
@@ -478,7 +478,7 @@ export interface InputValueDefinitionNode {
 export interface InterfaceTypeDefinitionNode {
     kind: 'InterfaceTypeDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     directives?: DirectiveNode[];
     fields: FieldDefinitionNode[];
@@ -487,7 +487,7 @@ export interface InterfaceTypeDefinitionNode {
 export interface UnionTypeDefinitionNode {
     kind: 'UnionTypeDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     directives?: DirectiveNode[];
     types: NamedTypeNode[];
@@ -496,7 +496,7 @@ export interface UnionTypeDefinitionNode {
 export interface EnumTypeDefinitionNode {
     kind: 'EnumTypeDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     directives?: DirectiveNode[];
     values: EnumValueDefinitionNode[];
@@ -505,7 +505,7 @@ export interface EnumTypeDefinitionNode {
 export interface EnumValueDefinitionNode {
     kind: 'EnumValueDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     directives?: DirectiveNode[];
 }
@@ -513,7 +513,7 @@ export interface EnumValueDefinitionNode {
 export interface InputObjectTypeDefinitionNode {
     kind: 'InputObjectTypeDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     directives?: DirectiveNode[];
     fields: InputValueDefinitionNode[];
@@ -580,7 +580,7 @@ export type InputObjectTypeExtensionNode = {
 export interface DirectiveDefinitionNode {
     kind: 'DirectiveDefinition';
     loc?: Location;
-    description?: StringValueNode,
+    description?: StringValueNode;
     name: NameNode;
     arguments?: InputValueDefinitionNode[];
     locations: NameNode[];
