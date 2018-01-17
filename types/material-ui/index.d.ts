@@ -1409,6 +1409,7 @@ declare namespace __MaterialUI {
         // <DropDownMenu/> is the element that get the 'other' properties
         autoWidth?: boolean;
         disabled?: boolean;
+        dropDownMenuProps?: Menus.DropDownMenuProps;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
         floatingLabelFixed?: boolean;

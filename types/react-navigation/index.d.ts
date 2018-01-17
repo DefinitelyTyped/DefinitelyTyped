@@ -613,6 +613,13 @@ export const TabBarBottom: React.ComponentClass<any>;
  * NavigationActions
  */
 export namespace NavigationActions {
+  const BACK: 'Navigation/BACK';
+  const INIT: 'Navigation/INIT';
+  const NAVIGATE: 'Navigation/NAVIGATE';
+  const RESET: 'Navigation/RESET';
+  const SET_PARAMS: 'Navigation/SET_PARAMS';
+  const URI: 'Navigation/URI';
+
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(options: NavigationNavigateActionPayload): NavigationNavigateAction;
   function reset(options: NavigationResetActionPayload): NavigationResetAction;
@@ -693,7 +700,7 @@ export function createNavigator<C, S, A, Options>(
  */
 export function createNavigationContainer(
   Component: NavigationNavigator<any, any, any, any>
-): React.Component<any, any>;
+): NavigationContainer;
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */

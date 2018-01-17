@@ -130,10 +130,22 @@ import PagerItem = require('./PagerItem');
 import { PagerItemProps } from './PagerItem';
 import Pagination = require('./Pagination');
 import { PaginationProps } from './Pagination';
-import PaginationButton = require('./PaginationButton');
-import { PaginationButtonProps } from './PaginationButton';
+import PaginationItem = require('./PaginationItem');
+import { PaginationItemProps } from './PaginationItem';
 import Panel = require('./Panel');
 import { PanelProps } from './Panel';
+import PanelHeading = require('./PanelHeading');
+import { PanelHeadingProps } from './PanelHeading';
+import PanelTitle = require('./PanelTitle');
+import { PanelTitleProps } from './PanelTitle';
+import PanelToggle = require('./PanelToggle');
+import { PanelToggleProps } from './PanelToggle';
+import PanelCollapse = require('./PanelCollapse');
+import { PanelCollapseProps } from './PanelCollapse';
+import PanelBody = require('./PanelBody');
+import { PanelBodyProps } from './PanelBody';
+import PanelFooter = require('./PanelFooter');
+import { PanelFooterProps } from './PanelFooter';
 import PanelGroup = require('./PanelGroup');
 import { PanelGroupProps } from './PanelGroup';
 import Popover = require('./Popover');
@@ -310,10 +322,22 @@ export {
     PagerItemProps,
     Pagination,
     PaginationProps,
-    PaginationButton,
-    PaginationButtonProps,
+    PaginationItem,
+    PaginationItemProps,
     Panel,
     PanelProps,
+    PanelHeading,
+    PanelHeadingProps,
+    PanelTitle,
+    PanelTitleProps,
+    PanelToggle,
+    PanelToggleProps,
+    PanelCollapse,
+    PanelCollapseProps,
+    PanelBody,
+    PanelBodyProps,
+    PanelFooter,
+    PanelFooterProps,
     PanelGroup,
     PanelGroupProps,
     Popover,
