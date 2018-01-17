@@ -1144,6 +1144,9 @@ queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryK
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
+queryInterface.addColumn({tableName:'users', schema:'test'}, 'enum',{ type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] });
+queryInterface.removeColumn('users','so');
+queryInterface.removeColumn({tableName:'users', schema:'test'},'enum');
 queryInterface.createTable( 'hosts', {
     id : {
         type : Sequelize.INTEGER,
