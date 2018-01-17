@@ -223,6 +223,18 @@ export class Popover extends Component<{
     onPostHide?(): void,
 }, any> {}
 
+export class Toast extends Component<{
+    isOpen?: boolean,
+    animation?: 'default' | 'ascend' | 'lift' | 'fall' | 'fade' | 'none',
+    modifier?: string,
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    onDeviceBackButton?(): void,
+}, any> {}
+
 export class ActionSheet extends Component<{
     onCancel?(): void,
     isOpen?: boolean,
