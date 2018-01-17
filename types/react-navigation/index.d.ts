@@ -693,7 +693,7 @@ export function createNavigator<C, S, A, Options>(
  */
 export function createNavigationContainer(
   Component: NavigationNavigator<any, any, any, any>
-): React.Component<any, any>;
+): NavigationContainer;
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
