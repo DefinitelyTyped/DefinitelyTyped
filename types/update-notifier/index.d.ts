@@ -26,15 +26,15 @@ declare namespace UpdateNotifier {
     }
 
     interface BoxenOptions {
-        padding: number;
-        margin: number;
-        align: string;
-        borderColor: string;
-        borderStyle: string;
+        padding?: number;
+        margin?: number;
+        align?: string;
+        borderColor?: string;
+        borderStyle?: string;
     }
 
     interface NotifyOptions {
-        message: string;
+        message?: string;
         defer?: boolean;
         boxenOpts?: BoxenOptions;
     }
