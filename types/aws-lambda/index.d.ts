@@ -12,7 +12,7 @@
 //                 Daniel Cottone <https://github.com/daniel-cottone>
 //                 Kostya Misura <https://github.com/kostya-misura>
 //                 Markus Tacker <https://github.com/coderbyheart>
-//                 Danilo Raisi <https:/>/github.com/daniloraisi>
+//                 Danilo Raisi <https://github.com/daniloraisi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
