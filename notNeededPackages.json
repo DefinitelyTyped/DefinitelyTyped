@@ -7,6 +7,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "Ably Realtime and Rest client library",
+            "typingsPackageName": "ably",
+            "sourceRepoURL": "https://www.ably.io/",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "ag-grid",
             "typingsPackageName": "ag-grid",
             "sourceRepoURL": "https://github.com/ceolter/ag-grid",
