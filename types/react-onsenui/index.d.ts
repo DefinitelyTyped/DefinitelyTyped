@@ -356,11 +356,15 @@ export class Tabbar extends Component<{
     index?: number,
     renderTabs?(): any,
     position?: "bottom" | "top" | "auto",
+    swipeable?: boolean,
+    ignoreEdgeWidth?: number,
     animation: "none" | "slide" | "fade",
     animationOptions?: AnimationOptions,
+    tabBorder?: boolean,
     onPreChange?(): void,
     onPostChange?(): void,
     onReactive?(): void,
+    onSwipe?(): void,
 }, any> { }
 
 /**
