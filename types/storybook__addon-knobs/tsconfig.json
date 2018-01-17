@@ -31,6 +31,6 @@
         "index.d.ts",
         "react.d.ts",
         "storybook__addon-knobs-tests.tsx",
-        "bue.d.ts"
+        "vue.d.ts"
     ]
 }
