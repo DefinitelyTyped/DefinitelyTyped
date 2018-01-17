@@ -1253,8 +1253,8 @@ declare namespace R {
         /**
          * Retrieve the value at a given path.
          */
-        path<T>(path: Path, obj: any): T;
-        path<T>(path: Path): (obj: any) => T;
+        path<T>(path: Path, obj: any): T | undefined;
+        path<T>(path: Path): (obj: any) => T | undefined;
 
         /**
          * Determines whether a nested path on an object has a specific value,

@@ -1856,6 +1856,9 @@ class Rectangle {
 
     R.path(testPath, testObj); // => 2
     R.path(testPath)(testObj); // => 2
+
+    R.path(['a', 'b'])({c: {b: 2}}); // => undefined
+    R.path(['a', 'b'], {c: {b: 2}}); // => undefined
 };
 
 () => {
