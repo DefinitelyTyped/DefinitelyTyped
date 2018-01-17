@@ -1278,7 +1278,7 @@ interface BinaryIndex {
 
 
 interface CollectionOptions<E> {
-    disbaleMeta: boolean;
+    disableMeta: boolean;
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
     adaptiveBinaryIndices: boolean;
