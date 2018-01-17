@@ -53,6 +53,7 @@ declare class Stripe {
      */
     recipients: Stripe.resources.Recipients;
     subscriptions: Stripe.resources.Subscriptions;
+    subscriptionItems: Stripe.resources.SubscriptionItems;
     tokens: Stripe.resources.Tokens;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
@@ -4534,7 +4535,7 @@ declare namespace Stripe {
             /**
              * The identifier of the new plan for this subscription item.
              */
-            plan: plans.IPlan;
+            plan?: string;
 
             /**
              * Flag indicating whether to prorate switching plans during a billing cycle.
@@ -5894,6 +5895,16 @@ declare namespace Stripe {
         }
 
         class SubscriptionItems extends StripeResource {
+            /**
+             * Adds a new item to an existing subscription. No existing items will be changed or replaced.
+             *
+             * @returns The created subscription item object is returned if successful. Otherwise, this call throws an error.
+             *
+             * @param options The options for the new subscription item.
+             */
+            create(data: subscriptionItems.ISubscriptionItemCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            create(data: subscriptionItems.ISubscriptionItemCreationOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            
             /**
              * Retrieves the subscription item with the given ID.
              *
