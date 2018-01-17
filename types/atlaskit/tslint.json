@@ -1,8 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-duplicate-imports": false,
-        "interface-over-type-literal": false,
-        "strict-export-declare-modifiers": false
-    }
-}
