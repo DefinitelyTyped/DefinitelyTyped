@@ -250,7 +250,7 @@ export class ProgressBar extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
-    intermediate?: boolean,
+    indeterminate?: boolean,
 }, any> {}
 
 export class ProgressCircular extends Component<{
