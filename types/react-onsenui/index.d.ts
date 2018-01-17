@@ -1,4 +1,4 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.9
+// Type definitions for React Onsen UI (react-onsenui) 2.8
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>, Jemmyw <https://github.com/jemmyw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -416,7 +416,9 @@ export class Card extends Component<{
     modifier?: string,
 }, any> {}
 
-/** Controls */
+/** 
+ * Controls 
+ */
 
 /** Pull-to-refresh hook. */
 export class PullHook extends Component<{
@@ -433,7 +435,9 @@ export class Segment extends Component<{
     index?: number,
     tabbarId?: string,
     modifier?: string,
-    onChange?(): void,
+    onPostChange?(): void,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export type SpeedDialPosition = 'top' | 'right' | 'bottom' | 'left' |
@@ -445,9 +449,13 @@ export class SpeedDial extends Component<{
     position?: SpeedDialPosition,
     direction?: SpeedDialDirection,
     disabled?: boolean,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
 
 export class SpeedDialItem extends Component<{
     modifier?: string;
     onClick?(e?: React.MouseEvent<HTMLElement>): void,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}
