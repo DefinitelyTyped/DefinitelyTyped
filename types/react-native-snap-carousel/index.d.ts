@@ -15,8 +15,20 @@ import {
     ScrollViewProperties,
     ScrollViewStyle,
     ViewStyle,
-    ImageProperties
+    ImageProperties,
+    FlatListProperties
 } from 'react-native';
+
+
+export interface AdditionalParallaxProps {
+    carouselRef?: React.Component<FlatListProperties<any>>;
+    itemHeight?: number | undefined;
+    itemWidth?: number | undefined;
+    scrollPosition?: Animated.Value;
+    sliderHeight?: number | undefined;
+    sliderWidth?: number | undefined;
+    vertical?: boolean;
+}
 
 export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
     // Required
@@ -24,12 +36,12 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
     /**
      * Array of items to loop over
      */
-    data?: ReadonlyArray<T>;
+    data: ReadonlyArray<T>;
     /**
      * Function that takes an item from the `data` array and returns a React
      * Element. See `react-native`'s `FlatList`
      */
-    renderItem?(item: { item: T; index: number }, index: number): React.ReactNode;
+    renderItem(item: { item: T; index: number }, parallaxProps?: AdditionalParallaxProps): React.ReactNode;
     /**
      * Width in pixels of your slides, must be the same for all of them
      * Note: Required with horizontal carousel
@@ -232,7 +244,7 @@ export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>
 
 export type CarouselProperties<T> = ScrollViewProperties & CarouselProps<T> & React.Props<CarouselStatic<T>>;
 
-export interface ParallaxImageProps extends ImageProperties {
+export interface ParallaxImageProps extends ImageProperties, AdditionalParallaxProps {
     /**
      * Optional style for image's container
      */
@@ -261,7 +273,9 @@ export interface ParallaxImageProps extends ImageProperties {
 
 export type ParallaxImageStatic = React.ComponentClass<ParallaxImageProps>;
 
-export type ParallaxImageProperties = PaginationProps & React.Props<PaginationStatic>;
+export type ParallaxImageProperties = ParallaxImageProps & React.Props<ParallaxImageStatic>;
+
+export class ParallaxImage extends React.Component<ParallaxImageProperties> { }
 
 export interface PaginationProps {
     /**
