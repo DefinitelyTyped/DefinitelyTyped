@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    Maybe,
     DragDropContext,
     Draggable,
     Droppable,
@@ -8,6 +9,7 @@ import {
     DraggableStateSnapshot,
     DroppableProvided,
     DroppableStateSnapshot,
+    DraggableStyle,
 } from 'react-beautiful-dnd';
 
 interface Item {
@@ -22,7 +24,7 @@ const getItems = (count: number): Item[] => {
     }));
 };
 
-const reorder = (list: any[], startIndex: number, endIndex: number) => {
+const reorder = (list: Item[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -30,13 +32,13 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
     return result;
 };
 
-const getItemStyle = (draggableStyle: any, isDragging: any) => ({
+const getItemStyle = (draggableStyle: Maybe<DraggableStyle>, isDragging: boolean) => ({
     userSelect: 'none',
     background: isDragging ? 'lightgreen' : 'grey',
     ...draggableStyle,
 });
 
-const getListStyle = (isDraggingOver: any) => ({
+const getListStyle = (isDraggingOver: boolean) => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
     width: 250,
 });
@@ -46,7 +48,7 @@ interface AppState {
 }
 
 export default class App extends React.Component<{}, AppState> {
-    constructor(props: any) {
+    constructor(props: {}) {
         super(props);
 
         this.state = {
@@ -95,12 +97,13 @@ export default class App extends React.Component<{}, AppState> {
                                         <div>
                                             <div
                                                 ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
                                                 style={getItemStyle(
                                                     provided.draggableProps
                                                         .style,
                                                     snapshot.isDragging
                                                 )}
-                                                {...provided.dragHandleProps}
                                             >
                                                 {item.content}
                                             </div>
