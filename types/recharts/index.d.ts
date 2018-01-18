@@ -353,6 +353,8 @@ export interface LegendPayload {
     type: LegendType;
 }
 
+export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
+
 export interface LegendProps {
     content?: React.ReactElement<any> | ContentRenderer<LegendProps>;
     wrapperStyle?: object;
@@ -371,7 +373,7 @@ export interface LegendProps {
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
-    onBBoxUpdate?: RechartsFunction;
+    onBBoxUpdate?: BBoxUpdateCallback;
 }
 
 export class Legend extends React.Component<LegendProps> { }
