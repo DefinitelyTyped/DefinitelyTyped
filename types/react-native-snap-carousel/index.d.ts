@@ -21,11 +21,11 @@ import {
 
 export interface AdditionalParallaxProps {
     carouselRef?: React.Component<FlatListProperties<any>>;
-    itemHeight?: number | undefined;
-    itemWidth?: number | undefined;
+    itemHeight?: number;
+    itemWidth?: number;
     scrollPosition?: Animated.Value;
-    sliderHeight?: number | undefined;
-    sliderWidth?: number | undefined;
+    sliderHeight?: number;
+    sliderWidth?: number;
     vertical?: boolean;
 }
 
