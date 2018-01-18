@@ -410,6 +410,7 @@ declare namespace NodeJS {
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
+        rawListeners(event: string | symbol): Function[];
         emit(event: string | symbol, ...args: any[]): boolean;
         listenerCount(type: string | symbol): number;
         // Added in Node 6...
@@ -918,6 +919,7 @@ declare module "events" {
             setMaxListeners(n: number): this;
             getMaxListeners(): number;
             listeners(event: string | symbol): Function[];
+            rawListeners(event: string | symbol): Function[];
             emit(event: string | symbol, ...args: any[]): boolean;
             eventNames(): Array<string | symbol>;
             listenerCount(type: string | symbol): number;
