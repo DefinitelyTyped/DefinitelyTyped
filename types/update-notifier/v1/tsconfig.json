@@ -17,7 +17,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "update-notifier": ["update-notifier/v2"]
+            "update-notifier": ["update-notifier/v1"]
         }
     },
     "files": [

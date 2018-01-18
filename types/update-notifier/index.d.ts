@@ -1,4 +1,4 @@
-// Type definitions for update-notifier 1.0
+// Type definitions for update-notifier 2.0
 // Project: https://github.com/yeoman/update-notifier
 // Definitions by: vvakame <https://github.com/vvakame>, Noah Chen <https://github.com/nchen63>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,6 +36,7 @@ declare namespace UpdateNotifier {
     interface NotifyOptions {
         message?: string;
         defer?: boolean;
+        isGlobal?: boolean;
         boxenOpts?: BoxenOptions;
     }
 
