@@ -520,6 +520,7 @@ declare namespace NodeJS {
 
     export interface WriteStream extends Socket {
         readonly writableHighWaterMark: number;
+        readonly writableLength: number;
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
@@ -532,6 +533,7 @@ declare namespace NodeJS {
     }
     export interface ReadStream extends Socket {
         readonly readableHighWaterMark: number;
+        readonly readableLength: number;
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
@@ -5304,7 +5306,8 @@ declare module "stream" {
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
-            readableHighWaterMark: number;
+            readonly readableHighWaterMark: number;
+            readonly readableLength: number;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -5392,6 +5395,7 @@ declare module "stream" {
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             readonly writableHighWaterMark: number;
+            readonly writableLength: number;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5484,6 +5488,7 @@ declare module "stream" {
         export class Duplex extends Readable implements Writable {
             writable: boolean;
             readonly writableHighWaterMark: number;
+            readonly writableLength: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
