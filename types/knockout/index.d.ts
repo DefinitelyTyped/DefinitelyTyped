@@ -443,8 +443,8 @@ interface KnockoutStatic {
     contextFor(node: any): any;
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
-    toJS<T>(viewModel: KnockoutObservableArray<T>|T[]): T[];
-    toJS<T>(viewModel: KnockoutObservable<T>|T): T;
+    toJS<T>(viewModel: KnockoutObservableArray<T>|KnockoutObservableType<T>[]|KnockoutObservableArray<KnockoutObservableType<T>>|T[]): T[];
+    toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableType<T>|KnockoutObservable<KnockoutObservableType<T>>|T): T;
     isObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
     isWriteableObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
     isComputed<T>(instance: KnockoutObservable<T>|T): instance is KnockoutComputed<T>;
