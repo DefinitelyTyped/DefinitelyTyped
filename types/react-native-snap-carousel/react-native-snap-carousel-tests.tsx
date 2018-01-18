@@ -6,10 +6,9 @@ import {
     StyleSheet,
     Text,
     View,
-    ViewStyle
+    ViewStyle,
 } from 'react-native';
-
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel, { Pagination, ParallaxImage, AdditionalParallaxProps, } from 'react-native-snap-carousel';
 
 class StringCarousel extends Carousel<string> {}
 
@@ -24,13 +23,21 @@ class SnapCarouselTest extends React.Component {
         );
     }
 
+    renderParallaxItem({ item }: { item: string }, parallaxProps?: AdditionalParallaxProps): React.ReactNode {
+        return (
+            <ParallaxImage
+                source={{ uri: 'http://via.placeholder.com/350x150' }}
+                containerStyle={{ height: 350, width: 350 }}
+                parallaxFactor={0.5}
+                showSpinner={true}
+                {...parallaxProps}
+            />
+        );
+    }
+
     render(): React.ReactElement<any> {
         return (
             <View>
-                <Carousel
-                    itemWidth={75}
-                    sliderWidth={300}
-                />
                 <StringCarousel
                     data={this.data}
                     renderItem={item => this.renderItem(item)}
@@ -45,10 +52,13 @@ class SnapCarouselTest extends React.Component {
                     scrollEndDragDebounceValue={100}
                     vertical={false}
                 />
-                <Carousel
+                <StringCarousel
+                    data={this.data}
+                    renderItem={item => this.renderParallaxItem(item)}
                     itemHeight={75}
                     sliderHeight={300}
                     vertical={true}
+                    hasParallaxImages={true}
                 />
             </View>
         );
@@ -73,22 +83,25 @@ class SnapCarouselWithPaginationTest extends React.Component<{}, {activeSlide: n
         this.state = { activeSlide: 0 };
     }
 
+    renderItem({ item }: { item: string }): React.ReactNode {
+        return (
+            <View style={styles.item}>
+                <Text>{item}</Text>
+            </View>
+        );
+    }
+
     render(): React.ReactElement<any> {
         return (
             <View>
-                <Carousel
+                <StringCarousel
+                    data={['Item #1', 'Item #2']}
+                    renderItem={item => this.renderItem(item)}
                     itemWidth={75}
                     sliderWidth={300}
                     keyboardDismissMode='interactive'
                     onSnapToItem={(index) => this.setState({ activeSlide: index })}
-                >
-                    <View>
-                        <Text>Item #1</Text>
-                    </View>
-                    <View>
-                        <Text>Item #2</Text>
-                    </View>
-                </Carousel>
+                />
                 <Pagination
                         dotsLength={2}
                         activeDotIndex={this.state.activeSlide}
