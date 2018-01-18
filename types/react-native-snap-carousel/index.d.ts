@@ -19,7 +19,6 @@ import {
     FlatListProperties
 } from 'react-native';
 
-
 export interface AdditionalParallaxProps {
     carouselRef?: React.Component<FlatListProperties<any>>;
     itemHeight?: number | undefined;
