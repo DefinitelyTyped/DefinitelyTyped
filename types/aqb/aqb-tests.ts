@@ -1,4 +1,4 @@
-import { QB } from "aqb";
+import { QB } from "./index";
 
 /*
  * Most of these tests are taken directly from the examples
@@ -108,10 +108,44 @@ QB.for('doc').in('my_collection').collectWithCountInto('x');
 QB.for('doc').in('my_collection').collect('x', 'y');
 // QB.for('doc').in('my_collection').collect({x: 'a', y: 'b'});
 QB.for('doc').in('my_collection').collect('x' , 'y').withCountInto('z');
-QB.for('doc').in('my_collection').collect('x' , 'y').into('z');
 QB.for('doc').in('my_collection').collect('x' , 'y').into('z').keep('a' , 'b');
 QB.for('doc').in('my_collection').collect('x' , 'y').into('z' , 'Z');
+QB.for('doc').in('my_collection').collect('x' , 'y').into('z');
+QB.for('doc').in('my_collection').collect('x' , 'y').into('z').options('opts');
 QB.for('doc').in('my_collection').collect('x' , 'y').options('opts');
+QB.for('doc').in('my_collection').collect('x' , 'y').keep('a' , 'b');
 QB.for('doc').in('my_collection').collect('x' , 'y').sort('x', 'DESC', 'y', 'ASC');
 QB.for('doc').in('my_collection').collect('x' , 'y').limit(20);
 QB.for('doc').in('my_collection').collect('x' , 'y').limit(20 , 20);
+QB.for('doc').in('my_collection').remove('x');
+QB.for('doc').in('my_collection').remove('x').in('y');
+QB.for('doc').in('my_collection').remove('x').in('y').returnOld('a');
+QB.for('doc').in('my_collection').remove('x').in('y').options('opts');
+QB.upsert('x').insert('y').replace('z').in('c');
+QB.upsert('x').insert('y').replace('z').in('c').options('opts');
+QB.upsert('x').insert('y').update('z').in('c');
+QB.upsert('x').insert('y').update('z').in('c').options('opts');
+QB.insert('x').into('y');
+QB.insert('x').into('y').options('opts');
+QB.insert('x').into('y').returnNew('z');
+QB.update('x').in('y');
+QB.update('x').into('y');
+QB.update('x').with('y').in('z');
+QB.update('x').with('y').into('z');
+QB.update('x').with('y').into('z').options('opts');
+QB.update('x').in('y').options('opts');
+QB.update('x').with('y').into('z').returnNew('v');
+QB.update('x').with('y').into('z').returnOld('v');
+QB.update('x').in('y').options('opts').returnNew('v');
+QB.update('x').in('y').options('opts').returnOld('v');
+
+QB.replace('x').in('y');
+QB.replace('x').into('y');
+QB.replace('x').with('y').in('z');
+QB.replace('x').with('y').into('z');
+QB.replace('x').with('y').into('z').options('opts');
+QB.replace('x').in('y').options('opts');
+QB.replace('x').with('y').into('z').returnNew('v');
+QB.replace('x').with('y').into('z').returnOld('v');
+QB.replace('x').in('y').options('opts').returnNew('v');
+QB.replace('x').in('y').options('opts').returnOld('v');

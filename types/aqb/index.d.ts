@@ -1,12 +1,14 @@
-// function definitions for aqbjs
+// Type definitions for aqbjs
 // Project: https://github.com/arangodb/aqbjs
-// Contributions by: Athenkosi Mase <https://github.com/Athenkosi-Mase> 
-// Definitions: https://github.com/borisyankov/Definitelyfunctiond
+// Definitions by: Athenkosi Mase <https://github.com/Athenkosi-Mase> 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// TypeScript Version: 2.1
 
 /**
  * Error
  */
-export declare class AqlError extends Error {
+export declare interface AqlError extends Error {
     /**
      *
      * @param message
@@ -15,10 +17,10 @@ export declare class AqlError extends Error {
     name: string;
 }
 
-export declare class Operation extends Expression {
+export declare interface Operation extends Expression {
     // new (): Expression;
 }
-export class BinaryOperation extends Operation {
+export interface BinaryOperation extends Operation {
     /**
      *
      * @param operator
@@ -33,7 +35,7 @@ export class BinaryOperation extends Operation {
     toAQL(): string;
     _operator: string;
 }
-export class UnaryOperation extends Operation {
+export interface UnaryOperation extends Operation {
     /**
      *
      * @param operator
@@ -47,7 +49,7 @@ export class UnaryOperation extends Operation {
     toAQL(): string;
     _operator: string;
 }
-export declare class SimpleReference extends Expression {
+export declare interface SimpleReference extends Expression {
     /**
      *
      * @param value
@@ -59,7 +61,7 @@ export declare class SimpleReference extends Expression {
      */
     toAQL(): string;
 }
-export declare class RawExpression extends Expression {
+export declare interface RawExpression extends Expression {
     /**
      *
      * @param value
@@ -71,7 +73,7 @@ export declare class RawExpression extends Expression {
      */
     toAQL(): string;
 }
-export declare class BooleanLiteral extends Expression {
+export declare interface BooleanLiteral extends Expression {
     /**
      *
      * @param value
@@ -84,7 +86,7 @@ export declare class BooleanLiteral extends Expression {
     toAQL(): string;
     _value: boolean;
 }
-export declare class NumberLiteral extends Expression {
+export declare interface NumberLiteral extends Expression {
     /**
      *
      * @param value
@@ -97,7 +99,7 @@ export declare class NumberLiteral extends Expression {
     toAQL(): string;
     re: RegExp;
 }
-export declare class IntegerLiteral extends Expression {
+export declare interface IntegerLiteral extends Expression {
     /**
      *
      * @param value
@@ -110,7 +112,7 @@ export declare class IntegerLiteral extends Expression {
     toAQL(): string;
     _value: number;
 }
-export declare class StringLiteral extends Expression {
+export declare interface StringLiteral extends Expression {
     /**
      *
      * @param value
@@ -122,7 +124,7 @@ export declare class StringLiteral extends Expression {
      */
     toAQL(): string;
 }
-export declare class ListLiteral extends Expression {
+export declare interface ListLiteral extends Expression {
     /**
      *
      * @param value
@@ -134,7 +136,7 @@ export declare class ListLiteral extends Expression {
      */
     toAQL(): string;
 }
-export declare class ObjectLiteral extends Expression {
+export declare interface ObjectLiteral extends Expression {
     /**
      *
      * @param value
@@ -147,7 +149,7 @@ export declare class ObjectLiteral extends Expression {
     toAQL(): string;
     _value: {};
 }
-export class NAryOperation extends Operation {
+export interface NAryOperation extends Operation {
     /**
      *
      * @param operator
@@ -162,7 +164,7 @@ export class NAryOperation extends Operation {
     _operator: string;
     _values: Array<Expression>;
 }
-export declare class RangeExpression extends Expression {
+export declare interface RangeExpression extends Expression {
     /**
      *
      * @param start
@@ -177,7 +179,7 @@ export declare class RangeExpression extends Expression {
     _end: number;
     re: RegExp;
 }
-export declare class PropertyAccess extends Expression {
+export declare interface PropertyAccess extends Expression {
     /**
      *
      * @param obj
@@ -192,7 +194,7 @@ export declare class PropertyAccess extends Expression {
     _obj: Expression;
     _keys: Array<Expression>;
 }
-export class TernaryOperation extends Operation {
+export interface TernaryOperation extends Operation {
     /**
      *
      * @param operator1
@@ -210,7 +212,7 @@ export class TernaryOperation extends Operation {
     _operator1: string;
     _operator2: string;
 }
-export declare class NullLiteral extends Expression {
+export declare interface NullLiteral extends Expression {
     /**
      *
      * @param value
@@ -222,7 +224,7 @@ export declare class NullLiteral extends Expression {
      */
     toAQL(): string;
 }
-export declare class Keyword extends Expression {
+export declare interface Keyword extends Expression {
     /**
      *
      * @param value
@@ -235,7 +237,7 @@ export declare class Keyword extends Expression {
     toAQL(): string;
     re: RegExp;
 }
-export declare class Identifier extends Expression {
+export declare interface Identifier extends Expression {
     /**
      *
      * @param value
@@ -248,7 +250,7 @@ export declare class Identifier extends Expression {
     toAQL(): string;
     _value: string;
 }
-export declare class FunctionCall extends Expression {
+export declare interface FunctionCall extends Expression {
     /**
      *
      * @param functionName
@@ -261,7 +263,7 @@ export declare class FunctionCall extends Expression {
      */
     toAQL(): string;
 }
-export declare class ForExpression extends PartialStatement {
+export declare interface ForExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -276,7 +278,7 @@ export declare class ForExpression extends PartialStatement {
     toAQL(): string;
     _varname: Identifier;
 }
-export declare class FilterExpression extends PartialStatement {
+export declare interface FilterExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -289,7 +291,7 @@ export declare class FilterExpression extends PartialStatement {
      */
     toAQL(): string;
 }
-export declare class Definitions {
+export declare interface Definitions {
     /**
      *
      * @param dfns
@@ -303,7 +305,7 @@ export declare class Definitions {
     toAQL(): string;
     _dfns: Array<any>;
 }
-export declare class LetExpression extends PartialStatement {
+export declare interface LetExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -319,7 +321,7 @@ export declare class LetExpression extends PartialStatement {
     _prev: PartialStatement;
     _dfns: Definitions;
 }
-export declare class CollectExpression extends PartialStatement {
+export declare interface CollectExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -369,7 +371,7 @@ export declare class CollectExpression extends PartialStatement {
      */
     withCountInto(newVarname: any): CollectWithCountIntoExpression;
 }
-export declare class CollectWithCountIntoExpression extends PartialStatement {
+export declare interface CollectWithCountIntoExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -391,7 +393,7 @@ export declare class CollectWithCountIntoExpression extends PartialStatement {
      */
     options(newOpts: any): any;
 }
-export declare class SortExpression extends PartialStatement {
+export declare interface SortExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -406,7 +408,7 @@ export declare class SortExpression extends PartialStatement {
     keywords: Array<string>;
     _args: Array<Keyword>;
 }
-export declare class LimitExpression extends PartialStatement {
+export declare interface LimitExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -420,7 +422,7 @@ export declare class LimitExpression extends PartialStatement {
      */
     toAQL(): string;
 }
-export declare class ReturnExpression extends Expression {
+export declare interface ReturnExpression extends Expression {
     /**
      *
      * @param prev
@@ -436,7 +438,7 @@ export declare class ReturnExpression extends Expression {
     _prev: LetExpression;
     _distinct: boolean;
 }
-export declare class RemoveExpression extends PartialStatement {
+export declare interface RemoveExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -463,7 +465,7 @@ export declare class RemoveExpression extends PartialStatement {
      */
     options(newOpts: any): RemoveExpression;
 }
-export declare class UpsertExpression extends PartialStatement {
+export declare interface UpsertExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -500,7 +502,7 @@ export declare class UpsertExpression extends PartialStatement {
      */
     options(newOpts: any): UpsertExpression;
 }
-export declare class InsertExpression extends PartialStatement {
+export declare interface InsertExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -527,7 +529,7 @@ export declare class InsertExpression extends PartialStatement {
      */
     options(newOpts: any): InsertExpression;
 }
-export declare class UpdateExpression extends PartialStatement {
+export declare interface UpdateExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -561,7 +563,7 @@ export declare class UpdateExpression extends PartialStatement {
      */
     options(newOpts: any): UpdateExpression;
 }
-export declare class ReplaceExpression extends PartialStatement {
+export declare interface ReplaceExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -598,7 +600,7 @@ export declare class ReplaceExpression extends PartialStatement {
 /**
  *
  */
-export declare class Expression extends PartialStatement {
+export declare interface Expression extends PartialStatement {
     /**
      * Equality
      *
@@ -1030,73 +1032,6 @@ export declare interface ForRet {
 }
 export declare interface Let0 {
 }
-export declare interface RemoveRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
-    into(collection: any): RemoveExpression;
-    in: RemoveRet["into"];
-    in_: RemoveRet["into"];
-}
-export declare interface UpsertRet {
-    /**
-     *
-     * @param insertExpr
-     * @return
-     */
-    insert(insertExpr: any): UpsertRetInsertRet;
-}
-export declare interface UpsertRetInsertRet {
-    /**
-     *
-     * @param updateOrReplaceExpr
-     * @return
-     */
-    update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
-    replace: UpsertRetInsertRet["update"];
-}
-export declare interface UpsertRetInsertRetUpdateRet {
-    /**
-     *
-     * @param inCollection
-     * @return
-     */
-    into(inCollection: any): UpsertExpression;
-    in: UpsertRetInsertRetUpdateRet["into"];
-    in_: UpsertRetInsertRetUpdateRet["into"];
-}
-export declare interface InsertRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
-    into(collection: any): InsertExpression;
-    in: InsertRet["into"];
-    in_: InsertRet["into"];
-}
-export declare interface UpdateRetWithRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
-    into(collection: any): UpdateExpression;
-    in: UpdateRetWithRet["into"];
-    in_: UpdateRetWithRet["into"];
-}
-export declare interface ReplaceRetWithRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
-    into(collection: any): ReplaceExpression;
-    in: ReplaceRetWithRet["into"];
-    in_: ReplaceRetWithRet["into"];
-}
 /**
  * PartialStatement
  *
@@ -1108,7 +1043,7 @@ export declare interface ReplaceRetWithRet {
  * qb.for('doc').in('my_collection').return('doc._key').toAQL()
  * // => FOR doc IN my_collection RETURN doc._key
  */
-export declare class PartialStatement {
+export declare interface PartialStatement {
 
     /**
      * FOR expression IN collection
@@ -1412,7 +1347,7 @@ export declare class PartialStatement {
      * @param expr
      * @return
      */
-    replace(expr: any) : UpdateRetWithRet;
+    replace(expr: any) : ReplaceRetWithRet;
 }
 export declare interface RemoveRet {
     /**
@@ -1481,6 +1416,85 @@ export declare interface ReplaceRetWithRet {
     in: ReplaceRetWithRet["into"];
     in_: ReplaceRetWithRet["into"];
 }
+export declare interface RemoveRet {
+    /**
+     *
+     * @param collection
+     * @return
+     */
+    into(collection: any): RemoveExpression;
+    in: RemoveRet["into"];
+    in_: RemoveRet["into"];
+}
+export declare interface UpsertRet {
+    /**
+     *
+     * @param insertExpr
+     * @return
+     */
+    insert(insertExpr: any): UpsertRetInsertRet;
+}
+export declare interface UpsertRetInsertRet {
+    /**
+     *
+     * @param updateOrReplaceExpr
+     * @return
+     */
+    update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
+    replace: UpsertRetInsertRet["update"];
+}
+export declare interface UpsertRetInsertRetUpdateRet {
+    /**
+     *
+     * @param inCollection
+     * @return
+     */
+    into(inCollection: any): UpsertExpression;
+    in: UpsertRetInsertRetUpdateRet["into"];
+    in_: UpsertRetInsertRetUpdateRet["into"];
+}
+export declare interface InsertRet {
+    /**
+     *
+     * @param collection
+     * @return
+     */
+    into(collection: any): InsertExpression;
+    in: InsertRet["into"];
+    in_: InsertRet["into"];
+}
+export declare interface UpdateRetWithRet {
+    /**
+     *
+     * @param collection
+     * @return
+     */
+    into(collection: any): UpdateExpression;
+    /**
+     *
+     * @param collection
+     * @return
+     */
+    with(collection: any): UpdateRetWithRet;
+    in: UpdateRetWithRet["into"];
+    in_: UpdateRetWithRet["into"];
+}
+export declare interface ReplaceRetWithRet {
+    /**
+     *
+     * @param collection
+     * @return
+     */
+    into(collection: any): ReplaceExpression;
+    /**
+     *
+     * @param collection
+     * @return
+     */
+    with(collection: any): ReplaceRetWithRet;
+    in: ReplaceRetWithRet["into"];
+    in_: ReplaceRetWithRet["into"];
+}
 
 /**
  *
@@ -1545,7 +1559,7 @@ export declare function autoCastToken (token: number | Expression) :  number | E
  * JavaScript strings wrapped in quotation marks will be wrapped in  strings, all other JavaScript strings will be wrapped as simple references (see ref)
  * and throw an Error if they are not well-formed.
  */
-export declare class functions extends Expression {
+export declare interface functions extends Expression {
     /**
      * Boolean
      *
@@ -1754,6 +1768,6 @@ export declare class functions extends Expression {
 }
 
 export declare type QBfunc = (obj : any) => functions
-export const QB : functions & QBfunc
+export declare const QB : functions & QBfunc
 
 export default QB
