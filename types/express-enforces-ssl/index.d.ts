@@ -9,6 +9,8 @@ import { Request, Response, NextFunction } from 'express';
 /**
  * Enforces HTTPS connections on any incoming requests.
  */
-declare function enforceHTTPS(): (req: Request, res: Response, next: NextFunction) => void;
+declare namespace enforceHTTPS {
+  function enforceHTTPS(): (req: Request, res: Response, next: NextFunction) => void;
+}
 
 export = enforceHTTPS;
