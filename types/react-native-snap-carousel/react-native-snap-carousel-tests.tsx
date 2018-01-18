@@ -23,18 +23,6 @@ class SnapCarouselTest extends React.Component {
         );
     }
 
-    renderParallaxItem({ item }: { item: string }, parallaxProps?: AdditionalParallaxProps): React.ReactNode {
-        return (
-            <ParallaxImage
-                source={{ uri: 'http://via.placeholder.com/350x150' }}
-                containerStyle={{ height: 350, width: 350 }}
-                parallaxFactor={0.5}
-                showSpinner={true}
-                {...parallaxProps}
-            />
-        );
-    }
-
     render(): React.ReactElement<any> {
         return (
             <View>
@@ -54,11 +42,10 @@ class SnapCarouselTest extends React.Component {
                 />
                 <StringCarousel
                     data={this.data}
-                    renderItem={item => this.renderParallaxItem(item)}
+                    renderItem={item => this.renderItem(item)}
                     itemHeight={75}
                     sliderHeight={300}
                     vertical={true}
-                    hasParallaxImages={true}
                 />
             </View>
         );
@@ -121,6 +108,36 @@ class SnapCarouselWithPaginationTest extends React.Component<{}, {activeSlide: n
     }
 }
 
+class SnapCarouselWithParallaxTest extends React.Component {
+    data = ['Item #1', 'Item #2', 'Item #3'];
+
+    renderParallaxItem({ item }: { item: string }, parallaxProps?: AdditionalParallaxProps): React.ReactNode {
+        return (
+            <ParallaxImage
+                source={{ uri: 'http://via.placeholder.com/350x150' }}
+                containerStyle={styles.parallaxItem}
+                parallaxFactor={0.5}
+                showSpinner={true}
+                {...parallaxProps}
+            />
+        );
+    }
+
+    render(): React.ReactElement<any> {
+        return (
+            <View>
+                <StringCarousel
+                    data={this.data}
+                    renderItem={(item, parallaxProps) => this.renderParallaxItem(item, parallaxProps)}
+                    itemWidth={75}
+                    sliderWidth={300}
+                    containerCustomStyle={styles.container}
+                />
+            </View>
+        );
+    }
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1
@@ -128,4 +145,8 @@ const styles = StyleSheet.create({
     item: {
         width: 75
     } as ViewStyle,
+    parallaxItem: {
+        height: 350,
+        width: 350
+    }
 });
