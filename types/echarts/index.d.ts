@@ -125,6 +125,28 @@ declare namespace echarts {
             gridId?: string
             gridName?: string
         } | string, value: Array<any> | string): Array<any> | string
+
+        containPixel(finder: {
+           // finder 用于指示『在哪个坐标系或者系列上判断』。
+           // 通常地，可以使用 index 或者 id 或者 name 来定位。
+           seriesIndex?: number,
+           seriesId?: string,
+           seriesName?: string,
+           geoIndex?: number,
+           geoId?: string,
+           geoName?: string,
+           xAxisIndex?: number,
+           xAxisId?: string,
+           xAxisName?: string,
+           yAxisIndex?: number,
+           yAxisId?: string,
+           yAxisName?: string,
+           gridIndex?: number,
+           gridId?: string,
+           gridName?: string
+        } | string,
+        // 要被判断的点，为像素坐标值，以 echarts 实例的 dom 节点的左上角为坐标 [0, 0] 点。
+        value: any[]): boolean
     }
 
     interface ERectangle {
