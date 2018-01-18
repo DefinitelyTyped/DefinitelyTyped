@@ -15,7 +15,7 @@ declare namespace CompressionPlugin {
     interface Options {
         asset?: string;
         algorithm?: string;
-        cache: boolean | string;
+        cache?: boolean | string;
         test?: RegExp | RegExp[];
         regExp?: RegExp | RegExp[];
         threshold?: number;
