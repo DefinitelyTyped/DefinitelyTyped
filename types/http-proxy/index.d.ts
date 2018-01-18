@@ -10,6 +10,7 @@ import * as http from "http";
 import * as https from "https";
 import * as events from "events";
 import * as url from "url";
+import * as stream from "stream";
 
 type ProxyTargetUrl = string | url.Url;
 
@@ -32,7 +33,6 @@ declare class Server extends events.EventEmitter {
    * @param req - Client request.
    * @param res - Client response.
    * @param options - Additionnal options.
-   * @param
    */
   web(
     req: http.IncomingMessage,
@@ -163,6 +163,8 @@ declare class Server extends events.EventEmitter {
 
 declare namespace Server {
   interface ServerOptions {
+    /** Buffer */
+    buffer?: stream.Stream;
     /** URL string to be parsed with the url module. */
     target?: string;
     /** URL string to be parsed with the url module. */

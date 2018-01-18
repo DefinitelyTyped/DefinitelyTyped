@@ -65,8 +65,19 @@ import * as PageItem from 'react-bootstrap/lib/PageItem';
 import * as Pager from 'react-bootstrap/lib/Pager';
 import * as PagerItem from 'react-bootstrap/lib/PagerItem';
 import * as Pagination from 'react-bootstrap/lib/Pagination';
-import * as PaginationButton from 'react-bootstrap/lib/PaginationButton';
+import * as PaginationFirst from 'react-bootstrap/lib/PaginationFirst';
+import * as PaginationPrev from 'react-bootstrap/lib/PaginationPrev';
+import * as PaginationNext from 'react-bootstrap/lib/PaginationNext';
+import * as PaginationLast from 'react-bootstrap/lib/PaginationLast';
+import * as PaginationEllipsis from 'react-bootstrap/lib/PaginationEllipsis';
+import * as PaginationItem from 'react-bootstrap/lib/PaginationItem';
 import * as Panel from 'react-bootstrap/lib/Panel';
+import * as PanelHeading from 'react-bootstrap/lib/PanelHeading';
+import * as PanelTitle from 'react-bootstrap/lib/PanelTitle';
+import * as PanelToggle from 'react-bootstrap/lib/PanelToggle';
+import * as PanelCollapse from 'react-bootstrap/lib/PanelCollapse';
+import * as PanelBody from 'react-bootstrap/lib/PanelBody';
+import * as PanelFooter from 'react-bootstrap/lib/PanelFooter';
 import * as PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import * as Popover from 'react-bootstrap/lib/Popover';
 import * as ProgressBar from 'react-bootstrap/lib/ProgressBar';
@@ -120,7 +131,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Collapse />
         <ControlLabel />
         <Dropdown id="foo" />
-        <DropdownButton id="foo" />
+        <DropdownButton id="foo" title="bar" />
         <DropdownMenu />
         <DropdownToggle />
         <Fade />
@@ -169,8 +180,19 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Pager />
         <PagerItem />
         <Pagination />
-        <PaginationButton onClick={noop} />
+        <PaginationItem />
+        <PaginationFirst />
+        <PaginationLast />
+        <PaginationNext />
+        <PaginationPrev />
+        <PaginationEllipsis />
         <Panel />
+        <PanelHeading />
+        <PanelBody />
+        <PanelCollapse />
+        <PanelFooter />
+        <PanelTitle />
+        <PanelToggle />
         <PanelGroup />
         <Popover />
         <ProgressBar />
@@ -178,7 +200,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <ResponsiveEmbed />
         <Row />
         <SafeAnchor />
-        <SplitButton />
+        <SplitButton id="foo" title="bar" />
         <SplitToggle />
         <Tab />
         <TabContainer />

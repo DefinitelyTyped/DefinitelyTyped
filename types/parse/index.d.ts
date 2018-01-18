@@ -13,11 +13,12 @@
 
 declare namespace Parse {
 
-    var applicationId: string;
-    var javaScriptKey: string | undefined;
-    var masterKey: string | undefined;
-    var serverURL: string;
-    var VERSION: string;
+    let applicationId: string;
+    let javaScriptKey: string | undefined;
+    let masterKey: string | undefined;
+    let serverURL: string;
+    let liveQueryServerURL: string;
+    let VERSION: string;
 
     interface SuccessOption {
         success?: Function;
@@ -28,6 +29,11 @@ declare namespace Parse {
     }
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
+    }
+
+    interface SignUpOptions {
+        useMasterKey?: boolean;
+        installationId?: string;
     }
 
     interface SessionTokenOption {
@@ -102,6 +108,12 @@ declare namespace Parse {
             rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
             rejectedCallback?: (reason: any) => U): IPromise<U>;
+    }
+
+    interface Pointer {
+        __type: string;
+        className: string;
+        objectId: string;
     }
 
     interface IBaseObject {
@@ -280,13 +292,13 @@ declare namespace Parse {
         constructor(parent?: S, key?: string);
 
         //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: T): void;
+        add(object: T | Array<T>): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
         query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: T): void;
+        remove(object: T | Array<T>): void;
     }
 
     /**
@@ -357,6 +369,7 @@ declare namespace Parse {
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        isNew(): boolean;
         isValid(): boolean;
         op(attr: string): any;
         previous(attr: string): any;
@@ -365,8 +378,11 @@ declare namespace Parse {
         remove(attr: string, item: any): any;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
+        save(attrs: object, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
+        set(attrs: object, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        toPointer(): Pointer;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -730,7 +746,7 @@ declare namespace Parse {
     class User extends Object {
 
         static current(): User | undefined;
-        static signUp(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<User>;
+        static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
         static allowCustomUserClass(isAllowed: boolean): void;
@@ -738,7 +754,7 @@ declare namespace Parse {
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
 
-        signUp(attrs: any, options?: SuccessFailureOptions): Promise<this>;
+        signUp(attrs: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
@@ -925,7 +941,7 @@ declare namespace Parse {
          *
          *     import Buffer = require("buffer").Buffer;
          */
-        var HTTPOptions: new () => HTTPOptions;
+        let HTTPOptions: new () => HTTPOptions;
         interface HTTPOptions {
             /**
              * The body of the request.

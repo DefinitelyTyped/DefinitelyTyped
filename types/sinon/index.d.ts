@@ -1,4 +1,4 @@
-// Type definitions for Sinon 2.3
+// Type definitions for Sinon 4.1
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
@@ -11,10 +11,8 @@
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-// tslint:disable no-empty-interface
-interface Event { }
-interface Document { }
-// tslint:enable no-empty-interface
+interface Event { } // tslint:disable-line no-empty-interface
+interface Document { } // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
     interface SinonSpyCallApi {
@@ -89,7 +87,9 @@ declare namespace Sinon {
         invokeCallback(...args: any[]): void;
         getCall(n: number): SinonSpyCall;
         getCalls(): SinonSpyCall[];
+        /// @deprecated Use resetHistory() instead
         reset(): void;
+        resetHistory(): void;
         printf(format: string, ...args: any[]): string;
         restore(): void;
     }
@@ -152,7 +152,7 @@ declare namespace Sinon {
 
     interface SinonStubStatic {
         (): SinonStub;
-        (obj: any): SinonStub;
+        <T>(obj: T): SinonStubbedInstance<T>;
         <T>(obj: T, method: keyof T): SinonStub;
         <T>(obj: T, method: keyof T, func: Function): SinonStub;
     }
@@ -204,6 +204,9 @@ declare namespace Sinon {
         setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): number;
         clearInterval(id: number): void;
         tick(ms: number): number;
+        next(): void;
+        runAll(): void;
+        runToLast(): void;
         reset(): void;
         Date(): Date;
         Date(year: number): Date;
@@ -290,14 +293,10 @@ declare namespace Sinon {
         FakeXMLHttpRequest: SinonFakeXMLHttpRequest;
     }
 
-    interface SinonFakeServer {
+    interface SinonFakeServer extends SinonFakeServerOptions {
         // Properties
-        autoRespond: boolean;
-        autoRespondAfter: number;
-        fakeHTTPMethods: boolean;
         getHTTPMethod(request: SinonFakeXMLHttpRequest): string;
         requests: SinonFakeXMLHttpRequest[];
-        respondImmediately: boolean;
 
         // Methods
         respondWith(body: string): void;
@@ -319,8 +318,15 @@ declare namespace Sinon {
         restore(): void;
     }
 
+    interface SinonFakeServerOptions {
+        autoRespond?: boolean;
+        autoRespondAfter?: number;
+        fakeHTTPMethods?: boolean;
+        respondImmediately?: boolean;
+    }
+
     interface SinonFakeServerStatic {
-        create(): SinonFakeServer;
+        create(options?: SinonFakeServerOptions): SinonFakeServer;
     }
 
     interface SinonStatic {
@@ -491,14 +497,17 @@ declare namespace Sinon {
         usingPromise(promiseLibrary: any): SinonSandbox;
         verify(): void;
         verifyAndRestore(): void;
+        createStubInstance(constructor: any): any;
+        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
     }
 
     interface SinonSandboxStatic {
-        create(): SinonSandbox;
-        create(config: SinonSandboxConfig): SinonSandbox;
+        create(config?: SinonSandboxConfig): SinonSandbox;
     }
 
     interface SinonStatic {
+        createSandbox(config?: SinonSandboxConfig): SinonSandbox;
+        defaultConfig: SinonSandboxConfig;
         sandbox: SinonSandboxStatic;
     }
 
@@ -528,7 +537,7 @@ declare namespace Sinon {
         /**
          * Creates a new object with the given functions as the prototype and stubs all implemented functions.
          *
-         * @type TType   Type being stubbed.
+         * @template TType Type being stubbed.
          * @param constructor   Object or class to stub.
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
@@ -542,7 +551,7 @@ declare namespace Sinon {
     /**
      * Stubbed type of an object with members replaced by stubs.
      *
-     * @type TType   Type being stubbed.
+     * @template TType Type being stubbed.
      */
     interface StubbableType<TType> {
         new(...args: any[]): TType;
@@ -551,9 +560,11 @@ declare namespace Sinon {
     /**
      * An instance of a stubbed object type with members replaced by stubs.
      *
-     * @type TType   Object type being stubbed.
+     * @template TType Object type being stubbed.
      */
     type SinonStubbedInstance<TType> = {
+        // TODO: this should really only replace functions on TType with SinonStubs, not all properties
+        // Likely infeasible without mapped conditional types, per https://github.com/Microsoft/TypeScript/issues/12424
         [P in keyof TType]: SinonStub;
     };
 }

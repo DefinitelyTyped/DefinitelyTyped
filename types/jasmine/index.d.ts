@@ -1,9 +1,8 @@
-// Type definitions for Jasmine 2.6.0
+// Type definitions for Jasmine 2.8.0
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-
 
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
@@ -28,7 +27,7 @@ declare function it(expectation: string, assertion?: (done: DoneFn) => void, tim
 /**
  * A focused it
  * If suites or specs are focused, only those that are focused will be executed.
- * @param expectation 
+ * @param expectation
  * @param assertion
  * @param timeout
  */
@@ -39,7 +38,7 @@ declare function xit(expectation: string, assertion?: (done: DoneFn) => void, ti
  * Mark a spec as pending, expectation results will be ignored.
  * If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending.
  * @param reason
- * @returns {} 
+ * @returns {}
  */
 declare function pending(reason?: string): void;
 
@@ -92,6 +91,11 @@ declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
 
 /**
+ * Create an expectation for a spec.
+ */
+declare function expect(): jasmine.NothingMatcher;
+
+/**
  * Explicitly mark a spec as failed.
  * @param e
  */
@@ -118,7 +122,7 @@ declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
  * @param property The name of the property to replace with a Spy
  * @param accessType The access type (get|set) of the property to Spy on.
  */
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType: string): jasmine.Spy;
+declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: 'get' | 'set'): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
@@ -129,13 +133,16 @@ declare namespace jasmine {
 
     var clock: () => Clock;
 
+    var matchersUtil: MatchersUtil;
+
     function any(aclass: any): Any;
 
     function anything(): Any;
 
-    function arrayContaining(sample: any[]): ArrayContaining;
+    function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
+    function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
-    function createSpy(name: string, originalFn?: Function): Spy;
+    function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: any[] | {[methodName: string]: any}): any;
     function createSpyObj<T>(baseName: string, methodNames: any[] | {[methodName: string]: any}): SpyObj<T>;
@@ -171,8 +178,8 @@ declare namespace jasmine {
         [n: number]: T;
     }
 
-    interface ArrayContaining {
-        new (sample: any[]): any;
+    interface ArrayContaining<T> {
+        new (sample: ArrayLike<T>): ArrayLike<T>;
 
         asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
@@ -212,8 +219,8 @@ declare namespace jasmine {
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]) => CustomMatcher;
@@ -405,18 +412,18 @@ declare namespace jasmine {
         message(): any;
 
         /**
-         * 
+         *
          * @param expected the actual value to be === to the expected value.
-         * @param expectationFailOutput 
-         * @returns {} 
+         * @param expectationFailOutput
+         * @returns {}
          */
         toBe(expected: Expected<T>, expectationFailOutput?: any): boolean;
 
         /**
-         *  
+         *
          * @param expected the actual value to be equal to the expected, using deep equality comparison.
-         * @param expectationFailOutput 
-         * @returns {} 
+         * @param expectationFailOutput
+         * @returns {}
          */
         toEqual(expected: Expected<T>, expectationFailOutput?: any): boolean;
         toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
@@ -439,16 +446,21 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
+
         not: Matchers<T>;
 
         Any: Any;
     }
 
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
-        toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
-        toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
         toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
         not: ArrayLikeMatchers<T>;
+    }
+
+    interface NothingMatcher {
+        nothing(): void;
     }
 
     interface Reporter {
@@ -567,7 +579,7 @@ declare namespace jasmine {
         addBeforesAndAftersToQueue(): void;
         explodes(): void;
         spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
-        spyOnProperty(object: any, property: string, accessType: string): Spy;
+        spyOnProperty(object: any, property: string, accessType?: 'get' | 'set'): Spy;
         removeAllSpies(): void;
         throwOnExpectationFailure: boolean;
     }

@@ -532,7 +532,7 @@ function demos() {
                 position: true,
                 rotation: true,
                 uvs: true,
-                alpha: true
+                tint: true
             });
             this.app.stage.addChild(this.sprites);
 
@@ -1259,8 +1259,8 @@ function demos() {
             const textures = [this.texture];
             const D8 = PIXI.GroupD8;
             for (let rotate = 1; rotate < 16; rotate++) {
-                const h = D8.isSwapWidthHeight(rotate) ? this.texture.frame.width : this.texture.frame.height;
-                const w = D8.isSwapWidthHeight(rotate) ? this.texture.frame.height : this.texture.frame.width;
+                const h = D8.isVertical(rotate) ? this.texture.frame.width : this.texture.frame.height;
+                const w = D8.isVertical(rotate) ? this.texture.frame.height : this.texture.frame.width;
 
                 const frame = this.texture.frame;
                 const crop = new PIXI.Rectangle(this.texture.frame.x, this.texture.frame.y, w, h);

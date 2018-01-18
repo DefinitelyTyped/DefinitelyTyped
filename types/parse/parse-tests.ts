@@ -2,13 +2,13 @@
 
 function test_events() {
 
-    var object = new Parse.Events();
+    const object = new Parse.Events();
     object.on("alert", (eventName: string) => alert("Triggered " + eventName));
 
     object.trigger("alert", "an event");
 
-    var onChange = () => console.log('whatever');
-    var context: any;
+    const onChange = () => console.log('whatever');
+    let context: any;
 
     object.off("change", onChange);
     object.off("change");
@@ -29,29 +29,43 @@ class Game extends Parse.Object {
 
     constructor(options?: any) {
 
-        super("GameScore", options);
+        super("Game", options);
     }
 }
 
 function test_object() {
 
-    var game = new Game();
+    const game = new Game();
+
+    if (!game.isNew()) {
+        console.error("Game should be new");
+    }
+
+    if (game.toPointer().className !== "Game") {
+        console.log("Class name should be 'Game")
+    }
 
     game.fetch({
         success(g: Game) { }
     });
 
     // Create a new instance of that class.
-    var gameScore = new GameScore();
+    const gameScore = new GameScore();
 
     gameScore.set("score", 1337);
     gameScore.set("playerName", "Sean Plott");
     gameScore.set("cheatMode", false);
 
 
-    var score = gameScore.get("score");
-    var playerName = gameScore.get("playerName");
-    var cheatMode = gameScore.get("cheatMode");
+    // Setting attrs using object
+    gameScore.set({
+        level: '10',
+        difficult: 15
+    });
+
+    const score = gameScore.get("score");
+    const playerName = gameScore.get("playerName");
+    const cheatMode = gameScore.get("cheatMode");
 
     gameScore.increment("score");
     gameScore.addUnique("skills", "flying");
@@ -59,14 +73,14 @@ function test_object() {
 
     game.set("gameScore", gameScore);
 
-    var gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
+    const gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
 }
 
 function test_query() {
 
-    var gameScore = new GameScore();
+    const gameScore = new GameScore();
 
-    var query = new Parse.Query(GameScore);
+    const query = new Parse.Query(GameScore);
     query.equalTo("playerName", "Dan Stemkoski");
     query.notEqualTo("playerName", "Michael Yabuti");
     query.greaterThan("playerAge", 18);
@@ -120,7 +134,7 @@ function test_query() {
     query.include("score");
     query.include(["score.team"]);
 
-    var testQuery = Parse.Query.or(query, query);
+    const testQuery = Parse.Query.or(query, query);
 }
 
 class TestCollection extends Parse.Collection<Object> {
@@ -141,9 +155,9 @@ function return_a_query(): Parse.Query {
 
 function test_collections() {
 
-    var collection = new TestCollection();
+    let collection = new TestCollection();
 
-    var query = new Parse.Query(Game);
+    const query = new Parse.Query(Game);
     query.equalTo("temperature", "hot");
     query.greaterThan("degreesF", 100);
 
@@ -167,10 +181,10 @@ function test_collections() {
         }
     );
 
-    var model = collection.at(0);
+    const model = collection.at(0);
 
     // Or you can get it by Parse objectId.
-    var modelAgain = collection.get(model.id);
+    const modelAgain = collection.get(model.id);
 
     // Remove "Duke" from the collection.
     collection.remove(model);
@@ -184,15 +198,15 @@ function test_collections() {
 
 function test_file() {
 
-    var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
-    var file = new Parse.File("myfile.txt", { base64: base64 });
+    const base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+    let file = new Parse.File("myfile.txt", { base64: base64 });
 
-    var bytes = [0xBE, 0xEF, 0xCA, 0xFE];
-    var file = new Parse.File("myfile.txt", bytes);
+    const bytes = [0xBE, 0xEF, 0xCA, 0xFE];
+    file = new Parse.File("myfile.txt", bytes);
 
-    var file = new Parse.File("myfile.zzz", {}, "image/png");
+    file = new Parse.File("myfile.zzz", {}, "image/png");
 
-    var src = file.url();
+    const src = file.url();
 
     file.save().then(
         () => {
@@ -211,7 +225,7 @@ function test_file() {
 
 function test_analytics() {
 
-    var dimensions = {
+    const dimensions = {
         // Define  ranges to bucket data points into meaningful segments
         priceRange: '1000-1500',
         // Did the user filter the query?
@@ -222,17 +236,33 @@ function test_analytics() {
     // Send the dimensions to Parse along with the 'search' event
     Parse.Analytics.track('search', dimensions);
 
-    var codeString = '404';
+    const codeString = '404';
     Parse.Analytics.track('error', { code: codeString })
 }
 
 function test_relation() {
+    var game1 = new Game();
+    var game2 = new Game();
+
     new Parse.User().relation("games").query().find().then((g: Game[]) => { });
+    new Parse.User().relation("games").add(game1)
+    new Parse.User().relation("games").add([game1, game2])
+
+    new Parse.User().relation("games").remove(game1)
+    new Parse.User().relation("games").remove([game1, game2])
+}
+
+function test_user() {
+    const user = new Parse.User();
+    user.set("username", "my name");
+    user.set("password", "my pass");
+    user.set("email", "email@example.com");
+    user.signUp(null, { useMasterKey: true });
 }
 
 function test_user_acl_roles() {
 
-    var user = new Parse.User();
+    const user = new Parse.User();
     user.set("username", "my name");
     user.set("password", "my pass");
     user.set("email", "email@example.com");
@@ -240,7 +270,7 @@ function test_user_acl_roles() {
     // other fields can be set just like with Parse.Object
     user.set("phone", "415-392-0202");
 
-    var currentUser = Parse.User.current();
+    const currentUser = Parse.User.current();
     if (currentUser) {
         // do stuff with the user
     } else {
@@ -253,17 +283,18 @@ function test_user_acl_roles() {
         // The token could not be validated.
     });
 
-    var game = new Game();
+    const game = new Game();
     game.set("score", new GameScore());
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true });
 
-    var groupACL = new Parse.ACL();
+    const groupACL = new Parse.ACL();
 
-    var userList: Parse.User[] = [Parse.User.current()!];
+    const userList: Parse.User[] = [Parse.User.current()!];
     // userList is an array with the users we are sending this message to.
-    for (var i = 0; i < userList.length; i++) {
+    for (let i = 0; i < userList.length; i++) {
         groupACL.setReadAccess(userList[i], true);
         groupACL.setWriteAccess(userList[i], true);
     }
@@ -279,7 +310,7 @@ function test_user_acl_roles() {
     });
 
     // By specifying no write privileges for the ACL, we can ensure the role cannot be altered.
-    var role = new Parse.Role("Administrator", groupACL);
+    const role = new Parse.Role("Administrator", groupACL);
     role.getUsers().add(userList[0]);
     role.getRoles().add(role);
     role.save();
@@ -311,7 +342,7 @@ function test_facebook_util() {
         }
     });
 
-    var user = Parse.User.current()!;
+    const user = Parse.User.current()!;
 
     if (!Parse.FacebookUtils.isLinked(user)) {
         Parse.FacebookUtils.link(user, null, {
@@ -366,27 +397,27 @@ class PlaceObject extends Parse.Object { }
 
 function test_geo_points() {
 
-    var point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
+    const point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
-    var userObject = Parse.User.current()!;
+    const userObject = Parse.User.current()!;
 
     // User's location
-    var userGeoPoint = userObject.get("location");
+    const userGeoPoint = userObject.get("location");
 
     // Create a query for places
-    var query = new Parse.Query(Parse.User);
+    const query = new Parse.Query(Parse.User);
     // Interested in locations near user.
     query.near("location", userGeoPoint);
     // Limit what could be a lot of points.
     query.limit(10);
 
-    var southwestOfSF = new Parse.GeoPoint(37.708813, -122.526398);
-    var northeastOfSF = new Parse.GeoPoint(37.822802, -122.373962);
+    const southwestOfSF = new Parse.GeoPoint(37.708813, -122.526398);
+    const northeastOfSF = new Parse.GeoPoint(37.822802, -122.373962);
 
-    var query2 = new Parse.Query(PlaceObject);
+    const query2 = new Parse.Query(PlaceObject);
     query2.withinGeoBox("location", southwestOfSF, northeastOfSF);
 
-    var query3 = new Parse.Query("PlaceObject").find().then((o: Parse.Object[]) => { });
+    const query3 = new Parse.Query("PlaceObject").find().then((o: Parse.Object[]) => { });
 }
 
 function test_push() {
@@ -405,7 +436,7 @@ function test_push() {
             }
         });
 
-    var query = new Parse.Query(Parse.Installation);
+    const query = new Parse.Query(Parse.Installation);
     query.equalTo('injuryReports', true);
 
     Parse.Push.send({
@@ -425,8 +456,8 @@ function test_push() {
 
 function test_view() {
 
-    var model = Parse.User.current();
-    var view = new Parse.View<Parse.User>();
+    const model = Parse.User.current();
+    const view = new Parse.View<Parse.User>();
 }
 
 function test_promise() {

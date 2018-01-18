@@ -58,6 +58,8 @@ declare function $for<T>(iterable: Iterable<T>): $for<T>;
 
 interface String {
     at(index: number): string;
+    padStart(length: number, fillStr?: string): string;
+    padEnd(length: number, fillStr?: string): string;
 }
 
 interface Object {
@@ -710,6 +712,7 @@ declare namespace core {
         from<T, U>(arrayLike: ArrayLike<T> | Iterable<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[];
         from<T>(arrayLike: ArrayLike<T> | Iterable<T>): T[];
         of<T>(...items: T[]): T[];
+        isArray(arg: any): arg is Array<any>;
         push<T>(array: ArrayLike<T>, ...items: T[]): number;
         pop<T>(array: ArrayLike<T>): T;
         concat<T>(array: ArrayLike<T>, ...items: Array<T[] | T>): T[];
@@ -1032,6 +1035,10 @@ declare module "core-js/fn/array/includes" {
 declare module "core-js/fn/array/index-of" {
     const indexOf: typeof core.Array.indexOf;
     export = indexOf;
+}
+declare module "core-js/fn/array/is-array" {
+    const isArray: typeof core.Array.isArray;
+    export = isArray;
 }
 declare module "core-js/fn/array/join" {
     const join: typeof core.Array.join;
@@ -1811,6 +1818,10 @@ declare module "core-js/library/fn/array/includes" {
 declare module "core-js/library/fn/array/index-of" {
     const indexOf: typeof core.Array.indexOf;
     export = indexOf;
+}
+declare module "core-js/library/fn/array/is-array" {
+    const isArray: typeof core.Array.isArray;
+    export = isArray;
 }
 declare module "core-js/library/fn/array/join" {
     const join: typeof core.Array.join;

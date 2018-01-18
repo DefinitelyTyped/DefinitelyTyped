@@ -14,6 +14,10 @@ log.setLevel("error", false);
 log.setLevel(log.levels.WARN);
 log.setLevel(log.levels.WARN, false);
 
+log.setDefaultLevel(1);
+log.setDefaultLevel("warn");
+log.setDefaultLevel(log.levels.INFO);
+
 log.enableAll(false);
 log.enableAll();
 log.disableAll(true);
@@ -21,8 +25,9 @@ log.disableAll();
 
 const logLevel = log.getLevel();
 
-const testLogger = log.getLogger("TestLogger");
+const testLogger: log.Logger = log.getLogger("TestLogger");
 
+testLogger.setDefaultLevel(logLevel);
 testLogger.setLevel(logLevel);
 testLogger.warn("logging test");
 

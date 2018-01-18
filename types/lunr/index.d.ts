@@ -115,7 +115,7 @@ declare namespace lunr {
          * The ref should _not_ be changed during indexing, it should be set before any documents are
          * added to the index. Changing it during indexing can lead to inconsistent results.
          *
-         * @param {string} ref - The name of the reference field in the document.
+         * @param ref - The name of the reference field in the document.
          */
         ref(ref: string): void;
 
@@ -127,7 +127,7 @@ declare namespace lunr {
          * All fields should be added before adding documents to the index. Adding fields after
          * a document has been indexed will have no effect on already indexed documents.
          *
-         * @param {string} field - The name of a field to index in all documents.
+         * @param field - The name of a field to index in all documents.
          */
         field(field: string): void;
 
@@ -137,7 +137,7 @@ declare namespace lunr {
          * and a value of 1 will fully normalise field lengths. The default is 0.75. Values of b
          * will be clamped to the range 0 - 1.
          *
-         * @param {number} number - The value to set for this tuning parameter.
+         * @param number - The value to set for this tuning parameter.
          */
         b(number: number): void;
 
@@ -146,7 +146,7 @@ declare namespace lunr {
          * frequency saturation. The default value is 1.2. Setting this to a higher value will give
          * slower saturation levels, a lower value will result in quicker saturation.
          *
-         * @param {number} number - The value to set for this tuning parameter.
+         * @param number - The value to set for this tuning parameter.
          */
         k1(number: number): void;
 
@@ -160,7 +160,7 @@ declare namespace lunr {
          * it should have all fields defined for indexing, though null or undefined values will not
          * cause errors.
          *
-         * @param {object} doc - The document to add to the index.
+         * @param doc - The document to add to the index.
          */
         add(doc: object): void;
 
@@ -170,7 +170,6 @@ declare namespace lunr {
          * This completes the indexing process and should only be called
          * once all documents have been added to the index.
          *
-         * @returns {lunr.Index}
          */
         build(): Index;
 
@@ -186,7 +185,7 @@ declare namespace lunr {
          * arguments can also be passed when calling use. The function will be called
          * with the index builder as its context.
          *
-         * @param {Function} plugin The plugin to apply.
+         * @param plugin The plugin to apply.
          */
         use(plugin: Builder.Plugin, ...args: any[]): void;
     }
@@ -240,8 +239,7 @@ declare namespace lunr {
          * the query to perform on the index.
          *
          * @callback lunr.Index~queryBuilder
-         * @param {lunr.Query} query - The query object to build up.
-         * @this lunr.Query
+         * @param query - The query object to build up.
          */
         type QueryBuilder = (this: Query, query: Query) => void;
 
@@ -310,9 +308,8 @@ declare namespace lunr {
          *
          * For more programmatic querying use lunr.Index#query.
          *
-         * @param {lunr.Index~QueryString} queryString - A string containing a lunr query.
+         * @param queryString - A string containing a lunr query.
          * @throws {lunr.QueryParseError} If the passed query string cannot be parsed.
-         * @returns {lunr.Index~Result[]}
          */
         search(queryString: Index.QueryString): Index.Result[];
 
@@ -329,10 +326,9 @@ declare namespace lunr {
          * asynchronous operation, the callback is just yielded a query object to be
          * customized.
          *
-         * @param {lunr.Index~queryBuilder} fn - A function that is used to build the query.
-         * @returns {lunr.Index~Result[]}
+         * @param fn - A function that is used to build the query.
          */
-        query(fn: Index.QueryBuilder): Index.Result;
+        query(fn: Index.QueryBuilder): Index.Result[];
 
         /**
          * Prepares the index for JSON serialization.
@@ -340,15 +336,13 @@ declare namespace lunr {
          * The schema for this JSON blob will be described in a
          * separate JSON schema file.
          *
-         * @returns {Object}
          */
         toJSON(): object;
 
         /**
          * Loads a previously serialized lunr.Index
          *
-         * @param {Object} serializedIndex - A previously serialized lunr.Index
-         * @returns {lunr.Index}
+         * @param serializedIndex - A previously serialized lunr.Index
          */
         static load(serializedIndex: object): Index;
     }
@@ -365,9 +359,9 @@ declare namespace lunr {
         metadata: object;
 
         /**
-         * @param {string} term - The term this match data is associated with
-         * @param {string} field - The field in which the term was found
-         * @param {object} metadata - The metadata recorded about this term in this field
+         * @param term - The term this match data is associated with
+         * @param field - The field in which the term was found
+         * @param metadata - The metadata recorded about this term in this field
          */
         constructor(term: string, field: string, metadata: object)
 
@@ -377,7 +371,7 @@ declare namespace lunr {
          * method combines metadata from another instance of lunr.MatchData with this
          * objects metadata.
          *
-         * @param {lunr.MatchData} otherMatchData - Another instance of match data to merge with this one.
+         * @param otherMatchData - Another instance of match data to merge with this one.
          * @see {@link lunr.Index~Result}
          */
         combine(otherMatchData: MatchData): void;
@@ -397,11 +391,9 @@ declare namespace lunr {
      *
      * Any number of pipeline functions may be chained together using a lunr.Pipeline.
      *
-     * @interface lunr.PipelineFunction
-     * @param {lunr.Token} token - A token from the document being processed.
-     * @param {number} i - The index of this token in the complete list of tokens for this document/field.
-     * @param {lunr.Token[]} tokens - All tokens for this document/field.
-     * @returns {(?lunr.Token|lunr.Token[])}
+     * @param token - A token from the document being processed.
+     * @param i - The index of this token in the complete list of tokens for this document/field.
+     * @param tokens - All tokens for this document/field.
      */
     type PipelineFunction = (
         token: Token,
@@ -448,8 +440,8 @@ declare namespace lunr {
          * Registering a function does not add it to a pipeline, functions must still be
          * added to instances of the pipeline for them to be used when running a pipeline.
          *
-         * @param {lunr.PipelineFunction} fn - The function to check for.
-         * @param {String} label - The label to register this function with
+         * @param fn - The function to check for.
+         * @param label - The label to register this function with
          */
         static registerFunction(fn: PipelineFunction, label: string): void;
 
@@ -460,8 +452,7 @@ declare namespace lunr {
          * If any function from the serialised data has not been registered then an
          * error will be thrown.
          *
-         * @param {Object} serialised - The serialised pipeline to load.
-         * @returns {lunr.Pipeline}
+         * @param serialised - The serialised pipeline to load.
          */
         static load(serialised: object): Pipeline;
 
@@ -470,7 +461,7 @@ declare namespace lunr {
          *
          * Logs a warning if the function has not been registered.
          *
-         * @param {lunr.PipelineFunction[]} functions - Any number of functions to add to the pipeline.
+         * @param functions - Any number of functions to add to the pipeline.
          */
         add(...functions: PipelineFunction[]): void;
 
@@ -480,8 +471,8 @@ declare namespace lunr {
          *
          * Logs a warning if the function has not been registered.
          *
-         * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
-         * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
+         * @param existingFn - A function that already exists in the pipeline.
+         * @param newFn - The new function to add to the pipeline.
          */
         after(existingFn: PipelineFunction, newFn: PipelineFunction): void;
 
@@ -491,15 +482,15 @@ declare namespace lunr {
          *
          * Logs a warning if the function has not been registered.
          *
-         * @param {lunr.PipelineFunction} existingFn - A function that already exists in the pipeline.
-         * @param {lunr.PipelineFunction} newFn - The new function to add to the pipeline.
+         * @param existingFn - A function that already exists in the pipeline.
+         * @param newFn - The new function to add to the pipeline.
          */
         before(existingFn: PipelineFunction, newFn: PipelineFunction): void;
 
         /**
          * Removes a function from the pipeline.
          *
-         * @param {lunr.PipelineFunction} fn The function to remove from the pipeline.
+         * @param fn The function to remove from the pipeline.
          */
         remove(fn: PipelineFunction): void;
 
@@ -507,8 +498,7 @@ declare namespace lunr {
          * Runs the current list of functions that make up the pipeline against the
          * passed tokens.
          *
-         * @param {Array} tokens The tokens to run through the pipeline.
-         * @returns {Array}
+         * @param tokens The tokens to run through the pipeline.
          */
         run(tokens: Token[]): Token[];
 
@@ -517,8 +507,7 @@ declare namespace lunr {
          * strings out. This method takes care of wrapping the passed string in a
          * token and mapping the resulting tokens back to strings.
          *
-         * @param {string} str - The string to pass through the pipeline.
-         * @returns {string[]}
+         * @param str - The string to pass through the pipeline.
          */
         runString(str: string): string[];
 
@@ -533,7 +522,6 @@ declare namespace lunr {
          *
          * Logs a warning if the function has not been registered.
          *
-         * @returns {Array}
          */
         toJSON(): PipelineFunction[];
     }
@@ -548,19 +536,18 @@ declare namespace lunr {
         /**
          * A single clause in a {@link lunr.Query} contains a term and details on how to
          * match that term against a {@link lunr.Index}.
-         *
-         * @typedef {Object} lunr.Query~Clause
-         * @property {string[]} fields - The fields in an index this clause should be matched against.
-         * @property {number} [boost=1] - Any boost that should be applied when matching this clause.
-         * @property {number} [editDistance] - Whether the term should have fuzzy matching applied, and how fuzzy the match should be.
-         * @property {boolean} [usePipeline] - Whether the term should be passed through the search pipeline.
-         * @property {number} [wildcard=0] - Whether the term should have wildcards appended or prepended.
          */
         interface Clause {
+            term: string;
+            /** The fields in an index this clause should be matched against. */
             fields: string[];
+            /** Any boost that should be applied when matching this clause. */
             boost: number;
+            /** Whether the term should have fuzzy matching applied, and how fuzzy the match should be. */
             editDistance: number;
+            /** Whether the term should be passed through the search pipeline. */
             usePipeline: boolean;
+            /** Whether the term should have wildcards appended or prepended. */
             wildcard: number;
         }
     }
@@ -571,9 +558,6 @@ declare namespace lunr {
      *
      * Prefer constructing a lunr.Query using the {@link lunr.Index#query} method
      * so the query object is pre-initialized with the right index fields.
-     *
-     * @property {lunr.Query~Clause[]} clauses - An array of query clauses.
-     * @property {string[]} allFields - An array of all available fields in a lunr.Index.
      */
     class Query {
         /**
@@ -597,9 +581,8 @@ declare namespace lunr {
          * Unless the clause contains the fields to be matched all fields will be matched. In addition
          * a default boost of 1 is applied to the clause.
          *
-         * @param {lunr.Query~Clause} clause - The clause to add to this query.
+         * @param clause - The clause to add to this query.
          * @see lunr.Query~Clause
-         * @returns {lunr.Query}
          */
         clause(clause: Query.Clause): Query;
 
@@ -607,9 +590,8 @@ declare namespace lunr {
          * Adds a term to the current query, under the covers this will create a {@link lunr.Query~Clause}
          * to the list of clauses that make up this query.
          *
-         * @param {string} term - The term to add to the query.
-         * @param {Object} [options] - Any additional properties to add to the query clause.
-         * @returns {lunr.Query}
+         * @param term - The term to add to the query.
+         * @param [options] - Any additional properties to add to the query clause.
          * @see lunr.Query#clause
          * @see lunr.Query~Clause
          * @example <caption>adding a single term to a query</caption>
@@ -637,13 +619,25 @@ declare namespace lunr {
      * lunr.stemmer is an english language stemmer, this is a JavaScript
      * implementation of the PorterStemmer taken from http://tartarus.org/~martin
      *
-     * @static
-     * @implements {lunr.PipelineFunction}
-     * @param {lunr.Token} token - The string to stem
-     * @returns {lunr.Token}
+     * Implements {lunr.PipelineFunction}
+     *
+     * @param token - The string to stem
      * @see {@link lunr.Pipeline}
      */
     function stemmer(token: Token): Token;
+
+    /**
+     * lunr.generateStopWordFilter builds a stopWordFilter function from the provided
+     * list of stop words.
+     *
+     * The built in lunr.stopWordFilter is built using this generator and can be used
+     * to generate custom stopWordFilters for applications or non English languages.
+     *
+     * @param stopWords - The list of stop words
+     * @see lunr.Pipeline
+     * @see lunr.stopWordFilter
+     */
+    function generateStopWordFilter(stopWords: string[]): PipelineFunction;
 
     /**
      * lunr.stopWordFilter is an English language stop word list filter, any words
@@ -652,9 +646,9 @@ declare namespace lunr {
      * This is intended to be used in the Pipeline. If the token does not pass the
      * filter then undefined will be returned.
      *
-     * @implements {lunr.PipelineFunction}
-     * @params {lunr.Token} token - A token to check for being a stop word.
-     * @returns {lunr.Token}
+     * Implements {lunr.PipelineFunction}
+     *
+     * @param token - A token to check for being a stop word.
      * @see {@link lunr.Pipeline}
      */
     function stopWordFilter(token: Token): Token;
@@ -665,8 +659,8 @@ declare namespace lunr {
          * when cloning a token.
          *
          * @callback lunr.Token~updateFunction
-         * @param {string} str - The string representation of the token.
-         * @param {Object} metadata - All metadata associated with this token.
+         * @param str - The string representation of the token.
+         * @param metadata - All metadata associated with this token.
          */
         type UpdateFunction = (str: string, metadata: object) => void;
     }
@@ -677,15 +671,14 @@ declare namespace lunr {
      */
     class Token {
         /**
-         * @param {string} [str=''] - The string token being wrapped.
-         * @param {object} [metadata={}] - Metadata associated with this token.
+         * @param [str=''] - The string token being wrapped.
+         * @param [metadata={}] - Metadata associated with this token.
          */
         constructor(str: string, metadata: object)
 
         /**
          * Returns the token string that is being wrapped by this object.
          *
-         * @returns {string}
          */
         toString(): string;
 
@@ -697,8 +690,7 @@ declare namespace lunr {
          *   return str.toUpperCase()
          * })
          *
-         * @param {lunr.Token~updateFunction} fn - A function to apply to the token string.
-         * @returns {lunr.Token}
+         * @param fn - A function to apply to the token string.
          */
         update(fn: Token.UpdateFunction): Token;
 
@@ -706,10 +698,9 @@ declare namespace lunr {
          * Creates a clone of this token. Optionally a function can be
          * applied to the cloned token.
          *
-         * @param {lunr.Token~updateFunction} [fn] - An optional function to apply to the cloned token.
-         * @returns {lunr.Token}
+         * @param fn - An optional function to apply to the cloned token.
          */
-        clone(fn: Token.UpdateFunction): Token;
+        clone(fn?: Token.UpdateFunction): Token;
     }
 
     /**
@@ -737,8 +728,7 @@ declare namespace lunr {
         /**
          * Creates a TokenSet instance from the given sorted array of words.
          *
-         * @param {String[]} arr - A sorted array of strings to create the set from.
-         * @returns {lunr.TokenSet}
+         * @param arr - A sorted array of strings to create the set from.
          * @throws Will throw an error if the input array is not sorted.
          */
         fromArray(arr: string[]): TokenSet;
@@ -754,9 +744,8 @@ declare namespace lunr {
          * on the performance of both creating and intersecting these TokenSets.
          * It is advised to keep the edit distance less than 3.
          *
-         * @param {string} str - The string to create the token set from.
-         * @param {number} editDistance - The allowed edit distance to match.
-         * @returns {lunr.Vector}
+         * @param str - The string to create the token set from.
+         * @param editDistance - The allowed edit distance to match.
          */
         fromFuzzyString(str: string, editDistance: number): Vector;
 
@@ -767,8 +756,7 @@ declare namespace lunr {
          * that will allow wildcard matching when intersecting with
          * another TokenSet.
          *
-         * @param {string} str - The string to create a TokenSet from.
-         * @returns {lunr.TokenSet}
+         * @param str - The string to create a TokenSet from.
          */
         fromString(str: string): TokenSet;
 
@@ -776,7 +764,6 @@ declare namespace lunr {
          * Converts this TokenSet into an array of strings
          * contained within the TokenSet.
          *
-         * @returns {string[]}
          */
         toArray(): string[];
 
@@ -788,7 +775,6 @@ declare namespace lunr {
          * of a TokenSet. As such it is not designed to be a human
          * friendly representation of the TokenSet.
          *
-         * @returns {string}
          */
         toString(): string;
 
@@ -799,8 +785,7 @@ declare namespace lunr {
          * This intersection will take into account any wildcards
          * contained within the TokenSet.
          *
-         * @param {lunr.TokenSet} b - An other TokenSet to intersect with.
-         * @returns {lunr.TokenSet}
+         * @param b - An other TokenSet to intersect with.
          */
         intersect(b: TokenSet): TokenSet;
     }
@@ -810,10 +795,9 @@ declare namespace lunr {
          * The separator used to split a string into tokens. Override this property to change the behaviour of
          * `lunr.tokenizer` behaviour when tokenizing strings. By default this splits on whitespace and hyphens.
          *
-         * @static
          * @see lunr.tokenizer
          */
-        const separator: RegExp;
+        let separator: RegExp;
     }
 
     /**
@@ -825,9 +809,7 @@ declare namespace lunr {
      * then will split this string on the character in `lunr.tokenizer.separator`.
      * Arrays will have their elements converted to strings and wrapped in a lunr.Token.
      *
-     * @static
-     * @param {?(string|object|object[])} obj - The object to convert into tokens
-     * @returns {lunr.Token[]}
+     * @param obj - The object to convert into tokens
      */
     function tokenizer(obj?: null | string | object | object[]): Token[];
 
@@ -840,10 +822,9 @@ declare namespace lunr {
      * characters and should either be removed or adapted for use
      * with languages with non-latin characters.
      *
-     * @static
-     * @implements {lunr.PipelineFunction}
-     * @param {lunr.Token} token The token to pass through the filter
-     * @returns {lunr.Token}
+     * Implements {lunr.PipelineFunction}
+     *
+     * @param token The token to pass through the filter
      * @see lunr.Pipeline
      */
     function trimmer(token: Token): Token;
@@ -855,8 +836,7 @@ declare namespace lunr {
         /**
          * Print a warning message to the console.
          *
-         * @param {String} message The message to be printed.
-         * @memberOf Utils
+         * @param message The message to be printed.
          */
         function warn(message: string): void;
 
@@ -867,9 +847,8 @@ declare namespace lunr {
          * the empty string, in all other cases the result of calling
          * `toString` on the passed object is returned.
          *
-         * @param {Any} obj The object to convert to a string.
-         * @return {String} string representation of the passed object.
-         * @memberOf Utils
+         * @param obj The object to convert to a string.
+         * @return string representation of the passed object.
          */
         function asString(obj: any): string;
     }
@@ -889,7 +868,7 @@ declare namespace lunr {
      */
     class Vector {
         /**
-         * @param {Number[]} [elements] - The flat list of element index and element value pairs.
+         * @param [elements] - The flat list of element index and element value pairs.
          */
         constructor(elements: number[])
 
@@ -900,8 +879,7 @@ declare namespace lunr {
          * the position is returned as if the value for that index were to be updated, but it
          * is the callers responsibility to check whether there is a duplicate at that index
          *
-         * @param {Number} insertIdx - The index at which the element should be inserted.
-         * @returns {Number}
+         * @param insertIdx - The index at which the element should be inserted.
          */
         positionForIndex(index: number): number;
 
@@ -911,17 +889,17 @@ declare namespace lunr {
          * Does not allow duplicates, will throw an error if there is already an entry
          * for this index.
          *
-         * @param {Number} insertIdx - The index at which the element should be inserted.
-         * @param {Number} val - The value to be inserted into the vector.
+         * @param insertIdx - The index at which the element should be inserted.
+         * @param val - The value to be inserted into the vector.
          */
         insert(insertIdx: number, val: number): void;
 
         /**
          * Inserts or updates an existing index within the vector.
          *
-         * @param {Number} insertIdx - The index at which the element should be inserted.
-         * @param {Number} val - The value to be inserted into the vector.
-         * @param {function} fn - A function that is called for updates, the existing value and the
+         * @param insertIdx - The index at which the element should be inserted.
+         * @param val - The value to be inserted into the vector.
+         * @param fn - A function that is called for updates, the existing value and the
          * requested value are passed as arguments
          */
         upsert(
@@ -933,15 +911,13 @@ declare namespace lunr {
         /**
          * Calculates the magnitude of this vector.
          *
-         * @returns {Number}
          */
         magnitude(): number;
 
         /**
          * Calculates the dot product of this vector and another vector.
          *
-         * @param {lunr.Vector} otherVector - The vector to compute the dot product with.
-         * @returns {Number}
+         * @param otherVector - The vector to compute the dot product with.
          */
         dot(otherVector: Vector): number;
 
@@ -949,23 +925,20 @@ declare namespace lunr {
          * Calculates the cosine similarity between this vector and another
          * vector.
          *
-         * @param {lunr.Vector} otherVector - The other vector to calculate the
+         * @param otherVector - The other vector to calculate the
          * similarity with.
-         * @returns {Number}
          */
         similarity(otherVector: Vector): number;
 
         /**
          * Converts the vector to an array of the elements within the vector.
          *
-         * @returns {Number[]}
          */
         toArray(): number[];
 
         /**
          * A JSON serializable representation of the vector.
          *
-         * @returns {Number[]}
          */
         toJSON(): number[];
     }

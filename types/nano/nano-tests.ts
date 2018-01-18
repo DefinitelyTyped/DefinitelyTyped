@@ -6,6 +6,7 @@ import * as nano from "nano";
  */
 const config: nano.Configuration = {
   url: "http://localhost:5984/foo",
+  cookie: "someAuthSession",
   requestDefaults: { proxy: "http://someproxy" }
 };
 
@@ -117,6 +118,42 @@ mydb.show(
 );
 mydb.replicate("database_replica", (error: any) => {});
 
+const req = mydb.find({
+  selector: {
+    userId: 1234,
+    name: 'Paul',
+    status: { $ne: 'suspended' },
+    age: { $gt: 69 },
+    building: {
+      number: {
+        $in: [101, 203, 205]
+      }
+    }
+  },
+  skip: 10,
+  limit: 1,
+  use_index: "user_index_doc",
+  fields: ['name', 'age'],
+  sort: [{ age: 'desc' }, { name: 'asc' }],
+  r: 2,
+  stale: 'ok',
+  execution_stats: true
+}, (resp: nano.MangoResponse<SomeDocument>, error: any) => {
+  for (const doc of resp.docs) {
+    console.log(doc.name);
+  }
+
+  if (resp.warning) {
+    console.error(resp.warning);
+  }
+
+  if (resp.execution_stats) {
+    console.log(`Execution time: ${resp.execution_stats.execution_time_ms} ms.`);
+  }
+});
+
+req.abort();
+
 /*
  * Attachments
  */
@@ -140,7 +177,9 @@ const attGet: NodeJS.ReadableStream = mydb.attachment.get("new_string", "att");
 /*
  * Multipart
  */
-mydb.multipart.insert({ name: "baz" }, [{}], "foobaz", (error, foo) => {});
+const attachment = { name: 'rabbit.png', data: 'some data', content_type: 'image/png' };
+
+mydb.multipart.insert({ name: "baz" }, [attachment], "foobaz", (error, foo) => {});
 mydb.multipart.get("foobaz", (error: any, foobaz: any, headers: any) => {});
 
 /*

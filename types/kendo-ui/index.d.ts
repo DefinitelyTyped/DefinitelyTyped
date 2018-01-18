@@ -997,6 +997,7 @@ declare namespace kendo.data {
         max?: any;
         minLength?: any;
         maxLength?: any;
+        [rule: string]: any;
     }
 
     class ObservableArray extends Observable {
@@ -1372,6 +1373,8 @@ declare namespace kendo.ui {
 
     interface DropTargetEvent {
         sender?: DropTarget;
+        dropTarget?: JQuery;
+        target?: Element;
     }
 
     interface DropTargetDragenterEvent extends DropTargetEvent {
@@ -3747,7 +3750,7 @@ declare namespace kendo.ui {
         aggregates?: any;
         attributes?: any;
         columns?: any;
-        command?: GridColumnCommandItem[];
+        command?: string|(string|GridColumnCommandItem)[];
         editable?: Function;
         encoded?: boolean;
         field?: string;
@@ -11177,8 +11180,8 @@ declare namespace kendo.dataviz.ui {
         border?: ChartXAxisItemTitleBorder;
         color?: string;
         font?: string;
-        margin?: ChartXAxisItemTitleMargin;
-        padding?: ChartXAxisItemTitlePadding;
+        margin?: ChartXAxisItemTitleMargin | number;
+        padding?: ChartXAxisItemTitlePadding | number;
         position?: string;
         rotation?: number;
         text?: string;

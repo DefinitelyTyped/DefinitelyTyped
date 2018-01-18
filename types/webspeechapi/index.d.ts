@@ -2,6 +2,7 @@
 // Project: https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html
 // Definitions by: SaschaNaz <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // Spec version: 19 October 2012
 // Errata version: 6 June 2014
@@ -24,6 +25,7 @@ interface SpeechRecognition extends EventTarget {
     onspeechstart: (ev: Event) => any;
     onspeechend: (ev: Event) => any;
     onsoundend: (ev: Event) => any;
+    onaudioend: (ev: Event) => any;
     onresult: (ev: SpeechRecognitionEvent) => any;
     onnomatch: (ev: SpeechRecognitionEvent) => any;
     onerror: (ev: SpeechRecognitionError) => any;
@@ -92,73 +94,3 @@ interface SpeechGrammarListStatic {
 }
 declare var SpeechGrammarList: SpeechGrammarListStatic;
 declare var webkitSpeechGrammarList: SpeechGrammarListStatic;
-
-/* Errata 08 */
-interface SpeechSynthesis extends EventTarget {
-    pending: boolean;
-    speaking: boolean;
-    paused: boolean;
-
-    /* Errata 11 */
-    onvoiceschanged: (ev: Event) => any;
-
-    speak(utterance: SpeechSynthesisUtterance): void;
-    cancel(): void;
-    pause(): void;
-    resume(): void;
-    /* Errata 05 */
-    getVoices(): SpeechSynthesisVoice[];
-}
-
-interface SpeechSynthesisGetter {
-    speechSynthesis: SpeechSynthesis;
-}
-interface Window extends SpeechSynthesisGetter {
-}
-declare var speechSynthesis: SpeechSynthesis;
-
-interface SpeechSynthesisUtterance extends EventTarget {
-    text: string;
-    lang: string;
-    /* Errata 07 */
-    voice: SpeechSynthesisVoice;
-    volume: number;
-    rate: number;
-    pitch: number;
-
-    onstart: (ev: SpeechSynthesisEvent) => any;
-    onend: (ev: SpeechSynthesisEvent) => any;
-    /* Errata 12 */
-    onerror: (ev: SpeechSynthesisErrorEvent) => any;
-    onpause: (ev: SpeechSynthesisEvent) => any;
-    onresume: (ev: SpeechSynthesisEvent) => any;
-    onmark: (ev: SpeechSynthesisEvent) => any;
-    onboundary: (ev: SpeechSynthesisEvent) => any;
-}
-interface SpeechSynthesisUtteranceStatic {
-    prototype: SpeechSynthesisUtterance;
-    new (): SpeechSynthesisUtterance;
-    new (text: string): SpeechSynthesisUtterance;
-}
-declare var SpeechSynthesisUtterance: SpeechSynthesisUtteranceStatic;
-
-interface SpeechSynthesisEvent extends Event {
-    /* Errata 08 */
-    utterance: SpeechSynthesisUtterance;
-    charIndex: number;
-    elapsedTime: number;
-    name: string;
-}
-
-/* Errata 12 */
-interface SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
-    error: string;
-}
-
-interface SpeechSynthesisVoice {
-    voiceURI: string;
-    name: string;
-    lang: string;
-    localService: boolean;
-    default: boolean;
-}

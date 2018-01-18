@@ -455,7 +455,6 @@ declare namespace adone {
              * Writes a 32bit le float
              *
              * @param offset Offset to write to
-             * @returns {this}
              */
             writeFloatLE(value: number, offset?: number): this;
 
@@ -802,8 +801,7 @@ declare namespace adone {
              * Resizes this ByteArray to be backed by a buffer of at least the given capacity.
              * Will do nothing if already that large or larger.
              *
-             * @param {number} capacity	Capacity required
-             * @returns {this}
+             * @param capacity	Capacity required
              */
             resize(capacity: number): this;
 
@@ -1654,6 +1652,7 @@ declare namespace adone {
              * Ends the stream
              */
             end(chunk?: Buffer): void;
+            end(chunk?: () => void): void;
 
             /**
              * Returns the byte at the specified index
@@ -1679,8 +1678,8 @@ declare namespace adone {
              * Returns a new BufferList object containing the bytes within the range specified.
              * No copies will be performed. All buffers in the result share memory with the original list.
              *
-             * @param {number} start slice from
-             * @param {number} end slice to
+             * @param start slice from
+             * @param end slice to
              */
             shallowSlice(start?: number, end?: number): BufferList;
 
@@ -1705,11 +1704,11 @@ declare namespace adone {
             destroy(): void;
 
             then<T1 = Buffer, T2 = never>(
-                onfulfilled?: ((value: Buffer) => T1 | PromiseLike<T1>) | undefined | null,
-                onrejected?: ((reason: any) => T2 | PromiseLike<T2>) | undefined | null
+                onfulfilled?: ((value: Buffer) => T1 | PromiseLike<T1>) | null,
+                onrejected?: ((reason: any) => T2 | PromiseLike<T2>) | null
             ): PromiseLike<T1 | T2>;
 
-            catch<T>(onrejected?: ((reason: any) => T | PromiseLike<T>) | undefined | null): PromiseLike<T | Buffer>;
+            catch<T>(onrejected?: ((reason: any) => T | PromiseLike<T>) | null): PromiseLike<T | Buffer>;
         }
 
         /**

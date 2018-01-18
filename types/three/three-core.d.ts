@@ -463,6 +463,8 @@ export class CubeCamera extends Object3D {
     renderTarget: WebGLRenderTargetCube;
 
     updateCubeMap(renderer: Renderer, scene: Scene): void;
+
+    update(renderer: Renderer, scene: Scene): void;
 }
 
 /**
@@ -654,6 +656,13 @@ export class StereoCamera extends Camera {
     update(camera: PerspectiveCamera): void;
 }
 
+export class ArrayCamera extends PerspectiveCamera {
+    constructor(cameras?: PerspectiveCamera[]);
+
+    cameras: PerspectiveCamera[];
+    isArrayCamera: true;
+}
+
 // Core ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -671,7 +680,9 @@ export class BufferAttribute {
     normalized: boolean;
     needsUpdate: boolean;
     count: number;
+	onUpload: Function;
 
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
     clone(): this;
     copy(source: this): this;
@@ -682,7 +693,7 @@ export class BufferAttribute {
     copyVector2sArray(vectors: {x: number, y: number}[]): BufferAttribute;
     copyVector3sArray(vectors: {x: number, y: number, z: number}[]): BufferAttribute;
     copyVector4sArray(vectors: {x: number, y: number, z: number, w: number}[]): BufferAttribute;
-    set(value: ArrayLike<number>, offset?: number): BufferAttribute;
+    set(value: ArrayLike<number>|ArrayBufferView, offset?: number): BufferAttribute;
     getX(index: number): number;
     setX(index: number, x: number): BufferAttribute;
     getY(index: number): number;
@@ -861,7 +872,8 @@ export class BufferGeometry extends EventDispatcher {
 
     center(): Vector3;
 
-    setFromObject(object: Object3D): void;
+    setFromObject(object: Object3D): BufferGeometry;
+    setFromPoints(points: Vector3[]): BufferGeometry;
     updateFromObject(object: Object3D): void;
 
     fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
@@ -1365,6 +1377,8 @@ export class Geometry extends EventDispatcher {
      */
     mergeVertices(): number;
 
+    setFromPoints(points: Array<Vector2> | Array<Vector3>): this;
+
     sortFacesByMaterialIndex(): void;
 
     toJSON(): any;
@@ -1445,6 +1459,7 @@ export class InterleavedBuffer {
     count: number;
     needsUpdate: boolean;
 
+    setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
     clone(): this;
     copy(source: this): this;
@@ -1466,7 +1481,7 @@ export class InstancedInterleavedBuffer extends InterleavedBuffer {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js">src/core/InterleavedBufferAttribute.js</a>
  */
 export class InterleavedBufferAttribute {
-    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized: boolean);
+    constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized?: boolean);
 
     uuid: string;
     data: InterleavedBuffer;
@@ -1917,9 +1932,9 @@ export class LightShadow {
 export class AmbientLight extends Light {
     /**
      * This creates a Ambientlight with a color.
-     * @param hex Numeric value of the RGB component of the color.
+     * @param color Numeric value of the RGB component of the color or a Color instance.
      */
-    constructor(hex?: number|string, intensity?: number);
+    constructor(color?: Color | string | number, intensity?: number);
 
     castShadow: boolean;
 }
@@ -1936,7 +1951,7 @@ export class AmbientLight extends Light {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js">src/lights/DirectionalLight.js</a>
  */
 export class DirectionalLight extends Light {
-    constructor(hex?: number|string, intensity?: number);
+    constructor(color?: Color | string | number, intensity?: number);
 
     /**
      * Target used for shadow camera orientation.
@@ -1957,8 +1972,9 @@ export class DirectionalLightShadow extends LightShadow {
 }
 
 export class HemisphereLight extends Light {
-    constructor(skyColorHex?: number|string, groundColorHex?: number|string, intensity?: number);
+    constructor(skyColor?: Color | string | number, groundColor?: Color | string | number, intensity?: number);
 
+	skyColor: Color;
     groundColor: Color;
     intensity: number;
 }
@@ -1972,7 +1988,7 @@ export class HemisphereLight extends Light {
  * scene.add( light );
  */
 export class PointLight extends Light {
-    constructor(hex?: number|string, intensity?: number, distance?: number, decay?: number);
+    constructor(color?: Color | string | number, intensity?: number, distance?: number, decay?: number);
 
     /*
         * Light's intensity.
@@ -1999,7 +2015,7 @@ export class PointLightShadow extends LightShadow {
  * A point light that can cast shadow in one direction.
  */
 export class SpotLight extends Light {
-    constructor(hex?: number|string, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
+    constructor(color?: Color | string | number, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
 
     /**
      * Spotlight focus points at target.position.
@@ -2594,7 +2610,7 @@ export class Material extends EventDispatcher {
 }
 
 export interface LineBasicMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     linewidth?: number;
     linecap?: string;
     linejoin?: string;
@@ -2612,7 +2628,7 @@ export class LineBasicMaterial extends Material {
 }
 
 export interface LineDashedMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     linewidth?: number;
     scale?: number;
     dashSize?: number;
@@ -2635,7 +2651,7 @@ export class LineDashedMaterial extends Material {
  * parameters is an object with one or more properties defining the material's appearance.
  */
 export interface MeshBasicMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     opacity?: number;
     map?: Texture;
     aoMap?: Texture;
@@ -2694,8 +2710,8 @@ export class MeshDepthMaterial extends Material {
 }
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
-    emissive?: number|string;
+    color?: Color | string | number;
+    emissive?: Color | string | number;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     map?: Texture;
@@ -2748,7 +2764,7 @@ export class MeshLambertMaterial extends Material {
 }
 
 export interface MeshStandardMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     roughness?: number;
     metalness?: number;
     map?: Texture;
@@ -2756,7 +2772,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
-    emissive?: Color;
+    emissive?: Color | string | number;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     bumpMap?: Texture;
@@ -2836,8 +2852,8 @@ export class MeshNormalMaterial extends Material {
 
 export interface MeshPhongMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
-    color?: number|string|Color;
-    specular?: number;
+    color?: Color | string | number;
+    specular?: Color | string | number;
     shininess?: number;
     opacity?: number;
     map?: Texture;
@@ -2845,7 +2861,7 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
-    emissive?: number;
+    emissive?: Color | string | number;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     bumpMap?: Texture;
@@ -2873,7 +2889,7 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
 export class MeshPhongMaterial extends Material {
     constructor(parameters?: MeshPhongMaterialParameters);
 
-    color: Color; // diffuse
+    color: Color;
     specular: Color;
     shininess: number;
     map: Texture;
@@ -2946,7 +2962,7 @@ export class MultiMaterial extends Material {
 export class MeshFaceMaterial extends MultiMaterial {}
 
 export interface PointsMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     map?: Texture;
     size?: number;
     sizeAttenuation?: boolean;
@@ -3023,7 +3039,7 @@ export class RawShaderMaterial extends ShaderMaterial {
 }
 
 export interface SpriteMaterialParameters extends MaterialParameters {
-    color?: number|string|Color;
+    color?: Color | string | number;
     map?: Texture;
     rotation?: number;
 }
@@ -3627,6 +3643,18 @@ export class Matrix3 implements Matrix {
     toArray(): number[];
 
     /**
+     * Multiplies this matrix by m.
+     */
+    multiply(m: Matrix3): Matrix3;
+
+    premultiply(m: Matrix3): Matrix3;
+
+    /**
+     * Sets this matrix to a x b.
+     */
+    multiplyMatrices(a: Matrix3, b: Matrix3): Matrix3;
+
+    /**
      * @deprecated
      */
     multiplyVector3(vector: Vector3): any;
@@ -3867,6 +3895,19 @@ export class Spherical {
     copy(other: this): this;
     makeSafe(): void;
     setFromVector3(vec3: Vector3): Spherical;
+}
+
+export class Cylindrical {
+    constructor(radius?: number, theta?: number, y?: number);
+
+    radius: number;
+    theta: number;
+    y: number;
+
+    clone(): this;
+    copy(other: this): this;
+    set(radius: number, theta: number, y: number): this;
+    setFromVector3(vec3: Vector3): this;
 }
 
 /**
@@ -4474,6 +4515,7 @@ export class Vector3 implements Vector {
      * http://en.wikipedia.org/wiki/Taxicab_geometry
      */
     lengthManhattan(): number;
+    manhattanDistanceTo(v:Vector3):number;
 
     /**
      * Normalizes this vector.
@@ -4825,6 +4867,8 @@ export class Mesh extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material | Material[];
     drawMode: TrianglesDrawModes;
+    morphTargetInfluences?: number[];
+    morphTargetDictionary?: { [key: string]: number; };
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
@@ -5097,6 +5141,8 @@ export class WebGLRenderer implements Renderer {
     state: WebGLState;
     allocTextureUnit: any;
 
+    vr: WebVRManager;
+
     /**
      * Return the WebGL context.
      */
@@ -5193,6 +5239,10 @@ export class WebGLRenderer implements Renderer {
     setTexture(texture: Texture, slot: number): void;
     setTexture2D(texture: Texture, slot: number): void;
     setTextureCube(texture: Texture, slot: number): void;
+    getRenderTarget(): RenderTarget;
+	/**
+     * @deprecated Use getRenderTarget instead.
+     */
     getCurrentRenderTarget(): RenderTarget;
     setRenderTarget(renderTarget: RenderTarget): void;
     readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
@@ -5220,14 +5270,14 @@ export interface RenderTarget {} // not defined in the code, used in LightShadow
 
 export interface RenderItem
 {
-    id: number
-    object: THREE.Object3D,
-    geometry: THREE.Geometry | THREE.BufferGeometry,
-    material: THREE.Material,
-    program: THREE.WebGLProgram,
-    renderOrder: number,
-    z: number,
-    group: THREE.Group
+    id: number;
+    object: Object3D;
+    geometry: Geometry | BufferGeometry;
+    material: Material;
+    program: WebGLProgram;
+    renderOrder: number;
+    z: number;
+    group: Group;
 }
 
 export class WebGLRenderList
@@ -5968,6 +6018,8 @@ export class Texture extends EventDispatcher {
     type: TextureDataType;
     offset: Vector2;
     repeat: Vector2;
+    center: Vector2;
+    rotation: number;
     generateMipmaps: boolean;
     premultiplyAlpha: boolean;
     flipY: boolean;
@@ -6569,9 +6621,13 @@ export class ConeBufferGeometry extends BufferGeometry {
 export class ConeGeometry extends CylinderGeometry {
     constructor(radius?: number, height?: number, radialSegment?: number, heightSegment?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
 }
+	
+export class DodecahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
 
 export class DodecahedronGeometry extends Geometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 
     parameters: {
         radius: number;
@@ -6588,23 +6644,27 @@ export class ExtrudeGeometry extends Geometry {
     constructor(shapes?: Shape[], options?: any);
 
     static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+        generateTopUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+        generateSideWallUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
     };
 
     addShapeList(shapes: Shape[], options?: any): void;
     addShape(shape: Shape, options?: any): void;
 }
 
+export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
+
 export class IcosahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class LatheBufferGeometry extends BufferGeometry {
-    constructor(points: Vector3[], segments?: number, phiStart?: number, phiLength?: number);
+    constructor(points: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
 
     parameters: {
-        points: Vector3[];
+        points: Vector2[];
         segments: number;
         phiStart: number;
         phiLength: number;
@@ -6612,18 +6672,22 @@ export class LatheBufferGeometry extends BufferGeometry {
 }
 
 export class LatheGeometry extends Geometry {
-    constructor(points: Vector3[], segments?: number, phiStart?: number, phiLength?: number);
+    constructor(points: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
 
     parameters: {
-        points: Vector3[];
+        points: Vector2[];
         segments: number;
         phiStart: number;
         phiLength: number;
     };
 }
+	
+export class OctahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
 
 export class OctahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class ParametricGeometry extends Geometry {
@@ -6656,6 +6720,17 @@ export class PlaneGeometry extends Geometry {
         widthSegments: number;
         heightSegments: number;
     };
+}
+	
+export class PolyhedronBufferGeometry extends BufferGeometry {
+	constructor(vertices: number[], indices: number[], radius: number, detail: number);
+	
+	parameters: {
+		vertices: number[];
+		indices: number[];
+		radius: number;
+		detail: number;
+	}
 }
 
 export class PolyhedronGeometry extends Geometry {
@@ -6744,6 +6819,10 @@ export class SphereGeometry extends Geometry {
         thetaStart: number;
         thetaLength: number;
     };
+}
+	
+export class TetrahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
 }
 
 export class TetrahedronGeometry extends PolyhedronGeometry {
@@ -7033,4 +7112,14 @@ export class MorphBlendMesh extends Mesh {
     playAnimation(name: string): void;
     stopAnimation(name: string): void;
     update(delta: number): void;
+}
+
+export interface WebVRManager {
+    enabled: boolean;
+    getDevice(): VRDisplay | null;
+    setDevice(device: VRDisplay | null): void;
+    setPoseTarget(object: Object3D | null): void;
+    getCamera(camera: PerspectiveCamera): PerspectiveCamera | ArrayCamera;
+    submitFrame(): void;
+    dispose(): void;
 }

@@ -1,4 +1,4 @@
-// Type definitions for graphql 0.11
+// Type definitions for graphql 0.12
 // Project: https://www.npmjs.com/package/graphql
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 //                 Caleb Meredith <https://github.com/calebmer>
@@ -8,6 +8,9 @@
 //                 Mikhail Novikov <https://github.com/freiksenet>
 //                 Ivan Goncharov <https://github.com/IvanGoncharov>
 //                 Hagai Cohen <https://github.com/DxCx>
+//                 Ricardo Portugal <https://github.com/rportugal>
+//                 Tim Griesser <https://github.com/tgriesser>
+//                 Dylan Stewart <https://github.com/dyst5422>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

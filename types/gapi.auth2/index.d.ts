@@ -27,7 +27,7 @@ declare namespace gapi.auth2 {
      * Signs in the user using the specified options.
      * If no option specified here, fallback to the options specified to gapi.auth2.init().
      */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): Promise<GoogleUser>;
 
     /**
      * Signs out all accounts from the application.
@@ -208,7 +208,7 @@ declare namespace gapi.auth2 {
     login_hint?: string;
     app_package_name?: string;
     openid_realm?: string;
-    include_granted_scope?: boolean;
+    include_granted_scopes?: boolean;
   }
 
   /**

@@ -1,10 +1,3 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
-// Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
-// Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 declare module Microsoft.Maps.Directions {
     /////////////////////////////////////
     /// Enumerations
@@ -309,7 +302,7 @@ declare module Microsoft.Maps.Directions {
         timeWithTraffic: number;
     }
 
-    /** Contains information about a transit line. */ 
+    /** Contains information about a transit line. */
     export interface ITransitLine {
         /** The short name for the transit line. */
         abbreviatedName: string;
@@ -338,12 +331,12 @@ declare module Microsoft.Maps.Directions {
 
     /** Options that can be used to define a waypoint. */
     export interface IWaypointOptions {
-        /** 
+        /**
         * The address string of the waypoint. For example, the following strings are valid for this parameter: "Seattle", "1 Microsoft Way, Redmond, WA". Either the address or location property must be specified.
         */
         address?: string;
 
-        /** 
+        /**
         * A boolean indicating whether the waypoint is a via point. A via point is a point along the route that is not a stop point. Set this property to
         * true if you just want the route to pass through this location. Default: false
         */
@@ -495,7 +488,7 @@ declare module Microsoft.Maps.Directions {
         public addWaypoint(waypoint: Waypoint, index?: number): void;
 
         /**
-         * Calculates directions based on request and render options set 
+         * Calculates directions based on request and render options set
          */
         public calculateDirections(): void;
 
@@ -503,8 +496,8 @@ declare module Microsoft.Maps.Directions {
         public clearAll(): void;
 
         /**
-         * Clears the directions displayed and removes the route line from the map. 
-         * This method does not remove waypoints from the route and retains all calculated direction information and option settings. 
+         * Clears the directions displayed and removes the route line from the map.
+         * This method does not remove waypoints from the route and retains all calculated direction information and option settings.
          */
         public clearDisplay(): void;
 
@@ -534,7 +527,7 @@ declare module Microsoft.Maps.Directions {
          * @returns The directions request options.
          */
         public getRequestOptions(): IDirectionsRequestOptions;
-        
+
         /**
          * Gets the current calculated route(s)
          * @returns The current calculated route(s). If the route was not successfully calculated, null is returned.
@@ -542,7 +535,7 @@ declare module Microsoft.Maps.Directions {
         public getRouteResult(): IRoute[];
 
         /**
-        * Removes the given waypoint or the waypoint identified by the given index from the route. 
+        * Removes the given waypoint or the waypoint identified by the given index from the route.
         * @param waypointOrIndex A Waypoint object to be removed or the index of the waypoint to be removed
         */
         public removeWaypoint(waypointOrIndex: Waypoint | number): void;
@@ -563,7 +556,7 @@ declare module Microsoft.Maps.Directions {
         * Displays an input panel for calculating directions in the specified container. Provides autosuggest for location inputs.
         * @param inputContainerId The id name of the HTML container in which to render the directions input panel.
         */
-        public showInputPanel(inputContainerId: string): void;        
+        public showInputPanel(inputContainerId: string): void;
     }
 }
 
@@ -580,7 +573,7 @@ declare module Microsoft.Maps {
         * @param eventName The type of event to attach. Supported Events:
         * • directionsError
         * • directionsUpdated
-        * @param handler The callback function to handle the event when triggered. 
+        * @param handler The callback function to handle the event when triggered.
         * @returns The handler id.
         */
         export function addHandler(target: Directions.DirectionsManager, eventName: string, handler: (eventArg?: Directions.IDirectionsEventArgs | Directions.IDirectionsErrorEventArgs) => void): IHandlerId;

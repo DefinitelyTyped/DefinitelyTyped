@@ -8,25 +8,29 @@ interface Props {
     tracking?: TrackingProp;
 }
 
+interface State {
+    isClicked: boolean;
+}
+
 interface TrackingData {
     page: string;
     event: string;
 }
 
-const track: Track<TrackingData, Props> = _track;
+const track: Track<TrackingData, Props, State> = _track;
 
 @track({ page: "ClassPage" }, {
     dispatch: customEventReporter,
     dispatchOnMount: contextData => ({ event: "pageDataReady" }),
     process: ownTrackingData => ownTrackingData.page ? { event: 'pageview' } : null,
 })
-class ClassPage extends React.Component<Props> {
+class ClassPage extends React.Component<Props, State> {
     @track({ event: "Clicked" })
     handleClick() {
     // ... other stuff
     }
 
-    @track(props => ({ event: `got ${props.someProp}` }))
+    @track((props, state) => ({ event: `got ${props.someProp} and clicked ${state.isClicked}` }))
     render() {
         return (
             <button onClick={this.handleClick}>

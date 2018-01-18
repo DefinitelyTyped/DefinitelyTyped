@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/lib/assert.ts",
+        "test/model.ts",
+        "test/module-api.ts",
+        "test/adapter.ts",
+        "test/serializer.ts",
+        "test/transform.ts",
+        "test/relationships.ts",
+        "test/store.ts",
+        "test/has-many.ts",
+        "test/belongs-to.ts",
+        "test/record-reference.ts",
+        "test/injections.ts",
+        "test/error.ts"
+    ]
+}
