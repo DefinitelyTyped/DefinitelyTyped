@@ -534,7 +534,7 @@ export function StackNavigator(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+export const DrawerItems: React.ComponentType;
 
 /**
  * Drawer Navigator
@@ -542,7 +542,7 @@ export const DrawerItems: (props: any) => React.ReactElement<any> | React.Compon
 export interface DrawerViewConfig {
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
-  contentComponent?: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+  contentComponent?: React.ComponentType;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }
@@ -569,7 +569,7 @@ export function DrawerNavigator(
 
 // From views/TabView/TabView.js
 export interface TabViewConfig {
-  tabBarComponent?: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+  tabBarComponent?: React.ComponentType;
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,
@@ -606,8 +606,8 @@ export function TabNavigator(
   drawConfig?: TabNavigatorConfig,
 ): NavigationContainer;
 
-export const TabBarTop: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
-export const TabBarBottom: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+export const TabBarTop: React.ComponentType;
+export const TabBarBottom: React.ComponentType;
 
 /**
  * NavigationActions
