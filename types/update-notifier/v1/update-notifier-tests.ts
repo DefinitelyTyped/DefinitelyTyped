@@ -21,7 +21,6 @@ if (notifier.update) {
     notifier.notify({
         message: 'Update available: ' + notifier.update.latest,
         defer: false,
-        isGlobal: true,
         boxenOpts: {
             padding: 1,
             margin: 1,
