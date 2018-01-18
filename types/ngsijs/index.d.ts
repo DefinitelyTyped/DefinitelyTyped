@@ -4,40 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Connection {
-    constructor(url: any, options: any);
+    constructor(url: any);
 
-    addAttributes(toAdd: any, callbacks: any): void;
+    v2: Connection.V2;
 
-    cancelAvailabilitySubscription(subId: any, callbacks: any): void;
-
-    cancelRegistration(regId: any, callbacks: any): void;
-
-    cancelSubscription(subId: any, options: any): void;
-
-    createAvailabilitySubscription(entities: any, attributeNames: any, duration: any, restriction: any, options: any, ...args: any[]): void;
-
-    createRegistration(entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): void;
-
-    createSubscription(entities: any, attributeNames: any, duration: any, throttling: any, cond: any, options: any, ...args: any[]): void;
-
-    deleteAttributes(toDelete: any, callbacks: any): void;
-
-    discoverAvailability(entities: any, attributeNames: any, callbacks: any): void;
-
-    getAvailableTypes(options: any): void;
-
-    getTypeInfo(type: any, options: any): void;
-
-    query(entities: any, attributesName: any, options: any): void;
-
-    updateAttributes(update: any, callbacks: any): void;
-
-    updateAvailabilitySubscription(subId: any, entities: any, attributeNames: any, duration: any, restriction: any, callbacks: any): void;
-
-    updateRegistration(regId: any, entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): any;
-
-    updateSubscription(subId: any, duration: any, throttling: any, cond: any, options: any): void;
-
+    v1: Connection.V1;
 }
 
 export class ConnectionError {
@@ -119,6 +90,43 @@ export const proxy_endpoints: {
 export function parseNotifyContextRequest(data: any, options: any): any;
 
 export namespace Connection {
+
+    class V1 {
+        constructor(connection: any);
+        
+        addAttributes(toAdd: any, callbacks: any): void;
+
+        cancelAvailabilitySubscription(subId: any, callbacks: any): void;
+
+        cancelRegistration(regId: any, callbacks: any): void;
+
+        cancelSubscription(subId: any, options: any): void;
+
+        createAvailabilitySubscription(entities: any, attributeNames: any, duration: any, restriction: any, options: any, ...args: any[]): void;
+
+        createRegistration(entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): void;
+
+        createSubscription(entities: any, attributeNames: any, duration: any, throttling: any, cond: any, options: any, ...args: any[]): void;
+
+        deleteAttributes(toDelete: any, callbacks: any): void;
+
+        discoverAvailability(entities: any, attributeNames: any, callbacks: any): void;
+
+        getAvailableTypes(options: any): void;
+
+        getTypeInfo(type: any, options: any): void;
+
+        query(entities: any, attributesName: any, options: any): void;
+
+        updateAttributes(update: any, callbacks: any): void;
+
+        updateAvailabilitySubscription(subId: any, entities: any, attributeNames: any, duration: any, restriction: any, callbacks: any): void;
+
+        updateRegistration(regId: any, entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): any;
+
+        updateSubscription(subId: any, duration: any, throttling: any, cond: any, options: any): void;
+    }
+
     class V2 {
         constructor(connection: any);
 
@@ -168,8 +176,8 @@ export namespace Connection {
 
     }
 
-    namespace V2 {
-        namespace prototype {
+    /*namespace V2 {
+        namespace prototypev2 {
             function appendEntityAttributes(changes: any, options: any): any;
 
             function batchQuery(query: any, options: any): any;
@@ -215,409 +223,138 @@ export namespace Connection {
             function updateSubscription(changes: any, options: any): any;
 
             namespace appendEntityAttributes {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.appendEntityAttributes
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.appendEntityAttributes
                 const prototype: any;
 
             }
 
             namespace batchQuery {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.batchQuery
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.batchQuery
                 const prototype: any;
 
             }
 
             namespace batchUpdate {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.batchUpdate
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.batchUpdate
                 const prototype: any;
 
             }
 
             namespace createEntity {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.createEntity
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.createEntity
                 const prototype: any;
 
             }
 
             namespace createSubscription {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.createSubscription
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.createSubscription
                 const prototype: any;
 
             }
 
             namespace deleteEntity {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.deleteEntity
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.deleteEntity
                 const prototype: any;
 
             }
 
             namespace deleteEntityAttribute {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.deleteEntityAttribute
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.deleteEntityAttribute
                 const prototype: any;
 
             }
 
             namespace deleteSubscription {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.deleteSubscription
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.deleteSubscription
                 const prototype: any;
 
             }
 
             namespace getEntity {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.getEntity
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.getEntity
                 const prototype: any;
 
             }
 
             namespace getEntityAttribute {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.getEntityAttribute
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.getEntityAttribute
                 const prototype: any;
 
             }
 
             namespace getEntityAttributeValue {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.getEntityAttributeValue
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.getEntityAttributeValue
                 const prototype: any;
 
             }
 
             namespace getEntityAttributes {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.getEntityAttributes
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.getEntityAttributes
                 const prototype: any;
 
             }
 
             namespace getSubscription {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.getSubscription
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.getSubscription
                 const prototype: any;
 
             }
 
             namespace getType {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.getType
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.getType
                 const prototype: any;
 
             }
 
             namespace listEntities {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.listEntities
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.listEntities
                 const prototype: any;
 
             }
 
             namespace listSubscriptions {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.listSubscriptions
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.listSubscriptions
                 const prototype: any;
 
             }
 
             namespace listTypes {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.listTypes
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.listTypes
                 const prototype: any;
 
             }
 
             namespace replaceEntityAttribute {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.replaceEntityAttribute
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.replaceEntityAttribute
                 const prototype: any;
 
             }
 
             namespace replaceEntityAttributeValue {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.replaceEntityAttributeValue
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.replaceEntityAttributeValue
                 const prototype: any;
 
             }
 
             namespace replaceEntityAttributes {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.replaceEntityAttributes
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.replaceEntityAttributes
                 const prototype: any;
 
             }
 
             namespace updateEntityAttributes {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.updateEntityAttributes
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.updateEntityAttributes
                 const prototype: any;
 
             }
 
             namespace updateSubscription {
-                // Too-deep object hierarchy from ngsijs.Connection.V2.prototype.updateSubscription
+                // Too-deep object hierarchy from ngsijs.Connection.V2.prototypev2.updateSubscription
                 const prototype: any;
 
             }
 
-        }
+        }*/
 
     }
-
-    namespace prototype {
-        function addAttributes(toAdd: any, callbacks: any): void;
-
-        function cancelAvailabilitySubscription(subId: any, callbacks: any): void;
-
-        function cancelRegistration(regId: any, callbacks: any): void;
-
-        function cancelSubscription(subId: any, options: any): void;
-
-        function createAvailabilitySubscription(entities: any, attributeNames: any, duration: any, restriction: any, options: any, ...args: any[]): void;
-
-        function createRegistration(entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): void;
-
-        function createSubscription(entities: any, attributeNames: any, duration: any, throttling: any, cond: any, options: any, ...args: any[]): void;
-
-        function deleteAttributes(toDelete: any, callbacks: any): void;
-
-        function discoverAvailability(entities: any, attributeNames: any, callbacks: any): void;
-
-        function getAvailableTypes(options: any): void;
-
-        function getTypeInfo(type: any, options: any): void;
-
-        function query(entities: any, attributesName: any, options: any): void;
-
-        function updateAttributes(update: any, callbacks: any): void;
-
-        function updateAvailabilitySubscription(subId: any, entities: any, attributeNames: any, duration: any, restriction: any, callbacks: any): void;
-
-        function updateRegistration(regId: any, entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): any;
-
-        function updateSubscription(subId: any, duration: any, throttling: any, cond: any, options: any): void;
-
-        namespace addAttributes {
-            const prototype: {
-            };
-
-        }
-
-        namespace cancelAvailabilitySubscription {
-            const prototype: {
-            };
-
-        }
-
-        namespace cancelRegistration {
-            const prototype: {
-            };
-
-        }
-
-        namespace cancelSubscription {
-            const prototype: {
-            };
-
-        }
-
-        namespace createAvailabilitySubscription {
-            const prototype: {
-            };
-
-        }
-
-        namespace createRegistration {
-            const prototype: {
-            };
-
-        }
-
-        namespace createSubscription {
-            const prototype: {
-            };
-
-        }
-
-        namespace deleteAttributes {
-            const prototype: {
-            };
-
-        }
-
-        namespace discoverAvailability {
-            const prototype: {
-            };
-
-        }
-
-        namespace getAvailableTypes {
-            const prototype: {
-            };
-
-        }
-
-        namespace getTypeInfo {
-            const prototype: {
-            };
-
-        }
-
-        namespace query {
-            const prototype: {
-            };
-
-        }
-
-        namespace updateAttributes {
-            const prototype: {
-            };
-
-        }
-
-        namespace updateAvailabilitySubscription {
-            const prototype: {
-            };
-
-        }
-
-        namespace updateRegistration {
-            const prototype: {
-            };
-
-        }
-
-        namespace updateSubscription {
-            const prototype: {
-            };
-
-        }
-
-    }
-
-}
-
-export namespace ConnectionError {
-    namespace prototype {
-        const message: string;
-
-        const name: string;
-
-        const stack: string;
-
-        function toString(): any;
-
-    }
-
-}
-
-export namespace InvalidRequestError {
-    namespace prototype {
-        const message: string;
-
-        const name: string;
-
-        const stack: string;
-
-        function toString(): any;
-
-    }
-
-}
-
-export namespace InvalidResponseError {
-    namespace prototype {
-        const message: string;
-
-        const name: string;
-
-        const stack: string;
-
-        function toString(): any;
-
-    }
-
-}
-
-export namespace NotFoundError {
-    namespace prototype {
-        const message: string;
-
-        const name: string;
-
-        const stack: string;
-
-        function toString(): any;
-
-    }
-
-}
-
-export namespace ProxyConnection {
-    namespace prototype {
-        function associateSubscriptionId(callback: any, subscription: any): any;
-
-        function close(): any;
-
-        function closeCallback(callback_id: any): any;
-
-        function closeSubscriptionCallback(subscription: any): any;
-
-        function connect(): any;
-
-        function purgeCallback(callback: any): void;
-
-        function requestCallback(callback: any): any;
-
-        namespace associateSubscriptionId {
-            const prototype: {
-            };
-
-        }
-
-        namespace close {
-            const prototype: {
-            };
-
-        }
-
-        namespace closeCallback {
-            const prototype: {
-            };
-
-        }
-
-        namespace closeSubscriptionCallback {
-            const prototype: {
-            };
-
-        }
-
-        namespace connect {
-            const prototype: {
-            };
-
-        }
-
-        namespace purgeCallback {
-            const prototype: {
-            };
-
-        }
-
-        namespace requestCallback {
-            const prototype: {
-            };
-
-        }
-
-    }
-
-}
-
-export namespace ProxyConnectionError {
-    namespace prototype {
-        const message: string;
-
-        const name: string;
-
-        const stack: string;
-
-        function toString(): any;
-
-    }
-
-}
-
-export namespace parseNotifyContextRequest {
-    const prototype: {
-    };
-
-}
 
