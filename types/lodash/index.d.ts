@@ -409,8 +409,6 @@ declare namespace _ {
         new (): MapCache;
     }
 
-    interface LoDashWrapper<TValue> { }
-
     interface LoDashImplicitWrapper<TValue> extends LoDashWrapper<TValue> {
         pop<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
         push<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
@@ -9410,7 +9408,7 @@ declare namespace _ {
          * func({ 'a': '1', 'b': '2' });
          * // => 'no match'
          */
-        cond<T, R>(pairs: CondPair<T, R>[]): (Target: T) => R;
+        cond<T, R>(pairs: Array<CondPair<T, R>>): (Target: T) => R;
     }
 
     //_.eq
@@ -9634,7 +9632,7 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
-        isArrayLike(value: ((...args: any[]) => any) | Function | null | undefined): value is never;
+        isArrayLike(value: ((...args: any[]) => any) | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
@@ -9684,12 +9682,14 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
+        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
         isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
          */
-        isArrayLikeObject<T extends object>(value: T | string | boolean | number | null | undefined): value is T & { length: number };
+        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
+        isArrayLikeObject<T extends object>(value: T | ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is T & { length: number };
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -10162,6 +10162,13 @@ declare namespace _ {
         isMatch(source: object): boolean;
     }
 
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.isMatch
+         */
+        isMatch(source: object): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isMatchWith
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName) => boolean;
 
@@ -10205,6 +10212,13 @@ declare namespace _ {
         isMatchWith(source: object, customizer: isMatchWithCustomizer): boolean;
     }
 
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.isMatchWith
+         */
+        isMatchWith(source: object, customizer: isMatchWithCustomizer): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isNaN
     interface LoDashStatic {
         /**
@@ -10240,7 +10254,7 @@ declare namespace _ {
          *
          * @retrun Returns true if value is a native function, else false.
          */
-        isNative(value: any): value is ((...args: any[]) => any) | Function;
+        isNative(value: any): value is (...args: any[]) => any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -17371,8 +17385,12 @@ declare namespace _ {
 
 // Backward compatibility with --target es5
 declare global {
+    // tslint:disable-next-line:no-empty-interface
     interface Set<T> { }
+    // tslint:disable-next-line:no-empty-interface
     interface Map<K, V> { }
+    // tslint:disable-next-line:no-empty-interface
     interface WeakSet<T> { }
+    // tslint:disable-next-line:no-empty-interface
     interface WeakMap<K extends object, V> { }
 }
