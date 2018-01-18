@@ -94,7 +94,7 @@ interface Hooks {
  *  DragDropContext_Props
  */
 
-interface DragDropContextInternalProps extends Hooks {
+export interface DragDropContextInternalProps extends Hooks {
     children?: Maybe<React.ReactNode>;
 }
 
@@ -121,7 +121,7 @@ interface Droppable_OwnProps {
     ignoreContainerClipping?: boolean;
 }
 
-type DroppableInternalProps = Droppable_OwnProps & Droppable_MapProps;
+export type DroppableInternalProps = Droppable_OwnProps & Droppable_MapProps;
 
 /**
  * Draggable_Props
@@ -154,7 +154,7 @@ interface Draggable_OwnProps {
 }
 
 // Draggable_DispatchProps not included - too hard to type
-type DraggableInternalProps = Draggable_MapProps & Draggable_OwnProps;
+export type DraggableInternalProps = Draggable_MapProps & Draggable_OwnProps;
 
 /**
  *  Types
