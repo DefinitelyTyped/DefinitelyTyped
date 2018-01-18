@@ -35,7 +35,7 @@ declare namespace libphonenumber {
         }
     }
 
-    export interface PhoneNumber {
+    export class PhoneNumber {
         getCountryCode(): number | undefined;
         getCountryCodeOrDefault(): number;
         setCountryCode(value: number): void;

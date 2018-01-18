@@ -10,6 +10,10 @@ declare module 'luxon' {
         type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
         type ZoneOptions = {
+            keepLocalTime?: boolean;
+            /**
+             * @deprecated since 0.2.12. Use keepLocalTime instead
+             */
             keepCalendarTime?: boolean;
         };
 
@@ -61,26 +65,26 @@ declare module 'luxon' {
         };
 
         class DateTime {
-            static DATETIME_FULL: DateTimeFormatOptions;
-            static DATETIME_FULL_WITH_SECONDS: DateTimeFormatOptions;
-            static DATEIME_HUGE: DateTimeFormatOptions;
-            static DATEIME_HUGE_WITH_SECONDS: DateTimeFormatOptions;
-            static DATETIME_MED: DateTimeFormatOptions;
-            static DATETIME_MED_WITH_SECONDS: DateTimeFormatOptions;
-            static DATETIME_SHORT: DateTimeFormatOptions;
-            static DATETIME_SHORT_WITH_SECONDS: DateTimeFormatOptions;
-            static DATE_FULL: DateTimeFormatOptions;
-            static DATE_HUGE: DateTimeFormatOptions;
-            static DATE_MED: DateTimeFormatOptions;
-            static DATE_SHORT: DateTimeFormatOptions;
-            static TIME_24_SIMPLE: DateTimeFormatOptions;
-            static TIME_24_WITH_LONG_OFFSET: DateTimeFormatOptions;
-            static TIME_24_WITH_SECONDS: DateTimeFormatOptions;
-            static TIME_24_WITH_SHORT_OFFSET: DateTimeFormatOptions;
-            static TIME_SIMPLE: DateTimeFormatOptions;
-            static TIME_WITH_LONG_OFFSET: DateTimeFormatOptions;
-            static TIME_WITH_SECONDS: DateTimeFormatOptions;
-            static TIME_WITH_SHORT_OFFSET: DateTimeFormatOptions;
+            static readonly DATETIME_FULL: DateTimeFormatOptions;
+            static readonly DATETIME_FULL_WITH_SECONDS: DateTimeFormatOptions;
+            static readonly DATETIME_HUGE: DateTimeFormatOptions;
+            static readonly DATETIME_HUGE_WITH_SECONDS: DateTimeFormatOptions;
+            static readonly DATETIME_MED: DateTimeFormatOptions;
+            static readonly DATETIME_MED_WITH_SECONDS: DateTimeFormatOptions;
+            static readonly DATETIME_SHORT: DateTimeFormatOptions;
+            static readonly DATETIME_SHORT_WITH_SECONDS: DateTimeFormatOptions;
+            static readonly DATE_FULL: DateTimeFormatOptions;
+            static readonly DATE_HUGE: DateTimeFormatOptions;
+            static readonly DATE_MED: DateTimeFormatOptions;
+            static readonly DATE_SHORT: DateTimeFormatOptions;
+            static readonly TIME_24_SIMPLE: DateTimeFormatOptions;
+            static readonly TIME_24_WITH_LONG_OFFSET: DateTimeFormatOptions;
+            static readonly TIME_24_WITH_SECONDS: DateTimeFormatOptions;
+            static readonly TIME_24_WITH_SHORT_OFFSET: DateTimeFormatOptions;
+            static readonly TIME_SIMPLE: DateTimeFormatOptions;
+            static readonly TIME_WITH_LONG_OFFSET: DateTimeFormatOptions;
+            static readonly TIME_WITH_SECONDS: DateTimeFormatOptions;
+            static readonly TIME_WITH_SHORT_OFFSET: DateTimeFormatOptions;
             static fromHTTP(text: string, options?: DateTimeOptions): DateTime;
             static fromISO(text: string, options?: DateTimeOptions): DateTime;
             static fromJSDate(
@@ -94,11 +98,27 @@ declare module 'luxon' {
                 options?: DateTimeOptions
             ): DateTime;
             static fromSQL(text: string, options?: DateTimeOptions): DateTime;
+            static fromFormat(
+                text: string,
+                format: string,
+                opts?: DateTimeOptions
+            ): DateTime;
+            static fromFormatExplain(
+                text: string,
+                format: string,
+                opts?: DateTimeOptions
+            ): object;
+            /**
+             * @deprecated since 0.3.0. Use fromFormat instead
+             */
             static fromString(
                 text: string,
                 format: string,
                 options?: DateTimeOptions
             ): DateTime;
+            /**
+             * @deprecated 0.3.0. Use fromFormatExplain instead
+             */
             static fromStringExplain(
                 text: string,
                 format: string,

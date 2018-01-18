@@ -1,13 +1,14 @@
 // Type definitions for socket.io-redis 1.0.0
 // Project: https://github.com/socketio/socket.io-redis
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil>
+//                 seeLuck <https://github.com/seeLuck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference types="socket.io" />
 
 declare module 'socket.io-redis' {
-	var redis: SocketIORedisStatic;
+	let redis: SocketIORedisStatic;
 
 	export = redis;
 }
@@ -59,6 +60,11 @@ declare namespace SocketIORedis {
 		 * @default 6379
 		 */
 		port?: number;
+
+        /**
+         * The optional password to connect to redis on
+         */
+        auth_pass?: number | string;
 
 		/**
 		 * The optional redis client to publish events on
@@ -131,16 +137,16 @@ declare namespace SocketIORedis {
 		clients(callback: (err: any, clients: string[]) => void) : void;
 
 		/**
-		 * clientRooms returns the list of rooms the client with the given ID has joined 
+		 * clientRooms returns the list of rooms the client with the given ID has joined
 		 * (even on another node).
-		 * @param {string} id 
-		 * @param {(err: any, rooms: string[]) => void} callback 
+		 * @param {string} id
+		 * @param {(err: any, rooms: string[]) => void} callback
 		 */
 		clientRooms(id: string, callback: (err: any, rooms: string[]) => void) : void;
 
 		/**
 		 * allRooms returns the list of all rooms.
-		 * @param {(err: any, rooms: string[]) => void} callback 
+		 * @param {(err: any, rooms: string[]) => void} callback
 		 */
 		allRooms(callback: (err: any, rooms: string[]) => void) : void;
 
@@ -150,7 +156,7 @@ declare namespace SocketIORedis {
 		 * err argument if the socket was not found.
 		 * @param {string} id the socket Id.
 		 * @param {string} room the room Id.
-		 * @param {(err: any) => void} callback 
+		 * @param {(err: any) => void} callback
 		 */
 		remoteJoin(id: string, room: string, callback: (err: any) => void) : void;
 
@@ -160,26 +166,26 @@ declare namespace SocketIORedis {
 		 * err argument if the socket was not found.
 		 * @param {string} id the socket Id.
 		 * @param {string} room the room Id.
-		 * @param {(err: any) => void} callback 
+		 * @param {(err: any) => void} callback
 		 */
 		remoteLeave(id: string, room: string, callback: (err: any) => void) : void;
 
 		/**
-		 * remoteDisconnect makes the socket with the given id to get disconnected. 
-		 * If close is set to true, it also closes the underlying socket. 
-		 * The callback will be called once the socket was disconnected, or with an 
+		 * remoteDisconnect makes the socket with the given id to get disconnected.
+		 * If close is set to true, it also closes the underlying socket.
+		 * The callback will be called once the socket was disconnected, or with an
 		 * err argument if the socket was not found.
 		 * @param {string} id the socket Id.
 		 * @param {boolean} close close the underlying socket
-		 * @param {(err: any) => void} callback 
+		 * @param {(err: any) => void} callback
 		 */
 		remoteDisconnect(id: string, close: boolean, callback: (err: any) => void) : void;
 
 		/**
-		 * customRequest sends a request to every nodes, that will respond through the 
+		 * customRequest sends a request to every nodes, that will respond through the
 		 * customHook method.
 		 * @param {any} data
-		 * @param {(err: any, replies: any[]) => void} callback 
+		 * @param {(err: any, replies: any[]) => void} callback
 		 */
 		customRequest(data: any, callback: (err: any, replies: any[]) => void) : void;
 	}

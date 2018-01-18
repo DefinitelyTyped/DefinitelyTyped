@@ -73,6 +73,10 @@ AuthSession.startAsync({
             break;
     }
 });
+AuthSession.startAsync({
+    authUrl: 'url1',
+    returnUrl: undefined
+});
 
 Audio.setAudioModeAsync({
     shouldDuckAndroid: false,
