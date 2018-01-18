@@ -565,10 +565,10 @@ declare class client extends events.EventEmitter {
      *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
      */
-    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: {}, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: {}, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: {}, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string, origin?: string, headers?: {}, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
 
     // Events
     on(event: string, listener: () => void): this;
