@@ -7901,6 +7901,9 @@ export namespace Animated {
         speed?: number;
         tension?: number;
         friction?: number;
+        stiffness?: number;
+        mass?: number;
+        damping?: number;
     }
 
     interface LoopAnimationConfig {
