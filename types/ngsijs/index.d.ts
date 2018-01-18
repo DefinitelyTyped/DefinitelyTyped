@@ -11,7 +11,7 @@ export class Connection {
 
 export namespace Connection {
     class V1 {
-        constructor(connection: any);    
+        constructor(connection: any);
         addAttributes(toAdd: any, callbacks: any): void;
         cancelAvailabilitySubscription(subId: any, callbacks: any): void;
         cancelRegistration(regId: any, callbacks: any): void;
