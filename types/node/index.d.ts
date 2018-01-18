@@ -1,4 +1,4 @@
-// Type definitions for Node.js 9.3.x
+// Type definitions for Node.js 9.4.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
