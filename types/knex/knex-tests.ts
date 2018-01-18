@@ -168,6 +168,8 @@ knex.avg('sum_column1').from(function() {
 
 knex.column('title', 'author', 'year').select().from('books');
 knex.column(['title', 'author', 'year']).select().from('books');
+knex.column('title', { by: 'author' }, 'year').select().from('books');
+knex.column({ title: 'title', by: 'author', published: 'year' }).select().from('books');
 knex.select('*').from('users');
 
 knex('users').where({
