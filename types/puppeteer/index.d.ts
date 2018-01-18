@@ -2,6 +2,7 @@
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
+//                 Julien Hery <https://github.com/Julien-Hery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -121,8 +122,8 @@ export interface ConsoleMessage {
   /** The message arguments. */
   args: JSHandle[];
   /** The message text. */
-  text: string;
-  type: 'log' | 'debug' | 'info' | 'error' | 'warning' | 'dir' | 'dirxml' | 'table' |
+  text(): string;
+  type(): 'log' | 'debug' | 'info' | 'error' | 'warning' | 'dir' | 'dirxml' | 'table' |
   'trace' | 'clear' | 'startGroup' | 'startGroupCollapsed' | 'endGroup' | 'assert' |
   'profile' | 'profileEnd' | 'count' | 'timeEnd';
 }
