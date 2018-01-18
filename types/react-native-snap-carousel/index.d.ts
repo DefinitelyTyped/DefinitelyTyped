@@ -61,7 +61,7 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      * Duration of time while component is hidden after mounting. NOTE: May cause rendering
      * issues on Android. Defaults to 0
      */
-    apaparitionDelay?: number;
+    apparitionDelay?: number;
     /**
      * Defines a small margin for callbacks firing from scroll events.  Increase this value
      * if you experience missed callbacks. Defaults to 5
