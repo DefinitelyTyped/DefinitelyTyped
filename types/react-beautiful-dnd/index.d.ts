@@ -250,7 +250,7 @@ export interface DraggableProvided {
     dragHandleProps?: Maybe<DragHandleProps>;
     // The following props will be removed once we move to react 16
     innerRef(element?: Maybe<HTMLElement>): void;
-    placeholder?: Maybe<Node>;
+    placeholder?: Maybe<React.ReactNode>;
 }
 
 export interface DraggableStateSnapshot {
