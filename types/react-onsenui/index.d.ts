@@ -224,7 +224,7 @@ export class Popover extends Component<{
 }, any> {}
 
 export class Toast extends Component<{
-    isOpen?: boolean,
+    isOpen: boolean,
     animation?: 'default' | 'ascend' | 'lift' | 'fall' | 'fade' | 'none',
     modifier?: string,
     animationOptions?: AnimationOptions,
@@ -363,18 +363,18 @@ export interface TabbarRenderTab {
 }
 
 export class Tabbar extends Component<{
-    index?: number,
-    renderTabs?(): TabbarRenderTab[],
+    index: number,
+    renderTabs(): TabbarRenderTab[],
     position?: "bottom" | "top" | "auto",
     swipeable?: boolean,
     ignoreEdgeWidth?: number,
-    animation?: "none" | "slide" | "fade",
+    animation?: "none" | "slide",
     animationOptions?: AnimationOptions,
     tabBorder?: boolean,
     onPreChange?(): void,
     onPostChange?(): void,
     onReactive?(): void,
-    onSwipe?(): void,
+    onSwipe?(index:number, animationOptions:AnimationOptions): void,
 }, any> { }
 
 /**
