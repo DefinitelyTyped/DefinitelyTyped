@@ -6,5 +6,18 @@
 
 import { CleaveOptions } from './options';
 
-declare function Cleave(selector: string, options: CleaveOptions): void;
+declare class Cleave {
+    constructor(selector: string, options: CleaveOptions);
+
+    getRawValue(): string;
+
+    setRawValue(value: string): void;
+
+    getFormattedValue(): string;
+
+    destroy(): void;
+
+    setPhoneRegionCode(regionCode: string): void;
+}
+
 export = Cleave;
