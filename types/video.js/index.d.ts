@@ -44,7 +44,7 @@ declare namespace videojs {
 	}
 
 	class Player {
-		constructor(techId: string, options: any): Player;
+		constructor(techId: string, options: any);
 		play(): Player;
 		pause(): Player;
 		paused(): boolean;
