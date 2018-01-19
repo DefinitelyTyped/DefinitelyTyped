@@ -28,7 +28,7 @@ declare module "moment" {
 
     type UnitOfTrimV1 = 'left' | 'right';
     type UnitOfTrim = (
-        'large' | 'small' | 'both' | 
+        'large' | 'small' | 'both' |
         'mid' | 'all' | 'final'
     );
 
