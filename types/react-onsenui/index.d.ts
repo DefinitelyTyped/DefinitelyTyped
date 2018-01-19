@@ -374,7 +374,7 @@ export class Tabbar extends Component<{
     onPreChange?(): void,
     onPostChange?(): void,
     onReactive?(): void,
-    onSwipe?(index:number, animationOptions:AnimationOptions): void,
+    onSwipe?(index: number, animationOptions: AnimationOptions): void,
 }, any> { }
 
 /**
