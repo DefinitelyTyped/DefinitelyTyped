@@ -21,12 +21,12 @@ export interface Story {
 }
 
 export interface Addon {
-    [addonName: string]: (storyName: string, storyFn: StoryFunction) => void
+    [addonName: string]: (storyName: string, storyFn: StoryFunction) => void;
 }
 export interface StoryStore {
     fileName: string | undefined;
     kind: string;
-    stories: Array<StoryObject>;
+    stories: StoryObject[];
 }
 export interface StoryObject {
     name: string;
@@ -35,7 +35,7 @@ export interface StoryObject {
 
 export function addDecorator(decorator: StoryDecorator): void;
 export function configure(loaders: () => void, module: NodeModule): void;
-export function getStorybook(): Array<StoryStore>;
+export function getStorybook(): StoryStore[];
 export function setAddon(addon: Addon): void;
 export function storiesOf(kind: string, module: NodeModule): Story;
 export function storiesOf<T>(kind: string, module: NodeModule): Story & T;

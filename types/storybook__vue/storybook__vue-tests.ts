@@ -3,7 +3,7 @@ import { addDecorator, configure, getStorybook, setAddon, storiesOf, StoryFuncti
 
 interface AddCenteredAddon {
   addCentered(this: Story, storyName: string, storyFn: StoryFunction): Story & this;
-};
+}
 
 const addCenteredAddon = {
   addCentered(this: Story, storyName: string, storyFn: StoryFunction): void {
@@ -12,9 +12,16 @@ const addCenteredAddon = {
   }
 };
 
-const Decorator = (story: StoryFunction) => ({
-  template: '<div> ${ story() }</div>'
-});
+const Decorator = (story: StoryFunction) => {
+  const wrapper = story();
+  return {
+    components: { wrapper },
+    template: '<div :style="{ border: borderStyle }"><wrapper/></div>',
+    data() {
+      return { borderStyle: 'medium solid red' };
+    }
+  };
+};
 
 addDecorator(Decorator);
 configure(() => undefined, module);
@@ -40,7 +47,4 @@ storiesOf<AddCenteredAddon>('Add_Centered_Addon', module)
   }))
   .addCentered('custom story', () => ({
     template: '<div></div>'
-  }))
-
-
-
+  }));
