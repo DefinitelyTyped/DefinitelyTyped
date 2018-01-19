@@ -24,7 +24,7 @@ interface BinaryOperation extends Operation {
      * @param value1
      * @param value2
      */
-    new(operator: string, value1: Expression, value2: any): Operation;
+    new(operator: string, value1: any, value2: any): Operation;
     /**
      *
      * @return
@@ -32,13 +32,13 @@ interface BinaryOperation extends Operation {
     toAQL(): string;
     _operator: string;
 }
-interface UnaryOperation extends Operation {
+interface UnaryOperation extends Expression {
     /**
      *
      * @param operator
      * @param value
      */
-    new(operator: string, value: Expression): Operation;
+    new(operator: string, value: any): Expression;
     /**
      *
      * @return
@@ -51,12 +51,14 @@ interface SimpleReference extends Expression {
      *
      * @param value
      */
-    new(value: any): Expression;
+    new(value: string): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
+    re: RegExp
+    _value: string
 }
 interface RawExpression extends Expression {
     /**
@@ -126,7 +128,7 @@ interface ListLiteral extends Expression {
      *
      * @param value
      */
-    new(value: any): Expression;
+    new(...value: any[]): Expression;
     /**
      *
      * @return
@@ -152,7 +154,7 @@ interface NAryOperation extends Operation {
      * @param operator
      * @param values
      */
-    new(operator: string, values: Expression[]): Operation;
+    new(operator: string, values: any[]): Operation;
     /**
      *
      * @return
@@ -167,12 +169,13 @@ interface RangeExpression extends Expression {
      * @param start
      * @param end
      */
-    new(start: number | Expression, end?: number): Expression;
+    new(start: any , end?: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
+    _start : number
     _end: number;
     re: RegExp;
 }
@@ -182,7 +185,7 @@ interface PropertyAccess extends Expression {
      * @param obj
      * @param keys
      */
-    new(obj: Expression, keys: Expression[]): Expression;
+    new(obj: any, keys: any[]): Expression;
     /**
      *
      * @return
@@ -232,6 +235,7 @@ interface Keyword extends Expression {
      * @return
      */
     toAQL(): string;
+    _value:string
     re: RegExp;
 }
 interface Identifier extends Expression {
@@ -239,7 +243,7 @@ interface Identifier extends Expression {
      *
      * @param value
      */
-    new(value: string): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
@@ -259,6 +263,9 @@ interface FunctionCall extends Expression {
      * @return
      */
     toAQL(): string;
+    _re: RegExp
+    _functionName: string
+    _args: any[]
 }
 interface ForExpression extends PartialStatement {
     /**
@@ -292,9 +299,8 @@ interface Definitions {
     /**
      *
      * @param dfns
-     * @param param
      */
-    new(dfns: any, param: any): any;
+    new(...dfns: any[]): any;
     /**
      *
      * @return
@@ -309,7 +315,7 @@ interface LetExpression extends PartialStatement {
      * @param dfns
      * @param param
      */
-    new(prev: PartialStatement, dfns: any, param: any): PartialStatement;
+    new(prev: PartialStatement, ...dfns: any[]): PartialStatement;
     /**
      *
      * @return
@@ -329,7 +335,7 @@ interface CollectExpression extends PartialStatement {
      * @param keepNames
      * @param options
      */
-    new(prev: PartialStatement, dfns: any, param: any, varname: any, intoExpr: any, keepNames: any[], options: any): PartialStatement;
+    new(prev: PartialStatement, dfns: any[], varname: any, intoExpr: any, keepNames: any[], options: any): PartialStatement;
     /**
      *
      * @return
@@ -370,7 +376,7 @@ interface CollectWithCountIntoExpression extends PartialStatement {
      * @param varname
      * @param options
      */
-    new(prev: PartialStatement, dfns: any, param: any, varname: any, options: any): PartialStatement;
+    new(prev: PartialStatement, dfns: any[], varname: any, options: any): PartialStatement;
     /**
      *
      * @return
@@ -389,7 +395,7 @@ interface SortExpression extends PartialStatement {
      * @param prev
      * @param args
      */
-    new(prev: PartialStatement, args: any[]): PartialStatement;
+    new(prev: PartialStatement, ...args: any[]): PartialStatement;
     /**
      *
      * @return
@@ -405,7 +411,7 @@ interface LimitExpression extends PartialStatement {
      * @param offset
      * @param count
      */
-    new(prev: PartialStatement, offset: any, count: any): PartialStatement;
+    new(prev: PartialStatement, offset: any, count?: any): PartialStatement;
     /**
      *
      * @return
@@ -1509,7 +1515,7 @@ declare function isValidNumber(number: number): boolean;
  * @param number
  * @return
  */
-declare function castNumber(number: any): IntegerLiteral;
+declare function castNumber(number: any): NumberLiteral;
 /**
  *
  * @param bool
@@ -1521,19 +1527,19 @@ declare function castBoolean(bool: any): BooleanLiteral;
  * @param str
  * @return
  */
-declare function castString(str: any): number;
+declare function castString(str: any): SimpleReference|Identifier|RangeExpression|StringLiteral|Expression|PartialStatement|NullLiteral;
 /**
  *
  * @param obj
  * @return
  */
-declare function castObject(obj: any): object;
+declare function castObject(obj: any): ObjectLiteral|ListLiteral|Identifier;
 /**
  *
  * @param token
  * @return
  */
-declare function autoCastToken(token: number | Expression): number | Expression;
+declare function autoCastToken(token: any): Expression|PartialStatement|NullLiteral;
 /**
  * AQLfunctions
  *
