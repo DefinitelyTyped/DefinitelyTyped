@@ -57,8 +57,8 @@ interface SimpleReference extends Expression {
      * @return
      */
     toAQL(): string;
-    re: RegExp
-    _value: string
+    re: RegExp;
+    _value: string;
 }
 interface RawExpression extends Expression {
     /**
@@ -169,13 +169,13 @@ interface RangeExpression extends Expression {
      * @param start
      * @param end
      */
-    new(start: any , end?: any): Expression;
+    new(start: any, end?: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
-    _start : number
+    _start: number;
     _end: number;
     re: RegExp;
 }
@@ -235,7 +235,7 @@ interface Keyword extends Expression {
      * @return
      */
     toAQL(): string;
-    _value:string
+    _value: string;
     re: RegExp;
 }
 interface Identifier extends Expression {
@@ -263,9 +263,9 @@ interface FunctionCall extends Expression {
      * @return
      */
     toAQL(): string;
-    _re: RegExp
-    _functionName: string
-    _args: any[]
+    _re: RegExp;
+    _functionName: string;
+    _args: any[];
 }
 interface ForExpression extends PartialStatement {
     /**
@@ -1527,19 +1527,19 @@ declare function castBoolean(bool: any): BooleanLiteral;
  * @param str
  * @return
  */
-declare function castString(str: any): SimpleReference|Identifier|RangeExpression|StringLiteral|Expression|PartialStatement|NullLiteral;
+declare function castString(str: any): SimpleReference | Identifier | RangeExpression | StringLiteral | Expression | PartialStatement | NullLiteral;
 /**
  *
  * @param obj
  * @return
  */
-declare function castObject(obj: any): ObjectLiteral|ListLiteral|Identifier;
+declare function castObject(obj: any): ObjectLiteral | ListLiteral | Identifier;
 /**
  *
  * @param token
  * @return
  */
-declare function autoCastToken(token: any): Expression|PartialStatement|NullLiteral;
+declare function autoCastToken(token: any): Expression | PartialStatement | NullLiteral;
 /**
  * AQLfunctions
  *
