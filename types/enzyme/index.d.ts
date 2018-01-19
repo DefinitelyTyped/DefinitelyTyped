@@ -375,7 +375,8 @@ export class ShallowWrapper<P = {}, S = {}> {
      */
     filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
-    filter(selector: Partial<P> | string): this;
+    filter(props: EnzymePropSelector): this;
+    filter(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -495,7 +496,8 @@ export class ReactWrapper<P = {}, S = {}> {
      */
     filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
-    filter(props: Partial<P> | string): this;
+    filter(props: EnzymePropSelector): this;
+    filter(selector: string): ReactWrapper<HTMLAttributes, any>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
