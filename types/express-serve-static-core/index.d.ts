@@ -4,6 +4,7 @@
 //                 Michał Lytek <https://github.com/19majkel94>
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Sami Jaber <https://github.com/samijaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -21,6 +22,7 @@ declare global {
 }
 
 import * as http from "http";
+import { EventEmitter } from "events";
 
 export interface NextFunction {
     // tslint:disable-next-line callable-types (In ts2.1 it thinks the type alias has no call signatures)
@@ -833,7 +835,7 @@ export type RequestParamHandler = (req: Request, res: Response, next: NextFuncti
 
 export type ApplicationRequestHandler<T> = IRouterHandler<T> & IRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
 
-export interface Application extends IRouter, Express.Application {
+export interface Application extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
      * third argument.
