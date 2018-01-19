@@ -1,18 +1,18 @@
 {
     "version": "2.6.1"
     ,"compilerOptions": {                      
-        "target": "es5"
-        ,"module": "commonjs"
-        ,"lib": ["es2015"]
-        ,"noImplicitAny": true
-        ,"noImplicitThis": false
-        ,"strictNullChecks": false
-        ,"strictFunctionTypes": true
-        ,"baseUrl": "../"
-        ,"typeRoots": ["../"]
-        ,"types": []
-        ,"noEmit": true
-        ,"forceConsistentCasingInFileNames": true	
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["es2015"],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true	
     }
     ,"files": [
         "index.d.ts"

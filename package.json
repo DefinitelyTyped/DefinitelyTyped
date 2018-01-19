@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "definitely-typed",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "lint": "dtslint types"
   },
   "devDependencies": {
-    "dtslint": "github:Microsoft/dtslint#production",
+    "dtslint": "github:microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
   }
 }

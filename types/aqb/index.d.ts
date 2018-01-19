@@ -1,33 +1,30 @@
-// Type definitions for aqbjs
+// Type definitions for aqbjs 2.1
 // Project: https://github.com/arangodb/aqbjs
-// Definitions by: Athenkosi Mase <https://github.com/Athenkosi-Mase> 
+// Definitions by: Athenkosi Mase <https://github.com/Athenkosi-Mase>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// TypeScript Version: 2.1
-
+// TypeScript Version: 2.2
 /**
  * Error
  */
-export declare interface AqlError extends Error {
+interface AqlError extends Error {
     /**
      *
      * @param message
      */
-    new (message: string): Error;
+    new(message: string): Error;
     name: string;
 }
-
-export declare interface Operation extends Expression {
-    // new (): Expression;
+interface Operation extends Expression {
+    new(): Expression;
 }
-export interface BinaryOperation extends Operation {
+interface BinaryOperation extends Operation {
     /**
      *
      * @param operator
      * @param value1
      * @param value2
      */
-    new (operator: string, value1: Expression, value2: any): Operation;
+    new(operator: string, value1: Expression, value2: any): Operation;
     /**
      *
      * @return
@@ -35,13 +32,13 @@ export interface BinaryOperation extends Operation {
     toAQL(): string;
     _operator: string;
 }
-export interface UnaryOperation extends Operation {
+interface UnaryOperation extends Operation {
     /**
      *
      * @param operator
      * @param value
      */
-    new (operator: string, value: Expression): Operation;
+    new(operator: string, value: Expression): Operation;
     /**
      *
      * @return
@@ -49,36 +46,36 @@ export interface UnaryOperation extends Operation {
     toAQL(): string;
     _operator: string;
 }
-export declare interface SimpleReference extends Expression {
+interface SimpleReference extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface RawExpression extends Expression {
+interface RawExpression extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface BooleanLiteral extends Expression {
+interface BooleanLiteral extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
@@ -86,12 +83,12 @@ export declare interface BooleanLiteral extends Expression {
     toAQL(): string;
     _value: boolean;
 }
-export declare interface NumberLiteral extends Expression {
+interface NumberLiteral extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
@@ -99,12 +96,12 @@ export declare interface NumberLiteral extends Expression {
     toAQL(): string;
     re: RegExp;
 }
-export declare interface IntegerLiteral extends Expression {
+interface IntegerLiteral extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
@@ -112,65 +109,65 @@ export declare interface IntegerLiteral extends Expression {
     toAQL(): string;
     _value: number;
 }
-export declare interface StringLiteral extends Expression {
+interface StringLiteral extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface ListLiteral extends Expression {
+interface ListLiteral extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface ObjectLiteral extends Expression {
+interface ObjectLiteral extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
-    _value: {};
+    _value: object;
 }
-export interface NAryOperation extends Operation {
+interface NAryOperation extends Operation {
     /**
      *
      * @param operator
      * @param values
      */
-    new (operator: string, values: Array<Expression>): Operation;
+    new(operator: string, values: Expression[]): Operation;
     /**
      *
      * @return
      */
     toAQL(): string;
     _operator: string;
-    _values: Array<Expression>;
+    _values: Expression[];
 }
-export declare interface RangeExpression extends Expression {
+interface RangeExpression extends Expression {
     /**
      *
      * @param start
      * @param end
      */
-    new (start: number | Expression, end?: number): Expression;
+    new(start: number | Expression, end?: number): Expression;
     /**
      *
      * @return
@@ -179,22 +176,22 @@ export declare interface RangeExpression extends Expression {
     _end: number;
     re: RegExp;
 }
-export declare interface PropertyAccess extends Expression {
+interface PropertyAccess extends Expression {
     /**
      *
      * @param obj
      * @param keys
      */
-    new (obj: Expression, keys: Array<Expression>): Expression;
+    new(obj: Expression, keys: Expression[]): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
     _obj: Expression;
-    _keys: Array<Expression>;
+    _keys: Expression[];
 }
-export interface TernaryOperation extends Operation {
+interface TernaryOperation extends Operation {
     /**
      *
      * @param operator1
@@ -203,7 +200,7 @@ export interface TernaryOperation extends Operation {
      * @param value2
      * @param value3
      */
-    new (operator1: string, operator2: string, value1: Expression, value2: any, value3: any): Operation;
+    new(operator1: string, operator2: string, value1: Expression, value2: any, value3: any): Operation;
     /**
      *
      * @return
@@ -212,24 +209,24 @@ export interface TernaryOperation extends Operation {
     _operator1: string;
     _operator2: string;
 }
-export declare interface NullLiteral extends Expression {
+interface NullLiteral extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface Keyword extends Expression {
+interface Keyword extends Expression {
     /**
      *
      * @param value
      */
-    new (value: any): Expression;
+    new(value: any): Expression;
     /**
      *
      * @return
@@ -237,12 +234,12 @@ export declare interface Keyword extends Expression {
     toAQL(): string;
     re: RegExp;
 }
-export declare interface Identifier extends Expression {
+interface Identifier extends Expression {
     /**
      *
      * @param value
      */
-    new (value: string): Expression;
+    new(value: string): Expression;
     /**
      *
      * @return
@@ -250,27 +247,27 @@ export declare interface Identifier extends Expression {
     toAQL(): string;
     _value: string;
 }
-export declare interface FunctionCall extends Expression {
+interface FunctionCall extends Expression {
     /**
      *
      * @param functionName
      * @param args
      */
-    new (functionName: string, args: any): Expression;
+    new(functionName: string, ...args: any[]): Expression;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface ForExpression extends PartialStatement {
+interface ForExpression extends PartialStatement {
     /**
      *
      * @param prev
      * @param varname
      * @param expr
      */
-    new (prev: PartialStatement, varname: any, expr: any): PartialStatement;
+    new(prev: PartialStatement, varname: any, expr: any): PartialStatement;
     /**
      *
      * @return
@@ -278,41 +275,41 @@ export declare interface ForExpression extends PartialStatement {
     toAQL(): string;
     _varname: Identifier;
 }
-export declare interface FilterExpression extends PartialStatement {
+interface FilterExpression extends PartialStatement {
     /**
      *
      * @param prev
      * @param expr
      */
-    new (prev: PartialStatement, expr: any): PartialStatement;
+    new(prev: PartialStatement, expr: any): PartialStatement;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface Definitions {
+interface Definitions {
     /**
      *
      * @param dfns
-     * @param undefined
+     * @param param
      */
-    new (dfns: any, param2: any): any;
+    new(dfns: any, param: any): any;
     /**
      *
      * @return
      */
     toAQL(): string;
-    _dfns: Array<any>;
+    _dfns: any[];
 }
-export declare interface LetExpression extends PartialStatement {
+interface LetExpression extends PartialStatement {
     /**
      *
      * @param prev
      * @param dfns
-     * @param undefined
+     * @param param
      */
-    new (prev: PartialStatement, dfns: any, param3: any): PartialStatement;
+    new(prev: PartialStatement, dfns: any, param: any): PartialStatement;
     /**
      *
      * @return
@@ -321,30 +318,23 @@ export declare interface LetExpression extends PartialStatement {
     _prev: PartialStatement;
     _dfns: Definitions;
 }
-export declare interface CollectExpression extends PartialStatement {
+interface CollectExpression extends PartialStatement {
     /**
      *
      * @param prev
      * @param dfns
-     * @param undefined
+     * @param param
      * @param varname
      * @param intoExpr
      * @param keepNames
      * @param options
      */
-    new (prev: PartialStatement, dfns: any, param3: any, varname: any, intoExpr: any, keepNames: Array<any>, options: any): PartialStatement;
+    new(prev: PartialStatement, dfns: any, param: any, varname: any, intoExpr: any, keepNames: any[], options: any): PartialStatement;
     /**
      *
      * @return
      */
     toAQL(): string;
-    // /**
-    //  *
-    //  * @param newVarname
-    //  * @param newIntoExpr
-    //  * @return
-    //  */
-    // into(newVarname: any, newIntoExpr: any): CollectExpression;
     /**
      *
      * @param newVarname
@@ -355,8 +345,8 @@ export declare interface CollectExpression extends PartialStatement {
      *
      * @return
      */
-    keep(...x : any[]): any;
-    _keep: Array<Identifier>;
+    keep(...x: any[]): any;
+    _keep: Identifier[];
     /**
      *
      * @param newOpts
@@ -371,16 +361,16 @@ export declare interface CollectExpression extends PartialStatement {
      */
     withCountInto(newVarname: any): CollectWithCountIntoExpression;
 }
-export declare interface CollectWithCountIntoExpression extends PartialStatement {
+interface CollectWithCountIntoExpression extends PartialStatement {
     /**
      *
      * @param prev
      * @param dfns
-     * @param undefined
+     * @param param
      * @param varname
      * @param options
      */
-    new (prev: PartialStatement, dfns: any, param3: any, varname: any, options: any): PartialStatement;
+    new(prev: PartialStatement, dfns: any, param: any, varname: any, options: any): PartialStatement;
     /**
      *
      * @return
@@ -393,43 +383,43 @@ export declare interface CollectWithCountIntoExpression extends PartialStatement
      */
     options(newOpts: any): any;
 }
-export declare interface SortExpression extends PartialStatement {
+interface SortExpression extends PartialStatement {
     /**
      *
      * @param prev
      * @param args
      */
-    new (prev: PartialStatement, args: Array<any>): PartialStatement;
+    new(prev: PartialStatement, args: any[]): PartialStatement;
     /**
      *
      * @return
      */
     toAQL(): string;
-    keywords: Array<string>;
-    _args: Array<Keyword>;
+    keywords: string[];
+    _args: Keyword[];
 }
-export declare interface LimitExpression extends PartialStatement {
+interface LimitExpression extends PartialStatement {
     /**
      *
      * @param prev
      * @param offset
      * @param count
      */
-    new (prev: PartialStatement, offset: any, count: any): PartialStatement;
+    new(prev: PartialStatement, offset: any, count: any): PartialStatement;
     /**
      *
      * @return
      */
     toAQL(): string;
 }
-export declare interface ReturnExpression extends Expression {
+interface ReturnExpression extends Expression {
     /**
      *
      * @param prev
      * @param value
      * @param distinct
      */
-    new (prev: LetExpression, value: any, distinct: boolean): Expression;
+    new(prev: LetExpression, value: any, distinct: boolean): Expression;
     /**
      *
      * @return
@@ -438,7 +428,7 @@ export declare interface ReturnExpression extends Expression {
     _prev: LetExpression;
     _distinct: boolean;
 }
-export declare interface RemoveExpression extends PartialStatement {
+interface RemoveExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -446,13 +436,13 @@ export declare interface RemoveExpression extends PartialStatement {
      * @param collection
      * @param options
      */
-    new (prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
+    new(prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
     /**
      *
      * @param x
      * @return
      */
-    returnOld(x : any): ReturnExpression;
+    returnOld(x: any): ReturnExpression;
     /**
      *
      * @return
@@ -465,7 +455,7 @@ export declare interface RemoveExpression extends PartialStatement {
      */
     options(newOpts: any): RemoveExpression;
 }
-export declare interface UpsertExpression extends PartialStatement {
+interface UpsertExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -476,19 +466,19 @@ export declare interface UpsertExpression extends PartialStatement {
      * @param collection
      * @param options
      */
-    new (prev: PartialStatement, upsertExpr: any, insertExpr: any, replace: boolean, updateOrReplaceExpr: any, collection: any, options: any): PartialStatement;
+    new(prev: PartialStatement, upsertExpr: any, insertExpr: any, replace: boolean, updateOrReplaceExpr: any, collection: any, options: any): PartialStatement;
     /**
      *
      * @param x
      * @return
      */
-    returnNew(x : any): ReturnExpression;
+    returnNew(x: any): ReturnExpression;
     /**
      *
      * @param x
      * @return
      */
-    returnOld(x : any): ReturnExpression;
+    returnOld(x: any): ReturnExpression;
     /**
      *
      * @return
@@ -502,7 +492,7 @@ export declare interface UpsertExpression extends PartialStatement {
      */
     options(newOpts: any): UpsertExpression;
 }
-export declare interface InsertExpression extends PartialStatement {
+interface InsertExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -510,13 +500,13 @@ export declare interface InsertExpression extends PartialStatement {
      * @param collection
      * @param options
      */
-    new (prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
+    new(prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
     /**
      *
      * @param x
      * @return
      */
-    returnNew(x : any): ReturnExpression;
+    returnNew(x: any): ReturnExpression;
     /**
      *
      * @return
@@ -529,7 +519,7 @@ export declare interface InsertExpression extends PartialStatement {
      */
     options(newOpts: any): InsertExpression;
 }
-export declare interface UpdateExpression extends PartialStatement {
+interface UpdateExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -538,19 +528,19 @@ export declare interface UpdateExpression extends PartialStatement {
      * @param collection
      * @param options
      */
-    new (prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
+    new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
     /**
      *
      * @param x
      * @return
      */
-    returnNew(x : any): ReturnExpression;
+    returnNew(x: any): ReturnExpression;
     /**
      *
      * @param x
      * @return
      */
-    returnOld(x : any): ReturnExpression;
+    returnOld(x: any): ReturnExpression;
     /**
      *
      * @return
@@ -563,7 +553,7 @@ export declare interface UpdateExpression extends PartialStatement {
      */
     options(newOpts: any): UpdateExpression;
 }
-export declare interface ReplaceExpression extends PartialStatement {
+interface ReplaceExpression extends PartialStatement {
     /**
      *
      * @param prev
@@ -572,19 +562,19 @@ export declare interface ReplaceExpression extends PartialStatement {
      * @param collection
      * @param options
      */
-    new (prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
+    new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
     /**
      *
      * @param x
      * @return
      */
-    returnNew(x : any): ReturnExpression;
+    returnNew(x: any): ReturnExpression;
     /**
      *
      * @param x
      * @return
      */
-    returnOld(x : any): ReturnExpression;
+    returnOld(x: any): ReturnExpression;
     /**
      *
      * @return
@@ -598,430 +588,427 @@ export declare interface ReplaceExpression extends PartialStatement {
     options(newOpts: any): ReplaceExpression;
 }
 /**
- *
+ * Expression
  */
-export declare interface Expression extends PartialStatement {
+interface Expression extends PartialStatement {
     /**
      * Equality
      *
      * Creates an equality comparison from the given values.
      *
-     * qb.eq(a, b) :  (a == b)
+     * qb.eq(a, b): (a == b)
      * OR:
-     * qbValue.eq(b) :  (a == b)
+     * qbValue.eq(b): (a == b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
      *
-     * qb.ref('x').eq('y') :  (x == y)
+     * qb.ref('x').eq('y'): (x == y)
      *
      *
      * @param x
      * @param y
      * @return
      */
-    eq(x : any , y?: any) : BinaryOperation;
+    eq(x: any, y?: any): BinaryOperation;
     /**
      * Inequality
      *
      * Creates an inequality comparison from the given values.
      *
-     * qb.neq(a, b) :  (a != b)
+     * qb.neq(a, b): (a != b)
      * OR:
-     * qbValue.neq(b) :  (a != b)
+     * qbValue.neq(b): (a != b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
      *
-     * qb.ref('x').neq('y') :  (x != y)
+     * qb.ref('x').neq('y'): (x != y)
      *
      * @param x
      * @param y
      * @return
      */
-    neq(x : any, y? :any) : BinaryOperation;
+    neq(x: any, y?: any): BinaryOperation;
     /**
      * Greater Than
      *
      * Creates a greater-than comparison from the given values.
      *
-     * qb.gt(a, b) :  (a > b)
+     * qb.gt(a, b): (a > b)
      * OR
-     * qbValue.gt(b) :  (a > b)
+     * qbValue.gt(b): (a > b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
      *
-     *  qb.ref('x').gt('y') :  (x > y)
+     *  qb.ref('x').gt('y'): (x > y)
      *
      *
      * @param x
      * @param y
      * @return
      */
-    gt(x : any, y? : any) : BinaryOperation;
+    gt(x: any, y?: any): BinaryOperation;
     /**
      * Greater Than Or Equal To
      *
      * Creates a greater-than-or-equal-to comparison from the given values.
      *
-     * qb.gte(a, b) :  (a >= b)
+     * qb.gte(a, b): (a >= b)
      * OR
-     * qbValue.gte(b) :  (a >= b)
+     * qbValue.gte(b): (a >= b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
      *
-     * qb.ref('x').gte('y') :  (x >= y)
+     * qb.ref('x').gte('y'): (x >= y)
      *
      *
      * @param x
      * @param y
      * @return
      */
-    gte(x : any, y? : any) : BinaryOperation;
+    gte(x: any, y?: any): BinaryOperation;
     /**
      * Less Than
      *
      * Creates a less-than comparison from the given values.
      *
-     * qb.lt(a, b) :  (a < b)
+     * qb.lt(a, b): (a < b)
      * OR
-     * qbValue.lt(b) :  (a < b)
+     * qbValue.lt(b): (a < b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
      *
-     * qb.ref('x').lt('y') :  (x < y)
+     * qb.ref('x').lt('y'): (x < y)
      *
      * @param x
      * @param y
      * @return
      */
-    lt(x : any , y? : any) : BinaryOperation;
+    lt(x: any, y?: any): BinaryOperation;
     /**
      * Less Than Or Equal To
      *
      * Creates a less-than-or-equal-to comparison from the given values.
      *
-     * qb.lte(a, b) :  (a <= b)
+     * qb.lte(a, b): (a <= b)
      * OR
-     * qbValue.lte(b) :  (a <= b)
+     * qbValue.lte(b): (a <= b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
      *
-     * qb.ref('x').lte('y') :  (x <= y)
+     * qb.ref('x').lte('y'): (x <= y)
      *
      * @param x
      * @param y
      * @return
      */
-    lte(x : any, y? : any) : BinaryOperation;
+    lte(x: any, y?: any): BinaryOperation;
     /**
      * Contains
      *
      * Creates an "in" comparison from the given values.
      *
-     * qb.in(a, b) :  (a in b)
+     * qb.in(a, b): (a in b)
      * OR:
-     * qbValue.in(b) :  (a in b)
+     * qbValue.in(b): (a in b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
-     * qb.ref('x').in('y') :  (x in y)
+     * qb.ref('x').in('y'): (x in y)
      *
      * @param x
      * @return
      */
-    in(...x : any[]) : BinaryOperation;
+    in(...x: any[]): BinaryOperation;
     /**
      * Negation
-     * 
+     *
      * Creates a negation from the given value.
-     * 
+     *
      * qb.not(a) => !(a)
      * OR:
      * qbValue.not() => !(a)
-     * 
+     *
      * If the value is not already an  value, it will be converted automatically.
-     * 
+     *
      * Examples
-     * 
+     *
      * qb.not('x') => !(x)
      *
      * @param x
      * @return
      */
-    not(x? :any) : UnaryOperation;
+    not(x?: any): UnaryOperation;
     /**
      * Negative Value
-     * 
+     *
      * Creates a negative value expression from the given value.
-     * 
+     *
      * qb.neg(a) => -(a)
      * OR:
      * qbValue.neg() => -(a)
-     * 
+     *
      * If the value is not already an AQL value, it will be converted automatically.
-     * 
+     *
      * Examples
-     * 
+     *
      * qb.neg('x') => -(x)
      *
      * @param x
      * @return
      */
-    neg(x? :any) : UnaryOperation;
+    neg(x?: any): UnaryOperation;
     /**
      * Negated Contains
      *
      * Creates a "not in" comparison from the given values.
      *
-     * qb.notIn(a, b) :  (a not in b)
+     * qb.notIn(a, b): (a not in b)
      * OR:
-     * qbValue.notIn(b) :  (a not in b)
+     * qbValue.notIn(b): (a not in b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
      *
-     * qb.ref('x').notIn('y') :  (x not in y)
+     * qb.ref('x').notIn('y'): (x not in y)
      *
      * @param x
      * @return
      */
-    notIn(...x : any[]) : BinaryOperation;
+    notIn(...x: any[]): BinaryOperation;
     /**
      * Boolean And
-     * 
+     *
      * Creates an "and" operation from the given values.
-     * 
-     * qb.and(a, b) => (a && b)
+     *
+     * qb.and(a, b) =>(a && b)
      * OR:
-     * aqlValue.and(b) => (a && b)
-     * 
+     * aqlValue.and(b) =>(a && b)
+     *
      * If the values are not already AQL values, they will be converted automatically.
-     * This function can take any number of arguments.
-     * 
+     * This declare function can take any number of arguments.
+     *
      * Examples
-     * 
-     * qb.ref('x').and('y') => (x && y)
+     *
+     * qb.ref('x').and('y') =>(x && y)
      *
      * @param x
      * @return
      */
-    and(...x : any[]) : NAryOperation;
+    and(...x: any[]): NAryOperation;
     /**
      * Boolean Or
      *
      * Creates an "or" operation from the given values.
      *
-     * qb.or(a, b) :  (a || b)
+     * qb.or(a, b): (a || b)
      * OR:
-     * Value.or(b) :  (a || b)
+     * Value.or(b): (a || b)
      *
      * If the values are not already  values, they will be converted automatically.
      *
-     * This function can take any number of arguments.
+     * This declare function can take any number of arguments.
      *
      * @param x
      * @return
      */
-    or(...x : any[]) : NAryOperation;
+    or(...x: any[]): NAryOperation;
     /**
      * Addition
      *
      * Creates an addition operation from the given values.
      *
-     * qb.add(a, b) :  (a + b)
+     * qb.add(a, b): (a + b)
      * OR:
-     * Value.add(b) :  (a + b)
+     * Value.add(b): (a + b)
      *
      * If the values are not already  values, they will be converted automatically.
-     * This function can take any number of arguments.
+     * This declare function can take any number of arguments.
      *
      * Alias: qb.plus(a, b)
      *
      * Examples
      *
-     * qb.ref('x').plus('y') :  (x + y)
+     * qb.ref('x').plus('y'): (x + y)
      *
      * @param x
      * @return
      */
-    add(...x : any[]) : NAryOperation;
-    plus(...x : any[]) : NAryOperation;
+    add(...x: any[]): NAryOperation;
+    plus(...x: any[]): NAryOperation;
     /**
      * Subtraction
      *
      * Creates a subtraction operation from the given values.
      *
-     * qb.sub(a, b) :  (a - b)
+     * qb.sub(a, b): (a - b)
      * OR:
-     * Value.sub(b) :  (a - b)
+     * Value.sub(b): (a - b)
      *
      * If the values are not already  values, they will be converted automatically.
-     * This function can take any number of arguments.
+     * This declare function can take any number of arguments.
      *
      * Alias: qb.minus(a, b)
      *
      * Examples
      *
-     * qb.ref('x').minus('y') :  (x - y)
+     * qb.ref('x').minus('y'): (x - y)
      *
      * @param x
      * @return
      */
-    sub(...x : any[]) : NAryOperation;
-    minus(...x : any[]) : NAryOperation;
+    sub(...x: any[]): NAryOperation;
+    minus(...x: any[]): NAryOperation;
     /**
      * Multiplication
      *
      * Creates a multiplication operation from the given values.
      *
-     * qb.mul(a, b) :  (a * b)
+     * qb.mul(a, b): (a * b)
      * OR:
-     * Value.mul(b) :  (a * b)
+     * Value.mul(b): (a * b)
      *
      * If the values are not already  values, they will be converted automatically.
-     * This function can take any number of arguments.
+     * This declare function can take any number of arguments.
      *
      * Alias: qb.times(a, b)
      *
      * Examples
      *
-     * qb.ref('x').times('y') :  (x * y)
+     * qb.ref('x').times('y'): (x * y)
      *
      * @param x
      * @return
      */
-    mul(...x : any[]) : NAryOperation;
-    times(...x : any[]) : NAryOperation;
+    mul(...x: any[]): NAryOperation;
+    times(...x: any[]): NAryOperation;
     /**
      * Division
      *
      * Creates a division operation from the given values.
      *
-     * qb.div(a, b) :  (a / b)
+     * qb.div(a, b): (a / b)
      * OR:
-     * Value.div(b) :  (a / b)
+     * Value.div(b): (a / b)
      *
      * If the values are not already  values, they will be converted automatically.
-     * This function can take any number of arguments.
+     * This declare function can take any number of arguments.
      *
      * Examples
-     * qb.ref('x').div('y') :  (x / y)
+     * qb.ref('x').div('y'): (x / y)
      *
      * @param x
      * @return
      */
-    div(...x : any[]) : NAryOperation;
+    div(...x: any[]): NAryOperation;
     /**
      * Modulus
      *
      * Creates a modulus operation from the given values.
      *
-     * qb.mod(a, b) :  (a % b)
+     * qb.mod(a, b): (a % b)
      * OR:
-     * Value.mod(b) :  (a % b)
+     * Value.mod(b): (a % b)
      *
      * If the values are not already  values, they will be converted automatically.
-     * This function can take any number of arguments.
+     * This declare function can take any number of arguments.
      *
      * Examples
-     * qb.ref('x').mod('y') :  (x % y)
+     * qb.ref('x').mod('y'): (x % y)
      *
      * @param x
      * @return
      */
-    mod(...x : any[]) : NAryOperation;
+    mod(...x: any[]): NAryOperation;
     /**
      * Range
      *
      * Creates a range expression from the given values.
      *
-     * qb.range(value1, value2) :  value1..value2
+     * qb.range(value1, value2): value1..value2
      *
      * OR:
      *
-     * Value.range(value2) :  value1..value2
+     * Value.range(value2): value1..value2
      *
      * If the values are not already  values, they will be converted automatically.
      * Alias: qb.to(value1, value2)
      *
      * Examples
      *
-     * qb(2).to(5) :  2..5
+     * qb(2).to(5): 2..5
      *
      * @param value
      * @return
      */
-    range(...value: number[]) : RangeExpression;
+    range(...value: number[]): RangeExpression;
     /**
      * Property Access
      *
      * Creates a property access expression from the given values.
      *
-     * qb.get(obj, key) :  obj[key]
+     * qb.get(obj, key): obj[key]
      * OR:
-     * Obj.get(key) :  obj[key]
+     * Obj.get(key): obj[key]
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Examples
-     * qb.ref('x').get('y') : x[y]`
+     * qb.ref('x').get('y'): x[y]`
      *
      * @param value
      */
-    get(value: any) : PropertyAccess;
+    get(value: any): PropertyAccess;
     /**
-     * Ternary (if / else)
+     * Ternary(if / else)
      *
      * Creates a ternary expression from the given values.
      *
-     * qb.if(condition, thenDo, elseDo) :  (condition ? thenDo : elseDo)
+     * qb.if(condition, thenDo, elseDo): (condition ? thenDo: elseDo)
      * OR:
-     * qbValue.then(thenDo).else(elseDo) :  (condition ? thenDo : elseDo)
+     * qbValue.then(thenDo).else(elseDo): (condition ? thenDo: elseDo)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Alias: qbValue.then(thenDo).otherwise(elseDo)
      *
      * Examples
-     * qb.ref('x').then('y').else('z') :  (x ? y : z)
+     * qb.ref('x').then('y').else('z'): (x ? y: z)
      *
      * @param value
      * @return
      */
-    then(value: any) : ThenRet;
+    then(value: any): ThenRet;
 }
-export declare interface ThenRet {
+interface ThenRet {
     /**
      *
      * @param y
      * @return
      */
     else(y: any): TernaryOperation;
-    /**
-     *
-     */
     else_: TernaryOperation;
     /**
      *
+     * @param y
+     * @return
      */
     otherwise(y: any): TernaryOperation;
 }
-
-
-export declare interface ForRet {
+interface ForRet {
     /**
      *
      * @param expr
@@ -1029,8 +1016,6 @@ export declare interface ForRet {
      */
     in(expr: any): ForExpression;
     in_: ForRet["in"];
-}
-export declare interface Let0 {
 }
 /**
  * PartialStatement
@@ -1043,313 +1028,312 @@ export declare interface Let0 {
  * qb.for('doc').in('my_collection').return('doc._key').toAQL()
  * // => FOR doc IN my_collection RETURN doc._key
  */
-export declare interface PartialStatement {
-
+interface PartialStatement {
     /**
      * FOR expression IN collection
      *
-     * PartialStatement::for(expression).in(collection) : PartialStatement
+     * PartialStatement::for(expression).in(collection): PartialStatement
      *
      * Examples
      *
-     * _.for('doc').in('my_collection') :  FOR doc IN my_collection
+     * _.for('doc').in('my_collection'): FOR doc IN my_collection
      *
      * @param varname
      * @return
      */
-    for(varname: any) : ForRet;
+    for(varname: any): ForRet;
     /**
      * FILTER expression
      *
-     * PartialStatement::filter(expression) : PartialStatement
+     * PartialStatement::filter(expression): PartialStatement
      *
      * Examples
      *
-     * _.filter(qb.eq('a', 'b')) :  FILTER a == b
+     * _.filter(qb.eq('a', 'b')): FILTER a == b
      *
      * @param varname
      * @return
      */
-    filter(varname: any) : FilterExpression;
+    filter(varname: any): FilterExpression;
     /**
      * LET varname = expression
      *
-     * PartialStatement::let(varname, expression) : PartialStatement
+     * PartialStatement::let(varname, expression): PartialStatement
      *
      * Examples
      *
-     * _.let('foo', 23) :  LET foo = 23
+     * _.let('foo', 23): LET foo = 23
      *
      * LET var1 = expr1, var2 = expr2, …, varn = exprn
      *
-     * PartialStatement::let(definitions) : PartialStatement
+     * PartialStatement::let(definitions): PartialStatement
      *
      * @param varname
      * @param expr
      * @return
      */
-    let(varname: Let0, expr: any) : LetExpression;
+    let(varname: {}, expr: any): LetExpression;
     /**
      * COLLECT
      *
      * COLLECT WITH COUNT INTO varname
-     * PartialStatement::collectWithCountInto(varname) : CollectExpression
+     * PartialStatement::collectWithCountInto(varname): CollectExpression
      *
      * Examples
      *
-     * _.collectWithCountInto('x') :  COLLECT WITH COUNT INTO x COLLECT varname = expression
-     * PartialStatement::collect(varname, expression) : CollectExpression
+     * _.collectWithCountInto('x'): COLLECT WITH COUNT INTO x COLLECT varname = expression
+     * PartialStatement::collect(varname, expression): CollectExpression
      *
-     *  _.collect('x', 'y') :  COLLECT x = y COLLECT var1 = expr1, var2 = expr2, …, varn = exprn
-     * PartialStatement::collect(definitions) : CollectExpression
+     *  _.collect('x', 'y'): COLLECT x = y COLLECT var1 = expr1, var2 = expr2, …, varn = exprn
+     * PartialStatement::collect(definitions): CollectExpression
      *
-     * _.collect({x : 'a', y: 'b'}) :  COLLECT x = a, y = b WITH COUNT INTO varname
-     * CollectExpression::withCountInto(varname) : CollectExpression
+     * _.collect({x: 'a', y: 'b'}): COLLECT x = a, y = b WITH COUNT INTO varname
+     * CollectExpression::withCountInto(varname): CollectExpression
      *
-     * _.withCountInto('x') :  WITH COUNT INTO x INTO varname
-     * CollectExpression::into(varname) : CollectExpression
+     * _.withCountInto('x'): WITH COUNT INTO x INTO varname
+     * CollectExpression::into(varname): CollectExpression
      *
-     * _.into('z') :  INTO z KEEP ...vars
-     * CollectExpression::keep(...vars) : CollectExpression
+     * _.into('z'): INTO z KEEP ...vars
+     * CollectExpression::keep(...vars): CollectExpression
      *
-     * _.into('z').keep('a', 'b') :  INTO z KEEP a, b INTO varname = expression
-     * CollectExpression::into(varname, expression) : CollectExpression
+     * _.into('z').keep('a', 'b'): INTO z KEEP a, b INTO varname = expression
+     * CollectExpression::into(varname, expression): CollectExpression
      *
-     * _.into('x', 'y') :  INTO x = y OPTIONS options
-     * CollectExpression::options(options) : CollectExpression
+     * _.into('x', 'y'): INTO x = y OPTIONS options
+     * CollectExpression::options(options): CollectExpression
      *
-     * _.options('opts') :  OPTIONS opts
+     * _.options('opts'): OPTIONS opts
      *
      * @param varname
      * @param expr
      * @return
      */
-    collect(varname: any, expr: any) : CollectExpression;
+    collect(varname: any, expr: any): CollectExpression;
     /**
      * COLLECT
      *
      * COLLECT WITH COUNT INTO varname
-     * PartialStatement::collectWithCountInto(varname) : CollectExpression
+     * PartialStatement::collectWithCountInto(varname): CollectExpression
      *
      * Examples
      *
-     * _.collectWithCountInto('x') :  COLLECT WITH COUNT INTO x COLLECT varname = expression
-     * PartialStatement::collect(varname, expression) : CollectExpression
+     * _.collectWithCountInto('x'): COLLECT WITH COUNT INTO x COLLECT varname = expression
+     * PartialStatement::collect(varname, expression): CollectExpression
      *
-     *  _.collect('x', 'y') :  COLLECT x = y COLLECT var1 = expr1, var2 = expr2, …, varn = exprn
-     * PartialStatement::collect(definitions) : CollectExpression
+     *  _.collect('x', 'y'): COLLECT x = y COLLECT var1 = expr1, var2 = expr2, …, varn = exprn
+     * PartialStatement::collect(definitions): CollectExpression
      *
-     * _.collect({x : 'a', y: 'b'}) :  COLLECT x = a, y = b WITH COUNT INTO varname
-     * CollectExpression::withCountInto(varname) : CollectExpression
+     * _.collect({x: 'a', y: 'b'}): COLLECT x = a, y = b WITH COUNT INTO varname
+     * CollectExpression::withCountInto(varname): CollectExpression
      *
-     * _.withCountInto('x') :  WITH COUNT INTO x INTO varname
-     * CollectExpression::into(varname) : CollectExpression
+     * _.withCountInto('x'): WITH COUNT INTO x INTO varname
+     * CollectExpression::into(varname): CollectExpression
      *
-     * _.into('z') :  INTO z KEEP ...vars
-     * CollectExpression::keep(...vars) : CollectExpression
+     * _.into('z'): INTO z KEEP ...vars
+     * CollectExpression::keep(...vars): CollectExpression
      *
-     * _.into('z').keep('a', 'b') :  INTO z KEEP a, b INTO varname = expression
-     * CollectExpression::into(varname, expression) : CollectExpression
+     * _.into('z').keep('a', 'b'): INTO z KEEP a, b INTO varname = expression
+     * CollectExpression::into(varname, expression): CollectExpression
      *
-     * _.into('x', 'y') :  INTO x = y OPTIONS options
-     * CollectExpression::options(options) : CollectExpression
+     * _.into('x', 'y'): INTO x = y OPTIONS options
+     * CollectExpression::options(options): CollectExpression
      *
-     * _.options('opts') :  OPTIONS opts
+     * _.options('opts'): OPTIONS opts
      *
      * @param varname
      * @return
      */
-    collectWithCountInto(varname: any) : CollectWithCountIntoExpression;
+    collectWithCountInto(varname: any): CollectWithCountIntoExpression;
     /**
      * SORT ...args
      *
-     * PartialStatement::sort(...args) : PartialStatement
+     * PartialStatement::sort(...args): PartialStatement
      *
      * Examples
      *
-     * _.sort('x', 'DESC', 'y', 'ASC') :  SORT x DESC, y ASC
+     * _.sort('x', 'DESC', 'y', 'ASC'): SORT x DESC, y ASC
      *
      * @param args
      * @return
      */
-    sort(...args : any[]) : SortExpression;
+    sort(...args: any[]): SortExpression;
     /**
      * LIMIT offset, count
      *
-     * PartialStatement::limit([offset,] count) : PartialStatement
+     * PartialStatement::limit([offset,] count): PartialStatement
      *
      * Examples
      *
-     * _.limit(20) :  LIMIT 20
+     * _.limit(20): LIMIT 20
      *
-     * _.limit(20, 20) :  LIMIT 20, 20
+     * _.limit(20, 20): LIMIT 20, 20
      *
      * @param offset
      * @param count
      * @return
      */
-    limit(offset : any, count?: any) : LimitExpression;
+    limit(offset: any, count?: any): LimitExpression;
     /**
      * RETURN expression
      *
-     * PartialStatement::return(expression) : ReturnExpression
+     * PartialStatement::return(expression): ReturnExpression
      *
      * Examples
      *
-     * _.return('x') :  RETURN x
-     * _.return({x : 'x'}) :  RETURN {x : x}
+     * _.return('x'): RETURN x
+     * _.return({x: 'x'}): RETURN {x: x}
      *
      * @param x
      * @return
      */
-    return(x : any) : ReturnExpression;
+    return(x: any): ReturnExpression;
     /**
      * RETURN DISTINCT expression
      *
-     * PartialStatement::returnDistinct(expression) : ReturnExpression
+     * PartialStatement::returnDistinct(expression): ReturnExpression
      *
      * Examples
      *
-     * _.returnDistinct('x') :  RETURN DISTINCT x
+     * _.returnDistinct('x'): RETURN DISTINCT x
      *
      * @param x
      * @return
      */
-    returnDistinct(x : any) : ReturnExpression;
+    returnDistinct(x: any): ReturnExpression;
     /**
      * REMOVE
      *
      * REMOVE expression IN collection
-     * PartialStatement::remove(expression).in(collection) : RemoveExpression
+     * PartialStatement::remove(expression).in(collection): RemoveExpression
      *
      * Alias: remove(expression).into(collection)
      *
      * Examples
      *
-     * _.remove('x').in('y') :  REMOVE x IN y LET varname = OLD RETURN varname
-     * RemoveExpression::returnOld(varname) : ReturnExpression
+     * _.remove('x').in('y'): REMOVE x IN y LET varname = OLD RETURN varname
+     * RemoveExpression::returnOld(varname): ReturnExpression
      *
-     * _.returnOld('z') :  LET z = OLD RETURN z OPTIONS options
-     * RemoveExpression::options(options) : RemoveExpression
+     * _.returnOld('z'): LET z = OLD RETURN z OPTIONS options
+     * RemoveExpression::options(options): RemoveExpression
      *
-     * _.options('opts') :  OPTIONS opts
+     * _.options('opts'): OPTIONS opts
      *
      * @param expr
      * @return
      */
-    remove(expr: any) : RemoveRet;
+    remove(expr: any): RemoveRet;
     /**
      * UPSERT
      *
      * UPSERT expression1 INSERT expression2 REPLACE expression3 IN collection
-     * PartialStatement::upsert(expression1).insert(expression2).replace(expression3).in(collection) : UpsertExpression
+     * PartialStatement::upsert(expression1).insert(expression2).replace(expression3).in(collection): UpsertExpression
      *
      * Alias: ….into(collection)
      *
      * Examples
      *
-     * _.upsert('x').insert('y').replace('z').in('c') :  UPSERT x INSERT y REPLACE z IN c
+     * _.upsert('x').insert('y').replace('z').in('c'): UPSERT x INSERT y REPLACE z IN c
      *
      * UPSERT expression1 INSERT expression2 UPDATE expression3 IN collection
-     * PartialStatement::upsert(expression1).insert(expression2).update(expression3).in(collection) : UpsertExpression
+     * PartialStatement::upsert(expression1).insert(expression2).update(expression3).in(collection): UpsertExpression
      *
      * Alias: ….into(collection)
      *
-     * _.upsert('x').insert('y').update('z').in('c') :  UPSERT x INSERT y UPDATE z IN c OPTIONS options
-     * UpsertExpression::options(options) : UpsertExpression
+     * _.upsert('x').insert('y').update('z').in('c'): UPSERT x INSERT y UPDATE z IN c OPTIONS options
+     * UpsertExpression::options(options): UpsertExpression
      *
-     * _.options('opts') :  OPTIONS opts
+     * _.options('opts'): OPTIONS opts
      *
      * @param upsertExpr
      * @return
      */
-    upsert(expr: any) : UpsertRet;
+    upsert(expr: any): UpsertRet;
     /**
      * INSERT
      *
      * INSERT expression INTO collection
-     *  PartialStatement::insert(expression).into(collection) : InsertExpression
+     *  PartialStatement::insert(expression).into(collection): InsertExpression
      *
      * Alias: insert(expression).in(collection)
      *
      * Examples
      *
-     * _.insert('x').into('y') :  INSERT x INTO y OPTIONS options
-     * InsertExpression::options(options) : InsertExpression
+     * _.insert('x').into('y'): INSERT x INTO y OPTIONS options
+     * InsertExpression::options(options): InsertExpression
      *
-     *  _.options('opts') :  OPTIONS opts LET varname = NEW RETURN varname
-     * InsertExpression::returnNew(varname) : ReturnExpression
+     *  _.options('opts'): OPTIONS opts LET varname = NEW RETURN varname
+     * InsertExpression::returnNew(varname): ReturnExpression
      *
-     * _.returnNew('z') :  LET z = NEW RETURN z
+     * _.returnNew('z'): LET z = NEW RETURN z
      *
      * @param expr
      * @return
      */
-    insert(expr: any) : InsertRet;
+    insert(expr: any): InsertRet;
     /**
      * UPDATE
      *
      * UPDATE expression IN collection
-     * PartialStatement::update(expression).in(collection) : UpdateExpression
+     * PartialStatement::update(expression).in(collection): UpdateExpression
      *
      * Alias: update(expression).into(collection)
      *
      * Examples
      *
-     * _.update('x').in('y') :  UPDATE x IN y
+     * _.update('x').in('y'): UPDATE x IN y
      *
      * UPDATE expression1 WITH expression2 IN collection
-     * PartialStatement::update(expression1).with(expression2).in(collection) : UpdateExpression
+     * PartialStatement::update(expression1).with(expression2).in(collection): UpdateExpression
      *
      * Alias: update(expression1).with(expression2).into(collection)
      *
-     * _.update('x').with('y').in('z') :  UPDATE x WITH y IN z OPTIONS options
-     * UpdateExpression::options(options) : UpdateExpression
+     * _.update('x').with('y').in('z'): UPDATE x WITH y IN z OPTIONS options
+     * UpdateExpression::options(options): UpdateExpression
      *
-     * _.options('opts') :  OPTIONS opts LET varname = NEW RETURN varname
-     * UpdateExpression::returnNew(varname) : ReturnExpression
+     * _.options('opts'): OPTIONS opts LET varname = NEW RETURN varname
+     * UpdateExpression::returnNew(varname): ReturnExpression
      *
-     * _.returnNew('z') :  LET z = NEW RETURN z LET varname = OLD RETURN varname
-     * UpdateExpression::returnOld(varname) : ReturnExpression
+     * _.returnNew('z'): LET z = NEW RETURN z LET varname = OLD RETURN varname
+     * UpdateExpression::returnOld(varname): ReturnExpression
      *
-     * _.returnOld('z') :  LET z = OLD RETURN z
+     * _.returnOld('z'): LET z = OLD RETURN z
      *
      * @param expr
      * @return
      */
-    update(expr: any) : UpdateRetWithRet;
+    update(expr: any): UpdateRetWithRet;
     /**
      * REPLACE
      *
      * REPLACE expression IN collection
-     * PartialStatement::replace(expression).in(collection) : ReplaceExpression
+     * PartialStatement::replace(expression).in(collection): ReplaceExpression
      *
      * Alias: replace(expression).into(collection)
      *
      * Examples
      *
-     * _.replace('x').in('y') :  REPLACE x IN y REPLACE expression1 WITH expression2 IN collection
-     * PartialStatement::replace(expression1).with(expression2).in(collection) : ReplaceExpression
+     * _.replace('x').in('y'): REPLACE x IN y REPLACE expression1 WITH expression2 IN collection
+     * PartialStatement::replace(expression1).with(expression2).in(collection): ReplaceExpression
      *
      * Alias: replace(expression1).with(expression2).into(collection)
      *
-     * _.replace('x').with('y').in('z') :  REPLACE x WITH y IN z OPTIONS options
-     * ReplaceExpression::options(options) : ReplaceExpression
+     * _.replace('x').with('y').in('z'): REPLACE x WITH y IN z OPTIONS options
+     * ReplaceExpression::options(options): ReplaceExpression
      *
-     * _.options('opts') :  OPTIONS opts LET varname = NEW RETURN varname
-     *  ReplaceExpression::returnOld(varname) : ReturnExpression
+     * _.options('opts'): OPTIONS opts LET varname = NEW RETURN varname
+     *  ReplaceExpression::returnOld(varname): ReturnExpression
      *
-     * _.returnNew('z') :  LET z = NEW RETURN z LET varname = OLD RETURN varname
-     * ReplaceExpression::returnNew(varname) : ReturnExpression
+     * _.returnNew('z'): LET z = NEW RETURN z LET varname = OLD RETURN varname
+     * ReplaceExpression::returnNew(varname): ReturnExpression
      *
-     * _.returnOld('z') :  LET z = OLD RETURN z
+     * _.returnOld('z'): LET z = OLD RETURN z
      *
      * @param expr
      * @return
      */
-    replace(expr: any) : ReplaceRetWithRet;
+    replace(expr: any): ReplaceRetWithRet;
 }
-export declare interface RemoveRet {
+interface RemoveRet {
     /**
      *
      * @param collection
@@ -1359,7 +1343,7 @@ export declare interface RemoveRet {
     in: RemoveRet["into"];
     in_: RemoveRet["into"];
 }
-export declare interface UpsertRet {
+interface UpsertRet {
     /**
      *
      * @param insertExpr
@@ -1367,7 +1351,7 @@ export declare interface UpsertRet {
      */
     insert(insertExpr: any): UpsertRetInsertRet;
 }
-export declare interface UpsertRetInsertRet {
+interface UpsertRetInsertRet {
     /**
      *
      * @param updateOrReplaceExpr
@@ -1376,7 +1360,7 @@ export declare interface UpsertRetInsertRet {
     update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
     replace: UpsertRetInsertRet["update"];
 }
-export declare interface UpsertRetInsertRetUpdateRet {
+interface UpsertRetInsertRetUpdateRet {
     /**
      *
      * @param inCollection
@@ -1386,7 +1370,7 @@ export declare interface UpsertRetInsertRetUpdateRet {
     in: UpsertRetInsertRetUpdateRet["into"];
     in_: UpsertRetInsertRetUpdateRet["into"];
 }
-export declare interface InsertRet {
+interface InsertRet {
     /**
      *
      * @param collection
@@ -1396,7 +1380,7 @@ export declare interface InsertRet {
     in: InsertRet["into"];
     in_: InsertRet["into"];
 }
-export declare interface UpdateRetWithRet {
+interface UpdateRetWithRet {
     /**
      *
      * @param collection
@@ -1406,7 +1390,7 @@ export declare interface UpdateRetWithRet {
     in: UpdateRetWithRet["into"];
     in_: UpdateRetWithRet["into"];
 }
-export declare interface ReplaceRetWithRet {
+interface ReplaceRetWithRet {
     /**
      *
      * @param collection
@@ -1416,7 +1400,7 @@ export declare interface ReplaceRetWithRet {
     in: ReplaceRetWithRet["into"];
     in_: ReplaceRetWithRet["into"];
 }
-export declare interface RemoveRet {
+interface RemoveRet {
     /**
      *
      * @param collection
@@ -1426,7 +1410,7 @@ export declare interface RemoveRet {
     in: RemoveRet["into"];
     in_: RemoveRet["into"];
 }
-export declare interface UpsertRet {
+interface UpsertRet {
     /**
      *
      * @param insertExpr
@@ -1434,7 +1418,7 @@ export declare interface UpsertRet {
      */
     insert(insertExpr: any): UpsertRetInsertRet;
 }
-export declare interface UpsertRetInsertRet {
+interface UpsertRetInsertRet {
     /**
      *
      * @param updateOrReplaceExpr
@@ -1443,7 +1427,7 @@ export declare interface UpsertRetInsertRet {
     update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
     replace: UpsertRetInsertRet["update"];
 }
-export declare interface UpsertRetInsertRetUpdateRet {
+interface UpsertRetInsertRetUpdateRet {
     /**
      *
      * @param inCollection
@@ -1453,7 +1437,7 @@ export declare interface UpsertRetInsertRetUpdateRet {
     in: UpsertRetInsertRetUpdateRet["into"];
     in_: UpsertRetInsertRetUpdateRet["into"];
 }
-export declare interface InsertRet {
+interface InsertRet {
     /**
      *
      * @param collection
@@ -1463,7 +1447,7 @@ export declare interface InsertRet {
     in: InsertRet["into"];
     in_: InsertRet["into"];
 }
-export declare interface UpdateRetWithRet {
+interface UpdateRetWithRet {
     /**
      *
      * @param collection
@@ -1479,7 +1463,7 @@ export declare interface UpdateRetWithRet {
     in: UpdateRetWithRet["into"];
     in_: UpdateRetWithRet["into"];
 }
-export declare interface ReplaceRetWithRet {
+interface ReplaceRetWithRet {
     /**
      *
      * @param collection
@@ -1495,71 +1479,69 @@ export declare interface ReplaceRetWithRet {
     in: ReplaceRetWithRet["into"];
     in_: ReplaceRetWithRet["into"];
 }
-
 /**
  *
  * @param self
  * @param args
  * @return
  */
-export declare function toArray(self: Expression, args: 1) : 1;
+declare function toArray(self: Expression, ...args: any[]): any[];
 /**
  *
  * @param str
  * @return
  */
-export declare function isQuotedString (str: string) :  boolean;
+declare function isQuotedString(str: string): boolean;
 /**
  *
  * @param expr
  * @return
  */
-export declare function wrapAQL (expr: Keyword) :  string;
+declare function wrapAQL(expr: Keyword): string;
 /**
  *
  * @param number
  * @return
  */
-export declare function isValidNumber (number: number) :  boolean;
+declare function isValidNumber(number: number): boolean;
 /**
  *
  * @param number
  * @return
  */
-export declare function castNumber (number: any) :  IntegerLiteral;
+declare function castNumber(number: any): IntegerLiteral;
 /**
  *
  * @param bool
  * @return
  */
-export declare function castBoolean (bool: any) :  BooleanLiteral;
+declare function castBoolean(bool: any): BooleanLiteral;
 /**
  *
  * @param str
  * @return
  */
-export declare function castString (str: any) :  number;
+declare function castString(str: any): number;
 /**
  *
  * @param obj
  * @return
  */
-export declare function castObject (obj: any) :  {};
+declare function castObject(obj: any): object;
 /**
  *
  * @param token
  * @return
  */
-export declare function autoCastToken (token: number | Expression) :  number | Expression;
-
+declare function autoCastToken(token: number | Expression): number | Expression;
 /**
- * functions
+ * AQLfunctions
  *
- * If raw JavaScript values are passed to  statements, they will be wrapped in a matching  function automatically.
- * JavaScript strings wrapped in quotation marks will be wrapped in  strings, all other JavaScript strings will be wrapped as simple references (see ref)
+ * If raw JavaScript values are passed to  statements, they will be wrapped in a matching  declare function automatically.
+ * JavaScript strings wrapped in quotation marks will be wrapped in  strings, all other JavaScript strings will be wrapped as simple references(see ref)
  * and throw an Error if they are not well-formed.
  */
-export declare interface functions extends Expression {
+interface AQLfunctions extends Expression {
     /**
      * Boolean
      *
@@ -1572,7 +1554,7 @@ export declare interface functions extends Expression {
      *
      * @param value
      */
-    bool (value: any) :  BooleanLiteral;
+    bool(value: any): BooleanLiteral;
     /**
      * Number
      *
@@ -1586,7 +1568,7 @@ export declare interface functions extends Expression {
      *
      * @param value
      */
-    num (value: any) :  NumberLiteral;
+    num(value: any): NumberLiteral;
     /**
      * Integer
      *
@@ -1600,7 +1582,7 @@ export declare interface functions extends Expression {
      *
      * @param value
      */
-    int (value: any) :  IntegerLiteral;
+    int(value: any): IntegerLiteral;
     /**
      * String
      *
@@ -1623,11 +1605,11 @@ export declare interface functions extends Expression {
      *
      * @param value
      */
-    str (value: any) :  StringLiteral;
+    str(value: any): StringLiteral;
     /**
      * List
      *
-     * Wraps the given value as an  List (Array) literal.
+     * Wraps the given value as an  List(Array) literal.
      *
      * qb.list(value)
      *
@@ -1637,7 +1619,7 @@ export declare interface functions extends Expression {
      *
      * @param value
      */
-    list (value: any[]) :  ListLiteral;
+    list(value: any[]): ListLiteral;
     /**
      * Object
      *
@@ -1651,23 +1633,23 @@ export declare interface functions extends Expression {
      * Any keys that are quoted strings will be treated as string literals.
      * Any keys that start with the character ":" will be treated as dynamic properties and must be well-formed simple references.
      * Any other keys that need escaping will be quoted if necessary.
-     * If you need to pass in raw JavaScript objects that shouldn't be converted according to these rules, you can use the qb function directly instead.
+     * If you need to pass in raw JavaScript objects that shouldn't be converted according to these rules, you can use the qb declare function directly instead.
      *
      * Examples
      *
-     * qb.obj({'some.name': 'value'}) :  {"some.name": value}
+     * qb.obj({'some.name': 'value'}): {"some.name": value}
      *
-     * qb.obj({hello: world}) :  {hello: world}
+     * qb.obj({hello: world}): {hello: world}
      *
-     * qb.obj({'"hello"': world}) :  {"hello": world}
+     * qb.obj({'"hello"': world}): {"hello": world}
      *
-     * qb.obj({':dynamic': 'props'}) :  {[dynamic]: props}
+     * qb.obj({':dynamic': 'props'}): {[dynamic]: props}
      *
-     * qb.obj({': invalid': 'key'}) :  throws an error (invalid is not a well-formed reference)
+     * qb.obj({': invalid': 'key'}): throws an error(invalid is not a well-formed reference)
      *
      * @param obj
      */
-    obj (obj: {}) :  ObjectLiteral;
+    obj(obj: object): ObjectLiteral;
     /**
      * Simple Reference
      *
@@ -1712,62 +1694,60 @@ export declare interface functions extends Expression {
      * @param value
      * @return
      */
-    ref (value: string) :  SimpleReference;
+    ref(value: string): SimpleReference;
     /**
      * Expressions
      *
      * @param value
      */
-    expr (value: any) :  RawExpression;
+    expr(value: any): RawExpression;
     /**
-     * Ternary (if / else)
+     * Ternary(if / else)
      *
      * Creates a ternary expression from the given values.
      *
-     * qb.if(condition, thenDo, elseDo) :  (condition ? thenDo : elseDo)
+     * qb.if(condition, thenDo, elseDo): (condition ? thenDo: elseDo)
      * OR:
-     * qbValue.then(thenDo).else(elseDo) :  (condition ? thenDo : elseDo)
+     * qbValue.then(thenDo).else(elseDo): (condition ? thenDo: elseDo)
      *
      * If the values are not already  values, they will be converted automatically.
      *
      * Alias: qbValue.then(thenDo).otherwise(elseDo)
      *
      * Examples
-     * qb.ref('x').then('y').else('z') :  (x ? y : z)
+     * qb.ref('x').then('y').else('z'): (x ? y: z)
      *
      * @param cond
      * @param then
      * @param otherwise
      */
-    if (cond: any, then: any, otherwise: any) :  Expression | number;
+    if(cond: any, then: any, otherwise: any): Expression | number;
     /**
-     * Function Call
+     * declare Function Call
      *
      * Creates a functon call for the given name and arguments.
      *
      * qb.fn(name)(...args)
      *
      * If the values are not already  values, they will be converted automatically.
-     * For built-in functions, methods with the relevant function name are already provided by the query builder.
+     * For built-in AQLfunctions, methods with the relevant declare function name are already provided by the query builder.
      *
      * Examples
      *
-     * qb.fn('MY::USER::FUNC')(1, 2, 3) :  MY::USER::FUNC(1, 2, 3)
+     * qb.fn('MY::USER::FUNC')(1, 2, 3): MY::USER::FUNC(1, 2, 3)
      *
-     * qb.fn('hello')() :  hello()
+     * qb.fn('hello')(): hello()
      *
-     * qb.RANDOM() :  RANDOM()
+     * qb.RANDOM(): RANDOM()
      *
-     * qb.FLOOR(qb.div(5, 2)) :  FLOOR((5 / 2))
+     * qb.FLOOR(qb.div(5, 2)): FLOOR((5 / 2))
      *
      * @param functionName
      * @param arity
      * @return
      */
-    fn (functionName: string) :  (...arity: any[]) =>  FunctionCall;
+    fn(functionName: string): (...arity: any[]) => FunctionCall;
 }
-
-export declare type QBfunc = (obj : any) => functions
-export declare const QB : functions & QBfunc
-
-export default QB
+type QBfunc = (obj: any) => AQLfunctions;
+declare const QB: AQLfunctions & QBfunc;
+export = QB;
