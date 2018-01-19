@@ -92,6 +92,8 @@ export interface MongoClientOptions extends
     logger?: Object;
     // Default: false;
     validateOptions?: Object;
+    // The name of the application that created this MongoClient instance. 
+    appname?: string;
 }
 
 export interface SSLOptions {
