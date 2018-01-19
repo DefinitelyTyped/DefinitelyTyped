@@ -1,6 +1,19 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false
+        "ban-types": false,
+        "max-line-length": false,
+        "unified-signatures": false,
+        "use-default-type-parameter": false,
+        "no-redundant-jsdoc-2": false,
+        "one-line": false,
+        "space-before-function-paren": [
+            true,
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ]
     }
 }

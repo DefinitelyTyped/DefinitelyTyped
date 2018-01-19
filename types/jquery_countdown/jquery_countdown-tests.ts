@@ -5,9 +5,10 @@ import { } from 'jquery.countdown';
  * @see http://hilios.github.io/jQuery.countdown/examples/advanced-coupon-site.html
  */
 $('#clock').countdown('2020/10/10 12:34:56')
-	.on('update.countdown', function (event: JQueryCountdown.CallbackEventObject)
+	.on('update.countdown', function (this: HTMLElement, event: JQueryCountdown.CallbackEventObject)
 	{
-		var format = '%H:%M:%S';
+		let format = '%H:%M:%S';
+
 		if (event.offset.totalDays > 0)
 		{
 			format = '%-d day%!d ' + format;
@@ -18,18 +19,18 @@ $('#clock').countdown('2020/10/10 12:34:56')
 		}
 		$(this).html(event.strftime(format));
 	})
-	.on('finish.countdown', function (event)
+	.on('finish.countdown', function (this: HTMLElement, event: JQueryCountdown.CallbackEventObject)
 	{
 		$(this).html('This offer has expired!')
-			.parent().addClass('disabled');
-
+			.parent()
+			.addClass('disabled');
 	});
 
 /**
  * Basic coupon site
  * @see http://hilios.github.io/jQuery.countdown/examples/basic-coupon-site.html
  */
-$('#clock').countdown('2020/10/10', function (event: JQueryCountdown.CallbackEventObject)
+$('#clock').countdown('2020/10/10', function (this: HTMLElement, event: JQueryCountdown.CallbackEventObject)
 {
 	$(this).html(event.strftime('%D days %H:%M:%S'));
 });
@@ -38,11 +39,14 @@ $('#clock').countdown('2020/10/10', function (event: JQueryCountdown.CallbackEve
  * Continue after finish
  * @see http://hilios.github.io/jQuery.countdown/examples/count-up.html
  */
-var fiveSeconds = new Date().getTime() + 5000;
-$('#clock').countdown(fiveSeconds, { elapse: true })
-	.on('update.countdown', function (event: JQueryCountdown.CallbackEventObject)
+const fiveSeconds = new Date().getTime() + 5000;
+$('#clock').countdown(fiveSeconds, {
+	elapse: true
+})
+	.on('update.countdown', function (this: HTMLElement, event: JQueryCountdown.CallbackEventObject)
 	{
-		var $this = $(this);
+		const $this = $(this);
+
 		if (event.elapsed)
 		{
 			$this.html(event.strftime('After end: <span>%H:%M:%S</span>'));
@@ -56,9 +60,9 @@ $('#clock').countdown(fiveSeconds, { elapse: true })
  * Legacy style
  * @see http://hilios.github.io/jQuery.countdown/examples/legacy-style.html
  */
-$('#clock').countdown('2020/10/10', function (event: JQueryCountdown.CallbackEventObject)
+$('#clock').countdown('2020/10/10', function (this: HTMLElement, event: JQueryCountdown.CallbackEventObject)
 {
-	var $this = $(this).html(event.strftime(''
+	const $this = $(this).html(event.strftime(''
 		+ '<span>%w</span> weeks '
 		+ '<span>%d</span> days '
 		+ '<span>%H</span> hr '
@@ -70,7 +74,7 @@ $('#clock').countdown('2020/10/10', function (event: JQueryCountdown.CallbackEve
  * Months and weeks offsets
  * @see http://hilios.github.io/jQuery.countdown/examples/month-and-week-offset.html
  */
-$('#wrapper').countdown('2020/10/10', function (event: JQueryCountdown.CallbackEventObject)
+$('#wrapper').countdown('2020/10/10', (event: JQueryCountdown.CallbackEventObject) =>
 {
 	$('#clock-a').html(event.strftime('%w weeks and %d days'));
 	$('#clock-b').html(event.strftime('%m months and %n days'));
@@ -83,8 +87,10 @@ $('#wrapper').countdown('2020/10/10', function (event: JQueryCountdown.CallbackE
  */
 $('[data-countdown]').each(function ()
 {
-	var $this = $(this), finalDate = $(this).data('countdown');
-	$this.countdown(finalDate, function (event)
+	const $this = $(this);
+	const finalDate = $(this).data('countdown');
+
+	$this.countdown(finalDate, (event) =>
 	{
 		$this.html(event.strftime('%D days %H:%M:%S'));
 	});
@@ -94,9 +100,10 @@ $('[data-countdown]').each(function ()
  * Sum of total hours remaining
  * @see http://hilios.github.io/jQuery.countdown/examples/show-total-hours.html
  */
-$('#clock').countdown("2020/10/10", function (event: JQueryCountdown.CallbackEventObject)
+$('#clock').countdown("2020/10/10", function (this: HTMLElement, event: JQueryCountdown.CallbackEventObject)
 {
-	var totalHours = event.offset.totalDays * 24 + event.offset.hours;
+	const totalHours = event.offset.totalDays * 24 + event.offset.hours;
+
 	$(this).html(event.strftime(totalHours + ' hr %M min %S sec'));
 });
 
@@ -104,15 +111,16 @@ $('#clock').countdown("2020/10/10", function (event: JQueryCountdown.CallbackEve
  * Callback style and formatter modifiers
  * @see http://hilios.github.io/jQuery.countdown/examples/website-launch.html
  */
-$('#clock').countdown('2020/10/10').on('update.countdown', function (event: JQueryCountdown.CallbackEventObject)
-{
-	var $this = $(this).html(event.strftime(''
-		+ '<span>%-w</span> week%!w '
-		+ '<span>%-d</span> day%!d '
-		+ '<span>%H</span> hr '
-		+ '<span>%M</span> min '
-		+ '<span>%S</span> sec'));
-});
+$('#clock').countdown('2020/10/10')
+	.on('update.countdown', function (this: HTMLElement, event: JQueryCountdown.CallbackEventObject)
+	{
+		const $this = $(this).html(event.strftime(''
+			+ '<span>%-w</span> week%!w '
+			+ '<span>%-d</span> day%!d '
+			+ '<span>%H</span> hr '
+			+ '<span>%M</span> min '
+			+ '<span>%S</span> sec'));
+	});
 
 /**
  * Epoch time, config, countdown(String)
@@ -122,7 +130,7 @@ $('div#clock').countdown(1516313389, {
 	precision: 1000,
 	defer: true
 })
-	.on('update.countdown', function (event: JQueryCountdown.CallbackEventObject)
+	.on('update.countdown', (event: JQueryCountdown.CallbackEventObject) =>
 	{
 		if (event.elapsed)
 		{ // Either true or false

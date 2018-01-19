@@ -1,4 +1,4 @@
-// Type definitions for JQuery.countdown 2.2.0
+// Type definitions for JQuery.countdown 2.2
 // Project: https://github.com/hilios/jQuery.countdown
 // Definitions by: Larry Bahr <https://github.com/larrybahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,6 +9,8 @@
 interface JQuery
 {
 	countdown: JQueryCountdown.Countdown;
+
+	on(events: string, handler: JQueryCountdown.CallbackFunction): this;
 }
 
 declare namespace JQueryCountdown
@@ -17,6 +19,14 @@ declare namespace JQueryCountdown
 	{
 		countdown: Countdown;
 	}
+
+	/**
+	 * @description A function that will handle the event triggered, despite the fact we have three event types, all of them will have the same object properties, where you can access the offset calculation.
+	 * @callback CallbackFunction
+	 * @param {CallbackEventObject} event
+	 * @return {void}
+	 */
+	type CallbackFunction = (event: CallbackEventObject) => void;
 
 	interface Countdown
 	{
@@ -40,7 +50,7 @@ declare namespace JQueryCountdown
 		 * @param finalDate - The target date that you are seeking to countdown
 		 * @param [callback] - A function that will handle the event triggered, despite the fact we have three event types, all of them will have the same object properties, where you can access the offset calculation.
 		 */
-		(finalDate: Date | number | string, callback?: ((event: CallbackEventObject) => void)): JQueryCountdown;
+		(finalDate: Date | number | string, callback?: CallbackFunction): JQueryCountdown;
 
 		/**
 		 * @description Create teh countdown
@@ -49,13 +59,6 @@ declare namespace JQueryCountdown
 		 */
 		(finalDate: Date | number | string, configurationObject?: ConfigurationObject): JQueryCountdown;
 	}
-
-	/**
-	 * @description A function that will handle the event triggered, despite the fact we have three event types, all of them will have the same object properties, where you can access the offset calculation.
-	 * @callback CallbackEvent
-	 * @param {CallbackEventObject} event
-	 * @return {void}
-	 */
 
 	interface CallbackEventObject extends JQuery.Event<HTMLElement, null>
 	{
@@ -89,13 +92,13 @@ declare namespace JQueryCountdown
 
 		offset: {
 			/**
-		 	 * @description Seconds left for the next minute
-		 	 */
+			 * @description Seconds left for the next minute
+			 */
 			seconds: number;
 
 			/**
-		 	 * @description Minutes left for the next hour
-		 	 */
+			 * @description Minutes left for the next hour
+			 */
 			minutes: number;
 
 			/**
@@ -104,8 +107,8 @@ declare namespace JQueryCountdown
 			hours: number;
 
 			/**
-		 	 * @description Days left until next week
-		 	 */
+			 * @description Days left until next week
+			 */
 			days: number;
 
 			/**
@@ -114,8 +117,8 @@ declare namespace JQueryCountdown
 			daysToWeek: number;
 
 			/**
-		 	 * @description Days left until next month
-		 	 */
+			 * @description Days left until next month
+			 */
 			daysToMonth: number;
 
 			/**
@@ -124,8 +127,8 @@ declare namespace JQueryCountdown
 			weeks: number;
 
 			/**
-		 	 * @description Weeks left until the next month
-		 	 */
+			 * @description Weeks left until the next month
+			 */
 			weeksToMonth: number;
 
 			/**
@@ -134,8 +137,8 @@ declare namespace JQueryCountdown
 			months: number;
 
 			/**
-		 	 * @description Years left until final date
-		 	 */
+			 * @description Years left until final date
+			 */
 			years: number;
 
 			/**
@@ -144,8 +147,8 @@ declare namespace JQueryCountdown
 			totalDays: number;
 
 			/**
-		 	 * @description Total amount of hours left until final date
-		 	 */
+			 * @description Total amount of hours left until final date
+			 */
 			totalHours: number;
 
 			/**
@@ -154,8 +157,8 @@ declare namespace JQueryCountdown
 			totalMinutes: number;
 
 			/**
-		 	 * @description Total amount of seconds left until final date
-		 	 */
+			 * @description Total amount of seconds left until final date
+			 */
 			totalSeconds: number;
 		};
 	}
