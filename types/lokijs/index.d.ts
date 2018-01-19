@@ -1,6 +1,7 @@
 // Type definitions for lokijs v1.5.1
 // Project: https://github.com/techfort/LokiJS
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
+//                 Thomas Conner <https://github.com/thomasconner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1277,6 +1278,7 @@ interface BinaryIndex {
 
 
 interface CollectionOptions<E> {
+    disableMeta: boolean;
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
     adaptiveBinaryIndices: boolean;
