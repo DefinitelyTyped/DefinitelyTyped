@@ -44,7 +44,7 @@ declare namespace videojs {
 	}
 
 	class Player {
-		constructor(techId: string, options: any);
+		constructor(techId: string, options: any): Player;
 		play(): Player;
 		pause(): Player;
 		paused(): boolean;
@@ -91,7 +91,7 @@ declare namespace videojs {
 	type TechType = Tech;
 
 	interface Tech extends Component {
-    new(options: any, ready: () => void);
+    new (options: any, ready: () => void);
 
     featuresFullscreenResize: boolean;
     featuresNativeTextTracks: boolean;
@@ -123,7 +123,7 @@ declare namespace videojs {
     addWebVttScript_(): void;
     emulateTextTracks(): void;
     addTextTrack(kind: string, label: string, language: string): TextTrack;
-    createRemoteTextTrack(options: any): HTMLTrackElement;
+    createRemoteTextTrack(options: any): any;
     addRemoteTextTrack(options?: any, manualCleanup?: boolean): HTMLTrackElement;
     removeRemoteTextTrack(track: TextTrack): void;
     getVideoPlaybackQuality(): any;
@@ -131,7 +131,6 @@ declare namespace videojs {
     setPlaysinline(playsinline: boolean): void;
     canPlayType(type: string): boolean;
     remoteTextTrackEls(): HtmlTrackElementList;
-    canPlayType(type: string): boolean;
     canPlaySource(srcObj: any, options: any): boolean;
     isTech(component: any): boolean;
     registerTech(name: string, tech: any): void;
