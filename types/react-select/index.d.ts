@@ -233,6 +233,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * whether to strip diacritics when filtering
      * @default true
      */
+    id?: string;
+    /**
+     * id for the underlying HTML input element
+     * @default ""
+     */
     ignoreAccents?: boolean;
     /**
      * whether to perform case-insensitive filtering
