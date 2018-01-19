@@ -4,6 +4,7 @@
 //                 Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
+//                 Rich Baird <https://github.com/richbai90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -770,7 +771,12 @@ export interface Coordinate {
 export interface TooltipPayload {
     name: string;
     value: string | number | Array<string | number>;
-    unit: string;
+    unit?: string;
+    color?: string;
+    fill?: string;
+    dataKey?: string;
+    formatter?: TooltipFormatter;
+
 }
 
 export interface TooltipProps extends Animatable {
@@ -791,6 +797,7 @@ export interface TooltipProps extends Animatable {
     payload?: TooltipPayload[];
     itemSorter?: ItemSorter<TooltipPayload>;
     filterNull?: boolean;
+    useTranslate3d?: boolean;
 }
 
 export class Tooltip extends React.Component<TooltipProps> { }
