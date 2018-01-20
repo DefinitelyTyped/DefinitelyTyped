@@ -17,6 +17,7 @@ import {
     ImageRequireSource
 } from 'react-native';
 
+declare module 'expo' {
 type URISource = ImageURISource;
 type RequireSource = ImageRequireSource;
 type ResizeModeContain = 'contain';
@@ -2026,4 +2027,5 @@ export namespace FaceDetector {
     }
 
     function detectFaces(uri: string, options?: DetectionOptions): Promise<DetectFaceResult>;
+}
 }
