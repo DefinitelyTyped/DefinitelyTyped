@@ -1,3 +1,9 @@
+// Type definitions for W3 Keyboard Named Event Keys
+// Spec: https://www.w3.org/TR/uievents-key/
+// Definitions by: Bryce Hanscomb <https://github.com/brycehanscomb>
+//                 Luke Boyle <https://github.com/3stacks>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 export enum Special {
     Unidentified = 'Unidentified'
 }
