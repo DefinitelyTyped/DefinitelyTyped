@@ -799,10 +799,10 @@ interface IShadowOptions {
 	 */
 	offsetY: number;
 }
-export interface IShadow extends IShadowOptions {}
-export class IShadow {
+export interface Shadow extends IShadowOptions {}
+export class Shadow {
 	constructor(options?: IShadowOptions);
-	initialize(options?: IShadowOptions|string): IShadow;
+	initialize(options?: IShadowOptions|string): Shadow;
 	/**
 	 * Returns object representation of a shadow
 	 */
@@ -2071,7 +2071,7 @@ interface IObjectOptions {
 	/**
 	 * Shadow object representing shadow of this shape
 	 */
-	shadow?: IShadow|string;
+	shadow?: Shadow|string;
 
 	/**
 	 * Opacity of object's controlling borders when object is active and moving
@@ -2375,7 +2375,7 @@ export class Object {
 	 * Sets shadow of an object
 	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
-	setShadow(options?: string | IShadow): this;
+	setShadow(options?: string | Shadow): this;
 
 	/**
 	 * Sets "color" of an instance (alias of `set('fill', …)`)
@@ -2671,8 +2671,8 @@ interface IPathOptions extends IObjectOptions {
 	 */
 	minY?: number;
 }
-export interface IPath extends Object, IPathOptions {}
-export class IPath {
+export interface Path extends Object, IPathOptions {}
+export class Path {
 	/**
 	 * Constructor
 	 * @param path Path data (sequence of coordinates and corresponding "command" tokens)
@@ -2680,7 +2680,7 @@ export class IPath {
 	 */
 	constructor(path?: string|any[], options?: IPathOptions);
 
-	initialize(path?: any[], options?: IPathOptions): IPath;
+	initialize(path?: any[], options?: IPathOptions): Path;
 
 	/**
 	 * Returns number representation of an instance complexity
@@ -2724,12 +2724,12 @@ export class IPath {
 	 * @param callback Callback to invoke when an fabric.Path instance is created
 	 * @param [options] Options object
 	 */
-	static fromElement(element: SVGElement, callback: (path: IPath) => any, options?: IPathOptions): void;
+	static fromElement(element: SVGElement, callback: (path: Path) => any, options?: IPathOptions): void;
 	/**
 	 * Creates an instance of fabric.Path from an object
 	 * @param callback Callback to invoke when an fabric.Path instance is created
 	 */
-	static fromObject(object: any, callback: (path: IPath) => any): void;
+	static fromObject(object: any, callback: (path: Path) => any): void;
 }
 
 export class PathGroup extends Object {
@@ -2737,9 +2737,9 @@ export class PathGroup extends Object {
 	 * Constructor
 	 * @param [options] Options object
 	 */
-	constructor(paths: IPath[], options?: IObjectOptions);
+	constructor(paths: Path[], options?: IObjectOptions);
 
-	initialize(paths: IPath[], options?: IObjectOptions): void;
+	initialize(paths: Path[], options?: IObjectOptions): void;
 	/**
 	 * Returns number representation of object's complexity
 	 * @return complexity
@@ -2782,7 +2782,7 @@ export class PathGroup extends Object {
 	 * Returns all paths in this path group
 	 * @return array of path objects included in this path group
 	 */
-	getObjects(): IPath[];
+	getObjects(): Path[];
 
 	static fromObject(object: any): PathGroup;
 	/**
@@ -3012,7 +3012,7 @@ interface ITextOptions extends IObjectOptions {
 	 * Shadow object representing shadow of this shape.
 	 * <b>Backwards incompatibility note?:</b> This property was named "textShadow" (String) until v1.2.11
 	 */
-	shadow?: IShadow|string;
+	shadow?: Shadow|string;
 	/**
 	 * Background color of text lines
 	 */
@@ -3843,7 +3843,7 @@ export class BaseBrush {
 	 * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),
 	 * "shadowOffsetY" (Number) and "shadowBlur" (Number) since v1.2.12
 	 */
-	shadow: IShadow|string;
+	shadow: Shadow|string;
 	/**
 	 * Line endings style of a brush (one of "butt", "round", "square")
 	 */
@@ -3924,7 +3924,7 @@ export class PatternBrush extends PencilBrush {
 	/**
 	 * Creates path
 	 */
-	createPath(pathData: string): IPath;
+	createPath(pathData: string): Path;
 }
 export class PencilBrush extends BaseBrush {
 	/**
@@ -3937,7 +3937,7 @@ export class PencilBrush extends BaseBrush {
 	 * Creates fabric.Path object to add on canvas
 	 * @param pathData Path data
 	 */
-	createPath(pathData: string): IPath;
+	createPath(pathData: string): Path;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
