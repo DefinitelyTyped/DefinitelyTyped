@@ -350,6 +350,7 @@ declare class SwiperSlide {
 
 // @NOTE I think I gotta rewrite this one
 declare class Swiper {
+
   constructor(container: string | HTMLElement, options?: SwiperOptions);
 
   // Properties
@@ -423,10 +424,30 @@ declare class Swiper {
   getFirstSlide(): SwiperSlide;
 }
 
-declare module "swiper" {
-  const swiper: {
-    new(element: HTMLElement | string, options?: SwiperOptions): Swiper;
-  };
 
-  export = swiper;
+declare module "swiper" {
+
+  export SwiperOptions;
+  // export new(element: HTMLElement | string, options?: SwiperOptions): Swiper;
+
+  // The following modules are exported from swiper.esm.js:
+  export Swiper; // - core library
+  export Virtual; // - Virtual Slides module
+  export Keyboard; // - Keyboard Control module
+  export Mousewheel; // - Mousewheel Control module
+  export Navigation; // - Navigation module
+  export Pagination; // - Pagination module
+  export Scrollbar; // - Scrollbar module
+  export Parallax; // - Parallax module
+  export Zoom; // - Zoom module
+  export Lazy; // - Lazy module
+  export Controller; // - Controller module
+  export A11y; // - Accessibility module
+  export History; // - History Navigation module
+  export HashNavigation; // - Hash Navigation module
+  export Autoplay; // - Autoplay module
+  export EffectFade; // - Fade Effect module
+  export EffectCube; // - Cube Effect module
+  export EffectFlip; // - Flip Effect module
+  export EffectCoverflow; // - Coverflow Effect module
 }
