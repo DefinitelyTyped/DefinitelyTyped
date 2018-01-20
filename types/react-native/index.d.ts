@@ -7831,7 +7831,9 @@ export namespace Animated {
 
         addListener(callback: ValueXYListenerCallback): string;
 
-        removeListener(id: string): void;
+        removeListener(id: string): void;                                                                                     
+
+        removeAllListeners(): void;
 
         /**
          * Converts `{x, y}` into `{left, top}` for use in style, e.g.
