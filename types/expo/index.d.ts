@@ -18,17 +18,18 @@ import {
 } from 'react-native';
 
 declare module 'expo' {
-    type URISource = ImageURISource;
+    type Axis = number;
+    type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
+    type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
+    type Md5 = string;
+    type Orientation = 'portrait' | 'landscape';
     type RequireSource = ImageRequireSource;
     type ResizeModeContain = 'contain';
     type ResizeModeCover = 'cover';
     type ResizeModeStretch = 'stretch';
-    type Orientation = 'portrait' | 'landscape';
-    type Axis = number;
+    type URISource = ImageURISource;
+
     interface HashMap { [key: string]: any; }
-    type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
-    type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-    type Md5 = string;
 
     /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
     export namespace Accelerometer {
