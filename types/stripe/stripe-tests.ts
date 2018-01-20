@@ -244,6 +244,10 @@ stripe.customers.create({
     customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) { 
         let strCustomer: string = <string>card.customer;
         let objCustomer: customers.ICustomer = <customers.ICustomer>card.customer;
+
+        if (customer.metadata.test == "test") {
+            
+        }
     });
     customer.cards.update("card_17xMvXBoqMA9o2xkq6W5gamx", { name: "Test" }).then(function (card) {});
     customer.cards.list().then(function (cards) {});
