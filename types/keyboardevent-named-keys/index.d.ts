@@ -365,4 +365,6 @@ export enum MediaController {
     Unidentified = 'Unidentified'
 }
 
-export type All = Special | Modifier | Whitespace | Navigation | Editing | UI | Device | IMEAndComposition | GeneralPurposeFunction | Multimedia | MultimediaNumpad | Audio | Speech | Application | Browser | MobilePhone | TV | MediaController
+type All = Special | Modifier | Whitespace | Navigation | Editing | UI | Device | IMEAndComposition | GeneralPurposeFunction | Multimedia | MultimediaNumpad | Audio | Speech | Application | Browser | MobilePhone | TV | MediaController
+
+export default All
