@@ -78,7 +78,7 @@ function test_exist() {
 }
 
 function test_match_selector() {
-    $('input').should.match('#foo');
+    $('input').should.match(/#foo/);
 }
 
 function test_contain() {
