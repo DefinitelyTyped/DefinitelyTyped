@@ -1,6 +1,6 @@
 {
-    "version": "2.6.1"
-    ,"compilerOptions": {                      
+    "version": "2.6.1",
+    "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
         "lib": ["es2015"],
@@ -12,9 +12,9 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true	
-    }
-    ,"files": [
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
         "index.d.ts"
 		,"aqb-tests.ts"
     ]
