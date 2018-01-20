@@ -2,7 +2,7 @@ export enum Special {
     Unidentified = 'Unidentified'
 }
 
-export enum Mofidier {
+export enum Modifier {
     Alt = 'Alt',
     AltGraph = 'AltGraph',
     CapsLock = 'CapsLock',
@@ -157,7 +157,7 @@ export enum Multimedia {
     SpellCheck = 'SpellCheck'
 }
 
-export enum MultimediaNumpa {
+export enum MultimediaNumpad {
     Key11 = 'Key11',
     Key12 = 'Key12'
 }
