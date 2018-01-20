@@ -358,3 +358,5 @@ export enum MediaController {
     Power = "Power",
     Unidentified = "Unidentified"
 }
+
+export type All = Special | Modifier | Whitespace | Navigation | Editing | UI | Device | IMEAndComposition | GeneralPurposeFunction | Multimedia | MultimediaNumpad | Audio | Speech | Application | Browser | MobilePhone | TV | MediaController
