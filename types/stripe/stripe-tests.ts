@@ -1,4 +1,5 @@
 import Stripe = require('stripe');
+import { customers } from 'stripe';
 
 var stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K")
 
@@ -240,7 +241,10 @@ stripe.customers.create({
 }).then( function (customer) {
     // asynchronously called
     customer.cards.create({ card: "tok_17wV94BoqMA9o2xkhlAd3ALf"}).then(function (customer) {});
-    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) {});
+    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) { 
+        let strCustomer: string = <string>card.customer;
+        let objCustomer: customers.ICustomer = <customers.ICustomer>card.customer;
+    });
     customer.cards.update("card_17xMvXBoqMA9o2xkq6W5gamx", { name: "Test" }).then(function (card) {});
     customer.cards.list().then(function (cards) {});
     customer.cards.del("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (confirmation) {});
@@ -877,6 +881,10 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", function (err, invoice) {
     // asynchronously called
 });
 stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb").then(function (invoice) {
+    // asynchronously called
+});
+
+stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { source: "source_id" }).then(function (invoice) {
     // asynchronously called
 });
 
