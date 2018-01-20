@@ -9,12 +9,12 @@
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref } from 'react';
 import {
-    ViewStyle,
-    ViewProperties,
     ColorPropType,
+    ImageRequireSource,
     ImageURISource,
     NativeEventEmitter,
-    ImageRequireSource
+    ViewProperties,
+    ViewStyle
 } from 'react-native';
 
 declare module 'expo' {
