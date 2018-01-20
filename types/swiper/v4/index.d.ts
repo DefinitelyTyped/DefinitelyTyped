@@ -1,4 +1,4 @@
-// Type definitions for Swiper 2.0.0
+// Type definitions for Swiper
 // Project: https://github.com/nolimits4web/Swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions by: Luiz Machado <https://github.com/odahcam/>
@@ -199,7 +199,7 @@ interface SwiperPaginationOptions extends SwiperOptionsWithElement {
   clickableClass: string;
 }
 
-interface SwiperScrollbarOptions {
+interface SwiperScrollbarOptions extends SwiperOptionsWithElement {
   hide: boolean;
   draggable: boolean;
   snapOnRelease: boolean;
