@@ -18,7 +18,7 @@ function test() {
     expect(testElement).to.be.empty;
     expect(testElement).to.have.length(2);
     expect(testElement).to.exist;
-    expect(testElement).to.match('foo');
+    expect(testElement).to.match(/foo/);
     expect(testElement).to.contain('foo');
     expect(testElement).to.contain(document.body);
 
