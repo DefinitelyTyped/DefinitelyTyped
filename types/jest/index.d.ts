@@ -170,7 +170,7 @@ declare namespace jest {
     /**
      * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: string): SpyInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
