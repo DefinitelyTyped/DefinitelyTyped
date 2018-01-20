@@ -1,7 +1,11 @@
 // Type definitions for FabricJS 1.5
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic>, Joseph Livecchi <https://github.com/joewashear007>, Michael Randolph <https://github.com/mrand01>, Tiger Oakes <https://github.com/NotWoods>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic>
+//                 Joseph Livecchi <https://github.com/joewashear007>
+//                 Michael Randolph <https://github.com/mrand01>
+//                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export as namespace fabric;
 
@@ -2296,7 +2300,7 @@ export class Object {
 	 * If you need to update those, call `setCoords()`.
 	 * @param options Property object, iterate over the object properties
 	 */
-	set(options: { [P in keyof this]: this[P] }): this;
+	set(options: Partial<this>): this;
 
 	/**
 	 * Toggles specified property from `true` to `false` or from `false` to `true`
@@ -4260,11 +4264,10 @@ interface IUtilMisc {
 
 	/**
 	 * Rotates `vector` with `radians`
-     * @param vector The vector to rotate (x and y)
-     * @param radians The radians of the angle for the rotation
-     * @return The new rotated point
+	 * @param vector The vector to rotate (x and y)
+	 * @param radians The radians of the angle for the rotation
 	 */
-	rotateVector(vector: { x: number, y: number }, radians: number): { x: number, y: number }
+	rotateVector(vector: { x: number, y: number }, radians: number): { x: number, y: number };
 
 	/**
 	 * Apply transform t to point p
@@ -4389,11 +4392,10 @@ interface IUtilMisc {
 	multiplyTransformMatrices(a: number[], b: number[]): number[];
 
 	/**
-     * Decomposes standard 2x2 matrix into transform componentes
-     * @param a transformMatrix
-     * @return Components of transform
-     */
-	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number }
+	 * Decomposes standard 2x2 matrix into transform componentes
+	 * @param a transformMatrix
+	 */
+	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
 
 	/**
 	 * Returns string representation of function body
