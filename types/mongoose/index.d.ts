@@ -1,6 +1,6 @@
-// Type definitions for Mongoose 4.7.1
+// Type definitions for Mongoose 5.0.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
+// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>, Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -26,44 +26,7 @@
  * - Check the files off as you go. Some files below might not have anything in them. That's ok, this
  *   is just a simple heuristic to keep track of our progress.
  *
- * TODO for version 4.x [updated][tested]:
- * [x][x] index.js
- * [x][x] querystream.js
- * [x][x] connection.js
- * [x][x] utils.js
- * [x][x] browser.js
- * [x][x] drivers/node-mongodb-native/collection.js
- * [x][x] drivers/node-mongodb-native/connection.js
- * [x][x] error/messages.js
- * [x][x] error/validation.js
- * [x][x] error.js
- * [x][x] querycursor.js
- * [x][x] virtualtype.js
- * [x][x] schema.js
- * [x][x] document.js
- * [x][x] types/subdocument.js
- * [x][x] types/array.js
- * [x][x] types/documentarray.js
- * [x][x] types/buffer.js
- * [x][x] types/objectid.js
- * [x][x] types/embedded.js
- * [x][x] query.js
- * [x][x] schema/array.js
- * [x][x] schema/string.js
- * [x][x] schema/documentarray.js
- * [x][x] schema/number.js
- * [x][x] schema/date.js
- * [x][x] schema/buffer.js
- * [x][x] schema/boolean.js
- * [x][x] schema/objectid.js
- * [x][x] schema/mixed.js
- * [x][x] schema/embedded.js
- * [x][x] aggregate.js
- * [x][x] schematype.js
- * [x][x] promise.js
- * [x][x] ES6Promise.js
- * [x][x] model.js
- * [x][x] collection.js
+ * TODO for version 5.x [updated][tested]:
  */
 
 /*
@@ -112,11 +75,9 @@ declare module "mongoose" {
    * Options passed take precedence over options included in connection strings.
    * @returns pseudo-promise wrapper around this
    */
-  export function connect(uris: string,
-    options?: ConnectionOptions,
-    callback?: (err: mongodb.MongoError) => void): MongooseThenable;
-  export function connect(uris: string,
-    callback?: (err: mongodb.MongoError) => void): MongooseThenable;
+  export function connect(uris: string, options: ConnectionOptions, callback: (err: mongodb.MongoError) => void): null;
+  export function connect(uris: string, callback: (err: mongodb.MongoError) => void): null;
+  export function connect(uris: string, options?: ConnectionOptions): Promise<Mongoose>;
 
   /**
    * Creates a Connection instance.
@@ -137,9 +98,10 @@ declare module "mongoose" {
   /**
    * Disconnects all connections.
    * @param fn called after all connection close.
-   * @returns pseudo-promise wrapper around this
    */
-  export function disconnect(fn?: (error: any) => void): MongooseThenable;
+  export function disconnect(fn: (error?: any) => void): null;
+  /** Disconnects all connections. */
+  export function disconnect(): Promise<void>;
 
   /** Gets mongoose options */
   export function get(key: string): any;
@@ -445,6 +407,9 @@ declare module "mongoose" {
 
     /** See http://mongoosejs.com/docs/connections.html#use-mongo-client **/
     useMongoClient?: boolean;
+
+    /** See http://mongoosejs.com/docs/guide.html#bufferCommands */
+    bufferCommands?: boolean;
   }
 
   interface ConnectionOptions extends
@@ -760,25 +725,30 @@ declare module "mongoose" {
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
   interface HookSyncCallback {
-    (next: HookNextFunction, ...hookArgs:any[]): any;
+    (next: HookNextFunction): any;
   }
 
   interface HookAsyncCallback {
-    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs: any[]): any;
+    (next: HookNextFunction, done: HookDoneFunction): any;
   }
 
   interface HookErrorCallback {
-    (error: Error): any;
+    (error?: Error): any;
   }
 
   interface HookNextFunction {
-    (error: Error): any;
-    (...hookArgs: any[]): any;
+    (error?: Error): any;
   }
 
   interface HookDoneFunction {
-    (error: Error): any;
-    (...hookArgs: any[]): any;
+    (error?: Error): any;
+  }
+
+  interface SchemaToObjectOptions {
+    /** Setting this to true will include virtuals in the output */
+    getters?: boolean;
+
+    [k: string]: any;
   }
 
   interface SchemaOptions {
@@ -788,6 +758,8 @@ declare module "mongoose" {
     bufferCommands?: boolean;
     /** defaults to false */
     capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
+    /** Sets a default collation for every query and aggregation. */
+    collation?: CollationOptions;
     /** no default */
     collection?: string;
     /** defaults to "__t" */
@@ -808,9 +780,9 @@ declare module "mongoose" {
     /** defaults to true */
     strict?: boolean;
     /** no default */
-    toJSON?: Object;
+    toJSON?: SchemaToObjectOptions;
     /** no default */
-    toObject?: Object;
+    toObject?: SchemaToObjectOptions;
     /** defaults to 'type' */
     typeKey?: string;
     /** defaults to false */
@@ -821,20 +793,23 @@ declare module "mongoose" {
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
     versionKey?: string|boolean;
-    /** defaults to false */
-    retainKeyOrder?: boolean;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
      * incremented even if these paths are updated).
      */
-    skipVersioning?: Object;
+    skipVersioning?: boolean | any;
     /**
      * If set timestamps, mongoose assigns createdAt
      * and updatedAt fields to your schema, the type
      * assigned is Date.
      */
-    timestamps?: Object;
+    timestamps?: boolean | SchemaTimestampsConfig;
+  }
+
+  interface SchemaTimestampsConfig {
+    createdAt?: boolean | string;
+    updatedAt?: boolean | string;
   }
 
   /*
@@ -1048,8 +1023,8 @@ declare module "mongoose" {
      * @param doc document returned by mongo
      * @param fn callback
      */
-    init(doc: MongooseDocument, fn?: () => void): this;
-    init(doc: MongooseDocument, opts: Object, fn?: () => void): this;
+    init(doc: MongooseDocument): this;
+    init(doc: MongooseDocument, opts: Object): this;
 
     /** Helper for console.log */
     inspect(options?: Object): any;
@@ -1779,8 +1754,8 @@ declare module "mongoose" {
      * you must first call remove() and then execute it by using the exec() method.
      * @param criteria mongodb selector
      */
-    remove(callback?: (err: any) => void): Query<mongodb.WriteOpResult>;
-    remove(criteria: Object | Query<any>, callback?: (err: any) => void): Query<mongodb.WriteOpResult>;
+    remove(callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
+    remove(criteria: Object | Query<any>, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
 
     /** Specifies which document fields to include or exclude (also known as the query "projection") */
     select(arg: string | Object): this;
@@ -2429,6 +2404,13 @@ declare module "mongoose" {
     new(doc?: Object): T;
 
     /**
+     * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
+     * This function does not trigger any middleware. In particular, it does not trigger aggregate middleware.
+     * @param options See https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch
+     */
+    watch(options?: mongodb.ChangeStreamOptions & {session?: any}): mongodb.ChangeStream;
+
+    /**
      * Finds a single document by its _id field. findById(id) is almost*
      * equivalent to findOne({ _id: id }). findById() triggers findOne hooks.
      * @param id value of _id to query by
@@ -2453,10 +2435,10 @@ declare module "mongoose" {
      * Performs aggregations on the models collection.
      * If a callback is passed, the aggregate is executed and a Promise is returned.
      * If a callback is not passed, the aggregate itself is returned.
-     * @param ... aggregation pipeline operator(s) or operator array
+     * @param aggregations pipeline operator(s) or operator array
      */
-    aggregate(...aggregations: Object[]): Aggregate<Object[]>;
-    aggregate(...aggregationsWithCallback: Object[]): Promise<Object[]>;
+    aggregate(aggregations: Object[]): Aggregate<Object[]>;
+    aggregate(aggregations: Object[], cb: Function): Promise<Object[]>;
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: Object, callback?: (err: any, count: number) => void): Query<number>;
@@ -2578,21 +2560,6 @@ declare module "mongoose" {
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
 
     /**
-     * geoNear support for Mongoose
-     * @param GeoJSON point or legacy coordinate pair [x,y] to search near
-     * @param options for the qurery
-     * @param callback optional callback for the query
-     */
-    geoNear(point: number[] | {
-      type: string;
-      coordinates: number[]
-    }, options: {
-      /** return the raw object */
-      lean?: boolean;
-      [other: string]: any;
-    }, callback?: (err: any, res: T[], stats: any) => void): DocumentQuery<T[], T>;
-
-    /**
      * Implements $geoSearch functionality for Mongoose
      * @param conditions an object that specifies the match condition (required)
      * @param options for the geoSearch, some (near, maxDistance) are required
@@ -2697,8 +2664,8 @@ declare module "mongoose" {
      * @param options.validateBeforeSave set to false to save without validating.
      * @param fn optional callback
      */
-    save(options?: SaveOptions, fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
-    save(fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
+    save(options?: SaveOptions, fn?: (err: any, product: this) => void): Promise<this>;
+    save(fn?: (err: any, product: this) => void): Promise<this>;
 
     /**
      * Version using default version key. See http://mongoosejs.com/docs/guide.html#versionKey

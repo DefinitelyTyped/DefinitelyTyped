@@ -20,18 +20,20 @@ var cb = function () {};
  * http://mongoosejs.com/docs/api.html#index-js
  */
 var connectUri = 'mongodb://user:pass@localhost:port/database';
-mongoose.connect(connectUri).then(cb).catch(cb);
-mongoose.connect(connectUri, {
+const connection1: Promise<mongoose.Mongoose> = mongoose.connect(connectUri);
+const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   user: 'larry',
   pass: 'housan',
   config: {
     autoIndex: true
   },
-  mongos: true
-}).then(cb);
-mongoose.connect(connectUri, function (error) {
+  mongos: true,
+  bufferCommands: false
+});
+const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
 });
+
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {
@@ -46,7 +48,8 @@ mongoose.createConnection('localhost', 'database', 3000, {
     autoIndex: false
   }
 }).open('');
-mongoose.disconnect(cb).then(cb);
+const dcWithCallback: null = mongoose.disconnect(cb);
+const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
@@ -207,6 +210,16 @@ querycursor.map(function (doc) {
   return doc;
 }).next(function (error, doc) {
   console.log(doc.foo);
+});
+
+QCModel.watch().once('change', (change: any) => {
+  console.log(change);
+});
+
+QCModel.watch({
+  maxAwaitTimeMS: 10
+}).once('change', (change: any) => {
+  console.log(change);
 });
 
 /*
@@ -431,8 +444,8 @@ new mongoose.Schema({
 });
 
 export default function(schema: mongoose.Schema) {
-  schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void, data: any): void {
-    data.name = 'Hello world';
+  schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {
+     console.log('success!');
   });
 }
 
@@ -448,7 +461,7 @@ doc.execPopulate().then(function (arg) {
   arg.execPopulate();
 }).catch(function (err) {});
 doc.get('path', Number);
-doc.init(doc, cb).init(doc, {}, cb);
+doc.init(doc).init(doc, {});
 doc.inspect();
 doc.invalidate('path', new Error('hi'), 999).toString();
 doc.isDirectModified('path').valueOf();
@@ -1023,7 +1036,7 @@ schemaembedded.sparse(true);
  * http://mongoosejs.com/docs/api.html#aggregate-js
  */
 var aggregate: mongoose.Aggregate<Object[]>;
-aggregate = mongoose.model('ex').aggregate({ $match: { age: { $gte: 21 }}});
+aggregate = mongoose.model('ex').aggregate([{ $match: { age: { $gte: 21 }}}]);
 aggregate = new mongoose.Aggregate<Object[]>();
 aggregate = new mongoose.Aggregate<Object[]>({ $project: { a: 1, b: 1 } });
 aggregate = new mongoose.Aggregate<Object[]>({ $project: { a: 1, b: 1 } }, { $skip: 5 });
@@ -1241,15 +1254,15 @@ mongoose.model('').findOne({})
     str.toLowerCase;
   });
 
-mongoose.model('').aggregate()
-  .then(function (arg) {
+mongoose.model('').aggregate([])
+  .then(function (arg: any) {
     return 2;
-  }).then(function (num) {
+  }).then(function (num: any) {
     num.toFixed;
     return new Promise<string>((resolve, reject) => {
       resolve('str');
     });
-  }).then(function (str) {
+  }).then(function (str: string) {
     str.toLowerCase;
   });
 
@@ -1278,7 +1291,7 @@ MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].__v;
 });
 MongoModel.findById(999, function (err, doc) {
-  var handleSave = function(err: Error, product: mongoose.Document, numAffected: number) {};
+  var handleSave = function(err: Error, product: mongoose.Document) {};
   if (!doc) {
     return;
   }
@@ -1290,9 +1303,9 @@ MongoModel.findById(999, function (err, doc) {
   doc.save({ safe: { w: 'majority', wtimeout: 10000 } }, handleSave).then(cb).catch(cb);
 
   // test if Typescript can infer the types of (err, product, numAffected)
-  doc.save(function(err, product, numAffected) { product.save(); })
+  doc.save(function(err, product) { product.save(); })
     .then(function(p) { p.save() }).catch(cb);
-  doc.save({ validateBeforeSave: false }, function(err, product, numAffected) {
+  doc.save({ validateBeforeSave: false }, function(err, product) {
     product.save();
   }).then(function(p) { p.save() }).catch(cb);
 });
@@ -1311,10 +1324,13 @@ mongoModel.save().then(function (product) {
   product.save().then(cb).catch(cb);
 });
 MongoModel.aggregate(
-    { $group: { _id: null, maxBalance: { $max: '$balance' }}}
-  , { $project: { _id: 0, maxBalance: 1 }}
-  , cb);
-MongoModel.aggregate()
+  [
+    { $group: { _id: null, maxBalance: { $max: '$balance' }}},
+    { $project: { _id: 0, maxBalance: 1 }}
+  ],
+  cb
+);
+MongoModel.aggregate([])
   .group({ _id: null, maxBalance: { $max: '$balance' } })
   .exec(cb);
 MongoModel.count({ type: 'jungle' }, function (err, count) {
@@ -1402,14 +1418,6 @@ MongoModel.findOneAndUpdate({}, {}, {});
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
-MongoModel.geoNear([1,3], { maxDistance : 5, spherical : true }, function(err, results, stats) {
-   results[0].on('data', cb);
-});
-MongoModel.geoNear({ type : "Point", coordinates : [9,9] }, {
-  maxDistance : 5, spherical : true
-}, function(err, results, stats) {
-   console.log(results);
-});
 MongoModel.geoSearch({ type : "house" }, {
   near: [10, 10], maxDistance: 5
 }, function(err, res) {
@@ -1648,4 +1656,18 @@ const extended: mongoose.Model<extended> = base.discriminator<extended>('extende
 const x = new extended({
   username: 'hi',     // required in baseSchema
   email: 'beddiw',    // required in extededSchema
+});
+
+const schemaWithTimestampObj = new mongoose.Schema({}, {
+  timestamps: {
+    createdAt: 'foo',
+    updatedAt: 'bar'
+  }
+});
+
+const schemaWithCollation = new mongoose.Schema({}, {
+  collation: {
+    strength: 1,
+    locale: 'en_US'
+  }
 });
