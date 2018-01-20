@@ -61,7 +61,7 @@ export function parseStyleAttribute(element: SVGElement): any;
  * @param [options] Options object
  * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  */
-export function parseElements(elements: any[], callback: Function, options?: any, reviver?: Function): void;
+export function parseElements(elements: SVGElement[], callback: Function, options?: any, reviver?: Function): void;
 /**
  * Returns an object of attributes' name/value, given element and an array of attribute names;
  * Parses parent "g" nodes recursively upwards.
@@ -232,7 +232,7 @@ interface ICollection<T> {
 	 * @param context Context (aka thisObject)
 	 * @return thisArg
 	 */
-	forEachObject(callback: (element: Object, index: number, array: Object[]) => any, context?: any): T;
+	forEachObject(callback: (element: Object, index: number, array: Object[]) => void, context?: any): T;
 
 	/**
 	 * Returns an array of children objects of this instance
@@ -279,13 +279,13 @@ interface IObservable<T> {
 	 * @param eventName Event name (eg. 'after:render')
 	 * @param handler Function that receives a notification when an event of the specified type occurs
 	 */
-	on(eventName: string, handler: (e: IEvent) => any): T;
+	on(eventName: string, handler: (e: IEvent) => void): T;
 
 	/**
 	 * Observes specified event
 	 * @param eventName Object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
 	 */
-	on(eventName: {[key: string]: Function}): T;
+	on(events: {[eventName: string]: (e: IEvent) => void}): T;
 	/**
 	 * Fires event with an optional options object
 	 * @param eventName Event name to fire
@@ -298,7 +298,7 @@ interface IObservable<T> {
 	 * @param eventName Event name (eg. 'after:render') or object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
 	 * @param handler Function to be deleted from EventListeners
 	 */
-	off(eventName?: string|any, handler?: (e: IEvent) => any): T;
+	off(eventName?: string|any, handler?: (e: IEvent) => void): T;
 }
 
 interface Callbacks {
@@ -1198,7 +1198,7 @@ export class StaticCanvas {
 	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 * @return `true` if method is supported (or at least exists), null` if canvas element or context can not be initialized
 	 */
-	supports(methodName: string): boolean;
+	supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 
 	/**
 	 * Populates canvas with data from the specified JSON.
@@ -1215,7 +1215,7 @@ export class StaticCanvas {
 	 * @param [callback] Receives cloned instance as a first argument
 	 * @param [properties] Array of properties to include in the cloned canvas and children
 	 */
-	clone(callback: (canvas: StaticCanvas) => any, properties?: any[]): void;
+	clone(callback: (canvas: StaticCanvas) => void, properties?: any[]): void;
 
 	/**
 	 * Clones canvas instance without cloning existing data.
@@ -1223,7 +1223,7 @@ export class StaticCanvas {
 	 * but leaves data empty (so that you can populate it with your own)
 	 * @param [callback] Receives cloned instance as a first argument
 	 */
-	cloneWithoutData(callback: (canvas: StaticCanvas) => any): void;
+	cloneWithoutData(callback: (canvas: StaticCanvas) => void): void;
 
 	/**
 	 * Callback; invoked right before object is about to be scaled/rotated
@@ -1251,7 +1251,7 @@ export class StaticCanvas {
 	 * (either those of HTMLCanvasElement itself, or rendering context)
 	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 */
-	static supports(methodName: string): boolean;
+	static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 	/**
 	 * Returns JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -1473,7 +1473,7 @@ export class Canvas {
 	 * (either those of HTMLCanvasElement itself, or rendering context)
 	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 */
-	static supports(methodName: string): boolean;
+	static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 	/**
 	 * Returns JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -1817,20 +1817,20 @@ export class Image {
 	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
 	 * @param [imgOptions] Options object
 	 */
-	static fromURL(url: string, callback?: (image: Image) => any, objObjects?: IObjectOptions): Image;
+	static fromURL(url: string, callback?: (image: Image) => void, objObjects?: IObjectOptions): Image;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
 	 * @param object Object to create an instance from
 	 * @param [callback] Callback to invoke when an image instance is created
 	 */
-	static fromObject(object: any, callback: (image: Image) => {}): void;
+	static fromObject(object: any, callback: (image: Image) => void): void;
 	/**
 	 * Returns Image instance from an SVG element
 	 * @param element Element to parse
 	 * @param callback Callback to execute when fabric.Image object is created
 	 * @param [options] Options object
 	 */
-	static fromElement(element: SVGElement, callback: Function, options?: IImageOptions): void;
+	static fromElement(element: SVGElement, callback: (image: Image) => void, options?: IImageOptions): void;
 	/**
 	 * Default CSS class name for canvas
 	 */
@@ -1877,7 +1877,7 @@ export class Line {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude: any[]): any;
+	toObject(propertiesToInclude: string[]): any;
 	/**
 	 * Returns SVG representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -2250,7 +2250,7 @@ export class Object {
 	/* * Sets object's properties from options
 		* @param {Object} [options] Options object
 		*/
-	setOptions(options: any): void;
+	setOptions(options: IObjectOptions): void;
 
 	/**
 	 * Transforms context when rendering an object
@@ -2280,7 +2280,7 @@ export class Object {
 	 * Basic getter
 	 * @param property Property name
 	 */
-	get(property: string): any;
+	get<K extends keyof this>(property: K): this[K];
 
 	/**
 	 * Sets property to a given value.
@@ -2289,20 +2289,20 @@ export class Object {
 	 * @param key Property name
 	 * @param value Property value (if function, the value is passed into it and its return value is used as a new one)
 	 */
-	set(key: string, value: any|Function): this;
+	set<K extends keyof this>(key: K, value: this[K] | ((value: this[K]) => this[K])): this;
 	/**
 	 * Sets property to a given value.
 	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
 	 * If you need to update those, call `setCoords()`.
-	 * @param Object key Property object, iterate over the object properties
+	 * @param options Property object, iterate over the object properties
 	 */
-	set(key: any): this;
+	set(options: { [P in keyof this]: this[P] }): this;
 
 	/**
 	 * Toggles specified property from `true` to `false` or from `false` to `true`
 	 * @param property Property to toggle
 	 */
-	toggle(property: string): this;
+	toggle(property: keyof this): this;
 
 	/**
 	 * Sets sourcePath of an object
@@ -2364,7 +2364,7 @@ export class Object {
 	 * @param property Property name 'stroke' or 'fill'
 	 * @param [options] Options object
 	 */
-	setGradient(property: string, options: IGradientOptions): this;
+	setGradient(property: "stroke" | "fill", options: IGradientOptions): this;
 	/**
 	 * Sets pattern fill of an object
 	 * @param options Options object
@@ -2375,12 +2375,7 @@ export class Object {
 	 * Sets shadow of an object
 	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
-	setShadow(options?: string): this;
-	/**
-	 * Sets shadow of an object
-	 * @param [options] Options object
-	 */
-	setShadow(options: IShadow): this;
+	setShadow(options?: string | IShadow): this;
 
 	/**
 	 * Sets "color" of an instance (alias of `set('fill', …)`)
@@ -2404,19 +2399,19 @@ export class Object {
 	 * Centers object horizontally on canvas to which it was added last.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	centerH(): void;
+	centerH(): this;
 
 	/**
 	 * Centers object vertically on canvas to which it was added last.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	centerV(): void;
+	centerV(): this;
 
 	/**
 	 * Centers object vertically and horizontally on canvas to which is was added last
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	center(): void;
+	center(): this;
 
 	/**
 	 * Removes object from canvas to which it was added last
@@ -2428,7 +2423,7 @@ export class Object {
 	 * @param e Event to operate upon
 	 * @param [pointer] Pointer to operate upon (instead of event)
 	 */
-	getLocalPointer(e: Event, pointer: any): any;
+	getLocalPointer(e: Event, pointer?: { x: number, y: number }): { x: number, y: number };
 
 	/**
 	 * Sets object's properties from options
