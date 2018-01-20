@@ -2462,6 +2462,11 @@ export interface DatePickerIOSProperties extends ViewProperties {
     date: Date;
 
     /**
+     * The date picker locale.
+     */
+    locale?: string;
+
+    /**
      * Maximum date.
      * Restricts the range of possible date/time values.
      */
