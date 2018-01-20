@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "newline-per-chained-call": false,
         "adjacent-overload-signatures": false,
         "array-type": false,
         "arrow-return-shorthand": false,
