@@ -745,10 +745,31 @@ declare module "mongoose" {
   }
 
   interface SchemaToObjectOptions {
-    /** Setting this to true will include virtuals in the output */
+    /** apply all getters (path and virtual getters) */
     getters?: boolean;
 
-    [k: string]: any;
+    /** apply virtual getters (can override getters option) */
+    virtuals?: boolean;
+
+    /** remove empty objects (defaults to true) */
+    minimize?: boolean;
+
+    /** Depopulate any populated paths, replacing them with their original refs (defaults to false) */
+    depopulate?: boolean;
+
+    /** Whether to include the version key (defaults to true) */
+    versionKey?: boolean;
+
+    /** 
+     * A transform function to apply to the resulting document before returning.
+     * See http://mongoosejs.com/docs/api.html#document_Document-toObject
+     * Note: if a transform function returns undefined, the return value will be ignored.
+     * 
+     * @param doc The mongoose document which is being converted
+     * @param ret The plain object representation which has been converted
+     * @param options The options in use (either schema options or the options passed inline)
+     */
+    transform?<D extends Document>(doc: D, ret: any, options: SchemaToObjectOptions): any;
   }
 
   interface SchemaOptions {
