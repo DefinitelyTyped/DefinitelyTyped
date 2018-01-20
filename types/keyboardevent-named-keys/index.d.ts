@@ -1,8 +1,9 @@
-// Type definitions for W3 Keyboard Named Event Keys
-// Spec: https://www.w3.org/TR/uievents-key/
+// Type definitions for W3 Keyboard Named Event Keys 1.0
+// Project: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: Bryce Hanscomb <https://github.com/brycehanscomb>
 //                 Luke Boyle <https://github.com/3stacks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export enum Special {
     Unidentified = 'Unidentified'
@@ -365,6 +366,10 @@ export enum MediaController {
     Unidentified = 'Unidentified'
 }
 
-type All = Special | Modifier | Whitespace | Navigation | Editing | UI | Device | IMEAndComposition | GeneralPurposeFunction | Multimedia | MultimediaNumpad | Audio | Speech | Application | Browser | MobilePhone | TV | MediaController
+type All =
+    Special | Modifier | Whitespace | Navigation | Editing | UI | Device |
+    IMEAndComposition | GeneralPurposeFunction | Multimedia |
+    MultimediaNumpad | Audio | Speech | Application | Browser | MobilePhone |
+    TV | MediaController;
 
-export default All
+export default All;
