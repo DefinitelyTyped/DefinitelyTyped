@@ -278,9 +278,9 @@ export interface DeviceLocation {
  */
 export interface Coordinates {
     /** Latitude coordinate. */
-    latitude: number,
+    latitude: number;
     /** Longitude coordinate. */
-    longitude: number
+    longitude: number;
 }
 
 /**
