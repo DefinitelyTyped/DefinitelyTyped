@@ -57,6 +57,251 @@ declare module 'expo' {
     }
 
     /**
+     * Provides basic sample playback and recording.
+     *
+     * Note that Expo does not yet support backgrounding, so audio is not available to play in the background of your experience. Audio also automatically stops if headphones / bluetooth audio devices are disconnected.
+     */
+    export namespace Audio {
+        enum InterruptionModeIos {
+            /** This is the default option. If this option is set, your experience’s audio is mixed with audio playing in background apps. */
+            INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
+
+            /** If this option is set, your experience’s audio interrupts audio from other apps. */
+            INTERRUPTION_MODE_IOS_DO_NOT_MIX = 1,
+
+            /** If this option is set, your experience’s audio lowers the volume ("ducks") of audio from other apps while your audio plays. */
+            INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
+        }
+
+        const INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS: 0;
+        const INTERRUPTION_MODE_IOS_DO_NOT_MIX: 1;
+        const INTERRUPTION_MODE_IOS_DUCK_OTHERS: 2;
+
+        enum InterruptionModeAndroid {
+            /** If this option is set, your experience’s audio interrupts audio from other apps. */
+            INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
+
+            /** This is the default option. If this option is set, your experience’s audio lowers the volume ("ducks") of audio from other apps while your audio plays. */
+            INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
+        }
+
+        const INTERRUPTION_MODE_ANDROID_DO_NOT_MIX: 1;
+        const INTERRUPTION_MODE_ANDROID_DUCK_OTHERS: 2;
+
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_DEFAULT: 0;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_THREE_GPP: 1;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4: 2;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_NB: 3;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_WB: 4;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADIF: 5;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADTS: 6;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_RTP_AVP: 7;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG2TS: 8;
+        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_WEBM: 9;
+
+        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_DEFAULT: 0;
+        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_NB: 1;
+        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB: 2;
+        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC: 3;
+        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_HE_AAC: 4;
+        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC_ELD: 5;
+        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_VORBIS: 6;
+
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM: 'lpcm';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AC3: 'ac-3';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_60958AC3: 'cac3';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLEIMA4: 'ima4';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC: 'aac ';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4CELP: 'celp';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4HVXC: 'hvxc';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4TWINVQ: 'twvq';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE3: 'MAC3';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE6: 'MAC6';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ULAW: 'ulaw';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ALAW: 'alaw';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN: 'QDMC';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN2: 'QDM2';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QUALCOMM: 'Qclp';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER1: '.mp1';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER2: '.mp2';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER3: '.mp3';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLELOSSLESS: 'alac';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE: 'aach';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_LD: 'aacl';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD: 'aace';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_SBR: 'aacf';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_V2: 'aacg';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE_V2: 'aacp';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_SPATIAL: 'aacs';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR: 'samr';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR_WB: 'sawb';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AUDIBLE: 'AUDB';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ILBC: 'ilbc';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_DVIINTELIMA: 0x6d730011;
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MICROSOFTGSM: 0x6d730031;
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AES3: 'aes3';
+        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ENHANCEDAC3: 'ec-3';
+
+        const RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN: 0;
+        const RECORDING_OPTION_IOS_AUDIO_QUALITY_LOW: 0x20;
+        const RECORDING_OPTION_IOS_AUDIO_QUALITY_MEDIUM: 0x40;
+        const RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH: 0x60;
+        const RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX: 0x7f;
+
+        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_CONSTANT: 0;
+        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_LONG_TERM_AVERAGE: 1;
+        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED: 2;
+        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE: 3;
+
+        type RecordingStatus = {
+            canRecord: false,
+            isDoneRecording: false
+        } | {
+                canRecord: true,
+                isRecording: boolean,
+                durationMillis: number
+            } | {
+                canRecord: false,
+                isDoneRecording: true,
+                durationMillis: number
+            };
+
+        const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
+        const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
+
+        interface RecordingOptions {
+            android: {
+                extension: string;
+                outputFormat: number;
+                audioEncoder: number;
+                sampleRate?: number;
+                numberOfChannels?: number;
+                bitRate?: number;
+                maxFileSize?: number;
+            };
+            ios: {
+                extension: string;
+                outputFormat?: string | number;
+                audioQuality: number;
+                sampleRate: number;
+                numberOfChannels: number;
+                bitRate: number;
+                bitRateStrategy?: number;
+                bitDepthHint?: number;
+                linearPCMBitDepth?: number;
+                linearPCMIsBigEndian?: boolean;
+                linearPCMIsFloat?: boolean;
+            };
+        }
+
+        interface AudioMode {
+            /** Boolean selecting if your experience’s audio should play in silent mode on iOS. This value defaults to `false`. */
+            playsInSilentModeIOS: boolean;
+
+            /** Boolean selecting if recording is enabled on iOS. This value defaults to `false`. NOTE: when this flag is set to true, playback may be routed to the phone receiver instead of to the speaker. */
+            allowsRecordingIOS: boolean;
+
+            /** Enum selecting how your experience’s audio should interact with the audio from other apps on iOS. */
+            interruptionModeIOS: InterruptionModeIos;
+
+            /** Boolean selecting if your experience’s audio should automatically be lowered in volume ("duck") if audio from another app interrupts your experience. This value defaults to true. If false, audio from other apps will pause your audio. */
+            shouldDuckAndroid: boolean;
+
+            /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
+            interruptionModeAndroid: InterruptionModeAndroid;
+        }
+
+        function setIsEnabledAsync(value: boolean): Promise<void>;
+        function setAudioModeAsync(mode: AudioMode): Promise<void>;
+
+        /** This class represents a sound corresponding to an Asset or URL. */
+        class Sound extends PlaybackObject {
+            constructor();
+
+            /**
+             * Creates and loads a sound from source, with optional `initialStatus`, `onPlaybackStatusUpdate`, and `downloadFirst`.
+             *
+             * @returns A `Promise` that is rejected if creation failed, or fulfilled with the following dictionary if creation succeeded:
+             * - `sound`: The newly created and loaded Sound object.
+             * - `status`: The PlaybackStatus of the Sound object. See the AV documentation for further information.
+             */
+            static create(
+                /**
+                 * The source of the sound. The following forms are supported:
+                 *
+                 * - A dictionary of the form `{ uri: 'http://path/to/file' }` with a network URL pointing to an audio file on the web.
+                 * - `require('path/to/file')` for an audio file asset in the source code directory.
+                 * - An `Expo.Asset` object for an audio file asset.
+                 */
+                source: PlaybackSource,
+
+                /** The initial intended PlaybackStatusToSet of the sound, whose values will override the default initial playback status. This value defaults to `{}` if no parameter is passed. */
+                initialStatus?: PlaybackStatusToSet,
+
+                /** A function taking a single parameter PlaybackStatus. This value defaults to `null` if no parameter is passed. */
+                onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null,
+
+                /** If set to true, the system will attempt to download the resource to the device before loading. This value defaults to `true`. Note that at the moment, this will only work for `source`s of the form `require('path/to/file')` or `Asset` objects. */
+                downloadFirst?: boolean
+            ): Promise<{ sound: Sound, status: PlaybackStatus }>;
+        }
+
+        class Recording {
+            constructor();
+
+            /** Gets the `status` of the `Recording`. */
+            getStatusAsync(): Promise<RecordingStatus>;
+
+            /** Sets a function to be called regularly with the `status` of the `Recording`. */
+            setOnRecordingStatusUpdate(onRecordingStatusUpdate?: (status: RecordingStatus) => void): void;
+
+            /** Sets the interval with which onRecordingStatusUpdate is called while the recording can record. This value defaults to 500 milliseconds. */
+            setProgressUpdateInterval(progressUpdateIntervalMillis: number): void;
+
+            /** Loads the recorder into memory and prepares it for recording. This must be called before calling `startAsync()`. This method can only be called if the `Recording` instance has never yet been prepared. */
+            prepareToRecordAsync(
+                /** Options for the recording, including sample rate, bitrate, channels, format, encoder, and extension. If no options are passed to `prepareToRecordAsync()`, the recorder will be created with options `Expo.Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY`. */
+                options?: RecordingOptions
+            ): Promise<RecordingStatus>;
+
+            /** Begins recording. This method can only be called if the `Recording` has been prepared. */
+            startAsync(): Promise<RecordingStatus>;
+
+            /**
+             * Pauses recording. This method can only be called if the Recording has been prepared.
+             *
+             * NOTE: This is only available on Android API version 24 and later.
+             */
+            pauseAsync(): Promise<RecordingStatus>;
+
+            /** Stops the recording and deallocates the recorder from memory. This reverts the Recording instance to an unprepared state, and another Recording instance must be created in order to record again. This method can only be called if the `Recording` has been prepared. */
+            stopAndUnloadAsync(): Promise<RecordingStatus>;
+
+            /**
+             * Gets the local URI of the Recording. Note that this will only succeed once the Recording is prepared to record.
+             *
+             * @returns A string with the local URI of the `Recording`, or `null` if the `Recording` is not prepared to record.
+             */
+            getURI(): string | null | undefined;
+
+            /**
+             * Creates and loads a new `Sound` object to play back the `Recording`. Note that this will only succeed once the `Recording` is done recording (once `stopAndUnloadAsync()` has been called).
+             *
+             * @returns A Promise that is rejected if creation failed, or fulfilled with the following dictionary if creation succeeded:
+             * - `sound`: the newly created and loaded Sound object.
+             * - `status`: the PlaybackStatus of the Sound object.
+             */
+            createNewLoadedSound(
+                /** The initial intended `PlaybackStatusToSet` of the sound, whose values will override the default initial playback status. This value defaults to `{}` if no parameter is passed. */
+                initialStatus?: PlaybackStatusToSet,
+
+                /** A function taking a single parameter `PlaybackStatus`. This value defaults to `null` if no parameter is passed. */
+                onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null
+            ): Promise<{ sound: Sound, status: PlaybackStatus }>;
+        }
+    }
+
+    /**
      * Provides access to Amplitude mobile analytics which basically lets you log various events to the Cloud. This module wraps Amplitude’s iOS and Android SDKs.
      *
      * Note: Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
@@ -345,327 +590,6 @@ declare module 'expo' {
          * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
          */
         unloadAsync(): Promise<PlaybackStatus>;
-    }
-    // #endregion
-
-    /**
-     * Provides basic sample playback and recording.
-     *
-     * Note that Expo does not yet support backgrounding, so audio is not available to play in the background of your experience. Audio also automatically stops if headphones / bluetooth audio devices are disconnected.
-     */
-    export namespace Audio {
-        enum InterruptionModeIos {
-            /** This is the default option. If this option is set, your experience’s audio is mixed with audio playing in background apps. */
-            INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
-
-            /** If this option is set, your experience’s audio interrupts audio from other apps. */
-            INTERRUPTION_MODE_IOS_DO_NOT_MIX = 1,
-
-            /** If this option is set, your experience’s audio lowers the volume ("ducks") of audio from other apps while your audio plays. */
-            INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
-        }
-
-        const INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS: 0;
-        const INTERRUPTION_MODE_IOS_DO_NOT_MIX: 1;
-        const INTERRUPTION_MODE_IOS_DUCK_OTHERS: 2;
-
-        enum InterruptionModeAndroid {
-            /** If this option is set, your experience’s audio interrupts audio from other apps. */
-            INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
-
-            /** This is the default option. If this option is set, your experience’s audio lowers the volume ("ducks") of audio from other apps while your audio plays. */
-            INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
-        }
-
-        const INTERRUPTION_MODE_ANDROID_DO_NOT_MIX: 1;
-        const INTERRUPTION_MODE_ANDROID_DUCK_OTHERS: 2;
-
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_DEFAULT: 0;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_THREE_GPP: 1;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4: 2;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_NB: 3;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_WB: 4;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADIF: 5;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADTS: 6;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_RTP_AVP: 7;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG2TS: 8;
-        const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_WEBM: 9;
-
-        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_DEFAULT: 0;
-        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_NB: 1;
-        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB: 2;
-        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC: 3;
-        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_HE_AAC: 4;
-        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC_ELD: 5;
-        const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_VORBIS: 6;
-
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM: 'lpcm';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AC3: 'ac-3';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_60958AC3: 'cac3';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLEIMA4: 'ima4';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC: 'aac ';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4CELP: 'celp';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4HVXC: 'hvxc';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4TWINVQ: 'twvq';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE3: 'MAC3';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE6: 'MAC6';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ULAW: 'ulaw';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ALAW: 'alaw';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN: 'QDMC';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN2: 'QDM2';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QUALCOMM: 'Qclp';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER1: '.mp1';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER2: '.mp2';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER3: '.mp3';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLELOSSLESS: 'alac';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE: 'aach';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_LD: 'aacl';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD: 'aace';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_SBR: 'aacf';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_V2: 'aacg';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE_V2: 'aacp';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_SPATIAL: 'aacs';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR: 'samr';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR_WB: 'sawb';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AUDIBLE: 'AUDB';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ILBC: 'ilbc';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_DVIINTELIMA: 0x6d730011;
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MICROSOFTGSM: 0x6d730031;
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AES3: 'aes3';
-        const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ENHANCEDAC3: 'ec-3';
-
-        const RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN: 0;
-        const RECORDING_OPTION_IOS_AUDIO_QUALITY_LOW: 0x20;
-        const RECORDING_OPTION_IOS_AUDIO_QUALITY_MEDIUM: 0x40;
-        const RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH: 0x60;
-        const RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX: 0x7f;
-
-        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_CONSTANT: 0;
-        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_LONG_TERM_AVERAGE: 1;
-        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED: 2;
-        const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE: 3;
-
-        type RecordingStatus = {
-            canRecord: false,
-            isDoneRecording: false
-        } | {
-                canRecord: true,
-                isRecording: boolean,
-                durationMillis: number
-            } | {
-                canRecord: false,
-                isDoneRecording: true,
-                durationMillis: number
-            };
-
-        const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
-        const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
-
-        interface RecordingOptions {
-            android: {
-                extension: string;
-                outputFormat: number;
-                audioEncoder: number;
-                sampleRate?: number;
-                numberOfChannels?: number;
-                bitRate?: number;
-                maxFileSize?: number;
-            };
-            ios: {
-                extension: string;
-                outputFormat?: string | number;
-                audioQuality: number;
-                sampleRate: number;
-                numberOfChannels: number;
-                bitRate: number;
-                bitRateStrategy?: number;
-                bitDepthHint?: number;
-                linearPCMBitDepth?: number;
-                linearPCMIsBigEndian?: boolean;
-                linearPCMIsFloat?: boolean;
-            };
-        }
-
-        interface AudioMode {
-            /** Boolean selecting if your experience’s audio should play in silent mode on iOS. This value defaults to `false`. */
-            playsInSilentModeIOS: boolean;
-
-            /** Boolean selecting if recording is enabled on iOS. This value defaults to `false`. NOTE: when this flag is set to true, playback may be routed to the phone receiver instead of to the speaker. */
-            allowsRecordingIOS: boolean;
-
-            /** Enum selecting how your experience’s audio should interact with the audio from other apps on iOS. */
-            interruptionModeIOS: InterruptionModeIos;
-
-            /** Boolean selecting if your experience’s audio should automatically be lowered in volume ("duck") if audio from another app interrupts your experience. This value defaults to true. If false, audio from other apps will pause your audio. */
-            shouldDuckAndroid: boolean;
-
-            /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
-            interruptionModeAndroid: InterruptionModeAndroid;
-        }
-
-        function setIsEnabledAsync(value: boolean): Promise<void>;
-        function setAudioModeAsync(mode: AudioMode): Promise<void>;
-
-        /** This class represents a sound corresponding to an Asset or URL. */
-        class Sound extends PlaybackObject {
-            constructor();
-
-            /**
-             * Creates and loads a sound from source, with optional `initialStatus`, `onPlaybackStatusUpdate`, and `downloadFirst`.
-             *
-             * @returns A `Promise` that is rejected if creation failed, or fulfilled with the following dictionary if creation succeeded:
-             * - `sound`: The newly created and loaded Sound object.
-             * - `status`: The PlaybackStatus of the Sound object. See the AV documentation for further information.
-             */
-            static create(
-                /**
-                 * The source of the sound. The following forms are supported:
-                 *
-                 * - A dictionary of the form `{ uri: 'http://path/to/file' }` with a network URL pointing to an audio file on the web.
-                 * - `require('path/to/file')` for an audio file asset in the source code directory.
-                 * - An `Expo.Asset` object for an audio file asset.
-                 */
-                source: PlaybackSource,
-
-                /** The initial intended PlaybackStatusToSet of the sound, whose values will override the default initial playback status. This value defaults to `{}` if no parameter is passed. */
-                initialStatus?: PlaybackStatusToSet,
-
-                /** A function taking a single parameter PlaybackStatus. This value defaults to `null` if no parameter is passed. */
-                onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null,
-
-                /** If set to true, the system will attempt to download the resource to the device before loading. This value defaults to `true`. Note that at the moment, this will only work for `source`s of the form `require('path/to/file')` or `Asset` objects. */
-                downloadFirst?: boolean
-            ): Promise<{ sound: Sound, status: PlaybackStatus }>;
-        }
-
-        class Recording {
-            constructor();
-
-            /** Gets the `status` of the `Recording`. */
-            getStatusAsync(): Promise<RecordingStatus>;
-
-            /** Sets a function to be called regularly with the `status` of the `Recording`. */
-            setOnRecordingStatusUpdate(onRecordingStatusUpdate?: (status: RecordingStatus) => void): void;
-
-            /** Sets the interval with which onRecordingStatusUpdate is called while the recording can record. This value defaults to 500 milliseconds. */
-            setProgressUpdateInterval(progressUpdateIntervalMillis: number): void;
-
-            /** Loads the recorder into memory and prepares it for recording. This must be called before calling `startAsync()`. This method can only be called if the `Recording` instance has never yet been prepared. */
-            prepareToRecordAsync(
-                /** Options for the recording, including sample rate, bitrate, channels, format, encoder, and extension. If no options are passed to `prepareToRecordAsync()`, the recorder will be created with options `Expo.Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY`. */
-                options?: RecordingOptions
-            ): Promise<RecordingStatus>;
-
-            /** Begins recording. This method can only be called if the `Recording` has been prepared. */
-            startAsync(): Promise<RecordingStatus>;
-
-            /**
-             * Pauses recording. This method can only be called if the Recording has been prepared.
-             *
-             * NOTE: This is only available on Android API version 24 and later.
-             */
-            pauseAsync(): Promise<RecordingStatus>;
-
-            /** Stops the recording and deallocates the recorder from memory. This reverts the Recording instance to an unprepared state, and another Recording instance must be created in order to record again. This method can only be called if the `Recording` has been prepared. */
-            stopAndUnloadAsync(): Promise<RecordingStatus>;
-
-            /**
-             * Gets the local URI of the Recording. Note that this will only succeed once the Recording is prepared to record.
-             *
-             * @returns A string with the local URI of the `Recording`, or `null` if the `Recording` is not prepared to record.
-             */
-            getURI(): string | null | undefined;
-
-            /**
-             * Creates and loads a new `Sound` object to play back the `Recording`. Note that this will only succeed once the `Recording` is done recording (once `stopAndUnloadAsync()` has been called).
-             *
-             * @returns A Promise that is rejected if creation failed, or fulfilled with the following dictionary if creation succeeded:
-             * - `sound`: the newly created and loaded Sound object.
-             * - `status`: the PlaybackStatus of the Sound object.
-             */
-            createNewLoadedSound(
-                /** The initial intended `PlaybackStatusToSet` of the sound, whose values will override the default initial playback status. This value defaults to `{}` if no parameter is passed. */
-                initialStatus?: PlaybackStatusToSet,
-
-                /** A function taking a single parameter `PlaybackStatus`. This value defaults to `null` if no parameter is passed. */
-                onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null
-            ): Promise<{ sound: Sound, status: PlaybackStatus }>;
-        }
-    }
-
-    // #region Video
-    /**
-     * Expo Video
-     */
-    export interface NaturalSize {
-        width: number;
-        height: number;
-        orientation: Orientation;
-    }
-
-    export interface ReadyForDisplayEvent {
-        naturalSize: NaturalSize;
-        status: PlaybackStatus;
-    }
-
-    export enum FullscreenUpdateVariants {
-        IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT = 0,
-        IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT = 1,
-        IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS = 2,
-        IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3
-    }
-
-    export interface FullscreenUpdateEvent {
-        fullscreenUpdate: FullscreenUpdateVariants;
-        status: PlaybackStatus;
-    }
-
-    export interface VideoProps {
-        source?: PlaybackSource | null;
-        posterSource?: URISource | RequireSource;
-
-        resizeMode?: ResizeModeContain | ResizeModeCover | ResizeModeStretch;
-        useNativeControls?: boolean;
-        usePoster?: boolean;
-
-        onPlaybackStatusUpdate?: (status: PlaybackStatus) => void;
-        onReadyForDisplay?: (event: ReadyForDisplayEvent) => void;
-        onIOSFullscreenUpdate?: (event: FullscreenUpdateEvent) => void;
-
-        onLoadStart?: () => void;
-        onLoad?: (status: PlaybackStatus) => void;
-        onError?: (error: string) => void;
-
-        status?: PlaybackStatusToSet;
-        progressUpdateIntervalMillis?: number;
-        positionMillis?: number;
-        shouldPlay?: boolean;
-        rate?: number;
-        shouldCorrectPitch?: boolean;
-        volume?: number;
-        isMuted?: boolean;
-        isLooping?: boolean;
-
-        scaleX?: number;
-        scaleY?: number;
-        translateX?: number;
-        translateY?: number;
-        rotation?: number;
-        ref?: Ref<PlaybackObject>;
-    }
-
-    export interface VideoState {
-        showPoster: boolean;
-    }
-
-    export class Video extends Component<VideoProps, VideoState> {
-        static RESIZE_MODE_CONTAIN: ResizeModeContain;
-        static RESIZE_MODE_COVER: ResizeModeCover;
-        static RESIZE_MODE_STRETCH: ResizeModeStretch;
-        static IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT;
-        static IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT;
-        static IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS;
-        static IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS;
     }
     // #endregion
 
@@ -1154,6 +1078,75 @@ declare module 'expo' {
     }
 
     /**
+     * FaceDetector
+     */
+    export namespace FaceDetector {
+        interface Point {
+            x: Axis;
+            y: Axis;
+        }
+        interface FaceFeature {
+            bounds: {
+                size: {
+                    width: number;
+                    height: number;
+                },
+                origin: Point;
+            };
+            smilingProbability?: number;
+            leftEarPosition?: Point;
+            rightEarPosition?: Point;
+            leftEyePosition?: Point;
+            leftEyeOpenProbability?: number;
+            rightEyePosition?: Point;
+            rightEyeOpenProbability?: number;
+            leftCheekPosition?: Point;
+            rightCheekPosition?: Point;
+            leftMouthPosition?: Point;
+            mouthPosition?: Point;
+            rightMouthPosition?: Point;
+            bottomMouthPosition?: Point;
+            noseBasePosition?: Point;
+            yawAngle?: number;
+            rollAngle?: number;
+        }
+        interface DetectFaceResult {
+            faces: FaceFeature[];
+            image: {
+                uri: string;
+                width: number;
+                height: number;
+                orientation: number;
+            };
+        }
+        interface Mode {
+            fast: 'fast';
+            accurate: 'accurate';
+        }
+        interface _Shared {
+            all: 'all';
+            none: 'none';
+        }
+        type Landmarks = _Shared;
+        type Classifications = _Shared;
+        interface _Constants {
+            Mode: Mode;
+            Landmarks: Landmarks;
+            Classifications: Classifications;
+        }
+
+        const Constants: _Constants;
+
+        interface DetectionOptions {
+            mode?: keyof Mode;
+            detectLandmarks?: keyof Landmarks;
+            runClassifications?: keyof Classifications;
+        }
+
+        function detectFaces(uri: string, options?: DetectionOptions): Promise<DetectFaceResult>;
+    }
+
+    /**
      * FileSystem
      */
     export namespace FileSystem {
@@ -1333,6 +1326,36 @@ declare module 'expo' {
 
         /** Subscribe for updates to the gyroscope. */
         function setUpdateInterval(intervalMs: number): void;
+    }
+
+    /**
+     * ImageManipulator
+     */
+    export namespace ImageManipulator {
+        interface ImageResult {
+            uri: string;
+            width: number;
+            height: number;
+            base64?: string;
+        }
+        interface SaveOptions {
+            base64?: boolean;
+            compress?: FloatFromZeroToOne;
+            format?: 'jpeg' | 'png';
+        }
+        interface CropParameters {
+            originX: number;
+            originY: number;
+            width: number;
+            height: number;
+        }
+        interface ImageManipulationOptions {
+            resize?: { width?: number; height?: number };
+            rotate?: number;
+            flip?: { vertical?: boolean; horizontal?: boolean };
+            crop?: CropParameters;
+        }
+        function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
     }
 
     /**
@@ -1940,6 +1963,82 @@ declare module 'expo' {
         }) => void): { remove(): void; };
     }
 
+    // #region Video
+    /**
+     * Expo Video
+     */
+    export interface NaturalSize {
+        width: number;
+        height: number;
+        orientation: Orientation;
+    }
+
+    export interface ReadyForDisplayEvent {
+        naturalSize: NaturalSize;
+        status: PlaybackStatus;
+    }
+
+    export enum FullscreenUpdateVariants {
+        IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT = 0,
+        IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT = 1,
+        IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS = 2,
+        IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3
+    }
+
+    export interface FullscreenUpdateEvent {
+        fullscreenUpdate: FullscreenUpdateVariants;
+        status: PlaybackStatus;
+    }
+
+    export interface VideoProps {
+        source?: PlaybackSource | null;
+        posterSource?: URISource | RequireSource;
+
+        resizeMode?: ResizeModeContain | ResizeModeCover | ResizeModeStretch;
+        useNativeControls?: boolean;
+        usePoster?: boolean;
+
+        onPlaybackStatusUpdate?: (status: PlaybackStatus) => void;
+        onReadyForDisplay?: (event: ReadyForDisplayEvent) => void;
+        onIOSFullscreenUpdate?: (event: FullscreenUpdateEvent) => void;
+
+        onLoadStart?: () => void;
+        onLoad?: (status: PlaybackStatus) => void;
+        onError?: (error: string) => void;
+
+        status?: PlaybackStatusToSet;
+        progressUpdateIntervalMillis?: number;
+        positionMillis?: number;
+        shouldPlay?: boolean;
+        rate?: number;
+        shouldCorrectPitch?: boolean;
+        volume?: number;
+        isMuted?: boolean;
+        isLooping?: boolean;
+
+        scaleX?: number;
+        scaleY?: number;
+        translateX?: number;
+        translateY?: number;
+        rotation?: number;
+        ref?: Ref<PlaybackObject>;
+    }
+
+    export interface VideoState {
+        showPoster: boolean;
+    }
+
+    export class Video extends Component<VideoProps, VideoState> {
+        static RESIZE_MODE_CONTAIN: ResizeModeContain;
+        static RESIZE_MODE_COVER: ResizeModeCover;
+        static RESIZE_MODE_STRETCH: ResizeModeStretch;
+        static IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT;
+        static IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT;
+        static IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS;
+        static IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS;
+    }
+    // #endregion
+
     /**
      * Web Browser
      */
@@ -1947,104 +2046,5 @@ declare module 'expo' {
         function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
         function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
         function dismissBrowser(): Promise<{ type: 'dismissed' }>;
-    }
-
-    /**
-     * ImageManipulator
-     */
-    export namespace ImageManipulator {
-        interface ImageResult {
-            uri: string;
-            width: number;
-            height: number;
-            base64?: string;
-        }
-        interface SaveOptions {
-            base64?: boolean;
-            compress?: FloatFromZeroToOne;
-            format?: 'jpeg' | 'png';
-        }
-        interface CropParameters {
-            originX: number;
-            originY: number;
-            width: number;
-            height: number;
-        }
-        interface ImageManipulationOptions {
-            resize?: { width?: number; height?: number };
-            rotate?: number;
-            flip?: { vertical?: boolean; horizontal?: boolean };
-            crop?: CropParameters;
-        }
-        function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
-    }
-
-    /**
-     * FaceDetector
-     */
-    export namespace FaceDetector {
-        interface Point {
-            x: Axis;
-            y: Axis;
-        }
-        interface FaceFeature {
-            bounds: {
-                size: {
-                    width: number;
-                    height: number;
-                },
-                origin: Point;
-            };
-            smilingProbability?: number;
-            leftEarPosition?: Point;
-            rightEarPosition?: Point;
-            leftEyePosition?: Point;
-            leftEyeOpenProbability?: number;
-            rightEyePosition?: Point;
-            rightEyeOpenProbability?: number;
-            leftCheekPosition?: Point;
-            rightCheekPosition?: Point;
-            leftMouthPosition?: Point;
-            mouthPosition?: Point;
-            rightMouthPosition?: Point;
-            bottomMouthPosition?: Point;
-            noseBasePosition?: Point;
-            yawAngle?: number;
-            rollAngle?: number;
-        }
-        interface DetectFaceResult {
-            faces: FaceFeature[];
-            image: {
-                uri: string;
-                width: number;
-                height: number;
-                orientation: number;
-            };
-        }
-        interface Mode {
-            fast: 'fast';
-            accurate: 'accurate';
-        }
-        interface _Shared {
-            all: 'all';
-            none: 'none';
-        }
-        type Landmarks = _Shared;
-        type Classifications = _Shared;
-        interface _Constants {
-            Mode: Mode;
-            Landmarks: Landmarks;
-            Classifications: Classifications;
-        }
-
-        const Constants: _Constants;
-
-        interface DetectionOptions {
-            mode?: keyof Mode;
-            detectLandmarks?: keyof Landmarks;
-            runClassifications?: keyof Classifications;
-        }
-
-        function detectFaces(uri: string, options?: DetectionOptions): Promise<DetectFaceResult>;
     }
 }
