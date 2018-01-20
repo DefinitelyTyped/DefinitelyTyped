@@ -427,7 +427,7 @@ declare namespace Knex {
         time(columnName: string): ColumnBuilder;
         timestamp(columnName: string): ColumnBuilder;
         timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
-        binary(columnName: string): ColumnBuilder;
+        binary(columnName: string, length?: number): ColumnBuilder;
         enum(columnName: string, values: Value[]): ColumnBuilder;
         enu(columnName: string, values: Value[]): ColumnBuilder;
         json(columnName: string): ColumnBuilder;
