@@ -165,6 +165,7 @@ declare module 'expo' {
         function getRedirectUrl(): string;
     }
 
+    // #region AV
     /**
      * AV
      */
@@ -344,6 +345,7 @@ declare module 'expo' {
          */
         unloadAsync(): Promise<PlaybackStatus>;
     }
+    // #endregion
 
     /**
      * Provides basic sample playback and recording.
@@ -590,6 +592,7 @@ declare module 'expo' {
         }
     }
 
+    // #region Video
     /**
      * Expo Video
      */
@@ -663,7 +666,9 @@ declare module 'expo' {
         static IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS;
         static IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS;
     }
+    // #endregion
 
+    // #region AppLoading
     /** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
     export type AppLoadingProps = {
         /** A `function` that returns a `Promise`. The `Promise` should resolve when the app is done loading data and assets. */
@@ -686,7 +691,9 @@ declare module 'expo' {
      * This is incredibly useful to let you download and cache fonts, logo and icon images and other assets that you want to be sure the user has on their device for an optimal experience before rendering they start using the app.
      */
     export class AppLoading extends Component<AppLoadingProps> { }
+    // #endregion AppLoading
 
+    // #region BarCodeScanner
     /**
      * BarCodeScanner
      */
@@ -698,7 +705,9 @@ declare module 'expo' {
     }
 
     export class BarCodeScanner extends Component<BarCodeScannerProps> { }
+    // #endregion
 
+    // #region BlurView
     /**
      * BlurView
      */
@@ -707,6 +716,7 @@ declare module 'expo' {
         intensity: number;
     }
     export class BlurView extends Component<BlurViewProps> { }
+    // #endregion
 
     /**
      * Brightness
@@ -718,6 +728,7 @@ declare module 'expo' {
         function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
     }
 
+    // #region Camera
     /**
      * Camera
      */
@@ -767,6 +778,7 @@ declare module 'expo' {
     export class Camera extends Component<CameraProps> {
         static readonly Constants: CameraConstants;
     }
+    // #endregion
 
     /**
      * Constants
@@ -1258,6 +1270,7 @@ declare module 'expo' {
         function loadAsync(map: FontMap): Promise<void>;
     }
 
+    // #region GLView
     /**
      * GLView
      */
@@ -1266,6 +1279,7 @@ declare module 'expo' {
         msaaSamples: number;
     }
     export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
+    // #endregion
 
     /**
      * Google
@@ -1453,6 +1467,7 @@ declare module 'expo' {
         static deactivate(): void;
     }
 
+    // #region LinearGradient
     /**
      * LinearGradient
      */
@@ -1464,6 +1479,7 @@ declare module 'expo' {
     }
 
     export class LinearGradient extends Component<LinearGradientProps> { }
+    // #endregion
 
     /**
      * Location
@@ -1751,6 +1767,7 @@ declare module 'expo' {
         ): any;
     }
 
+    // #region Svg
     /**
      * Svg
      */
@@ -1886,6 +1903,7 @@ declare module 'expo' {
         static TSpan: ComponentClass<SvgTSpanProps>;
         static Use: ComponentClass<SvgUseProps>;
     }
+    // #endregion
 
     /**
      * Take Snapshot
