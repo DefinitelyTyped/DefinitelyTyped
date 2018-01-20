@@ -2088,6 +2088,14 @@ declare namespace Stripe {
             tax_percent?: number;
         }
 
+        interface IInvoicePayOptions extends IDataOptionsWithMetadata {
+          /**
+             * A payment source to be charged. The source must be the ID of a source
+             * belonging to the customer associated with the invoice being paid.
+             */
+          source?: sources.ISourceCreationOptions;
+        }
+
         interface IInvoiceListOptions extends IListOptions {
             /**
              * The identifier of the customer whose invoices to return. If none is provided, all invoices will be returned.
@@ -6155,6 +6163,9 @@ declare namespace Stripe {
              *
              * @param id The ID of the invoice to pay.
              */
+            pay(id: string, data: invoices.IInvoicePayOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            pay(id: string, data: invoices.IInvoicePayOptions, response: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            pay(id: string, data: invoices.IInvoicePayOptions): Promise<invoices.IInvoice>;
             pay(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             pay(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
 
