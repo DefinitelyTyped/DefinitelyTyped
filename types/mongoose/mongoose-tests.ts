@@ -1658,16 +1658,25 @@ const x = new extended({
   email: 'beddiw',    // required in extededSchema
 });
 
-const schemaWithTimestampObj = new mongoose.Schema({}, {
+new mongoose.Schema({}, {
   timestamps: {
     createdAt: 'foo',
     updatedAt: 'bar'
   }
 });
 
-const schemaWithCollation = new mongoose.Schema({}, {
+new mongoose.Schema({}, {
   collation: {
     strength: 1,
     locale: 'en_US'
   }
 });
+
+new mongoose.Schema({}, {
+  toObject: {
+    versionKey: false
+  },
+  toJSON: {
+    depopulate: true
+  }
+})

@@ -744,34 +744,6 @@ declare module "mongoose" {
     (error?: Error): any;
   }
 
-  interface SchemaToObjectOptions {
-    /** apply all getters (path and virtual getters) */
-    getters?: boolean;
-
-    /** apply virtual getters (can override getters option) */
-    virtuals?: boolean;
-
-    /** remove empty objects (defaults to true) */
-    minimize?: boolean;
-
-    /** Depopulate any populated paths, replacing them with their original refs (defaults to false) */
-    depopulate?: boolean;
-
-    /** Whether to include the version key (defaults to true) */
-    versionKey?: boolean;
-
-    /** 
-     * A transform function to apply to the resulting document before returning.
-     * See http://mongoosejs.com/docs/api.html#document_Document-toObject
-     * Note: if a transform function returns undefined, the return value will be ignored.
-     * 
-     * @param doc The mongoose document which is being converted
-     * @param ret The plain object representation which has been converted
-     * @param options The options in use (either schema options or the options passed inline)
-     */
-    transform?<D extends Document>(doc: D, ret: any, options: SchemaToObjectOptions): any;
-  }
-
   interface SchemaOptions {
     /** defaults to null (which means use the connection's autoIndex option) */
     autoIndex?: boolean;
@@ -801,9 +773,9 @@ declare module "mongoose" {
     /** defaults to true */
     strict?: boolean;
     /** no default */
-    toJSON?: SchemaToObjectOptions;
+    toJSON?: DocumentToObjectOptions;
     /** no default */
-    toObject?: SchemaToObjectOptions;
+    toObject?: DocumentToObjectOptions;
     /** defaults to 'type' */
     typeKey?: string;
     /** defaults to false */
@@ -1200,12 +1172,6 @@ declare module "mongoose" {
     depopulate?: boolean;
     /** whether to include the version key (defaults to true) */
     versionKey?: boolean;
-    /**
-     * keep the order of object keys. If this is set to true,
-     * Object.keys(new Doc({ a: 1, b: 2}).toObject()) will
-     * always produce ['a', 'b'] (defaults to false)
-     */
-    retainKeyOrder?: boolean;
   }
 
   namespace Types {
