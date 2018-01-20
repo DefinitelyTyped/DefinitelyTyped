@@ -953,7 +953,7 @@ export class StaticCanvas {
 	 * @param callback Callback to invoke when image is loaded and set as background
 	 * @param [options] Optional options to set for the {@link fabric.Image|background image}.
 	 */
-	setBackgroundImage(image: Image|string, callback: Function, options?: IObjectOptions): StaticCanvas;
+	setBackgroundImage(image: Image|string, callback?: Function, options?: IObjectOptions): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayColor|background color} for this canvas
@@ -1996,6 +1996,11 @@ interface IObjectOptions {
 	 * Color of controlling corners of an object (when it's active)
 	 */
 	cornerColor?: string;
+
+	/**
+	 * Specify style of control, 'rect' or 'circle'
+	 */
+	cornerStrokeColor?: "rect" | "circle";
 
 	/**
 	 * When true, this object will use center point as the origin of transformation
@@ -4259,6 +4264,14 @@ interface IUtilMisc {
 	rotatePoint(point: Point, origin: Point, radians: number): Point;
 
 	/**
+	 * Rotates `vector` with `radians`
+     * @param vector The vector to rotate (x and y)
+     * @param radians The radians of the angle for the rotation
+     * @return The new rotated point
+	 */
+	rotateVector(vector: { x: number, y: number }, radians: number): { x: number, y: number }
+
+	/**
 	 * Apply transform t to point p
 	 * @param  p The point to transform
 	 * @param  t The transform
@@ -4378,7 +4391,14 @@ interface IUtilMisc {
 	 * @param  a First transformMatrix
 	 * @param  b Second transformMatrix
 	 */
-	multiplyTransformMatrices(a: any[], b: any[]): any[];
+	multiplyTransformMatrices(a: number[], b: number[]): number[];
+
+	/**
+     * Decomposes standard 2x2 matrix into transform componentes
+     * @param a transformMatrix
+     * @return Components of transform
+     */
+	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number }
 
 	/**
 	 * Returns string representation of function body
