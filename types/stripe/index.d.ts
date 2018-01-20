@@ -4558,6 +4558,17 @@ declare namespace Stripe {
              * The quantity you’d like to apply to the subscription item you’re creating.
              */
             quantity?: number;
+
+            /**
+             * Flag indicating whether to prorate switching plans during a billing cycle.
+             */
+            prorate?: boolean;
+
+            /**
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same
+             * proration that was previewed with the upcoming invoice endpoint.
+             */
+            proration_date?: number;
         }
 
         interface ISubscriptionItemUpdateOptions extends IDataOptionsWithMetadata {

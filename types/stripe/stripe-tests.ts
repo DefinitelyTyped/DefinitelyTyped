@@ -246,7 +246,7 @@ stripe.customers.create({
         let objCustomer: customers.ICustomer = <customers.ICustomer>card.customer;
 
         if (customer.metadata.test == "test") {
-            
+
         }
     });
     customer.cards.update("card_17xMvXBoqMA9o2xkq6W5gamx", { name: "Test" }).then(function (card) {});
@@ -1143,6 +1143,10 @@ stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "pla
     // asynchronously called
 });
 stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev" }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev", prorate: true, proration_date: Math.round(new Date().valueOf() / 1000) }).then(function(subscriptionItem) {
     // asynchronously called
 });
 
