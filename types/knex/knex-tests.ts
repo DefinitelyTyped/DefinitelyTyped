@@ -487,6 +487,7 @@ knex('books')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
 
 knex.batchInsert('books', [{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
+knex.batchInsert('books', [{title: 'Catcher In The Rye'}, {title: 'Pride And Prejudice'}]);
 knex.queryBuilder().table('books');
 
 knex('books').where('published_date', '<', 2000).update({status: 'archived'});
