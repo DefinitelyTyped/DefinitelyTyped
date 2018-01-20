@@ -1,6 +1,6 @@
 // Type definitions for FabricJS 1.5
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic>, Joseph Livecchi <https://github.com/joewashear007>, Michael Randolph <https://github.com/mrand01>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic>, Joseph Livecchi <https://github.com/joewashear007>, Michael Randolph <https://github.com/mrand01>, Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace fabric;
@@ -806,7 +806,7 @@ export class IShadow {
 	/**
 	 * Returns object representation of a shadow
 	 */
-	toObject(): Object;
+	toObject(): any;
 	/**
 	 * Returns a string representation of an instance, CSS3 text-shadow declaration
 	 */
@@ -1112,19 +1112,19 @@ export class StaticCanvas {
 	 * Returs dataless JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toDatalessJSON(propertiesToInclude?: any[]): string;
+	toDatalessJSON(propertiesToInclude?: string[]): string;
 
 	/**
 	 * Returns object representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Returns dataless object representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * When true, getSvgTransform() will apply the StaticCanvas.viewportTransform to the SVG transformation. When true,
@@ -1256,7 +1256,7 @@ export class StaticCanvas {
 	 * Returns JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	static toJSON(propertiesToInclude?: any[]): string;
+	static toJSON(propertiesToInclude?: string[]): string;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
@@ -1478,7 +1478,7 @@ export class Canvas {
 	 * Returns JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	static toJSON(propertiesToInclude?: any[]): string;
+	static toJSON(propertiesToInclude?: string[]): string;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1527,7 +1527,7 @@ export class Circle {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns svg representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -1580,7 +1580,7 @@ export class Ellipse {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns svg representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -1681,7 +1681,7 @@ export class Group {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns string represenation of a group
 	 */
@@ -1751,7 +1751,7 @@ export class Image {
 	 * @param callback Callback is invoked with a clone as a first argument
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	clone(callback?: Function, propertiesToInclude?: any[]): Object;
+	clone(callback?: Function, propertiesToInclude?: string[]): void;
 	/**
 	 * Returns complexity of an instance
 	 * @return complexity of this instance
@@ -1791,7 +1791,7 @@ export class Image {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return Object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns string representation of an instance
 	 * @return String representation of an instance
@@ -2258,13 +2258,13 @@ export class Object {
 	 * Returns an object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Returns (dataless) object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Returns a string representation of an instance
@@ -2284,26 +2284,26 @@ export class Object {
 	 * @param key Property name
 	 * @param value Property value (if function, the value is passed into it and its return value is used as a new one)
 	 */
-	set(key: string, value: any|Function): Object;
+	set(key: string, value: any|Function): this;
 	/**
 	 * Sets property to a given value.
 	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
 	 * If you need to update those, call `setCoords()`.
 	 * @param Object key Property object, iterate over the object properties
 	 */
-	set(key: any): Object;
+	set(key: any): this;
 
 	/**
 	 * Toggles specified property from `true` to `false` or from `false` to `true`
 	 * @param property Property to toggle
 	 */
-	toggle(property: string): Object;
+	toggle(property: string): this;
 
 	/**
 	 * Sets sourcePath of an object
 	 * @param value Value to set sourcePath to
 	 */
-	setSourcePath(value: string): Object;
+	setSourcePath(value: string): this;
 
 	/**
 	 * Retrieves viewportTransform from Object's canvas if possible
@@ -2318,17 +2318,17 @@ export class Object {
 	render(ctx: CanvasRenderingContext2D, noTransform?: boolean): void;
 
 	/**
-	 * Clones an instance
+	 * Clones an instance, using a callback method will work for every object.
 	 * @param callback Callback is invoked with a clone as a first argument
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	clone(callback: Function, propertiesToInclude?: any[]): Object;
+	clone(callback: (clone: Object) => void, propertiesToInclude?: string[]): void;
 
 	/**
 	 * Creates an instance of fabric.Image out of an object
 	 * @param callback callback, invoked with an instance as a first argument
 	 */
-	cloneAsImage(callback: (image: Image) => any): Object;
+	cloneAsImage(callback: (image: Image) => void): this;
 
 	/**
 	 * Converts an object into a data-url-like string
@@ -2351,49 +2351,49 @@ export class Object {
 	 * Returns a JSON representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toJSON(propertiesToInclude?: any[]): any;
+	toJSON(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Sets gradient (fill or stroke) of an object
-	 * <b>Backwards incompatibility note:</b> This method was named "setGradientFill" until v1.1.0
+	 * **Backwards incompatibility note:** This method was named "setGradientFill" until v1.1.0
 	 * @param property Property name 'stroke' or 'fill'
 	 * @param [options] Options object
 	 */
-	setGradient(property: string, options: IGradientOptions): Object;
+	setGradient(property: string, options: IGradientOptions): this;
 	/**
 	 * Sets pattern fill of an object
 	 * @param options Options object
 	 */
-	setPatternFill(options: IFillOptions): Object;
+	setPatternFill(options: IFillOptions): this;
 
 	/**
 	 * Sets shadow of an object
 	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
-	setShadow(options?: string): Object;
+	setShadow(options?: string): this;
 	/**
 	 * Sets shadow of an object
 	 * @param [options] Options object
 	 */
-	setShadow(options: IShadow): Object;
+	setShadow(options: IShadow): this;
 
 	/**
 	 * Sets "color" of an instance (alias of `set('fill', …)`)
 	 * @param color Color value
 	 */
-	setColor(color: string): Object;
+	setColor(color: string): this;
 
 	/**
 	 * Sets "angle" of an instance
 	 * @param angle Angle value
 	 */
-	setAngle(angle: number): Object;
+	setAngle(angle: number): this;
 
 	/**
 	 * Sets "angle" of an instance
 	 * @param angle Angle value
 	 */
-	rotate(angle: number): Object;
+	rotate(angle: number): this;
 
 	/**
 	 * Centers object horizontally on canvas to which it was added last.
@@ -2461,21 +2461,21 @@ export class Object {
 	 * @param [options] Object with additional `stateProperties` array to include when saving state
 	 * @return thisArg
 	 */
-	saveState(options?: { stateProperties: any[] }): Object;
+	saveState(options?: { stateProperties: any[] }): this;
 	/**
 	 * Setups state of an object
 	 */
-	setupState(): Object;
+	setupState(): this;
 	// functions from object straightening mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Straightens an object (rotating it from current angle to one of 0, 90, 180, 270, etc. depending on which is closer)
 	 */
-	straighten(): Object;
+	straighten(): this;
 	/**
 	 * Same as straighten but with animation
 	 */
-	fxStraighten(callbacks: Callbacks): Object;
+	fxStraighten(callbacks: Callbacks): this;
 
 	// functions from object stacking mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
@@ -2483,25 +2483,25 @@ export class Object {
 	 * Moves an object up in stack of drawn objects
 	 * @param [intersecting] If `true`, send object in front of next upper intersecting object
 	 */
-	bringForward(intersecting?: boolean): Object;
+	bringForward(intersecting?: boolean): this;
 	/**
 	 * Moves an object to the top of the stack of drawn objects
 	 */
-	bringToFront(): Object;
+	bringToFront(): this;
 	/**
 	 * Moves an object down in stack of drawn objects
 	 * @param [intersecting] If `true`, send object behind next lower intersecting object
 	 */
-	sendBackwards(intersecting?: boolean): Object;
+	sendBackwards(intersecting?: boolean): this;
 	/**
 	 * Moves an object to the bottom of the stack of drawn objects
 	 */
-	sendToBack(): Object;
+	sendToBack(): this;
 	/**
 	 * Moves an object to specified level in stack of drawn objects
 	 * @param index New position of object
 	 */
-	moveTo(index: number): Object;
+	moveTo(index: number): this;
 
 	// functions from object origin mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
@@ -2561,7 +2561,7 @@ export class Object {
 	 * Requires public options: padding, borderColor
 	 * @param ctx Context to draw on
 	 */
-	drawBorders(context: CanvasRenderingContext2D): Object;
+	drawBorders(context: CanvasRenderingContext2D): this;
 
 	/**
 	 * Draws corners of an object's bounding box.
@@ -2581,7 +2581,7 @@ export class Object {
 	 * @param controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
 	 * @param visible true to set the specified control visible, false otherwise
 	 */
-	setControlVisible(controlName: string, visible: boolean): Object;
+	setControlVisible(controlName: string, visible: boolean): this;
 
 	/**
 	 * Sets the visibility state of object controls.
@@ -2596,7 +2596,7 @@ export class Object {
 		mt?: boolean;
 		tl?: boolean;
 		tr?: boolean;
-		mtr?: boolean; }): Object;
+		mtr?: boolean; }): this;
 
 	// functions from geometry mixin
 	// -------------------------------------------------------------------------------------------------------------------------------
@@ -2604,7 +2604,7 @@ export class Object {
 	 * Sets corner position coordinates based on current angle, width and height
 	 * See https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords
 	 */
-	setCoords(): Object;
+	setCoords(): this;
 	/**
 	 * Returns coordinates of object's bounding rectangle (left, top, width, height)
 	 * @return Object with left, top, width, height properties
@@ -2631,17 +2631,17 @@ export class Object {
 	 * @param value Scale factor
 	 * @return thisArg
 	 */
-	scale(value: number): Object;
+	scale(value: number): this;
 	/**
 	 * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
 	 * @param value New height value
 	 */
-	scaleToHeight(value: number): Object;
+	scaleToHeight(value: number): this;
 	/**
 	 * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
 	 * @param value New width value
 	 */
-	scaleToWidth(value: number): Object;
+	scaleToWidth(value: number): this;
 	/**
 	 * Checks if object intersects with another object
 	 * @param other Object to test
@@ -2699,13 +2699,13 @@ export class IPath {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns string representation of an instance
 	 * @return string representation of an instance
@@ -2760,13 +2760,13 @@ export class PathGroup extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return dataless object representation of an instance
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns object representation of this path group
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns a string representation of this path group
 	 * @return string representation of an object
@@ -2829,7 +2829,7 @@ export class Polygon extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns svg representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -2891,7 +2891,7 @@ export class Polyline extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return Object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns SVG representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -3047,7 +3047,7 @@ export class Text extends Object {
 	 * Returns object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toObject(propertiesToInclude?: any[]): Object;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns SVG representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -3237,7 +3237,7 @@ export class IText extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): Object;
+	toObject(propertiesToInclude?: string[]): any;
 
 	setText(value: string): Text;
 	/**
