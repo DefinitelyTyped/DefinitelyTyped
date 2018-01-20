@@ -4024,7 +4024,7 @@ declare namespace Stripe {
              * in the card object if the card belongs to an account or recipient
              * instead.
              */
-            customer?: customers.ICustomer;
+            customer?: string | customers.ICustomer;
 
             /**
              * Only applicable on accounts (not customers or recipients). This
