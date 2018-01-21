@@ -2699,6 +2699,9 @@ function JQuery() {
             $('p').toggleClass('className', true);
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass('className');
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy'], false);
 
             // $ExpectType JQuery<HTMLElement>
