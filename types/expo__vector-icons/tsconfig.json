@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-native-vector-icons-tests.tsx"
+        "expo__vector-icons-tests.tsx"
     ]
 }
