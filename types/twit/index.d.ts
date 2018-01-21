@@ -2,6 +2,7 @@
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
 //                 lostfictions <https://github.com/lostfictions>
+//                 jvoros <https://github.com/jvoros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -25,6 +26,15 @@ declare module 'twit' {
         id: number,
         id_str: number,
         screen_name: string,
+      }
+
+      /**
+       * @see https://developer.twitter.com/en/docs/tweets/tweet-updates
+       */
+      export interface ExtendedTweet {
+        full_text: string,
+        display_text_range: number[],
+        entities: Entities
       }
 
       /**
@@ -171,6 +181,7 @@ declare module 'twit' {
           id_str: number,
         },
         entities: Entities,
+        extended_tweet?: ExtendedTweet,
         favorite_count?: number,
         favorited?: boolean,
         filter_level: 'none' | 'low' | 'medium',
@@ -257,8 +268,9 @@ declare module 'twit' {
       user_id?: number,
       lat?: number,
       long?: number,
-      follow?: boolean,
+      follow?: boolean | string,
       include_email?: boolean,
+      tweet_mode?: string
     }
     export interface PromiseResponse {
       data: Response,
