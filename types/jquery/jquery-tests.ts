@@ -2651,6 +2651,9 @@ function JQuery() {
             $('p').addClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').addClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').addClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2673,6 +2676,9 @@ function JQuery() {
             $('p').removeClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').removeClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').removeClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2691,6 +2697,12 @@ function JQuery() {
         function toggleClass() {
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass('className', true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy'], false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass(function(index, className, state) {

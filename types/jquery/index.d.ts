@@ -1,4 +1,4 @@
-// Type definitions for jquery 3.2
+// Type definitions for jquery 3.3
 // Project: https://jquery.com
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -3007,14 +3007,16 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * Adds the specified class(es) to each element in the set of matched elements.
      *
      * @param className One or more space-separated classes to be added to the class attribute of each matched element.
+     *                  An array of classes to be added to the class attribute of each matched element.
      *                  A function returning one or more space-separated class names to be added to the existing class
      *                  name(s). Receives the index position of the element in the set and the existing class name(s) as
      *                  arguments. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/addClass/}
      * @since 1.0
      * @since 1.4
+     * @since 3.3
      */
-    addClass(className: string | ((this: TElement, index: number, currentClassName: string) => string)): this;
+    addClass(className: JQuery.TypeOrArray<string> | ((this: TElement, index: number, currentClassName: string) => string)): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
@@ -4788,13 +4790,15 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
      *
      * @param className One or more space-separated classes to be removed from the class attribute of each matched element.
+     *                  An array of classes to be removed from the class attribute of each matched element.
      *                  A function returning one or more space-separated class names to be removed. Receives the index
      *                  position of the element in the set and the old class value as arguments.
      * @see {@link https://api.jquery.com/removeClass/}
      * @since 1.0
      * @since 1.4
+     * @since 3.3
      */
-    removeClass(className?: string | ((this: TElement, index: number, className: string) => string)): this;
+    removeClass(className?: JQuery.TypeOrArray<string> | ((this: TElement, index: number, className: string) => string)): this;
     /**
      * Remove a previously-stored piece of data.
      *
@@ -5179,6 +5183,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * either the class's presence or the value of the state argument.
      *
      * @param className One or more class names (separated by spaces) to be toggled for each element in the matched set.
+     *                  An array of classes to be toggled for each element in the matched set.
      *                  A function that returns class names to be toggled in the class attribute of each element in the
      *                  matched set. Receives the index position of the element in the set, the old class value, and the state as arguments.
      * @param state A Boolean (not just truthy/falsy) value to determine whether the class should be added or removed.
@@ -5186,8 +5191,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      * @since 1.3
      * @since 1.4
+     * @since 3.3
      */
-    toggleClass<TState extends boolean>(className: string | ((this: TElement, index: number, className: string, state: TState) => string),
+    toggleClass<TState extends boolean>(className: JQuery.TypeOrArray<string> | ((this: TElement, index: number, className: string, state: TState) => string),
                                         state?: TState): this;
     /**
      * Add or remove one or more classes from each element in the set of matched elements, depending on
