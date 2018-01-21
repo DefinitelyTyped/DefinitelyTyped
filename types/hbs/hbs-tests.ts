@@ -13,3 +13,13 @@ hbs.registerPartial('partial_name', 'partial value');
 hbs.registerPartials(__dirname + '/views/partials');
 
 hbs.registerPartials(__dirname + '/views/partials', () => {});
+
+hbs.localsAsTemplateData(app);
+
+const safeString = new hbs.handlebars.SafeString("string");
+
+const instance1 = hbs.create();
+const instance2 = hbs.create();
+
+app.engine('html', instance1.__express);
+app.engine('hbs', instance2.__express);
