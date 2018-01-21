@@ -1,4 +1,4 @@
-// Type definitions for twit 2.2
+// Type definitions for twit 2.3
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
 //                 lostfictions <https://github.com/lostfictions>
