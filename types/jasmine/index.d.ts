@@ -724,7 +724,7 @@ declare module "jasmine" {
         loadConfigFile(configFilePath: any): void;
         loadHelpers(): void;
         loadSpecs(): void;
-        onComplete(onCompleteCallback: () => void): void;
+        onComplete(onCompleteCallback: (passed: boolean) => void): void;
         provideFallbackReporter(reporter: jasmine.Reporter): void;
         randomizeTests(value?: any): boolean;
         seed(value: any): void;
