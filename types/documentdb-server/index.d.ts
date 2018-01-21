@@ -490,6 +490,10 @@ interface IRequest {
 	 */
     getBody(): Object;
     getBody<T>(): T;
+    /**
+     * Gets the OperationType for the request with a pre-trigger or post-trigger.
+     */
+    getOperationType(): OperationType;
 	/**
 	 * Gets a specified request header value.
 	 * @param key the name of the header to retrieve
@@ -605,6 +609,13 @@ interface IErrorCodes {
     // Server error
     /** (500) Server encountered an unexpected error in processing the request **/
     InternalServerError: number;
+}
+
+declare const enum OperationType {
+    Create = "Create",
+    Replace = "Replace",
+    Upsert = "Upsert",
+    Delete = "Delete"
 }
 
 declare function getContext(): IContext;
