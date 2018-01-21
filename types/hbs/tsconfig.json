@@ -1,16 +1,12 @@
 {
-    "files": [
-        "index.d.ts",
-        "hbs-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,5 +15,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "hbs-tests.ts"
+    ]
 }
