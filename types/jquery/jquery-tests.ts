@@ -269,6 +269,11 @@ function JQueryStatic() {
         });
     }
 
+    function camelCase() {
+        // $ExpectType string
+        $.camelCase('foo-bar');
+    }
+
     function contains() {
         // $ExpectType boolean
         $.contains(new HTMLElement(), new HTMLElement());

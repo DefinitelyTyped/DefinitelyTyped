@@ -220,6 +220,10 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     ajaxTransport(dataType: string,
                   handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
     /**
+     * @deprecated 3.3
+     */
+    camelCase(value: string): string;
+    /**
      * Check to see if a DOM element is a descendant of another DOM element.
      *
      * @param container The DOM element that may contain the other element.
@@ -600,6 +604,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param obj Object to test whether or not it is a function.
      * @see {@link https://api.jquery.com/jQuery.isFunction/}
      * @since 1.2
+     * @deprecated 3.3
      */
     isFunction(obj: any): obj is Function;
     /**
@@ -608,6 +613,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param value The value to be tested.
      * @see {@link https://api.jquery.com/jQuery.isNumeric/}
      * @since 1.7
+     * @deprecated 3.3
      */
     isNumeric(value: any): value is number;
     /**
@@ -624,6 +630,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param obj Object to test whether or not it is a window.
      * @see {@link https://api.jquery.com/jQuery.isWindow/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     isWindow(obj: any): obj is Window;
     /**
@@ -694,6 +701,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      *
      * @see {@link https://api.jquery.com/jQuery.now/}
      * @since 1.4.3
+     * @deprecated 3.3 Use Date.now().
      */
     now(): number;
     /**
@@ -814,6 +822,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
@@ -826,6 +835,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
@@ -838,6 +848,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
@@ -850,6 +861,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
@@ -862,6 +874,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
@@ -874,6 +887,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B>(fn: (a: A, b: B) => TReturn,
@@ -887,6 +901,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4`
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A>(fn: (a: A) => TReturn,
@@ -899,6 +914,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn>(fn: () => TReturn,
                    context: null | undefined): () => TReturn;
@@ -914,6 +930,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -928,6 +945,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -942,6 +960,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -956,6 +975,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -970,6 +990,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C,
@@ -984,6 +1005,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B,
@@ -998,6 +1020,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A,
@@ -1012,6 +1035,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         T>(fn: (t: T) => TReturn,
@@ -1028,6 +1052,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1042,6 +1067,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1056,6 +1082,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1070,6 +1097,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1084,6 +1112,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C,
@@ -1098,6 +1127,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B,
@@ -1112,6 +1142,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A,
@@ -1126,6 +1157,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         T, U>(fn: (t: T, u: U) => TReturn,
@@ -1142,6 +1174,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1156,6 +1189,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1170,6 +1204,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1184,6 +1219,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1198,6 +1234,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C,
@@ -1212,6 +1249,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B,
@@ -1226,6 +1264,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A,
@@ -1240,6 +1279,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
@@ -1256,6 +1296,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1270,6 +1311,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1284,6 +1326,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1298,6 +1341,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1312,6 +1356,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C,
@@ -1326,6 +1371,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B,
@@ -1340,6 +1386,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A,
@@ -1354,6 +1401,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
@@ -1370,6 +1418,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1384,6 +1433,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1398,6 +1448,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1412,6 +1463,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1426,6 +1478,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C,
@@ -1440,6 +1493,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B,
@@ -1454,6 +1508,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A,
@@ -1468,6 +1523,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
@@ -1484,6 +1540,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1498,6 +1555,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1512,6 +1570,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1526,6 +1585,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1540,6 +1600,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C,
@@ -1554,6 +1615,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B,
@@ -1568,6 +1630,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A,
@@ -1582,6 +1645,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
@@ -1598,6 +1662,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1612,6 +1677,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1626,6 +1692,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1640,6 +1707,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1654,6 +1722,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B, C,
@@ -1668,6 +1737,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A, B,
@@ -1682,6 +1752,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         A,
@@ -1696,6 +1767,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn,
         T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
@@ -1715,6 +1787,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.9
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TReturn>(fn: (...args: any[]) => TReturn,
                    context: null | undefined,
@@ -1738,6 +1811,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1752,6 +1826,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1766,6 +1841,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1780,6 +1856,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1794,6 +1871,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1808,6 +1886,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1822,6 +1901,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4`
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1836,6 +1916,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn>(fn: () => TReturn,
@@ -1853,6 +1934,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1869,6 +1951,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1885,6 +1968,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1901,6 +1985,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1917,6 +2002,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1933,6 +2019,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1949,6 +2036,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1965,6 +2053,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1983,6 +2072,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1999,6 +2089,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2015,6 +2106,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2031,6 +2123,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2047,6 +2140,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2063,6 +2157,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2079,6 +2174,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2095,6 +2191,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2113,6 +2210,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2129,6 +2227,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2145,6 +2244,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2161,6 +2261,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2177,6 +2278,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2193,6 +2295,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2209,6 +2312,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2225,6 +2329,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2243,6 +2348,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2259,6 +2365,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2275,6 +2382,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2291,6 +2399,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2307,6 +2416,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2323,6 +2433,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2339,6 +2450,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2355,6 +2467,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2373,6 +2486,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2389,6 +2503,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2405,6 +2520,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2421,6 +2537,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2437,6 +2554,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2453,6 +2571,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2469,6 +2588,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2485,6 +2605,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2503,6 +2624,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2519,6 +2641,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2535,6 +2658,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2551,6 +2675,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2567,6 +2692,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2583,6 +2709,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2599,6 +2726,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2615,6 +2743,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2633,6 +2762,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2649,6 +2779,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2665,6 +2796,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2681,6 +2813,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2697,6 +2830,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2713,6 +2847,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2729,6 +2864,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2745,6 +2881,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2766,6 +2903,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object,
         TReturn>(fn: (...args: any[]) => TReturn,
@@ -2787,6 +2925,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.proxy/}
      * @since 1.4
      * @since 1.6
+     * @deprecated 3.3 Use Function#bind.
      */
     proxy<TContext extends object>(context: TContext,
                                    name: keyof TContext,
@@ -2870,6 +3009,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see {@link https://api.jquery.com/jQuery.type/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     type(obj: any): 'array' | 'boolean' | 'date' | 'error' | 'function' | 'null' | 'number' | 'object' | 'regexp' | 'string' | 'symbol' | 'undefined';
     /**
@@ -3257,6 +3397,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/blur/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     blur<TData>(eventData: TData,
                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3266,6 +3407,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/blur/}
      * @since 1.0
+     * @deprecated 3.3
      */
     blur(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3275,6 +3417,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/change/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     change<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3284,6 +3427,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/change/}
      * @since 1.0
+     * @deprecated 3.3
      */
     change(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3309,6 +3453,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/click/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     click<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3318,6 +3463,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/click/}
      * @since 1.0
+     * @deprecated 3.3
      */
     click(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3369,6 +3515,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/contextmenu/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     contextmenu<TData>(eventData: TData,
                        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3378,6 +3525,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/contextmenu/}
      * @since 1.0
+     * @deprecated 3.3
      */
     contextmenu(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3468,6 +3616,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/dblclick/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     dblclick<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3477,6 +3626,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/dblclick/}
      * @since 1.0
+     * @deprecated 3.3
      */
     dblclick(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3755,6 +3905,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focus/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     focus<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3764,6 +3915,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focus/}
      * @since 1.0
+     * @deprecated 3.3
      */
     focus(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3773,6 +3925,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusin/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     focusin<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3782,6 +3935,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusin/}
      * @since 1.4
+     * @deprecated 3.3
      */
     focusin(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3791,6 +3945,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusout/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     focusout<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3800,6 +3955,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusout/}
      * @since 1.4
+     * @deprecated 3.3
      */
     focusout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4006,6 +4162,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keydown/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     keydown<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4015,6 +4172,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keydown/}
      * @since 1.0
+     * @deprecated 3.3
      */
     keydown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4024,6 +4182,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keypress/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     keypress<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4033,6 +4192,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keypress/}
      * @since 1.0
+     * @deprecated 3.3
      */
     keypress(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4042,6 +4202,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keyup/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     keyup<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4051,6 +4212,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keyup/}
      * @since 1.0
+     * @deprecated 3.3
      */
     keyup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4099,6 +4261,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mousedown/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     mousedown<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4108,6 +4271,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mousedown/}
      * @since 1.0
+     * @deprecated 3.3
      */
     mousedown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4117,6 +4281,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseenter/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     mouseenter<TData>(eventData: TData,
                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4126,6 +4291,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseenter/}
      * @since 1.0
+     * @deprecated 3.3
      */
     mouseenter(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4135,6 +4301,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseleave/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     mouseleave<TData>(eventData: TData,
                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4144,6 +4311,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseleave/}
      * @since 1.0
+     * @deprecated 3.3
      */
     mouseleave(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4153,6 +4321,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mousemove/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     mousemove<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4162,6 +4331,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mousemove/}
      * @since 1.0
+     * @deprecated 3.3
      */
     mousemove(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4171,6 +4341,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseout/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     mouseout<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4180,6 +4351,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseout/}
      * @since 1.0
+     * @deprecated 3.3
      */
     mouseout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4189,6 +4361,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseover/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     mouseover<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4198,6 +4371,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseover/}
      * @since 1.0
+     * @deprecated 3.3
      */
     mouseover(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4207,6 +4381,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseup/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     mouseup<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4216,6 +4391,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/mouseup/}
      * @since 1.0
+     * @deprecated 3.3
      */
     mouseup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4843,6 +5019,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/resize/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     resize<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4852,6 +5029,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/resize/}
      * @since 1.0
+     * @deprecated 3.3
      */
     resize(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4861,6 +5039,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/scroll/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     scroll<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4870,6 +5049,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/scroll/}
      * @since 1.0
+     * @deprecated 3.3
      */
     scroll(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4910,6 +5090,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/select/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     select<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4919,6 +5100,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/select/}
      * @since 1.0
+     * @deprecated 3.3
      */
     select(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -5110,6 +5292,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/submit/}
      * @since 1.4.3
+     * @deprecated 3.3
      */
     submit<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -5119,6 +5302,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/submit/}
      * @since 1.0
+     * @deprecated 3.3
      */
     submit(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
