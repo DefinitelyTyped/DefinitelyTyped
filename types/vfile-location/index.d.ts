@@ -6,7 +6,7 @@
 
 import * as VFile from "vfile";
 
-declare function vfileLocation(vfile: VFile.VFile<{}>): vfileLocation.Location;
+declare function vfileLocation(vfile: string | VFile.VFile<{}>): vfileLocation.Location;
 
 declare namespace vfileLocation {
     interface Location {
