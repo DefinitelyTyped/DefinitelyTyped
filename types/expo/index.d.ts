@@ -94,6 +94,31 @@ export namespace Amplitude {
     ): void;
 }
 
+// #region AppLoading
+/** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
+export type AppLoadingProps = {
+    /** A `function` that returns a `Promise`. The `Promise` should resolve when the app is done loading data and assets. */
+    startAsync: () => Promise<void>;
+
+    /** Required if you provide `startAsync`. Called when `startAsync` resolves or rejects. This should be used to set state and unmount the `AppLoading` component. */
+    onFinish: () => void;
+
+    /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
+    onError?: (error: Error) => void;
+} | {
+        startAsync: null;
+        onFinish: null;
+        onError?: null;
+    };
+
+/**
+ * A React component that tells Expo to keep the app loading screen open if it is the first and only component rendered in your app. When it is removed, the loading screen will disappear and your app will be visible.
+ *
+ * This is incredibly useful to let you download and cache fonts, logo and icon images and other assets that you want to be sure the user has on their device for an optimal experience before rendering they start using the app.
+ */
+export class AppLoading extends Component<AppLoadingProps> { }
+// #endregion AppLoading
+
 /**
  * Provides basic sample playback and recording.
  *
@@ -591,31 +616,6 @@ export class PlaybackObject {
     unloadAsync(): Promise<PlaybackStatus>;
 }
 // #endregion
-
-// #region AppLoading
-/** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
-export type AppLoadingProps = {
-    /** A `function` that returns a `Promise`. The `Promise` should resolve when the app is done loading data and assets. */
-    startAsync: () => Promise<void>;
-
-    /** Required if you provide `startAsync`. Called when `startAsync` resolves or rejects. This should be used to set state and unmount the `AppLoading` component. */
-    onFinish: () => void;
-
-    /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
-    onError?: (error: Error) => void;
-} | {
-        startAsync: null;
-        onFinish: null;
-        onError?: null;
-    };
-
-/**
- * A React component that tells Expo to keep the app loading screen open if it is the first and only component rendered in your app. When it is removed, the loading screen will disappear and your app will be visible.
- *
- * This is incredibly useful to let you download and cache fonts, logo and icon images and other assets that you want to be sure the user has on their device for an optimal experience before rendering they start using the app.
- */
-export class AppLoading extends Component<AppLoadingProps> { }
-// #endregion AppLoading
 
 // #region BarCodeScanner
 /**
