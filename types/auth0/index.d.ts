@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.6
+// Type definitions for auth0 2.7
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -99,7 +99,6 @@ export interface Rule {
   order?: number;
 }
 
-
 export interface Client {
   /**
    * The name of the client.
@@ -178,6 +177,10 @@ export interface Client {
 }
 
 export interface ResourceServer {
+  /**
+   * The identifier of the resource server.
+   */
+  identifier?: string;
   scopes?: { description: string, value: string }[];
   /**
    * The algorithm used to sign tokens.
@@ -217,7 +220,7 @@ export interface CreateResourceServer extends ResourceServer {
   /**
    * The identifier of the client.
    */
-  identifier?: string;
+  identifier: string;
 }
 
 export interface CreateClientGrant {
@@ -251,6 +254,66 @@ export interface CreateClientGrant {
    */
   audience: string;
   scope: string[];
+}
+
+export type Strategy = 
+  'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' | 'auth0-oidc' |
+  'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'daccount' | 'dwolla' | 'email' |
+  'evernote-sandbox' | 'evernote' | 'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' |
+  'google-apps' | 'google-oauth2' | 'guardian' | 'instagram' | 'ip' | 'linkedin' | 'miicard' |
+  'oauth1' | 'oauth2' | 'office365' | 'paypal' | 'paypal-sandbox' | 'pingfederate' |
+  'planningcenter' | 'renren' | 'salesforce-community' | 'salesforce-sandbox' | 'salesforce' |
+  'samlp' | 'sharepoint' | 'shopify' | 'sms' | 'soundcloud' | 'thecity-sandbox' | 'thecity' |
+  'thirtysevensignals' | 'twitter' | 'untappd' | 'vkontakte' | 'waad' | 'weibo' | 'windowslive' |
+  'wordpress' | 'yahoo' | 'yammer' | 'yandex';
+
+export interface UpdateConnection {
+  options?: any;
+  /**
+   * The identifiers of the clients for which the connection is to
+   * be enabled. If the array is empty or the property is not
+   * specified, no clients are enabled.
+   */
+  enabled_clients?: string[];
+  /**
+   * Defines the realms for which the connection will be used
+   * (ie: email domains). If the array is empty or the property is
+   * not specified, the connection name will be added as realm.
+   */
+  realms?: string[];
+  metadata?: any;
+  /**
+ * True if the connection is domain level.
+ */
+  is_domain_connection?: boolean;
+}
+
+export interface Connection extends UpdateConnection {
+  /**
+   * The connection's identifier.
+   */
+  id?: string;
+  /**
+   * The name of the connection.
+   */
+  name?: string;
+  /**
+   * The type of the connection, related to the identity provider.
+   */
+  strategy?: Strategy;
+}
+
+export interface CreateConnection extends UpdateConnection {
+  /**
+   * The name of the connection. Must start and end with an
+   * alphanumeric character and can only contain alphanumeric
+   * characters and '-'. Max length 128.
+   */
+  name: string;
+  /**
+   * The identity provider identifier for the connection.
+   */
+  strategy: Strategy;
 }
 
 export interface User {
@@ -484,23 +547,20 @@ export class ManagementClient {
   getClientInfo(): ClientInfo;
 
   // Connections
-  getConnections(): Promise<User>;
-  getConnections(cb: (err: Error, data: any) => void): void;
+  getConnections(): Promise<Connection[]>;
+  getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 
-  createConnection(data: ObjectWithId): Promise<User>;
-  createConnection(data: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  createConnection(data: CreateConnection): Promise<Connection>;
+  createConnection(data: CreateConnection, cb: (err: Error, connection: Connection) => void): void;
 
-  getConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  getConnection(params: ObjectWithId): Promise<User>;
+  getConnection(params: ObjectWithId, cb: (err: Error, connection: Connection) => void): void;
+  getConnection(params: ObjectWithId): Promise<Connection>;
 
-  deleteConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  deleteConnection(params: ObjectWithId): Promise<User>;
+  deleteConnection(params: ObjectWithId, cb: (err: Error) => void): void;
+  deleteConnection(params: ObjectWithId): Promise<void>;
 
-  deleteConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  deleteConnection(params: ObjectWithId): Promise<User>;
-
-  updateConnection(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
-  updateConnection(params: ObjectWithId, data: Data): Promise<User>;
+  updateConnection(params: ObjectWithId, data: UpdateConnection, cb: (err: Error, connection: Connection) => void): void;
+  updateConnection(params: ObjectWithId, data: UpdateConnection): Promise<Connection>;
 
 
   // Clients

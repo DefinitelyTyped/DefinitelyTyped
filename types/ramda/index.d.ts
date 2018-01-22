@@ -14,6 +14,7 @@
 //                 Rayner Pupo <https://github.com/raynerd>
 //                 Miika Hänninen <https://github.com/googol>
 //                 Nikita Moshensky <https://github.com/moshensky>
+//                 Ethan Resnick <https://github.com/ethanresnick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -149,9 +150,9 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
-    interface Reduced {
-        [index: number]: any;
-        [index: string]: any;
+    interface Reduced<T> {
+        '@@transducer/value': T;
+        '@@transducer/reduced': true;
     }
 
     interface Static {
@@ -1213,6 +1214,15 @@ declare namespace R {
          * When applied, `g` returns the result of applying `f` to the arguments
          * provided initially followed by the arguments provided to `g`.
          */
+        partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+
+        partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+        partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
+
+        partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1, V2]): (x2: V3) => T;
+        partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1]): (x2: V2, x3: V3) => T;
+        partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
+
         partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
@@ -1220,6 +1230,15 @@ declare namespace R {
          * When applied, `g` returns the result of applying `f` to the arguments
          * provided to `g` followed by the arguments provided initially.
          */
+        partialRight<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V1]): (x1: V0) => T;
+
+        partialRight<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V1, V2]): (x2: V0) => T;
+        partialRight<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V2]): (x1: V0, x2: V1) => T;
+
+        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V1, V2, V3]): (x0: V0) => T;
+        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V2, V3]): (x0: V0, x1: V1) => T;
+        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V3]): (x0: V0, x1: V1, x2: V2) => T;
+
         partialRight<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
@@ -1234,8 +1253,8 @@ declare namespace R {
         /**
          * Retrieve the value at a given path.
          */
-        path<T>(path: Path, obj: any): T;
-        path<T>(path: Path): (obj: any) => T;
+        path<T>(path: Path, obj: any): T | undefined;
+        path<T>(path: Path): (obj: any) => T | undefined;
 
         /**
          * Determines whether a nested path on an object has a specific value,
@@ -1468,14 +1487,12 @@ declare namespace R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
-        // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
-        // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
-        propEq<T>(name: string, val: T, obj: any): boolean;
-        // propEq<T>(name: number, val: T, obj: any): boolean;
-        propEq<T>(name: string, val: T): (obj: any) => boolean;
-        // propEq<T>(name: number, val: T): (obj: any) => boolean;
-        propEq(name: string): <T>(val: T, obj: any) => boolean;
-        // propEq(name: number): <T>(val: T, obj: any) => boolean;
+        propEq<T>(name: string | number, val: T, obj: any): boolean;
+        propEq<T>(name: string | number, val: T): (obj: any) => boolean;
+        propEq(name: string | number): {
+            <T>(val: T, obj: any): boolean;
+            <T>(val: T): (obj: any) => boolean;
+        };
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
@@ -1523,9 +1540,9 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
@@ -1541,7 +1558,7 @@ declare namespace R {
          * transduce functions. The returned value should be considered a black box: the internal
          * structure is not guaranteed to be stable.
          */
-        reduced<T>(elem: T): Reduced;
+        reduced<T>(elem: T): Reduced<T>;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator

@@ -258,6 +258,7 @@ declare module 'twit' {
       lat?: number,
       long?: number,
       follow?: boolean,
+      include_email?: boolean,
     }
     export interface PromiseResponse {
       data: Response,

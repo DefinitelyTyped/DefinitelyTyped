@@ -1,4 +1,4 @@
-// Type definitions for actions-on-google 1.6
+// Type definitions for actions-on-google 1.7
 // Project: https://github.com/actions-on-google/actions-on-google-nodejs
 // Definitions by: Joel Hegg <https://github.com/joelhegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

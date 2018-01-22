@@ -4,6 +4,7 @@
 //                 Horiuchi_H <https://github.com/horiuchi>
 //                 afharo <https://github.com/afharo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Garanzha Dmitriy <https://github.com/damour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -34,7 +35,7 @@ declare namespace nock {
 
     export var back: NockBack;
 
-    type HttpHeaders = { [key: string]: string | { (req: any, res: any, body: string): any; }; };
+    type HttpHeaders = { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; };
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
         requestBody?: string | RegExp | { (body: any): boolean; } | any,

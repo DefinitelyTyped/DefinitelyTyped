@@ -120,7 +120,7 @@ var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
             dynamodb: {
                 Keys: {
                     Id: {
-                        N: 101
+                        N: '101'
                     }
                 },
                 NewImage: {
@@ -128,7 +128,7 @@ var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
                         S: 'New item!'
                     },
                     Id: {
-                        N: 101
+                        N: '101'
                     }
                 },
                 StreamViewType: 'NEW_AND_OLD_IMAGES',
@@ -150,13 +150,13 @@ var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
                         S: 'New item!'
                     },
                     Id: {
-                        N: 101
+                        N: '101'
                     }
                 },
                 SequenceNumber: '222',
                 Keys: {
                     Id: {
-                        N: 101
+                        N: '101'
                     }
                 },
                 SizeBytes: 59,
@@ -165,7 +165,7 @@ var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
                         S: 'This item has changed'
                     },
                     Id: {
-                        N: 101
+                        N: '101'
                     }
                 },
                 StreamViewType: 'NEW_AND_OLD_IMAGES'
@@ -182,7 +182,7 @@ var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
             dynamodb: {
                 Keys: {
                     Id: {
-                        N: 101
+                        N: '101'
                     }
                 },
                 SizeBytes: 38,
@@ -192,7 +192,7 @@ var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
                         S: 'This item has changed'
                     },
                     Id: {
-                        N: 101
+                        N: '101'
                     }
                 },
                 StreamViewType: 'NEW_AND_OLD_IMAGES'

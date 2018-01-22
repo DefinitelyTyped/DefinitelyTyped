@@ -22,10 +22,10 @@ class BraftEditorTest extends React.Component<BraftEditor.editorProps> {
             </div>
           );
     }
-    private handleChange = (content: RawDraftContentState) => {
+    private readonly handleChange = (content: RawDraftContentState) => {
         console.log(content);
     }
-    private handleHTMLChange = (html: string) => {
+    private readonly handleHTMLChange = (html: string) => {
         console.log(html);
     }
 }

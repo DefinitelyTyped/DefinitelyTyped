@@ -5,3 +5,5 @@ export interface SubmissionErrorConstructor<T> {
 }
 
 export const SubmissionError: SubmissionErrorConstructor<any>;
+
+export default SubmissionError;

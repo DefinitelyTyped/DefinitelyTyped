@@ -7,6 +7,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "Ably Realtime and Rest client library",
+            "typingsPackageName": "ably",
+            "sourceRepoURL": "https://www.ably.io/",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "ag-grid",
             "typingsPackageName": "ag-grid",
             "sourceRepoURL": "https://github.com/ceolter/ag-grid",
@@ -77,6 +83,12 @@
             "typingsPackageName": "askmethat-rating",
             "sourceRepoURL": "https://github.com/AlexTeixeira/Askmethat-Rating",
             "asOfVersion": "0.4.0"
+        },
+        {
+            "libraryName": "assertion-error",
+            "typingsPackageName": "assertion-error",
+            "sourceRepoURL": "https://github.com/chaijs/assertion-error",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "asyncblock",
@@ -229,12 +241,6 @@
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "core-decorators.js",
-            "typingsPackageName": "core-decorators",
-            "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
-            "asOfVersion": "0.20.0"
-        },
-        {
             "libraryName": "cordova-plugin-battery-status",
             "typingsPackageName": "cordova-plugin-battery-status",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-battery-status",
@@ -343,6 +349,12 @@
             "asOfVersion": "3.7.0"
         },
         {
+            "libraryName": "core-decorators.js",
+            "typingsPackageName": "core-decorators",
+            "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
+            "asOfVersion": "0.20.0"
+        },
+        {
             "libraryName": "cypress",
             "typingsPackageName": "cypress",
             "sourceRepoURL": "https://cypress.io",
@@ -391,12 +403,6 @@
             "asOfVersion": "1.1.0"
         },
         {
-            "libraryName": "EasyStar.js",
-            "typingsPackageName": "easystarjs",
-            "sourceRepoURL": "http://easystarjs.com/",
-            "asOfVersion": "0.3.1"
-        },
-        {
             "libraryName": "easy-x-headers",
             "typingsPackageName": "easy-x-headers",
             "sourceRepoURL": "https://github.com/DeadAlready/easy-x-headers",
@@ -407,6 +413,12 @@
             "typingsPackageName": "easy-xapi-supertest",
             "sourceRepoURL": "https://github.com/DeadAlready/easy-xapi-supertest",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "EasyStar.js",
+            "typingsPackageName": "easystarjs",
+            "sourceRepoURL": "http://easystarjs.com/",
+            "asOfVersion": "0.3.1"
         },
         {
             "libraryName": "ecmarkup",
@@ -473,6 +485,12 @@
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "expr-eval",
+            "typingsPackageName": "expr-eval",
+            "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "express-validator",
@@ -577,6 +595,12 @@
             "asOfVersion": "4.2.0"
         },
         {
+            "libraryName": "gulp-typedoc",
+            "typingsPackageName": "gulp-typedoc",
+            "sourceRepoURL": "https://github.com/rogierschouten/gulp-typedoc",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "gulp-typescript",
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
@@ -589,22 +613,28 @@
             "asOfVersion": "0.35.0"
         },
         {
-            "libraryName": "http-status-codes",
-            "typingsPackageName": "http-status-codes",
-            "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
-            "asOfVersion": "1.2.0"
-        },
-        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
             "asOfVersion": "1.0.19"
         },
         {
+            "libraryName": "http-status-codes",
+            "typingsPackageName": "http-status-codes",
+            "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "iconv-lite",
             "typingsPackageName": "iconv-lite",
             "sourceRepoURL": "https://github.com/ashtuchkin/iconv-lite",
             "asOfVersion": "0.4.14"
+        },
+        {
+            "libraryName": "immutability-helper",
+            "typingsPackageName": "immutability-helper",
+            "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
+            "asOfVersion": "2.6.3"
         },
         {
             "libraryName": "Facebook's Immutable",
@@ -787,6 +817,12 @@
             "asOfVersion": "2.2.33"
         },
         {
+            "libraryName": "Linq4JS",
+            "typingsPackageName": "linq4js",
+            "sourceRepoURL": "https://github.com/morrisjdev/Linq4JS",
+            "asOfVersion": "2.1.8"
+        },
+        {
             "libraryName": "LinqSharp",
             "typingsPackageName": "linqsharp",
             "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
@@ -797,6 +833,12 @@
             "typingsPackageName": "localforage",
             "sourceRepoURL": "https://github.com/localForage/localForage",
             "asOfVersion": "0.0.34"
+        },
+        {
+            "libraryName": "localforage-cordovasqlitedriver",
+            "typingsPackageName": "localforage-cordovasqlitedriver",
+            "sourceRepoURL": "https://github.com/thgreasi/localForage-cordovaSQLiteDriver",
+            "asOfVersion": "1.5.0"
         },
         {
             "libraryName": "lodash-decorators",
@@ -893,6 +935,18 @@
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
             "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "node-pg-migrate",
+            "typingsPackageName": "node-pg-migrate",
+            "sourceRepoURL": "https://github.com/theoephraim/node-pg-migrate#readme",
+            "asOfVersion": "2.15.0"
+        },
+        {
+            "libraryName": "node-waves",
+            "typingsPackageName": "node-waves",
+            "sourceRepoURL": "http://fian.my.id/Waves",
+            "asOfVersion": "0.7.6"
         },
         {
             "libraryName": "Normalizr",
@@ -1175,6 +1229,12 @@
             "typingsPackageName": "rest-io",
             "sourceRepoURL": "https://github.com/EnoF/rest-io",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "rollup",
+            "typingsPackageName": "rollup",
+            "sourceRepoURL": "https://github.com/rollup/rollup",
+            "asOfVersion": "0.54.0"
         },
         {
             "libraryName": "route-recognizer",
@@ -1465,6 +1525,12 @@
             "asOfVersion": "2.11.0"
         },
         {
+            "libraryName": "Webix UI",
+            "typingsPackageName": "webix",
+            "sourceRepoURL": "http://webix.com",
+            "asOfVersion": "5.1.1"
+        },
+        {
             "libraryName": "wolfy87-eventemitter",
             "typingsPackageName": "wolfy87-eventemitter",
             "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
@@ -1495,6 +1561,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "xhr-mock",
+            "typingsPackageName": "xhr-mock",
+            "sourceRepoURL": "https://github.com/jameslnewell/xhr-mock#readme",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "xlsx",
             "typingsPackageName": "xlsx",
             "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
@@ -1511,6 +1583,12 @@
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "xterm.js",
+            "typingsPackageName": "xterm",
+            "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "zetapush-js",

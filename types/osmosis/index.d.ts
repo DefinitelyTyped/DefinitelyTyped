@@ -1,9 +1,10 @@
-// Type definitions for osmosis 1.0
+// Type definitions for osmosis 1.1
 // Project: https://github.com/rchipka/node-osmosis
 // Definitions by: Juraj Kočan <https://github.com/jurajkocan>
+//                 Evan Shortiss <https://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Osmosis {
+interface Osmosis {
     /**
      * define domain where osmosis is parsing data from
      */
@@ -54,7 +55,9 @@ export interface Osmosis {
      * passing string to your function
      * result data, osmosis finished
      */
-    data(callback: (param: string) => any): Osmosis;
-}
+    data(callback: (param: any) => any): Osmosis;
+  }
 
-export const osmosis: Osmosis;
+  declare const osmosis: Osmosis;
+
+  export = osmosis;

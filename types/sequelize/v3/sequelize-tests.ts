@@ -930,6 +930,7 @@ User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );
+User.count( { col: 'title', distinct: true, where : { access_level : { gt : 5 } } } );
 
 User.findAndCountAll( { offset : 5, limit : 1, include : [User, { model : User, as : 'a' }] } );
 

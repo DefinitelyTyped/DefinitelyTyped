@@ -33,7 +33,7 @@ const SortableList = ReactSortableHOC.SortableContainer((props: SortableListProp
 });
 
 class SortableComponent extends React.Component<{}, SortableComponentState> {
-    private _onSortEnd: ReactSortableHOC.SortEndHandler;
+    private readonly _onSortEnd: ReactSortableHOC.SortEndHandler;
 
     private _handleSortEnd(sort: ReactSortableHOC.SortEnd, event: ReactSortableHOC.SortEvent): void {
         this.setState({items: ReactSortableHOC.arrayMove(this.state.items, sort.oldIndex, sort.newIndex)});
