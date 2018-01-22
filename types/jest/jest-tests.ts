@@ -10,6 +10,10 @@ declare const $: any;
 // Tests based on the Jest website
 jest.unmock('../sum');
 
+class TestClass { }
+
+describe(TestClass, () => { });
+
 describe('sum', () => {
     it('adds 1 + 2 to equal 3', () => {
         const sum: (a: number, b: number) => number = require('../sum');

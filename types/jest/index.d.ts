@@ -220,7 +220,7 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: string, fn: EmptyFunction): void;
+        (name: string | Function, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
