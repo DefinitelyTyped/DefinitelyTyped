@@ -417,9 +417,10 @@ export namespace Audio {
  * AuthSession
  */
 export namespace AuthSession {
-    function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<{
-        type: 'cancel';
-    } | {
+    function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<
+        {
+            type: 'cancel';
+        } | {
             type: 'dismissed';
         } | {
             type: 'success';
@@ -439,13 +440,14 @@ export namespace AuthSession {
 /**
  * AV
  */
-export type PlaybackStatus = {
-    isLoaded: false;
-    androidImplementation?: string;
+export type PlaybackStatus =
+    {
+        isLoaded: false;
+        androidImplementation?: string;
 
-    /** Populated exactly once when an error forces the object to unload. */
-    error?: string;
-} | {
+        /** Populated exactly once when an error forces the object to unload. */
+        error?: string;
+    } | {
         isLoaded: true;
         androidImplementation?: string;
         uri: string;
