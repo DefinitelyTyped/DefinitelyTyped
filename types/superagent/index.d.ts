@@ -17,7 +17,11 @@ type CallbackHandler = (err: any, res: request.Response) => void;
 
 type Serializer = (obj: any) => string;
 
-type Parser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
+type BrowserParser = (str: string) => any;
+
+type NodeParser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
+
+type Parser = BrowserParser | NodeParser;
 
 type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
 
