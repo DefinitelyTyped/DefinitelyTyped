@@ -31,7 +31,7 @@ type URISource = ImageURISource;
 interface HashMap { [key: string]: any; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
-export namespace Accelerometer {
+declare namespace Accelerometer {
     interface AccelerometerObject {
         x: Axis;
         y: Axis;
