@@ -533,6 +533,8 @@ declare namespace jest {
         mockReturnThis(): Mock<T>;
         mockReturnValue(value: any): Mock<T>;
         mockReturnValueOnce(value: any): Mock<T>;
+        mockName(name: string): Mock<T>;
+        getMockName(): string;
     }
 
     interface MockContext<T> {

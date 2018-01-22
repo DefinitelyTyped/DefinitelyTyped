@@ -1,6 +1,8 @@
 import * as yup from 'yup';
+import { setLocale } from 'yup/lib/customLocale';
+
 // tslint:disable-next-line:no-duplicate-imports
-import { reach, date, Schema, ObjectSchema, ValidationError, MixedSchema, SchemaDescription, TestOptions, ValidateOptions } from 'yup';
+import { reach, date, Schema, ObjectSchema, ValidationError, MixedSchema, SchemaDescription, TestOptions, ValidateOptions, NumberSchema } from 'yup';
 
 // reach function
 let schema = yup.object().shape({
@@ -14,8 +16,11 @@ reach(schema, 'nested.arr.num');
 reach(schema, 'nested.arr[].num');
 
 // addMethod function
-yup.addMethod(yup.date(), 'format', function(this: Schema) {
-    return this.clone();
+yup.addMethod<NumberSchema>(yup.number, 'minimum', function(this, minValue: number, message: string) {
+    return this.min(minValue, message);
+});
+yup.addMethod(yup.date, 'newMethod', function(this: yup.DateSchema, date: Date, message?: string) {
+    return this.max(date, message);
 });
 
 // ref function
@@ -173,6 +178,8 @@ numSchema.min(5, 'message');
 numSchema.max(5, 'message');
 numSchema.positive();
 numSchema.negative();
+numSchema.lessThan(5);
+numSchema.moreThan(5);
 numSchema.integer();
 numSchema.truncate();
 numSchema.round('floor');
@@ -249,3 +256,8 @@ const validateOptions: ValidateOptions = {
         key: 'value'
     }
 };
+
+setLocale({
+    number: { max: "Max message", min: "Min message" },
+    string: { email: "String message"}
+});

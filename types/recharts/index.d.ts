@@ -684,6 +684,7 @@ export interface ResponsiveContainerProps {
     children: React.ReactNode;
     debounce?: number;
     id?: string | number;
+    className?: string | number;
 }
 
 export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }

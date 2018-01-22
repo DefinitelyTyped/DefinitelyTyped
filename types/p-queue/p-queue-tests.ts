@@ -21,7 +21,7 @@ num = queue.size;
 num = queue.pending;
 
 class QueueClass implements PQueue.QueueClass<{ any: string }> {
-    private queue: Array<() => void>;
+    private readonly queue: Array<() => void>;
 
     size = 0;
 

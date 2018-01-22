@@ -1,4 +1,4 @@
-// Type definitions for react-content-loader 1.7
+// Type definitions for react-content-loader 2.0
 // Project: https://github.com/danilowoz/react-content-loader
 // Definitions by: Alaa Masoud <https://github.com/alaatm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,19 +20,3 @@ export interface ContentLoaderProps {
     className?: string;
 }
 export default class ContentLoader extends React.Component<ContentLoaderProps> { }
-
-export interface CircleProps {
-    x: number;
-    y: number;
-    radius: number;
-}
-export class Circle extends React.Component<CircleProps> { }
-
-export interface RectProps {
-    x: number;
-    y: number;
-    radius: number;
-    width: number;
-    height: number;
-}
-export class Rect extends React.Component<RectProps> { }

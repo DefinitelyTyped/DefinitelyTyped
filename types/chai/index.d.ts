@@ -1,4 +1,4 @@
-// Type definitions for chai 4.0
+// Type definitions for chai 4.1
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -8,9 +8,8 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Shaun Luttin <https://github.com/shaunluttin>
 //                 Gintautas Miselis <https://github.com/Naktibalda>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// <reference types="assertion-error"/>
 
 declare namespace Chai {
     interface ChaiStatic {
@@ -1585,6 +1584,77 @@ declare namespace Chai {
          * @param message    Message to display on error.
          */
         doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that object has a direct or inherited property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        nestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         * The property cannot exist on the object nor anywhere in its prototype chain.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        notNestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        nestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with a value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        deepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notDeepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
     }
 
     export interface Config {

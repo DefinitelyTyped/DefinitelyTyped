@@ -656,6 +656,13 @@ export class StereoCamera extends Camera {
     update(camera: PerspectiveCamera): void;
 }
 
+export class ArrayCamera extends PerspectiveCamera {
+    constructor(cameras?: PerspectiveCamera[]);
+
+    cameras: PerspectiveCamera[];
+    isArrayCamera: true;
+}
+
 // Core ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -673,6 +680,7 @@ export class BufferAttribute {
     normalized: boolean;
     needsUpdate: boolean;
     count: number;
+	onUpload: Function;
 
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
@@ -3889,6 +3897,19 @@ export class Spherical {
     setFromVector3(vec3: Vector3): Spherical;
 }
 
+export class Cylindrical {
+    constructor(radius?: number, theta?: number, y?: number);
+
+    radius: number;
+    theta: number;
+    y: number;
+
+    clone(): this;
+    copy(other: this): this;
+    set(radius: number, theta: number, y: number): this;
+    setFromVector3(vec3: Vector3): this;
+}
+
 /**
  * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
  *
@@ -5119,6 +5140,8 @@ export class WebGLRenderer implements Renderer {
     renderLists: WebGLRenderLists;
     state: WebGLState;
     allocTextureUnit: any;
+
+    vr: WebVRManager;
 
     /**
      * Return the WebGL context.
@@ -6598,9 +6621,13 @@ export class ConeBufferGeometry extends BufferGeometry {
 export class ConeGeometry extends CylinderGeometry {
     constructor(radius?: number, height?: number, radialSegment?: number, heightSegment?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
 }
+	
+export class DodecahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
 
 export class DodecahedronGeometry extends Geometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 
     parameters: {
         radius: number;
@@ -6625,15 +6652,19 @@ export class ExtrudeGeometry extends Geometry {
     addShape(shape: Shape, options?: any): void;
 }
 
+export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
+
 export class IcosahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class LatheBufferGeometry extends BufferGeometry {
-    constructor(points: Vector3[], segments?: number, phiStart?: number, phiLength?: number);
+    constructor(points: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
 
     parameters: {
-        points: Vector3[];
+        points: Vector2[];
         segments: number;
         phiStart: number;
         phiLength: number;
@@ -6641,18 +6672,22 @@ export class LatheBufferGeometry extends BufferGeometry {
 }
 
 export class LatheGeometry extends Geometry {
-    constructor(points: Vector3[], segments?: number, phiStart?: number, phiLength?: number);
+    constructor(points: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
 
     parameters: {
-        points: Vector3[];
+        points: Vector2[];
         segments: number;
         phiStart: number;
         phiLength: number;
     };
 }
+	
+export class OctahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
 
 export class OctahedronGeometry extends PolyhedronGeometry {
-    constructor(radius: number, detail: number);
+    constructor(radius?: number, detail?: number);
 }
 
 export class ParametricGeometry extends Geometry {
@@ -6685,6 +6720,17 @@ export class PlaneGeometry extends Geometry {
         widthSegments: number;
         heightSegments: number;
     };
+}
+	
+export class PolyhedronBufferGeometry extends BufferGeometry {
+	constructor(vertices: number[], indices: number[], radius: number, detail: number);
+	
+	parameters: {
+		vertices: number[];
+		indices: number[];
+		radius: number;
+		detail: number;
+	}
 }
 
 export class PolyhedronGeometry extends Geometry {
@@ -6773,6 +6819,10 @@ export class SphereGeometry extends Geometry {
         thetaStart: number;
         thetaLength: number;
     };
+}
+	
+export class TetrahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
 }
 
 export class TetrahedronGeometry extends PolyhedronGeometry {
@@ -7062,4 +7112,14 @@ export class MorphBlendMesh extends Mesh {
     playAnimation(name: string): void;
     stopAnimation(name: string): void;
     update(delta: number): void;
+}
+
+export interface WebVRManager {
+    enabled: boolean;
+    getDevice(): VRDisplay | null;
+    setDevice(device: VRDisplay | null): void;
+    setPoseTarget(object: Object3D | null): void;
+    getCamera(camera: PerspectiveCamera): PerspectiveCamera | ArrayCamera;
+    submitFrame(): void;
+    dispose(): void;
 }

@@ -1,9 +1,10 @@
-// Type definitions for Knex.js
+// Type definitions for Knex.js 0.14
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Baronfel <https://github.com/baronfel>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,7 +17,7 @@ import Bluebird = require("bluebird");
 type Callback = Function;
 type Client = Function;
 type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
-type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
+type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string };
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
 interface Knex extends Knex.QueryInterface {
@@ -28,7 +29,7 @@ interface Knex extends Knex.QueryInterface {
     transaction<T>(transactionScope: (trx: Knex.Transaction) => Promise<T> | Bluebird<T> | void): Bluebird<T>;
     destroy(callback: Function): void;
     destroy(): Bluebird<void>;
-    batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
+    batchInsert(tableName: TableName, data: any[], chunkSize: number): Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
     queryBuilder(): Knex.QueryBuilder;
 
@@ -250,7 +251,7 @@ declare namespace Knex {
     }
 
     interface WithSchema {
-        (schema: string): QueryBuilder
+        (schema: string): QueryBuilder;
     }
 
     interface WithWrapped {
@@ -426,7 +427,7 @@ declare namespace Knex {
         time(columnName: string): ColumnBuilder;
         timestamp(columnName: string): ColumnBuilder;
         timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
-        binary(columnName: string): ColumnBuilder;
+        binary(columnName: string, length?: number): ColumnBuilder;
         enum(columnName: string, values: Value[]): ColumnBuilder;
         enu(columnName: string, values: Value[]): ColumnBuilder;
         json(columnName: string): ColumnBuilder;
@@ -523,7 +524,7 @@ declare namespace Knex {
         seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;
-        searchPath?: string;
+        searchPath?: string | string[];
     }
 
     interface ConnectionConfig {

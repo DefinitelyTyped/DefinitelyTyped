@@ -354,7 +354,7 @@ interface CreepMemory {
     const interShardData = JSON.parse(RawMemory.interShardSegment);
     if (interShardData.creeps[creep.name]) {
         creep.memory = interShardData[creep.name];
-        delete interShardData.creeps[creep.name];
+        delete interShardData.creeps[creep.name]; // tslint:disable-line no-dynamic-delete
     }
     RawMemory.interShardSegment = JSON.stringify(interShardData);
 
