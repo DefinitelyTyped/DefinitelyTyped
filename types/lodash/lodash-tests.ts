@@ -8098,7 +8098,7 @@ namespace TestCloneWith {
 
 // _.conforms
 namespace TestConforms {
-    let result: boolean = _.conforms({foo: (v: {}) => false})({foo: "foo"});
+    let result: boolean = _.conforms({foo: (v: string) => false})({foo: "foo"});
     let result2: boolean = _.conforms({})({foo: "foo"});
 }
 
