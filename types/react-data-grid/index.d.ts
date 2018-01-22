@@ -219,6 +219,22 @@ declare namespace AdazzleReactDataGrid {
          * @param columnKey the column key that we are looking to pull values from
          */
         getValidFilterValues?: (columnKey: string) => Array<any>
+
+        getCellActions?: (column: Column, row: object) => (ActionButton | ActionMenu)[]
+    }
+
+    type ActionButton = {
+        icon: string;
+        callback: Function;
+    }
+
+    type ActionMenu = {
+        icon: string;
+        actions: {
+            icon: string;
+            text: string;
+            callback: Function;
+        }[];
     }
 
     /**
