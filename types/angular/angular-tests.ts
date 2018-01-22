@@ -604,6 +604,10 @@ namespace TestPromise {
 
     assertPromiseType<boolean>(promise.then((result) => tresult, (any) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
 
+    // promise.then + $q.reject
+    assertPromiseType<number>(promise.then(result => Math.random() > 0.5 ? Math.random() : $q.reject()));
+    assertPromiseType<number>(promise.then(result => Math.random() > 0.5 ? Math.random() : $q.reject('a')));
+
     // promise.catch
     assertPromiseType<any>(promise.catch((err) => err));
     assertPromiseType<any>(promise.catch((err) => any));
@@ -1186,6 +1190,24 @@ function NgModelControllerTyping() {
             then(() => $q.reject('exists'), () => true);
     };
 }
+
+// FormController
+angular.module('app').directive('formDebugChecker', () => {
+    return {
+        require: '^^form',
+        link: (scope, el, attrs, ctrl) => {
+            const form = ctrl as angular.IFormController;
+            el.on('click', () => {
+                const report = [] as string[];
+                angular.forEach(form.$error, (controls, validationErrorKey) => {
+                    const names = controls.map(control => control.$name);
+                    report.push(`${validationErrorKey}: ${controls.length} control(s) (${names.join(', ')})`);
+                });
+                console.log(`This form has ${report.length} error(s).\n${report.join('\n')}`);
+            });
+        }
+    };
+});
 
 let $filter: angular.IFilterService;
 

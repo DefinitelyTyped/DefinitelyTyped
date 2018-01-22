@@ -357,9 +357,9 @@ declare namespace angular {
         $valid: boolean;
         $invalid: boolean;
         $submitted: boolean;
-        $error: any;
-        $name: string;
-        $pending: any;
+        $error: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
+        $name?: string;
+        $pending?: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
         $addControl(control: INgModelController | IFormController): void;
         $removeControl(control: INgModelController | IFormController): void;
         $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
@@ -398,8 +398,8 @@ declare namespace angular {
         $parsers: IModelParser[];
         $formatters: IModelFormatter[];
         $viewChangeListeners: IModelViewChangeListener[];
-        $error: any;
-        $name: string;
+        $error: { [validationErrorKey: string]: boolean };
+        $name?: string;
 
         $touched: boolean;
         $untouched: boolean;
@@ -407,7 +407,7 @@ declare namespace angular {
         $validators: IModelValidators;
         $asyncValidators: IAsyncModelValidators;
 
-        $pending: any;
+        $pending?: { [validationErrorKey: string]: boolean };
         $pristine: boolean;
         $dirty: boolean;
         $valid: boolean;
@@ -1106,7 +1106,7 @@ declare namespace angular {
          * The successCallBack may return IPromise<never> for when a $q.reject() needs to be returned
          * This method returns a new promise which is resolved or rejected via the return value of the successCallback, errorCallback. It also notifies via the return value of the notifyCallback method. The promise can not be resolved or rejected from the notifyCallback method.
          */
-        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (promiseValue: T) => IPromise<never> | IPromise<TResult> | TResult, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult>;
         then<TResult1, TResult2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2>;
 
         then<TResult, TCatch>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => IPromise<TCatch>|TCatch, notifyCallback?: (state: any) => any): IPromise<TResult | TCatch>;
