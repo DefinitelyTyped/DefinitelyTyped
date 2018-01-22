@@ -53,6 +53,7 @@ declare class Stripe {
      */
     recipients: Stripe.resources.Recipients;
     subscriptions: Stripe.resources.Subscriptions;
+    subscriptionItems: Stripe.resources.SubscriptionItems;
     tokens: Stripe.resources.Tokens;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
@@ -4282,7 +4283,9 @@ declare namespace Stripe {
             ended_at: number;
 
             metadata: IMetadata;
-
+            
+            items: IList<subscriptionItems.ISubscriptionItem>;
+            
             /**
              * Hash describing the plan the customer is subscribed to
              */
@@ -4323,6 +4326,13 @@ declare namespace Stripe {
              * If the subscription has a trial, the beginning of that trial.
              */
             trial_start: number;
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the 
+             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an 
+             * invoice with payment instructions.
+             */
+            billing: "charge_automatically" | "send_invoice";
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
@@ -4368,6 +4378,18 @@ declare namespace Stripe {
              * customer's trial immediately.
              */
             trial_end?: number;
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            items?: ISubscriptionCreationItem;
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * instructions. Defaults to "charge_automatically".
+             */
+            billing?: "charge_automatically" | "send_invoice";
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4432,6 +4454,13 @@ declare namespace Stripe {
              * customer's trial immediately.
              */
             trial_end?: number;
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * instructions.
+             */
+            billing?: "charge_automatically" | "send_invoice";
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -4443,7 +4472,7 @@ declare namespace Stripe {
 
         interface ISubscriptionListOptions extends IListOptionsCreated {
             /**
-             * The billing mode of the subscriptions to retrieve.
+             * The billing mode of the subscriptions to retrieve. Either "charge_automatically" or "send_invoice".
              */
             billing?: "charge_automatically" | "send_invoice";
 
@@ -4461,6 +4490,109 @@ declare namespace Stripe {
              * The status of the subscriptions to retrieve.
              */
             status?: SubscriptionStatus | "all";
+        }
+
+        interface ISubscriptionCreationItem {
+            /**
+             * Plan ID for this item.
+             */
+            plan: string;
+            
+            /**
+             * Quantity for this item.
+             */
+            quantity?: number
+        }
+    }
+
+    namespace subscriptionItems {
+        /**
+         * Subscription items allow you to create customer subscriptions with more than one plan, making it easy to represent
+         * complex billing relationships.
+         */
+        interface ISubscriptionItem extends IResourceObject {
+            /**
+             * Value is "subscription_item"
+             */
+            object: "subscription_item";
+
+            created: number;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information 
+             * about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * Hash describing the plan the customer is subscribed to
+             */
+            plan: plans.IPlan;
+
+            /**
+             * The quantity of the plan to which the customer should be subscribed.
+             */
+            quantity: number;
+        }
+
+        interface ISubscriptionItemCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * The identifier of the plan to add to the subscription.
+             */
+            plan: string;
+
+            /**
+             * The identifier of the subscription to modify.
+             */
+            subscription: string;
+
+            /**
+             * The quantity you’d like to apply to the subscription item you’re creating.
+             */
+            quantity?: number;
+        }
+
+        interface ISubscriptionItemUpdateOptions extends IDataOptionsWithMetadata {
+            /**
+             * The identifier of the new plan for this subscription item.
+             */
+            plan?: string;
+
+            /**
+             * Flag indicating whether to prorate switching plans during a billing cycle.
+             */
+            prorate?: boolean;
+
+            /**
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same
+             * proration that was previewed with the upcoming invoice endpoint.
+             */
+            proration_date?: number;
+
+            /**
+             * The quantity you’d like to apply to the subscription item you’re creating.
+             */
+            quantity?: number;
+        }
+
+        interface ISubscriptionItemDeleteOptions extends IDataOptions {
+            /**
+             * Flag indicating whether to prorate switching plans during a billing cycle.
+             */
+            prorate?: boolean;
+
+            /**
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same 
+             * proration that was previewed with the upcoming invoice endpoint.
+             */
+            proration_date?: number;
+        }
+
+        interface ISubscriptionItemListOptions extends IListOptionsCreated {
+            /**
+             * The ID of the subscription whose items will be retrieved.
+             */
+            subscription: string;
         }
     }
 
@@ -5781,6 +5913,61 @@ declare namespace Stripe {
              */
             create(data: subscriptions.ISubscriptionCustCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             create(data: subscriptions.ISubscriptionCustCreationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+        }
+
+        class SubscriptionItems extends StripeResource {
+            /**
+             * Adds a new item to an existing subscription. No existing items will be changed or replaced.
+             *
+             * @returns The created subscription item object is returned if successful. Otherwise, this call throws an error.
+             *
+             * @param options The options for the new subscription item.
+             */
+            create(data: subscriptionItems.ISubscriptionItemCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            create(data: subscriptionItems.ISubscriptionItemCreationOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            
+            /**
+             * Retrieves the subscription item with the given ID.
+             *
+             * @returns Returns a subscription item if a valid subscription item ID was provided. Throws an error otherwise.
+             *
+             * @param subscriptionItemId The identifier of the subscription item to retrieve.
+             */
+            retrieve(subscriptionItemId: string, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            retrieve(subscriptionItemId: string, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+
+            /**
+             * Updates the plan or quantity of an item on a current subscription.
+             *
+             * @param subscriptionItemId The identifier of the subscription item to modify.
+             * @param data The fields to update
+             */
+            update(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemUpdateOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            update(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemUpdateOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+
+            /**
+             * Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+             *
+             * @returns An subscription item object with a deleted flag upon success. Otherwise, this call throws an error, such as if the 
+             * subscription item has already been deleted.
+             *
+             * @param subscriptionItemId The identifier of the subscription item to delete.
+             * @param data Specify whether to prorate and from when.
+             */
+            del(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemDeleteOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            del(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemDeleteOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            del(subscriptionItemId: string, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            del(subscriptionItemId: string, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+
+            /**
+             * Returns a list of your subscription items for a given subscription.
+             *
+             * @returns Returns a list of your subscription items for a given subscription.
+             *
+             * @param data Filtering options
+             */
+            list(data: subscriptionItems.ISubscriptionItemListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): Promise<IList<subscriptionItems.ISubscriptionItem>>;
+            list(data: subscriptionItems.ISubscriptionItemListOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): Promise<IList<subscriptionItems.ISubscriptionItem>>;
         }
 
         class Disputes extends StripeResource {
