@@ -22,7 +22,7 @@ declare namespace webpackNodeExternals {
          * they should be bundled.
          * @default []
          */
-        whitelist?: WhitelistOption[];
+        whitelist?: WhitelistOption[] | WhitelistOption;
         /**
          * @default ['.bin']
          */

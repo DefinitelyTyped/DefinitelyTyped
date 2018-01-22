@@ -168,6 +168,8 @@ knex.avg('sum_column1').from(function() {
 
 knex.column('title', 'author', 'year').select().from('books');
 knex.column(['title', 'author', 'year']).select().from('books');
+knex.column('title', { by: 'author' }, 'year').select().from('books');
+knex.column({ title: 'title', by: 'author', published: 'year' }).select().from('books');
 knex.select('*').from('users');
 
 knex('users').where({
@@ -933,3 +935,9 @@ knex.schema
   .createTable('A', table => {
     table.integer('C').unsigned().references('B.id').notNullable();
   });
+
+
+//creating table in MySQL with binary primary key with known field length
+knex.schema.createTable('testTable', function (table) {
+    table.binary('binaryKey', 16).primary(); //will make table with binaryKey type BINARY(16)
+});
