@@ -1,4 +1,4 @@
-// Type definitions for yup 0.23
+// Type definitions for yup 0.24
 // Project: https://github.com/jquense/yup
 // Definitions by: Dominik Hardtke <https://github.com/dhardtke>, Vladyslav Tserman <https://github.com/vtserman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,6 +89,8 @@ export interface NumberSchemaConstructor {
 export interface NumberSchema extends Schema {
     min(limit: number | Ref, message?: string): NumberSchema;
     max(limit: number | Ref, message?: string): NumberSchema;
+    lessThan(limit: number | Ref, message?: string): NumberSchema;
+    moreThan(limit: number | Ref, message?: string): NumberSchema;
     positive(message?: string): NumberSchema;
     negative(message?: string): NumberSchema;
     integer(message?: string): NumberSchema;
@@ -239,4 +241,15 @@ export interface Ref {
 
 // tslint:disable-next-line:no-empty-interface
 export interface Lazy extends Schema {
+}
+
+export interface LocaleObject {
+  mixed?: { [key in keyof MixedSchema]?: string };
+  string?: { [key in keyof StringSchema]?: string };
+  number?: { [key in keyof NumberSchema]?: string };
+  boolean?: { [key in keyof BooleanSchema]?: string };
+  bool?: { [key in keyof BooleanSchema]?: string };
+  date?: { [key in keyof DateSchema]?: string };
+  array?: { [key in keyof ArraySchema]?: string };
+  object?: { [key in keyof ObjectSchema]?: string };
 }

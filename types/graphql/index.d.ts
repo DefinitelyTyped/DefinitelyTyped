@@ -11,6 +11,7 @@
 //                 Ricardo Portugal <https://github.com/rportugal>
 //                 Tim Griesser <https://github.com/tgriesser>
 //                 Dylan Stewart <https://github.com/dyst5422>
+//                 Alessio Dionisi <https://github.com/adnsio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
