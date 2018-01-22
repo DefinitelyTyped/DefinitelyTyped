@@ -199,6 +199,10 @@ declare namespace jest {
 
     type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
 
+    interface IClassLike {
+        readonly name: string;
+    }
+
     /**
      * Creates a test closure
      */
@@ -220,7 +224,7 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: string | Function, fn: EmptyFunction): void;
+        (name: number | string | IClassLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
