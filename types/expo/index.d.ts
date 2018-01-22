@@ -174,6 +174,110 @@ export class Asset {
  * Note that Expo does not yet support backgrounding, so audio is not available to play in the background of your experience. Audio also automatically stops if headphones / bluetooth audio devices are disconnected.
  */
 export namespace Audio {
+    type PlaybackSource = AV.PlaybackSource;
+    type PlaybackStatus = AV.PlaybackStatus;
+    type PlaybackStatusToSet = AV.PlaybackStatusToSet;
+
+    type RecordingOptions = {
+        android: {
+            extension: string,
+            outputFormat: number,
+            audioEncoder: number,
+            sampleRate?: number,
+            numberOfChannels?: number,
+            bitRate?: number,
+            maxFileSize?: number
+        },
+        ios: {
+            extension: string,
+            outputFormat?: string | number,
+            audioQuality: number,
+            sampleRate: number,
+            numberOfChannels: number,
+            bitRate: number,
+            bitRateStrategy?: number,
+            bitDepthHint?: number,
+            linearPCMBitDepth?: number,
+            linearPCMIsBigEndian?: boolean,
+            linearPCMIsFloat?: boolean
+        }
+    };
+
+    enum RecordingOptionsAndroidOutputFormat {
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_DEFAULT = 0,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_THREE_GPP = 1,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4 = 2,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_NB = 3,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_WB = 4,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADIF = 5,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADTS = 6,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_RTP_AVP = 7,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG2TS = 8,
+        RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_WEBM = 9
+    }
+
+    enum RecordingOptionAndroidAudioEncoder {
+        RECORDING_OPTION_ANDROID_AUDIO_ENCODER_DEFAULT = 0,
+        RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_NB = 1,
+        RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB = 2,
+        RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC = 3,
+        RECORDING_OPTION_ANDROID_AUDIO_ENCODER_HE_AAC = 4,
+        RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC_ELD = 5,
+        RECORDING_OPTION_ANDROID_AUDIO_ENCODER_VORBIS = 6
+    }
+
+    enum RecordingOptionIosOutputFormat {
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM = 'lpcm',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_AC3 = 'ac-3',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_60958AC3 = 'cac3',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLEIMA4 = 'ima4',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC = 'aac ',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4CELP = 'celp',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4HVXC = 'hvxc',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4TWINVQ = 'twvq',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE3 = 'MAC3',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE6 = 'MAC6',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_ULAW = 'ulaw',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_ALAW = 'alaw',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN = 'QDMC',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN2 = 'QDM2',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_QUALCOMM = 'Qclp',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER1 = '.mp1',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER2 = '.mp2',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER3 = '.mp3',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLELOSSLESS = 'alac',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE = 'aach',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_LD = 'aacl',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD = 'aace',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_SBR = 'aacf',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_V2 = 'aacg',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE_V2 = 'aacp',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_SPATIAL = 'aacs',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR = 'samr',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR_WB = 'sawb',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_AUDIBLE = 'AUDB',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_ILBC = 'ilbc',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_DVIINTELIMA = 0x6d730011,
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_MICROSOFTGSM = 0x6d730031,
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_AES3 = 'aes3',
+        RECORDING_OPTION_IOS_OUTPUT_FORMAT_ENHANCEDAC3 = 'ec-3'
+    }
+
+    enum RecordingOptionIosAudioQuality {
+        RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN = 0,
+        RECORDING_OPTION_IOS_AUDIO_QUALITY_LOW = 0x20,
+        RECORDING_OPTION_IOS_AUDIO_QUALITY_MEDIUM = 0x40,
+        RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH = 0x60,
+        RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX = 0x7f
+    }
+
+    enum RecodingOptionIosBitRateStratety {
+        RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_CONSTANT = 0,
+        RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_LONG_TERM_AVERAGE = 1,
+        RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED = 2,
+        RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE = 3
+    }
+
     enum InterruptionModeIos {
         /** This is the default option. If this option is set, your experience’s audio is mixed with audio playing in background apps. */
         INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
@@ -185,10 +289,6 @@ export namespace Audio {
         INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
     }
 
-    const INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS: 0;
-    const INTERRUPTION_MODE_IOS_DO_NOT_MIX: 1;
-    const INTERRUPTION_MODE_IOS_DUCK_OTHERS: 2;
-
     enum InterruptionModeAndroid {
         /** If this option is set, your experience’s audio interrupts audio from other apps. */
         INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
@@ -197,78 +297,14 @@ export namespace Audio {
         INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
     }
 
-    const INTERRUPTION_MODE_ANDROID_DO_NOT_MIX: 1;
-    const INTERRUPTION_MODE_ANDROID_DUCK_OTHERS: 2;
+    const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
+    const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
 
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_DEFAULT: 0;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_THREE_GPP: 1;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4: 2;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_NB: 3;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_WB: 4;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADIF: 5;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AAC_ADTS: 6;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_RTP_AVP: 7;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG2TS: 8;
-    const RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_WEBM: 9;
-
-    const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_DEFAULT: 0;
-    const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_NB: 1;
-    const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB: 2;
-    const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC: 3;
-    const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_HE_AAC: 4;
-    const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC_ELD: 5;
-    const RECORDING_OPTION_ANDROID_AUDIO_ENCODER_VORBIS: 6;
-
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM: 'lpcm';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AC3: 'ac-3';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_60958AC3: 'cac3';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLEIMA4: 'ima4';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC: 'aac ';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4CELP: 'celp';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4HVXC: 'hvxc';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4TWINVQ: 'twvq';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE3: 'MAC3';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MACE6: 'MAC6';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ULAW: 'ulaw';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ALAW: 'alaw';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN: 'QDMC';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QDESIGN2: 'QDM2';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_QUALCOMM: 'Qclp';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER1: '.mp1';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER2: '.mp2';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEGLAYER3: '.mp3';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_APPLELOSSLESS: 'alac';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE: 'aach';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_LD: 'aacl';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD: 'aace';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_SBR: 'aacf';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_ELD_V2: 'aacg';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_HE_V2: 'aacp';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC_SPATIAL: 'aacs';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR: 'samr';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AMR_WB: 'sawb';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AUDIBLE: 'AUDB';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ILBC: 'ilbc';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_DVIINTELIMA: 0x6d730011;
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_MICROSOFTGSM: 0x6d730031;
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_AES3: 'aes3';
-    const RECORDING_OPTION_IOS_OUTPUT_FORMAT_ENHANCEDAC3: 'ec-3';
-
-    const RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN: 0;
-    const RECORDING_OPTION_IOS_AUDIO_QUALITY_LOW: 0x20;
-    const RECORDING_OPTION_IOS_AUDIO_QUALITY_MEDIUM: 0x40;
-    const RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH: 0x60;
-    const RECORDING_OPTION_IOS_AUDIO_QUALITY_MAX: 0x7f;
-
-    const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_CONSTANT: 0;
-    const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_LONG_TERM_AVERAGE: 1;
-    const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED: 2;
-    const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE: 3;
-
-    type RecordingStatus = {
-        canRecord: false,
-        isDoneRecording: false
-    } | {
+    type RecordingStatus =
+        {
+            canRecord: false,
+            isDoneRecording: false
+        } | {
             canRecord: true,
             isRecording: boolean,
             durationMillis: number
@@ -278,58 +314,40 @@ export namespace Audio {
             durationMillis: number
         };
 
-    const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
-    const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
-
-    interface RecordingOptions {
-        android: {
-            extension: string;
-            outputFormat: number;
-            audioEncoder: number;
-            sampleRate?: number;
-            numberOfChannels?: number;
-            bitRate?: number;
-            maxFileSize?: number;
-        };
-        ios: {
-            extension: string;
-            outputFormat?: string | number;
-            audioQuality: number;
-            sampleRate: number;
-            numberOfChannels: number;
-            bitRate: number;
-            bitRateStrategy?: number;
-            bitDepthHint?: number;
-            linearPCMBitDepth?: number;
-            linearPCMIsBigEndian?: boolean;
-            linearPCMIsFloat?: boolean;
-        };
-    }
-
+    /**
+     * Note that these are the only legal `AudioMode` combinations of (`playsInSilentModeIOS`, `allowsRecordingIOS`, `interruptionModeIOS`), and any other will result in promise rejection:
+     *
+     * - `false`, `false`, `INTERRUPTION_MODE_IOS_DO_NOT_MIX`
+     * - `false`, `false`, `INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS`
+     * - `true`, `true`, `INTERRUPTION_MODE_IOS_DO_NOT_MIX`
+     * - `true`, `true`, `INTERRUPTION_MODE_IOS_DUCK_OTHERS`
+     * - `true`, `true`, `INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS`
+     * - `true`, `false`, `INTERRUPTION_MODE_IOS_DO_NOT_MIX`
+     * - `true`, `false`, `INTERRUPTION_MODE_IOS_DUCK_OTHERS`
+     * - `true`, `false`, `INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS`
+     */
     interface AudioMode {
-        /** Boolean selecting if your experience’s audio should play in silent mode on iOS. This value defaults to `false`. */
-        playsInSilentModeIOS: boolean;
-
         /** Boolean selecting if recording is enabled on iOS. This value defaults to `false`. NOTE: when this flag is set to true, playback may be routed to the phone receiver instead of to the speaker. */
         allowsRecordingIOS: boolean;
 
         /** Enum selecting how your experience’s audio should interact with the audio from other apps on iOS. */
         interruptionModeIOS: InterruptionModeIos;
 
-        /** Boolean selecting if your experience’s audio should automatically be lowered in volume ("duck") if audio from another app interrupts your experience. This value defaults to true. If false, audio from other apps will pause your audio. */
-        shouldDuckAndroid: boolean;
+        /** Boolean selecting if your experience’s audio should play in silent mode on iOS. This value defaults to `false`. */
+        playsInSilentLockedModeIOS: boolean;
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
+
+        /** Boolean selecting if your experience’s audio should automatically be lowered in volume ("duck") if audio from another app interrupts your experience. This value defaults to true. If false, audio from other apps will pause your audio. */
+        shouldDuckAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
     function setAudioModeAsync(mode: AudioMode): Promise<void>;
 
     /** This class represents a sound corresponding to an Asset or URL. */
-    class Sound extends PlaybackObject {
-        constructor();
-
+    class Sound {
         /**
          * Creates and loads a sound from source, with optional `initialStatus`, `onPlaybackStatusUpdate`, and `downloadFirst`.
          *
@@ -351,16 +369,150 @@ export namespace Audio {
             initialStatus?: PlaybackStatusToSet,
 
             /** A function taking a single parameter PlaybackStatus. This value defaults to `null` if no parameter is passed. */
-            onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null,
+            onPlaybackStatusUpdate?: ((status?: PlaybackStatus) => void) | null,
 
             /** If set to true, the system will attempt to download the resource to the device before loading. This value defaults to `true`. Note that at the moment, this will only work for `source`s of the form `require('path/to/file')` or `Asset` objects. */
             downloadFirst?: boolean
-        ): Promise<{ sound: Sound, status: PlaybackStatus }>;
+        ): Promise<{ sound: Sound, status: PlaybackStatus }>
+
+        // Methods below are shared with the Video class. The code is duplicated here in expo.d.ts because I couldn't figure a way to share it.
+
+        /**
+         * Gets the `PlaybackStatus` of the `playbackObject`.
+         *
+         * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject`.
+         */
+        getStatusAsync(): Promise<PlaybackStatus>;
+
+        /**
+         * Loads the media from source into memory and prepares it for playing. This must be called before calling setStatusAsync() or any of the convenience set status methods. This method can only be called if the playbackObject is in an unloaded state.
+         *
+         * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is loaded, or rejects if loading failed. The `Promise` will also reject if the `playbackObject` was already loaded. See below for details on `PlaybackStatus`.
+         */
+        loadAsync(
+            /**
+             * The source of the media. The following forms are supported:
+             * - A dictionary of the form `{ uri: 'http://path/to/file' }` with a network URL pointing to a media file on the web.
+             * - `require('path/to/file')` for a media file asset in the source code directory.
+             * - An `Expo.Asset object` for a media file asset.
+             */
+            source: PlaybackSource,
+
+            /** The initial intended `PlaybackStatusToSet` of the `playbackObject`, whose values will override the default initial playback status. This value defaults to `{}` if no parameter is passed. See below for details on `PlaybackStatusToSet` and the default initial playback status. */
+            initialStatus?: PlaybackStatusToSet,
+
+            /** If set to `true`, the system will attempt to download the resource to the device before loading. This value defaults to true. Note that at the moment, this will only work for sources of the form `require('path/to/file')` or `Expo.Asset` objects. */
+            downloadFirst?: boolean
+        ): Promise<PlaybackStatus>;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false })`. */
+        pauseAsync(): Promise<PlaybackStatus>;
+
+        /**
+         * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true })`.
+         *
+         * Playback may not start immediately after calling this function for reasons such as buffering. Make sure to update your UI based on the `isPlaying` and `isBuffering` properties of the `PlaybackStatus`.
+         */
+        playAsync(): Promise<PlaybackStatus>;
+
+        /**
+         * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true, positionMillis: millis })`.
+         *
+         * Playback may not start immediately after calling this function for reasons such as buffering. Make sure to update your UI based on the isPlaying and `isBuffering` properties of the `PlaybackStatus`.
+         */
+        playFromPositionAsync(
+            /** The desired position of playback in milliseconds. */
+            positionMillis: number,
+
+            /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
+            tolerances?: {
+                toleranceMillisBefore: number,
+                toleranceMillisAfter: number
+            }
+        ): Promise<PlaybackStatus>;
+
+        /**
+         * Replays the item. When using `playFromPositionAsync(0)` the item is seeked to the position at `0` ms. On iOS this method uses internal implementation of the player and is able to play the item from the beginning immediately.
+         *
+         * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once the new status has been set successfully, or rejects if setting the new status failed.
+         */
+        replayAsync(
+            /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
+            status: PlaybackStatusToSet
+        ): Promise<PlaybackStatus>;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ isLooping: value })`. */
+        setIsLoopingAsync(
+            /** A boolean describing if the media should play once (`false`) or loop indefinitely (`true`). */
+            isLooping: boolean
+        ): Promise<PlaybackStatus>;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ isMuted: value })`. */
+        setIsMutedAsync(
+            /**  A boolean describing if the audio of this media should be muted. */
+            isMuted: boolean
+        ): Promise<PlaybackStatus>;
+
+        /**
+         * Sets a function to be called regularly with the `PlaybackStatus` of the `playbackObject`. See below for details on `PlaybackStatus` and an example use case of this function.
+         *
+         * `onPlaybackStatusUpdate` will be called whenever a call to the API for this `playbackObject` completes (such as `setStatusAsync()`, `getStatusAsync()`, or `unloadAsync()`), and will also be called at regular intervals while the media is in the loaded state. Set `progressUpdateIntervalMillis` via `setStatusAsync()` or `setProgressUpdateIntervalAsync()` to modify the interval with which `onPlaybackStatusUpdate` is called while loaded.
+         */
+        setOnPlaybackStatusUpdate(
+            /** A function taking a single parameter `PlaybackStatus`. */
+            onPlaybackStatusUpdate?: (status: PlaybackStatus) => void
+        ): void;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis })`. */
+        setPositionAsync(
+            positionMillis: number,
+
+            /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
+            tolerances?: {
+                toleranceMillisBefore: number,
+                toleranceMillisAfter: number
+            }
+        ): Promise<PlaybackStatus>;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ progressUpdateIntervalMillis: millis })`. */
+        setProgressUpdateIntervalAsync(
+            /** The new minimum interval in milliseconds between calls of `onPlaybackStatusUpdate`. */
+            progressUpdateIntervalMillis: number
+        ): Promise<PlaybackStatus>;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ rate: value, shouldCorrectPitch: shouldCorrectPitch })`. */
+        setRateAsync(
+            /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+            rate: number,
+
+            /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
+            shouldCorrectPitch: boolean
+        ): Promise<PlaybackStatus>;
+
+        /** Sets a new `PlaybackStatusToSet` on the `playbackObject`. This method can only be called if the media has been loaded. Return a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once the new status has been set successfully, or rejects if setting the new status failed. */
+        setStatusAsync(
+            /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
+            status: PlaybackStatusToSet
+        ): Promise<PlaybackStatus>;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ volume: value })`. */
+        setVolumeAsync(
+            /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+            volume: number
+        ): Promise<PlaybackStatus>;
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false, positionMillis: 0 })`. */
+        stopAsync(): Promise<PlaybackStatus>;
+
+        /**
+         * Unloads the media from memory. `loadAsync()` must be called again in order to be able to play the media.
+         *
+         * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
+         */
+        unloadAsync(): Promise<PlaybackStatus>;
     }
 
     class Recording {
-        constructor();
-
         /** Gets the `status` of the `Recording`. */
         getStatusAsync(): Promise<RecordingStatus>;
 
@@ -436,188 +588,53 @@ export namespace AuthSession {
     function getRedirectUrl(): string;
 }
 
-// #region AV
-/**
- * AV
- */
-export type PlaybackStatus =
-    {
-        isLoaded: false;
-        androidImplementation?: string;
+declare namespace AV {
+    type PlaybackSource = number | { uri: string } | Asset;
 
-        /** Populated exactly once when an error forces the object to unload. */
-        error?: string;
-    } | {
-        isLoaded: true;
-        androidImplementation?: string;
-        uri: string;
-        progressUpdateIntervalMillis: number;
-        durationMillis?: number;
-        positionMillis: number;
-        playableDurationMillis?: number;
-        shouldPlay: boolean;
-        isPlaying: boolean;
-        isBuffering: boolean;
-        rate: number;
-        shouldCorrectPitch: boolean;
-        volume: number;
-        isMuted: boolean;
-        isLooping: boolean;
+    type PlaybackStatus =
+        {
+            isLoaded: false,
+            androidImplementation?: string,
 
-        /** True exactly once when the track plays to finish. */
-        didJustFinish: boolean;
+            /** Populated exactly once when an error forces the object to unload. */
+            error?: string
+        } | {
+            isLoaded: true,
+            androidImplementation?: string,
+
+            uri: string,
+
+            progressUpdateIntervalMillis: number,
+            durationMillis?: number,
+            positionMillis: number,
+            playableDurationMillis?: number,
+
+            shouldPlay: boolean,
+            isPlaying: boolean,
+            isBuffering: boolean,
+
+            rate: number,
+            shouldCorrectPitch: boolean,
+            volume: number,
+            isMuted: boolean,
+            isLooping: boolean,
+
+            /** True exactly once when the track plays to finish. */
+            didJustFinish: boolean
+        };
+
+    type PlaybackStatusToSet = {
+        androidImplementation?: string,
+        progressUpdateIntervalMillis?: number,
+        positionMillis?: number,
+        shouldPlay?: boolean,
+        rate?: number,
+        shouldCorrectPitch?: boolean,
+        volume?: number,
+        isMuted?: boolean,
+        isLooping?: boolean
     };
-
-export interface PlaybackStatusToSet {
-    androidImplementation?: string;
-    progressUpdateIntervalMillis?: number;
-    positionMillis?: number;
-    shouldPlay?: boolean;
-    rate?: FloatFromZeroToOne;
-    shouldCorrectPitch?: boolean;
-    volume?: FloatFromZeroToOne;
-    isMuted?: boolean;
-    isLooping?: boolean;
 }
-
-export type PlaybackSource = RequireSource | { uri: string } | Asset;
-
-export class PlaybackObject {
-    /**
-     * Gets the `PlaybackStatus` of the `playbackObject`.
-     *
-     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject`.
-     */
-    getStatusAsync(): Promise<PlaybackStatus>;
-
-    /**
-     * Loads the media from source into memory and prepares it for playing. This must be called before calling setStatusAsync() or any of the convenience set status methods. This method can only be called if the playbackObject is in an unloaded state.
-     *
-     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is loaded, or rejects if loading failed. The `Promise` will also reject if the `playbackObject` was already loaded. See below for details on `PlaybackStatus`.
-     */
-    loadAsync(
-        /**
-         * The source of the media. The following forms are supported:
-         * - A dictionary of the form `{ uri: 'http://path/to/file' }` with a network URL pointing to a media file on the web.
-         * - `require('path/to/file')` for a media file asset in the source code directory.
-         * - An `Expo.Asset object` for a media file asset.
-         */
-        source: PlaybackSource,
-
-        /** The initial intended `PlaybackStatusToSet` of the `playbackObject`, whose values will override the default initial playback status. This value defaults to `{}` if no parameter is passed. See below for details on `PlaybackStatusToSet` and the default initial playback status. */
-        initialStatus?: PlaybackStatusToSet,
-
-        /** If set to `true`, the system will attempt to download the resource to the device before loading. This value defaults to true. Note that at the moment, this will only work for sources of the form `require('path/to/file')` or `Expo.Asset` objects. */
-        downloadFirst?: boolean
-    ): Promise<PlaybackStatus>;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false })`. */
-    pauseAsync(): Promise<PlaybackStatus>;
-
-    /**
-     * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true })`.
-     *
-     * Playback may not start immediately after calling this function for reasons such as buffering. Make sure to update your UI based on the `isPlaying` and `isBuffering` properties of the `PlaybackStatus`.
-     */
-    playAsync(): Promise<PlaybackStatus>;
-
-    /**
-     * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true, positionMillis: millis })`.
-     *
-     * Playback may not start immediately after calling this function for reasons such as buffering. Make sure to update your UI based on the isPlaying and `isBuffering` properties of the `PlaybackStatus`.
-     */
-    playFromPositionAsync(
-        /** The desired position of playback in milliseconds. */
-        positionMillis: number,
-
-        /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
-        tolerances?: {
-            toleranceMillisBefore: number,
-            toleranceMillisAfter: number
-        }
-    ): Promise<PlaybackStatus>;
-
-    /**
-     * Replays the item. When using `playFromPositionAsync(0)` the item is seeked to the position at `0` ms. On iOS this method uses internal implementation of the player and is able to play the item from the beginning immediately.
-     *
-     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once the new status has been set successfully, or rejects if setting the new status failed.
-     */
-    replayAsync(
-        /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
-        status: PlaybackStatusToSet
-    ): Promise<PlaybackStatus>;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ isLooping: value })`. */
-    setIsLoopingAsync(
-        /** A boolean describing if the media should play once (`false`) or loop indefinitely (`true`). */
-        isLooping: boolean
-    ): Promise<PlaybackStatus>;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ isMuted: value })`. */
-    setIsMutedAsync(
-        /**  A boolean describing if the audio of this media should be muted. */
-        isMuted: boolean
-    ): Promise<PlaybackStatus>;
-
-    /**
-     * Sets a function to be called regularly with the `PlaybackStatus` of the `playbackObject`. See below for details on `PlaybackStatus` and an example use case of this function.
-     *
-     * `onPlaybackStatusUpdate` will be called whenever a call to the API for this `playbackObject` completes (such as `setStatusAsync()`, `getStatusAsync()`, or `unloadAsync()`), and will also be called at regular intervals while the media is in the loaded state. Set `progressUpdateIntervalMillis` via `setStatusAsync()` or `setProgressUpdateIntervalAsync()` to modify the interval with which `onPlaybackStatusUpdate` is called while loaded.
-     */
-    setOnPlaybackStatusUpdate(
-        /** A function taking a single parameter `PlaybackStatus`. */
-        onPlaybackStatusUpdate?: (status: PlaybackStatus) => void
-    ): void;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis })`. */
-    setPositionAsync(
-        positionMillis: number,
-
-        /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
-        tolerances?: {
-            toleranceMillisBefore: number,
-            toleranceMillisAfter: number
-        }
-    ): Promise<PlaybackStatus>;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ progressUpdateIntervalMillis: millis })`. */
-    setProgressUpdateIntervalAsync(
-        /** The new minimum interval in milliseconds between calls of `onPlaybackStatusUpdate`. */
-        progressUpdateIntervalMillis: number
-    ): Promise<PlaybackStatus>;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ rate: value, shouldCorrectPitch: shouldCorrectPitch })`. */
-    setRateAsync(
-        /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
-        rate: number,
-
-        /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
-        shouldCorrectPitch: boolean
-    ): Promise<PlaybackStatus>;
-
-    /** Sets a new `PlaybackStatusToSet` on the `playbackObject`. This method can only be called if the media has been loaded. Return a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once the new status has been set successfully, or rejects if setting the new status failed. */
-    setStatusAsync(
-        /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
-        status: PlaybackStatusToSet
-    ): Promise<PlaybackStatus>;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ volume: value })`. */
-    setVolumeAsync(
-        /** A number between `0.0` (silence) and `1.0` (maximum volume). */
-        volume: number
-    ): Promise<PlaybackStatus>;
-
-    /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false, positionMillis: 0 })`. */
-    stopAsync(): Promise<PlaybackStatus>;
-
-    /**
-     * Unloads the media from memory. `loadAsync()` must be called again in order to be able to play the media.
-     *
-     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
-     */
-    unloadAsync(): Promise<PlaybackStatus>;
-}
-// #endregion
 
 // #region BarCodeScanner
 /**
@@ -1964,81 +1981,318 @@ export namespace Util {
     }) => void): { remove(): void; };
 }
 
-// #region Video
-/**
- * Expo Video
- */
-export interface NaturalSize {
-    width: number;
-    height: number;
-    orientation: Orientation;
+declare namespace Video {
+    type PlaybackSource = AV.PlaybackSource;
+    type PlaybackStatus = AV.PlaybackStatus;
+    type PlaybackStatusToSet = AV.PlaybackStatusToSet;
+
+    type FullscreenUpdateEvent = {
+        fullscreenUpdate: 0 | 1 | 2 | 3,
+        status: AV.PlaybackStatus
+    };
+
+    type NaturalSize = {
+        width: number,
+        height: number,
+        orientation: 'portrait' | 'landscape'
+    };
+
+    type ReadyForDisplayEvent = {
+        naturalSize: NaturalSize,
+        status: AV.PlaybackStatus
+    };
+
+    type ResizeMode = 'contain' | 'cover' | 'stretch';
 }
 
-export interface ReadyForDisplayEvent {
-    naturalSize: NaturalSize;
-    status: PlaybackStatus;
+interface VideoLoad {
+    duration: number;
+    currentTime: number;
+    canPlayReverse: boolean;
+    canPlayFastForward: boolean;
+    canPlaySlowForward: boolean;
+    canPlaySlowReverse: boolean;
+    canStepBackward: boolean;
+    canStepForward: boolean;
+    naturalSize: Video.NaturalSize;
 }
 
-export enum FullscreenUpdateVariants {
-    IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT = 0,
-    IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT = 1,
-    IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS = 2,
-    IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3
+type VideoError =
+    {
+        code: any,
+        domain: any
+    } | {
+        what: any,
+        extra: any
+    };
+
+interface VideoProgress {
+    currentTime: number;
+    playableDuration: number;
 }
 
-export interface FullscreenUpdateEvent {
-    fullscreenUpdate: FullscreenUpdateVariants;
-    status: PlaybackStatus;
+interface VideoSeek {
+    currentTime: number;
+    seekTime: number;
 }
 
-export interface VideoProps {
-    source?: PlaybackSource | null;
-    posterSource?: URISource | RequireSource;
+/** See the AV documentation for more information. https://docs.expo.io/versions/latest/sdk/av.html */
+interface VideoProps {
+    // Source stuff
+    /**
+     * The source of the video data to display. If this prop is null, or left blank, the video component will display nothing.
+     *
+     * Note that this can also be set on the ref via loadAsync(); see below or the AV documentation for further information.
+     *
+     * The following forms for the source are supported:
+     *
+     * - A dictionary of the form `{ uri: 'http://path/to/file' }` with a network URL pointing to a video file on the web.
+     * - `require('path/to/file')` for a video file asset in the source code directory.
+     * - An `Expo.Asset` object for a video file asset.
+     */
+    source?: AV.PlaybackSource;
 
-    resizeMode?: ResizeModeContain | ResizeModeCover | ResizeModeStretch;
-    useNativeControls?: boolean;
-    usePoster?: boolean;
+    /**
+     * The source of an optional image to display over the video while it is loading. The following forms are supported:
+     *
+     * - A dictionary of the form `{ uri: 'http://path/to/file' }` with a network URL pointing to a image file on the web.
+     * - `require('path/to/file')` for an image file asset in the source code directory.
+     */
+    posterSource?: { uri: string } | number;
 
-    onPlaybackStatusUpdate?: (status: PlaybackStatus) => void;
-    onReadyForDisplay?: (event: ReadyForDisplayEvent) => void;
-    onIOSFullscreenUpdate?: (event: FullscreenUpdateEvent) => void;
+    // Callbacks
+    /** A function to be called regularly with the PlaybackStatus of the video. You will likely be using this a lot. */
+    onPlaybackStatusUpdate?: (status: AV.PlaybackStatus) => void;
 
+    /** A function to be called when the video begins to be loaded into memory. Called without any arguments. */
     onLoadStart?: () => void;
-    onLoad?: (status: PlaybackStatus) => void;
+
+    /** A function to be called once the video has been loaded. The data is streamed so all of it may not have been fetched yet, just enough to render the first frame. The function is called with the `PlaybackStatus` of the video as its parameter. */
+    onLoad?: (status: AV.PlaybackStatus) => void;
+
+    /** A function to be called if load or playback have encountered a fatal error. The function is passed a single error message string as a parameter. Errors sent here are also set on `playbackStatus.error` that are passed into the `onPlaybackStatusUpdate` callback. */
     onError?: (error: string) => void;
 
-    status?: PlaybackStatusToSet;
+    /**
+     * A function to be called when the video is ready for display. Note that this function gets called whenever the video’s natural size changes. The function is passed a dictionary with the following key-value pairs:
+     *
+     * - `naturalSize`: a dictionary with the following key-value pairs:
+     *   - `width`: a number describing the width in pixels of the video data.
+     *   - `height`: a number describing the height in pixels of the video data.
+     *   - `orientation`: a string describing the natural orientation of the video data, either 'portrait' or 'landscape'.
+     * - `status`: the PlaybackStatus of the video; see the AV documentation for further information.
+     */
+    onReadyForDisplay?: (event: Video.ReadyForDisplayEvent) => void;
+
+    /**
+     * A function to be called when the state of the native iOS fullscreen view changes (controlled via the presentIOSFullscreenPlayer() and dismissIOSFullscreenPlayer() methods on the Video’s ref). The function is passed a dictionary with the following key-value pairs:
+     *
+     * - `fullscreenUpdate`: a number taking one of the following values:
+     *   - `Expo.Video.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT`: describing that the fullscreen player is about to present.
+     *   - `Expo.Video.IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT`: describing that the fullscreen player just finished presenting.
+     *   - `Expo.Video.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS`: describing that the fullscreen player is about to dismiss.
+     *   - `Expo.Video.IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS`: describing that the fullscreen player just finished dismissing.
+     * - `status`: the PlaybackStatus of the video; see the AV documentation for further information.
+     */
+    onIOSFullscreenUpdate?: (event: Video.FullscreenUpdateEvent) => void;
+
+    // UI stuff
+    /** A boolean which, if set to true, will display native playback controls (such as play and pause) within the Video component. If you’d prefer to use custom controls, you can write them yourself, and/or check out the Videoplayer component. https://github.com/expo/videoplayer */
+    useNativeControls?: boolean;
+
+    /**
+     * A string describing how the video should be scaled for display in the component view bounds. Must be one of the following values:
+     *
+     * - `Expo.Video.RESIZE_MODE_STRETCH` - Stretch to fill component bounds.
+     * - `Expo.Video.RESIZE_MODE_CONTAIN` - Fit within component bounds while preserving aspect ratio.
+     * - `Expo.Video.RESIZE_MODE_COVER` - Fill component bounds while preserving aspect ratio.
+     */
+    resizeMode?: Video.ResizeMode
+
+    /** A boolean which, if set to true, will display an image (whose source is set via the prop posterSource) while the video is loading. */
+    usePoster?: boolean
+
+    // Playback API
+    /** A dictionary setting a new `PlaybackStatusToSet` on the video. */
+    status?: AV.PlaybackStatusToSet;
     progressUpdateIntervalMillis?: number;
+
+    /** The desired position of playback in milliseconds. */
     positionMillis?: number;
+
+    /** A boolean describing if the media is supposed to play. Playback may not start immediately after setting this value for reasons such as buffering. Make sure to update your UI based on the `isPlaying` and `isBuffering` properties of the `PlaybackStatus`. */
     shouldPlay?: boolean;
+
+    /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
     rate?: number;
+
+    /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
     shouldCorrectPitch?: boolean;
     volume?: number;
+
+    /** A boolean describing if the audio of this media should be muted. */
     isMuted?: boolean;
+
+    /** A boolean describing if the media should play once (`false`) or loop indefinitely (`true`). */
     isLooping?: boolean;
 
+    // Required by react-native
     scaleX?: number;
     scaleY?: number;
     translateX?: number;
     translateY?: number;
     rotation?: number;
-    ref?: Ref<PlaybackObject>;
 }
 
-export interface VideoState {
-    showPoster: boolean;
-}
+declare class Video extends Component<VideoProps> {
+    static RESIZE_MODE_CONTAIN: string;
+    static RESIZE_MODE_COVER: string;
+    static RESIZE_MODE_STRETCH: string;
 
-export class Video extends Component<VideoProps, VideoState> {
-    static RESIZE_MODE_CONTAIN: ResizeModeContain;
-    static RESIZE_MODE_COVER: ResizeModeCover;
-    static RESIZE_MODE_STRETCH: ResizeModeStretch;
-    static IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT;
-    static IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT;
-    static IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS;
-    static IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS: FullscreenUpdateVariants.IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS;
+    seek(time: string): void;
+
+    /** (iOS only) This presents a fullscreen view of your video component on top of your app’s UI. Note that even if `useNativeControls` is set to `false`, native controls will be visible in fullscreen mode. Implementing a custom fullscreen mode is necessary if you want fullscreen on Android and/or with custom controls overlayed. */
+    presentFullscreenPlayer(): Promise<AV.PlaybackStatus>;
+
+    /** (iOS only) This dismisses the fullscreen video view. */
+    dismissFullscreenPlayer(): Promise<AV.PlaybackStatus>;
+
+    // Methods below are shared with the Sound class. The code is duplicated here in expo.d.ts because I couldn't figure a way to share it.
+
+    /**
+     * Gets the `PlaybackStatus` of the `playbackObject`.
+     *
+     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject`.
+     */
+    getStatusAsync(): Promise<AV.PlaybackStatus>;
+
+    /**
+     * Loads the media from source into memory and prepares it for playing. This must be called before calling setStatusAsync() or any of the convenience set status methods. This method can only be called if the playbackObject is in an unloaded state.
+     *
+     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is loaded, or rejects if loading failed. The `Promise` will also reject if the `playbackObject` was already loaded. See below for details on `PlaybackStatus`.
+     */
+    loadAsync(
+        /**
+         * The source of the media. The following forms are supported:
+         * - A dictionary of the form `{ uri: 'http://path/to/file' }` with a network URL pointing to a media file on the web.
+         * - `require('path/to/file')` for a media file asset in the source code directory.
+         * - An `Expo.Asset object` for a media file asset.
+         */
+        source: AV.PlaybackSource,
+
+        /** The initial intended `PlaybackStatusToSet` of the `playbackObject`, whose values will override the default initial playback status. This value defaults to `{}` if no parameter is passed. See below for details on `PlaybackStatusToSet` and the default initial playback status. */
+        initialStatus?: AV.PlaybackStatusToSet,
+
+        /** If set to `true`, the system will attempt to download the resource to the device before loading. This value defaults to true. Note that at the moment, this will only work for sources of the form `require('path/to/file')` or `Expo.Asset` objects. */
+        downloadFirst?: boolean
+    ): Promise<AV.PlaybackStatus>;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false })`. */
+    pauseAsync(): Promise<AV.PlaybackStatus>;
+
+    /**
+     * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true })`.
+     *
+     * Playback may not start immediately after calling this function for reasons such as buffering. Make sure to update your UI based on the `isPlaying` and `isBuffering` properties of the `PlaybackStatus`.
+     */
+    playAsync(): Promise<AV.PlaybackStatus>;
+
+    /**
+     * This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: true, positionMillis: millis })`.
+     *
+     * Playback may not start immediately after calling this function for reasons such as buffering. Make sure to update your UI based on the isPlaying and `isBuffering` properties of the `PlaybackStatus`.
+     */
+    playFromPositionAsync(
+        /** The desired position of playback in milliseconds. */
+        positionMillis: number,
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
+        tolerances?: {
+            toleranceMillisBefore: number,
+            toleranceMillisAfter: number
+        }
+    ): Promise<AV.PlaybackStatus>;
+
+    /**
+     * Replays the item. When using `playFromPositionAsync(0)` the item is seeked to the position at `0` ms. On iOS this method uses internal implementation of the player and is able to play the item from the beginning immediately.
+     *
+     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once the new status has been set successfully, or rejects if setting the new status failed.
+     */
+    replayAsync(
+        /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
+        status: AV.PlaybackStatusToSet
+    ): Promise<AV.PlaybackStatus>;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ isLooping: value })`. */
+    setIsLoopingAsync(
+        /** A boolean describing if the media should play once (`false`) or loop indefinitely (`true`). */
+        isLooping: boolean
+    ): Promise<AV.PlaybackStatus>;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ isMuted: value })`. */
+    setIsMutedAsync(
+        /**  A boolean describing if the audio of this media should be muted. */
+        isMuted: boolean
+    ): Promise<AV.PlaybackStatus>;
+
+    /**
+     * Sets a function to be called regularly with the `PlaybackStatus` of the `playbackObject`. See below for details on `PlaybackStatus` and an example use case of this function.
+     *
+     * `onPlaybackStatusUpdate` will be called whenever a call to the API for this `playbackObject` completes (such as `setStatusAsync()`, `getStatusAsync()`, or `unloadAsync()`), and will also be called at regular intervals while the media is in the loaded state. Set `progressUpdateIntervalMillis` via `setStatusAsync()` or `setProgressUpdateIntervalAsync()` to modify the interval with which `onPlaybackStatusUpdate` is called while loaded.
+     */
+    setOnPlaybackStatusUpdate(
+        /** A function taking a single parameter `PlaybackStatus`. */
+        onPlaybackStatusUpdate?: (status: AV.PlaybackStatus) => void
+    ): void;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis })`. */
+    setPositionAsync(
+        positionMillis: number,
+
+        /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
+        tolerances?: {
+            toleranceMillisBefore: number,
+            toleranceMillisAfter: number
+        }
+    ): Promise<AV.PlaybackStatus>;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ progressUpdateIntervalMillis: millis })`. */
+    setProgressUpdateIntervalAsync(
+        /** The new minimum interval in milliseconds between calls of `onPlaybackStatusUpdate`. */
+        progressUpdateIntervalMillis: number
+    ): Promise<AV.PlaybackStatus>;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ rate: value, shouldCorrectPitch: shouldCorrectPitch })`. */
+    setRateAsync(
+        /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+        rate: number,
+
+        /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
+        shouldCorrectPitch: boolean
+    ): Promise<AV.PlaybackStatus>;
+
+    /** Sets a new `PlaybackStatusToSet` on the `playbackObject`. This method can only be called if the media has been loaded. Return a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once the new status has been set successfully, or rejects if setting the new status failed. */
+    setStatusAsync(
+        /** The new `PlaybackStatusToSet` of the `playbackObject`, whose values will override the current playback status. */
+        status: AV.PlaybackStatusToSet
+    ): Promise<AV.PlaybackStatus>;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ volume: value })`. */
+    setVolumeAsync(
+        /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+        volume: number
+    ): Promise<AV.PlaybackStatus>;
+
+    /** This is equivalent to `playbackObject.setStatusAsync({ shouldPlay: false, positionMillis: 0 })`. */
+    stopAsync(): Promise<AV.PlaybackStatus>;
+
+    /**
+     * Unloads the media from memory. `loadAsync()` must be called again in order to be able to play the media.
+     *
+     * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
+     */
+    unloadAsync(): Promise<AV.PlaybackStatus>;
 }
-// #endregion
 
 /**
  * Web Browser
