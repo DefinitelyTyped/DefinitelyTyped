@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/*~ This declaration specifies that the class constructor function
- *~ is the exported object from the file
- */
 export = TreeModel;
 
 declare class TreeModel {
