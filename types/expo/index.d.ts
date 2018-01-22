@@ -56,6 +56,45 @@ export namespace Accelerometer {
 }
 
 /**
+ * Provides access to Amplitude mobile analytics which basically lets you log various events to the Cloud. This module wraps Amplitude’s iOS and Android SDKs.
+ *
+ * Note: Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
+ */
+export namespace Amplitude {
+    /** Initializes Amplitude with your Amplitude API key. */
+    function initialize(apiKey: string): void;
+
+    /** Assign a user ID to the current user. If you don’t have a system for user IDs you don’t need to call this. */
+    function setUserId(userId: string): void;
+
+    /** Set properties for the current user. */
+    function setUserProperties(userProperties: HashMap): void;
+
+    /** Clear properties set by `setUserProperties()`. */
+    function clearUserProperties(): void;
+
+    /** Log an event to Amplitude. */
+    function logEvent(eventName: string): void;
+
+    /** Log an event to Amplitude with custom properties. */
+    function logEventWithProperties(
+        eventName: string,
+
+        /** A map of custom properties. */
+        properties: HashMap
+    ): void;
+
+    /** Add the current user to a group. */
+    function setGroup(
+        /** The group name, e.g. `'sports'`. */
+        groupType: string,
+
+        /** An array of group names, e.g. `['tennis', 'soccer']`. */
+        groupNames: string[]
+    ): void;
+}
+
+/**
  * Provides basic sample playback and recording.
  *
  * Note that Expo does not yet support backgrounding, so audio is not available to play in the background of your experience. Audio also automatically stops if headphones / bluetooth audio devices are disconnected.
@@ -298,45 +337,6 @@ export namespace Audio {
             onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null
         ): Promise<{ sound: Sound, status: PlaybackStatus }>;
     }
-}
-
-/**
- * Provides access to Amplitude mobile analytics which basically lets you log various events to the Cloud. This module wraps Amplitude’s iOS and Android SDKs.
- *
- * Note: Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
- */
-export namespace Amplitude {
-    /** Initializes Amplitude with your Amplitude API key. */
-    function initialize(apiKey: string): void;
-
-    /** Assign a user ID to the current user. If you don’t have a system for user IDs you don’t need to call this. */
-    function setUserId(userId: string): void;
-
-    /** Set properties for the current user. */
-    function setUserProperties(userProperties: HashMap): void;
-
-    /** Clear properties set by `setUserProperties()`. */
-    function clearUserProperties(): void;
-
-    /** Log an event to Amplitude. */
-    function logEvent(eventName: string): void;
-
-    /** Log an event to Amplitude with custom properties. */
-    function logEventWithProperties(
-        eventName: string,
-
-        /** A map of custom properties. */
-        properties: HashMap
-    ): void;
-
-    /** Add the current user to a group. */
-    function setGroup(
-        /** The group name, e.g. `'sports'`. */
-        groupType: string,
-
-        /** An array of group names, e.g. `['tennis', 'soccer']`. */
-        groupNames: string[]
-    ): void;
 }
 
 /** This module provides an interface to Expo’s asset system. An asset is any file that lives alongside the source code of your app that the app needs at runtime. Examples include images, fonts and sounds. Expo’s asset system integrates with React Native’s, so that you can refer to files with require('path/to/file'). This is how you refer to static image files in React Native for use in an Image component, for example. */
