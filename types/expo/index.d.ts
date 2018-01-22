@@ -17,7 +17,6 @@ import {
     ViewStyle
 } from 'react-native';
 
-declare module 'expo' {
     type Axis = number;
     type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
     type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
@@ -2047,4 +2046,3 @@ declare module 'expo' {
         function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
         function dismissBrowser(): Promise<{ type: 'dismissed' }>;
     }
-}
