@@ -2,6 +2,7 @@
 // Project: https://github.com/joaonuno/tree-model-js
 // Definitions by: Abhas Bhattacharya <https://github.com/bendtherules>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /*~ This declaration specifies that the class constructor function
  *~ is the exported object from the file
@@ -14,33 +15,28 @@ declare class TreeModel {
     private config: TreeModelMisc.Config;
 
     parse(model: TreeModelMisc.Model): TreeModelMisc.Node;
-
 }
 
 declare namespace TreeModelMisc {
-
     class Node {
-        constructor(config: any, model: TreeModelMisc.Model);
+        constructor(config: any, model: Model);
 
         isRoot(): boolean;
         hasChildren(): boolean;
         addChild(child: Node): Node;
         addChildAtIndex(child: Node, index: number): Node;
         setIndex(index: number): Node;
-        getPath(): Array<Node>;
+        getPath(): Node[];
         getIndex(): number;
 
-        walk(options: TreeModelMisc.Options, fn: TreeModelMisc.NodeVisitorFunction, ctx: Object): void;
-        walk(options: TreeModelMisc.Options, fn: TreeModelMisc.NodeVisitorFunction): void;
-        walk(fn: TreeModelMisc.NodeVisitorFunction, ctx?: Object): void;
+        walk(options: Options, fn: NodeVisitorFunction, ctx?: object): void;
+        walk(fn: NodeVisitorFunction, ctx?: object): void;
 
-        all(options: TreeModelMisc.Options, fn: TreeModelMisc.NodeVisitorFunction, ctx: Object): Array<Node>;
-        all(options: TreeModelMisc.Options, fn: TreeModelMisc.NodeVisitorFunction): Array<Node>;
-        all(fn: TreeModelMisc.NodeVisitorFunction, ctx?: Object): Array<Node>;
+        all(options: Options, fn: NodeVisitorFunction, ctx?: object): Node[];
+        all(fn: NodeVisitorFunction, ctx?: object): Node[];
 
-        first(options: TreeModelMisc.Options, fn: TreeModelMisc.NodeVisitorFunction, ctx: Object): Node | undefined;
-        first(options: TreeModelMisc.Options, fn: TreeModelMisc.NodeVisitorFunction): Node | undefined;
-        first(fn: TreeModelMisc.NodeVisitorFunction, ctx?: Object): Node | undefined;
+        first(options: Options, fn: NodeVisitorFunction, ctx?: object): Node | undefined;
+        first(fn: NodeVisitorFunction, ctx?: object): Node | undefined;
 
         drop(): Node;
 
@@ -71,7 +67,7 @@ declare namespace TreeModelMisc {
          *
          * config is passed in `TreeModel` constructor
          */
-        children?: Array<Model>;
+        children?: Model[];
         [propName: string]: any;
     }
 }
