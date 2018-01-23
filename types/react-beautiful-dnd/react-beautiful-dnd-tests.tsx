@@ -9,7 +9,7 @@ interface Item {
 
 const getItems = (count: number): Item[] => {
   return Array
-    .from({length: count}, (v, k) => k)
+    .from({ length: count }, (v, k) => k)
     .map(k => ({
       id: `item-${k}`,
       content: `item ${k}`
@@ -60,7 +60,7 @@ class App extends React.Component<{}, AppState> {
       result.destination.index
     );
 
-    this.setState({items});
+    this.setState({ items });
   }
 
   render() {
@@ -72,17 +72,18 @@ class App extends React.Component<{}, AppState> {
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
             >
-              {this.state.items.map(item => (
-                <Draggable key={item.id} draggableId={item.id} disableInteractiveElementBlocking={true}>
+              {this.state.items.map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
                     <div>
                       <div
                         ref={provided.innerRef}
-                        style={getItemStyle(
-                          provided.draggableStyle,
-                          snapshot.isDragging
-                        )}
+                        {...provided.draggableProps}
                         {...provided.dragHandleProps}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style,
+                        )}
                       >
                         {item.content}
                       </div>

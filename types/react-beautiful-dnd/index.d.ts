@@ -2,6 +2,7 @@
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
+//                 Romain Guillaume <https://github.com/rguillaume>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -42,7 +43,7 @@ export interface DragDropContextProps {
     onDragEnd(result: DropResult): void;
 }
 
-export class DragDropContext extends React.Component<DragDropContextProps> {}
+export class DragDropContext extends React.Component<DragDropContextProps> { }
 
 /**
  *  Droppable
@@ -65,7 +66,7 @@ export interface DroppableProps {
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<any>;
 }
 
-export class Droppable extends React.Component<DroppableProps> {}
+export class Droppable extends React.Component<DroppableProps> { }
 
 /**
  *  Draggable
@@ -86,7 +87,7 @@ export interface DragHandleProps {
 
 export interface DraggableProvided {
     innerRef(element?: HTMLElement | null): any;
-    draggableStyle?: DraggableStyle;
+    draggableProps: DraggableProps;
     dragHandleProps?: DragHandleProps;
     placeholder?: React.ReactElement<any>;
 }
@@ -97,10 +98,12 @@ export interface DraggableStateSnapshot {
 
 export interface DraggableProps {
     draggableId: DroppableId;
+    index?: number;
     type?: TypeId;
+    style?: DraggableStyle;
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
 }
 
-export class Draggable extends React.Component<DraggableProps> {}
+export class Draggable extends React.Component<DraggableProps> { }
