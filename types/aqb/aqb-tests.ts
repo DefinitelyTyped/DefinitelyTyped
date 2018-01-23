@@ -1,5 +1,4 @@
 import QB = require("aqb");
-// import { QB } from 'aqb'
 
 /*
  * Most of these tests are taken directly from the examples

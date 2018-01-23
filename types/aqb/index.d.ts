@@ -3,14 +3,7 @@
 // Definitions by: Athenkosi Mase <https://github.com/Athenkosi-Mase>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-/**
- * Error
- */
 interface AqlError extends Error {
-    /**
-     *
-     * @param message
-     */
     new(message: string): Error;
     name: string;
 }
@@ -18,584 +11,185 @@ interface Operation extends Expression {
     new(): Expression;
 }
 interface BinaryOperation extends Operation {
-    /**
-     *
-     * @param operator
-     * @param value1
-     * @param value2
-     */
     new(operator: string, value1: any, value2: any): Operation;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _operator: string;
 }
 interface UnaryOperation extends Expression {
-    /**
-     *
-     * @param operator
-     * @param value
-     */
     new(operator: string, value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _operator: string;
 }
 interface SimpleReference extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: string): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     re: RegExp;
     _value: string;
 }
 interface RawExpression extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
 }
 interface BooleanLiteral extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _value: boolean;
 }
 interface NumberLiteral extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     re: RegExp;
 }
 interface IntegerLiteral extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _value: number;
 }
 interface StringLiteral extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
 }
 interface ListLiteral extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(...value: any[]): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
 }
 interface ObjectLiteral extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _value: object;
 }
 interface NAryOperation extends Operation {
-    /**
-     *
-     * @param operator
-     * @param values
-     */
     new(operator: string, values: any[]): Operation;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _operator: string;
     _values: Expression[];
 }
 interface RangeExpression extends Expression {
-    /**
-     *
-     * @param start
-     * @param end
-     */
     new(start: any, end?: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _start: number;
     _end: number;
     re: RegExp;
 }
 interface PropertyAccess extends Expression {
-    /**
-     *
-     * @param obj
-     * @param keys
-     */
     new(obj: any, keys: any[]): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _obj: Expression;
     _keys: Expression[];
 }
 interface TernaryOperation extends Operation {
-    /**
-     *
-     * @param operator1
-     * @param operator2
-     * @param value1
-     * @param value2
-     * @param value3
-     */
     new(operator1: string, operator2: string, value1: Expression, value2: any, value3: any): Operation;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _operator1: string;
     _operator2: string;
 }
 interface NullLiteral extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
 }
 interface Keyword extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _value: string;
     re: RegExp;
 }
 interface Identifier extends Expression {
-    /**
-     *
-     * @param value
-     */
     new(value: any): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _value: string;
 }
 interface FunctionCall extends Expression {
-    /**
-     *
-     * @param functionName
-     * @param args
-     */
     new(functionName: string, ...args: any[]): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _re: RegExp;
     _functionName: string;
     _args: any[];
 }
 interface ForExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param varname
-     * @param expr
-     */
     new(prev: PartialStatement, varname: any, expr: any): PartialStatement;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _varname: Identifier;
 }
 interface FilterExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param expr
-     */
     new(prev: PartialStatement, expr: any): PartialStatement;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
 }
 interface Definitions {
-    /**
-     *
-     * @param dfns
-     */
     new(...dfns: any[]): any;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _dfns: any[];
 }
 interface LetExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param dfns
-     * @param param
-     */
     new(prev: PartialStatement, ...dfns: any[]): PartialStatement;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _prev: PartialStatement;
     _dfns: Definitions;
 }
 interface CollectExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param dfns
-     * @param param
-     * @param varname
-     * @param intoExpr
-     * @param keepNames
-     * @param options
-     */
     new(prev: PartialStatement, dfns: any[], varname: any, intoExpr: any, keepNames: any[], options: any): PartialStatement;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
-    /**
-     *
-     * @param newVarname
-     * @return
-     */
     into(...newVarname: any[]): CollectExpression;
-    /**
-     *
-     * @return
-     */
     keep(...x: any[]): any;
     _keep: Identifier[];
-    /**
-     *
-     * @param newOpts
-     * @return
-     */
     options(newOpts: any): any;
     _options: ObjectLiteral;
-    /**
-     *
-     * @param newVarname
-     * @return
-     */
     withCountInto(newVarname: any): CollectWithCountIntoExpression;
 }
 interface CollectWithCountIntoExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param dfns
-     * @param param
-     * @param varname
-     * @param options
-     */
     new(prev: PartialStatement, dfns: any[], varname: any, options: any): PartialStatement;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
-    /**
-     *
-     * @param newOpts
-     * @return
-     */
     options(newOpts: any): any;
 }
 interface SortExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param args
-     */
     new(prev: PartialStatement, ...args: any[]): PartialStatement;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     keywords: string[];
     _args: Keyword[];
 }
 interface LimitExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param offset
-     * @param count
-     */
     new(prev: PartialStatement, offset: any, count?: any): PartialStatement;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
 }
 interface ReturnExpression extends Expression {
-    /**
-     *
-     * @param prev
-     * @param value
-     * @param distinct
-     */
     new(prev: LetExpression, value: any, distinct: boolean): Expression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _prev: LetExpression;
     _distinct: boolean;
 }
 interface RemoveExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param expr
-     * @param collection
-     * @param options
-     */
     new(prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnOld(x: any): ReturnExpression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
-    /**
-     *
-     * @param newOpts
-     * @return
-     */
     options(newOpts: any): RemoveExpression;
 }
 interface UpsertExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param upsertExpr
-     * @param insertExpr
-     * @param replace
-     * @param updateOrReplaceExpr
-     * @param collection
-     * @param options
-     */
     new(prev: PartialStatement, upsertExpr: any, insertExpr: any, replace: boolean, updateOrReplaceExpr: any, collection: any, options: any): PartialStatement;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnNew(x: any): ReturnExpression;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnOld(x: any): ReturnExpression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
     _updateOrReplace: string;
-    /**
-     *
-     * @param newOpts
-     * @return
-     */
     options(newOpts: any): UpsertExpression;
 }
 interface InsertExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param expr
-     * @param collection
-     * @param options
-     */
     new(prev: PartialStatement, expr: any, collection: any, options: any): PartialStatement;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnNew(x: any): ReturnExpression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
-    /**
-     *
-     * @param newOpts
-     * @return
-     */
     options(newOpts: any): InsertExpression;
 }
 interface UpdateExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param expr
-     * @param withExpr
-     * @param collection
-     * @param options
-     */
     new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnNew(x: any): ReturnExpression;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnOld(x: any): ReturnExpression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
-    /**
-     *
-     * @param newOpts
-     * @return
-     */
     options(newOpts: any): UpdateExpression;
 }
 interface ReplaceExpression extends PartialStatement {
-    /**
-     *
-     * @param prev
-     * @param expr
-     * @param withExpr
-     * @param collection
-     * @param options
-     */
     new(prev: PartialStatement, expr: any, withExpr: any, collection: any, options: any): PartialStatement;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnNew(x: any): ReturnExpression;
-    /**
-     *
-     * @param x
-     * @return
-     */
     returnOld(x: any): ReturnExpression;
-    /**
-     *
-     * @return
-     */
     toAQL(): string;
-    /**
-     *
-     * @param newOpts
-     * @return
-     */
     options(newOpts: any): ReplaceExpression;
 }
-/**
- * Expression
- */
 interface Expression extends PartialStatement {
     /**
      * Equality
@@ -1000,26 +594,11 @@ interface Expression extends PartialStatement {
     then(value: any): ThenRet;
 }
 interface ThenRet {
-    /**
-     *
-     * @param y
-     * @return
-     */
     else(y: any): TernaryOperation;
     else_: TernaryOperation;
-    /**
-     *
-     * @param y
-     * @return
-     */
     otherwise(y: any): TernaryOperation;
 }
 interface ForRet {
-    /**
-     *
-     * @param expr
-     * @return
-     */
     in(expr: any): ForExpression;
     in_: ForRet["in"];
 }
@@ -1340,205 +919,79 @@ interface PartialStatement {
     replace(expr: any): ReplaceRetWithRet;
 }
 interface RemoveRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): RemoveExpression;
     in: RemoveRet["into"];
     in_: RemoveRet["into"];
 }
 interface UpsertRet {
-    /**
-     *
-     * @param insertExpr
-     * @return
-     */
     insert(insertExpr: any): UpsertRetInsertRet;
 }
 interface UpsertRetInsertRet {
-    /**
-     *
-     * @param updateOrReplaceExpr
-     * @return
-     */
     update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
     replace: UpsertRetInsertRet["update"];
 }
 interface UpsertRetInsertRetUpdateRet {
-    /**
-     *
-     * @param inCollection
-     * @return
-     */
     into(inCollection: any): UpsertExpression;
     in: UpsertRetInsertRetUpdateRet["into"];
     in_: UpsertRetInsertRetUpdateRet["into"];
 }
 interface InsertRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): InsertExpression;
     in: InsertRet["into"];
     in_: InsertRet["into"];
 }
 interface UpdateRetWithRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): UpdateExpression;
     in: UpdateRetWithRet["into"];
     in_: UpdateRetWithRet["into"];
 }
 interface ReplaceRetWithRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): ReplaceExpression;
     in: ReplaceRetWithRet["into"];
     in_: ReplaceRetWithRet["into"];
 }
 interface RemoveRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): RemoveExpression;
     in: RemoveRet["into"];
     in_: RemoveRet["into"];
 }
 interface UpsertRet {
-    /**
-     *
-     * @param insertExpr
-     * @return
-     */
     insert(insertExpr: any): UpsertRetInsertRet;
 }
 interface UpsertRetInsertRet {
-    /**
-     *
-     * @param updateOrReplaceExpr
-     * @return
-     */
     update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
     replace: UpsertRetInsertRet["update"];
 }
 interface UpsertRetInsertRetUpdateRet {
-    /**
-     *
-     * @param inCollection
-     * @return
-     */
     into(inCollection: any): UpsertExpression;
     in: UpsertRetInsertRetUpdateRet["into"];
     in_: UpsertRetInsertRetUpdateRet["into"];
 }
 interface InsertRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): InsertExpression;
     in: InsertRet["into"];
     in_: InsertRet["into"];
 }
 interface UpdateRetWithRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): UpdateExpression;
-    /**
-     *
-     * @param collection
-     * @return
-     */
     with(collection: any): UpdateRetWithRet;
     in: UpdateRetWithRet["into"];
     in_: UpdateRetWithRet["into"];
 }
 interface ReplaceRetWithRet {
-    /**
-     *
-     * @param collection
-     * @return
-     */
     into(collection: any): ReplaceExpression;
-    /**
-     *
-     * @param collection
-     * @return
-     */
     with(collection: any): ReplaceRetWithRet;
     in: ReplaceRetWithRet["into"];
     in_: ReplaceRetWithRet["into"];
 }
-/**
- *
- * @param self
- * @param args
- * @return
- */
 declare function toArray(self: Expression, ...args: any[]): any[];
-/**
- *
- * @param str
- * @return
- */
 declare function isQuotedString(str: string): boolean;
-/**
- *
- * @param expr
- * @return
- */
 declare function wrapAQL(expr: Keyword): string;
-/**
- *
- * @param number
- * @return
- */
 declare function isValidNumber(number: number): boolean;
-/**
- *
- * @param number
- * @return
- */
 declare function castNumber(number: any): NumberLiteral;
-/**
- *
- * @param bool
- * @return
- */
 declare function castBoolean(bool: any): BooleanLiteral;
-/**
- *
- * @param str
- * @return
- */
 declare function castString(str: any): SimpleReference | Identifier | RangeExpression | StringLiteral | Expression | PartialStatement | NullLiteral;
-/**
- *
- * @param obj
- * @return
- */
 declare function castObject(obj: any): ObjectLiteral | ListLiteral | Identifier;
-/**
- *
- * @param token
- * @return
- */
 declare function autoCastToken(token: any): Expression | PartialStatement | NullLiteral;
 /**
  * AQLfunctions
