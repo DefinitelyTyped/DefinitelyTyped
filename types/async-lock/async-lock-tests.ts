@@ -7,7 +7,7 @@ lock.acquire("key", (done) => {
 }, (err, ret) => { /* ... */ });
 
 lock.acquire("key", (done) => {
-  done(void 0, "");
+  done();
 }).then(() => { /* ... */ });
 
 lock.acquire("key", () => "stringValue")
