@@ -55,6 +55,14 @@ styleSheet.addRules({
 	},
 });
 
+styleSheet.addRule('badProperty', {
+	thisIsNotAValidProperty: 'blah', // $ExpectError
+});
+
+styleSheet.addRule('badValue', { // $ExpectError
+	display: 'thisIsNotAValidDisplayValue',
+});
+
 styleSheet.detach();
 
 sharedInstance.createStyleSheet({
