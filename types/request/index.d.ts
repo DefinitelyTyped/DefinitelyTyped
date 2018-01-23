@@ -114,9 +114,9 @@ declare namespace request {
     interface CoreOptions {
         baseUrl?: string;
         callback?: (error: any, response: RequestResponse, body: any) => void;
-        jar?: any; // CookieJar
-        formData?: any; // Object
-        form?: any; // Object or string
+        jar?: CookieJar | boolean;
+        formData?: { [key: string]: any };
+        form?: { [key: string]: any } | string;
         auth?: AuthOptions;
         oauth?: OAuthOptions;
         aws?: AWSOptions;

@@ -90,7 +90,7 @@ export class Asset {
  * AuthSession
  */
 export namespace AuthSession {
-    function startAsync(options: { authUrl: string; returnUrl: string; }): Promise<{
+    function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<{
         type: 'cancel';
     } | {
         type: 'dismissed';

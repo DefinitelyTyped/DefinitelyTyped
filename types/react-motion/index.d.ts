@@ -1,6 +1,8 @@
 // Type definitions for react-motion
 // Project: https://github.com/chenglou/react-motion
-// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>, Alexey Svetliakov <https://github.com/asvetliakov>
+// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
+//                 Alexey Svetliakov <https://github.com/asvetliakov>
+//                 Dimitar Nestorov <https://github.com/dimitarnestorov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -113,15 +115,20 @@ interface TransitionProps {
     styles: Array<TransitionStyle> | InterpolateFunction;
     children?: (interpolatedStyles: Array<TransitionPlainStyle>) => ReactElement<any>;
     /**
-     * Triggers when new elements appears
+     * Triggers when a new element will appear
      * @param styleThatEntered
      */
     willEnter?: (styleThatEntered: TransitionStyle) => PlainStyle;
     /**
-     * Triggers when new element disappears
+     * Triggers when an element will disappear
      * @param styleThatLeft
      */
     willLeave?: (styleThatLeft: TransitionStyle) => Style | void;
+    /**
+     * Triggers when an element has disappeared
+     * @param styleThatLeft
+     */
+    didLeave?: (styleThatLeft: TransitionStyle) => void;
 }
 export class TransitionMotion extends Component<TransitionProps> { }
 

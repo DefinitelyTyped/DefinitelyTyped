@@ -534,7 +534,7 @@ export function StackNavigator(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: React.ComponentClass<any>;
+export const DrawerItems: React.ComponentType;
 
 /**
  * Drawer Navigator
@@ -542,7 +542,7 @@ export const DrawerItems: React.ComponentClass<any>;
 export interface DrawerViewConfig {
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
-  contentComponent?: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+  contentComponent?: React.ComponentType;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }
@@ -569,7 +569,7 @@ export function DrawerNavigator(
 
 // From views/TabView/TabView.js
 export interface TabViewConfig {
-  tabBarComponent?: React.ComponentClass<any>;
+  tabBarComponent?: React.ComponentType;
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,
@@ -606,13 +606,20 @@ export function TabNavigator(
   drawConfig?: TabNavigatorConfig,
 ): NavigationContainer;
 
-export const TabBarTop: React.ComponentClass<any>;
-export const TabBarBottom: React.ComponentClass<any>;
+export const TabBarTop: React.ComponentType;
+export const TabBarBottom: React.ComponentType;
 
 /**
  * NavigationActions
  */
 export namespace NavigationActions {
+  const BACK: 'Navigation/BACK';
+  const INIT: 'Navigation/INIT';
+  const NAVIGATE: 'Navigation/NAVIGATE';
+  const RESET: 'Navigation/RESET';
+  const SET_PARAMS: 'Navigation/SET_PARAMS';
+  const URI: 'Navigation/URI';
+
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(options: NavigationNavigateActionPayload): NavigationNavigateAction;
   function reset(options: NavigationResetActionPayload): NavigationResetAction;
@@ -693,7 +700,7 @@ export function createNavigator<C, S, A, Options>(
  */
 export function createNavigationContainer(
   Component: NavigationNavigator<any, any, any, any>
-): React.Component<any, any>;
+): NavigationContainer;
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */

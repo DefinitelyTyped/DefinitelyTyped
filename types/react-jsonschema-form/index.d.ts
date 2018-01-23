@@ -122,7 +122,7 @@ declare module "react-jsonschema-form" {
     export type ArrayFieldTemplateProps = {
         DescriptionField: object;
         TitleField: object;
-        candAdd: boolean;
+        canAdd: boolean;
         className: string;
         disabled: boolean;
         idSchema: IdSchema;
