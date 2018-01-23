@@ -10,9 +10,14 @@ const jss = createJSS().setup({});
 const styleSheet = jss.createStyleSheet<string>(
 	{
 		ruleWithMockObservable: {
-			subscribe: () => ({
-				unsubscribe() {}
-			})
+			subscribe: observer => {
+				const next = typeof observer === 'function' ? observer : observer.next;
+				next({ background: 'blue', display: 'flex' });
+				next({ invalidKey: 'blueish' }); // $ExpectError
+				return {
+					unsubscribe() {}
+				};
+			}
 		},
 		container: {
 			display: 'flex',
