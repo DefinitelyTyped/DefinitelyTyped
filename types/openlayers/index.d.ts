@@ -6,6 +6,7 @@
 //                 Alexandre Melard <https://github.com/mylen>
 //                 Chad Johnston <https://github.com/iamthechad>
 //                 Dan Manastireanu <https://github.com/danmana>
+//                 Yair Tawil <https://github.com/yairtawil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
