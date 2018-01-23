@@ -93,7 +93,7 @@ const Component = (props: {}) => {
         PadRowComponent={() => <span>&nbsp;</span>}
         page={undefined}
         pageSize={undefined}
-		  pages={undefined}
+        pages={undefined}
         sorted={[]}
         filtered={[]}
         resized={[]}
