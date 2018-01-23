@@ -322,7 +322,7 @@ interface OptimizedSvg {
 
 declare class SVGO {
     constructor(options?: Options);
-    optimize(svgString: string, info: SvgInfo): Promise<OptimizedSvg>;
+    optimize(svgString: string, info?: SvgInfo): Promise<OptimizedSvg>;
 }
 
 export = SVGO;
