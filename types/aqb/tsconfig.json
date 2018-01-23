@@ -2,19 +2,23 @@
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
-        "lib": ["es2015"],
+        "lib": [
+            "es2015"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-		"aqb-tests.ts"
+        "aqb-tests.ts"
     ]
 }
