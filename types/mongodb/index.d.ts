@@ -1453,3 +1453,45 @@ export interface ChangeStreamOptions {
 }
 
 type GridFSBucketWriteStreamId = string | number | Object | ObjectID;
+               
+export interface LoggerOptions {
+    loggerLevel: string
+    logger: log
+}
+export type log = (message?: string, state?: LoggerState) => void
+export interface LoggerState {
+    type: string
+    message: string
+    className: string
+    pid: number
+    date: number
+}
+export class Logger{
+    constructor(className: string,options: LoggerOptions)
+
+    debug(message: string, state: LoggerState):void
+
+    warn(message: string, state: LoggerState):void
+
+    info(message: string, state: LoggerState):void
+
+    error(message: string, state: LoggerState):void
+
+    isInfo():boolean
+
+    isError():boolean
+
+    isWarn():boolean
+
+    isDebug():boolean
+
+    static reset():void
+
+    static currentLogger():log
+
+    static setCurrentLogger(log: log):void
+
+    static filter(type: string,values: string[]):void
+
+    static setLevel(level: string):void
+}
