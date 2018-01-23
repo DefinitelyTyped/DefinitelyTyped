@@ -70,3 +70,19 @@ sharedInstance.createStyleSheet({
 		background: '#000099',
 	}
 });
+
+const styleSheet2 = jss.createStyleSheet(
+	{
+		foo: {
+			display: 'flex',
+			width: 100,
+			opacity: .5,
+		},
+	},
+	{
+		link: true,
+	}
+);
+
+styleSheet2.classes.foo; // $ExpectType string
+styleSheet2.classes.bar; // $ExpectError
