@@ -12,6 +12,8 @@
 //                 Daniel Cottone <https://github.com/daniel-cottone>
 //                 Kostya Misura <https://github.com/kostya-misura>
 //                 Markus Tacker <https://github.com/coderbyheart>
+//                 Palmi Valgeirsson <https://github.com/palmithor>
+//                 Danilo Raisi <https://github.com/daniloraisi>
 //                 Davy Duperron <https://github.com/yamafaktory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -200,7 +202,7 @@ declare namespace AWSLambda {
      */
     interface CognitoUserPoolEvent {
         version: number;
-        triggerSource: "PreSignUp_SignUp" | "PostConfirmation_ConfirmSignUp" | "PreAuthentication_Authentication" | "PostAuthentication_Authentication" | "CustomMessage_SignUp" | "CustomMessage_AdminCreateUser" | "CustomMessage_ResendCode" | "CustomMessage_ForgotPassword" | "CustomMessage_UpdateUserAttribute" | "CustomMessage_VerifyUserAttribute" | "CustomMessage_Authentication" | "DefineAuthChallenge_Authentication" | "CreateAuthChallenge_Authentication" | "VerifyAuthChallengeResponse_Authentication";
+        triggerSource: "PreSignUp_SignUp" | "PostConfirmation_ConfirmSignUp" | "PreAuthentication_Authentication" | "PostAuthentication_Authentication" | "CustomMessage_SignUp" | "CustomMessage_AdminCreateUser" | "CustomMessage_ResendCode" | "CustomMessage_ForgotPassword" | "CustomMessage_UpdateUserAttribute" | "CustomMessage_VerifyUserAttribute" | "CustomMessage_Authentication" | "DefineAuthChallenge_Authentication" | "CreateAuthChallenge_Authentication" | "VerifyAuthChallengeResponse_Authentication" | "PreSignUp_AdminCreateUser" | "PostConfirmation_ConfirmForgotPassword" | "TokenGeneration_HostedAuth" | "TokenGeneration_Authentication" | "TokenGeneration_NewPasswordChallenge" | "TokenGeneration_AuthenticateDevice" | "TokenGeneration_RefreshTokens";
         region: string;
         userPoolId: string;
         userName?: string;
@@ -295,6 +297,20 @@ declare namespace AWSLambda {
     }
 
     export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
+
+    /**
+     * See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-scheduled-event
+     */
+    interface ScheduledEvent {
+        account: string;
+        region: string;
+        detail: any;
+        "detail-type": string;
+        source: string;
+        time: string;
+        id: string;
+        resources: string[]
+    }
 
     /**
      * See http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-cloudwatch-logs
