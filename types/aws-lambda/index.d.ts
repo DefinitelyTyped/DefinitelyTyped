@@ -18,7 +18,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module AWSLambda {
+declare namespace AWSLambda {
     // API Gateway "event" request context
     interface APIGatewayEventRequestContext {
         accountId: string;
@@ -516,3 +516,5 @@ declare module AWSLambda {
     export type ProxyCallback = (error?: Error | null, result?: ProxyResult) => void;
     export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
 }
+
+export as namespace AWSLambda
