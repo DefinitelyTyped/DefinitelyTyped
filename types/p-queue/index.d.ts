@@ -8,25 +8,70 @@
 export = PQueue;
 
 declare class PQueue<O extends PQueue.QueueAddOptions = PQueue.DefaultAddOptions> {
+    /**
+     * Size of the queue.
+     */
     size: number;
+
+    /**
+     * Number of pending promises.
+     */
     pending: number;
+
+    /**
+     * Whether the queue is currently paused.
+     */
     isPaused: boolean;
 
     constructor(opts?: PQueue.Options<O>);
 
+    /**
+     * Returns the promise returned by calling fn.
+     * @param fn Promise-returning/async function.
+     * @param opts
+     */
     add<T>(fn: PQueue.Task<T>, opts?: O): Promise<T>;
 
+    /**
+     * Same as .add(), but accepts an array of async functions and
+     * returns a promise that resolves when all async functions are resolved.
+     * @param fn Array of Promise-returning/async functions.
+     * @param opts
+     */
     addAll<TAll>(fns: Array<PQueue.Task<TAll>>, opts?: O): Promise<TAll[]>;
 
-    pause(): void;
+    /**
+     * Returns a promise that settles when the queue becomes empty.
+     * Can be called multiple times. Useful if you for example add
+     * additional items at a later time.
+     */
+    onEmpty(): Promise<void>;
 
+    /**
+     * Returns a promise that settles when the queue becomes empty, and all
+     * promises have completed; queue.size === 0 && queue.pending === 0.
+     * The difference with .onEmpty is that .onIdle guarantees that all work
+     * from the queue has finished. .onEmpty merely signals that the queue is
+     * empty, but it could mean that some promises haven't completed yet.
+     */
+    onIdle(): Promise<void>;
+
+    /**
+     * Start (or resume) executing enqueued tasks within concurrency limit.
+     * No need to call this if queue is not paused (via options.autoStart = false
+     * or by .pause() method.)
+     */
     start(): void;
 
-    onEmpty(): Promise<undefined>;
-
-    onIdle(): Promise<undefined>;
-
+    /**
+     * Clear the queue.
+     */
     clear(): void;
+
+    /**
+     * Put queue execution on hold.
+     */
+    pause(): void;
 }
 
 declare namespace PQueue {
