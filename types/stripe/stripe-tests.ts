@@ -232,14 +232,14 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then(function (re
 stripe.customers.create({
     description: 'Customer for test@example.com',
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
-    metadata: { test: 123, test2: 123 } // IMetadata test
+    metadata: { test: "123", test2: 123 } // IOptionsMetadata test
 }, function (err, customer) {
     // asynchronously called
     });
 stripe.customers.create({
     description: 'Customer for test@example.com',
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
-    metadata: null // IMetadata test
+    metadata: null // IOptionsMetadata test
 }).then( function (customer) {
     // asynchronously called
     customer.cards.create({ card: "tok_17wV94BoqMA9o2xkhlAd3ALf"}).then(function (customer) {});
@@ -259,21 +259,27 @@ stripe.customers.create({
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then(function (confirmation) { });
 
     // IMetadata tests:
-    let num: number;
     let str: string;
-    customer.metadata["test"] = str;
-    customer.metadata["test"] = num;
     customer.metadata["test"] == str;
-    customer.metadata["test"] == num;
-    customer.metadata.testStr = str;
-    customer.metadata.testNum = num;
     customer.metadata.test1 == str;
-    customer.metadata.test2 == num;
-    customer.metadata = {
+
+    //IOptionsMetadata tests:
+    let metadata: Stripe.IOptionsMetadata;
+    let num: number;
+    metadata["test"] = str;
+    metadata["test"] = num;
+    metadata["test"] == str;
+    metadata["test"] == num;
+    metadata.testStr = str;
+    metadata.testNum = num;
+    metadata.test1 == str;
+    metadata.test2 == num;
+    metadata = {
         test1: str,
         test2: num
     }
-    customer.metadata = null;
+    metadata = {};
+    metadata = null;
 });
 
 
