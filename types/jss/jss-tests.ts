@@ -4,15 +4,15 @@ import {
 	create as createJSS,
 	default as sharedInstance
 } from 'jss';
+import { Observable } from 'rxjs';
 
 const jss = createJSS().setup({});
 
-// use <string> because we will be dynamically augmenting
 const styleSheet = jss.createStyleSheet<string>(
 	{
-		root: {
+		ruleWithMockObservable: Observable.of({
 			backgroundColor: 'red',
-		},
+		}),
 		container: {
 			display: 'flex',
 			width: 100,
@@ -24,8 +24,8 @@ const styleSheet = jss.createStyleSheet<string>(
 	}
 ).attach();
 
-styleSheet.classes.root; // $ExpectType string
 styleSheet.classes.container; // $ExpectType string
+styleSheet.classes.ruleWithMockObservable; // $ExpectType string
 
 const rule = styleSheet.addRule('dynamicRule', { color: 'indigo' });
 rule.prop('border-radius', 5).prop('color'); // $ExpectType string
