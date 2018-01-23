@@ -18,7 +18,7 @@ interface FloatTheadOptions {
      * Defines a container element inside of which the table scrolls vertically and/or horizontally. If boolean true is used, then we use the table's offsetParent.
      * @default null
      */
-    scrollContainer?: TableFunction;
+    scrollContainer?: TableFunction | true;
     /**
      * Defines a responsive container element inside of which the table scrolls horizontally (at some resolutions), everything else behaves like window scrolling. This option cannot be used together
      * with scrollContainer option.
