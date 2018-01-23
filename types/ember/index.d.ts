@@ -1111,7 +1111,7 @@ declare module 'ember' {
              * item. This method corresponds to the `forEach()` method defined in
              * JavaScript 1.6.
              */
-            forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
+            forEach: GlobalArray<T>['forEach'];
             /**
              * Alias for `mapBy`
              */
@@ -1127,7 +1127,7 @@ declare module 'ember' {
              * Maps all of the items in the enumeration to another value, returning
              * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
              */
-            map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+            map: GlobalArray<T>['map'];
             /**
              * Similar to map, this specialized function returns the value of the named
              * property on all items in the enumeration.
@@ -1138,11 +1138,7 @@ declare module 'ember' {
              * function returns true for. This method corresponds to `filter()` defined in
              * JavaScript 1.6.
              */
-            filter<S extends T>(
-                callbackfn: (value: T, index: number, array: T[]) => value is S,
-                thisArg?: any
-            ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
+            filter: GlobalArray<T>['filter'];
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
@@ -1165,10 +1161,7 @@ declare module 'ember' {
              * This method works similar to the `filter()` method defined in JavaScript 1.6
              * except that it will stop working on the array once a match is found.
              */
-            find(
-                predicate: (value: T, index: number, obj: T[]) => boolean,
-                thisArg?: any
-            ): T | undefined;
+            find: GlobalArray<T>['find'];
             /**
              * Returns the first item with a property matching the passed value. You
              * can pass an optional second argument with the target value. Otherwise
@@ -1179,10 +1172,7 @@ declare module 'ember' {
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
              */
-            every(
-                callbackfn: (value: T, index: number, array: T[]) => boolean,
-                thisArg?: any
-            ): boolean;
+            every: GlobalArray<T>['every'];
             /**
              * Returns `true` if the passed property resolves to the value of the second
              * argument for all items in the enumerable. This method is often simpler/faster
@@ -1205,8 +1195,7 @@ declare module 'ember' {
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+            reduce: GlobalArray<T>['reduce'];
             /**
              * Invokes the named method on every object in the receiver that
              * implements it. This method corresponds to the implementation in
