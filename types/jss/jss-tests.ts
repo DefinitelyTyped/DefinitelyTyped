@@ -7,10 +7,11 @@ import {
 
 const jss = createJSS().setup({});
 
-const styleSheet = jss.createStyleSheet(
+// use <string> because we will be dynamically augmenting
+const styleSheet = jss.createStyleSheet<string>(
 	{
-		ruleWithMockObservable: {
-			subscribe() {}
+		root: {
+			backgroundColor: 'red',
 		},
 		container: {
 			display: 'flex',
@@ -23,8 +24,8 @@ const styleSheet = jss.createStyleSheet(
 	}
 ).attach();
 
+styleSheet.classes.root; // $ExpectType string
 styleSheet.classes.container; // $ExpectType string
-styleSheet.classes.ruleWithMockObservable; // $ExpectType string
 
 const rule = styleSheet.addRule('dynamicRule', { color: 'indigo' });
 rule.prop('border-radius', 5).prop('color'); // $ExpectType string
