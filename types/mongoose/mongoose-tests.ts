@@ -41,13 +41,6 @@ mongoose.createConnection(connectUri, {
     native_parser: true
   }
 }).open('');
-mongoose.createConnection('localhost', 'database', 3000).open('');
-mongoose.createConnection('localhost', 'database', 3000, {
-  user: 'larry',
-  config: {
-    autoIndex: false
-  }
-}).open('');
 const dcWithCallback: null = mongoose.disconnect(cb);
 const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');

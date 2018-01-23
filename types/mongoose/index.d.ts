@@ -91,9 +91,6 @@ declare module "mongoose" {
   export function createConnection(uri: string,
     options?: ConnectionOptions
   ): Connection;
-  export function createConnection(host: string, database_name: string, port?: number,
-    options?: ConnectionOptions
-  ): Connection;
 
   /**
    * Disconnects all connections.
