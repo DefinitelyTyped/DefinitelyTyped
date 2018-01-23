@@ -153,16 +153,16 @@ interface LokiConstructorOptions {
 
 
 interface LokiConfigOptions {
-    adapter: LokiPersistenceAdapter | null;
-    autoload: boolean;
-    autoloadCallback: (err: any) => void;
-    autosave: boolean;
-    autosaveCallback: (err?: any) => void;
-    autosaveInterval: string | number;
-    persistenceMethod: "fs" | "localStorage" | "memory" | null;
-    destructureDelimiter: string;
-    serializationMethod: "normal" | "pretty" | "destructured" | null;
-    throttledSaves: boolean;
+    adapter?: LokiPersistenceAdapter | null;
+    autoload?: boolean;
+    autoloadCallback?: (err: any) => void;
+    autosave?: boolean;
+    autosaveCallback?: (err?: any) => void;
+    autosaveInterval?: string | number;
+    persistenceMethod?: "fs" | "localStorage" | "memory" | null;
+    destructureDelimiter?: string;
+    serializationMethod?: "normal" | "pretty" | "destructured" | null;
+    throttledSaves?: boolean;
 }
 
 
