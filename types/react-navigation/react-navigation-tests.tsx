@@ -138,6 +138,7 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
     tabBarVisible: true,
     tabBarIcon: <View />,
     tabBarLabel: 'label',
+    tabBarOnPress: (scene, index) => {}
 };
 
 const tabNavigatorConfig: TabNavigatorConfig = {
