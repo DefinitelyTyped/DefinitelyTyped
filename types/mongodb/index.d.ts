@@ -1453,3 +1453,49 @@ export interface ChangeStreamOptions {
 }
 
 type GridFSBucketWriteStreamId = string | number | Object | ObjectID;
+               
+export interface LoggerOptions {
+    loggerLevel: string // Custom logger function
+    logger: log // Override default global log level.
+}
+
+export type log = (message?: string, state?: LoggerState) => void
+
+export interface LoggerState {
+    type: string
+    message: string
+    className: string
+    pid: number
+    date: number
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.0/api/Logger.html */
+export class Logger{
+    constructor(className: string,options: LoggerOptions)
+    // Log a message at the debug level
+    debug(message: string, state: LoggerState):void
+    // Log a message at the warn level
+    warn(message: string, state: LoggerState):void
+    // Log a message at the info level
+    info(message: string, state: LoggerState):void
+    // Log a message at the error level
+    error(message: string, state: LoggerState):void
+    // Is the logger set at info level
+    isInfo():boolean
+    // Is the logger set at error level
+    isError():boolean
+    // Is the logger set at error level
+    isWarn():boolean
+    // Is the logger set at debug level
+    isDebug():boolean
+    // Resets the logger to default settings, error and no filtered classes
+    static reset():void
+    // Get the current logger function
+    static currentLogger():log
+    //Set the current logger function
+    static setCurrentLogger(log: log):void
+    // Set what classes to log.
+    static filter(type: string,values: string[]):void
+    // Set the current log level
+    static setLevel(level: string):void
+}
