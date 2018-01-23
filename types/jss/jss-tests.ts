@@ -65,24 +65,11 @@ styleSheet.addRule('badValue', { // $ExpectError
 
 styleSheet.detach();
 
-sharedInstance.createStyleSheet({
+const styleSheet2 = sharedInstance.createStyleSheet({
 	container: {
 		background: '#000099',
 	}
 });
 
-const styleSheet2 = jss.createStyleSheet(
-	{
-		foo: {
-			display: 'flex',
-			width: 100,
-			opacity: .5,
-		},
-	},
-	{
-		link: true,
-	}
-);
-
-styleSheet2.classes.foo; // $ExpectType string
-styleSheet2.classes.bar; // $ExpectError
+styleSheet2.classes.container; // $ExpectType string
+styleSheet2.classes.notAValidKey; // $ExpectError
