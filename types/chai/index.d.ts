@@ -226,7 +226,7 @@ declare namespace Chai {
     }
 
     interface Match {
-        (regexp: RegExp|string, message?: string): Assertion;
+        (regexp: RegExp, message?: string): Assertion;
     }
 
     interface Keys {
