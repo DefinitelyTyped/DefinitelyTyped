@@ -3,10 +3,13 @@ import * as express from 'express';
 const app = express();
 
 app.set('view engine', 'html');
-// tslint:disable-next-line no-var-requires
-app.engine('html', require('hbs').__express);
 
 import hbs = require('hbs');
+
+// The idiom for this is
+//   app.engine('html', require('hbs').__express);
+// However this undermines the test since the return type of require() is any
+app.engine('html', hbs.__express);
 
 hbs.registerHelper('helper_name', (testParm: number) => testParm++);
 hbs.registerPartial('partial_name', 'partial value');
