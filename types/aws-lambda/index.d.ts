@@ -18,7 +18,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare namespace AWSLambda {
+declare module AWSLambda {
     // API Gateway "event" request context
     interface APIGatewayEventRequestContext {
         accountId: string;
