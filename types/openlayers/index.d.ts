@@ -12383,11 +12383,11 @@ declare module ol {
          * The size is the pixel dimensions of the box into which the calculated extent
          * should fit. In most cases you want to get the extent of the entire map,
          * that is `map.getSize()`.
-         * @param {ol.Size} size Box pixel size.
+         * @param {ol.Size=} size Box pixel size.
          * @return {ol.Extent} Extent.
          * @api stable
          */
-        calculateExtent(size: ol.Size): ol.Extent;
+        calculateExtent(size?: ol.Size): ol.Extent;
 
         /**
          * Get the maximum resolution of the view.
@@ -13325,7 +13325,8 @@ declare module olx {
          *     multi: (boolean|undefined),
          *     features: (ol.Collection.<ol.Feature>|undefined),
          *     filter: (ol.SelectFilterFunction|undefined),
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     hitTolerance: (number|undefined)}}
          */
         interface SelectOptions {
             addCondition?: ol.EventsConditionType;
@@ -13338,6 +13339,7 @@ declare module olx {
             features?: ol.Collection<ol.Feature>;
             filter?: ol.SelectFilterFunction;
             wrapX?: boolean;
+            hitTolerance?: number;
         }
 
 
