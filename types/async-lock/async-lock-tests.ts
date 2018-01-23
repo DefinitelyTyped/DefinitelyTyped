@@ -7,8 +7,11 @@ lock.acquire("key", (done) => {
 }, (err, ret) => { /* ... */ });
 
 lock.acquire("key", (done) => {
-  done();
+  done(void 0, "");
 }).then(() => { /* ... */ });
+
+lock.acquire("key", () => "stringValue")
+    .then((str) => str.replace("s", "S")) // Check returned value's type is inherited properly
 
 lock.acquire([ "key1", "key2" ], (done) => {
   done();
