@@ -3,6 +3,7 @@ import * as express from 'express';
 const app = express();
 
 app.set('view engine', 'html');
+// tslint:disable-next-line no-var-requires
 app.engine('html', require('hbs').__express);
 
 import hbs = require('hbs');
