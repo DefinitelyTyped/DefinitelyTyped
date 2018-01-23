@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { CSSProperties } from 'react';
+import { types } from 'typestyle';
 import { Observable } from 'rxjs';
 
 export type PseudoCssKey =
@@ -62,15 +62,15 @@ export type PseudoCssKey =
 	| '::spelling-error '
 	| '::grammar-error ';
 
-export type PseudoCss = Partial<Record<PseudoCssKey, CSSProperties>>;
+export type PseudoCss = Partial<Record<PseudoCssKey, types.CSSProperties>>;
 
 export interface JssProps {
-	'@global'?: React.CSSProperties & PseudoCss;
+	'@global'?: types.CSSProperties & PseudoCss;
 	extend?: string;
 	composes?: string | string[];
 }
 
-export type css = React.CSSProperties;
+export type css = types.CSSProperties;
 
 export interface JssExpand {
 	animation:
@@ -181,7 +181,7 @@ export interface JssExpand {
 
 export type JssExpandArr = { [k in keyof JssExpand]?: JssExpand[k] | Array<JssExpand[k]> };
 
-export type SimpleStyle = React.CSSProperties & PseudoCss & JssProps & JssExpandArr;
+export type SimpleStyle = types.CSSProperties & PseudoCss & JssProps & JssExpandArr;
 export type Style = Observable<SimpleStyle> | SimpleStyle
 
 export type Styles<Name extends string = any> = Record<Name, Style>;
