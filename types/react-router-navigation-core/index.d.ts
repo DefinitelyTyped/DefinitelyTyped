@@ -150,7 +150,6 @@ export const build: <Item>(
     oldBuild?: Item[]
 ) => Item[];
 
-// eslint-disable-next-line
 export const runHistoryListenner: (
     history: History,
     onListenHistory: () => void
