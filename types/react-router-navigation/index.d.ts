@@ -19,6 +19,7 @@ import {
 
 export type CardProps = RouteProps & NavBarProps;
 
+// TODO specify exact type when lib changes
 export type CardSubViewProps = any;
 //  NavigationSceneRendererProps &
 //   CardsRendererProps &
@@ -58,6 +59,7 @@ export type Card = CardProps & { key: string };
  * Tabs
  */
 
+// TODO specify exact type when lib changes
 export type TabSubViewProps = any;
 //  SceneRendererProps &
 //   TabsRendererProps &
