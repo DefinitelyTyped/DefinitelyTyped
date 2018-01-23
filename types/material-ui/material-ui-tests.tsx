@@ -4498,6 +4498,11 @@ const IconMenuExampleSimple = () => (
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
