@@ -517,4 +517,4 @@ declare namespace AWSLambda {
     export type CustomAuthorizerCallback = (error?: Error | null, result?: AuthResponse) => void;
 }
 
-export as namespace AWSLambda
+export as namespace AWSLambda;
