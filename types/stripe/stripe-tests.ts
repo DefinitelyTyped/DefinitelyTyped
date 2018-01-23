@@ -231,23 +231,21 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then(function (re
 
 stripe.customers.create({
     description: 'Customer for test@example.com',
-    source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    metadata: { test: 123, test2: 123 } // IMetadata test
 }, function (err, customer) {
     // asynchronously called
     });
 stripe.customers.create({
     description: 'Customer for test@example.com',
-    source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    metadata: null // IMetadata test
 }).then( function (customer) {
     // asynchronously called
     customer.cards.create({ card: "tok_17wV94BoqMA9o2xkhlAd3ALf"}).then(function (customer) {});
     customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) { 
         let strCustomer: string = <string>card.customer;
         let objCustomer: customers.ICustomer = <customers.ICustomer>card.customer;
-
-        if (customer.metadata.test == "test") {
-
-        }
     });
     customer.cards.update("card_17xMvXBoqMA9o2xkq6W5gamx", { name: "Test" }).then(function (card) {});
     customer.cards.list().then(function (cards) {});
@@ -259,6 +257,23 @@ stripe.customers.create({
     customer.subscriptions.list().then(function (subscriptions) { });
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then(function (confirmation) { });
+
+    // IMetadata tests:
+    let num: number;
+    let str: string;
+    customer.metadata["test"] = str;
+    customer.metadata["test"] = num;
+    customer.metadata["test"] == str;
+    customer.metadata["test"] == num;
+    customer.metadata.testStr = str;
+    customer.metadata.testNum = num;
+    customer.metadata.test1 == str;
+    customer.metadata.test2 == num;
+    customer.metadata = {
+        test1: str,
+        test2: num
+    }
+    customer.metadata = null;
 });
 
 

@@ -8,6 +8,7 @@
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -6812,7 +6813,9 @@ declare namespace Stripe {
      * A set of key/value pairs that you can attach to an object. It can be useful for storing
      * additional information about the object in a structured format.
      */
-    type IMetadata = any;
+    interface IMetadata {
+        [x: string]: string | number;
+    }
 
     interface IShippingInformation {
         /**
