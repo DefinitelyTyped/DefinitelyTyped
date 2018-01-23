@@ -22,7 +22,7 @@ export = SinonChrome;
 export as namespace SinonChrome;
 
 interface SinonChromeStub extends Sinon.SinonStub {
-  flush(): void;
+    flush(): void;
 }
 
 declare namespace SinonChrome {
