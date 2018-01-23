@@ -28,7 +28,6 @@ declare class PQueue<O extends PQueue.QueueAddOptions = PQueue.DefaultAddOptions
     /**
      * Returns the promise returned by calling fn.
      * @param fn Promise-returning/async function.
-     * @param opts
      */
     add<T>(fn: PQueue.Task<T>, opts?: O): Promise<T>;
 
@@ -36,7 +35,6 @@ declare class PQueue<O extends PQueue.QueueAddOptions = PQueue.DefaultAddOptions
      * Same as .add(), but accepts an array of async functions and
      * returns a promise that resolves when all async functions are resolved.
      * @param fn Array of Promise-returning/async functions.
-     * @param opts
      */
     addAll<TAll>(fns: Array<PQueue.Task<TAll>>, opts?: O): Promise<TAll[]>;
 
