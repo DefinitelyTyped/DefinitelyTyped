@@ -4,15 +4,16 @@ import {
 	create as createJSS,
 	default as sharedInstance
 } from 'jss';
-import { Observable } from 'rxjs';
 
 const jss = createJSS().setup({});
 
 const styleSheet = jss.createStyleSheet<string>(
 	{
-		ruleWithMockObservable: Observable.of({
-			backgroundColor: 'red',
-		}),
+		ruleWithMockObservable: {
+			subscribe: () => ({
+				unsubscribe() {}
+			})
+		},
 		container: {
 			display: 'flex',
 			width: 100,
