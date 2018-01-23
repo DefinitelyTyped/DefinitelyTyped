@@ -200,7 +200,7 @@ puppeteer.launch().then(async browser => {
   page.type("#myInput", "Hello World!");
 
   page.on("console", (event: puppeteer.ConsoleMessage, ...args: any[]) => {
-    console.log(event.text, event.type);
+    console.log(event.text(), event.type());
     for (let i = 0; i < args.length; ++i) console.log(`${i}: ${args[i]}`);
   });
 
