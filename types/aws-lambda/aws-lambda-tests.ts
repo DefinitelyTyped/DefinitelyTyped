@@ -67,6 +67,7 @@ var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEve
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
 var cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
 var cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
+var scheduledEvent: AWSLambda.ScheduledEvent;
 
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
@@ -349,6 +350,15 @@ str = cloudformationCustomResourceResponse.Reason;
 str = cloudformationCustomResourceResponse.RequestId;
 str = cloudformationCustomResourceResponse.StackId;
 str = cloudformationCustomResourceResponse.Status;
+
+/* ScheduledEvent */
+str = scheduledEvent.account;
+anyObj = scheduledEvent.detail;
+str = scheduledEvent.id;
+str = scheduledEvent.region;
+str = scheduledEvent.resources[0];
+str = scheduledEvent.source;
+str = scheduledEvent.time;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
