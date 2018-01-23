@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "rxjs": "*"
+        "rxjs": "*",
+        "typestyle": "*"
     }
 }
