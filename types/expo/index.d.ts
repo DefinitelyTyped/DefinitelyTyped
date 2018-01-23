@@ -60,7 +60,7 @@ declare namespace Accelerometer {
  *
  * Note: Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
  */
-export namespace Amplitude {
+declare namespace Amplitude {
     /** Initializes Amplitude with your Amplitude API key. */
     function initialize(apiKey: string): void;
 
@@ -173,7 +173,7 @@ export class Asset {
  *
  * Note that Expo does not yet support backgrounding, so audio is not available to play in the background of your experience. Audio also automatically stops if headphones / bluetooth audio devices are disconnected.
  */
-export namespace Audio {
+declare namespace Audio {
     enum InterruptionModeIos {
         /** This is the default option. If this option is set, your experience’s audio is mixed with audio playing in background apps. */
         INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
@@ -416,7 +416,7 @@ export namespace Audio {
 /**
  * AuthSession
  */
-export namespace AuthSession {
+declare namespace AuthSession {
     function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<
         {
             type: 'cancel';
@@ -647,7 +647,7 @@ export class BlurView extends Component<BlurViewProps> { }
 /**
  * Brightness
  */
-export namespace Brightness {
+declare namespace Brightness {
     function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
     function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
     function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
@@ -709,7 +709,7 @@ export class Camera extends Component<CameraProps> {
 /**
  * Constants
  */
-export namespace Constants {
+declare namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
     const deviceId: string;
@@ -827,7 +827,7 @@ export namespace Constants {
 /**
  * Contacts
  */
-export namespace Contacts {
+declare namespace Contacts {
     type PhoneNumbers = 'phoneNumbers';
     type Emails = 'emails';
     type Addresses = 'addresses';
@@ -977,7 +977,7 @@ export namespace Contacts {
 /**
  * DocumentPicker
  */
-export namespace DocumentPicker {
+declare namespace DocumentPicker {
     interface Options {
         type?: string;
     }
@@ -996,14 +996,14 @@ export namespace DocumentPicker {
 /**
  * ErrorRecovery
  */
-export namespace ErrorRecovery {
+declare namespace ErrorRecovery {
     function setRecoveryProps(props: HashMap): void;
 }
 
 /**
  * Facebook
  */
-export namespace Facebook {
+declare namespace Facebook {
     interface Options {
         permissions?: string[];
         behavior?: 'web' | 'native' | 'browser' | 'system';
@@ -1021,7 +1021,7 @@ export namespace Facebook {
 /**
  * Facebook Ads
  */
-export namespace FacebookAds {
+declare namespace FacebookAds {
     /**
      * Interstitial Ads
      */
@@ -1081,7 +1081,7 @@ export namespace FacebookAds {
 /**
  * FaceDetector
  */
-export namespace FaceDetector {
+declare namespace FaceDetector {
     interface Point {
         x: Axis;
         y: Axis;
@@ -1150,7 +1150,7 @@ export namespace FaceDetector {
 /**
  * FileSystem
  */
-export namespace FileSystem {
+declare namespace FileSystem {
     type FileInfo = {
         exists: true;
         isDirectory: boolean;
@@ -1226,7 +1226,7 @@ export namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-export namespace Fingerprint {
+declare namespace Fingerprint {
     type FingerprintAuthenticationResult = {
         success: true
     } | {
@@ -1256,7 +1256,7 @@ export namespace Fingerprint {
 /**
  * Font
  */
-export namespace Font {
+declare namespace Font {
     interface FontMap {
         [name: string]: RequireSource;
     }
@@ -1279,7 +1279,7 @@ export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
 /**
  * Google
  */
-export namespace Google {
+declare namespace Google {
     interface LogInConfig {
         androidClientId?: string;
         androidStandaloneAppClientId?: string;
@@ -1312,7 +1312,7 @@ export namespace Google {
 }
 
 /** Access the device gyroscope sensor to respond to changes in rotation in 3d space. */
-export namespace Gyroscope {
+declare namespace Gyroscope {
     interface GyroscopeObject {
         x: Axis;
         y: Axis;
@@ -1332,7 +1332,7 @@ export namespace Gyroscope {
 /**
  * ImageManipulator
  */
-export namespace ImageManipulator {
+declare namespace ImageManipulator {
     interface ImageResult {
         uri: string;
         width: number;
@@ -1362,7 +1362,7 @@ export namespace ImageManipulator {
 /**
  * Image Picker
  */
-export namespace ImagePicker {
+declare namespace ImagePicker {
     interface ImageInfo {
         uri: string;
         width: number;
@@ -1399,7 +1399,7 @@ export namespace ImagePicker {
 /**
  * IntentLauncherAndroid
  */
-export namespace IntentLauncherAndroid {
+declare namespace IntentLauncherAndroid {
     const ACTION_ACCESSIBILITY_SETTINGS: string;
     const ACTION_APP_NOTIFICATION_REDACTION: string;
     const ACTION_CONDITION_PROVIDER_SETTINGS: string;
@@ -1509,7 +1509,7 @@ export class LinearGradient extends Component<LinearGradientProps> { }
 /**
  * Location
  */
-export namespace Location {
+declare namespace Location {
     interface LocationOptions {
         enableHighAccuracy?: boolean;
         timeInterval?: number;
@@ -1571,7 +1571,7 @@ export namespace Location {
 /**
  * Magnetometer
  */
-export namespace Magnetometer {
+declare namespace Magnetometer {
     interface MagnetometerObject {
         x: Axis;
         y: Axis;
@@ -1586,7 +1586,7 @@ export namespace Magnetometer {
 /**
  * Notifications
  */
-export namespace Notifications {
+declare namespace Notifications {
     interface Notification {
         origin: 'selected' | 'received';
         data: any;
@@ -1632,7 +1632,7 @@ export namespace Notifications {
 /**
  * Pedometer
  */
-export namespace Pedometer {
+declare namespace Pedometer {
     function isAvailableAsync(): Promise<boolean>;
     function getStepCountAsync(start: Date, end: Date): Promise<{ steps: number; }>;
     function watchStepCount(callback: (params: { steps: number; }) => void): EventSubscription;
@@ -1641,7 +1641,7 @@ export namespace Pedometer {
 /**
  * Permissions
  */
-export namespace Permissions {
+declare namespace Permissions {
     type PermissionType = 'remoteNotifications' | 'location' |
         'camera' | 'contacts' | 'audioRecording';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
@@ -1679,7 +1679,7 @@ export function registerRootComponent(component: Component): Component;
 /**
  * ScreenOrientation
  */
-export namespace ScreenOrientation {
+declare namespace ScreenOrientation {
     interface Orientation {
         ALL: 'ALL';
         ALL_BUT_UPSIDE_DOWN: 'ALL_BUT_UPSIDE_DOWN';
@@ -1697,7 +1697,7 @@ export namespace ScreenOrientation {
 /**
  * SecureStore
  */
-export namespace SecureStore {
+declare namespace SecureStore {
     interface SecureStoreOptions {
         keychainService?: string;
         keychainAccessible?: number;
@@ -1710,7 +1710,7 @@ export namespace SecureStore {
 /**
  * Segment
  */
-export namespace Segment {
+declare namespace Segment {
     function initialize(keys: {
         androidWriteKey: string;
         iosWriteKey: string;
@@ -1728,7 +1728,7 @@ export namespace Segment {
 /**
  * Speech
  */
-export namespace Speech {
+declare namespace Speech {
     interface SpeechOptions {
         language?: string;
         pitch?: number;
@@ -1747,7 +1747,7 @@ export namespace Speech {
 /**
  * SQLite
  */
-export namespace SQLite {
+declare namespace SQLite {
     type Error = any;
 
     interface Database {
@@ -1945,7 +1945,7 @@ export function takeSnapshotAsync(
 ): Promise<string>;
 
 /** Helpful utility functions that don’t fit anywhere else, including some localization and internationalization methods. */
-export namespace Util {
+declare namespace Util {
     /** Returns the current device country code. */
     function getCurrentDeviceCountryAsync(): Promise<string>;
 
@@ -2043,7 +2043,7 @@ export class Video extends Component<VideoProps, VideoState> {
 /**
  * Web Browser
  */
-export namespace WebBrowser {
+declare namespace WebBrowser {
     function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     function dismissBrowser(): Promise<{ type: 'dismissed' }>;
