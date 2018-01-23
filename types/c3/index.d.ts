@@ -61,6 +61,13 @@ export interface ChartConfiguration {
         left?: number;
     };
 
+    resize?: {
+        /**
+         * Indicate if the chart should automatically get resized when the window gets resized.
+         */
+        auto?: boolean;
+    };
+
     color?: {
         /**
          * Set custom color pattern.
@@ -730,6 +737,10 @@ export interface TooltipOptions {
      * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
      */
     contents?(data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any): string;
+    /**
+     * Set tooltip values order
+     */
+    order?: string | any[] | ((data: Data) => boolean);
 }
 
 export interface SubchartOptions {

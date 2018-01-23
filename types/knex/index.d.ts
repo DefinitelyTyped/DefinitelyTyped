@@ -17,7 +17,7 @@ import Bluebird = require("bluebird");
 type Callback = Function;
 type Client = Function;
 type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
-type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
+type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string };
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
 interface Knex extends Knex.QueryInterface {
@@ -29,7 +29,7 @@ interface Knex extends Knex.QueryInterface {
     transaction<T>(transactionScope: (trx: Knex.Transaction) => Promise<T> | Bluebird<T> | void): Bluebird<T>;
     destroy(callback: Function): void;
     destroy(): Bluebird<void>;
-    batchInsert(tableName: TableName, data: any[], chunkSize: number): Knex.QueryBuilder;
+    batchInsert(tableName: TableName, data: any[], chunkSize?: number): Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
     queryBuilder(): Knex.QueryBuilder;
 
@@ -427,7 +427,7 @@ declare namespace Knex {
         time(columnName: string): ColumnBuilder;
         timestamp(columnName: string): ColumnBuilder;
         timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
-        binary(columnName: string): ColumnBuilder;
+        binary(columnName: string, length?: number): ColumnBuilder;
         enum(columnName: string, values: Value[]): ColumnBuilder;
         enu(columnName: string, values: Value[]): ColumnBuilder;
         json(columnName: string): ColumnBuilder;

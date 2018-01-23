@@ -31,7 +31,7 @@ declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
         constructor(mapDiv: Element|null, opts?: MapOptions);
-        fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
+        fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral, padding?: number): void;
         getBounds(): LatLngBounds|null|undefined;
         getCenter(): LatLng;
         getDiv(): Element;

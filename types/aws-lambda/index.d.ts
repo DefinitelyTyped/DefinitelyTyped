@@ -13,6 +13,7 @@
 //                 Kostya Misura <https://github.com/kostya-misura>
 //                 Markus Tacker <https://github.com/coderbyheart>
 //                 Palmi Valgeirsson <https://github.com/palmithor>
+//                 Danilo Raisi <https://github.com/daniloraisi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -294,6 +295,20 @@ type CloudFormationCustomResourceFailedResponse = CloudFormationCustomResourceRe
 }
 
 export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
+
+/**
+ * See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-scheduled-event
+ */
+interface ScheduledEvent {
+    account: string;
+    region: string;
+    detail: any;
+    "detail-type": string;
+    source: string;
+    time: string;
+    id: string;
+    resources: string[]
+}
 
 /**
  * See http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-cloudwatch-logs

@@ -83,6 +83,8 @@ arrayOfPoint3D = Array.from(arrayOfPoint, point => point3d, a);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d, a);
 arrayOfPoint = Array.of(point, point);
+b = Array.isArray([]);
+b = Array.isArray({});
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp

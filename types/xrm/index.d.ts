@@ -3488,6 +3488,13 @@ declare namespace Xrm {
         getEntityName(): string;
 
         /**
+         * Gets a lookup value that references the record.
+         * @returns A lookup value that references the record.
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-entity/getentityreference External Link: getEntityReference API Documentation}
+         */
+        getEntityReference(): LookupValue;
+
+        /**
          * Gets the record's unique identifier.
          * @returns The identifier, in Guid format.
          * @example Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
@@ -3508,6 +3515,12 @@ declare namespace Xrm {
         getPrimaryAttributeValue(): string;
 
         /**
+         * Gets a boolean value indicating whether all of the entity data is valid.
+         * @returns true if all of the entity data is valid; false otherwise.
+         */
+        isValid(): boolean;
+
+        /**
          * Removes the handler from the "on save" event.
          * @param handler The handler.
          */
@@ -3515,8 +3528,6 @@ declare namespace Xrm {
 
         /**
          * Saves the record.
-         * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @remarks  When using quick create forms in the web application the saveandnew option is not
          *           applied. It will always work as if saveandclose were used. Quick create forms in
          *           Microsoft Dynamics CRM for tablets will apply the saveandnew behavior.
@@ -3525,8 +3536,6 @@ declare namespace Xrm {
 
         /**
          * Saves the record with the given save mode.
-         * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @param saveMode (Optional) the save mode to save, as either "saveandclose" or "saveandnew".
          */
         save(saveMode: EntitySaveMode): void;
@@ -5056,7 +5065,7 @@ declare namespace XrmEnum {
     const enum FormNotificationLevel {
         Error = "ERROR",
         Info = "INFO",
-        Warning = "Warning"
+        Warning = "WARNING"
     }
 
     /**

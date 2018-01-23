@@ -1,6 +1,7 @@
 // Type definitions for request-promise-native 1.0
 // Project: https://github.com/request/request-promise-native
 // Definitions by: Gustavo Henke <https://github.com/gustavohenke>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,7 +9,9 @@ import request = require('request');
 import http = require('http');
 
 declare namespace requestPromise {
-    interface RequestPromise extends request.Request, Promise<any> {
+    interface RequestPromise extends request.Request {
+        then: Promise<any>["then"];
+        catch: Promise<any>["catch"];
         promise(): Promise<any>;
     }
 
