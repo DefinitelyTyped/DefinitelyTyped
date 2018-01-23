@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 2.3
+// Type definitions for react-beautiful-dnd 3.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -34,7 +34,7 @@ export interface DropResult {
     draggableId: DraggableId;
     type: TypeId;
     source: DraggableLocation;
-    destination?: DraggableLocation;
+    destination?: DraggableLocation | null;
 }
 
 export interface DragDropContextProps {
@@ -50,7 +50,7 @@ export class DragDropContext extends React.Component<DragDropContextProps> {}
 
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
-    placeholder?: React.ReactElement<any>;
+    placeholder?: React.ReactElement<any> | null;
 }
 
 export interface DroppableStateSnapshot {
@@ -86,9 +86,9 @@ export interface DragHandleProps {
 
 export interface DraggableProvided {
     innerRef(element?: HTMLElement | null): any;
-    draggableStyle?: DraggableStyle;
-    dragHandleProps?: DragHandleProps;
-    placeholder?: React.ReactElement<any>;
+    draggableStyle?: DraggableStyle | null;
+    dragHandleProps?: DragHandleProps | null;
+    placeholder?: React.ReactElement<any> | null;
 }
 
 export interface DraggableStateSnapshot {

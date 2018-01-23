@@ -230,6 +230,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     filterOptions?: FilterOptionsHandler<TValue>;
     /**
+     * id for the underlying HTML input element
+     * @default undefined
+     */
+    id?: string;
+    /**
      * whether to strip diacritics when filtering
      * @default true
      */
