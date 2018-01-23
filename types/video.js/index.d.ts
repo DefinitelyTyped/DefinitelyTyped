@@ -134,6 +134,8 @@ declare namespace videojs {
     canPlaySource(srcObj: any, options: any): boolean;
     isTech(component: any): boolean;
     registerTech(name: string, tech: any): void;
+    registerSourceHandler(handler: any, priority: number): void;
+    withSourceHandlers(tech: Tech): void;
 	}
 
 	interface MediaError {
