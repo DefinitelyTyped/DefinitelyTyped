@@ -6,6 +6,7 @@
 // TypeScript Version: 2.3
 
 import { CSSProperties } from 'react';
+import { Observable } from 'rxjs';
 
 export type PseudoCssKey =
 	| ':active'
@@ -180,7 +181,8 @@ export interface JssExpand {
 
 export type JssExpandArr = { [k in keyof JssExpand]?: JssExpand[k] | Array<JssExpand[k]> };
 
-export type Style = React.CSSProperties & PseudoCss & JssProps & JssExpandArr;
+export type SimpleStyle = React.CSSProperties & PseudoCss & JssProps & JssExpandArr;
+export type Style = Observable<SimpleStyle> | SimpleStyle
 
 export type Styles<Name extends string = any> = Record<Name, Style>;
 export type Classes<Name extends string = any> = Record<Name, string>;
