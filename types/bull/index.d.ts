@@ -446,6 +446,11 @@ declare namespace Bull {
     getFailed(start?: number, end?: number): Promise<Job[]>;
 
     /**
+     * Returns a promise that will return an array with the waiting jobs between start and end.
+     */
+    getWaiting(start?: number, end?: number): Promise<Job[]>;
+
+    /**
      * Returns JobInformation of repeatable jobs (ordered descending). Provide a start and/or an end
      * index to limit the number of results. Start defaults to 0, end to -1 and asc to false.
      */
