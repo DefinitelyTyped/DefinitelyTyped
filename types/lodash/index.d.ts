@@ -9859,9 +9859,9 @@ declare namespace _ {
          * object === other;
          * // => false
          */
-        isEqual(
-            value: any,
-            other: any
+        isEqual<T1, T2>(
+            value: T1,
+            other: T2
         ): boolean;
     }
 
@@ -9869,8 +9869,8 @@ declare namespace _ {
         /**
          * @see _.isEqual
          */
-        isEqual(
-            other: any
+        isEqual<T>(
+            other: T
         ): boolean;
     }
 
@@ -9878,13 +9878,13 @@ declare namespace _ {
         /**
          * @see _.isEqual
          */
-        isEqual(
-            other: any
+        isEqual<T>(
+            other: T
         ): LoDashExplicitWrapper<boolean>;
     }
 
     // _.isEqualWith
-    type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
+    type IsEqualCustomizer<T1, T2> = (value: T1, other: T2, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
 
     interface LoDashStatic {
         /**
@@ -9916,10 +9916,10 @@ declare namespace _ {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        isEqualWith(
-            value: any,
-            other: any,
-            customizer?: IsEqualCustomizer
+        isEqualWith<T1, T2>(
+            value: T1,
+            other: T2,
+            customizer?: IsEqualCustomizer<T1, T2>
         ): boolean;
     }
 
@@ -9927,9 +9927,9 @@ declare namespace _ {
         /**
          * @see _.isEqualWith
          */
-        isEqualWith(
-            other: any,
-            customizer?: IsEqualCustomizer
+        isEqualWith<T>(
+            other: T,
+            customizer?: IsEqualCustomizer<TValue, T>
         ): boolean;
     }
 
@@ -9937,9 +9937,9 @@ declare namespace _ {
         /**
          * @see _.isEqualWith
          */
-        isEqualWith(
-            other: any,
-            customizer?: IsEqualCustomizer
+        isEqualWith<T>(
+            other: T,
+            customizer?: IsEqualCustomizer<TValue, T>
         ): LoDashExplicitWrapper<boolean>;
     }
 
