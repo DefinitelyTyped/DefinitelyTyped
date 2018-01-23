@@ -11,7 +11,7 @@ import * as React from 'react';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
-export type RechartsFunction = () => void;
+export type RechartsFunction = (...args: any[]) => void;
 export type TickFormatterFunction = (value: any) => any;
 export type TickGeneratorFunction = (noTicksProps: object) => any[];
 export type LabelFormatter = (label: string | number) => React.ReactNode;
@@ -229,10 +229,7 @@ export interface BrushProps {
     endIndex?: number;
     tickFormatter?: TickFormatterFunction;
     children?: React.ReactNode;
-    onChange?: (newIndex: {
-        startIndex: number;
-        endIndex: number;
-    }) => void;
+    onChange?: RechartsFunction;
     updateId?: string | number;
 }
 
@@ -261,6 +258,13 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
 
 export class CartesianAxis extends React.Component<CartesianAxisProps> { }
 
+export type CoordinatesGenerator = (arg: {
+    yAxis: CartesianGridProps['yAxis'];
+    width: CartesianGridProps['chartWidth'];
+    height: CartesianGridProps['chartHeight'];
+    offset: CartesianGridProps['offset'];
+}) => number[];
+
 export interface CartesianGridProps extends Partial<PresentationAttributes> {
     y?: number;
     width?: number;
@@ -269,18 +273,8 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     vertical?: object | React.ReactElement<any> | ContentRenderer<LineProps & CartesianGridProps> | boolean;
     horizontalPoints?: number[];
     verticalPoints?: number[];
-    horizontalCoordinatesGenerator?: (arg: {
-        yAxis: CartesianGridProps['yAxis'];
-        width: CartesianGridProps['chartWidth'];
-        height: CartesianGridProps['chartHeight'];
-        offset: CartesianGridProps['offset'];
-    }) => number[];
-    verticalCoordinatesGenerator?: (arg: {
-        yAxis: CartesianGridProps['xAxis'];
-        width: CartesianGridProps['chartWidth'];
-        height: CartesianGridProps['chartHeight'];
-        offset: CartesianGridProps['offset'];
-    }) => number[];
+    horizontalCoordinatesGenerator?: CoordinatesGenerator;
+    verticalCoordinatesGenerator?: CoordinatesGenerator;
     xAxis?: object;
     yAxis?: object;
     offset?: object;
@@ -336,13 +330,15 @@ export interface DotProps extends EventAttributes {
 
 export class Dot extends React.Component<DotProps> { }
 
+export type DataPointFormatter = (entry: any, dataKey: DataKey) => { x: number; y: number, value: any; errorVal: any; };
+
 export interface ErrorBarProps {
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     data?: any[];
     xAxis?: object;
     yAxis?: object;
     layout?: string;
-    dataPointFormatter?: (entry: any, dataKey: DataKey) => { x: number; y: number, value: any; errorVal: any; };
+    dataPointFormatter?: DataPointFormatter;
     stroke?: string;
     strokeWidth?: number;
     width?: number;
@@ -356,6 +352,8 @@ export interface LegendPayload {
     id: any;
     type: LegendType;
 }
+
+export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
 
 export interface LegendProps {
     content?: React.ReactElement<any> | ContentRenderer<LegendProps>;
@@ -375,7 +373,7 @@ export interface LegendProps {
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
-    onBBoxUpdate?: (box: { width: number; height: number; }) => void;
+    onBBoxUpdate?: BBoxUpdateCallback;
 }
 
 export class Legend extends React.Component<LegendProps> { }
@@ -634,11 +632,16 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
 
+export type ScaleCalculator = (x: number | string) => number;
+export interface ReferenceDotAxisConfiguration {
+    scale: ScaleCalculator;
+}
+
 export interface ReferenceDotProps extends EventAttributes, Partial<PresentationAttributes<number | string, number | string>> {
     className?: number | string;
     r?: number;
-    xAxis?: { scale: (x: ReferenceDotProps['x']) => number };
-    yAxis?: { scale: (y: ReferenceDotProps['y']) => number };
+    xAxis?: ReferenceDotAxisConfiguration;
+    yAxis?: ReferenceDotAxisConfiguration;
     isFront?: boolean;
     alwaysShow?: boolean;
     x?: number | string;
