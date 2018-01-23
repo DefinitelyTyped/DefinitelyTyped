@@ -9,13 +9,11 @@ declare namespace echarts {
         renderer?: string
     }): ECharts;
 
-    const graphic: {
+    interface graphic {
         clipPointsByRect(points: number[][], rect: ERectangle): number[][];
         clipRectByRect(targetRect: ERectangle, rect: ERectangle): ERectangle;
-        LinearGradient: { new  (x: number, y: number, x2: number, y2: number, colorStops: Array<Object>, globalCoord?: boolean): LinearGradient }
-
-    };
-
+        LinearGradient: { new(x: number, y: number, x2: number, y2: number, colorStops: Array<Object>, globalCoord?: boolean): LinearGradient }
+    }
 
     function connect(group: string | Array<string>): void;
 
@@ -39,6 +37,25 @@ declare namespace echarts {
         y2: number
     }
 
+    // finder 用于指示"在哪个坐标系或者系列上判断"。
+    // 通常地，可以使用 index 或者 id 或者 name 来定位。
+    interface finder {
+        seriesIndex?: number;
+        seriesId?: string;
+        seriesName?: string;
+        geoIndex?: number;
+        geoId?: string;
+        geoName?: string;
+        xAxisIndex?: number;
+        xAxisId?: string;
+        xAxisName?: string;
+        yAxisIndex?: number;
+        yAxisId?: string;
+        yAxisName?: string;
+        gridIndex?: number;
+        gridId?: string;
+        gridName?: string;
+    }
 
     interface ECharts {
         group: string;
@@ -90,61 +107,11 @@ declare namespace echarts {
         dispose(): void
 
         // 转换逻辑点到像素
-        convertToPixel(finder: {
-            seriesIndex?: number,
-            seriesId?: string,
-            seriesName?: string,
-            geoIndex?: number,
-            geoId?: string,
-            geoName?: string,
-            xAxisIndex?: number,
-            xAxisId?: string,
-            xAxisName?: string,
-            yAxisIndex?: number,
-            yAxisId?: string,
-            yAxisName?: string,
-            gridIndex?: number,
-            gridId?: string
-            gridName?: string
-        } | string, value: string | Array<any>): string | Array<any>
+        convertToPixel(finder: finder | string, value: string | Array<any>): string | Array<any>
 
-        convertFromPixel(finder: {
-            seriesIndex?: number,
-            seriesId?: string,
-            seriesName?: string,
-            geoIndex?: number,
-            geoId?: string,
-            geoName?: string,
-            xAxisIndex?: number,
-            xAxisId?: string,
-            xAxisName?: string,
-            yAxisIndex?: number,
-            yAxisId?: string,
-            yAxisName?: string,
-            gridIndex?: number,
-            gridId?: string
-            gridName?: string
-        } | string, value: Array<any> | string): Array<any> | string
+        convertFromPixel(finder: finder | string, value: Array<any> | string): Array<any> | string
 
-        containPixel(finder: {
-           // finder 用于指示『在哪个坐标系或者系列上判断』。
-           // 通常地，可以使用 index 或者 id 或者 name 来定位。
-           seriesIndex?: number,
-           seriesId?: string,
-           seriesName?: string,
-           geoIndex?: number,
-           geoId?: string,
-           geoName?: string,
-           xAxisIndex?: number,
-           xAxisId?: string,
-           xAxisName?: string,
-           yAxisIndex?: number,
-           yAxisId?: string,
-           yAxisName?: string,
-           gridIndex?: number,
-           gridId?: string,
-           gridName?: string
-        } | string,
+        containPixel(finder: finder | string,
         // 要被判断的点，为像素坐标值，以 echarts 实例的 dom 节点的左上角为坐标 [0, 0] 点。
         value: any[]): boolean
     }
