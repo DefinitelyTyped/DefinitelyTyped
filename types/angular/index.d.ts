@@ -388,6 +388,7 @@ declare namespace angular {
         $setUntouched(): void;
         $rollbackViewValue(): void;
         $commitViewValue(): void;
+        $processModelValue(): void;
         $isEmpty(value: any): boolean;
         $overrideModelOptions(options: INgModelOptions): void;
 
