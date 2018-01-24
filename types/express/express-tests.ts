@@ -1,7 +1,35 @@
 import * as express from 'express';
 
+declare module 'express-serve-static-core' {
+    interface CustomApplicationLocals {
+        foo: string;
+    }
+
+    interface ApplicationLocals extends CustomApplicationLocals {}
+
+    interface CustomResponseLocals {
+        bar: string;
+    }
+
+    interface ResponseLocals extends CustomResponseLocals {}
+}
+
 namespace express_tests {
     const app = express();
+
+    // Custom locals
+    // $ExpectType string
+    app.locals.foo;
+    // $ExpectType any
+    app.locals.notDefined;
+
+    app.use((req, res, next) => {
+        // Custom locals
+        // $ExpectType string
+        res.locals.bar;
+        // $ExpectType any
+        res.locals.notDefined;
+    });
 
     app.engine('jade', require('jade').__express);
     app.engine('html', require('ejs').renderFile);
