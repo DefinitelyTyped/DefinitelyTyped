@@ -10,5 +10,4 @@ export class FilmPass extends Pass {
     material: Material;
     quad: Mesh;
 
-   render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number, maskActive?: boolean): void;
 }
