@@ -12,7 +12,7 @@ declare module 'leaflet' {
           onAdd(map: Map): HTMLElement;
           start(): void;
           stop(): void;
-          setView():void;
+          setView(): void;
         }
         interface LocateOptions {
             position?: string;
