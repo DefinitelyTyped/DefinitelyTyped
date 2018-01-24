@@ -87,6 +87,20 @@ declare namespace Handlebars {
         NullLiteral(): void;
         Hash(hash: hbs.AST.Hash): void;
     }
+
+    export interface HelperOptions<T = any> {
+        fn: HandlebarsTemplateDelegate<T>;
+        inverse: HandlebarsTemplateDelegate<T>;
+        hash: any;
+        data?: any;
+    }
+
+    export interface HelperDelegate<T = any> {
+        (arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, options?: HelperOptions<T>): string;
+        (context?: T, options?: HelperOptions<T>): string;
+        (options?: HelperOptions<T>): string;
+    }
+
 }
 
 /**
@@ -114,6 +128,7 @@ interface RuntimeOptions {
     helpers?: { [name: string]: Function }
     partials?: { [name: string]: HandlebarsTemplateDelegate }
     decorators?: { [name: string]: Function }
+    data?: any;
 }
 
 interface CompileOptions {
