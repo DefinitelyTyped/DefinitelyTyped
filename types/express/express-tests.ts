@@ -18,11 +18,17 @@ namespace express_tests {
     const app = express();
 
     // Custom locals
+    // expect type string
     app.locals.foo;
+    // expect type any
+    app.locals.notDefined;
 
     app.use((req, res, next) => {
         // Custom locals
+        // expect type string
         res.locals.bar;
+        // expect type any
+        res.locals.notDefined;
     });
 
     app.engine('jade', require('jade').__express);

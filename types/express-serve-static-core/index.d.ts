@@ -462,7 +462,9 @@ export interface MediaType {
 export type Send = (body?: any) => Response;
 
 // This empty interface can be augmented.
-export interface ResponseLocals {}
+export interface ResponseLocals {
+    [key: string]: any;
+}
 
 export interface Response extends http.ServerResponse, Express.Response {
     /**
@@ -839,7 +841,9 @@ export type RequestParamHandler = (req: Request, res: Response, next: NextFuncti
 export type ApplicationRequestHandler<T> = IRouterHandler<T> & IRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
 
 // This empty interface can be augmented.
-export interface ApplicationLocals {}
+export interface ApplicationLocals {
+    [key: string]: any;
+}
 
 export interface Application extends EventEmitter, IRouter, Express.Application {
     /**
