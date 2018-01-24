@@ -41,6 +41,9 @@ declare module "mongoose" {
   import stream = require('stream');
   import mongoose = require('mongoose');
 
+  /** Pluralises the given name */
+  export function pluralize(str: string): string;
+
   /*
    * Some mongoose classes have the same name as the native JS classes
    * Keep references to native classes using a "Native" prefix
@@ -147,49 +150,6 @@ declare module "mongoose" {
   }
 
   /*
-   * section querystream.js
-   * http://mongoosejs.com/docs/api.html#querystream-js
-   *
-   * QueryStream can only be accessed using query#stream(), we only
-   *   expose its interface here.
-   */
-  interface QueryStream extends stream.Stream {
-    /**
-     * Provides a Node.js 0.8 style ReadStream interface for Queries.
-     * @event data emits a single Mongoose document
-     * @event error emits when an error occurs during streaming. This will emit before the close event.
-     * @event close emits when the stream reaches the end of the cursor or an error occurs, or the stream
-     *   is manually destroyed. After this event, no more events are emitted.
-     */
-    constructor(query: Query<any>, options?: {
-      /**
-       * optional function which accepts a mongoose document. The return value
-       * of the function will be emitted on data.
-       */
-      transform?: Function;
-      [other: string]: any;
-    }): QueryStream;
-
-    /**
-     * Destroys the stream, closing the underlying cursor, which emits the close event.
-     * No more events will be emitted after the close event.
-     */
-    destroy(err?: NativeError): void;
-
-    /** Pauses this stream. */
-    pause(): void;
-    /** Pipes this query stream into another stream. This method is inherited from NodeJS Streams. */
-    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-    /** Resumes this stream. */
-    resume(): void;
-
-    /** Flag stating whether or not this stream is paused. */
-    paused: boolean;
-    /** Flag stating whether or not this stream is readable. */
-    readable: boolean;
-  }
-
-  /*
    * section connection.js
    * http://mongoosejs.com/docs/api.html#connection-js
    *
@@ -230,7 +190,10 @@ declare module "mongoose" {
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
     /** Helper for dropDatabase() */
-    dropDatabase(callback?: (err: any) => void): Promise<void>;
+    dropDatabase(name: string, callback?: (err: any) => void): Promise<any>;
+
+    /** Helper for dropCollection() */
+    dropCollection(name: string, callback?: (err: any) => void): Promise<void>;
 
     /**
      * Opens the connection to a replica set.
@@ -565,6 +528,9 @@ declare module "mongoose" {
     /** Adds key path / schema type pairs to this schema. */
     add(obj: SchemaDefinition, prefix?: string): void;
 
+    /** Return a deep copy of this schema */
+    clone(): Schema;
+
     /**
      * Iterates the schemas paths similar to Array.forEach.
      * @param fn callback function
@@ -739,6 +705,7 @@ declare module "mongoose" {
     discriminatorKey?: string;
     /** defaults to false. */
     emitIndexErrors?: boolean;
+    excludeIndexes?: any;
     /** defaults to true */
     id?: boolean;
     /** defaults to true */
@@ -748,6 +715,7 @@ declare module "mongoose" {
     read?: string;
     /** defaults to true. */
     safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
+
     /** defaults to null */
     shardKey?: boolean;
     /** defaults to true */
@@ -760,8 +728,6 @@ declare module "mongoose" {
     typeKey?: string;
     /** defaults to false */
     useNestedStrict?: boolean;
-    /** defaults to false */
-    usePushEach?: boolean;
     /** defaults to true */
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
@@ -771,7 +737,7 @@ declare module "mongoose" {
      * versioning (the internal revision will not be
      * incremented even if these paths are updated).
      */
-    skipVersioning?: boolean | any;
+    skipVersioning?: any;
     /**
      * If set timestamps, mongoose assigns createdAt
      * and updatedAt fields to your schema, the type
@@ -818,6 +784,8 @@ declare module "mongoose" {
    * - http://mongoosejs.com/docs/api.html#schema_Schema.Types
    */
   interface SchemaTypeOpts<T> {
+    alias?: string;
+
     /* Common Options for all schema types */
     type?: T;
 
@@ -870,7 +838,7 @@ declare module "mongoose" {
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
       SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      any;
+      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
 
     /** Declares an unique index. */
     unique?: boolean | any;
@@ -931,13 +899,26 @@ declare module "mongoose" {
     }
 
     interface ValidateFn<T> {
-      (obj: RegExp | Function, message?: string, type?: string): T;
+      (value: T): boolean;
     }
 
-    interface ValidateOpts {
-      validator?: RegExp | Function,
-      msg?: string,
-      type?: string
+    interface AsyncValidateFn<T> {
+      (value: T, done: (result: boolean) => void): void;
+    }
+
+    interface ValidateOptsBase {
+      msg?: string;
+      type?: string;
+    }
+
+    interface ValidateOpts extends ValidateOptsBase {
+      isAsync?: false;
+      validator?: RegExp | ValidateFn<any>;
+    }
+
+    interface AsyncValidateOpts extends ValidateOptsBase {
+      isAsync: true;
+      validator: AsyncValidateFn<any>;
     }
 
     interface EnumOpts<T> {
@@ -967,7 +948,7 @@ declare module "mongoose" {
      * Takes a populated field and returns it to its unpopulated state.
      * If the path was not populated, this is a no-op.
      */
-    depopulate(path: string): void;
+    depopulate(path: string): this;
 
     /**
      * Returns true if the Document stores the same data as doc.
@@ -994,10 +975,9 @@ declare module "mongoose" {
      * Initializes the document without setters or marking anything modified.
      * Called internally after a document is returned from mongodb.
      * @param doc document returned by mongo
-     * @param fn callback
+     * @param opts Options
      */
-    init(doc: MongooseDocument): this;
-    init(doc: MongooseDocument, opts: any): this;
+    init(doc: MongooseDocument, opts?: any): this;
 
     /** Helper for console.log */
     inspect(options?: any): any;
@@ -1449,7 +1429,6 @@ declare module "mongoose" {
      */
     center(area: any): this;
     center(path: string, area: any): this;
-
     /**
      * DEPRECATED Specifies a $centerSphere condition
      * @deprecated Use circle instead.
@@ -1771,9 +1750,6 @@ declare module "mongoose" {
      */
     sort(arg: string | any): this;
 
-    /** Returns a Node.js 0.8 style read stream interface. */
-    stream(options?: { transform?: Function; }): QueryStream;
-
     /**
      * Sets the tailable option (for use with capped collections). Cannot be used with distinct()
      * @param bool defaults to true
@@ -1831,7 +1807,7 @@ declare module "mongoose" {
     /** puts a time limit on the query - requires mongodb >= 2.6.0 */
     maxTimeMS?: number;
     /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    passRawResult?: boolean;
+    rawResult?: boolean;
   }
 
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
@@ -2202,6 +2178,15 @@ declare module "mongoose" {
     near(parameters: any): this;
 
     /**
+     * Lets you set arbitrary options, for middleware or plugins.
+     * @param value  keys to merge into current options
+     */
+    option(value: any): this;
+
+    /** Returns the current pipeline */
+    pipeline(): any[];
+
+    /**
      * Appends a new $project operator to this aggregate pipeline.
      * Mongoose query selection syntax is also supported.
      * @param arg field specification
@@ -2376,6 +2361,16 @@ declare module "mongoose" {
      * @param options See https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch
      */
     watch(options?: mongodb.ChangeStreamOptions & {session?: any}): mongodb.ChangeStream;
+
+    /**
+     * Sends multiple insertOne, updateOne, updateMany, replaceOne, deleteOne, and/or deleteMany operations to the MongoDB server in one command. This is faster than sending multiple independent operations (like) if you use create()) because with bulkWrite() there is only one round trip to MongoDB.
+     * Mongoose will perform casting on all operations you provide.
+     * This function does not trigger any middleware, not save() nor update(). If you need to trigger save() middleware for every document use create() instead.
+     * @param writes Operations
+     * @param cb callback
+     * @return `BulkWriteOpResult` if the operation succeeds
+     */
+    bulkWrite(writes: any[], cb?: (err: any, res: mongodb.BulkWriteOpResultObject) => void): Promise<mongodb.BulkWriteOpResultObject>;
 
     /**
      * Finds a single document by its _id field. findById(id) is almost*
@@ -2588,6 +2583,12 @@ declare module "mongoose" {
     deleteMany(conditions: any, callback?: (err: any) => void): Query<void>;
 
     /**
+     * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
+     * This function triggers the following middleware: replaceOne
+     */
+    replaceOne(conditions: any, replacement: any, callback?: (err: any, raw: any) => void): Query<any>;
+
+    /**
      * Updates documents in the database without returning them.
      * All update values are cast to their appropriate SchemaTypes before being sent.
      */
@@ -2703,14 +2704,9 @@ declare module "mongoose" {
     /** sets the document fields to return */
     select?: any;
     /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    passRawResult?: boolean;
+    rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
-    /**
-     * if true, run all setters defined on the associated model's schema for all fields
-     * defined in the query and the update.
-     */
-    runSettersOnQuery?: boolean;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {
@@ -2719,7 +2715,7 @@ declare module "mongoose" {
     /** puts a time limit on the query - requires mongodb >= 2.6.0 */
     maxTimeMS?: number;
     /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    passRawResult?: boolean;
+    rawResult?: boolean;
   }
 
   interface ModelPopulateOptions {

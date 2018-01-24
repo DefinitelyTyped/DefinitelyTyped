@@ -35,6 +35,8 @@ const connection3: null = mongoose.connect(connectUri, function (error) {
 });
 
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
+mongooseConnection.dropDatabase('foo').then(()=>{});
+mongooseConnection.dropCollection('foo').then(()=>{});
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {
   db: {
@@ -62,29 +64,6 @@ mongoose.SchemaTypes.Decimal128;
 mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
-
-/*
- * section querystream.js
- * http://mongoosejs.com/docs/api.html#querystream-js
- */
-var querystream = <mongoose.QueryStream> {};
-querystream.destroy(new Error());
-querystream.pause();
-querystream.pipe(process.stdout, {end: true}).end();
-querystream.resume();
-querystream.paused;
-querystream.readable;
-/* inherited properties */
-querystream.getMaxListeners();
-/* practical examples */
-var QSModel = <typeof mongoose.Model> {};
-var QSStream: mongoose.QueryStream = QSModel.find().stream();
-QSStream.on('data', function (doc: any) {
-  doc.save();
-}).on('error', function (err: any) {
-  throw err;
-}).on('close', cb);
-QSModel.where('created').gte(20000).stream().pipe(process.stdout);
 
 /*
  * section collection.js
@@ -169,6 +148,8 @@ mongooseError.stack;
 /* static properties */
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
+
+const plural: string = mongoose.pluralize('foo');
 
 /*
  * section querycursor.js
@@ -375,7 +356,22 @@ new mongoose.Schema({
   integerOnly: {
     type: Number,
     get: (v: number) => Math.round(v),
-    set: (v: number) => Math.round(v)
+    set: (v: number) => Math.round(v),
+    validate: {
+      isAsync: false,
+      validator: (val: number): boolean => {
+        return false;
+      }
+    }
+  },
+  asyncValidated: {
+    type: Number,
+    validate: {
+      isAsync: true,
+      validator: (val: number, done): void => {
+        setImmediate(done, true);
+      }
+    }
   }
 });
 new mongoose.Schema({ name: { type: String, validate: [
@@ -448,7 +444,7 @@ export default function(schema: mongoose.Schema) {
  */
 var doc = <mongoose.MongooseDocument> {};
 doc.$isDefault('path').valueOf();
-doc.depopulate('path');
+const docDotDepopulate: mongoose.MongooseDocument = doc.depopulate('path');
 doc.equals(doc).valueOf();
 doc.execPopulate().then(function (arg) {
   arg.execPopulate();
@@ -497,6 +493,7 @@ doc.validateSync(['path1', 'path2']).stack;
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {
     type: String,
+    alias: 'foo',
     default: 'Val '
   }
 }));
@@ -507,6 +504,14 @@ MyModel.findOne().populate('author').exec(function (err, doc) {
     doc.depopulate('author');
   }
 });
+MyModel.replaceOne({foo: 'bar'}, {qux: 'baz'}).where();
+MyModel.replaceOne({foo: 'bar'}, {qux: 'baz'}, (err, raw) => {})
+MyModel.bulkWrite([{foo:'bar'}]).then(r => {
+  console.log(r.deletedCount);
+});
+MyModel.bulkWrite([], (err, res) => {
+  console.log(res.modifiedCount)
+})
 doc.populate('path');
 doc.populate({path: 'hello'});
 doc.populate('path', cb)
@@ -519,6 +524,8 @@ const ImageSchema = new mongoose.Schema({
   name: {type: String, required: true},
   id: {type: Number, unique: true, required: true, index: true},
 }, { id: false });
+
+const clonedSchema: mongoose.Schema = new mongoose.Schema().clone();
 
 interface ImageDoc extends mongoose.Document {
   name: string,
@@ -737,7 +744,7 @@ query.findOne(function (err, res) {
   res.execPopulate();
 }).findOne();
 query.findOneAndRemove({name: 'aa'}, {
-  passRawResult: true
+  rawResult: true
 }, function (err, doc) {
   doc.execPopulate();
 }).findOneAndRemove();
@@ -745,7 +752,7 @@ query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
 
 });
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
-  passRawResult: true
+  rawResult: true
 }, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'});
@@ -848,10 +855,6 @@ query.where('comments').slice([-10, 5]);
 query.snapshot().snapshot(true);
 query.sort({ field: 'asc', test: -1 });
 query.sort('field -test');
-query.stream().on('data', function (doc: any) {
-}).on('error', function (err: any) {
-}).on('close', function () {
-});
 query.tailable().tailable(false);
 query.then(cb).catch(cb);
 (new (query.toConstructor())(1, 2, 3)).toConstructor();
@@ -1041,6 +1044,8 @@ aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
+aggregate.option({foo: 'bar'}).exec();
+const aggregateDotPipeline: any[] = aggregate.pipeline();
 aggregate.explain(cb).then(cb).catch(cb);
 aggregate.group({ _id: "$department" }).group({ _id: "$department" });
 aggregate.limit(10).limit(10);
@@ -1248,14 +1253,14 @@ mongoose.model('').findOne({})
   });
 
 mongoose.model('').aggregate([])
-  .then(function (arg: any) {
+  .then(function (arg) {
     return 2;
-  }).then(function (num: any) {
+  }).then(function (num) {
     num.toFixed;
     return new Promise<string>((resolve, reject) => {
       resolve('str');
     });
-  }).then(function (str: string) {
+  }).then(function (str) {
     str.toLowerCase;
   });
 
