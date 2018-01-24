@@ -384,21 +384,27 @@ declare namespace Bull {
 
     /**
      * Returns a promise that resolves when the queue is paused.
-     * The pause is global, meaning that all workers in all queue instances for a given queue will be paused.
-     * A paused queue will not process new jobs until resumed,
-     * but current jobs being processed will continue until they are finalized.
+     *
+     * A paused queue will not process new jobs until resumed, but current jobs being processed will continue until
+     * they are finalized. The pause can be either global or local. If global, all workers in all queue instances
+     * for a given queue will be paused. If local, just this worker will stop processing new jobs after the current
+     * lock expires. This can be useful to stop a worker from taking new jobs prior to shutting down.
      *
      * Pausing a queue that is already paused does nothing.
      */
-    pause(): Promise<void>;
+    pause(isLocal?: boolean): Promise<void>;
 
     /**
      * Returns a promise that resolves when the queue is resumed after being paused.
-     * The resume is global, meaning that all workers in all queue instances for a given queue will be resumed.
+     *
+     * The resume can be either local or global. If global, all workers in all queue instances for a given queue
+     * will be resumed. If local, only this worker will be resumed. Note that resuming a queue globally will not
+     * resume workers that have been paused locally; for those, resume(true) must be called directly on their
+     * instances.
      *
      * Resuming a queue that is not paused does nothing.
      */
-    resume(): Promise<void>;
+    resume(isLocal?: boolean): Promise<void>;
 
     /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
