@@ -307,7 +307,11 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
-    }
+    },
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test'
 };
 DOM.div(htmlAttr);
 DOM.span(htmlAttr);
