@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface TemplateOptions extends TemplateSettings {
         /**
          * The sourceURL of the template's compiled source.

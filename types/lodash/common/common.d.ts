@@ -1,6 +1,7 @@
-declare let _: _.LoDashStatic;
-type PartialObject<T> = Partial<T>;
-declare namespace _ {
+import * as _ from "..";
+type GlobalPartial<T> = Partial<T>;
+declare module ".." {
+    type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | T[];
     interface LoDashStatic {
         /**

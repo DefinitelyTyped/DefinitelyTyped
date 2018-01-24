@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments

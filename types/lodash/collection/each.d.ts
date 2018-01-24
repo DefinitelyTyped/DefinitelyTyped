@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         each: typeof _.forEach; // tslint:disable-line:no-unnecessary-qualifier
     }

@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,

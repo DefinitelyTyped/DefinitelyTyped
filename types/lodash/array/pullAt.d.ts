@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.

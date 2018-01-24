@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * The opposite of _.filter; this method returns the elements of collection that predicate does not return

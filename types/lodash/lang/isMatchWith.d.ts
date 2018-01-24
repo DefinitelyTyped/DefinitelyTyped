@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName) => boolean;
 
     interface LoDashStatic {

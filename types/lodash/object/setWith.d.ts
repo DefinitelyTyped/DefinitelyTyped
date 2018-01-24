@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     type SetWithCustomizer<T> = (nsValue: any, key: string, nsObject: T) => any;
 
     interface LoDashStatic {

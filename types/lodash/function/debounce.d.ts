@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface DebounceSettings {
         /**
          * Specify invoking on the leading edge of the timeout.

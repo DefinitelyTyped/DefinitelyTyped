@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashImplicitWrapper<TValue> {
         /**
          * Creates a clone of the chained sequence planting value as the wrapped value.

@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     type ConformsPredicateObject<T> = {
         [P in keyof T]?: (val: T[P]) => boolean;
     };
