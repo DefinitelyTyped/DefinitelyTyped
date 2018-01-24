@@ -461,6 +461,9 @@ export interface MediaType {
 
 export type Send = (body?: any) => Response;
 
+// This empty interface can be augmented.
+export interface ResponseLocals {}
+
 export interface Response extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
@@ -802,7 +805,7 @@ export interface Response extends http.ServerResponse, Express.Response {
     render(view: string, options?: Object, callback?: (err: Error, html: string) => void): void;
     render(view: string, callback?: (err: Error, html: string) => void): void;
 
-    locals: any;
+    locals: ResponseLocals;
 
     charset: string;
 
@@ -834,6 +837,9 @@ export interface Handler extends RequestHandler { }
 export type RequestParamHandler = (req: Request, res: Response, next: NextFunction, value: any, name: string) => any;
 
 export type ApplicationRequestHandler<T> = IRouterHandler<T> & IRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
+
+// This empty interface can be augmented.
+export interface ApplicationLocals {}
 
 export interface Application extends EventEmitter, IRouter, Express.Application {
     /**
@@ -1043,7 +1049,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
 
     map: any;
 
-    locals: any;
+    locals: ApplicationLocals;
 
     /**
      * The app.routes object houses all of the routes defined mapped by the
