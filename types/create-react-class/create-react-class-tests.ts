@@ -73,6 +73,12 @@ const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Pr
     }
 });
 
+const ClassicComponentNoProps: React.ClassicComponentClass = createReactClass({
+    render() {
+        return DOM.div();
+    }
+});
+
 // React.createFactory
 const classicFactory: React.ClassicFactory<Props> =
     React.createFactory(ClassicComponent);
@@ -81,6 +87,7 @@ const classicFactoryElement: React.ClassicElement<Props> =
 
 // React.createElement
 const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
+const classicElementNullProps: React.ClassicElement<{}> = React.createElement(ClassicComponentNoProps, null);
 
 // React.cloneElement
 const clonedClassicElement: React.ClassicElement<Props> =
