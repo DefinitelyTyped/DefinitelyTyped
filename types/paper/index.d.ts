@@ -1357,7 +1357,7 @@ declare module paper {
          * insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
          * deep: specifies whether the item’s children should also be cloned — default: true
          */
-        clone(options?: any): Item;
+        clone(options?: { insert?: boolean, deep?: boolean }): Item;
 
         /**
          * When passed a project, copies the item to the project, or duplicates it within the same project. When passed an item, copies the item into the specified item.
