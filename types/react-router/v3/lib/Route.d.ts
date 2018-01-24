@@ -11,21 +11,21 @@ import {
 } from "react-router";
 import { IndexRouteProps } from "react-router/lib/IndexRoute";
 
-export interface RouteProps<Props> extends IndexRouteProps<Props> {
+export interface RouteProps<Props = any> extends IndexRouteProps<Props> {
     path?: RoutePattern;
 }
 
-type Route = ComponentClass<RouteProps<any>>;
+type Route = ComponentClass<RouteProps>;
 declare const Route: Route;
 
 export default Route;
 
-type RouteCallback = (err: any, route: PlainRoute<any>) => void;
-type RoutesCallback = (err: any, routesArray: Array<PlainRoute<any>>) => void;
+type RouteCallback = (err: any, route: PlainRoute) => void;
+type RoutesCallback = (err: any, routesArray: Array<PlainRoute>) => void;
 
-export interface PlainRoute<Props> extends RouteProps<Props> {
-    childRoutes?: Array<PlainRoute<any>>;
+export interface PlainRoute<Props = any> extends RouteProps<Props> {
+    childRoutes?: Array<PlainRoute>;
     getChildRoutes?(partialNextState: LocationState, callback: RoutesCallback): void;
-    indexRoute?: PlainRoute<any>;
+    indexRoute?: PlainRoute;
     getIndexRoute?(partialNextState: LocationState, callback: RouteCallback): void;
 }
