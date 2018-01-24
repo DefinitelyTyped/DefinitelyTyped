@@ -97,5 +97,5 @@ zapier.version;
 
 const testCreateAppTester = async () => {
     const zapierApp = {};
-    const appTester = zapier.createAppTester(zapierApp);
+    const appTester = await zapier.createAppTester(zapierApp);
 };
