@@ -67,6 +67,7 @@ var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEve
 var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
 var cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
 var cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
+var scheduledEvent: AWSLambda.ScheduledEvent;
 
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
@@ -290,6 +291,13 @@ cognitoUserPoolEvent.triggerSource === "CustomMessage_Authentication";
 cognitoUserPoolEvent.triggerSource === "DefineAuthChallenge_Authentication";
 cognitoUserPoolEvent.triggerSource === "CreateAuthChallenge_Authentication";
 cognitoUserPoolEvent.triggerSource === "VerifyAuthChallengeResponse_Authentication";
+cognitoUserPoolEvent.triggerSource === "PreSignUp_AdminCreateUser";
+cognitoUserPoolEvent.triggerSource === "PostConfirmation_ConfirmForgotPassword";
+cognitoUserPoolEvent.triggerSource === "TokenGeneration_HostedAuth";
+cognitoUserPoolEvent.triggerSource === "TokenGeneration_Authentication";
+cognitoUserPoolEvent.triggerSource === "TokenGeneration_NewPasswordChallenge";
+cognitoUserPoolEvent.triggerSource === "TokenGeneration_AuthenticateDevice";
+cognitoUserPoolEvent.triggerSource === "TokenGeneration_RefreshTokens";
 str = cognitoUserPoolEvent.region;
 str = cognitoUserPoolEvent.userPoolId;
 str = cognitoUserPoolEvent.userName;
@@ -349,6 +357,15 @@ str = cloudformationCustomResourceResponse.Reason;
 str = cloudformationCustomResourceResponse.RequestId;
 str = cloudformationCustomResourceResponse.StackId;
 str = cloudformationCustomResourceResponse.Status;
+
+/* ScheduledEvent */
+str = scheduledEvent.account;
+anyObj = scheduledEvent.detail;
+str = scheduledEvent.id;
+str = scheduledEvent.region;
+str = scheduledEvent.resources[0];
+str = scheduledEvent.source;
+str = scheduledEvent.time;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
