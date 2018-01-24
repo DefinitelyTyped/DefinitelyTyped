@@ -25,7 +25,7 @@ export type CardSubViewProps = any;
 //   CardsRendererProps &
 //   CardProps
 
-export type NavBarProps = {
+export interface NavBarProps {
     // General
     hideNavBar?: boolean;
     renderNavBar?: (props: CardSubViewProps) => ReactNode;
@@ -41,9 +41,9 @@ export type NavBarProps = {
     renderTitle?: (props: CardSubViewProps) => ReactNode;
     // Right button
     renderRightButton?: (props: CardSubViewProps) => ReactNode;
-};
+}
 
-export type NavigationProps = NavBarProps & {
+export interface NavigationProps extends NavBarProps {
     cardStyle?: StyleProp<ViewStyle>;
     configureTransition?: (
         transitionProps: NavigationTransitionProps,
@@ -51,9 +51,11 @@ export type NavigationProps = NavBarProps & {
     ) => NavigationTransitionSpec;
     onTransitionStart?: (...args: any[]) => void;
     onTransitionEnd?: (...args: any[]) => void;
-};
+}
 
-export type Card = CardProps & { key: string };
+export interface Card extends CardProps {
+    key: string;
+}
 
 /**
  * Tabs
@@ -65,7 +67,7 @@ export type TabSubViewProps = any;
 //   TabsRendererProps &
 // TabBarProps
 
-export type TabBarProps = {
+export interface TabBarProps {
     hideTabBar?: boolean;
     renderTabBar?: (props: TabSubViewProps) => ReactNode;
     tabBarStyle?: StyleProp<ViewStyle>;
@@ -80,31 +82,32 @@ export type TabBarProps = {
     // <Tabs /> only:
     tabBarPosition?: "top" | "bottom";
     tabBarIndicatorStyle?: StyleProp<ViewStyle>;
-};
+}
 
-export type TabsProps = TabBarProps & {
+export interface TabsProps extends TabBarProps {
     // <Tabs /> only:
     initialLayout?: { width?: number; height?: number };
     configureTransition?: (
         transitionProps: NavigationTransitionProps,
         prevTransitionProps?: NavigationTransitionProps
     ) => NavigationTransitionSpec;
-};
+}
 
-export type TabProps = RouteProps &
-    TabBarProps & {
-        onReset?: (props: TabBarProps & RouteProps) => void;
-        onIndexChange?: (index: number) => void;
-    };
+export interface TabProps extends RouteProps, TabBarProps {
+    onReset?: (props: TabBarProps & RouteProps) => void;
+    onIndexChange?: (index: number) => void;
+}
 
-export type Tab = TabProps & { key: string };
+export interface Tab extends TabProps {
+    key: string;
+}
 
 // High-level wrappers
-export type BottomNavigationProps = TabBarProps & {
+export interface BottomNavigationProps extends TabBarProps {
     children?: ReactNode[];
     lazy?: boolean;
     style?: StyleProp<ViewStyle>;
-};
+}
 
 export class BottomNavigation extends Component<
     BottomNavigationProps,
@@ -128,7 +131,7 @@ export class BottomNavigation extends Component<
     renderScene: (sceneProps: TabSubViewProps) => ReactElement<ViewProperties>;
 }
 
-export const Card: (props: CardProps) => ReactElement<CardProps>;
+export function Card(props: CardProps): ReactElement<CardProps>;
 
 export class NavBar extends Component<CardSubViewProps, void> {
     props: CardSubViewProps;
@@ -140,9 +143,9 @@ export class NavBar extends Component<CardSubViewProps, void> {
     renderRightComponent: (sceneProps: CardSubViewProps) => ReactNode;
 }
 
-export type NavigationComponentProps = NavigationProps & {
+export interface NavigationComponentProps extends NavigationProps {
     children?: Array<ReactElement<any>>;
-};
+}
 
 export class Navigation extends Component<NavigationComponentProps> {
     props: NavigationComponentProps;
@@ -157,11 +160,11 @@ export class Navigation extends Component<NavigationComponentProps> {
     ) => ComponentClass<any> | undefined;
 }
 
-export const Tab: (props: TabProps) => ReactElement<{}>;
+export function Tab(props: TabProps): ReactElement<{}>;
 
-export type TabBarComponentProps = TabBarProps & {
+export interface TabBarComponentProps extends TabBarProps {
     children?: Array<ReactElement<any>>;
-};
+}
 
 export class Tabs extends Component<
     TabBarComponentProps,
