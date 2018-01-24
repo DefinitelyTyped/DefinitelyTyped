@@ -290,7 +290,7 @@ declare module paper {
          * Transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        transform(point: Point): Matrix;
+        transform(point: Point): Point;
 
         /**
          * Transforms an array of coordinates by this matrix and stores the results into the destination array, which is also returned.
@@ -304,7 +304,7 @@ declare module paper {
          * Inverse transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        inverseTransform(point: Point): Matrix;
+        inverseTransform(point: Point): Point;
 
         /**
          * Attempts to decompose the affine transformation described by this matrix into scaling, rotation and shearing, and returns an object with these properties if it succeeded, null otherwise.
@@ -1353,9 +1353,11 @@ declare module paper {
 
         /**
          * Clones the item within the same project and places the copy above the item.
-         * @param insert [optional] - specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options [optional] - object with 2 parameters
+         * insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * deep: specifies whether the item’s children should also be cloned — default: true
          */
-        clone(insert?: boolean): Item;
+        clone(options?: { insert?: boolean, deep?: boolean }): Item;
 
         /**
          * When passed a project, copies the item to the project, or duplicates it within the same project. When passed an item, copies the item into the specified item.
