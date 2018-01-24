@@ -1945,7 +1945,7 @@ export interface WebViewPropertiesAndroid {
      * Sets the user-agent for the WebView.
      */
     userAgent?: string;
-    
+
     /**
     * Specifies the mixed content mode. i.e WebView will allow a secure origin to load content from any other origin.
 Possible values for mixedContentMode are:
