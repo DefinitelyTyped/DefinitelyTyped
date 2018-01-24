@@ -12,6 +12,7 @@ import {
     BlurView,
     Brightness,
     Camera,
+    CameraObject,
     DocumentPicker,
     Facebook,
     FacebookAds,
@@ -19,7 +20,13 @@ import {
     ImagePicker,
     ImageManipulator,
     FaceDetector,
-    Svg
+    Svg,
+    IntentLauncherAndroid,
+    KeepAwake,
+    LinearGradient,
+    Permissions,
+    registerRootComponent,
+    ScreenOrientation
 } from 'expo';
 
 Accelerometer.addListener((obj) => {
@@ -424,3 +431,115 @@ async () => {
         </Svg.Defs>
     </Svg>
 );
+
+IntentLauncherAndroid.ACTION_ACCESSIBILITY_SETTINGS === 'android.settings.ACCESSIBILITY_SETTINGS';
+IntentLauncherAndroid.ACTION_APP_NOTIFICATION_REDACTION === 'android.settings.ACTION_APP_NOTIFICATION_REDACTION';
+IntentLauncherAndroid.ACTION_CONDITION_PROVIDER_SETTINGS === 'android.settings.ACTION_CONDITION_PROVIDER_SETTINGS';
+IntentLauncherAndroid.ACTION_NOTIFICATION_LISTENER_SETTINGS === 'android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS';
+IntentLauncherAndroid.ACTION_PRINT_SETTINGS === 'android.settings.ACTION_PRINT_SETTINGS';
+IntentLauncherAndroid.ACTION_ADD_ACCOUNT_SETTINGS === 'android.settings.ADD_ACCOUNT_SETTINGS';
+IntentLauncherAndroid.ACTION_AIRPLANE_MODE_SETTINGS === 'android.settings.AIRPLANE_MODE_SETTINGS';
+IntentLauncherAndroid.ACTION_APN_SETTINGS === 'android.settings.APN_SETTINGS';
+IntentLauncherAndroid.ACTION_APPLICATION_DETAILS_SETTINGS === 'android.settings.APPLICATION_DETAILS_SETTINGS';
+IntentLauncherAndroid.ACTION_APPLICATION_DEVELOPMENT_SETTINGS === 'android.settings.APPLICATION_DEVELOPMENT_SETTINGS';
+IntentLauncherAndroid.ACTION_APPLICATION_SETTINGS === 'android.settings.APPLICATION_SETTINGS';
+IntentLauncherAndroid.ACTION_APP_NOTIFICATION_SETTINGS === 'android.settings.APP_NOTIFICATION_SETTINGS';
+IntentLauncherAndroid.ACTION_APP_OPS_SETTINGS === 'android.settings.APP_OPS_SETTINGS';
+IntentLauncherAndroid.ACTION_BATTERY_SAVER_SETTINGS === 'android.settings.BATTERY_SAVER_SETTINGS';
+IntentLauncherAndroid.ACTION_BLUETOOTH_SETTINGS === 'android.settings.BLUETOOTH_SETTINGS';
+IntentLauncherAndroid.ACTION_CAPTIONING_SETTINGS === 'android.settings.CAPTIONING_SETTINGS';
+IntentLauncherAndroid.ACTION_CAST_SETTINGS === 'android.settings.CAST_SETTINGS';
+IntentLauncherAndroid.ACTION_DATA_ROAMING_SETTINGS === 'android.settings.DATA_ROAMING_SETTINGS';
+IntentLauncherAndroid.ACTION_DATE_SETTINGS === 'android.settings.DATE_SETTINGS';
+IntentLauncherAndroid.ACTION_DEVICE_INFO_SETTINGS === 'android.settings.DEVICE_INFO_SETTINGS';
+IntentLauncherAndroid.ACTION_DEVICE_NAME === 'android.settings.DEVICE_NAME';
+IntentLauncherAndroid.ACTION_DISPLAY_SETTINGS === 'android.settings.DISPLAY_SETTINGS';
+IntentLauncherAndroid.ACTION_DREAM_SETTINGS === 'android.settings.DREAM_SETTINGS';
+IntentLauncherAndroid.ACTION_HARD_KEYBOARD_SETTINGS === 'android.settings.HARD_KEYBOARD_SETTINGS';
+IntentLauncherAndroid.ACTION_HOME_SETTINGS === 'android.settings.HOME_SETTINGS';
+IntentLauncherAndroid.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS === 'android.settings.IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS';
+IntentLauncherAndroid.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS === 'android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS';
+IntentLauncherAndroid.ACTION_INPUT_METHOD_SETTINGS === 'android.settings.INPUT_METHOD_SETTINGS';
+IntentLauncherAndroid.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS === 'android.settings.INPUT_METHOD_SUBTYPE_SETTINGS';
+IntentLauncherAndroid.ACTION_INTERNAL_STORAGE_SETTINGS === 'android.settings.INTERNAL_STORAGE_SETTINGS';
+IntentLauncherAndroid.ACTION_LOCALE_SETTINGS === 'android.settings.LOCALE_SETTINGS';
+IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS === 'android.settings.LOCATION_SOURCE_SETTINGS';
+IntentLauncherAndroid.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS === 'android.settings.MANAGE_ALL_APPLICATIONS_SETTINGS';
+IntentLauncherAndroid.ACTION_MANAGE_APPLICATIONS_SETTINGS === 'android.settings.MANAGE_APPLICATIONS_SETTINGS';
+IntentLauncherAndroid.ACTION_MANAGE_DEFAULT_APPS_SETTINGS === 'android.settings.MANAGE_DEFAULT_APPS_SETTINGS';
+IntentLauncherAndroid.ACTION_MEMORY_CARD_SETTINGS === 'android.settings.MEMORY_CARD_SETTINGS';
+IntentLauncherAndroid.ACTION_MONITORING_CERT_INFO === 'android.settings.MONITORING_CERT_INFO';
+IntentLauncherAndroid.ACTION_NETWORK_OPERATOR_SETTINGS === 'android.settings.NETWORK_OPERATOR_SETTINGS';
+IntentLauncherAndroid.ACTION_NFCSHARING_SETTINGS === 'android.settings.NFCSHARING_SETTINGS';
+IntentLauncherAndroid.ACTION_NFC_PAYMENT_SETTINGS === 'android.settings.NFC_PAYMENT_SETTINGS';
+IntentLauncherAndroid.ACTION_NFC_SETTINGS === 'android.settings.NFC_SETTINGS';
+IntentLauncherAndroid.ACTION_NIGHT_DISPLAY_SETTINGS === 'android.settings.NIGHT_DISPLAY_SETTINGS';
+IntentLauncherAndroid.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS === 'android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS';
+IntentLauncherAndroid.ACTION_NOTIFICATION_SETTINGS === 'android.settings.NOTIFICATION_SETTINGS';
+IntentLauncherAndroid.ACTION_PAIRING_SETTINGS === 'android.settings.PAIRING_SETTINGS';
+IntentLauncherAndroid.ACTION_PRIVACY_SETTINGS === 'android.settings.PRIVACY_SETTINGS';
+IntentLauncherAndroid.ACTION_QUICK_LAUNCH_SETTINGS === 'android.settings.QUICK_LAUNCH_SETTINGS';
+IntentLauncherAndroid.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS === 'android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS';
+IntentLauncherAndroid.ACTION_SECURITY_SETTINGS === 'android.settings.SECURITY_SETTINGS';
+IntentLauncherAndroid.ACTION_SETTINGS === 'android.settings.SETTINGS';
+IntentLauncherAndroid.ACTION_SHOW_ADMIN_SUPPORT_DETAILS === 'android.settings.SHOW_ADMIN_SUPPORT_DETAILS';
+IntentLauncherAndroid.ACTION_SHOW_INPUT_METHOD_PICKER === 'android.settings.SHOW_INPUT_METHOD_PICKER';
+IntentLauncherAndroid.ACTION_SHOW_REGULATORY_INFO === 'android.settings.SHOW_REGULATORY_INFO';
+IntentLauncherAndroid.ACTION_SHOW_REMOTE_BUGREPORT_DIALOG === 'android.settings.SHOW_REMOTE_BUGREPORT_DIALOG';
+IntentLauncherAndroid.ACTION_SOUND_SETTINGS === 'android.settings.SOUND_SETTINGS';
+IntentLauncherAndroid.ACTION_STORAGE_MANAGER_SETTINGS === 'android.settings.STORAGE_MANAGER_SETTINGS';
+IntentLauncherAndroid.ACTION_SYNC_SETTINGS === 'android.settings.SYNC_SETTINGS';
+IntentLauncherAndroid.ACTION_SYSTEM_UPDATE_SETTINGS === 'android.settings.SYSTEM_UPDATE_SETTINGS';
+IntentLauncherAndroid.ACTION_TETHER_PROVISIONING_UI === 'android.settings.TETHER_PROVISIONING_UI';
+IntentLauncherAndroid.ACTION_TRUSTED_CREDENTIALS_USER === 'android.settings.TRUSTED_CREDENTIALS_USER';
+IntentLauncherAndroid.ACTION_USAGE_ACCESS_SETTINGS === 'android.settings.USAGE_ACCESS_SETTINGS';
+IntentLauncherAndroid.ACTION_USER_DICTIONARY_INSERT === 'android.settings.USER_DICTIONARY_INSERT';
+IntentLauncherAndroid.ACTION_USER_DICTIONARY_SETTINGS === 'android.settings.USER_DICTIONARY_SETTINGS';
+IntentLauncherAndroid.ACTION_USER_SETTINGS === 'android.settings.USER_SETTINGS';
+IntentLauncherAndroid.ACTION_VOICE_CONTROL_AIRPLANE_MODE === 'android.settings.VOICE_CONTROL_AIRPLANE_MODE';
+IntentLauncherAndroid.ACTION_VOICE_CONTROL_BATTERY_SAVER_MODE === 'android.settings.VOICE_CONTROL_BATTERY_SAVER_MODE';
+IntentLauncherAndroid.ACTION_VOICE_CONTROL_DO_NOT_DISTURB_MODE === 'android.settings.VOICE_CONTROL_DO_NOT_DISTURB_MODE';
+IntentLauncherAndroid.ACTION_VOICE_INPUT_SETTINGS === 'android.settings.VOICE_INPUT_SETTINGS';
+IntentLauncherAndroid.ACTION_VPN_SETTINGS === 'android.settings.VPN_SETTINGS';
+IntentLauncherAndroid.ACTION_VR_LISTENER_SETTINGS === 'android.settings.VR_LISTENER_SETTINGS';
+IntentLauncherAndroid.ACTION_WEBVIEW_SETTINGS === 'android.settings.WEBVIEW_SETTINGS';
+IntentLauncherAndroid.ACTION_WIFI_IP_SETTINGS === 'android.settings.WIFI_IP_SETTINGS';
+IntentLauncherAndroid.ACTION_WIFI_SETTINGS === 'android.settings.WIFI_SETTINGS';
+IntentLauncherAndroid.ACTION_WIRELESS_SETTINGS === 'android.settings.WIRELESS_SETTINGS';
+IntentLauncherAndroid.ACTION_ZEN_MODE_AUTOMATION_SETTINGS === 'android.settings.ZEN_MODE_AUTOMATION_SETTINGS';
+IntentLauncherAndroid.ACTION_ZEN_MODE_EVENT_RULE_SETTINGS === 'android.settings.ZEN_MODE_EVENT_RULE_SETTINGS';
+IntentLauncherAndroid.ACTION_ZEN_MODE_EXTERNAL_RULE_SETTINGS === 'android.settings.ZEN_MODE_EXTERNAL_RULE_SETTINGS';
+IntentLauncherAndroid.ACTION_ZEN_MODE_PRIORITY_SETTINGS === 'android.settings.ZEN_MODE_PRIORITY_SETTINGS';
+IntentLauncherAndroid.ACTION_ZEN_MODE_SCHEDULE_RULE_SETTINGS === 'android.settings.ZEN_MODE_SCHEDULE_RULE_SETTINGS';
+IntentLauncherAndroid.ACTION_ZEN_MODE_SETTINGS === 'android.settings.ZEN_MODE_SETTINGS';
+
+KeepAwake.activate();
+KeepAwake.deactivate();
+
+() => (
+    <LinearGradient
+        colors={['#fff']}
+        start={[1, 1]}
+        end={[3, 3]}
+        locations={[1, 2]} />
+);
+
+Permissions.CAMERA === 'camera';
+Permissions.CAMERA_ROLL === 'cameraRoll';
+Permissions.AUDIO_RECORDING === 'audioRecording';
+Permissions.CONTACTS === 'contacts';
+Permissions.NOTIFICATIONS === 'remoteNotifications';
+Permissions.REMOTE_NOTIFICATIONS === 'remoteNotifications';
+Permissions.SYSTEM_BRIGHTNESS === 'systemBrightness';
+async () => {
+    const result = await Permissions.askAsync(Permissions.CAMERA);
+
+    result.status === 'granted';
+    result.status === 'denied';
+    result.status === 'undetermined';
+
+    result.expires === 'never';
+};
+
+ScreenOrientation.Orientation.ALL
+ScreenOrientation.allow(ScreenOrientation.Orientation.ALL);

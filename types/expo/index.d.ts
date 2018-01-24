@@ -14,7 +14,8 @@ import {
     ImageURISource,
     NativeEventEmitter,
     ViewProperties,
-    ViewStyle
+    ViewStyle,
+    Permission
 } from 'react-native';
 
 type Axis = number;
@@ -96,7 +97,7 @@ declare namespace Amplitude {
 
 // #region AppLoading
 /** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
-export type AppLoadingProps = {
+declare type AppLoadingProps = {
     /** A `function` that returns a `Promise`. The `Promise` should resolve when the app is done loading data and assets. */
     startAsync: () => Promise<void>;
 
@@ -106,21 +107,21 @@ export type AppLoadingProps = {
     /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
     onError?: (error: Error) => void;
 } | {
-        startAsync: null;
-        onFinish: null;
-        onError?: null;
-    };
+    startAsync: null;
+    onFinish: null;
+    onError?: null;
+};
 
 /**
  * A React component that tells Expo to keep the app loading screen open if it is the first and only component rendered in your app. When it is removed, the loading screen will disappear and your app will be visible.
  *
  * This is incredibly useful to let you download and cache fonts, logo and icon images and other assets that you want to be sure the user has on their device for an optimal experience before rendering they start using the app.
  */
-export class AppLoading extends Component<AppLoadingProps> { }
+declare class AppLoading extends Component<AppLoadingProps> { }
 // #endregion AppLoading
 
 /** This module provides an interface to Expo’s asset system. An asset is any file that lives alongside the source code of your app that the app needs at runtime. Examples include images, fonts and sounds. Expo’s asset system integrates with React Native’s, so that you can refer to files with require('path/to/file'). This is how you refer to static image files in React Native for use in an Image component, for example. */
-export class Asset {
+declare class Asset {
     constructor({ name, type, hash, uri, width, height }: {
         name: string;
         type: string;
@@ -269,14 +270,14 @@ declare namespace Audio {
         canRecord: false,
         isDoneRecording: false
     } | {
-            canRecord: true,
-            isRecording: boolean,
-            durationMillis: number
-        } | {
-            canRecord: false,
-            isDoneRecording: true,
-            durationMillis: number
-        };
+        canRecord: true,
+        isRecording: boolean,
+        durationMillis: number
+    } | {
+        canRecord: false,
+        isDoneRecording: true,
+        durationMillis: number
+    };
 
     const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
     const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
@@ -417,21 +418,22 @@ declare namespace Audio {
  * AuthSession
  */
 declare namespace AuthSession {
-    function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<
-        {
-            type: 'cancel';
-        } | {
-            type: 'dismissed';
-        } | {
-            type: 'success';
-            params: HashMap;
-            event: HashMap;
-        } | {
-            type: 'error';
-            params: HashMap;
-            errorCode: string;
-            event: HashMap;
-        }>;
+    type StartAsyncResponse = {
+        type: 'cancel';
+    } | {
+        type: 'dismissed';
+    } | {
+        type: 'success';
+        params: HashMap;
+        event: HashMap;
+    } | {
+        type: 'error';
+        params: HashMap;
+        errorCode: string;
+        event: HashMap;
+    };
+
+    function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<StartAsyncResponse>;
     function dismiss(): void;
     function getRedirectUrl(): string;
 }
@@ -440,35 +442,34 @@ declare namespace AuthSession {
 /**
  * AV
  */
-export type PlaybackStatus =
-    {
-        isLoaded: false;
-        androidImplementation?: string;
+declare type PlaybackStatus = {
+    isLoaded: false;
+    androidImplementation?: string;
 
-        /** Populated exactly once when an error forces the object to unload. */
-        error?: string;
-    } | {
-        isLoaded: true;
-        androidImplementation?: string;
-        uri: string;
-        progressUpdateIntervalMillis: number;
-        durationMillis?: number;
-        positionMillis: number;
-        playableDurationMillis?: number;
-        shouldPlay: boolean;
-        isPlaying: boolean;
-        isBuffering: boolean;
-        rate: number;
-        shouldCorrectPitch: boolean;
-        volume: number;
-        isMuted: boolean;
-        isLooping: boolean;
+    /** Populated exactly once when an error forces the object to unload. */
+    error?: string;
+} | {
+    isLoaded: true;
+    androidImplementation?: string;
+    uri: string;
+    progressUpdateIntervalMillis: number;
+    durationMillis?: number;
+    positionMillis: number;
+    playableDurationMillis?: number;
+    shouldPlay: boolean;
+    isPlaying: boolean;
+    isBuffering: boolean;
+    rate: number;
+    shouldCorrectPitch: boolean;
+    volume: number;
+    isMuted: boolean;
+    isLooping: boolean;
 
-        /** True exactly once when the track plays to finish. */
-        didJustFinish: boolean;
-    };
+    /** True exactly once when the track plays to finish. */
+    didJustFinish: boolean;
+};
 
-export interface PlaybackStatusToSet {
+declare interface PlaybackStatusToSet {
     androidImplementation?: string;
     progressUpdateIntervalMillis?: number;
     positionMillis?: number;
@@ -480,9 +481,9 @@ export interface PlaybackStatusToSet {
     isLooping?: boolean;
 }
 
-export type PlaybackSource = RequireSource | { uri: string } | Asset;
+type PlaybackSource = RequireSource | { uri: string } | Asset;
 
-export class PlaybackObject {
+declare class PlaybackObject {
     /**
      * Gets the `PlaybackStatus` of the `playbackObject`.
      *
@@ -623,25 +624,25 @@ export class PlaybackObject {
 /**
  * BarCodeScanner
  */
-export interface BarCodeScannerProps extends ViewProperties {
+declare interface BarCodeScannerProps extends ViewProperties {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
     onBarCodeRead?: BarCodeReadCallback;
 }
 
-export class BarCodeScanner extends Component<BarCodeScannerProps> { }
+declare class BarCodeScanner extends Component<BarCodeScannerProps> { }
 // #endregion
 
 // #region BlurView
 /**
  * BlurView
  */
-export interface BlurViewProps extends ViewProperties {
+declare interface BlurViewProps extends ViewProperties {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
-export class BlurView extends Component<BlurViewProps> { }
+declare class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
@@ -658,28 +659,32 @@ declare namespace Brightness {
 /**
  * Camera
  */
-interface PictureOptions {
+declare interface PictureOptions {
     quality?: number;
 }
-export interface PictureResponse {
+
+declare interface PictureResponse {
     uri: string;
     width: number;
     height: number;
     exif: string;
     base64: string;
 }
-export interface RecordingOptions {
+
+declare interface RecordingOptions {
     quality?: string | number;
     maxDuration?: number;
     maxFileSize?: number;
 }
-export class CameraObject {
+
+declare class CameraObject {
     takePictureAsync(options: PictureOptions): Promise<PictureResponse>;
     recordAsync(options: RecordingOptions): Promise<{ uri: string; }>;
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
-export interface CameraProps extends ViewProperties {
+
+declare interface CameraProps extends ViewProperties {
     flashMode?: string | number;
     type?: string | number;
     ratio?: string;
@@ -693,6 +698,7 @@ export interface CameraProps extends ViewProperties {
     onBarCodeRead?: BarCodeReadCallback;
     ref?: Ref<CameraObject>;
 }
+
 interface CameraConstants {
     readonly Type: string;
     readonly FlashMode: string;
@@ -701,7 +707,8 @@ interface CameraConstants {
     readonly VideoQuality: string;
     readonly BarCodeType: string;
 }
-export class Camera extends Component<CameraProps> {
+
+declare class Camera extends Component<CameraProps> {
     static readonly Constants: CameraConstants;
 }
 // #endregion
@@ -981,14 +988,15 @@ declare namespace DocumentPicker {
     interface Options {
         type?: string;
     }
+
     type Response = {
         type: 'success';
         uri: string;
         name: string;
         size: number;
     } | {
-            type: 'cancel';
-        };
+        type: 'cancel';
+    };
 
     function getDocumentAsync(options?: Options): Promise<Response>;
 }
@@ -1008,13 +1016,15 @@ declare namespace Facebook {
         permissions?: string[];
         behavior?: 'web' | 'native' | 'browser' | 'system';
     }
+
     type Response = {
         type: 'success';
         token: string;
         expires: number;
     } | {
-            type: 'cancel';
-        };
+        type: 'cancel';
+    };
+
     function logInWithReadPermissionsAsync(appId: string, options?: Options): Promise<Response>;
 }
 
@@ -1159,9 +1169,9 @@ declare namespace FileSystem {
         modificationTime: number;
         md5?: Md5;
     } | {
-            exists: false;
-            isDirectory: false;
-        };
+        exists: false;
+        isDirectory: false;
+    };
 
     interface DownloadResult {
         uri: string;
@@ -1230,11 +1240,11 @@ declare namespace Fingerprint {
     type FingerprintAuthenticationResult = {
         success: true
     } | {
-            success: false,
+        success: false,
 
-            /** Error code in the case where authentication fails. */
-            error: string
-        };
+        /** Error code in the case where authentication fails. */
+        error: string
+    };
 
     /** Determine whether the Fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
@@ -1269,11 +1279,12 @@ declare namespace Font {
 /**
  * GLView
  */
-export interface GLViewProps extends ViewProperties {
+declare interface GLViewProps extends ViewProperties {
     onContextCreate(): void;
     msaaSamples: number;
 }
-export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
+
+declare class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
 // #endregion
 
 /**
@@ -1293,20 +1304,20 @@ declare namespace Google {
     type LogInResult = {
         type: 'cancel';
     } | {
-            type: 'success';
-            accessToken: string;
-            idToken?: string;
-            refreshToken?: string;
-            serverAuthCode?: string;
-            user: {
-                id: string;
-                name: string;
-                givenName: string;
-                familyName: string;
-                photoUrl?: string;
-                email?: string;
-            }
-        };
+        type: 'success';
+        accessToken: string;
+        idToken?: string;
+        refreshToken?: string;
+        serverAuthCode?: string;
+        user: {
+            id: string;
+            name: string;
+            givenName: string;
+            familyName: string;
+            photoUrl?: string;
+            email?: string;
+        }
+    };
 
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }
@@ -1339,23 +1350,27 @@ declare namespace ImageManipulator {
         height: number;
         base64?: string;
     }
+
     interface SaveOptions {
         base64?: boolean;
         compress?: FloatFromZeroToOne;
         format?: 'jpeg' | 'png';
     }
+
     interface CropParameters {
         originX: number;
         originY: number;
         width: number;
         height: number;
     }
+
     interface ImageManipulationOptions {
         resize?: { width?: number; height?: number };
         rotate?: number;
         flip?: { vertical?: boolean; horizontal?: boolean };
         crop?: CropParameters;
     }
+
     function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
@@ -1393,6 +1408,7 @@ declare namespace ImagePicker {
         aspect?: [number, number];
         quality?: number;
     }
+
     function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
 }
 
@@ -1400,86 +1416,86 @@ declare namespace ImagePicker {
  * IntentLauncherAndroid
  */
 declare namespace IntentLauncherAndroid {
-    const ACTION_ACCESSIBILITY_SETTINGS: string;
-    const ACTION_APP_NOTIFICATION_REDACTION: string;
-    const ACTION_CONDITION_PROVIDER_SETTINGS: string;
-    const ACTION_NOTIFICATION_LISTENER_SETTINGS: string;
-    const ACTION_PRINT_SETTINGS: string;
-    const ACTION_ADD_ACCOUNT_SETTINGS: string;
-    const ACTION_AIRPLANE_MODE_SETTINGS: string;
-    const ACTION_APN_SETTINGS: string;
-    const ACTION_APPLICATION_DETAILS_SETTINGS: string;
-    const ACTION_APPLICATION_DEVELOPMENT_SETTINGS: string;
-    const ACTION_APPLICATION_SETTINGS: string;
-    const ACTION_APP_NOTIFICATION_SETTINGS: string;
-    const ACTION_APP_OPS_SETTINGS: string;
-    const ACTION_BATTERY_SAVER_SETTINGS: string;
-    const ACTION_BLUETOOTH_SETTINGS: string;
-    const ACTION_CAPTIONING_SETTINGS: string;
-    const ACTION_CAST_SETTINGS: string;
-    const ACTION_DATA_ROAMING_SETTINGS: string;
-    const ACTION_DATE_SETTINGS: string;
-    const ACTION_DEVICE_INFO_SETTINGS: string;
-    const ACTION_DEVICE_NAME: string;
-    const ACTION_DISPLAY_SETTINGS: string;
-    const ACTION_DREAM_SETTINGS: string;
-    const ACTION_HARD_KEYBOARD_SETTINGS: string;
-    const ACTION_HOME_SETTINGS: string;
-    const ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS: string;
-    const ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS: string;
-    const ACTION_INPUT_METHOD_SETTINGS: string;
-    const ACTION_INPUT_METHOD_SUBTYPE_SETTINGS: string;
-    const ACTION_INTERNAL_STORAGE_SETTINGS: string;
-    const ACTION_LOCALE_SETTINGS: string;
-    const ACTION_LOCATION_SOURCE_SETTINGS: string;
-    const ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS: string;
-    const ACTION_MANAGE_APPLICATIONS_SETTINGS: string;
-    const ACTION_MANAGE_DEFAULT_APPS_SETTINGS: string;
-    const ACTION_MEMORY_CARD_SETTINGS: string;
-    const ACTION_MONITORING_CERT_INFO: string;
-    const ACTION_NETWORK_OPERATOR_SETTINGS: string;
-    const ACTION_NFCSHARING_SETTINGS: string;
-    const ACTION_NFC_PAYMENT_SETTINGS: string;
-    const ACTION_NFC_SETTINGS: string;
-    const ACTION_NIGHT_DISPLAY_SETTINGS: string;
-    const ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS: string;
-    const ACTION_NOTIFICATION_SETTINGS: string;
-    const ACTION_PAIRING_SETTINGS: string;
-    const ACTION_PRIVACY_SETTINGS: string;
-    const ACTION_QUICK_LAUNCH_SETTINGS: string;
-    const ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS: string;
-    const ACTION_SECURITY_SETTINGS: string;
-    const ACTION_SETTINGS: string;
-    const ACTION_SHOW_ADMIN_SUPPORT_DETAILS: string;
-    const ACTION_SHOW_INPUT_METHOD_PICKER: string;
-    const ACTION_SHOW_REGULATORY_INFO: string;
-    const ACTION_SHOW_REMOTE_BUGREPORT_DIALOG: string;
-    const ACTION_SOUND_SETTINGS: string;
-    const ACTION_STORAGE_MANAGER_SETTINGS: string;
-    const ACTION_SYNC_SETTINGS: string;
-    const ACTION_SYSTEM_UPDATE_SETTINGS: string;
-    const ACTION_TETHER_PROVISIONING_UI: string;
-    const ACTION_TRUSTED_CREDENTIALS_USER: string;
-    const ACTION_USAGE_ACCESS_SETTINGS: string;
-    const ACTION_USER_DICTIONARY_INSERT: string;
-    const ACTION_USER_DICTIONARY_SETTINGS: string;
-    const ACTION_USER_SETTINGS: string;
-    const ACTION_VOICE_CONTROL_AIRPLANE_MODE: string;
-    const ACTION_VOICE_CONTROL_BATTERY_SAVER_MODE: string;
-    const ACTION_VOICE_CONTROL_DO_NOT_DISTURB_MODE: string;
-    const ACTION_VOICE_INPUT_SETTINGS: string;
-    const ACTION_VPN_SETTINGS: string;
-    const ACTION_VR_LISTENER_SETTINGS: string;
-    const ACTION_WEBVIEW_SETTINGS: string;
-    const ACTION_WIFI_IP_SETTINGS: string;
-    const ACTION_WIFI_SETTINGS: string;
-    const ACTION_WIRELESS_SETTINGS: string;
-    const ACTION_ZEN_MODE_AUTOMATION_SETTINGS: string;
-    const ACTION_ZEN_MODE_EVENT_RULE_SETTINGS: string;
-    const ACTION_ZEN_MODE_EXTERNAL_RULE_SETTINGS: string;
-    const ACTION_ZEN_MODE_PRIORITY_SETTINGS: string;
-    const ACTION_ZEN_MODE_SCHEDULE_RULE_SETTINGS: string;
-    const ACTION_ZEN_MODE_SETTINGS: string;
+    const ACTION_ACCESSIBILITY_SETTINGS: 'android.settings.ACCESSIBILITY_SETTINGS';
+    const ACTION_APP_NOTIFICATION_REDACTION: 'android.settings.ACTION_APP_NOTIFICATION_REDACTION';
+    const ACTION_CONDITION_PROVIDER_SETTINGS: 'android.settings.ACTION_CONDITION_PROVIDER_SETTINGS';
+    const ACTION_NOTIFICATION_LISTENER_SETTINGS: 'android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS';
+    const ACTION_PRINT_SETTINGS: 'android.settings.ACTION_PRINT_SETTINGS';
+    const ACTION_ADD_ACCOUNT_SETTINGS: 'android.settings.ADD_ACCOUNT_SETTINGS';
+    const ACTION_AIRPLANE_MODE_SETTINGS: 'android.settings.AIRPLANE_MODE_SETTINGS';
+    const ACTION_APN_SETTINGS: 'android.settings.APN_SETTINGS';
+    const ACTION_APPLICATION_DETAILS_SETTINGS: 'android.settings.APPLICATION_DETAILS_SETTINGS';
+    const ACTION_APPLICATION_DEVELOPMENT_SETTINGS: 'android.settings.APPLICATION_DEVELOPMENT_SETTINGS';
+    const ACTION_APPLICATION_SETTINGS: 'android.settings.APPLICATION_SETTINGS';
+    const ACTION_APP_NOTIFICATION_SETTINGS: 'android.settings.APP_NOTIFICATION_SETTINGS';
+    const ACTION_APP_OPS_SETTINGS: 'android.settings.APP_OPS_SETTINGS';
+    const ACTION_BATTERY_SAVER_SETTINGS: 'android.settings.BATTERY_SAVER_SETTINGS';
+    const ACTION_BLUETOOTH_SETTINGS: 'android.settings.BLUETOOTH_SETTINGS';
+    const ACTION_CAPTIONING_SETTINGS: 'android.settings.CAPTIONING_SETTINGS';
+    const ACTION_CAST_SETTINGS: 'android.settings.CAST_SETTINGS';
+    const ACTION_DATA_ROAMING_SETTINGS: 'android.settings.DATA_ROAMING_SETTINGS';
+    const ACTION_DATE_SETTINGS: 'android.settings.DATE_SETTINGS';
+    const ACTION_DEVICE_INFO_SETTINGS: 'android.settings.DEVICE_INFO_SETTINGS';
+    const ACTION_DEVICE_NAME: 'android.settings.DEVICE_NAME';
+    const ACTION_DISPLAY_SETTINGS: 'android.settings.DISPLAY_SETTINGS';
+    const ACTION_DREAM_SETTINGS: 'android.settings.DREAM_SETTINGS';
+    const ACTION_HARD_KEYBOARD_SETTINGS: 'android.settings.HARD_KEYBOARD_SETTINGS';
+    const ACTION_HOME_SETTINGS: 'android.settings.HOME_SETTINGS';
+    const ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS: 'android.settings.IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS';
+    const ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS: 'android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS';
+    const ACTION_INPUT_METHOD_SETTINGS: 'android.settings.INPUT_METHOD_SETTINGS';
+    const ACTION_INPUT_METHOD_SUBTYPE_SETTINGS: 'android.settings.INPUT_METHOD_SUBTYPE_SETTINGS';
+    const ACTION_INTERNAL_STORAGE_SETTINGS: 'android.settings.INTERNAL_STORAGE_SETTINGS';
+    const ACTION_LOCALE_SETTINGS: 'android.settings.LOCALE_SETTINGS';
+    const ACTION_LOCATION_SOURCE_SETTINGS: 'android.settings.LOCATION_SOURCE_SETTINGS';
+    const ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS: 'android.settings.MANAGE_ALL_APPLICATIONS_SETTINGS';
+    const ACTION_MANAGE_APPLICATIONS_SETTINGS: 'android.settings.MANAGE_APPLICATIONS_SETTINGS';
+    const ACTION_MANAGE_DEFAULT_APPS_SETTINGS: 'android.settings.MANAGE_DEFAULT_APPS_SETTINGS';
+    const ACTION_MEMORY_CARD_SETTINGS: 'android.settings.MEMORY_CARD_SETTINGS';
+    const ACTION_MONITORING_CERT_INFO: 'android.settings.MONITORING_CERT_INFO';
+    const ACTION_NETWORK_OPERATOR_SETTINGS: 'android.settings.NETWORK_OPERATOR_SETTINGS';
+    const ACTION_NFCSHARING_SETTINGS: 'android.settings.NFCSHARING_SETTINGS';
+    const ACTION_NFC_PAYMENT_SETTINGS: 'android.settings.NFC_PAYMENT_SETTINGS';
+    const ACTION_NFC_SETTINGS: 'android.settings.NFC_SETTINGS';
+    const ACTION_NIGHT_DISPLAY_SETTINGS: 'android.settings.NIGHT_DISPLAY_SETTINGS';
+    const ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS: 'android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS';
+    const ACTION_NOTIFICATION_SETTINGS: 'android.settings.NOTIFICATION_SETTINGS';
+    const ACTION_PAIRING_SETTINGS: 'android.settings.PAIRING_SETTINGS';
+    const ACTION_PRIVACY_SETTINGS: 'android.settings.PRIVACY_SETTINGS';
+    const ACTION_QUICK_LAUNCH_SETTINGS: 'android.settings.QUICK_LAUNCH_SETTINGS';
+    const ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS: 'android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS';
+    const ACTION_SECURITY_SETTINGS: 'android.settings.SECURITY_SETTINGS';
+    const ACTION_SETTINGS: 'android.settings.SETTINGS';
+    const ACTION_SHOW_ADMIN_SUPPORT_DETAILS: 'android.settings.SHOW_ADMIN_SUPPORT_DETAILS';
+    const ACTION_SHOW_INPUT_METHOD_PICKER: 'android.settings.SHOW_INPUT_METHOD_PICKER';
+    const ACTION_SHOW_REGULATORY_INFO: 'android.settings.SHOW_REGULATORY_INFO';
+    const ACTION_SHOW_REMOTE_BUGREPORT_DIALOG: 'android.settings.SHOW_REMOTE_BUGREPORT_DIALOG';
+    const ACTION_SOUND_SETTINGS: 'android.settings.SOUND_SETTINGS';
+    const ACTION_STORAGE_MANAGER_SETTINGS: 'android.settings.STORAGE_MANAGER_SETTINGS';
+    const ACTION_SYNC_SETTINGS: 'android.settings.SYNC_SETTINGS';
+    const ACTION_SYSTEM_UPDATE_SETTINGS: 'android.settings.SYSTEM_UPDATE_SETTINGS';
+    const ACTION_TETHER_PROVISIONING_UI: 'android.settings.TETHER_PROVISIONING_UI';
+    const ACTION_TRUSTED_CREDENTIALS_USER: 'android.settings.TRUSTED_CREDENTIALS_USER';
+    const ACTION_USAGE_ACCESS_SETTINGS: 'android.settings.USAGE_ACCESS_SETTINGS';
+    const ACTION_USER_DICTIONARY_INSERT: 'android.settings.USER_DICTIONARY_INSERT';
+    const ACTION_USER_DICTIONARY_SETTINGS: 'android.settings.USER_DICTIONARY_SETTINGS';
+    const ACTION_USER_SETTINGS: 'android.settings.USER_SETTINGS';
+    const ACTION_VOICE_CONTROL_AIRPLANE_MODE: 'android.settings.VOICE_CONTROL_AIRPLANE_MODE';
+    const ACTION_VOICE_CONTROL_BATTERY_SAVER_MODE: 'android.settings.VOICE_CONTROL_BATTERY_SAVER_MODE';
+    const ACTION_VOICE_CONTROL_DO_NOT_DISTURB_MODE: 'android.settings.VOICE_CONTROL_DO_NOT_DISTURB_MODE';
+    const ACTION_VOICE_INPUT_SETTINGS: 'android.settings.VOICE_INPUT_SETTINGS';
+    const ACTION_VPN_SETTINGS: 'android.settings.VPN_SETTINGS';
+    const ACTION_VR_LISTENER_SETTINGS: 'android.settings.VR_LISTENER_SETTINGS';
+    const ACTION_WEBVIEW_SETTINGS: 'android.settings.WEBVIEW_SETTINGS';
+    const ACTION_WIFI_IP_SETTINGS: 'android.settings.WIFI_IP_SETTINGS';
+    const ACTION_WIFI_SETTINGS: 'android.settings.WIFI_SETTINGS';
+    const ACTION_WIRELESS_SETTINGS: 'android.settings.WIRELESS_SETTINGS';
+    const ACTION_ZEN_MODE_AUTOMATION_SETTINGS: 'android.settings.ZEN_MODE_AUTOMATION_SETTINGS';
+    const ACTION_ZEN_MODE_EVENT_RULE_SETTINGS: 'android.settings.ZEN_MODE_EVENT_RULE_SETTINGS';
+    const ACTION_ZEN_MODE_EXTERNAL_RULE_SETTINGS: 'android.settings.ZEN_MODE_EXTERNAL_RULE_SETTINGS';
+    const ACTION_ZEN_MODE_PRIORITY_SETTINGS: 'android.settings.ZEN_MODE_PRIORITY_SETTINGS';
+    const ACTION_ZEN_MODE_SCHEDULE_RULE_SETTINGS: 'android.settings.ZEN_MODE_SCHEDULE_RULE_SETTINGS';
+    const ACTION_ZEN_MODE_SETTINGS: 'android.settings.ZEN_MODE_SETTINGS';
 
     function startActivityAsync(activity: string, data?: HashMap): Promise<boolean>;
 }
@@ -1487,7 +1503,7 @@ declare namespace IntentLauncherAndroid {
 /**
  * KeepAwake
  */
-export class KeepAwake extends Component {
+declare class KeepAwake extends Component {
     static activate(): void;
     static deactivate(): void;
 }
@@ -1496,14 +1512,14 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps {
+declare interface LinearGradientProps {
     colors: string[];
     start: [number, number];
     end: [number, number];
     locations: number[];
 }
 
-export class LinearGradient extends Component<LinearGradientProps> { }
+declare class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
 
 /**
@@ -1646,12 +1662,15 @@ declare namespace Permissions {
         'camera' | 'contacts' | 'audioRecording';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
+
     interface PermissionDetailsLocationIOS {
         scope: 'whenInUse' | 'always';
     }
+
     interface PermissionDetailsLocationAndroid {
         scope: 'fine' | 'coarse' | 'none';
     }
+
     interface PermissionResponse {
         status: PermissionStatus;
         expires: PermissionExpires;
@@ -1662,25 +1681,28 @@ declare namespace Permissions {
     function getAsync(type: PermissionType): Promise<PermissionResponse>;
     function askAsync(type: PermissionType): Promise<PermissionResponse>;
 
-    const CAMERA: string;
-    const CAMERA_ROLL: string;
-    const AUDIO_RECORDING: string;
-    const LOCATION: string;
-    const REMOTE_NOTIFICATIONS: string;
-    const NOTIFICATIONS: string;
-    const CONTACTS: string;
+    type RemoteNotificationPermission = 'remoteNotifications';
+
+    const CAMERA: 'camera';
+    const CAMERA_ROLL: 'cameraRoll';
+    const AUDIO_RECORDING: 'audioRecording';
+    const LOCATION: 'location';
+    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
+    const NOTIFICATIONS: RemoteNotificationPermission;
+    const CONTACTS: 'contacts';
+    const SYSTEM_BRIGHTNESS: 'systemBrightness';
 }
 
 /**
  * Register Root Component
  */
-export function registerRootComponent(component: Component): Component;
+declare function registerRootComponent(component: Component): void;
 
 /**
  * ScreenOrientation
  */
 declare namespace ScreenOrientation {
-    interface Orientation {
+    interface Orientations {
         ALL: 'ALL';
         ALL_BUT_UPSIDE_DOWN: 'ALL_BUT_UPSIDE_DOWN';
         PORTRAIT: 'PORTRAIT';
@@ -1690,8 +1712,10 @@ declare namespace ScreenOrientation {
         LANDSCAPE_LEFT: 'LANDSCAPE_LEFT';
         LANDSCAPE_RIGHT: 'LANDSCAPE_RIGHT';
     }
-    const Orientation: Orientation;
-    function allow(orientation: string): void;
+
+    const Orientation: Orientations;
+
+    function allow(orientation: keyof Orientations): void;
 }
 
 /**
@@ -1702,6 +1726,7 @@ declare namespace SecureStore {
         keychainService?: string;
         keychainAccessible?: number;
     }
+
     function setItemAsync(key: string, value: string, options?: SecureStoreOptions): Promise<void>;
     function getItemAsync(key: string, options?: SecureStoreOptions): Promise<string | null>;
     function deleteItemAsync(key: string, options?: SecureStoreOptions): Promise<void>;
@@ -1796,7 +1821,7 @@ declare namespace SQLite {
 /**
  * Svg
  */
-export interface SvgCommonProps {
+declare interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
     stroke?: string;
@@ -1824,75 +1849,75 @@ export interface SvgCommonProps {
     delayLongPress?: number;
 }
 
-export interface SvgRectProps extends SvgCommonProps {
+declare interface SvgRectProps extends SvgCommonProps {
     width: number | string;
     height: number | string;
 }
 
-export interface SvgCircleProps extends SvgCommonProps {
+declare interface SvgCircleProps extends SvgCommonProps {
     cx: number | string;
     cy: number | string;
     r: number | string;
 }
 
-export interface SvgEllipseProps extends SvgCommonProps {
+declare interface SvgEllipseProps extends SvgCommonProps {
     cx: number | string;
     cy: number | string;
     rx: number | string;
     ry: number | string;
 }
 
-export interface SvgLineProps extends SvgCommonProps {
+declare interface SvgLineProps extends SvgCommonProps {
     x1: number | string;
     y1: number | string;
     x2: number | string;
     y2: number | string;
 }
 
-export interface SvgPolyProps extends SvgCommonProps {
+declare interface SvgPolyProps extends SvgCommonProps {
     points: string;
 }
 
-export interface SvgPathProps extends SvgCommonProps {
+declare interface SvgPathProps extends SvgCommonProps {
     d: string;
 }
 
-export interface SvgTextProps extends SvgCommonProps {
+declare interface SvgTextProps extends SvgCommonProps {
     textAnchor?: string;
     fontSize?: number | string;
     fontWeight?: string;
 }
 
-export interface SvgTSpanProps extends SvgTextProps {
+declare interface SvgTSpanProps extends SvgTextProps {
     dx?: string;
     dy?: string;
 }
 
-export interface SvgTextPathProps extends SvgCommonProps {
+declare interface SvgTextPathProps extends SvgCommonProps {
     href?: string;
     startOffset?: string;
 }
 
-export interface SvgUseProps extends SvgCommonProps {
+declare interface SvgUseProps extends SvgCommonProps {
     href: string;
     x: number | string;
     y: number | string;
 }
 
-export interface SvgSymbolProps extends SvgCommonProps {
+declare interface SvgSymbolProps extends SvgCommonProps {
     viewBox: string;
     width: number | string;
     height: number | string;
 }
 
-export interface SvgLinearGradientProps extends SvgCommonProps {
+declare interface SvgLinearGradientProps extends SvgCommonProps {
     x1: number | string;
     x2: number | string;
     y1: number | string;
     y2: number | string;
 }
 
-export interface SvgRadialGradientProps extends SvgCommonProps {
+declare interface SvgRadialGradientProps extends SvgCommonProps {
     cx: number | string;
     cy: number | string;
     rx: number | string;
@@ -1902,13 +1927,13 @@ export interface SvgRadialGradientProps extends SvgCommonProps {
     gradientUnits?: string;
 }
 
-export interface SvgStopProps extends SvgCommonProps {
+declare interface SvgStopProps extends SvgCommonProps {
     offset?: string;
     stopColor?: string;
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number }> {
+declare class Svg extends Component<{ width: number, height: number }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -1933,7 +1958,7 @@ export class Svg extends Component<{ width: number, height: number }> {
 /**
  * Take Snapshot
  */
-export function takeSnapshotAsync(
+declare function takeSnapshotAsync(
     view?: (number | React.ReactElement<any>),
     options?: {
         width?: number,
@@ -1968,30 +1993,30 @@ declare namespace Util {
 /**
  * Expo Video
  */
-export interface NaturalSize {
+declare interface NaturalSize {
     width: number;
     height: number;
     orientation: Orientation;
 }
 
-export interface ReadyForDisplayEvent {
+declare interface ReadyForDisplayEvent {
     naturalSize: NaturalSize;
     status: PlaybackStatus;
 }
 
-export enum FullscreenUpdateVariants {
+declare enum FullscreenUpdateVariants {
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT = 0,
     IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT = 1,
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS = 2,
     IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3
 }
 
-export interface FullscreenUpdateEvent {
+declare interface FullscreenUpdateEvent {
     fullscreenUpdate: FullscreenUpdateVariants;
     status: PlaybackStatus;
 }
 
-export interface VideoProps {
+declare interface VideoProps {
     source?: PlaybackSource | null;
     posterSource?: URISource | RequireSource;
 
@@ -2025,11 +2050,11 @@ export interface VideoProps {
     ref?: Ref<PlaybackObject>;
 }
 
-export interface VideoState {
+declare interface VideoState {
     showPoster: boolean;
 }
 
-export class Video extends Component<VideoProps, VideoState> {
+declare class Video extends Component<VideoProps, VideoState> {
     static RESIZE_MODE_CONTAIN: ResizeModeContain;
     static RESIZE_MODE_COVER: ResizeModeCover;
     static RESIZE_MODE_STRETCH: ResizeModeStretch;
