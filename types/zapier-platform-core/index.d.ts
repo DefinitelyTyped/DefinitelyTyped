@@ -8,6 +8,9 @@
 
 import * as http from "http";
 
+export const createAppHandler: Function;
+export const createAppTester: (appRawOrPath: object | string) => Promise<any>;
+export const integrationTestHandler: Function;
 export const version: string;
 
 export interface HttpRequestOptions {

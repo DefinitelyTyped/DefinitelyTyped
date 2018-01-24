@@ -1,3 +1,4 @@
+import * as zapier from 'zapier-platform-core';
 import { OAuth2Authentication } from "zapier-platform-core";
 
 const BASE_URL = "http://example.com";
@@ -90,4 +91,11 @@ const authentication: OAuth2Authentication = {
 
         return true;
     }
+};
+
+zapier.version;
+
+const testCreateAppTester = async () => {
+    const zapierApp = {};
+    const appTester = zapier.createAppTester(zapierApp);
 };
