@@ -904,6 +904,72 @@ knex.select('*')
   knex.select('*').from('users').where(knex.raw('id = ?', [1])).toSQL();
 
 //
+// Callback functions
+//
+knex('users')
+  .select('*')
+  .join('contacts', function(builder) {
+    this.on(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOn(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOn(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).onExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOnExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOnExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).onNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOnNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOnNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    });
+  }).where(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhere(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).andWhere(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhereIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereNotIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhereNotIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereWrapped(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).union(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).unionAll(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  });
+
+//
 // Migrations
 //
 var config = {
