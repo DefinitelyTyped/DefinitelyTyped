@@ -4,7 +4,7 @@
 //                 Stefano Sicco <https://github.com/stesix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace ScryptAsync {
+declare namespace scrypt {
 	interface CallbackFunc {
 		(key: string): any;
 		(key: number[]): any;
@@ -48,6 +48,6 @@ declare namespace ScryptAsync {
 	}
 }
 
-declare var scrypt: ScryptAsync.ScryptStatic;
+declare var scrypt: scrypt.ScryptStatic;
 
 export = scrypt;

@@ -1,6 +1,6 @@
 // Tests by: Kaur Kuut <https://github.com/xStrom>
 import scrypt = require("scrypt-async");
-var callback = function(key: string | number[]) { };
+var callback: scrypt.ICallbackFunc = function(key: string | number[]) { };
 
 scrypt("abc", "def", 10, 8, 32, 1000, callback, "base64");
 scrypt("abc", [100, 101, 102], 10, 8, 32, 1000, callback, "base64");
@@ -26,17 +26,9 @@ scrypt([97, 98, 99], [100, 101, 102], 10, 8, 32, callback);
 // "abc" === [97, 98, 99]
 // "def" === [100, 101, 102]
 
-interface IOptions {
-    N?: number;
-    logN?: number;
-    r: number;
-    p: number;
-    dkLen: number;
-    encoding?: string;
-    interruptStep?: number;
-}
 
-var opts: IOptions = {
+
+var opts: scrypt.IOptions = {
     r: 8,
     p: 1,
     dkLen: 32,
