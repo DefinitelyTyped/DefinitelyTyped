@@ -47,7 +47,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Promises/A+ `.then()`. Returns a new promise chained from this promise.
    *
-   * The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
+   * The new promise will be rejected or resolved depending on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
   // Based on PromiseLike.then, but returns a Bluebird instance.
   then<U>(onFulfill?: (value: R) => U | PromiseLike<U>, onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U>; // For simpler signature help.
@@ -761,7 +761,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static race<R>(values: PromiseLike<Iterable<PromiseLike<R> | R>> | Iterable<PromiseLike<R> | R>): Bluebird<R>;
 
   /**
-   * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises).
+   * Initiate a competitive race between multiple promises or values (values will become immediately fulfilled promises).
    * When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
    *
    * If too many promises are rejected so that the promise can never become fulfilled, it will be immediately rejected with an array of rejection reasons in the order they were thrown in.
@@ -835,7 +835,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * If the reducer function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    *
-   * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned.
+   * *The original array is not modified. If no `initialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned.
    * If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
    */
   static reduce<R, U>(
@@ -1053,7 +1053,7 @@ declare namespace Bluebird {
      * Gives you a callback representation of the `PromiseResolver`. Note that this is not a method but a property.
      * The callback accepts error object in first argument and success values on the 2nd parameter and the rest, I.E. node js conventions.
      *
-     * If the the callback is called with multiple success values, the resolver fullfills its promise with an array of the values.
+     * If the the callback is called with multiple success values, the resolver fulfills its promise with an array of the values.
      */
     // TODO specify resolver callback
     callback(err: any, value: R, ...values: R[]): void;
