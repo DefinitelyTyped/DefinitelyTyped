@@ -274,11 +274,9 @@
 /// <reference path="./seq/chain.d.ts" />
 /// <reference path="./seq/tap.d.ts" />
 /// <reference path="./seq/thru.d.ts" />
-/// <reference path="./seq/prototype[Symbol.iterator].d.ts" />
 /// <reference path="./seq/prototype.at.d.ts" />
 /// <reference path="./seq/prototype.chain.d.ts" />
 /// <reference path="./seq/prototype.commit.d.ts" />
-/// <reference path="./seq/prototype.next.d.ts" />
 /// <reference path="./seq/prototype.plant.d.ts" />
 /// <reference path="./seq/prototype.reverse.d.ts" />
 /// <reference path="./seq/prototype.toJSON.d.ts" />
@@ -353,18 +351,6 @@
 /// <reference path="./util/times.d.ts" />
 /// <reference path="./util/toPath.d.ts" />
 /// <reference path="./util/uniqueId.d.ts" />
-
-// properties
-/// <reference path="./properties/VERSION.d.ts" />
-/// <reference path="./properties/templateSettings.d.ts" />
-/// <reference path="./properties/templateSettings.escape.d.ts" />
-/// <reference path="./properties/templateSettings.evaluate.d.ts" />
-/// <reference path="./properties/templateSettings.imports.d.ts" />
-/// <reference path="./properties/templateSettings.interpolate.d.ts" />
-/// <reference path="./properties/templateSettings.variable.d.ts" />
-
-// methods
-/// <reference path="./methods/templateSettings.imports._.d.ts" />
 
 export = _;
 export as namespace _;
