@@ -207,9 +207,6 @@ interface Expression extends PartialStatement {
      * qb.ref('x').eq('y'): (x == y)
      *
      *
-     * @param x
-     * @param y
-     * @return
      */
     eq(x: any, y?: any): BinaryOperation;
     /**
@@ -227,9 +224,6 @@ interface Expression extends PartialStatement {
      *
      * qb.ref('x').neq('y'): (x != y)
      *
-     * @param x
-     * @param y
-     * @return
      */
     neq(x: any, y?: any): BinaryOperation;
     /**
@@ -248,9 +242,6 @@ interface Expression extends PartialStatement {
      *  qb.ref('x').gt('y'): (x > y)
      *
      *
-     * @param x
-     * @param y
-     * @return
      */
     gt(x: any, y?: any): BinaryOperation;
     /**
@@ -269,9 +260,6 @@ interface Expression extends PartialStatement {
      * qb.ref('x').gte('y'): (x >= y)
      *
      *
-     * @param x
-     * @param y
-     * @return
      */
     gte(x: any, y?: any): BinaryOperation;
     /**
@@ -289,9 +277,6 @@ interface Expression extends PartialStatement {
      *
      * qb.ref('x').lt('y'): (x < y)
      *
-     * @param x
-     * @param y
-     * @return
      */
     lt(x: any, y?: any): BinaryOperation;
     /**
@@ -309,9 +294,6 @@ interface Expression extends PartialStatement {
      *
      * qb.ref('x').lte('y'): (x <= y)
      *
-     * @param x
-     * @param y
-     * @return
      */
     lte(x: any, y?: any): BinaryOperation;
     /**
@@ -327,9 +309,6 @@ interface Expression extends PartialStatement {
      *
      * Examples
      * qb.ref('x').in('y'): (x in y)
-     *
-     * @param x
-     * @return
      */
     in(...x: any[]): BinaryOperation;
     /**
@@ -346,9 +325,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.not('x') => !(x)
-     *
-     * @param x
-     * @return
      */
     not(x?: any): UnaryOperation;
     /**
@@ -365,9 +341,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.neg('x') => -(x)
-     *
-     * @param x
-     * @return
      */
     neg(x?: any): UnaryOperation;
     /**
@@ -384,9 +357,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').notIn('y'): (x not in y)
-     *
-     * @param x
-     * @return
      */
     notIn(...x: any[]): BinaryOperation;
     /**
@@ -404,9 +374,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').and('y') =>(x && y)
-     *
-     * @param x
-     * @return
      */
     and(...x: any[]): NAryOperation;
     /**
@@ -421,9 +388,6 @@ interface Expression extends PartialStatement {
      * If the values are not already  values, they will be converted automatically.
      *
      * This declare function can take any number of arguments.
-     *
-     * @param x
-     * @return
      */
     or(...x: any[]): NAryOperation;
     /**
@@ -443,9 +407,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').plus('y'): (x + y)
-     *
-     * @param x
-     * @return
      */
     add(...x: any[]): NAryOperation;
     plus(...x: any[]): NAryOperation;
@@ -466,9 +427,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').minus('y'): (x - y)
-     *
-     * @param x
-     * @return
      */
     sub(...x: any[]): NAryOperation;
     minus(...x: any[]): NAryOperation;
@@ -489,9 +447,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').times('y'): (x * y)
-     *
-     * @param x
-     * @return
      */
     mul(...x: any[]): NAryOperation;
     times(...x: any[]): NAryOperation;
@@ -509,9 +464,6 @@ interface Expression extends PartialStatement {
      *
      * Examples
      * qb.ref('x').div('y'): (x / y)
-     *
-     * @param x
-     * @return
      */
     div(...x: any[]): NAryOperation;
     /**
@@ -528,9 +480,6 @@ interface Expression extends PartialStatement {
      *
      * Examples
      * qb.ref('x').mod('y'): (x % y)
-     *
-     * @param x
-     * @return
      */
     mod(...x: any[]): NAryOperation;
     /**
@@ -551,8 +500,6 @@ interface Expression extends PartialStatement {
      *
      * qb(2).to(5): 2..5
      *
-     * @param value
-     * @return
      */
     range(...value: number[]): RangeExpression;
     /**
@@ -569,7 +516,6 @@ interface Expression extends PartialStatement {
      * Examples
      * qb.ref('x').get('y'): x[y]`
      *
-     * @param value
      */
     get(value: any): PropertyAccess;
     /**
@@ -588,8 +534,6 @@ interface Expression extends PartialStatement {
      * Examples
      * qb.ref('x').then('y').else('z'): (x ? y: z)
      *
-     * @param value
-     * @return
      */
     then(value: any): ThenRet;
 }
@@ -623,8 +567,6 @@ interface PartialStatement {
      *
      * _.for('doc').in('my_collection'): FOR doc IN my_collection
      *
-     * @param varname
-     * @return
      */
     for(varname: any): ForRet;
     /**
@@ -636,8 +578,6 @@ interface PartialStatement {
      *
      * _.filter(qb.eq('a', 'b')): FILTER a == b
      *
-     * @param varname
-     * @return
      */
     filter(varname: any): FilterExpression;
     /**
@@ -653,9 +593,6 @@ interface PartialStatement {
      *
      * PartialStatement::let(definitions): PartialStatement
      *
-     * @param varname
-     * @param expr
-     * @return
      */
     let(varname: {}, expr: any): LetExpression;
     /**
@@ -689,9 +626,6 @@ interface PartialStatement {
      *
      * _.options('opts'): OPTIONS opts
      *
-     * @param varname
-     * @param expr
-     * @return
      */
     collect(varname: any, expr: any): CollectExpression;
     /**
@@ -725,8 +659,6 @@ interface PartialStatement {
      *
      * _.options('opts'): OPTIONS opts
      *
-     * @param varname
-     * @return
      */
     collectWithCountInto(varname: any): CollectWithCountIntoExpression;
     /**
@@ -738,8 +670,6 @@ interface PartialStatement {
      *
      * _.sort('x', 'DESC', 'y', 'ASC'): SORT x DESC, y ASC
      *
-     * @param args
-     * @return
      */
     sort(...args: any[]): SortExpression;
     /**
@@ -753,9 +683,6 @@ interface PartialStatement {
      *
      * _.limit(20, 20): LIMIT 20, 20
      *
-     * @param offset
-     * @param count
-     * @return
      */
     limit(offset: any, count?: any): LimitExpression;
     /**
@@ -768,8 +695,6 @@ interface PartialStatement {
      * _.return('x'): RETURN x
      * _.return({x: 'x'}): RETURN {x: x}
      *
-     * @param x
-     * @return
      */
     return(x: any): ReturnExpression;
     /**
@@ -781,8 +706,6 @@ interface PartialStatement {
      *
      * _.returnDistinct('x'): RETURN DISTINCT x
      *
-     * @param x
-     * @return
      */
     returnDistinct(x: any): ReturnExpression;
     /**
@@ -803,8 +726,6 @@ interface PartialStatement {
      *
      * _.options('opts'): OPTIONS opts
      *
-     * @param expr
-     * @return
      */
     remove(expr: any): RemoveRet;
     /**
@@ -829,8 +750,6 @@ interface PartialStatement {
      *
      * _.options('opts'): OPTIONS opts
      *
-     * @param upsertExpr
-     * @return
      */
     upsert(expr: any): UpsertRet;
     /**
@@ -851,8 +770,6 @@ interface PartialStatement {
      *
      * _.returnNew('z'): LET z = NEW RETURN z
      *
-     * @param expr
-     * @return
      */
     insert(expr: any): InsertRet;
     /**
@@ -883,8 +800,6 @@ interface PartialStatement {
      *
      * _.returnOld('z'): LET z = OLD RETURN z
      *
-     * @param expr
-     * @return
      */
     update(expr: any): UpdateRetWithRet;
     /**
@@ -913,8 +828,6 @@ interface PartialStatement {
      *
      * _.returnOld('z'): LET z = OLD RETURN z
      *
-     * @param expr
-     * @return
      */
     replace(expr: any): ReplaceRetWithRet;
 }
@@ -1011,7 +924,6 @@ interface AQLfunctions extends Expression {
      * If the value is truthy, it will be converted to the  Boolean true, otherwise it will be converted to the  Boolean false.
      * If the value is already an  Boolean, its own value will be wrapped instead.
      *
-     * @param value
      */
     bool(value: any): BooleanLiteral;
     /**
@@ -1025,7 +937,6 @@ interface AQLfunctions extends Expression {
      * If the value does not represent a finite number, an Error will be thrown.
      * If the value is already an  Number or  Integer, its own value will be wrapped instead.
      *
-     * @param value
      */
     num(value: any): NumberLiteral;
     /**
@@ -1039,7 +950,6 @@ interface AQLfunctions extends Expression {
      * If the value does not represent a finite integer, an Error will be thrown.
      * If the value is already an  Number or  Integer, its own value will be wrapped instead.
      *
-     * @param value
      */
     int(value: any): IntegerLiteral;
     /**
@@ -1061,8 +971,6 @@ interface AQLfunctions extends Expression {
      *
      * '"some string"' => "\"some string\""
      *
-     *
-     * @param value
      */
     str(value: any): StringLiteral;
     /**
@@ -1076,7 +984,6 @@ interface AQLfunctions extends Expression {
      * If the value is already an  List, its own value will be wrapped instead.
      * Any list elements that are not already  values will be converted automatically.
      *
-     * @param value
      */
     list(value: any[]): ListLiteral;
     /**
@@ -1106,7 +1013,6 @@ interface AQLfunctions extends Expression {
      *
      * qb.obj({': invalid': 'key'}): throws an error(invalid is not a well-formed reference)
      *
-     * @param obj
      */
     obj(obj: object): ObjectLiteral;
     /**
@@ -1150,15 +1056,8 @@ interface AQLfunctions extends Expression {
      *
      * foo[bar]
      *
-     * @param value
-     * @return
      */
     ref(value: string): SimpleReference;
-    /**
-     * Expressions
-     *
-     * @param value
-     */
     expr(value: any): RawExpression;
     /**
      * Ternary(if / else)
@@ -1176,9 +1075,6 @@ interface AQLfunctions extends Expression {
      * Examples
      * qb.ref('x').then('y').else('z'): (x ? y: z)
      *
-     * @param cond
-     * @param then
-     * @param otherwise
      */
     if(cond: any, then: any, otherwise: any): Expression | number;
     /**
@@ -1201,9 +1097,6 @@ interface AQLfunctions extends Expression {
      *
      * qb.FLOOR(qb.div(5, 2)): FLOOR((5 / 2))
      *
-     * @param functionName
-     * @param arity
-     * @return
      */
     fn(functionName: string): (...arity: any[]) => FunctionCall;
 }
