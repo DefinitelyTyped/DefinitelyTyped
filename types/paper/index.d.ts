@@ -1308,12 +1308,12 @@ declare module paper {
          * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
          */
         onMouseDown: (event: MouseEvent) => void;
-        
+
         /**
          * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
          */
         onMouseDrag: (event: MouseEvent) => void;
-        
+
         /**
          * The function to be called when the mouse button is released over the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
@@ -3535,7 +3535,7 @@ declare module paper {
          * @param highlight [optional] -
          */
         constructor(color: Gradient, origin: Point, destination: Point, highlight?: Point);
-        
+
         /**
          * Creates a RGB Color object.
          * @param hex - the RGB color in hex, i.e. #000000
@@ -3768,6 +3768,48 @@ declare module paper {
          * Handler function that is called whenever a view is resized.
          */
         onResize: (event: Event) => void;
+
+        /**
+         * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDown: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse button is released over the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseUp: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onDoubleClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called repeatedly when the mouse moves on top of the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseMove: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves over the item. This function will only be called again, once the mouse moved outside of the item first. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseEnter: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves out of the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseLeave: (event: MouseEvent) => void;
 
         /**
          * Removes this view from the project and frees the associated element.
