@@ -135,21 +135,6 @@ declare module "mongoose" {
   /** Sets mongoose options */
   export function set(key: string, value: any): void;
 
-  type MongooseThenable = typeof mongoose & {
-    /**
-     * Ability to use mongoose object as a pseudo-promise so .connect().then()
-     * and .disconnect().then() are viable.
-     */
-    then<TRes>(onFulfill?: () => void | TRes | PromiseLike<TRes>,
-      onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
-
-    /**
-     * Ability to use mongoose object as a pseudo-promise so .connect().then()
-     * and .disconnect().then() are viable.
-     */
-    catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
-  }
-
   class CastError extends Error {
     /**
      * The Mongoose CastError constructor
