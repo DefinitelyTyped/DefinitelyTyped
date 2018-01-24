@@ -3,15 +3,17 @@
 // Definitions by: Dominik Bułaj <https://github.com/dominikbulaj>, Alexey Kolotovchenkov <https://github.com/Koloto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface WaypointOptions {
-    element: HTMLElement;
-    handler: (this: Waypoint, direction?: string) => void;
+interface WaypointOptionsBase {
     offset?: string|number|(() => number);
     context?: HTMLElement;
     continuous?: boolean;
     enabled?: boolean;
     group?: string;
     horizontal?: boolean;
+}
+interface WaypointOptions extends WaypointOptionsBase {
+    element: HTMLElement;
+    handler: (this: Waypoint, direction?: string) => void;
 }
 
 declare class WaypointGroup {
