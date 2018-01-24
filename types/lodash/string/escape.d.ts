@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Converts the characters "&", "<", ">", '"', "'", and "`" in string to their corresponding HTML entities.

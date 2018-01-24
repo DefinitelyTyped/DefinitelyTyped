@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated

@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
          /**
           * Computes the maximum value of `array`. If `array` is empty or falsey
