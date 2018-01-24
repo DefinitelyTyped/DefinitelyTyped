@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * This method is like _.zipObject except that it supports property paths.

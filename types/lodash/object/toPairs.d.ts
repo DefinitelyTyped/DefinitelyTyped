@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Creates an array of own enumerable key-value pairs for object.

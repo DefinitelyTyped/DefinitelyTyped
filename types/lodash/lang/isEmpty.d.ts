@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or

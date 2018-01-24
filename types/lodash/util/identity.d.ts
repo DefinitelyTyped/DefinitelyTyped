@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * This method returns the first argument provided to it.

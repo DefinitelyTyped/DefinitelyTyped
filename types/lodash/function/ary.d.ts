@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Creates a function that accepts up to n arguments ignoring any additional arguments.

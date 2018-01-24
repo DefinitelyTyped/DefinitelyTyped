@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.

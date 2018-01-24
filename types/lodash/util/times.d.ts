@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee

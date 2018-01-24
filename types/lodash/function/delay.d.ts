@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.

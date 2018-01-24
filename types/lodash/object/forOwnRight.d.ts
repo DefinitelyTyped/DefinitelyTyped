@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * This method is like _.forOwn except that it iterates over properties of object in the opposite order.

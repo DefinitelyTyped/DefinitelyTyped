@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.

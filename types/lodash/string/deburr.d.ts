@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining

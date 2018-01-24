@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashWrapper<TValue> {
         /**
          * Executes the chained sequence to extract the unwrapped value.

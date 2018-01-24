@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashWrapper<TValue> {
         /**
          * Produces the result of coercing the unwrapped value to a string.

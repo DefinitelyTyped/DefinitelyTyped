@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
         /**
          * This method is like _.get except that if the resolved value is a function it’s invoked with the this binding

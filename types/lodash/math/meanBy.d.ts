@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "..";
+declare module ".." {
     interface LoDashStatic {
       /**
        * Computes the mean of the provided propties of the objects in the `array`
