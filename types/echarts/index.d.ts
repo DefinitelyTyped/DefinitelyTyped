@@ -26,6 +26,15 @@ declare namespace echarts {
     function registerMap(mapName: string, geoJson: Object, specialAreas?: Object): void;
 
     function registerTheme(themeName: string, theme: Object): void;
+    
+    interface mapObj {
+        // 地图的 geoJson 数据
+        geoJson: object,
+        // 地图的特殊区域，见 registerMap
+        specialAreas: object
+    }
+
+    function getMap(mapName: string): mapObj;
 
     interface LinearGradient {
         colorStops: Array<Object>;
