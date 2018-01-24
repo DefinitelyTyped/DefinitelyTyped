@@ -128,6 +128,8 @@ export interface Commands<R> {
      */
     ping(callback?: Callback<string>): R;
     ping(message: string, callback?: Callback<string>): R;
+    PING(callback?: Callback<string>): R;
+    PING(message: string, callback?: Callback<string>): R;
 
     /**
      * Post a message to a channel.
