@@ -5,13 +5,14 @@
 // TypeScript Version: 2.3
 
 import * as Koa from "koa";
+import { IncomingMessage, ServerResponse } from "http";
 
 export = expressToKoa;
 
 declare function expressToKoa(
     middleware: (
-        req: Koa.Request,
-        res: Koa.Response,
-        next: () => Promise<any>
-    ) => any
+        req: IncomingMessage,
+        res: ServerResponse,
+        next: (err?: any) => void,
+    ) => void
 ): Koa.Middleware;
