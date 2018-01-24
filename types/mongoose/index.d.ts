@@ -25,8 +25,6 @@
  *   changes just copy/paste them into here.
  * - Check the files off as you go. Some files below might not have anything in them. That's ok, this
  *   is just a simple heuristic to keep track of our progress.
- *
- * TODO for version 5.x [updated][tested]:
  */
 
 /*
