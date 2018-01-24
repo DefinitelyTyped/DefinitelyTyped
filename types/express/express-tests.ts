@@ -18,16 +18,16 @@ namespace express_tests {
     const app = express();
 
     // Custom locals
-    // expect type string
+    // $ExpectType string
     app.locals.foo;
-    // expect type any
+    // $ExpectType any
     app.locals.notDefined;
 
     app.use((req, res, next) => {
         // Custom locals
-        // expect type string
+        // $ExpectType string
         res.locals.bar;
-        // expect type any
+        // $ExpectType any
         res.locals.notDefined;
     });
 
