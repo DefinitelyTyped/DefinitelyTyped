@@ -66,10 +66,10 @@ export interface InjectedRouter {
     isActive: ActiveFunction;
 }
 
-export interface RouteComponentProps<P, R> {
+export interface RouteComponentProps<P, R, ComponentProps = any> {
     location: Location;
     params: P & R;
-    route: PlainRoute;
+    route: PlainRoute<ComponentProps>;
     router: InjectedRouter;
     routes: PlainRoute[];
     routeParams: R;
