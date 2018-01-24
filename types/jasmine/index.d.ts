@@ -1,6 +1,6 @@
 // Type definitions for Jasmine 2.8.0
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>, Boris Breuer <https://github.com/Engineer2B>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -718,13 +718,13 @@ declare module "jasmine" {
         addSpecFile(filePath: string): void;
         addSpecFiles(files: string[]): void;
         configureDefaultReporter(options: any, ...args: any[]): void;
-        execute(files: any, filterString: any): any;
+        execute(files?: string[], filterString?: string): any;
         exitCodeCompletion(passed: any): void;
         loadConfig(config: any): void;
         loadConfigFile(configFilePath: any): void;
         loadHelpers(): void;
         loadSpecs(): void;
-        onComplete(onCompleteCallback: () => void): void;
+        onComplete(onCompleteCallback: (passed: boolean) => void): void;
         provideFallbackReporter(reporter: jasmine.Reporter): void;
         randomizeTests(value?: any): boolean;
         seed(value: any): void;

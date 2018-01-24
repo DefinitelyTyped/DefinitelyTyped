@@ -15,6 +15,10 @@ class Component extends React.Component<{}, ComponentState> {
         };
     }
 
+    private clickHandler(...args: any[]) {
+        console.log(`Handling a click on a chart: ${JSON.stringify(args)}`);
+    }
+
     render() {
         const data = [
             { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -83,7 +87,7 @@ class Component extends React.Component<{}, ComponentState> {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
                     <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                     <Tooltip />
                     <ReferenceLine />

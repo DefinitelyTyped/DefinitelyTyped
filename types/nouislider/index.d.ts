@@ -179,7 +179,7 @@ declare namespace noUiSlider {
          * To get the current slider value. For one-handle sliders, calling .get() will return the value.
          * For two-handle sliders, an array[value, value] will be returned.
          */
-		get(): number | number[];
+		get(): string | string[];
 		/**
          * noUiSlider will keep your values within the slider range, which saves you a bunch of validation.
          * If you have configured the slider to use one handle, you can change the current value by passing
