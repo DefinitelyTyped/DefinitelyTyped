@@ -1,7 +1,10 @@
+import { type } from "os";
+
 // Type definitions for echarts
 // Project: http://echarts.baidu.com/
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>, AntiMoron <https://github.com/AntiMoron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace echarts {
     function init(dom: HTMLDivElement | HTMLCanvasElement, theme?: Object | string, opts?: {
@@ -9,7 +12,9 @@ declare namespace echarts {
         renderer?: string
     }): ECharts;
 
-    interface graphic {
+    const graphic: Graphic;
+
+    interface Graphic {
         clipPointsByRect(points: number[][], rect: ERectangle): number[][];
         clipRectByRect(targetRect: ERectangle, rect: ERectangle): ERectangle;
         LinearGradient: { new(x: number, y: number, x2: number, y2: number, colorStops: Array<Object>, globalCoord?: boolean): LinearGradient }
@@ -26,15 +31,15 @@ declare namespace echarts {
     function registerMap(mapName: string, geoJson: Object, specialAreas?: Object): void;
 
     function registerTheme(themeName: string, theme: Object): void;
-    
-    interface mapObj {
-        // 地图的 geoJson 数据
+
+    interface MapObj {
+        /** geoJson data for map */
         geoJson: object,
-        // 地图的特殊区域，见 registerMap
+        /** special areas fro map */
         specialAreas: object
     }
 
-    function getMap(mapName: string): mapObj;
+    function getMap(mapName: string): MapObj;
 
     interface LinearGradient {
         colorStops: Array<Object>;
@@ -46,28 +51,8 @@ declare namespace echarts {
         y2: number
     }
 
-    // finder 用于指示"在哪个坐标系或者系列上判断"。
-    // 通常地，可以使用 index 或者 id 或者 name 来定位。
-    interface finder {
-        seriesIndex?: number;
-        seriesId?: string;
-        seriesName?: string;
-        geoIndex?: number;
-        geoId?: string;
-        geoName?: string;
-        xAxisIndex?: number;
-        xAxisId?: string;
-        xAxisName?: string;
-        yAxisIndex?: number;
-        yAxisId?: string;
-        yAxisName?: string;
-        gridIndex?: number;
-        gridId?: string;
-        gridName?: string;
-    }
-
     interface ECharts {
-        group: string;
+        group: string
 
         setOption(option: EChartOption, notMerge?: boolean, notRefreshImmediately?: boolean): void
 
@@ -92,20 +77,20 @@ declare namespace echarts {
         hideLoading(): void
 
         getDataURL(opts: {
-            // 导出的格式，可选 png, jpeg
+            /** 导出的格式，可选 png, jpeg */
             type?: string,
-            // 导出的图片分辨率比例，默认为 1。
+            /** 导出的图片分辨率比例，默认为 1。*/
             pixelRatio?: number,
-            // 导出的图片背景色，默认使用 option 里的 backgroundColor
+            /** 导出的图片背景色，默认使用 option 里的 backgroundColor */
             backgroundColor?: string
         }): string
 
         getConnectedDataURL(opts: {
-            // 导出的格式，可选 png, jpeg
+            /** 导出的格式，可选 png, jpeg */
             type: string,
-            // 导出的图片分辨率比例，默认为 1。
+            /** 导出的图片分辨率比例，默认为 1。 */
             pixelRatio: number,
-            // 导出的图片背景色，默认使用 option 里的 backgroundColor
+            /** 导出的图片背景色，默认使用 option 里的 backgroundColor */
             backgroundColor: string
         }): string
 
@@ -115,14 +100,32 @@ declare namespace echarts {
 
         dispose(): void
 
-        // 转换逻辑点到像素
-        convertToPixel(finder: finder | string, value: string | Array<any>): string | Array<any>
+        /** 转换逻辑点到像素 */
+        convertToPixel(finder: ConvertFinder | string, value: string | Array<any>): string | Array<any>
 
-        convertFromPixel(finder: finder | string, value: Array<any> | string): Array<any> | string
+        convertFromPixel(finder: ConvertFinder | string, value: Array<any> | string): Array<any> | string
 
-        containPixel(finder: finder | string,
-        // 要被判断的点，为像素坐标值，以 echarts 实例的 dom 节点的左上角为坐标 [0, 0] 点。
-        value: any[]): boolean
+        containPixel(finder: ConvertFinder | string,
+            /** 要被判断的点，为像素坐标值，以 echarts 实例的 dom 节点的左上角为坐标 [0, 0] 点。*/
+            value: any[]): boolean
+    }
+
+    interface ConvertFinder {
+        seriesIndex?: number,
+        seriesId?: string,
+        seriesName?: string,
+        geoIndex?: number,
+        geoId?: string,
+        geoName?: string,
+        xAxisIndex?: number,
+        xAxisId?: string,
+        xAxisName?: string,
+        yAxisIndex?: number,
+        yAxisId?: string,
+        yAxisName?: string,
+        gridIndex?: number,
+        gridId?: string
+        gridName?: string
     }
 
     interface ERectangle {
@@ -189,6 +192,5 @@ declare namespace echarts {
     }
 }
 
-declare module 'echarts' {
-    export = echarts;
-}
+export = echarts;
+
