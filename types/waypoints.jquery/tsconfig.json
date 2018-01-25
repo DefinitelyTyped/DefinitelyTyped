@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "waypoints-jquery-tests.ts"
+        "waypoints.jquery-tests.ts"
     ]
 }

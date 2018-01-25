@@ -13,5 +13,5 @@ interface JQuery {
 
 interface WaypointOptionsJQuery extends WaypointOptionsBase {
     handler?: (this: Waypoint, direction?: string) => void;
-    context?: any; // Actually it's - `HTMLElement|string` but tsc fails with error TS2430: Interface 'WaypointOptionsJQuery' incorrectly extends interface 'WaypointOptionsBase'
+    context?: HTMLElement|string;
 }

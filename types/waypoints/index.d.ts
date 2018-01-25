@@ -5,7 +5,6 @@
 
 interface WaypointOptionsBase {
     offset?: string|number|(() => number);
-    context?: HTMLElement;
     continuous?: boolean;
     enabled?: boolean;
     group?: string;
@@ -14,6 +13,7 @@ interface WaypointOptionsBase {
 interface WaypointOptions extends WaypointOptionsBase {
     element: HTMLElement;
     handler: (this: Waypoint, direction?: string) => void;
+    context?: HTMLElement;
 }
 
 declare class WaypointGroup {
