@@ -14,6 +14,7 @@
     "jsdoc-format": false,
     "max-line-length": false,
     "no-any-union": false,
+    "no-const-enum": false,
     "no-consecutive-blank-lines": false,
     "no-duplicate-imports": false,
     "no-duplicate-variable": false,

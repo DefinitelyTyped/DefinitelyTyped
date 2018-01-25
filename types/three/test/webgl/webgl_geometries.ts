@@ -76,11 +76,11 @@
 
         //
 
-        var points: THREE.Vector3[] = [];
+        var points: THREE.Vector2[] = [];
 
         for (var i = 0; i < 50; i++) {
 
-            points.push(new THREE.Vector3(Math.sin(i * 0.2) * Math.sin(i * 0.1) * 15 + 50, 0, (i - 5) * 2));
+            points.push(new THREE.Vector2(Math.sin(i * 0.2) * Math.sin(i * 0.1) * 15 + 50, 0));
 
         }
 

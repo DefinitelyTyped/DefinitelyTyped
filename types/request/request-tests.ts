@@ -7,7 +7,7 @@ import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
 
-let value: any;
+const value: any = 'value';
 let str: string;
 let strOrUndef: string | undefined;
 let strOrTrueOrUndef: string | true | undefined;
@@ -47,6 +47,8 @@ const bodyArr: request.RequestPart[] = [{
   defaultBodyRequest.get();
   defaultBodyRequest.post();
   defaultBodyRequest.put();
+
+  const defaultJarRequestCustomJar = request.defaults({ jar: request.jar() });
 })();
 
 // --- --- --- --- --- --- --- --- --- --- --- ---

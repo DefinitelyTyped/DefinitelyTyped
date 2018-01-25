@@ -1253,8 +1253,8 @@ declare namespace R {
         /**
          * Retrieve the value at a given path.
          */
-        path<T>(path: Path, obj: any): T;
-        path<T>(path: Path): (obj: any) => T;
+        path<T>(path: Path, obj: any): T | undefined;
+        path<T>(path: Path): (obj: any) => T | undefined;
 
         /**
          * Determines whether a nested path on an object has a specific value,
@@ -1487,14 +1487,12 @@ declare namespace R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
-        // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
-        // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
-        propEq<T>(name: string, val: T, obj: any): boolean;
-        // propEq<T>(name: number, val: T, obj: any): boolean;
-        propEq<T>(name: string, val: T): (obj: any) => boolean;
-        // propEq<T>(name: number, val: T): (obj: any) => boolean;
-        propEq(name: string): <T>(val: T, obj: any) => boolean;
-        // propEq(name: number): <T>(val: T, obj: any) => boolean;
+        propEq<T>(name: string | number, val: T, obj: any): boolean;
+        propEq<T>(name: string | number, val: T): (obj: any) => boolean;
+        propEq(name: string | number): {
+            <T>(val: T, obj: any): boolean;
+            <T>(val: T): (obj: any) => boolean;
+        };
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.

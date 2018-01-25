@@ -3,6 +3,7 @@
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
+//                  Jan-Niclas Struewer <https://github.com/janniclas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -900,7 +901,7 @@ declare namespace cytoscape {
         /** complete - A function to call when the animation is done. */
         complete?(): void;
         /** step - A function to call each time the animation steps. */
-        step(): void;
+        step?(): void;
     }
     interface AnimationOptions extends AnimateOptionsCommon {
         /** queue - A transition-timing-function easing style string that shapes the animation progress curve. */

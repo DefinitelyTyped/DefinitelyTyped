@@ -86,9 +86,9 @@ declare class Mocha {
     bail(value?: boolean): Mocha;
     addFile(file: string): Mocha;
     /** Sets reporter by name, defaults to "spec". */
-    reporter(name: string): Mocha;
+    reporter(name: string, reporterOptions?: any): Mocha;
     /** Sets reporter constructor, defaults to mocha.reporters.Spec. */
-    reporter(reporter: ReporterConstructor): Mocha;
+    reporter(reporter: ReporterConstructor, reporterOptions?: any): Mocha;
     ui(value: string): Mocha;
     grep(value: string): Mocha;
     grep(value: RegExp): Mocha;

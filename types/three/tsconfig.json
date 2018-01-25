@@ -54,6 +54,7 @@
         "test/examples/controls/vrcontrols.ts",
         "test/examples/ctm/ctmloader.ts",
         "test/examples/octree.ts",
-        "test/examples/loaders/webgl_loader_obj_mtl.ts"
+        "test/examples/loaders/webgl_loader_obj_mtl.ts",
+        "test/webvr/webvr.ts"
     ]
 }

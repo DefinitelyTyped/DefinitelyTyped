@@ -5,6 +5,7 @@ export interface CardProps {
   inverse?: boolean;
   color?: string;
   block?: boolean;
+  body?: boolean;
   outline?: boolean;
   className?: string;
   cssModule?: CSSModule;

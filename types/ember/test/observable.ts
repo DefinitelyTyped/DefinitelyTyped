@@ -86,3 +86,21 @@ function testSetProperties() {
     assertType<{ name: string, capitalized: string }>(person.setProperties({ name: 'Joe', capitalized: 'JOE' }));
     assertType<{ name: string, age: number }>(Ember.setProperties(pojo, { name: 'Joe', age: 35 }));
 }
+
+function testDynamic() {
+    const obj: any = {};
+    const dynamicKey: string = 'dummy'; // tslint:disable-line:no-inferrable-types
+
+    assertType<any>(Ember.get(obj, 'dummy'));
+    assertType<any>(Ember.get(obj, dynamicKey));
+    assertType<string>(Ember.getWithDefault(obj, 'dummy', 'default'));
+    assertType<string>(Ember.getWithDefault(obj, dynamicKey, 'default'));
+    assertType<{ dummy: any }>(Ember.getProperties(obj, 'dummy'));
+    assertType<{ dummy: any }>(Ember.getProperties(obj, [ 'dummy' ]));
+    assertType<object>(Ember.getProperties(obj, dynamicKey));
+    assertType<object>(Ember.getProperties(obj, [ dynamicKey ]));
+    assertType<string>(Ember.set(obj, 'dummy', 'value'));
+    assertType<string>(Ember.set(obj, dynamicKey, 'value'));
+    assertType<{ dummy: string }>(Ember.setProperties(obj, { dummy: 'value '}));
+    assertType<object>(Ember.setProperties(obj, { [dynamicKey]: 'value' }));
+}

@@ -1111,7 +1111,7 @@ declare module 'ember' {
              * item. This method corresponds to the `forEach()` method defined in
              * JavaScript 1.6.
              */
-            forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
+            forEach: GlobalArray<T>['forEach'];
             /**
              * Alias for `mapBy`
              */
@@ -1127,7 +1127,7 @@ declare module 'ember' {
              * Maps all of the items in the enumeration to another value, returning
              * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
              */
-            map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+            map: GlobalArray<T>['map'];
             /**
              * Similar to map, this specialized function returns the value of the named
              * property on all items in the enumeration.
@@ -1138,11 +1138,7 @@ declare module 'ember' {
              * function returns true for. This method corresponds to `filter()` defined in
              * JavaScript 1.6.
              */
-            filter<S extends T>(
-                callbackfn: (value: T, index: number, array: T[]) => value is S,
-                thisArg?: any
-            ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
+            filter: GlobalArray<T>['filter'];
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
@@ -1165,10 +1161,7 @@ declare module 'ember' {
              * This method works similar to the `filter()` method defined in JavaScript 1.6
              * except that it will stop working on the array once a match is found.
              */
-            find(
-                predicate: (value: T, index: number, obj: T[]) => boolean,
-                thisArg?: any
-            ): T | undefined;
+            find: GlobalArray<T>['find'];
             /**
              * Returns the first item with a property matching the passed value. You
              * can pass an optional second argument with the target value. Otherwise
@@ -1179,10 +1172,7 @@ declare module 'ember' {
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
              */
-            every(
-                callbackfn: (value: T, index: number, array: T[]) => boolean,
-                thisArg?: any
-            ): boolean;
+            every: GlobalArray<T>['every'];
             /**
              * Returns `true` if the passed property resolves to the value of the second
              * argument for all items in the enumerable. This method is often simpler/faster
@@ -1205,8 +1195,7 @@ declare module 'ember' {
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+            reduce: GlobalArray<T>['reduce'];
             /**
              * Invokes the named method on every object in the receiver that
              * implements it. This method corresponds to the implementation in
@@ -1616,32 +1605,6 @@ declare module 'ember' {
              * __Required.__ You must implement this method to apply this mixin.
              */
             length: number;
-
-            // NOTE: some array polyfill methods are re-declared here because their signatures
-            // differ between typescript versions 2.4 and 2.6. Since we need to compile against
-            // both, pick the more recent signature and re-declare it here as a tie-breaker.
-
-            /**
-             * Returns the first item in the array for which the callback returns true.
-             * This method works similar to the `filter()` method defined in JavaScript 1.6
-             * except that it will stop working on the array once a match is found.
-             */
-            find(
-                predicate: (value: T, index: number, obj: T[]) => boolean,
-                thisArg?: any
-            ): T | undefined;
-            /**
-             * This will combine the values of the enumerator into a single value. It
-             * is a useful way to collect a summary value from an enumeration. This
-             * corresponds to the `reduce()` method defined in JavaScript 1.8.
-             */
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
-            filter<S extends T>(
-                callbackfn: (value: T, index: number, array: T[]) => value is S,
-                thisArg?: any
-            ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
         }
         const NativeArray: Mixin<NativeArray<any>>;
         /**
@@ -1846,7 +1809,7 @@ declare module 'ember' {
             be useful, for instance, for retrieving async code from
             the server that is required to enter a route.
             */
-            beforeModel(transition: Transition): Rsvp.Promise<any>;
+            beforeModel(transition: Transition): any;
 
             /**
              * Returns the controller for a particular route or name.
@@ -2207,7 +2170,9 @@ declare module 'ember' {
             actionContext: any;
         }
         const ViewTargetActionSupport: Mixin<ViewTargetActionSupport>;
-        const ViewUtils: {}; // TODO: define interface
+        const ViewUtils: {
+            isSimpleClick(event: Event): boolean;
+        };
 
         // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
         const RSVP: typeof Rsvp;
@@ -3055,10 +3020,12 @@ declare module 'ember' {
             obj: ComputedProperties<T>,
             list: K[]
         ): Pick<T, K>;
+        function getProperties<T, K extends keyof T>(obj: T, list: K[]): Pick<T, K>; // for dynamic K
         function getProperties<T, K extends keyof T>(
             obj: ComputedProperties<T>,
             ...list: K[]
         ): Pick<T, K>;
+        function getProperties<T, K extends keyof T>(obj: T, ...list: K[]): Pick<T, K>; // for dynamic K
         /**
          * A value is blank if it is empty or a whitespace string.
          */
@@ -3143,6 +3110,7 @@ declare module 'ember' {
          * object implements the `unknownProperty` method then that will be invoked.
          */
         function get<T, K extends keyof T>(obj: ComputedProperties<T>, key: K): T[K];
+        function get<T, K extends keyof T>(obj: T, key: K): T[K]; // for dynamic K
         /**
          * Retrieves the value of a property from an Object, or a default value in the
          * case that the property returns `undefined`.
@@ -3152,6 +3120,7 @@ declare module 'ember' {
             key: K,
             defaultValue: T[K]
         ): T[K];
+        function getWithDefault<T, K extends keyof T>(obj: T, key: K, defaultValue: T[K]): T[K]; // for dynamic K
         /**
          * Sets the value of a property on an object, respecting computed properties
          * and notifying observers and other listeners of the change. If the
@@ -3163,6 +3132,7 @@ declare module 'ember' {
             key: K,
             value: V
         ): V;
+        function set<T, K extends keyof T, V extends T[K]>(obj: T, key: K, value: V): V; // for dynamic K
         /**
          * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
          * chain is `undefined`, `null`, or destroyed.
@@ -3177,6 +3147,7 @@ declare module 'ember' {
             obj: ComputedProperties<T>,
             hash: Pick<T, K>
         ): Pick<T, K>;
+        function setProperties<T, K extends keyof T>(obj: T, hash: Pick<T, K>): Pick<T, K>; // for dynamic K
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
