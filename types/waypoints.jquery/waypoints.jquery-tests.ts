@@ -1,4 +1,4 @@
-﻿// All code examples below taken from http://imakewebthings.com/waypoints/guides/jquery-zepto/
+// All code examples below taken from http://imakewebthings.com/waypoints/guides/jquery-zepto/
 
 import $ = require('jquery');
 
