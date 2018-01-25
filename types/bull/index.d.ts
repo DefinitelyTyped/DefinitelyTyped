@@ -228,11 +228,11 @@ declare namespace Bull {
   }
 
   interface JobCounts {
-    wait: number;
     active: number;
     completed: number;
     failed: number;
     delayed: number;
+    waiting: number;
   }
 
   interface JobInformation {
