@@ -35,7 +35,7 @@ const connection3: null = mongoose.connect(connectUri, function (error) {
 });
 
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
-mongooseConnection.dropDatabase('foo').then(()=>{});
+mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {

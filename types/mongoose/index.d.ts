@@ -190,7 +190,7 @@ declare module "mongoose" {
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
     /** Helper for dropDatabase() */
-    dropDatabase(name: string, callback?: (err: any) => void): Promise<any>;
+    dropDatabase(callback?: (err: any) => void): Promise<any>;
 
     /** Helper for dropCollection() */
     dropCollection(name: string, callback?: (err: any) => void): Promise<void>;
