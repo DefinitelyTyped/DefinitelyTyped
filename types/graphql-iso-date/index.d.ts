@@ -1,10 +1,5 @@
-	import { GraphQLScalarType } from "graphql";
+import { GraphQLScalarType } from "graphql";
 
-	export interface GraphQLDate extends GraphQLScalarType {
-	}
-
-	export interface GraphQLTime extends GraphQLScalarType {
-	}
-
-	export interface GraphQLDateTime extends GraphQLScalarType {
-	}
+export const GraphQLDate: GraphQLScalarType;
+export const GraphQLTime: GraphQLScalarType;
+export const GraphQLDateTime: GraphQLScalarType;
