@@ -2,7 +2,7 @@ import { GraphQLSchema } from '../type/schema';
 import { GraphQLType } from '../type/definition';
 
 export interface PrinterOptions {
-  [key: string]: any;
+  commentDescriptions?: boolean;
 }
 
 export function printSchema(schema: GraphQLSchema, options?: PrinterOptions): string;
