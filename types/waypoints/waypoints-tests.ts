@@ -39,3 +39,38 @@ let waypoint4 = new Waypoint({
     },
     offset: '75%'
 });
+
+// JQuery adapter
+// All code examples below taken from http://imakewebthings.com/waypoints/guides/jquery-zepto/
+
+import $ = require('jquery');
+
+// $.fn.waypoint
+// --------------------------------------------------------------------------------------------------------------------
+
+let waypoints10 = $('#options-only').waypoint({
+  handler: function fn(this: Waypoint, direction?: string) {
+    notify(this.element.id + ' hit');
+  }
+});
+
+let waypoints11 = $('#handler-first').waypoint(function() {
+  notify(this.element.id + ' hit 25% from top of window');
+}, {
+  offset: '25%'
+});
+
+let waypoints12 = $('#handler-only').waypoint(function() {
+  notify(this.element.id + ' hit');
+});
+
+// Context Option
+// --------------------------------------------------------------------------------------------------------------------
+
+let waypoints13 = $('#context-example-offset').waypoint({
+  handler: function fn(this: Waypoint, direction?: string) {
+    notify('Hit midpoint of my context');
+  },
+  context: '#overflow-scroll-offset',
+  offset: '50%'
+});
