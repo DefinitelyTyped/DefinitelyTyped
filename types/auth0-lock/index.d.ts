@@ -2,6 +2,7 @@
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 //                 Dan Caddigan <https://github.com/goldcaddy77>
+//                 Larry Faudree <https://github.com/lfaudreejr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="auth0-js" />
@@ -29,7 +30,7 @@ interface Auth0LockAdditionalSignUpField {
     options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
-    type?: "select" | "text";
+    type?: "select" | "text" | "checkbox";
     validator?: (input: string) => { valid: boolean; hint?: string };
 }
 
