@@ -1330,7 +1330,7 @@ declare namespace Stripe {
              * override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to
              * end the customer's trial immediately. Only applies when the plan parameter is also provided.
              */
-            trial_end?: number | string;
+            trial_end?: number | "now";
         }
 
         interface ICustomerUpdateOptions extends IDataOptionsWithMetadata {
@@ -4370,7 +4370,7 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number | string;
+            trial_end?: number | "now";
 
             /**
              * List of subscription items, each with an attached plan.
@@ -4446,7 +4446,7 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number | string;
+            trial_end?: number | "now";
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
