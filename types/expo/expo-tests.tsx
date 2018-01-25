@@ -541,5 +541,5 @@ async () => {
     result.expires === 'never';
 };
 
-ScreenOrientation.Orientation.ALL
+ScreenOrientation.Orientation.ALL;
 ScreenOrientation.allow(ScreenOrientation.Orientation.ALL);
