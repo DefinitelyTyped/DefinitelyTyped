@@ -450,11 +450,6 @@ export class Camera extends Object3D {
 
     getWorldDirection(optionalTarget?: Vector3): Vector3;
 
-    /**
-     * This make the camera look at the vector position in local space.
-     * @param vector point to look at
-     */
-    lookAt(vector: Vector3): void;
 }
 
 export class CubeCamera extends Object3D {
@@ -1621,6 +1616,12 @@ export class Object3D extends EventDispatcher {
     userData: any;
 
     /**
+     * Used to check whether this or derived classes are Object3Ds. Default is true.
+     * You should not change this, as it is used internally for optimisation.
+     */
+    isObject3D: boolean;
+
+    /**
      * Calls before rendering object
      */
     onBeforeRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
@@ -1669,6 +1670,13 @@ export class Object3D extends EventDispatcher {
      * @param angle  The angle in radians.
      */
     rotateOnAxis(axis: Vector3, angle: number): Object3D;
+
+    /**
+     * Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
+     * @param axis  A normalized vector in object space.
+     * @param angle  The angle in radians.
+     */
+    rotateOnWorldAxis(axis: Vector3, angle: number): Object3D;
 
     /**
      *
@@ -1729,6 +1737,7 @@ export class Object3D extends EventDispatcher {
      * @param vector A world vector to look at.
      */
     lookAt(vector: Vector3): void;
+    lookAt(x: number, y: number, z: number): void;
 
     /**
      * Adds object as child of this object.
@@ -1738,7 +1747,7 @@ export class Object3D extends EventDispatcher {
     /**
      * Removes object as child of this object.
      */
-    remove(object: Object3D): void;
+    remove(...object: Object3D[]): void;
 
     /**
      * Searches through the object's children and returns the first with a matching id, optionally recursive.
@@ -1788,13 +1797,6 @@ export class Object3D extends EventDispatcher {
      * @param recursive
      */
     copy(source: this, recursive?: boolean): this;
-
-    /**
-     * @deprecated
-     */
-    eulerOrder: string;
-    getChildByName(name: string): Object3D;
-    translate(distance: number, axis: Vector3): Object3D;
 }
 
 export interface Intersection {
@@ -2598,15 +2600,6 @@ export class Material extends EventDispatcher {
      */
     update(): void;
 
-    /**
-     * @deprecated
-     */
-    warpRGB: Color;
-
-    /**
-     * @deprecated Removed, use .flatShading instead.
-     */
-    shading: Shading;
 }
 
 export interface LineBasicMaterialParameters extends MaterialParameters {
@@ -6621,7 +6614,7 @@ export class ConeBufferGeometry extends BufferGeometry {
 export class ConeGeometry extends CylinderGeometry {
     constructor(radius?: number, height?: number, radialSegment?: number, heightSegment?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
 }
-	
+
 export class DodecahedronBufferGeometry extends PolyhedronBufferGeometry {
     constructor(radius?: number, detail?: number);
 }
@@ -6681,7 +6674,7 @@ export class LatheGeometry extends Geometry {
         phiLength: number;
     };
 }
-	
+
 export class OctahedronBufferGeometry extends PolyhedronBufferGeometry {
     constructor(radius?: number, detail?: number);
 }
@@ -6721,10 +6714,10 @@ export class PlaneGeometry extends Geometry {
         heightSegments: number;
     };
 }
-	
+
 export class PolyhedronBufferGeometry extends BufferGeometry {
 	constructor(vertices: number[], indices: number[], radius: number, detail: number);
-	
+
 	parameters: {
 		vertices: number[];
 		indices: number[];
@@ -6820,7 +6813,7 @@ export class SphereGeometry extends Geometry {
         thetaLength: number;
     };
 }
-	
+
 export class TetrahedronBufferGeometry extends PolyhedronBufferGeometry {
     constructor(radius?: number, detail?: number);
 }
