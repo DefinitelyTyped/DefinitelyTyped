@@ -2366,8 +2366,6 @@ export interface MaterialParameters {
     transparent?: boolean;
     vertexColors?: Colors;
     visible?: boolean;
-
-    shading?: Shading;
 }
 
 /**
@@ -2655,7 +2653,6 @@ export interface MeshBasicMaterialParameters extends MaterialParameters {
     combine?: Combine;
     reflectivity?: number;
     refractionRatio?: number;
-    shading?: Shading;
     wireframe?: boolean;
     wireframeLinewidth?: number;
     wireframeLinecap?: string;
@@ -2677,7 +2674,6 @@ export class MeshBasicMaterial extends Material {
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
-    shading: Shading;
     wireframe: boolean;
     wireframeLinewidth: number;
     wireframeLinecap: string;
