@@ -40,7 +40,7 @@ interface ChildNode {
     /**
      * Replaces this node with `nodes`, while replacing strings in nodes with equivalent Text nodes.
      */
-    replaceWith(...node: Array<Node | string>): void;
+    replaceWith(...nodes: Array<Node | string>): void;
 
     /**
      * Removes this node.
