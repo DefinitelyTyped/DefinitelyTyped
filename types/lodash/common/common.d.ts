@@ -1,6 +1,6 @@
-import * as _ from "..";
+import * as _ from "../index";
 type GlobalPartial<T> = Partial<T>;
-declare module ".." {
+declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | T[];
     interface LoDashStatic {
