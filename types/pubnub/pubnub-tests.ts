@@ -1,4 +1,4 @@
-import Pubnub from 'pubnub';
+import * as Pubnub from 'pubnub';
 
 const console = {
   log: (params: any) => {}
