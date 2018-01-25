@@ -192,6 +192,9 @@ declare module "mongoose" {
     /** Helper for dropDatabase() */
     dropDatabase(callback?: (err: any) => void): Promise<any>;
 
+    /** Helper for creating a collection */
+    createCollection(name: string, options?: mongodb.CollectionCreateOptions, cb?: (err: any, collection: mongodb.Collection) => void): Promise<void>;
+
     /** Helper for dropCollection() */
     dropCollection(name: string, callback?: (err: any) => void): Promise<void>;
 
@@ -965,6 +968,9 @@ declare module "mongoose" {
      */
     execPopulate(): Promise<this>;
 
+    /** Checks if path was explicitly selected. If no projection, always returns true. */
+    isDirectSelected(path: string): boolean;
+
     /**
      * Returns the value of a path.
      * @param type optionally specify a type for on-the-fly attributes
@@ -1404,6 +1410,16 @@ declare module "mongoose" {
 
     /** Specifies the batchSize option. Cannot be used with distinct() */
     batchSize(val: number): this;
+
+    /** Get the current error flag value */
+    error(): Error | null;
+    /** Unset the error flag set on this query */
+    error(unset: null): this;
+    /**
+     * Set the error flag on this query
+     * @param err The error flag
+     */
+    error(err: Error): this;
 
     /**
      * Specifies a $box condition
@@ -2111,6 +2127,12 @@ declare module "mongoose" {
     addCursorFlag(flag: string, value: boolean): this;
 
     /**
+     * Appends a new $addFields operator to this aggregate pipeline. Requires MongoDB v3.4+ to work
+     * @param arg field specification
+     */
+    addFields(arg: any): this;
+
+    /**
      * Sets the allowDiskUse option for the aggregation query (ignored for < 2.6.0)
      * @param value Should tell server it can use hard drive to store data during aggregation.
      * @param tags optional tags for this query
@@ -2170,6 +2192,13 @@ declare module "mongoose" {
      * @param model the model to which the aggregate is to be bound
      */
     model(model: any): this;
+
+    /**
+     * Appends new custom $graphLookup operator(s) to this aggregate pipeline, performing a recursive search on a collection.
+     * Note that graphLookup can only consume at most 100MB of memory, and does not allow disk use even if { allowDiskUse: true } is specified.
+     * @param options options to $graphLookup
+     */
+    graphLookup(options: any): this;
 
     /**
      * Appends a new $geoNear operator to this aggregate pipeline.
@@ -2363,6 +2392,13 @@ declare module "mongoose" {
     watch(options?: mongodb.ChangeStreamOptions & {session?: any}): mongodb.ChangeStream;
 
     /**
+     * Translate any aliases fields/conditions so the final query or document object is pure
+     * @param raw fields/conditions that may contain aliased keys
+     * @return the translated 'pure' fields/conditions
+     */
+    translateAliases(raw: any): any;
+
+    /**
      * Sends multiple insertOne, updateOne, updateMany, replaceOne, deleteOne, and/or deleteMany operations to the MongoDB server in one command. This is faster than sending multiple independent operations (like) if you use create()) because with bulkWrite() there is only one round trip to MongoDB.
      * Mongoose will perform casting on all operations you provide.
      * This function does not trigger any middleware, not save() nor update(). If you need to trigger save() middleware for every document use create() instead.
@@ -2433,6 +2469,12 @@ declare module "mongoose" {
      */
     ensureIndexes(callback?: (err: any) => void): Promise<void>;
     ensureIndexes(options: any, callback?: (err: any) => void): Promise<void>;
+
+    /**
+     * Similar to ensureIndexes(), except for it uses the createIndex function. The ensureIndex() function checks to see if an index with that name already exists, and, if not, does not attempt to create the index. createIndex() bypasses this check.
+     * @param cb Optional callback
+     */
+    createIndexes(cb?: (err: any) => void): Promise<void>;
 
     /**
      * Finds documents.
@@ -2618,6 +2660,11 @@ declare module "mongoose" {
      * @param name model name
      */
     model(name: string): Model<this>;
+
+    /** Override whether mongoose thinks this doc is deleted or not */
+    isDeleted(isDeleted: boolean): void;
+    /** whether mongoose thinks this doc is deleted. */
+    isDeleted(): boolean;
 
     /**
      * Removes this document from the db.

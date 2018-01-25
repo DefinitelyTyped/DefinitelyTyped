@@ -1678,3 +1678,24 @@ new mongoose.Schema({}, {
     depopulate: true
   }
 })
+
+const aggregatePrototypeGraphLookup: mongoose.Aggregate<any> = MyModel.aggregate([]).graphLookup({});
+const addFieldsAgg: mongoose.Aggregate<any> = aggregatePrototypeGraphLookup.addFields({})
+
+MyModel.findById('foo').then((doc: mongoose.Document) => {
+  const a: boolean = doc.isDirectSelected('bar');
+  const b: boolean = doc.isDeleted();
+  doc.isDeleted(true);
+});
+
+MyModel.translateAliases({});
+
+const queryPrototypeError: Error | null = MyModel.findById({}).error();
+const queryProrotypeErrorSetUnset: mongoose.Query<any> = MyModel.findById({}).error(null).error(new Error('foo'));
+
+MyModel.createIndexes().then(() => {});
+MyModel.createIndexes((err: any): void => {}).then(() => {});
+
+mongoose.connection.createCollection('foo').then(() => {});
+mongoose.connection.createCollection('foo', {wtimeout: 5}).then(() => {});
+mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): void => {coll.collectionName}).then(() => {});
