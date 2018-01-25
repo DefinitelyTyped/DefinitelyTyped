@@ -1,5 +1,4 @@
-import * as fs from 'fs';
-import * as JsReport from 'jsreport-core';
+import JsReport = require('jsreport-core');
 
 const jsreport = JsReport();
 jsreport.init().then(() => {
