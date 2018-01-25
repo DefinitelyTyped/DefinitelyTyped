@@ -152,7 +152,8 @@ function axis_examples() {
                     fit: true,
                     values: [1, 2, 4, 8, 16, 32],
                     rotate: 60,
-                    outer: false
+                    outer: false,
+                    width: 100
                 },
                 max: 100,
                 min: -100,
@@ -934,6 +935,26 @@ function axes_x_tick_fit() {
                 tick: {
                     fit: true,
                     format: "%e %b %y"
+                }
+            }
+        }
+    });
+}
+
+function axes_x_tick_width() {
+    const chart = c3.generate({
+        data: {
+            x: "x",
+            columns: [
+                ["x", "2013-10-31", "2013-12-31", "2014-01-31", "2014-02-28"],
+                ["sample", 30, 100, 400, 150],
+            ]
+        },
+        axis: {
+            x: {
+                type: "bar",
+                tick: {
+                    width: 100
                 }
             }
         }
