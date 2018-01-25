@@ -252,8 +252,12 @@ stripe.customers.create({
     customer.cards.del("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (confirmation) {});
 
     customer.subscriptions.create({ plan: "gold" }).then(function (subscription) { });
+    customer.subscriptions.create({ plan: "gold", trial_end: "now" }).then(function (subscription) { });
+    customer.subscriptions.create({ plan: "gold", trial_end: 1516881177 }).then(function (subscription) { });
     customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.update("sub_8Eluur5KoIKxuy", { plan: "silver" }).then(function (subscription) { });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: "now" });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177 });
     customer.subscriptions.list().then(function (subscriptions) { });
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then(function (confirmation) { });
@@ -294,6 +298,22 @@ stripe.customers.create({
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
 }, { stripe_account: "" }).then(function (customer) {
 
+});
+
+// {"now"} for trial_end
+stripe.customers.create({
+    description: "Customer for test@example.com",
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    plan: "platypi-dev",
+    trial_end: "now"
+});
+
+// {number} for trial_end
+stripe.customers.create({
+    description: "Customer for test@example.com",
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    plan: "platypi-dev",
+    trial_end: 1516881177
 });
 
 stripe.customers.retrieve(
