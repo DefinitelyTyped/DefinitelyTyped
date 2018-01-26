@@ -5274,23 +5274,16 @@ declare namespace sequelize {
      * @see Options
      */
     interface ReplicationOptions {
+        read?: Array<Server>;
+        write?: Server;
+    }
 
-        read?: {
-            host?: string;
-            port?: string | number;
-            username?: string;
-            password?: string;
-            database?: string;
-        };
-
-        write?: {
-            host?: string;
-            port?: string | number;
-            username?: string;
-            password?: string;
-            database?: string;
-        };
-
+    interface Server {
+        host?: string;
+        port?: number;
+        database?: string;
+        username?: string;
+        password?: string;
     }
 
     /**
