@@ -7,7 +7,7 @@
 // TypeScript Version: 2.4
 
 import { EventSubscription } from 'fbemitter';
-import { Component, ComponentClass, Ref } from 'react';
+import { Component, ComponentClass, Ref, ComponentType } from 'react';
 import {
     ColorPropType,
     ImageRequireSource,
@@ -1696,7 +1696,7 @@ declare namespace Permissions {
 /**
  * Register Root Component
  */
-declare function registerRootComponent(component: Component): void;
+declare function registerRootComponent(component: ComponentType): void;
 
 /**
  * ScreenOrientation
