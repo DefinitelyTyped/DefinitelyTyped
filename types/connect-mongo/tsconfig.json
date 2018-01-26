@@ -7,9 +7,6 @@
         "paths": {
             "mongodb": [
                 "mongodb/v2"
-            ],
-            "mongoose": [
-                "mongoose/v4"
             ]
         },
         "noImplicitAny": true,
