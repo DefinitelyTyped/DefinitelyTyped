@@ -1,6 +1,9 @@
 // Type definitions for react-loadable 5.3
 // Project: https://github.com/thejameskyle/react-loadable#readme
-// Definitions by: Diogo Franco <https://github.com/Kovensky>, Oden S. <https://github.com/odensc>, Ian Ker-Seymer <https://github.com/ianks>
+// Definitions by: Diogo Franco <https://github.com/Kovensky>
+//                 Oden S. <https://github.com/odensc>
+//                 Ian Ker-Seymer <https://github.com/ianks>
+//                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
