@@ -1,37 +1,38 @@
-// Type definitions for react-native-video 2.0.0
+// Type definitions for react-native-video 2.0
 // Project: https://github.com/react-native-community/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 //                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from 'react';
 import {
     ViewProperties
 } from 'react-native';
 
-export type OnLoadData = {
-  canPlayFastForward: boolean,
-  canPlayReverse: boolean,
-  canPlaySlowForward: boolean,
-  canPlaySlowReverse: boolean,
-  canStepBackward: boolean,
-  canStepForward: boolean,
-  currentTime: number,
-  duration: number,
+export interface OnLoadData {
+  canPlayFastForward: boolean;
+  canPlayReverse: boolean;
+  canPlaySlowForward: boolean;
+  canPlaySlowReverse: boolean;
+  canStepBackward: boolean;
+  canStepForward: boolean;
+  currentTime: number;
+  duration: number;
   naturalSize: {
     height: number;
     width: number;
     orientation: 'horizontal' | 'landscape';
-  }
-};
+  };
+}
 
-export type LoadError = {
-  error : {
+export interface LoadError {
+  error: {
     '': string;
     errorString: string;
   };
 }
+
 export interface VideoProperties extends ViewProperties {
     /* Native only */
     src?: any;
@@ -68,12 +69,12 @@ export interface VideoProperties extends ViewProperties {
     currentTime?: number;
     progressUpdateInterval?: number;
     onLoadStart?(): void;
-    onLoad?(data?: OnLoadData): void;
+    onLoad?(data: OnLoadData): void;
     onBuffer?(): void;
-    onError?(error?: LoadError): void;
+    onError?(error: LoadError): void;
     onProgress?(data: {
         currentTime: number;
-        playableDuration: number,
+        playableDuration: number;
     }): void;
     onSeek?(): void;
     onEnd?(): void;
