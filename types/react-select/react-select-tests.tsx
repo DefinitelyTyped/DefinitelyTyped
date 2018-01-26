@@ -121,6 +121,7 @@ class SelectTest extends React.Component<React.Props<{}>> {
             onClose: onClose,
             openAfterFocus: false,
             optionComponent: CustomOption,
+            removeSelected: true,
             required: false,
             resetValue: "resetValue",
             scrollMenuIntoView: false,
