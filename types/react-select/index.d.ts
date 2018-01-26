@@ -1,4 +1,4 @@
-// Type definitions for react-select 1.0
+// Type definitions for react-select 1.2.1
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>, Mark Vujevits <https://github.com/vujevits/>, Mike Deverell <https://github.com/devrelm/>, David Schkalee <https://github.com/misantronic/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -132,6 +132,11 @@ declare namespace ReactSelectClass {
          */
         clearable?: boolean;
         /**
+         * whether pressing delete key removes the last item when there is no input value
+         * @default true
+         */
+        deleteRemoves?: boolean;
+        /**
          * delimiter to use to join multiple values
          * @default ","
          */
@@ -245,6 +250,16 @@ declare namespace ReactSelectClass {
          */
         onBlurResetsInput?: boolean;
         /**
+         * whether the input value should be reset when options are selected. Also input value will be set to empty if 'onSelectResetsInput=true' and Select will get new value that not equal previous value.
+         * @default true
+         */
+        onSelectResetsInput?: boolean;
+        /**
+         * whether to clear input when closing the menu through the arrow
+         * @default true
+         */
+        onCloseResetsInput?: boolean;
+        /**
          * onChange handler: function (newValue) {}
          */
         onChange?: (newValue: Option | Option[] | null) => void;
@@ -304,6 +319,11 @@ declare namespace ReactSelectClass {
          */
         options?: Array<Option>;
         /**
+         * number of options to jump when using page up/down keys
+         * @default 5
+         */
+        pageSize?: number;
+        /**
          * field placeholder, displayed when there's no value
          * @default "Select..."
          */
@@ -323,6 +343,11 @@ declare namespace ReactSelectClass {
          */
         resetValue?: any;
         /**
+         * use react-select in right-to-left direction
+         * @default false
+         */
+        rtl?: boolean;
+        /**
          * whether the viewport will shift to display the entire menu when engaged
          * @default true
          */
@@ -332,6 +357,11 @@ declare namespace ReactSelectClass {
          * @default true;
          */
         searchable?: boolean;
+        /**
+         * label to prompt for search input
+         * @default 'Type to search';
+         */
+        searchPromptText?: React.ReactNode;
         /**
          * whether to select the currently focused value when the  [tab]  key is pressed
          */
@@ -359,6 +389,12 @@ declare namespace ReactSelectClass {
          *  optional tab index of the control
          */
         tabIndex?: string;
+
+        /**
+         * whether to trim whitespace from the filter value
+         * @default false
+         */
+        trimFilter?: boolean;
 
         /**
          *  value component to render
