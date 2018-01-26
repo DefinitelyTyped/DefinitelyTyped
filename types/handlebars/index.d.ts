@@ -29,7 +29,7 @@ declare namespace Handlebars {
     }
 
     export interface HelperDelegate {
-        (context?: any, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, options?: HelperOptions): hbs.SafeString|string|void;
+        (context?: any, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, options?: HelperOptions): any;
     }
     export interface HelperDeclareSpec {
         [key: string]: HelperDelegate;
@@ -58,20 +58,36 @@ declare namespace Handlebars {
 
     export function create(): typeof Handlebars;
 
-    export var SafeString: typeof hbs.SafeString;
-    export var escapeExpression: typeof hbs.Utils.escapeExpression;
-    export var Utils: typeof hbs.Utils;
-    export var logger: Logger;
-    export var templates: HandlebarsTemplates;
-    export var helpers: { [name: string]: HelperDelegate };
-    export var partials: { [name: string]: any };
+    export const escapeExpression: typeof Utils.escapeExpression;
+    //export const Utils: typeof hbs.Utils;
+    export const logger: Logger;
+    export const templates: HandlebarsTemplates;
+    export const helpers: { [name: string]: HelperDelegate };
+    export const partials: { [name: string]: any };
     // TODO: replace Function with actual signature
-    export var decorators: { [name: string]: Function };
+    export const decorators: { [name: string]: Function };
 
     export function noConflict(): typeof Handlebars;
 
-    export module AST {
-        export var helpers: hbs.AST.helpers;
+    export class SafeString {
+        constructor(str: string);
+        toString(): string;
+        toHTML(): string;
+    }
+
+    export namespace Utils {
+        export function escapeExpression(str: string): string;
+        export function createFrame(object: any): any;
+        export function blockParams(obj: any[], ids: any[]): any[];
+        export function isEmpty(obj: any) : boolean;
+        export function extend(obj: any, ...source: any[]): any;
+        export function toString(obj: any): string;
+        export function isArray(obj: any): boolean;
+        export function isFunction(obj: any): boolean;
+    }
+
+    export namespace AST {
+        export const helpers: hbs.AST.helpers;
     }
 
     interface ICompiler {
@@ -126,6 +142,7 @@ interface HandlebarsTemplatable {
     template: HandlebarsTemplateDelegate;
 }
 
+// NOTE: for backward compatibility of this typing
 type HandlebarsTemplateDelegate<T = any> = Handlebars.TemplateDelegate<T>
 
 interface HandlebarsTemplates {
@@ -136,6 +153,7 @@ interface TemplateSpecification {
 
 }
 
+// for backward compatibility of this typing
 type RuntimeOptions = Handlebars.RuntimeOptions;
 
 interface CompileOptions {
@@ -166,21 +184,10 @@ interface PrecompileOptions extends CompileOptions {
 }
 
 declare namespace hbs {
-    class SafeString {
-        constructor(str: string);
-        static toString(): string;
-    }
+    // for backward compatibility of this typing
+    type SafeString = Handlebars.SafeString;
 
-    namespace Utils {
-        function escapeExpression(str: string): string;
-        function createFrame(object: any): any;
-        function blockParams(obj: any[], ids: any[]): any[];
-        function isEmpty(obj: any) : boolean;
-        function extend(obj: any, ...source: any[]): any;
-        function toString(obj: any): string;
-        function isArray(obj: any): boolean;
-        function isFunction(obj: any): boolean;
-    }
+    type Utils = typeof Handlebars.Utils;
 }
 
 interface Logger {
