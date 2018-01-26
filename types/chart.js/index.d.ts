@@ -8,6 +8,7 @@
 //                 Joseph Page <https://github.com/josefpaij>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
+//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -119,6 +120,7 @@ declare namespace Chart {
         lineJoin?: string;
         lineWidth?: number;
         strokeStyle?: string;
+        pointStyle?: PointStyle;
     }
 
     interface ChartTooltipItem {
@@ -231,6 +233,8 @@ declare namespace Chart {
         fontFamily?: string;
         padding?: number;
         generateLabels?(chart: any): any;
+        filter?(item: ChartLegendItem, data: ChartData): any;
+        usePointStyle?: boolean;
     }
 
     interface ChartTooltipOptions {
