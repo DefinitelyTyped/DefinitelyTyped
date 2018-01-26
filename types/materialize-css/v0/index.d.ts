@@ -484,7 +484,7 @@ declare namespace Pickadate {
 	interface DateOptions {
 		weekdaysLetter?: string[];
 	}
-	
+
 	interface TimeOptions {
 		/**
 		 * Set default time such as : 'now', '1:30AM', '16:30'.
