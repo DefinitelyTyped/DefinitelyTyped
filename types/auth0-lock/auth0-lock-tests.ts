@@ -204,6 +204,19 @@ const selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptionsWithCallbacks);
 
+// test checkbox-field additional sign up field
+
+const checkboxFieldOptions : Auth0LockConstructorOptions = {
+    additionalSignUpFields: [{
+      type: "checkbox",
+      name: "remember",
+      placeholder: "Remember Me",
+      prefill: "false"
+    }]
+  };
+
+  new Auth0Lock(CLIENT_ID, DOMAIN, checkboxFieldOptions);
+
 // test Avatar options
 
 const avatarOptions : Auth0LockConstructorOptions = {
