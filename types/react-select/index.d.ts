@@ -309,6 +309,11 @@ declare namespace ReactSelectClass {
          */
         placeholder?: string | React.ReactElement<any>;
         /**
+         * whether the selected option is removed from the dropdown on multi selects
+         * @default true
+         */
+        removeSelected?: boolean;
+        /**
          * applies HTML5 required attribute when needed
          * @default false
          */
