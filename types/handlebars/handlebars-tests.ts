@@ -20,29 +20,24 @@ Handlebars.registerHelper('agree_button', function() {
     );
 });
 
-var source = '<p>Hello, my name is {{name}}. I am from {{hometown}}. I have ' +
+var source1 = '<p>Hello, my name is {{name}}. I am from {{hometown}}. I have ' +
              '{{kids.length}} kids:</p>' +
              '<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>';
-var template = Handlebars.compile(source);
-var data = { 'name': 'Alan', 'hometown': 'Somewhere, TX',
-             'kids': [{'name': 'Jimmy', 'age': '12'}, {'name': 'Sally', 'age': '4'}]};
-var result = template(data);
+var template1 = Handlebars.compile(source1);
+template1({ name: "Alan", hometown: "Somewhere, TX", kids: [{name: "Jimmy", age: 12}, {name: "Sally", age: 4}]});
 
 Handlebars.registerHelper('link_to', (context: typeof post) => {
     return '<a href="' + context.url + '">' + context.body + '</a>';
 });
-
-var post = { url: '/hello-world', body: 'Hello World!' };
-var context2 = { posts: [post] };
-var source2 = '<ul>{{#posts}}<li>{{{link_to this}}}</li>{{/posts}}</ul>';
-
+let post = { url: "/hello-world", body: "Hello World!" };
+let context2 = { posts: [post] };
+let source2 = '<ul>{{#posts}}<li>{{{link_to this}}}</li>{{/posts}}</ul>';
 var template2: HandlebarsTemplateDelegate<{ posts: { url: string, body: string }[] }> = Handlebars.compile(source2);
 template2(context2);
 
 Handlebars.registerHelper('link_to', (title: string, context: typeof post) => {
     return '<a href="/posts' + context.url + '">' + title + '!</a>';
 });
-
 var context3 = { posts: [{url: '/hello-world', body: 'Hello World!'}] };
 var source3 = '<ul>{{#posts}}<li>{{{link_to "Post" this}}}</li>{{/posts}}</ul>';
 var template3 = Handlebars.compile<typeof context3>(source3);
@@ -68,16 +63,17 @@ var data3 = { 'people': [
 ]};
 template5(data3);
 
-Handlebars.registerHelper('list', (items: any, fn: (item: any) => string) => {
-    var out = '<ul>';
-    for(var i=0, l=items.length; i<l; i++) {
-        out = out + '<li>' + fn(items[i]) + '</li>';
-    }
-    return out + '</ul>';
+let source6 = '{{#list nav}}<a href="{{url}}">{{title}}</a>{{/list}}';
+let template6 = Handlebars.compile(source6);
+Handlebars.registerHelper('list', (context, options: Handlebars.HelperOptions) => {
+  var ret = "<ul>";
+  for(var i=0, j=context.length; i<j; i++) {
+    ret = ret + "<li>" + options.fn(context[i]) + "</li>";
+  }
+  return ret + "</ul>";
 });
-Handlebars.registerHelper('fullName', (person: typeof context.author) => {
-    return person.firstName + ' ' + person.lastName;
-});
+template6([{url:"", title:""}])
+
 
 var escapedExpression = Handlebars.Utils.escapeExpression('<script>alert(\'xss\');</script>');
 

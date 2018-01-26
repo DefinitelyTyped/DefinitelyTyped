@@ -5,11 +5,44 @@
 // TypeScript Version: 2.3
 
 declare namespace Handlebars {
-    export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
-    export function registerHelper(name: Object): void;
-    export function registerPartial(name: string, str: any): void;
+    export interface TemplateDelegate<T = any> {
+        (context: T, options?: RuntimeOptions): string;
+    }
+
+    export type Template<T = any> = TemplateDelegate<T>|string;
+
+    export interface RuntimeOptions {
+        partial?: boolean;
+        depths?: any[];
+        helpers?: { [name: string]: Function }
+        partials?: { [name: string]: HandlebarsTemplateDelegate }
+        decorators?: { [name: string]: Function }
+        data?: any;
+        blockParams?: any[];
+    }
+
+    export interface HelperOptions {
+        fn: TemplateDelegate;
+        inverse: TemplateDelegate;
+        hash: any;
+        data?: any;
+    }
+
+    export interface HelperDelegate {
+        (context?: any, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, options?: HelperOptions): hbs.SafeString|string|void;
+    }
+    export interface HelperDeclareSpec {
+        [key: string]: HelperDelegate;
+    }
+
+    export function registerHelper(name: string, fn: HelperDelegate): void;
+    export function registerHelper(name: HelperDeclareSpec): void;
     export function unregisterHelper(name: string): void;
+
+    export function registerPartial(name: string, fn: Template): void;
     export function unregisterPartial(name: string): void;
+
+    // TODO: replace Function with actual signature
     export function registerDecorator(name: string, fn: Function): void;
     export function unregisterDecorator(name: string): void;
 
@@ -30,13 +63,10 @@ declare namespace Handlebars {
     export var Utils: typeof hbs.Utils;
     export var logger: Logger;
     export var templates: HandlebarsTemplates;
-    export var helpers: { [name: string]: Function };
+    export var helpers: { [name: string]: HelperDelegate };
     export var partials: { [name: string]: any };
+    // TODO: replace Function with actual signature
     export var decorators: { [name: string]: Function };
-
-    export function registerDecorator(name: string, fn: Function): void;
-    export function registerDecorator(obj: {[name: string] : Function}): void;
-    export function unregisterDecorator(name: string): void;
 
     export function noConflict(): typeof Handlebars;
 
@@ -87,20 +117,6 @@ declare namespace Handlebars {
         NullLiteral(): void;
         Hash(hash: hbs.AST.Hash): void;
     }
-
-    export interface HelperOptions<T = any> {
-        fn: HandlebarsTemplateDelegate<T>;
-        inverse: HandlebarsTemplateDelegate<T>;
-        hash: any;
-        data?: any;
-    }
-
-    export interface HelperDelegate<T = any> {
-        (arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, options?: HelperOptions<T>): string;
-        (context?: T, options?: HelperOptions<T>): string;
-        (options?: HelperOptions<T>): string;
-    }
-
 }
 
 /**
@@ -110,9 +126,7 @@ interface HandlebarsTemplatable {
     template: HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsTemplateDelegate<T = any> {
-    (context: T, options?: RuntimeOptions): string;
-}
+type HandlebarsTemplateDelegate<T = any> = Handlebars.TemplateDelegate<T>
 
 interface HandlebarsTemplates {
     [index: string]: HandlebarsTemplateDelegate;
@@ -122,14 +136,7 @@ interface TemplateSpecification {
 
 }
 
-interface RuntimeOptions {
-    partial?: boolean;
-    depths?: any[];
-    helpers?: { [name: string]: Function }
-    partials?: { [name: string]: HandlebarsTemplateDelegate }
-    decorators?: { [name: string]: Function }
-    data?: any;
-}
+type RuntimeOptions = Handlebars.RuntimeOptions;
 
 interface CompileOptions {
     data?: boolean;
