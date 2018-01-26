@@ -5,24 +5,24 @@
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "types": [],
         "paths": {
             "mongoose": [
                 "mongoose/v4"
             ]
         },
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "mongoose-deep-populate-tests.ts"
+        "mongoose-tests.ts"
     ]
 }

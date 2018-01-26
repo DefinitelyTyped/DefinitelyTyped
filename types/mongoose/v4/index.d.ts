@@ -1,6 +1,6 @@
-// Type definitions for Mongoose 5.0.1
+// Type definitions for Mongoose 4.7.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>, Alorel <https://github.com/Alorel>
+// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -25,6 +25,45 @@
  *   changes just copy/paste them into here.
  * - Check the files off as you go. Some files below might not have anything in them. That's ok, this
  *   is just a simple heuristic to keep track of our progress.
+ *
+ * TODO for version 4.x [updated][tested]:
+ * [x][x] index.js
+ * [x][x] querystream.js
+ * [x][x] connection.js
+ * [x][x] utils.js
+ * [x][x] browser.js
+ * [x][x] drivers/node-mongodb-native/collection.js
+ * [x][x] drivers/node-mongodb-native/connection.js
+ * [x][x] error/messages.js
+ * [x][x] error/validation.js
+ * [x][x] error.js
+ * [x][x] querycursor.js
+ * [x][x] virtualtype.js
+ * [x][x] schema.js
+ * [x][x] document.js
+ * [x][x] types/subdocument.js
+ * [x][x] types/array.js
+ * [x][x] types/documentarray.js
+ * [x][x] types/buffer.js
+ * [x][x] types/objectid.js
+ * [x][x] types/embedded.js
+ * [x][x] query.js
+ * [x][x] schema/array.js
+ * [x][x] schema/string.js
+ * [x][x] schema/documentarray.js
+ * [x][x] schema/number.js
+ * [x][x] schema/date.js
+ * [x][x] schema/buffer.js
+ * [x][x] schema/boolean.js
+ * [x][x] schema/objectid.js
+ * [x][x] schema/mixed.js
+ * [x][x] schema/embedded.js
+ * [x][x] aggregate.js
+ * [x][x] schematype.js
+ * [x][x] promise.js
+ * [x][x] ES6Promise.js
+ * [x][x] model.js
+ * [x][x] collection.js
  */
 
 /*
@@ -40,9 +79,6 @@ declare module "mongoose" {
   import mongodb = require('mongodb');
   import stream = require('stream');
   import mongoose = require('mongoose');
-
-  /** Pluralises the given name */
-  export function pluralize(str: string): string;
 
   /*
    * Some mongoose classes have the same name as the native JS classes
@@ -76,9 +112,11 @@ declare module "mongoose" {
    * Options passed take precedence over options included in connection strings.
    * @returns pseudo-promise wrapper around this
    */
-  export function connect(uris: string, options: ConnectionOptions, callback: (err: mongodb.MongoError) => void): null;
-  export function connect(uris: string, callback: (err: mongodb.MongoError) => void): null;
-  export function connect(uris: string, options?: ConnectionOptions): Promise<Mongoose>;
+  export function connect(uris: string,
+    options?: ConnectionOptions,
+    callback?: (err: mongodb.MongoError) => void): MongooseThenable;
+  export function connect(uris: string,
+    callback?: (err: mongodb.MongoError) => void): MongooseThenable;
 
   /**
    * Creates a Connection instance.
@@ -92,14 +130,16 @@ declare module "mongoose" {
   export function createConnection(uri: string,
     options?: ConnectionOptions
   ): Connection;
+  export function createConnection(host: string, database_name: string, port?: number,
+    options?: ConnectionOptions
+  ): Connection;
 
   /**
    * Disconnects all connections.
    * @param fn called after all connection close.
+   * @returns pseudo-promise wrapper around this
    */
-  export function disconnect(fn: (error?: any) => void): null;
-  /** Disconnects all connections. */
-  export function disconnect(): Promise<void>;
+  export function disconnect(fn?: (error: any) => void): MongooseThenable;
 
   /** Gets mongoose options */
   export function get(key: string): any;
@@ -138,6 +178,21 @@ declare module "mongoose" {
   /** Sets mongoose options */
   export function set(key: string, value: any): void;
 
+  type MongooseThenable = typeof mongoose & {
+    /**
+     * Ability to use mongoose object as a pseudo-promise so .connect().then()
+     * and .disconnect().then() are viable.
+     */
+    then<TRes>(onFulfill?: () => void | TRes | PromiseLike<TRes>,
+      onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+
+    /**
+     * Ability to use mongoose object as a pseudo-promise so .connect().then()
+     * and .disconnect().then() are viable.
+     */
+    catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+  }
+
   class CastError extends Error {
     /**
      * The Mongoose CastError constructor
@@ -147,6 +202,49 @@ declare module "mongoose" {
      * @param reason The original error that was thrown
      */
     constructor(type: string, value: any, path: string, reason?: NativeError);
+  }
+
+  /*
+   * section querystream.js
+   * http://mongoosejs.com/docs/api.html#querystream-js
+   *
+   * QueryStream can only be accessed using query#stream(), we only
+   *   expose its interface here.
+   */
+  interface QueryStream extends stream.Stream {
+    /**
+     * Provides a Node.js 0.8 style ReadStream interface for Queries.
+     * @event data emits a single Mongoose document
+     * @event error emits when an error occurs during streaming. This will emit before the close event.
+     * @event close emits when the stream reaches the end of the cursor or an error occurs, or the stream
+     *   is manually destroyed. After this event, no more events are emitted.
+     */
+    constructor(query: Query<any>, options?: {
+      /**
+       * optional function which accepts a mongoose document. The return value
+       * of the function will be emitted on data.
+       */
+      transform?: Function;
+      [other: string]: any;
+    }): QueryStream;
+
+    /**
+     * Destroys the stream, closing the underlying cursor, which emits the close event.
+     * No more events will be emitted after the close event.
+     */
+    destroy(err?: NativeError): void;
+
+    /** Pauses this stream. */
+    pause(): void;
+    /** Pipes this query stream into another stream. This method is inherited from NodeJS Streams. */
+    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    /** Resumes this stream. */
+    resume(): void;
+
+    /** Flag stating whether or not this stream is paused. */
+    paused: boolean;
+    /** Flag stating whether or not this stream is readable. */
+    readable: boolean;
   }
 
   /*
@@ -190,13 +288,7 @@ declare module "mongoose" {
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
     /** Helper for dropDatabase() */
-    dropDatabase(callback?: (err: any) => void): Promise<any>;
-
-    /** Helper for creating a collection */
-    createCollection(name: string, options?: mongodb.CollectionCreateOptions, cb?: (err: any, collection: mongodb.Collection) => void): Promise<void>;
-
-    /** Helper for dropCollection() */
-    dropCollection(name: string, callback?: (err: any) => void): Promise<void>;
+    dropDatabase(callback?: (err: any) => void): Promise<void>;
 
     /**
      * Opens the connection to a replica set.
@@ -353,9 +445,6 @@ declare module "mongoose" {
 
     /** See http://mongoosejs.com/docs/connections.html#use-mongo-client **/
     useMongoClient?: boolean;
-
-    /** See http://mongoosejs.com/docs/guide.html#bufferCommands */
-    bufferCommands?: boolean;
   }
 
   interface ConnectionOptions extends
@@ -531,9 +620,6 @@ declare module "mongoose" {
     /** Adds key path / schema type pairs to this schema. */
     add(obj: SchemaDefinition, prefix?: string): void;
 
-    /** Return a deep copy of this schema */
-    clone(): Schema;
-
     /**
      * Iterates the schemas paths similar to Array.forEach.
      * @param fn callback function
@@ -674,23 +760,25 @@ declare module "mongoose" {
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
   interface HookSyncCallback {
-    (next: HookNextFunction): any;
+    (next: HookNextFunction, ...hookArgs:any[]): any;
   }
 
   interface HookAsyncCallback {
-    (next: HookNextFunction, done: HookDoneFunction): any;
+    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs: any[]): any;
   }
 
   interface HookErrorCallback {
-    (error?: Error): any;
+    (error: Error): any;
   }
 
   interface HookNextFunction {
-    (error?: Error): any;
+    (error: Error): any;
+    (...hookArgs: any[]): any;
   }
 
   interface HookDoneFunction {
-    (error?: Error): any;
+    (error: Error): any;
+    (...hookArgs: any[]): any;
   }
 
   interface SchemaOptions {
@@ -700,15 +788,12 @@ declare module "mongoose" {
     bufferCommands?: boolean;
     /** defaults to false */
     capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
-    /** Sets a default collation for every query and aggregation. */
-    collation?: CollationOptions;
     /** no default */
     collection?: string;
     /** defaults to "__t" */
     discriminatorKey?: string;
     /** defaults to false. */
     emitIndexErrors?: boolean;
-    excludeIndexes?: any;
     /** defaults to true */
     id?: boolean;
     /** defaults to true */
@@ -718,23 +803,26 @@ declare module "mongoose" {
     read?: string;
     /** defaults to true. */
     safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
-
     /** defaults to null */
     shardKey?: boolean;
     /** defaults to true */
     strict?: boolean;
     /** no default */
-    toJSON?: DocumentToObjectOptions;
+    toJSON?: any;
     /** no default */
-    toObject?: DocumentToObjectOptions;
+    toObject?: any;
     /** defaults to 'type' */
     typeKey?: string;
     /** defaults to false */
     useNestedStrict?: boolean;
+    /** defaults to false */
+    usePushEach?: boolean;
     /** defaults to true */
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
     versionKey?: string|boolean;
+    /** defaults to false */
+    retainKeyOrder?: boolean;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
@@ -746,12 +834,7 @@ declare module "mongoose" {
      * and updatedAt fields to your schema, the type
      * assigned is Date.
      */
-    timestamps?: boolean | SchemaTimestampsConfig;
-  }
-
-  interface SchemaTimestampsConfig {
-    createdAt?: boolean | string;
-    updatedAt?: boolean | string;
+    timestamps?: any;
   }
 
   /*
@@ -787,8 +870,6 @@ declare module "mongoose" {
    * - http://mongoosejs.com/docs/api.html#schema_Schema.Types
    */
   interface SchemaTypeOpts<T> {
-    alias?: string;
-
     /* Common Options for all schema types */
     type?: T;
 
@@ -841,7 +922,7 @@ declare module "mongoose" {
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
       SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
+      any;
 
     /** Declares an unique index. */
     unique?: boolean | any;
@@ -902,26 +983,13 @@ declare module "mongoose" {
     }
 
     interface ValidateFn<T> {
-      (value: T): boolean;
+      (obj: RegExp | Function, message?: string, type?: string): T;
     }
 
-    interface AsyncValidateFn<T> {
-      (value: T, done: (result: boolean) => void): void;
-    }
-
-    interface ValidateOptsBase {
-      msg?: string;
-      type?: string;
-    }
-
-    interface ValidateOpts extends ValidateOptsBase {
-      isAsync?: false;
-      validator?: RegExp | ValidateFn<any>;
-    }
-
-    interface AsyncValidateOpts extends ValidateOptsBase {
-      isAsync: true;
-      validator: AsyncValidateFn<any>;
+    interface ValidateOpts {
+      validator?: RegExp | Function,
+      msg?: string,
+      type?: string
     }
 
     interface EnumOpts<T> {
@@ -951,7 +1019,7 @@ declare module "mongoose" {
      * Takes a populated field and returns it to its unpopulated state.
      * If the path was not populated, this is a no-op.
      */
-    depopulate(path: string): this;
+    depopulate(path: string): void;
 
     /**
      * Returns true if the Document stores the same data as doc.
@@ -968,9 +1036,6 @@ declare module "mongoose" {
      */
     execPopulate(): Promise<this>;
 
-    /** Checks if path was explicitly selected. If no projection, always returns true. */
-    isDirectSelected(path: string): boolean;
-
     /**
      * Returns the value of a path.
      * @param type optionally specify a type for on-the-fly attributes
@@ -981,9 +1046,10 @@ declare module "mongoose" {
      * Initializes the document without setters or marking anything modified.
      * Called internally after a document is returned from mongodb.
      * @param doc document returned by mongo
-     * @param opts Options
+     * @param fn callback
      */
-    init(doc: MongooseDocument, opts?: any): this;
+    init(doc: MongooseDocument, fn?: () => void): this;
+    init(doc: MongooseDocument, opts: any, fn?: () => void): this;
 
     /** Helper for console.log */
     inspect(options?: any): any;
@@ -1138,6 +1204,12 @@ declare module "mongoose" {
     depopulate?: boolean;
     /** whether to include the version key (defaults to true) */
     versionKey?: boolean;
+    /**
+     * keep the order of object keys. If this is set to true,
+     * Object.keys(new Doc({ a: 1, b: 2}).toObject()) will
+     * always produce ['a', 'b'] (defaults to false)
+     */
+    retainKeyOrder?: boolean;
   }
 
   namespace Types {
@@ -1411,16 +1483,6 @@ declare module "mongoose" {
     /** Specifies the batchSize option. Cannot be used with distinct() */
     batchSize(val: number): this;
 
-    /** Get the current error flag value */
-    error(): Error | null;
-    /** Unset the error flag set on this query */
-    error(unset: null): this;
-    /**
-     * Set the error flag on this query
-     * @param err The error flag
-     */
-    error(err: Error): this;
-
     /**
      * Specifies a $box condition
      * @param Upper Right Coords
@@ -1445,6 +1507,7 @@ declare module "mongoose" {
      */
     center(area: any): this;
     center(path: string, area: any): this;
+
     /**
      * DEPRECATED Specifies a $centerSphere condition
      * @deprecated Use circle instead.
@@ -1716,8 +1779,8 @@ declare module "mongoose" {
      * you must first call remove() and then execute it by using the exec() method.
      * @param criteria mongodb selector
      */
-    remove(callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
-    remove(criteria: any | Query<any>, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
+    remove(callback?: (err: any) => void): Query<mongodb.WriteOpResult>;
+    remove(criteria: any | Query<any>, callback?: (err: any) => void): Query<mongodb.WriteOpResult>;
 
     /** Specifies which document fields to include or exclude (also known as the query "projection") */
     select(arg: string | any): this;
@@ -1765,6 +1828,9 @@ declare module "mongoose" {
      * which will be treated as descending.
      */
     sort(arg: string | any): this;
+
+    /** Returns a Node.js 0.8 style read stream interface. */
+    stream(options?: { transform?: Function; }): QueryStream;
 
     /**
      * Sets the tailable option (for use with capped collections). Cannot be used with distinct()
@@ -1823,7 +1889,7 @@ declare module "mongoose" {
     /** puts a time limit on the query - requires mongodb >= 2.6.0 */
     maxTimeMS?: number;
     /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    rawResult?: boolean;
+    passRawResult?: boolean;
   }
 
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
@@ -2127,12 +2193,6 @@ declare module "mongoose" {
     addCursorFlag(flag: string, value: boolean): this;
 
     /**
-     * Appends a new $addFields operator to this aggregate pipeline. Requires MongoDB v3.4+ to work
-     * @param arg field specification
-     */
-    addFields(arg: any): this;
-
-    /**
      * Sets the allowDiskUse option for the aggregation query (ignored for < 2.6.0)
      * @param value Should tell server it can use hard drive to store data during aggregation.
      * @param tags optional tags for this query
@@ -2194,26 +2254,10 @@ declare module "mongoose" {
     model(model: any): this;
 
     /**
-     * Appends new custom $graphLookup operator(s) to this aggregate pipeline, performing a recursive search on a collection.
-     * Note that graphLookup can only consume at most 100MB of memory, and does not allow disk use even if { allowDiskUse: true } is specified.
-     * @param options options to $graphLookup
-     */
-    graphLookup(options: any): this;
-
-    /**
      * Appends a new $geoNear operator to this aggregate pipeline.
      * MUST be used as the first operator in the pipeline.
      */
     near(parameters: any): this;
-
-    /**
-     * Lets you set arbitrary options, for middleware or plugins.
-     * @param value  keys to merge into current options
-     */
-    option(value: any): this;
-
-    /** Returns the current pipeline */
-    pipeline(): any[];
 
     /**
      * Appends a new $project operator to this aggregate pipeline.
@@ -2385,30 +2429,6 @@ declare module "mongoose" {
     new(doc?: any): T;
 
     /**
-     * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
-     * This function does not trigger any middleware. In particular, it does not trigger aggregate middleware.
-     * @param options See https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch
-     */
-    watch(options?: mongodb.ChangeStreamOptions & {session?: any}): mongodb.ChangeStream;
-
-    /**
-     * Translate any aliases fields/conditions so the final query or document object is pure
-     * @param raw fields/conditions that may contain aliased keys
-     * @return the translated 'pure' fields/conditions
-     */
-    translateAliases(raw: any): any;
-
-    /**
-     * Sends multiple insertOne, updateOne, updateMany, replaceOne, deleteOne, and/or deleteMany operations to the MongoDB server in one command. This is faster than sending multiple independent operations (like) if you use create()) because with bulkWrite() there is only one round trip to MongoDB.
-     * Mongoose will perform casting on all operations you provide.
-     * This function does not trigger any middleware, not save() nor update(). If you need to trigger save() middleware for every document use create() instead.
-     * @param writes Operations
-     * @param cb callback
-     * @return `BulkWriteOpResult` if the operation succeeds
-     */
-    bulkWrite(writes: any[], cb?: (err: any, res: mongodb.BulkWriteOpResultObject) => void): Promise<mongodb.BulkWriteOpResultObject>;
-
-    /**
      * Finds a single document by its _id field. findById(id) is almost*
      * equivalent to findOne({ _id: id }). findById() triggers findOne hooks.
      * @param id value of _id to query by
@@ -2433,10 +2453,10 @@ declare module "mongoose" {
      * Performs aggregations on the models collection.
      * If a callback is passed, the aggregate is executed and a Promise is returned.
      * If a callback is not passed, the aggregate itself is returned.
-     * @param aggregations pipeline operator(s) or operator array
+     * @param ... aggregation pipeline operator(s) or operator array
      */
-    aggregate(aggregations: any[]): Aggregate<any[]>;
-    aggregate(aggregations: any[], cb: Function): Promise<any[]>;
+    aggregate(...aggregations: any[]): Aggregate<any[]>;
+    aggregate(...aggregationsWithCallback: any[]): Promise<any[]>;
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number>;
@@ -2469,12 +2489,6 @@ declare module "mongoose" {
      */
     ensureIndexes(callback?: (err: any) => void): Promise<void>;
     ensureIndexes(options: any, callback?: (err: any) => void): Promise<void>;
-
-    /**
-     * Similar to ensureIndexes(), except for it uses the createIndex function. The ensureIndex() function checks to see if an index with that name already exists, and, if not, does not attempt to create the index. createIndex() bypasses this check.
-     * @param cb Optional callback
-     */
-    createIndexes(cb?: (err: any) => void): Promise<void>;
 
     /**
      * Finds documents.
@@ -2564,6 +2578,21 @@ declare module "mongoose" {
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
 
     /**
+     * geoNear support for Mongoose
+     * @param GeoJSON point or legacy coordinate pair [x,y] to search near
+     * @param options for the qurery
+     * @param callback optional callback for the query
+     */
+    geoNear(point: number[] | {
+      type: string;
+      coordinates: number[]
+    }, options: {
+      /** return the raw object */
+      lean?: boolean;
+      [other: string]: any;
+    }, callback?: (err: any, res: T[], stats: any) => void): DocumentQuery<T[], T>;
+
+    /**
      * Implements $geoSearch functionality for Mongoose
      * @param conditions an object that specifies the match condition (required)
      * @param options for the geoSearch, some (near, maxDistance) are required
@@ -2625,12 +2654,6 @@ declare module "mongoose" {
     deleteMany(conditions: any, callback?: (err: any) => void): Query<void>;
 
     /**
-     * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
-     * This function triggers the following middleware: replaceOne
-     */
-    replaceOne(conditions: any, replacement: any, callback?: (err: any, raw: any) => void): Query<any>;
-
-    /**
      * Updates documents in the database without returning them.
      * All update values are cast to their appropriate SchemaTypes before being sent.
      */
@@ -2661,11 +2684,6 @@ declare module "mongoose" {
      */
     model(name: string): Model<this>;
 
-    /** Override whether mongoose thinks this doc is deleted or not */
-    isDeleted(isDeleted: boolean): void;
-    /** whether mongoose thinks this doc is deleted. */
-    isDeleted(): boolean;
-
     /**
      * Removes this document from the db.
      * @param fn optional callback
@@ -2679,8 +2697,8 @@ declare module "mongoose" {
      * @param options.validateBeforeSave set to false to save without validating.
      * @param fn optional callback
      */
-    save(options?: SaveOptions, fn?: (err: any, product: this) => void): Promise<this>;
-    save(fn?: (err: any, product: this) => void): Promise<this>;
+    save(options?: SaveOptions, fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
+    save(fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
 
     /**
      * Version using default version key. See http://mongoosejs.com/docs/guide.html#versionKey
@@ -2751,9 +2769,14 @@ declare module "mongoose" {
     /** sets the document fields to return */
     select?: any;
     /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    rawResult?: boolean;
+    passRawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
+    /**
+     * if true, run all setters defined on the associated model's schema for all fields
+     * defined in the query and the update.
+     */
+    runSettersOnQuery?: boolean;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {
@@ -2762,7 +2785,7 @@ declare module "mongoose" {
     /** puts a time limit on the query - requires mongodb >= 2.6.0 */
     maxTimeMS?: number;
     /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    rawResult?: boolean;
+    passRawResult?: boolean;
   }
 
   interface ModelPopulateOptions {
