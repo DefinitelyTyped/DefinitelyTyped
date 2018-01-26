@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
 
     interface LoDashStatic {
