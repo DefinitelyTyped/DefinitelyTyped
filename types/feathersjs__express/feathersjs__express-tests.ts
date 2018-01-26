@@ -1,5 +1,8 @@
 import feathers, { Application } from '@feathersjs/feathers';
-import feathersExpress from '@feathersjs/express';
-import { Application as ExpressApplication } from 'express';
+import feathersExpress, { original, rest, notFound, errorHandler } from '@feathersjs/express';
 
-const app: ExpressApplication & Application<{}> = feathersExpress(feathers());
+const app = feathersExpress(feathers());
+
+app.configure(rest());
+app.use(notFound());
+app.use(errorHandler());

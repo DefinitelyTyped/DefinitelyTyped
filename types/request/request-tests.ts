@@ -47,6 +47,8 @@ const bodyArr: request.RequestPart[] = [{
   defaultBodyRequest.get();
   defaultBodyRequest.post();
   defaultBodyRequest.put();
+
+  const defaultJarRequestCustomJar = request.defaults({ jar: request.jar() });
 })();
 
 // --- --- --- --- --- --- --- --- --- --- --- ---

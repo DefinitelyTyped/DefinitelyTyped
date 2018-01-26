@@ -3,6 +3,7 @@
 // Definitions by: Marc Climent <https://github.com/mcliment>
 //                 Gerin Jacob <https://github.com/gerinjacob>
 //                 Bernd Hacker <https://github.com/denyo>
+//                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -585,6 +586,10 @@ export interface XTickConfiguration {
      * Show x axis outer tick.
      */
     outer?: boolean;
+    /**
+     * Set width of x axis tick.
+     */
+    width?: number;
     multiline?: boolean; // Undocumented
 }
 
@@ -737,6 +742,10 @@ export interface TooltipOptions {
      * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
      */
     contents?(data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any): string;
+    /**
+     * Set tooltip values order
+     */
+    order?: string | any[] | ((data: Data) => boolean);
 }
 
 export interface SubchartOptions {

@@ -1,4 +1,5 @@
 import Stripe = require('stripe');
+import { customers } from 'stripe';
 
 var stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K")
 
@@ -230,27 +231,59 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then(function (re
 
 stripe.customers.create({
     description: 'Customer for test@example.com',
-    source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    metadata: { test: "123", test2: 123 } // IOptionsMetadata test
 }, function (err, customer) {
     // asynchronously called
     });
 stripe.customers.create({
     description: 'Customer for test@example.com',
-    source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    metadata: null // IOptionsMetadata test
 }).then( function (customer) {
     // asynchronously called
     customer.cards.create({ card: "tok_17wV94BoqMA9o2xkhlAd3ALf"}).then(function (customer) {});
-    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) {});
+    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) { 
+        let strCustomer: string = <string>card.customer;
+        let objCustomer: customers.ICustomer = <customers.ICustomer>card.customer;
+    });
     customer.cards.update("card_17xMvXBoqMA9o2xkq6W5gamx", { name: "Test" }).then(function (card) {});
     customer.cards.list().then(function (cards) {});
     customer.cards.del("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (confirmation) {});
 
     customer.subscriptions.create({ plan: "gold" }).then(function (subscription) { });
+    customer.subscriptions.create({ plan: "gold", trial_end: "now" }).then(function (subscription) { });
+    customer.subscriptions.create({ plan: "gold", trial_end: 1516881177 }).then(function (subscription) { });
     customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.update("sub_8Eluur5KoIKxuy", { plan: "silver" }).then(function (subscription) { });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: "now" });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177 });
     customer.subscriptions.list().then(function (subscriptions) { });
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then(function (confirmation) { });
+
+    // IMetadata tests:
+    let str: string;
+    customer.metadata["test"] == str;
+    customer.metadata.test1 == str;
+
+    //IOptionsMetadata tests:
+    let metadata: Stripe.IOptionsMetadata;
+    let num: number;
+    metadata["test"] = str;
+    metadata["test"] = num;
+    metadata["test"] == str;
+    metadata["test"] == num;
+    metadata.testStr = str;
+    metadata.testNum = num;
+    metadata.test1 == str;
+    metadata.test2 == num;
+    metadata = {
+        test1: str,
+        test2: num
+    }
+    metadata = {};
+    metadata = null;
 });
 
 
@@ -265,6 +298,22 @@ stripe.customers.create({
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
 }, { stripe_account: "" }).then(function (customer) {
 
+});
+
+// {"now"} for trial_end
+stripe.customers.create({
+    description: "Customer for test@example.com",
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    plan: "platypi-dev",
+    trial_end: "now"
+});
+
+// {number} for trial_end
+stripe.customers.create({
+    description: "Customer for test@example.com",
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    plan: "platypi-dev",
+    trial_end: 1516881177
 });
 
 stripe.customers.retrieve(
@@ -880,6 +929,10 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb").then(function (invoice) {
     // asynchronously called
 });
 
+stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { source: "source_id" }).then(function (invoice) {
+    // asynchronously called
+});
+
 stripe.invoices.list(
     { customer: "cus_5rfJKDJkuxzh5Q", limit: 3 },
     function (err, invoices) {
@@ -1119,6 +1172,50 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
     // asynchronously called
 });
 stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" }).then(function(subscriptions) {
+    // asynchronously called
+});
+
+//#endregion
+
+//#region Subscription Items tests
+// ##################################################################################
+
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev" }, function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev" }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev", prorate: true, proration_date: Math.round(new Date().valueOf() / 1000) }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.retrieve("si_C9gimdd2l9qvCU", function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.retrieve("si_C9gimdd2l9qvCU").then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.update("si_C9gimdd2l9qvCU", { plan: "platypi" }, function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.update("si_C9gimdd2l9qvCU", { plan: "platypi" }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.del("si_C9gimdd2l9qvCU", function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.del("si_C9gimdd2l9qvCU").then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }, function(err, subscriptionItems) {
+    // asynchronously called
+});
+stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }).then(function(subscriptionItems) {
     // asynchronously called
 });
 

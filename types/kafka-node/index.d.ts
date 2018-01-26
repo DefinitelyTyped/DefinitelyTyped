@@ -99,7 +99,7 @@ export interface Message {
   offset?: number;
   partition?: number;
   highWaterOffset?: number;
-  key?: number;
+  key?: string;
 }
 
 export interface ProducerOptions {

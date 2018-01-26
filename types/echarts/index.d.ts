@@ -190,5 +190,10 @@ declare namespace echarts {
     }
 }
 
-export = echarts;
+declare module 'echarts' {
+    export = echarts;
+}
 
+declare module 'echarts/lib/echarts' {
+    export = echarts;
+}

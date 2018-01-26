@@ -327,7 +327,12 @@ export interface NavigationTabRouterConfig {
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
 }
-
+export interface TabScene {
+    route: NavigationRoute<any>;
+    focused: boolean;
+    index: number;
+    tintColor?: string;
+}
 export interface NavigationTabScreenOptions extends NavigationScreenOptions {
   tabBarIcon?:
     React.ReactElement<any>
@@ -341,6 +346,11 @@ export interface NavigationTabScreenOptions extends NavigationScreenOptions {
       any
     > | string | null));
   tabBarVisible?: boolean;
+  tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string };
+  tabBarOnPress?: (
+    scene: TabScene,
+    jumpToIndex: (index: number) => void
+  ) => void;
 }
 
 export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
@@ -534,7 +544,7 @@ export function StackNavigator(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: React.ComponentClass<any>;
+export const DrawerItems: React.ComponentType;
 
 /**
  * Drawer Navigator
@@ -542,7 +552,7 @@ export const DrawerItems: React.ComponentClass<any>;
 export interface DrawerViewConfig {
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
-  contentComponent?: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+  contentComponent?: React.ComponentType;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }
@@ -569,7 +579,7 @@ export function DrawerNavigator(
 
 // From views/TabView/TabView.js
 export interface TabViewConfig {
-  tabBarComponent?: React.ComponentClass<any>;
+  tabBarComponent?: React.ComponentType;
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,
@@ -606,8 +616,8 @@ export function TabNavigator(
   drawConfig?: TabNavigatorConfig,
 ): NavigationContainer;
 
-export const TabBarTop: React.ComponentClass<any>;
-export const TabBarBottom: React.ComponentClass<any>;
+export const TabBarTop: React.ComponentType;
+export const TabBarBottom: React.ComponentType;
 
 /**
  * NavigationActions
