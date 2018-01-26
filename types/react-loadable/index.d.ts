@@ -6,7 +6,7 @@
 
 /// <reference types="react" />
 
-declare namespace Loadable {
+declare namespace LoadableExport {
     interface LoadingComponentProps {
         isLoading: boolean;
         pastDelay: boolean;
