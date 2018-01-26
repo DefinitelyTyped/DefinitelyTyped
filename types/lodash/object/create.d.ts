@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates an object that inherits from the given prototype object. If a properties object is provided its own

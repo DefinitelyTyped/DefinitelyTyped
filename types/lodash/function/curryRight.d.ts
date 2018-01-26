@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight

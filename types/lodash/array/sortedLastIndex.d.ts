@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like `_.sortedIndex` except that it returns the highest

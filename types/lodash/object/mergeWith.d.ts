@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"]
 
     interface LoDashStatic {

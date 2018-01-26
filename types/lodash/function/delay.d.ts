@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.

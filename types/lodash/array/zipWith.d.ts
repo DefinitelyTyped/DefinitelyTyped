@@ -1,5 +1,5 @@
-import _ = require("..");
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be

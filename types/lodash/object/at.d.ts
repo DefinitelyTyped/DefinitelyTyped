@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
