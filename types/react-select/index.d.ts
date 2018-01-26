@@ -1,4 +1,4 @@
-// Type definitions for react-select 1.2.1
+// Type definitions for react-select 1.2
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -326,7 +326,9 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     onBlurResetsInput?: boolean;
     /**
-     * whether the input value should be reset when options are selected. Also input value will be set to empty if 'onSelectResetsInput=true' and Select will get new value that not equal previous value.
+     * whether the input value should be reset when options are selected.
+     * Also input value will be set to empty if 'onSelectResetsInput=true' and
+     * Select will get new value that not equal previous value.
      * @default true
      */
     onSelectResetsInput?: boolean;
