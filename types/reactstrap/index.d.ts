@@ -6,6 +6,7 @@
 //                 Fábio Paiva <https://github.com/fabiopaiva>
 //                 FaithForHumans <https://github.com/FaithForHumans>
 //                 Kurt Preston <https://github.com/KurtPreston>
+//                 Kræn Hansen <https://github.com/kraenhansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
