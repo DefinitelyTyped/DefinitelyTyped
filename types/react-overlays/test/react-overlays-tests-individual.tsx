@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import * as Transition from 'react-overlays/lib/Transition';
 import * as Portal from 'react-overlays/lib/Portal';
 import * as Modal from 'react-overlays/lib/Modal';
 import * as Position from 'react-overlays/lib/Position';
@@ -10,20 +9,6 @@ import * as AutoAffix from 'react-overlays/lib/AutoAffix';
 import * as RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 
 import { OverlayFade } from './react-overlays-tests-transition';
-
-function testTransition() {
-  return (
-    <Transition
-      in={true}
-      timeout={100}
-      className='fade'
-      enteredClassName='in'
-      enteringClassName='in'
-    >
-      <div>Test</div>
-    </Transition>
-  );
-}
 
 class TestAffix extends React.Component {
   render(): JSX.Element {

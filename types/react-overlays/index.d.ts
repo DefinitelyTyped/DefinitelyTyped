@@ -15,7 +15,6 @@ export {
   Overlay,
   Portal,
   Position,
-  Transition,
   RootCloseWrapper,
 } from './lib';
 
