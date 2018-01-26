@@ -13,6 +13,11 @@
             "../../"
         ],
         "types": [],
+        "paths": {
+            "color": [
+                "color/v2"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
