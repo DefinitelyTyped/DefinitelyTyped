@@ -130,7 +130,14 @@ class SelectTest extends React.Component<React.Props<{}>> {
             onChange: onChange,
             value: options,
             valueComponent: CustomValue,
-            valueRenderer: optionRenderer
+            valueRenderer: optionRenderer,
+            trimFilter: true,
+            searchPromptText: 'Type to search',
+            rtl: false,
+            pageSize: 5,
+            onCloseResetsInput: true,
+            onSelectResetsInput: true,
+            deleteRemoves: true
         };
 
         return <div>
