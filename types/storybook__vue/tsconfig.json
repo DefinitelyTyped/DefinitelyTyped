@@ -10,7 +10,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "jsx": "react",
         "typeRoots": [
             "../"
         ],
