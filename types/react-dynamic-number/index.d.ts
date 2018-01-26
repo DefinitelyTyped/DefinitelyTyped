@@ -9,28 +9,20 @@ import * as React from 'react';
 /**
  * remove Diff & Omit when in will be placed in TS from scratch
  */
-type Diff<T extends string, U extends string> = ({[P in T]: P} & {[P in U]: never} & {[x: string]: never})[T];
-type Omit<T, K extends keyof T> = {[P in Diff<keyof T, K>]: T[P]};
+export type Diff<T extends string, U extends string> = ({[P in T]: P} & {[P in U]: never} & {[x: string]: never})[T];
+export type Omit<T, K extends keyof T> = {[P in Diff<keyof T, K>]: T[P]};
 
-interface OmittedFields {
-  ref: any;
-  value: any;
-  onChange: any;
-  placeholder: any;
-}
-
-type BaseInputProps = Partial<
-  Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, keyof OmittedFields>
+export type BaseInputProps = Partial<
+  Omit<
+    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    'ref' | 'value' | 'onChange' | 'placeholder'
+  >
 >;
 
-type Value = number | '';
-type Separator = '.' | ',';
-type Thousand = boolean | ' ';
-
 export interface DynamicNumberProps extends BaseInputProps {
-  value?: Value;
-  separator?: Separator;
-  thousand?: Thousand;
+  value?: number | '';
+  separator?: '.' | ',';
+  thousand?: boolean | ' ';
   integer?: number;
   fraction?: number;
   positive?: boolean;
@@ -39,5 +31,4 @@ export interface DynamicNumberProps extends BaseInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>, modelValue: number, viewValue: string) => void;
 }
 
-declare class DynamicNumber extends React.Component<DynamicNumberProps> {}
-export default DynamicNumber;
+export default class DynamicNumber extends React.Component<DynamicNumberProps> {}
