@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Text } from 'react-native';
 
 import {
     Accelerometer,
@@ -543,3 +544,12 @@ async () => {
 
 ScreenOrientation.Orientation.ALL;
 ScreenOrientation.allow(ScreenOrientation.Orientation.ALL);
+
+class __TestEntry__ extends React.Component {
+    render() {
+        return(
+            <Text>test</Text>
+        );
+    }
+}
+registerRootComponent(__TestEntry__);
