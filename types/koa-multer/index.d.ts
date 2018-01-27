@@ -4,6 +4,30 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/**
+ * @file
+ * These definitions are based on the type definitions for multer - https://github.com/expressjs/multer - found on DefinitelyTyped.
+ *
+ * Note that it is necessary to explicitly cast the `Context.req` object to type `multer.MulterIncomingMessage`
+ * to get the correct type for the patched `Context.req` object, as in the following example.
+ * ```ts
+ * import * as Koa from 'koa';
+ * import * as Router from 'koa-router';
+ * import * as multer from 'koa-multer';
+ *
+ * async function uploadFile(ctx: Koa.Context){
+ *     let multerReq = <multer.MulterIncomingMessage>ctx.req;
+ *     let files = multerReq.files;
+ *     let baseFilePath: string = ctx.params.path || '';
+ *     //...
+ * }
+ *
+ * let router = new Router();
+ * router.put('/uploads/:path?', upload.array('files'), uploadFile);
+ * ```
+ * The type cast is necessary since the type definitions for Koa do not allow for the `Context.req` property to be extended.
+ */
+
 import * as Koa from 'koa';
 import { IncomingMessage } from 'http';
 
@@ -98,17 +122,13 @@ declare namespace multer {
         /** Accepts all files that comes over the wire. An array of files will be stored in req.files. */
         any(): Koa.Middleware;
     }
-}
-
-interface Multer {
-    (options?: multer.Options): multer.Instance;
 
     /* The disk storage engine gives you full control on storing files to disk. */
-    diskStorage(options: multer.DiskStorageOptions): multer.StorageEngine;
+    function diskStorage(options: DiskStorageOptions): StorageEngine;
     /* The memory storage engine stores the files in memory as Buffer objects. */
-    memoryStorage(): multer.StorageEngine;
+    function memoryStorage(): StorageEngine;
 }
 
-declare const multer: Multer;
+declare function multer(options?: multer.Options): multer.Instance;
 
 export = multer;
