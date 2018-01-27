@@ -390,7 +390,7 @@ declare namespace Bull {
      *
      * Pausing a queue that is already paused does nothing.
      */
-    pause(): Promise<void>;
+    pause(isLocal?: boolean): Promise<void>;
 
     /**
      * Returns a promise that resolves when the queue is resumed after being paused.
@@ -398,7 +398,7 @@ declare namespace Bull {
      *
      * Resuming a queue that is not paused does nothing.
      */
-    resume(): Promise<void>;
+    resume(isLocal?: boolean): Promise<void>;
 
     /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
