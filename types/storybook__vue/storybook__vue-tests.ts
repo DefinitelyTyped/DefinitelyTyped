@@ -1,4 +1,4 @@
-import Vue, { Component } from 'vue';
+import Vue, { ComponentOptions } from 'vue';
 import { addDecorator, configure, getStorybook, setAddon, storiesOf, StoryFunction, Story } from '@storybook/vue';
 
 interface CustomStory extends Story {
@@ -12,7 +12,7 @@ const addCenteredAddon = {
     }
 };
 
-const Decorator = (story: () => Component) => {
+const Decorator = (story: () => ComponentOptions<Vue>) => {
     const wrapper = story();
     return {
         components: { wrapper },
