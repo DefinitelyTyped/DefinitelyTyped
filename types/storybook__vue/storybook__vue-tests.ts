@@ -32,7 +32,7 @@ interface AnyAddon {
     addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T;
 }
 const addon: AnyAddon = {
-    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T {
+    addWithSideEffect(storyName, storyFn) {
         console.log(this.kind === 'withAnyAddon');
         return this.add(storyName, storyFn);
     }
