@@ -7,12 +7,11 @@
 
 /// <reference types="webpack-env" />
 
-import Vue, { ComponentOptions } from 'vue';
+import Vue, { Component } from 'vue';
 
 // Story can be used as template or component
-export type Component = ComponentOptions<Vue> | string;
-export type StoryFunction = () => Component;
-export type StoryDecorator = (story: StoryFunction, context: { kind: string, story: string }) => Component | null;
+export type StoryFunction = () => Component | string;
+export type StoryDecorator = (story: () => Component, context: { kind: string, story: string }) => Component | null;
 
 export interface Story {
     readonly kind: string;
@@ -38,4 +37,3 @@ export function configure(loaders: () => void, module: NodeModule): void;
 export function getStorybook(): StoryStore[];
 export function setAddon(addon: Addon): void;
 export function storiesOf(kind: string, module: NodeModule): Story;
-export function storiesOf<T>(kind: string, module: NodeModule): Story & T;
