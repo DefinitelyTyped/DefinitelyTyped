@@ -1,6 +1,6 @@
-// Type definitions for color 3.0
+// Type definitions for color 2.0
 // Project: https://github.com/qix-/color#readme
-// Definitions by: Junyoung Clare Jang <https://github.com/Airlun>, James W. Lane <https://github.com/jameswlane>
+// Definitions by: Junyoung Clare Jang <https://github.com/Airlun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -72,8 +72,8 @@ interface Color {
     luminosity(): number;
     contrast(color2: Color): number;
     level(color2: Color): 'AAA' | 'AA' | '';
-    isDark(): boolean;
-    isLight(): boolean;
+    dark(): boolean;
+    light(): boolean;
     negate(): Color;
     lighten(ratio: number): Color;
     darken(ratio: number): Color;
