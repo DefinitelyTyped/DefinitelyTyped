@@ -175,7 +175,7 @@ declare class Mail extends EventEmitter {
     setupProxy(proxyUrl: string): void;
 
     set(key: 'oauth2_provision_cb', value: (user: string, renew: boolean, callback: (err: Error | null, accessToken?: string, expires?: number) => void) => void): Map<string, any>;
-    set(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a', value: (proxy: URL, options: TransportOptions, callback: (err: Error | null, socketOptions?: { connection: Socket }) => void) => void): Map<string, any>;
+    set(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a', value: (proxy: Url, options: TransportOptions, callback: (err: Error | null, socketOptions?: { connection: Socket }) => void) => void): Map<string, any>;
     set(key: string, value: any): Map<string, any>;
 
     get(key: 'oauth2_provision_cb'): (user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void) => void;
