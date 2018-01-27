@@ -7,6 +7,7 @@
 
 import * as child_process from 'child_process';
 
+/** @inheritDoc */
 declare const spawn: typeof child_process.spawn;
 
 export = spawn;
