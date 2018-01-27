@@ -426,6 +426,11 @@ declare namespace Bull {
     getJob(jobId: JobId): Promise<Job>;
 
     /**
+     * Returns a promise that will return an array with the waiting jobs between start and end.
+     */
+    getWaiting(start?: number, end?: number): Promise<Job[]>;
+
+    /**
      * Returns a promise that will return an array with the active jobs between start and end.
      */
     getActive(start?: number, end?: number): Promise<Job[]>;
