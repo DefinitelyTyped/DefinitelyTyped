@@ -3367,7 +3367,7 @@ namespace TestZipObject {
 }
 
 // _.zipWith
-namespace TestZipWith {
+{
     type TestZipWithFn = (a1: number, a2: number) => number;
 
     {
