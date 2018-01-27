@@ -14,6 +14,8 @@ declare function G(pattern: string, cb: (err: Error | null, matches: string[]) =
 declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): void;
 
 declare namespace G {
+    function __promisify__(pattern: string, options?: IOptions): Promise<string[]>;
+
     function sync(pattern: string, options?: IOptions): string[];
 
     function hasMagic(pattern: string, options?: IOptions): boolean;

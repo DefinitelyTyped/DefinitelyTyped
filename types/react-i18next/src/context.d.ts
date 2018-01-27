@@ -11,4 +11,16 @@ export interface ReactI18NextOptions {
 
 export function setDefaults(options: ReactI18NextOptions): void;
 
+export function getDefaults(): ReactI18NextOptions;
+
 export function setI18n(instance: i18n): void;
+
+export function getI18n(): i18n;
+
+export interface i18NextModule {
+    type: string;
+
+    init: (instance: i18n) => void;
+}
+
+export const reactI18nextModule: i18NextModule;

@@ -5696,6 +5696,12 @@ declare module _ {
 
         /**
         * Wrapped type `object`.
+        * @see _.mapObject
+        **/
+        mapObject(fn: _.ListIterator<T, any>): _Chain<T>;
+
+        /**
+        * Wrapped type `object`.
         * @see _.pairs
         **/
         pairs(): _Chain<T[]>;
@@ -6096,6 +6102,5 @@ declare module _ {
     }
     interface _ChainOfArrays<T> extends _Chain<T[]> {
         flatten(shallow?: boolean): _Chain<T>;
-        mapObject(fn: _.ListIterator<T, any>): _ChainOfArrays<T>;
     }
 }

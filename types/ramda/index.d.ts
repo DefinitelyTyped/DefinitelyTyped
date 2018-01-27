@@ -11,7 +11,10 @@
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
+//                 Rayner Pupo <https://github.com/raynerd>
 //                 Miika Hänninen <https://github.com/googol>
+//                 Nikita Moshensky <https://github.com/moshensky>
+//                 Ethan Resnick <https://github.com/ethanresnick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -50,6 +53,7 @@ declare namespace R {
     }
 
     type Pred = (...a: any[]) => boolean;
+    type SafePred<T> = (...a: T[]) => boolean;
 
     type ObjPred = (value: any, key: string) => boolean;
 
@@ -146,9 +150,9 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
-    interface Reduced {
-        [index: number]: any;
-        [index: string]: any;
+    interface Reduced<T> {
+        '@@transducer/value': T;
+        '@@transducer/reduced': true;
     }
 
     interface Static {
@@ -209,7 +213,7 @@ declare namespace R {
         /**
          * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
          */
-        anyPass(preds: ReadonlyArray<Pred>): Pred;
+        anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
 
         /**
          * ap applies a list of functions to a list of values.
@@ -581,7 +585,7 @@ declare namespace R {
          * Reports whether two functions have the same value for the specified property.
          */
         eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
-        eqProps(prop: string): <T, U>(obj1: T, obj2: U) => boolean;
+        eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
         eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
         /**
@@ -681,6 +685,7 @@ declare namespace R {
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
          */
+        groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
         groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
         groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
 
@@ -815,15 +820,13 @@ declare namespace R {
         invertObj(obj: { [index: string]: string } | { [index: number]: string }): { [index: string]: string };
 
         /**
-         * Turns a named method of an object (or object prototype) into a function that can be
-         * called directly. Passing the optional `len` parameter restricts the returned function to
-         * the initial `len` parameters of the method.
+         * Turns a named method with a specified arity into a function that can be called directly
+         * supplied with arguments and a target object.
          *
-         * The returned function is curried and accepts `len + 1` parameters (or `method.length + 1`
-         * when `len` is not specified), and the final parameter is the target object.
+         * The returned function is curried and accepts `arity + 1` parameters where the final
+         * parameter is the target object.
          */
-        invoker(name: string, obj: any, len?: number): (...a: any[]) => any;
-        invoker(name: string): (obj: any, len?: number) => (...a: any[]) => any;
+        invoker(arity: number, method: string): (...a: any[]) => any;
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
@@ -1147,8 +1150,8 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: number, list: ReadonlyArray<T>): T;
-        nth(n: number): <T>(list: ReadonlyArray<T>) => T;
+        nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
+        nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
         /**
          * Returns a function which returns its nth argument.
@@ -1211,6 +1214,15 @@ declare namespace R {
          * When applied, `g` returns the result of applying `f` to the arguments
          * provided initially followed by the arguments provided to `g`.
          */
+        partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
+
+        partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
+        partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
+
+        partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1, V2]): (x2: V3) => T;
+        partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1]): (x2: V2, x3: V3) => T;
+        partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
+
         partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
@@ -1218,6 +1230,15 @@ declare namespace R {
          * When applied, `g` returns the result of applying `f` to the arguments
          * provided to `g` followed by the arguments provided initially.
          */
+        partialRight<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V1]): (x1: V0) => T;
+
+        partialRight<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V1, V2]): (x2: V0) => T;
+        partialRight<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V2]): (x1: V0, x2: V1) => T;
+
+        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V1, V2, V3]): (x0: V0) => T;
+        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V2, V3]): (x0: V0, x1: V1) => T;
+        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V3]): (x0: V0, x1: V1, x2: V2) => T;
+
         partialRight<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
         /**
@@ -1232,8 +1253,8 @@ declare namespace R {
         /**
          * Retrieve the value at a given path.
          */
-        path<T>(path: Path, obj: any): T;
-        path<T>(path: Path): (obj: any) => T;
+        path<T>(path: Path, obj: any): T | undefined;
+        path<T>(path: Path): (obj: any) => T | undefined;
 
         /**
          * Determines whether a nested path on an object has a specific value,
@@ -1466,14 +1487,12 @@ declare namespace R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
-        // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
-        // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
-        propEq<T>(name: string, val: T, obj: any): boolean;
-        // propEq<T>(name: number, val: T, obj: any): boolean;
-        propEq<T>(name: string, val: T): (obj: any) => boolean;
-        // propEq<T>(name: number, val: T): (obj: any) => boolean;
-        propEq(name: string): <T>(val: T, obj: any) => boolean;
-        // propEq(name: number): <T>(val: T, obj: any) => boolean;
+        propEq<T>(name: string | number, val: T, obj: any): boolean;
+        propEq<T>(name: string | number, val: T): (obj: any) => boolean;
+        propEq(name: string | number): {
+            <T>(val: T, obj: any): boolean;
+            <T>(val: T): (obj: any) => boolean;
+        };
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
@@ -1521,9 +1540,9 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
@@ -1539,7 +1558,7 @@ declare namespace R {
          * transduce functions. The returned value should be considered a black box: the internal
          * structure is not guaranteed to be stable.
          */
-        reduced<T>(elem: T): Reduced;
+        reduced<T>(elem: T): Reduced<T>;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -1642,16 +1661,22 @@ declare namespace R {
         /**
          * Splits a given list or string at a given index.
          */
-        splitAt<T>(index: number, list: T): T[];
-        splitAt(index: number): <T>(list: T) => T[];
-        splitAt<T>(index: number, list: ReadonlyArray<T>): T[][];
-        splitAt(index: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitAt<T>(index: number, list: ReadonlyArray<T>): [T[], T[]];
+        splitAt(index: number, list: string): [string, string];
+        splitAt(index: number): {
+            <T>(list: ReadonlyArray<T>): [T[], T[]];
+            (list: string): [string, string];
+        };
 
         /**
          * Splits a collection into slices of the specified length.
          */
         splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
-        splitEvery(a: number): <T>(list: ReadonlyArray<T>) => T[][];
+        splitEvery(a: number, list: string): string[];
+        splitEvery(a: number): {
+            (list: string): string[];
+            <T>(list: ReadonlyArray<T>): T[][];
+        };
 
         /**
          * Takes a list and a predicate and returns a pair of lists with the following properties:

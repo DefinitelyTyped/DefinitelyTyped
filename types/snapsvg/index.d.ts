@@ -278,7 +278,7 @@ declare namespace Snap {
         ellipse(x:number,y:number,rx:number,ry:number):Snap.Element;
         image(src:string,x:number,y:number,width:number,height:number):Snap.Element;
         line(x1:number,y1:number,x2:number,y2:number):Snap.Element;
-        path(pathString?:string):Snap.Element;
+        path(pathSpec: string | (string | number)[][]): Snap.Element;
         polygon(varargs:any[]):Snap.Element;
         polyline(varargs:any[]):Snap.Element;
         rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;

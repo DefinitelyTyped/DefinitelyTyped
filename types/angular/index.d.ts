@@ -159,7 +159,7 @@ declare namespace angular {
         module(
             name: string,
             requires?: string[],
-            configFn?: Function): IModule;
+            configFn?: Injectable<Function>): IModule;
 
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
@@ -388,6 +388,7 @@ declare namespace angular {
         $setUntouched(): void;
         $rollbackViewValue(): void;
         $commitViewValue(): void;
+        $processModelValue(): void;
         $isEmpty(value: any): boolean;
         $overrideModelOptions(options: INgModelOptions): void;
 

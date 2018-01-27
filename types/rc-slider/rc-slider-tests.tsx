@@ -35,6 +35,7 @@ ReactDOM.render(
         onAfterChange={() => { }}
         defaultValue={0.1}
         value={0.1}
+        style={{backgroundColor: 'plum'}}
         dotStyle={{backgroundColor: 'antiquewhite'}}
         activeDotStyle={{backgroundColor: 'antiquewhite'}}
     />,

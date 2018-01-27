@@ -1805,7 +1805,7 @@ interface JQuery {
     sortable(methodName: 'disable'): void;
     sortable(methodName: 'enable'): void;
     sortable(methodName: 'widget'): JQuery;
-    sortable(methodName: 'toArray'): string[];
+    sortable(methodName: 'toArray', options?: { attribute?: string; }): string[];
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;

@@ -153,7 +153,7 @@ Q.nfbind<string>(nodeStyle)('foo').done((result: string) => {
 });
 
 class Repo {
-	private items: any[] = [
+	private readonly items: any[] = [
 		{name: 'Max', cute: false},
 		{name: 'Annie', cute: true}
 	];
@@ -234,3 +234,37 @@ Q.try(() => {
 	return true;
 })
 	.catch((error) => console.error("Couldn't sync to the cloud", error));
+
+// thenReject, returning a Promise of the same type as the Promise it is called on
+function thenRejectSameType(arg: any): Q.Promise<number> {
+	if (!arg) {
+		return returnsNumPromise('')
+			.thenReject(new Error('failed'));
+	}
+	return Q.resolve(2);
+}
+
+// thenReject, returning a Promise of a different type to the Promise it is called on.
+// The generic type argument is specified.
+function thenRejectSpecificOtherType(arg: any): Q.Promise<string> {
+	if (!arg) {
+		return returnsNumPromise('')
+			.thenReject<string>(new Error('failed'));
+	}
+	return Q.resolve('');
+}
+
+// thenReject, returning a Promise of a different type to the Promise it is called on.
+// The generic type argument is inferred.
+// This relies on 'Return types as inference targets', new in TS 2.4.
+// Commented out as we support TS 2.3.
+// This should be uncommented if the minimum version is changed.
+/*
+function thenRejectInferredOtherType(arg: any): Q.Promise<string> {
+	if (!arg) {
+		return returnsNumPromise('')
+			.thenReject(new Error('failed'));
+	}
+	return Q.resolve('');
+}
+*/

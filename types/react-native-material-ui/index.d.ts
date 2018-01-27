@@ -432,6 +432,12 @@ export interface ToolBarRightElement {
     menu?: {icon: string, labels: string[]};
 }
 
+export interface RightElementPressEvent {
+    action: string;
+    index: number;
+    result?: any;
+}
+
 export interface ToolbarProps {
     isSearchActive?: boolean;
     size?: number;
@@ -443,7 +449,7 @@ export interface ToolbarProps {
     searchable?: Searchable;
     onPress?(): void;
     onLeftElementPress?(): void;
-    onRightElementPress?(): void;
+    onRightElementPress?(e: RightElementPressEvent): void;
 }
 
 /**

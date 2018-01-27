@@ -85,3 +85,11 @@ Route.extend({
         this.controllerFor('application').set('model', model);
     },
 });
+
+class RouteUsingClass extends Route.extend({
+    randomProperty: 'the .extend + extends bit type-checks properly',
+}) {
+    beforeModel(this: RouteUsingClass) {
+        return 'beforeModel can return anything, not just promises';
+    }
+}

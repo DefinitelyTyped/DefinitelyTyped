@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.22
+// Type definitions for Atom 1.23
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.22.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.23.0/exports/atom.js
 
 /// <reference types="jquery" />
 /// <reference types="node" />
@@ -268,6 +268,7 @@ export type CommandRegistryListener<TargetType extends EventTarget> = {
   didDispatch(event: CommandEvent<TargetType>): void,
   displayName?: string,
   description?: string,
+  hiddenInCommandPalette?: boolean,
 } | ((event: CommandEvent<TargetType>) => void);
 
 /**
@@ -280,6 +281,7 @@ export interface CommandRegistry {
         target: T, commandName: string,
         listener: CommandRegistryListener<CommandRegistryTargetMap[T]>
       ): Disposable;
+    /** Register a single command. */
     add<T extends Node>(
         target: T, commandName: string,
         listener: CommandRegistryListener<T>
@@ -287,10 +289,11 @@ export interface CommandRegistry {
 
     /** Register multiple commands. */
     add<T extends keyof CommandRegistryTargetMap>(target: T, commands: {
-        [key: string]: (event: CommandEvent<CommandRegistryTargetMap[T]>) => void
+        [key: string]: CommandRegistryListener<CommandRegistryTargetMap[T]>
     }): CompositeDisposable;
+    /** Register multiple commands. */
     add<T extends Node>(target: T, commands: {
-        [key: string]: (event: CommandEvent<T>) => void
+        [key: string]: CommandRegistryListener<T>
     }): CompositeDisposable;
 
     /** Find all registered commands matching a query. */
@@ -393,7 +396,7 @@ export interface Config {
     /** Retrieves the setting for the given key. */
     get<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
         excludeSources?: string[], scope?: string[]|ScopeDescriptor }):
-        ConfigValues[T]|undefined;
+        ConfigValues[T];
 
     /**
      *  Sets the value for a configuration setting.
@@ -466,6 +469,14 @@ export interface Decoration {
 
     /** Returns the marker associated with this Decoration. */
     getMarker(): DisplayMarker;
+
+    /**
+     *  Check if this decoration is of the given type.
+     *  @param type A decoration type, such as `line-number` or `line`. This may also
+     *  be an array of decoration types, with isType returning true if the decoration's
+     *  type matches any in the array.
+     */
+    isType(type: string|string[]): boolean;
 
     // Properties
     /** Returns the Decoration's properties. */
@@ -1483,14 +1494,7 @@ export class TextEditor {
         { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
 
     /* For each selection, replace the selected text with the given text. */
-    insertText(text: string, options?: {
-        select?: boolean,
-        autoIndent?: boolean,
-        autoIndentNewline?: boolean,
-        autoDecreaseIndent?: boolean,
-        normalizeLineEndings?: boolean,
-        undo?: "skip"
-    }): Range|boolean;
+    insertText(text: string, options?: TextInsertionOptions): Range|false;
 
     /** For each selection, replace the selected text with a newline. */
     insertNewline(): void;
@@ -2693,7 +2697,7 @@ export interface Workspace {
     createItemForURI(uri: string): Promise<object|TextEditor>;
 
     /** Returns a boolean that is true if object is a TextEditor. */
-    isTextEditor(object: object): boolean;
+    isTextEditor(object: object): object is TextEditor;
 
     /**
      *  Asynchronously reopens the last-closed item's URI if it hasn't already
@@ -3275,10 +3279,10 @@ export class Directory {
 
     // Directory Metadata
     /** Returns a boolean, always false. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a roolean, always true. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
@@ -3492,10 +3496,10 @@ export class File {
 
     // File Metadata
     /** Returns a boolean, always true. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a boolean, always false. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
@@ -3759,6 +3763,13 @@ export interface GrammarRegistry {
      *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
      */
     onDidUpdateGrammar(callback: (grammar: Grammar) => void): Disposable;
+
+    /**
+     *  Invoke the given callback when a grammar is removed from the registry.
+     *  @param callback The callback to be invoked whenever a grammar is removed.
+     *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
+     */
+    onDidRemoveGrammar(callback: (grammar: Grammar) => void): Disposable;
 
     // Managing Grammars
     /**
@@ -4099,6 +4110,9 @@ export interface PackageManager {
 
     /** Activate a single package by name or path. */
     activatePackage(nameOrPath: string): Promise<Package>;
+
+    /** Deactivate a single package by name or path. */
+    deactivatePackage(nameOrPath: string, suppressSerialization?: boolean): Promise<void>;
 
     /** Triggers the given package activation hook. */
     triggerActivationHook(hook: string): void;
@@ -4799,7 +4813,8 @@ export class Task {
      *  Throws an error if this task has already been terminated or if sending a
      *  message to the child process fails.
      */
-    send(message: string): void;
+    // tslint:disable-next-line:no-any
+    send(message: string | number | boolean | object | null | any[]): void;
 
     /** Call a function when an event is emitted by the child process. */
     // tslint:disable-next-line:no-any
@@ -5344,6 +5359,21 @@ export interface BufferChangingEvent {
 }
 
 export interface BufferChangedEvent {
+    /**
+     *  An array of objects summarizing the aggregated changes that occurred
+     *  during the transaction.
+     */
+    changes: Array<{
+        /**
+         *  The Range of the deleted text in the contents of the buffer as it existed
+         *  before the batch of changes reported by this event.
+         */
+        oldRange: Range;
+
+        /** The Range of the inserted text in the current contents of the buffer. */
+        newRange: Range;
+    }>;
+
     /** Range of the old text. */
     oldRange: Range;
 
@@ -5665,7 +5695,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.22.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.23.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6265,11 +6295,33 @@ export interface SpawnProcessOptions {
 }
 
 export interface TextInsertionOptions {
+    /** If true, selects the newly added text. */
     select?: boolean;
+
+    /** If true, indents all inserted text appropriately. */
     autoIndent?: boolean;
+
+    /** If true, indent newline appropriately. */
     autoIndentNewline?: boolean;
+
+    /**
+     *  If true, decreases indent level appropriately (for example, when a closing
+     *  bracket is inserted).
+     */
     autoDecreaseIndent?: boolean;
+
+    /**
+     *  By default, when pasting multiple lines, Atom attempts to preserve the relative
+     *  indent level between the first line and trailing lines, even if the indent
+     *  level of the first line has changed from the copied text. If this option is
+     *  true, this behavior is suppressed.
+     */
+    preserveTrailingLineIndentation?: boolean;
+
+    /** If true, all line endings will be normalized to match the editor's current mode. */
     normalizeLineEndings?: boolean;
+
+    /** If skip, skips the undo stack for this operation. */
     undo?: "skip";
 }
 

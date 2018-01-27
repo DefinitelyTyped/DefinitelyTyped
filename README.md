@@ -313,6 +313,18 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
+#### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
+
+Some packages, like [chai-http](https://github.com/chaijs/chai-http), export a function.
+
+Importing this module with an ES6 style import in the form `import * as foo from "foo";` leads to the error:
+
+> error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
+
+This error can be suppressed by merging the function declaration with an empty namespace of the same name, but this practice is discouraged.
+This is a commonly cited [Stack Overflow answer](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) regarding this matter.
+
+It is more appropriate to import the module using the `import foo = require("foo");` syntax, or to use a default import like `import foo from "foo";` if using the `--allowSyntheticDefaultImports` flag if your module runtime supports an interop scheme for non-ECMAScript modules as such.
 
 ## License
 

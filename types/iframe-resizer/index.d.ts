@@ -37,7 +37,7 @@ export interface IFrameOptions {
    * If your iFrame navigates between different domains, ports or protocols; then you will need to
    * provide an array of URLs or disable this option.
    */
-  checkOrigin?: boolean;
+  checkOrigin?: boolean | string[];
   /**
    * When enabled in page linking inside the iFrame and from the iFrame to the parent page will be enabled.
    */
@@ -260,7 +260,7 @@ export interface IFrameResizedData {
 // tslint:disable-next-line:interface-name
 export interface IFrameMessageData {
   iframe: IFrameComponent;
-  message: string;
+  message: any;
 }
 
 // tslint:disable-next-line:interface-name

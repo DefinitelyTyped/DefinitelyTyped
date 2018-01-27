@@ -693,6 +693,10 @@ objSchema = objSchema.optionalKeys(str);
 objSchema = objSchema.optionalKeys(str, str);
 objSchema = objSchema.optionalKeys(strArr);
 
+objSchema = objSchema.forbiddenKeys(str);
+objSchema = objSchema.forbiddenKeys(str, str);
+objSchema = objSchema.forbiddenKeys(strArr);
+
 namespace common {
     objSchema = objSchema.allow(x);
     objSchema = objSchema.allow(x, x);
@@ -908,6 +912,11 @@ namespace validate_tests {
         returnValue = schema.validate(value, validOpts);
         value = schema.validate(value, (err, value) => value);
         value = schema.validate(value, validOpts, (err, value) => value);
+
+        returnValue
+            .then(val => JSON.stringify(val, null, 2))
+            .then(val => { throw 'one error'; })
+            .catch(e => {});
     }
 }
 
