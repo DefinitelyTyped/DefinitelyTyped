@@ -10,6 +10,7 @@ export type ColumnProps
   };
 
 export interface ColProps extends React.HTMLProps<HTMLDivElement> {
+  tag?: React.ReactType;
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;

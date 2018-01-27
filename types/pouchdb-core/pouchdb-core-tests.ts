@@ -60,7 +60,14 @@ function testBulkDocs() {
 
 function testBulkGet() {
     const db = new PouchDB();
-    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((result) => {});
+    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((response) => {
+        const results = response.results;
+        results.forEach((result) => {
+            const id = result.id;
+            const docs = result.docs;
+            docs.map((doc) => doc);
+        });
+    });
     db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}, (error, response) => {});
 }
 function testRevsDiff() {

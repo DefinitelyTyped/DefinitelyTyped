@@ -2653,7 +2653,7 @@ declare namespace l {
              * if a principal is in the specified role.
              * Should provide a callback or return a promise.
              */
-            static registerResolver(role: string, resolver: () => void): void;
+            static registerResolver(role: string, resolver: (role: string, ctx: Context, callback?: (err: Error, resolved: boolean) => void) => Promise<boolean> | void): void;
       }
 
       /**

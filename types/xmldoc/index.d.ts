@@ -1,6 +1,8 @@
 // Type definitions for xmldoc 1.1
 // Project: https://www.npmjs.com/package/xmldoc
-// Definitions by:  Xavier Stouder <https://github.com/Xstoudi>, Andrew Sheehan <https://github.com/ajsheehan>
+// Definitions by:  Xavier Stouder <https://github.com/Xstoudi>
+//                  Andrew Sheehan <https://github.com/ajsheehan>
+//                  Jordi Bunster <https://github.com/notlaforge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped): // TypeScript Version: 2.1
 
 export class XmlDocument extends XmlElement {
@@ -18,6 +20,10 @@ export class XmlElement {
     children: XmlElement[];
     firstChild: XmlElement;
     lastChild: XmlElement;
+    line: number;
+    column: number;
+    position: number;
+    startTagPosition: number;
 
     eachChild(func: (child: XmlElement, index?: number, array?: XmlElement[]) => void): void;
     childNamed(name: string): XmlElement;

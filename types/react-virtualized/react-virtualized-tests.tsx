@@ -654,12 +654,10 @@ const STATUS_LOADING = 1
 const STATUS_LOADED = 2
 
 export class InfiniteLoaderExample extends PureComponent<any, any> {
-    _timeoutIdMap: any;
+    _timeoutIds = new Set<number>();
 
     constructor(props) {
         super(props)
-
-        this._timeoutIdMap = {}
 
         this._clearData = this._clearData.bind(this)
         this._isRowLoaded = this._isRowLoaded.bind(this)
@@ -668,9 +666,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
     }
 
     componentWillUnmount() {
-        Object.keys(this._timeoutIdMap).forEach(timeoutId => {
-            clearTimeout(timeoutId as any)
-        })
+        this._timeoutIds.forEach(clearTimeout);
     }
 
     render() {
@@ -731,7 +727,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
         const timeoutId = setTimeout(() => {
             const { loadedRowCount, loadingRowCount } = this.state
 
-            delete this._timeoutIdMap[timeoutId]
+            this._timeoutIds.delete(timeoutId);
 
             for (let i = startIndex; i <= stopIndex; i++) {
                 loadedRowsMap[i] = STATUS_LOADED
@@ -745,7 +741,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
             promiseResolver()
         }, 1000 + Math.round(Math.random() * 2000))
 
-        this._timeoutIdMap[timeoutId] = true
+        this._timeoutIds.add(timeoutId);
 
         let promiseResolver
 

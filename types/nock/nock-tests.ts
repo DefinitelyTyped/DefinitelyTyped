@@ -125,8 +125,6 @@ scope.done();
 bool = scope.isDone();
 scope.restore();
 
-strings = scope.pendingMocks();
-
 nock.recorder.rec();
 nock.recorder.rec(true);
 nock.recorder.rec({
@@ -371,6 +369,12 @@ var scope = nock('http://www.headdy.com')
    });
 
 var scope = nock('http://www.headdy.com')
+    .get('/')
+    .reply(200, 'Hello World!', {
+        'X-My-Headers': ['My Header value 1', 'My Header value 2']
+    });
+
+var scope = nock('http://www.headdy.com')
    .get('/')
    .reply(200, 'Hello World!', {
      'X-My-Headers': (req, res, body) => {
@@ -567,6 +571,8 @@ var scope = nock('http://persisssists.con')
   .reply(200, 'Persisting all the way');
 
 /// .pendingMocks()
+strings = scope.pendingMocks();
+strings = nock.pendingMocks();
 if (!scope.isDone()) {
   console.error('pending mocks: %j', scope.pendingMocks());
 }

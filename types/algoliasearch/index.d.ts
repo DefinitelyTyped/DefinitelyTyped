@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.24.6
+// Type definitions for algoliasearch-client-js 3.24.8
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -192,14 +192,14 @@ declare namespace algoliasearch {
      * @param cb(err, res)
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: AlgoliaAction, cb: (err: Error, res: any) => void): void;
+    batch(action: AlgoliaAction[], cb: (err: Error, res: any) => void): void;
     /**
      * Perform multiple operations with one API call to reduce latency
      * @param action
      * return {Promise}
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: AlgoliaAction): Promise<any>;
+    batch(action: AlgoliaAction[]): Promise<any>;
     /**
      * Lists global API Keys
      * @param cb(err, res)
@@ -376,7 +376,7 @@ declare namespace algoliasearch {
      * @param cb(err, res)
      * https://github.com/algolia/algoliasearch-client-js#add-objects---addobjects
      */
-    addObjects(objects: [{}], cb: (err: Error, res: any) => void): void;
+    addObjects(objects: {}[], cb: (err: Error, res: any) => void): void;
     /**
      * Add or replace a specific object
      * @param object
@@ -405,7 +405,7 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObjects(
-      objects: [{}],
+      objects: {}[],
       cb: (err: Error, res: any) => void
     ): void;
     /**
@@ -701,7 +701,7 @@ declare namespace algoliasearch {
      * return {Promise}
      * https://github.com/algolia/algoliasearch-client-js#add-objects---addobjects
      */
-    addObjects(objects: [{}]): Promise<any>;
+    addObjects(objects: {}[]): Promise<any>;
     /**
      * Add or replace a specific object
      * @param object
@@ -729,7 +729,7 @@ declare namespace algoliasearch {
      * return {Promise}
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
-    partialUpdateObjects(objects: [{}]): Promise<any>;
+    partialUpdateObjects(objects: {}[]): Promise<any>;
     /**
      * Delete a specific object
      * @param objectID
@@ -1388,6 +1388,12 @@ Interface describing options available for gettings the logs
      */
     unretrievableAttributes?: string[];
     /**
+     * List of attributes you want to use for textual search
+     * default: []
+     * https://github.com/algolia/algoliasearch-client-js#searchableattributes
+     */
+    searchableAttributes?: string[];
+    /**
      * A string that contains the list of attributes you want to retrieve in order to minimize the size of the JSON answer
      * default: *
      * https://github.com/algolia/algoliasearch-client-js#attributestoretrieve
@@ -1602,7 +1608,7 @@ Interface describing options available for gettings the logs
      * default: []
      * https://github.com/algolia/algoliasearch-client-js#altcorrections
      */
-    altCorrections?: [{}];
+    altCorrections?: {}[];
     /**
      * Configure the precision of the proximity ranking criterion
      * default: 1
