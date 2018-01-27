@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactWidgetsCommonDropdownProps } from './CommonProps';
+import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface ComboBoxMessages {
     /**
@@ -16,7 +16,7 @@ interface ComboBoxMessages {
     emptyFilter: string | ((props: ComboBoxProps) => string);
 }
 
-interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass> {
+interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass>, AutoFocus {
     /**
      * The current value of the Combobox. This can be an object (such as a member of the data
      * array) or a primitive value, hinted to by the valueField. The widget value does not need
@@ -45,6 +45,11 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass> {
      */
     data?: any[];
     /**
+     * Delay
+     * @default 500
+     */
+    delay?: number;
+    /**
      * A dataItem field name for uniquely identifying items in the data list. A valueField is
      * required when the value prop is not itself a dataItem. A valueField is useful when
      * specifying the selected item, by its id instead of using the model as the value. When a
@@ -63,6 +68,15 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass> {
      * component renders the text of the selected item (specified by textfield)
      */
     itemComponent?: React.ReactType;
+    /**
+     * An object of props that is passed directly to the underlying input component.
+     */
+    inputProps?: object;
+    listComponent?: React.ReactType | string;
+    /**
+     * An object of props that is passed directly to the underlying List component.
+     */
+    listProps?: object;
     /**
      * Determines how to group the Combobox. Providing a string will group the data array by
      * that property. You can also provide a function which should return the group value.
@@ -83,6 +97,12 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass> {
      * always "startsWith", meaning it will search from the start of the textField property
      */
     suggest?: boolean;
+    /**
+     * A Transition component from react-transition-group v2. The provided component will be used
+     * instead of the default SlideDownTransition for fully customizable animations.
+     * The transition component is also injected with a dropUp prop indicating the direction it should open.
+     */
+    popupTransition?: React.ReactType | string;
     /**
      * Specify a filtering method used to reduce the items in the dropdown as you type. It can
      * be used in conjunction with the suggest prop or instead of it. There are a few built-in
@@ -123,6 +143,10 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass> {
      * The speed, in milliseconds, of the dropdown animation.
      */
     duration?: number;
+    /**
+     * The HTML name attribute, passed directly to the input element.
+     */
+    name?: string;
     /**
      * Object hash containing display text and/or text for screen readers. Use the messages
      * object to localize widget text and increase accessibility.
