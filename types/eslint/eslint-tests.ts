@@ -1,12 +1,23 @@
 import { SourceCode, Linter, CLIEngine, RuleTester } from 'eslint';
 
 // =============================================
-//                   Linter
+//                 SourceCode
 // =============================================
 
 const SOURCE = `var foo = bar;`;
 
-const sourceCode = new SourceCode(SOURCE, {});
+const ast = { comments: [], tokens: [], loc: {}, range: [] };
+const sourceCode = new SourceCode(SOURCE, ast);
+
+const text: string = sourceCode.getText();
+
+const lines: string[] = sourceCode.getLines();
+
+SourceCode.splitLines(SOURCE);
+
+// =============================================
+//                   Linter
+// =============================================
 
 const linter = new Linter();
 
