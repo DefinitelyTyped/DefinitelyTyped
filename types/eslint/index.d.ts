@@ -280,6 +280,7 @@ export class CLIEngineOptions {
     baseConfig?: boolean;
     cache?: boolean;
     cacheFile?: string;
+    cacheLocation?: string;
     configFile?: string;
     cwd?: string;
     envs?: string[];
@@ -297,6 +298,7 @@ export class CLIEngineOptions {
         [name: string]: (RuleLevel | [RuleLevel, any]);
     };
     rulePaths?: string[];
+    reportUnusedDisableDirectives?: true;
 }
 
 export interface LintResult {
@@ -351,11 +353,16 @@ export interface ValidTestCase {
     options?: any;
     filename?: string;
     parserOptions?: any;
+    settings?: any;
+    parser?: string;
+    globals?: { [name: string]: boolean };
 }
 
 export interface TestCaseError {
     message?: string | RegExp;
+    messageId?: string;
     type?: string;
+    data?: any;
     line?: number;
     column?: number;
     endLine?: number;
@@ -364,6 +371,7 @@ export interface TestCaseError {
 
 export interface InvalidTestCase extends ValidTestCase {
     errors: number | Array<TestCaseError | string>;
+    output?: string;
 }
 
 export interface Test {
