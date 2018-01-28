@@ -161,8 +161,10 @@ export interface FixOptions extends LintOptions {
     fix?: boolean;
 }
 
+export type Range = [number, number];
+
 export interface Fix {
-    range: [number, number];
+    range: Range;
     text: string;
 }
 
@@ -172,7 +174,73 @@ export interface FixReport {
     messages: LintMessage[];
 }
 
-export type RuleModule = any;
+export interface RuleModule {
+    create(context: RuleContext): any;
+    meta?: RuleMetaData;
+}
+
+export interface RuleMetaData {
+    docs?: {
+        description?: string;
+        category?: string;
+        recommended?: boolean;
+        url?: string;
+    }
+    messages?: { [messageId: string]: string };
+    fixable?: 'code' | 'whitespace';
+    schema?: any;
+    deprecated?: boolean;
+}
+
+interface RuleContext {
+    id: string;
+    options: any[];
+    settings: any;
+    parserPath: string;
+    parserOptions: any;
+    parserServices: any;
+
+    getAncestors(): AstNode[];
+
+    getDeclaredVariables(node: AstNode): any[];
+
+    getFilename(): string;
+
+    getScope(): any;
+
+    getSourceCode(): SourceCode;
+
+    markVariableAsUsed(name: string): boolean;
+
+    report(descriptor: ReportDescriptor): void;
+}
+
+type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
+type ReportDescriptorMessage = { message: string } | { messageId: string };
+type ReportDescriptorLocation = { node: AstNode } | { loc: { start: Location, end: Location } | { line: number, column: number } }
+type ReportDescriptorOptions = {
+    data?: any;
+
+    fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
+}
+
+interface RuleFixer {
+    insertTextAfter(nodeOrToken: AstNode | Token, text: string): Fix;
+
+    insertTextAfterRange(range: Range, text: string): Fix;
+
+    insertTextBefore(nodeOrToken: AstNode | Token, text: string): Fix;
+
+    insertTextBeforeRange(range: Range, text: string): Fix;
+
+    remove(nodeOrToken: AstNode | Token): Fix;
+
+    removeRange(range: Range): Fix;
+
+    replaceText(nodeOrToken: AstNode | Token, text: string): Fix;
+
+    replaceTextRange(range: Range, text: string): Fix;
+}
 
 export type ParserModule = any;
 
