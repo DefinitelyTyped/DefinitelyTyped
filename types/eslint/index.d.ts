@@ -3,12 +3,121 @@
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class SourceCode {
-    text: string;
-    ast: any;
-    lines: string[];
+export interface Ast {
+    comments: any[],
+    tokens: any[],
+    loc: any,
+    range: any[];
+}
 
-    constructor(text: string, ast: any);
+export type AstNode = any;
+export type Token = any;
+export type Comment = any;
+
+export type FilterPredicate = (tokenOrComment: Token | Comment) => boolean;
+
+export type CursorWithSkipOptions = number | FilterPredicate | {
+    includeComments?: boolean;
+    filter?: FilterPredicate;
+    skip?: number;
+}
+
+export type CursorWithCountOptions = number | FilterPredicate | {
+    includeComments?: boolean;
+    filter?: FilterPredicate;
+    count?: number;
+}
+
+export class TokenStore {
+    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): Token | null;
+
+    getFirstToken(node: AstNode, options: CursorWithSkipOptions): Token | null;
+
+    getFirstTokens(node: AstNode, options: CursorWithCountOptions): Token[];
+
+    getLastToken(node: AstNode, options: CursorWithSkipOptions): Token | null;
+
+    getLastTokens(node: AstNode, options: CursorWithCountOptions): Token[];
+
+    getTokenBefore(node: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+
+    getTokensBefore(node: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+
+    getTokenAfter(node: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+
+    getTokensAfter(node: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+
+    getFirstTokenBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+
+    getFirstTokensBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+
+    getLastTokenBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+
+    getLastTokensBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+
+    getTokens(node: AstNode, beforeCount?: number, afterCount?: number): Token[];
+    getTokens(node: AstNode, options: FilterPredicate | CursorWithCountOptions): Token[];
+
+    getTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, padding: number): Token[];
+    getTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, padding: FilterPredicate | CursorWithCountOptions): Token[];
+
+    commentsExistBetween(left: AstNode, right: AstNode): boolean;
+
+    getCommentsBefore(nodeOrToken: AstNode | Token): Comment[];
+
+    getCommentsAfter(nodeOrToken: AstNode | Token): Comment[];
+
+    getCommentsInside(node: AstNode): Comment[];
+}
+
+export interface SourceCodeConfig {
+    text: string;
+    ast: Ast;
+    parserServices?: ParserServices;
+    scopeManager?: ScopeManager;
+    visitorKeys?: VisitorKeys;
+}
+
+export interface Location {
+    line: number;
+    column: number;
+}
+
+type ParserServices = any;
+type ScopeManager = any;
+type VisitorKeys = any;
+
+export class SourceCode extends TokenStore {
+    text: string;
+    ast: Ast;
+    lines: string[];
+    hasBOM: boolean;
+    parserServices: ParserServices;
+    scopeManager: ScopeManager;
+    visitorKeys: VisitorKeys;
+
+    constructor(text: string, ast: Ast);
+    constructor(config: SourceCodeConfig);
+
+    static splitLines(text: string): string[];
+
+    getText(node?: AstNode, beforeCount?: number, afterCount?: number): string;
+
+    getLines(): string[];
+
+    getAllComments(): AstNode[];
+
+    getComments(node: AstNode): { leading: Comment[], trailing: Comment[] };
+
+    getJSDocComment(node: AstNode): Token | null;
+
+    getNodeByRangeIndex(index: number): AstNode | null;
+
+    isSpaceBetweenTokens(first: Token, second: Token): boolean;
+
+    getLocFromIndex(index: number): Location;
+
+    getIndexFromLoc(location: Location): number;
 }
 
 export type RuleLevel = 'off' | 'warn' | 'error' | 0 | 1 | 2;
