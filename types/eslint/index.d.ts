@@ -242,7 +242,18 @@ interface RuleFixer {
     replaceTextRange(range: Range, text: string): Fix;
 }
 
-export type ParserModule = any;
+export type ParserModule = {
+    parse(text: string, options?: any): AstNode;
+} | {
+    parseForESLint(text: string, options?: any): ESLintParseResult;
+}
+
+export interface ESLintParseResult {
+    ast: AstNode;
+    parserServices?: any;
+    scopeManager?: any;
+    visitorKeys?: { [type: string]: string[] };
+}
 
 export class Linter {
     version: string;
