@@ -38,7 +38,7 @@ const addon: AnyAddon = {
     }
 };
 setAddon(addon);
-storiesOf<AnyAddon>('withAnyAddon', module)
+(storiesOf('withAnyAddon', module) as Story & AnyAddon)
     .addWithSideEffect('custom story', () => ({
         template: '<div>custom story</div>'
     }))
@@ -56,4 +56,5 @@ storiesOf<AnyAddon>('withAnyAddon', module)
 configure(() => undefined, module);
 
 // getStorybook
-getStorybook().forEach(({ kind, stories }) => stories.forEach(({ name, render }) => render()));
+getStorybook()
+    .forEach(({ kind, stories }) => stories.forEach(({ name, render }) => render()));

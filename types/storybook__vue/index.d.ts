@@ -21,7 +21,7 @@ export interface Story {
 export function addDecorator(decorator: StoryDecorator): void;
 export function configure(fn: () => void, module: NodeModule): void;
 export function setAddon(addon: object): void;
-export function storiesOf<T>(name: string, module: NodeModule): Story & T;
+export function storiesOf(name: string, module: NodeModule): Story;
 
 export interface StoryObject {
     name: string;
