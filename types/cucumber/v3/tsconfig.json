@@ -9,11 +9,19 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "cucumber": [
+                "cucumber/v3"
+            ],
+            "cucumber/*": [
+                "cucumber/v3/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
