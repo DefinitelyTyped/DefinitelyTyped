@@ -4,8 +4,10 @@ import { assertType } from "./lib/assert";
 
 declare const store: DS.Store;
 
+class Comment extends DS.Model {}
 class Post extends DS.Model {
   title = DS.attr('string');
+  comments = DS.hasMany<Comment>('comment');
 }
 
 let post = store.createRecord<Post>('post', {
@@ -73,6 +75,34 @@ const MyRoute = Ember.Route.extend({
         return this.store.findRecord('post', params.post_id, {include: 'comments,comments.author'});
     }
 });
+
+const MyRouteAsync = Ember.Route.extend({
+    async beforeModel(): Promise<Ember.Array<DS.Model>> {
+        const store = Ember.get(this, 'store');
+        return await store.findAll('someStoreRecord');
+    },
+    async model(): Promise<DS.Model> {
+        const store = this.get('store');
+        return await store.findRecord('someStoreRecord', 1);
+    },
+    async afterModel(): Promise<Ember.Array<Comment>> {
+        const post = await this.get('store').findRecord<Post>('post', 1);
+        return await post.get('comments');
+    }
+});
+
+class MyRouteAsyncES6 extends Ember.Route {
+    async beforeModel(): Promise<Ember.Array<DS.Model>> {
+        return await this.store.findAll('someStoreRecord');
+    }
+    async model(): Promise<DS.Model> {
+        return await this.store.findRecord('someStoreRecord', 1);
+    }
+    async afterModel(): Promise<Ember.Array<Comment>> {
+        const post = await this.store.findRecord<Post>('post', 1);
+        return await post.get('comments');
+    }
+}
 
 // GET to /users?filter[email]=tomster@example.com
 const tom = store.query('user', {
