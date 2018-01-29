@@ -547,6 +547,22 @@ export declare class Motor {
     release(): void;
 }
 
+export declare class Motors {
+    constructor(options: Array<number> | Array<MotorOption>);
+
+    readonly isOn: boolean;
+
+    forward(speed: number): void;
+    fwd(speed: number): void;
+    reverse(speed: number): void;
+    rev(speed: number): void;
+    start(): void;
+    start(speed: number): void;
+    stop(): void;
+    brake(): void;
+    release(): void;
+}
+
 export interface OrientiationOption {
     controller?: string;
     freq?: number;
