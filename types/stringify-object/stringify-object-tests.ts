@@ -24,3 +24,7 @@ stringifyObject([1, 2, 3], {
 stringifyObject([1, 2, 3], {
   filter: (o, prop) => prop !== '_hidden_'
 });
+
+stringifyObject([1, 2, 3], {
+  transform: (val, key, value) => value
+});
