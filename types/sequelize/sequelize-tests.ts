@@ -1235,7 +1235,7 @@ new Sequelize( {
     username: 'user',
     password: 'pass',
     retry: {
-        match: ['failed'],
+        match: ['failed', /failed/i, Sequelize.ForeignKeyConstraintError],
         max: 3
     },
     typeValidation: true
