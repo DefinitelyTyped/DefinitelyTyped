@@ -13,6 +13,7 @@
         "prefer-const": false,
         "no-unnecessary-generics": false,
         "no-declare-current-package": false,
-        "no-self-import": false
+        "no-self-import": false,
+        "no-return-await": false // used in tests
     }
 }
