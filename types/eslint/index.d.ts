@@ -2,19 +2,21 @@
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+import { JSONSchema4 } from 'json-schema';
+import * as ESTree from 'estree';
+
+export type Token = any;
 
 export interface Ast {
-    comments: any[];
+    comments: ESTree.Comment[];
     tokens: any[];
     loc: any;
     range: any[];
 }
 
-export type AstNode = any;
-export type Token = any;
-export type Comment = any;
-
-export type FilterPredicate = (tokenOrComment: Token | Comment) => boolean;
+export type FilterPredicate = (tokenOrComment: Token | ESTree.Comment) => boolean;
 
 export type CursorWithSkipOptions = number | FilterPredicate | {
     includeComments?: boolean;
@@ -31,42 +33,42 @@ export type CursorWithCountOptions = number | FilterPredicate | {
 export class TokenStore {
     getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): Token | null;
 
-    getFirstToken(node: AstNode, options: CursorWithSkipOptions): Token | null;
+    getFirstToken(node: ESTree.Node, options: CursorWithSkipOptions): Token | null;
 
-    getFirstTokens(node: AstNode, options: CursorWithCountOptions): Token[];
+    getFirstTokens(node: ESTree.Node, options: CursorWithCountOptions): Token[];
 
-    getLastToken(node: AstNode, options: CursorWithSkipOptions): Token | null;
+    getLastToken(node: ESTree.Node, options: CursorWithSkipOptions): Token | null;
 
-    getLastTokens(node: AstNode, options: CursorWithCountOptions): Token[];
+    getLastTokens(node: ESTree.Node, options: CursorWithCountOptions): Token[];
 
-    getTokenBefore(node: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+    getTokenBefore(node: ESTree.Node | Token | ESTree.Comment, options: CursorWithSkipOptions): Token | null;
 
-    getTokensBefore(node: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+    getTokensBefore(node: ESTree.Node | Token | ESTree.Comment, options: CursorWithCountOptions): Token[];
 
-    getTokenAfter(node: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+    getTokenAfter(node: ESTree.Node | Token | ESTree.Comment, options: CursorWithSkipOptions): Token | null;
 
-    getTokensAfter(node: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+    getTokensAfter(node: ESTree.Node | Token | ESTree.Comment, options: CursorWithCountOptions): Token[];
 
-    getFirstTokenBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+    getFirstTokenBetween(left: ESTree.Node | Token | ESTree.Comment, right: ESTree.Node | Token | ESTree.Comment, options: CursorWithSkipOptions): Token | null;
 
-    getFirstTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+    getFirstTokensBetween(left: ESTree.Node | Token | ESTree.Comment, right: ESTree.Node | Token | ESTree.Comment, options: CursorWithCountOptions): Token[];
 
-    getLastTokenBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+    getLastTokenBetween(left: ESTree.Node | Token | ESTree.Comment, right: ESTree.Node | Token | ESTree.Comment, options: CursorWithSkipOptions): Token | null;
 
-    getLastTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+    getLastTokensBetween(left: ESTree.Node | Token | ESTree.Comment, right: ESTree.Node | Token | ESTree.Comment, options: CursorWithCountOptions): Token[];
 
-    getTokens(node: AstNode, beforeCount?: number, afterCount?: number): Token[];
-    getTokens(node: AstNode, options: FilterPredicate | CursorWithCountOptions): Token[];
+    getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): Token[];
+    getTokens(node: ESTree.Node, options: FilterPredicate | CursorWithCountOptions): Token[];
 
-    getTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, padding: number | FilterPredicate | CursorWithCountOptions): Token[];
+    getTokensBetween(left: ESTree.Node | Token | ESTree.Comment, right: ESTree.Node | Token | ESTree.Comment, padding: number | FilterPredicate | CursorWithCountOptions): Token[];
 
-    commentsExistBetween(left: AstNode, right: AstNode): boolean;
+    commentsExistBetween(left: ESTree.Node, right: ESTree.Node): boolean;
 
-    getCommentsBefore(nodeOrToken: AstNode | Token): Comment[];
+    getCommentsBefore(nodeOrToken: ESTree.Node | Token): ESTree.Comment[];
 
-    getCommentsAfter(nodeOrToken: AstNode | Token): Comment[];
+    getCommentsAfter(nodeOrToken: ESTree.Node | Token): ESTree.Comment[];
 
-    getCommentsInside(node: AstNode): Comment[];
+    getCommentsInside(node: ESTree.Node): ESTree.Comment[];
 }
 
 export interface SourceCodeConfig {
@@ -83,8 +85,70 @@ export interface Location {
 }
 
 export type ParserServices = any;
-export type ScopeManager = any;
-export type VisitorKeys = any;
+
+export interface ScopeManager {
+    scopes: Scope[];
+    globalScope: Scope | null;
+
+    acquire(node: ESTree.Node, inner?: boolean): Scope | null;
+
+    getDeclaredVariables(node: ESTree.Node): any[];
+}
+
+export interface Scope {
+    type: 'block' | 'catch' | 'class' | 'for' | 'function' | 'function-expression-name' | 'global' | 'module' | 'switch' | 'with' | 'TDZ';
+    isStrict: boolean;
+    upper: Scope | null;
+    childScopes: Scope[];
+    variableScope: Scope;
+    block: ESTree.Node;
+    variables: Variable[];
+    set: Map<string, Variable>;
+    references: Reference[];
+    through: Reference[];
+    functionExpressionScope: boolean;
+}
+
+export interface Variable {
+    name: string;
+    identifiers: ESTree.Identifier;
+    references: Reference[];
+    defs: Definition[];
+}
+
+export interface Reference {
+    identifier: ESTree.Identifier;
+    from: Scope;
+    resolved: Variable | null;
+    writeExpr: ESTree.Node | null;
+    init: boolean;
+
+    isWrite(): boolean;
+
+    isRead(): boolean;
+
+    isWriteOnly(): boolean;
+
+    isReadOnly(): boolean;
+
+    isReadWrite(): boolean;
+}
+
+export type DefinitionType =
+    | { type: 'CatchClause', node: ESTree.CatchClause, parent: null }
+    | { type: 'ClassName', node: ESTree.ClassDeclaration | ESTree.ClassExpression, parent: null }
+    | { type: 'FunctionName', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression, parent: null }
+    | { type: 'ImplicitGlobalVariable', node: ESTree.Program, parent: null }
+    | { type: 'ImportBinding', node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier, parent: ESTree.ImportDeclaration }
+    | { type: 'Parameter', node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression, parent: null }
+    | { type: 'TDZ', node: any, parent: null }
+    | { type: 'Variable', node: ESTree.VariableDeclarator, parent: ESTree.VariableDeclaration };
+
+export type Definition = DefinitionType & { name: ESTree.Identifier };
+
+export interface VisitorKeys {
+    [nodeType: string]: string[];
+}
 
 export class SourceCode extends TokenStore {
     text: string;
@@ -100,17 +164,17 @@ export class SourceCode extends TokenStore {
 
     static splitLines(text: string): string[];
 
-    getText(node?: AstNode, beforeCount?: number, afterCount?: number): string;
+    getText(node?: ESTree.Node, beforeCount?: number, afterCount?: number): string;
 
     getLines(): string[];
 
-    getAllComments(): AstNode[];
+    getAllComments(): ESTree.Node[];
 
-    getComments(node: AstNode): { leading: Comment[], trailing: Comment[] };
+    getComments(node: ESTree.Node): { leading: ESTree.Comment[], trailing: ESTree.Comment[] };
 
-    getJSDocComment(node: AstNode): Token | null;
+    getJSDocComment(node: ESTree.Node): Token | null;
 
-    getNodeByRangeIndex(index: number): AstNode | null;
+    getNodeByRangeIndex(index: number): ESTree.Node | null;
 
     isSpaceBetweenTokens(first: Token, second: Token): boolean;
 
@@ -121,13 +185,26 @@ export class SourceCode extends TokenStore {
 
 export type RuleLevel = 'off' | 'warn' | 'error' | 0 | 1 | 2;
 
+export interface ParserOptions {
+    ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 2015 | 2016 | 2017 | 2018;
+    sourceType?: 'script' | 'module';
+    ecmaFeatures?: {
+        globalReturn?: boolean;
+        impliedStrict?: boolean;
+        jsx?: boolean;
+        experimentalObjectRestSpread?: boolean;
+        [key: string]: any;
+    };
+    [key: string]: any;
+}
+
 export interface Config {
     rules?: {
         [name: string]: (RuleLevel | [RuleLevel, any])
     };
     parser?: string;
-    parserOptions?: any;
-    settings?: any;
+    parserOptions?: ParserOptions;
+    settings?: { [name: string]: any };
     env?: { [name: string]: boolean };
     globals?: { [name: string]: boolean };
 }
@@ -187,21 +264,21 @@ export interface RuleMetaData {
     };
     messages?: { [messageId: string]: string };
     fixable?: 'code' | 'whitespace';
-    schema?: any;
+    schema?: JSONSchema4 | JSONSchema4[];
     deprecated?: boolean;
 }
 
 export interface RuleContext {
     id: string;
     options: any[];
-    settings: any;
+    settings: { [name: string]: any };
     parserPath: string;
-    parserOptions: any;
+    parserOptions: ParserOptions;
     parserServices: any;
 
-    getAncestors(): AstNode[];
+    getAncestors(): ESTree.Node[];
 
-    getDeclaredVariables(node: AstNode): any[];
+    getDeclaredVariables(node: ESTree.Node): any[];
 
     getFilename(): string;
 
@@ -216,42 +293,42 @@ export interface RuleContext {
 
 export type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
 export type ReportDescriptorMessage = { message: string } | { messageId: string };
-export type ReportDescriptorLocation = { node: AstNode } | { loc: { start: Location, end: Location } | { line: number, column: number } };
+export type ReportDescriptorLocation = { node: ESTree.Node } | { loc: { start: Location, end: Location } | { line: number, column: number } };
 export interface ReportDescriptorOptions {
-    data?: any;
+    data?: { [key: string]: string };
 
     fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
 }
 
 export interface RuleFixer {
-    insertTextAfter(nodeOrToken: AstNode | Token, text: string): Fix;
+    insertTextAfter(nodeOrToken: ESTree.Node | Token, text: string): Fix;
 
     insertTextAfterRange(range: Range, text: string): Fix;
 
-    insertTextBefore(nodeOrToken: AstNode | Token, text: string): Fix;
+    insertTextBefore(nodeOrToken: ESTree.Node | Token, text: string): Fix;
 
     insertTextBeforeRange(range: Range, text: string): Fix;
 
-    remove(nodeOrToken: AstNode | Token): Fix;
+    remove(nodeOrToken: ESTree.Node | Token): Fix;
 
     removeRange(range: Range): Fix;
 
-    replaceText(nodeOrToken: AstNode | Token, text: string): Fix;
+    replaceText(nodeOrToken: ESTree.Node | Token, text: string): Fix;
 
     replaceTextRange(range: Range, text: string): Fix;
 }
 
 export type ParserModule = {
-    parse(text: string, options?: any): AstNode;
+    parse(text: string, options?: any): ESTree.Node;
 } | {
     parseForESLint(text: string, options?: any): ESLintParseResult;
 };
 
 export interface ESLintParseResult {
-    ast: AstNode;
+    ast: ESTree.Node;
     parserServices?: any;
     scopeManager?: any;
-    visitorKeys?: { [type: string]: string[] };
+    visitorKeys?: VisitorKeys;
 }
 
 export class Linter {
@@ -291,7 +368,7 @@ export class CLIEngineOptions {
     ignorePattern?: string;
     useEslintrc?: boolean;
     parser?: string;
-    parserOptions?: any;
+    parserOptions?: ParserOptions;
     plugins?: string[];
     rules?: {
         [name: string]: (RuleLevel | [RuleLevel, any]);
@@ -351,8 +428,8 @@ export interface ValidTestCase {
     code: string;
     options?: any;
     filename?: string;
-    parserOptions?: any;
-    settings?: any;
+    parserOptions?: ParserOptions;
+    settings?: { [name: string]: any };
     parser?: string;
     globals?: { [name: string]: boolean };
 }
