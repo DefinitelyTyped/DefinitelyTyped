@@ -1882,6 +1882,23 @@ function tooltip_order() {
     });
 }
 
+function tooltip_order_function() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["data1", 30, 200, 100, 400, 150, 250],
+                ["data2", 50, 20, 10, 40, 15, 25]
+            ]
+        },
+        tooltip: {
+            order: (data1, data2) => {
+                return data1.id - data2.id;
+                // return data2.id - data2.id in case we want desc order
+            }
+        }
+    });
+}
+
 ////////////////////////
 // Chart options Tests
 ////////////////////////
