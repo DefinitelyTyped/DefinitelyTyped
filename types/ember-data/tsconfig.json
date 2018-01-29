@@ -19,6 +19,7 @@
         "index.d.ts",
         "test/lib/assert.ts",
         "test/model.ts",
+        "test/module-api.ts",
         "test/adapter.ts",
         "test/serializer.ts",
         "test/transform.ts",
@@ -27,6 +28,7 @@
         "test/has-many.ts",
         "test/belongs-to.ts",
         "test/record-reference.ts",
-        "test/injections.ts"
+        "test/injections.ts",
+        "test/error.ts"
     ]
 }

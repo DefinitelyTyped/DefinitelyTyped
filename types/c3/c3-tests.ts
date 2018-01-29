@@ -152,7 +152,8 @@ function axis_examples() {
                     fit: true,
                     values: [1, 2, 4, 8, 16, 32],
                     rotate: 60,
-                    outer: false
+                    outer: false,
+                    width: 100
                 },
                 max: 100,
                 min: -100,
@@ -619,7 +620,8 @@ function chart_bar() {
             width: {
                 ratio: 0.5, // this makes bar width 50% of length between ticks
                 max: 50 // this limits maximum width of bar to 50px
-            }
+            },
+            space: 10 // this adds space between bars in bar charts
             // or
             // width: 100 // this makes bar width 100px
         }
@@ -933,6 +935,26 @@ function axes_x_tick_fit() {
                 tick: {
                     fit: true,
                     format: "%e %b %y"
+                }
+            }
+        }
+    });
+}
+
+function axes_x_tick_width() {
+    const chart = c3.generate({
+        data: {
+            x: "x",
+            columns: [
+                ["x", "2013-10-31", "2013-12-31", "2014-01-31", "2014-02-28"],
+                ["sample", 30, 100, 400, 150],
+            ]
+        },
+        axis: {
+            x: {
+                type: "bar",
+                tick: {
+                    width: 100
                 }
             }
         }
@@ -1842,6 +1864,20 @@ function tooltip_format() {
                 }
                 //            value: d3.format(",") // apply this format to both y and y2
             }
+        }
+    });
+}
+
+function tooltip_order() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["data1", 30, 200, 100, 400, 150, 250],
+                ["data2", 50, 20, 10, 40, 15, 25]
+            ]
+        },
+        tooltip: {
+            order: 'asc'
         }
     });
 }

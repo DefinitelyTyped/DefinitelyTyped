@@ -331,10 +331,10 @@ function sample6() {
     canvas.centerObject(obj);
     canvas.add(obj);
 
-    canvas.add(obj.clone(() => { }).set({ left: 100, top: 100, angle: -15 }));
-    canvas.add(obj.clone(() => { }).set({ left: 480, top: 100, angle: 15 }));
-    canvas.add(obj.clone(() => { }).set({ left: 100, top: 400, angle: -15 }));
-    canvas.add(obj.clone(() => { }).set({ left: 480, top: 400, angle: 15 }));
+    obj.clone(clone => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
+    obj.clone(clone => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
+    obj.clone(clone => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
+    obj.clone(clone => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
@@ -481,7 +481,7 @@ function sample8() {
             top,
             angle,
             padding: 10,
-            cornersize: 10
+            cornerSize: 10
           });
           image.scale(getRandomNum(0.1, 0.25)).setCoords();
           canvas.add(image);
@@ -495,7 +495,7 @@ function sample8() {
             top,
             angle,
             padding: 10,
-            cornersize: 10
+            cornerSize: 10
           });
           image.scale(getRandomNum(0.1, 1)).setCoords();
           canvas.add(image);
@@ -515,7 +515,7 @@ function sample8() {
               top,
               angle,
               padding: 10,
-              cornersize: 10
+              cornerSize: 10
             });
             loadedObject/*.scaleToWidth(300)*/.setCoords();
 

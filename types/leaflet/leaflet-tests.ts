@@ -368,7 +368,7 @@ map = map
 	.flyToBounds(latLngBounds, fitBoundsOptions)
 	.flyToBounds(latLngBoundsLiteral)
 	.flyToBounds(latLngBoundsLiteral, fitBoundsOptions)
-	// addHandler
+	.addHandler('Hello World', L.Handler)
 	.remove()
 	.whenReady(() => {})
 	.whenReady(() => {}, {});

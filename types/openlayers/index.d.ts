@@ -5,6 +5,8 @@
 //                 Junyoung Clare Jang <https://github.com/ailrun>
 //                 Alexandre Melard <https://github.com/mylen>
 //                 Chad Johnston <https://github.com/iamthechad>
+//                 Dan Manastireanu <https://github.com/danmana>
+//                 Yair Tawil <https://github.com/yairtawil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -12382,11 +12384,11 @@ declare module ol {
          * The size is the pixel dimensions of the box into which the calculated extent
          * should fit. In most cases you want to get the extent of the entire map,
          * that is `map.getSize()`.
-         * @param {ol.Size} size Box pixel size.
+         * @param {ol.Size=} size Box pixel size.
          * @return {ol.Extent} Extent.
          * @api stable
          */
-        calculateExtent(size: ol.Size): ol.Extent;
+        calculateExtent(size?: ol.Size): ol.Extent;
 
         /**
          * Get the maximum resolution of the view.
@@ -13324,7 +13326,8 @@ declare module olx {
          *     multi: (boolean|undefined),
          *     features: (ol.Collection.<ol.Feature>|undefined),
          *     filter: (ol.SelectFilterFunction|undefined),
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     hitTolerance: (number|undefined)}}
          */
         interface SelectOptions {
             addCondition?: ol.EventsConditionType;
@@ -13337,6 +13340,7 @@ declare module olx {
             features?: ol.Collection<ol.Feature>;
             filter?: ol.SelectFilterFunction;
             wrapX?: boolean;
+            hitTolerance?: number;
         }
 
 
@@ -14042,7 +14046,7 @@ declare module olx {
             hidpi?: boolean;
             logo?: (string | olx.LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             serverType?: (ol.source.wms.ServerType | string);
             tileLoadFunction?: ol.TileLoadFunctionType;
@@ -14614,6 +14618,7 @@ declare module olx {
             maxZoom?: number;
             duration?: number;
             easing?: ((t: number) => number);
+            callback?: olx.animation.AnimateCallback;
         }
     }
 

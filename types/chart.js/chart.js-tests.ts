@@ -45,7 +45,14 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 }
             }]
         },
-        plugins: { arbitraryPlugin: {option: "value"} }
+        plugins: { arbitraryPlugin: {option: "value"} },
+        legend: {
+            display: true,
+            labels: {
+                usePointStyle: true,
+                padding: 40
+            }
+        },
     }
 });
 chart.update();

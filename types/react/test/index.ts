@@ -85,7 +85,7 @@ class ModernComponent extends React.Component<Props, State>
         });
     }
 
-    private _myComponent: MyComponent;
+    private readonly _myComponent: MyComponent;
     private _input: HTMLInputElement | null;
 
     render() {
@@ -141,6 +141,9 @@ const StatelessComponent3: React.SFC<SCProps> =
     // allows null return
     props => props.foo ? DOM.div(null, props.foo, props.children) : null;
 
+// allows null as props
+const StatelessComponent4: React.SFC = props => null;
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
@@ -160,15 +163,22 @@ const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
+const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
+const statelessElementNullProps: React.SFCElement<SCProps> = React.createElement(StatelessComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
+const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
+const inputElementNullProps: React.DOMElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = React.createElement("input", null);
 const svgElement = React.createElement("svg", { accentHeight: 12 });
-const fragmentElement: React.ReactElement<undefined> = React.createElement(React.Fragment, undefined, [React.createElement("div"), React.createElement("div")]);
+const svgElementNullProps = React.createElement("svg", null);
+const fragmentElement: React.ReactElement<{}> = React.createElement(React.Fragment, {}, [React.createElement("div"), React.createElement("div")]);
+const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(React.Fragment, null, [React.createElement("div"), React.createElement("div")]);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
 const nonLiteralElement = React.createElement(customDomElement, customProps);
+const customDomElementNullProps = React.createElement(customDomElement, null);
 
 // https://github.com/Microsoft/TypeScript/issues/15019
 
@@ -229,7 +239,7 @@ const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
 let domNode: Element = ReactDOM.findDOMNode(component);
 domNode = ReactDOM.findDOMNode(domNode);
-const fragmentType: symbol | number = React.Fragment;
+const fragmentType: React.ComponentType = React.Fragment;
 
 //
 // React Elements
@@ -255,7 +265,7 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line:no-empty-interface
 interface RCProps { }
 
 class RefComponent extends React.Component<RCProps> {
@@ -307,7 +317,11 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
-    }
+    },
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test'
 };
 DOM.div(htmlAttr);
 DOM.span(htmlAttr);

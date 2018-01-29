@@ -31,8 +31,7 @@ declare namespace __WebpackModuleApi {
          *
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
-        ensure(paths: string[], callback: (require: (id: string) => any) => void, chunkName?: string): void;
-        ensure(paths: string[], callback: (require: <T>(id: string) => T) => void, chunkName?: string): void;
+        ensure(paths: string[], callback: (require: NodeRequire) => void, chunkName?: string): void;
         context(path: string, deep?: boolean, filter?: RegExp): RequireContext;
         /**
          * Returns the module id of a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
@@ -186,6 +185,12 @@ declare namespace __WebpackModuleApi {
          */
         autoApply?: boolean;
     }
+    /**
+    * Inside env you can pass any variable
+    */
+    interface NodeProcess {
+        env?: any;
+    }
 
     type __Require1 = (id: string) => any;
     type __Require2 = <T>(id: string) => T;
@@ -247,3 +252,11 @@ declare var DEBUG: boolean;
 interface NodeModule extends __WebpackModuleApi.Module {}
 
 declare var module: NodeModule;
+
+/**
+* Declare process variable
+*/
+declare namespace NodeJS {
+    interface Process extends __WebpackModuleApi.NodeProcess {}
+}
+declare var process: NodeJS.Process;

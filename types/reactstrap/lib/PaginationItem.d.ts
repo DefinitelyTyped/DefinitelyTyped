@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface PaginationItemProps {
   className?: string;
   cssModule?: CSSModule;
   active?: boolean;
@@ -8,5 +8,5 @@ interface Props {
   tag?: React.ReactType;
 }
 
-declare var PaginationItem: React.StatelessComponent<Props>;
+declare const PaginationItem: React.StatelessComponent<PaginationItemProps>;
 export default PaginationItem;

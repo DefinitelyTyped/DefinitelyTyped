@@ -4,26 +4,26 @@ import * as ReactSwipe from "react-swipe";
 class ReactSwipeTest extends React.PureComponent {
     private swipeComponent: ReactSwipe | null = null;
 
-    private onPrev: React.MouseEventHandler<HTMLButtonElement> = () => {
+    private readonly onPrev: React.MouseEventHandler<HTMLButtonElement> = () => {
         if (this.swipeComponent != null) {
             this.swipeComponent.prev();
         }
     }
 
-    private onNext: React.MouseEventHandler<HTMLButtonElement> = () => {
+    private readonly onNext: React.MouseEventHandler<HTMLButtonElement> = () => {
         if (this.swipeComponent != null) {
             this.swipeComponent.next();
         }
     }
 
-    private onSlideToStart: React.MouseEventHandler<HTMLButtonElement> = () => {
+    private readonly onSlideToStart: React.MouseEventHandler<HTMLButtonElement> = () => {
         if (this.swipeComponent != null) {
             const lastSlide = this.swipeComponent.getNumSlides() - 1;
             this.swipeComponent.slide(lastSlide, 1000);
         }
     }
 
-    private onGetCurrentPosition: React.MouseEventHandler<HTMLButtonElement> = () => {
+    private readonly onGetCurrentPosition: React.MouseEventHandler<HTMLButtonElement> = () => {
         const currentPosition = this.swipeComponent != null ? this.swipeComponent.getPos() : 0;
         alert(currentPosition);
     }

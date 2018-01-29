@@ -1,7 +1,11 @@
 // Type definitions for FabricJS 1.5
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic>, Joseph Livecchi <https://github.com/joewashear007>, Michael Randolph <https://github.com/mrand01>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic>
+//                 Joseph Livecchi <https://github.com/joewashear007>
+//                 Michael Randolph <https://github.com/mrand01>
+//                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export as namespace fabric;
 
@@ -61,7 +65,7 @@ export function parseStyleAttribute(element: SVGElement): any;
  * @param [options] Options object
  * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  */
-export function parseElements(elements: any[], callback: Function, options?: any, reviver?: Function): void;
+export function parseElements(elements: SVGElement[], callback: Function, options?: any, reviver?: Function): void;
 /**
  * Returns an object of attributes' name/value, given element and an array of attribute names;
  * Parses parent "g" nodes recursively upwards.
@@ -232,7 +236,7 @@ interface ICollection<T> {
 	 * @param context Context (aka thisObject)
 	 * @return thisArg
 	 */
-	forEachObject(callback: (element: Object, index: number, array: Object[]) => any, context?: any): T;
+	forEachObject(callback: (element: Object, index: number, array: Object[]) => void, context?: any): T;
 
 	/**
 	 * Returns an array of children objects of this instance
@@ -279,13 +283,13 @@ interface IObservable<T> {
 	 * @param eventName Event name (eg. 'after:render')
 	 * @param handler Function that receives a notification when an event of the specified type occurs
 	 */
-	on(eventName: string, handler: (e: IEvent) => any): T;
+	on(eventName: string, handler: (e: IEvent) => void): T;
 
 	/**
 	 * Observes specified event
 	 * @param eventName Object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
 	 */
-	on(eventName: {[key: string]: Function}): T;
+	on(events: {[eventName: string]: (e: IEvent) => void}): T;
 	/**
 	 * Fires event with an optional options object
 	 * @param eventName Event name to fire
@@ -298,7 +302,7 @@ interface IObservable<T> {
 	 * @param eventName Event name (eg. 'after:render') or object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
 	 * @param handler Function to be deleted from EventListeners
 	 */
-	off(eventName?: string|any, handler?: (e: IEvent) => any): T;
+	off(eventName?: string|any, handler?: (e: IEvent) => void): T;
 }
 
 interface Callbacks {
@@ -799,14 +803,14 @@ interface IShadowOptions {
 	 */
 	offsetY: number;
 }
-export interface IShadow extends IShadowOptions {}
-export class IShadow {
+export interface Shadow extends IShadowOptions {}
+export class Shadow {
 	constructor(options?: IShadowOptions);
-	initialize(options?: IShadowOptions|string): IShadow;
+	initialize(options?: IShadowOptions|string): Shadow;
 	/**
 	 * Returns object representation of a shadow
 	 */
-	toObject(): Object;
+	toObject(): any;
 	/**
 	 * Returns a string representation of an instance, CSS3 text-shadow declaration
 	 */
@@ -953,7 +957,7 @@ export class StaticCanvas {
 	 * @param callback Callback to invoke when image is loaded and set as background
 	 * @param [options] Optional options to set for the {@link fabric.Image|background image}.
 	 */
-	setBackgroundImage(image: Image|string, callback: Function, options?: IObjectOptions): StaticCanvas;
+	setBackgroundImage(image: Image|string, callback?: Function, options?: IObjectOptions): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayColor|background color} for this canvas
@@ -1112,19 +1116,19 @@ export class StaticCanvas {
 	 * Returs dataless JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toDatalessJSON(propertiesToInclude?: any[]): string;
+	toDatalessJSON(propertiesToInclude?: string[]): string;
 
 	/**
 	 * Returns object representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Returns dataless object representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * When true, getSvgTransform() will apply the StaticCanvas.viewportTransform to the SVG transformation. When true,
@@ -1198,7 +1202,7 @@ export class StaticCanvas {
 	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 * @return `true` if method is supported (or at least exists), null` if canvas element or context can not be initialized
 	 */
-	supports(methodName: string): boolean;
+	supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 
 	/**
 	 * Populates canvas with data from the specified JSON.
@@ -1215,7 +1219,7 @@ export class StaticCanvas {
 	 * @param [callback] Receives cloned instance as a first argument
 	 * @param [properties] Array of properties to include in the cloned canvas and children
 	 */
-	clone(callback: (canvas: StaticCanvas) => any, properties?: any[]): void;
+	clone(callback: (canvas: StaticCanvas) => void, properties?: any[]): void;
 
 	/**
 	 * Clones canvas instance without cloning existing data.
@@ -1223,7 +1227,7 @@ export class StaticCanvas {
 	 * but leaves data empty (so that you can populate it with your own)
 	 * @param [callback] Receives cloned instance as a first argument
 	 */
-	cloneWithoutData(callback: (canvas: StaticCanvas) => any): void;
+	cloneWithoutData(callback: (canvas: StaticCanvas) => void): void;
 
 	/**
 	 * Callback; invoked right before object is about to be scaled/rotated
@@ -1251,12 +1255,12 @@ export class StaticCanvas {
 	 * (either those of HTMLCanvasElement itself, or rendering context)
 	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 */
-	static supports(methodName: string): boolean;
+	static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 	/**
 	 * Returns JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	static toJSON(propertiesToInclude?: any[]): string;
+	static toJSON(propertiesToInclude?: string[]): string;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
@@ -1473,12 +1477,12 @@ export class Canvas {
 	 * (either those of HTMLCanvasElement itself, or rendering context)
 	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
 	 */
-	static supports(methodName: string): boolean;
+	static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 	/**
 	 * Returns JSON representation of canvas
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	static toJSON(propertiesToInclude?: any[]): string;
+	static toJSON(propertiesToInclude?: string[]): string;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1527,7 +1531,7 @@ export class Circle {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns svg representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -1580,7 +1584,7 @@ export class Ellipse {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns svg representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -1681,7 +1685,7 @@ export class Group {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns string represenation of a group
 	 */
@@ -1751,7 +1755,7 @@ export class Image {
 	 * @param callback Callback is invoked with a clone as a first argument
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	clone(callback?: Function, propertiesToInclude?: any[]): Object;
+	clone(callback?: Function, propertiesToInclude?: string[]): void;
 	/**
 	 * Returns complexity of an instance
 	 * @return complexity of this instance
@@ -1791,7 +1795,7 @@ export class Image {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return Object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns string representation of an instance
 	 * @return String representation of an instance
@@ -1817,20 +1821,20 @@ export class Image {
 	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
 	 * @param [imgOptions] Options object
 	 */
-	static fromURL(url: string, callback?: (image: Image) => any, objObjects?: IObjectOptions): Image;
+	static fromURL(url: string, callback?: (image: Image) => void, objObjects?: IObjectOptions): Image;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
 	 * @param object Object to create an instance from
 	 * @param [callback] Callback to invoke when an image instance is created
 	 */
-	static fromObject(object: any, callback: (image: Image) => {}): void;
+	static fromObject(object: any, callback: (image: Image) => void): void;
 	/**
 	 * Returns Image instance from an SVG element
 	 * @param element Element to parse
 	 * @param callback Callback to execute when fabric.Image object is created
 	 * @param [options] Options object
 	 */
-	static fromElement(element: SVGElement, callback: Function, options?: IImageOptions): void;
+	static fromElement(element: SVGElement, callback: (image: Image) => void, options?: IImageOptions): void;
 	/**
 	 * Default CSS class name for canvas
 	 */
@@ -1877,7 +1881,7 @@ export class Line {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude: any[]): any;
+	toObject(propertiesToInclude: string[]): any;
 	/**
 	 * Returns SVG representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -1998,6 +2002,11 @@ interface IObjectOptions {
 	cornerColor?: string;
 
 	/**
+	 * Specify style of control, 'rect' or 'circle'
+	 */
+	cornerStrokeColor?: "rect" | "circle";
+
+	/**
 	 * When true, this object will use center point as the origin of transformation
 	 * when being scaled via the controls.
 	 * <b>Backwards incompatibility note:</b> This property replaces "centerTransform" (Boolean).
@@ -2066,7 +2075,7 @@ interface IObjectOptions {
 	/**
 	 * Shadow object representing shadow of this shape
 	 */
-	shadow?: IShadow|string;
+	shadow?: Shadow|string;
 
 	/**
 	 * Opacity of object's controlling borders when object is active and moving
@@ -2245,7 +2254,7 @@ export class Object {
 	/* * Sets object's properties from options
 		* @param {Object} [options] Options object
 		*/
-	setOptions(options: any): void;
+	setOptions(options: IObjectOptions): void;
 
 	/**
 	 * Transforms context when rendering an object
@@ -2258,13 +2267,13 @@ export class Object {
 	 * Returns an object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Returns (dataless) object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Returns a string representation of an instance
@@ -2275,7 +2284,7 @@ export class Object {
 	 * Basic getter
 	 * @param property Property name
 	 */
-	get(property: string): any;
+	get<K extends keyof this>(property: K): this[K];
 
 	/**
 	 * Sets property to a given value.
@@ -2284,26 +2293,26 @@ export class Object {
 	 * @param key Property name
 	 * @param value Property value (if function, the value is passed into it and its return value is used as a new one)
 	 */
-	set(key: string, value: any|Function): Object;
+	set<K extends keyof this>(key: K, value: this[K] | ((value: this[K]) => this[K])): this;
 	/**
 	 * Sets property to a given value.
 	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
 	 * If you need to update those, call `setCoords()`.
-	 * @param Object key Property object, iterate over the object properties
+	 * @param options Property object, iterate over the object properties
 	 */
-	set(key: any): Object;
+	set(options: Partial<this>): this;
 
 	/**
 	 * Toggles specified property from `true` to `false` or from `false` to `true`
 	 * @param property Property to toggle
 	 */
-	toggle(property: string): Object;
+	toggle(property: keyof this): this;
 
 	/**
 	 * Sets sourcePath of an object
 	 * @param value Value to set sourcePath to
 	 */
-	setSourcePath(value: string): Object;
+	setSourcePath(value: string): this;
 
 	/**
 	 * Retrieves viewportTransform from Object's canvas if possible
@@ -2318,17 +2327,17 @@ export class Object {
 	render(ctx: CanvasRenderingContext2D, noTransform?: boolean): void;
 
 	/**
-	 * Clones an instance
+	 * Clones an instance, using a callback method will work for every object.
 	 * @param callback Callback is invoked with a clone as a first argument
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	clone(callback: Function, propertiesToInclude?: any[]): Object;
+	clone(callback: (clone: Object) => void, propertiesToInclude?: string[]): void;
 
 	/**
 	 * Creates an instance of fabric.Image out of an object
 	 * @param callback callback, invoked with an instance as a first argument
 	 */
-	cloneAsImage(callback: (image: Image) => any): Object;
+	cloneAsImage(callback: (image: Image) => void): this;
 
 	/**
 	 * Converts an object into a data-url-like string
@@ -2351,67 +2360,62 @@ export class Object {
 	 * Returns a JSON representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toJSON(propertiesToInclude?: any[]): any;
+	toJSON(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Sets gradient (fill or stroke) of an object
-	 * <b>Backwards incompatibility note:</b> This method was named "setGradientFill" until v1.1.0
+	 * **Backwards incompatibility note:** This method was named "setGradientFill" until v1.1.0
 	 * @param property Property name 'stroke' or 'fill'
 	 * @param [options] Options object
 	 */
-	setGradient(property: string, options: IGradientOptions): Object;
+	setGradient(property: "stroke" | "fill", options: IGradientOptions): this;
 	/**
 	 * Sets pattern fill of an object
 	 * @param options Options object
 	 */
-	setPatternFill(options: IFillOptions): Object;
+	setPatternFill(options: IFillOptions): this;
 
 	/**
 	 * Sets shadow of an object
 	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
-	setShadow(options?: string): Object;
-	/**
-	 * Sets shadow of an object
-	 * @param [options] Options object
-	 */
-	setShadow(options: IShadow): Object;
+	setShadow(options?: string | Shadow): this;
 
 	/**
 	 * Sets "color" of an instance (alias of `set('fill', …)`)
 	 * @param color Color value
 	 */
-	setColor(color: string): Object;
+	setColor(color: string): this;
 
 	/**
 	 * Sets "angle" of an instance
 	 * @param angle Angle value
 	 */
-	setAngle(angle: number): Object;
+	setAngle(angle: number): this;
 
 	/**
 	 * Sets "angle" of an instance
 	 * @param angle Angle value
 	 */
-	rotate(angle: number): Object;
+	rotate(angle: number): this;
 
 	/**
 	 * Centers object horizontally on canvas to which it was added last.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	centerH(): void;
+	centerH(): this;
 
 	/**
 	 * Centers object vertically on canvas to which it was added last.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	centerV(): void;
+	centerV(): this;
 
 	/**
 	 * Centers object vertically and horizontally on canvas to which is was added last
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	center(): void;
+	center(): this;
 
 	/**
 	 * Removes object from canvas to which it was added last
@@ -2423,7 +2427,7 @@ export class Object {
 	 * @param e Event to operate upon
 	 * @param [pointer] Pointer to operate upon (instead of event)
 	 */
-	getLocalPointer(e: Event, pointer: any): any;
+	getLocalPointer(e: Event, pointer?: { x: number, y: number }): { x: number, y: number };
 
 	/**
 	 * Sets object's properties from options
@@ -2461,21 +2465,21 @@ export class Object {
 	 * @param [options] Object with additional `stateProperties` array to include when saving state
 	 * @return thisArg
 	 */
-	saveState(options?: { stateProperties: any[] }): Object;
+	saveState(options?: { stateProperties: any[] }): this;
 	/**
 	 * Setups state of an object
 	 */
-	setupState(): Object;
+	setupState(): this;
 	// functions from object straightening mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Straightens an object (rotating it from current angle to one of 0, 90, 180, 270, etc. depending on which is closer)
 	 */
-	straighten(): Object;
+	straighten(): this;
 	/**
 	 * Same as straighten but with animation
 	 */
-	fxStraighten(callbacks: Callbacks): Object;
+	fxStraighten(callbacks: Callbacks): this;
 
 	// functions from object stacking mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
@@ -2483,25 +2487,25 @@ export class Object {
 	 * Moves an object up in stack of drawn objects
 	 * @param [intersecting] If `true`, send object in front of next upper intersecting object
 	 */
-	bringForward(intersecting?: boolean): Object;
+	bringForward(intersecting?: boolean): this;
 	/**
 	 * Moves an object to the top of the stack of drawn objects
 	 */
-	bringToFront(): Object;
+	bringToFront(): this;
 	/**
 	 * Moves an object down in stack of drawn objects
 	 * @param [intersecting] If `true`, send object behind next lower intersecting object
 	 */
-	sendBackwards(intersecting?: boolean): Object;
+	sendBackwards(intersecting?: boolean): this;
 	/**
 	 * Moves an object to the bottom of the stack of drawn objects
 	 */
-	sendToBack(): Object;
+	sendToBack(): this;
 	/**
 	 * Moves an object to specified level in stack of drawn objects
 	 * @param index New position of object
 	 */
-	moveTo(index: number): Object;
+	moveTo(index: number): this;
 
 	// functions from object origin mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
@@ -2561,7 +2565,7 @@ export class Object {
 	 * Requires public options: padding, borderColor
 	 * @param ctx Context to draw on
 	 */
-	drawBorders(context: CanvasRenderingContext2D): Object;
+	drawBorders(context: CanvasRenderingContext2D): this;
 
 	/**
 	 * Draws corners of an object's bounding box.
@@ -2581,7 +2585,7 @@ export class Object {
 	 * @param controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
 	 * @param visible true to set the specified control visible, false otherwise
 	 */
-	setControlVisible(controlName: string, visible: boolean): Object;
+	setControlVisible(controlName: string, visible: boolean): this;
 
 	/**
 	 * Sets the visibility state of object controls.
@@ -2596,7 +2600,7 @@ export class Object {
 		mt?: boolean;
 		tl?: boolean;
 		tr?: boolean;
-		mtr?: boolean; }): Object;
+		mtr?: boolean; }): this;
 
 	// functions from geometry mixin
 	// -------------------------------------------------------------------------------------------------------------------------------
@@ -2604,7 +2608,7 @@ export class Object {
 	 * Sets corner position coordinates based on current angle, width and height
 	 * See https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords
 	 */
-	setCoords(): Object;
+	setCoords(): this;
 	/**
 	 * Returns coordinates of object's bounding rectangle (left, top, width, height)
 	 * @return Object with left, top, width, height properties
@@ -2631,17 +2635,17 @@ export class Object {
 	 * @param value Scale factor
 	 * @return thisArg
 	 */
-	scale(value: number): Object;
+	scale(value: number): this;
 	/**
 	 * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
 	 * @param value New height value
 	 */
-	scaleToHeight(value: number): Object;
+	scaleToHeight(value: number): this;
 	/**
 	 * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
 	 * @param value New width value
 	 */
-	scaleToWidth(value: number): Object;
+	scaleToWidth(value: number): this;
 	/**
 	 * Checks if object intersects with another object
 	 * @param other Object to test
@@ -2671,8 +2675,8 @@ interface IPathOptions extends IObjectOptions {
 	 */
 	minY?: number;
 }
-export interface IPath extends Object, IPathOptions {}
-export class IPath {
+export interface Path extends Object, IPathOptions {}
+export class Path {
 	/**
 	 * Constructor
 	 * @param path Path data (sequence of coordinates and corresponding "command" tokens)
@@ -2680,7 +2684,7 @@ export class IPath {
 	 */
 	constructor(path?: string|any[], options?: IPathOptions);
 
-	initialize(path?: any[], options?: IPathOptions): IPath;
+	initialize(path?: any[], options?: IPathOptions): Path;
 
 	/**
 	 * Returns number representation of an instance complexity
@@ -2699,13 +2703,13 @@ export class IPath {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns string representation of an instance
 	 * @return string representation of an instance
@@ -2724,12 +2728,12 @@ export class IPath {
 	 * @param callback Callback to invoke when an fabric.Path instance is created
 	 * @param [options] Options object
 	 */
-	static fromElement(element: SVGElement, callback: (path: IPath) => any, options?: IPathOptions): void;
+	static fromElement(element: SVGElement, callback: (path: Path) => any, options?: IPathOptions): void;
 	/**
 	 * Creates an instance of fabric.Path from an object
 	 * @param callback Callback to invoke when an fabric.Path instance is created
 	 */
-	static fromObject(object: any, callback: (path: IPath) => any): void;
+	static fromObject(object: any, callback: (path: Path) => any): void;
 }
 
 export class PathGroup extends Object {
@@ -2737,9 +2741,9 @@ export class PathGroup extends Object {
 	 * Constructor
 	 * @param [options] Options object
 	 */
-	constructor(paths: IPath[], options?: IObjectOptions);
+	constructor(paths: Path[], options?: IObjectOptions);
 
-	initialize(paths: IPath[], options?: IObjectOptions): void;
+	initialize(paths: Path[], options?: IObjectOptions): void;
 	/**
 	 * Returns number representation of object's complexity
 	 * @return complexity
@@ -2760,13 +2764,13 @@ export class PathGroup extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return dataless object representation of an instance
 	 */
-	toDatalessObject(propertiesToInclude?: any[]): any;
+	toDatalessObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns object representation of this path group
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns a string representation of this path group
 	 * @return string representation of an object
@@ -2782,7 +2786,7 @@ export class PathGroup extends Object {
 	 * Returns all paths in this path group
 	 * @return array of path objects included in this path group
 	 */
-	getObjects(): IPath[];
+	getObjects(): Path[];
 
 	static fromObject(object: any): PathGroup;
 	/**
@@ -2829,7 +2833,7 @@ export class Polygon extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns svg representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -2891,7 +2895,7 @@ export class Polyline extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return Object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): any;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns SVG representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -3012,7 +3016,7 @@ interface ITextOptions extends IObjectOptions {
 	 * Shadow object representing shadow of this shape.
 	 * <b>Backwards incompatibility note?:</b> This property was named "textShadow" (String) until v1.2.11
 	 */
-	shadow?: IShadow|string;
+	shadow?: Shadow|string;
 	/**
 	 * Background color of text lines
 	 */
@@ -3047,7 +3051,7 @@ export class Text extends Object {
 	 * Returns object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	toObject(propertiesToInclude?: any[]): Object;
+	toObject(propertiesToInclude?: string[]): any;
 	/**
 	 * Returns SVG representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -3237,7 +3241,7 @@ export class IText extends Object {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 * @return object representation of an instance
 	 */
-	toObject(propertiesToInclude?: any[]): Object;
+	toObject(propertiesToInclude?: string[]): any;
 
 	setText(value: string): Text;
 	/**
@@ -3843,7 +3847,7 @@ export class BaseBrush {
 	 * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),
 	 * "shadowOffsetY" (Number) and "shadowBlur" (Number) since v1.2.12
 	 */
-	shadow: IShadow|string;
+	shadow: Shadow|string;
 	/**
 	 * Line endings style of a brush (one of "butt", "round", "square")
 	 */
@@ -3924,7 +3928,7 @@ export class PatternBrush extends PencilBrush {
 	/**
 	 * Creates path
 	 */
-	createPath(pathData: string): IPath;
+	createPath(pathData: string): Path;
 }
 export class PencilBrush extends BaseBrush {
 	/**
@@ -3937,7 +3941,7 @@ export class PencilBrush extends BaseBrush {
 	 * Creates fabric.Path object to add on canvas
 	 * @param pathData Path data
 	 */
-	createPath(pathData: string): IPath;
+	createPath(pathData: string): Path;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -4259,6 +4263,13 @@ interface IUtilMisc {
 	rotatePoint(point: Point, origin: Point, radians: number): Point;
 
 	/**
+	 * Rotates `vector` with `radians`
+	 * @param vector The vector to rotate (x and y)
+	 * @param radians The radians of the angle for the rotation
+	 */
+	rotateVector(vector: { x: number, y: number }, radians: number): { x: number, y: number };
+
+	/**
 	 * Apply transform t to point p
 	 * @param  p The point to transform
 	 * @param  t The transform
@@ -4378,7 +4389,13 @@ interface IUtilMisc {
 	 * @param  a First transformMatrix
 	 * @param  b Second transformMatrix
 	 */
-	multiplyTransformMatrices(a: any[], b: any[]): any[];
+	multiplyTransformMatrices(a: number[], b: number[]): number[];
+
+	/**
+	 * Decomposes standard 2x2 matrix into transform componentes
+	 * @param a transformMatrix
+	 */
+	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
 
 	/**
 	 * Returns string representation of function body
