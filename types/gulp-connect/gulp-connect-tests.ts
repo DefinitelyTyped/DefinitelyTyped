@@ -100,7 +100,8 @@ gulp.task('connect', () => {
         root: [__dirname],
         port: 8081,
         livereload: true,
-        middleware: (connect, opt) => middleware
+        middleware: (connect, opt) => middleware,
+        silent: true
     });
 });
 

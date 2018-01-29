@@ -10,7 +10,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { EventEmitter } from 'events';
 
 export const version: string;
-export function config(dsn: string | false, options?: ConstructorOptions): Client;
+export function config(dsn?: string | false, options?: ConstructorOptions): Client;
 export function wrap<T>(func: () => T): () => T;
 export function wrap<T>(options: any, func: () => T): () => T;
 export function interceptErr(ctx: any): Client;
@@ -60,6 +60,9 @@ export interface ConstructorOptions {
     tags?: { [key: string]: string };
     extra?: { [key: string]: any };
     dataCallback?: DataCallback;
+    maxReqQueueCount?: number;
+    sampleRate?: number;
+    sendTimeout?: number;
     shouldSendCallback?: ShouldSendCallback;
     transport?(): void;
     captureUnhandledRejections?: boolean;

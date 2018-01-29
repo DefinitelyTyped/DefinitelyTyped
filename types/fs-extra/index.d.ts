@@ -1,4 +1,4 @@
-// Type definitions for fs-extra 4.0
+// Type definitions for fs-extra 5.0
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,
@@ -254,7 +254,7 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
-export type CopyFilter = ((src: string, dest: string) => boolean) | RegExp;
+export type CopyFilter = (src: string, dest: string) => boolean;
 
 export type SymlinkType = "dir" | "file";
 
@@ -289,7 +289,7 @@ export interface WriteFileOptions {
 export interface WriteOptions extends WriteFileOptions {
     fs?: object;
     replacer?: any;
-    spaces?: number;
+    spaces?: number | string;
 }
 
 export interface ReadResult {

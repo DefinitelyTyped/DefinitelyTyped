@@ -1,6 +1,8 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
+//                 lostfictions <https://github.com/lostfictions>
+//                 sapphiredev <https://github.com/sapphiredev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -30,7 +32,7 @@ declare module 'twit' {
        * @see https://dev.twitter.com/overview/api/entities
        */
       export interface HashtagEntity {
-        indices: number[],
+        indices: [number, number],
         text: string,
       }
       export interface Size {
@@ -47,7 +49,7 @@ declare module 'twit' {
       export interface MediaEntity {
         id: number,
         id_str: string,
-        indices: number[],
+        indices: [number, number],
         url: string,
         display_url: string,
         expanded_url: string,
@@ -62,12 +64,12 @@ declare module 'twit' {
         url: string,
         display_url: string,
         expanded_url: string,
-        indices: number[],
+        indices: [number, number],
       }
       export interface UserMentionEntity {
         id: number,
         id_str: string,
-        indices: number[],
+        indices: [number, number],
         name: string,
         screen_name: string,
       }
@@ -208,12 +210,22 @@ declare module 'twit' {
         query?: string,
         max_id_str?: string
       }
+
+      export interface Errors {
+        errors: {
+          code: number
+          message: string
+        }[]
+      }
+
+      export interface SearchResults {
+        statuses: Twitter.Status[],
+        search_metadata: Twitter.Metadata,
+      }
     }
 
-    export interface Response {
-      statuses: Twitter.Status[],
-      search_metadata: Twitter.Metadata,
-    }
+    export type Response = object
+
     interface MediaParam {
       file_path: string
     }
@@ -247,10 +259,11 @@ declare module 'twit' {
       lat?: number,
       long?: number,
       follow?: boolean,
+      include_email?: boolean,
     }
     export interface PromiseResponse {
       data: Response,
-      responde: IncomingMessage,
+      resp: IncomingMessage,
     }
     export interface Callback {
       (err: Error, result: Response, response: IncomingMessage): void

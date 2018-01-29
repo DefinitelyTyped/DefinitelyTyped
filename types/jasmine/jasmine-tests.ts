@@ -963,6 +963,15 @@ var customMatchers: jasmine.CustomMatcherFactories = {
                 return result;
             }
         };
+    },
+    toBeWithinRange: (util: jasmine.MatchersUtil, customEqualityTesters: jasmine.CustomEqualityTester[]) => {
+        return {
+            compare: (actual: any, floor: number, ceiling: number): jasmine.CustomMatcherResult => {
+                const pass = actual >= floor && actual <= ceiling;
+                const message = `expected ${actual} ${pass ? 'not ' : ''} to be within range ${floor}-${ceiling}`;
+                return { message, pass };
+            }
+        };
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
@@ -977,6 +986,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
 declare namespace jasmine {
     interface Matchers<T> {
         toBeGoofy(expected?: jasmine.Expected<T>): boolean;
+        toBeWithinRange(expected?: jasmine.Expected<T>, floor?: number, ceiling?: number): boolean;
     }
 }
 
@@ -995,6 +1005,10 @@ describe("Custom matcher: 'toBeGoofy'", () => {
         expect({
             hyuk: 'gawrsh is fun'
         }).toBeGoofy({ hyuk: ' is fun' });
+    });
+
+    it("can take many 'expected' parameters", () => {
+        expect(2).toBeWithinRange(1, 3);
     });
 
     it("can be negated", () => {

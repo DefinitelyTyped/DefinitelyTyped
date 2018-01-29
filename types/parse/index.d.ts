@@ -17,6 +17,7 @@ declare namespace Parse {
     let javaScriptKey: string | undefined;
     let masterKey: string | undefined;
     let serverURL: string;
+    let liveQueryServerURL: string;
     let VERSION: string;
 
     interface SuccessOption {
@@ -28,6 +29,11 @@ declare namespace Parse {
     }
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
+    }
+
+    interface SignUpOptions {
+        useMasterKey?: boolean;
+        installationId?: string;
     }
 
     interface SessionTokenOption {
@@ -97,11 +103,11 @@ declare namespace Parse {
         reject(error: any): void;
         resolve(result: any): void;
         then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-                rejectedCallback?: (reason: any) => U): IPromise<U>;
+            rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
     interface Pointer {
@@ -286,13 +292,13 @@ declare namespace Parse {
         constructor(parent?: S, key?: string);
 
         //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: T): void;
+        add(object: T | Array<T>): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
         query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: T): void;
+        remove(object: T | Array<T>): void;
     }
 
     /**
@@ -372,7 +378,9 @@ declare namespace Parse {
         remove(attr: string, item: any): any;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
+        save(attrs: object, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
+        set(attrs: object, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         toPointer(): Pointer;
         unset(attr: string, options?: any): any;
@@ -738,7 +746,7 @@ declare namespace Parse {
     class User extends Object {
 
         static current(): User | undefined;
-        static signUp(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<User>;
+        static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
         static allowCustomUserClass(isAllowed: boolean): void;
@@ -746,7 +754,7 @@ declare namespace Parse {
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
 
-        signUp(attrs: any, options?: SuccessFailureOptions): Promise<this>;
+        signUp(attrs: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;

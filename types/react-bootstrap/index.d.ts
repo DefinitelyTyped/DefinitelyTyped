@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap 0.31
+// Type definitions for react-bootstrap 0.32
 // Project: https://github.com/react-bootstrap/react-bootstrap
 // Definitions by: Walker Burgin <https://github.com/walkerburgin>,
 //                 Vincent Siao <https://github.com/vsiao>,

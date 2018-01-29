@@ -202,8 +202,8 @@ class F2 {
 };
 
 () => {
-    R.invoker("charAt", String.prototype);
-    R.invoker("charAt", String.prototype, 1);
+    R.invoker(1, "slice")(6, "abcdefghijklm");
+    R.invoker(2, "slice")(6)(8, "abcdefghijklm");
 };
 
 (() => {
@@ -584,6 +584,13 @@ R.times(i, 5);
 };
 
 () => {
+    const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
+    const typeIs = R.propEq('type');
+    const isBuy = typeIs('BUY');
+    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
+};
+
+() => {
     const xs: { [key: string]: string } = {a: "1", b: "0"};
     R.propEq("a", "1", xs); // => true
     R.propEq("a", "4", xs); // => false
@@ -658,6 +665,8 @@ interface Obj {
 };
 
 () => {
+    R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
+
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
     // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
 
@@ -678,10 +687,19 @@ interface Obj {
 };
 
 (() => {
-    const list = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
-    const a1 = R.indexBy(R.prop<string>("id"), list);
-    const a2 = R.indexBy(R.prop<string>("id"))(list);
+    interface Book {
+        id: string;
+        title: string;
+    }
+    const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
+    const a1 = R.indexBy(R.prop("id"), list);
+    const a2 = R.indexBy(R.prop("id"))(list);
     const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+
+    const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
+        R.map((x: Book) => x.title),
+        R.indexBy(x => x),
+    )(list);
 });
 
 () => {
@@ -1214,7 +1232,7 @@ type Pair = KeyValuePair<string, number>;
     const o2                                        = {a: 10, b: 20, c: 3, d: 40};
     const a1                                      = R.eqProps("a", o1, o2); // => false
     const a2                                      = R.eqProps("c", o1, o2); // => true
-    const a3: <T, U>(obj1: T, obj2: U) => boolean = R.eqProps("c");
+    const a3: <T extends { c: any }, U extends { c: any }>(obj1: T, obj2: U) => boolean = R.eqProps("c");
     const a4: <U>(obj2: U) => boolean             = R.eqProps("c", o1);
 };
 
@@ -1535,6 +1553,16 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
+    const obj = {
+        str: 'string',
+        num: 5,
+    };
+
+    const strVal: string = R.prop('str', obj); // => 'string'
+    const numVal: number = R.prop('num', obj); // => 5
+
+    const strValCur: string = R.prop('str')(obj); // => 'string'
+    const numValCur: number = R.prop('num')(obj); // => 5
 };
 
 () => {
@@ -1835,6 +1863,9 @@ class Rectangle {
 
     R.path(testPath, testObj); // => 2
     R.path(testPath)(testObj); // => 2
+
+    R.path(['a', 'b'])({c: {b: 2}}); // => undefined
+    R.path(['a', 'b'], {c: {b: 2}}); // => undefined
 };
 
 () => {
@@ -1878,6 +1909,14 @@ class Rectangle {
     const b: number[][] = R.splitAt(1)([1, 2, 3]);        // => [[1], [2, 3]]
     const c: string[]   = R.splitAt(5, "hello world");      // => ['hello', ' world']
     const d: string[]   = R.splitAt(-1, "foobar");          // => ['fooba', 'r']
+    const e: string[]   = R.splitAt(-1)("foobar");          // => ['fooba', 'r']
+};
+
+() => {
+    const a: number[][] = R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const b: number[][] = R.splitEvery(3)([1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const c: string[]   = R.splitEvery(3, 'foobarbaz'); // => ['foo', 'bar', 'baz']
+    const d: string[]   = R.splitEvery(3)('foobarbaz'); // => ['foo', 'bar', 'baz']
 };
 
 () => {
@@ -2172,6 +2211,8 @@ class Rectangle {
     f(11); // => true
     f(8); // => true
     f(9); // => false
+
+    const f2 = R.anyPass<number>([gt10, even]);
 };
 
 () => {

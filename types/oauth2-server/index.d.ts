@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Request, RequestHandler } from "express";
+import Express = require("express");
 
 /**
  * Represents an OAuth2 server instance.

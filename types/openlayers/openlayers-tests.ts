@@ -399,6 +399,10 @@ let view: ol.View = new ol.View({
 
 voidValue = view.setMaxZoom(numberValue);
 voidValue = view.setMinZoom(numberValue);
+voidValue = view.fit(simpleGeometry);
+voidValue = view.fit(extent);
+voidValue = view.fit(extent, {callback: () => {}});
+voidValue = view.fit(extent, {callback: (animationCompleted: boolean) => {}});
 
 //
 // ol.layer.Base
@@ -558,6 +562,12 @@ let tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     url: stringValue
 });
 
+//test without projection
+tileWMS = new ol.source.TileWMS({
+    params: {},
+    serverType: stringValue,
+    url: stringValue
+});
 voidValue = tileWMS.updateParams(tileWMS.getParams());
 stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 
