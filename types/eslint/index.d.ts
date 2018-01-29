@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Ast {
-    comments: any[],
-    tokens: any[],
-    loc: any,
+    comments: any[];
+    tokens: any[];
+    loc: any;
     range: any[];
 }
 
@@ -20,13 +20,13 @@ export type CursorWithSkipOptions = number | FilterPredicate | {
     includeComments?: boolean;
     filter?: FilterPredicate;
     skip?: number;
-}
+};
 
 export type CursorWithCountOptions = number | FilterPredicate | {
     includeComments?: boolean;
     filter?: FilterPredicate;
     count?: number;
-}
+};
 
 export class TokenStore {
     getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): Token | null;
@@ -47,19 +47,18 @@ export class TokenStore {
 
     getTokensAfter(node: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
 
-    getFirstTokenBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+    getFirstTokenBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
 
-    getFirstTokensBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+    getFirstTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
 
-    getLastTokenBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
+    getLastTokenBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithSkipOptions): Token | null;
 
-    getLastTokensBetween(left:  AstNode | Token | Comment, right:  AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
+    getLastTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, options: CursorWithCountOptions): Token[];
 
     getTokens(node: AstNode, beforeCount?: number, afterCount?: number): Token[];
     getTokens(node: AstNode, options: FilterPredicate | CursorWithCountOptions): Token[];
 
-    getTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, padding: number): Token[];
-    getTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, padding: FilterPredicate | CursorWithCountOptions): Token[];
+    getTokensBetween(left: AstNode | Token | Comment, right: AstNode | Token | Comment, padding: number | FilterPredicate | CursorWithCountOptions): Token[];
 
     commentsExistBetween(left: AstNode, right: AstNode): boolean;
 
@@ -83,9 +82,9 @@ export interface Location {
     column: number;
 }
 
-type ParserServices = any;
-type ScopeManager = any;
-type VisitorKeys = any;
+export type ParserServices = any;
+export type ScopeManager = any;
+export type VisitorKeys = any;
 
 export class SourceCode extends TokenStore {
     text: string;
@@ -185,14 +184,14 @@ export interface RuleMetaData {
         category?: string;
         recommended?: boolean;
         url?: string;
-    }
+    };
     messages?: { [messageId: string]: string };
     fixable?: 'code' | 'whitespace';
     schema?: any;
     deprecated?: boolean;
 }
 
-interface RuleContext {
+export interface RuleContext {
     id: string;
     options: any[];
     settings: any;
@@ -215,16 +214,16 @@ interface RuleContext {
     report(descriptor: ReportDescriptor): void;
 }
 
-type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
-type ReportDescriptorMessage = { message: string } | { messageId: string };
-type ReportDescriptorLocation = { node: AstNode } | { loc: { start: Location, end: Location } | { line: number, column: number } }
-type ReportDescriptorOptions = {
+export type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
+export type ReportDescriptorMessage = { message: string } | { messageId: string };
+export type ReportDescriptorLocation = { node: AstNode } | { loc: { start: Location, end: Location } | { line: number, column: number } };
+export interface ReportDescriptorOptions {
     data?: any;
 
     fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
 }
 
-interface RuleFixer {
+export interface RuleFixer {
     insertTextAfter(nodeOrToken: AstNode | Token, text: string): Fix;
 
     insertTextAfterRange(range: Range, text: string): Fix;
@@ -246,7 +245,7 @@ export type ParserModule = {
     parse(text: string, options?: any): AstNode;
 } | {
     parseForESLint(text: string, options?: any): ESLintParseResult;
-}
+};
 
 export interface ESLintParseResult {
     ast: AstNode;
