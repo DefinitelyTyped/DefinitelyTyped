@@ -483,6 +483,8 @@ function test_mochaRunner_properties(runner: MochaDef.IRunner, suite: MochaDef.I
     number = runner.grepTotal(suite);
 
     let globals: string[] | MochaDef.IRunner= runner.globals(["hello", "world"]);
+
+    runner = runner.run((f: number) => {});
 }
 
 function test_base_reporter_properties(reporter: MochaDef.reporters.Base) {
