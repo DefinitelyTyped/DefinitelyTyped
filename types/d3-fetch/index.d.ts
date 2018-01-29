@@ -2,7 +2,7 @@
 // Project: https://d3js.org/d3-fetch/
 // Definitions by: Hugues Stefanski <https://github.com/ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.2
 import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
 
 /** Fetches the binary file at the specified input URL as a Blob. If init is specified, it is passed along to the underlying call to fetch. */
