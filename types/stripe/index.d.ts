@@ -4216,6 +4216,7 @@ declare namespace Stripe {
 
     namespace subscriptions {
         type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+        type SubscriptionBilling = "charge_automatically" | "send_invoice";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -4325,7 +4326,7 @@ declare namespace Stripe {
              * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an 
              * invoice with payment instructions.
              */
-            billing: "charge_automatically" | "send_invoice";
+            billing: SubscriptionBilling;
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
@@ -4375,14 +4376,14 @@ declare namespace Stripe {
             /**
              * List of subscription items, each with an attached plan.
              */
-            items?: ISubscriptionCreationItem;
+            items: ISubscriptionCreationItem[];
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
              * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
              * instructions. Defaults to "charge_automatically".
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4453,7 +4454,7 @@ declare namespace Stripe {
              * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
              * instructions.
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -4467,7 +4468,7 @@ declare namespace Stripe {
             /**
              * The billing mode of the subscriptions to retrieve. Either "charge_automatically" or "send_invoice".
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
 
             /**
              * The ID of the customer whose subscriptions will be retrieved
