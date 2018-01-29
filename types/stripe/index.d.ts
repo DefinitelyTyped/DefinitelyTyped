@@ -4331,9 +4331,9 @@ declare namespace Stripe {
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
             /**
-             * The identifier of the plan to subscribe the customer to.
+             * @deprecated Use items property instead.
              */
-            plan: string;
+            plan?: string;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -4376,7 +4376,7 @@ declare namespace Stripe {
             /**
              * List of subscription items, each with an attached plan.
              */
-            items: ISubscriptionCreationItem[];
+            items?: ISubscriptionCreationItem[];
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
@@ -4408,7 +4408,7 @@ declare namespace Stripe {
             coupon?: string;
 
             /**
-             * The identifier of the plan to update the subscription to. If omitted, the subscription will not change plans.
+             * @deprecated Use items property instead.
              */
             plan?: string;
 
@@ -4455,6 +4455,11 @@ declare namespace Stripe {
              * instructions.
              */
             billing?: SubscriptionBilling;
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            items?: ISubscriptionUpdateItem[];
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -4491,6 +4496,40 @@ declare namespace Stripe {
              * Plan ID for this item.
              */
             plan: string;
+            
+            /**
+             * Quantity for this item.
+             */
+            quantity?: number
+        }
+
+        interface ISubscriptionUpdateItem {
+            /**
+             * SubscriptionItem to update.
+             */
+            id?: string;
+
+            /**
+             * Delete all usage for a given subscription item. Only allowed when deleted is set to true and the current plan’s 
+             * usage_type is metered.
+             */
+            clear_usage?: boolean;
+
+            /**
+             * Delete the specified item if set to true.
+             */
+            deleted?: boolean;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * Plan ID for this item.
+             */
+            plan?: string;
             
             /**
              * Quantity for this item.
