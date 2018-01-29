@@ -26,8 +26,12 @@ declare namespace mapboxgl {
         constructor(options?: MapboxOptions);
 
         addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
+        
+        addControl(control: IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
         removeControl(control: Control): this;
+        
+        removeControl(control: IControl): this;
 
         addClass(klass: string, options?: mapboxgl.StyleOptions): this;
 
