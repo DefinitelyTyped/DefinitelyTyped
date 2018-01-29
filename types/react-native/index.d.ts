@@ -8307,8 +8307,8 @@ export type ListView = ListViewStatic;
 export var MapView: MapViewStatic;
 export type MapView = MapViewStatic;
 
-export var MaskedView: MaskedViewStatic;
-export type MaskedView = MaskedViewStatic;
+export var MaskedViewIOS: MaskedViewStatic;
+export type MaskedViewIOS = MaskedViewStatic;
 
 export var Modal: ModalStatic;
 export type Modal = ModalStatic;
