@@ -35,7 +35,7 @@ schema = yup.object().shape({
 schema.cast({ foo: { bar: 'boom' } }, { context: { x: 5 } });
 
 // lazy function
-const node: ObjectSchema = yup.object().shape({
+const node: ObjectSchema<any> = yup.object().shape({
     id: yup.number(),
     child: yup.lazy(() =>
       node.default(undefined)
