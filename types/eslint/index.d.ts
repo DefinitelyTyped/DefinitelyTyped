@@ -255,6 +255,43 @@ export interface RuleModule {
     meta?: RuleMetaData;
 }
 
+export interface RuleListener {
+    onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
+
+    onCodePathEnd?(codePath: CodePath, node: ESTree.Node): void;
+
+    onCodePathSegmentStart?(segment: CodePathSegment, node: ESTree.Node): void;
+
+    onCodePathSegmentEnd?(segment: CodePathSegment, node: ESTree.Node): void;
+
+    onCodePathSegmentLoop?(fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node): void;
+
+    [key: string]:
+        | ((codePath: CodePath, node: ESTree.Node) => void)
+        | ((segment: CodePathSegment, node: ESTree.Node) => void)
+        | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node) => void)
+        | ((node: ESTree.Node) => void)
+        | undefined;
+}
+
+export interface CodePath {
+    id: string;
+    initialSegment: CodePathSegment;
+    finalSegments: CodePathSegment[];
+    returnedSegments: CodePathSegment[];
+    thrownSegments: CodePathSegment[];
+    currentSegments: CodePathSegment[];
+    upper: CodePath | null;
+    childCodePaths: CodePath[];
+}
+
+export interface CodePathSegment {
+    id: string;
+    nextSegments: CodePathSegment[];
+    prevSegments: CodePathSegment[];
+    reachable: boolean;
+}
+
 export interface RuleMetaData {
     docs?: {
         description?: string;
