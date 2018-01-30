@@ -761,7 +761,7 @@ declare module "mongoose" {
   }
 
   interface SchemaOptions {
-    /** defaults to null (which means use the connection's autoIndex option) */
+    /** defaults to false (which means use the connection's autoIndex option) */
     autoIndex?: boolean;
     /** defaults to true */
     bufferCommands?: boolean;
