@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
    interface LoDashStatic {
        /**
         * Creates a function that runs each argument through a corresponding transform function.

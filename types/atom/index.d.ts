@@ -4111,6 +4111,9 @@ export interface PackageManager {
     /** Activate a single package by name or path. */
     activatePackage(nameOrPath: string): Promise<Package>;
 
+    /** Deactivate a single package by name or path. */
+    deactivatePackage(nameOrPath: string, suppressSerialization?: boolean): Promise<void>;
+
     /** Triggers the given package activation hook. */
     triggerActivationHook(hook: string): void;
 

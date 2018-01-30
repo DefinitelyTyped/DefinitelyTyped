@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.

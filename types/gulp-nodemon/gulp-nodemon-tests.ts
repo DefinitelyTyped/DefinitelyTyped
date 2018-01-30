@@ -29,6 +29,8 @@ nodemon({
         });
         return tasks
     }
+    , nodeArgs: ['--trace-warnings']
+    , args: ['-t']
 });
 
 

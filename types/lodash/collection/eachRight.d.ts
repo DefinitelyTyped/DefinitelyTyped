@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         eachRight: typeof _.forEachRight; // tslint:disable-line:no-unnecessary-qualifier
     }

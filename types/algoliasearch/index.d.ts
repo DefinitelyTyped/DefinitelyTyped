@@ -1388,6 +1388,12 @@ Interface describing options available for gettings the logs
      */
     unretrievableAttributes?: string[];
     /**
+     * List of attributes you want to use for textual search
+     * default: []
+     * https://github.com/algolia/algoliasearch-client-js#searchableattributes
+     */
+    searchableAttributes?: string[];
+    /**
      * A string that contains the list of attributes you want to retrieve in order to minimize the size of the JSON answer
      * default: *
      * https://github.com/algolia/algoliasearch-client-js#attributestoretrieve
