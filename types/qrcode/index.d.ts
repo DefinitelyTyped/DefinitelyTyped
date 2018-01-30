@@ -167,7 +167,15 @@ export function toDataURL(text: string | QRCodeSegment[], callback: (error: Erro
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
+export function toDataURL(text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
 export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataURLOptions, callback: (error: Error, url: string) => void): void;
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
+export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataURLOptions): Promise<any>;
 
 /**
  * Returns a string representation of the QR Code.
