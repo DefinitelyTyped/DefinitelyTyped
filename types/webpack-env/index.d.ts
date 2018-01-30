@@ -42,7 +42,7 @@ declare namespace __WebpackModuleApi {
         /**
          * Like require.resolve, but doesn’t include the module into the bundle. It’s a weak dependency.
          */
-        resolveWeak(path: string): number;
+        resolveWeak(path: string): number | string;
         /**
          * Ensures that the dependency is available, but don’t execute it. This can be use for optimizing the position of a module in the chunks.
          */
