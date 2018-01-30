@@ -1,6 +1,8 @@
 // Type definitions for roslib.js 0.18.2
 // Project: http://wiki.ros.org/roslibjs
-// Definitions by: Stefan Profanter <https://github.com/Pro>, Cooper Benson <https://github.com/skycoop>
+// Definitions by: Stefan Profanter <https://github.com/Pro>,
+//                 Cooper Benson <https://github.com/skycoop>,
+//                 David Gonzalez <https://github.com/dgorobopec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -370,6 +372,201 @@ declare namespace ROSLIB {
 		publish(message:Message):void;
 	}
 
+    export class TFClient {
+        /**
+         * A TF Client that listens to TFs from tf2_web_republisher.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *   * ros - the ROSLIB.Ros connection handle
+         *   * fixedFrame - the fixed frame, like /base_link
+         *   * angularThres - the angular threshold for the TF republisher
+         *   * transThres - the translation threshold for the TF republisher
+         *   * rate - the rate for the TF republisher
+         *   * updateDelay - the time (in ms) to wait after a new subscription to update the TF republisher's list of TFs
+         *   * topicTimeout - the timeout parameter for the TF republisher
+         *   * serverName (optional) - the name of the tf2_web_republisher server
+         *   * repubServiceName (optional) - the name of the republish_tfs service (non groovy compatibility mode only) default: '/republish_tfs'
+         */
+        constructor(options: {
+            ros: Ros,
+            fixedFrame?: string;
+            angularThres?: number,
+            transThres?: number,
+            rate?: number,
+            updateDelay?: number,
+            topicTimeout?: number,
+            serverName?: string,
+            repubServiceName?: string
+        });
+
+        /**
+         * Unsubscribe and unadvertise all topics associated with this TFClient.
+         */
+        dispose(): void;
+
+        /**
+         * Process the service response and subscribe to the tf republisher topic.
+         *
+         * @param response - the service response containing the topic name
+         */
+        processResponse(response: any): void;
+
+        /**
+         * Process the incoming TF message and send them out using the callback functions
+         * @param tf - the TF message from the server
+         */
+        processTfArray(tf: any): void;
+
+        /**
+         * Subscribe to the given TF frame.
+         * @param frameId - the TF frame to subscribe to
+         * @param callback - function with params:
+         *  * transform - the transform data
+         */
+        subscribe(frameId: string, callback:(transform:Transform) => void): void;
+
+        /**
+         * Unsubscribe from the given TF frame.
+         *
+         * @param frameId - the TF frame to unsubscribe from
+         * @param callback - the callback function to remove
+         */
+        unsubscribe(frameId: string, callback?:(transform:Transform) => void): void;
+
+        /**
+         * Create and send a new goal (or service request) to the tf2_web_republisher based on the current list of TFs.
+         */
+        updateGoal(): void;
+    }
+
+    export class Transform {
+        /**
+         * A Transform in 3-space. Values are copied into this object.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *   * translation - the Vector3 describing the translation
+         *   * rotation - the ROSLIB.Quaternion describing the rotation
+         */
+        constructor(options: {
+            translation: Vector3,
+            rotation: Quaternion
+        });
+
+        // getters
+        public translation: Vector3;
+        public rotation: Quaternion;
+        /**
+         * Clone a copy of this transform.
+         *
+         */
+        clone(): Transform;
+    }
+
+    export class Vector3 {
+        /**
+         * A 3D vector.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *   * x - the x value
+         *   * y - the y value
+         *   * z - the z value
+         */
+        constructor(options: {
+            x: number,
+            y: number,
+            z: number
+        });
+
+        // getters
+        public x: number;
+        public y: number;
+        public z: number;
+
+        /**
+         * Set the values of this vector to the sum of itself and the given vector.
+         *
+         * @param v - the vector to add with
+         */
+        add(v: Vector3): void;
+
+        /**
+         * Clone a copy of this vector.
+         */
+        clone(): Vector3;
+
+        /**
+         * Multiply the given Quaternion with this vector.
+         * @param q - the quaternion to multiply with
+         */
+        multiplyQuaternion(q: Quaternion): void;
+
+        /**
+         * Set the values of this vector to the difference of itself and the given vector.
+         *
+         * @param v - the vector to subtract with
+         */
+        subtract(v: Vector3): void;
+    }
+
+    export class Quaternion {
+        /**
+         * A Quaternion.
+         *
+         * @constructor
+         * @param options - object with following keys:
+         *   * x - the x value
+         *   * y - the y value
+         *   * z - the z value
+         *   * w - the w value
+         */
+        constructor(options?: {
+            x: number,
+            y: number,
+            z: number,
+            w: number
+        });
+
+        // getters
+        public x: number;
+        public y: number;
+        public z: number;
+        public w: number;
+
+        /**
+         * Clone a copy of this quaternion.
+         */
+        clone(): Quaternion;
+
+        /**
+         * Perform a conjugation on this quaternion.
+         */
+        conjugate(): void;
+
+        /**
+         * Convert this quaternion into its inverse.
+         */
+        invert(): void;
+
+        /**
+         * Set the values of this quaternion to the product of itself and the given quaternion.
+         * @param q - the quaternion to multiply with
+         */
+        multiply(q: Quaternion): void;
+
+        /**
+         * Return the norm of this quaternion.
+         */
+        norm(): number;
+
+        /**
+         * Perform a normalization on this quaternion.
+         */
+        normalize(): void;
+    }
+
 	class ActionClient {
 		/**
 		 * An actionlib action client.
@@ -419,12 +616,12 @@ declare namespace ROSLIB {
 
 		/**
 		 * Connect callback functions to goal based events
-		 * 
+		 *
 		 * @param eventName Name of event ('timeout', 'status', 'feedback', 'result')
 		 * @param callback Callback function executed on connected event
 		 */
 		on(eventName:string, callback:(event:any) => void):void;
-		
+
 		/**
 		 * Send the goal to the action server.
 		 *
