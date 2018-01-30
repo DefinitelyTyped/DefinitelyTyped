@@ -33,21 +33,24 @@ export interface ClientConfig extends ConnectionConfig {
 }
 
 export interface PoolConfig extends ClientConfig {
-      // properties from module 'node-pool'
-      max?: number;
-      min?: number;
-      connectionTimeoutMillis?: number;
-      idleTimeoutMillis?: number;
+    // properties from module 'node-pool'
+    max?: number;
+    min?: number;
+    connectionTimeoutMillis?: number;
+    idleTimeoutMillis?: number;
 
-      application_name?: string;
-      Promise?: PromiseConstructorLike;
+    application_name?: string;
+    Promise?: PromiseConstructorLike;
 }
 
 export interface QueryConfig {
     name?: string;
     text: string;
     values?: any[];
-    rowMode?: string;
+}
+
+export interface QueryArrayConfig extends QueryConfig {
+    rowMode: 'array';
 }
 
 export interface QueryResult {
@@ -55,6 +58,24 @@ export interface QueryResult {
     rowCount: number;
     oid: number;
     rows: any[];
+}
+
+export interface FieldDef {
+    name: string;
+    tableID: number;
+    columnID: number;
+    dataTypeID: number;
+    dataTypeSize: number;
+    dataTypeModifier: number;
+    format: string;
+}
+
+export interface QueryArrayResult {
+    command: string;
+    rowCount: number;
+    oid: number;
+    rows: any[][];
+    fields: FieldDef[];
 }
 
 export interface Notification {
@@ -84,8 +105,10 @@ export class Pool extends events.EventEmitter {
     end(callback: () => void): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryText: string, values?: any[]): Promise<QueryResult>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
@@ -105,8 +128,10 @@ export class Client extends events.EventEmitter {
     release(err?: Error): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryText: string, values?: any[]): Promise<QueryResult>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
