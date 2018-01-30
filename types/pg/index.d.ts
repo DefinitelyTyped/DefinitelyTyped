@@ -98,8 +98,8 @@ export class Pool extends events.EventEmitter {
     readonly idleCount: number;
     readonly waitingCount: number;
 
-    connect(): Promise<Client>;
-    connect(callback: (err: Error, client: Client, done: () => void) => void): void;
+    connect(): Promise<PoolClient>;
+    connect(callback: (err: Error, client: PoolClient, done: () => void) => void): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;
@@ -112,20 +112,15 @@ export class Pool extends events.EventEmitter {
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
-    on(event: "error", listener: (err: Error, client: Client) => void): this;
-    on(event: "connect" | "acquire", listener: (client: Client) => void): this;
+    on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
+    on(event: "connect" | "acquire", listener: (client: PoolClient) => void): this;
 }
 
-export class Client extends events.EventEmitter {
+export class ClientBase extends events.EventEmitter {
     constructor(config: string | ClientConfig);
 
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
-
-    end(): Promise<void>;
-    end(callback: (err: Error) => void): void;
-
-    release(err?: Error): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
@@ -149,6 +144,17 @@ export class Client extends events.EventEmitter {
     on(event: "notification", listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
     on(event: "end", listener: () => void): this;
+}
+
+export class Client extends ClientBase {
+    constructor(config: string | ClientConfig);
+
+    end(): Promise<void>;
+    end(callback: (err: Error) => void): void;
+}
+
+export interface PoolClient extends ClientBase {
+    release(err?: Error): void;
 }
 
 export class Query extends events.EventEmitter {
