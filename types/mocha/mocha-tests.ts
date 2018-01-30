@@ -484,6 +484,7 @@ function test_mochaRunner_properties(runner: MochaDef.IRunner, suite: MochaDef.I
 
     let globals: string[] | MochaDef.IRunner= runner.globals(["hello", "world"]);
 
+    runner = runner.run();
     runner = runner.run((f: number) => {});
 }
 

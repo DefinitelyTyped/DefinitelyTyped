@@ -193,7 +193,7 @@ declare namespace Mocha {
         grepTotal: (suite: ISuite) => number;
         globals: (arr: ReadonlyArray<string>) => this | string[];
         abort: () => this;
-        run: (fn: (failures: number) => void) => this;
+        run: (fn?: (failures: number) => void) => this;
     }
 
     interface IContextDefinition {
