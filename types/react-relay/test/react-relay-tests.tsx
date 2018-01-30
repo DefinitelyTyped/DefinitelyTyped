@@ -10,7 +10,8 @@ import {
     requestSubscription,
     QueryRenderer,
     RelayRefetchProp,
-    RelayPaginationProp
+    RelayPaginationProp,
+    RelayProp
 } from "react-relay";
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -54,160 +55,185 @@ const MyQueryRenderer = (props: { name: string }) => (
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern FragmentContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-const MyFragmentContainer = createFragmentContainer(
-    class TodoListView extends React.Component {
-        render() {
-            return <div />;
-        }
-    },
-    {
-        item: graphql`
-            fragment TodoItem_item on Todo {
-                text
-                isComplete
-            }
-        `,
+
+() => {
+    interface Props {
+        relay: RelayProp;
+        publicProp: string;
     }
-);
+
+    class TodoListView extends React.Component<Props> {
+        render() {
+            this.props.relay.environment;
+            return <div>{this.props.publicProp}</div>;
+        }
+    }
+
+    const MyFragmentContainer = createFragmentContainer(
+        TodoListView,
+        {
+            item: graphql`
+                fragment TodoItem_item on Todo {
+                    text
+                    isComplete
+                }
+            `,
+        }
+    );
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern RefetchContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-interface StoryInterface {
-    id: string;
-}
-interface FeedStoriesProps {
-    relay: RelayRefetchProp;
-    feed: {
-        stories: { edges: Array<{ node: StoryInterface }> };
-    };
-}
-class Story extends React.Component<{ story: StoryInterface }> {}
-class FeedStories extends React.Component<FeedStoriesProps> {
-    render() {
-        return (
-            <div>
-                {this.props.feed.stories.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
-                <button onClick={() => this._loadMore} title="Load More" />
-            </div>
-        );
+
+() => {
+    interface StoryInterface {
+        id: string;
+    }
+    interface Props {
+        relay: RelayRefetchProp;
+        loadMoreTitle: string;
+        feed: {
+            stories: { edges: Array<{ node: StoryInterface }> };
+        };
+    }
+    class Story extends React.Component<{ story: StoryInterface }> {}
+    class FeedStories extends React.Component<Props> {
+        render() {
+            return (
+                <div>
+                    {this.props.feed.stories.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
+                    <button onClick={() => this._loadMore} title={this.props.loadMoreTitle} />
+                </div>
+            );
+        }
+
+        _loadMore() {
+            // Increments the number of stories being rendered by 10.
+            const refetchVariables = (fragmentVariables: { count: number }) => ({
+                count: fragmentVariables.count + 10,
+            });
+            this.props.relay.refetch(refetchVariables);
+        }
     }
 
-    _loadMore() {
-        // Increments the number of stories being rendered by 10.
-        const refetchVariables = (fragmentVariables: { count: number }) => ({
-            count: fragmentVariables.count + 10,
-        });
-        this.props.relay.refetch(refetchVariables);
-    }
-}
-
-const FeedRefetchContainer = createRefetchContainer(
-    FeedStories,
-    {
-        feed: graphql.experimental`
-            fragment FeedStories_feed on Feed @argumentDefinitions(count: { type: "Int", defaultValue: 10 }) {
-                stories(first: $count) {
-                    edges {
-                        node {
-                            id
-                            ...Story_story
+    const FeedRefetchContainer = createRefetchContainer(
+        FeedStories,
+        {
+            feed: graphql.experimental`
+                fragment FeedStories_feed on Feed @argumentDefinitions(count: { type: "Int", defaultValue: 10 }) {
+                    stories(first: $count) {
+                        edges {
+                            node {
+                                id
+                                ...Story_story
+                            }
                         }
                     }
                 }
+            `,
+        },
+        graphql.experimental`
+            query FeedStoriesRefetchQuery($count: Int) {
+                feed {
+                    ...FeedStories_feed @arguments(count: $count)
+                }
             }
-        `,
-    },
-    graphql.experimental`
-        query FeedStoriesRefetchQuery($count: Int) {
-            feed {
-                ...FeedStories_feed @arguments(count: $count)
-            }
-        }
-    `
-);
+        `
+    );
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern PaginationContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-interface FeedProps {
-    user: { feed: { edges: Array<{ node: StoryInterface }> } };
-    relay: RelayPaginationProp;
-}
-class Feed extends React.Component<FeedProps> {
-    render() {
-        return (
-            <div>
-                {this.props.user.feed.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
-                <button onClick={() => this._loadMore()} title="Load More" />
-            </div>
-        );
-    }
 
-    _loadMore() {
-        if (!this.props.relay.hasMore() || this.props.relay.isLoading()) {
-            return;
+() => {
+    interface StoryInterface {
+        id: string;
+    }
+    class Story extends React.Component<{ story: StoryInterface }> {}
+
+    interface Props {
+        relay: RelayPaginationProp;
+        loadMoreTitle: string;
+        user: { feed: { edges: Array<{ node: StoryInterface }> } };
+    }
+    class Feed extends React.Component<Props> {
+        render() {
+            return (
+                <div>
+                    {this.props.user.feed.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
+                    <button onClick={() => this._loadMore()} title={this.props.loadMoreTitle} />
+                </div>
+            );
         }
 
-        this.props.relay.loadMore(
-            10, // Fetch the next 10 feed items
-            e => {
-                console.log(e);
+        _loadMore() {
+            if (!this.props.relay.hasMore() || this.props.relay.isLoading()) {
+                return;
             }
-        );
-    }
-}
 
-const FeedPaginationContainer = createPaginationContainer(
-    Feed,
-    {
-        user: graphql`
-            fragment Feed_user on User {
-                feed(
-                    first: $count
-                    after: $cursor
-                    orderby: $orderBy # other variables
-                ) @connection(key: "Feed_feed") {
-                    edges {
-                        node {
-                            id
-                            ...Story_story
+            this.props.relay.loadMore(
+                10, // Fetch the next 10 feed items
+                e => {
+                    console.log(e);
+                }
+            );
+        }
+    }
+
+    const FeedPaginationContainer = createPaginationContainer(
+        Feed,
+        {
+            user: graphql`
+                fragment Feed_user on User {
+                    feed(
+                        first: $count
+                        after: $cursor
+                        orderby: $orderBy # other variables
+                    ) @connection(key: "Feed_feed") {
+                        edges {
+                            node {
+                                id
+                                ...Story_story
+                            }
                         }
                     }
                 }
-            }
-        `,
-    },
-    {
-        direction: "forward",
-        getConnectionFromProps(props) {
-            return props.user && props.user.feed;
+            `,
         },
-        getFragmentVariables(prevVars, totalCount) {
-            return {
-                ...prevVars,
-                count: totalCount,
-            };
-        },
-        getVariables(props, { count, cursor }, fragmentVariables) {
-            return {
-                count,
-                cursor,
-                // in most cases, for variables other than connection filters like
-                // `first`, `after`, etc. you may want to use the previous values.
-                orderBy: fragmentVariables.orderBy,
-            };
-        },
-        query: graphql`
-            query FeedPaginationQuery($count: Int!, $cursor: String, $orderby: String!) {
-                user {
-                    # You could reference the fragment defined previously.
-                    ...Feed_user
+        {
+            direction: "forward",
+            getConnectionFromProps(props) {
+                return props.user && props.user.feed;
+            },
+            getFragmentVariables(prevVars, totalCount) {
+                return {
+                    ...prevVars,
+                    count: totalCount,
+                };
+            },
+            getVariables(props, { count, cursor }, fragmentVariables) {
+                return {
+                    count,
+                    cursor,
+                    // in most cases, for variables other than connection filters like
+                    // `first`, `after`, etc. you may want to use the previous values.
+                    orderBy: fragmentVariables.orderBy,
+                };
+            },
+            query: graphql`
+                query FeedPaginationQuery($count: Int!, $cursor: String, $orderby: String!) {
+                    user {
+                        # You could reference the fragment defined previously.
+                        ...Feed_user
+                    }
                 }
-            }
-        `,
+            `,
+        }
+    );
     }
-);
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Mutations
