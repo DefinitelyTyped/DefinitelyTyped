@@ -2,7 +2,7 @@
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
