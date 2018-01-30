@@ -133,6 +133,12 @@ pool.connect((err, client, done) => {
   });
 });
 
+pool.connect().then(client => {
+  client.query({ text: 'SELECT $1::int AS number', values: ['1'], rowMode: 'array' }).then(result => {
+    console.log(result.rowCount, result.rows[0][0], result.fields[0].name);
+  }).then(() => client.release(), e => client.release(e));
+});
+
 pool.on('error', (err, client) => {
   console.error('idle client error', err.message, err.stack);
 });
