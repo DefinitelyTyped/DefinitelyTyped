@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.0.0
+// Type definitions for Sequelize 4.27.0
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -8,6 +8,8 @@
 //                 Sebastien Bramille <https://github.com/oktapodia>
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Carven Zhang <https://github.com/zjy01>
+//                 Nikola Vidic <https://github.com/nidzov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1331,8 +1333,8 @@ declare namespace sequelize {
          */
         keyType?: DataTypeAbstract;
         /**
-         * A string to represent the name of the field to use as the key for an 1 to many association in the source table. 
-         * 
+         * A string to represent the name of the field to use as the key for an 1 to many association in the source table.
+         *
          * @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#static-method-hasMany
          * @see https://github.com/sequelize/sequelize/blob/b4fd46426db9cdbb97074bea121203d565e4195d/lib/associations/has-many.js#L81
          */
@@ -1702,6 +1704,34 @@ declare namespace sequelize {
 
     }
 
+    interface DataTypeTinyInt extends DataTypeAbstractNumber<DataTypeTinyInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeTinyInt;
+        (length: number): DataTypeTinyInt;
+
+    }
+    interface DataTypeSmallInt extends DataTypeAbstractNumber<DataTypeSmallInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeSmallInt;
+        (length: number): DataTypeSmallInt;
+
+    }
+    interface DataTypeMediumInt extends DataTypeAbstractNumber<DataTypeMediumInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeMediumInt;
+        (length: number): DataTypeMediumInt;
+
+    }
+
     interface DataTypeBigInt extends DataTypeAbstractNumber<DataTypeBigInt> {
 
         /**
@@ -1800,11 +1830,15 @@ declare namespace sequelize {
 
     }
 
-    interface DataTypeUUID extends DataTypeAbstract { }
+    interface DataTypeAbstractUUID<T> extends DataTypeAbstract {
+        (): T;
+    }
 
-    interface DataTypeUUIDv1 extends DataTypeAbstract { }
+    interface DataTypeUUID extends DataTypeAbstractUUID<DataTypeUUID> { }
 
-    interface DataTypeUUIDv4 extends DataTypeAbstract { }
+    interface DataTypeUUIDv1 extends DataTypeAbstractUUID<DataTypeUUIDv1> { }
+
+    interface DataTypeUUIDv4 extends DataTypeAbstractUUID<DataTypeUUIDv4> { }
 
     interface DataTypeVirtual extends DataTypeAbstract {
 
@@ -1893,6 +1927,9 @@ declare namespace sequelize {
         CHAR: DataTypeChar;
         TEXT: DataTypeText;
         NUMBER: DataTypeNumber;
+        TINYINT: DataTypeTinyInt;
+        SMALLINT: DataTypeSmallInt;
+        MEDIUMINT: DataTypeMediumInt;
         INTEGER: DataTypeInteger;
         BIGINT: DataTypeBigInt;
         FLOAT: DataTypeFloat;
@@ -3289,7 +3326,6 @@ declare namespace sequelize {
          */
         group?: string | string[] | Object;
 
-
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -3323,6 +3359,11 @@ declare namespace sequelize {
          */
         include?: Array<Model<any, any> | IncludeOptions>;
 
+        /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
+                     
         /**
          * Apply COUNT(DISTINCT(col))
          */
@@ -4160,13 +4201,14 @@ declare namespace sequelize {
         /**
          * Adds a new column to a table
          */
-        addColumn(table: string, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
+        addColumn(tableName: string | { tableName?: string, schema?: string }, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
             options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Removes a column from a table
          */
-        removeColumn(table: string, attribute: string, options?: QueryInterfaceOptions): Promise<void>;
+        removeColumn(tableName: string | { tableName?: string, schema?: string }, attribute: string,
+            options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Changes a column
@@ -6071,7 +6113,7 @@ declare namespace sequelize {
          * Normally this is done on process exit, so you only need to call this method if you are creating multiple
          * instances, and want to garbage collect some of them.
          */
-        close(): void;
+        close(): Promise<void>;
 
         /**
          * Returns the database version

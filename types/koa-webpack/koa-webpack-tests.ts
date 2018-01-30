@@ -12,8 +12,6 @@ const middleware = koaWebpack({
     compiler,
     config,
     dev: {
-        noInfo: false,
-        quiet: false,
         lazy: true,
         watchOptions: {
             aggregateTimeout: 300,

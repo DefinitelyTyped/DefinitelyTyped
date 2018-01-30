@@ -1,4 +1,4 @@
-// Type definitions for chai-string 1.1.4
+// Type definitions for chai-string 1.4.0
 // Project: https://github.com/onechiporenko/chai-string
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,10 +14,13 @@ declare global {
             endWith(expected: string, message?: string): Assertion;
             equalIgnoreCase(expected: string, message?: string): Assertion;
             equalIgnoreSpaces(expected: string, message?: string): Assertion;
+            containIgnoreCase(expected: string, msg?: string): Assertion;
+            containIgnoreSpaces(expected: string, msg?: string): Assertion;
             singleLine(message?: string): Assertion;
             reverseOf(message?: string): Assertion;
             palindrome(message?: string): Assertion;
             entriesCount(substr: string, expected: number, message?: string): Assertion;
+            indexOf(str: string, substr: string, index: number, msg?: string): Assertion;
         }
 
         interface Assert {
@@ -29,6 +32,10 @@ declare global {
             notEqualIgnoreCase(val: string, exp: string, msg?: string): void;
             equalIgnoreSpaces(val: string, exp: string, msg?: string): void;
             notEqualIgnoreSpaces(val: string, exp: string, msg?: string): void;
+            containIgnoreCase(val: string, exp: string, msg?: string): void;
+            notContainIgnoreCase(val: string, exp: string, msg?: string): void;
+            containIgnoreSpaces(val: string, exp: string, msg?: string): void;
+            notContainIgnoreSpaces(val: string, exp: string, msg?: string): void;
             singleLine(val: string, msg?: string): void;
             notSingleLine(val: string, msg?: string): void;
             reverseOf(val: string, exp: string, msg?: string): void;
@@ -36,6 +43,7 @@ declare global {
             palindrome(val: string, msg?: string): void;
             notPalindrome(val: string, msg?: string): void;
             entriesCount(str: string, substr: string, count: number, msg?: string): void;
+            indexOf(str: string, substr: string, index: number, msg?: string): void;
         }
     }
 }

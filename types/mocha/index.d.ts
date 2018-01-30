@@ -3,8 +3,6 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>, otiai10 <https://github.com/otiai10>, jt000 <https://github.com/jt000>, Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 interface MochaSetupOptions {
     //milliseconds to wait before considering a test slow
     slow?: number;
@@ -29,7 +27,7 @@ interface MochaSetupOptions {
 
     // grep string or regexp to filter tests with
     grep?: any;
-    
+
     // require modules before running tests
     require?: string[];
 }
@@ -88,9 +86,9 @@ declare class Mocha {
     bail(value?: boolean): Mocha;
     addFile(file: string): Mocha;
     /** Sets reporter by name, defaults to "spec". */
-    reporter(name: string): Mocha;
+    reporter(name: string, reporterOptions?: any): Mocha;
     /** Sets reporter constructor, defaults to mocha.reporters.Spec. */
-    reporter(reporter: ReporterConstructor): Mocha;
+    reporter(reporter: ReporterConstructor, reporterOptions?: any): Mocha;
     ui(value: string): Mocha;
     grep(value: string): Mocha;
     grep(value: RegExp): Mocha;
@@ -121,21 +119,21 @@ declare class Mocha {
 // merge the Mocha class declaration with a module
 declare namespace Mocha {
     interface ISuiteCallbackContext {
-        timeout(ms: number): this;
+        timeout(ms: number | string): this;
         retries(n: number): this;
         slow(ms: number): this;
     }
 
     interface IHookCallbackContext {
         skip(): this;
-        timeout(ms: number): this;
+        timeout(ms: number | string): this;
         [index: string]: any;
     }
 
 
     interface ITestCallbackContext {
         skip(): this;
-        timeout(ms: number): this;
+        timeout(ms: number | string): this;
         retries(n: number): this;
         slow(ms: number): this;
         [index: string]: any;
@@ -148,7 +146,7 @@ declare namespace Mocha {
         async: boolean;
         sync: boolean;
         timedOut: boolean;
-        timeout(n: number): this;
+        timeout(n: number | string): this;
     }
 
     /** Partial interface for Mocha's `Suite` class. */
@@ -174,20 +172,20 @@ declare namespace Mocha {
 
 
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner extends NodeJS.EventEmitter { }
+    interface IRunner { }
 
     interface IContextDefinition {
         (description: string, callback: (this: ISuiteCallbackContext) => void): ISuite;
         only(description: string, callback: (this: ISuiteCallbackContext) => void): ISuite;
         skip(description: string, callback: (this: ISuiteCallbackContext) => void): void;
-        timeout(ms: number): void;
+        timeout(ms: number | string): void;
     }
 
     interface ITestDefinition {
         (expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): ITest;
         only(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): ITest;
         skip(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): void;
-        timeout(ms: number): void;
+        timeout(ms: number | string): void;
         state: "failed" | "passed";
     }
 

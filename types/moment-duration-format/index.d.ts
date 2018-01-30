@@ -1,7 +1,11 @@
-// Type definitions for moment-duration-format 1.3
+// Type definitions for moment-duration-format 2.2
 // Project: https://github.com/jsmreese/moment-duration-format
-// Definitions by: Swint De Coninck <https://github.com/SwintDC>, Niklas Walter <https://github.com/TwoStone>, Leonard Thieu <https://github.com/leonard-thieu>
+// Definitions by: Swint De Coninck <https://github.com/SwintDC>
+//                 Niklas Walter <https://github.com/TwoStone>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Lukasz Bendykowski <https://github.com/bendykowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as moment from "moment";
 
@@ -22,33 +26,66 @@ declare module "moment" {
         (settings?: DurationFormatSettings): string;
     }
 
+    type UnitOfTrimV1 = 'left' | 'right';
+    type UnitOfTrim = (
+        'large' | 'small' | 'both' |
+        'mid' | 'all' | 'final'
+    );
+
     interface DurationFormatSettings {
-        escape?: RegExp;
-        years?: RegExp;
-        months?: RegExp;
-        weeks?: RegExp;
-        days?: RegExp;
-        hours?: RegExp;
-        minutes?: RegExp;
-        seconds?: RegExp;
-        milliseconds?: RegExp;
-        general?: RegExp;
+        trim?: false | UnitOfTrimV1 | UnitOfTrim | string | Array<UnitOfTrim | string>;
+        largest?: number;
+        trunc?: true;
+        stopTrim?: string;
 
-        types?: string;
+        minValue?: number;
+        maxValue?: number;
 
-        // "left" - template tokens are trimmed from the left until the first moment token that has a value >= 1
-        // "right" - template tokens are trimmed from the right until the first moment token that has a value >= 1
-        // (the final moment token is not trimmed, regardless of value)
-        // `false` - template tokens are not trimmed
-        trim?: 'left' | 'right' | false;
-
-        // number of decimal digits to include after (to the right of) the decimal point (positive integer)
-        // or the number of digits to truncate to 0 before (to the left of) the decimal point (negative integer)
+        useGrouping?: boolean;
         precision?: number;
+        decimalSeparator?: string;
+        groupingSeparator?: string;
+        grouping?: number[];
 
-        // force first moment token with a value to render at full length even when template is trimmed and first moment token has length of 1
-        forceLength?: boolean | null;
+        useSignificantDigits?: true;
+
+        forceLength?: boolean;
         template?: string | TemplateFunction;
+
+        userLocale?: string;
+        usePlural?: boolean;
+        useLeftUnits?: boolean;
+        useToLocaleString?: boolean;
+    }
+
+    type DurationLabelType = "long" | "standard" | "short";
+    type DurationTemplate = "HMS" | "HM" | "MS";
+    type DurationToken = (
+        "S" | "SS" | "SSS" |
+        "s" | "ss" | "sss" |
+        "m" | "mm" | "mmm" |
+        "h" | "hh" | "hhh" |
+        "d" | "dd" | "ddd" |
+        "w" | "ww" | "www" |
+        "M" | "MM" | "MMM" |
+        "y" | "yy" | "yyy"
+    );
+
+    type DurationLabelDef = {[duration in DurationToken]: string};
+    type DurationTimeDef = {[template in DurationTemplate]: string};
+
+    interface DurationLabelTypeDef {
+        type: DurationLabelType;
+        string: string;
+    }
+
+    interface LocaleSpecification {
+        durationLabelsLong: DurationLabelDef;
+        durationLabelsStandard: DurationLabelDef;
+        durationLabelsShort: DurationLabelDef;
+        durationTimeTemplates: DurationTimeDef;
+        durationLabelTypes: DurationLabelTypeDef[];
+        durationPluralKey: (token: string, integerValue: number, decimalValue: number) => string;
     }
 
     type TemplateFunction = ((this: DurationFormatSettings) => string);

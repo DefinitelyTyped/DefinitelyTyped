@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.51
+// Type definitions for react-native 0.52
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -548,7 +548,7 @@ export interface FlexStyle {
     flexShrink?: number;
     flexWrap?: "wrap" | "nowrap";
     height?: number | string;
-    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
     left?: number | string;
     margin?: number | string;
     marginBottom?: number | string;
@@ -1945,6 +1945,15 @@ export interface WebViewPropertiesAndroid {
      * Sets the user-agent for the WebView.
      */
     userAgent?: string;
+
+    /**
+    * Specifies the mixed content mode. i.e WebView will allow a secure origin to load content from any other origin.
+Possible values for mixedContentMode are:
+'never' (default) - WebView will not allow a secure origin to load content from an insecure origin.
+'always' - WebView will allow a secure origin to load content from any other origin, even if that origin is insecure.
+'compatibility' - WebView will attempt to be compatible with the approach of a modern web browser with regard to mixed content.
+    */
+    mixedContentMode?: "never" | "always" | "compatibility";
 }
 
 export interface WebViewIOSLoadRequestEvent {
@@ -2462,6 +2471,11 @@ export interface DatePickerIOSProperties extends ViewProperties {
     date: Date;
 
     /**
+     * The date picker locale.
+     */
+    locale?: string;
+
+    /**
      * Maximum date.
      * Restricts the range of possible date/time values.
      */
@@ -2477,7 +2491,7 @@ export interface DatePickerIOSProperties extends ViewProperties {
      *  enum(1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30)
      *  The interval at which minutes can be selected.
      */
-    minuteInterval?: number;
+    minuteInterval?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30;
 
     /**
      *  enum('date', 'time', 'datetime')
@@ -3307,6 +3321,16 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
     onLoadStart?: () => void;
 
     progressiveRenderingEnabled?: boolean;
+
+    borderRadius?: number;
+
+    borderTopLeftRadius?: number;
+
+    borderTopRightRadius?: number;
+
+    borderBottomLeftRadius?: number;
+
+    borderBottomRightRadius?: number;
 
     /**
      * Determines how to resize the image when the frame doesn't match the raw
@@ -4353,7 +4377,12 @@ export interface ModalProperties {
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
      * @platform ios
      */
-    onOrientationChange?: () => void;
+    onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
+     /**
+     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
+     * @platform ios
+     */
+    onDismiss?: () => void;
 }
 
 export interface ModalStatic extends React.ComponentClass<ModalProperties> {}
@@ -6390,7 +6419,7 @@ export type AppStateEvent = "change" | "memoryWarning";
 export type AppStateStatus = "active" | "background" | "inactive";
 
 export interface AppStateStatic {
-    currentState: string;
+    currentState: AppStateStatus;
 
     /**
      * Add a handler to AppState changes by listening to the change event
@@ -7886,6 +7915,9 @@ export namespace Animated {
         speed?: number;
         tension?: number;
         friction?: number;
+        stiffness?: number;
+        mass?: number;
+        damping?: number;
     }
 
     interface LoopAnimationConfig {
@@ -8275,8 +8307,8 @@ export type ListView = ListViewStatic;
 export var MapView: MapViewStatic;
 export type MapView = MapViewStatic;
 
-export var MaskedView: MaskedViewStatic;
-export type MaskedView = MaskedViewStatic;
+export var MaskedViewIOS: MaskedViewStatic;
+export type MaskedViewIOS = MaskedViewStatic;
 
 export var Modal: ModalStatic;
 export type Modal = ModalStatic;

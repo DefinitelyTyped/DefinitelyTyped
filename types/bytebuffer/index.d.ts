@@ -120,12 +120,17 @@ declare class ByteBuffer
     /**
      * Calculates the number of UTF8 bytes of a string.
      */
-    static calculateUTF8Byte( str: string ): number;
+    static calculateUTF8Bytes( str: string ): number;
 
     /**
      * Calculates the number of UTF8 characters of a string.JavaScript itself uses UTF- 16, so that a string's length property does not reflect its actual UTF8 size if it contains code points larger than 0xFFFF.
      */
-    static calculateUTF8Char( str: string ): number;
+    static calculateUTF8Chars( str: string ): number;
+    
+    /**
+     * Calculates the number of UTF8 bytes of a string. This is an alias of ByteBuffer#calculateUTF8Bytes.
+     */
+    static calculateString( str: string ): number;
 
     /**
      * Calculates the actual number of bytes required to store a 32bit base 128 variable-length integer.
@@ -303,6 +308,11 @@ declare class ByteBuffer
     readByte( offset?: number ): number;
 
     /**
+     * Reads the specified number of bytes
+     */
+    readBytes( length: number, offset?: number): ByteBuffer;
+
+    /**
      * Reads a NULL-terminated UTF8 encoded string. For this to work the string read must not contain any NULL characters itself.
      */
     readCString( offset?: number ): string;
@@ -409,7 +419,7 @@ declare class ByteBuffer
     /**
      * Reads a zig-zag encoded 32bit base 128 variable-length integer.
      */
-    readVarint32ZiZag( offset?: number ): number;
+    readVarint32ZigZag( offset?: number ): number;
 
     /**
      * Reads a 64bit base 128 variable-length integer. Requires Long.js.
@@ -502,6 +512,11 @@ declare class ByteBuffer
      * Writes an 8bit signed integer. This is an alias of ByteBuffer#writeInt8.
      */
     writeByte( value: number, offset?: number ): ByteBuffer;
+
+    /**
+     * Writes an array of bytes. This is an alias for append
+     */
+    writeBytes( source: ByteBuffer | ArrayBuffer | Uint8Array | string, encoding?: string | number, offset?: number ): ByteBuffer;
 
     /**
      * Writes a NULL-terminated UTF8 encoded string. For this to work the specified string must not contain any NULL characters itself.

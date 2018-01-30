@@ -25,6 +25,7 @@ rpn('http://google.com').then(() => { });
 rpn('http://google.com').then(console.dir);
 rpn('http://google.com').catch(console.error);
 rpn('http://google.com').then(console.dir, console.error);
+rpn('http://google.com').promise().then(console.dir);
 
 rpn({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => { });
 rpn({ uri: 'http://google.com', simple: false }).catch((reason) => { });
