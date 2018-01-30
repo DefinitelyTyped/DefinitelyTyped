@@ -48,8 +48,7 @@ client.query('SELECT $1::text as name', ['brianc'], (err, res) => {
 const query = {
   name: 'get-name',
   text: 'SELECT $1::text',
-  values: ['brianc'],
-  rowMode: 'array'
+  values: ['brianc']
 };
 client.query(query, (err, res) => {
   if (err) {
@@ -65,6 +64,33 @@ client.query(query)
   .catch(e => {
     console.error(e.stack);
   });
+
+const queryArrMode: pg.QueryArrayConfig = {
+  name: 'get-name-array',
+  text: 'SELECT $1::text',
+  values: ['brianc'],
+  rowMode: 'array'
+};
+client.query(queryArrMode, (err, res) => {
+  if (err) {
+    console.error(err.stack);
+  } else {
+    console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
+  }
+});
+client.query(queryArrMode)
+  .then(res => {
+    console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
+  })
+  .catch(e => {
+    console.error(e.stack);
+  });
+client.query({
+  text: 'select 1',
+  rowMode: 'array',
+}).then(res => console.log(res.fields[0]));
 
 client.end((err) => {
   console.log('client has disconnected');
