@@ -34,12 +34,12 @@ export interface Schema<T> {
     meta(): any;
     describe(): SchemaDescription;
     concat(schema: this): this;
-    validate<U>(value: U, options?: ValidateOptions): Promise<ValidationError|U>;
-    validateSync<U>(value: U, options?: ValidateOptions): ValidationError|U;
-    isValid(value: any, options?: any): Promise<boolean>;
-    isValidSync(value: any, options?: any): boolean;
-    cast(value: any, options?: any): any;
-    isType(value: any): boolean;
+    validate(value: T, options?: ValidateOptions): Promise<ValidationError|T>;
+    validateSync(value: T, options?: ValidateOptions): ValidationError|T;
+    isValid(value: T, options?: any): Promise<boolean>;
+    isValidSync(value: T, options?: any): boolean;
+    cast(value: any, options?: any): T;
+    isType(value: any): value is T;
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
     withMutation(fn: (current: this) => void): void;
