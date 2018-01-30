@@ -180,6 +180,8 @@ export class EditorView {
    * Focus the editor.
    */
   focus(): void;
+
+  focused: boolean;
   /**
    * Get the document root in which the editor exists. This will
    * usually be the top-level `document`, but might be a [shadow
