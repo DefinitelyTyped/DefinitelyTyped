@@ -3,7 +3,6 @@
 // Definitions by: Kevin Nacios <https://github.com/ragnarok56>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = humanizeString;
-
 declare function humanizeString(text: string): string;
-declare namespace humanizeString {}
+
+export = humanizeString;
