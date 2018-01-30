@@ -127,6 +127,7 @@ export interface Navigator {
     setOnNavigatorEvent(callback: (event: { id: string }) => void): void;
     addOnNavigatorEvent(callback: (event: { id: string }) => void): () => void;
     screenIsCurrentlyVisible(): Promise<boolean>;
+    setStyle(params: NavigatorStyle): void;
 }
 
 export class ScreenVisibilityListener {
