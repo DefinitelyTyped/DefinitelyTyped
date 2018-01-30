@@ -19,6 +19,14 @@ import * as React from "react";
 import * as RelayRuntimeTypes from "relay-runtime";
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// Utility types
+// ~~~~~~~~~~~~~~~~~~~~~
+type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
+type Omit<T, K extends keyof T> = { [P in Diff<keyof T, K>]: T[P] };
+
+type RemoveRelayProp<P> = Omit<P & { relay: never }, "relay">;
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
 // ~~~~~~~~~~~~~~~~~~~~~
 export type ConcreteFragmentDefinition = object;
@@ -82,7 +90,7 @@ export class QueryRenderer extends ReactRelayQueryRenderer {}
 export function createFragmentContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
-): React.ComponentType<T>;
+): React.ComponentType<RemoveRelayProp<T>>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createPaginationContainer
@@ -130,7 +138,7 @@ export function createPaginationContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     connectionConfig: ConnectionConfig<T>
-): React.ComponentType<T>;
+): React.ComponentType<RemoveRelayProp<T>>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createRefetchContainer
@@ -153,4 +161,4 @@ export function createRefetchContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
-): React.ComponentType<T>;
+): React.ComponentType<RemoveRelayProp<T>>;

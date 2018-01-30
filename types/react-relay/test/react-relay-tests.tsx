@@ -80,6 +80,10 @@ const MyQueryRenderer = (props: { name: string }) => (
             `,
         }
     );
+
+    function doesNotRequireRelayPropToBeProvided() {
+        <MyFragmentContainer publicProp="is available" />;
+    }
 };
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -141,6 +145,11 @@ const MyQueryRenderer = (props: { name: string }) => (
             }
         `
     );
+
+    function doesNotRequireRelayPropToBeProvided() {
+        const feed = { stories: { edges: [] }}; // TODO
+        <FeedRefetchContainer loadMoreTitle="Load More" feed={feed} />;
+    }
 };
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -232,6 +241,10 @@ const MyQueryRenderer = (props: { name: string }) => (
             `,
         }
     );
+
+    function doesNotRequireRelayPropToBeProvided() {
+        const user = { feed: { edges: [] }}; // TODO
+        <FeedPaginationContainer loadMoreTitle="Load More" user={user} />;
     }
 };
 
