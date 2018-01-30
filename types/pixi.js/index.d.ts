@@ -63,6 +63,7 @@ declare namespace PIXI {
         let PRECISION: string;
         let UPLOADS_PER_FRAME: number;
         let CAN_UPLOAD_SAME_BUFFER: boolean;
+        let MESH_CANVAS_PADDING: number;
     }
 
     //////////////////////////////////////////////////////////////////////////////
@@ -208,6 +209,7 @@ declare namespace PIXI {
         renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
         stage: Container;
         ticker: ticker.Ticker;
+        loader: loaders.Loader;
         readonly screen: Rectangle;
 
         stop(): void;
@@ -497,6 +499,7 @@ declare namespace PIXI {
         drawCircle(x: number, y: number, radius: number): Graphics;
         drawEllipse(x: number, y: number, width: number, height: number): Graphics;
         drawPolygon(path: number[] | Point[] | Polygon): Graphics;
+        drawStar(x: number, y: number, points: number, radius: number, innerRadius: number, rotation?: number): Graphics;
         clear(): Graphics;
         isFastRect(): boolean;
         protected _renderCanvas(renderer: CanvasRenderer): void;
@@ -1737,7 +1740,9 @@ declare namespace PIXI {
 
     // shader
 
-    class Shader extends glCore.GLShader { }
+    class Shader extends glCore.GLShader {
+        constructor(gl: WebGLRenderingContext, vertexSrc: string | string[], fragmentSrc: string | string[], attributeLocations?: { [key: string]: number }, precision?: string);
+    }
 
     //////////////////////////////////////////////////////////////////////////////
     ////////////////////////////EXTRACT///////////////////////////////////////////
@@ -2163,7 +2168,7 @@ declare namespace PIXI {
 
     // pixi loader extends
     // https://github.com/englercj/resource-loader/
-    // 2.0.9
+    // 2.1.1
 
     class MiniSignalBinding {
         //tslint:disable-next-line:ban-types forbidden-types
@@ -2251,6 +2256,8 @@ declare namespace PIXI {
             onStart: MiniSignal;
             onComplete: MiniSignal;
 
+            concurrency: number;
+
             add(...params: any[]): this;
             //tslint:disable-next-line:ban-types forbidden-types
             add(name: string, url: string, options?: LoaderOptions, cb?: Function): this;
@@ -2268,6 +2275,7 @@ declare namespace PIXI {
             protected _prepareUrl(url: string): string;
             //tslint:disable-next-line:ban-types forbidden-types
             protected _loadResource(resource: Resource, dequeue: Function): void;
+            protected _onStart(): void;
             protected _onComplete(): void;
             protected _onLoad(resource: Resource): void;
 
@@ -2523,7 +2531,11 @@ declare namespace PIXI {
     //////////////////////////////////////////////////////////////////////////////
     namespace particles {
         interface ParticleContainerProperties {
+            /**
+             * DEPRECIATED - Use `vertices`
+             */
             scale?: boolean;
+            vertices?: boolean;
             position?: boolean;
             rotation?: boolean;
             uvs?: boolean;
@@ -2531,7 +2543,7 @@ declare namespace PIXI {
             alpha?: boolean;
         }
         class ParticleContainer extends Container {
-            constructor(maxSize?: number, properties?: ParticleContainerProperties, batchSize?: number, autoSize?: boolean);
+            constructor(maxSize?: number, properties?: ParticleContainerProperties, batchSize?: number, autoResize?: boolean);
             protected _tint: number;
             protected tintRgb: number | any[];
             tint: number;
