@@ -396,7 +396,7 @@ export interface Config {
     /** Retrieves the setting for the given key. */
     get<T extends keyof ConfigValues>(keyPath: T, options?: { sources?: string[],
         excludeSources?: string[], scope?: string[]|ScopeDescriptor }):
-        ConfigValues[T]|undefined;
+        ConfigValues[T];
 
     /**
      *  Sets the value for a configuration setting.
@@ -2697,7 +2697,7 @@ export interface Workspace {
     createItemForURI(uri: string): Promise<object|TextEditor>;
 
     /** Returns a boolean that is true if object is a TextEditor. */
-    isTextEditor(object: object): boolean;
+    isTextEditor(object: object): object is TextEditor;
 
     /**
      *  Asynchronously reopens the last-closed item's URI if it hasn't already
@@ -3279,10 +3279,10 @@ export class Directory {
 
     // Directory Metadata
     /** Returns a boolean, always false. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a roolean, always true. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
@@ -3496,10 +3496,10 @@ export class File {
 
     // File Metadata
     /** Returns a boolean, always true. */
-    isFile(): boolean;
+    isFile(): this is File;
 
     /** Returns a boolean, always false. */
-    isDirectory(): boolean;
+    isDirectory(): this is Directory;
 
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
@@ -4110,6 +4110,9 @@ export interface PackageManager {
 
     /** Activate a single package by name or path. */
     activatePackage(nameOrPath: string): Promise<Package>;
+
+    /** Deactivate a single package by name or path. */
+    deactivatePackage(nameOrPath: string, suppressSerialization?: boolean): Promise<void>;
 
     /** Triggers the given package activation hook. */
     triggerActivationHook(hook: string): void;
@@ -4810,7 +4813,8 @@ export class Task {
      *  Throws an error if this task has already been terminated or if sending a
      *  message to the child process fails.
      */
-    send(message: string): void;
+    // tslint:disable-next-line:no-any
+    send(message: string | number | boolean | object | null | any[]): void;
 
     /** Call a function when an event is emitted by the child process. */
     // tslint:disable-next-line:no-any

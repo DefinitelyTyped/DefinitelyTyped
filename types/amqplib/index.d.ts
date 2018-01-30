@@ -63,4 +63,17 @@ export interface ConfirmChannel extends Channel {
     waitForConfirms(): Promise<void>;
 }
 
+export const credentials: {
+    external(): {
+      mechanism: string;
+      response(): Buffer;
+    };
+    plain(username: string, password: string): {
+      mechanism: string;
+      response(): Buffer;
+      username: string;
+      password: string;
+    };
+};
+
 export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;

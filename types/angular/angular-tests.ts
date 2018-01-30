@@ -161,7 +161,7 @@ namespace My.Namespace {
 }
 
 class TestProvider implements ng.IServiceProvider {
-    constructor(private $scope: ng.IScope) {}
+    constructor(private readonly $scope: ng.IScope) {}
 
     $get() {}
 }
@@ -548,80 +548,158 @@ namespace TestPromise {
     const promise: angular.IPromise<TResult> = null;
     const $q: angular.IQService = null;
 
-    const assertPromiseType = <T>(arg: angular.IPromise<T>) => arg;
     const reject = $q.reject();
 
     // promise.then
-    assertPromiseType<any>(promise.then((result) => any));
-    assertPromiseType<any>(promise.then((result) => any, (any) => any));
-    assertPromiseType<any>(promise.then((result) => any, (any) => any, (any) => any));
+    // $ExpectType IPromise<any>
+    promise.then(result => any);
+    // $ExpectType IPromise<any>
+    promise.then(result => any, any => any);
+    // $ExpectType IPromise<any>
+    promise.then(result => any, any => any, any => any);
 
-    assertPromiseType<never>(promise.then((result) => reject));
-    assertPromiseType<never>(promise.then((result) => reject, (any) => reject));
-    assertPromiseType<never>(promise.then((result) => reject, (any) => reject, (any) => any));
+    // $ExpectType IPromise<never>
+    promise.then(result => reject);
+    // $ExpectType IPromise<never>
+    promise.then(result => reject, any => reject);
+    // $ExpectType IPromise<never>
+    promise.then(result => reject, any => reject, any => any);
 
-    assertPromiseType<TResult>(promise.then((result) => result));
-    assertPromiseType<TResult>(promise.then((result) => tresult));
-    assertPromiseType<TResult>(promise.then((result) => tresultPromise));
-    assertPromiseType<TResult>(promise.then((result) => result, (any) => any));
-    assertPromiseType<TResult>(promise.then((result) => result, (any) => any, (any) => any));
-    assertPromiseType<TResult>(promise.then((result) => result, (any) => reject, (any) => any));
+    // $ExpectType IPromise<TResult>
+    promise.then(result => result);
+    // $ExpectType IPromise<TResult>
+    promise.then(result => tresult);
+    // $ExpectType IPromise<TResult>
+    promise.then(result => tresultPromise);
+    // $ExpectType IPromise<any>
+    promise.then(result => result, any => any);
+    // $ExpectType IPromise<number | TResult>
+    promise.then(result => result, any => Math.random());
+    // $ExpectType IPromise<any>
+    promise.then(result => result, any => any, any => any);
+    // $ExpectType IPromise<number | TResult>
+    promise.then(result => result, any => Math.random(), any => any);
+    // $ExpectType IPromise<TResult>
+    promise.then(result => result, any => reject, any => any);
 
-    assertPromiseType<angular.IPromise<never> | TResult>(promise.then((result) => anyOf2(reject, result)));
-    assertPromiseType<TResult>(promise.then((result) => anyOf3(result, tresultPromise, reject)));
-    assertPromiseType<TResult>(promise.then(
-        (result) => anyOf3(reject, result, tresultPromise),
-        (reason) => anyOf3(reject, tresult, tresultPromise)
-    ));
+    // $ExpectType IPromise<TResult>
+    promise.then(result => anyOf2(reject, result));
+    // $ExpectType IPromise<TResult>
+    promise.then(result => anyOf3(result, tresultPromise, reject));
+    // $ExpectType IPromise<TResult>
+    promise.then(
+        result => anyOf3(reject, result, tresultPromise),
+        reason => anyOf3(reject, tresult, tresultPromise)
+    );
 
-    assertPromiseType<ng.IHttpResponse<TResult>>(promise.then((result) => tresultHttpPromise));
+    // $ExpectType IPromise<IHttpResponse<TResult>>
+    promise.then(result => tresultHttpPromise);
 
-    assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother));
-    assertPromiseType<TResult | angular.IPromise<TResult> | angular.IPromise<never> | TOther | angular.IPromise<TOther>>(promise.then(
-        (result) => anyOf3(reject, result, totherPromise),
-        (reason) => anyOf3(reject, tother, tresultPromise)
-    ));
+    // $ExpectType IPromise<TResult | TOther>
+    promise.then(result => result, any => tother);
 
-    assertPromiseType<TResult | TOther>(promise.then<TResult | TOther, TResult>(
-        (result) => anyOf3(tresultPromise, result, totherPromise)
-    ));
+    // These are broken and seemingly can't be made to work
+    // with the current limitations of TypeScript.
 
-    assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother, (any) => any));
-    assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise));
-    assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise, (any) => any));
-    assertPromiseType<ng.IHttpResponse<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise));
-    assertPromiseType<ng.IHttpResponse<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise, (any) => any));
+    // xExpectType IPromise<TResult | TOther>
+    // promise.then(result => anyOf2(result, totherPromise));
+    // xExpectType IPromise<TResult | TOther>
+    // promise.then(result => anyOf3(reject, result, totherPromise));
+    // xExpectType IPromise<TResult | TOther>
+    // const a4 = promise.then(
+    //     result => anyOf3(reject, result, totherPromise),
+    //     reason => anyOf3(reject, tother, tresultPromise)
+    // );
 
-    assertPromiseType<TOther>(promise.then((result) => tother));
-    assertPromiseType<TOther>(promise.then((result) => tother, (any) => any));
-    assertPromiseType<TOther>(promise.then((result) => tother, (any) => any, (any) => any));
-    assertPromiseType<TOther>(promise.then((result) => totherPromise));
-    assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any));
-    assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any, (any) => any));
-    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise));
-    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise, (any) => any));
-    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise, (any) => any, (any) => any));
+    // $ExpectType IPromise<TResult | TOther>
+    promise.then<TResult | TOther, TResult>(result =>
+        anyOf3(tresultPromise, result, totherPromise)
+    );
 
-    assertPromiseType<boolean>(promise.then((result) => tresult, (any) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
+    // $ExpectType IPromise<TResult | TOther>
+    promise.then(result => result, any => tother, any => any);
+    // $ExpectType IPromise<TResult | TOther>
+    promise.then(result => tresultPromise, any => totherPromise);
+    // $ExpectType IPromise<TResult | TOther>
+    promise.then(result => tresultPromise, any => totherPromise, any => any);
+    // $ExpectType IPromise<IHttpResponse<TResult> | IHttpResponse<TOther>>
+    promise.then(result => tresultHttpPromise, any => totherHttpPromise);
+    // $ExpectType IPromise<IHttpResponse<TResult> | IHttpResponse<TOther>>
+    promise.then(result => tresultHttpPromise, any => totherHttpPromise, any => any);
+
+    // $ExpectType IPromise<TOther>
+    promise.then(result => tother);
+    // $ExpectType IPromise<any>
+    promise.then(result => tother, any => any);
+    // $ExpectType IPromise<any>
+    promise.then(result => tother, any => any, any => any);
+    // $ExpectType IPromise<TOther>
+    promise.then(result => totherPromise);
+    // $ExpectType IPromise<any>
+    promise.then(result => totherPromise, any => any);
+    // $ExpectType IPromise<any>
+    promise.then(result => totherPromise, any => any, any => any);
+    // $ExpectType IPromise<IHttpResponse<TOther>>
+    promise.then(result => totherHttpPromise);
+    // $ExpectType IPromise<any>
+    promise.then(result => totherHttpPromise, any => any);
+    // $ExpectType IPromise<any>
+    promise.then(result => totherHttpPromise, any => any, any => any);
+
+    // $ExpectType IPromise<boolean>
+    promise
+        .then(result => tresult, any => tother)
+        .then(ambiguous => (isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
+
+    // promise.then + $q.reject:
+
+    // $ExpectType IPromise<number>
+    $q.resolve(true).then(result => Math.random() > 0.5 ? Math.random() : $q.reject());
+    // $ExpectType IPromise<number>
+    $q.resolve(true).then(result => Math.random() > 0.5 ? Math.random() : $q.reject('a'));
+    // $ExpectType IPromise<never>
+    $q.resolve().then(() => $q.reject('a'));
+    // $ExpectType IPromise<void>
+    $q.resolve().then(() => {
+        if (Math.random() > 0.5) $q.reject();
+    });
 
     // promise.catch
-    assertPromiseType<any>(promise.catch((err) => err));
-    assertPromiseType<any>(promise.catch((err) => any));
-    assertPromiseType<TResult>(promise.catch((err) => tresult));
-    assertPromiseType<TResult | angular.IPromise<never>>(promise.catch((err) => anyOf2(tresult, reject)));
-    assertPromiseType<TResult>(promise.catch((err) => anyOf3(tresult, tresultPromise, reject)));
-    assertPromiseType<TResult>(promise.catch((err) => tresultPromise));
-    assertPromiseType<TResult | ng.IHttpResponse<TResult>>(promise.catch((err) => tresultHttpPromise));
-    assertPromiseType<TResult | TOther>(promise.catch((err) => tother));
-    assertPromiseType<TResult | TOther>(promise.catch((err) => totherPromise));
-    assertPromiseType<TResult | ng.IHttpResponse<TOther>>(promise.catch((err) => totherHttpPromise));
+    // $ExpectType IPromise<any>
+    promise.catch(err => err);
+    // $ExpectType IPromise<any>
+    promise.catch(err => any);
+    // $ExpectType IPromise<TResult>
+    promise.catch(err => tresult);
+    // $ExpectType IPromise<TResult>
+    promise.catch(err => anyOf2(tresult, reject));
+    // $ExpectType IPromise<TResult>
+    promise.catch(err => anyOf3(tresult, tresultPromise, reject));
+    // $ExpectType IPromise<TResult>
+    promise.catch(err => tresultPromise);
+    // $ExpectType IPromise<TResult | IHttpResponse<TResult>>
+    promise.catch(err => tresultHttpPromise);
+    // $ExpectType IPromise<TResult | TOther>
+    promise.catch(err => tother);
+    // $ExpectType IPromise<TResult | TOther>
+    promise.catch(err => totherPromise);
+    // $ExpectType IPromise<TResult | IHttpResponse<TOther>>
+    promise.catch(err => totherHttpPromise);
 
-    assertPromiseType<boolean>(promise.catch((err) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
+    // $ExpectType IPromise<boolean>
+    promise
+        .catch(err => tother)
+        .then(
+            ambiguous => (isTResult(ambiguous) ? ambiguous.c : ambiguous.f)
+        );
 
     // promise.finally
-    assertPromiseType<TResult>(promise.finally(() => any));
-    assertPromiseType<TResult>(promise.finally(() => tresult));
-    assertPromiseType<TResult>(promise.finally(() => tother));
+    // $ExpectType IPromise<TResult>
+    promise.finally(() => any);
+    // $ExpectType IPromise<TResult>
+    promise.finally(() => tresult);
+    // $ExpectType IPromise<TResult>
+    promise.finally(() => tother);
 }
 
 function test_angular_forEach() {
@@ -1186,6 +1264,24 @@ function NgModelControllerTyping() {
             then(() => $q.reject('exists'), () => true);
     };
 }
+
+// FormController
+angular.module('app').directive('formDebugChecker', () => {
+    return {
+        require: '^^form',
+        link: (scope, el, attrs, ctrl) => {
+            const form = ctrl as angular.IFormController;
+            el.on('click', () => {
+                const report = [] as string[];
+                angular.forEach(form.$error, (controls, validationErrorKey) => {
+                    const names = controls.map(control => control.$name);
+                    report.push(`${validationErrorKey}: ${controls.length} control(s) (${names.join(', ')})`);
+                });
+                console.log(`This form has ${report.length} error(s).\n${report.join('\n')}`);
+            });
+        }
+    };
+});
 
 let $filter: angular.IFilterService;
 

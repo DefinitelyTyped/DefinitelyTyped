@@ -196,7 +196,7 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
 });
 
 class IconDirective implements ng.IDirective {
-    private $mdIcon: ng.material.IIcon;
+    private readonly $mdIcon: ng.material.IIcon;
     constructor($mdIcon: ng.material.IIcon) {
         this.$mdIcon = $mdIcon;
     }

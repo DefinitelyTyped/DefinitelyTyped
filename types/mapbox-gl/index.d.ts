@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.42.2
+// Type definitions for Mapbox GL JS v0.43.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,8 +26,12 @@ declare namespace mapboxgl {
         constructor(options?: MapboxOptions);
 
         addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
+        
+        addControl(control: IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
         removeControl(control: Control): this;
+        
+        removeControl(control: IControl): this;
 
         addClass(klass: string, options?: mapboxgl.StyleOptions): this;
 
@@ -57,9 +61,9 @@ declare namespace mapboxgl {
 
         unproject(point: PointLike): mapboxgl.LngLat;
 
-        queryRenderedFeatures(pointOrBox?: PointLike | PointLike[], parameters?: { layers?: string[], filter?: any[] }): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+        queryRenderedFeatures(pointOrBox?: PointLike | PointLike[], parameters?: { layers?: string[], filter?: any[] }): GeoJSON.Feature<GeoJSONGeometry>[];
 
-        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): GeoJSON.Feature<GeoJSONGeometry>[];
 
         setStyle(style: mapboxgl.Style | string): this;
 
@@ -79,6 +83,8 @@ declare namespace mapboxgl {
 
         addImage(name: string, image: HTMLImageElement | ArrayBufferView, options?: { width?: number, height?: number, pixelRatio?: number }): this;
 
+        hasImage(name: string): boolean;
+
         removeImage(name: string): this;
 
         loadImage(url: string, callback: Function): this;
@@ -93,7 +99,7 @@ declare namespace mapboxgl {
 
         setFilter(layer: string, filter?: any[]): this;
 
-        setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
+        setLayerZoomRange(layerId: string, minzoom?: number, maxzoom?: number): this;
 
         getFilter(layer: string): any[];
 
@@ -159,7 +165,7 @@ declare namespace mapboxgl {
 
         setPitch(pitch: number, eventData?: EventData): this;
 
-        fitBounds(bounds: LngLatBoundsLike, options?: { linear?: boolean, easing?: Function, padding?: number | mapboxgl.PaddingOptions, offset?: PointLike, maxZoom?: number }, eventData?: mapboxgl.EventData): this;
+        fitBounds(bounds: LngLatBoundsLike, options?: mapboxgl.FitBoundsOptions, eventData?: mapboxgl.EventData): this;
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
@@ -402,10 +408,6 @@ declare namespace mapboxgl {
         maximumAge?: number;
     }
 
-    export class FitBoundsOptions {
-        maxZoom?: number;
-    }
-
     /**
      * Geolocate
      */
@@ -499,6 +501,8 @@ declare namespace mapboxgl {
         type: 'vector' | 'raster' | 'geojson' | 'image' | 'video' | 'canvas';
     }
 
+    export type GeoJSONGeometry = GeoJSON.Point | GeoJSON.LineString | GeoJSON.MultiPoint | GeoJSON.Polygon | GeoJSON.MultiLineString | GeoJSON.MultiPolygon | GeoJSON.GeometryCollection;
+
     /**
      * GeoJSONSource
      */
@@ -512,11 +516,11 @@ declare namespace mapboxgl {
 
         constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
-        setData(data: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
+        setData(data: GeoJSON.Feature<GeoJSONGeometry> | GeoJSON.FeatureCollection<GeoJSONGeometry> | String): this;
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | string;
+        data?: GeoJSON.Feature<GeoJSONGeometry> | GeoJSON.FeatureCollection<GeoJSONGeometry> | string;
 
         maxzoom?: number;
 
@@ -753,6 +757,10 @@ declare namespace mapboxgl {
 
         getPopup(): Popup;
 
+        getOffset(): PointLike;
+
+        setOffset(offset: PointLike): this;
+
         togglePopup(): this;
     }
 
@@ -862,6 +870,15 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         easing?: Function;
+    }
+
+    export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
+        linear?: boolean;
+        easing?: Function;
+        padding?: number | mapboxgl.PaddingOptions;
+        offset?: mapboxgl.PointLike;
+        maxZoom?: number;
+        maxDuration?: number;
     }
 
     /**

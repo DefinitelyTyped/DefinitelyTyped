@@ -3,6 +3,7 @@
 // Definitions by: Marc Climent <https://github.com/mcliment>
 //                 Gerin Jacob <https://github.com/gerinjacob>
 //                 Bernd Hacker <https://github.com/denyo>
+//                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -59,6 +60,13 @@ export interface ChartConfiguration {
          * The padding on the left of the chart.
          */
         left?: number;
+    };
+
+    resize?: {
+        /**
+         * Indicate if the chart should automatically get resized when the window gets resized.
+         */
+        auto?: boolean;
     };
 
     color?: {
@@ -178,6 +186,10 @@ export interface ChartConfiguration {
          * Set if min or max value will be 0 on bar chart.
          */
         zerobased?: boolean;
+        /**
+         * Set space between bars in bar charts
+         */
+        space?: number;
     };
 
     pie?: {
@@ -574,6 +586,10 @@ export interface XTickConfiguration {
      * Show x axis outer tick.
      */
     outer?: boolean;
+    /**
+     * Set width of x axis tick.
+     */
+    width?: number;
     multiline?: boolean; // Undocumented
 }
 
@@ -726,6 +742,11 @@ export interface TooltipOptions {
      * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
      */
     contents?(data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any): string;
+    /**
+     * Set tooltip values order
+     * Available Values: desc, asc, any[], function (data1, data2) { ... }, null
+     */
+    order?: string | any[] | ((data1: any, data2: any) => number) | null;
 }
 
 export interface SubchartOptions {

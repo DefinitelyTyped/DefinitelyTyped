@@ -137,10 +137,10 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
     static $inject = ["$http", "$rootScope", "$urlRouter", "$state"];
 
     constructor(
-        private $http: ng.IHttpService,
-        private $rootScope: ng.IRootScopeService,
-        private $urlRouter: ng.ui.IUrlRouterService,
-        private $state: ng.ui.IStateService
+        private readonly $http: ng.IHttpService,
+        private readonly $rootScope: ng.IRootScopeService,
+        private readonly $urlRouter: ng.ui.IUrlRouterService,
+        private readonly $state: ng.ui.IStateService
     ) {
         $rootScope.$on("$locationChangeSuccess", (event: ng.IAngularEvent) => this.onLocationChangeSuccess(event));
         $rootScope.$on('$stateNotFound', (event: ng.IAngularEvent, unfoundState: ng.ui.IUnfoundState, fromState: ng.ui.IState, fromParams: {}) =>

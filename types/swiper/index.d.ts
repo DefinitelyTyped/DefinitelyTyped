@@ -320,8 +320,8 @@ declare class Swiper {
     enableMousewheelControl(): void;
     disableKeyboardControl(): void;
     enableKeyboardControl(): void;
-    disableTouchContro(): void;
-    enableTouchContro(): void;
+    disableTouchControl(): void;
+    enableTouchControl(): void;
     unsetGrabCursor(): void;
     setGrabCursor(): void;
 

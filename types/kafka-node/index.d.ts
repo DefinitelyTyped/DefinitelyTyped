@@ -10,13 +10,13 @@ export class Client {
     topicExists(topics: string[], cb: (error?: TopicsNotExistError | any) => any): void;
     refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
     sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
+    // Note: socket_error is currently KafkaClient only, and zkReconnect is currently Client only.
+    on(eventName: "brokersChanged" | "close" | "connect" | "ready" | "reconnect" | "zkReconnect", cb: () => any): this;
+    on(eventName: "error" | "socket_error", cb: (error: any) => any): this;
 }
 
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
-    on(eventName: "ready", cb: () => any): this;
-    on(eventName: "reconnect", cb: () => void): this;
-    on(eventName: "error", cb: (error: any) => any): this;
     connect(): void;
 }
 
@@ -99,7 +99,7 @@ export interface Message {
   offset?: number;
   partition?: number;
   highWaterOffset?: number;
-  key?: number;
+  key?: string;
 }
 
 export interface ProducerOptions {

@@ -115,6 +115,7 @@ interface JQuery {
 
     carousel(options?: CarouselOptions): JQuery;
     carousel(command: string): JQuery;
+    carousel(index: number): JQuery;
 
     typeahead(options?: TypeaheadOptions): JQuery;
 

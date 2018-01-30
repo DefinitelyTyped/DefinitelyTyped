@@ -1,10 +1,3 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
-// Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
-// Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 //////////////////////////////////////////////
 /// Core Library
 //////////////////////////////////////////////
@@ -80,7 +73,7 @@ declare module Microsoft.Maps.SpatialMath {
     export function convertArea(area: number, fromUnits: AreaUnits, toUnits: AreaUnits): number;
 
     /**
-     * Converts a distance from one distance units to another. 
+     * Converts a distance from one distance units to another.
      * @param distance A number that represents a distance to convert.
      * @param fromUnits The distance units the original distance is in.
      * @param toUnits The disired distance units to convert to.
@@ -119,7 +112,7 @@ declare module Microsoft.Maps.SpatialMath {
     export function getDistanceTo(origin: Location, destination: Location, units?: DistanceUnits, highAccuracy?: boolean): number;
 
     /**
-     * Retrieves the radius of the earth in a specific distance unit for WGS84. 
+     * Retrieves the radius of the earth in a specific distance unit for WGS84.
      * @param units Unit of distance measurement. Default: Meters
      * @returns A number that represents the radius of the earth in a specific distance unit.
      **/
@@ -145,13 +138,13 @@ declare module Microsoft.Maps.SpatialMath {
      * Calculates the distance between all Location objects in an array.
      * @param path The array of Location objects that make up the path to calculate the length of.
      * @param units Unit of distance measurement. Default: Meters
-     * @param highAccuracy If set to true, uses the more accurate Vincenty algorithm for calcuating distances. Otherwise the faster Haversine formula is used. 
+     * @param highAccuracy If set to true, uses the more accurate Vincenty algorithm for calcuating distances. Otherwise the faster Haversine formula is used.
      * @returns The distance between all Locations in between all Location objects in an array on the surface of a earth in the specifed units.
      **/
     export function getLengthOfPath(path: Location[], units?: DistanceUnits, highAccuracy?: boolean): number;
 
     /**
-     * Calculates the Location object on a path that is a specified distance away from the start of the path. If the specified distance is longer 
+     * Calculates the Location object on a path that is a specified distance away from the start of the path. If the specified distance is longer
      * than the length of the path, the last Location of the path will be returned.
      * @param path A polyline or array of Location coordinates that form a path.
      * @param distance The distance along the path (from the start) to calculate the location for.
@@ -197,7 +190,7 @@ declare module Microsoft.Maps.SpatialMath {
     /**
      * Tries to parse the given string that is in Degree Minute Seconds format. For Example: 35° 26′ 31″ E or 40° 26′ 46″ N 79° 58′ 56″ W
      * @param input A string in Degree Minute Seconds format to parse.
-     * @returns Returns a decimal degree value if only a single angle is provided. If two angles provided in the string, then a 
+     * @returns Returns a decimal degree value if only a single angle is provided. If two angles provided in the string, then a
      * Location object is returned. If string is in an invalid format, null is returned.
      */
     export function tryParseDegMinSec(input: string): number | Location;
@@ -233,7 +226,7 @@ declare module Microsoft.Maps.SpatialMath.Tiles {
     export function groundResolution(latitude: number, zoom: number, units?: SpatialMath.DistanceUnits): number;
 
     /**
-     * Converts a Pixel coordinate into a Geospatial Location at a specified zoom level. 
+     * Converts a Pixel coordinate into a Geospatial Location at a specified zoom level.
      * Global Pixel coordinates are relative to the top left corner of the map (90, -180)
      * @param point Pixel coordinate.
      * @param zoom Zoom level.
@@ -346,22 +339,22 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
     export function centroid(shape: IPrimitive | IPrimitive[]): Location;
 
     /**
-     * Calculates an approximate concave hull that best fits the data. 
+     * Calculates an approximate concave hull that best fits the data.
      * A concave hull is a shape that represents that a possible concave geometry that encloses all shapes in the specified data set.
-     * If a single unique Location is in the data set, a Pushpin is returned. If only two unique Locations are provided, or if all Locations form a line, a Polyline is returned. 
+     * If a single unique Location is in the data set, a Pushpin is returned. If only two unique Locations are provided, or if all Locations form a line, a Polyline is returned.
      * If 3 or more unique Locations are in the data set a Polygon, or array of Polygons will be returned.
      * @param shapes Shape(s) whose Location(s) or Location(s) are to be used to generate a concave hull.
      * @param allowMultiPolygons A boolean indicating if the resulting concave hull can be a MultiPolygon. Default: false
      * @param allowHoles A boolean indicating if the polygons in the resulting concave hull can have holes in them. Default: false
      * @param options A set of polygon options to apply to the generated shape.
-     * @returns An approximate concave hull that best fits the data. 
-     * If a single unique Location is in the data set, a Pushpin is returned. If only two unique Locations are provided, or if all Locations form a line, a Polyline is returned. 
+     * @returns An approximate concave hull that best fits the data.
+     * If a single unique Location is in the data set, a Pushpin is returned. If only two unique Locations are provided, or if all Locations form a line, a Polyline is returned.
      * If 3 or more unique Locations are in the data set a Polygon, or array of Polygons will be returned.
      */
     export function concaveHull(shapes: Location | IPrimitive | (Location | IPrimitive)[], allowMultiPolygons?: boolean, allowHoles?: boolean, options?: IPolygonOptions): IPrimitive | IPrimitive[];
 
     /**
-     * Given two shapes, determines if the first one contains the second one 
+     * Given two shapes, determines if the first one contains the second one
      * (or, the second shape is a subset of the first shape) or not.
      * @param shapeA The first shape to test against the second.
      * @param shapeB The second shape to test against the first.
@@ -386,7 +379,7 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
     export function delaunayTriangles(shapes: Location | IPrimitive | (Location | IPrimitive)[], options?: IPolygonOptions): Polygon[];
 
     /**
-     * Returns an object that represents area of an initial shape subtracted by the overlapping area of a second shape. 
+     * Returns an object that represents area of an initial shape subtracted by the overlapping area of a second shape.
      * @param shapeA The first shape.
      * @param shapeB The second shape to subtract from the first.
      * @returns A set of shapes that represent the area of the first shape that is not overlapped by the second shape.
@@ -394,17 +387,17 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
     export function difference(shapeA: IPrimitive | IPrimitive[], shapeB: IPrimitive | IPrimitive[]): IPrimitive | IPrimitive[];
 
     /**
-     * Calculates the approximate shortest distance between any two shapes. 
+     * Calculates the approximate shortest distance between any two shapes.
      * @param shapeA The first shape to calculate the distance from.
      * @param shapeB The second shape to calculate the distance to.
      * @param units Unit of distance measurement. Default: Meters
-     * @param highAccuracy If set to true, uses the more accurate Vincenty algorithm for calcuating distances. Otherwise the faster Haversine formula is used. 
+     * @param highAccuracy If set to true, uses the more accurate Vincenty algorithm for calcuating distances. Otherwise the faster Haversine formula is used.
      * @returns The shorested distance between the shapes in the specified units.
      */
     export function distance(shapeA: Location | IPrimitive | (Location | IPrimitive)[], shapeB: Location | IPrimitive | (Location | IPrimitive)[], units?: DistanceUnits, highAccuracy?: boolean): number;
 
     /**
-     * Returns an object that represents the area where two shapes intersect. 
+     * Returns an object that represents the area where two shapes intersect.
      * @param shapeA The first shape.
      * @param shapeB The second shape.
      * @returns A set of shapes that represents the area where two shapes intersect.
@@ -420,10 +413,10 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
     export function intersects(shapeA: Location | IPrimitive | (Location | IPrimitive)[], shapeB: Location | IPrimitive | (Location | IPrimitive)[]): boolean;
 
     /**
-     * Tests to see if the shape is valid and meets the requirements of an SQL Geography type and other OGC compliant systems. Polylines & Polygons can't be self intersecting. For Polygons, 
+     * Tests to see if the shape is valid and meets the requirements of an SQL Geography type and other OGC compliant systems. Polylines & Polygons can't be self intersecting. For Polygons,
      * coordinates in an exterior rings have a counter-clockwise orientation, while holes have a clockwise orientation.
      * @param shape The shape to test for validity.
-     * @returns Returns a boolean indicting if the specified shape(s) is valid or not. 
+     * @returns Returns a boolean indicting if the specified shape(s) is valid or not.
      */
     export function isValid(shape: IPrimitive | IPrimitive[]): boolean;
 
@@ -431,13 +424,13 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
      * Calculates the distance between all Locations in a shape. If the shape is a polygon, the length of the perimeter of all rings is calculated.
      * @param shape The shape to calculate the length of.
      * @param units Unit of distance measurement. Default: Meters
-     * @param highAccuracy If set to true, uses the more accurate Vincenty algorithm for calcuating distances. Otherwise the faster Haversine formula is used. 
+     * @param highAccuracy If set to true, uses the more accurate Vincenty algorithm for calcuating distances. Otherwise the faster Haversine formula is used.
      * @returns The distance between all Locations in a polyline or the perimeter of a ploygon on the surface of a earth in the specifed units.
      */
     export function calculateLength(shape: IPrimitive | IPrimitive[], units ?: DistanceUnits, highAccuracy ?: boolean): number;
 
     /**
-     * Takes a shape and returns a copy of it that meets the requirements of an SQL Geography type and other OGC compliant systems. Polylines & Polygons can't be self intersecting. For Polygons, 
+     * Takes a shape and returns a copy of it that meets the requirements of an SQL Geography type and other OGC compliant systems. Polylines & Polygons can't be self intersecting. For Polygons,
      * coordinates in an exterior rings have a counter-clockwise orientation, while holes have a clockwise orientation.
      * @param shape The shape to make valid.
      * @returns Valiated version of the provided shape. May be a different shape type than what was provided. i.e. A polygon may be broken up into an array of polygons (MultiPolygon).
@@ -446,12 +439,12 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
 
     /**
      * Calculates the nearest Location objects between to shapes that lie on the shapes.
-     * If the shapes do not overlap, this calculates a location on each shape that is closest to the other shape. 
+     * If the shapes do not overlap, this calculates a location on each shape that is closest to the other shape.
      * If the shapes overlap, a location that is within the intersection area of the shapes will be added twice to an array, once for each shape, and returned.
      * @param shapeA The first shape.
      * @param shapeB The second shape.
-     * @returns An array of two Location objects that represent the nearest points between two shapes. 
-     * The Location objects are in the same order as the input shapes. 
+     * @returns An array of two Location objects that represent the nearest points between two shapes.
+     * The Location objects are in the same order as the input shapes.
      * Returns null if nearest points were unable to be computed.
      */
     export function nearestLocations(shapeA: Location | IPrimitive | (Location | IPrimitive)[], shapeB: Location | IPrimitive | (Location | IPrimitive)[]): Location[];
@@ -460,7 +453,7 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
      * Reduces the resolution of a shape using the Douglas-Peucker algorithm.
      * @param shape The shape to reduce the resolution of.
      * @param tolerance A tolerance distance in meters used by the reduction algorithms.
-     * @returns A version of the specified shape that has been reduced. 
+     * @returns A version of the specified shape that has been reduced.
      */
     export function reduce(shape: IPrimitive | IPrimitive[], tolerance: number): IPrimitive | IPrimitive[];
 
@@ -502,7 +495,7 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
 
     /**
      * Returns an object that represents all points that are either in one shape instance or another, but not those points that lie in both instances.
-     * "Sym" stands for Symmetric. symDifference is an OGC standard name for this calculation used in most spatial math libraries, including SQL. 
+     * "Sym" stands for Symmetric. symDifference is an OGC standard name for this calculation used in most spatial math libraries, including SQL.
      * @param shapeA The first shape.
      * @param shapeB The second shape.
      * @returns A shape that represents the symetric difference between two shapes.
@@ -518,7 +511,7 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
     export function union(shapeA: IPrimitive | IPrimitive[], shapeB: IPrimitive | IPrimitive[]): IPrimitive | IPrimitive[];
 
     /**
-     * Performs a union operation on a set of shapes. 
+     * Performs a union operation on a set of shapes.
      * If a shape doesn't overlap with the rest, the returned result will be an array of shapes containing this shape and the union of the rest.
      * @param shapes An array of shapes to union together.
      * @returns A shape that represents the union of all specified shapes.
@@ -526,10 +519,10 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
     export function unionAggregate(shapes: IPrimitive[]): IPrimitive | IPrimitive[];
 
     /**
-     * Creates a Voronoi diagram from the Location objects of the provided shapes. The diagram is returned as an array of Polygons. 
+     * Creates a Voronoi diagram from the Location objects of the provided shapes. The diagram is returned as an array of Polygons.
      * If a clip region is specified, the diagram will be clipped accordingly.
      * @param shapes Location(s) of shape(s) or Location(s) to generate a Voronoi diagram.
-     * @param clipRegion A region to clip the voronoi diagram to. 
+     * @param clipRegion A region to clip the voronoi diagram to.
      * @param options A set of polygon options to apply to the generated shape.
      * @returns An array of polygons that form a Voronoi diagram.
      */

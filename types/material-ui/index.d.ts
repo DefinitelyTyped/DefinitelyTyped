@@ -932,11 +932,11 @@ declare namespace __MaterialUI {
         containerElement?: React.ReactNode | string;
         labelColor?: string;
         labelStyle?: React.CSSProperties;
+        onClick?: React.MouseEventHandler<Chip>;
         onRequestDelete?: React.TouchEventHandler<Chip>;
-        onTouchTap?: React.TouchEventHandler<Chip>;
         style?: React.CSSProperties;
-        onClick?: React.MouseEventHandler<{}>;
-}
+    }
+
     export class Chip extends React.Component<ChipProps> {
     }
 
@@ -962,7 +962,7 @@ declare namespace __MaterialUI {
             onDismiss?(): void;
             onFocus?: React.FocusEventHandler<{}>;
             onShow?(): void;
-            onTouchTap?: React.TouchEventHandler<{}>;
+            onClick?: React.TouchEventHandler<{}>;
             shouldDisableDate?(day: Date): boolean;
             style?: React.CSSProperties;
             textFieldStyle?: React.CSSProperties;
@@ -1205,7 +1205,7 @@ declare namespace __MaterialUI {
             multiple?: boolean;
             onChange?(e: React.SyntheticEvent<{}>, itemValue: any | any[]): void;
             onEscKeyDown?: React.KeyboardEventHandler<{}>;
-            onItemTouchTap?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
+            onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyDown?: React.KeyboardEventHandler<{}>;
             selectedMenuItemStyle?: React.CSSProperties;
             style?: React.CSSProperties;
@@ -1241,37 +1241,37 @@ declare namespace __MaterialUI {
         export interface IconMenuProps {
             // <Menu/> is the element that get the 'other' properties
             anchorOrigin?: propTypes.origin;
+            animated?: boolean;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             className?: string;
-            iconButtonElement: React.ReactElement<IconButtonProps>;
+            clickCloseDelay?: number;
+            iconButtonElement: React.ReactElement<IconButton>;
             iconStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
-            onItemTouchTap?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
+            onClick?(e: React.SyntheticEvent<{}>): void;
+            onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
             onMouseDown?: React.MouseEventHandler<{}>;
             onMouseEnter?: React.MouseEventHandler<{}>;
             onMouseLeave?: React.MouseEventHandler<{}>;
             onMouseUp?: React.MouseEventHandler<{}>;
             onRequestChange?(opening: boolean, reason: string): void;
-            onClick?: React.MouseEventHandler<{}>;
             open?: boolean;
-            style?: React.CSSProperties;
             targetOrigin?: propTypes.origin;
-            touchTapCloseDelay?: number;
             useLayerForClickAway?: boolean;
 
-            animated?: boolean;
+            // Other properties from <Menu/>
             autoWidth?: boolean;
+            children?: React.ReactElement<MenuItemProps> | Array<React.ReactElement<MenuItemProps>>;
             desktop?: boolean;
+            disableAutoFocus?: boolean;
+            initiallyKeyboardFocused?: boolean;
             listStyle?: React.CSSProperties;
             maxHeight?: number;
             multiple?: boolean;
             onChange?(e: React.SyntheticEvent<{}>, itemValue: any | any[]): void;
-            onKeyDown?: React.KeyboardEventHandler<{}>;
-            selectedMenuItemStyle?: React.CSSProperties;
+            style?: React.CSSProperties;
             value?: any | any[];
-            valueLink?: ReactLink<any | any[]>;
-            width?: string | number;
         }
         export class IconMenu extends React.Component<IconMenuProps> {
         }
@@ -1281,7 +1281,6 @@ declare namespace __MaterialUI {
             anchorOrigin?: propTypes.origin;
             animated?: boolean;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
-            autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
             iconButton?: React.ReactNode;
@@ -1410,6 +1409,7 @@ declare namespace __MaterialUI {
         // <DropDownMenu/> is the element that get the 'other' properties
         autoWidth?: boolean;
         disabled?: boolean;
+        dropDownMenuProps?: Menus.DropDownMenuProps;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
         floatingLabelFixed?: boolean;

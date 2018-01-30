@@ -12,7 +12,7 @@ import {
 
 export type FieldValue = any;
 
-export type FieldState = {
+export interface FieldState {
     active?: boolean;
     touched?: boolean;
     visited?: boolean;
@@ -22,7 +22,7 @@ export type FieldState = {
 export type FieldType = "Field" | "FieldArray";
 
 export interface DataShape {
-    [fieldName: string]: FieldValue
+    [fieldName: string]: FieldValue;
 }
 
 export type FormErrors<FormData extends DataShape> = {
@@ -35,7 +35,7 @@ export type FormWarnings<FormData extends DataShape> = {
 
 export type FormMeta<FormData extends DataShape> = {
     [P in keyof FormData]?: FieldState;
-}
+};
 
 /**
  * A component class or stateless function component.

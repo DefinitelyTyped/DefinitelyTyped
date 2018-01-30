@@ -1,11 +1,11 @@
-// Type definitions for yup 0.23
+// Type definitions for yup 0.24
 // Project: https://github.com/jquense/yup
 // Definitions by: Dominik Hardtke <https://github.com/dhardtke>, Vladyslav Tserman <https://github.com/vtserman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 export function reach(schema: Schema, path: string, value?: any, context?: any): Schema;
-export function addMethod(schemaType: Schema, name: string, method: (this: Schema) => Schema): void;
+export function addMethod<T extends Schema>(schemaCtor: AnySchemaConstructor, name: string, method: (this: T, ...args: any[]) => T): void;
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy(fn: (value: any) => Schema): Lazy;
 export function ValidationError(errors: string | string[], value: any, path: string, type?: any): ValidationError;
@@ -18,6 +18,14 @@ export const bool: BooleanSchemaConstructor;
 export const date: DateSchemaConstructor;
 export const array: ArraySchemaConstructor;
 export const object: ObjectSchemaConstructor;
+
+export type AnySchemaConstructor = MixedSchemaConstructor
+    | StringSchemaConstructor
+    | NumberSchemaConstructor
+    | BooleanSchemaConstructor
+    | DateSchemaConstructor
+    | ArraySchemaConstructor
+    | ObjectSchemaConstructor;
 
 export interface Schema {
     clone(): this;
@@ -81,6 +89,8 @@ export interface NumberSchemaConstructor {
 export interface NumberSchema extends Schema {
     min(limit: number | Ref, message?: string): NumberSchema;
     max(limit: number | Ref, message?: string): NumberSchema;
+    lessThan(limit: number | Ref, message?: string): NumberSchema;
+    moreThan(limit: number | Ref, message?: string): NumberSchema;
     positive(message?: string): NumberSchema;
     negative(message?: string): NumberSchema;
     integer(message?: string): NumberSchema;
@@ -231,4 +241,15 @@ export interface Ref {
 
 // tslint:disable-next-line:no-empty-interface
 export interface Lazy extends Schema {
+}
+
+export interface LocaleObject {
+  mixed?: { [key in keyof MixedSchema]?: string };
+  string?: { [key in keyof StringSchema]?: string };
+  number?: { [key in keyof NumberSchema]?: string };
+  boolean?: { [key in keyof BooleanSchema]?: string };
+  bool?: { [key in keyof BooleanSchema]?: string };
+  date?: { [key in keyof DateSchema]?: string };
+  array?: { [key in keyof ArraySchema]?: string };
+  object?: { [key in keyof ObjectSchema]?: string };
 }

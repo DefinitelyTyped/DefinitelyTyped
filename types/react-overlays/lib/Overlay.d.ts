@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { TransitionCallbacks } from 'react-overlays';
+import { TransitionProps } from 'react-transition-group/Transition';
 import { PortalProps } from './Portal';
 import { PositionProps } from './Position';
 
@@ -29,5 +30,5 @@ interface OverlayProps extends TransitionCallbacks, PortalProps, PositionProps {
    * A `react-transition-group@2.0.0` `<Transition/>` component
    * used to animate the overlay as it changes visibility.
    */
-  transition?: Element;
+  transition?: React.ComponentType<TransitionProps>;
 }
