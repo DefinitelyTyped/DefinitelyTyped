@@ -1,13 +1,13 @@
 // Type definitions for yup 0.24
 // Project: https://github.com/jquense/yup
-// Definitions by: Dominik Hardtke <https://github.com/dhardtke>, Vladyslav Tserman <https://github.com/vtserman>
+// Definitions by: Dominik Hardtke <https://github.com/dhardtke>, Vladyslav Tserman <https://github.com/vtserman>, Moreton Bay Regional Council <https://github.com/MoretonBayRC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function reach(schema: Schema, path: string, value?: any, context?: any): Schema;
-export function addMethod<T extends Schema>(schemaCtor: AnySchemaConstructor, name: string, method: (this: T, ...args: any[]) => T): void;
+export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
+export function addMethod<T extends Schema<any>>(schemaCtor: AnySchemaConstructor, name: string, method: (this: T, ...args: any[]) => T): void;
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
-export function lazy(fn: (value: any) => Schema): Lazy;
+export function lazy<T>(fn: (value: T) => Schema<T>): Lazy;
 export function ValidationError(errors: string | string[], value: any, path: string, type?: any): ValidationError;
 
 export const mixed: MixedSchemaConstructor;
@@ -27,7 +27,7 @@ export type AnySchemaConstructor = MixedSchemaConstructor
     | ArraySchemaConstructor
     | ObjectSchemaConstructor;
 
-export interface Schema {
+export interface Schema<T> {
     clone(): this;
     label(label: string): this;
     meta(metadata: any): this;
@@ -61,7 +61,7 @@ export interface MixedSchemaConstructor {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface MixedSchema extends Schema {
+export interface MixedSchema extends Schema<any> {
 }
 
 export interface StringSchemaConstructor {
@@ -69,7 +69,7 @@ export interface StringSchemaConstructor {
     new(): StringSchema;
 }
 
-export interface StringSchema extends Schema {
+export interface StringSchema extends Schema<string> {
     min(limit: number | Ref, message?: string): StringSchema;
     max(limit: number | Ref, message?: string): StringSchema;
     matches(regex: RegExp, message?: string): StringSchema;
@@ -86,7 +86,7 @@ export interface NumberSchemaConstructor {
     new(): NumberSchema;
 }
 
-export interface NumberSchema extends Schema {
+export interface NumberSchema extends Schema<number> {
     min(limit: number | Ref, message?: string): NumberSchema;
     max(limit: number | Ref, message?: string): NumberSchema;
     lessThan(limit: number | Ref, message?: string): NumberSchema;
@@ -104,7 +104,7 @@ export interface BooleanSchemaConstructor {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface BooleanSchema extends Schema {
+export interface BooleanSchema extends Schema<boolean> {
 }
 
 export interface DateSchemaConstructor {
@@ -112,36 +112,36 @@ export interface DateSchemaConstructor {
     new(): DateSchema;
 }
 
-export interface DateSchema extends Schema {
+export interface DateSchema extends Schema<Date> {
     min(limit: Date | string | Ref, message?: string): DateSchema;
     max(limit: Date | string | Ref, message?: string): DateSchema;
 }
 
 export interface ArraySchemaConstructor {
-    (): ArraySchema;
-    new(): ArraySchema;
+    <T>(): ArraySchema<T>;
+    new<T>(): ArraySchema<T>;
 }
 
-export interface ArraySchema extends Schema {
-    of(type: Schema): ArraySchema;
-    min(limit: number | Ref, message?: string): ArraySchema;
-    max(limit: number | Ref, message?: string): ArraySchema;
-    ensure(): ArraySchema;
-    compact(rejector: (value: any) => boolean): ArraySchema;
+export interface ArraySchema<T> extends Schema<T[]> {
+    of(type: Schema<T>): ArraySchema<T>;
+    min(limit: number | Ref, message?: string): ArraySchema<T>;
+    max(limit: number | Ref, message?: string): ArraySchema<T>;
+    ensure(): ArraySchema<T>;
+    compact(rejector: (value: any) => boolean): ArraySchema<T>;
 }
 
 export interface ObjectSchemaConstructor {
-    (fields?: any): ObjectSchema;
-    new(): ObjectSchema;
+    <T>(fields?: T): ObjectSchema<T>;
+    new <T>(): ObjectSchema<T>;
 }
 
-export interface ObjectSchema extends Schema {
-    shape(fields: any, noSortEdges?: Array<[string, string]>): ObjectSchema;
-    from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema;
-    noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema;
+export interface ObjectSchema<T> extends Schema<T> {
+    shape(fields: { [field in keyof T]: Schema<T[field]> }, noSortEdges?: Array<[string, string]>): ObjectSchema<T>;
+    from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
+    noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
-    camelCase(): ObjectSchema;
-    constantCase(): ObjectSchema;
+    camelCase(): ObjectSchema<T>;
+    constantCase(): ObjectSchema<T>;
 }
 
 export type TransformFunction<T> = ((this: T, value: any, originalValue: any) => any);
@@ -240,7 +240,7 @@ export interface Ref {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface Lazy extends Schema {
+export interface Lazy extends Schema<any> {
 }
 
 export interface LocaleObject {
@@ -250,6 +250,6 @@ export interface LocaleObject {
   boolean?: { [key in keyof BooleanSchema]?: string };
   bool?: { [key in keyof BooleanSchema]?: string };
   date?: { [key in keyof DateSchema]?: string };
-  array?: { [key in keyof ArraySchema]?: string };
-  object?: { [key in keyof ObjectSchema]?: string };
+  array?: { [key in keyof ArraySchema<any>]?: string };
+  object?: { [key in keyof ObjectSchema<any>]?: string };
 }
