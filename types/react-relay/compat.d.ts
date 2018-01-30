@@ -4,14 +4,13 @@ import {
     RelayPaginationProp as RelayModernPaginationProp,
     RelayRefetchProp as RelayModernRefetchProp,
 } from "./index";
+export { ConcreteFragment, ConcreteRequest, ConcreteBatchRequest } from "relay-runtime";
 import * as RelayRuntimeTypes from "relay-runtime";
 import { RelayEnvironmentInterface } from "./classic";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
 // ~~~~~~~~~~~~~~~~~~~~~
-export type ConcreteFragment = any;
-export type ConcreteBatch = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
 
