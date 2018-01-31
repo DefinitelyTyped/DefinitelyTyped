@@ -1,4 +1,4 @@
-import { SourceCode, Linter, CLIEngine, RuleTester } from 'eslint';
+import { SourceCode, Linter, CLIEngine, RuleTester, Ast } from 'eslint';
 
 // =============================================
 //                 SourceCode
@@ -6,7 +6,7 @@ import { SourceCode, Linter, CLIEngine, RuleTester } from 'eslint';
 
 const SOURCE = `var foo = bar;`;
 
-const ast = { comments: [], tokens: [], loc: {}, range: [] };
+const ast: Ast = { comments: [], tokens: [], loc: { start: { line: 0, column: 0 }, end: { line: 0, column: 10 } }, range: [0, 17] };
 const sourceCode = new SourceCode(SOURCE, ast);
 
 const text: string = sourceCode.getText();
