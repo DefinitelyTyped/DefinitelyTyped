@@ -6,9 +6,9 @@
 import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
 
 /** Fetches the binary file at the specified input URL as a Blob. If init is specified, it is passed along to the underlying call to fetch. */
-export function blob<ResponseData>(url: string, init?: RequestInit): Promise<ResponseData>;
+export function blob(url: string, init?: RequestInit): Promise<Blob>;
 /** Fetches the binary file at the specified input URL as an ArrayBuffer. If init is specified, it is passed along to the underlying call to fetch. */
-export function buffer<ResponseData>(url: string, init?: RequestInit): Promise<ResponseData>;
+export function buffer(url: string, init?: RequestInit): Promise<ArrayBuffer>;
 
 /** Equivalent to d3.dsv with the comma character as the delimiter. */
 export function csv<ParsedRow extends DSVRowAny>(
@@ -26,7 +26,7 @@ export function dsv<ParsedRow extends DSVRowAny>(
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /** Fetches the image at the specified input URL. If init is specified, it is passed along to the underlying call to fetch. */
-export function image<ResponseData>(url: string, init?: RequestInit): Promise<ResponseData>;
+export function image(url: string, init?: RequestInit): Promise<HTMLImageElement>;
 
 /** Fetches the json file at the specified input URL. If init is specified, it is passed along to the underlying call to fetch. */
 export function json<ResponseData>(url: string, init?: RequestInit): Promise<ResponseData>;
