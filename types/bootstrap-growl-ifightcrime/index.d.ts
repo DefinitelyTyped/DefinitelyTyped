@@ -7,11 +7,17 @@
 /// <reference types="jquery" />
 
 declare namespace BootstrapGrowlIfightcrime {
+    type OffsetPositionType = 'top' | 'bottom';
+
+    type AlertType = 'info' | 'danger' | 'success' | 'warning' | string | null;
+
+    type AlignType = 'left' | 'center' | 'right';
+
     interface OffsetOption {
         /**
          * Position: top or bottom
          */
-         from?: string;
+         from?: OffsetPositionType;
 
         /**
          * Offset amount
@@ -26,9 +32,9 @@ declare namespace BootstrapGrowlIfightcrime {
          ele?: string;
 
         /**
-         * Values of (null, 'info', 'danger', 'success')
+         * Values of (null, 'info', 'danger', 'success', 'warning') or another value
          */
-         type?: string;
+         type?: AlertType;
 
         /**
          * Offset Options
@@ -38,7 +44,7 @@ declare namespace BootstrapGrowlIfightcrime {
         /**
          * 'left', 'right', or 'center'
          */
-         align?: string;
+         align?: AlignType;
 
         /**
          * Integer
