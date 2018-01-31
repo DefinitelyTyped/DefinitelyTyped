@@ -5,7 +5,6 @@ interface MyType {
     foo: string;
 }
 
-let promise: Promise<MyType>;
 const url = 'foo.bar';
 
 const init: RequestInit = {};
@@ -16,8 +15,8 @@ let p2: Promise<ArrayBuffer> = d3Fetch.buffer(url);
 p2 = d3Fetch.buffer(url, init);
 let p3: Promise<HTMLImageElement> = d3Fetch.image(url);
 p3 = d3Fetch.image(url, init);
-promise = d3Fetch.json<MyType>(url);
-promise = d3Fetch.json<MyType>(url, init);
+let p4: Promise<any> = d3Fetch.json(url);
+p4 = d3Fetch.json(url, init);
 
 let myString: Promise<string>;
 myString = d3Fetch.text(url);
