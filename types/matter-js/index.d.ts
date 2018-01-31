@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - 0.9.1
+// Type definitions for Matter.js - 0.10.0
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
