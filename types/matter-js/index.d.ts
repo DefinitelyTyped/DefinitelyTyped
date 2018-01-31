@@ -2,7 +2,7 @@
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
-//                 Piotr Pietrzak <https://github.com/hasparus>git 
+//                 Piotr Pietrzak <https://github.com/hasparus> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -17,7 +17,7 @@ declare namespace Matter {
      * @method use
      * @param ...plugin {Function} The plugin(s) to install on `base` (multi-argument).
      */
-    export function use(...plugins: (object | string)[]): void;
+    export function use(...plugins: (Plugin | string)[]): void;
 
     /**
     * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
@@ -3332,6 +3332,10 @@ declare namespace Matter {
                     | string;
 
     export class Plugin {
+        name: string;
+        version: string;
+        install: () => void;
+        for?: string;
         
         /**
          * Registers a plugin object so it can be resolved later by name.
@@ -3339,7 +3343,7 @@ declare namespace Matter {
          * @param plugin {} The plugin to register.
          * @return {object} The plugin.
          */
-        static register<T extends object>(plugin: T): T;
+        static register(plugin: Plugin): Plugin;
       
         /**
          * Resolves a dependency to a plugin object from the registry if it exists. 
@@ -3348,7 +3352,7 @@ declare namespace Matter {
          * @param dependency {string} The dependency.
          * @return {object} The plugin if resolved, otherwise `undefined`.
          */
-        static resolve(dependency: string): object | undefined;
+        static resolve(dependency: string): Plugin | undefined;
         
         /**
          * Returns `true` if the object meets the minimum standard to be considered a plugin.
@@ -3360,7 +3364,7 @@ declare namespace Matter {
          * @param obj {} The obj to test.
          * @return {boolean} `true` if the object can be considered a plugin otherwise `false`.
          */
-        static isPlugin(obj: object): boolean;
+        static isPlugin(obj: {}): boolean;
 
         /**
          * Returns a pretty printed plugin name and version.
@@ -3368,7 +3372,7 @@ declare namespace Matter {
          * @param plugin {} The plugin.
          * @return {string} Pretty printed plugin name and version.
          */
-        static toString(plugin: string | object): string;
+        static toString(plugin: string | Plugin): string;
 
         /**
          * Returns `true` if `plugin.for` is applicable to `module` by comparing against `module.name` and `module.version`.
@@ -3379,7 +3383,7 @@ declare namespace Matter {
          * @param module {} The module.
          * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: object, module: object): boolean;
+        static isFor(plugin: Plugin, module: {name?: string, [_: string]: any}): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -3397,7 +3401,10 @@ declare namespace Matter {
          * @param module {} The module install plugins on.
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
-        static use(module: object, plugins: string[]): void;
+        static use(
+            module: {uses?: (Plugin | string)[]; [_: string]: any},
+            plugins: (Plugin | string)[]
+        ): void;
 
         /**
          * Recursively finds all of a module's dependencies and returns a flat dependency graph.
@@ -3407,8 +3414,8 @@ declare namespace Matter {
          */
         static dependencies(
             module: Dependency,
-            tracked: object
-        ): object | string | undefined
+            tracked?: {[_: string]: string[]}
+        ): {[_: string]: string[]} | string | undefined
 
         /**
          * Parses a dependency string into its components.
