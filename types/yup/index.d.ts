@@ -131,7 +131,7 @@ export interface ArraySchema<T> extends Schema<T[]> {
 }
 
 export interface ObjectSchemaConstructor {
-    <T>(fields?: T): ObjectSchema<T>;
+    <T>(fields?: { [field in keyof T]: Schema<T[field]> }): ObjectSchema<T>;
     new (): ObjectSchema<{}>;
 }
 
