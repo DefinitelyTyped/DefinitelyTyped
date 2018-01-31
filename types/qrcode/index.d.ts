@@ -130,7 +130,15 @@ export function create(text: string | QRCodeSegment[], options: QRCodeOptions): 
 /**
  * Draws qr code symbol to canvas.
  */
+export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Draws qr code symbol to canvas.
+ */
 export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Draws qr code symbol to canvas.
+ */
+export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
 /**
  * Draws qr code symbol to canvas.
  */
@@ -138,7 +146,15 @@ export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCode
 /**
  * Draws qr code symbol to canvas.
  */
+export function toCanvas(text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Draws qr code symbol to canvas.
+ */
 export function toCanvas(text: string | QRCodeSegment[], callback: (error: Error, canvas: HTMLCanvasElement) => void): void;
+/**
+ * Draws qr code symbol to canvas.
+ */
+export function toCanvas(text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
 /**
  * Draws qr code symbol to canvas.
  */
@@ -146,12 +162,23 @@ export function toCanvas(text: string | QRCodeSegment[], options: QRCodeOptions,
 /**
  * Draws qr code symbol to node canvas.
  */
+export function toCanvas(canvas: any, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Draws qr code symbol to node canvas.
+ */
 export function toCanvas(canvas: any, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
 /**
  * Draws qr code symbol to node canvas.
  */
+export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
+/**
+ * Draws qr code symbol to node canvas.
+ */
 export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: QRCodeOptions, callback: (error: Error) => void): void;
-
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
+export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[]): Promise<any>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -159,11 +186,11 @@ export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCod
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
-export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeToDataURLOptions, callback: (error: Error, url: string) => void): void;
+export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeToDataURLOptions): Promise<any>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
-export function toDataURL(text: string | QRCodeSegment[], callback: (error: Error, url: string) => void): void;
+export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeToDataURLOptions, callback: (error: Error, url: string) => void): void;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -171,11 +198,15 @@ export function toDataURL(text: string | QRCodeSegment[]): Promise<any>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
-export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataURLOptions, callback: (error: Error, url: string) => void): void;
+export function toDataURL(text: string | QRCodeSegment[], callback: (error: Error, url: string) => void): void;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
 export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataURLOptions): Promise<any>;
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
+export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataURLOptions, callback: (error: Error, url: string) => void): void;
 
 /**
  * Returns a string representation of the QR Code.
