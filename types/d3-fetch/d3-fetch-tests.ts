@@ -10,12 +10,12 @@ const url = 'foo.bar';
 
 const init: RequestInit = {};
 
-promise = d3Fetch.blob<MyType>(url);
-promise = d3Fetch.blob<MyType>(url, init);
-promise = d3Fetch.buffer<MyType>(url);
-promise = d3Fetch.buffer<MyType>(url, init);
-promise = d3Fetch.image<MyType>(url);
-promise = d3Fetch.image<MyType>(url, init);
+let p1: Promise<Blob> = d3Fetch.blob(url);
+p1 = d3Fetch.blob(url, init);
+let p2: Promise<ArrayBuffer> = d3Fetch.buffer(url);
+p2 = d3Fetch.buffer(url, init);
+let p3: Promise<HTMLImageElement> = d3Fetch.image(url);
+p3 = d3Fetch.image(url, init);
 promise = d3Fetch.json<MyType>(url);
 promise = d3Fetch.json<MyType>(url, init);
 
