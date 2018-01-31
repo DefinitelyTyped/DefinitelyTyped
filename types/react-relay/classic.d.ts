@@ -219,3 +219,7 @@ export interface RelayProp<V> {
     getPendingTransactions(record: any): RelayMutationTransaction[];
     commitUpdate(mutation: Mutation<any, any>, callbacks?: StoreUpdateCallbacks<any>): any;
 }
+
+export interface RelayProps<V> {
+    readonly relay: RelayProp<V>
+}
