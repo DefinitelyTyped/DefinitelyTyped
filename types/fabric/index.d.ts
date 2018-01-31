@@ -941,7 +941,7 @@ export class StaticCanvas {
 	 * Calculates canvas element offset relative to the document
 	 * This method is also attached as "resize" event handler of window
 	 */
-	calcOffset(): StaticCanvas;
+	calcOffset(): this;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayImage|overlay image} for this canvas
@@ -949,7 +949,7 @@ export class StaticCanvas {
 	 * @param callback callback to invoke when image is loaded and set as an overlay
 	 * @param [options] Optional options to set for the {@link fabric.Image|overlay image}.
 	 */
-	setOverlayImage(image: Image|string, callback: Function, options?: IObjectOptions): StaticCanvas;
+	setOverlayImage(image: Image|string, callback: (img: HTMLImageElement) => void, options?: IImageOptions): this;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundImage|background image} for this canvas
@@ -957,21 +957,21 @@ export class StaticCanvas {
 	 * @param callback Callback to invoke when image is loaded and set as background
 	 * @param [options] Optional options to set for the {@link fabric.Image|background image}.
 	 */
-	setBackgroundImage(image: Image|string, callback?: Function, options?: IObjectOptions): StaticCanvas;
+	setBackgroundImage(image: Image|string, callback?: (img: HTMLImageElement) => void, options?: IImageOptions): this;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayColor|background color} for this canvas
 	 * @param overlayColor Color or pattern to set background color to
 	 * @param callback Callback to invoke when background color is set
 	 */
-	setOverlayColor(overlayColor: string|Pattern, callback: Function): StaticCanvas;
+	setOverlayColor(overlayColor: string|Pattern, callback: (pattern: Pattern | undefined) => void): this;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundColor|background color} for this canvas
 	 * @param backgroundColor Color or pattern to set background color to
 	 * @param callback Callback to invoke when background color is set
 	 */
-	setBackgroundColor(backgroundColor: string|Pattern, callback: Function): StaticCanvas;
+	setBackgroundColor(backgroundColor: string|Pattern, callback: (pattern: Pattern | undefined) => void): StaticCanvas;
 
 	/**
 	 * Returns canvas width (in px)
@@ -988,21 +988,21 @@ export class StaticCanvas {
 	 * @param value                         Value to set width to
 	 * @param        [options]                     Options object
 	 */
-	setWidth(value: number|string, options?: ICanvasDimensionsOptions): StaticCanvas;
+	setWidth(value: number|string, options?: ICanvasDimensionsOptions): this;
 
 	/**
 	 * Sets height of this canvas instance
 	 * @param value                         Value to set height to
 	 * @param        [options]                     Options object
 	 */
-	setHeight(value: number|string, options?: ICanvasDimensionsOptions): StaticCanvas;
+	setHeight(value: number|string, options?: ICanvasDimensionsOptions): this;
 
 	/**
 	 * Sets dimensions (width, height) of this canvas instance. when options.cssOnly flag active you should also supply the unit of measure (px/%/em)
 	 * @param        dimensions                    Object with width/height properties
 	 * @param        [options]                     Options object
 	 */
-	setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): StaticCanvas;
+	setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): this;
 
 	/**
 	 * Returns canvas zoom level
@@ -1013,32 +1013,32 @@ export class StaticCanvas {
 	 * Sets viewport transform of this canvas instance
 	 * @param vpt the transform in the form of context.transform
 	 */
-	setViewportTransform(vpt: number[]): StaticCanvas;
+	setViewportTransform(vpt: number[]): this;
 
 	/**
 	 * Sets zoom level of this canvas instance, zoom centered around point
 	 * @param point to zoom with respect to
 	 * @param value to set zoom to, less than 1 zooms out
 	 */
-	zoomToPoint(point: Point, value: number): StaticCanvas;
+	zoomToPoint(point: Point, value: number): this;
 
 	/**
 	 * Sets zoom level of this canvas instance
 	 * @param value to set zoom to, less than 1 zooms out
 	 */
-	setZoom(value: number): StaticCanvas;
+	setZoom(value: number): this;
 
 	/**
 	 * Pan viewport so as to place point at top left corner of canvas
 	 * @param point to move to
 	 */
-	absolutePan(point: Point): StaticCanvas;
+	absolutePan(point: Point): this;
 
 	/**
 	 * Pans viewpoint relatively
 	 * @param point (position vector) to move by
 	 */
-	relativePan(point: Point): StaticCanvas;
+	relativePan(point: Point): this;
 
 	/**
 	 * Returns <canvas> element corresponding to this instance
@@ -1060,7 +1060,7 @@ export class StaticCanvas {
 	 * @param ctx Context to clear
 	 * @chainable
 	 */
-	clearContext(ctx: CanvasRenderingContext2D): StaticCanvas;
+	clearContext(ctx: CanvasRenderingContext2D): this;
 
 	/**
 	 * Returns context of canvas where objects are drawn
@@ -1070,14 +1070,14 @@ export class StaticCanvas {
 	/**
 	 * Clears all contexts (background, main, top) of an instance
 	 */
-	clear(): StaticCanvas;
+	clear(): this;
 
 	/**
 	 * Renders both the top canvas and the secondary container canvas.
 	 * @param [allOnTop] Whether we want to force all images to be rendered on the top canvas
 	 * @chainable
 	 */
-	renderAll(allOnTop?: boolean): StaticCanvas;
+	renderAll(allOnTop?: boolean): this;
 
 	/**
 	 * Method to render only the top canvas.
@@ -1096,21 +1096,21 @@ export class StaticCanvas {
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 * @param object Object to center horizontally
 	 */
-	centerObjectH(object: Object): StaticCanvas;
+	centerObjectH(object: Object): this;
 
 	/**
 	 * Centers object vertically.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 * @param object Object to center vertically
 	 */
-	centerObjectV(object: Object): StaticCanvas;
+	centerObjectV(object: Object): this;
 
 	/**
 	 * Centers object vertically and horizontally.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 * @param object Object to center vertically and horizontally
 	 */
-	centerObject(object: Object): StaticCanvas;
+	centerObject(object: Object): this;
 
 	/**
 	 * Returs dataless JSON representation of canvas
@@ -1148,14 +1148,14 @@ export class StaticCanvas {
 	 * @param object Object to send to back
 	 * @chainable
 	 */
-	sendToBack(object: Object): StaticCanvas;
+	sendToBack(object: Object): this;
 
 	/**
 	 * Moves an object to the top of the stack of drawn objects
 	 * @param object Object to send
 	 * @chainable
 	 */
-	bringToFront(object: Object): StaticCanvas;
+	bringToFront(object: Object): this;
 
 	/**
 	 * Moves an object down in stack of drawn objects
@@ -1163,7 +1163,7 @@ export class StaticCanvas {
 	 * @param [intersecting] If `true`, send object behind next lower intersecting object
 	 * @chainable
 	 */
-	sendBackwards(object: Object): StaticCanvas;
+	sendBackwards(object: Object): this;
 
 	/**
 	 * Moves an object up in stack of drawn objects
@@ -1171,19 +1171,19 @@ export class StaticCanvas {
 	 * @param [intersecting] If `true`, send object in front of next upper intersecting object
 	 * @chainable
 	 */
-	bringForward(object: Object): StaticCanvas;
+	bringForward(object: Object): this;
 	/**
 	 * Moves an object to specified level in stack of drawn objects
 	 * @param object Object to send
 	 * @param index Position to move to
 	 * @chainable
 	 */
-	moveTo(object: Object, index: number): StaticCanvas;
+	moveTo(object: Object, index: number): this;
 
 	/**
 	 * Clears a canvas element and removes all event listeners
 	 */
-	dispose(): StaticCanvas;
+	dispose(): this;
 
 	/**
 	 * Returns a string representation of an instance
@@ -1213,13 +1213,13 @@ export class StaticCanvas {
 	 *                            are initialized
 	 * @param [reviver] Method for further parsing of JSON elements, called after each fabric object created.
 	 */
-	loadFromJSON(json: string|any, callback: Function, reviver?: Function): Canvas;
+	loadFromJSON(json: string|object, callback: () => void, reviver?: Function): this;
 	/**
 	 * Clones canvas instance
 	 * @param [callback] Receives cloned instance as a first argument
 	 * @param [properties] Array of properties to include in the cloned canvas and children
 	 */
-	clone(callback: (canvas: StaticCanvas) => void, properties?: any[]): void;
+	clone(callback: (canvas: StaticCanvas) => void, properties?: string[]): void;
 
 	/**
 	 * Clones canvas instance without cloning existing data.
@@ -1241,13 +1241,13 @@ export class StaticCanvas {
 	 * Straightens object, then rerenders canvas
 	 * @param object Object to straighten
 	 */
-	straightenObject(object: Object): StaticCanvas;
+	straightenObject(object: Object): this;
 
 	/**
 	 * Same as straightenObject, but animated
 	 * @param object Object to straighten
 	 */
-	fxStraightenObject(object: Object): StaticCanvas;
+	fxStraightenObject(object: Object): this;
 
 	static EMPTY_JSON: string;
 	/**
@@ -1972,11 +1972,6 @@ interface IObjectOptions {
 	angle?: number;
 
 	/**
-	 * Size of object's controlling corners (in pixels)
-	 */
-	cornerSize?: number;
-
-	/**
 	 * When true, object's controlling corners are rendered as transparent inside (i.e. stroke instead of fill)
 	 */
 	transparentCorners?: boolean;
@@ -2002,9 +1997,24 @@ interface IObjectOptions {
 	cornerColor?: string;
 
 	/**
+	 * Array specifying dash pattern of an object's control (hasBorder must be true) 
+	 */
+	cornerDashArray?: number[];
+
+	/**
+	 * Size of object's controlling corners (in pixels)
+	 */
+	cornerSize?: number;
+
+	/**
+	 * Color of controlling corners of an object (when it's active and transparentCorners false) 
+	 */
+	cornerStrokeColor?: string;
+
+	/**
 	 * Specify style of control, 'rect' or 'circle'
 	 */
-	cornerStrokeColor?: "rect" | "circle";
+	cornerStyle?: "rect" | "circle";
 
 	/**
 	 * When true, this object will use center point as the origin of transformation
