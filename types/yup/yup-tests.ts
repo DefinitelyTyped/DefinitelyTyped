@@ -273,10 +273,10 @@ interface SubInterface {
     testField: string;
 }
 
-const typedSchema = yup.object<MyInterface>().shape({
+const typedSchema = yup.object<MyInterface>({
     stringField: yup.string().required(),
     numberField: yup.number().required(),
-    subFields: yup.object<SubInterface>().shape({
+    subFields: yup.object({
         testField: yup.string().required(),
     }).required(),
     arrayField: yup.array().of(yup.string()).required(),
