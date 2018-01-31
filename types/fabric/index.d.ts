@@ -1213,7 +1213,7 @@ export class StaticCanvas {
 	 *                            are initialized
 	 * @param [reviver] Method for further parsing of JSON elements, called after each fabric object created.
 	 */
-	loadFromJSON(json: string|object, callback: () => void, reviver?: Function): this;
+	loadFromJSON(json: string|any, callback: () => void, reviver?: Function): this;
 	/**
 	 * Clones canvas instance
 	 * @param [callback] Receives cloned instance as a first argument
@@ -1709,31 +1709,31 @@ interface IImageOptions extends IObjectOptions {
 	/**
 	 * crossOrigin value (one of "", "anonymous", "allow-credentials")
 	 */
-	crossOrigin: string;
+	crossOrigin?: string;
 
 	/**
 	 * AlignX value, part of preserveAspectRatio (one of "none", "mid", "min", "max")
 	 * This parameter defines how the picture is aligned to its viewport when image element width differs from image width.
 	 */
-	alignX: string;
+	alignX?: string;
 
 	/**
 	 * AlignY value, part of preserveAspectRatio (one of "none", "mid", "min", "max")
 	 * This parameter defines how the picture is aligned to its viewport when image element height differs from image height.
 	 */
-	alignY: string;
+	alignY?: string;
 
 	/**
 	 * meetOrSlice value, part of preserveAspectRatio  (one of "meet", "slice").
 	 * if meet the image is always fully visibile, if slice the viewport is always filled with image.
 	 * @see http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute
 	 */
-	meetOrSlice: string;
+	meetOrSlice?: string;
 
 	/**
 	 * Image filter array
 	 */
-	filters: IBaseFilter[];
+	filters?: IBaseFilter[];
 }
 interface Image extends Object, IImageOptions {}
 export class Image {
@@ -1997,7 +1997,7 @@ interface IObjectOptions {
 	cornerColor?: string;
 
 	/**
-	 * Array specifying dash pattern of an object's control (hasBorder must be true) 
+	 * Array specifying dash pattern of an object's control (hasBorder must be true)
 	 */
 	cornerDashArray?: number[];
 
@@ -2007,7 +2007,7 @@ interface IObjectOptions {
 	cornerSize?: number;
 
 	/**
-	 * Color of controlling corners of an object (when it's active and transparentCorners false) 
+	 * Color of controlling corners of an object (when it's active and transparentCorners false)
 	 */
 	cornerStrokeColor?: string;
 
