@@ -14,7 +14,7 @@ declare module "node-forge" {
     type Utf8 = string;
     type OID = string;
 
-    namespace pem {	
+    namespace pem {
 
 		interface EncodeOptions {
 			maxline?: number;
@@ -32,7 +32,7 @@ declare module "node-forge" {
 		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
 		function decode(str: string): ObjectPEM[];
 	}
-    
+
     namespace pki {
 
         type PEM = string;
@@ -107,11 +107,66 @@ declare module "node-forge" {
             extensions: any[];
             publicKey: any;
             md: any;
+            setSubject:
+            /**
+              * Sets the subject of this certificate.
+              *
+              * @param attrs the array of subject attributes to use.
+              * @param uniqueId an optional a unique ID to use.
+              */
+            (attrs, uniqueId?) => {};
+            setIssuer:
+            /**
+              * Sets the subject of this certificate.
+              *
+              * @param attrs the array of subject attributes to use.
+              * @param uniqueId an optional a unique ID to use.
+              */
+            (attrs, uniqueId?) => {};
+            setExtensions:
+            /**
+              * Sets the extensions of this certificate.
+              *
+              * @param exts the array of extensions to use.
+              */
+            (exts: any) => {};
+            getExtension:
+            /**
+             * Gets an extension by its name or id.
+             *
+             * @param options the name to use or an object with:
+             *          name the name to use.
+             *          id the id to use.
+             *
+             * @return the extension or null if not found.
+             */
+            (options: any) => {};
+            sign:
+            /**
+             * Signs this certificate using the given private key.
+             *
+             * @param key the private key to sign with.
+             * @param md the message digest object to use (defaults to forge.md.sha1).
+             */
+            (key, md) => {}
+            verify:
+            /**
+             * Attempts verify the signature on the passed certificate using this
+             * certificate's public key.
+             *
+             * @param child the certificate to verify.
+             *
+             * @return true if verified, false if not.
+             */
+            (child) => {};
+
         }
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): Key;
+
+        function createCertificate(): Certificate;
     }
 
     namespace ssh {
