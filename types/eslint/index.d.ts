@@ -7,13 +7,42 @@
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
 
-export type Token = any;
+export type TokenType =
+  | 'Boolean'
+  | 'Null'
+  | 'Identifier'
+  | 'Keyword'
+  | 'Punctuator'
+  | 'JSXIdentifier'
+  | 'JSXText'
+  | 'Numeric'
+  | 'String'
+  | 'RegularExpression';
+
+export interface Token {
+    type: TokenType;
+    value: string;
+    range: Range;
+    loc: SourceLocation;
+}
+
+export interface SourceLocation {
+    start: Location;
+    end: Location;
+}
+
+export interface Location {
+    line: number;
+    column: number;
+}
+
+export type Range = [number, number];
 
 export interface Ast {
     comments: ESTree.Comment[];
-    tokens: any[];
-    loc: any;
-    range: any[];
+    tokens: Token[];
+    loc: SourceLocation;
+    range: Range;
 }
 
 export type FilterPredicate = (tokenOrComment: Token | ESTree.Comment) => boolean;
@@ -79,11 +108,6 @@ export interface SourceCodeConfig {
     visitorKeys?: VisitorKeys;
 }
 
-export interface Location {
-    line: number;
-    column: number;
-}
-
 export type ParserServices = any;
 
 export interface ScopeManager {
@@ -92,7 +116,7 @@ export interface ScopeManager {
 
     acquire(node: ESTree.Node, inner?: boolean): Scope | null;
 
-    getDeclaredVariables(node: ESTree.Node): any[];
+    getDeclaredVariables(node: ESTree.Node): Variable[];
 }
 
 export interface Scope {
@@ -237,8 +261,6 @@ export interface FixOptions extends LintOptions {
     fix?: boolean;
 }
 
-export type Range = [number, number];
-
 export interface Fix {
     range: Range;
     text: string;
@@ -311,15 +333,15 @@ export interface RuleContext {
     settings: { [name: string]: any };
     parserPath: string;
     parserOptions: ParserOptions;
-    parserServices: any;
+    parserServices: ParserServices;
 
     getAncestors(): ESTree.Node[];
 
-    getDeclaredVariables(node: ESTree.Node): any[];
+    getDeclaredVariables(node: ESTree.Node): Variable[];
 
     getFilename(): string;
 
-    getScope(): any;
+    getScope(): Scope;
 
     getSourceCode(): SourceCode;
 
@@ -330,7 +352,7 @@ export interface RuleContext {
 
 export type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
 export type ReportDescriptorMessage = { message: string } | { messageId: string };
-export type ReportDescriptorLocation = { node: ESTree.Node } | { loc: { start: Location, end: Location } | { line: number, column: number } };
+export type ReportDescriptorLocation = { node: ESTree.Node } | { loc: SourceLocation | { line: number, column: number } };
 export interface ReportDescriptorOptions {
     data?: { [key: string]: string };
 
@@ -363,8 +385,8 @@ export type ParserModule = {
 
 export interface ESLintParseResult {
     ast: ESTree.Node;
-    parserServices?: any;
-    scopeManager?: any;
+    parserServices?: ParserServices;
+    scopeManager?: ScopeManager;
     visitorKeys?: VisitorKeys;
 }
 
