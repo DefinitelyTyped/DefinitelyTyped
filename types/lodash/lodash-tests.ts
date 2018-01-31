@@ -3197,37 +3197,46 @@ namespace TestXor {
     let list: _.List<TResult> | null | undefined = [] as any;
 
     {
-        let result: Array<Array<TResult | undefined>>;
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(array);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(array, list);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(array, list, array);
 
-        result = _.zip<TResult>(array);
-        result = _.zip<TResult>(array, list);
-        result = _.zip<TResult>(array, list, array);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(list);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(list, array);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(list, array, list);
 
-        result = _.zip<TResult>(list);
-        result = _.zip<TResult>(list, array);
-        result = _.zip<TResult>(list, array, list);
-
-        result = _.zip(list, array, list, array, list, array);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip(list, array, list, array, list, array);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<Array<TResult | undefined>>;
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(array).zip<TResult>(list);
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(array).zip<TResult>(list, array);
 
-        result = _(array).zip<TResult>(list);
-        result = _(array).zip<TResult>(list, array);
-
-        result = _(list).zip<TResult>(array);
-        result = _(list).zip<TResult>(array, list);
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(list).zip<TResult>(array);
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(list).zip<TResult>(array, list);
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<Array<TResult | undefined>>;
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(array).chain().zip<TResult>(list);
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(array).chain().zip<TResult>(list, array);
 
-        result = _(array).chain().zip<TResult>(list);
-        result = _(array).chain().zip<TResult>(list, array);
-
-        result = _(list).chain().zip<TResult>(array);
-        result = _(list).chain().zip<TResult>(array, list);
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(list).chain().zip<TResult>(array);
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(list).chain().zip<TResult>(array, list);
     }
 
     {
