@@ -175,6 +175,7 @@ export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: Q
  * Draws qr code symbol to node canvas.
  */
 export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: QRCodeOptions, callback: (error: Error) => void): void;
+
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -212,7 +213,17 @@ export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataU
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.
  */
+export function toString(text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Returns a string representation of the QR Code.
+ * If choosen output format is svg it will returns a string containing xml code.
+ */
 export function toString(text: string | QRCodeSegment[], callback: (error: Error, string: string) => void): void;
+/**
+ * Returns a string representation of the QR Code.
+ * If choosen output format is svg it will returns a string containing xml code.
+ */
+export function toString(text: string | QRCodeSegment[], options: QRCodeToStringOptions): Promise<any>;
 /**
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.
@@ -224,7 +235,19 @@ export function toString(text: string | QRCodeSegment[], options: QRCodeToString
  * If options.type is not specified, the format will be guessed from file extension.
  * Recognized extensions are png, svg, txt.
  */
+export function toFile(path: string, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Saves QR Code to image file.
+ * If options.type is not specified, the format will be guessed from file extension.
+ * Recognized extensions are png, svg, txt.
+ */
 export function toFile(path: string, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Saves QR Code to image file.
+ * If options.type is not specified, the format will be guessed from file extension.
+ * Recognized extensions are png, svg, txt.
+ */
+export function toFile(path: string, text: string | QRCodeSegment[], options: QRCodeToFileOptions): Promise<any>;
 /**
  * Saves QR Code to image file.
  * If options.type is not specified, the format will be guessed from file extension.
@@ -235,7 +258,15 @@ export function toFile(path: string, text: string | QRCodeSegment[], options: QR
 /**
  * Writes QR Code image to stream. Only works with png format for now.
  */
+export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Writes QR Code image to stream. Only works with png format for now.
+ */
 export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Writes QR Code image to stream. Only works with png format for now.
+ */
+export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
 /**
  * Writes QR Code image to stream. Only works with png format for now.
  */
