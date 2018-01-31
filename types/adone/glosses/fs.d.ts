@@ -686,7 +686,7 @@ declare namespace adone {
         /**
          * Represents a file that supports random access
          */
-        class RandomAccessFile extends event.EventEmitter {
+        class RandomAccessFile extends event.Emitter {
             constructor(filename: string, options?: I.RandomAccessFile.ConstructorOptions);
 
             /**
@@ -728,7 +728,7 @@ declare namespace adone {
         /**
          * Represents an abstract random access reader
          */
-        class AbstractRandomAccessReader extends event.EventEmitter {
+        class AbstractRandomAccessReader extends event.Emitter {
             /**
              * Increments the reference counter
              */
@@ -961,7 +961,7 @@ declare namespace adone {
                 prototype: Emitter;
             }
 
-            interface Emitter extends event.EventEmitter {
+            interface Emitter extends event.Emitter {
                 isIgnored(path: string): boolean;
 
                 /**
@@ -1125,7 +1125,7 @@ declare namespace adone {
         /**
          * Represents a file watcher
          */
-        class Watcher extends event.EventEmitter {
+        class Watcher extends event.Emitter {
             constructor(options?: I.Watcher.ConstructorOptions);
 
             /**
@@ -1905,7 +1905,7 @@ declare namespace adone {
          * Represents an event emitter that watches for a file growing,
          * emits "line" event for each new line in a file
          */
-        class TailWatcher extends event.EventEmitter {
+        class TailWatcher extends event.Emitter {
             constructor(filename: string, options?: I.TailWatcher.ConstructorOptions);
 
             /**

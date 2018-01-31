@@ -182,7 +182,7 @@ declare namespace adone {
                 | "end before each hook" | "end after each hook"
                 | "end before test hook" | "end after test hook";
 
-            interface Emitter extends event.EventEmitter {
+            interface Emitter extends event.Emitter {
                 on(event: "enter block", listener: (event: { block: Block }) => void): this;
                 on(event: "exit block", listener: (event: { block: Block }) => void): this;
                 on(event: "start test", listener: (event: { block: Block, test: Test }) => void): this;
