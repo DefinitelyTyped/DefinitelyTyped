@@ -107,30 +107,26 @@ declare module "node-forge" {
             extensions: any[];
             publicKey: any;
             md: any;
-            setSubject:
+            /**
+             * Sets the subject of this certificate.
+             *
+             * @param attrs the array of subject attributes to use.
+             * @param uniqueId an optional a unique ID to use.
+             */
+            setSubject(attrs: any[], uniqueId?: string): void;
             /**
               * Sets the subject of this certificate.
               *
               * @param attrs the array of subject attributes to use.
               * @param uniqueId an optional a unique ID to use.
               */
-            (attrs: any, uniqueId?: any) => {};
-            setIssuer:
-            /**
-              * Sets the subject of this certificate.
-              *
-              * @param attrs the array of subject attributes to use.
-              * @param uniqueId an optional a unique ID to use.
-              */
-            (attrs: any, uniqueId?: any) => {};
-            setExtensions:
+            setIssuer(attrs: any[], uniqueId?: string): void;
             /**
               * Sets the extensions of this certificate.
               *
               * @param exts the array of extensions to use.
               */
-            (exts: any) => {};
-            getExtension:
+            setExtensions(exts: any[]): void
             /**
              * Gets an extension by its name or id.
              *
@@ -140,16 +136,14 @@ declare module "node-forge" {
              *
              * @return the extension or null if not found.
              */
-            (options: any) => {};
-            sign:
+            getExtension(options: string | {name: string}):{} | undefined
             /**
              * Signs this certificate using the given private key.
              *
              * @param key the private key to sign with.
              * @param md the message digest object to use (defaults to forge.md.sha1).
              */
-            (key: any, md: any) => {}
-            verify:
+            sign(key: pki.Key, md: md.MessageDigest): void
             /**
              * Attempts verify the signature on the passed certificate using this
              * certificate's public key.
@@ -158,7 +152,7 @@ declare module "node-forge" {
              *
              * @return true if verified, false if not.
              */
-            (child: any) => {};
+            verify(child: Certificate):boolean
 
         }
 
