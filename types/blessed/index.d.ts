@@ -3024,6 +3024,7 @@ export function message(options?: Widgets.MessageOptions): Widgets.MessageElemen
 export function loading(options?: Widgets.LoadingOptions): Widgets.LoadingElement;
 export function log(options?: Widgets.LogOptions): Widgets.Log;
 export function progressbar(options?: Widgets.ProgressBarOptions): Widgets.ProgressBarElement;
+export function program(options?: Widgets.IScreenOptions): BlessedProgram;
 export function terminal(options?: Widgets.TerminalOptions): Widgets.TerminalElement;
 export function layout(options?: Widgets.LayoutOptions): Widgets.LayoutElement;
 export function escape(item: any): any;
