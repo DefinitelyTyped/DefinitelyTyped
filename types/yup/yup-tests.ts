@@ -266,6 +266,7 @@ interface MyInterface {
     stringField: string;
     numberField: number;
     subFields: SubInterface;
+    arrayField: string[];
 }
 
 interface SubInterface {
@@ -278,6 +279,7 @@ const typedSchema = yup.object<MyInterface>().shape({
     subFields: yup.object<SubInterface>().shape({
         testField: yup.string().required(),
     }).required(),
+    arrayField: yup.array().of(yup.string()).required(),
 });
 
 const testObject = {
@@ -286,6 +288,7 @@ const testObject = {
     subFields: {
         testField: "test2"
     },
+    arrayField: ["hi"],
 };
 
 typedSchema.validate(testObject);
@@ -296,6 +299,7 @@ const untypedSchema = yup.object().shape({
     subFields: yup.object().shape({
         testField: yup.string().required(),
     }).required(),
+    arrayField: yup.array().of(yup.string()).required(),
 });
 
 untypedSchema.validate(testObject);
