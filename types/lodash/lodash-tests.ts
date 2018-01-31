@@ -3197,7 +3197,7 @@ namespace TestXor {
     let list: _.List<TResult> | null | undefined = [] as any;
 
     {
-        let result: TResult[][];
+        let result: Array<Array<TResult | undefined>>;
 
         result = _.zip<TResult>(array);
         result = _.zip<TResult>(array, list);
@@ -3211,7 +3211,7 @@ namespace TestXor {
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<Array<TResult | undefined>>;
 
         result = _(array).zip<TResult>(list);
         result = _(array).zip<TResult>(list, array);
@@ -3221,7 +3221,7 @@ namespace TestXor {
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<Array<TResult | undefined>>;
 
         result = _(array).chain().zip<TResult>(list);
         result = _(array).chain().zip<TResult>(list, array);
@@ -3231,9 +3231,9 @@ namespace TestXor {
     }
 
     {
-        _.zip([1, 2], [3, 4]); // $ExpectType [number, number][]
-        _.zip([1, 2], ["a", "b"]); // $ExpectType [number, string][]
-        _.zip([1, 2], ["a", "b"], [true, false]); // $ExpectType [number, string, boolean][]
+        _.zip([1, 2], [3, 4]); // $ExpectType [number | undefined, number | undefined][]
+        _.zip([1, 2], ["a", "b"]); // $ExpectType [number | undefined, string | undefined][]
+        _.zip([1, 2], ["a", "b"], [true, false]); // $ExpectType [number | undefined, string | undefined, boolean | undefined][]
     }
 }
 
