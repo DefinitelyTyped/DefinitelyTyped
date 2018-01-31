@@ -19,12 +19,19 @@ export interface ConfigPage {
   pages?: ConfigPage[];
 }
 
+export interface ConfigResponsiveSize {
+  name: string;
+  width: number;
+  height: number;
+}
+
 export interface Config {
   title: string;
   pages: ConfigPage[];
 
   useBrowserHistory?: boolean;
   basePath?: string;
+  responsiveSizes?: ConfigResponsiveSize[];
 }
 
 export function render(config: Config, element: HTMLElement): void;

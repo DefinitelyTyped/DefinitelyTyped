@@ -21,6 +21,13 @@ const config: Config = {
       ],
     },
   ],
+  useBrowserHistory: true,
+  basePath: '/doc',
+  responsiveSizes: [
+    { name: 'large', width: 978, height: 1100 },
+    { name: 'medium', width: 640, height: 900 },
+    { name: 'small', width: 471, height: 700 },
+  ],
 };
 
 render(config, document.body);
