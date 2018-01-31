@@ -2,7 +2,8 @@
   "compilerOptions": {
       "module": "commonjs",
       "lib": [
-          "es6"
+          "es6",
+          "dom"
       ],
       "noImplicitAny": true,
       "noImplicitThis": true,
@@ -14,10 +15,11 @@
       ],
       "types": [],
       "noEmit": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "jsx": "react"
   },
   "files": [
       "index.d.ts",
-      "catalog-tests.ts"
+      "catalog-tests.tsx"
   ]
 }

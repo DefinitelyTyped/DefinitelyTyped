@@ -7,23 +7,27 @@
 import * as React from "react";
 
 // Configuration
-export interface Page {
+
+// XXX: Can not name this 'Page' because there's already a 'Page'
+// component here.
+export interface ConfigPage {
   path: string;
   title: string;
 
   content?: any;
-  pages?: Page[];
+  component?: any;
+  pages?: ConfigPage[];
 }
 
 export interface Config {
   title: string;
-  pages: Page[];
+  pages: ConfigPage[];
 
   useBrowserHistory?: boolean;
   basePath?: string;
 }
 
-export function render(config: Config, element: HTMLElement): any;
+export function render(config: Config, element: HTMLElement): void;
 export function configure(config: any): any;
 export function configureRoutes(config: any): any;
 export function configureJSXRoutes(config: any): any;
@@ -93,4 +97,4 @@ export class ReactSpecimen extends React.Component<ReactSpecimenProps> {}
 
 export class VideoSpecimen extends React.Component<DefaultCatalogProps> {}
 
-export class Catalog extends React.Component<any> {}
+export class Catalog extends React.Component<Config> {}

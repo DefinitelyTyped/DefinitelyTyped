@@ -1,1 +1,0 @@
-import { render } from "catalog";
