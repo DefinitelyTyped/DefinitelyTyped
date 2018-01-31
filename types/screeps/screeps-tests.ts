@@ -400,9 +400,6 @@ interface CreepMemory {
     const resources = room.find(FIND_DROPPED_RESOURCES);
     resources[0].resourceType;
 
-    const energy = room.find(FIND_DROPPED_ENERGY);
-    energy[0].resourceType;
-
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     sites[0].remove();
 
@@ -410,7 +407,7 @@ interface CreepMemory {
     const exits = room.find(FIND_EXIT);
 
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
-    creepsHere[0]!.getActiveBodyparts(ATTACK);
+    creepsHere[0].getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
         filter: (structure) => {
@@ -462,20 +459,20 @@ interface CreepMemory {
 {
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
-    nukes[0]!.launchRoomName;
+    nukes[0].launchRoomName;
 
     const flags = room.lookForAtArea(LOOK_FLAGS, 10, 10, 20, 20);
 
     const x = flags[10];
     const y = x[11];
     const entry = y[0];
-    entry.flag!.remove();
+    entry.flag.remove();
 
     const creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true);
 
     creeps[0].x;
     creeps[0].y;
-    creeps[0].creep!.move(TOP);
+    creeps[0].creep.move(TOP);
 }
 
 // Advanced Structure types
@@ -508,4 +505,13 @@ interface CreepMemory {
     const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity});
 
     Game.rooms.myRoom.find(FIND_MY_STRUCTURES, (s) => s.structureType === STRUCTURE_RAMPART).forEach((r) => r.notifyWhenAttacked(false));
+}
+
+{
+    // Test that you can use signatures
+    EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom.controller!.level];
+
+    REACTIONS[Object.keys(creep.carry)[0]];
+
+    BOOSTS[creep.body[0].type];
 }

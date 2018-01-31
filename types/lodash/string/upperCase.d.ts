@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Converts `string`, as space separated words, to upper case.

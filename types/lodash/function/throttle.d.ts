@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface ThrottleSettings {
         /**
          * If you'd like to disable the leading-edge call, pass this as false.

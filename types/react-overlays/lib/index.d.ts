@@ -5,7 +5,6 @@ import * as ModalManager from './ModalManager';
 import * as Overlay from './Overlay';
 import * as Portal from './Portal';
 import * as Position from './Position';
-import * as Transition from './Transition';
 import * as RootCloseWrapper from './RootCloseWrapper';
 
 export {
@@ -16,6 +15,5 @@ export {
   Overlay,
   Portal,
   Position,
-  Transition,
   RootCloseWrapper,
 };

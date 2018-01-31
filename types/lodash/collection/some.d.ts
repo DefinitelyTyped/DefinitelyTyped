@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate

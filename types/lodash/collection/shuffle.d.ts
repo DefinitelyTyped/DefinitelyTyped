@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.

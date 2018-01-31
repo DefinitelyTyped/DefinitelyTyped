@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates an array of elements, sorted in ascending order by the results of

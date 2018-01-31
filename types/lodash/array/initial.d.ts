@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Gets all but the last element of array.

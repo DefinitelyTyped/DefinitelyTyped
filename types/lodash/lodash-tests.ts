@@ -3192,7 +3192,7 @@ namespace TestXor {
 }
 
 // _.zip
-namespace TestZip {
+{
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
 
@@ -3206,6 +3206,8 @@ namespace TestZip {
         result = _.zip<TResult>(list);
         result = _.zip<TResult>(list, array);
         result = _.zip<TResult>(list, array, list);
+
+        result = _.zip(list, array, list, array, list, array);
     }
 
     {
@@ -3226,6 +3228,12 @@ namespace TestZip {
 
         result = _(list).chain().zip<TResult>(array);
         result = _(list).chain().zip<TResult>(array, list);
+    }
+
+    {
+        _.zip([1, 2], [3, 4]); // $ExpectType [number, number][]
+        _.zip([1, 2], ["a", "b"]); // $ExpectType [number, string][]
+        _.zip([1, 2], ["a", "b"], [true, false]); // $ExpectType [number, string, boolean][]
     }
 }
 
@@ -3359,18 +3367,9 @@ namespace TestZipObject {
 }
 
 // _.zipWith
-namespace TestZipWith {
+{
     type TestZipWithFn = (a1: number, a2: number) => number;
 
-    {
-        let result: number[][];
-        result = _.zipWith([1, 2]);
-        result = _.zipWith([1, 2], [3, 4], [5, 6]);
-        result = _([1, 2]).zipWith().value();
-        result = _([1, 2]).zipWith([3, 4], [5, 6]).value();
-        result = _.chain([1, 2]).zipWith().value();
-        result = _.chain([1, 2]).zipWith([3, 4], [5, 6]).value();
-    }
     {
         let result: number[];
 
@@ -3509,6 +3508,19 @@ namespace TestZipWith {
         result = _.chain([1, 2]).zipWith([1, 2], [1, 2], (...group: number[]) => 1).value();
         result = _.chain([1, 2]).zipWith([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], (...group) => {
             group; // $ExpectType number[]
+            return 1;
+        }).value();
+
+        result = _([1, 2]).zipWith(["a", "b"], (value1, value2) => {
+            value1; // $ExpectType number
+            value2; // $ExpectType string
+            return 1;
+        }).value();
+
+        result = _([1, 2]).zipWith(["a", "b"], [true, false], (value1, value2, value3) => {
+            value1; // $ExpectType number
+            value2; // $ExpectType string
+            value3; // $ExpectType boolean
             return 1;
         }).value();
     }

@@ -1,8 +1,5 @@
-import {
-    DocumentNode,
-    OperationDefinitionNode,
-} from '../language/ast';
+import { DocumentNode, OperationDefinitionNode } from '../language/ast';
 
 export function separateOperations(
-    documentAST: DocumentNode
+  documentAST: DocumentNode,
 ): { [operationName: string]: DocumentNode };

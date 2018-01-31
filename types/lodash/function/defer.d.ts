@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to

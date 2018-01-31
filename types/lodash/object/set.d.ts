@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
