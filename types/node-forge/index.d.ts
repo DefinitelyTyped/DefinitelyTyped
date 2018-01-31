@@ -79,7 +79,7 @@ declare module "node-forge" {
         interface CertificateField extends CertificateFieldOptions {
             valueConstructed?: boolean;
             valueTagClass?: asn1.Class;
-            value?: any[];
+            value?: any[] | string;
             extensions?: any[];
         }
 
