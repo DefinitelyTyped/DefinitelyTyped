@@ -327,7 +327,12 @@ export interface NavigationTabRouterConfig {
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
 }
-
+export interface TabScene {
+    route: NavigationRoute<any>;
+    focused: boolean;
+    index: number;
+    tintColor?: string;
+}
 export interface NavigationTabScreenOptions extends NavigationScreenOptions {
   tabBarIcon?:
     React.ReactElement<any>
@@ -341,6 +346,11 @@ export interface NavigationTabScreenOptions extends NavigationScreenOptions {
       any
     > | string | null));
   tabBarVisible?: boolean;
+  tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string };
+  tabBarOnPress?: (
+    scene: TabScene,
+    jumpToIndex: (index: number) => void
+  ) => void;
 }
 
 export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
@@ -540,6 +550,7 @@ export const DrawerItems: React.ComponentType;
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
+  drawerBackgroundColor?: string;
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
   contentComponent?: React.ComponentType;

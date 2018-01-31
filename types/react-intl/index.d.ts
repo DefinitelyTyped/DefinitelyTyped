@@ -7,6 +7,7 @@
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Brian Houser <https://github.com/bhouser>,
 //                 Krister Kari <https://github.com/kristerkari>
+//                 Martin Raedlinger <https://github.com/formatlos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -189,6 +190,7 @@ declare namespace ReactIntl {
             defaultLocale?: string;
             defaultFormats?: any;
             textComponent?: any;
+            initialNow?: any;
         }
     }
 

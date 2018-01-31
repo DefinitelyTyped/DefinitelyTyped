@@ -459,6 +459,44 @@ knex.select('*').from('accounts').joinRaw('natural full join table1').where('id'
 
 knex.select('*').from('accounts').join(knex.raw('natural full join table1')).where('id', 1);
 
+knex.select('*').from('accounts')
+  .join(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .leftJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .leftOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .rightJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .rightOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .innerJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .crossJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .fullOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .outerJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+
+
 knex('customers')
   .distinct('first_name', 'last_name')
   .select();
@@ -487,6 +525,7 @@ knex('books')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
 
 knex.batchInsert('books', [{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
+knex.batchInsert('books', [{title: 'Catcher In The Rye'}, {title: 'Pride And Prejudice'}]);
 knex.queryBuilder().table('books');
 
 knex('books').where('published_date', '<', 2000).update({status: 'archived'});
@@ -901,6 +940,72 @@ knex.select('*')
   knex.select('*').from('users').where(knex.raw('id = ?', [1])).toString();
 
   knex.select('*').from('users').where(knex.raw('id = ?', [1])).toSQL();
+
+//
+// Callback functions
+//
+knex('users')
+  .select('*')
+  .join('contacts', function(builder) {
+    this.on(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOn(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOn(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).onExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOnExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOnExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).onNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOnNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOnNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    });
+  }).where(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhere(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).andWhere(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhereIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereNotIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhereNotIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereWrapped(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).union(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).unionAll(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  });
 
 //
 // Migrations

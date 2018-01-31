@@ -100,6 +100,7 @@ interface ReduxToastrProps {
     toastr?: ToastrState;
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
+    className?: string;
 }
 
 interface ToastrEmitter {

@@ -3,6 +3,8 @@
 // Definitions by: Volox <https://github.com/Volox>
 //                 lostfictions <https://github.com/lostfictions>
 //                 jvoros <https://github.com/jvoros>
+//                 sapphiredev <https://github.com/sapphiredev>
+
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -41,7 +43,7 @@ declare module 'twit' {
        * @see https://dev.twitter.com/overview/api/entities
        */
       export interface HashtagEntity {
-        indices: number[],
+        indices: [number, number],
         text: string,
       }
       export interface Size {
@@ -58,7 +60,7 @@ declare module 'twit' {
       export interface MediaEntity {
         id: number,
         id_str: string,
-        indices: number[],
+        indices: [number, number],
         url: string,
         display_url: string,
         expanded_url: string,
@@ -73,12 +75,12 @@ declare module 'twit' {
         url: string,
         display_url: string,
         expanded_url: string,
-        indices: number[],
+        indices: [number, number],
       }
       export interface UserMentionEntity {
         id: number,
         id_str: string,
-        indices: number[],
+        indices: [number, number],
         name: string,
         screen_name: string,
       }

@@ -26,8 +26,12 @@ declare namespace mapboxgl {
         constructor(options?: MapboxOptions);
 
         addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
+        
+        addControl(control: IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
         removeControl(control: Control): this;
+        
+        removeControl(control: IControl): this;
 
         addClass(klass: string, options?: mapboxgl.StyleOptions): this;
 
@@ -161,7 +165,7 @@ declare namespace mapboxgl {
 
         setPitch(pitch: number, eventData?: EventData): this;
 
-        fitBounds(bounds: LngLatBoundsLike, options?: { linear?: boolean, easing?: Function, padding?: number | mapboxgl.PaddingOptions, offset?: PointLike, maxZoom?: number }, eventData?: mapboxgl.EventData): this;
+        fitBounds(bounds: LngLatBoundsLike, options?: mapboxgl.FitBoundsOptions, eventData?: mapboxgl.EventData): this;
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
@@ -402,10 +406,6 @@ declare namespace mapboxgl {
         enableHighAccuracy?: boolean;
         timeout?: number;
         maximumAge?: number;
-    }
-
-    export class FitBoundsOptions {
-        maxZoom?: number;
     }
 
     /**
@@ -870,6 +870,15 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         easing?: Function;
+    }
+
+    export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
+        linear?: boolean;
+        easing?: Function;
+        padding?: number | mapboxgl.PaddingOptions;
+        offset?: mapboxgl.PointLike;
+        maxZoom?: number;
+        maxDuration?: number;
     }
 
     /**

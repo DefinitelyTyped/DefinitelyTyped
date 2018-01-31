@@ -758,11 +758,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
     letterSpacing?: number;
     lineHeight?: number;
-    /**
-     * Specifies text alignment.
-     * The value 'justify' is only supported on iOS.
-     */
-    textAlign?: "auto" | "left" | "right" | "center";
+    textAlign?: "auto" | "left" | "right" | "center" | "justify";
     textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through";
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
     textDecorationColor?: string;
@@ -1945,6 +1941,15 @@ export interface WebViewPropertiesAndroid {
      * Sets the user-agent for the WebView.
      */
     userAgent?: string;
+
+    /**
+    * Specifies the mixed content mode. i.e WebView will allow a secure origin to load content from any other origin.
+Possible values for mixedContentMode are:
+'never' (default) - WebView will not allow a secure origin to load content from an insecure origin.
+'always' - WebView will allow a secure origin to load content from any other origin, even if that origin is insecure.
+'compatibility' - WebView will attempt to be compatible with the approach of a modern web browser with regard to mixed content.
+    */
+    mixedContentMode?: "never" | "always" | "compatibility";
 }
 
 export interface WebViewIOSLoadRequestEvent {
@@ -2460,6 +2465,11 @@ export interface DatePickerIOSProperties extends ViewProperties {
      * The currently selected date.
      */
     date: Date;
+
+    /**
+     * The date picker locale.
+     */
+    locale?: string;
 
     /**
      * Maximum date.
@@ -7901,6 +7911,9 @@ export namespace Animated {
         speed?: number;
         tension?: number;
         friction?: number;
+        stiffness?: number;
+        mass?: number;
+        damping?: number;
     }
 
     interface LoopAnimationConfig {
@@ -8290,8 +8303,8 @@ export type ListView = ListViewStatic;
 export var MapView: MapViewStatic;
 export type MapView = MapViewStatic;
 
-export var MaskedView: MaskedViewStatic;
-export type MaskedView = MaskedViewStatic;
+export var MaskedViewIOS: MaskedViewStatic;
+export type MaskedViewIOS = MaskedViewStatic;
 
 export var Modal: ModalStatic;
 export type Modal = ModalStatic;
