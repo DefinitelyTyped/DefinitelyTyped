@@ -5,14 +5,14 @@ $(document).ready(() => {
 
 // with options example
 let offsetOptions: BootstrapGrowlIfightcrime.OffsetOption = {
-    from: 'top', 
+    from: 'top',
     amount: 20
 };
 
 let options: BootstrapGrowlIfightcrime.Options = {
     ele: 'body',
-    type: 'info', 
-    offset: offsetOptions, 
+    type: 'info',
+    offset: offsetOptions,
     align: 'right',
     width: 250,
     delay: 4000,
@@ -21,5 +21,5 @@ let options: BootstrapGrowlIfightcrime.Options = {
 };
 
 $(document).ready(() => {
-     $.bootstrapGrowl('Alert with options', options);
+    $.bootstrapGrowl('Alert with options', options);
 });
