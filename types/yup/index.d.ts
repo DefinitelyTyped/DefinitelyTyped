@@ -118,7 +118,7 @@ export interface DateSchema extends Schema<Date> {
 }
 
 export interface ArraySchemaConstructor {
-    (): ArraySchema<{}>;
+    <T>(schema?: Schema<T>): ArraySchema<T>;
     new(): ArraySchema<{}>;
 }
 
