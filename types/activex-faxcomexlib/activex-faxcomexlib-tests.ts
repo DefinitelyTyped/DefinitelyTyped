@@ -39,22 +39,21 @@ const getServer = () => {
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693502(v=vs.85).aspx
 (() => {
-    let device: FAXCOMEXLib.FaxDevice;
-
-    const init = () => {
-        device = getServer().GetDevices().ItemById(1);
-        device.ReceiveMode = FAXCOMEXLib.FAX_DEVICE_RECEIVE_MODE_ENUM.fdrmAUTO_ANSWER;
-        device.RingsBeforeAnswer = 5;
-        device.SendEnabled = true;
+    const getInitializedDevice = () => {
+        const ret = getServer().GetDevices().ItemById(1);
+        ret.ReceiveMode = FAXCOMEXLib.FAX_DEVICE_RECEIVE_MODE_ENUM.fdrmAUTO_ANSWER;
+        ret.RingsBeforeAnswer = 5;
+        ret.SendEnabled = true;
+        return ret;
     };
 
     // saving configuration
-    init();
-    device!.Save();
+    let device = getInitializedDevice();
+    device.Save();
 
     // abandoning changes to configuration, using the Refresh method
-    init();
-    device!.Refresh();
+    device = getInitializedDevice();
+    device.Refresh();
 })();
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693502(v=vs.85).aspx
