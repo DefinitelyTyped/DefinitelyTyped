@@ -51,6 +51,90 @@ describe('chai-string', function() {
 
   });
 
+
+  describe('#containIgnoreSpaces', function () {
+
+    it('should return true', function () {
+      var str1 = '1234abcdef56',
+        str2 = '1234a\nb\tc\r d  ef56';
+      str1.should.containIgnoreSpaces(str2);
+    });
+
+    it('should return true (2)', function () {
+      var str1 = 'abcdef',
+        str2 = 'a\nb\tc\r d  ef';
+      str1.should.containIgnoreSpaces(str2);
+    });
+
+    it('should return false', function () {
+      var str1 = 'abdef',
+        str2 = 'a\nb\tc\r d  ef';
+      str1.should.not.containIgnoreSpaces(str2);
+    });
+  });
+
+  describe('#containIgnoreCase', function () {
+
+    it('should return true', function () {
+      var str1 = 'abcdef',
+        str2 = 'cDe';
+      str1.should.containIgnoreCase(str2);
+    });
+
+    it('should return true (2)', function () {
+      'abcdef'.should.containIgnoreCase('cDe');
+    });
+
+    it('should return true (3)', function () {
+      var str1 = 'abcdef',
+        str2 = 'AbCdeF';
+      str1.should.containIgnoreCase(str2);
+    });
+
+    it('should return false', function () {
+      var str1 = 'abcdef',
+        str2 = 'efg';
+      str1.should.not.containIgnoreCase(str2);
+    });
+
+    it('should return false (3)', function () {
+      var str1 = 'abcdef',
+        str2 = 'zabcd';
+      str1.should.not.containIgnoreCase(str2);
+    });
+  });
+
+  describe('#indexOf', function () {
+
+    it('should return true', function () {
+      var str = 'abcabd',
+        substr = 'ab',
+        index = 0;
+      str.indexOf(substr, index).should.be.true;
+    });
+
+    it('should return true (2)', function () {
+      var str = 'abcabd',
+        substr = 'ca',
+        index = 2;
+      str.indexOf(substr, index).should.be.true;
+    });
+
+    it('should return true (3)', function () {
+      var str = 'ababab',
+        substr = 'ba',
+        index = 1;
+      str.indexOf(substr, index).should.be.true;
+    });
+
+    it('should return false', function () {
+      var str = 'abcaab',
+        substr = 'da',
+        index = 1;
+      str.indexOf(substr, index).should.be.false;
+    });
+  });
+
   describe('tdd alias', function() {
     let str: string;
     let str2: string;
@@ -92,6 +176,14 @@ describe('chai-string', function() {
       assert.notEqualIgnoreSpaces(str, str2 + 'g');
     });
 
+    it('.containIgnoreSpaces', function () {
+      assert.containIgnoreSpaces(str, str2);
+    });
+
+    it('.notContainIgnoreSpaces', function () {
+      assert.notContainIgnoreSpaces(str, str2 + 'g');
+    });
+
     it('.singleLine', function() {
       assert.singleLine(str);
     });
@@ -123,6 +215,14 @@ describe('chai-string', function() {
       assert.entriesCount('ababd', 'ab', 2);
       assert.entriesCount('abab', 'ab', 2);
       assert.entriesCount('', 'ab', 0);
+    });
+
+    it('.indexOf', function () {
+      assert.indexOf('abcabd', 'ab', 0);
+      assert.indexOf('abcabd', 'ca', 2);
+      assert.indexOf('ababab', 'ba', 1);
+      assert.indexOf('ababab', 'ba', 1);
+      'ababab'.indexOf('ba', 1).should.be.true;
     });
 
   });

@@ -1,4 +1,4 @@
-// Type definitions for Node.js 9.3.x
+// Type definitions for Node.js 9.4.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -410,6 +410,7 @@ declare namespace NodeJS {
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
+        rawListeners(event: string | symbol): Function[];
         emit(event: string | symbol, ...args: any[]): boolean;
         listenerCount(type: string | symbol): number;
         // Added in Node 6...
@@ -520,6 +521,7 @@ declare namespace NodeJS {
 
     export interface WriteStream extends Socket {
         readonly writableHighWaterMark: number;
+        readonly writableLength: number;
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
@@ -532,6 +534,7 @@ declare namespace NodeJS {
     }
     export interface ReadStream extends Socket {
         readonly readableHighWaterMark: number;
+        readonly readableLength: number;
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
@@ -916,6 +919,7 @@ declare module "events" {
             setMaxListeners(n: number): this;
             getMaxListeners(): number;
             listeners(event: string | symbol): Function[];
+            rawListeners(event: string | symbol): Function[];
             emit(event: string | symbol, ...args: any[]): boolean;
             eventNames(): Array<string | symbol>;
             listenerCount(type: string | symbol): number;
@@ -1466,27 +1470,28 @@ declare module "zlib" {
     export function createInflateRaw(options?: ZlibOptions): InflateRaw;
     export function createUnzip(options?: ZlibOptions): Unzip;
 
-    export function deflate(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function deflateRaw(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gunzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gunzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gunzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function inflate(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function inflateRaw(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function unzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function unzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function unzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    type InputType = string | Buffer | DataView | ArrayBuffer /* | TypedArray */;
+    export function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function deflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function gzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function gunzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gunzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function inflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function inflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function unzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function unzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
 
     export namespace constants {
         // Allowed flush values.
@@ -5304,7 +5309,8 @@ declare module "stream" {
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
-            readableHighWaterMark: number;
+            readonly readableHighWaterMark: number;
+            readonly readableLength: number;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -5392,6 +5398,7 @@ declare module "stream" {
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             readonly writableHighWaterMark: number;
+            readonly writableLength: number;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
@@ -5484,6 +5491,7 @@ declare module "stream" {
         export class Duplex extends Readable implements Writable {
             writable: boolean;
             readonly writableHighWaterMark: number;
+            readonly writableLength: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;

@@ -14618,6 +14618,7 @@ declare module olx {
             maxZoom?: number;
             duration?: number;
             easing?: ((t: number) => number);
+            callback?: olx.animation.AnimateCallback;
         }
     }
 

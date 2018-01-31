@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         first: typeof _.head; // tslint:disable-line:no-unnecessary-qualifier
     }

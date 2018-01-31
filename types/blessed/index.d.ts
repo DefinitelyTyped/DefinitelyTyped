@@ -516,7 +516,7 @@ export namespace Widgets {
          * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when
          * pressing F12. It will display all log and debug messages.
          */
-        debug?(...msg: string[]): void;
+        debug?: boolean;
 
         /**
          * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
@@ -963,7 +963,7 @@ export namespace Widgets {
         /**
          * Spawn a process in the foreground, return to blessed app after exit.
          */
-        spawn(file: string, args: string[], options: NodeChildProcessExecOptions): child_process.ChildProcess;
+        spawn(file: string, args?: string[], options?: NodeChildProcessExecOptions): child_process.ChildProcess;
 
         /**
          * Spawn a process in the foreground, return to blessed app after exit. Executes callback on error or exit.

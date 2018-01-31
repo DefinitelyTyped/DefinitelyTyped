@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * This method invokes interceptor and returns value. The interceptor is bound to thisArg and invoked with one

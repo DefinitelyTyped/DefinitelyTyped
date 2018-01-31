@@ -1,4 +1,5 @@
-declare namespace _ {
+import * as _ from "../index";
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed

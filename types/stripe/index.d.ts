@@ -1330,7 +1330,7 @@ declare namespace Stripe {
              * override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to
              * end the customer's trial immediately. Only applies when the plan parameter is also provided.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
         }
 
         interface ICustomerUpdateOptions extends IDataOptionsWithMetadata {
@@ -4216,6 +4216,7 @@ declare namespace Stripe {
 
     namespace subscriptions {
         type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+        type SubscriptionBilling = "charge_automatically" | "send_invoice";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -4325,14 +4326,14 @@ declare namespace Stripe {
              * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an 
              * invoice with payment instructions.
              */
-            billing: "charge_automatically" | "send_invoice";
+            billing: SubscriptionBilling;
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
             /**
-             * The identifier of the plan to subscribe the customer to.
+             * @deprecated Use items property instead.
              */
-            plan: string;
+            plan?: string;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -4370,19 +4371,19 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
 
             /**
              * List of subscription items, each with an attached plan.
              */
-            items?: ISubscriptionCreationItem;
+            items?: ISubscriptionCreationItem[];
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
              * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
              * instructions. Defaults to "charge_automatically".
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4407,7 +4408,7 @@ declare namespace Stripe {
             coupon?: string;
 
             /**
-             * The identifier of the plan to update the subscription to. If omitted, the subscription will not change plans.
+             * @deprecated Use items property instead.
              */
             plan?: string;
 
@@ -4446,14 +4447,19 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
              * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
              * instructions.
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            items?: ISubscriptionUpdateItem[];
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -4467,7 +4473,7 @@ declare namespace Stripe {
             /**
              * The billing mode of the subscriptions to retrieve. Either "charge_automatically" or "send_invoice".
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
 
             /**
              * The ID of the customer whose subscriptions will be retrieved
@@ -4490,6 +4496,40 @@ declare namespace Stripe {
              * Plan ID for this item.
              */
             plan: string;
+            
+            /**
+             * Quantity for this item.
+             */
+            quantity?: number
+        }
+
+        interface ISubscriptionUpdateItem {
+            /**
+             * SubscriptionItem to update.
+             */
+            id?: string;
+
+            /**
+             * Delete all usage for a given subscription item. Only allowed when deleted is set to true and the current plan’s 
+             * usage_type is metered.
+             */
+            clear_usage?: boolean;
+
+            /**
+             * Delete the specified item if set to true.
+             */
+            deleted?: boolean;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * Plan ID for this item.
+             */
+            plan?: string;
             
             /**
              * Quantity for this item.
