@@ -3237,6 +3237,16 @@ declare module paper {
          * Deselects all selected items in the project.
          */
         deselectAll(): void;
+         
+        /**
+         * Adds the specified layer at the end of the this project’s layers list.
+         */
+        addLayer(layer: Layer): Layer;
+
+        /**
+         * Inserts the specified layer at the specified index in this project’s layers list.
+         */
+        insertLayer(index: number, layer: Layer): Layer;
 
         /**
          * Perform a hit-test on the items contained within the project at the location of the specified point.
