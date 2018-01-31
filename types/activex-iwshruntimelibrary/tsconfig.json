@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "activex-faxcomexlib-tests.ts"
+        "activex-iwshruntimelibrary-tests.ts"
     ]
 }
