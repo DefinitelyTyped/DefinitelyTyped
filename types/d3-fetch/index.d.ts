@@ -29,7 +29,7 @@ export function dsv<ParsedRow extends DSVRowAny>(
 export function image(url: string, init?: RequestInit): Promise<HTMLImageElement>;
 
 /** Fetches the json file at the specified input URL. If init is specified, it is passed along to the underlying call to fetch. */
-export function json<ResponseData>(url: string, init?: RequestInit): Promise<ResponseData>;
+export function json(url: string, init?: RequestInit): Promise<{}>;
 
 /** Fetches the text file at the specified input URL. If init is specified, it is passed along to the underlying call to fetch. */
 export function text(url: string, init?: RequestInit): Promise<string>;
