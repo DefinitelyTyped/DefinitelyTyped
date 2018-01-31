@@ -261,3 +261,41 @@ setLocale({
     number: { max: "Max message", min: "Min message" },
     string: { email: "String message"}
 });
+
+interface MyInterface {
+    stringField: string;
+    numberField: number;
+    subFields: SubInterface;
+}
+
+interface SubInterface {
+    testField: string;
+}
+
+const typedSchema = yup.object<MyInterface>().shape({
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
+    subFields: yup.object<SubInterface>().shape({
+        testField: yup.string().required(),
+    }).required(),
+});
+
+const testObject = {
+    stringField: "test1",
+    numberField: 123,
+    subFields: {
+        testField: "test2"
+    },
+};
+
+typedSchema.validate(testObject);
+
+const untypedSchema = yup.object().shape({
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
+    subFields: yup.object().shape({
+        testField: yup.string().required(),
+    }).required(),
+});
+
+untypedSchema.validate(testObject);
