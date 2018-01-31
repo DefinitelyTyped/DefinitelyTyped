@@ -221,5 +221,5 @@ export interface RelayProp<V> {
 }
 
 export interface RelayProps<V> {
-    readonly relay: RelayProp<V>
+    readonly relay: RelayProp<V>;
 }
