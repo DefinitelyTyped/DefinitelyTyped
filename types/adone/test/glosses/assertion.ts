@@ -38,11 +38,11 @@ namespace assertionTests {
         assert.fail(1, 2, "hello");
         assert.fail(1, 2, "hello", "<");
 
-        assert.isOk(1);
-        assert.isOk(1, "hello");
+        assert.ok(1);
+        assert.ok(1, "hello");
 
-        assert.isNotOk(1);
-        assert.isNotOk(1, "hello");
+        assert.notOk(1);
+        assert.notOk(1, "hello");
 
         assert.equal(1, 2);
         assert.equal(1, 2, "hello");
@@ -68,38 +68,38 @@ namespace assertionTests {
         assert.notDeepEqual(1, 2);
         assert.notDeepEqual(1, 2, "hello");
 
-        assert.isAbove(1, 2);
-        assert.isAbove(1, 2, "hello");
+        assert.above(1, 2);
+        assert.above(1, 2, "hello");
 
-        assert.isAtLeast(1, 2);
-        assert.isAtLeast(1, 2, "hello");
+        assert.atLeast(1, 2);
+        assert.atLeast(1, 2, "hello");
 
-        assert.isBelow(1, 2);
-        assert.isBelow(1, 2, "hello");
+        assert.below(1, 2);
+        assert.below(1, 2, "hello");
 
-        assert.isAtMost(1, 2);
-        assert.isAtMost(1, 2, "hello");
+        assert.atMost(1, 2);
+        assert.atMost(1, 2, "hello");
 
-        assert.isTrue(1);
-        assert.isTrue(1, "hello");
+        assert.true(1);
+        assert.true(1, "hello");
 
-        assert.isNotTrue(1);
-        assert.isNotTrue(1, "hello");
+        assert.notTrue(1);
+        assert.notTrue(1, "hello");
 
-        assert.isFalse(1);
-        assert.isFalse(1, "hello");
+        assert.false(1);
+        assert.false(1, "hello");
 
-        assert.isNotFalse(1);
-        assert.isNotFalse(1, "hello");
+        assert.notFalse(1);
+        assert.notFalse(1, "hello");
 
-        assert.isNull(1);
-        assert.isNull(1, "hello");
+        assert.null(1);
+        assert.null(1, "hello");
 
-        assert.isNaN(1);
-        assert.isNaN(1, "hello");
+        assert.NaN(1);
+        assert.NaN(1, "hello");
 
-        assert.isNotNaN(1);
-        assert.isNotNaN(1, "hello");
+        assert.NotNaN(1);
+        assert.NotNaN(1, "hello");
 
         assert.exists(1);
         assert.exists(1, "hello");
@@ -107,49 +107,49 @@ namespace assertionTests {
         assert.notExists(1);
         assert.notExists(1, "hello");
 
-        assert.isUndefined(1);
-        assert.isUndefined(1, "hello");
+        assert.undefined(1);
+        assert.undefined(1, "hello");
 
-        assert.isDefined(1);
-        assert.isDefined(1, "hello");
+        assert.defined(1);
+        assert.defined(1, "hello");
 
-        assert.isFunction(1);
-        assert.isFunction(1, "hello");
+        assert.function(1);
+        assert.function(1, "hello");
 
-        assert.isNotFunction(1);
-        assert.isNotFunction(1, "hello");
+        assert.notFunction(1);
+        assert.notFunction(1, "hello");
 
-        assert.isObject(1);
-        assert.isObject(1, "hello");
+        assert.object(1);
+        assert.object(1, "hello");
 
-        assert.isNotObject(1);
-        assert.isNotObject(1, "hello");
+        assert.notObject(1);
+        assert.notObject(1, "hello");
 
-        assert.isArray(1);
-        assert.isArray(1, "hello");
+        assert.array(1);
+        assert.array(1, "hello");
 
-        assert.isNotArray(1);
-        assert.isNotArray(1, "hello");
+        assert.notArray(1);
+        assert.notArray(1, "hello");
 
-        assert.isString(1, "hello");
+        assert.string(1, "hello");
 
-        assert.isNotString(1);
-        assert.isNotString(1, "hello");
+        assert.notString(1);
+        assert.notString(1, "hello");
 
-        assert.isNumber(1);
-        assert.isNumber(1, "hello");
+        assert.number(1);
+        assert.number(1, "hello");
 
-        assert.isNotNumber(1);
-        assert.isNotNumber(1, "hello");
+        assert.notNumber(1);
+        assert.notNumber(1, "hello");
 
-        assert.isFinite(1);
-        assert.isFinite(1, "hello");
+        assert.finite(1);
+        assert.finite(1, "hello");
 
-        assert.isBoolean(1);
-        assert.isBoolean(1, "hello");
+        assert.boolean(1);
+        assert.boolean(1, "hello");
 
-        assert.isNotBoolean(1);
-        assert.isNotBoolean(1, "hello");
+        assert.notBoolean(1);
+        assert.notBoolean(1, "hello");
 
         assert.typeOf(1, "string");
         assert.typeOf(1, "number", "hello");
@@ -457,26 +457,26 @@ namespace assertionTests {
 
         assert.ifError(1);
 
-        assert.isExtensible({});
-        assert.isExtensible({}, "hello");
+        assert.extensible({});
+        assert.extensible({}, "hello");
 
-        assert.isNotExtensible({});
-        assert.isNotExtensible({}, "hello");
+        assert.notExtensible({});
+        assert.notExtensible({}, "hello");
 
-        assert.isSealed({});
-        assert.isSealed({}, "hello");
+        assert.sealed({});
+        assert.sealed({}, "hello");
 
-        assert.isNotSealed({});
-        assert.isNotSealed({}, "hello");
+        assert.notSealed({});
+        assert.notSealed({}, "hello");
 
-        assert.isFrozen({});
-        assert.isFrozen({}, "hello");
+        assert.frozen({});
+        assert.frozen({}, "hello");
 
-        assert.isNotFrozen({});
-        assert.isNotFrozen({}, "hello");
+        assert.notFrozen({});
+        assert.notFrozen({}, "hello");
 
-        assert.isEmpty({});
-        assert.isEmpty({}, "hello");
+        assert.empty({});
+        assert.empty({}, "hello");
     }
 
     const { expect } = assertion;
@@ -499,16 +499,16 @@ namespace assertionTests {
         expect(1).to.contain(2, "hello").and;
         expect(1).but.contains(2).and;
         expect(1).but.contains(2, "hello").and;
-        expect(1).to.ok.not.ok;
-        expect(1).to.be.true.but.false;
-        expect(1).to.be.false.but.true;
-        expect(1).to.be.null.and.null;
-        expect(1).to.be.undefined.and.true;
-        expect(1).to.be.NaN.and.null;
-        expect(1).to.exist.and.be.null;
-        expect(1).to.be.empty.and.true;
-        expect(1).to.be.arguments.and.a("number");
-        expect(1).to.be.Arguments.and.false;
+        expect(1).to.ok().and.a("string");
+        expect(1).to.be.true().but.false();
+        expect(1).to.be.false().but.true();
+        expect(1).to.be.null().and.null();
+        expect(1).to.be.undefined().and.true();
+        expect(1).to.be.NaN().and.null();
+        expect(1).to.exist().and.be.null();
+        expect(1).to.be.empty().and.true();
+        expect(1).to.be.arguments().and.a("number");
+        expect(1).to.be.Arguments().and.false();
         expect(1).to.be.equal(2).and;
         expect(1).to.be.equal(2, "hello").and;
         expect(1).but.equals(2).and;
@@ -624,19 +624,19 @@ namespace assertionTests {
         expect(() => {}).but.decreases({}, "a", "hello").and;
         expect(() => {}).to.decreases({}).by(2).and;
         expect(() => {}).to.decreases({}).by(2, "hello").and;
-        expect({}).to.be.extensible.and;
-        expect({}).to.be.sealed.and;
-        expect({}).to.be.frozen.and;
-        expect({}).to.be.finite.and;
+        expect({}).to.be.extensible().and;
+        expect({}).to.be.sealed().and;
+        expect({}).to.be.frozen().and;
+        expect({}).to.be.finite().and;
 
         namespace mockTests {
             const s1 = adone.shani.util.spy();
             const s2 = adone.shani.util.spy();
 
-            expect(s1).to.have.been.called;
-            expect(s1).to.have.been.calledOnce;
-            expect(s1).to.have.been.calledTwice;
-            expect(s1).to.have.been.calledThrice;
+            expect(s1).to.have.been.called();
+            expect(s1).to.have.been.calledOnce();
+            expect(s1).to.have.been.calledTwice();
+            expect(s1).to.have.been.calledThrice();
             expect(s1).to.have.callCount(100);
             expect(s1).to.have.been.calledBefore(s2);
             expect(s1).to.have.been.calledAfter(s2);

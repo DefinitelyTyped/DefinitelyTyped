@@ -16,10 +16,6 @@ declare namespace adone {
 
         function functionName(fn: (...args: any[]) => any): string;
 
-        function mapArguments(argmap: (...args: any[]) => any): (...args: any[]) => any;
-        function mapArguments(argmap: number): <T>(...args: T[]) => T[];
-        function mapArguments(...args: any[]): <T>(x: T) => T;
-
         namespace I {
             interface ParseMsResult {
                 days: number;
@@ -32,8 +28,6 @@ declare namespace adone {
         function parseMs(ms: number): I.ParseMsResult;
 
         function pluralizeWord(str: string, plural?: string, count?: number): string;
-
-        function functionParams(func: (...args: any[]) => any): string[];
 
         function randomChoice<T>(arrayLike: ArrayLike<T>, from?: number, to?: number): T;
 
@@ -70,18 +64,7 @@ declare namespace adone {
 
         function globParent(str: string): string;
 
-        namespace I {
-            interface ByResult<S, T, R> {
-                (a: S, b: S): R;
-                compare(a: T, b: T): R;
-                by(a: S): T;
-            }
-        }
-        function by<S, T, R>(by: (a: S) => T, compare?: (a: T, b: T) => R): I.ByResult<S, T, R>;
-
         function toFastProperties(object: object): object;
-
-        function stripBom(x: string): string;
 
         namespace I {
             interface SortKeysOptions {
@@ -118,12 +101,42 @@ declare namespace adone {
 
         namespace I {
             interface CloneOptions {
+                /**
+                 * Clone recursively
+                 *
+                 * `true` by default
+                 */
                 deep?: boolean;
+
+                /**
+                 * Clone non-plain object, they will be plain objects
+                 *
+                 * `false` by default
+                 */
+                nonPlainObjects?: boolean;
+
+                /**
+                 * Clone only enumerable properties
+                 *
+                 * `true` by default
+                 */
+                onlyEnumerable?: boolean;
             }
         }
-        function clone(object: object, options?: I.CloneOptions): object;
 
-        function toUTF8Array(str: string): number[];
+        class Cloner {
+            /**
+             * Clones the given object
+             */
+            clone(obj: any, options?: I.CloneOptions): any;
+
+            /**
+             * Returns a clone function that is binded to this cloner
+             */
+            binding(): (obj: any, options?: I.CloneOptions) => any;
+        }
+
+        function clone(object: any, options?: I.CloneOptions): any;
 
         function asyncIter<T>(array: T[], iter: (elem: T, index: number, cb: () => void) => any, cb: () => void): void;
 
@@ -150,20 +163,31 @@ declare namespace adone {
         function assignDeep<T>(target: T, ...sources: object[]): T;
 
         namespace I {
-            interface MatchOptions {
+            interface MatchPathOptions {
                 index?: boolean;
                 start?: number;
                 end?: number;
                 dot?: boolean;
             }
         }
-        function match(criteria: any, options?: I.MatchOptions): (value: any, options?: I.MatchOptions) => number | boolean;
-        function match(criteria: any, value: any, options?: I.MatchOptions): number | boolean;
+        function matchPath(criteria: any, options?: I.MatchPathOptions): (value: any, options?: I.MatchPathOptions) => number | boolean;
+        function matchPath(criteria: any, value: any, options?: I.MatchPathOptions): number | boolean;
 
         namespace I {
+            class Sorter {
+                edges: string[];
+
+                add(item: string, deps: string | string[]): void;
+
+                sort(): string[];
+
+                clear(): void;
+            }
+
             interface ToposortFunction {
-                <T>(edges: Array<[T, T]>): T[];
-                array<T>(nodes: T[], edges: Array<[T, T]>): T[];
+                (edges: Array<[string, string]>): string[];
+                array(nodes: string[], edges: Array<[string, string]>): string[];
+                Sorter: typeof Sorter;
             }
         }
         const toposort: I.ToposortFunction;
@@ -217,11 +241,11 @@ declare namespace adone {
             function v1(options?: I.V1Options): string;
             function v1(options: I.V1Options, buf: any[], offset?: number): number[];
 
-            function v4(options?: any): string;
-            function v4(options: any, buf: any[], offset?: number): number[];
-
             function v3(name: string | number[], namespace: string | number[]): string;
             function v3(name: string | number[], namespace: string | number[], buf: any[], offset?: number): number[];
+
+            function v4(options?: any): string;
+            function v4(options: any, buf: any[], offset?: number): number[];
 
             function v5(name: string | number[], namespace: string | number[]): string;
             function v5(name: string | number[], namespace: string | number[], buf: any[], offset?: number): number[];
@@ -237,40 +261,6 @@ declare namespace adone {
         }
         function delegate(object: object, property: string): I.Delegator;
 
-        namespace I {
-            interface GlobExpOptions {
-                nocomment?: boolean;
-                nonegate?: boolean;
-                nobrace?: boolean;
-                noglobstar?: boolean;
-                nocase?: boolean;
-                dot?: boolean;
-                noext?: boolean;
-                matchBase?: boolean;
-                flipNegate?: boolean;
-            }
-        }
-
-        class GlobExp {
-            constructor(pattern: string, options?: I.GlobExpOptions);
-
-            hasMagic(): boolean;
-
-            static hasMagic(pattern: string, options?: I.GlobExpOptions): boolean;
-
-            expandBraces(): string[];
-
-            static expandBraces(pattern: string, options?: I.GlobExpOptions): string[];
-
-            makeRe(): RegExp;
-
-            static makeRe(pattern: string, options?: I.GlobExpOptions): RegExp;
-
-            static test(p: string, pattern: string, options?: I.GlobExpOptions): boolean;
-
-            test(p: string): boolean;
-        }
-
         namespace iconv {
             // TODO: need to normalize source code
         }
@@ -278,9 +268,6 @@ declare namespace adone {
         namespace sqlstring {
             function escapeId(val: string | string[], forbidQualified?: boolean): string;
             function dateToString(date: any, timeZone?: string): string;
-            function arrayToList(array: any[]): string;
-            function bufferToString(buffer: Buffer): string;
-            function objectToValues(object: object, timeZone?: string): string;
             function escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
             function format(sql: string, values?: any, stringifyObjects?: boolean, timeZone?: string): string;
         }
@@ -316,49 +303,71 @@ declare namespace adone {
         }
         const binarySearch: I.BinarySearchFunction;
 
+        /**
+         * buffer tools
+         */
         namespace buffer {
-            function concat(list: Buffer[], totalLength: number): Buffer;
-            function mask(buffer: Buffer, mask: Buffer, output: Buffer, offset: number, length: number): void;
-            function unmask(buffer: Buffer, mask: Buffer): void;
+            /**
+             * Converts the given Buffer to ArrayBuffer
+             */
+            function toArrayBuffer(buf: Buffer): ArrayBuffer;
+
+            /**
+             * Returns a new buffer that represents a^b
+             *
+             * If the lengths are not equal, it assumes missing bytes as 0x00
+             *
+             * @param length length of the result buffer. max(a.length, b.length) by default
+             */
+            function xor(a: Buffer, b: Buffer, length?: number): Buffer;
         }
 
         function shebang(str: string): string | null;
 
-        class ReInterval {
-            constructor(callback: (...args: any[]) => void, interval: number, args?: any[]);
-
-            reschedule(interval: number): void;
-
-            clear(): void;
-
-            destroy(): void;
-        }
-
-        class RateLimiter {
-            constructor(tokensPerInterval?: number, interval?: number, fireImmediately?: boolean);
-
-            removeTokens(count: number): Promise<number>;
-
-            tryRemoveTokens(count: number): boolean;
-
-            getTokensRemaining(): number;
-        }
-
         namespace I {
-            interface ThrottleOptions {
-                max?: number;
-                interval?: number;
-                ordered?: boolean;
-                waitForReturn?: boolean;
+            interface ReInterval {
+                reschedule(interval: number): void;
+
+                clear(): void;
+
+                destroy(): void;
             }
         }
-        function throttle<R>(fn: () => R, options?: I.ThrottleOptions): () => Promise<R>;
-        function throttle<T1, R>(fn: (a: T1) => R, options?: I.ThrottleOptions): (a: T1) => Promise<R>;
-        function throttle<T1, T2, R>(fn: (a: T1, b: T2) => R, options?: I.ThrottleOptions): (a: T1, b: T2) => Promise<R>;
-        function throttle<T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => R, options?: I.ThrottleOptions): (a: T1, b: T2, c: T3) => Promise<R>;
-        function throttle<T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, options?: I.ThrottleOptions): (a: T1, b: T2, c: T3, d: T4) => Promise<R>;
-        function throttle<T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, options?: I.ThrottleOptions): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>;
-        function throttle<R>(fn: (...args: any[]) => R, options?: I.ThrottleOptions): (...args: any[]) => Promise<R>;
+
+        function reinterval(callback: (...args: any[]) => void, interval: number, args?: any[]): I.ReInterval;
+
+        namespace throttle {
+            namespace I {
+                interface Options {
+                    max?: number;
+                    interval?: number;
+                    ordered?: boolean;
+                    waitForReturn?: boolean;
+                    onDone?: () => void;
+                    drop?: boolean;
+                    dropLast?: boolean;
+                }
+            }
+            function create<R>(fn: () => R, options?: I.Options): () => Promise<R>;
+            function create<T1, R>(fn: (a: T1) => R, options?: I.Options): (a: T1) => Promise<R>;
+            function create<T1, T2, R>(fn: (a: T1, b: T2) => R, options?: I.Options): (a: T1, b: T2) => Promise<R>;
+            function create<T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => R, options?: I.Options): (a: T1, b: T2, c: T3) => Promise<R>;
+            function create<T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, options?: I.Options): (a: T1, b: T2, c: T3, d: T4) => Promise<R>;
+            function create<T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, options?: I.Options): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>;
+            function create<R>(fn: (...args: any[]) => R, options?: I.Options): (...args: any[]) => Promise<R>;
+
+            class RateLimiter {
+                constructor(tokensPerInterval?: number, interval?: number, fireImmediately?: boolean);
+
+                removeTokens(count: number): Promise<number>;
+
+                tryRemoveTokens(count: number): boolean;
+
+                getTokensRemaining(): number;
+            }
+
+            const DROPPED: symbol;
+        }
 
         namespace I.fakeClock {
             interface Timer {
@@ -476,36 +485,6 @@ declare namespace adone {
         }
 
         /**
-         * Utils for uid/gid
-         */
-        namespace userid {
-            /**
-             * Returns uid by the given username
-             */
-            function uid(username: string): { uid: number, gid: number };
-
-            /**
-             * Returns gid by the given groupname
-             */
-            function gid(groupname: string): number;
-
-            /**
-             * Returns username by the given uid
-             */
-            function username(uid: number): string;
-
-            /**
-             * Returns groupname by the given gid
-             */
-            function groupname(gid: number): string;
-
-            /**
-             * Returns gids the given user belongs
-             */
-            function gids(username: string): number[];
-        }
-
-        /**
          * Represents a log file rotator
          */
         class LogRotator {
@@ -572,5 +551,598 @@ declare namespace adone {
         function debounce<T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, timeout: number, options?: I.DebounceOptions): (a: T1, b: T2, c: T3, d: T4) => R;
         function debounce<T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, timeout: number, options?: I.DebounceOptions): (a: T1, b: T2, c: T3, d: T4, e: T5) => R;
         function debounce<R>(fn: (...args: any[]) => R, timeout: number, options?: I.DebounceOptions): (...args: any[]) => R;
+
+        /**
+         * Finds difference between the given arrays
+         */
+        function arrayDiff<T = any>(...arrays: T[][]): T[];
+
+        namespace I {
+            type FillRangeTransform = () => void;
+
+            interface FillRangeOptions {
+                /**
+                 *  The increment to use for the range. Can be used with letters or numbers
+                 */
+                step?: number;
+
+                /**
+                 * By default, null is returned when an invalid range is passed.
+                 * Enable this option to throw a RangeError on invalid ranges
+                 *
+                 * false by default
+                 */
+                strictRanges?: boolean;
+
+                /**
+                 * Cast all returned values to strings.
+                 *
+                 * By default, integers are returned as numbers.
+                 */
+                stringify?: boolean;
+
+                /**
+                 * Create a regex-compatible source string, instead of expanding values to an array.
+                 *
+                 * false by default
+                 */
+                toRegex?: boolean;
+
+                /**
+                 * Customize each value in the returned array (or string)
+                 */
+                transform?: FillRangeTransform;
+            }
+        }
+
+        /**
+         * Expands numbers and letters
+         */
+        function fillRange(from: number, to: number, options: I.FillRangeOptions & { toRegex: true }): string;
+        function fillRange(from: number, to: number, options: I.FillRangeOptions & { stringify: true }): string[];
+        function fillRange(from: number, to: number, options?: I.FillRangeOptions): number[];
+
+        function fillRange(from: string, to: string, options: I.FillRangeOptions & { toRegex: true }): string;
+        function fillRange(from: string, to: string, options?: I.FillRangeOptions): string[];
+
+        function fillRange(from: string | number, to: string | number, options: I.FillRangeOptions & { toRegex: true }): string;
+        function fillRange(from: string | number, to: string | number, options?: I.FillRangeOptions): Array<string | number>;
+
+        namespace inflection {
+            function singularizeWord(str: string, singular?: string): string;
+            function pluralizeWord(str: string, plural?: string): string;
+            function underscore(str: string, allUpperCase?: boolean): string;
+        }
+
+        function machineId(original?: boolean): Promise<string>;
+
+        namespace I {
+            interface MergeOptions {
+                plainObjects?: boolean;
+                allowPrototypes?: boolean;
+            }
+        }
+
+        function merge(target: any, source: any, options?: I.MergeOptions): any;
+
+        function omit(obj: any, props: ((v: string) => boolean) | string[] | string): object;
+
+        function parseTime(val: number): number;
+        function parseTime(val: any): number | null;
+
+        function pick(obj: any, props: Iterable<any>): object;
+
+        // pool: TODO
+
+        namespace querystring {
+            function escape(str: string): string;
+
+            const formats: {
+                RFC1738: "RFC1738"
+                RFC3986: "RFC3986",
+                default: string,
+                formatters: {
+                    RFC1738(val: string): string,
+                    RFC3986(val: string): string
+                }
+            };
+
+            namespace I {
+                interface ParseOptions {
+                    ignoreQueryPrefix?: boolean;
+                    delimiter?: string;
+                    depth?: number;
+                    arrayLimit?: number;
+                    parseArrays?: boolean;
+                    decoder?: (str: string, defaultDecoder: (str: string) => string) => string;
+                    allowDots?: boolean;
+                    plainObjects?: boolean;
+                    allowPrototypes?: boolean;
+                    parameterLimit?: number;
+                    strictNullHandling?: boolean;
+                }
+
+                interface StringifyOptions {
+                    delimiter?: string;
+                    strictNullHandling?: boolean;
+                    skipNulls?: boolean;
+                    encode?: boolean;
+                    encoder?: (str: string) => any;
+                    filter?: Array<string | number> | ((prefix: string, value: any) => any);
+                    arrayFormat?: "indices" | "brackets" | "repeat";
+                    indices?: boolean;
+                    sort?: (a: any, b: any) => number;
+                    serializeDate?: (d: Date) => string;
+                    format?: "RFC1738" | "RFC3986";
+                    encodeValuesOnly?: boolean;
+                    addQueryPrefix?: boolean;
+                    allowDots?: boolean;
+                }
+            }
+
+            function parse(str: string, options?: I.ParseOptions): any;
+
+            function stringify(obj: any, options?: I.StringifyOptions): string;
+
+            function unescape(str: string): string;
+        }
+
+        namespace I {
+            interface RegexNotOptions {
+                contains?: boolean;
+            }
+        }
+
+        function regexNot(pattern: string, options?: I.RegexNotOptions): RegExp;
+
+        function repeat<T>(item: T, n: number): T[];
+
+        // retry: TODO
+
+        function signalNameToCode(signame: string): number;
+
+        function splitBuffer(buf: string | Buffer, splitBuf: string | Buffer, includeDelim?: boolean): Buffer[];
+
+        namespace I {
+            type SplitStringSplitFunction = (token: {
+                val: string;
+                idx: number;
+                arr: string[];
+                str: string;
+            }) => void;
+
+            interface SplitStringOptions {
+                braces?: object | boolean;
+                keepEscaping?: boolean;
+                keepQuotes?: boolean;
+                keepDoubleQuotes?: boolean;
+                keepSingleQuotes?: boolean;
+                separator?: string;
+                split?: SplitStringSplitFunction;
+            }
+        }
+
+        function splitString(str: string): string[];
+        function splitString(str: string, options: I.SplitStringOptions): string[];
+        function splitString(str: string, splitter: I.SplitStringSplitFunction): string[];
+        function splitString(str: string, options: I.SplitStringOptions, splitter: I.SplitStringSplitFunction): string[];
+
+        // terraformer: TODO
+
+        namespace I {
+            interface ToRegexOptions {
+                contains?: boolean;
+                negate?: boolean;
+                nocase?: boolean;
+                flags?: string;
+                cache?: boolean;
+            }
+        }
+
+        function toRegex(patterns: string | string[], options?: I.ToRegexOptions): RegExp;
+
+        namespace I {
+            interface ToRegexRangeOptions {
+                capture?: boolean;
+                shorthand?: boolean;
+                relaxZeros?: boolean;
+            }
+        }
+
+        function toRegexRange(min: string | number, max: string | number, options?: I.ToRegexRangeOptions): RegExp;
+
+        namespace xorDistance {
+            function compare(a: Buffer, b: Buffer): boolean;
+
+            function create(a: Buffer, b: Buffer): Buffer;
+
+            function gt(a: Buffer, b: Buffer): boolean;
+
+            function lt(a: Buffer, b: Buffer): boolean;
+
+            function eq(a: Buffer, b: Buffer): boolean;
+        }
+
+        namespace I {
+            interface BracesOptions {
+                /**
+                 * Generate an "expanded" brace pattern (this option is unncessary with the `.expand` method, which does the same thing).
+                 *
+                 * @default undefined
+                 */
+                expand?: boolean;
+
+                /**
+                 * Enabled by default.
+                 *
+                 * @default true
+                 */
+                optimize?: boolean;
+
+                /**
+                 * Duplicates are removed by default. To keep duplicates, pass `{nodupes: false}` on the options
+                 *
+                 * @default true
+                 */
+                nodupes?: boolean;
+
+                /**
+                 * When `braces.expand()` is used, or `options.expand` is true, brace patterns will automatically be [optimized](#optionsoptimize)
+                 * when the difference between the range minimum and range maximum exceeds the `rangeLimit`.
+                 * This is to prevent huge ranges from freezing your application.
+                 *
+                 * You can set this to any number, or change `options.rangeLimit` to `Inifinity` to disable this altogether.
+                 *
+                 * @default 250
+                 */
+                rangeLimit?: number;
+
+                /**
+                 * Customize range expansion.
+                 *
+                 * @default undefined
+                 */
+                transform?: (str: string) => string;
+
+                /**
+                 * In regular expressions, quanitifiers can be used to specify how many times a token can be repeated. For example, `a{1,3}` will match the letter `a` one to three times.
+                 *
+                 * Unfortunately, regex quantifiers happen to share the same syntax as [Bash lists](#lists)
+                 *
+                 * The `quantifiers` option tells braces to detect when [regex quantifiers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#quantifiers)
+                 * are defined in the given pattern, and not to try to expand them as lists.
+                 *
+                 * @default undefined
+                 */
+                quantifiers?: boolean;
+
+                /**
+                 * Strip backslashes that were used for escaping from the result.
+                 *
+                 * @default undefined
+                 */
+                unescape?: boolean;
+            }
+            interface BracesFunction {
+                (pattern: string, options?: BracesOptions): string[];
+                expand(pattern: string, options?: BracesOptions): string[];
+                MAX_LENGTH: number;
+                clearCache(): void;
+                resizeCache(newSize: number): void;
+                getCache(): object; // TODO
+                makeRe(pattern: string, options?: BracesOptions): RegExp;
+            }
+        }
+
+        const braces: I.BracesFunction;
+
+        namespace I {
+            interface MatchOptions {
+                /**
+                 * Allow glob patterns without slashes to match a file path based on its basename. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `matchBase`.
+                 *
+                 * @default false
+                 */
+                basename?: boolean;
+
+                /**
+                 * Enabled by default, this option enforces bash-like behavior with stars immediately following a bracket expression.
+                 * Bash bracket expressions are similar to regex character classes, but unlike regex, a star following a bracket expression **does not repeat the bracketed characters**.
+                 * Instead, the star is treated the same as an other star.
+                 *
+                 * @default true
+                 */
+                bash?: boolean;
+
+                /**
+                 * Disable regex and function memoization.
+                 *
+                 * @default undefined
+                 */
+                cache?: boolean;
+
+                /**
+                 * Match dotfiles. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `dot`.
+                 *
+                 * @default false
+                 */
+                dot?: boolean;
+
+                /**
+                 * Similar to the `--failglob` behavior in Bash, throws an error when no matches are found.
+                 *
+                 * @default undefined
+                 */
+                failglob?: boolean;
+
+                /**
+                 * String or array of glob patterns to match files to ignore.
+                 *
+                 * @default undefined
+                 */
+                ignore?: string | string[];
+
+                /**
+                 * Alias for [options.basename](#options-basename).
+                 */
+                matchBase?: boolean;
+
+                /**
+                 * Disable expansion of brace patterns. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `nobrace`.
+                 *
+                 * @default undefined
+                 */
+                nobrace?: boolean;
+
+                /**
+                 * Use a case-insensitive regex for matching files. Same behavior as [minimatch](https://github.com/isaacs/minimatch).
+                 *
+                 * @default undefined
+                 */
+                nocase?: boolean;
+
+                /**
+                 * Remove duplicate elements from the result array.
+                 *
+                 * @default undefined
+                 */
+                nodupes?: boolean;
+
+                /**
+                 * Disable extglob support, so that extglobs are regarded as literal characters.
+                 *
+                 * @default undefined
+                 */
+                noext?: boolean;
+
+                /**
+                 * Disallow negation (`!`) patterns, and treat leading `!` as a literal character to match.
+                 *
+                 * @default undefined
+                 */
+                nonegate?: boolean;
+
+                /**
+                 * Disable matching with globstars (`**`).
+                 *
+                 * @default undefined
+                 */
+                noglobstar?: boolean;
+
+                /**
+                 * Alias for [options.nullglob](#options-nullglob).
+                 */
+                nonull?: boolean;
+
+                /**
+                 * If `true`, when no matches are found the actual (arrayified) glob pattern is returned instead of an empty array.
+                 * Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `nonull`.
+                 *
+                 * @default undefined
+                 */
+                nullglob?: boolean;
+
+                /**
+                 * Pass your own instance of [snapdragon](https://github.com/jonschlinkert/snapdragon), to customize parsers or compilers.
+                 *
+                 * @default undefined
+                 */
+                snapdragon?: object;
+
+                /**
+                 * Generate a source map by enabling the `sourcemap` option with the `.parse`, `.compile`, or `.create` methods.
+                 *
+                 * _(Note that sourcemaps are currently not enabled for brace patterns)_
+                 */
+                sourcemap?: boolean;
+
+                /**
+                 * Remove backslashes from returned matches.
+                 *
+                 * @default undefined
+                 */
+                unescape?: boolean;
+
+                /**
+                 * Convert path separators on returned files to posix/unix-style forward slashes.
+                 *
+                 * @default true
+                 */
+                unixify?: boolean;
+            }
+
+            interface MatchFunction {
+                /**
+                 * The main function takes a list of strings and one or more glob patterns to use for matching.
+                 *
+                 * @param list A list of strings to match
+                 * @param patterns One or more glob patterns to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns an array of matches
+                 */
+                (list: string[], patterns: string | string[], options?: MatchOptions): string[];
+
+                /**
+                 * Similar to the main function, but `pattern` must be a string.
+                 *
+                 * @param list Array of strings to match
+                 * @param pattern Glob pattern to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns an array of matches
+                 */
+                match(list: string[], pattern: string, options?: MatchOptions): string[];
+
+                /**
+                 * Returns true if the specified `string` matches the given glob `pattern`.
+                 *
+                 * @param string String to match
+                 * @param pattern Glob pattern to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns true if the string matches the glob pattern.
+                 */
+                isMatch(string: string, pattern: string, options?: MatchOptions): boolean;
+
+                /**
+                 * Returns true if some of the strings in the given `list` match any of the given glob `patterns`.
+                 *
+                 * @param list The string or array of strings to test. Returns as soon as the first match is found.
+                 * @param patterns One or more glob patterns to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns true if any patterns match `str`
+                 */
+                some(list: string | string[], patterns: string | string[], options?: MatchOptions): boolean;
+
+                /**
+                 * Returns true if every string in the given `list` matches any of the given glob `patterns`.
+                 *
+                 * @param list The string or array of strings to test.
+                 * @param patterns One or more glob patterns to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns true if any patterns match `str`
+                 */
+                every(list: string | string[], patterns: string | string[], options?: MatchOptions): boolean;
+
+                /**
+                 * Returns true if **any** of the given glob `patterns` match the specified `string`.
+                 *
+                 * @param str The string to test.
+                 * @param patterns One or more glob patterns to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns true if any patterns match `str`
+                 */
+                any(str: string | string[], patterns: string | string[], options?: MatchOptions): boolean;
+
+                /**
+                 * Returns true if **all** of the given `patterns` match the specified string.
+                 *
+                 * @param str The string to test.
+                 * @param patterns One or more glob patterns to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns true if any patterns match `str`
+                 */
+                all(str: string | string[], patterns: string | string[], options?: MatchOptions): boolean;
+
+                /**
+                 * Returns a list of strings that _**do not match any**_ of the given `patterns`.
+                 *
+                 * @param list Array of strings to match.
+                 * @param patterns One or more glob pattern to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns an array of strings that **do not match** the given patterns.
+                 */
+                not(list: string[], patterns: string | string[], options?: MatchOptions): string[];
+
+                /**
+                 * Returns true if the given `string` contains the given pattern. Similar to [.isMatch](#isMatch) but the pattern can match any part of the string.
+                 *
+                 * @param str The string to match.
+                 * @param patterns Glob pattern to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns true if the patter matches any part of `str`.
+                 */
+                contains(str: string, patterns: string | string[], options?: MatchOptions): boolean;
+
+                /**
+                 * Filter the keys of the given object with the given `glob` pattern and `options`. Does not attempt to match nested keys.
+                 * If you need this feature, use [glob-object](https://github.com/jonschlinkert/glob-object) instead.
+                 *
+                 * @param object The object with keys to filter.
+                 * @param patterns One or more glob patterns to use for matching.
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns an object with only keys that match the given patterns.
+                 */
+                matchKeys<T>(object: T, patterns: string | string[], options?: MatchOptions): Partial<T>;
+
+                /**
+                 * Returns a memoized matcher function from the given glob `pattern` and `options`.
+                 * The returned function takes a string to match as its only argument and returns true if the string is a match.
+                 *
+                 * @param pattern Glob pattern
+                 * @param options See available options for changing how matches are performed.
+                 * @returns Returns a matcher function.
+                 */
+                matcher(pattern: string | string[], options?: MatchOptions): (str: string) => boolean;
+
+                /**
+                 * Returns an array of matches captured by `pattern` in `string, or`null` if the pattern did not match.
+                 *
+                 * @param pattern Glob pattern to use for matching.
+                 * @param string String to match
+                 * @param options See available options for changing how matches are performed
+                 * @returns Returns an array of captures if the string matches the glob pattern, otherwise `null`.
+                 */
+                capture(pattern: string, string: string, options?: MatchOptions): string[] | null;
+
+                /**
+                 * Create a regular expression from the given glob `pattern`.
+                 *
+                 * @param pattern A glob pattern to convert to regex.
+                 * @param options See available options for changing how matches are performed.
+                 * @returns Returns a regex created from the given pattern.
+                 */
+                makeRe(pattern: string, options?: MatchOptions): RegExp;
+
+                /**
+                 * Expand the given brace `pattern`.
+                 *
+                 * @param pattern String with brace pattern to expand.
+                 * @param options Any options to change how expansion is performed. See the [braces](https://github.com/micromatch/braces) library for all available options.
+                 */
+                braces(pattern: string, options?: MatchOptions): string[];
+
+                /**
+                 * Parses the given glob `pattern` and returns an array of abstract syntax trees (ASTs), with the compiled `output` and optional source `map` on each AST.
+                 *
+                 * @param pattern Glob pattern to parse and compile.
+                 * @param options Any options to change how parsing and compiling is performed.
+                 * @returns Returns an object with the parsed AST, compiled string and optional source map.
+                 */
+                create(pattern: string, options?: MatchOptions): object;
+
+                /**
+                 * Parse the given `str` with the given `options`.
+                 *
+                 * @returns Returns an AST
+                 */
+                parse(str: string, options?: MatchOptions): object;
+
+                /**
+                 * Compile the given `ast` or string with the given `options`.
+                 *
+                 * @returns Returns an object that has an `output` property with the compiled string.
+                 */
+                compile(ast: object | string, options?: MatchOptions): object;
+
+                MAX_LENGTH: number;
+
+                clearCache(): void;
+
+                resizeCache(newSize: number): void;
+
+                getCache(): object; // TODO
+            }
+        }
+
+        const match: I.MatchFunction;
     }
 }
