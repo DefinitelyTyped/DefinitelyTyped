@@ -17,7 +17,7 @@ declare namespace Matter {
      * @method use
      * @param ...plugin {Function} The plugin(s) to install on `base` (multi-argument).
      */
-    export function use(...plugins: (Object | string)[]): void;
+    export function use(...plugins: (object | string)[]): void;
 
     /**
     * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
