@@ -6,9 +6,13 @@ var Engine = Matter.Engine,
 	Composites = Matter.Composites,
 	Constraint = Matter.Constraint,
 	Events = Matter.Events,
-	Query = Matter.Query;
-	
-	
+	Query = Matter.Query,
+    Plugin = Matter.Plugin;
+    
+
+Matter.use('matter-gravity');
+Plugin.use(Matter, ["matter-world-wrap"]);
+
 var engine = Engine.create();
 
 //Bodies
