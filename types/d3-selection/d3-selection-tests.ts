@@ -145,8 +145,7 @@ const xSVGCircleElementList: NodeListOf<SVGCircleElement> = document.querySelect
 const circleSelection: d3Selection.Selection<SVGCircleElement, any, null, undefined> = d3Selection.selectAll(xSVGCircleElementList);
 
 // selectAll(...) accepts HTMLCollection, HTMLCollectionOf<...> argument
-
-const documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll(document.links);
+const documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll<HTMLAnchorElement | HTMLAreaElement, any>(document.links);
 
 // ---------------------------------------------------------------------------------------
 // Tests of Sub-Selection Functions
@@ -224,7 +223,7 @@ let gElementsOldData: d3Selection.Selection<SVGGElement, CircleDatum, SVGSVGElem
 
 // Using selectAll(...) sub-selection with a selector function argument.
 
-function svgGroupSelectorAll(this: SVGGElement, d: SVGDatum, i: number, groups: SVGSVGElement[] | d3Selection.ArrayLike<SVGSVGElement>): NodeListOf<SVGGElement> {
+function svgGroupSelectorAll(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[] | d3Selection.ArrayLike<SVGSVGElement>): NodeListOf<SVGGElement> {
     return this.querySelectorAll('g'); // this-type compatible with group element-type to which the selector function will be appplied
 }
 
