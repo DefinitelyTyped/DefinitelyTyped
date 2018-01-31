@@ -24,6 +24,7 @@ export interface StrategyOptions {
     algorithms?: string[];
     ignoreExpiration?: boolean;
     passReqToCallback?: boolean;
+    jsonWebTokenOptions?: JsonWebTokenVerifyOptions;
 }
 
 export interface VerifyCallback {
@@ -40,6 +41,19 @@ export interface VerifiedCallback {
 
 export interface JwtFromRequestFunction {
     (req: Request): string;
+}
+
+export interface JsonWebTokenVerifyOptions {
+    algorithms?: string[];
+    audience?: string | string[];
+    issuer?: string | string[];
+    ignoreExpiration?: boolean;
+    clockTimestamp?: number;
+    clockTolerance?: number;
+    ignoreNotBefore?: boolean;
+    jwtid?: string;
+    subject?: string;
+    maxAge?: string;
 }
 
 export declare namespace ExtractJwt {
