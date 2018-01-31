@@ -23,6 +23,14 @@ declare namespace adone {
         function readlink(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): Promise<string>;
 
         /**
+         * Reads the value of a symbolic link
+         */
+        function readlinkSync(path: string | Buffer | I.URL, encoding: null): Buffer;
+        function readlinkSync(path: string | Buffer | I.URL, encoding: I.Encoding): string;
+        function readlinkSync(path: string | Buffer | I.URL, options: { encoding: null }): Buffer;
+        function readlinkSync(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): string;
+
+        /**
          * Deletes a name and possibly the file it refers to
          */
         function unlink(path: string | Buffer | I.URL): Promise<void>;
@@ -33,6 +41,21 @@ declare namespace adone {
         function unlinkSync(path: string | Buffer | I.URL): void;
 
         /**
+         * Changes the file system timestamps of the object referenced by path
+         */
+        function utimes(path: string | Buffer | I.URL, atime: number | string | Date, mtime: number | string | Date): Promise<void>;
+
+        /**
+         * Changes the file system timestamps of the object referenced by path
+         */
+        function utimesSync(path: string | Buffer | I.URL, atime: number | string | Date, mtime: number | string | Date): void;
+
+        /**
+         * Changes the file system timestamps of the object referenced by path
+         */
+        function utimesMillis(path: string | Buffer | I.URL, atime: number, mtime: number): Promise<void>;
+
+        /**
          * Changes permissions of a file
          */
         function chmod(path: string | Buffer | I.URL, mode: number): Promise<void>;
@@ -41,6 +64,11 @@ declare namespace adone {
          * Changes ownership of a file
          */
         function chown(path: string | Buffer | I.URL, uid: number, gid: number): Promise<void>;
+
+        /**
+         * Changes ownership recursively for a given path
+         */
+        function chownr(path: string | Buffer | I.URL, uid: number, gid: number): Promise<void>;
 
         /**
          * Deletes a directory
@@ -62,6 +90,87 @@ declare namespace adone {
         function readdirSync(path: string | Buffer | I.URL, encoding: I.Encoding): string[];
         function readdirSync(path: string | Buffer | I.URL, options: { encoding: null }): Buffer[];
         function readdirSync(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): string[];
+
+        namespace I {
+            interface ReaddirpEntry {
+                /**
+                 * filename
+                 */
+                name: string;
+
+                /**
+                 * full path to a file
+                 */
+                fullPath: string;
+
+                /**
+                 * relative path to a file
+                 */
+                path: string;
+
+                /**
+                 * relative path to the parent dir
+                 */
+                parentDir: string;
+
+                /**
+                 * full path to the parent dir
+                 */
+                fullParentDir: string;
+
+                /**
+                 * file stats
+                 */
+                stat: fs.I.Stats;
+            }
+
+            type ReaddirpFilter = string | ((entry: ReaddirpEntry) => boolean);
+
+            interface ReaddirpOptions {
+                /**
+                 * filter for files
+                 */
+                fileFilter?: ReaddirpFilter | ReaddirpFilter[];
+
+                /**
+                 * filter for directories
+                 */
+                directoryFilter?: ReaddirpFilter | ReaddirpFilter[];
+
+                /**
+                 * maximum recursion depth
+                 *
+                 * Infinity by default
+                 */
+                depth?: number;
+
+                /**
+                 * whether to emit files
+                 *
+                 * true by default
+                 */
+                files?: boolean;
+
+                /**
+                 * whether to emit directories
+                 *
+                 * true by default
+                 */
+                directories?: boolean;
+
+                /**
+                 * whether to use lstat for stating
+                 *
+                 * false by default
+                 */
+                lstat?: boolean;
+            }
+        }
+
+        /**
+         * Traverses the given path
+         */
+        function readdirp(root: string | Buffer | I.URL, options?: I.ReaddirpOptions): stream.core.Stream<never, I.ReaddirpEntry>;
 
         /**
          * Gets file status, identical to stat, except that if pathname is a symbolic link,
@@ -118,6 +227,15 @@ declare namespace adone {
         }): Promise<void>;
 
         /**
+         * Appends data to a file, creating the file if it does not yet exist
+         */
+        function appendFileSync(file: string | Buffer | number, data: string | Buffer, options?: {
+            encoding?: I.Encoding,
+            mode?: number,
+            flag?: I.Flag
+        }): void;
+
+        /**
          * Tests a user's permissions for the file or directory specified by path
          */
         function access(file: string | Buffer | I.URL, mode?: number): Promise<void>;
@@ -152,6 +270,14 @@ declare namespace adone {
              * cwd to use
              */
             cwd?: string
+        }): Promise<void>;
+
+        /**
+         * Recursively deletes empty directiries inside the given directory
+         */
+        function rmEmpty(path: string, options?: {
+            cwd?: string;
+            filter?: (filename: string) => boolean
         }): Promise<void>;
 
         namespace I {
@@ -460,12 +586,12 @@ declare namespace adone {
             /**
              * Copies this from this directory to the given path
              */
-            copyTo(destPath: string, options?: I.CopyOptions): Promise<void>;
+            copyTo(destPath: string, options?: I.CopyToOptions): Promise<void>;
 
             /**
              * Copies files from the given path to this directory
              */
-            copyFrom(srcPath: string, options?: I.CopyOptions): Promise<void>;
+            copyFrom(srcPath: string, options?: I.CopyToOptions): Promise<void>;
 
             /**
              * Creates a new directory with the given path
@@ -826,7 +952,7 @@ declare namespace adone {
                 }>;
             }
 
-            type Stream<T> = stream.CoreStream<never, T>;
+            type Stream<T> = stream.core.Stream<never, T>;
 
             interface EmitterConstructor {
                 new(pattern: string, optons: Options, callback?: (error: any, matches: string[]) => void): Emitter;
@@ -1128,214 +1254,209 @@ declare namespace adone {
         function whichSync(cmd: string, options?: I.Which.Options): string;
 
         /**
-         * Functions to work with files using file descriptors
+         * Opens and possibly creates a file
          */
-        namespace fd {
-            /**
-             * Opens and possibly create a file
-             */
-            function open(path: string | Buffer | I.URL, flags: I.Flag | number, mode?: number): Promise<I.FD>;
+        function open(path: string | Buffer | I.URL, flags: I.Flag | number, mode?: number): Promise<I.FD>;
 
-            /**
-             * Opens and possibly create a file
-             */
-            function openSync(path: string | Buffer | I.URL, flags: I.Flag | number, mode?: number): I.FD;
+        /**
+         * Opens and possibly creates a file
+         */
+        function openSync(path: string | Buffer | I.URL, flags: I.Flag | number, mode?: number): I.FD;
 
-            /**
-             * Closes a file descriptor
-             */
-            function close(fd: I.FD): Promise<void>;
+        /**
+         * Closes a file descriptor
+         */
+        function close(fd: I.FD): Promise<void>;
 
-            /**
-             * Closes a file descriptor
-             */
-            function closeSync(fd: I.FD): void;
+        /**
+         * Closes a file descriptor
+         */
+        function closeSync(fd: I.FD): void;
 
-            /**
-             * Changes the file timestamps of a file referenced by the supplied file descriptor
-             */
-            function utimes(fd: I.FD, atime: number, mtime: number): Promise<void>;
+        /**
+         * Changes the file timestamps of a file referenced by the supplied file descriptor
+         */
+        function futimes(fd: I.FD, atime: number, mtime: number): Promise<void>;
 
-            /**
-             * Changes the file timestamps of a file referenced by the supplied file descriptor
-             */
-            function utimesSync(fd: I.FD, atime: number, mtime: number): void;
+        /**
+         * Changes the file timestamps of a file referenced by the supplied file descriptor
+         */
+        function futimesSync(fd: I.FD, atime: number, mtime: number): void;
 
-            /**
-             * Gets file status
-             */
-            function stat(fd: I.FD): Promise<I.Stats>;
+        /**
+         * Gets file status
+         */
+        function fstat(fd: I.FD): Promise<I.Stats>;
 
-            /**
-             * Gets file status
-             */
-            function statSync(fd: I.FD): I.Stats;
+        /**
+         * Gets file status
+         */
+        function fstatSync(fd: I.FD): I.Stats;
 
-            /**
-             * Truncates a file to a specified length
-             */
-            function truncate(fd: I.FD, length?: number): Promise<void>;
+        /**
+         * Truncates a file to a specified length
+         */
+        function ftruncate(fd: I.FD, length?: number): Promise<void>;
 
-            /**
-             * Truncates a file to a specified length
-             */
-            function truncateSync(fd: I.FD, length?: number): void;
+        /**
+         * Truncates a file to a specified length
+         */
+        function ftruncateSync(fd: I.FD, length?: number): void;
 
+        /**
+         * Read data from the file specified by fd
+         */
+        function read(
+            fd: I.FD,
             /**
-             * Read data from the file specified by fd
+             * The buffer that the data will be written to
              */
-            function read(
-                fd: I.FD,
-                /**
-                 * The buffer that the data will be written to
-                 */
-                buffer: Buffer | Uint8Array,
-                /**
-                 * The offset in the buffer to start writing at
-                 */
-                offset: number,
-                /**
-                 * An integer specifying the number of bytes to read
-                 */
-                length: number,
-                /**
-                 * An argument specifying where to begin reading from in the file
-                 */
-                position: number
-            ): Promise<number>;
-
-            function readSync(
-                fd: I.FD,
-                /**
-                 * The buffer that the data will be written to
-                 */
-                buffer: Buffer | Uint8Array,
-                /**
-                 * The offset in the buffer to start writing at
-                 */
-                offset: number,
-                /**
-                 * An integer specifying the number of bytes to read
-                 */
-                length: number,
-                /**
-                 * An argument specifying where to begin reading from in the file
-                 */
-                position: number
-            ): number;
-
+            buffer: Buffer | Uint8Array,
             /**
-             * Writes buffer to the file specified by fd
+             * The offset in the buffer to start writing at
              */
-            function write(
-                fd: I.FD,
-                buffer: Buffer | Uint8Array,
-                /**
-                 * Determines the part of the buffer to be written
-                 */
-                offset?: number,
-                /**
-                 * An integer specifying the number of bytes to write
-                 */
-                length?: number,
-                /**
-                 * The offset from the beginning of the file where this data should be written
-                 */
-                position?: number
-            ): Promise<number>;
-
+            offset: number,
             /**
-             * Writes string to the file specified by fd
+             * An integer specifying the number of bytes to read
              */
-            function write(
-                fd: I.FD,
-                string: string,
-                /**
-                 * The offset from the beginning of the file where this data should be written
-                 */
-                position?: number,
-                /**
-                 * The expected string encoding
-                 */
-                encoding?: I.Encoding
-            ): Promise<number>;
-
+            length: number,
             /**
-             * Writes buffer to the file specified by fd
+             * An argument specifying where to begin reading from in the file
              */
-            function writeSync(
-                fd: I.FD,
-                buffer: Buffer | Uint8Array,
-                /**
-                 * Determines the part of the buffer to be written
-                 */
-                offset?: number,
-                /**
-                 * An integer specifying the number of bytes to write
-                 */
-                length?: number,
-                /**
-                 * The offset from the beginning of the file where this data should be written
-                 */
-                position?: number
-            ): number;
+            position: number
+        ): Promise<number>;
 
+        function readSync(
+            fd: I.FD,
             /**
-             * Writes string to the file specified by fd
+             * The buffer that the data will be written to
              */
-            function writeSync(
-                fd: I.FD,
-                string: string,
-                /**
-                 * The offset from the beginning of the file where this data should be written
-                 */
-                position?: number,
-                /**
-                 * The expected string encoding
-                 */
-                encoding?: I.Encoding
-            ): number;
+            buffer: Buffer | Uint8Array,
+            /**
+             * The offset in the buffer to start writing at
+             */
+            offset: number,
+            /**
+             * An integer specifying the number of bytes to read
+             */
+            length: number,
+            /**
+             * An argument specifying where to begin reading from in the file
+             */
+            position: number
+        ): number;
 
+        /**
+         * Writes buffer to the file specified by fd
+         */
+        function write(
+            fd: I.FD,
+            buffer: Buffer | Uint8Array,
             /**
-             * Synchronizes a file's in-core state with storage
+             * Determines the part of the buffer to be written
              */
-            function sync(fd: I.FD): Promise<void>;
+            offset?: number,
+            /**
+             * An integer specifying the number of bytes to write
+             */
+            length?: number,
+            /**
+             * The offset from the beginning of the file where this data should be written
+             */
+            position?: number
+        ): Promise<number>;
 
+        /**
+         * Writes string to the file specified by fd
+         */
+        function write(
+            fd: I.FD,
+            string: string,
             /**
-             * Synchronizes a file's in-core state with storage
+             * The offset from the beginning of the file where this data should be written
              */
-            function syncSync(fd: I.FD): void;
+            position?: number,
+            /**
+             * The expected string encoding
+             */
+            encoding?: I.Encoding
+        ): Promise<number>;
 
+        /**
+         * Writes buffer to the file specified by fd
+         */
+        function writeSync(
+            fd: I.FD,
+            buffer: Buffer | Uint8Array,
             /**
-             * Changes ownership of a file
+             * Determines the part of the buffer to be written
              */
-            function chown(fd: I.FD, uid: number, gid: number): Promise<void>;
+            offset?: number,
+            /**
+             * An integer specifying the number of bytes to write
+             */
+            length?: number,
+            /**
+             * The offset from the beginning of the file where this data should be written
+             */
+            position?: number
+        ): number;
 
+        /**
+         * Writes string to the file specified by fd
+         */
+        function writeSync(
+            fd: I.FD,
+            string: string,
             /**
-             * Changes ownership of a file
+             * The offset from the beginning of the file where this data should be written
              */
-            function chownSync(fd: I.FD, uid: number, gid: number): void;
+            position?: number,
+            /**
+             * The expected string encoding
+             */
+            encoding?: I.Encoding
+        ): number;
 
-            /**
-             * Changes permissions of a file
-             */
-            function chmod(fd: I.FD, mode: number): Promise<void>;
+        /**
+         * Synchronizes a file's in-core state with storage
+         */
+        function fsync(fd: I.FD): Promise<void>;
 
-            /**
-             * Changes permissions of a file
-             */
-            function chmodSync(fd: I.FD, mode: number): void;
+        /**
+         * Synchronizes a file's in-core state with storage
+         */
+        function fsyncSync(fd: I.FD): void;
 
-            /**
-             * Repositions read/write file offset
-             */
-            function seek(fd: I.FD, offset: number, whence: number): Promise<number>;
+        /**
+         * Changes ownership of a file
+         */
+        function fchown(fd: I.FD, uid: number, gid: number): Promise<void>;
 
-            /**
-             * Applies or removes an advisory lock on an open file
-             */
-            function lock(fd: I.FD, flags: "sh" | "ex" | "shnb" | "exnb" | "un" | number): Promise<void>;
-        }
+        /**
+         * Changes ownership of a file
+         */
+        function fchownSync(fd: I.FD, uid: number, gid: number): void;
+
+        /**
+         * Changes permissions of a file
+         */
+        function fchmod(fd: I.FD, mode: number): Promise<void>;
+
+        /**
+         * Changes permissions of a file
+         */
+        function fchmodSync(fd: I.FD, mode: number): void;
+
+        /**
+         * Repositions read/write file offset
+         */
+        function seek(fd: I.FD, offset: number, whence: number): Promise<number>;
+
+        /**
+         * Applies or removes an advisory lock on an open file
+         */
+        function flock(fd: I.FD, flags: "sh" | "ex" | "shnb" | "exnb" | "un" | number): Promise<void>;
 
         namespace constants {
             const F_OK: number;
@@ -1475,12 +1596,63 @@ declare namespace adone {
         function existsSync(path: string | Buffer | I.URL): boolean;
 
         /**
-         * Creates a new directory and any necessary subdirectories
+         * Creates a new directory
          */
         function mkdir(path: string, mode?: number): Promise<void>;
 
+        /**
+         * Creates a new directory
+         */
+        function mkdirSync(path: string, mode?: number): Promise<void>;
+
+        /**
+         * Creates a new directory and any necessary subdirectories
+         */
+        function mkdirp(path: string, mode?: number): Promise<void>;
+
+        /**
+         * Creates a new directory and any necessary subdirectories
+         */
+        function mkdirpSync(path: string, mode?: number): Promise<void>;
+
         namespace I {
             interface CopyOptions {
+                /**
+                 * regexp or function against which each filename is tested whether to copy it or not
+                 */
+                filter?: RegExp | ((src: string, dst: string) => boolean);
+
+                /**
+                 * transform function which applies when files are streamed
+                 */
+                transform?(
+                    readStream: NodeJS.ReadableStream,
+                    writeStream: NodeJS.WritableStream,
+                    file: {
+                        name: string,
+                        mode: number,
+                        mtime: Date,
+                        atime: Date,
+                        stats: adone.fs.I.Stats
+                    }
+                ): void;
+
+                /**
+                 * Whether to overwrite destination files if they exist.
+                 *
+                 * true by default
+                 */
+                clobber?: boolean; // ???
+
+                /**
+                 * Whether to overwrite destination files if they exist.
+                 *
+                 * true by default
+                 */
+                overwrite?: boolean;
+            }
+
+            interface CopyToOptions {
                 /**
                  * Do not replace existing files
                  */
@@ -1494,9 +1666,14 @@ declare namespace adone {
         }
 
         /**
-         * Copies all files from src to dst
+         * Recursively copies all the files from src to dst
          */
         function copy(src: string, dst: string, options?: I.CopyOptions): Promise<void>;
+
+        /**
+         * Copies all files from src to dst
+         */
+        function copyTo(src: string, dst: string, options?: I.CopyToOptions): Promise<void>;
 
         /**
          * Renames a file
@@ -1514,8 +1691,32 @@ declare namespace adone {
 
         /**
          * Returns the last lines of a file
+         *
+         * @param path path to a file
+         * @param n number of lines to return
          */
-        function tail(path: string, n: number, options?: { separator?: string, chunkLength?: number }): Promise<Buffer[]>;
+        function tail(path: string, n: number, options?: {
+            /**
+             * Line separator
+             *
+             * By default "\r\n" for windows and "\n" for others
+             */
+            separator?: string,
+
+            /**
+             * The number of bytes to read at once
+             *
+             * By default 4096
+             */
+            chunkLength?: number
+
+            /**
+             * Position from which to start reading (from the end)
+             *
+             * By default stats.size of the file
+             */
+            pos?: number
+        }): Promise<Buffer[]>;
 
         namespace I {
             interface StatVFS {
@@ -1666,11 +1867,6 @@ declare namespace adone {
          * TODO
          */
         function lookup(path: string): Promise<string>;
-
-        /**
-         * Recursively changes ownership of files
-         */
-        function chownr(path: string, uid: number, gid: number): Promise<void>;
 
         namespace I.TailWatcher {
             interface ConstructorOptions {

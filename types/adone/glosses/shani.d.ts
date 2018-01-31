@@ -94,6 +94,11 @@ declare namespace adone {
                  * Mark this block as exclusive
                  */
                 skip: DescribeFunction;
+
+                /**
+                 * Mark this block as todo
+                 */
+                todo: DescribeFunction;
             }
 
             interface TestOptions {
@@ -146,6 +151,11 @@ declare namespace adone {
                  * Mark this test as exclusive
                  */
                 skip: TestFunction;
+
+                /**
+                 * Mark this test as todo
+                 */
+                todo: TestFunction;
             }
 
             interface HookRuntimeContext {
@@ -268,6 +278,11 @@ declare namespace adone {
                 only(): this;
 
                 /**
+                 * Marks this test as todo
+                 */
+                todo(): this;
+
+                /**
                  * Returns the timeout of the test
                  */
                 timeout(): number | null;
@@ -354,6 +369,11 @@ declare namespace adone {
                  * Marks this block as inclusive
                  */
                 only(): this;
+
+                /**
+                 * Marks this block as todo
+                 */
+                todo(): this;
 
                 /**
                  * Returns the timeout of the block
