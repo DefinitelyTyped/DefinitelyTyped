@@ -114,7 +114,7 @@ declare module "node-forge" {
               * @param attrs the array of subject attributes to use.
               * @param uniqueId an optional a unique ID to use.
               */
-            (attrs, uniqueId?) => {};
+            (attrs: any, uniqueId?: any) => {};
             setIssuer:
             /**
               * Sets the subject of this certificate.
@@ -122,7 +122,7 @@ declare module "node-forge" {
               * @param attrs the array of subject attributes to use.
               * @param uniqueId an optional a unique ID to use.
               */
-            (attrs, uniqueId?) => {};
+            (attrs: any, uniqueId?: any) => {};
             setExtensions:
             /**
               * Sets the extensions of this certificate.
@@ -148,7 +148,7 @@ declare module "node-forge" {
              * @param key the private key to sign with.
              * @param md the message digest object to use (defaults to forge.md.sha1).
              */
-            (key, md) => {}
+            (key: any, md: any) => {}
             verify:
             /**
              * Attempts verify the signature on the passed certificate using this
@@ -158,7 +158,7 @@ declare module "node-forge" {
              *
              * @return true if verified, false if not.
              */
-            (child) => {};
+            (child: any) => {};
 
         }
 
