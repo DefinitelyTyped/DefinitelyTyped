@@ -118,12 +118,12 @@ export interface DateSchema extends Schema<Date> {
 }
 
 export interface ArraySchemaConstructor {
-    <T>(): ArraySchema<T>;
-    new<T>(): ArraySchema<T>;
+    (): ArraySchema<{}>;
+    new(): ArraySchema<{}>;
 }
 
 export interface ArraySchema<T> extends Schema<T[]> {
-    of(type: Schema<T>): ArraySchema<T>;
+    of<U>(type: Schema<U>): ArraySchema<U>;
     min(limit: number | Ref, message?: string): ArraySchema<T>;
     max(limit: number | Ref, message?: string): ArraySchema<T>;
     ensure(): ArraySchema<T>;
@@ -132,7 +132,7 @@ export interface ArraySchema<T> extends Schema<T[]> {
 
 export interface ObjectSchemaConstructor {
     <T>(fields?: T): ObjectSchema<T>;
-    new <T>(): ObjectSchema<T>;
+    new (): ObjectSchema<{}>;
 }
 
 export interface ObjectSchema<T> extends Schema<T> {
