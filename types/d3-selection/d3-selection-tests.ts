@@ -777,7 +777,7 @@ nRow = td2.data(); // flattened matrix (Array[16] of number)
 // Tests of Alternative DOM Manipulation
 // ---------------------------------------------------------------------------------------
 
-// append(...) and creator(...) ----------------------------------------------------------
+// append(...), creator(...) and create(...) ---------------------------------------------
 
 // without append<...> typing returned selection has group element of type BaseType
 let newDiv: d3Selection.Selection<d3Selection.BaseType, BodyDatum, HTMLElement, any>;
@@ -807,6 +807,12 @@ newDiv2 = body.append(function(d, i, g) {
 // newDiv2 = body.append(function(d) {
 //     return this.ownerDocument.createElement('a'); // fails, HTMLDivElement expected by inference, HTMLAnchorElement returned
 // });
+
+// create a detached element
+
+let detachedDiv: d3Selection.Selection<HTMLDivElement, undefined, null, undefined>;
+
+detachedDiv = d3Selection.create<HTMLDivElement>('div');
 
 // insert(...) ---------------------------------------------------------------------------
 
@@ -849,6 +855,18 @@ newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'));
 newParagraph2 = body.insert(typeValueFunction, 'p.second-paragraph');
 newParagraph2 = body.insert(typeValueFunction, beforeValueFunction);
 newParagraph2 = body.insert(typeValueFunction);
+
+// clone(...) ----------------------------------------------------------------------------
+
+let clonedParagraph: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
+
+// shallow clone
+clonedParagraph = newParagraph2.clone();
+
+// deep clone
+
+newParagraph.append('span');
+clonedParagraph = newParagraph2.clone(true);
 
 // sort(...) -----------------------------------------------------------------------------
 
