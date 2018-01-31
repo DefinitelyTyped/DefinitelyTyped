@@ -147,7 +147,7 @@ declare namespace Mocha {
         sync: boolean;
         timedOut: boolean;
         timeout(n: number | string): this;
-        duration: number | undefined;
+        duration?: number;
     }
 
     /** Partial interface for Mocha's `Suite` class. */
@@ -177,14 +177,14 @@ declare namespace Mocha {
         passes: number;
         pending: number;
         failures: number;
-        start: Date | undefined;
-        end: Date | undefined;
-        duration: Date | undefined;
+        start?: Date;
+        end?: Date;
+        duration?: Date;
     }
 
     /** Partial interface for Mocha's `Runner` class. */
     interface IRunner {
-        stats: IStats | undefined;
+        stats?: IStats;
         started: boolean;
         suite: ISuite;
         total: number;
