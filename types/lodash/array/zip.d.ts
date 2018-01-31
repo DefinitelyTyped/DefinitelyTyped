@@ -76,7 +76,7 @@ declare module "../index" {
         zip<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashImplicitWrapper<Array<Array<TResult | undefined>>>;
+        ): LoDashImplicitWrapper<Array<Array<T | undefined>>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -124,6 +124,6 @@ declare module "../index" {
         zip<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashExplicitWrapper<Array<Array<TResult | undefined>>>;
+        ): LoDashExplicitWrapper<Array<Array<T | undefined>>>;
     }
 }
