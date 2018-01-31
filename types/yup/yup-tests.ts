@@ -158,7 +158,7 @@ yup.object().shape({
 });
 
 // String schema
-const strSchema = yup.string();
+const strSchema = yup.string(); // $ExpectType StringSchema
 strSchema.isValid('hello'); // => true
 strSchema.required();
 strSchema.min(5, 'message');
@@ -172,7 +172,7 @@ strSchema.lowercase();
 strSchema.uppercase();
 
 // Number schema
-const numSchema = yup.number();
+const numSchema = yup.number(); // $ExpectType NumberSchema
 numSchema.isValid(10); // => true
 numSchema.min(5, 'message');
 numSchema.max(5, 'message');
@@ -208,6 +208,10 @@ arrSchema.isValid([1, -24]); // => false
 arrSchema.required();
 arrSchema.ensure();
 arrSchema.compact(value => value === null);
+
+yup.array(); // $ExpectType ArraySchema<{}>
+yup.array(yup.string()); // $ExpectType ArraySchema<string>
+yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
 
 // Object Schema
 const objSchema = yup.object().shape({
@@ -273,16 +277,17 @@ interface SubInterface {
     testField: string;
 }
 
+// $ExpectType ObjectSchema<MyInterface>
 const typedSchema = yup.object<MyInterface>({
-    stringField: yup.string().required(),
-    numberField: yup.number().required(),
+    stringField: yup.string().required(), // $ExpectType StringSchema
+    numberField: yup.number().required(), // $ExpectType NumberSchema
     subFields: yup.object({
         testField: yup.string().required(),
     }).required(),
-    arrayField: yup.array().of(yup.string()).required(),
+    arrayField: yup.array(yup.string()).required(), // $ExpectType ArraySchema<string>
 });
 
-const testObject = {
+const testObject: MyInterface = {
     stringField: "test1",
     numberField: 123,
     subFields: {
@@ -291,15 +296,40 @@ const testObject = {
     arrayField: ["hi"],
 };
 
-typedSchema.validate(testObject);
+typedSchema.validateSync(testObject); // $ExpectType ValidationError | MyInterface
 
-const untypedSchema = yup.object().shape({
+// $ExpectError
+yup.object<MyInterface>({
     stringField: yup.string().required(),
-    numberField: yup.number().required(),
-    subFields: yup.object().shape({
+    subFields: yup.object({
         testField: yup.string().required(),
     }).required(),
-    arrayField: yup.array().of(yup.string()).required(),
+    arrayField: yup.array(yup.string()).required(),
 });
 
-untypedSchema.validate(testObject);
+// $ExpectError
+yup.object<MyInterface>({
+    stringField: yup.number().required(),
+    numberField: yup.number().required(),
+    subFields: yup.object({
+        testField: yup.string().required(),
+    }).required(),
+    arrayField: yup.array(yup.string()).required(),
+});
+
+// $ExpectError
+yup.object<MyInterface>({
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
+    arrayField: yup.array(yup.string()).required(),
+});
+
+// $ExpectError
+yup.object<MyInterface>({
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
+    subFields: yup.object({
+        testField: yup.number().required(),
+    }).required(),
+    arrayField: yup.array(yup.string()).required(),
+});
