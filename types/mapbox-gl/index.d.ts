@@ -1031,7 +1031,7 @@ declare namespace mapboxgl {
         'icon-size'?: number | StyleFunction | Expression;
         'icon-text-fit'?: 'none' | 'both' | 'width' | 'height';
         'icon-text-fit-padding'?: number[] | Expression;
-        'icon-image'?: string | StyleFunction;
+        'icon-image'?: string | StyleFunction | Expression;
         'icon-rotate'?: number | StyleFunction | Expression;
         'icon-padding'?: number | Expression;
         'icon-keep-upright'?: boolean;
