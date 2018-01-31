@@ -10,8 +10,8 @@ var Engine = Matter.Engine,
     Plugin = Matter.Plugin;
     
 
-Matter.use('matter-gravity');
-Plugin.use(Matter, ["matter-world-wrap"]);
+Matter.use('matter-attractors');
+Plugin.use(Matter, ["matter-wrap"]);
 
 var engine = Engine.create();
 
