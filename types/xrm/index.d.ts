@@ -1256,10 +1256,11 @@ declare namespace Xrm {
             then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>):
                 PromiseLike<U>;
             then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => void): PromiseLike<U>;
-	    // https://msdn.microsoft.com/en-us/library/dn481607.aspx shows errorCode and message
-            then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (errorCode: string, message: string) => U | PromiseLike<U>):
-            PromiseLike<U>;
-        
+
+            // https://msdn.microsoft.com/en-us/library/dn481607.aspx shows errorCode and message
+            then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (errorCode: string, message: string) => U
+            | PromiseLike<U>): PromiseLike<U>;
+
             /**
              * UNDOCUMENTED (Web Client only) Add handlers to be called when the Deferred object is rejected.
              */
