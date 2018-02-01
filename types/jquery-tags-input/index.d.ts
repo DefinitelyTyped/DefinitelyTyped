@@ -69,7 +69,7 @@ declare namespace jQueryTagsInput {
          minChars?: number;
 
         /**
-         * Max char length for tag or infinite char length (default)
+         * Max char length for tag
          */
          maxChars?: number;
 
@@ -84,7 +84,7 @@ declare namespace jQueryTagsInput {
      * Transform input field to work with tags
      * @param options for creation
      */
-     tagsInput(options?: object): JQuery;
+     tagsInput(options?: jQueryTagsInput.Options): JQuery;
 
     /**
      * Add a new tag to list
