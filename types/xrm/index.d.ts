@@ -992,7 +992,7 @@ declare namespace Xrm {
          * @param message The message.
          * @param onCloseCallback The "OK" callback.
          */
-        alertDialog(message: string, onCloseCallback: () => void): void;
+        alertDialog(message: string, onCloseCallback?: () => void): void;
 
         /**
          * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
@@ -1002,7 +1002,7 @@ declare namespace Xrm {
          * @param yesCloseCallback The "OK" callback.
          * @param noCloseCallback The "Cancel" callback.
          */
-        confirmDialog(message: string, yesCloseCallback: () => void, noCloseCallback: () => void): void;
+        confirmDialog(message: string, yesCloseCallback: () => void, noCloseCallback?: () => void): void;
 
         /**
          * Query if 'entityType' is an Activity entity.
@@ -4354,14 +4354,14 @@ declare namespace Xrm {
          * @param alertStrings The strings to be used in the alert dialog.
          * @param alertOptions The height and width options for alert dialog
          */
-        openAlertDialog(alertStrings: Navigation.AlertStrings, alertOptions: Navigation.DialogSizeOptions): Async.PromiseLike<any>;
+        openAlertDialog(alertStrings: Navigation.AlertStrings, alertOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<any>;
 
         /**
          * Displays a confirmation dialog box containing a message and two buttons.
          * @param confirmStrings The strings to be used in the confirm dialog.
          * @param confirmOptions The height and width options for alert dialog
          */
-        openConfirmDialog(confirmStrings: Navigation.ConfirmStrings, confirmOptions: Navigation.DialogSizeOptions): Async.PromiseLike<Navigation.ConfirmResult>;
+        openConfirmDialog(confirmStrings: Navigation.ConfirmStrings, confirmOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<Navigation.ConfirmResult>;
 
         /**
          * Displays an error dialog.
@@ -4378,7 +4378,7 @@ declare namespace Xrm {
         /**
          * Opens an entity form or a quick create form.
          */
-        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters: Utility.OpenParameters): Async.PromiseLike<any>;
+        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters?: Utility.OpenParameters): Async.PromiseLike<any>;
 
         /**
          * Opens a URL, including file URLs.
