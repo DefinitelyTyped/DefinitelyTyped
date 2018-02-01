@@ -43,11 +43,14 @@ export default class AddTweetMutation extends Relay.Mutation<Props, Response> {
     }
 }
 
-interface ArtworkProps {
+interface ArtwokRelayVariables {
+    artworkID: string;
+}
+
+interface ArtworkProps extends Relay.RelayProps<ArtwokRelayVariables> {
     artwork: {
         title: string;
     };
-    relay: Relay.RelayProp;
 }
 
 class Artwork extends React.Component<ArtworkProps> {
