@@ -14,7 +14,7 @@ export interface ParseOptions {
  * Parse a query string into an object.
  * Leading ? or # are ignored, so you can pass location.search or location.hash directly.
  */
-export function parse(str: string, options?: ParseOptions): any;
+export function parse(str: string, options?: ParseOptions): { [param:string]: string };
 
 export interface StringifyOptions {
     strict?: boolean;
