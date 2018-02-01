@@ -840,14 +840,7 @@ export interface parseViewBoxArgs {
     clockWise: boolean;
 }
 
-export class Label extends React.Component<LabelProps> {
-    static parseViewBox(props: Partial<parseViewBoxArgs>): Partial<parseViewBoxArgs>;
-    static renderCallByParent(
-        parentProps: Partial<parseViewBoxArgs>,
-        viewBox: ViewBox | PolarViewBox,
-        ckeckPropsLabel?: boolean
-    ): Array<React.ReactElement<any>>;
-}
+export class Label extends React.Component<LabelProps> { }
 
 export interface LabelProps {
     viewBox?: ViewBox | PolarViewBox;
