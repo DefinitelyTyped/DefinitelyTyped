@@ -821,25 +821,6 @@ export interface TreemapProps extends EventAttributes, Animatable {
 
 export class Treemap extends React.Component<TreemapProps> { }
 
-export interface parseViewBoxArgs {
-    cx: number;
-    cy: number;
-    angle: number;
-    startAngle: number;
-    endAngle: number;
-    r: number;
-    radius: number;
-    innerRadius: number;
-    outerRadius: number;
-    x: number;
-    y: number;
-    top: number;
-    left: number;
-    width: number;
-    height: number;
-    clockWise: boolean;
-}
-
 export class Label extends React.Component<LabelProps> { }
 
 export interface LabelProps {
