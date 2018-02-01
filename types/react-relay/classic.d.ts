@@ -209,7 +209,7 @@ export type OnReadyStateChange = (
     }
 ) => void;
 
-export interface RelayProp<V> {
+export interface RelayProp<V = any> {
     readonly route: { name: string }; // incomplete, also has params and queries
     readonly variables: V;
     readonly pendingVariables?: V;
