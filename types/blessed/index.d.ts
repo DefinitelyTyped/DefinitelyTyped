@@ -7,11 +7,51 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
+import { Writable, Readable } from "stream";
 import * as stream from "stream";
 import * as child_process from "child_process";
 
+export interface IBlessedProgramOptions {
+  input?: Readable;
+  output?: Writable;
+  log?: string;
+  dump?: boolean;
+  zero?: boolean;
+  buffer?: boolean;
+  terminal?: string;
+  term?: string;
+  tput?: string;
+  debug?: boolean;
+  resizeTimeout?: boolean;
+}
+
 export class BlessedProgram extends EventEmitter {
     type: string;
+    options: IBlessedProgramOptions;
+    input: Readable;
+    output: Writable;
+    zero: boolean;
+    useBuffer: boolean;
+    x: number;
+    y: number;
+    savedX: number;
+    savedY: number;
+    cols: number;
+    rows: number;
+    scrollTop: number;
+    scrollBottom: number;
+    isOSXTerm: boolean;
+    isiTerm2: boolean;
+    isXFCE: boolean;
+    isTerminator: boolean;
+    isLXDE: boolean;
+    isVTE: boolean;
+    isRxvt: boolean;
+    isXterm: boolean;
+    tmux: boolean;
+    tmuxVersion: number;
+
+    constructor(options?: IBlessedProgramOptions);
 
     log(): boolean;
     debug(): boolean;
