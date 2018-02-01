@@ -1,7 +1,7 @@
 declare namespace adone {
     namespace event {
-        class EventEmitter {
-            static listenerCount(emitter: EventEmitter, event: string | symbol): number;
+        class Emitter {
+            static listenerCount(emitter: Emitter, event: string | symbol): number;
             static defaultMaxListeners: number;
 
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -19,7 +19,7 @@ declare namespace adone {
             listenerCount(type: string | symbol): number;
         }
 
-        class AsyncEmitter extends EventEmitter {
+        class AsyncEmitter extends Emitter {
             constructor(concurrency?: number);
 
             setConcurrency(max?: number): this;

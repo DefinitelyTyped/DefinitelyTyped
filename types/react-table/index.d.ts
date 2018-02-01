@@ -167,7 +167,7 @@ export interface TableProps extends
     PadRowComponent: () => React.ReactNode;
 
     /** Server-side callbacks */
-    onFetchData: () => void;
+    onFetchData: (state: any, instance: any) => void;
 }
 
 export interface ControlledStateOverrideProps {
@@ -176,6 +176,9 @@ export interface ControlledStateOverrideProps {
 
     /** Default: undefined */
     pageSize: number | undefined;
+
+    /** Default: undefined */
+    pages: number | undefined;
 
     /** Default: undefined */
     sorting: number;

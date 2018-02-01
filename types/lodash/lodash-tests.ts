@@ -3192,40 +3192,57 @@ namespace TestXor {
 }
 
 // _.zip
-namespace TestZip {
+{
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
 
     {
-        let result: TResult[][];
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(array);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(array, list);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(array, list, array);
 
-        result = _.zip<TResult>(array);
-        result = _.zip<TResult>(array, list);
-        result = _.zip<TResult>(array, list, array);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(list);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(list, array);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip<TResult>(list, array, list);
 
-        result = _.zip<TResult>(list);
-        result = _.zip<TResult>(list, array);
-        result = _.zip<TResult>(list, array, list);
+        // $ExpectType (TResult | undefined)[][]
+        _.zip(list, array, list, array, list, array);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(array).zip<TResult>(list);
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(array).zip<TResult>(list, array);
 
-        result = _(array).zip<TResult>(list);
-        result = _(array).zip<TResult>(list, array);
-
-        result = _(list).zip<TResult>(array);
-        result = _(list).zip<TResult>(array, list);
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(list).zip<TResult>(array);
+        // $ExpectType LoDashImplicitWrapper<(TResult | undefined)[][]>
+        _(list).zip<TResult>(array, list);
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(array).chain().zip<TResult>(list);
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(array).chain().zip<TResult>(list, array);
 
-        result = _(array).chain().zip<TResult>(list);
-        result = _(array).chain().zip<TResult>(list, array);
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(list).chain().zip<TResult>(array);
+        // $ExpectType LoDashExplicitWrapper<(TResult | undefined)[][]>
+        _(list).chain().zip<TResult>(array, list);
+    }
 
-        result = _(list).chain().zip<TResult>(array);
-        result = _(list).chain().zip<TResult>(array, list);
+    {
+        _.zip([1, 2], [3, 4]); // $ExpectType [number | undefined, number | undefined][]
+        _.zip([1, 2], ["a", "b"]); // $ExpectType [number | undefined, string | undefined][]
+        _.zip([1, 2], ["a", "b"], [true, false]); // $ExpectType [number | undefined, string | undefined, boolean | undefined][]
     }
 }
 
@@ -3359,18 +3376,9 @@ namespace TestZipObject {
 }
 
 // _.zipWith
-namespace TestZipWith {
+{
     type TestZipWithFn = (a1: number, a2: number) => number;
 
-    {
-        let result: number[][];
-        result = _.zipWith([1, 2]);
-        result = _.zipWith([1, 2], [3, 4], [5, 6]);
-        result = _([1, 2]).zipWith().value();
-        result = _([1, 2]).zipWith([3, 4], [5, 6]).value();
-        result = _.chain([1, 2]).zipWith().value();
-        result = _.chain([1, 2]).zipWith([3, 4], [5, 6]).value();
-    }
     {
         let result: number[];
 
@@ -3509,6 +3517,19 @@ namespace TestZipWith {
         result = _.chain([1, 2]).zipWith([1, 2], [1, 2], (...group: number[]) => 1).value();
         result = _.chain([1, 2]).zipWith([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], (...group) => {
             group; // $ExpectType number[]
+            return 1;
+        }).value();
+
+        result = _([1, 2]).zipWith(["a", "b"], (value1, value2) => {
+            value1; // $ExpectType number
+            value2; // $ExpectType string
+            return 1;
+        }).value();
+
+        result = _([1, 2]).zipWith(["a", "b"], [true, false], (value1, value2, value3) => {
+            value1; // $ExpectType number
+            value2; // $ExpectType string
+            value3; // $ExpectType boolean
             return 1;
         }).value();
     }

@@ -758,11 +758,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
     letterSpacing?: number;
     lineHeight?: number;
-    /**
-     * Specifies text alignment.
-     * The value 'justify' is only supported on iOS.
-     */
-    textAlign?: "auto" | "left" | "right" | "center";
+    textAlign?: "auto" | "left" | "right" | "center" | "justify";
     textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through";
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
     textDecorationColor?: string;
@@ -8307,8 +8303,8 @@ export type ListView = ListViewStatic;
 export var MapView: MapViewStatic;
 export type MapView = MapViewStatic;
 
-export var MaskedView: MaskedViewStatic;
-export type MaskedView = MaskedViewStatic;
+export var MaskedViewIOS: MaskedViewStatic;
+export type MaskedViewIOS = MaskedViewStatic;
 
 export var Modal: ModalStatic;
 export type Modal = ModalStatic;
