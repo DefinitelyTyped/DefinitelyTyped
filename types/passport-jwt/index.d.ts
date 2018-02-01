@@ -10,6 +10,7 @@
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
 import {Request} from 'express';
+import { VerifyOptions } from 'jsonwebtoken'
 
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
@@ -25,7 +26,7 @@ export interface StrategyOptions {
     algorithms?: string[];
     ignoreExpiration?: boolean;
     passReqToCallback?: boolean;
-    jsonWebTokenOptions?: JsonWebTokenVerifyOptions;
+    jsonWebTokenOptions?: VerifyOptions;
 }
 
 export interface VerifyCallback {
@@ -42,19 +43,6 @@ export interface VerifiedCallback {
 
 export interface JwtFromRequestFunction {
     (req: Request): string;
-}
-
-export interface JsonWebTokenVerifyOptions {
-    algorithms?: string[];
-    audience?: string | string[];
-    issuer?: string | string[];
-    ignoreExpiration?: boolean;
-    clockTimestamp?: number;
-    clockTolerance?: number;
-    ignoreNotBefore?: boolean;
-    jwtid?: string;
-    subject?: string;
-    maxAge?: string;
 }
 
 export declare namespace ExtractJwt {
