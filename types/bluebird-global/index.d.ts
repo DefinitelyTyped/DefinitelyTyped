@@ -65,7 +65,7 @@ declare global {
         each: typeof Bluebird.prototype.each;
         error: typeof Bluebird.prototype.error;
         filter: typeof Bluebird.prototype.filter;
-        finally: typeof Bluebird.prototype.finally;
+        // finally: typeof Bluebird.prototype.finally;
         get: typeof Bluebird.prototype.get;
         isCancelled: typeof Bluebird.prototype.isCancelled;
         isFulfilled: typeof Bluebird.prototype.isFulfilled;
@@ -124,6 +124,11 @@ declare global {
         catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | PromiseLike<U>): Bluebird<U | T>;
         catch(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
         catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
+        
+        /*
+         * See comments above `then` for the reason why this is needed. Taken from esnext.promise.d.ts.
+         */
+        finally(onfinally?: (() => void) | undefined | null): Bluebird<T>;
     }
 
     /*
