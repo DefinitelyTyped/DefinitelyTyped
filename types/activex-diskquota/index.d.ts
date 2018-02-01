@@ -5,6 +5,7 @@
 // TypeScript Version: 2.5
 
 declare namespace DiskQuotaTypeLibrary {
+    // tslint:disable-next-line no-const-enum
     const enum AccountStatusConstants {
         dqAcctDeleted = 2,
         dqAcctInvalid = 3,
@@ -14,12 +15,14 @@ declare namespace DiskQuotaTypeLibrary {
         dqAcctUnresolved = 5,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum QuotaStateConstants {
         dqStateDisable = 0,
         dqStateEnforce = 2,
         dqStateTrack = 1,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum UserNameResolutionConstants {
         dqResolveAsync = 2,
         dqResolveNone = 0,
