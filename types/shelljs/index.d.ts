@@ -97,7 +97,9 @@ export function mkdir(options: string, ...dir: Array<string | string[]>): void;
  * @param   path   The path.
  * @return        See option parameter.
  */
-export function test(option: "-b" | "-c" | "-d" | "-e" | "-f" | "-L" | "-p" | "-S", path: string): boolean;
+export function test(option: TestOptions, path: string): boolean;
+
+export type TestOptions = "-b" | "-c" | "-d" | "-e" | "-f" | "-L" | "-p" | "-S";
 
 /**
  * Returns a string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file). Wildcard * accepted.
