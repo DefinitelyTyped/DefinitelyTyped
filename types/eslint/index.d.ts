@@ -8,42 +8,39 @@
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
 
-export type TokenType =
-    | 'Boolean'
-    | 'Null'
-    | 'Identifier'
-    | 'Keyword'
-    | 'Punctuator'
-    | 'JSXIdentifier'
-    | 'JSXText'
-    | 'Numeric'
-    | 'String'
-    | 'RegularExpression';
+export namespace AST {
+    export type TokenType =
+        | 'Boolean'
+        | 'Null'
+        | 'Identifier'
+        | 'Keyword'
+        | 'Punctuator'
+        | 'JSXIdentifier'
+        | 'JSXText'
+        | 'Numeric'
+        | 'String'
+        | 'RegularExpression';
 
-export interface Token {
-    type: TokenType;
-    value: string;
-    range: Range;
-    loc: SourceLocation;
-}
+    export interface Token {
+        type: TokenType;
+        value: string;
+        range: Range;
+        loc: SourceLocation;
+    }
 
-export interface SourceLocation {
-    start: Location;
-    end: Location;
-}
+    export interface SourceLocation {
+        start: ESTree.Position;
+        end: ESTree.Position;
+    }
 
-export interface Location {
-    line: number;
-    column: number;
-}
+    export type Range = [number, number];
 
-export type Range = [number, number];
-
-export interface Ast {
-    comments: ESTree.Comment[];
-    tokens: Token[];
-    loc: SourceLocation;
-    range: Range;
+    export interface Program extends ESTree.Program {
+        comments: ESTree.Comment[];
+        tokens: Token[];
+        loc: SourceLocation;
+        range: Range;
+    }
 }
 
 export namespace Scope {
@@ -112,14 +109,14 @@ export namespace Scope {
 
 export class SourceCode {
     text: string;
-    ast: Ast;
+    ast: AST.Program;
     lines: string[];
     hasBOM: boolean;
     parserServices: SourceCode.ParserServices;
     scopeManager: Scope.ScopeManager;
     visitorKeys: SourceCode.VisitorKeys;
 
-    constructor(text: string, ast: Ast);
+    constructor(text: string, ast: AST.Program);
     constructor(config: SourceCode.Config);
 
     static splitLines(text: string): string[];
@@ -132,75 +129,75 @@ export class SourceCode {
 
     getComments(node: ESTree.Node): { leading: ESTree.Comment[], trailing: ESTree.Comment[] };
 
-    getJSDocComment(node: ESTree.Node): Token | null;
+    getJSDocComment(node: ESTree.Node): AST.Token | null;
 
     getNodeByRangeIndex(index: number): ESTree.Node | null;
 
-    isSpaceBetweenTokens(first: Token, second: Token): boolean;
+    isSpaceBetweenTokens(first: AST.Token, second: AST.Token): boolean;
 
-    getLocFromIndex(index: number): Location;
+    getLocFromIndex(index: number): ESTree.SourceLocation;
 
-    getIndexFromLoc(location: Location): number;
+    getIndexFromLoc(location: ESTree.SourceLocation): number;
 
     // Inherited methods from TokenStore
     // ---------------------------------
 
-    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): Token | null;
+    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | null;
 
-    getFirstToken(node: ESTree.Node, options: SourceCode.CursorWithSkipOptions): Token | null;
+    getFirstToken(node: ESTree.Node, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getFirstTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): Token[];
+    getFirstTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getLastToken(node: ESTree.Node, options: SourceCode.CursorWithSkipOptions): Token | null;
+    getLastToken(node: ESTree.Node, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getLastTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): Token[];
+    getLastTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getTokenBefore(node: ESTree.Node | Token | ESTree.Comment, options: SourceCode.CursorWithSkipOptions): Token | null;
+    getTokenBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getTokensBefore(node: ESTree.Node | Token | ESTree.Comment, options: SourceCode.CursorWithCountOptions): Token[];
+    getTokensBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getTokenAfter(node: ESTree.Node | Token | ESTree.Comment, options: SourceCode.CursorWithSkipOptions): Token | null;
+    getTokenAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getTokensAfter(node: ESTree.Node | Token | ESTree.Comment, options: SourceCode.CursorWithCountOptions): Token[];
+    getTokensAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithCountOptions): AST.Token[];
 
     getFirstTokenBetween(
-        left: ESTree.Node | Token | ESTree.Comment,
-        right: ESTree.Node | Token | ESTree.Comment,
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
         options: SourceCode.CursorWithSkipOptions
-    ): Token | null;
+    ): AST.Token | null;
 
     getFirstTokensBetween(
-        left: ESTree.Node | Token | ESTree.Comment,
-        right: ESTree.Node | Token | ESTree.Comment,
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
         options: SourceCode.CursorWithCountOptions
-    ): Token[];
+    ): AST.Token[];
 
     getLastTokenBetween(
-        left: ESTree.Node | Token | ESTree.Comment,
-        right: ESTree.Node | Token | ESTree.Comment,
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
         options: SourceCode.CursorWithSkipOptions
-    ): Token | null;
+    ): AST.Token | null;
 
     getLastTokensBetween(
-        left: ESTree.Node | Token | ESTree.Comment,
-        right: ESTree.Node | Token | ESTree.Comment,
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
         options: SourceCode.CursorWithCountOptions
-    ): Token[];
+    ): AST.Token[];
 
     getTokensBetween(
-        left: ESTree.Node | Token | ESTree.Comment,
-        right: ESTree.Node | Token | ESTree.Comment,
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
         padding: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions
-    ): Token[];
+    ): AST.Token[];
 
-    getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): Token[];
-    getTokens(node: ESTree.Node, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): Token[];
+    getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
+    getTokens(node: ESTree.Node, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
 
     commentsExistBetween(left: ESTree.Node, right: ESTree.Node): boolean;
 
-    getCommentsBefore(nodeOrToken: ESTree.Node | Token): ESTree.Comment[];
+    getCommentsBefore(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
-    getCommentsAfter(nodeOrToken: ESTree.Node | Token): ESTree.Comment[];
+    getCommentsAfter(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
     getCommentsInside(node: ESTree.Node): ESTree.Comment[];
 }
@@ -208,7 +205,7 @@ export class SourceCode {
 export namespace SourceCode {
     interface Config {
         text: string;
-        ast: Ast;
+        ast: AST.Program;
         parserServices?: ParserServices;
         scopeManager?: Scope.ScopeManager;
         visitorKeys?: VisitorKeys;
@@ -220,7 +217,7 @@ export namespace SourceCode {
         [nodeType: string]: string[];
     }
 
-    type FilterPredicate = (tokenOrComment: Token | ESTree.Comment) => boolean;
+    type FilterPredicate = (tokenOrComment: AST.Token | ESTree.Comment) => boolean;
 
     type CursorWithSkipOptions = number | FilterPredicate | {
         includeComments?: boolean;
@@ -318,7 +315,7 @@ export namespace Rule {
 
     type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
     type ReportDescriptorMessage = { message: string } | { messageId: string };
-    type ReportDescriptorLocation = { node: ESTree.Node } | { loc: SourceLocation | { line: number, column: number } };
+    type ReportDescriptorLocation = { node: ESTree.Node } | { loc: AST.SourceLocation | { line: number, column: number } };
     interface ReportDescriptorOptions {
         data?: { [key: string]: string };
 
@@ -326,25 +323,25 @@ export namespace Rule {
     }
 
     interface RuleFixer {
-        insertTextAfter(nodeOrToken: ESTree.Node | Token, text: string): Fix;
+        insertTextAfter(nodeOrToken: ESTree.Node | AST.Token, text: string): Fix;
 
-        insertTextAfterRange(range: Range, text: string): Fix;
+        insertTextAfterRange(range: AST.Range, text: string): Fix;
 
-        insertTextBefore(nodeOrToken: ESTree.Node | Token, text: string): Fix;
+        insertTextBefore(nodeOrToken: ESTree.Node | AST.Token, text: string): Fix;
 
-        insertTextBeforeRange(range: Range, text: string): Fix;
+        insertTextBeforeRange(range: AST.Range, text: string): Fix;
 
-        remove(nodeOrToken: ESTree.Node | Token): Fix;
+        remove(nodeOrToken: ESTree.Node | AST.Token): Fix;
 
-        removeRange(range: Range): Fix;
+        removeRange(range: AST.Range): Fix;
 
-        replaceText(nodeOrToken: ESTree.Node | Token, text: string): Fix;
+        replaceText(nodeOrToken: ESTree.Node | AST.Token, text: string): Fix;
 
-        replaceTextRange(range: Range, text: string): Fix;
+        replaceTextRange(range: AST.Range, text: string): Fix;
     }
 
     interface Fix {
-        range: Range;
+        range: AST.Range;
         text: string;
     }
 }
@@ -442,7 +439,7 @@ export namespace Linter {
     };
 
     interface ESLintParseResult {
-        ast: ESTree.Node;
+        ast: AST.Program;
         parserServices?: SourceCode.ParserServices;
         scopeManager?: Scope.ScopeManager;
         visitorKeys?: SourceCode.VisitorKeys;
@@ -500,10 +497,10 @@ export namespace CLIEngine {
         parserOptions?: Linter.ParserOptions;
         plugins?: string[];
         rules?: {
-            [name: string]: (Linter.RuleLevel | [Linter.RuleLevel, any]);
+            [name: string]: Linter.RuleLevel | Linter.RuleLevelAndOptions;
         };
         rulePaths?: string[];
-        reportUnusedDisableDirectives?: true;
+        reportUnusedDisableDirectives?: boolean;
     }
 
     interface LintResult {
@@ -558,7 +555,7 @@ export namespace RuleTester {
 
     interface InvalidTestCase extends ValidTestCase {
         errors: number | Array<TestCaseError | string>;
-        output?: string;
+        output?: string | null;
     }
 
     interface TestCaseError {
