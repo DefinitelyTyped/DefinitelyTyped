@@ -1,11 +1,13 @@
-// Type definitions for meow 3.6
+// Type definitions for meow 4.x
 // Project: https://github.com/sindresorhus/meow
-// Definitions by: KnisterPeter <https://github.com/KnisterPeter>
+// Definitions by: KnisterPeter <https://github.com/KnisterPeter>, Lindsey Smith <https://github.com/praxxis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import * as minimist from 'minimist';
+import buildOptions = require("minimist-options");
 
-declare function meow(options: string | string[] | meow.Options, minimistOptions?: minimist.Opts): meow.Result;
+declare function meow(helpMessage: string | string[], options: meow.Options): meow.Result;
+declare function meow(options: string | string[] | meow.Options): meow.Result;
 declare namespace meow {
     interface Options {
         description?: string | boolean;
@@ -14,14 +16,18 @@ declare namespace meow {
         pkg?: any;
         argv?: string[];
         inferType?: boolean;
+        flags?: buildOptions.Options;
+        autoHelp?: boolean;
+        autoVersion?: boolean;
     }
 
     interface Result {
         input: string[];
         flags: { [name: string]: any };
-        pkg: any;
+        pkg: object;
         help: string;
         showHelp(code?: number): void;
+        showVersion(): void;
     }
 }
 
