@@ -99,6 +99,7 @@ export interface ReactSpecimenProps extends DefaultCatalogProps {
   dark?: boolean;
   frame?: boolean;
   state?: any;
+  responsive?: boolean | string | string[];
 }
 export class ReactSpecimen extends React.Component<ReactSpecimenProps> {}
 
