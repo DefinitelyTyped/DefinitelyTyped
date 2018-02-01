@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/redux": "^3.6.0"
+        "redux": "^3.6.0"
     }
 }
