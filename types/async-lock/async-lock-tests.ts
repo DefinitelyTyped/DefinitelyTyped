@@ -6,9 +6,9 @@ lock.acquire("key", (done) => {
   done();
 }, (err, ret) => { /* ... */ });
 
-lock.acquire("key", (done) => {
-  done();
-}).then(() => { /* ... */ });
+lock.acquire("key", (done) => { done(); })
+  .then(() => { /* ... */ })
+  .catch(() => { /* ... */ });
 
 lock.acquire("key", () => "stringValue")
 // Check returned value's type is inherited properly
@@ -23,6 +23,7 @@ lock.acquire([ "key1", "key2" ], (done) => {
 }, (err, ret) => { /* ... */ });
 
 lock.isBusy();
+lock.isBusy('key')
 
 const lock2 = new AsyncLock({ timeout : 5000 });
 const lock3 = new AsyncLock({ maxPending : 5000 });
