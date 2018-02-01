@@ -15,6 +15,10 @@ const lines: string[] = sourceCode.getLines();
 
 SourceCode.splitLines(SOURCE);
 
+class Foo {
+    foo = 1;
+}
+
 // =============================================
 //                   Linter
 // =============================================
@@ -89,7 +93,9 @@ CLIEngine.outputFixes(report);
 
 const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2015 } });
 
-ruleTester.run("my-rule", {}, {
+ruleTester.run("my-rule", {
+    create() {},
+}, {
     valid: [
         {
             code: "var foo = true",
