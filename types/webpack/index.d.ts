@@ -13,7 +13,7 @@
 
 /// <reference types="node" />
 
-import * as Tapable from 'tapable';
+import Tapable = require('tapable');
 import * as UglifyJS from 'uglify-js';
 
 export = webpack;
