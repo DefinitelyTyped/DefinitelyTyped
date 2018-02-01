@@ -2,12 +2,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
+        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "redux-little-router-tests.ts"
+        "redux-little-router-tests.tsx"
     ]
 }

@@ -8,9 +8,7 @@ import { Reducer, Middleware, StoreEnhancer } from "redux";
 
 declare module "redux-little-router" {
     interface Routes {
-        [index: string]: {
-            [index: string]: RouteDefinition;
-        };
+        [index: string]: RouteDefinition;
     }
 
     interface RouteDefinition {
@@ -49,9 +47,9 @@ declare module "redux-little-router" {
     }
 
     function routerForBrowser(options: BrowserRouterOptions): {
-        reducer: Reducer<Location>;
+        reducer: Reducer<RouterState>;
         middleware: Middleware;
-        enhancer: StoreEnhancer<Location>;
+        enhancer: StoreEnhancer<RouterState>;
     };
 
     interface ServerRouterOptions {
@@ -140,7 +138,7 @@ declare module "redux-little-router" {
         };
     };
 
-    function replace(href: Href, options: LocationOptions): {
+    function replace(href: Href, options?: LocationOptions): {
         type: string;
         payload: Location & {
             state: {

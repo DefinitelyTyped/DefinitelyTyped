@@ -45,7 +45,7 @@ const {
 
 const store = createStore<RouterState>(
     combineReducers({ router: reducer }),
-    {},
+    { router: {} },
     compose(enhancer, applyMiddleware(middleware))
 );
 
@@ -56,7 +56,7 @@ if (initialLocation) {
 }
 
 interface TestProps {
-    currentPath: string;
+    currentPath?: string;
 }
 
 interface DispatchProps {
