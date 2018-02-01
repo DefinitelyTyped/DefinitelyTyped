@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import buildOptions = require("minimist-options");
+import * as buildOptions from "minimist-options";
 
 declare function meow(helpMessage: string | string[], options: meow.Options): meow.Result;
 declare function meow(options: string | string[] | meow.Options): meow.Result;
