@@ -5,6 +5,7 @@
 // TypeScript Version: 2.6
 
 declare namespace IWshRuntimeLibrary {
+    // tslint:disable-next-line no-const-enum
     const enum ButtonType {
         OK,
         OKCancel,
@@ -15,6 +16,7 @@ declare namespace IWshRuntimeLibrary {
         CancelTryagainContinue
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum IconType {
         Stop = 16,
         QuestionMark = 32,
@@ -22,6 +24,7 @@ declare namespace IWshRuntimeLibrary {
         InformationMark = 64,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum PopupType {
         SecondButtonDefault = 256,
         ThirdButtonDefault = 512,
@@ -30,6 +33,7 @@ declare namespace IWshRuntimeLibrary {
         RTL = 1048576,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum PopupSelection {
         NoButton = -1,
         OK = 1,
@@ -43,12 +47,14 @@ declare namespace IWshRuntimeLibrary {
         Continue = 11,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum WshExecStatus {
         WshFailed = 2,
         WshFinished = 1,
         WshRunning = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum WshWindowStyle {
         WshHide = 0,
         WshMaximizedFocus = 3,

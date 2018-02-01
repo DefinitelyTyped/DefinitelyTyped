@@ -7,6 +7,7 @@
 /// <reference types="activex-stdole" />
 
 declare namespace FAXCOMEXLib {
+    // tslint:disable-next-line no-const-enum
     const enum FAX_ACCESS_RIGHTS_ENUM {
         farMANAGE_CONFIG = 64,
         farMANAGE_IN_ARCHIVE = 256,
@@ -21,6 +22,7 @@ declare namespace FAXCOMEXLib {
         farSUBMIT_NORMAL = 2,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_ACCESS_RIGHTS_ENUM_2 {
         far2MANAGE_ARCHIVES = 256,
         far2MANAGE_CONFIG = 64,
@@ -34,6 +36,7 @@ declare namespace FAXCOMEXLib {
         far2SUBMIT_NORMAL = 2,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_ACCOUNT_EVENTS_TYPE_ENUM {
         faetFXSSVC_ENDED = 16,
         faetIN_ARCHIVE = 4,
@@ -43,18 +46,21 @@ declare namespace FAXCOMEXLib {
         faetOUT_QUEUE = 2,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_COVERPAGE_TYPE_ENUM {
         fcptLOCAL = 1,
         fcptNONE = 0,
         fcptSERVER = 2,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_DEVICE_RECEIVE_MODE_ENUM {
         fdrmAUTO_ANSWER = 1,
         fdrmMANUAL_ANSWER = 2,
         fdrmNO_ANSWER = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_GROUP_STATUS_ENUM {
         fgsALL_DEV_NOT_VALID = 2,
         fgsALL_DEV_VALID = 0,
@@ -62,6 +68,7 @@ declare namespace FAXCOMEXLib {
         fgsSOME_DEV_NOT_VALID = 3,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_JOB_EXTENDED_STATUS_ENUM {
         fjesANSWERED = 5,
         fjesBAD_ADDRESS = 10,
@@ -86,6 +93,7 @@ declare namespace FAXCOMEXLib {
         fjesTRANSMITTING = 4,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_JOB_OPERATIONS_ENUM {
         fjoDELETE = 16,
         fjoPAUSE = 2,
@@ -96,6 +104,7 @@ declare namespace FAXCOMEXLib {
         fjoVIEW = 1,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_JOB_STATUS_ENUM {
         fjsCANCELED = 512,
         fjsCANCELING = 1024,
@@ -110,12 +119,14 @@ declare namespace FAXCOMEXLib {
         fjsROUTING = 2048,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_JOB_TYPE_ENUM {
         fjtRECEIVE = 1,
         fjtROUTING = 2,
         fjtSEND = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_LOG_LEVEL_ENUM {
         fllMAX = 3,
         fllMED = 2,
@@ -123,12 +134,14 @@ declare namespace FAXCOMEXLib {
         fllNONE = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_PRIORITY_TYPE_ENUM {
         fptHIGH = 2,
         fptLOW = 0,
         fptNORMAL = 1,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_PROVIDER_STATUS_ENUM {
         fpsBAD_GUID = 2,
         fpsBAD_VERSION = 3,
@@ -139,16 +152,19 @@ declare namespace FAXCOMEXLib {
         fpsSUCCESS = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_RECEIPT_TYPE_ENUM {
         frtMAIL = 1,
         frtMSGBOX = 4,
         frtNONE = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_ROUTING_RULE_CODE_ENUM {
         frrcANY_CODE = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_RULE_STATUS_ENUM {
         frsALL_GROUP_DEV_NOT_VALID = 2,
         frsBAD_DEVICE = 4,
@@ -157,12 +173,14 @@ declare namespace FAXCOMEXLib {
         frsVALID = 0,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_SCHEDULE_TYPE_ENUM {
         fstDISCOUNT_PERIOD = 2,
         fstNOW = 0,
         fstSPECIFIC_TIME = 1,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_SERVER_APIVERSION_ENUM {
         fsAPI_VERSION_0 = 0,
         fsAPI_VERSION_1 = 65536,
@@ -170,6 +188,7 @@ declare namespace FAXCOMEXLib {
         fsAPI_VERSION_3 = 196608,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_SERVER_EVENTS_TYPE_ENUM {
         fsetACTIVITY = 8,
         fsetCONFIG = 4,
@@ -184,12 +203,14 @@ declare namespace FAXCOMEXLib {
         fsetQUEUE_STATE = 16,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FAX_SMTP_AUTHENTICATION_TYPE_ENUM {
         fsatANONYMOUS = 0,
         fsatBASIC = 1,
         fsatNTLM = 2,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FaxConstants {
         bstrGROUPNAME_ALLDEVICES = '<All Devices>',
         lDEFAULT_PREFETCH_SIZE = 100,
