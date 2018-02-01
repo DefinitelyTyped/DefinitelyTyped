@@ -7,7 +7,8 @@
 import { Application as FeathersApplication } from '@feathersjs/feathers';
 import * as express from 'express';
 
-export default function feathersExpress<T>(app: FeathersApplication<T>): express.Application & FeathersApplication<T>;
+export default function feathersExpress<T>(app: FeathersApplication<T>): Application<T>;
+export type Application<T> = express.Application & FeathersApplication<T>;
 
 export function errorHandler(options?: any): express.ErrorRequestHandler;
 export function notFound(): express.RequestHandler;
@@ -17,6 +18,31 @@ export const rest: {
 };
 
 /*
- * Re-export of the express package. Can't be typed properly without just copying everything.
+ * Re-export of the express package.
  **/
-export const original: any;
+
+export {
+    CookieOptions,
+    Errback,
+    ErrorRequestHandler,
+    Express,
+    Handler,
+    IRoute,
+    IRouter,
+    IRouterHandler,
+    IRouterMatcher,
+    json,
+    MediaType,
+    NextFunction,
+    Request,
+    RequestHandler,
+    RequestParamHandler,
+    Response,
+    Router,
+    RouterOptions,
+    Send,
+    static,
+    urlencoded
+} from 'express';
+
+export const original: typeof express;
