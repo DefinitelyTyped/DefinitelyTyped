@@ -14,7 +14,7 @@ declare module "node-forge" {
     type Utf8 = string;
     type OID = string;
 
-    namespace pem {	
+    namespace pem {
 
 		interface EncodeOptions {
 			maxline?: number;
@@ -32,7 +32,7 @@ declare module "node-forge" {
 		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
 		function decode(str: string): ObjectPEM[];
 	}
-    
+
     namespace pki {
 
         type PEM = string;
@@ -79,9 +79,10 @@ declare module "node-forge" {
         interface CertificateField extends CertificateFieldOptions {
             valueConstructed?: boolean;
             valueTagClass?: asn1.Class;
-            value?: any[];
+            value?: any[] | string;
             extensions?: any[];
         }
+
 
         interface Certificate {
             version: number;
@@ -107,11 +108,61 @@ declare module "node-forge" {
             extensions: any[];
             publicKey: any;
             md: any;
+            /**
+             * Sets the subject of this certificate.
+             *
+             * @param attrs the array of subject attributes to use.
+             * @param uniqueId an optional a unique ID to use.
+             */
+            setSubject(attrs: CertificateField[], uniqueId?: string): void;
+            /**
+              * Sets the subject of this certificate.
+              *
+              * @param attrs the array of subject attributes to use.
+              * @param uniqueId an optional a unique ID to use.
+              */
+            setIssuer(attrs: CertificateField[], uniqueId?: string): void;
+            /**
+              * Sets the extensions of this certificate.
+              *
+              * @param exts the array of extensions to use.
+              */
+            setExtensions(exts: any[]): void;
+            /**
+             * Gets an extension by its name or id.
+             *
+             * @param options the name to use or an object with:
+             *          name the name to use.
+             *          id the id to use.
+             *
+             * @return the extension or null if not found.
+             */
+            getExtension(options: string | {name: string;} | {id: number;}): {} | undefined;
+
+            /**
+             * Signs this certificate using the given private key.
+             *
+             * @param key the private key to sign with.
+             * @param md the message digest object to use (defaults to forge.md.sha1).
+             */
+            sign(key: pki.Key, md: md.MessageDigest): void;
+            /**
+             * Attempts verify the signature on the passed certificate using this
+             * certificate's public key.
+             *
+             * @param child the certificate to verify.
+             *
+             * @return true if verified, false if not.
+             */
+            verify(child: Certificate): boolean;
+
         }
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): Key;
+
+        function createCertificate(): Certificate;
     }
 
     namespace ssh {

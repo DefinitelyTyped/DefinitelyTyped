@@ -3,6 +3,7 @@
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
+//                 Nicolas Pirotte <https://github.com/npirotte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
