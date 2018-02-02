@@ -67,19 +67,8 @@ if (chart.chartArea) {
 }
 
 // http://www.chartjs.org/docs/latest/configuration/tooltip.html#position-modes
-/**
- * Custom positioner
- * @function Chart.Tooltip.positioners.custom
- * @param elements {Chart.Element[]} the tooltip elements
- * @param eventPosition {Point} the position of the event in canvas coordinates
- * @returns {Point} the tooltip position
- */
 Chart.Tooltip.positioners.custom = function(elements: any, eventPosition: any) {
-    /** @type {Chart.Tooltip} */
     var tooltip = this;
-
-    /* ... */
-
     return {
         x: 0,
         y: 0
