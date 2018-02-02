@@ -38,6 +38,8 @@ export class RemarkableTest {
 
     enableStrict() {
         const md = new Remarkable("commonmark");
+
+        md.render("# Remarkable rulezz!");
     }
 
     enableAllRules() {
@@ -49,6 +51,8 @@ export class RemarkableTest {
             linkify: true,
             typographer: true,
         });
+
+        md.render("# Remarkable rulezz!");
     }
 
     highlightFencedCodeBlocks() {
@@ -67,6 +71,8 @@ export class RemarkableTest {
                 return "";
             },
         });
+
+        md.render("# Remarkable rulezz!");
     }
 
     manageRules() {

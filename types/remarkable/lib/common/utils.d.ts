@@ -2,7 +2,7 @@ export function isString(obj?: any): boolean;
 
 export function has(object: any, key: string): boolean;
 
-export const assign: typeof Object.assign;
+export function assign(target: any, ...sources: any[]): any;
 
 export function unescapeMd(str: string): string;
 
