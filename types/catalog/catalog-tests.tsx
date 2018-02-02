@@ -28,6 +28,16 @@ const config: Config = {
     { name: 'medium', width: 640, height: 900 },
     { name: 'small', width: 471, height: 700 },
   ],
+  theme: {
+    pageHeadingBackground: '#1190D7',
+    navBarTextColor: '#333333',
+    brandColor: '#000000',
+    codeColor: '#333333',
+    linkColor: '#1190D7',
+    sidebarColorText: '#333333',
+    sidebarColorTextActive: '#1190D7',
+    sidebarColorHeading: '#333333',
+  },
 };
 
 render(config, document.body);

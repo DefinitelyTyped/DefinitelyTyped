@@ -25,6 +25,63 @@ export interface ConfigResponsiveSize {
   height: number;
 }
 
+export interface ConfigTheme {
+  // Colors
+  background?: string;
+  textColor?: string;
+  codeColor?: string;
+  linkColor?: string;
+
+  // NavigationBar background color, but also sometimes used as a foreground
+  // or border color.
+  lightColor?: string;
+
+  // Used in PageHeader
+  pageHeadingBackground?: string;
+  pageHeadingTextColor?: string;
+
+  // Used in Menu and PageHeader to make sure the top parts have
+  // the same height.
+  pageHeadingHeight?: number;
+
+  // Used for navigation bar
+  navBarBackground?: string;
+  navBarTextColor?: string;
+
+  // Used in ResponsiveTabs (tab text), Download specimen (title text).
+  // Typography: headings.
+  brandColor?: string;
+
+  sidebarColor?: string;
+  sidebarColorActive?: string;
+  sidebarColorText?: string;
+  sidebarColorTextActive?: string;
+  sidebarColorLine?: string;
+  sidebarColorHeading?: string;
+
+  // Used in the html, react, and image specimens.
+  bgLight?: string;
+  bgDark?: string;
+
+  // Keys appear to be PrismJS token types.
+  codeStyles?: any;
+
+  // Patterns
+  checkerboardPatternLight?: string;
+  checkerboardPatternDark?: string;
+
+  // Fonts
+  fontFamily?: string;
+  fontHeading?: string;
+  fontMono?: string;
+
+  // Base font size in pixels.
+  baseFontSize?: number;
+
+  // Modular scale ratio that is used to figure out all the different font sizes
+  msRatio?: number;
+}
+
 export interface Config {
   title: string;
   pages: ConfigPage[];
@@ -32,6 +89,8 @@ export interface Config {
   useBrowserHistory?: boolean;
   basePath?: string;
   responsiveSizes?: ConfigResponsiveSize[];
+  theme?: ConfigTheme;
+  logoSrc?: string;
 }
 
 export function render(config: Config, element: HTMLElement): void;
