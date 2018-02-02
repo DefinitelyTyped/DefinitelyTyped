@@ -62,7 +62,7 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
     /**
      * color of the default tab bar's background, defaults to white
      */
-    tabBarUndertabBarBackgroundColor?: string;
+    tabBarBackgroundColor?: string;
 
     /**
      * color of the default tab bar's text when active, defaults to navy
