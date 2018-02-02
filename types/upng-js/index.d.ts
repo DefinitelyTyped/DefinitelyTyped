@@ -3,11 +3,11 @@
 // Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function decode(buff: ArrayBuffer): PngData;
+export function decode(buff: Buffer): PngData;
 
-export function encode(bufs: ArrayBuffer, w: number, h: number, ps: number, dels: any[]): ArrayBuffer;
+export function encode(bufs: ArrayBuffer, width: number, height: number, ps?: number, dels?: any[]): ArrayBuffer;
 
-export function toRGBA8(out: PngData): Uint8Array;
+export function toRGBA8(out: PngData): ArrayBuffer;
 
 export interface PngData {
     width: number;
