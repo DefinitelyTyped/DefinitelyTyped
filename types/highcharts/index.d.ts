@@ -5523,7 +5523,7 @@ declare namespace Highcharts {
         /**
          * The x value of the point. For datetime axes, the X value is the timestamp in milliseconds since 1970.
          */
-        x?: number;
+        x?: number | Date;
         /**
          * The y value of the point.
          */
