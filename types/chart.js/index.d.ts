@@ -44,6 +44,9 @@ declare class Chart {
     static controllers: {
         [key: string]: any;
     };
+
+    // Tooltip Static Options
+    static Tooltip: Chart.ChartTooltipsStaticConfiguartion;
 }
 declare class PluginServiceStatic {
     register(plugin: PluginServiceRegistrationOptions): void;
@@ -273,6 +276,10 @@ declare namespace Chart {
         displayColors?: boolean;
         borderColor?: ChartColor;
         borderWidth?: number;
+    }
+
+    interface ChartTooltipsStaticConfiguartion {
+        positioners: any;
     }
 
     interface ChartHoverOptions {
