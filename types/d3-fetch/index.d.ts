@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+// Last module patch version validated against: 1.0.1
+
 import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
 
 /**
