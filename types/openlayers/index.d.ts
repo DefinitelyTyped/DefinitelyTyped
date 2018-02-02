@@ -12503,10 +12503,11 @@ declare module ol {
         getRotation(): number;
 
         /**
-         * Get the current zoom level. Return undefined if the current
-         * resolution is undefined or not within the "resolution constraints".
+         * Get the current zoom level.  If you configured your view with a resolutions
+         * array (this is rare), this method may return non-integer zoom levels (so
+         * the zoom level is not safe to use as an index into a resolutions array).
          * @return {number|undefined} Zoom.
-         * @api stable
+         * @api
          */
         getZoom(): number;
 
