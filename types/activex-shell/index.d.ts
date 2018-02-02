@@ -7,6 +7,7 @@
 /// <reference types="activex-shdocvw" />
 
 declare namespace Shell32 {
+    // tslint:disable-next-line no-const-enum
     const enum BrowseInfoFlags {
         /**
          * Allow folder junctions such as a library or a compressed file with a .zip file name extension to be browsed.
@@ -127,6 +128,7 @@ declare namespace Shell32 {
         BIF_VALIDATE = 0x00000020,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum ExplorerBarCLSID {
         Favorites = '{EFA24E61-B078-11d0-89E4-00C04FC9E26E}',
         Folders = '{EFA24E64-B078-11d0-89E4-00C04FC9E26E}',
@@ -134,6 +136,7 @@ declare namespace Shell32 {
         Search = '{30D02401-6A81-11d0-8274-00C04FD5AE38}',
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FileOperationFlag {
         /** Preserve undo information, if possible. */
         FOF_ALLOWUNDO = 64,
@@ -177,6 +180,7 @@ declare namespace Shell32 {
         FOF_SIMPLEPROGRESS = 256,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum FileSystemDetails {
         Name = 0,
         Size = 1,
@@ -186,6 +190,7 @@ declare namespace Shell32 {
         InfoTip = -1,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum HotkeyModifiers {
         SHIFT = 1,
         CTRL = 2,
@@ -193,6 +198,7 @@ declare namespace Shell32 {
         Extended = 8
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum LinkShowWindowState {
         /** Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. */
         Normal = 1,
@@ -205,6 +211,7 @@ declare namespace Shell32 {
     }
 
     /** Constants for Folder2.OfflineStatus */
+    // tslint:disable-next-line no-const-enum
     const enum OfflineFolderStatus {
         OFS_DIRTYCACHE = 3,
         OFS_INACTIVE = -1,
@@ -213,6 +220,7 @@ declare namespace Shell32 {
         OFS_SERVERBACK = 2,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum ShellFolderEnumerationFlags {
         /** **Windows 7 and later** The calling application is checking for the existence of child items in the folder. */
         SHCONTF_CHECKING_FOR_CHILDREN = 0x00010,
@@ -257,6 +265,7 @@ declare namespace Shell32 {
         SHCONTF_INCLUDESUPERHIDDEN = 0x10000,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum ShellFolderViewOptions {
         /** The **Show All Files** option is enabled. */
         SFVVO_SHOWALLOBJECTS = 0x00000001,
@@ -280,6 +289,7 @@ declare namespace Shell32 {
         SFVVO_DESKTOPHTML = 0x00000200
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum ShellFolderViewSelectItem {
         Deselect = 0,
         Select = 1,
@@ -289,6 +299,7 @@ declare namespace Shell32 {
         Focus = 16
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum ShellLinkResolveFlags {
         /**
          * Do not display a dialog box if the link cannot be resolved. When this flag is set, the high-order word of _fFlags_ specifies a time-out duration, in milliseconds.
@@ -318,6 +329,7 @@ declare namespace Shell32 {
         InvokeMSI = 128
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum SettingKey {
         /**
          * The state of the **Use check boxes to select items** option. This option is enabled automatically when the system has a pen input device configured.
@@ -413,6 +425,7 @@ declare namespace Shell32 {
         SSF_WIN95CLASSIC = 0x00000400,
     }
 
+    // tslint:disable-next-line no-const-enum
     const enum ShellExecuteShow {
         /** Open the application with a hidden window. */
         Hidden = 0,
@@ -440,6 +453,7 @@ declare namespace Shell32 {
     }
 
     /** Constants for Special Folders for open/Explore */
+    // tslint:disable-next-line no-const-enum
     const enum ShellSpecialFolderConstants {
         ssfALTSTARTUP = 29,
         ssfAPPDATA = 26,
