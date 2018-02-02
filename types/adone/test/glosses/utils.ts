@@ -337,10 +337,6 @@ namespace utilTests {
         const o: string = util.jsesc({ a: 1 }, { __inline2__: true });
     }
 
-    namespace typeOf {
-        const a: string = util.typeOf(1);
-    }
-
     namespace memcpy {
         const a: number = util.memcpy.utou(Buffer.alloc(10), 0, Buffer.alloc(10), 0, 10);
         const b: number = util.memcpy.atoa(new ArrayBuffer(10), 0, new ArrayBuffer(10), 0, 10);

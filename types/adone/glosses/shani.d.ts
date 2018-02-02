@@ -1443,7 +1443,7 @@ declare namespace adone {
                     /**
                      * Requires the value to be of the given type
                      */
-                    typeOf(type: adone.util.I.PossibleTypes): Matcher;
+                    typeOf(type: adone.meta.I.PossibleTypes): Matcher;
                     typeOf(type: string): Matcher;
 
                     /**
