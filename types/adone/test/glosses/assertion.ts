@@ -3,9 +3,9 @@ namespace assertionTests {
 
     namespace assertionInterface {
         namespace exception {
-            const a: adone.x.Exception = new assertion.AssertionError();
-            const b: adone.x.Exception = new assertion.AssertionError("hello");
-            const c: adone.x.Exception = new assertion.AssertionError("hello", { actual: 2, expected: 3 }, () => {});
+            const a: adone.exception.Exception = new assertion.AssertionError();
+            const b: adone.exception.Exception = new assertion.AssertionError("hello");
+            const c: adone.exception.Exception = new assertion.AssertionError("hello", { actual: 2, expected: 3 }, () => {});
         }
 
         namespace config {
