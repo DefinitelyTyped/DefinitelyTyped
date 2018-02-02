@@ -10,7 +10,8 @@ const graphqlOption: graphqlHTTP.OptionsObj = {
     schema: schema,
     formatError: (error: Error) => ({
         message: error.message
-    })
+    }),
+    extensions: (args) => { }
 };
 
 const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsObj => ({
