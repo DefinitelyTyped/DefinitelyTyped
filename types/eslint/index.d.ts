@@ -9,7 +9,7 @@ import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
 
 export namespace AST {
-    export type TokenType =
+    type TokenType =
         | 'Boolean'
         | 'Null'
         | 'Identifier'
@@ -21,21 +21,21 @@ export namespace AST {
         | 'String'
         | 'RegularExpression';
 
-    export interface Token {
+    interface Token {
         type: TokenType;
         value: string;
         range: Range;
         loc: SourceLocation;
     }
 
-    export interface SourceLocation {
+    interface SourceLocation {
         start: ESTree.Position;
         end: ESTree.Position;
     }
 
-    export type Range = [number, number];
+    type Range = [number, number];
 
-    export interface Program extends ESTree.Program {
+    interface Program extends ESTree.Program {
         comments: ESTree.Comment[];
         tokens: Token[];
         loc: SourceLocation;
@@ -125,7 +125,7 @@ export class SourceCode {
 
     getLines(): string[];
 
-    getAllComments(): ESTree.Node[];
+    getAllComments(): ESTree.Comment[];
 
     getComments(node: ESTree.Node): { leading: ESTree.Comment[], trailing: ESTree.Comment[] };
 
@@ -137,7 +137,7 @@ export class SourceCode {
 
     getLocFromIndex(index: number): ESTree.SourceLocation;
 
-    getIndexFromLoc(location: ESTree.SourceLocation): number;
+    getIndexFromLoc(location: ESTree.Position): number;
 
     // Inherited methods from TokenStore
     // ---------------------------------
