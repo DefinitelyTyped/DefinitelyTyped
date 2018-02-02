@@ -3,6 +3,8 @@
 // Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export function decode(buff: Buffer): PngData;
 
 export function encode(bufs: ArrayBuffer, width: number, height: number, ps?: number, dels?: any[]): ArrayBuffer;
