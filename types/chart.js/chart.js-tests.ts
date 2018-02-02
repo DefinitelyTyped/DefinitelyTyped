@@ -68,9 +68,9 @@ if (chart.chartArea) {
 
 // http://www.chartjs.org/docs/latest/configuration/tooltip.html#position-modes
 Chart.Tooltip.positioners.custom = function(elements: any, eventPosition: any) {
-    var tooltip = this;
+    const tooltip = this;
     return {
         x: 0,
         y: 0
     };
-}
+};
