@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.7
+// Type definitions for Chart.js 2.7.1
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
