@@ -1591,6 +1591,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "yFiles for HTML",
+            "typingsPackageName": "yfiles",
+            "sourceRepoURL": "none",
+            "asOfVersion": "2.1"
+        },
+        {
             "libraryName": "zetapush-js",
             "typingsPackageName": "zetapush-js",
             "sourceRepoURL": "https://github.com/zetapush/zetapush-js",
