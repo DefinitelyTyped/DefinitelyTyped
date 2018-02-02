@@ -26,6 +26,7 @@
         "modules/offline-exporting.d.ts",
         "highcharts-more.d.ts",
         "highstock.d.ts",
+        "js/highcharts/index.d.ts",
         "test/boost.ts",
         "test/exporting.ts",
         "test/highstock.ts",
