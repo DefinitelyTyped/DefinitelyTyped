@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.5.x
+// Type definitions for Node.js 8.9.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -17,6 +17,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Alberto Schiabel <https://github.com/jkomyno>
+//                 Huw <https://github.com/hoo29>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -111,7 +112,7 @@ declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-/* tslint:disable-next-line:callable-types */
+    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -1728,33 +1729,20 @@ declare module "https" {
     import * as http from "http";
     import { URL } from "url";
 
-    export interface ServerOptions {
-        pfx?: any;
-        key?: any;
-        passphrase?: string;
-        cert?: any;
-        ca?: any;
-        crl?: any;
-        ciphers?: string;
-        honorCipherOrder?: boolean;
-        requestCert?: boolean;
-        rejectUnauthorized?: boolean;
-        NPNProtocols?: any;
-        SNICallback?: (servername: string, cb: (err: Error | null, ctx: tls.SecureContext) => void) => void;
-        secureProtocol?: string;
-    }
+    export type ServerOptions = tls.SecureContextOptions & tls.TlsServerOptions;
 
-    export interface RequestOptions extends http.RequestOptions {
-        pfx?: any;
-        key?: any;
-        passphrase?: string;
-        cert?: any;
-        ca?: any;
-        ciphers?: string;
-        rejectUnauthorized?: boolean;
-        secureProtocol?: string;
-        servername?: string;
-    }
+    // see https://nodejs.org/docs/latest-v8.x/api/https.html#https_https_request_options_callback
+    type extendedRequestKeys = "pfx" |
+        "key" |
+        "passphrase" |
+        "cert" |
+        "ca" |
+        "ciphers" |
+        "rejectUnauthorized" |
+        "secureProtocol" |
+        "servername";
+
+    export type RequestOptions = http.RequestOptions & Pick<tls.ConnectionOptions, extendedRequestKeys>
 
     export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
@@ -4816,7 +4804,7 @@ declare module "tls" {
              * An array of strings or a Buffer naming possible NPN protocols.
              * (Protocols should be ordered by their priority.)
              */
-            NPNProtocols?: string[] | Buffer,
+            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
             /**
              * An array of strings or a Buffer naming possible ALPN protocols.
              * (Protocols should be ordered by their priority.) When the server
@@ -4824,7 +4812,7 @@ declare module "tls" {
              * precedence over NPN and the server does not send an NPN extension
              * to the client.
              */
-            ALPNProtocols?: string[] | Buffer,
+            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
             /**
              * SNICallback(servername, cb) <Function> A function that will be
              * called if the client supports SNI TLS extension. Two arguments
@@ -4834,7 +4822,7 @@ declare module "tls" {
              * SecureContext.) If SNICallback wasn't provided the default callback
              * with high-level API will be used (see below).
              */
-            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
+            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
             /**
              * An optional Buffer instance containing a TLS session.
              */
@@ -4900,7 +4888,7 @@ declare module "tls" {
          * @param callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options: TlsOptions, callback: (err: Error | null) => void): any;
+        renegotiate(options: { rejectUnauthorized: boolean, requestCert: boolean }, callback: (err: Error | null) => void): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -4943,30 +4931,15 @@ declare module "tls" {
         prependOnceListener(event: "secureConnect", listener: () => void): this;
     }
 
-    export interface TlsOptions {
-        host?: string;
-        port?: number;
-        pfx?: string | Buffer[];
-        key?: string | string[] | Buffer | any[];
-        passphrase?: string;
-        cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | string[] | Buffer | Buffer[];
-        crl?: string | string[];
-        ciphers?: string;
-        honorCipherOrder?: boolean;
+    export interface TlsServerOptions extends SecureContextOptions {
+        handshakeTimeout?: number;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: string[] | Buffer;
+        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
-        ecdhCurve?: string;
-        dhparam?: string | Buffer;
-        handshakeTimeout?: number;
-        ALPNProtocols?: string[] | Buffer;
         sessionTimeout?: number;
-        ticketKeys?: Buffer;
-        sessionIdContext?: string;
-        secureProtocol?: string;
-        secureOptions?: number;
+        ticketKeys: Buffer;
     }
 
     export interface ConnectionOptions extends SecureContextOptions {
@@ -4975,8 +4948,8 @@ declare module "tls" {
         path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
         socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
         rejectUnauthorized?: boolean; // Defaults to true
-        NPNProtocols?: Array<string | Buffer>;
-        ALPNProtocols?: Array<string | Buffer>;
+        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array
         checkServerIdentity?: typeof checkServerIdentity;
         servername?: string; // SNI TLS Extension
         session?: Buffer;
@@ -5093,7 +5066,7 @@ declare module "tls" {
      * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
      */
     export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
-    export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
+    export function createServer(options: TlsServerOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
@@ -5374,7 +5347,7 @@ declare module "stream" {
             writable: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
@@ -5465,7 +5438,7 @@ declare module "stream" {
             writable: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
@@ -5545,9 +5518,9 @@ declare module "util" {
     export function callbackify<T1, T2>(fn: (arg1: T1, arg2: T2) => Promise<void>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2) => Promise<TResult>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3,  callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4,  callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
@@ -6142,7 +6115,7 @@ declare module "http2" {
     }
 
     export interface ServerStreamFileResponseOptions {
-        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void|boolean;
+        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void | boolean;
         getTrailers?: (trailers: OutgoingHttpHeaders) => void;
         offset?: number;
         length?: number;
@@ -6488,7 +6461,7 @@ declare module "http2" {
     export type ServerSessionOptions = SessionOptions;
 
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
-    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
+    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsServerOptions { }
 
     export interface ServerOptions extends ServerSessionOptions {
         allowHTTP1?: boolean;
