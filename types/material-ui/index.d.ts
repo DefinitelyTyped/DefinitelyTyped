@@ -1262,7 +1262,6 @@ declare namespace __MaterialUI {
 
             // Other properties from <Menu/>
             autoWidth?: boolean;
-            children?: React.ReactElement<MenuItemProps> | Array<React.ReactElement<MenuItemProps>>;
             desktop?: boolean;
             disableAutoFocus?: boolean;
             initiallyKeyboardFocused?: boolean;
