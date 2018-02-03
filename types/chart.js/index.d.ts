@@ -46,7 +46,7 @@ declare class Chart {
     };
 
     // Tooltip Static Options
-    static Tooltip: Chart.ChartTooltipsStaticConfiguartion;
+    static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
 declare class PluginServiceStatic {
     register(plugin: PluginServiceRegistrationOptions): void;
@@ -278,7 +278,7 @@ declare namespace Chart {
         borderWidth?: number;
     }
 
-    interface ChartTooltipsStaticConfiguartion {
+    interface ChartTooltipsStaticConfiguration {
         positioners: {[mode: string]: ChartTooltipPositioner};
     }
 
