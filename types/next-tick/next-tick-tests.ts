@@ -1,4 +1,4 @@
-const nextTick = require('next-tick');
+import nextTick = require('next-tick');
 
 let x: boolean | null = null;
 
