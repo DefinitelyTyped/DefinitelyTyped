@@ -1,5 +1,5 @@
 import { Comment } from 'estree';
-import { AST, SourceCode, Rule, Linter, CLIEngine, RuleTester } from 'eslint';
+import { AST, SourceCode, Rule, Linter, CLIEngine, RuleTester, Scope } from 'eslint';
 
 const SOURCE = `var foo = bar;`;
 
@@ -38,7 +38,7 @@ const COMMENT: Comment = {
 
 //#region SourceCode
 
-const sourceCode = new SourceCode(SOURCE, AST);
+let sourceCode = new SourceCode(SOURCE, AST);
 
 SourceCode.splitLines(SOURCE);
 
@@ -210,6 +210,48 @@ sourceCode.getCommentsInside(AST);
 
 //#endregion
 
+//#region Scope
+
+const scopeManager: Scope.ScopeManager = {
+    scopes: [],
+    globalScope: null,
+    acquire(node, inner) {
+        return this.scopes[0];
+    },
+    getDeclaredVariables() {
+        return [];
+    }
+};
+
+const scope = scopeManager.scopes[0];
+
+const variable = scope.variables[0];
+
+variable.name = 'foo';
+
+variable.identifiers[0].type = 'Identifier';
+
+variable.defs[0].name.type = 'Identifier';
+variable.defs[0].type;
+variable.defs[0].node;
+variable.defs[0].parent;
+
+const reference = scope.references[0];
+
+reference.from = scope;
+reference.identifier.type = 'Identifier';
+reference.resolved = variable;
+reference.writeExpr = AST;
+reference.init = true;
+
+reference.isRead();
+reference.isReadOnly();
+reference.isWrite();
+reference.isWriteOnly();
+reference.isReadWrite();
+
+//#endregion
+
 //#region Rule
 
 let rule: Rule.RuleModule;
@@ -326,27 +368,64 @@ linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'warn' } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'off' } }, 'test.js');
 
+const lintingResult = linter.verify(SOURCE, {});
+
+for (const msg of lintingResult) {
+    msg.severity = 1;
+    msg.severity = 2;
+
+    msg.ruleId = 'foo';
+
+    msg.fatal = true;
+
+    msg.line = 0;
+    msg.endLine = 0;
+    msg.column = 0;
+    msg.endColumn = 0;
+
+    msg.source = SOURCE;
+
+    if (msg.fix) {
+        msg.fix.text = 'foo';
+        msg.fix.range = [0, 0];
+    }
+}
+
 linter.verifyAndFix(SOURCE, {});
 linter.verifyAndFix(SOURCE, {}, 'test.js');
 linter.verifyAndFix(SOURCE, {}, { fix: false });
 
-linter.getSourceCode();
+const fixResult = linter.verifyAndFix(SOURCE, {});
 
-// TODO: Fix me
-linter.defineRule('test', {
-    create() => {},
-});
+fixResult.fixed = true;
+fixResult.output = 'foo';
 
-// TODO: Fix me
+for (const msg of fixResult.messages) {
+    msg.ruleId = 'foo';
+}
+
+sourceCode = linter.getSourceCode();
+
+linter.defineRule('test', rule);
+
 linter.defineRules({
-    'test': { create() => {} },
-    'test-2': { create() => {} },
+    foo: rule,
+    bar: rule,
 });
 
 linter.getRules();
 
-// TODO: Fix me
-linter.defineParser('cutom-parser', );
+linter.defineParser('custom-parser', { parse: (src, opts) => AST });
+linter.defineParser('custom-parser', {
+    parseForESLint(src, opts) {
+        return {
+            ast: AST,
+            visitorKeys: {},
+            parserServices: {},
+            scopeManager,
+        };
+    }
+});
 
 //#endregion
 

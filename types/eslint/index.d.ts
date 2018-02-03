@@ -69,7 +69,7 @@ export namespace Scope {
 
     interface Variable {
         name: string;
-        identifiers: ESTree.Identifier;
+        identifiers: ESTree.Identifier[];
         references: Reference[];
         defs: Definition[];
     }
