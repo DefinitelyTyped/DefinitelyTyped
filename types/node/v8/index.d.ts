@@ -19,6 +19,7 @@
 //                 Alberto Schiabel <https://github.com/jkomyno>
 //                 Huw <https://github.com/hoo29>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
@@ -1742,7 +1743,7 @@ declare module "https" {
         "secureProtocol" |
         "servername";
 
-    export type RequestOptions = http.RequestOptions & Pick<tls.ConnectionOptions, extendedRequestKeys>
+    export type RequestOptions = http.RequestOptions & Pick<tls.ConnectionOptions, extendedRequestKeys>;
 
     export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
@@ -4939,7 +4940,7 @@ declare module "tls" {
         ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
         SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
         sessionTimeout?: number;
-        ticketKeys: Buffer;
+        ticketKeys?: Buffer;
     }
 
     export interface ConnectionOptions extends SecureContextOptions {
@@ -4949,7 +4950,7 @@ declare module "tls" {
         socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
         rejectUnauthorized?: boolean; // Defaults to true
         NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
-        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array
+        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
         checkServerIdentity?: typeof checkServerIdentity;
         servername?: string; // SNI TLS Extension
         session?: Buffer;
