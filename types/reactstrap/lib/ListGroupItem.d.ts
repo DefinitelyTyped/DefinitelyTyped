@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface ListGroupItemProps {
+export interface ListGroupItemProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   active?: boolean;
   disabled?: boolean;

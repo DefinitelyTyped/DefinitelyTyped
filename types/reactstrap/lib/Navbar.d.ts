@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface NavbarProps {
+export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   light?: boolean;
   dark?: boolean;
   inverse?: boolean;
