@@ -48,14 +48,39 @@ declare namespace accepts {
 
         /**
          * Return the first accepted language. If nothing in `languages` is accepted, then `false` is returned.
+         * If no languaes are supplied, all accepted languages are returned, in the order of the client's preference
+         * (most preferred first).
          */
+        language(): string[];
         language(languages: string[]): string | false;
         language(...languages: string[]): string | false;
 
         /**
-         * Return the languages that the request accepts, in the order of the client's preference (most preferred first).
+         * Return the first accepted language. If nothing in `languages` is accepted, then `false` is returned.
+         * If no languaes are supplied, all accepted languages are returned, in the order of the client's preference
+         * (most preferred first).
          */
         languages(): string[];
+        languages(languages: string[]): string | false;
+        languages(...languages: string[]): string | false;
+
+        /**
+         * Return the first accepted language. If nothing in `languages` is accepted, then `false` is returned.
+         * If no languaes are supplied, all accepted languages are returned, in the order of the client's preference
+         * (most preferred first).
+         */
+        lang(): string[];
+        lang(languages: string[]): string | false;
+        lang(...languages: string[]): string | false;
+
+        /**
+         * Return the first accepted language. If nothing in `languages` is accepted, then `false` is returned.
+         * If no languaes are supplied, all accepted languages are returned, in the order of the client's preference
+         * (most preferred first).
+         */
+        langs(): string[];
+        langs(languages: string[]): string | false;
+        langs(...languages: string[]): string | false;
 
         /**
          * Return the first accepted type (and it is returned as the same text as what appears in the `types` array). If nothing in `types` is accepted, then `false` is returned.
