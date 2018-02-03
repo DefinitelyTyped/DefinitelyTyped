@@ -1,6 +1,8 @@
 // Type definitions for @vimeo/player 2.0
 // Project: https://github.com/vimeo/player.js
-// Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>, Felix Albert <f.albert.work@icloud.com>
+// Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
+//                 Felix Albert <f.albert.work@icloud.com>
+//                 Tim Chen <https://github.com/timc13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function myMethod(a: string): string;
@@ -23,7 +25,7 @@ export interface TypeError extends Error {name: "TypeError"; message: string; me
 export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" | "seeked" | "texttrackchange" | "cuechange" | "cuepoint" | "volumechange" | "error" | "loaded" |  string;
 export type EventCallback = (data: any) => any;
 
-export class Player {
+export default class Player {
     constructor(element: HTMLIFrameElement|HTMLElement|string, options: Options);
 
     on(event: EventName, callback: EventCallback): void;
