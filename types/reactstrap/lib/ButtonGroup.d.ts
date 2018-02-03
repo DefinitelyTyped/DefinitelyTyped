@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface ButtonGroupProps {
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;

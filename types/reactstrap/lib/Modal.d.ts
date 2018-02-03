@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface ModalProps {
+export interface ModalProps extends React.HTMLAttributes<HTMLElement> {
   isOpen?: boolean;
   autoFocus?: boolean;
   size?: string;

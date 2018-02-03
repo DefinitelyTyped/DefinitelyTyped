@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface MediaProps {
+export interface MediaProps extends React.HTMLAttributes<HTMLElement> {
   body?: boolean;
   bottom?: boolean;
   className?: string;

@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface CardProps {
+export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   inverse?: boolean;
   color?: string;

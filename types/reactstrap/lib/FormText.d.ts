@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface FormTextProps {
+export interface FormTextProps extends React.HTMLAttributes<HTMLElement> {
   inline?: boolean;
   tag?: React.ReactType;
   color?: string;
