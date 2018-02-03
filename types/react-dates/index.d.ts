@@ -163,6 +163,7 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean,
         daySize?: number,
         isRTL?: boolean,
+        verticalSpacing?: number,
 
         // navigation related props
         navPrev?: string | JSX.Element,
