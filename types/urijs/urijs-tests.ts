@@ -64,6 +64,10 @@ URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
         h: "frag"
     })
 );
+new URI('http://example.org/image/').expand({
+    width: 100,
+    height: 100
+}) === 'http://example.org/image/?width=100&height=100'
 
 /*
 Tests for hasSearch(), hasQuery()
