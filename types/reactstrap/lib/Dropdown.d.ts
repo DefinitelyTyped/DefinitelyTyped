@@ -18,6 +18,7 @@ export interface Props extends UncontrolledProps {
   group?: boolean;
   size?: string;
   tag?: React.ReactType;
+  addonType?: boolean | 'prepend' | 'append';
 }
 export interface DropdownProps extends Props {
   /* intentionally blank */
