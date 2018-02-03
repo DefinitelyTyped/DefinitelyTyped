@@ -65,6 +65,8 @@ class SingleDatePickerFullTest extends React.Component {
                     monthFormat="MM"
                     renderDayContents={day => day.toString()}
                     verticalSpacing={4}
+                    keepFocusOnInput={true}
+                    verticalHeight={5}
                     />
     }
 }
