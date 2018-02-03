@@ -24,6 +24,7 @@ declare namespace accepts {
         /**
          * Return the first accepted encoding. If nothing in `encodings` is accepted, then `false` is returned.
          */
+        encoding(): string[];
         encoding(encodings: string[]): string | false;
         encoding(...encodings: string[]): string | false;
 
@@ -31,6 +32,8 @@ declare namespace accepts {
          * Return the encodings that the request accepts, in the order of the client's preference (most preferred first).
          */
         encodings(): string[];
+        encodings(encodings: string[]): string | false;
+        encodings(...encodings: string[]): string | false;
 
         /**
          * Return the first accepted language. If nothing in `languages` is accepted, then `false` is returned.
