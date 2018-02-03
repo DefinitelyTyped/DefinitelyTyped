@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Environment, Network, RecordSource, Store, ConnectionHandler } from "relay-runtime";
+import { Environment, Network, RecordSource, Store, ConnectionHandler, ConcreteFragment } from "relay-runtime";
 
 import {
     graphql,
@@ -53,125 +53,184 @@ const MyQueryRenderer = (props: { name: string }) => (
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~
-// Modern FragmentContainer
-// ~~~~~~~~~~~~~~~~~~~~~
-
-() => {
-    interface Props {
-        relay: RelayProp;
-        publicProp: string;
-    }
-
-    class TodoListView extends React.Component<Props> {
-        render() {
-            this.props.relay.environment;
-            return <div>{this.props.publicProp}</div>;
-        }
-    }
-
-    const MyFragmentContainer = createFragmentContainer(
-        TodoListView,
-        {
-            item: graphql`
-                fragment TodoItem_item on Todo {
-                    text
-                    isComplete
-                }
-            `,
-        }
-    );
-
-    function doesNotRequireRelayPropToBeProvided() {
-        <MyFragmentContainer publicProp="is available" />;
-    }
-};
-
-// ~~~~~~~~~~~~~~~~~~~~~
 // Modern RefetchContainer
 // ~~~~~~~~~~~~~~~~~~~~~
 
-() => {
-    interface StoryInterface {
-        id: string;
-    }
+type StoryLike = (storyID: string) => void;
+
+// Artifact produced by relay-compiler-language-typescript
+enum _Story_story$ref {}
+type Story_story$ref = _Story_story$ref & ConcreteFragment;
+interface Story_story {
+    readonly id: string;
+    readonly text: string;
+    readonly isPublished: boolean;
+    readonly " $refType": Story_story$ref;
+}
+
+const Story = (() => {
     interface Props {
         relay: RelayRefetchProp;
-        loadMoreTitle: string;
-        feed: {
-            stories: { edges: Array<{ node: StoryInterface }> };
-        };
+        story: Story_story;
+        onLike: StoryLike;
     }
-    class Story extends React.Component<{ story: StoryInterface }> {}
-    class FeedStories extends React.Component<Props> {
+
+    interface State {
+        isLoading: boolean;
+    }
+
+    class Story extends React.Component<Props> {
+        state = {
+            isLoading: false
+        };
+
+        componentDidMount() {
+            setInterval(this.handleRefresh.bind(this), 1000);
+        }
+
+        handleRefresh() {
+            this.setState({ isLoading: true });
+            this.props.relay.refetch({ id: this.props.story.id }, {}, error => {
+                this.setState({ isLoading: false });
+            }, { force: true });
+        }
+
         render() {
             return (
                 <div>
-                    {this.props.feed.stories.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
-                    <button onClick={() => this._loadMore} title={this.props.loadMoreTitle} />
+                    {this.props.story.isPublished ? "" : "Draft: "}
+                    {this.props.story.text}
+                    {this.state.isLoading && <span>♺</span>}
+                    <button onClick={() => this.props.onLike(this.props.story.id)}>LIKE</button>
                 </div>
             );
         }
-
-        _loadMore() {
-            // Increments the number of stories being rendered by 10.
-            const refetchVariables = (fragmentVariables: { count: number }) => ({
-                count: fragmentVariables.count + 10,
-            });
-            this.props.relay.refetch(refetchVariables);
-        }
     }
 
-    const FeedRefetchContainer = createRefetchContainer(
-        FeedStories,
+    const StoryRefetchContainer = createRefetchContainer(
+        Story,
         {
-            feed: graphql.experimental`
-                fragment FeedStories_feed on Feed @argumentDefinitions(count: { type: "Int", defaultValue: 10 }) {
-                    stories(first: $count) {
-                        edges {
-                            node {
-                                id
-                                ...Story_story
-                            }
-                        }
-                    }
+            story: graphql`
+                fragment Story_story on Todo {
+                    id
+                    text
+                    isPublished
                 }
             `,
         },
         graphql.experimental`
-            query FeedStoriesRefetchQuery($count: Int) {
-                feed {
-                    ...FeedStories_feed @arguments(count: $count)
+            query StoryRefetchQuery($id: ID!) {
+                story(id: $id) {
+                    ...Story_story
                 }
             }
         `
     );
 
     function doesNotRequireRelayPropToBeProvided() {
-        const feed = { stories: { edges: [] }}; // TODO
-        <FeedRefetchContainer loadMoreTitle="Load More" feed={feed} />;
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { " $fragmentRefs": Story_story$ref } = {} as any;
+        // TODO: Fix requirement to cast fragment reference as `any`.
+        <StoryRefetchContainer story={story as any} onLike={onLike} />;
     }
-};
+
+    return StoryRefetchContainer;
+})();
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern FragmentContainer
+// ~~~~~~~~~~~~~~~~~~~~~
+
+// Artifact produced by relay-compiler-language-typescript
+enum _FeedStories_feed$ref {}
+type FeedStories_feed$ref = _FeedStories_feed$ref & ConcreteFragment;
+interface FeedStories_feed {
+    readonly edges: ReadonlyArray<{
+        readonly node: {
+            readonly id: string;
+            readonly " $fragmentRefs": Story_story$ref;
+        };
+    }>;
+    readonly " $refType": FeedStories_feed$ref;
+}
+
+const Feed = (() => {
+    interface Props {
+        relay: RelayProp;
+        feed: FeedStories_feed;
+        onStoryLike: StoryLike;
+    }
+
+    const FeedStories: React.SFC<Props> = ({ feed, onStoryLike, relay }) => {
+        // TODO: Getting env here for no good reason other than needing to test it works.
+        //       If you have a good relavant example, please update!
+        relay.environment;
+        const stories = feed.edges.map(edge => {
+            // TODO: Fix requirement to cast fragment reference as `any`.
+            return <Story story={edge.node as any} key={edge.node.id} onLike={onStoryLike} />;
+        });
+        return <div>{stories}</div>;
+    };
+
+    const FeedFragmentContainer = createFragmentContainer(
+        FeedStories,
+        {
+            feed: graphql`
+                fragment FeedStories_feed on Feed {
+                    edges {
+                        node {
+                            id
+                            ...Story_story
+                        }
+                    }
+                }
+            `,
+        }
+    );
+
+    function doesNotRequireRelayPropToBeProvided() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { " $fragmentRefs": FeedStories_feed$ref } = {} as any;
+        // TODO: Fix requirement to cast fragment reference as `any`.
+        <FeedFragmentContainer feed={feed as any} onStoryLike={onStoryLike} />;
+    }
+
+    return FeedFragmentContainer;
+})();
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern PaginationContainer
 // ~~~~~~~~~~~~~~~~~~~~~
 
-() => {
-    interface StoryInterface {
-        id: string;
-    }
-    class Story extends React.Component<{ story: StoryInterface }> {}
+// Artifact produced by relay-compiler-language-typescript
+enum _UserFeed_user$ref {}
+type UserFeed_user$ref = _UserFeed_user$ref & ConcreteFragment;
+interface UserFeed_user {
+    readonly feed: {
+        readonly pageInfo: {
+            readonly endCursor?: string | null;
+            readonly hasNextPage: boolean;
+        };
+        readonly " $fragmentRefs": FeedStories_feed$ref;
+    };
+    readonly " $refType": UserFeed_user$ref;
+}
 
+() => {
     interface Props {
         relay: RelayPaginationProp;
         loadMoreTitle: string;
-        user: { feed: { edges: Array<{ node: StoryInterface }> } };
+        user: UserFeed_user;
     }
-    class Feed extends React.Component<Props> {
+
+    class UserFeed extends React.Component<Props> {
         render() {
+            const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+            // TODO: Fix requirement to cast fragment reference as `any`.
+            const feed = this.props.user.feed as any;
             return (
                 <div>
-                    {this.props.user.feed.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
+                    <Feed feed={feed} onStoryLike={onStoryLike} />
                     <button onClick={() => this._loadMore()} title={this.props.loadMoreTitle} />
                 </div>
             );
@@ -191,21 +250,20 @@ const MyQueryRenderer = (props: { name: string }) => (
         }
     }
 
-    const FeedPaginationContainer = createPaginationContainer(
-        Feed,
+    const UserFeedPaginationContainer = createPaginationContainer(
+        UserFeed,
         {
             user: graphql`
-                fragment Feed_user on User {
+                fragment UserFeed_user on User {
                     feed(
                         first: $count
                         after: $cursor
                         orderby: $orderBy # other variables
                     ) @connection(key: "Feed_feed") {
-                        edges {
-                            node {
-                                id
-                                ...Story_story
-                            }
+                        ...FeedStories_feed
+                        pageInfo {
+                            endCursor
+                            hasNextPage
                         }
                     }
                 }
@@ -214,7 +272,8 @@ const MyQueryRenderer = (props: { name: string }) => (
         {
             direction: "forward",
             getConnectionFromProps(props) {
-                return props.user && props.user.feed;
+                // TODO: Fix requirement to have `edges` and both `pageInfo` details for forward and backward pagination
+                return props.user && props.user.feed as any;
             },
             getFragmentVariables(prevVars, totalCount) {
                 return {
@@ -243,8 +302,9 @@ const MyQueryRenderer = (props: { name: string }) => (
     );
 
     function doesNotRequireRelayPropToBeProvided() {
-        const user = { feed: { edges: [] }}; // TODO
-        <FeedPaginationContainer loadMoreTitle="Load More" user={user} />;
+        const user: { " $fragmentRefs": UserFeed_user$ref } = {} as any;
+        // TODO: Fix requirement to cast fragment reference as `any`.
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user as any} />;
     }
 };
 
