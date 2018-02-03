@@ -1,4 +1,4 @@
-import { Chart, ChartData } from 'chart.js';
+import { Chart, ChartData, Point } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -67,10 +67,9 @@ if (chart.chartArea) {
 }
 
 // http://www.chartjs.org/docs/latest/configuration/tooltip.html#position-modes
-Chart.Tooltip.positioners.custom = function(elements: any, eventPosition: any) {
-    const tooltip = this;
+Chart.Tooltip.positioners.custom = function(elements: any[], eventPosition: Point) {
     return {
-        x: 0,
-        y: 0
+        x: eventPosition.x,
+        y: eventPosition.y + 10
     };
 };
