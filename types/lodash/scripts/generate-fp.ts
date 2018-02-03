@@ -14,6 +14,26 @@ interface TypeParam {
     extends?: string;
 }
 
+function preProcessOverload(overload: Overload) {
+    // No optional parameters
+    overload.params = overload.params.map(p => p.replace(/\?:/g, ":"));
+
+    for (let i = 0; i < overload.params.length; ++i) {
+        overload.params[i]
+        overload.params[i] = capCallback(overload.params[i]);
+    }
+}
+
+function capCallback(parameter: string) {
+    if (parameter.match(/\([^,)]+,[^)]+\) ?=>/) || parameter.match(/Memo\w*Iterator/)) // We don't support capping these callbacks yet, so flag them if detected
+        console.warn("Failed to cap callback: ", parameter);
+    return parameter
+        .replace(/(?:(?:Array|List|Object|Dictionary|NumericDictionary|String)Iteratee)<([^,>]+)>/, "ValueIteratee<$1>")
+        .replace(/(?:(?:Array|List|Object|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?)<([^,>]+),([^,>]+)>/, "ValueIterateeCustom<$1,$2>")
+        .replace(/(?:(?:Array|List|Object|Dictionary|NumericDictionary|String)IteratorTypeGuard)<([^,>]+),([^,>]+)>/, "ValueIterateeTypeGuard<$1,$2>");
+    // TODO: replace all StringIterator with ValueIteratee? ArrayIterator with ValueIterator?
+}
+
 function curryOverload(overload: Overload, functionName: string, overloadId: number) {
     const baseName = functionName[0].toUpperCase() + functionName.substr(1);
     let output = "";
@@ -88,10 +108,7 @@ const builder = {
                 returnType: "boolean",
             },
         ];
-        // No optional parameters
-        for (const o of overloads) {
-            o.params = o.params.map(p => p.replace(/\?:/g, ":"));
-        }
+        overloads.forEach(preProcessOverload);
         return overloads
             .map((o, i) => {
                 const reargParams = o.params.map((p, i) => o.params[args[i]]);
@@ -115,18 +132,29 @@ type NotVoid = {} | null | undefined;
 type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
 type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
 type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | object | [string, any] | PartialDeep<T>;
+type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
 type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
+type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
+type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;
+type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
+type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
 type PartialDeep<T> = {
     [P in keyof T]?: PartialDeep<T[P]>;
 };
+type Dictionary<T> = {
+    [P in string]?: T;
+}
+interface NumericDictionary<T> {
+    [index: number]: T;
+}
 
 interface Some {
     (): Some;
-    <T>(predicate: ListIterateeCustom<T, boolean>): Some1x1<T>;
-    <T>(predicate: ListIterateeCustom<T, boolean>, collection: List<T> | null | undefined): boolean;
+    <T>(predicate: ValueIterateeCustom<any, boolean>): Some1x1<T>;
+    <T>(predicate: ValueIterateeCustom<T, boolean>, collection: List<T> | null | undefined): boolean;
+    <T extends object>(predicate: ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): boolean;
 }
 interface Some1x1<T> {
     (): Some1x1<T>;
-    (collection: List<T> | null | undefined): boolean;
+    (collection: object | null | undefined): boolean;
 }

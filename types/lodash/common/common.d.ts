@@ -212,6 +212,8 @@ declare module "../index" {
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
     type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
+    type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;
+    type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
     type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
     type Comparator<T> = (a: T, b: T) => boolean;
     type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;

@@ -3,6 +3,8 @@
         "target": "es2017",
         "module": "commonjs",
         "baseUrl": "../..",
+        "pretty": true,
+        "strict": true,
         "typeRoots": [
             "../../"
         ]
