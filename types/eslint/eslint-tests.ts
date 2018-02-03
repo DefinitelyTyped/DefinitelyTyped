@@ -1,5 +1,5 @@
 import { Comment } from 'estree';
-import { SourceCode, Linter, CLIEngine, RuleTester, AST } from 'eslint';
+import { AST, SourceCode, Rule, Linter, CLIEngine, RuleTester } from 'eslint';
 
 const SOURCE = `var foo = bar;`;
 
@@ -210,40 +210,143 @@ sourceCode.getCommentsInside(AST);
 
 //#endregion
 
+//#region Rule
+
+let rule: Rule.RuleModule;
+
+rule = { create(context) { return {}; } };
+rule = { create(context) { return {}; }, meta: {} };
+rule = { create(context) { return {}; }, meta: {
+    docs: {
+        description: 'disallow the use of `console`',
+        category: 'Possible Errors',
+        recommended: true,
+        url: 'https://eslint.org/docs/rules/no-console',
+    }
+}};
+rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
+rule = { create(context) { return {}; }, meta: { fixable: 'code' }};
+rule = { create(context) { return {}; }, meta: { schema: [{ enum: ['always', 'never'] }] }};
+rule = { create(context) { return {}; }, meta: { deprecated: true }};
+
+rule = {
+    create(context) {
+        context.getAncestors();
+
+        context.getDeclaredVariables(AST);
+
+        context.getFilename();
+
+        context.getSourceCode();
+
+        // TODO: Add test for scope
+        context.getScope();
+
+        context.markVariableAsUsed('foo');
+
+        context.report({ message: 'foo', node: AST });
+        context.report({ message: 'foo', loc: { line: 0, column: 0 } });
+        context.report({ message: 'foo', node: AST, data: { foo: 'bar' } });
+        context.report({ message: 'foo', node: AST, fix: () => null });
+        context.report({ message: 'foo', node: AST, fix: ruleFixer => ruleFixer.replaceText(AST, 'foo') });
+
+        context.report({
+            message: 'foo',
+            node: AST,
+            fix: ruleFixer => {
+                ruleFixer.insertTextAfter(AST, 'foo');
+                ruleFixer.insertTextAfter(TOKEN, 'foo');
+
+                ruleFixer.insertTextAfterRange([0, 0], 'foo');
+
+                ruleFixer.insertTextBefore(AST, 'foo');
+                ruleFixer.insertTextBefore(TOKEN, 'foo');
+
+                ruleFixer.insertTextBeforeRange([0, 0], 'foo');
+
+                ruleFixer.remove(AST);
+                ruleFixer.remove(TOKEN);
+
+                ruleFixer.removeRange([0, 0]);
+
+                ruleFixer.replaceText(AST, 'foo');
+                ruleFixer.replaceText(TOKEN, 'foo');
+
+                ruleFixer.replaceTextRange([0, 0], 'foo');
+
+                return null;
+            }
+        });
+
+        return {
+            onCodePathStart(codePath, node) {},
+            onCodePathEnd(codePath, node) {},
+            onCodePathSegmentStart(segment, node) {},
+            onCodePathSegmentEnd(segment, node) {},
+            onCodePathSegmentLoop(fromSegment, toSegment, node) {},
+            'Program:exit'() {},
+        };
+    },
+};
+
+//#endregion
+
 //#region Linter
 
 const linter = new Linter();
 
-linter.verify(SOURCE, {
-    rules: {
-        eqeqeq: 'off',
-        'no-console': 'error',
-        quotes: ['error', 'double']
-    },
-}, {
-    filename: 'test.js',
+linter.version;
+
+linter.verify(SOURCE, {});
+linter.verify(new SourceCode(SOURCE, AST), {});
+
+linter.verify(SOURCE, {}, 'test.js');
+linter.verify(SOURCE, {}, {});
+linter.verify(SOURCE, {}, { filename: 'test.js' });
+linter.verify(SOURCE, {}, { allowInlineConfig: false });
+linter.verify(SOURCE, {}, { reportUnusedDisableDirectives: true });
+linter.verify(SOURCE, {}, { preprocess: input => input.split(' ') });
+linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
+
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6 } }, 'test.js');
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, 'test.js');
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } }, 'test.js');
+linter.verify(SOURCE, { env: { node: true } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
+linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
+linter.verify(SOURCE, { settings: { info: 'foo' } }, 'test.js');
+
+linter.verify(SOURCE, { rules: {} }, 'test.js');
+linter.verify(SOURCE, { rules: { quotes: 2 } }, 'test.js');
+linter.verify(SOURCE, { rules: { quotes: [2, 'double'] } }, 'test.js');
+linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: "all" }] } }, 'test.js');
+linter.verify(SOURCE, { rules: { 'no-console': 1 } }, 'test.js');
+linter.verify(SOURCE, { rules: { 'no-console': 0 } }, 'test.js');
+linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
+linter.verify(SOURCE, { rules: { 'no-console': 'warn' } }, 'test.js');
+linter.verify(SOURCE, { rules: { 'no-console': 'off' } }, 'test.js');
+
+linter.verifyAndFix(SOURCE, {});
+linter.verifyAndFix(SOURCE, {}, 'test.js');
+linter.verifyAndFix(SOURCE, {}, { fix: false });
+
+linter.getSourceCode();
+
+// TODO: Fix me
+linter.defineRule('test', {
+    create() => {},
 });
 
-linter.verifyAndFix(SOURCE, {
-    rules: {
-        'no-console': 'error',
-    }
-}, {
-    filename: 'test.js',
-});
-
-linter.defineRule('my-fancy-rule', {
-    create() {},
-});
-
+// TODO: Fix me
 linter.defineRules({
-    'my-fancy-rule': { create() {} },
-    'my-fancy-other-rule': { create() {} }
+    'test': { create() => {} },
+    'test-2': { create() => {} },
 });
 
 linter.getRules();
 
-linter.getSourceCode();
+// TODO: Fix me
+linter.defineParser('cutom-parser', );
 
 //#endregion
 
@@ -282,9 +385,7 @@ CLIEngine.outputFixes(report);
 
 const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2015 } });
 
-ruleTester.run("my-rule", {
-    create() {},
-}, {
+ruleTester.run("my-rule", rule, {
     valid: [
         {
             code: "var foo = true",
