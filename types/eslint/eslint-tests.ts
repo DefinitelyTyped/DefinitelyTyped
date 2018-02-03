@@ -361,7 +361,7 @@ linter.verify(SOURCE, { settings: { info: 'foo' } }, 'test.js');
 linter.verify(SOURCE, { rules: {} }, 'test.js');
 linter.verify(SOURCE, { rules: { quotes: 2 } }, 'test.js');
 linter.verify(SOURCE, { rules: { quotes: [2, 'double'] } }, 'test.js');
-linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: "all" }] } }, 'test.js');
+linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: 'all' }] } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 1 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 0 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
@@ -431,17 +431,31 @@ linter.defineParser('custom-parser', {
 
 //#region CLIEngine
 
-const cli = new CLIEngine({
-    envs: ['browser', 'mocha'],
-    useEslintrc: false,
-    rules: {
-        semi: 2
-    }
-});
+let cli: CLIEngine;
 
-cli.executeOnFiles(['myfile.js', 'lib/']);
+cli = new CLIEngine({ allowInlineConfig: false });
+cli = new CLIEngine({ baseConfig: false });
+cli = new CLIEngine({ cache: true });
+cli = new CLIEngine({ cacheFile: 'foo' });
+cli = new CLIEngine({ configFile: 'foo' });
+cli = new CLIEngine({ cwd: 'foo' });
+cli = new CLIEngine({ envs: ['browser'] });
+cli = new CLIEngine({ extensions: ['js'] });
+cli = new CLIEngine({ fix: true });
+cli = new CLIEngine({ globals: ['foo'] });
+cli = new CLIEngine({ ignore: true });
+cli = new CLIEngine({ ignorePath: 'foo' });
+cli = new CLIEngine({ ignorePattern: 'foo' });
+cli = new CLIEngine({ useEslintrc: false });
+cli = new CLIEngine({ parserOptions: {} });
+cli = new CLIEngine({ plugins: ['foo'] });
+cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
+cli = new CLIEngine({ rulePaths: ['foo'] });
+cli = new CLIEngine({ reportUnusedDisableDirectives: true });
 
-const report = cli.executeOnText(SOURCE, 'foo');
+let cliReport = cli.executeOnFiles(['myfile.js', 'lib/']);
+
+cliReport = cli.executeOnText(SOURCE, 'foo');
 
 cli.resolveFileGlobPatterns(['**/*']);
 
@@ -452,11 +466,33 @@ cli.addPlugin('my-fancy-plugin', {});
 cli.isPathIgnored('./dist/index.js');
 
 const formatter = cli.getFormatter('codeframe');
-formatter(report.results);
 
-CLIEngine.getErrorResults(report.results);
+formatter(cliReport.results);
 
-CLIEngine.outputFixes(report);
+CLIEngine.getErrorResults(cliReport.results);
+
+CLIEngine.outputFixes(cliReport);
+
+cliReport.errorCount = 0;
+cliReport.warningCount = 0;
+cliReport.fixableErrorCount = 0;
+cliReport.fixableWarningCount = 0;
+
+for (const file of cliReport.results) {
+    file.filePath = 'foo.js';
+
+    file.errorCount = 0;
+    file.warningCount = 0;
+    file.fixableErrorCount = 0;
+    file.fixableWarningCount = 0;
+
+    file.source = 'foo';
+    file.output = 'foo';
+
+    for (const message of file.messages) {
+        message.ruleId = 'foo';
+    }
+}
 
 //#endregion
 
@@ -464,23 +500,24 @@ CLIEngine.outputFixes(report);
 
 const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2015 } });
 
-ruleTester.run("my-rule", rule, {
+ruleTester.run('my-rule', rule, {
     valid: [
-        {
-            code: "var foo = true",
-            options: [{ allowFoo: true }]
-        }
+        { code: 'foo' },
+        { code: 'foo', options: [{ allowFoo: true }] },
+        { code: 'foo', filename: 'test.js' },
+        { code: 'foo', parserOptions: {} },
+        { code: 'foo', settings: { foo: true } },
+        { code: 'foo', parser: 'foo' },
+        { code: 'foo', globals: { foo: true } },
     ],
 
     invalid: [
-        {
-            code: "var invalidVariable = true",
-            errors: [{ message: "Unexpected invalid variable." }]
-        },
-        {
-            code: "var invalidVariable = true",
-            errors: [{ message: /^Unexpected.+variable/ }]
-        }
+        { code: 'foo', errors: 1 },
+        { code: 'foo', errors: ['foo'] },
+        { code: 'foo', errors: [{ message: 'foo' }] },
+        { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
+        { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
+        { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
     ]
 });
 
