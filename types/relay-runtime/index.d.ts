@@ -37,9 +37,10 @@ export type RelayContainer = any;
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // File: https://github.com/facebook/relay/blob/fe0e70f10bbcba1fff89911313ea69f24569464b/packages/relay-runtime/util/RelayConcreteNode.js
-export type ConcreteFragment = any;
-export type ConcreteRequest = any;
-export type ConcreteBatchRequest = any;
+// Using enum here to create a distinct types.
+export enum ConcreteFragment {}
+export enum ConcreteRequest {}
+export enum ConcreteBatchRequest {}
 
 export type RequestNode = ConcreteRequest | ConcreteBatchRequest;
 
