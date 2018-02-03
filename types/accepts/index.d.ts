@@ -12,24 +12,35 @@ declare namespace accepts {
     interface Accepts {
         /**
          * Return the first accepted charset. If nothing in `charsets` is accepted, then `false` is returned.
+         * If no charsets are supplied, all accepted charsets are returned, in the order of the client's preference
+         * (most preferred first).
          */
+        charset(): string[];
         charset(charsets: string[]): string | false;
         charset(...charsets: string[]): string | false;
 
         /**
-         * Return the charsets that the request accepts, in the order of the client's preference (most preferred first).
+         * Return the first accepted charset. If nothing in `charsets` is accepted, then `false` is returned.
+         * If no charsets are supplied, all accepted charsets are returned, in the order of the client's preference
+         * (most preferred first).
          */
         charsets(): string[];
+        charsets(charsets: string[]): string | false;
+        charsets(...charsets: string[]): string | false;
 
         /**
          * Return the first accepted encoding. If nothing in `encodings` is accepted, then `false` is returned.
+         * If no encodings are supplied, all accepted encodings are returned, in the order of the client's preference
+         * (most preferred first).
          */
         encoding(): string[];
         encoding(encodings: string[]): string | false;
         encoding(...encodings: string[]): string | false;
 
         /**
-         * Return the encodings that the request accepts, in the order of the client's preference (most preferred first).
+         * Return the first accepted encoding. If nothing in `encodings` is accepted, then `false` is returned.
+         * If no encodings are supplied, all accepted encodings are returned, in the order of the client's preference
+         * (most preferred first).
          */
         encodings(): string[];
         encodings(encodings: string[]): string | false;
