@@ -548,6 +548,16 @@ declare namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
+declare function spyOn(object: any, method: string): jasmine.Spy;
+/**
+ * If you call the function pending anywhere in the spec body,
+ * no matter the expectations, the spec will be marked pending.
+ */
+declare function pending(reason?: string): void;
+/**
+ * Fails a test when called within one.
+ */
+declare function fail(error?: any): void;
 declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;
