@@ -69,7 +69,7 @@ sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 sourceCode.getTokenByRangeStart(0);
 sourceCode.getTokenByRangeStart(0, { includeComments: true });
 
-// TODO: Should accept no second parameter?
+sourceCode.getFirstToken(AST);
 sourceCode.getFirstToken(AST, 0);
 sourceCode.getFirstToken(AST, { skip: 0 });
 sourceCode.getFirstToken(AST, t => t.type === 'Identifier');
@@ -79,6 +79,7 @@ sourceCode.getFirstToken(AST, { includeComments: true });
 sourceCode.getFirstToken(AST, { includeComments: true, skip: 0 });
 sourceCode.getFirstToken(AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getFirstTokens(AST);
 sourceCode.getFirstTokens(AST, 0);
 sourceCode.getFirstTokens(AST, { count: 0 });
 sourceCode.getFirstTokens(AST, t => t.type === 'Identifier');
@@ -88,6 +89,7 @@ sourceCode.getFirstTokens(AST, { includeComments: true });
 sourceCode.getFirstTokens(AST, { includeComments: true, count: 0 });
 sourceCode.getFirstTokens(AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getLastToken(AST);
 sourceCode.getLastToken(AST, 0);
 sourceCode.getLastToken(AST, { skip: 0 });
 sourceCode.getLastToken(AST, t => t.type === 'Identifier');
@@ -97,6 +99,7 @@ sourceCode.getLastToken(AST, { includeComments: true });
 sourceCode.getLastToken(AST, { includeComments: true, skip: 0 });
 sourceCode.getLastToken(AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getLastTokens(AST);
 sourceCode.getLastTokens(AST, 0);
 sourceCode.getLastTokens(AST, { count: 0 });
 sourceCode.getLastTokens(AST, t => t.type === 'Identifier');
@@ -106,6 +109,7 @@ sourceCode.getLastTokens(AST, { includeComments: true });
 sourceCode.getLastTokens(AST, { includeComments: true, count: 0 });
 sourceCode.getLastTokens(AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getTokenBefore(AST);
 sourceCode.getTokenBefore(AST, 0);
 sourceCode.getTokenBefore(AST, { skip: 0 });
 sourceCode.getTokenBefore(AST, t => t.type === 'Identifier');
@@ -117,6 +121,7 @@ sourceCode.getTokenBefore(AST, { includeComments: true, skip: 0, filter: t => t.
 sourceCode.getTokenBefore(TOKEN, 0);
 sourceCode.getTokenBefore(COMMENT, 0);
 
+sourceCode.getTokensBefore(AST);
 sourceCode.getTokensBefore(AST, 0);
 sourceCode.getTokensBefore(AST, { count: 0 });
 sourceCode.getTokensBefore(AST, t => t.type === 'Identifier');
@@ -128,6 +133,7 @@ sourceCode.getTokensBefore(AST, { includeComments: true, count: 0, filter: t => 
 sourceCode.getTokensBefore(TOKEN, 0);
 sourceCode.getTokensBefore(COMMENT, 0);
 
+sourceCode.getTokenAfter(AST);
 sourceCode.getTokenAfter(AST, 0);
 sourceCode.getTokenAfter(AST, { skip: 0 });
 sourceCode.getTokenAfter(AST, t => t.type === 'Identifier');
@@ -139,6 +145,7 @@ sourceCode.getTokenAfter(AST, { includeComments: true, skip: 0, filter: t => t.t
 sourceCode.getTokenAfter(TOKEN, 0);
 sourceCode.getTokenAfter(COMMENT, 0);
 
+sourceCode.getTokensAfter(AST);
 sourceCode.getTokensAfter(AST, 0);
 sourceCode.getTokensAfter(AST, { count: 0 });
 sourceCode.getTokensAfter(AST, t => t.type === 'Identifier');
@@ -150,6 +157,7 @@ sourceCode.getTokensAfter(AST, { includeComments: true, count: 0, filter: t => t
 sourceCode.getTokensAfter(TOKEN, 0);
 sourceCode.getTokensAfter(COMMENT, 0);
 
+sourceCode.getFirstTokenBetween(AST, AST);
 sourceCode.getFirstTokenBetween(AST, AST, 0);
 sourceCode.getFirstTokenBetween(AST, AST, { skip: 0 });
 sourceCode.getFirstTokenBetween(AST, AST, t => t.type === 'Identifier');
@@ -159,6 +167,7 @@ sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true });
 sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0 });
 sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getFirstTokensBetween(AST, AST);
 sourceCode.getFirstTokensBetween(AST, AST, 0);
 sourceCode.getFirstTokensBetween(AST, AST, { count: 0 });
 sourceCode.getFirstTokensBetween(AST, AST, t => t.type === 'Identifier');
@@ -168,6 +177,7 @@ sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true });
 sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0 });
 sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getLastTokenBetween(AST, AST);
 sourceCode.getLastTokenBetween(AST, AST, 0);
 sourceCode.getLastTokenBetween(AST, AST, { skip: 0 });
 sourceCode.getLastTokenBetween(AST, AST, t => t.type === 'Identifier');
@@ -177,6 +187,7 @@ sourceCode.getLastTokenBetween(AST, AST, { includeComments: true });
 sourceCode.getLastTokenBetween(AST, AST, { includeComments: true, skip: 0 });
 sourceCode.getLastTokenBetween(AST, AST, { includeComments: true, skip: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getLastTokensBetween(AST, AST);
 sourceCode.getLastTokensBetween(AST, AST, 0);
 sourceCode.getLastTokensBetween(AST, AST, { count: 0 });
 sourceCode.getLastTokensBetween(AST, AST, t => t.type === 'Identifier');
@@ -186,6 +197,7 @@ sourceCode.getLastTokensBetween(AST, AST, { includeComments: true });
 sourceCode.getLastTokensBetween(AST, AST, { includeComments: true, count: 0 });
 sourceCode.getLastTokensBetween(AST, AST, { includeComments: true, count: 0, filter: t => t.type === 'Identifier' });
 
+sourceCode.getTokensBetween(AST, AST);
 sourceCode.getTokensBetween(AST, AST, 0);
 
 sourceCode.getTokens(AST);
@@ -196,7 +208,6 @@ sourceCode.getTokens(AST, { filter: t => t.type === 'Identifier' });
 sourceCode.getTokens(AST, { includeComments: true });
 sourceCode.getTokens(AST, { includeComments: true, filter: t => t.type === 'Identifier' });
 
-// TODO: Is it token or Node ?
 sourceCode.commentsExistBetween(AST, AST);
 
 sourceCode.getCommentsBefore(AST);
@@ -205,7 +216,6 @@ sourceCode.getCommentsBefore(TOKEN);
 sourceCode.getCommentsAfter(AST);
 sourceCode.getCommentsAfter(TOKEN);
 
-// TODO: Should it support also token?
 sourceCode.getCommentsInside(AST);
 
 //#endregion
@@ -281,7 +291,6 @@ rule = {
 
         context.getSourceCode();
 
-        // TODO: Add test for scope
         context.getScope();
 
         context.markVariableAsUsed('foo');
