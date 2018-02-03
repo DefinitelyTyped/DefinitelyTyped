@@ -216,7 +216,7 @@ const scopeManager: Scope.ScopeManager = {
     scopes: [],
     globalScope: null,
     acquire(node, inner) {
-        return this.scopes[0];
+        return scopeManager.scopes[0];
     },
     getDeclaredVariables() {
         return [];

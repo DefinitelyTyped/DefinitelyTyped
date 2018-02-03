@@ -284,7 +284,7 @@ export namespace Rule {
             recommended?: boolean;
             url?: string;
         };
-        //TODO: Find usage of message field
+        // TODO: Find usage of message field
         messages?: { [messageId: string]: string };
         fixable?: 'code' | 'whitespace';
         schema?: JSONSchema4 | JSONSchema4[];
