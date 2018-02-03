@@ -6,6 +6,7 @@ export interface DropdownToggleProps {
   cssModule?: CSSModule;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<any>;
+  outline?: boolean;
   'data-toggle'?: string;
   'aria-haspopup'?: boolean;
   split?: boolean;
