@@ -140,7 +140,7 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
     tabBarVisible: true,
     tabBarIcon: <View />,
     tabBarLabel: 'label',
-    tabBarOnPress: (scene, index) => {}
+    tabBarOnPress: ({scene, jumpToIndex}) => {}
 };
 
 const tabNavigatorConfig: TabNavigatorConfig = {
@@ -152,6 +152,15 @@ const tabNavigatorConfig: TabNavigatorConfig = {
 const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
   ...tabNavigatorConfig,
   initialLayout: { height: 0, width: 100 },
+};
+
+const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
+    ...tabNavigatorConfig,
+    navigationOptions: {
+        tabBarOnPress: ({scene, jumpToIndex}) => {
+            jumpToIndex(scene.index);
+        }
+    },
 };
 
 const BasicTabNavigator = TabNavigator(

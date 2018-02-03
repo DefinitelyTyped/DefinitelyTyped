@@ -347,10 +347,10 @@ export interface NavigationTabScreenOptions extends NavigationScreenOptions {
     > | string | null));
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string };
-  tabBarOnPress?: (
+  tabBarOnPress?: (options: {
     scene: TabScene,
     jumpToIndex: (index: number) => void
-  ) => void;
+  }) => void;
 }
 
 export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
