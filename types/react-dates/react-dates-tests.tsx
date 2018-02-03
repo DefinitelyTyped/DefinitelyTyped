@@ -67,6 +67,8 @@ class SingleDatePickerFullTest extends React.Component {
                     verticalSpacing={4}
                     keepFocusOnInput={true}
                     verticalHeight={5}
+                    regular={true}
+                    small={true}
                     />
     }
 }
