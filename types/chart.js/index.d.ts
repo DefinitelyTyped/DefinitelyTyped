@@ -279,8 +279,10 @@ declare namespace Chart {
     }
 
     interface ChartTooltipsStaticConfiguartion {
-        positioners: any;
+        positioners: {[mode: string]: ChartTooltipPositioner};
     }
+
+    type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
 
     interface ChartHoverOptions {
         mode?: string;
@@ -567,6 +569,11 @@ declare namespace Chart {
         angleLines?: AngleLineOptions;
         pointLabels?: PointLabelOptions;
         ticks?: TickOptions;
+    }
+
+    interface Point {
+        x: number;
+        y: number;
     }
 }
 
