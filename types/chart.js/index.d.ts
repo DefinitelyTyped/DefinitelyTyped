@@ -271,7 +271,7 @@ declare namespace Chart {
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
-        position?: "average"|"nearest";
+        position?: string;
         caretPadding?: number;
         displayColors?: boolean;
         borderColor?: ChartColor;
