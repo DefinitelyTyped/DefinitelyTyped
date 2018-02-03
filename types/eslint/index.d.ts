@@ -236,7 +236,7 @@ export namespace SourceCode {
 
 export namespace Rule {
     interface RuleModule {
-        create(context: RuleContext): any;
+        create(context: RuleContext): RuleListener;
         meta?: RuleMetaData;
     }
 
@@ -284,6 +284,7 @@ export namespace Rule {
             recommended?: boolean;
             url?: string;
         };
+        //TODO: Find usage of message field
         messages?: { [messageId: string]: string };
         fixable?: 'code' | 'whitespace';
         schema?: JSONSchema4 | JSONSchema4[];
