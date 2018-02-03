@@ -67,7 +67,7 @@ if (chart.chartArea) {
 }
 
 // http://www.chartjs.org/docs/latest/configuration/tooltip.html#position-modes
-Chart.Tooltip.positioners.custom = function(elements: any[], eventPosition: Point) {
+Chart.Tooltip.positioners.custom = (elements: any[], eventPosition: Point) => {
     return {
         x: eventPosition.x,
         y: eventPosition.y + 10
