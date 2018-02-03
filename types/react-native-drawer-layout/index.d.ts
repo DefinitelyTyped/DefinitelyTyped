@@ -94,12 +94,16 @@ export interface DrawerLayoutProperties extends ViewProperties {
 }
 
 export default class DrawerLayout extends React.Component<DrawerLayoutProperties> {
-  /**
-   * Opens the drawer.
-   */
-  openDrawer(): void;
-  /**
-   * Closes the drawer.
-   */
-  closeDrawer(): void;
+    static positions: {
+        Left: "left";
+        Right: "right";
+    };
+    /**
+     * Opens the drawer.
+     */
+    openDrawer(): void;
+    /**
+     * Closes the drawer.
+     */
+    closeDrawer(): void;
 }
