@@ -144,50 +144,50 @@ export class SourceCode {
 
     getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | null;
 
-    getFirstToken(node: ESTree.Node, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getFirstToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getFirstTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): AST.Token[];
+    getFirstTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getLastToken(node: ESTree.Node, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getLastToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getLastTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): AST.Token[];
+    getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getTokenBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getTokensBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getTokenAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getTokensAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
     getFirstTokenBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options: SourceCode.CursorWithSkipOptions
+        options?: SourceCode.CursorWithSkipOptions
     ): AST.Token | null;
 
     getFirstTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options: SourceCode.CursorWithCountOptions
+        options?: SourceCode.CursorWithCountOptions
     ): AST.Token[];
 
     getLastTokenBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options: SourceCode.CursorWithSkipOptions
+        options?: SourceCode.CursorWithSkipOptions
     ): AST.Token | null;
 
     getLastTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        options: SourceCode.CursorWithCountOptions
+        options?: SourceCode.CursorWithCountOptions
     ): AST.Token[];
 
     getTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        padding: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions
+        padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions
     ): AST.Token[];
 
     getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
@@ -284,7 +284,6 @@ export namespace Rule {
             recommended?: boolean;
             url?: string;
         };
-        // TODO: Find usage of message field
         messages?: { [messageId: string]: string };
         fixable?: 'code' | 'whitespace';
         schema?: JSONSchema4 | JSONSchema4[];
