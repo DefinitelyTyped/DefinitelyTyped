@@ -209,6 +209,7 @@ sourceCode.getTokens(AST, { includeComments: true });
 sourceCode.getTokens(AST, { includeComments: true, filter: t => t.type === 'Identifier' });
 
 sourceCode.commentsExistBetween(AST, AST);
+sourceCode.commentsExistBetween(TOKEN, TOKEN);
 
 sourceCode.getCommentsBefore(AST);
 sourceCode.getCommentsBefore(TOKEN);
