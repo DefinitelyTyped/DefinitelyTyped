@@ -1,3 +1,5 @@
+// tslint:disable:interface-over-type-literal
+
 import * as React from "react";
 import { Environment, Network, RecordSource, Store, ConnectionHandler, ConcreteFragment } from "relay-runtime";
 
@@ -59,14 +61,14 @@ const MyQueryRenderer = (props: { name: string }) => (
 type StoryLike = (storyID: string) => void;
 
 // Artifact produced by relay-compiler-language-typescript
-enum _Story_story$ref {}
+const enum _Story_story$ref {}
 type Story_story$ref = _Story_story$ref & ConcreteFragment;
-interface Story_story {
+type Story_story = {
     readonly id: string;
     readonly text: string;
     readonly isPublished: boolean;
     readonly " $refType": Story_story$ref;
-}
+};
 
 const Story = (() => {
     interface Props {
@@ -142,9 +144,9 @@ const Story = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-enum _FeedStories_feed$ref {}
+const enum _FeedStories_feed$ref {}
 type FeedStories_feed$ref = _FeedStories_feed$ref & ConcreteFragment;
-interface FeedStories_feed {
+type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
@@ -152,7 +154,7 @@ interface FeedStories_feed {
         };
     }>;
     readonly " $refType": FeedStories_feed$ref;
-}
+};
 
 const Feed = (() => {
     interface Props {
@@ -203,9 +205,9 @@ const Feed = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-enum _UserFeed_user$ref {}
+const enum _UserFeed_user$ref {}
 type UserFeed_user$ref = _UserFeed_user$ref & ConcreteFragment;
-interface UserFeed_user {
+type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
             readonly endCursor?: string | null;
@@ -214,7 +216,7 @@ interface UserFeed_user {
         readonly " $fragmentRefs": FeedStories_feed$ref;
     };
     readonly " $refType": UserFeed_user$ref;
-}
+};
 
 () => {
     interface Props {
