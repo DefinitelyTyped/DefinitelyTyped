@@ -1,7 +1,7 @@
 // tslint:disable:interface-over-type-literal
 
 import * as React from "react";
-import { Environment, Network, RecordSource, Store, ConnectionHandler, ConcreteFragment } from "relay-runtime";
+import { Environment, Network, RecordSource, Store, ConnectionHandler, FragmentReference } from "relay-runtime";
 
 import {
     graphql,
@@ -62,7 +62,7 @@ type StoryLike = (storyID: string) => void;
 
 // Artifact produced by relay-compiler-language-typescript
 const enum _Story_story$ref {}
-type Story_story$ref = _Story_story$ref & ConcreteFragment;
+type Story_story$ref = _Story_story$ref & FragmentReference;
 type Story_story = {
     readonly id: string;
     readonly text: string;
@@ -145,7 +145,7 @@ const Story = (() => {
 
 // Artifact produced by relay-compiler-language-typescript
 const enum _FeedStories_feed$ref {}
-type FeedStories_feed$ref = _FeedStories_feed$ref & ConcreteFragment;
+type FeedStories_feed$ref = _FeedStories_feed$ref & FragmentReference;
 type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
@@ -206,7 +206,7 @@ const Feed = (() => {
 
 // Artifact produced by relay-compiler-language-typescript
 const enum _UserFeed_user$ref {}
-type UserFeed_user$ref = _UserFeed_user$ref & ConcreteFragment;
+type UserFeed_user$ref = _UserFeed_user$ref & FragmentReference;
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
