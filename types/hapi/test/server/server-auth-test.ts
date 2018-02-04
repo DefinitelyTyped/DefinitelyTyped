@@ -26,9 +26,9 @@ server.auth.strategy('default', 'custom');
 server.route({
     method: 'GET',
     path: '/',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler: async (request: Request, h: ResponseToolkit) => {
         try {
-            const credentials = request.server.auth.test('default', request);
+            const credentials = await request.server.auth.test('default', request);
             return { status: true, user: credentials.name };
         } catch (err) {
             return { status: false };

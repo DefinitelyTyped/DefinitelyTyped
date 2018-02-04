@@ -45,7 +45,7 @@ export interface RouteOptions {
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsbind)
      */
-    bind?: object;
+    bind?: object | null;
 
     /**
      * Default value: { privacy: 'default', statuses: [200], otherwise: 'no-cache' }.

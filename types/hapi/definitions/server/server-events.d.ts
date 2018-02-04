@@ -81,8 +81,8 @@ export interface ServerEvents extends Podium {
      * Note that events must be registered before they can be emitted or subscribed to by calling server.event(events). This is done to detect event name misspelling and invalid event activities.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsemitcriteria-data)
      */
-    emit(criteria: string, data: any | Function): void;
-    emit(criteria: {name: string, channel?: string, tags?: string | string[]}, data: any): void;
+    emit(criteria: string, data: any | Function): Promise<void>;
+    emit(criteria: {name: string, channel?: string, tags?: string | string[]}, data: any): Promise<void>;
 
     /**
      * Subscribe to an event where:
@@ -123,7 +123,7 @@ export interface ServerEvents extends Podium {
      * @return Return value: a promise that resolves when the event is emitted.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servereventsoncecriteria)
      */
-    once(criteria: string | ServerEventsApplicationObject | ServerEventCriteria): any;
+    once(criteria: string | ServerEventsApplicationObject | ServerEventCriteria): Promise<any>;
 
     /**
      * The follow method is only mentioned in Hapi API. The doc about that method can be found [here](https://github.com/hapijs/podium/blob/master/API.md#podiumremovelistenername-listener)

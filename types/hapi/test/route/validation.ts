@@ -12,7 +12,7 @@ const configObject: ServerRouteConfig = {
             name: Joi.string().min(3).max(10)
         }
     }
-}
+};
 
 const serverRoute: ServerRoute = {
     path: '/',

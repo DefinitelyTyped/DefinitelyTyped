@@ -46,5 +46,5 @@ export interface ServerRegisterPluginObject extends ServerRegisterOptions {
     /**
      * options passed to the plugin during registration.
      */
-    options?: object;
+    options?: any;
 }

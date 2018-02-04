@@ -364,7 +364,7 @@ export class Server extends Podium {
      * If you must try to resume after an error, call server.stop() first to reset the server state.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinitialize)
      */
-    initialize(): void;
+    initialize(): Promise<void>;
 
     /**
      * Injects a request into the server simulating an incoming HTTP request without making an actual socket connection. Injection is useful for testing purposes as well as for invoking routing logic internally without the overhead and limitations of the network stack.
@@ -398,7 +398,7 @@ export class Server extends Podium {
      * * request - the request object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
      */
-    inject(options: string | ServerInjectOptions): ServerInjectResponse;
+    inject(options: string | ServerInjectOptions): Promise<ServerInjectResponse>;
 
     /**
      * Logs server events that cannot be associated with a specific request. When called the server emits a 'log' event which can be used by other listeners or plugins to record the information or output to the console. The arguments are:
@@ -482,8 +482,8 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
      */
-    register(plugins: Plugin | Plugin[], options?: ServerRegisterOptions): void;
-    register(plugins: ServerRegisterPluginObject | ServerRegisterPluginObject[], options?: ServerRegisterOptions): void;
+    register(plugins: Plugin | Plugin[], options?: ServerRegisterOptions): Promise<void>;
+    register(plugins: ServerRegisterPluginObject | ServerRegisterPluginObject[], options?: ServerRegisterOptions): Promise<void>;
 
     /**
      * Adds a route where:
@@ -526,7 +526,7 @@ export class Server extends Podium {
      * If a started server is started again, the second call to server.start() is ignored. No events will be emitted and no extension points invoked.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstart)
      */
-    start(): void;
+    start(): Promise<void>;
 
     /**
      * HTTP state management uses client cookies to persist a state across multiple requests.
@@ -545,7 +545,7 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverstopoptions)
      */
-    stop(options?: {timeout: number}): void;
+    stop(options?: {timeout: number}): Promise<void>;
 
     /**
      * Returns a copy of the routing table where:

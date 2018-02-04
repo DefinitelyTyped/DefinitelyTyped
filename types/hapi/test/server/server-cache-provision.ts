@@ -9,8 +9,8 @@ server.initialize();
 server.cache.provision({engine: require('catbox-memory'), name: 'countries' });
 
 const cache: catbox.Policy = server.cache({segment: 'countries', cache: 'countries', expiresIn: 60 * 60 * 1000 });
-cache.set('norway', 'oslo', 10 * 1000, null);
-const value = cache.get('norway', null);
+cache.set('norway', 'oslo', 10 * 1000, () => {});
+const value = cache.get('norway', () => {});
 
 server.start();
 

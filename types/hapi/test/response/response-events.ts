@@ -3,7 +3,8 @@ import { Request, ResponseObject, ResponseToolkit, Server, ServerOptions, Server
 import * as Crypto from "crypto";
 
 const preResponse = (request: Request, h: ResponseToolkit) => {
-    const response: ResponseObject = request.response;
+    // In onPreResponse, the response object will be defined.
+    const response: ResponseObject = request.response!;
 
     const hash = Crypto.createHash('sha1');
     response.events.on('peek', (chunk: any) => {

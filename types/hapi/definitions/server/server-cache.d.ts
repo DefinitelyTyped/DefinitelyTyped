@@ -37,6 +37,6 @@ export interface ServerCache {
      * Note that if the server has been initialized or started, the cache will be automatically started to match the state of any other provisioned server cache.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-servercacheprovisionoptions)
      */
-    provision(options: ServerOptionsCache): void;
+    provision(options: ServerOptionsCache): Promise<void>;
 
 }

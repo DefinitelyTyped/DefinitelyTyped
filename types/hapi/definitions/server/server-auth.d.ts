@@ -76,7 +76,7 @@ export interface ServerAuth {
      * include verifying scope, entity, or other route properties.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverauthteststrategy-request)
      */
-    test(strategy: string, request: Request): any;
+    test(strategy: string, request: Request): Promise<any>;
 
 }
 

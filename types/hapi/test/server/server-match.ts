@@ -14,7 +14,10 @@ server.route({
     }
 });
 
-const route: RequestRoute = server.match('get', '/');
-console.log(route.path);
+const route: RequestRoute | null = server.match('get', '/');
+
+if (route !== null) {
+	console.log(route.path);
+}
 
 server.start();

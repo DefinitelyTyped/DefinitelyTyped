@@ -16,5 +16,4 @@ const serverRoute: ServerRoute = {
 server.route(serverRoute);
 server.start();
 
-const res = server.inject('/');
-console.log(res.result);
+server.inject('/').then(res => console.log(res.result));
