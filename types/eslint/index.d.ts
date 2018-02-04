@@ -193,7 +193,7 @@ export class SourceCode {
     getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
     getTokens(node: ESTree.Node, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
 
-    commentsExistBetween(left: ESTree.Node, right: ESTree.Node): boolean;
+    commentsExistBetween(left: ESTree.Node | AST.Token, right: ESTree.Node | AST.Token): boolean;
 
     getCommentsBefore(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
@@ -433,7 +433,7 @@ export namespace Linter {
     }
 
     type ParserModule = {
-        parse(text: string, options?: any): ESTree.Node;
+        parse(text: string, options?: any): AST.Program;
     } | {
         parseForESLint(text: string, options?: any): ESLintParseResult;
     };
