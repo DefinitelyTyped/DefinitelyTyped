@@ -32,7 +32,7 @@ const mimeOptions: MimosOptions = {
 
 const plugin: Plugin = {
     name: 'example',
-    register: (server: Server, options: ServerRegisterOptions) => {
+    register: async (server: Server, options: ServerRegisterOptions) => {
         server.expose('key', 'value');
         server.plugins.example.other = 'other';
         console.log(server.plugins.example.key);      // 'value'
@@ -77,7 +77,7 @@ const options: ServerOptions = {
         request: ['implementation']
     },
     host: 'localhost',
-    listener: null,
+    listener: undefined,
     load: { sampleInterval: 0 },
     mime: mimeOptions,
     plugins: plugin,
@@ -95,7 +95,7 @@ const options: ServerOptions = {
         isSameSite: 'Strict',
         encoding: 'none'
     },
-    tls: null
+    tls: undefined
 };
 
 const server = new Server(options);

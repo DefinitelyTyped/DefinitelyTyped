@@ -15,7 +15,7 @@ const serverRouteOption: ServerRoute = {
 
 const plugin: Plugin = {
     name: 'example',
-    register: (server: Server, options: ServerRegisterOptions) => {
+    register: async (server: Server, options: ServerRegisterOptions) => {
         // Assuming the Inert plugin was registered previously
         server.path(__dirname + '../static');
         server.route(serverRouteOption);

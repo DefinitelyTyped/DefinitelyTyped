@@ -75,7 +75,7 @@ const routeOptionsResponse: RouteOptionsResponse = {
         return 'ok: ' + request.path;
     },
     modify: false,
-    options: null,
+    options: undefined,
     ranges: true,
     sample: 100,
     schema: true,
@@ -114,14 +114,14 @@ const routeOptions: RouteOptions = {
     },
     cors: corsOption,
     description: 'description here',
-    ext: null,
+    ext: undefined,
     files: { relativeTo: '.' },
     handler: (request: Request, h: ResponseToolkit) => {
         return 'ok: ' + request.path;
     },
     id: 'test',
     isInternal: false,
-    json: null,
+    json: undefined,
     jsonp: 'callback',
     log: { collect: false },
     notes:  ['test', 'test', 'test'],

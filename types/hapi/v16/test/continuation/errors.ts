@@ -1,6 +1,6 @@
 
-import * as Hapi from '../../';
-import * as Boom from '../../../../boom';
+import * as Hapi from 'hapi';
+import * as Boom from 'boom';
 
 // Assignment of a typical function to ContinuationValueFunction is possible
 const handleError: Hapi.ContinuationValueFunction = (err?: Boom.BoomError | null, value?: any) => {

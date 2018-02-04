@@ -3,14 +3,14 @@ import { Plugin, Server, ServerRegisterOptions } from "hapi";
 
 const plugin1: Plugin = {
     name: 'example1',
-    register: (server: Server, options: ServerRegisterOptions) => {
+    register: async (server: Server, options: ServerRegisterOptions) => {
         server.expose('util', () => console.log('something'));
     }
 };
 
 const plugin2: Plugin = {
     name: 'example2',
-    register: (server: Server, options: ServerRegisterOptions) => {
+    register: async (server: Server, options: ServerRegisterOptions) => {
         server.expose('util', () => console.log('something'));
     }
 };

@@ -3,7 +3,7 @@ import { Plugin, Server, ServerRegisterOptions } from "hapi";
 
 const plugin: Plugin = {
     name: 'example',
-    register: (server: Server, options: ServerRegisterOptions) => {
+    register: async (server: Server, options: ServerRegisterOptions) => {
         server.expose('key', 'value');
         server.plugins.example.other = 'other';
         console.log(server.plugins.example.key);      // 'value'

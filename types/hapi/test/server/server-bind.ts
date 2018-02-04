@@ -10,7 +10,7 @@ const handler = (request: Request, h: ResponseToolkit) => {
 
 const plugin: Plugin = {
     name: 'example',
-    register: (server: Server, options: ServerRegisterOptions) => {
+    register: async (server: Server, options: ServerRegisterOptions) => {
         const bind = {
             message: 'hello'
         };

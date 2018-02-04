@@ -14,7 +14,7 @@ server.route({
     }
 });
 
-const route: RequestRoute = server.lookup('root');
+const route: RequestRoute | null = server.lookup('root');
 console.log(route);
 
 server.start();
