@@ -24,7 +24,8 @@ const graphqlOptionRequestAsync = async (request: express.Request): Promise<grap
     return {
         graphiql: true,
         schema: await Promise.resolve(schema),
-        context: request.session
+        context: request.session,
+        extensions: async (args) => { }
     };
 };
 

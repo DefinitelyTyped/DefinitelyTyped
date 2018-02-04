@@ -54,7 +54,7 @@ declare namespace graphqlHTTP {
          * An optional function for adding additional metadata to the GraphQL response as a key-value object.
          * The result will be added to "extensions" field in the resulting JSON.
          */
-        extensions?: (args: ExtenstionsArgs) => any;
+        extensions?: ((args: ExtenstionsArgs) => any) | ((args: ExtenstionsArgs) => Promise<any>);
 
     };
 
