@@ -1,4 +1,4 @@
-import koaEtag = require('koa-etag');
+import * as koaEtag from 'koa-etag';
 import * as Koa from 'koa';
 
 new Koa().use(koaEtag());

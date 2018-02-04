@@ -9,4 +9,6 @@ import * as etag from 'etag';
 
 declare function koaEtag(options?: etag.Options): koa.Middleware;
 
+declare namespace koaEtag {}
+
 export = koaEtag;
