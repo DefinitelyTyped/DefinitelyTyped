@@ -1124,7 +1124,7 @@ ships.on('fetched', (collection, response) => {
 	User.collection()
 		.orderBy('-name')
 		.fetch()
-		.then((users: Bookshelf.Collection<User>) => {
+		.then((users: Bookshelf.Collection<Bookshelf.Model<User>>) => {
 			console.log(users);
 		})
 }
