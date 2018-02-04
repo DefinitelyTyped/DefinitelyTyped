@@ -1,11 +1,17 @@
-interface ConvertOptions {
-    cap?: boolean;
-    curry?: boolean;
-    fixed?: boolean;
-    immutable?: boolean;
-    rearg?: boolean;
+declare namespace _ {
+    interface ConvertOptions {
+        cap?: boolean;
+        curry?: boolean;
+        fixed?: boolean;
+        immutable?: boolean;
+        rearg?: boolean;
+    }
+
+    interface Convert {
+        (func: object, options?: ConvertOptions): any;
+        (name: string, func: (...args: any[]) => any, options?: ConvertOptions): any;
+    }
 }
 
-declare function convert(func: object, options?: ConvertOptions): any;
-declare function convert(name: string, func: (...args: any[]) => any, options?: ConvertOptions): any;
+declare const convert: _.Convert;
 export = convert;

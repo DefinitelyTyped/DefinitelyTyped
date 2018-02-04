@@ -3,10 +3,14 @@
         "target": "es2017",
         "module": "commonjs",
         "baseUrl": "../..",
+        "noEmit": true,
         "pretty": true,
         "strict": true,
         "typeRoots": [
             "../../"
+        ],
+        "types": [
+            "lodash"
         ]
     }
 }

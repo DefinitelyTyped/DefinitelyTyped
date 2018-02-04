@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import { ary, cloneDeep, flatMap, isEqual, remove, union, uniqWith, without } from "lodash";
-import convert = require("lodash/fp/convert");
+import { ary, cloneDeep, flatMap, isEqual, pull, remove, union, uniqWith, without } from "lodash";
+import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
 interface Interface {
@@ -33,6 +33,31 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
     const interfacesToMerge = interfaces.filter(i => i.name === mainInterface.name);
     mergeInterfaces(interfacesToMerge);
     remove(interfaces, i => i !== mainInterface && interfacesToMerge.includes(i));
+    // Check for any non-main interfaces that should now be merged
+    const conflictingOverloads = mainInterface.overloads.filter(
+        o1 => mainInterface.overloads.some(
+            o2 => o1 !== o2 && isEqual(o1.typeParams, o2.typeParams) && isEqual(o1.params, o2.params)));
+    for (const overload of conflictingOverloads) {
+        const returnInterface = interfaces.find(i => new RegExp(`\\b${i.name}\\b`).test(overload.returnType));
+        const others = conflictingOverloads.filter(o2 => o2 !== overload && isEqual(overload.typeParams, o2.typeParams) && isEqual(overload.params, o2.params));
+        for (const otherOverload of others) {
+            if (otherOverload.returnType === overload.returnType) {
+                // Exact duplicate - remove the second overload
+                pull(mainInterface.overloads, otherOverload);
+            } else {
+                // Duplicate except for the return type. If the return types are both known interfaces,
+                // merge the interfaces so we can remove the second overload
+                const otherReturnInterface = interfaces.find(i => new RegExp(`\\b${i.name}\\b`).test(otherOverload.returnType));
+                if (returnInterface && otherReturnInterface) {
+                    remove(otherReturnInterface.overloads, o => new RegExp(`\\b${otherReturnInterface.name}\\b`).test(o.returnType));
+                    mergeInterfaces([returnInterface, otherReturnInterface]);
+                    pull(interfaces, otherReturnInterface);
+                }
+            }
+        }
+        pull(mainInterface.overloads, ...others);
+        pull(overloads, ...others);
+    }
     return interfaces;
 }
 
@@ -47,15 +72,15 @@ function preProcessOverload(overload: Overload): void {
 }
 
 function capCallback(parameter: string): string {
-    if (parameter.match(/\([^,)]+,[^)]+\) ?=>/) || parameter.match(/Memo\w*Iterator/) || parameter.match(/\w*Iterator/)) // We don't support capping these callbacks yet, so flag them if detected
+    if (/\([^,)]+,[^)]+\) ?=>/.test(parameter) || /Memo\w*Iterator/.test(parameter) || /\w*Iterator/.test(parameter)) // We don't support capping these callbacks yet, so flag them if detected
         console.warn("Failed to cap callback: ", parameter);
     return parameter
-        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/, "ValueIteratee<$1>")
-        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/, "ValueIterateeCustom<$1,$2>")
-        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)IteratorTypeGuard<([^,>]+),([^,>]+)>/, "ValueIteratorTypeGuard<$1,$2>")
-        .replace(/ObjectIteratee<([^,>]+)>/, "ValueIteratee<$1[keyof $1]>")
-        .replace(/ObjectIterateeCustom<([^,>]+),([^,>]+)>/, "ValueIterateeCustom<$1[keyof $1],$2>")
-        .replace(/ObjectIteratorTypeGuard<([^,>]+),([^,>]+)>/, "ValueIteratorTypeGuard<$1[keyof $1],$2>");
+        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/g, "ValueIteratee<$1>")
+        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "ValueIterateeCustom<$1,$2>")
+        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)IteratorTypeGuard<([^,>]+),([^,>]+)>/g, "ValueIteratorTypeGuard<$1,$2>")
+        .replace(/ObjectIteratee<([^,>]+)>/g, "ValueIteratee<$1[keyof $1]>")
+        .replace(/ObjectIterateeCustom<([^,>]+),([^,>]+)>/g, "ValueIterateeCustom<$1[keyof $1],$2>")
+        .replace(/ObjectIteratorTypeGuard<([^,>]+),([^,>]+)>/g, "ValueIteratorTypeGuard<$1[keyof $1],$2>");
     // TODO: replace all StringIterator with ValueIteratee? ArrayIterator with ValueIterator?
 }
 
@@ -71,10 +96,6 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
         }];
     }
 
-    // TODO: deal with curried ObjectIteratee. Probably convert to <T>...ValueIteratee<T>, and convert collection to object
-    // TODO: merge curried overloads with common first parameter(s)
-    // TODO: simplify merged parameter types? (e.g. x | any -> any, any[] | object -> object)
-    //const topInterface = curryParams(overload.params, overload.typeParams, overload.returnType, baseName, [], overloadId, 0);
     const interfaces: Interface[] = [];
     let passTypeParams: TypeParam[] = [];
     for (let i = 0; i < overload.params.length; ++i) {
@@ -99,17 +120,17 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
     for (const interfaceDef of interfaces) {
         for (const overload of interfaceDef.overloads) {
             const objectTypeParam = overload.typeParams.find(tp => tp.name === "T" && (tp.extends === "object" || !tp.extends));
-            if (objectTypeParam && overload.params.some(p => p.includes("T[keyof T]")) && !overload.params.some(p => !!p.match(/T(?!]|\[keyof T])/))) {
-                objectTypeParam.extends = undefined;
+            if (objectTypeParam && overload.params.some(p => p.includes("T[keyof T]")) && !overload.params.some(p => /T(?!]|\[keyof T])/.test(p))) {
+                delete objectTypeParam.extends;
                 overload.params = overload.params.map(p => p.replace("T[keyof T]", "T"));
                 const fixInterfaceName = overload.returnType.split("<")[0];
                 const fixInterface = interfaces.find(i => i.name === fixInterfaceName);
                 if (fixInterface) {
                     const fixTypeParam = fixInterface.typeParams.find(tp => tp.name === objectTypeParam.name && (tp.extends === "object" || !tp.extends));
                     if (fixTypeParam) {
-                        fixTypeParam.extends = undefined;
+                        delete fixTypeParam.extends;
                         for (const fixOverload of fixInterface.overloads)
-                            fixOverload.params = fixOverload.params.map(p => p.replace(new RegExp(`\\b${fixTypeParam.name}\\b`), "object"));
+                            fixOverload.params = fixOverload.params.map(p => p.replace(new RegExp(`\\b${fixTypeParam.name}\\b`, "g"), "object"));
                     }
                 } else {
                     console.warn(`Fixed T[keyof T] overload, but could not find corresponding interface '${fixInterfaceName}'.`);
