@@ -118,12 +118,17 @@ interface NodeRequireFunction {
 }
 
 interface NodeRequire extends NodeRequireFunction {
-    resolve(id: string): string;
+    resolve: RequireResolve;
     cache: any;
     extensions: NodeExtensions;
     main: NodeModule | undefined;
 }
 
+interface RequireResolve {
+    (id: string, options?: { paths: string[]; }): string;
+    paths(request: string): string[];
+}
+                                                       
 interface NodeExtensions {
     '.js': (m: NodeModule, filename: string) => any;
     '.json': (m: NodeModule, filename: string) => any;
