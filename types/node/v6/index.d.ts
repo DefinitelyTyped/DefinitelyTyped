@@ -2598,46 +2598,46 @@ declare module "fs" {
     export function mkdtempSync(prefix: string): string;
     /**
      * Asynchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdir(path: string | Buffer, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
        /**
      * Asynchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdir(path: string | Buffer, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdir(path: string | Buffer, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: Array<string | Buffer>) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to a file.
      */
     export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
         /**
      * Synchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdirSync(path: string | Buffer, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): string[];
 
     /**
      * Synchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdirSync(path: string | Buffer, options: { encoding: "buffer" } | "buffer"): Buffer[];
 
     /**
      * Synchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdirSync(path: string | Buffer, options?: { encoding?: string | null } | string | null): Array<string | Buffer>;
