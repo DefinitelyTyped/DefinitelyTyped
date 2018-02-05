@@ -1,5 +1,5 @@
 // Type definitions for Microsoft Scripting Runtime 1.0
-// Project: https://msdn.microsoft.com/en-us/library/bstcxhf7.aspx
+// Project: https://msdn.microsoft.com/en-us/library/bstcxhf7(v=vs.84).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -57,9 +57,9 @@ declare namespace Scripting {
     }
 
     /** Scripting.Dictionary */
-    interface Dictionary {
+    interface Dictionary<TKey = any, TItem = any> {
         /** Add a new key and item to the dictionary. */
-        Add(Key: any, Item: any): void;
+        Add(Key: TKey, Item: TItem): void;
 
         /** Set or get the string comparison method. */
         CompareMode: CompareMethod;
@@ -68,23 +68,23 @@ declare namespace Scripting {
         readonly Count: number;
 
         /** Determine if a given key is in the dictionary. */
-        Exists(Key: any): boolean;
-        HashVal(Key: any): any;
+        Exists(Key: TKey): boolean;
+        HashVal(Key: TKey): any;
 
         /** Set or get the item for a given key */
-        Item(Key: any): any;
+        Item(Key: TKey): TItem;
 
         /** Get an array containing all items in the dictionary. */
-        Items(): any;
+        Items(): SafeArray<TItem>;
 
         /** Change a key to a different key. */
-        Key(Key: any): any;
+        Key(Key: TKey): TKey;
 
         /** Get an array containing all keys in the dictionary. */
-        Keys(): any;
+        Keys(): SafeArray<TKey>;
 
         /** Remove a given key from the dictionary. */
-        Remove(Key: any): void;
+        Remove(Key: TKey): void;
 
         /** Remove all information from the dictionary. */
         RemoveAll(): void;
@@ -93,7 +93,7 @@ declare namespace Scripting {
     /** Drive Object */
     interface Drive {
         /** Get available space */
-        readonly AvailableSpace: any;
+        readonly AvailableSpace: number;
 
         /** Drive letter */
         readonly DriveLetter: string;
@@ -105,7 +105,7 @@ declare namespace Scripting {
         readonly FileSystem: string;
 
         /** Get drive free space */
-        readonly FreeSpace: any;
+        readonly FreeSpace: number;
 
         /** Check if disk is available */
         readonly IsReady: boolean;
@@ -123,7 +123,7 @@ declare namespace Scripting {
         readonly ShareName: string;
 
         /** Get total drive size */
-        readonly TotalSize: any;
+        readonly TotalSize: number;
 
         /** Name of volume */
         VolumeName: string;
@@ -134,8 +134,8 @@ declare namespace Scripting {
         /** Number of drives */
         readonly Count: number;
 
-        /** Get drive */
-        Item(Key: any): Drive;
+        /** Get drive using the drive letter (`C`) or path (`C:\\`) */
+        Item(Key: string): Drive;
     }
 
     /** Script Encoder Object */
@@ -199,7 +199,7 @@ declare namespace Scripting {
         readonly ShortPath: string;
 
         /** File size */
-        readonly Size: any;
+        readonly Size: number;
 
         /** Type description */
         readonly Type: string;
@@ -210,8 +210,8 @@ declare namespace Scripting {
         /** Number of folders */
         readonly Count: number;
 
-        /** Get file */
-        Item(Key: any): File;
+        /** Get file object using the name and extension of the file */
+        Item(Key: string): File;
     }
 
     /** FileSystem Object */
@@ -383,7 +383,7 @@ declare namespace Scripting {
         readonly ShortPath: string;
 
         /** Sum of files and subfolders */
-        readonly Size: any;
+        readonly Size: number;
 
         /** Get folders collection */
         readonly SubFolders: Folders;
@@ -400,8 +400,8 @@ declare namespace Scripting {
         /** Number of folders */
         readonly Count: number;
 
-        /** Get folder */
-        Item(Key: any): Folder;
+        /** Get folder in collection using the folder's name */
+        Item(Key: string): Folder;
     }
 
     /** TextStream object */
