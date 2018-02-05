@@ -260,6 +260,9 @@ logger = new (winston.Logger)({
   ]
 });
 
+/* Remove transport by name */
+logger = logger.remove('nooo');
+
 /* Reconfigure logger */
 logger.configure({ level: 'silly' });
 
