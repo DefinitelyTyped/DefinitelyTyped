@@ -1,6 +1,7 @@
-// Type definitions for react-form 2.12
+// Type definitions for react-form 2.16
 // Project: https://github.com/tannerlinsley/react-form#readme
 // Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
+//                 Mathieu Masy <https://github.com/TiuSh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,7 +19,7 @@ export interface FormErrors {
     [key: string]: FormError;
 }
 export type NestedErrors = Nested<FormErrors>;
-export type RenderReturn = JSX.Element | false | null;
+export type RenderReturn = JSX.Element | false | null | never[];
 
 export interface FormState {
     values: FormValues;
@@ -29,7 +30,10 @@ export interface FormState {
 }
 
 export interface FormProps {
+    component?: React.ReactType<{ formApi: FormApi }>;
+    render?: (formApi: FormApi) => RenderReturn;
     dontValidateOnMount?: boolean;
+    validateOnSubmit?: boolean;
     defaultValues?: FormValues;
     onSubmit?(values: FormValues, submissionEvent: React.SyntheticEvent<any>, formApi: FormApi): void;
     preSubmit?(values: FormValues, formApi: FormApi): FormValues;
@@ -43,6 +47,7 @@ export interface FormProps {
         [field: string]: (value: FormValue) => Promise<any>
     };
     dontPreventDefault?: boolean;
+    getApi?: (formApi: FormApi) => void;
 }
 
 export interface FormApi {
