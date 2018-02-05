@@ -27,10 +27,18 @@ export interface Spec {
 
     /**
      * Explain why a value does not conform to this spec.
+     * @param path the path to the value
+     * @param via the containing specs, if any
      * @param value the value to examine
      * @returns list of problems or null if none
      */
-    explain(value: any): Problem[];
+    explain(path: string[], via: string[], value: any): Problem[];
+
+    /**
+     * Describe the specification. Used in explain strings and Problems.
+     * @returns the human-readable description of this spec
+     */
+    toString(): string;
 }
 
 /**

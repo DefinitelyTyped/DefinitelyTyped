@@ -2,7 +2,8 @@ import * as S from "js.spec";
 
 const spec: S.Spec = S.spec.bool;
 const c: symbol = spec.conform("water");
-const waterProblems: S.Problem[] = spec.explain("water");
+const waterProblems: S.Problem[] = spec.explain(["data"], ["spec"], "water");
+const toString: string = spec.toString();
 const name: string = spec.name;
 const options: object = spec.options;
 
