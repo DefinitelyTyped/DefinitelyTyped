@@ -128,7 +128,7 @@ interface RequireResolve {
     (id: string, options?: { paths?: string[]; }): string;
     paths(request: string): string[] | null;
 }
-                                                       
+
 interface NodeExtensions {
     '.js': (m: NodeModule, filename: string) => any;
     '.json': (m: NodeModule, filename: string) => any;
