@@ -1,15 +1,16 @@
 // Type definitions for passport-http 0.3.0
 // Project: https://github.com/jaredhanson/passport-http
 // Definitions by: Christophe Vidal <https://github.com/krizalys>
+//                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import passport = require("passport");
 import express = require("express");
 
-interface BasicStrategyOptions {
+interface BasicStrategyOptions<req extends boolean = boolean> {
     realm?: string;
-    passReqToCallback?: boolean;
+    passReqToCallback?: req;
 }
 
 interface DigestStrategyOptions {
@@ -45,7 +46,8 @@ interface DigestValidateFunction {
 
 declare class BasicStrategy implements passport.Strategy {
     constructor(verify: BasicVerifyFunction);
-    constructor(options: BasicStrategyOptions, verify: BasicVerifyFunction);
+    constructor(options: BasicStrategyOptions<false>, verify: BasicVerifyFunction);
+    constructor(options: BasicStrategyOptions<true>, verify: BasicVerifyFunctionWithRequest);
 
     name: string;
     authenticate: (req: express.Request, options?: Object) => void;
