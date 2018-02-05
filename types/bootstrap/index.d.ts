@@ -87,7 +87,7 @@ interface TransitionEventNames {
 interface JQuery {
     modal(options?: ModalOptions): JQuery;
     modal(options?: ModalOptionsBackdropString): JQuery;
-    modal(command: string): JQuery;
+    modal(command: string, relatedTarget?: Element): JQuery;
 
     dropdown(): JQuery;
     dropdown(command: string): JQuery;
