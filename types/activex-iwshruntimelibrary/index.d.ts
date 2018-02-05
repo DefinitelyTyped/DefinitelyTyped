@@ -227,7 +227,7 @@ declare namespace IWshRuntimeLibrary {
          */
         CreateShortcut(PathLink: string): WshShortcut | WshURLShortcut;
         CurrentDirectory: string;
-        Environment(Type?: 'System' | 'User' | 'Proces' | 'Volatile'): WshEnvironment;
+        Environment(Type: 'System' | 'User' | 'Process' | 'Volatile'): WshEnvironment;
         Exec(Command: string): WshExec;
         ExpandEnvironmentStrings(Src: string): string;
 
