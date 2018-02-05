@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.5.x
+// Type definitions for Node.js 8.9.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -124,7 +124,7 @@ interface NodeRequire extends NodeRequireFunction {
 
 interface RequireResolve {
     (id: string, options?: { paths: string[]; }): string;
-    paths(request: string): string[];
+    paths(request: string): string[] | null;
 }
 
 interface NodeExtensions {
