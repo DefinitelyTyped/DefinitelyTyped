@@ -42,11 +42,14 @@ export interface Spec {
 }
 
 /**
- * A Spec with a boolean conform function. Test the value and return true if it conforms.
+ * Predicate function definition to describe a predicate function.
  */
-export interface Predicate extends Spec {
-    (value: any): boolean;
-}
+export type PredFn = (value: any) => boolean;
+
+/**
+ * Defines an input to a js.spec method. Can be a Spec instance or a predicate function.
+ */
+export type SpecInput = PredFn | Spec;
 
 /**
  * An explanation of why a part of a value does not conform to a spec.
@@ -70,7 +73,7 @@ export interface Problem {
     /**
      * A predicate function to test new values for conformance.
      */
-    readonly predicate: Predicate;
+    readonly predicate: PredFn;
 }
 
 /**
@@ -79,7 +82,7 @@ export interface Problem {
  * @param value the value to test
  * @returns true if valid
  */
-export function valid(spec: spec.SpecInput, value: any): boolean;
+export function valid(spec: SpecInput, value: any): boolean;
 
 /**
  * Returns the conformed value to this spec.
@@ -87,7 +90,7 @@ export function valid(spec: spec.SpecInput, value: any): boolean;
  * @param value the value to test
  * @returns if the value does not conform to the spec, or the conformed value if it does.
  */
-export function conform(spec: spec.SpecInput, value: any): any;
+export function conform(spec: SpecInput, value: any): any;
 
 /**
  * Like explain(), but returns Problems array.
@@ -95,21 +98,21 @@ export function conform(spec: spec.SpecInput, value: any): any;
  * @param value the value to test
  * @returns list of problems or null if none
  */
-export function explainData(spec: spec.SpecInput, value: any): Problem[];
+export function explainData(spec: SpecInput, value: any): Problem[];
 
 /**
  * Prints, to the console, reasons why the value did not conform to this spec.
  * @param spec the spec to test with
  * @param value the value to test
  */
-export function explain(spec: spec.SpecInput, value: any): void;
+export function explain(spec: SpecInput, value: any): void;
 
 /**
  * Returns a multiline string with reasons why the value did not conform to this spec.
  * @param spec the spec to test with
  * @param value the value to test
  */
-export function explainStr(spec: spec.SpecInput, value: any): string;
+export function explainStr(spec: SpecInput, value: any): string;
 
 /**
  * Returns a string with the problem statement from the given Problem.
@@ -122,7 +125,7 @@ export function problemStr(problem: Problem): string;
  * @param spec the spec to test with
  * @param value the value to test
  */
-export function assert(spec: spec.SpecInput, value: any): void;
+export function assert(spec: SpecInput, value: any): void;
 
 /**
  * Symbols used
@@ -154,17 +157,10 @@ export namespace symbol {
     const optional: symbol;
 }
 
+/**
+ * Factory methods to create Spec instances. Also provides included predicate functions that can be used in Specs.
+ */
 export namespace spec {
-    /**
-     * Predicate function definition to describe non-spec predicate functions.
-     */
-    type PredFn = (value: any) => boolean;
-
-    /**
-     * Defins an input to a spec. Can be a Spec instance or a predicate function.
-     */
-    type SpecInput = PredFn | Spec;
-
     /**
      * Data must conform to every provided spec.
      * @param name the name of the spec
@@ -239,116 +235,116 @@ export namespace spec {
     /**
      * Returns true if data is an integer.
      */
-    const int: Predicate;
+    const int: PredFn;
 
     /**
      * Returns true if data is an integer.
      */
-    const integer: Predicate;
+    const integer: PredFn;
 
     /**
      * Returns true if data is a finite number.
      */
-    const finite: Predicate;
+    const finite: PredFn;
 
     /**
      * Returns true if data is a number (can be double or integer).
      */
-    const number: Predicate;
+    const number: PredFn;
 
     /**
      * Returns true if data is an odd number.
      */
-    const odd: Predicate;
+    const odd: PredFn;
 
     /**
      * Returns true if data is an even number.
      */
-    const even: Predicate;
+    const even: PredFn;
 
     /**
      * Returns true if data is a number greater than zero.
      */
-    const positive: Predicate;
+    const positive: PredFn;
 
     /**
      * Returns true if data is a number smaller than zero.
      */
-    const negative: Predicate;
+    const negative: PredFn;
 
     /**
      * Returns true if data is the number zero.
      * Why: To easily construct specs for >= 0.
      */
-    const zero: Predicate;
+    const zero: PredFn;
 
     /**
      * Returns true if data is a string.
      */
-    const str: Predicate;
+    const str: PredFn;
 
     /**
      * Returns true if data is a string.
      */
-    const string: Predicate;
+    const string: PredFn;
 
     /**
      * Returns true if data is a function.
      */
-    const fn: Predicate;
+    const fn: PredFn;
 
     /**
      * Returns true if data is a Symbol.
      */
-    const sym: Predicate;
+    const sym: PredFn;
 
     /**
      * Returns true if data is a Symbol.
      */
-    const symbol: Predicate;
+    const symbol: PredFn;
 
     /**
      * Returns true if data is null or undefined.
      */
-    const nil: Predicate;
+    const nil: PredFn;
 
     /**
      * Returns true if data is a boolean.
      */
-    const bool: Predicate;
+    const bool: PredFn;
 
     /**
      * Returns true if data is a boolean.
      */
-    const boolean: Predicate;
+    const boolean: PredFn;
 
     /**
      * Returns true if data is a Date.
      */
-    const date: Predicate;
+    const date: PredFn;
 
     /**
      * Returns true if data is a plain object.
      */
-    const obj: Predicate;
+    const obj: PredFn;
 
     /**
      * Returns true if data is a plain object.
      */
-    const object: Predicate;
+    const object: PredFn;
 
     /**
      * Returns true if data is an Array.
      */
-    const array: Predicate;
+    const array: PredFn;
 
     /**
      * Returns true if data is a Set.
      */
-    const set: Predicate;
+    const set: PredFn;
 
     /**
      * Returns true if data is an Array or Set.
      */
-    const coll: Predicate;
+    const coll: PredFn;
 }
