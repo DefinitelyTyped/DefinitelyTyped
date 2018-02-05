@@ -1,4 +1,4 @@
-import * as _ from "../index";
+import _ = require("../index");
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;

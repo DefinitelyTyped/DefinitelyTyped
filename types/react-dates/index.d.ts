@@ -66,6 +66,7 @@ declare namespace ReactDates {
         reopenPickerOnClearDates?: boolean,
         renderCalendarInfo?: () => (string | JSX.Element),
         hideKeyboardShortcutsPanel?: boolean,
+        daySize?: number,
         isRTL?: boolean,
 
         // navigation related props
