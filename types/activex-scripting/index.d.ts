@@ -458,7 +458,8 @@ interface ActiveXObject {
 }
 
 interface EnumeratorConstructor {
-    new(col: Scripting.Dictionary): any;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new<TKey, TItem>(col: Scripting.Dictionary<TKey, TItem>): TItem;
     new(col: Scripting.Drives): Scripting.Drive;
     new(col: Scripting.Files): Scripting.File;
     new(col: Scripting.Folders): Scripting.Folder;
