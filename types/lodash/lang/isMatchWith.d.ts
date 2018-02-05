@@ -1,4 +1,4 @@
-import * as _ from "../index";
+import _ = require("../index");
 declare module "../index" {
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName) => boolean;
 

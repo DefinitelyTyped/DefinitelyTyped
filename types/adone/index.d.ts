@@ -18,6 +18,7 @@
 /// <reference path="./glosses/fs.d.ts" />
 /// <reference path="./glosses/is.d.ts" />
 /// <reference path="./glosses/math/index.d.ts" />
+/// <reference path="./glosses/meta.d.ts" />
 /// <reference path="./glosses/promise.d.ts" />
 /// <reference path="./glosses/shani.d.ts" />
 /// <reference path="./glosses/shani-global.d.ts" />

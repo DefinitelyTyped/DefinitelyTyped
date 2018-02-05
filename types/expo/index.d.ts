@@ -1017,15 +1017,11 @@ declare namespace Facebook {
         permissions?: string[];
         behavior?: 'web' | 'native' | 'browser' | 'system';
     }
-
-    type Response = {
-        type: 'success';
-        token: string;
-        expires: number;
-    } | {
-        type: 'cancel';
-    };
-
+    interface Response {
+        type: 'cancel' | 'success';
+        token?: string;
+        expires?: number;
+    }
     function logInWithReadPermissionsAsync(appId: string, options?: Options): Promise<Response>;
 }
 
