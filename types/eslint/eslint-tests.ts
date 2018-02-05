@@ -1,4 +1,3 @@
-import { Comment } from 'estree';
 import { AST, SourceCode, Rule, Linter, CLIEngine, RuleTester, Scope } from 'eslint';
 
 const SOURCE = `var foo = bar;`;
@@ -26,7 +25,7 @@ const TOKEN: AST.Token = {
     range: [0, 3]
 };
 
-const COMMENT: Comment = {
+const COMMENT: AST.Comment = {
     type: 'Block',
     value: 'foo',
     loc: {
