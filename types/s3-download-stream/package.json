@@ -1,18 +1,6 @@
 {
-  "name": "@types/s3-download-stream",
-  "version": "0.1.0",
-  "description": "TypeScript definitions for s3-download-stream",
-  "main": "",
-  "repository": {
-    "type": "git",
-    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
-  },
-  "scripts": {},
-  "license": "MIT",
-  "typeScriptVersion": "2.0",
-  "types": "index.d.ts",
-  "dependencies": {
-    "@types/node": "*",
-    "aws-sdk": "^2.188.0"
-  }
+    "private": true,
+    "dependencies": {
+        "aws-sdk": "^2.37.0"
+    }
 }
