@@ -30,11 +30,13 @@ passport.use(new http.BasicStrategy((username, password, done) => {
         password,
     }, (error, user) => {
         if (error) {
-            return done(error);
+            done(error);
+            return;
         }
 
         if (!user) {
-            return done(null, false);
+            done(null, false);
+            return;
         }
 
         done(null, user);
