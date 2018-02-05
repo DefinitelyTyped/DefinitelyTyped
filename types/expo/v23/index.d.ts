@@ -1200,7 +1200,7 @@ export namespace Notifications {
     type LocalNotificationId = string | number;
 
     function addListener(listener: (notification: Notification) => any): EventSubscription;
-    function getExponentPushTokenAsync(): Promise<string>;
+    function getExpoPushTokenAsync(): Promise<string>;
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,
