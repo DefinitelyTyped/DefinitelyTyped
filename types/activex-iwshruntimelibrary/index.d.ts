@@ -5,6 +5,9 @@
 // TypeScript Version: 2.6
 
 declare namespace IWshRuntimeLibrary {
+    type WindowStyle = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+    type ShortcutWindowStyle = 1 | 3 | 7;
+
     // tslint:disable-next-line no-const-enum
     const enum ButtonType {
         OK,
@@ -14,6 +17,16 @@ declare namespace IWshRuntimeLibrary {
         YesNo,
         RetryCancel,
         CancelTryagainContinue
+    }
+
+    // tslint:disable-next-line no-const-enum
+    const enum EventType {
+        AuditFailure = 5,
+        AuditSuccess = 4,
+        Error = 1,
+        Information = 3,
+        Success = 0,
+        Warning = 2
     }
 
     // tslint:disable-next-line no-const-enum
@@ -161,7 +174,7 @@ declare namespace IWshRuntimeLibrary {
          * @param Force [false] Remove the connections even if the resource is in use
          * @param UpdateProfile [false] Remove the mapping from the user's profile
          */
-        RemoveNetworkDrive(Name: string, Force?: any, UpdateProfile?: any): void;
+        RemoveNetworkDrive(Name: string, Force?: boolean, UpdateProfile?: boolean): void;
 
         /**
          * Removes a shared network printer connection from your computer system
@@ -173,7 +186,7 @@ declare namespace IWshRuntimeLibrary {
          * _Name_ must be the printer's local name. If the printer was connected using the **AddWindowsPrinterConnection** method or was added manually (using the Add Printer wizard),
          * then _Name_ must be the printer's UNC name.
          */
-        RemovePrinterConnection(Name: string, Force?: any, UpdateProfile?: any): void;
+        RemovePrinterConnection(Name: string, Force?: true, UpdateProfile?: true): void;
         SetDefaultPrinter(Name: string): void;
         readonly Site: string;
         readonly UserDomain: string;
@@ -185,21 +198,98 @@ declare namespace IWshRuntimeLibrary {
     class WshShell {
         private 'IWshRuntimeLibrary.WshShell_typekey': WshShell;
         private constructor();
-        AppActivate(App: any, Wait?: any): boolean;
-        CreateShortcut(PathLink: string): any;
+
+        /**
+         * Activates an application window
+         * @param App Title of application as it appears in the title bar, or the process ID
+         * @param Wait
+         *
+         * This method changes the focus to the named application or window. The window must be attached to the calling thread's message queue. It does not affect whether it is maximized or
+         * minimized. Focus moves from the activated application window when the user takes action to change the focus (or closes the window).
+         *
+         * In determining which application to activate, the specified title is compared to the title string of each running application. If no exact match exists, any application whose title
+         * string begins with title is activated. If an application still cannot be found, any application whose title string ends with title is activated. If more than one instance of the
+         * application named by title exists, one instance is arbitrarily activated.
+         *
+         * The method might return `false` under the following conditions:
+         *
+         * * The window is not brought to the foreground.
+         * * The window is brought to the foreground but is not given keyboard focus.
+         * * A Command Prompt window (`cmd.exe`) is brought to the foreground and is given keyboard focus.
+         */
+        AppActivate(App: string | number, Wait?: any): boolean;
+
+        /**
+         * Creates a shortcut
+         * @param PathLink Path where the shortcut should be created
+         *
+         * The shortcut object exists in memory until you save it to disk with the **Save** method.
+         */
+        CreateShortcut(PathLink: string): WshShortcut | WshURLShortcut;
         CurrentDirectory: string;
-        Environment(Type?: any): WshEnvironment;
+        Environment(Type?: 'System' | 'User' | 'Proces' | 'Volatile'): WshEnvironment;
         Exec(Command: string): WshExec;
         ExpandEnvironmentStrings(Src: string): string;
 
-        /** @param string [Target=''] */
-        LogEvent(Type: any, Message: string, Target?: string): boolean;
-        Popup(Text: any, SecondsToWait?: number, Title?: string, Type?: ButtonType | IconType | PopupType): PopupSelection;
+        /** @param string [Target=''] Name of the computer system where the event should be logged; default is the local computer system */
+        LogEvent(Type: EventType, Message: string, Target?: string): boolean;
+        Popup(Text: string, SecondsToWait?: number, Title?: string, Type?: ButtonType | IconType | PopupType): PopupSelection;
         RegDelete(Name: string): void;
-        RegRead(Name: string): any;
-        RegWrite(Name: string, Value: any, Type?: any): void;
-        Run(Command: string, WindowStyle?: any, WaitOnReturn?: any): number;
-        SendKeys(Keys: string, Wait?: any): void;
+
+        /**
+         * Returns the value of a key or value-name from the registry
+         * @param Name Key (ends with a final `\`) or value-name (doesn't end with a final `\`)
+         *
+         * Returns one of the following, based on the registry value type:
+         *
+         * * **REG_SZ** -- a string
+         * * **REG_DWORD** -- a number
+         * * **REG_SBINARY** -- a binary value, as a COM SafeArray containing integers
+         * * **REG_EXPAND_SZ** -- an expandable string
+         * * **REG_MULTI_SZ** -- an array of srings, as a COM SafeArray
+         */
+        RegRead(Name: string): string | number | SafeArray<string> | SafeArray<number>;
+
+        /**
+         * Creates a new key, adds another value-name to an existing key and assigns it a value, or changes the value of an existing value-name
+         * @param Name Key (ends with a final `\`) or value-name (doesn't end with a final `\`)
+         * @param Value Will be coerced to `string` or `integer` based on the value-name type:
+         * `REG_SZ | REG_EXPAND_SZ` will be converted to `string`;
+         * `REG_DWORD | REG_BINARY` will be converted to `integer`
+         * @param Type
+         */
+        RegWrite(Name: string, Value: any, Type?: 'REG_SZ' | 'REG_DWORD' | 'REG_BINARY' | 'REG_EXPAND_SZ'): void;
+
+        /**
+         * Runs a program in a new process.
+         * @param Command Command-line, including any parameters you want to pass to the executable file.
+         * @param WindowStyle Appearance of the program window. Not all programs make use of this information.
+         * @param WaitOnReturn Block script until program finishes executing.
+         *
+         * If `false` is passed into **WaitOnReturn**, the **Run** method will return 0 immediately. If `true` is passed in, **Run** will return the program's error code, if any.
+         *
+         * Environment variables will be expanded within the command line.
+         *
+         * Passing a registered file type will automatically open the program registered to the file type.
+         *
+         * Possible values for **WindowStyle**:
+         *
+         * * **0** -- Hides the window and activates another window.
+         * * **1** -- Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag
+         * when displaying the window for the first time.
+         * * **2** -- Activates the window and displays it as a minimized window.
+         * * **3** -- Activates the window and displays it as a maximized window.
+         * * **4** -- Displays a window in its most recent size and position. The active window remains active.
+         * * **5** -- Activates the window and displays it in its current size and position.
+         * * **6** -- Minimizes the specified window and activates the next top-level window in the Z order.
+         * * **7** -- Displays the window as a minimized window. The active window remains active.
+         * * **8** -- Displays the window in its current state. The active window remains active.
+         * * **9** -- Activates and displays the window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag
+         * when restoring a minimized window.
+         * * **10** -- Sets the show-state based on the state of the program that started the application.
+         */
+        Run(Command: string, WindowStyle?: WindowStyle, WaitOnReturn?: boolean): number;
+        SendKeys(Keys: string, Wait?: boolean): void;
         readonly SpecialFolders: WshCollection;
     }
 
@@ -216,7 +306,16 @@ declare namespace IWshRuntimeLibrary {
         readonly RelativePath: string;
         Save(): void;
         TargetPath: string;
-        WindowStyle: number;
+
+        /**
+         * Possible values:
+         *
+         * * **1** -- Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag
+         * when displaying the window for the first time.
+         * * **3** -- Activates the window and displays it as a maximized window.
+         * * **7** -- Displays the window as a minimized window. The active window remains active.
+         */
+        WindowStyle: ShortcutWindowStyle;
         WorkingDirectory: string;
     }
 
