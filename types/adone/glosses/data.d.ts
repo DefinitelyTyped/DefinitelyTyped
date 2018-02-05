@@ -30,7 +30,12 @@ declare namespace adone {
                  * or an array of String and Number objects that serve as a whitelist
                  * for selecting/filtering the properties of the value object to be included in the JSON string
                  */
-                replacer?: I.Replacer
+                replacer?: I.Replacer,
+
+                /**
+                 * Wheter to append a newline
+                 */
+                newline?: boolean
             }): Buffer;
 
             /**
@@ -83,6 +88,8 @@ declare namespace adone {
              * Decoder the given buffer
              */
             function decode(buf: collection.I.ByteArray.Wrappable): any;
+
+            function tryDecode(buf: collection.ByteArray): any;
 
             namespace I {
                 type Type = string | number; // ?
@@ -153,6 +160,8 @@ declare namespace adone {
              * Represents a MessagePack serializer
              */
             class Serializer {
+                constructor(initialCapacity?: number);
+
                 /**
                  * Encoder instance
                  */
@@ -211,6 +220,8 @@ declare namespace adone {
              * x.Exception, Error, Date, Map, Set, math.Long
              */
             const serializer: Serializer;
+
+            function registerCommonTypesFor(s: Serializer): void;
         }
 
         /**
@@ -244,21 +255,32 @@ declare namespace adone {
          * Base64 encoder
          */
         namespace base64 {
+            namespace I {
+                interface DecodeOptions {
+                    buffer?: boolean;
+                    encoding?: string;
+                }
+
+                interface EncodeOptions {
+                    buffer?: boolean;
+                }
+            }
+
             /**
              * Encodes a string/Buffer to base64
              */
-            function encode(str: string | Buffer, options: { buffer: false }): string;
-            function encode(str: string | Buffer, options?: { buffer?: true }): Buffer;
+            function encode(str: string | Buffer, options: I.EncodeOptions & { buffer: false }): string;
+            function encode(str: string | Buffer, options?: I.EncodeOptions): Buffer;
 
             /**
              * Decodes base64 string/buffer into a buffer
              */
-            function decode(str: string | Buffer, options: { buffer: true }): Buffer;
+            function decode(str: string | Buffer, options: I.DecodeOptions & { buffer: true }): Buffer;
 
             /**
              * Decodes base64 string/buffer into a string
              */
-            function decode(str: string | Buffer, options?: { buffer?: false }): string;
+            function decode(str: string | Buffer, options?: I.DecodeOptions): string;
 
             function encodeVLQ(value: number): string;
 
@@ -560,7 +582,7 @@ declare namespace adone {
             /**
              * Represents a YAML exception
              */
-            class Exception extends adone.x.Exception {
+            class Exception extends adone.exception.Exception {
                 reason: string;
                 mark: Mark;
 

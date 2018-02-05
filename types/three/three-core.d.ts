@@ -6768,6 +6768,11 @@ export class ShapeGeometry extends Geometry {
     addShape(shape: Shape, options?: any): void;
 }
 
+export class ShapeBufferGeometry extends BufferGeometry
+{
+    constructor(shapes: Shape | Shape[], curveSegments?: number);
+}
+
 export class SphereBufferGeometry extends BufferGeometry {
     constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
 

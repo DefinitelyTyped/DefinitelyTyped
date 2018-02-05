@@ -1,4 +1,4 @@
-import * as _ from "../index";
+import _ = require("../index");
 declare module "../index" {
     type ConformsPredicateObject<T> = {
         [P in keyof T]?: (val: T[P]) => boolean;
