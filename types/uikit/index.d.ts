@@ -1436,6 +1436,5 @@ declare namespace UIkit {
     const sticky: Sticky;
     const timepicker: Timepicker;
     const tooltip: Tooltip;
-    const uploadSelect: Upload;
-    const uploadDrop: Upload;
+    const upload: Upload;
 }
