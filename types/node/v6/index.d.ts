@@ -5,6 +5,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Thomas Bouldin <https://github.com/inlined>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
