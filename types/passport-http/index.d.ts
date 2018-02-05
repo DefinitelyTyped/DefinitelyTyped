@@ -6,7 +6,7 @@
 // TypeScript Version: 2.3
 
 import passport = require("passport");
-import http = require("passport-http");
+import express = require("express");
 
 export interface BasicStrategyOptions<req extends boolean = boolean> {
     realm?: string;
@@ -60,7 +60,7 @@ export class BasicStrategy implements passport.Strategy {
     authenticate: (req: express.Request, options?: object) => void;
 }
 
-export declare class DigestStrategy implements passport.Strategy {
+export class DigestStrategy implements passport.Strategy {
     constructor(secret: DigestSecretFunction, validate?: DigestValidateFunction);
     constructor(options: DigestStrategyOptions, secret: DigestSecretFunction, validate?: DigestValidateFunction);
 
