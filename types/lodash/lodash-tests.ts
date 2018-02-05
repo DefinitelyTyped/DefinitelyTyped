@@ -3775,77 +3775,75 @@ namespace TestCommit {
 
 // _.prototype.concat
 namespace TestConcat {
-    {
-        let result: _.LoDashImplicitArrayWrapper<number>;
+    const numberROA: ReadonlyArray<number> = [0];
 
-        result = _(1).concat<number>(2);
-        result = _(1).concat<number>(2, 3);
-        result = _(1).concat<number>(2, 3, 4);
+    _.concat(1); // $ExpectType number[]
+    _.concat([1]); // $ExpectType number[]
+    _.concat(numberROA); // $ExpectType number[]
+    _.concat(1, 2); // $ExpectType number[]
+    _.concat(1, [1]); // $ExpectType number[]
+    _.concat(1, [1], numberROA); // $ExpectType number[]
 
-        result = _(1).concat(2);
-        result = _(1).concat(2, 3);
-        result = _(1).concat(2, 3, 4);
-    }
+    _(1).concat(2); // $ExpectType LoDashImplicitWrapper<number[]>
+    _(1).concat([1]); // $ExpectType LoDashImplicitWrapper<number[]>
+    _(1).concat([2], numberROA); // $ExpectType LoDashImplicitWrapper<number[]>
+    _([1]).concat(2); // $ExpectType LoDashImplicitWrapper<number[]>
+    _(numberROA).concat(numberROA); // $ExpectType LoDashImplicitWrapper<number[]>
+    _(numberROA).concat(numberROA, numberROA); // $ExpectType LoDashImplicitWrapper<number[]>
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<string>;
+    _.chain(1).concat(2); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain(1).concat([1]); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain(1).concat([2], numberROA); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain([1]).concat(2); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain(numberROA).concat(numberROA); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain(numberROA).concat(numberROA, numberROA); // $ExpectType LoDashExplicitWrapper<number[]>
 
-        result = _(['']).concat<string>(['']);
-        result = _(['']).concat<string>([''], ['']);
-        result = _(['']).concat<string>([''], [''], ['']);
+    const stringROA: ReadonlyArray<string> = [''];
 
-        result = _(['']).concat(['']);
-        result = _(['']).concat([''], ['']);
-        result = _(['']).concat([''], [''], ['']);
-    }
+    _.concat('a'); // $ExpectType string[]
+    _.concat(['a']); // $ExpectType string[]
+    _.concat(stringROA); // $ExpectType string[]
+    _.concat('a', 'b'); // $ExpectType string[]
+    _.concat('a', ['a']); // $ExpectType string[]
+    _.concat('a', ['a'], stringROA); // $ExpectType string[]
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<{a: string}>;
+    _('a').concat('b'); // $ExpectType LoDashImplicitWrapper<string[]>
+    _('a').concat(['a']); // $ExpectType LoDashImplicitWrapper<string[]>
+    _('a').concat(['b'], stringROA); // $ExpectType LoDashImplicitWrapper<string[]>
+    _(['a']).concat('b'); // $ExpectType LoDashImplicitWrapper<string[]>
+    _(stringROA).concat(stringROA); // $ExpectType LoDashImplicitWrapper<string[]>
+    _(stringROA).concat(stringROA, stringROA); // $ExpectType LoDashImplicitWrapper<string[]>
 
-        result = _({a: ''}).concat<{a: string}>({a: ''});
-        result = _({a: ''}).concat<{a: string}>({a: ''}, {a: ''});
-        result = _({a: ''}).concat<{a: string}>({a: ''}, {a: ''}, {a: ''});
+    _.chain('a').concat('b'); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain('a').concat(['a']); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain('a').concat(['b'], stringROA); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain(['a']).concat('b'); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain(stringROA).concat(stringROA); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain(stringROA).concat(stringROA, stringROA); // $ExpectType LoDashExplicitWrapper<string[]>
 
-        result = _({a: ''}).concat({a: ''});
-        result = _({a: ''}).concat({a: ''}, {a: ''});
-        result = _({a: ''}).concat({a: ''}, {a: ''}, {a: ''});
-    }
+    const abcObject: AbcObject = { a: 1, b: 'foo', c: true };
+    const objectROA: ReadonlyArray<AbcObject> = [{ a: 1, b: 'foo', c: true }];
 
-    {
-        let result: _.LoDashExplicitArrayWrapper<number>;
+    _.concat(abcObject); // $ExpectType AbcObject[]
+    _.concat([abcObject]); // $ExpectType AbcObject[]
+    _.concat(objectROA); // $ExpectType AbcObject[]
+    _.concat(abcObject, abcObject); // $ExpectType AbcObject[]
+    _.concat(abcObject, [abcObject]); // $ExpectType AbcObject[]
+    _.concat(abcObject, [abcObject], objectROA); // $ExpectType AbcObject[]
 
-        result = _(1).chain().concat<number>(2);
-        result = _(1).chain().concat<number>(2, 3);
-        result = _(1).chain().concat<number>(2, 3, 4);
+    _(abcObject).concat(abcObject); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(abcObject).concat([abcObject]); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(abcObject).concat([abcObject], objectROA); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _([abcObject]).concat(abcObject); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(objectROA).concat(objectROA); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(objectROA).concat(objectROA, objectROA); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
 
-        result = _(1).chain().concat(2);
-        result = _(1).chain().concat(2, 3);
-        result = _(1).chain().concat(2, 3, 4);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string>;
-
-        result = _(['']).chain().concat<string>(['']);
-        result = _(['']).chain().concat<string>([''], ['']);
-        result = _(['']).chain().concat<string>([''], [''], ['']);
-
-        result = _(['']).chain().concat(['']);
-        result = _(['']).chain().concat([''], ['']);
-        result = _(['']).chain().concat([''], [''], ['']);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<{a: string}>;
-
-        result = _({a: ''}).chain().concat<{a: string}>({a: ''});
-        result = _({a: ''}).chain().concat<{a: string}>({a: ''}, {a: ''});
-        result = _({a: ''}).chain().concat<{a: string}>({a: ''}, {a: ''}, {a: ''});
-
-        result = _({a: ''}).chain().concat({a: ''});
-        result = _({a: ''}).chain().concat({a: ''}, {a: ''});
-        result = _({a: ''}).chain().concat({a: ''}, {a: ''}, {a: ''});
-    }
+    _.chain(abcObject).concat(abcObject); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(abcObject).concat([abcObject]); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(abcObject).concat([abcObject], objectROA); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain([abcObject]).concat(abcObject); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(objectROA).concat(objectROA); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(objectROA).concat(objectROA, objectROA); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
 }
 
 // _.prototype.plant
