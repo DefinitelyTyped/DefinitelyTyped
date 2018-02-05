@@ -5,8 +5,11 @@
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
-        "jsx":"preserve",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -17,6 +20,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     }
 }
