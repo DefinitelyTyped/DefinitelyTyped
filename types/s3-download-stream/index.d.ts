@@ -10,10 +10,10 @@ import { S3 } from "aws-sdk";
 
 declare namespace s3Stream {
     interface S3StreamDownloaderOptions {
-        client: S3,
-        concurrency?: number,
-        chunkSize?: string,
-        params: S3.GetObjectRequest
+        client: S3;
+        concurrency?: number;
+        chunkSize?: string;
+        params: S3.GetObjectRequest;
     }
 }
 
