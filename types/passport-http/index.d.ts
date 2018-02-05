@@ -1,62 +1,69 @@
-// Type definitions for passport-http 0.3.0
+// Type definitions for passport-http 0.3
 // Project: https://github.com/jaredhanson/passport-http
 // Definitions by: Christophe Vidal <https://github.com/krizalys>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import passport = require("passport");
-import express = require("express");
+import * as passport from "passport";
+import * as express from "express";
 
-interface BasicStrategyOptions<req extends boolean = boolean> {
+export interface BasicStrategyOptions<req extends boolean = boolean> {
     realm?: string;
     passReqToCallback?: req;
 }
 
-interface DigestStrategyOptions {
+export interface DigestStrategyOptions {
     realm?: string;
-    domain?: string | Array<string>;
+    domain?: string | string[];
     opaque?: string;
     algorithm?: string;
-    qop?: string | Array<string>;
+    qop?: string | string[];
 }
 
-interface DigestValidateOptions {
+export interface DigestValidateOptions {
     nonce: string;
     cnonce: string;
     nc: number;
     opaque: string;
 }
 
-interface BasicVerifyFunction {
-    (username: string, password: string, done: (error: any, user?: any) => void): void;
-}
+export type BasicVerifyFunction = (
+    username: string,
+    password: string,
+    done: (error: any, user?: any) => void,
+) => any;
 
-interface BasicVerifyFunctionWithRequest {
-    (req: express.Request, username: string, password: string, done: (error: any, user?: any) => void): void;
-}
+export type BasicVerifyFunctionWithRequest = (
+    req: express.Request,
+    username: string,
+    password: string,
+    done: (error: any, user?: any) => void,
+) => any;
 
-interface DigestSecretFunction {
-    (username: string, done: (error: any, user?: any, password?: any) => void): void;
-}
+export type DigestSecretFunction = (
+    username: string,
+    done: (error: any, user?: any, password?: any) => void,
+) => any;
 
-interface DigestValidateFunction {
-    (params: DigestValidateOptions, done: (error: any, valid: boolean) => void): void;
-}
+export type DigestValidateFunction = (
+    params: DigestValidateOptions,
+    done: (error: any, valid: boolean) => void,
+) => any;
 
-declare class BasicStrategy implements passport.Strategy {
+export class BasicStrategy implements passport.Strategy {
     constructor(verify: BasicVerifyFunction);
     constructor(options: BasicStrategyOptions<false>, verify: BasicVerifyFunction);
     constructor(options: BasicStrategyOptions<true>, verify: BasicVerifyFunctionWithRequest);
 
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate: (req: express.Request, options?: object) => void;
 }
 
-declare class DigestStrategy implements passport.Strategy {
+export declare class DigestStrategy implements passport.Strategy {
     constructor(secret: DigestSecretFunction, validate?: DigestValidateFunction);
     constructor(options: DigestStrategyOptions, secret: DigestSecretFunction, validate?: DigestValidateFunction);
 
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate: (req: express.Request, options?: object) => void;
 }

@@ -2,18 +2,18 @@
  * Created by Christophe Vidal <https://github.com/krizalys>
  */
 
-import passport = require("passport");
-import http = require("passport-http");
+import * as passport from "passport";
+import * as http from "passport-http";
 
-interface IUser {
+interface UserInterface {
     username: string;
     password?: string;
 }
 
 class User {
-    public password: string;
+    password: string;
 
-    static findOne(user: IUser, callback: (error: Error, user: User) => void): void {
+    static findOne(user: UserInterface, callback: (error: Error, user: User) => void): void {
         callback(null, new User());
     }
 }
@@ -26,8 +26,8 @@ function validateParams(nonce: string, cnonce: string, nc: number, opaque: strin
 
 passport.use(new http.BasicStrategy((username, password, done) => {
     User.findOne({
-        username: username,
-        password: password,
+        username,
+        password,
     }, (error, user) => {
         if (error) {
             return done(error);
@@ -62,7 +62,7 @@ passport.use(new http.BasicStrategy({
 }));
 
 passport.use(new http.DigestStrategy((username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({username}, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -76,7 +76,7 @@ passport.use(new http.DigestStrategy((username: string, done: any) => {
 }));
 
 passport.use(new http.DigestStrategy((username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({username}, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -99,7 +99,7 @@ passport.use(new http.DigestStrategy({
     algorithm: "MD5",
     qop: "auth",
 }, (username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({username}, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -119,7 +119,7 @@ passport.use(new http.DigestStrategy({
     algorithm: "MD5",
     qop: "auth",
 }, (username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({username}, (error, user) => {
         if (error) {
             return done(error);
         }
