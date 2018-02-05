@@ -118,7 +118,7 @@ interface NodeRequireFunction {
 }
 
 interface NodeRequire extends NodeRequireFunction {
-    resolve(id: string): string;
+    resolve(id: string, options?: { paths?: string[] }): string;
     cache: any;
     extensions: NodeExtensions;
     main: NodeModule | undefined;
