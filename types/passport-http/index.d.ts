@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as passport from "passport";
-import * as express from "express";
+import passport = require("passport");
+import http = require("passport-http");
 
 export interface BasicStrategyOptions<req extends boolean = boolean> {
     realm?: string;
