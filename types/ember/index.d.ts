@@ -18,6 +18,18 @@ declare module 'ember' {
     import Rsvp from 'rsvp';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
 
+    // A type registry for Ember `Service`s. Meant to be declaration-merged so
+    // string lookups resolve to the correct type.
+    export interface ServiceRegistry {
+        [serviceName: string]: Ember.Service;
+    }
+
+    // A type registry for Ember `Controller`s. Meant to be declaration-merged
+    // so string lookups resolve to the correct type.
+    export interface ControllerRegistry {
+        [controllerName: string]: Ember.Controller;
+    }
+
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
 
@@ -2340,12 +2352,16 @@ declare module 'ember' {
              * Creates a property that lazily looks up another controller in the container.
              * Can only be used when defining another controller.
              */
-            function controller(name?: string): ComputedProperty<Controller>;
+            function controller<K extends keyof ControllerRegistry>(
+                name?: K
+            ): ComputedProperty<ControllerRegistry[K]>;
             /**
              * Creates a property that lazily looks up a service in the container. There
              * are no restrictions as to what objects a service can be injected into.
              */
-            function service(name?: string): ComputedProperty<Service>;
+            function service<K extends keyof ServiceRegistry>(
+                name?: K
+            ): ComputedProperty<ServiceRegistry[K]>;
         }
         namespace ENV {
             const EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
