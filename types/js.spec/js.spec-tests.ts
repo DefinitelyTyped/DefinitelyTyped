@@ -1,6 +1,6 @@
 import * as S from "js.spec";
 
-const spec: S.Spec = S.spec.bool;
+const spec: S.Spec = S.spec.predicate("test spec", S.spec.bool);
 const c: symbol = spec.conform("water");
 const waterProblems: S.Problem[] = spec.explain(["data"], ["spec"], "water");
 const toString: string = spec.toString();
@@ -16,7 +16,7 @@ S.conform((value) => true, "a value");
 const problems: S.Problem[] = S.explainData(S.spec.int, "not a number");
 S.explainData((value) => true, "a value");
 
-const {path, via, value, predicate}: {path: string[], via: string[], value: any, predicate: S.Predicate} = problems[0];
+const {path, via, value, predicate}: {path: string[], via: string[], value: any, predicate: S.PredFn} = problems[0];
 
 const problemStr: string = S.problemStr(problems[0]);
 
@@ -53,48 +53,48 @@ const predicateSpec: S.Spec = S.spec.predicate("predicate test", (value) => true
 
 // Predicates
 
-const intPred: S.Predicate = S.spec.int;
+const intPred: S.PredFn = S.spec.int;
 
-const integerPred: S.Predicate = S.spec.integer;
+const integerPred: S.PredFn = S.spec.integer;
 
-const finitePred: S.Predicate = S.spec.finite;
+const finitePred: S.PredFn = S.spec.finite;
 
-const numberPred: S.Predicate = S.spec.number;
+const numberPred: S.PredFn = S.spec.number;
 
-const oddPred: S.Predicate = S.spec.odd;
+const oddPred: S.PredFn = S.spec.odd;
 
-const evenPred: S.Predicate = S.spec.even;
+const evenPred: S.PredFn = S.spec.even;
 
-const positivePred: S.Predicate = S.spec.positive;
+const positivePred: S.PredFn = S.spec.positive;
 
-const negativePred: S.Predicate = S.spec.negative;
+const negativePred: S.PredFn = S.spec.negative;
 
-const zeroPred: S.Predicate = S.spec.zero;
+const zeroPred: S.PredFn = S.spec.zero;
 
-const strPred: S.Predicate = S.spec.str;
+const strPred: S.PredFn = S.spec.str;
 
-const stringPred: S.Predicate = S.spec.string;
+const stringPred: S.PredFn = S.spec.string;
 
-const fnPred: S.Predicate = S.spec.fn;
+const fnPred: S.PredFn = S.spec.fn;
 
-const symPred: S.Predicate = S.spec.sym;
+const symPred: S.PredFn = S.spec.sym;
 
-const symbolPred: S.Predicate = S.spec.symbol;
+const symbolPred: S.PredFn = S.spec.symbol;
 
-const nilPred: S.Predicate = S.spec.nil;
+const nilPred: S.PredFn = S.spec.nil;
 
-const boolPred: S.Predicate = S.spec.bool;
+const boolPred: S.PredFn = S.spec.bool;
 
-const booleanPred: S.Predicate = S.spec.boolean;
+const booleanPred: S.PredFn = S.spec.boolean;
 
-const datePred: S.Predicate = S.spec.date;
+const datePred: S.PredFn = S.spec.date;
 
-const objPred: S.Predicate = S.spec.obj;
+const objPred: S.PredFn = S.spec.obj;
 
-const objectPred: S.Predicate = S.spec.object;
+const objectPred: S.PredFn = S.spec.object;
 
-const arrayPred: S.Predicate = S.spec.array;
+const arrayPred: S.PredFn = S.spec.array;
 
-const setPred: S.Predicate = S.spec.set;
+const setPred: S.PredFn = S.spec.set;
 
-const collPred: S.Predicate = S.spec.coll;
+const collPred: S.PredFn = S.spec.coll;
