@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as diff from 'gulp-diff';
+import diff = require('gulp-diff');
 
 gulp.task('task', () => {
   return gulp.src('src')
