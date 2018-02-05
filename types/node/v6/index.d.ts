@@ -2597,7 +2597,9 @@ declare module "fs" {
     export function mkdtempSync(prefix: string): string;
     export function readdir(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
     export function readdir(path: string | Buffer, opts: string | {encoding?: string}, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdir(path: string | Buffer, opts: {encoding: 'buffer'}, callback?: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
     export function readdirSync(path: string | Buffer, opts?: string | {encoding?: string}): string[];
+    export function readdirSync(path: string | Buffer, opts: {encoding: 'buffer'}): Buffer[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function closeSync(fd: number): void;
     export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
