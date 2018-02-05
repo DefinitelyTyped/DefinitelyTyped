@@ -5,9 +5,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-declare module "ember-data" {
-    import Ember from "ember";
+declare module 'ember-data' {
+    import Ember from 'ember';
     import RSVP from 'rsvp';
+
+    export interface ModelRegistry {
+        [key: string]: DS.Model;
+    }
+
+    export interface AdapterRegistry {
+        [key: string]: DS.Adapter;
+    }
+
+    export interface SerializerRegistry {
+        [key: string]: DS.Serializer;
+    }
+
     namespace DS {
         /**
          * Convert an hash of errors into an array with errors in JSON-API format.
@@ -21,47 +34,47 @@ declare module "ember-data" {
          * `DS.belongsTo` is used to define One-To-One and One-To-Many
          * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
          */
-        function belongsTo<T extends Model>(
-            modelName: string,
+        function belongsTo<K extends keyof ModelRegistry>(
+            modelName: K,
             options: {
                 async: false;
                 inverse?: string | null;
                 polymorphic?: boolean;
             }
-        ): Ember.ComputedProperty<T>;
-        function belongsTo<T extends Model>(
-            modelName: string,
+        ): Ember.ComputedProperty<ModelRegistry[K]>;
+        function belongsTo<K extends keyof ModelRegistry>(
+            modelName: K,
             options?: {
                 async?: true;
                 inverse?: string | null;
                 polymorphic?: boolean;
             }
-        ): Ember.ComputedProperty<T & PromiseObject<T>>;
+        ): Ember.ComputedProperty<ModelRegistry[K] & PromiseObject<ModelRegistry[K]>>;
         /**
          * `DS.hasMany` is used to define One-To-Many and Many-To-Many
          * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
          */
-        function hasMany<T extends Model>(
-            type: string,
+        function hasMany<K extends keyof ModelRegistry>(
+            type: K,
             options: {
                 async: false;
                 inverse?: string | null;
                 polymorphic?: boolean;
             }
-        ): Ember.ComputedProperty<ManyArray<T>>;
-        function hasMany<T extends Model>(
-            type: string,
+        ): Ember.ComputedProperty<ManyArray<ModelRegistry[K]>>;
+        function hasMany<K extends keyof ModelRegistry>(
+            type: K,
             options?: {
                 async?: true;
                 inverse?: string | null;
                 polymorphic?: boolean;
             }
-        ): Ember.ComputedProperty<PromiseManyArray<T>>;
+        ): Ember.ComputedProperty<PromiseManyArray<ModelRegistry[K]>>;
         /**
          * This method normalizes a modelName into the format Ember Data uses
          * internally.
          */
-        function normalizeModelName(modelName: string): string;
+        function normalizeModelName<K extends keyof ModelRegistry>(modelName: K): string;
         const VERSION: string;
 
         interface AttrOptions<T = any> {
@@ -77,19 +90,19 @@ declare module "ember-data" {
          * [DS.Transform](/api/data/classes/DS.Transform.html).
          */
         function attr(
-            type: "string",
+            type: 'string',
             options?: AttrOptions<string>
         ): Ember.ComputedProperty<string>;
         function attr(
-            type: "boolean",
+            type: 'boolean',
             options?: AttrOptions<boolean>
         ): Ember.ComputedProperty<boolean>;
         function attr(
-            type: "number",
+            type: 'number',
             options?: AttrOptions<number>
         ): Ember.ComputedProperty<number>;
         function attr(
-            type: "date",
+            type: 'date',
             options?: AttrOptions<Date>
         ): Ember.ComputedProperty<Date>;
         function attr<T>(
@@ -118,89 +131,89 @@ declare module "ember-data" {
             /**
              * Builds a URL for a given type and optional ID.
              */
-            buildURL(
-                modelName?: string,
+            buildURL<K extends keyof ModelRegistry>(
+                modelName?: K,
                 id?: string | any[] | {} | null,
-                snapshot?: Snapshot | any[] | null,
+                snapshot?: Snapshot<K> | any[] | null,
                 requestType?: string,
                 query?: {}
             ): string;
             /**
              * Builds a URL for a `store.findRecord(type, id)` call.
              */
-            urlForFindRecord(
+            urlForFindRecord<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for a `store.findAll(type)` call.
              */
-            urlForFindAll(
-                modelName: string,
-                snapshot: SnapshotRecordArray
+            urlForFindAll<K extends keyof ModelRegistry>(
+                modelName: K,
+                snapshot: SnapshotRecordArray<K>
             ): string;
             /**
              * Builds a URL for a `store.query(type, query)` call.
              */
-            urlForQuery(query: {}, modelName: string): string;
+            urlForQuery<K extends keyof ModelRegistry>(query: {}, modelName: K): string;
             /**
              * Builds a URL for a `store.queryRecord(type, query)` call.
              */
-            urlForQueryRecord(query: {}, modelName: string): string;
+            urlForQueryRecord<K extends keyof ModelRegistry>(query: {}, modelName: K): string;
             /**
              * Builds a URL for coalesceing multiple `store.findRecord(type, id)`
              * records into 1 request when the adapter's `coalesceFindRequests`
              * property is true.
              */
-            urlForFindMany(
+            urlForFindMany<K extends keyof ModelRegistry>(
                 ids: any[],
-                modelName: string,
+                modelName: K,
                 snapshots: any[]
             ): string;
             /**
              * Builds a URL for fetching a async hasMany relationship when a url
              * is not provided by the server.
              */
-            urlForFindHasMany(
+            urlForFindHasMany<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for fetching a async belongsTo relationship when a url
              * is not provided by the server.
              */
-            urlForFindBelongsTo(
+            urlForFindBelongsTo<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for a `record.save()` call when the record was created
              * locally using `store.createRecord()`.
              */
-            urlForCreateRecord(modelName: string, snapshot: Snapshot): string;
+            urlForCreateRecord<K extends keyof ModelRegistry>(modelName: K, snapshot: Snapshot<K>): string;
             /**
              * Builds a URL for a `record.save()` call when the record has been update locally.
              */
-            urlForUpdateRecord(
+            urlForUpdateRecord<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for a `record.save()` call when the record has been deleted locally.
              */
-            urlForDeleteRecord(
+            urlForDeleteRecord<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Determines the pathname for a given type.
              */
-            pathForType(modelName: string): string;
+            pathForType<K extends keyof ModelRegistry>(modelName: K): string;
         }
         /**
          * A `DS.AdapterError` is used by an adapter to signal that an error occurred
@@ -502,11 +515,11 @@ declare module "ember-data" {
             /**
              * Get the reference for the specified belongsTo relationship.
              */
-            belongsTo(name: string): BelongsToReference;
+            belongsTo(name: keyof ModelRegistry): BelongsToReference;
             /**
              * Get the reference for the specified hasMany relationship.
              */
-            hasMany(name: string): HasManyReference<any>;
+            hasMany(name: keyof ModelRegistry): HasManyReference<any>;
             /**
              * Given a callback, iterates over each of the relationships in the model,
              * invoking the callback with the name of each relationship and its relationship
@@ -517,15 +530,15 @@ declare module "ember-data" {
              * Represents the model's class name as a string. This can be used to look up the model's class name through
              * `DS.Store`'s modelFor method.
              */
-            static modelName: string;
+            static modelName: keyof ModelRegistry;
             /**
              * For a given relationship name, returns the model type of the relationship.
              */
-            static typeForRelationship(name: string, store: Store): Model;
+            static typeForRelationship<K extends keyof ModelRegistry>(name: K, store: Store): ModelRegistry[K];
             /**
              * Find the relationship which is the inverse of the one asked for.
              */
-            static inverseFor(name: string, store: Store): {};
+            static inverseFor<K extends keyof ModelRegistry>(name: K, store: Store): {};
             /**
              * The model's relationships as a map, keyed on the type of the
              * relationship. The value of each entry is an array containing a descriptor
@@ -854,7 +867,7 @@ declare module "ember-data" {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-        Ember.PromiseProxyMixin<PromiseArray<T>> {}
+                Ember.PromiseProxyMixin<PromiseArray<T>> {}
         class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -865,7 +878,7 @@ declare module "ember-data" {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-        Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
+                Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
         class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
@@ -885,7 +898,7 @@ declare module "ember-data" {
              */
             createRecord(inputProperties?: {}): T;
         }
-        class SnapshotRecordArray {
+        class SnapshotRecordArray<K extends keyof ModelRegistry> {
             /**
              * Number of records in the array
              */
@@ -905,13 +918,13 @@ declare module "ember-data" {
             /**
              * The type of the underlying records for the snapshots in the array, as a DS.Model
              */
-            type: Model;
+            type: ModelRegistry[K];
             /**
              * Get snapshots of the underlying record array
              */
             snapshots(): any[];
         }
-        class Snapshot {
+        class Snapshot<K extends keyof ModelRegistry = ''> {
             /**
              * The underlying record for this snapshot. Can be used to access methods and
              * properties defined on the record.
@@ -928,11 +941,11 @@ declare module "ember-data" {
             /**
              * The name of the type of the underlying record for this snapshot, as a string.
              */
-            modelName: string;
+            modelName: K;
             /**
              * The type of the underlying record for this snapshot, as a DS.Model.
              */
-            type: Model;
+            type: ModelRegistry[K];
             /**
              * Returns the value of an attribute.
              */
@@ -951,7 +964,7 @@ declare module "ember-data" {
             belongsTo(
                 keyName: string,
                 options?: {}
-            ): Snapshot | string | null | undefined;
+            ): Snapshot<K> | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
@@ -971,6 +984,7 @@ declare module "ember-data" {
              */
             serialize(options: {}): {};
         }
+
         /**
          * The store contains all of the data for records loaded from the server.
          * It is also responsible for creating instances of `DS.Model` that wrap
@@ -988,10 +1002,10 @@ declare module "ember-data" {
              * Create a new record in the current store. The properties passed
              * to this method are set on the newly created record.
              */
-            createRecord<T extends Model>(
-                modelName: string,
+            createRecord<K extends keyof ModelRegistry>(
+                modelName: K,
                 inputProperties?: {}
-            ): T;
+            ): ModelRegistry[K];
             /**
              * For symmetry, a record can be deleted via the store.
              */
@@ -1004,83 +1018,86 @@ declare module "ember-data" {
             /**
              * This method returns a record for a given type and id combination.
              */
-            findRecord<T extends Model>(
-                modelName: string,
+            findRecord<K extends keyof ModelRegistry>(
+                modelName: K,
                 id: string | number,
                 options?: {}
-            ): PromiseObject<T> & T;
+            ): PromiseObject<ModelRegistry[K]> & ModelRegistry[K];
             /**
              * Get the reference for the specified record.
              */
-            getReference<T extends Model>(
-                modelName: string,
+            getReference<K extends keyof ModelRegistry>(
+                modelName: K,
                 id: string | number
-            ): RecordReference<T>;
+            ): RecordReference<ModelRegistry[K]>;
             /**
              * Get a record by a given type and ID without triggering a fetch.
              */
-            peekRecord<T extends Model>(
-                modelName: string,
+            peekRecord<K extends keyof ModelRegistry>(
+                modelName: K,
                 id: string | number
-            ): T | null;
+            ): ModelRegistry[K] | null;
             /**
              * This method returns true if a record for a given modelName and id is already
              * loaded in the store. Use this function to know beforehand if a findRecord()
              * will result in a request or that it will be a cache hit.
              */
-            hasRecordForId(modelName: string, id: string | number): boolean;
+            hasRecordForId<K extends keyof ModelRegistry>(
+                modelName: K,
+                id: string | number
+            ): boolean;
             /**
              * This method delegates a query to the adapter. This is the one place where
              * adapter-level semantics are exposed to the application.
              */
-            query<T extends Model>(
-                modelName: string,
+            query<K extends keyof ModelRegistry>(
+                modelName: K,
                 query: any
-            ): AdapterPopulatedRecordArray<T> & PromiseArray<T>;
+            ): AdapterPopulatedRecordArray<ModelRegistry[K]> & PromiseArray<ModelRegistry[K]>;
             /**
              * This method makes a request for one record, where the `id` is not known
              * beforehand (if the `id` is known, use [`findRecord`](#method_findRecord)
              * instead).
              */
-            queryRecord<T extends Model>(
-                modelName: string,
+            queryRecord<K extends keyof ModelRegistry>(
+                modelName: K,
                 query: any
-            ): RSVP.Promise<T>;
+            ): RSVP.Promise<ModelRegistry[K]>;
             /**
              * `findAll` asks the adapter's `findAll` method to find the records for the
              * given type, and returns a promise which will resolve with all records of
              * this type present in the store, even if the adapter only returns a subset
              * of them.
              */
-            findAll<T extends Model>(
-                modelName: string,
+            findAll<K extends keyof ModelRegistry>(
+                modelName: K,
                 options?: {
                     reload?: boolean;
                     backgroundReload?: boolean;
                     include?: string;
                     adapterOptions?: any;
                 }
-            ): PromiseArray<T>;
+            ): PromiseArray<ModelRegistry[K]>;
             /**
              * This method returns a filtered array that contains all of the
              * known records for a given type in the store.
              */
-            peekAll<T extends Model>(modelName: string): RecordArray<T>;
+            peekAll<K extends keyof ModelRegistry>(modelName: K): RecordArray<ModelRegistry[K]>;
             /**
              * This method unloads all records in the store.
              * It schedules unloading to happen during the next run loop.
              */
-            unloadAll(modelName: string): void;
+            unloadAll<K extends keyof ModelRegistry>(modelName: K): void;
             /**
              * DEPRECATED:
              * This method has been deprecated and is an alias for store.hasRecordForId, which should
              * be used instead.
              */
-            recordIsLoaded(modelName: string, id: string): boolean;
+            recordIsLoaded<K extends keyof ModelRegistry>(modelName: K, id: string): boolean;
             /**
              * Returns the model class for the particular `modelName`.
              */
-            modelFor<M extends Model>(modelName: string): M;
+            modelFor<K extends keyof ModelRegistry>(modelName: K): ModelRegistry[K];
             /**
              * Push some data for a given type into the store.
              */
@@ -1088,25 +1105,25 @@ declare module "ember-data" {
             /**
              * Push some raw data into the store.
              */
-            pushPayload(modelName: string, inputPayload: {}): any;
+            pushPayload<K extends keyof ModelRegistry>(modelName: K, inputPayload: {}): any;
             pushPayload(inputPayload: {}): any;
             /**
              * `normalize` converts a json payload into the normalized form that
              * [push](#method_push) expects.
              */
-            normalize(modelName: string, payload: {}): {};
+            normalize<K extends keyof ModelRegistry>(modelName: K, payload: {}): {};
             /**
              * Returns an instance of the adapter for a given type. For
              * example, `adapterFor('person')` will return an instance of
              * `App.PersonAdapter`.
              */
-            adapterFor<A extends Adapter>(modelName: string): A;
+            adapterFor<K extends keyof AdapterRegistry>(modelName: K): AdapterRegistry[K];
             /**
              * Returns an instance of the serializer for a given type. For
              * example, `serializerFor('person')` will return an instance of
              * `App.PersonSerializer`.
              */
-            serializerFor<S extends Serializer>(modelName: string): S;
+            serializerFor<K extends keyof SerializerRegistry>(modelName: K): SerializerRegistry[K];
         }
         /**
          * The `JSONAPIAdapter` is the default adapter used by Ember Data. It
@@ -1132,7 +1149,11 @@ declare module "ember-data" {
             /**
              * Takes a URL, an HTTP method and a hash of data, and makes an HTTP request.
              */
-            ajax(url: string, type: string, options?: object): RSVP.Promise<any>;
+            ajax(
+                url: string,
+                type: string,
+                options?: object
+            ): RSVP.Promise<any>;
             /**
              * Generate ajax options
              */
@@ -1170,38 +1191,42 @@ declare module "ember-data" {
              * Called by the store in order to fetch the JSON for a given
              * type and ID.
              */
-            findRecord(
+            findRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 id: string,
-                snapshot: Snapshot
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for all
              * of the records for a given type.
              */
-            findAll(
+            findAll<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 sinceToken: string,
-                snapshotRecordArray: SnapshotRecordArray
+                snapshotRecordArray: SnapshotRecordArray<K>
             ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON array for
              * the records that match a particular query.
              */
-            query(store: Store, type: Model, query: {}): RSVP.Promise<any>;
+            query<K extends keyof ModelRegistry>(store: Store, type: ModelRegistry[K], query: {}): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch a JSON object for
              * the record that matches a particular query.
              */
-            queryRecord(store: Store, type: Model, query: {}): RSVP.Promise<any>;
+            queryRecord<K extends keyof ModelRegistry>(
+                store: Store,
+                type: ModelRegistry[K],
+                query: {}
+            ): RSVP.Promise<any>;
             /**
              * Called by the store in order to fetch several records together if `coalesceFindRequests` is true
              */
-            findMany(
+            findMany<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 ids: any[],
                 snapshots: any[]
             ): RSVP.Promise<any>;
@@ -1210,9 +1235,9 @@ declare module "ember-data" {
              * the unloaded records in a has-many relationship that were originally
              * specified as a URL (inside of `links`).
              */
-            findHasMany(
+            findHasMany<K extends keyof ModelRegistry>(
                 store: Store,
-                snapshot: Snapshot,
+                snapshot: Snapshot<K>,
                 url: string,
                 relationship: {}
             ): RSVP.Promise<any>;
@@ -1221,36 +1246,36 @@ declare module "ember-data" {
              * belongs-to relationship that was originally specified as a URL (inside of
              * `links`).
              */
-            findBelongsTo(
+            findBelongsTo<K extends keyof ModelRegistry>(
                 store: Store,
-                snapshot: Snapshot,
+                snapshot: Snapshot<K>,
                 url: string
             ): RSVP.Promise<any>;
             /**
              * Called by the store when a newly created record is
              * saved via the `save` method on a model record instance.
              */
-            createRecord(
+            createRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
-                snapshot: Snapshot
+                type: ModelRegistry[K],
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * Called by the store when an existing record is saved
              * via the `save` method on a model record instance.
              */
-            updateRecord(
+            updateRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
-                snapshot: Snapshot
+                type: ModelRegistry[K],
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * Called by the store when a record is deleted.
              */
-            deleteRecord(
+            deleteRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
-                snapshot: Snapshot
+                type: ModelRegistry[K],
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * Organize records into groups, each of which is to be passed to separate
@@ -1295,89 +1320,89 @@ declare module "ember-data" {
             /**
              * Builds a URL for a given type and optional ID.
              */
-            buildURL(
-                modelName?: string,
+            buildURL<K extends keyof ModelRegistry>(
+                modelName?: K,
                 id?: string | any[] | {} | null,
-                snapshot?: Snapshot | any[] | null,
+                snapshot?: Snapshot<K> | any[] | null,
                 requestType?: string,
                 query?: {}
             ): string;
             /**
              * Builds a URL for a `store.findRecord(type, id)` call.
              */
-            urlForFindRecord(
+            urlForFindRecord<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for a `store.findAll(type)` call.
              */
-            urlForFindAll(
-                modelName: string,
-                snapshot: SnapshotRecordArray
+            urlForFindAll<K extends keyof ModelRegistry>(
+                modelName: K,
+                snapshot: SnapshotRecordArray<K>
             ): string;
             /**
              * Builds a URL for a `store.query(type, query)` call.
              */
-            urlForQuery(query: {}, modelName: string): string;
+            urlForQuery<K extends keyof ModelRegistry>(query: {}, modelName: K): string;
             /**
              * Builds a URL for a `store.queryRecord(type, query)` call.
              */
-            urlForQueryRecord(query: {}, modelName: string): string;
+            urlForQueryRecord<K extends keyof ModelRegistry>(query: {}, modelName: K): string;
             /**
              * Builds a URL for coalesceing multiple `store.findRecord(type, id)`
              * records into 1 request when the adapter's `coalesceFindRequests`
              * property is true.
              */
-            urlForFindMany(
+            urlForFindMany<K extends keyof ModelRegistry>(
                 ids: any[],
-                modelName: string,
+                modelName: K,
                 snapshots: any[]
             ): string;
             /**
              * Builds a URL for fetching a async hasMany relationship when a url
              * is not provided by the server.
              */
-            urlForFindHasMany(
+            urlForFindHasMany<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for fetching a async belongsTo relationship when a url
              * is not provided by the server.
              */
-            urlForFindBelongsTo(
+            urlForFindBelongsTo<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for a `record.save()` call when the record was created
              * locally using `store.createRecord()`.
              */
-            urlForCreateRecord(modelName: string, snapshot: Snapshot): string;
+            urlForCreateRecord<K extends keyof ModelRegistry>(modelName: K, snapshot: Snapshot<K>): string;
             /**
              * Builds a URL for a `record.save()` call when the record has been update locally.
              */
-            urlForUpdateRecord(
+            urlForUpdateRecord<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Builds a URL for a `record.save()` call when the record has been deleted locally.
              */
-            urlForDeleteRecord(
+            urlForDeleteRecord<K extends keyof ModelRegistry>(
                 id: string,
-                modelName: string,
-                snapshot: Snapshot
+                modelName: K,
+                snapshot: Snapshot<K>
             ): string;
             /**
              * Determines the pathname for a given type.
              */
-            pathForType(modelName: string): string;
+            pathForType<K extends keyof ModelRegistry>(modelName: K): string;
         }
         /**
          * ## Using Embedded Records
@@ -1391,16 +1416,16 @@ declare module "ember-data" {
             /**
              * Serialize `belongsTo` relationship when it is configured as an embedded object.
              */
-            serializeBelongsTo(
-                snapshot: Snapshot,
+            serializeBelongsTo<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 json: {},
                 relationship: {}
             ): any;
             /**
              * Serializes `hasMany` relationships when it is configured as embedded objects.
              */
-            serializeHasMany(
-                snapshot: Snapshot,
+            serializeHasMany<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 json: {},
                 relationship: {}
             ): any;
@@ -1408,9 +1433,9 @@ declare module "ember-data" {
              * When serializing an embedded record, modify the property (in the json payload)
              * that refers to the parent record (foreign key for relationship).
              */
-            removeEmbeddedForeignKey(
-                snapshot: Snapshot,
-                embeddedSnapshot: Snapshot,
+            removeEmbeddedForeignKey<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
+                embeddedSnapshot: Snapshot<K>,
                 relationship: {},
                 json: {}
             ): any;
@@ -1428,7 +1453,7 @@ declare module "ember-data" {
             /**
              * Converts the model name to a pluralized version of the model name.
              */
-            payloadKeyFromModelName(modelName: string): string;
+            payloadKeyFromModelName<K extends keyof ModelRegistry>(modelName: K): string;
             /**
              * `keyForAttribute` can be used to define rules for how to convert an
              * attribute name in your model to a key in your JSON.
@@ -1458,7 +1483,7 @@ declare module "ember-data" {
              * `payloadTypeFromModelName` can be used to change the mapping for the type in
              * the payload, taken from the model name.
              */
-            payloadTypeFromModelName(modelname: string): string;
+            payloadTypeFromModelName<K extends keyof ModelRegistry>(modelName: K): string;
         }
         /**
          * Ember Data 2.0 Serializer:
@@ -1620,8 +1645,8 @@ declare module "ember-data" {
             /**
              * Check if the given hasMany relationship should be serialized
              */
-            shouldSerializeHasMany(
-                snapshot: Snapshot,
+            shouldSerializeHasMany<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 key: string,
                 relationshipType: string
             ): boolean;
@@ -1629,7 +1654,7 @@ declare module "ember-data" {
              * Called when a record is saved in order to convert the
              * record into JSON.
              */
-            serialize(snapshot: Snapshot, options: {}): {};
+            serialize<K extends keyof ModelRegistry>(snapshot: Snapshot<K>, options: {}): {};
             /**
              * You can use this method to customize how a serialized record is added to the complete
              * JSON hash to be sent to the server. By default the JSON Serializer does not namespace
@@ -1638,18 +1663,18 @@ declare module "ember-data" {
              * Otherwise you can override this method to customize how the record is added to the hash.
              * The hash property should be modified by reference.
              */
-            serializeIntoHash(
+            serializeIntoHash<K extends keyof ModelRegistry>(
                 hash: {},
-                typeClass: Model,
-                snapshot: Snapshot,
+                typeClass: ModelRegistry[K],
+                snapshot: Snapshot<K>,
                 options?: {}
             ): any;
             /**
              * `serializeAttribute` can be used to customize how `DS.attr`
              * properties are serialized
              */
-            serializeAttribute(
-                snapshot: Snapshot,
+            serializeAttribute<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 json: {},
                 key: string,
                 attribute: {}
@@ -1658,8 +1683,8 @@ declare module "ember-data" {
              * `serializeBelongsTo` can be used to customize how `DS.belongsTo`
              * properties are serialized.
              */
-            serializeBelongsTo(
-                snapshot: Snapshot,
+            serializeBelongsTo<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 json: {},
                 relationship: {}
             ): any;
@@ -1667,8 +1692,8 @@ declare module "ember-data" {
              * `serializeHasMany` can be used to customize how `DS.hasMany`
              * properties are serialized.
              */
-            serializeHasMany(
-                snapshot: Snapshot,
+            serializeHasMany<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 json: {},
                 relationship: {}
             ): any;
@@ -1678,8 +1703,8 @@ declare module "ember-data" {
              * `{ polymorphic: true }` is pass as the second argument to the
              * `DS.belongsTo` function.
              */
-            serializePolymorphicType(
-                snapshot: Snapshot,
+            serializePolymorphicType<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 json: {},
                 relationship: {}
             ): any;
@@ -1726,7 +1751,7 @@ declare module "ember-data" {
              * serializeId can be used to customize how id is serialized
              * For example, your server may expect integer datatype of id
              */
-            serializeId(snapshot: Snapshot, json: {}, primaryKey: string): any;
+            serializeId<K extends keyof ModelRegistry>(snapshot: Snapshot<K>, json: {}, primaryKey: string): any;
         }
         /**
          * Normally, applications will use the `RESTSerializer` by implementing
@@ -1764,17 +1789,17 @@ declare module "ember-data" {
              * Called when a record is saved in order to convert the
              * record into JSON.
              */
-            serialize(snapshot: Snapshot, options: {}): {};
+            serialize<K extends keyof ModelRegistry>(snapshot: Snapshot<K>, options: {}): {};
             /**
              * You can use this method to customize the root keys serialized into the JSON.
              * The hash property should be modified by reference (possibly using something like _.extend)
              * By default the REST Serializer sends the modelName of a model, which is a camelized
              * version of the name.
              */
-            serializeIntoHash(
+            serializeIntoHash<K extends keyof ModelRegistry>(
                 hash: {},
                 typeClass: Model,
-                snapshot: Snapshot,
+                snapshot: Snapshot<K>,
                 options?: {}
             ): any;
             /**
@@ -1782,14 +1807,14 @@ declare module "ember-data" {
              * request. By default, the RESTSerializer returns a camelized version of the
              * model's name.
              */
-            payloadKeyFromModelName(modelName: string): string;
+            payloadKeyFromModelName<K extends keyof ModelRegistry>(modelName: K): string;
             /**
              * You can use this method to customize how polymorphic objects are serialized.
              * By default the REST Serializer creates the key by appending `Type` to
              * the attribute and value from the model's camelcased model name.
              */
-            serializePolymorphicType(
-                snapshot: Snapshot,
+            serializePolymorphicType<K extends keyof ModelRegistry>(
+                snapshot: Snapshot<K>,
                 json: {},
                 relationship: {}
             ): any;
@@ -1811,7 +1836,7 @@ declare module "ember-data" {
              * `payloadTypeFromModelName` can be used to change the mapping for the type in
              * the payload, taken from the model name.
              */
-            payloadTypeFromModelName(modelName: string): string;
+            payloadTypeFromModelName<K extends keyof ModelRegistry>(modelName: K): string;
         }
         /**
          * The `DS.BooleanTransform` class is used to serialize and deserialize
@@ -1883,27 +1908,27 @@ declare module "ember-data" {
              * method should return a promise that will resolve to a JavaScript object that will be
              * normalized by the serializer.
              */
-            findRecord(
+            findRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 id: string,
-                snapshot: Snapshot
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * The `findAll()` method is used to retrieve all records for a given type.
              */
-            findAll(
+            findAll<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 sinceToken: string,
-                snapshotRecordArray: SnapshotRecordArray
+                snapshotRecordArray: SnapshotRecordArray<K>
             ): RSVP.Promise<any>;
             /**
              * This method is called when you call `query` on the store.
              */
-            query(
+            query<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 query: {},
                 recordArray: AdapterPopulatedRecordArray<any>
             ): RSVP.Promise<any>;
@@ -1911,48 +1936,52 @@ declare module "ember-data" {
              * The `queryRecord()` method is invoked when the store is asked for a single
              * record through a query object.
              */
-            queryRecord(store: Store, type: Model, query: {}): RSVP.Promise<any>;
+            queryRecord<K extends keyof ModelRegistry>(
+                store: Store,
+                type: ModelRegistry[K],
+                query: {}
+            ): RSVP.Promise<any>;
             /**
              * If the globally unique IDs for your records should be generated on the client,
              * implement the `generateIdForRecord()` method. This method will be invoked
              * each time you create a new record, and the value returned from it will be
              * assigned to the record's `primaryKey`.
              */
-            generateIdForRecord(
+            generateIdForRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 inputProperties: {}
             ): string | number;
             /**
              * Proxies to the serializer's `serialize` method.
              */
-            serialize(snapshot: Snapshot, options: {}): {};
+            serialize<K extends keyof ModelRegistry>(snapshot: Snapshot<K>, options: {}): {};
             /**
              * Implement this method in a subclass to handle the creation of
              * new records.
              */
-            createRecord(
+            createRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
-                snapshot: Snapshot
+                type: ModelRegistry[K],
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * Implement this method in a subclass to handle the updating of
              * a record.
              */
-            updateRecord(
+            updateRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
-                snapshot: Snapshot
+                type: ModelRegistry[K],
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * Implement this method in a subclass to handle the deletion of
              * a record.
              */
-            deleteRecord(
+            deleteRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
-                snapshot: Snapshot
+                type: ModelRegistry[K],
+                snapshot: Snapshot<K>
             ): RSVP.Promise<any>;
             /**
              * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
@@ -1966,9 +1995,9 @@ declare module "ember-data" {
              * requests to find multiple records at once if coalesceFindRequests
              * is true.
              */
-            findMany(
+            findMany<K extends keyof ModelRegistry>(
                 store: Store,
-                type: Model,
+                type: ModelRegistry[K],
                 ids: any[],
                 snapshots: any[]
             ): RSVP.Promise<any>;
@@ -1982,33 +2011,33 @@ declare module "ember-data" {
              * reload a record from the adapter when a record is requested by
              * `store.findRecord`.
              */
-            shouldReloadRecord(store: Store, snapshot: Snapshot): boolean;
+            shouldReloadRecord<K extends keyof ModelRegistry>(store: Store, snapshot: Snapshot<K>): boolean;
             /**
              * This method is used by the store to determine if the store should
              * reload all records from the adapter when records are requested by
              * `store.findAll`.
              */
-            shouldReloadAll(
+            shouldReloadAll<K extends keyof ModelRegistry>(
                 store: Store,
-                snapshotRecordArray: SnapshotRecordArray
+                snapshotRecordArray: SnapshotRecordArray<K>
             ): boolean;
             /**
              * This method is used by the store to determine if the store should
              * reload a record after the `store.findRecord` method resolves a
              * cached record.
              */
-            shouldBackgroundReloadRecord(
+            shouldBackgroundReloadRecord<K extends keyof ModelRegistry>(
                 store: Store,
-                snapshot: Snapshot
+                snapshot: Snapshot<K>
             ): boolean;
             /**
              * This method is used by the store to determine if the store should
              * reload a record array after the `store.findAll` method resolves
              * with a cached record array.
              */
-            shouldBackgroundReloadAll(
+            shouldBackgroundReloadAll<K extends keyof ModelRegistry>(
                 store: Store,
-                snapshotRecordArray: SnapshotRecordArray
+                snapshotRecordArray: SnapshotRecordArray<K>
             ): boolean;
         }
         /**
@@ -2038,7 +2067,7 @@ declare module "ember-data" {
              * The `serialize` method is used when a record is saved in order to convert
              * the record into the form that your external data source expects.
              */
-            serialize(snapshot: Snapshot, options: {}): {};
+            serialize<K extends keyof ModelRegistry>(snapshot: Snapshot<K>, options: {}): {};
             /**
              * The `normalize` method is used to convert a payload received from your
              * external data source into the normalized form `store.push()` expects. You
@@ -2048,11 +2077,12 @@ declare module "ember-data" {
             normalize(typeClass: Model, hash: {}): {};
         }
     }
+
     export default DS;
 }
 
-declare module "ember" {
-    import DS from "ember-data";
+declare module 'ember' {
+    import DS from 'ember-data';
     namespace Ember {
         /*
 		* The store is automatically injected into these objects
@@ -2071,89 +2101,89 @@ declare module "ember" {
     }
 }
 declare module 'ember-data/adapter' {
-	import DS from 'ember-data';
-	export default DS.Adapter;
+    import DS from 'ember-data';
+    export default DS.Adapter;
 }
 declare module 'ember-data/adapters/errors' {
-	import DS from 'ember-data';
-	const AdapterError: typeof DS.AdapterError;
-	const InvalidError: typeof DS.InvalidError;
-	const UnauthorizedError: typeof DS.UnauthorizedError;
-	const ForbiddenError: typeof DS.ForbiddenError;
-	const NotFoundError: typeof DS.NotFoundError;
-	const ConflictError: typeof DS.ConflictError;
-	const ServerError: typeof DS.ServerError;
-	const TimeoutError: typeof DS.TimeoutError;
-	const AbortError: typeof DS.AbortError;
-	const errorsHashToArray: typeof DS.errorsHashToArray;
-	const errorsArrayToHash: typeof DS.errorsArrayToHash;
+    import DS from 'ember-data';
+    const AdapterError: typeof DS.AdapterError;
+    const InvalidError: typeof DS.InvalidError;
+    const UnauthorizedError: typeof DS.UnauthorizedError;
+    const ForbiddenError: typeof DS.ForbiddenError;
+    const NotFoundError: typeof DS.NotFoundError;
+    const ConflictError: typeof DS.ConflictError;
+    const ServerError: typeof DS.ServerError;
+    const TimeoutError: typeof DS.TimeoutError;
+    const AbortError: typeof DS.AbortError;
+    const errorsHashToArray: typeof DS.errorsHashToArray;
+    const errorsArrayToHash: typeof DS.errorsArrayToHash;
 }
 declare module 'ember-data/adapters/json-api' {
-	import DS from 'ember-data';
-	export default DS.JSONAPIAdapter;
+    import DS from 'ember-data';
+    export default DS.JSONAPIAdapter;
 }
 declare module 'ember-data/adapters/rest' {
-	import DS from 'ember-data';
-	export default DS.RESTAdapter;
+    import DS from 'ember-data';
+    export default DS.RESTAdapter;
 }
 declare module 'ember-data/attr' {
-	import DS from 'ember-data';
-	export default DS.attr;
+    import DS from 'ember-data';
+    export default DS.attr;
 }
 declare module 'ember-data/model' {
-	import DS from 'ember-data';
-	export default DS.Model;
+    import DS from 'ember-data';
+    export default DS.Model;
 }
 declare module 'ember-data/relationships' {
-	import DS from 'ember-data';
-	const hasMany: typeof DS.hasMany;
-	const belongsTo: typeof DS.belongsTo;
+    import DS from 'ember-data';
+    const hasMany: typeof DS.hasMany;
+    const belongsTo: typeof DS.belongsTo;
 }
 declare module 'ember-data/serializer' {
-	import DS from 'ember-data';
-	export default DS.Serializer;
+    import DS from 'ember-data';
+    export default DS.Serializer;
 }
 declare module 'ember-data/serializers/embedded-records-mixin' {
-	import DS from 'ember-data';
-	export default DS.EmbeddedRecordsMixin;
+    import DS from 'ember-data';
+    export default DS.EmbeddedRecordsMixin;
 }
 declare module 'ember-data/serializers/json-api' {
-	import DS from 'ember-data';
-	export default DS.JSONAPISerializer;
+    import DS from 'ember-data';
+    export default DS.JSONAPISerializer;
 }
 declare module 'ember-data/serializers/json' {
-	import DS from 'ember-data';
-	export default DS.JSONSerializer;
+    import DS from 'ember-data';
+    export default DS.JSONSerializer;
 }
 declare module 'ember-data/serializers/rest' {
-	import DS from 'ember-data';
-	export default DS.RESTSerializer;
+    import DS from 'ember-data';
+    export default DS.RESTSerializer;
 }
-declare module "ember-data/store" {
-    import DS from "ember-data";
+declare module 'ember-data/store' {
+    import DS from 'ember-data';
     export default DS.Store;
 }
-declare module "ember-data/transform" {
-    import DS from "ember-data";
+declare module 'ember-data/transform' {
+    import DS from 'ember-data';
     export default DS.Transform;
 }
-declare module "ember-data/transforms/boolean" {
-    import DS from "ember-data";
+declare module 'ember-data/transforms/boolean' {
+    import DS from 'ember-data';
     export default DS.BooleanTransform;
 }
-declare module "ember-data/transforms/date" {
-    import DS from "ember-data";
+declare module 'ember-data/transforms/date' {
+    import DS from 'ember-data';
     export default DS.DateTransform;
 }
-declare module "ember-data/transforms/number" {
-    import DS from "ember-data";
+declare module 'ember-data/transforms/number' {
+    import DS from 'ember-data';
     export default DS.NumberTransform;
 }
-declare module "ember-data/transforms/string" {
-    import DS from "ember-data";
+declare module 'ember-data/transforms/string' {
+    import DS from 'ember-data';
     export default DS.StringTransform;
 }
-declare module "ember-data/transforms/transform" {
-    import DS from "ember-data";
+declare module 'ember-data/transforms/transform' {
+    import DS from 'ember-data';
     export default DS.Transform;
 }
