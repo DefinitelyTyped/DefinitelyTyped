@@ -1,7 +1,7 @@
 /** Tests taken from https://github.com/pgilad/gulp-sort#usage */
 
 import * as gulp from 'gulp';
-import * as sort from 'gulp-sort';
+import sort = require('gulp-sort');
 import * as gulpUtil from 'gulp-util';
 
 // default sort
