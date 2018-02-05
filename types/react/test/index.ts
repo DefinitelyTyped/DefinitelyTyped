@@ -144,6 +144,9 @@ const StatelessComponent3: React.SFC<SCProps> =
 // allows null as props
 const StatelessComponent4: React.SFC = props => null;
 
+// allows string as return value
+const StatelessComponent5: React.SFC = props => "string";
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
