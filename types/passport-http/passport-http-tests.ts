@@ -2,8 +2,8 @@
  * Created by Christophe Vidal <https://github.com/krizalys>
  */
 
-import * as passport from "passport";
-import * as http from "passport-http";
+import passport = require("passport");
+import http = require("passport-http");
 
 interface UserInterface {
     username: string;
@@ -62,7 +62,7 @@ passport.use(new http.BasicStrategy({
 }));
 
 passport.use(new http.DigestStrategy((username: string, done: any) => {
-    User.findOne({username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -76,7 +76,7 @@ passport.use(new http.DigestStrategy((username: string, done: any) => {
 }));
 
 passport.use(new http.DigestStrategy((username: string, done: any) => {
-    User.findOne({username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -99,7 +99,7 @@ passport.use(new http.DigestStrategy({
     algorithm: "MD5",
     qop: "auth",
 }, (username: string, done: any) => {
-    User.findOne({username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -119,7 +119,7 @@ passport.use(new http.DigestStrategy({
     algorithm: "MD5",
     qop: "auth",
 }, (username: string, done: any) => {
-    User.findOne({username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }
