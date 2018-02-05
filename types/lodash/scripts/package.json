@@ -9,5 +9,6 @@
     "lodash": "^4.17.4",
     "ts-node": "^4.1.0",
     "typescript": "^2.7.1"
-  }
+  },
+  "dependencies": {}
 }

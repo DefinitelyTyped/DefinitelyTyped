@@ -1,8 +1,15 @@
 import * as fs from "fs";
-import { ary, cloneDeep, flatMap, isEqual, pull, remove, union, uniqWith, without } from "lodash";
+import { ary, cloneDeep, flatMap, isEqual, pull, remove, trim, union, uniqWith, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
+import * as some from "lodash/fp/some";
+import { writeFile } from "fs";
 
+interface Definition {
+    name: string;
+    overloads: Overload[];
+    tsdoc: string;
+}
 interface Interface {
     name: string;
     typeParams: TypeParam[];
@@ -16,6 +23,129 @@ interface Overload {
 interface TypeParam {
     name: string;
     extends?: string;
+    equals?: string;
+}
+
+async function main() {
+    try {
+        const common = await readFile("../common/common.d.ts");
+        const commonTypes: string[] = [];
+        const typeRegExp = /    (?:type|interface) +([A-Za-z0-9]+)/g;
+        let match = typeRegExp.exec(common);
+        while (match) {
+            commonTypes.push(match[1]);
+            match = typeRegExp.exec(common);
+        }
+
+        const someDef = await parseFile("../collection/some.d.ts");
+        const builder = {
+            some: ary((...args: number[]) => {
+                const interfaces = curryOverloads(someDef.overloads, someDef.name, args);
+                return interfaces.map(interfaceToString).join("\n");
+            }, 2),//TODO: is ary needed?
+        }
+
+        const builderFp = convert(builder);
+
+        let output: string = builderFp.some(0, 1);
+        output = output.replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
+        output =
+`import _ = require("../index");
+
+declare namespace Lodash {
+${tab(output, 1)}
+}
+
+declare const some: Lodash.Some;
+export = some;
+`
+        fs.writeFile("../fp/some.d.ts", output, (err) => {
+            if (err)
+                console.error(`failed to write file: ../fp/some.d.ts`, err);
+        });
+    } catch (e) {
+        console.error("failed to parse file: ", e);
+    }
+}
+
+function readFile(filePath: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        fs.readFile(filePath, "utf8", (err, data) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            try {
+                resolve(data);
+            } catch (e) {
+                reject(e);
+            }
+        });
+    });
+}
+
+async function parseFile(filePath: string): Promise<Definition> {
+    const name = path.basename(filePath, ".d.ts");
+    const data = await readFile(filePath);
+    return parseDefinition(name, data);
+}
+
+function parseDefinition(name: string, definitionString: string): Definition {
+    const tsdocStartIndex = definitionString.indexOf("/**");
+    const tsdocEndIndex = definitionString.indexOf("*/", tsdocStartIndex);
+    const definition: Definition = { name, overloads: [], tsdoc: "" };
+    if (tsdocStartIndex !== -1 && tsdocEndIndex !== -1) {
+        definition.tsdoc = definitionString.substring(tsdocStartIndex, tsdocEndIndex + 2);
+    }
+    let overloadIndex = definitionString.indexOf(name);
+    let wrapperIndex = definitionString.indexOf("Wrapper<");
+    if (wrapperIndex === -1)
+        wrapperIndex = definitionString.length;
+
+    while (overloadIndex !== -1 && overloadIndex < wrapperIndex) {
+        const paramStartIndex = definitionString.indexOf("(", overloadIndex);
+        const returnTypeEndIndex = definitionString.indexOf(";", paramStartIndex);
+        if (returnTypeEndIndex !== -1) {
+            if (paramStartIndex !== -1) {
+                const overload: Overload = { typeParams: [], params: [], returnType: "" };
+                const typeParamStartIndex = definitionString.indexOf("<", overloadIndex);
+                if (typeParamStartIndex !== -1 && typeParamStartIndex < paramStartIndex) {
+                    const typeParamEndIndex = definitionString.indexOf(">", typeParamStartIndex);
+                    if (typeParamEndIndex !== -1 && typeParamEndIndex < paramStartIndex) {
+                        overload.typeParams = definitionString
+                            .substring(typeParamStartIndex + 1, typeParamEndIndex)
+                            .split(",")
+                            .map((tpString): TypeParam => {
+                                const typeParam: TypeParam = { name: tpString };
+                                let parts = tpString.split("=");
+                                if (parts[1])
+                                    typeParam.equals = parts[1].trim();
+                                parts = tpString.split("extends");
+                                if (parts[1])
+                                    typeParam.extends = parts[1].trim();
+                                typeParam.name = parts[0].trim();
+                                return typeParam;
+                            });
+                    }
+                }
+                const paramEndIndex = definitionString.indexOf("):", paramStartIndex);
+                if (paramEndIndex !== -1) {
+                    overload.params = definitionString.substring(paramStartIndex + 1, paramEndIndex).split(/,(?=[^,]+:)/g).map(trim).filter(o => !!o);
+                    overload.returnType = definitionString.substring(paramEndIndex + 2, returnTypeEndIndex).trim();
+                    definition.overloads.push(overload);
+                } else {
+                    console.warn(`Failed to find parameter end position in overload for ${name}.`);
+                }
+            } else {
+                console.warn(`Failed to find parameter start position in overload for ${name}.`);
+            }
+            overloadIndex = definitionString.indexOf(name, returnTypeEndIndex);
+        } else {
+            console.warn(`Failed to find return type end position (semicolon) in overload for ${name}.`);
+            overloadIndex = definitionString.indexOf(name, overloadIndex + 1);
+        }
+    }
+    return definition;
 }
 
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[]): Interface[] {
@@ -56,7 +186,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
             }
         }
         pull(mainInterface.overloads, ...others);
-        pull(overloads, ...others);
+        pull(conflictingOverloads, ...others);
     }
     return interfaces;
 }
@@ -85,7 +215,7 @@ function capCallback(parameter: string): string {
 }
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {
-    const baseName = functionName[0].toUpperCase() + functionName.substr(1);
+    const baseName = functionName[0].toUpperCase() + functionName.substring(1);
     let output = "";
     if (overload.params.length === 0) {
         // Nothing to curry. Just use a basic function type.
@@ -208,66 +338,9 @@ function typeParamsToString(typeParams: TypeParam[], includeConstraints = true):
     return typeParams.length > 0 ? `<${typeParams.map(tp => tp.name + (includeConstraints && tp.extends ? " extends " + tp.extends : "")).join(", ")}>` : "";
 }
 
-const builder = {
-    some: ary((...args: number[]) => {
-        const name = "some";
-        const overloads: Overload[] = [
-            {
-                typeParams: [{ name: "T" }],
-                params: [
-                    "collection: List<T> | null | undefined",
-                    "predicate?: ListIterateeCustom<T, boolean>",
-                ],
-                returnType: "boolean",
-            },
-            {
-                typeParams: [{ name: "T", extends: "object" }],
-                params: [
-                    "collection: T | null | undefined",
-                    "predicate?: ObjectIterateeCustom<T, boolean>",
-                ],
-                returnType: "boolean",
-            },
-        ];
-        const interfaces = curryOverloads(overloads, "some", args);
-        return interfaces.map(interfaceToString).join("\n");
-    }, 2),//TODO: is ary needed?
+function tab(s: string, count: number) {
+    const prepend: string = " ".repeat(count * 4);
+    return prepend + s.replace(/\n(.)/g, `\n${prepend}$1`);
 }
 
-const builderFp = convert(builder);
-
-console.log(builderFp.some(0, 1));
-
-// Temp code for working out what we want...
-type List<T> = ArrayLike<T>;
-type NotVoid = {} | null | undefined;
-type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
-type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
-type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
-type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
-type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
-type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;
-type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
-type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
-type PartialDeep<T> = {
-    [P in keyof T]?: PartialDeep<T[P]>;
-};
-type Dictionary<T> = {
-    [P in string]?: T;
-}
-interface NumericDictionary<T> {
-    [index: number]: T;
-}
-
-interface Some {
-    (): Some;
-    <T>(predicate: ValueIterateeCustom<T, boolean>): Some1x1<T>;
-    <T>(predicate: ValueIterateeCustom<T, boolean>, collection: List<T> | null | undefined): boolean;
-    <T extends object>(predicate: ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): boolean;
-}
-interface Some1x1<T> {
-    (): Some1x1<T>;
-    (collection: List<T> | null | undefined): boolean;
-    (collection: object | null | undefined): boolean;
-}
+main();
