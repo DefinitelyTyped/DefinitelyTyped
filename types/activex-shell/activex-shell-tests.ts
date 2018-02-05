@@ -59,7 +59,7 @@ shell.ShowBrowserBar(Shell32.ExplorerBarCLSID.Favorites, true);
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb774107(v=vs.85).aspx
 const wshShell = new ActiveXObject('WScript.Shell');
-wshShell.Popup(shell.Windows().Count);
+wshShell.Popup(shell.Windows().Count.toString());
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb787866(v=vs.85).aspx
 shell.NameSpace(`c:\\windows`)!.CopyHere('c:\\autoexec.bat');
