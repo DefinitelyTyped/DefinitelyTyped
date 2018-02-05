@@ -1,4 +1,4 @@
-import * as _ from "../index";
+import _ = require("../index");
 declare module "../index" {
     type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
 
