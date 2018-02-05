@@ -1,5 +1,5 @@
-import * as assert from 'assert';
-import * as execa from 'execa';
+import assert = require('assert');
+import execa = require('execa');
 import { PassThrough } from "stream";
 
 execa('unicorns')

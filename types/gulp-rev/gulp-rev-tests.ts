@@ -1,6 +1,3 @@
-
-
-
 import gulp = require('gulp');
 import rev = require('gulp-rev');
 
