@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es2018",
+            "es2017",
             "dom"
         ],
         "noImplicitAny": true,
