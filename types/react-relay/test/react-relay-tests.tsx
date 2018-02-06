@@ -75,6 +75,7 @@ const Story = (() => {
         relay: RelayRefetchProp;
         story: Story_story;
         onLike: StoryLike;
+        ignoreMe?: {};
     }
 
     interface State {
@@ -161,6 +162,7 @@ const Feed = (() => {
         relay: RelayProp;
         feed: FeedStories_feed;
         onStoryLike: StoryLike;
+        ignoreMe?: {};
     }
 
     const FeedStories: React.SFC<Props> = ({ feed, onStoryLike, relay }) => {
@@ -223,6 +225,7 @@ type UserFeed_user = {
         relay: RelayPaginationProp;
         loadMoreTitle: string;
         user: UserFeed_user;
+        ignoreMe?: {};
     }
 
     class UserFeed extends React.Component<Props> {
