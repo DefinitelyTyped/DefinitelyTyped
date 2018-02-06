@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as withSideEffect from "react-side-effect";
+import withSideEffect = require("react-side-effect");
 
 interface DocumentTitleProps {
     title: string
