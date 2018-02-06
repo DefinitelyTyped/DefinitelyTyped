@@ -234,7 +234,7 @@ declare namespace uri {
         withinString(source: string, func: (url: string) => string): string;
     }
 
-    type URITemplateValue = string | string[] | { [key: string] : string } | undefined | null;
+    type URITemplateValue = string | ReadonlyArray<string> | { [key: string] : string } | undefined | null;
     type URITemplateCallback = (keyName: string) => URITemplateValue;
 
     interface URITemplate {
