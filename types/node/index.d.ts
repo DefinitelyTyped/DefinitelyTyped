@@ -1756,11 +1756,11 @@ declare module "https" {
         "servername";
 
     // as many type definitions rely on node, redefine Pick here instead of updating all of them to typescript 2.1
-    type Pick<T, K extends keyof T> = {
+    type PortedPick<T, K extends keyof T> = {
         [P in K]: T[P];
     };
 
-    export type RequestOptions = http.RequestOptions & Pick<tls.ConnectionOptions, extendedRequestKeys>;
+    export type RequestOptions = http.RequestOptions & PortedPick<tls.ConnectionOptions, extendedRequestKeys>;
 
     export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
