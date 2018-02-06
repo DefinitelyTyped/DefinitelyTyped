@@ -1,23 +1,21 @@
 import _ = require("../index");
 
 declare namespace Lodash {
-    interface Conforms {
+    interface ConformsTo {
         /**
-         * Creates a function that invokes the predicate properties of `source` with the corresponding
-         * property values of a given object, returning true if all predicates return truthy, else false.
+         * Checks if object conforms to source by invoking the predicate properties of source with the
+         * corresponding property values of object.
+         *
+         * Note: This method is equivalent to _.conforms when source is partially applied.
          */
-        (): Conforms;
+        (): ConformsTo;
         /**
-         * Creates a function that invokes the predicate properties of `source` with the corresponding
-         * property values of a given object, returning true if all predicates return truthy, else false.
+         * Checks if object conforms to source by invoking the predicate properties of source with the
+         * corresponding property values of object.
+         *
+         * Note: This method is equivalent to _.conforms when source is partially applied.
          */
-        <T>(source: ConformsPredicateObject<T>): (value: T) => boolean;
-    }
-}
-
-declare const conforms: Lodash.Conforms;
-export = conforms;
-Object<T>): ConformsTo1x1<T>;
+        <T>(source: ConformsPredicateObject<T>): ConformsTo1x1<T>;
         /**
          * Checks if object conforms to source by invoking the predicate properties of source with the
          * corresponding property values of object.
@@ -44,5 +42,5 @@ Object<T>): ConformsTo1x1<T>;
     }
 }
 
-declare const conforms: Lodash.ConformsTo;
-export = conforms;
+declare const where: Lodash.ConformsTo;
+export = where;

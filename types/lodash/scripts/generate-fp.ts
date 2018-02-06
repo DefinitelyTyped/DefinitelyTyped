@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { ary, cloneDeep, flatMap, flatten, isEqual, pull, range, remove, trim, union, uniqWith, without } from "lodash";
+import { ary, cloneDeep, flatMap, flatten, isEqual, pull, range, remove, trim, union, uniqWith, upperFirst, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
@@ -75,7 +75,9 @@ async function processDefinition(filePath: string, commonTypes: string[]): Promi
     const definition = await parseFile(filePath);
     if (!definition)
         return;
-    const intefaceName = definition.name[0].toUpperCase() + definition.name.substring(1);
+    let interfaceName = upperFirst(definition.name);
+    if (interfaceName === "Pick")
+        interfaceName = "Lodash" + interfaceName;
     const builder = {
         [definition.name]: (...args: number[][]) => {
             // args were originally passed in as [0], [1], [2], [3]. IF they changed order, that indicates how the functoin was re-arged
@@ -94,26 +96,27 @@ async function processDefinition(filePath: string, commonTypes: string[]): Promi
         builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
     }
 
-    if (definition.name === "fill") {
-        console.log("fill");
-    }
-    let outputFn: (...args: any[]) => string = builderFp[definition.name]([0], [1], [2], [3]); // Assuming the maximum arity is 4
-    let output = outputFn([0], [1], [2], [3]).replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
-    output =
+    for (const functionName of Object.keys(builderFp)) {
+        if (functionName === "convert" || typeof builderFp[functionName] !== "function")
+            continue;
+        let outputFn: (...args: any[]) => string = builderFp[functionName]([0], [1], [2], [3]); // Assuming the maximum arity is 4
+        let output = outputFn([0], [1], [2], [3]).replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
+        output =
 `import _ = require("../index");
 
 declare namespace Lodash {
 ${tab(output, 1)}
 }
 
-declare const ${definition.name}: Lodash.${intefaceName};
-export = ${definition.name};
+declare const ${functionName}: Lodash.${interfaceName};
+export = ${functionName};
 `
-    const targetFile = `../fp/${definition.name}.d.ts`;
-    fs.writeFile(targetFile, output, (err) => {
-        if (err)
-            console.error(`failed to write file: ${targetFile}`, err);
-    });
+        const targetFile = `../fp/${functionName}.d.ts`;
+        fs.writeFile(targetFile, output, (err) => {
+            if (err)
+                console.error(`failed to write file: ${targetFile}`, err);
+        });
+    }
 }
 
 async function parseFile(filePath: string): Promise<Definition | undefined> {
@@ -288,7 +291,9 @@ function capCallback(parameter: string): string {
 }
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {
-    const baseName = functionName[0].toUpperCase() + functionName.substring(1);
+    let baseName = upperFirst(functionName);
+    if (baseName === "Pick")
+        baseName = "Lodash" + baseName;
     let output = "";
     if (overload.params.length === 0) {
         // Nothing to curry. Just use a basic function type.

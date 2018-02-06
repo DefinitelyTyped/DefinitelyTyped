@@ -153,5 +153,5 @@ declare namespace Lodash {
     }
 }
 
-declare const pick: Lodash.LodashPick;
-export = pick;
+declare const pickAll: Lodash.LodashPick;
+export = pickAll;
