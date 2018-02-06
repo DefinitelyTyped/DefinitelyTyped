@@ -4805,7 +4805,7 @@ declare module "tls" {
              * An array of strings or a Buffer naming possible NPN protocols.
              * (Protocols should be ordered by their priority.)
              */
-            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
             /**
              * An array of strings or a Buffer naming possible ALPN protocols.
              * (Protocols should be ordered by their priority.) When the server
@@ -4813,7 +4813,7 @@ declare module "tls" {
              * precedence over NPN and the server does not send an NPN extension
              * to the client.
              */
-            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
             /**
              * SNICallback(servername, cb) <Function> A function that will be
              * called if the client supports SNI TLS extension. Two arguments
@@ -4823,7 +4823,7 @@ declare module "tls" {
              * SecureContext.) If SNICallback wasn't provided the default callback
              * with high-level API will be used (see below).
              */
-            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
+            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
             /**
              * An optional Buffer instance containing a TLS session.
              */
@@ -4889,7 +4889,7 @@ declare module "tls" {
          * @param callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options: { rejectUnauthorized: boolean, requestCert: boolean }, callback: (err: Error | null) => void): any;
+        renegotiate(options: { rejectUnauthorized?: boolean, requestCert?: boolean }, callback: (err: Error | null) => void): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
