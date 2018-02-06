@@ -161,6 +161,8 @@ function parseDefinition(name: string, definitionString: string, commonTypes: st
     if (!firstOverload.includes("(")) {
         // This overload actually points to an interface. Try to find said interface and get the overloads from there.
         const interfaceName = firstOverload.split(":")[1].trim();
+        if (interfaceName.startsWith("typeof"))
+            return undefined; // This is an alias. It will be covered by the convert() function, so don't worry about it here.
         const interfaceIndex = definitionString.indexOf(`interface ${interfaceName} {`);
         if (interfaceIndex !== -1) {
             pull(commonTypes, interfaceName);
@@ -200,17 +202,10 @@ function parseDefinition(name: string, definitionString: string, commonTypes: st
                                 typeParam.name = parts[0].trim();
                                 return typeParam;
                             });
-                        if (overload.typeParams.some(tp => tp.name.includes("\n"))) {
-                            // Invalid
-                            // TODO: handle this case properly (e.g. _.partial)
-                            return definition;
-                        }
                     }
                 }
                 const paramEndIndex = definitionString.indexOf("):", paramStartIndex);
                 if (paramEndIndex !== -1) {
-                    if (name === "updateWith")
-                        console.log("updateWith");
                     overload.params = definitionString
                         .substring(paramStartIndex + 1, paramEndIndex)
                         .split(/,(?=[^,]+:)(?=(?:[^()]*|.*\(.*\).*)$)/m) // split on commas, but ignore Generic<T, U> and (a, b) => c
@@ -235,6 +230,14 @@ function parseDefinition(name: string, definitionString: string, commonTypes: st
 }
 
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, jsdoc: string): Interface[] {
+    if (functionName === "noop") {
+        // This function is not transformed. Leave it as-is.
+        return [{
+            name: upperFirst(functionName),
+            typeParams: [],
+            overloads,
+        }];
+    }
     overloads = cloneDeep(overloads);
     paramOrder = paramOrder.filter(p => typeof p === "number");
     const arity = paramOrder.length;
@@ -277,8 +280,6 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
             }];
         }
     }
-    //for (const overload of overloads)
-    //    overload.params = overload.params.map(p => p.replace(/^(?:Array<(.+)>|([^ |]+)\[\]|\((.+)\)\[\])$/, "ReadonlyArray<$1$2$3>"))
 
     const filteredOverloads = overloads.filter(o => o.params.length === arity && !o.params[o.params.length - 1].startsWith("..."));
     if (filteredOverloads.length === 0) {
@@ -308,9 +309,11 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         filteredOverloads.push(...optionalOverloads);
     }
     for (const overload of filteredOverloads)
-        overload.params = overload.params.map(p => p.replace(/\?:/g, ":"));
+        overload.params = overload.params.map(p => p
+            .replace(/\?:/g, ":") // No optional parameters
+            .replace(/: *(?:Array<(.+)>|([^ |]+)\[\]|\((.+)\)\[\])$/, ": ReadonlyArray<$1$2$3>")); // Convert Array to ReadonlyArray because lodash/fp treats everything as immutable
 
-    filteredOverloads.forEach(preProcessOverload);
+    filteredOverloads.forEach(o => preProcessOverload(o, functionName));
     const interfaces = flatMap(filteredOverloads, (o, i) => {
         const reargParams = o.params.map((p, i) => o.params[paramOrder.indexOf(i)]);
         return curryOverload({
@@ -358,25 +361,37 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
     return interfaces;
 }
 
-function preProcessOverload(overload: Overload): void {
+function preProcessOverload(overload: Overload, functionName: string): void {
     // No optional parameters
     //overload.params = overload.params.map(p => p.replace(/\?:/g, ":"));
     // Cap the number of callback arguments
     for (let i = 0; i < overload.params.length; ++i)
-        overload.params[i] = capCallback(overload.params[i]);
+        overload.params[i] = capCallback(overload.params[i], functionName);
 }
 
-function capCallback(parameter: string): string {
-    if (/\([^,)]+,[^)]+\) ?=>/.test(parameter) || /Memo\w*Iterator/.test(parameter) || /\w*Iterator/.test(parameter)) // We don't support capping these callbacks yet, so flag them if detected
-        console.warn("Failed to cap callback: ", parameter);
+function capCallback(parameter: string, functionName: string): string {
+    // We don't support capping these callbacks yet, so flag them if detected
+    if (functionName !== "zipWith" && functionName !== "unzipWith" && /(?:iteratee|predicate|callback): *\((?:[^,)]+,[^)]+| *\.\.\..+)\) ?=>/.test(parameter))
+        console.warn(`${functionName}: Failed to cap callback: ${parameter}`);
+
+    // Special case for mapKeys: callback is capped to the key parameter only
+    if (functionName === "mapKeys") {
+        parameter = parameter
+            .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<string>")
+            .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<string,$3>");
+    }
+
     return parameter
-        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/g, "ValueIteratee<$1>")
-        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "ValueIterateeCustom<$1,$2>")
-        .replace(/(?:Array|List|Dictionary|NumericDictionary|String)IteratorTypeGuard<([^,>]+),([^,>]+)>/g, "ValueIteratorTypeGuard<$1,$2>")
-        .replace(/ObjectIteratee<([^,>]+)>/g, "ValueIteratee<$1[keyof $1]>")
-        .replace(/ObjectIterateeCustom<([^,>]+),([^,>]+)>/g, "ValueIterateeCustom<$1[keyof $1],$2>")
-        .replace(/ObjectIteratorTypeGuard<([^,>]+),([^,>]+)>/g, "ValueIteratorTypeGuard<$1[keyof $1],$2>");
-    // TODO: replace all StringIterator with ValueIteratee? ArrayIterator with ValueIterator?
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<$2>")
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<$2,$3>")
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)IteratorTypeGuard<([^,>]+),([^,>]+)>/g, "$1: ValueIteratorTypeGuard<$2,$3>")
+        .replace(/(iteratee|predicate|callback): *ObjectIteratee<([^,>]+)>/g, "$1: ValueIteratee<$2[keyof $2]>")
+        .replace(/(iteratee|predicate|callback): *ObjectIterateeCustom<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<$2[keyof $2],$3>")
+        .replace(/(iteratee|predicate|callback): *ObjectIteratorTypeGuard<([^,>]+),([^,>]+)>/g, "$1: ValueIteratorTypeGuard<$2[keyof $2],$3>")
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary)Iterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2) => $3")
+        .replace(/(iteratee|predicate|callback): *StringIterator<([^,>]+)>/g, "$1: (value: string) => $2")
+        .replace(/(iteratee|predicate|callback): *ObjectIterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2[keyof $2]) => $3")
+        .replace(/(iteratee|predicate|callback): *Memo(Void)?(?:List|Object|Dictionary)Iterator<([^,>]+),([^,>]+)(?:,[^,>]+?(<T>)?)?>/g, "$1: Memo$2IteratorCapped<$3,$4>");
 }
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {

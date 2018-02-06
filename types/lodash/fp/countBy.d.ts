@@ -43,7 +43,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
-        <T>(iteratee: _.StringIterator<T>): CountBy1x1;
+        <T>(iteratee: (value: string) => T): CountBy1x1;
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
          * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The
@@ -64,7 +64,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
-        <T>(iteratee: _.StringIterator<T>, collection: string | null | undefined): _.Dictionary<number>;
+        <T>(iteratee: (value: string) => T, collection: string | null | undefined): _.Dictionary<number>;
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
          * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The

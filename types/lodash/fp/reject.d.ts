@@ -21,7 +21,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of predicate.
          * @return Returns the new filtered array.
          */
-        (predicate: _.StringIterator<boolean>): Reject1x1;
+        (predicate: (value: string) => boolean): Reject1x1;
         /**
          * The opposite of _.filter; this method returns the elements of collection that predicate does not return
          * truthy for.
@@ -31,7 +31,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of predicate.
          * @return Returns the new filtered array.
          */
-        (predicate: _.StringIterator<boolean>, collection: string | null | undefined): string[];
+        (predicate: (value: string) => boolean, collection: string | null | undefined): string[];
         /**
          * The opposite of _.filter; this method returns the elements of collection that predicate does not return
          * truthy for.

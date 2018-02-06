@@ -22,14 +22,14 @@ declare namespace Lodash {
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (path: _.PropertyPath, args: any[]): Invoke1x2;
+        (path: _.PropertyPath, args: ReadonlyArray<any>): Invoke1x2;
         /**
         * Invokes the method at path of object.
         * @param object The object to query.
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (path: _.PropertyPath, args: any[], object: any): any;
+        (path: _.PropertyPath, args: ReadonlyArray<any>, object: any): any;
     }
     interface Invoke1x1 {
         /**
@@ -45,14 +45,14 @@ declare namespace Lodash {
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (args: any[]): Invoke1x2;
+        (args: ReadonlyArray<any>): Invoke1x2;
         /**
         * Invokes the method at path of object.
         * @param object The object to query.
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (args: any[], object: any): any;
+        (args: ReadonlyArray<any>, object: any): any;
     }
     interface Invoke1x2 {
         /**

@@ -55,7 +55,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [1, 1]
          */
-        <T>(values: _.List<T>, array: T[]): T[];
+        <T>(values: _.List<T>, array: ReadonlyArray<T>): T[];
         /**
          * This method is like `_.pull` except that it accepts an array of values to remove.
          *
@@ -111,7 +111,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [1, 1]
          */
-        (array: T[]): T[];
+        (array: ReadonlyArray<T>): T[];
         /**
          * This method is like `_.pull` except that it accepts an array of values to remove.
          *

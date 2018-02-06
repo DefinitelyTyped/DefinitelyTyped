@@ -39,7 +39,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of predicate.
          * @return Returns the new filtered array.
          */
-        (predicate: _.StringIterator<boolean>): Filter1x1;
+        (predicate: (value: string) => boolean): Filter1x1;
         /**
          * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
          * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -58,7 +58,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of predicate.
          * @return Returns the new filtered array.
          */
-        (predicate: _.StringIterator<boolean>, collection: string | null | undefined): string[];
+        (predicate: (value: string) => boolean, collection: string | null | undefined): string[];
         /**
          * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
          * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).

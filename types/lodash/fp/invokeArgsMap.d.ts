@@ -31,7 +31,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        (methodName: string, args: any[]): InvokeMap1x2;
+        (methodName: string, args: ReadonlyArray<any>): InvokeMap1x2;
         /**
         * Invokes the method named by methodName on each element in the collection returning
         * an array of the results of each invoked method. Additional arguments will be provided
@@ -41,7 +41,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        (methodName: string, args: any[], collection: object | null | undefined): any[];
+        (methodName: string, args: ReadonlyArray<any>, collection: object | null | undefined): any[];
         /**
         * Invokes the method named by methodName on each element in the collection returning
         * an array of the results of each invoked method. Additional arguments will be provided
@@ -61,7 +61,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        <TResult>(method: (...args: any[]) => TResult, args: any[]): InvokeMap2x2<TResult>;
+        <TResult>(method: (...args: any[]) => TResult, args: ReadonlyArray<any>): InvokeMap2x2<TResult>;
         /**
         * Invokes the method named by methodName on each element in the collection returning
         * an array of the results of each invoked method. Additional arguments will be provided
@@ -71,7 +71,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        <TResult>(method: (...args: any[]) => TResult, args: any[], collection: object | null | undefined): TResult[];
+        <TResult>(method: (...args: any[]) => TResult, args: ReadonlyArray<any>, collection: object | null | undefined): TResult[];
     }
     interface InvokeMap1x1 {
         /**
@@ -93,7 +93,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        (args: any[]): InvokeMap1x2;
+        (args: ReadonlyArray<any>): InvokeMap1x2;
         /**
         * Invokes the method named by methodName on each element in the collection returning
         * an array of the results of each invoked method. Additional arguments will be provided
@@ -103,7 +103,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        (args: any[], collection: object | null | undefined): any[];
+        (args: ReadonlyArray<any>, collection: object | null | undefined): any[];
     }
     interface InvokeMap1x2 {
         /**
@@ -147,7 +147,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        (args: any[]): InvokeMap2x2<TResult>;
+        (args: ReadonlyArray<any>): InvokeMap2x2<TResult>;
         /**
         * Invokes the method named by methodName on each element in the collection returning
         * an array of the results of each invoked method. Additional arguments will be provided
@@ -157,7 +157,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        (args: any[], collection: object | null | undefined): TResult[];
+        (args: ReadonlyArray<any>, collection: object | null | undefined): TResult[];
     }
     interface InvokeMap2x2<TResult> {
         /**

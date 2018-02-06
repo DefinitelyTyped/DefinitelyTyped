@@ -29,7 +29,7 @@ declare namespace Lodash {
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
          * // => [1.1, 2.2]
          */
-        (iteratee: _.StringIterator<_.NotVoid>): SortedUniqBy1x1;
+        (iteratee: (value: string) => _.NotVoid): SortedUniqBy1x1;
         /**
          * This method is like `_.uniqBy` except that it's designed and optimized
          * for sorted arrays.
@@ -43,7 +43,7 @@ declare namespace Lodash {
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
          * // => [1.1, 2.2]
          */
-        (iteratee: _.StringIterator<_.NotVoid>, array: string | null | undefined): string[];
+        (iteratee: (value: string) => _.NotVoid, array: string | null | undefined): string[];
         /**
          * This method is like `_.uniqBy` except that it's designed and optimized
          * for sorted arrays.

@@ -39,7 +39,7 @@ declare namespace Lodash {
          * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }, { 'x': 2 }]
          */
-        (iteratee: _.StringIterator<_.NotVoid>): UniqBy1x1;
+        (iteratee: (value: string) => _.NotVoid): UniqBy1x1;
         /**
          * This method is like `_.uniq` except that it accepts `iteratee` which is
          * invoked for each element in `array` to generate the criterion by which
@@ -58,7 +58,7 @@ declare namespace Lodash {
          * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }, { 'x': 2 }]
          */
-        (iteratee: _.StringIterator<_.NotVoid>, array: string | null | undefined): string[];
+        (iteratee: (value: string) => _.NotVoid, array: string | null | undefined): string[];
         /**
          * This method is like `_.uniq` except that it accepts `iteratee` which is
          * invoked for each element in `array` to generate the criterion by which

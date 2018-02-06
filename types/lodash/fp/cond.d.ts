@@ -57,7 +57,7 @@ declare namespace Lodash {
          * func({ 'a': '1', 'b': '2' });
          * // => 'no match'
          */
-        <T, R>(pairs: Array<_.CondPair<T, R>>): (Target: T) => R;
+        <T, R>(pairs: ReadonlyArray<_.CondPair<T, R>>): (Target: T) => R;
     }
 }
 

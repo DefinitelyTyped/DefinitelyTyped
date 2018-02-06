@@ -85,7 +85,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        <T>(comparator: _.Comparator<T>, values: _.List<T>, array: T[]): T[];
+        <T>(comparator: _.Comparator<T>, values: _.List<T>, array: ReadonlyArray<T>): T[];
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -169,7 +169,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        <T1, T2>(comparator: _.Comparator2<T1, T2>, values: _.List<T2>, array: T1[]): T1[];
+        <T1, T2>(comparator: _.Comparator2<T1, T2>, values: _.List<T2>, array: ReadonlyArray<T1>): T1[];
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -255,7 +255,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        (values: _.List<T>, array: T[]): T[];
+        (values: _.List<T>, array: ReadonlyArray<T>): T[];
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -341,7 +341,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        (array: T[]): T[];
+        (array: ReadonlyArray<T>): T[];
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -427,7 +427,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        (values: _.List<T2>, array: T1[]): T1[];
+        (values: _.List<T2>, array: ReadonlyArray<T1>): T1[];
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -513,7 +513,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        <T2>(array: T1[]): T1[];
+        <T2>(array: ReadonlyArray<T1>): T1[];
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with

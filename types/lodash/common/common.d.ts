@@ -201,15 +201,18 @@ declare module "../index" {
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
+    /** @deprecated Use MemoVoidArrayIterator or MemoVoidDictionaryIterator instead. */
     type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => void;
 
-    /** @deprecated Use MemoListIterator or MemoObjectIterator instead.  */
+    /** @deprecated Use MemoListIterator or MemoObjectIterator instead. */
     type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => TResult;
     type MemoListIterator<T, TResult, TList> = (prev: TResult, curr: T, index: number, list: TList) => TResult;
     type MemoObjectIterator<T, TResult, TList> = (prev: TResult, curr: T, key: string, list: TList) => TResult;
+    type MemoIteratorCapped<T, TResult> = (prev: TResult, curr: T) => TResult;
 
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
+    type MemoVoidIteratorCapped<T, TResult> = (acc: TResult, curr: T) => void;
 
     type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
     type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;

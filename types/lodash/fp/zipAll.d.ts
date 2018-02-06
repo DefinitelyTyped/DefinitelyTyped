@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param arrays The arrays to process.
          * @return Returns the new array of grouped elements.
          */
-        <T>(arrays: Array<_.List<T> | null | undefined>): (T | undefined)[][];
+        <T>(arrays: ReadonlyArray<_.List<T> | null | undefined>): (T | undefined)[][];
     }
 }
 

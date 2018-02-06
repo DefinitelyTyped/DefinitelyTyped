@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
-        (funcs: Array<_.Many<(...args: any[]) => any>>): (...args: any[]) => any;
+        (funcs: ReadonlyArray<_.Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
 }
 

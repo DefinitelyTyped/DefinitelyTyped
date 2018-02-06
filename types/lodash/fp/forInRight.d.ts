@@ -19,7 +19,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        <T>(iteratee: _.ObjectIterator<T, any>): ForInRight1x1<T>;
+        <T>(iteratee: (value: T) => any): ForInRight1x1<T>;
         /**
          * This method is like _.forIn except that it iterates over properties of object in the opposite order.
          *
@@ -28,7 +28,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        <T>(iteratee: _.ObjectIterator<T, any>, object: T): T;
+        <T>(iteratee: (value: T[keyof T]) => any, object: T): T;
         /**
          * This method is like _.forIn except that it iterates over properties of object in the opposite order.
          *
@@ -37,7 +37,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        <T>(iteratee: _.ObjectIterator<T, any>, object: T | null | undefined): T | null | undefined;
+        <T>(iteratee: (value: T[keyof T]) => any, object: T | null | undefined): T | null | undefined;
     }
     interface ForInRight1x1<T> {
         /**
@@ -57,7 +57,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        (object: T): T;
+        (object: object): T;
         /**
          * This method is like _.forIn except that it iterates over properties of object in the opposite order.
          *
@@ -66,7 +66,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        (object: T | null | undefined): T | null | undefined;
+        (object: object | null | undefined): T | null | undefined;
     }
 }
 

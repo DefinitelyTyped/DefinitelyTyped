@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param values The values to exclude.
          * @return Returns the new array of filtered values.
          */
-        <T>(values: T[]): Without1x1<T>;
+        <T>(values: ReadonlyArray<T>): Without1x1<T>;
         /**
          * Creates an array excluding all provided values using SameValueZero for equality comparisons.
          *
@@ -25,7 +25,7 @@ declare namespace Lodash {
          * @param values The values to exclude.
          * @return Returns the new array of filtered values.
          */
-        <T>(values: T[], array: _.List<T> | null | undefined): T[];
+        <T>(values: ReadonlyArray<T>, array: _.List<T> | null | undefined): T[];
     }
     interface Without1x1<T> {
         /**

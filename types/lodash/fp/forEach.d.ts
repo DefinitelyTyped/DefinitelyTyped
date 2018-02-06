@@ -31,7 +31,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <T>(iteratee: _.ArrayIterator<T, any>): ForEach1x1<T>;
+        <T>(iteratee: (value: T) => any): ForEach1x1<T>;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -46,7 +46,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <T>(iteratee: _.ArrayIterator<T, any>, collection: T[]): T[];
+        <T>(iteratee: (value: T) => any, collection: ReadonlyArray<T>): T[];
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -61,7 +61,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        (iteratee: _.StringIterator<any>): ForEach2x1;
+        (iteratee: (value: string) => any): ForEach2x1;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -76,7 +76,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        (iteratee: _.StringIterator<any>, collection: string): string;
+        (iteratee: (value: string) => any, collection: string): string;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -91,7 +91,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <T>(iteratee: _.ListIterator<T, any>): ForEach3x1<T>;
+        <T>(iteratee: (value: T) => any, collection: _.List<T>): _.List<T>;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -106,7 +106,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <T>(iteratee: _.ListIterator<T, any>, collection: _.List<T>): _.List<T>;
+        <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T): T;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -121,7 +121,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <T extends object>(iteratee: _.ObjectIterator<T, any>): ForEach4x1<T>;
+        <T, TArray extends T[] | null | undefined>(iteratee: (value: T) => any, collection: TArray & (T[] | null | undefined)): TArray;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -136,7 +136,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <T extends object>(iteratee: _.ObjectIterator<T, any>, collection: T): T;
+        <TString extends string | null | undefined>(iteratee: (value: string) => any, collection: TString): TString;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -151,7 +151,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <T, TArray extends T[] | null | undefined>(iteratee: _.ArrayIterator<T, any>, collection: TArray & (T[] | null | undefined)): TArray;
+        <T, TList extends _.List<T> | null | undefined>(iteratee: (value: T) => any, collection: TList & (_.List<T> | null | undefined)): TList;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -166,37 +166,7 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        <TString extends string | null | undefined>(iteratee: _.StringIterator<any>, collection: TString): TString;
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        <T, TList extends _.List<T> | null | undefined>(iteratee: _.ListIterator<T, any>, collection: TList & (_.List<T> | null | undefined)): TList;
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        <T extends object>(iteratee: _.ObjectIterator<T, any>, collection: T | null | undefined): T | null | undefined;
+        <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T | null | undefined): T | null | undefined;
     }
     interface ForEach1x1<T> {
         /**
@@ -228,7 +198,37 @@ declare namespace Lodash {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        (collection: T[]): T[];
+        (collection: ReadonlyArray<T>): T[];
+        /**
+         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
+         * and invoked with three arguments:
+         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
+         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
+         *
+         * @alias _.each
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         */
+        (collection: _.List<T>): _.List<T>;
+        /**
+         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
+         * and invoked with three arguments:
+         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
+         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
+         *
+         * @alias _.each
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         */
+        (collection: object): T;
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
          * and invoked with three arguments:
@@ -244,6 +244,36 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          */
         <TArray extends T[] | null | undefined>(collection: TArray & (T[] | null | undefined)): TArray;
+        /**
+         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
+         * and invoked with three arguments:
+         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
+         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
+         *
+         * @alias _.each
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         */
+        <TList extends _.List<T> | null | undefined>(collection: TList & (_.List<T> | null | undefined)): TList;
+        /**
+         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
+         * and invoked with three arguments:
+         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
+         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
+         *
+         * @alias _.each
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param thisArg The this binding of iteratee.
+         */
+        (collection: object | null | undefined): T | null | undefined;
     }
     interface ForEach2x1 {
         /**
@@ -291,100 +321,6 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          */
         <TString extends string | null | undefined>(collection: TString): TString;
-    }
-    interface ForEach3x1<T> {
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        (): ForEach3x1<T>;
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        (collection: _.List<T>): _.List<T>;
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        <TList extends _.List<T> | null | undefined>(collection: TList & (_.List<T> | null | undefined)): TList;
-    }
-    interface ForEach4x1<T extends object> {
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        (): ForEach4x1<T>;
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        (collection: T): T;
-        /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
-         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
-         *
-         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
-         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
-         *
-         * @alias _.each
-         *
-         * @param collection The collection to iterate over.
-         * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
-         */
-        (collection: T | null | undefined): T | null | undefined;
     }
 }
 

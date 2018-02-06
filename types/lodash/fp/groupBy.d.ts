@@ -43,7 +43,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
-        (iteratee: _.StringIterator<_.NotVoid>): GroupBy1x1;
+        (iteratee: (value: string) => _.NotVoid): GroupBy1x1;
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
          * iteratee. The corresponding value of each key is an array of the elements responsible for generating the
@@ -64,7 +64,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
-        (iteratee: _.StringIterator<_.NotVoid>, collection: string | null | undefined): _.Dictionary<string[]>;
+        (iteratee: (value: string) => _.NotVoid, collection: string | null | undefined): _.Dictionary<string[]>;
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
          * iteratee. The corresponding value of each key is an array of the elements responsible for generating the

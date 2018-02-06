@@ -17,7 +17,7 @@ declare namespace Lodash {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        (args: any[]): PartialRight1x1;
+        (args: ReadonlyArray<any>): PartialRight1x1;
         /**
         * This method is like _.partial except that partial arguments are appended to those provided
         * to the new function.
@@ -25,7 +25,7 @@ declare namespace Lodash {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        (args: any[], func: (...args: any[]) => any): (...args: any[]) => any;
+        (args: ReadonlyArray<any>, func: (...args: any[]) => any): (...args: any[]) => any;
     }
     interface PartialRight1x1 {
         /**

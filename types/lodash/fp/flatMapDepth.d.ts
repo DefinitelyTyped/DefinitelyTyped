@@ -41,7 +41,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        <T, TResult>(iteratee: _.ListIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDepth1x1<T, TResult>;
+        <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>): FlatMapDepth1x1<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
@@ -61,7 +61,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        <T, TResult>(iteratee: _.ListIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, depth: number): FlatMapDepth1x2<T, TResult>;
+        <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, depth: number): FlatMapDepth1x2<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
@@ -81,7 +81,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        <T, TResult>(iteratee: _.ListIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, depth: number, collection: _.List<T> | null | undefined): TResult[];
+        <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, depth: number, collection: _.List<T> | null | undefined): TResult[];
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
@@ -101,7 +101,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        <T, TResult>(iteratee: _.NumericDictionaryIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDepth2x1<T, TResult>;
+        <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, depth: number, collection: _.NumericDictionary<T> | null | undefined): TResult[];
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
@@ -121,7 +121,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        <T, TResult>(iteratee: _.NumericDictionaryIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, depth: number): FlatMapDepth2x2<T, TResult>;
+        <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult | TResult>): FlatMapDepth3x1<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
@@ -141,7 +141,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        <T, TResult>(iteratee: _.NumericDictionaryIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, depth: number, collection: _.NumericDictionary<T> | null | undefined): TResult[];
+        <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, depth: number): FlatMapDepth3x2<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
@@ -161,47 +161,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        <T extends object, TResult>(iteratee: _.ObjectIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDepth3x1<T, TResult>;
-        /**
-         * This method is like `_.flatMap` except that it recursively flattens the
-         * mapped results up to `depth` times.
-         *
-         * @since 4.7.0
-         * @category Collection
-         * @param collection The collection to iterate over.
-         * @param [iteratee=_.identity] The function invoked per iteration.
-         * @param [depth=1] The maximum recursion depth.
-         * @returns Returns the new flattened array.
-         * @example
-         *
-         * function duplicate(n) {
-         *   return [[[n, n]]];
-         * }
-         *
-         * _.flatMapDepth([1, 2], duplicate, 2);
-         * // => [[1, 1], [2, 2]]
-         */
-        <T extends object, TResult>(iteratee: _.ObjectIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, depth: number): FlatMapDepth3x2<T, TResult>;
-        /**
-         * This method is like `_.flatMap` except that it recursively flattens the
-         * mapped results up to `depth` times.
-         *
-         * @since 4.7.0
-         * @category Collection
-         * @param collection The collection to iterate over.
-         * @param [iteratee=_.identity] The function invoked per iteration.
-         * @param [depth=1] The maximum recursion depth.
-         * @returns Returns the new flattened array.
-         * @example
-         *
-         * function duplicate(n) {
-         *   return [[[n, n]]];
-         * }
-         *
-         * _.flatMapDepth([1, 2], duplicate, 2);
-         * // => [[1, 1], [2, 2]]
-         */
-        <T extends object, TResult>(iteratee: _.ObjectIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, depth: number, collection: T | null | undefined): TResult[];
+        <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, depth: number, collection: T | null | undefined): TResult[];
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
@@ -384,6 +344,46 @@ declare namespace Lodash {
          * // => [[1, 1], [2, 2]]
          */
         (depth: number, collection: _.List<T> | null | undefined): TResult[];
+        /**
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results up to `depth` times.
+         *
+         * @since 4.7.0
+         * @category Collection
+         * @param collection The collection to iterate over.
+         * @param [iteratee=_.identity] The function invoked per iteration.
+         * @param [depth=1] The maximum recursion depth.
+         * @returns Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDepth([1, 2], duplicate, 2);
+         * // => [[1, 1], [2, 2]]
+         */
+        (depth: number): FlatMapDepth1x2<T, TResult>;
+        /**
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results up to `depth` times.
+         *
+         * @since 4.7.0
+         * @category Collection
+         * @param collection The collection to iterate over.
+         * @param [iteratee=_.identity] The function invoked per iteration.
+         * @param [depth=1] The maximum recursion depth.
+         * @returns Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDepth([1, 2], duplicate, 2);
+         * // => [[1, 1], [2, 2]]
+         */
+        (depth: number, collection: _.NumericDictionary<T> | null | undefined): TResult[];
     }
     interface FlatMapDepth1x2<T, TResult> {
         /**
@@ -426,90 +426,6 @@ declare namespace Lodash {
          * // => [[1, 1], [2, 2]]
          */
         (collection: _.List<T> | null | undefined): TResult[];
-    }
-    interface FlatMapDepth2x1<T, TResult> {
-        /**
-         * This method is like `_.flatMap` except that it recursively flattens the
-         * mapped results up to `depth` times.
-         *
-         * @since 4.7.0
-         * @category Collection
-         * @param collection The collection to iterate over.
-         * @param [iteratee=_.identity] The function invoked per iteration.
-         * @param [depth=1] The maximum recursion depth.
-         * @returns Returns the new flattened array.
-         * @example
-         *
-         * function duplicate(n) {
-         *   return [[[n, n]]];
-         * }
-         *
-         * _.flatMapDepth([1, 2], duplicate, 2);
-         * // => [[1, 1], [2, 2]]
-         */
-        (): FlatMapDepth2x1<T, TResult>;
-        /**
-         * This method is like `_.flatMap` except that it recursively flattens the
-         * mapped results up to `depth` times.
-         *
-         * @since 4.7.0
-         * @category Collection
-         * @param collection The collection to iterate over.
-         * @param [iteratee=_.identity] The function invoked per iteration.
-         * @param [depth=1] The maximum recursion depth.
-         * @returns Returns the new flattened array.
-         * @example
-         *
-         * function duplicate(n) {
-         *   return [[[n, n]]];
-         * }
-         *
-         * _.flatMapDepth([1, 2], duplicate, 2);
-         * // => [[1, 1], [2, 2]]
-         */
-        (depth: number): FlatMapDepth2x2<T, TResult>;
-        /**
-         * This method is like `_.flatMap` except that it recursively flattens the
-         * mapped results up to `depth` times.
-         *
-         * @since 4.7.0
-         * @category Collection
-         * @param collection The collection to iterate over.
-         * @param [iteratee=_.identity] The function invoked per iteration.
-         * @param [depth=1] The maximum recursion depth.
-         * @returns Returns the new flattened array.
-         * @example
-         *
-         * function duplicate(n) {
-         *   return [[[n, n]]];
-         * }
-         *
-         * _.flatMapDepth([1, 2], duplicate, 2);
-         * // => [[1, 1], [2, 2]]
-         */
-        (depth: number, collection: _.NumericDictionary<T> | null | undefined): TResult[];
-    }
-    interface FlatMapDepth2x2<T, TResult> {
-        /**
-         * This method is like `_.flatMap` except that it recursively flattens the
-         * mapped results up to `depth` times.
-         *
-         * @since 4.7.0
-         * @category Collection
-         * @param collection The collection to iterate over.
-         * @param [iteratee=_.identity] The function invoked per iteration.
-         * @param [depth=1] The maximum recursion depth.
-         * @returns Returns the new flattened array.
-         * @example
-         *
-         * function duplicate(n) {
-         *   return [[[n, n]]];
-         * }
-         *
-         * _.flatMapDepth([1, 2], duplicate, 2);
-         * // => [[1, 1], [2, 2]]
-         */
-        (): FlatMapDepth2x2<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.

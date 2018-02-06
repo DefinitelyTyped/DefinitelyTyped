@@ -23,7 +23,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        <T>(iteratee: _.ObjectIterator<T, any>): ForOwn1x1<T>;
+        <T>(iteratee: (value: T) => any): ForOwn1x1<T>;
         /**
          * Iterates over own enumerable properties of an object invoking iteratee for each property. The iteratee is
          * bound to thisArg and invoked with three arguments: (value, key, object). Iteratee functions may exit
@@ -34,7 +34,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        <T>(iteratee: _.ObjectIterator<T, any>, object: T): T;
+        <T>(iteratee: (value: T[keyof T]) => any, object: T): T;
         /**
          * Iterates over own enumerable properties of an object invoking iteratee for each property. The iteratee is
          * bound to thisArg and invoked with three arguments: (value, key, object). Iteratee functions may exit
@@ -45,7 +45,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        <T>(iteratee: _.ObjectIterator<T, any>, object: T | null | undefined): T | null | undefined;
+        <T>(iteratee: (value: T[keyof T]) => any, object: T | null | undefined): T | null | undefined;
     }
     interface ForOwn1x1<T> {
         /**
@@ -69,7 +69,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        (object: T): T;
+        (object: object): T;
         /**
          * Iterates over own enumerable properties of an object invoking iteratee for each property. The iteratee is
          * bound to thisArg and invoked with three arguments: (value, key, object). Iteratee functions may exit
@@ -80,7 +80,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns object.
          */
-        (object: T | null | undefined): T | null | undefined;
+        (object: object | null | undefined): T | null | undefined;
     }
 }
 

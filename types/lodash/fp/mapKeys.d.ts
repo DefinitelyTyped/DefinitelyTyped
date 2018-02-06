@@ -21,7 +21,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped object.
          */
-        <T>(iteratee: _.ValueIteratee<T>): MapKeys1x1<T>;
+        (iteratee: _.ValueIteratee<string>): MapKeys1x1;
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
          * by running each own enumerable property of object through iteratee.
@@ -31,7 +31,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped object.
          */
-        <T>(iteratee: _.ValueIteratee<T>, object: _.List<T> | null | undefined): _.Dictionary<T>;
+        <T>(iteratee: _.ValueIteratee<string>, object: _.List<T> | null | undefined): _.Dictionary<T>;
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
          * by running each own enumerable property of object through iteratee.
@@ -41,7 +41,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped object.
          */
-        <T>(iteratee: _.ValueIteratee<T>, object: _.Dictionary<T> | null | undefined): _.Dictionary<T>;
+        <T>(iteratee: _.ValueIteratee<string>, object: _.Dictionary<T> | null | undefined): _.Dictionary<T>;
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
          * by running each own enumerable property of object through iteratee.
@@ -63,7 +63,7 @@ declare namespace Lodash {
          */
         (iteratee: _.ValueIteratee<any[keyof any]>, object: object | null | undefined): _.Dictionary<any>;
     }
-    interface MapKeys1x1<T> {
+    interface MapKeys1x1 {
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
          * by running each own enumerable property of object through iteratee.
@@ -73,7 +73,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped object.
          */
-        (): MapKeys1x1<T>;
+        (): MapKeys1x1;
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
          * by running each own enumerable property of object through iteratee.
@@ -83,7 +83,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped object.
          */
-        (object: _.List<T> | null | undefined): _.Dictionary<T>;
+        <T>(object: _.List<T> | null | undefined): _.Dictionary<T>;
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
          * by running each own enumerable property of object through iteratee.
@@ -93,7 +93,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped object.
          */
-        (object: _.Dictionary<T> | null | undefined): _.Dictionary<T>;
+        <T>(object: _.Dictionary<T> | null | undefined): _.Dictionary<T>;
     }
     interface MapKeys3x1 {
         /**
