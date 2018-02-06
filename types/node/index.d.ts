@@ -20,7 +20,6 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Huw <https://github.com/hoo29>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
@@ -1755,6 +1754,11 @@ declare module "https" {
         "rejectUnauthorized" |
         "secureProtocol" |
         "servername";
+
+    // as many type definitions rely on node, redefine Pick here instead of updating all of them to typescript 2.1
+    type Pick<T, K extends keyof T> = {
+        [P in K]: T[P];
+    };
 
     export type RequestOptions = http.RequestOptions & Pick<tls.ConnectionOptions, extendedRequestKeys>;
 

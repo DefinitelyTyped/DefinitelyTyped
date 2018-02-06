@@ -75,7 +75,7 @@ export interface FtpServerOptions {
     /**
      * If this is set, the server will allow explicit TLS authentication. Value should be a dictionary which is suitable as the options argument of tls.createServer.
      */
-    tlsOptions?: tls.TlsOptions;
+    tlsOptions?: tls.TlsServerOptions;
     /**
      * If this is set to true, and tlsOptions is also set, then the server will not allow logins over non-secure connections.
      * Default false
