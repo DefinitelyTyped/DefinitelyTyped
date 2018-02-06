@@ -33,6 +33,38 @@ declare namespace Lodash {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
+        <T1, T2, R>(arity: number, func: (t1: T1, t2: T2) => R): _.RightCurriedFunction2<T1, T2, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        <T1, T2, T3, R>(arity: number, func: (t1: T1, t2: T2, t3: T3) => R): _.RightCurriedFunction3<T1, T2, T3, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        <T1, T2, T3, T4, R>(arity: number, func: (t1: T1, t2: T2, t3: T3, t4: T4) => R): _.RightCurriedFunction4<T1, T2, T3, T4, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        <T1, T2, T3, T4, T5, R>(arity: number, func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R): _.RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
         (arity: number, func: (...args: any[]) => any): (...args: any[]) => any;
     }
     interface CurryRight1x1 {
@@ -52,6 +84,38 @@ declare namespace Lodash {
          * @return Returns the new curried function.
          */
         <T1, R>(func: (t1: T1) => R): _.RightCurriedFunction1<T1, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        <T1, T2, R>(func: (t1: T1, t2: T2) => R): _.RightCurriedFunction2<T1, T2, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R): _.RightCurriedFunction3<T1, T2, T3, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R): _.RightCurriedFunction4<T1, T2, T3, T4, R>;
+        /**
+         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
+         * instead of _.partial.
+         * @param func The function to curry.
+         * @param arity The arity of func.
+         * @return Returns the new curried function.
+         */
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R): _.RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.

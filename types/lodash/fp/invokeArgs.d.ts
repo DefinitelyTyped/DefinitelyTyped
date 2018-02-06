@@ -22,21 +22,14 @@ declare namespace Lodash {
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (path: _.PropertyPath, args: any): Invoke1x2;
+        (path: _.PropertyPath, args: any[]): Invoke1x2;
         /**
         * Invokes the method at path of object.
         * @param object The object to query.
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (path: _.PropertyPath, args: any, object: any): Invoke1x3;
-        /**
-        * Invokes the method at path of object.
-        * @param object The object to query.
-        * @param path The path of the method to invoke.
-        * @param args The arguments to invoke the method with.
-        **/
-        (path: _.PropertyPath, args: any, object: any, args2: any): any;
+        (path: _.PropertyPath, args: any[], object: any): any;
     }
     interface Invoke1x1 {
         /**
@@ -52,21 +45,14 @@ declare namespace Lodash {
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (args: any): Invoke1x2;
+        (args: any[]): Invoke1x2;
         /**
         * Invokes the method at path of object.
         * @param object The object to query.
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (args: any, object: any): Invoke1x3;
-        /**
-        * Invokes the method at path of object.
-        * @param object The object to query.
-        * @param path The path of the method to invoke.
-        * @param args The arguments to invoke the method with.
-        **/
-        (args: any, object: any, args2: any): any;
+        (args: any[], object: any): any;
     }
     interface Invoke1x2 {
         /**
@@ -82,30 +68,7 @@ declare namespace Lodash {
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
         **/
-        (object: any): Invoke1x3;
-        /**
-        * Invokes the method at path of object.
-        * @param object The object to query.
-        * @param path The path of the method to invoke.
-        * @param args The arguments to invoke the method with.
-        **/
-        (object: any, args2: any): any;
-    }
-    interface Invoke1x3 {
-        /**
-        * Invokes the method at path of object.
-        * @param object The object to query.
-        * @param path The path of the method to invoke.
-        * @param args The arguments to invoke the method with.
-        **/
-        (): Invoke1x3;
-        /**
-        * Invokes the method at path of object.
-        * @param object The object to query.
-        * @param path The path of the method to invoke.
-        * @param args The arguments to invoke the method with.
-        **/
-        (args2: any): any;
+        (object: any): any;
     }
 }
 

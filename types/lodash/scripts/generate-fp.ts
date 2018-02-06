@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { ary, cloneDeep, defaults, flatMap, flatten, isEqual, pull, range, remove, trim, union, uniqWith, upperFirst, without } from "lodash";
+import { ary, cloneDeep, defaults, flatMap, flatten, isArray, isEqual, min, pull, range, remove, trim, union, uniqWith, upperFirst, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
@@ -80,13 +80,21 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
         if (definition.overloads.every(o => o.params.length === 1 && !o.params[0].startsWith("..."))) {
             // Only 1 parameter. No need to rearg (in fact, rearging some funtions like runInContext causes issues)
             unconvertedBuilder[definition.name] = (...args: number[][]) => {
-                return () => curryOverloads(definition.overloads, definition.name, args[0], definition.jsdoc);
+                return () => curryOverloads(definition.overloads, definition.name, args[0], -1, definition.jsdoc);
             };
         } else {
             builder[definition.name] = (...args: number[][]) => {
                 // args were originally passed in as [0], [1], [2], [3]. If they changed order, that indicates how the functoin was re-arged
                 // Return a function because some definitons (like rearg) expect to have a function return value
-                return () => curryOverloads(definition.overloads, definition.name, flatten(args), definition.jsdoc);
+
+                // If any argument is a number instead of an array, then the argument at that index is being spread (e.g. assignAll, invokeArgs, partial, without)
+                const spreadIndex = args.findIndex(a => typeof a === "number");
+                if (spreadIndex !== -1) {
+                    // If there's a spread parameter, convert() won't cap the number of arguments, so we need to do it manually
+                    args = args.slice(0, Math.max(spreadIndex, args[spreadIndex] as any) + 1); // Ignore all arguments after the spread
+                }
+
+                return () => curryOverloads(definition.overloads, definition.name, flatten(args), spreadIndex, definition.jsdoc);
             };
         }
     }
@@ -140,18 +148,34 @@ function parseDefinition(name: string, definitionString: string, commonTypes: st
         newCommonType = newCommonTypeRegExp.exec(definitionString);
     }
 
-    let overloadIndex = definitionString.indexOf("    " + name);
+    let getNextOverloadIndex = (position?: number) => definitionString.indexOf("    " + name, position);
+    let overloadIndex = getNextOverloadIndex();
     const jsdocStartIndex = definitionString.lastIndexOf("/**", overloadIndex);
     const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
     const definition: Definition = { name, overloads: [], jsdoc: "" };
     if (jsdocStartIndex !== -1 && jsdocEndIndex !== -1 && jsdocEndIndex < overloadIndex) {
         definition.jsdoc = definitionString.substring(jsdocStartIndex, jsdocEndIndex + 2).replace(/    /g, "");
     }
-    let wrapperIndex = definitionString.indexOf("Wrapper<");
-    if (wrapperIndex === -1)
-        wrapperIndex = definitionString.length;
+    const overloadEndIndex = definitionString.indexOf(";", overloadIndex);
+    const firstOverload = definitionString.substring(overloadIndex, overloadEndIndex);
+    if (!firstOverload.includes("(")) {
+        // This overload actually points to an interface. Try to find said interface and get the overloads from there.
+        const interfaceName = firstOverload.split(":")[1].trim();
+        const interfaceIndex = definitionString.indexOf(`interface ${interfaceName} {`);
+        if (interfaceIndex !== -1) {
+            pull(commonTypes, interfaceName);
+            getNextOverloadIndex = (position?: number) => indexOfAny(definitionString, ["    (", "    <"], position);
+            overloadIndex = getNextOverloadIndex(interfaceIndex);
+        } else {
+            console.warn(`Failed to parse function '${name}': interface '${interfaceName}' not found.`);
+            return undefined;
+        }
+    }
+    let interfaceEndIndex = definitionString.indexOf("    }", overloadIndex);
+    if (interfaceEndIndex === -1)
+        interfaceEndIndex = definitionString.length;
 
-    while (overloadIndex !== -1 && overloadIndex < wrapperIndex) {
+    while (overloadIndex !== -1 && overloadIndex < interfaceEndIndex) {
         let paramStartIndex = definitionString.indexOf("(", overloadIndex);
         const returnTypeEndIndex = definitionString.indexOf(";", paramStartIndex);
         if (returnTypeEndIndex !== -1) {
@@ -185,11 +209,13 @@ function parseDefinition(name: string, definitionString: string, commonTypes: st
                 }
                 const paramEndIndex = definitionString.indexOf("):", paramStartIndex);
                 if (paramEndIndex !== -1) {
+                    if (name === "updateWith")
+                        console.log("updateWith");
                     overload.params = definitionString
                         .substring(paramStartIndex + 1, paramEndIndex)
-                        .split(/,(?=[^,]+:)/g)
+                        .split(/,(?=[^,]+:)(?=(?:[^()]*|.*\(.*\).*)$)/m) // split on commas, but ignore Generic<T, U> and (a, b) => c
                         .map(trim)
-                        .map(s => trim(s, ","))
+                        .map(o => trim(o, ","))
                         .filter(o => !!o);
                     overload.returnType = definitionString.substring(paramEndIndex + 2, returnTypeEndIndex).trim();
                     definition.overloads.push(overload);
@@ -199,21 +225,64 @@ function parseDefinition(name: string, definitionString: string, commonTypes: st
             } else {
                 console.warn(`Failed to find parameter start position in overload for ${name}.`);
             }
-            overloadIndex = definitionString.indexOf(name, returnTypeEndIndex);
+            overloadIndex = getNextOverloadIndex(returnTypeEndIndex);
         } else {
             console.warn(`Failed to find return type end position (semicolon) in overload for ${name}.`);
-            overloadIndex = definitionString.indexOf(name, overloadIndex + 1);
+            overloadIndex = getNextOverloadIndex(overloadIndex + 1);
         }
     }
     return definition;
 }
 
-function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], jsdoc: string): Interface[] {
+function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, jsdoc: string): Interface[] {
+    overloads = cloneDeep(overloads);
     paramOrder = paramOrder.filter(p => typeof p === "number");
     const arity = paramOrder.length;
-    const filteredOverloads = cloneDeep(overloads.filter(o => o.params.length === arity && !o.params[o.params.length - 1].startsWith("...")));
+    if (spreadIndex !== -1) {
+        // The parameter at this index is an array that will be spread when passed down to the actual function (e.g. assignAll, invokeArgs, partial, without).
+        // For these parameters, we expect the input to be an array (so remove the "...")
+
+        // Spread/rest parameters could be in any of the following formats:
+        // 1. The rest parameter is at spreadIndex, and it is the last parameter.
+        // 2. The rest parameter is immediately after spreadIndex, e.g. assign(object, ...sources[]). In this case, convert it to assignAll(...object[])
+        // 3. The rest parameter is not the last parameter, e.g. assignWith(object, ...sources[], customizer)
+        if (spreadIndex === arity - 1) {
+            // cases 1-2
+            for (let i = 0; i < overloads.length; ++i) {
+                const overload = overloads[i]
+                if (overload.params.length === arity && overload.params[spreadIndex] && overload.params[spreadIndex].startsWith("...")) {
+                    overload.params[spreadIndex] = overload.params[spreadIndex].replace("...", "");
+                } else if (overload.params.length === arity + 1 && overload.params[spreadIndex + 1] && overload.params[spreadIndex + 1].startsWith("...")) {
+                    overload.params.splice(spreadIndex + 1, 1);
+                    const parts = overload.params[spreadIndex].split(":").map(trim);
+                    parts[1] = `ReadonlyArray<${parts[1]}>`;
+                    overload.params[spreadIndex] = `${parts[0]}: ${parts[1]}`;
+                } else {
+                    pull(overloads, overload);
+                    --i;
+                }
+            }
+        } else {
+            // case 3
+            const overload = overloads[0];
+            overloads = [{
+                jsdoc: overload.jsdoc,
+                typeParams: [],
+                params: [
+                    ...overload.params.slice(0, spreadIndex),
+                    "args: ReadonlyArray<any>",
+                    ...overload.params.slice(overload.params.length - (arity - spreadIndex - 1)),
+                ],
+                returnType: "any",
+            }];
+        }
+    }
+    //for (const overload of overloads)
+    //    overload.params = overload.params.map(p => p.replace(/^(?:Array<(.+)>|([^ |]+)\[\]|\((.+)\)\[\])$/, "ReadonlyArray<$1$2$3>"))
+
+    const filteredOverloads = overloads.filter(o => o.params.length === arity && !o.params[o.params.length - 1].startsWith("..."));
     if (filteredOverloads.length === 0) {
-        const restOverloads = cloneDeep(overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("...")));
+        const restOverloads = overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("..."));
         for (const restOverload of restOverloads) {
             if (restOverload.params.length <= arity) {
                 restOverload.params[restOverload.params.length - 1] = restOverload.params[restOverload.params.length - 1]
@@ -233,7 +302,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         }
     }
     if (filteredOverloads.length === 0) {
-        const optionalOverloads = cloneDeep(overloads.filter(o => o.params.slice(arity).every(p => p.includes("?"))));
+        const optionalOverloads = overloads.filter(o => o.params.slice(arity).every(p => p.includes("?")));
         for (const optionalOverload of optionalOverloads)
             optionalOverload.params = optionalOverload.params.slice(0, arity);
         filteredOverloads.push(...optionalOverloads);
@@ -455,6 +524,16 @@ function typeParamsToString(typeParams: TypeParam[], includeConstraints = true):
 function tab(s: string, count: number) {
     const prepend: string = " ".repeat(count * 4);
     return prepend + s.replace(/\n(.)/g, `\n${prepend}$1`);
+}
+
+function indexOfAny(source: string, values: string[], position?: number): number {
+    const indexes: number[] = [];
+    for (const value of values) {
+        const index = source.indexOf(value, position);
+        if (index !== -1)
+            indexes.push(index);
+    }
+    return indexes.length > 0 ? min(indexes)! : -1;
 }
 
 main();
