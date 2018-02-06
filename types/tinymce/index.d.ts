@@ -1,6 +1,8 @@
 // Type definitions for TinyMCE 4.5
 // Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc>, Poul Poulsen <https://github.com/ipoul>
+// Definitions by: Martin Duparc <https://github.com/martinduparc>
+//                 Poul Poulsen <https://github.com/ipoul>
+//                 Nico Hartto <https://github.com/nicohartto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -53,7 +55,7 @@ export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 export function init(settings: Settings): void;
 
 export interface Settings {
-  table_toolbar?: boolean;
+  table_toolbar?: string;
 
   auto_focus?: string;
 
