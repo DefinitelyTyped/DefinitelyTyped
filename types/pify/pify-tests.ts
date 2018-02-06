@@ -1,4 +1,4 @@
-import * as pify from 'pify';
+import pify = require('pify');
 
 function assert(actual: string, expected: string): void {
     if (actual !== expected) {

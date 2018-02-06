@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment = require('moment');
 
 const m = moment();
 m.round(5, 'seconds');

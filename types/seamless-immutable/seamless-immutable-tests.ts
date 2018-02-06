@@ -1,4 +1,4 @@
-import * as Immutable from 'seamless-immutable';
+import Immutable = require('seamless-immutable');
 
 // Test types
 

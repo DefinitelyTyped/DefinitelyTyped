@@ -2,7 +2,7 @@
 * This file contains all of the example code that was on http://senecajs.org as of Mon June 16, 2016.
 */
 
-import * as SENECA from 'seneca'
+import SENECA = require('seneca');
 var seneca: SENECA.Instance = SENECA()
 
 seneca.add({ cmd: 'salestax' }, function (args, callback) {

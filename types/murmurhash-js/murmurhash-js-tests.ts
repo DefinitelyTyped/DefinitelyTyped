@@ -1,6 +1,6 @@
-import * as murmur from 'murmurhash-js';
-import * as murmur2 from 'murmurhash-js/murmurhash2_gc';
-import * as murmur3 from 'murmurhash-js/murmurhash3_gc';
+import murmur = require('murmurhash-js');
+import murmur2 = require('murmurhash-js/murmurhash2_gc');
+import murmur3 = require('murmurhash-js/murmurhash3_gc');
 
 let hash: number;
 

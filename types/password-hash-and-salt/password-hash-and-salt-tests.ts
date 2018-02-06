@@ -1,4 +1,4 @@
-import * as password from 'password-hash-and-salt';
+import password = require('password-hash-and-salt');
 
 const myuser: { hash: string } = { hash: '' };
 

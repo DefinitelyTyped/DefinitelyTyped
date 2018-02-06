@@ -1,4 +1,4 @@
-import * as o from 'odata';
+import o = require('odata');
 import * as Q from "q";
 
 interface Product {

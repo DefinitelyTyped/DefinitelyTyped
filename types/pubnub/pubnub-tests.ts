@@ -1,4 +1,4 @@
-import * as Pubnub from 'pubnub';
+import Pubnub = require('pubnub');
 
 const console = {
   log: (params: any) => {}
