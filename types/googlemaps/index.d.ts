@@ -55,6 +55,7 @@ declare namespace google.maps {
         data: Data;
         mapTypes: MapTypeRegistry;
         overlayMapTypes: MVCArray<MapType>;
+        setClickableIcons(clickable: boolean): void;
     }
 
     export interface MapOptions {
