@@ -213,7 +213,7 @@ declare namespace Lodash {
          */
         <T>(object: _.Dictionary<T>, iteratee: _.MemoVoidDictionaryIterator<T, TResult[]>): TResult[];
     }
-    interface Transform1x2<T> {
+    interface Transform1x2<T, TResult> {
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -226,7 +226,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        (): Transform1x2<T>;
+        (): Transform1x2<T, TResult>;
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -239,7 +239,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        <TResult>(iteratee: _.MemoVoidArrayIterator<T, TResult[]>): TResult[];
+        (iteratee: _.MemoVoidArrayIterator<T, TResult[]>): TResult[];
     }
     interface Transform2x1<TResult> {
         /**
@@ -308,7 +308,7 @@ declare namespace Lodash {
          */
         <T>(object: _.Dictionary<T>, iteratee: _.MemoVoidDictionaryIterator<T, _.Dictionary<TResult>>): _.Dictionary<TResult>;
     }
-    interface Transform2x2<T> {
+    interface Transform2x2<T, TResult> {
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -321,7 +321,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        (): Transform2x2<T>;
+        (): Transform2x2<T, TResult>;
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -334,9 +334,9 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        <TResult>(iteratee: _.MemoVoidArrayIterator<T, _.Dictionary<TResult>>): _.Dictionary<TResult>;
+        (iteratee: _.MemoVoidArrayIterator<T, _.Dictionary<TResult>>): _.Dictionary<TResult>;
     }
-    interface Transform3x2<T> {
+    interface Transform3x2<T, TResult> {
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -349,7 +349,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        (): Transform3x2<T>;
+        (): Transform3x2<T, TResult>;
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -362,9 +362,9 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        <TResult>(iteratee: _.MemoVoidDictionaryIterator<T, _.Dictionary<TResult>>): _.Dictionary<TResult>;
+        (iteratee: _.MemoVoidDictionaryIterator<T, _.Dictionary<TResult>>): _.Dictionary<TResult>;
     }
-    interface Transform4x2<T> {
+    interface Transform4x2<T, TResult> {
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -377,7 +377,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        (): Transform4x2<T>;
+        (): Transform4x2<T, TResult>;
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -390,7 +390,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the accumulated value.
          */
-        <TResult>(iteratee: _.MemoVoidDictionaryIterator<T, TResult[]>): TResult[];
+        (iteratee: _.MemoVoidDictionaryIterator<T, TResult[]>): TResult[];
     }
 }
 

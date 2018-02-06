@@ -41,7 +41,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [1]
          */
-        <T>(...values: Array<_.Many<T>>): Concat1x1<T>;
+        <T>(values: _.Many<T>): Concat1x1<T>;
         /**
          * Creates a new array concatenating `array` with any additional arrays
          * and/or values.
@@ -61,7 +61,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [1]
          */
-        <T>(...values: Array<_.Many<T>>, array: _.Many<T>): T[];
+        <T>(values: _.Many<T>, array: _.Many<T>): T[];
     }
     interface Concat1x1<T> {
         /**

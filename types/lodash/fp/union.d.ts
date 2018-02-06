@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of combined values.
          */
-        <T>(...arrays: Array<_.List<T> | null | undefined>): T[];
+        <T>(arrays: _.List<T> | null | undefined): T[];
     }
 }
 

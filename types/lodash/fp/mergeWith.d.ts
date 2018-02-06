@@ -243,7 +243,7 @@ declare namespace Lodash {
          */
         <TObject>(customizer: MergeWithCustomizer, object: TObject): TObject & TSource;
     }
-    interface MergeWith1x2 {
+    interface MergeWith1x2<TSource> {
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -277,7 +277,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        (): MergeWith1x2;
+        (): MergeWith1x2<TSource>;
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -311,7 +311,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        <TObject, TSource>(object: TObject): TObject & TSource;
+        <TObject>(object: TObject): TObject & TSource;
     }
 }
 

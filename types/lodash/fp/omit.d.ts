@@ -35,7 +35,7 @@ declare namespace Lodash {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
-        (...paths: _.PropertyPath[]): Omit1x1;
+        (paths: _.PropertyPath): Omit1x1;
         /**
          * The opposite of `_.pick`; this method creates an object composed of the
          * own and inherited enumerable properties of `object` that are not omitted.
@@ -52,7 +52,7 @@ declare namespace Lodash {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
-        <T>(...paths: _.PropertyPath[], object: _.Dictionary<T>): _.Dictionary<T>;
+        <T>(paths: _.PropertyPath, object: _.Dictionary<T>): _.Dictionary<T>;
         /**
          * The opposite of `_.pick`; this method creates an object composed of the
          * own and inherited enumerable properties of `object` that are not omitted.
@@ -69,7 +69,7 @@ declare namespace Lodash {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
-        <T extends object>(...paths: _.PropertyPath[], object: T | null | undefined): _.PartialObject<T>;
+        <T extends object>(paths: _.PropertyPath, object: T | null | undefined): _.PartialObject<T>;
     }
     interface Omit1x1 {
         /**

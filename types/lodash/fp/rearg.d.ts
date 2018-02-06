@@ -19,7 +19,7 @@ declare namespace Lodash {
          * @param indexes The arranged argument indexes, specified as individual indexes or arrays of indexes.
          * @return Returns the new function.
          */
-        (...indexes: Array<_.Many<number>>): Rearg1x1;
+        (indexes: _.Many<number>): Rearg1x1;
         /**
          * Creates a function that invokes func with arguments arranged according to the specified indexes where the
          * argument value at the first index is provided as the first argument, the argument value at the second index
@@ -28,7 +28,7 @@ declare namespace Lodash {
          * @param indexes The arranged argument indexes, specified as individual indexes or arrays of indexes.
          * @return Returns the new function.
          */
-        (...indexes: Array<_.Many<number>>, func: (...args: any[]) => any): (...args: any[]) => any;
+        (indexes: _.Many<number>, func: (...args: any[]) => any): (...args: any[]) => any;
     }
     interface Rearg1x1 {
         /**

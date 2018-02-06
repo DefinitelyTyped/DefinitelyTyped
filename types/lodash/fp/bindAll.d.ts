@@ -27,7 +27,7 @@ declare namespace Lodash {
          * method names.
          * @return Returns object.
          */
-        (...methodNames: Array<_.Many<string>>): BindAll1x1;
+        (methodNames: _.Many<string>): BindAll1x1;
         /**
          * Binds methods of an object to the object itself, overwriting the existing method. Method names may be
          * specified as individual arguments or as arrays of method names. If no method names are provided all
@@ -40,7 +40,7 @@ declare namespace Lodash {
          * method names.
          * @return Returns object.
          */
-        <T>(...methodNames: Array<_.Many<string>>, object: T): T;
+        <T>(methodNames: _.Many<string>, object: T): T;
     }
     interface BindAll1x1 {
         /**

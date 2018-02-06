@@ -41,29 +41,29 @@ declare namespace Lodash {
          */
         <TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
     }
-    interface ExtendWith1x2<TSource1> {
+    interface ExtendWith1x2<TObject, TSource1> {
         /**
          * @see _.extendWith
          */
-        (): ExtendWith1x2<TSource1>;
+        (): ExtendWith1x2<TObject, TSource1>;
         /**
          * @see _.extendWith
          */
-        <TSource2>(source2: TSource2): ExtendWith1x3<TSource2, TSource1>;
+        <TSource2>(source2: TSource2): ExtendWith1x3<TSource2, TObject, TSource1>;
         /**
          * @see _.extendWith
          */
-        <TObject, TSource2>(source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        <TSource2>(source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
     }
-    interface ExtendWith1x3<TSource2> {
+    interface ExtendWith1x3<TObject, TSource1, TSource2> {
         /**
          * @see _.extendWith
          */
-        (): ExtendWith1x3<TSource2>;
+        (): ExtendWith1x3<TObject, TSource1, TSource2>;
         /**
          * @see _.extendWith
          */
-        <TObject, TSource1>(customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        (customizer: AssignCustomizer): TObject & TSource1 & TSource2;
     }
 }
 

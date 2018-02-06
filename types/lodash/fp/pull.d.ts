@@ -21,7 +21,7 @@ declare namespace Lodash {
          * @param values The values to remove.
          * @return Returns array.
          */
-        <T>(...values: T[]): Pull1x1<T>;
+        <T>(values: T): Pull1x1<T>;
         /**
          * Removes all provided values from array using SameValueZero for equality comparisons.
          *
@@ -31,7 +31,7 @@ declare namespace Lodash {
          * @param values The values to remove.
          * @return Returns array.
          */
-        <T>(...values: T[], array: T[]): T[];
+        <T>(values: T, array: T[]): T[];
         /**
          * Removes all provided values from array using SameValueZero for equality comparisons.
          *
@@ -41,7 +41,7 @@ declare namespace Lodash {
          * @param values The values to remove.
          * @return Returns array.
          */
-        <T>(...values: T[], array: _.List<T>): _.List<T>;
+        <T>(values: T, array: _.List<T>): _.List<T>;
     }
     interface Pull1x1<T> {
         /**

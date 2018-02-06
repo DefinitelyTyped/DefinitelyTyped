@@ -176,7 +176,7 @@ declare namespace Lodash {
         **/
         <T>(collection: _.NumericDictionary<T> | null | undefined, callback: _.MemoListIterator<T, TResult, _.NumericDictionary<T>>): TResult;
     }
-    interface ReduceRight1x2<T> {
+    interface ReduceRight1x2<T, TResult> {
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -185,7 +185,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        (): ReduceRight1x2<T>;
+        (): ReduceRight1x2<T, TResult>;
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -194,9 +194,9 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        <TResult>(callback: _.MemoListIterator<T, TResult, T[]>): TResult;
+        (callback: _.MemoListIterator<T, TResult, T[]>): TResult;
     }
-    interface ReduceRight2x2<T> {
+    interface ReduceRight2x2<T, TResult> {
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -205,7 +205,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        (): ReduceRight2x2<T>;
+        (): ReduceRight2x2<T, TResult>;
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -214,9 +214,9 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        <TResult>(callback: _.MemoListIterator<T, TResult, _.List<T>>): TResult;
+        (callback: _.MemoListIterator<T, TResult, _.List<T>>): TResult;
     }
-    interface ReduceRight3x2<T extends object> {
+    interface ReduceRight3x2<T extends object, TResult> {
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -225,7 +225,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        (): ReduceRight3x2<T>;
+        (): ReduceRight3x2<T, TResult>;
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -234,9 +234,9 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        <TResult>(callback: _.MemoObjectIterator<T[keyof T], TResult, T>): TResult;
+        (callback: _.MemoObjectIterator<T[keyof T], TResult, T>): TResult;
     }
-    interface ReduceRight4x2<T> {
+    interface ReduceRight4x2<T, TResult> {
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -245,7 +245,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        (): ReduceRight4x2<T>;
+        (): ReduceRight4x2<T, TResult>;
         /**
         * This method is like _.reduce except that it iterates over elements of a collection from
         * right to left.
@@ -254,7 +254,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return The accumulated value.
         **/
-        <TResult>(callback: _.MemoListIterator<T, TResult, _.NumericDictionary<T>>): TResult;
+        (callback: _.MemoListIterator<T, TResult, _.NumericDictionary<T>>): TResult;
     }
 }
 

@@ -15,14 +15,14 @@ declare namespace Lodash {
          * @param sources The source objects.
          * @return Returns object.
          **/
-        (...sources: any[]): DefaultsDeep1x1;
+        (sources: any): DefaultsDeep1x1;
         /**
          * This method is like _.defaults except that it recursively assigns default properties.
          * @param object The destination object.
          * @param sources The source objects.
          * @return Returns object.
          **/
-        (...sources: any[], object: any): any;
+        (sources: any, object: any): any;
     }
     interface DefaultsDeep1x1 {
         /**

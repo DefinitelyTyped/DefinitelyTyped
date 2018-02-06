@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { ary, cloneDeep, flatMap, flatten, isEqual, pull, remove, trim, union, uniqWith, without } from "lodash";
+import { ary, cloneDeep, flatMap, flatten, isEqual, pull, range, remove, trim, union, uniqWith, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
@@ -71,8 +71,10 @@ function readFile(filePath: string): Promise<string> {
     });
 }
 
-async function processDefinition(filePath: string, commonTypes: string[]) {
+async function processDefinition(filePath: string, commonTypes: string[]): Promise<void> {
     const definition = await parseFile(filePath);
+    if (!definition)
+        return;
     const intefaceName = definition.name[0].toUpperCase() + definition.name.substring(1);
     const builder = {
         [definition.name]: (...args: number[][]) => {
@@ -114,13 +116,15 @@ export = ${definition.name};
     });
 }
 
-async function parseFile(filePath: string): Promise<Definition> {
+async function parseFile(filePath: string): Promise<Definition | undefined> {
     const name = path.basename(filePath, ".d.ts");
     const data = await readFile(filePath);
     return parseDefinition(name, data);
 }
 
-function parseDefinition(name: string, definitionString: string): Definition {
+function parseDefinition(name: string, definitionString: string): Definition | undefined {
+    if (name === "chain" || name.startsWith("prototype."))
+        return undefined;
     const jsdocStartIndex = definitionString.indexOf("/**");
     const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
     const definition: Definition = { name, overloads: [], jsdoc: "" };
@@ -187,9 +191,38 @@ function parseDefinition(name: string, definitionString: string): Definition {
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], jsdoc: string): Interface[] {
     paramOrder = paramOrder.filter(p => typeof p === "number");
     const arity = paramOrder.length;
-    overloads = overloads.filter(o => o.params.length === arity); // TODO: handle rest parameters
-    overloads.forEach(preProcessOverload);
-    const interfaces = flatMap(overloads, (o, i) => {
+    const filteredOverloads = overloads.filter(o => o.params.length === arity && !o.params[o.params.length - 1].startsWith("..."));
+    if (filteredOverloads.length === 0) {
+        const restOverloads = cloneDeep(overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("...")));
+        for (const restOverload of restOverloads) {
+            if (restOverload.params.length <= arity) {
+                restOverload.params[restOverload.params.length - 1] = restOverload.params[restOverload.params.length - 1]
+                    .substring(3)
+                    .replace(/\[\]$/, "")
+                    .replace(/: Array<(.+)>$/, ": $1");
+                if (restOverload.params.length < arity) {
+                    const paramToCopy = restOverload.params[restOverload.params.length - 1];
+                    const copiedParams = range(2, arity - restOverload.params.length + 2).map(i => paramToCopy.replace(/(^.+?):/, `$1${i}:`));
+                    restOverload.params.push(...copiedParams);
+                }
+            } else {
+                // Remove the rest parameter
+                restOverload.params.pop();
+            }
+            filteredOverloads.push(restOverload);
+        }
+    }
+    if (filteredOverloads.length === 0) {
+        const optionalOverloads = cloneDeep(overloads.filter(o => o.params.slice(arity).every(p => p.includes("?"))));
+        for (const optionalOverload of optionalOverloads)
+            optionalOverload.params = optionalOverload.params.slice(0, arity);
+        filteredOverloads.push(...optionalOverloads);
+    }
+    for (const overload of filteredOverloads)
+        overload.params = overload.params.map(p => p.replace(/\?:/g, ":"));
+
+    filteredOverloads.forEach(preProcessOverload);
+    const interfaces = flatMap(filteredOverloads, (o, i) => {
         const reargParams = o.params.map((p, i) => o.params[paramOrder[i]]);
         return curryOverload({
             typeParams: o.typeParams,
@@ -235,12 +268,10 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
 
 function preProcessOverload(overload: Overload): void {
     // No optional parameters
-    overload.params = overload.params.map(p => p.replace(/\?:/g, ":"));
-
-    for (let i = 0; i < overload.params.length; ++i) {
-        overload.params[i]
+    //overload.params = overload.params.map(p => p.replace(/\?:/g, ":"));
+    // Cap the number of callback arguments
+    for (let i = 0; i < overload.params.length; ++i)
         overload.params[i] = capCallback(overload.params[i]);
-    }
 }
 
 function capCallback(parameter: string): string {
@@ -286,12 +317,11 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
             ),
         };
         interfaces.push(interfaceDef);
-        const currentParam = overload.params[i];
-        //const usedTypeParams = interfaceDef.overloads[1] && interfaceDef.overloads[1].typeParams.slice(0, i + 1);
-        const usedTypeParams = currentParam ? overload.typeParams.filter(tp => new RegExp(`\\b${tp.name}\\b`).test(currentParam)) : [];
+        const currentParams = overload.params.slice(0, i + 1);
+        const usedTypeParams = overload.typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+        usedTypeParams.unshift(...overload.typeParams.filter(tp => !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
         const unusedParams = overload.params.slice(i + 1).concat(overload.returnType);
         passTypeParams = usedTypeParams.filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        //passTypeParams = overload.typeParams.filter(tp => new RegExp(`\\b${tp.name}\\b`).test(joinedUnusedParams));
     }
     // The T[keyof T] constraint doesn't work so well if it's the only constraint. Convert to a plain old T constraint so it can be merged with
     // other ValueIteratee<T> overloads
@@ -339,6 +369,7 @@ function curryParams(
     for (let i = 1; i <= params.length; ++i) {
         const currentParams = params.slice(0, i);
         const usedTypeParams = i < params.length ? typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p))) : typeParams;
+        usedTypeParams.unshift(...typeParams.filter(tp => !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
         const unusedParams = params.slice(i).concat(returnType);
         const passTypeParams = usedTypeParams.concat(interfaceTypeParams).filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
         const currentReturnType = i < params.length ? getInterfaceName(baseName, overloadId, index + i, passTypeParams) : returnType;

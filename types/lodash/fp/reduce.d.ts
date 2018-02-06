@@ -233,7 +233,7 @@ declare namespace Lodash {
         **/
         <T>(collection: _.NumericDictionary<T> | null | undefined, callback: _.MemoListIterator<T, TResult, _.NumericDictionary<T>>): TResult;
     }
-    interface Reduce1x2<T> {
+    interface Reduce1x2<T, TResult> {
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -245,7 +245,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        (): Reduce1x2<T>;
+        (): Reduce1x2<T, TResult>;
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -257,9 +257,9 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        <TResult>(callback: _.MemoListIterator<T, TResult, T[]>): TResult;
+        (callback: _.MemoListIterator<T, TResult, T[]>): TResult;
     }
-    interface Reduce2x2<T> {
+    interface Reduce2x2<T, TResult> {
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -271,7 +271,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        (): Reduce2x2<T>;
+        (): Reduce2x2<T, TResult>;
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -283,9 +283,9 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        <TResult>(callback: _.MemoListIterator<T, TResult, _.List<T>>): TResult;
+        (callback: _.MemoListIterator<T, TResult, _.List<T>>): TResult;
     }
-    interface Reduce3x2<T extends object> {
+    interface Reduce3x2<T extends object, TResult> {
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -297,7 +297,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        (): Reduce3x2<T>;
+        (): Reduce3x2<T, TResult>;
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -309,9 +309,9 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        <TResult>(callback: _.MemoObjectIterator<T[keyof T], TResult, T>): TResult;
+        (callback: _.MemoObjectIterator<T[keyof T], TResult, T>): TResult;
     }
-    interface Reduce4x2<T> {
+    interface Reduce4x2<T, TResult> {
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -323,7 +323,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        (): Reduce4x2<T>;
+        (): Reduce4x2<T, TResult>;
         /**
         * Reduces a collection to a value which is the accumulated result of running each
         * element in the collection through the callback, where each successive callback execution
@@ -335,7 +335,7 @@ declare namespace Lodash {
         * @param accumulator Initial value of the accumulator.
         * @return Returns the accumulated value.
         **/
-        <TResult>(callback: _.MemoListIterator<T, TResult, _.NumericDictionary<T>>): TResult;
+        (callback: _.MemoListIterator<T, TResult, _.NumericDictionary<T>>): TResult;
     }
 }
 

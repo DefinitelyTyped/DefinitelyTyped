@@ -21,7 +21,7 @@ declare namespace Lodash {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        <TKey extends keyof TObject>(path: TKey | [TKey]): Get1x1<TKey>;
+        <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): Get1x1<TObject, TKey>;
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
          * in its place.
@@ -93,7 +93,7 @@ declare namespace Lodash {
          */
         (path: _.PropertyPath, object: null | undefined): undefined;
     }
-    interface Get1x1<TKey extends keyof TObject> {
+    interface Get1x1<TObject extends object, TKey extends keyof TObject> {
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
          * in its place.
@@ -103,7 +103,7 @@ declare namespace Lodash {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        (): Get1x1<TKey>;
+        (): Get1x1<TObject, TKey>;
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
          * in its place.
@@ -113,7 +113,7 @@ declare namespace Lodash {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        <TObject extends object>(object: TObject): TObject[TKey];
+        (object: TObject): TObject[TKey];
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
          * in its place.
@@ -123,7 +123,7 @@ declare namespace Lodash {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        <TObject extends object>(object: TObject | null | undefined): TObject[TKey] | undefined;
+        (object: TObject | null | undefined): TObject[TKey] | undefined;
     }
     interface Get3x1 {
         /**

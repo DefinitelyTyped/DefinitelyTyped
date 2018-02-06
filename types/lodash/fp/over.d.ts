@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param iteratees The iteratees to invoke.
          * @return Returns the new function.
          */
-        <TResult>(...iteratees: Array<_.Many<(...args: any[]) => TResult>>): (...args: any[]) => TResult[];
+        <TResult>(iteratees: _.Many<(...args: any[]) => TResult>): (...args: any[]) => TResult[];
     }
 }
 

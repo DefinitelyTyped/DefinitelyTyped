@@ -161,7 +161,7 @@ declare namespace Lodash {
          */
         <TResult>(path: _.PropertyPath, value: any, object: T): TResult;
     }
-    interface SetWith1x2 {
+    interface SetWith1x2<T extends object> {
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -173,7 +173,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        (): SetWith1x2;
+        (): SetWith1x2<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -185,7 +185,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        (value: any): SetWith1x3;
+        (value: any): SetWith1x3<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -197,7 +197,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object>(value: any, object: T): T;
+        (value: any, object: T): T;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -209,7 +209,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        (value: any): SetWith2x3;
+        (value: any): SetWith2x3<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -221,9 +221,9 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object, TResult>(value: any, object: T): TResult;
+        <TResult>(value: any, object: T): TResult;
     }
-    interface SetWith1x3 {
+    interface SetWith1x3<T extends object> {
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -235,7 +235,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        (): SetWith1x3;
+        (): SetWith1x3<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -247,7 +247,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object>(object: T): T;
+        (object: T): T;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -259,7 +259,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object, TResult>(object: T): TResult;
+        <TResult>(object: T): TResult;
     }
 }
 

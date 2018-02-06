@@ -19,7 +19,7 @@ declare namespace Lodash {
          * @param values The arrays of values to exclude.
          * @return Returns the new array of filtered values.
          */
-        <T>(...values: Array<_.List<T>>): Difference1x1<T>;
+        <T>(values: _.List<T>): Difference1x1<T>;
         /**
          * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
          * equality comparisons.
@@ -28,7 +28,7 @@ declare namespace Lodash {
          * @param values The arrays of values to exclude.
          * @return Returns the new array of filtered values.
          */
-        <T>(...values: Array<_.List<T>>, array: _.List<T> | null | undefined): T[];
+        <T>(values: _.List<T>, array: _.List<T> | null | undefined): T[];
     }
     interface Difference1x1<T> {
         /**

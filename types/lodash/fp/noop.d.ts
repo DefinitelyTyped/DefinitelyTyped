@@ -13,7 +13,7 @@ declare namespace Lodash {
          *
          * @return undefined
          */
-        (...args: any[]): void;
+        (args: any): void;
     }
 }
 

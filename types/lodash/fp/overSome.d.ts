@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        <T>(...predicates: Array<_.Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
+        <T>(predicates: _.Many<(...args: T[]) => boolean>): (...args: T[]) => boolean;
     }
 }
 

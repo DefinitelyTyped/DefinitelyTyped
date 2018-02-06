@@ -163,7 +163,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped array.
          */
-        <K extends keyof T>(iteratee: K): Map3x1<K>;
+        <T, K extends keyof T>(iteratee: K): Map3x1<T, K>;
         /**
          * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
          * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -466,7 +466,7 @@ declare namespace Lodash {
          */
         (collection: _.Dictionary<T> | null | undefined): TResult[];
     }
-    interface Map3x1<K extends keyof T> {
+    interface Map3x1<T, K extends keyof T> {
         /**
          * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
          * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -493,7 +493,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped array.
          */
-        (): Map3x1<K>;
+        (): Map3x1<T, K>;
         /**
          * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
          * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -520,7 +520,7 @@ declare namespace Lodash {
          * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped array.
          */
-        <T>(collection: _.List<T> | _.Dictionary<T> | null | undefined): Array<T[K]>;
+        (collection: _.List<T> | _.Dictionary<T> | null | undefined): Array<T[K]>;
     }
     interface Map4x1<T, TResult> {
         /**

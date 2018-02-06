@@ -33,7 +33,7 @@ declare namespace Lodash {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        <U extends keyof T>(...props: Array<_.Many<U>>): Pick1x1<U>;
+        <T extends object, U extends keyof T>(props: _.Many<U>): Pick1x1<T, U>;
         /**
          * Creates an object composed of the picked `object` properties.
          *
@@ -49,7 +49,7 @@ declare namespace Lodash {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        <T extends object, U extends keyof T>(...props: Array<_.Many<U>>, object: T): Pick<T, U>;
+        <T extends object, U extends keyof T>(props: _.Many<U>, object: T): Pick<T, U>;
         /**
          * Creates an object composed of the picked `object` properties.
          *
@@ -65,7 +65,7 @@ declare namespace Lodash {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        (...props: _.PropertyPath[]): Pick2x1;
+        (props: _.PropertyPath): Pick2x1;
         /**
          * Creates an object composed of the picked `object` properties.
          *
@@ -81,9 +81,9 @@ declare namespace Lodash {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        <T>(...props: _.PropertyPath[], object: T | null | undefined): _.PartialDeep<T>;
+        <T>(props: _.PropertyPath, object: T | null | undefined): _.PartialDeep<T>;
     }
-    interface Pick1x1<U extends keyof T> {
+    interface Pick1x1<T extends object, U extends keyof T> {
         /**
          * Creates an object composed of the picked `object` properties.
          *
@@ -99,7 +99,7 @@ declare namespace Lodash {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        (): Pick1x1<U>;
+        (): Pick1x1<T, U>;
         /**
          * Creates an object composed of the picked `object` properties.
          *
@@ -115,7 +115,7 @@ declare namespace Lodash {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        <T extends object>(object: T): Pick<T, U>;
+        (object: T): Pick<T, U>;
     }
     interface Pick2x1 {
         /**

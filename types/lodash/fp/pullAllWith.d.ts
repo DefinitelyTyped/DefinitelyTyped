@@ -471,7 +471,7 @@ declare namespace Lodash {
          */
         (values: _.List<T2>, array: _.List<T1>): _.List<T1>;
     }
-    interface PullAllWith3x2 {
+    interface PullAllWith3x2<T1> {
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -492,7 +492,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        (): PullAllWith3x2;
+        (): PullAllWith3x2<T1>;
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -513,7 +513,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        <T1, T2>(array: T1[]): T1[];
+        <T2>(array: T1[]): T1[];
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -534,7 +534,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
-        <T1, T2>(array: _.List<T1>): _.List<T1>;
+        <T2>(array: _.List<T1>): _.List<T1>;
     }
 }
 

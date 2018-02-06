@@ -65,7 +65,7 @@ declare namespace Lodash {
          * });
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        <T>(...iteratees: Array<_.Many<_.ValueIteratee<T>>>): SortBy1x1<T>;
+        <T>(iteratees: _.Many<_.ValueIteratee<T>>): SortBy1x1<T>;
         /**
          * Creates an array of elements, sorted in ascending order by the results of
          * running each element in a collection through each iteratee. This method
@@ -97,7 +97,7 @@ declare namespace Lodash {
          * });
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        <T>(...iteratees: Array<_.Many<_.ValueIteratee<T>>>, collection: _.List<T> | null | undefined): T[];
+        <T>(iteratees: _.Many<_.ValueIteratee<T>>, collection: _.List<T> | null | undefined): T[];
         /**
          * Creates an array of elements, sorted in ascending order by the results of
          * running each element in a collection through each iteratee. This method
@@ -129,7 +129,7 @@ declare namespace Lodash {
          * });
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        <T extends object>(...iteratees: Array<_.Many<_.ValueIteratee<T[keyof T]>>>, collection: T | null | undefined): Array<T[keyof T]>;
+        <T extends object>(iteratees: _.Many<_.ValueIteratee<T[keyof T]>>, collection: T | null | undefined): Array<T[keyof T]>;
     }
     interface SortBy1x1<T> {
         /**

@@ -180,7 +180,7 @@ declare namespace Lodash {
          */
         <TObject>(customizer: AssignCustomizer, object: TObject): TObject & TSource;
     }
-    interface AssignWith1x2 {
+    interface AssignWith1x2<TSource> {
         /**
          * This method is like `_.assign` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -205,7 +205,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        (): AssignWith1x2;
+        (): AssignWith1x2<TSource>;
         /**
          * This method is like `_.assign` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -230,7 +230,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TObject, TSource>(object: TObject): TObject & TSource;
+        <TObject>(object: TObject): TObject & TSource;
     }
 }
 

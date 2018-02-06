@@ -471,7 +471,7 @@ declare namespace Lodash {
          */
         (values: _.List<T2>, array: _.List<T1>): _.List<T1>;
     }
-    interface PullAllBy3x2 {
+    interface PullAllBy3x2<T1> {
         /**
          * This method is like `_.pullAll` except that it accepts `iteratee` which is
          * invoked for each element of `array` and `values` to to generate the criterion
@@ -492,7 +492,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 2 }]
          */
-        (): PullAllBy3x2;
+        (): PullAllBy3x2<T1>;
         /**
          * This method is like `_.pullAll` except that it accepts `iteratee` which is
          * invoked for each element of `array` and `values` to to generate the criterion
@@ -513,7 +513,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 2 }]
          */
-        <T1, T2>(array: T1[]): T1[];
+        <T2>(array: T1[]): T1[];
         /**
          * This method is like `_.pullAll` except that it accepts `iteratee` which is
          * invoked for each element of `array` and `values` to to generate the criterion
@@ -534,7 +534,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 2 }]
          */
-        <T1, T2>(array: _.List<T1>): _.List<T1>;
+        <T2>(array: _.List<T1>): _.List<T1>;
     }
 }
 

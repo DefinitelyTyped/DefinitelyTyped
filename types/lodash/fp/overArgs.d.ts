@@ -19,7 +19,7 @@ declare namespace Lodash {
         * of functions.
         * @return Returns the new function.
         */
-        (...transforms: Array<_.Many<(...args: any[]) => any>>): OverArgs1x1;
+        (transforms: _.Many<(...args: any[]) => any>): OverArgs1x1;
         /**
         * Creates a function that runs each argument through a corresponding transform function.
         *
@@ -28,7 +28,7 @@ declare namespace Lodash {
         * of functions.
         * @return Returns the new function.
         */
-        (...transforms: Array<_.Many<(...args: any[]) => any>>, func: (...args: any[]) => any): (...args: any[]) => any;
+        (transforms: _.Many<(...args: any[]) => any>, func: (...args: any[]) => any): (...args: any[]) => any;
     }
     interface OverArgs1x1 {
         /**

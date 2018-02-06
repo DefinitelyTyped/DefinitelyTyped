@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of shared values.
          */
-        <T>(...arrays: Array<_.List<T>>): T[];
+        <T>(arrays: _.List<T>): T[];
     }
 }
 
