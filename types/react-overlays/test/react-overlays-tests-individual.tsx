@@ -3,10 +3,10 @@ import * as React from "react";
 import * as Portal from 'react-overlays/lib/Portal';
 import * as Modal from 'react-overlays/lib/Modal';
 import * as Position from 'react-overlays/lib/Position';
-import * as Overlay from 'react-overlays/lib/Overlay';
+import Overlay = require('react-overlays/lib/Overlay');
 import * as Affix from 'react-overlays/lib/Affix';
-import * as AutoAffix from 'react-overlays/lib/AutoAffix';
-import * as RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
+import AutoAffix = require('react-overlays/lib/AutoAffix');
+import RootCloseWrapper = require('react-overlays/lib/RootCloseWrapper');
 
 import { OverlayFade } from './react-overlays-tests-transition';
 

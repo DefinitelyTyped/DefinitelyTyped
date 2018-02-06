@@ -16,12 +16,18 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
-            "@feathersjs/authentication-client": ["feathersjs__authentication-client"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/authentication-client": [
+                "feathersjs__authentication-client"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__authentication-client-tests.ts"
+        "index.d.ts",
+        "feathersjs__authentication-client-tests.ts"
     ]
 }
