@@ -44,17 +44,17 @@ const cert = fs.readFileSync('cert.pem');
 const callback = (err: any, res: ChaiHttp.Response) => {};
 
 chai.request(app)
-    .post('/secure')
-    .ca(ca)
-    .key(key)
-    .cert(cert)
-    .end(callback);
+	.post('/secure')
+	.ca(ca)
+	.key(key)
+	.cert(cert)
+	.end(callback);
 
 const pfx = fs.readFileSync('cert.pfx');
 chai.request(app)
-    .post('/secure')
-    .pfx(pfx)
-    .end(callback);
+	.post('/secure')
+	.pfx(pfx)
+	.end(callback);
 
 chai.request(app)
 	.get('/search')
