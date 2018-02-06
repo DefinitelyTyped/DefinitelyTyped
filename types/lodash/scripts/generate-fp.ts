@@ -1,9 +1,7 @@
 import * as fs from "fs";
-import { ary, cloneDeep, flatMap, isEqual, pull, remove, trim, union, uniqWith, without } from "lodash";
+import { ary, cloneDeep, flatMap, flatten, isEqual, pull, remove, trim, union, uniqWith, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
-import * as some from "lodash/fp/some";
-import { writeFile } from "fs";
 
 interface Definition {
     name: string;
@@ -27,44 +25,32 @@ interface TypeParam {
 }
 
 async function main() {
-    try {
-        const common = await readFile("../common/common.d.ts");
-        const commonTypes: string[] = [];
-        const typeRegExp = /    (?:type|interface) +([A-Za-z0-9]+)/g;
-        let match = typeRegExp.exec(common);
-        while (match) {
-            commonTypes.push(match[1]);
-            match = typeRegExp.exec(common);
-        }
+    const common = await readFile("../common/common.d.ts");
+    const commonTypes: string[] = [];
+    const typeRegExp = /    (?:type|interface) +([A-Za-z0-9]+)/g;
+    let match = typeRegExp.exec(common);
+    while (match) {
+        commonTypes.push(match[1]);
+        match = typeRegExp.exec(common);
+    }
 
-        const someDef = await parseFile("../collection/some.d.ts");
-        const builder = {
-            some: ary((...args: number[]) => {
-                const interfaces = curryOverloads(someDef.overloads, someDef.name, args);
-                return interfaces.map(interfaceToString).join("\n");
-            }, 2),//TODO: is ary needed?
-        }
-
-        const builderFp = convert(builder);
-
-        let output: string = builderFp.some(0, 1);
-        output = output.replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
-        output =
-`import _ = require("../index");
-
-declare namespace Lodash {
-${tab(output, 1)}
-}
-
-declare const some: Lodash.Some;
-export = some;
-`
-        fs.writeFile("../fp/some.d.ts", output, (err) => {
-            if (err)
-                console.error(`failed to write file: ../fp/some.d.ts`, err);
+    // Read each function definition and fp-ify it
+    const subfolders = ["array", "collection", "date", "function", "lang", "math", "number", "object", "seq", "string", "util"];
+    for (const subfolder of subfolders) {
+        fs.readdir(path.join("..", subfolder), (err, files) => {
+            if (err) {
+                console.error(`failed to list directory contents for '${subfolder}': `, err);
+                return;
+            }
+            for (const file of files) {
+                const filePath = path.join("..", subfolder, file);
+                try {
+                    processDefinition(filePath, commonTypes);
+                } catch (e) {
+                    console.error(`failed to process file '${filePath}': `, e);
+                }
+            }
         });
-    } catch (e) {
-        console.error("failed to parse file: ", e);
     }
 }
 
@@ -84,6 +70,49 @@ function readFile(filePath: string): Promise<string> {
     });
 }
 
+async function processDefinition(filePath: string, commonTypes: string[]) {
+    const definition = await parseFile(filePath);
+    const intefaceName = definition.name[0].toUpperCase() + definition.name.substring(1);
+    const builder = {
+        [definition.name]: (...args: number[][]) => {
+            // args were originally passed in as [0], [1], [2], [3]. IF they changed order, that indicates how the functoin was re-arged
+            const interfaces = curryOverloads(definition.overloads, definition.name, flatten(args));
+            return () => interfaces.map(interfaceToString).join("\n");
+        },
+    }
+
+    let builderFp: any;
+    if (definition.overloads.every(o => o.params.length === 1)) {
+        // Only 1 parameter. No need to rearg (in fact, reaging some funtions like runInContext causes issues)
+        builderFp = {
+            [definition.name]: ary(builder[definition.name], 1),
+        };
+    } else {
+        builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
+    }
+
+    if (definition.name === "fill") {
+        console.log("fill");
+    }
+    let outputFn: (...args: any[]) => string = builderFp[definition.name]([0], [1], [2], [3]); // Assuming the maximum arity is 4
+    let output = outputFn([0], [1], [2], [3]).replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
+    output =
+`import _ = require("../index");
+
+declare namespace Lodash {
+${tab(output, 1)}
+}
+
+declare const ${definition.name}: Lodash.${intefaceName};
+export = ${definition.name};
+`
+    const targetFile = `../fp/${definition.name}.d.ts`;
+    fs.writeFile(targetFile, output, (err) => {
+        if (err)
+            console.error(`failed to write file: ${targetFile}`, err);
+    });
+}
+
 async function parseFile(filePath: string): Promise<Definition> {
     const name = path.basename(filePath, ".d.ts");
     const data = await readFile(filePath);
@@ -97,7 +126,7 @@ function parseDefinition(name: string, definitionString: string): Definition {
     if (tsdocStartIndex !== -1 && tsdocEndIndex !== -1) {
         definition.tsdoc = definitionString.substring(tsdocStartIndex, tsdocEndIndex + 2);
     }
-    let overloadIndex = definitionString.indexOf(name);
+    let overloadIndex = definitionString.indexOf(name, tsdocEndIndex);
     let wrapperIndex = definitionString.indexOf("Wrapper<");
     if (wrapperIndex === -1)
         wrapperIndex = definitionString.length;
@@ -149,15 +178,27 @@ function parseDefinition(name: string, definitionString: string): Definition {
 }
 
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[]): Interface[] {
+    const origParamOrder = paramOrder
+    paramOrder = paramOrder.filter(p => typeof p === "number");
+    if (!isEqual(origParamOrder, paramOrder)) {
+        console.warn("Parameters were removed!");
+    }
+    const arity = paramOrder.length;
+    overloads = overloads.filter(o => o.params.length === arity); // TODO: handle rest parameters
     overloads.forEach(preProcessOverload);
     const interfaces = flatMap(overloads, (o, i) => {
         const reargParams = o.params.map((p, i) => o.params[paramOrder[i]]);
+        if (reargParams.some(p => !p)) {
+            console.log("undefined parameter!");
+        }
         return curryOverload({
             typeParams: o.typeParams,
             params: reargParams,
             returnType: o.returnType,
-        }, "some", i + 1);
+        }, functionName, i + 1);
     });
+    if (interfaces.length === 0)
+        return [];
     // Merge interfaces with the same name
     const mainInterface = interfaces[0];
     const interfacesToMerge = interfaces.filter(i => i.name === mainInterface.name);
@@ -249,6 +290,9 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
     // other ValueIteratee<T> overloads
     for (const interfaceDef of interfaces) {
         for (const overload of interfaceDef.overloads) {
+            if (overload.params.some(p => !p)) {
+                console.log("undefined parameter!");
+            }
             const objectTypeParam = overload.typeParams.find(tp => tp.name === "T" && (tp.extends === "object" || !tp.extends));
             if (objectTypeParam && overload.params.some(p => p.includes("T[keyof T]")) && !overload.params.some(p => /T(?!]|\[keyof T])/.test(p))) {
                 delete objectTypeParam.extends;
@@ -295,7 +339,7 @@ function curryParams(
 
         overloads.push({
             typeParams: cloneDeep(usedTypeParams),
-            params: params.slice(0, i),
+            params: currentParams,
             returnType: currentReturnType,
         });
     }

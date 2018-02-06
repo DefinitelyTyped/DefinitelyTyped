@@ -4,6 +4,7 @@
         "module": "commonjs",
         "baseUrl": "../..",
         "noEmit": true,
+        "noImplicitAny": true,
         "pretty": true,
         "strict": true,
         "typeRoots": [
