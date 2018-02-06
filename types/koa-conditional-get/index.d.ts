@@ -8,4 +8,6 @@ import * as koa from 'koa';
 
 declare function koaConditionalGet(): koa.Middleware;
 
+declare namespace koaConditionalGet {}
+
 export = koaConditionalGet;
