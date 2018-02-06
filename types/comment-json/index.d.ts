@@ -9,6 +9,7 @@ export type Reviver = (k: number | string, v: any) => any;
  * Converts a JavaScript Object Notation (JSON) string into an object.
  * @param json A valid JSON string.
  * @param reviver A function that transforms the results. This function is called for each member of the object.
+ * @param removes_comments If true, the comments won't be maintained, which is often used when we want to get a clean object.
  * If a member contains nested objects, the nested objects are transformed before the parent object is.
  */
 export function parse(json: string, reviver?: Reviver, removes_comments?: boolean): any;
