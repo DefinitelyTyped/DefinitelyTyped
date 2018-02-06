@@ -111,7 +111,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T>(collection: _.List<T> | null | undefined): FindLast2x2<T>;
+        <T>(collection: _.List<T> | null | undefined): FindLast1x2<T>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -147,7 +147,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T extends object>(collection: T | null | undefined): FindLast4x2<T>;
+        <T extends object>(collection: T | null | undefined): FindLast3x2<T>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.

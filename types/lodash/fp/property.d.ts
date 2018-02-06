@@ -1,27 +1,22 @@
 import _ = require("../index");
 
 declare namespace Lodash {
-    interface Property {
+    interface Get {
         /**
-         * Creates a function that returns the property value at path on a given object.
+         * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
+         * in its place.
          *
+         * @param object The object to query.
          * @param path The path of the property to get.
-         * @return Returns the new function.
+         * @param defaultValue The value returned if the resolved value is undefined.
+         * @return Returns the resolved value.
          */
-        (): Property;
+        (): Get;
         /**
-         * Creates a function that returns the property value at path on a given object.
+         * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
+         * in its place.
          *
-         * @param path The path of the property to get.
-         * @return Returns the new function.
-         */
-        <TObj, TResult>(path: _.PropertyPath): (obj: TObj) => TResult;
-    }
-}
-
-declare const property: Lodash.Property;
-export = property;
-e object to query.
+         * @param object The object to query.
          * @param path The path of the property to get.
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.

@@ -256,7 +256,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        (path: _.PropertyPath): UpdateWith2x2<T>;
+        (path: _.PropertyPath): UpdateWith1x2<T>;
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -279,7 +279,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        (path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith2x3<T>;
+        (path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith1x3<T>;
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -396,7 +396,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        (updater: (oldValue: any) => any): UpdateWith2x3<T>;
+        (updater: (oldValue: any) => any): UpdateWith1x3<T>;
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`

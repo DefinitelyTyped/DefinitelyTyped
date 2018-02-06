@@ -393,7 +393,7 @@ declare namespace Lodash {
          * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        <T>(collection: _.List<T> | null | undefined): OrderBy2x2<T>;
+        <T>(collection: _.List<T> | null | undefined): OrderBy1x2<T>;
         /**
          * This method is like `_.sortBy` except that it allows specifying the sort
          * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -497,7 +497,7 @@ declare namespace Lodash {
          * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        <T extends object>(collection: T | null | undefined): OrderBy4x2<T>;
+        <T extends object>(collection: T | null | undefined): OrderBy3x2<T>;
         /**
          * This method is like `_.sortBy` except that it allows specifying the sort
          * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -601,7 +601,7 @@ declare namespace Lodash {
          * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
          * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
-        <T>(collection: _.NumericDictionary<T> | null | undefined): OrderBy6x2<T>;
+        <T>(collection: _.NumericDictionary<T> | null | undefined): OrderBy5x2<T>;
         /**
          * This method is like `_.sortBy` except that it allows specifying the sort
          * orders of the iteratees to sort by. If `orders` is unspecified, all values

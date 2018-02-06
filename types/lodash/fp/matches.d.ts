@@ -1,49 +1,64 @@
 import _ = require("../index");
 
 declare namespace Lodash {
-    interface Matches {
+    interface IsMatch {
         /**
-         * Creates a function that performs a deep comparison between a given object and source, returning true if the
-         * given object has equivalent property values, else false.
+         * Performs a deep comparison between `object` and `source` to determine if
+         * `object` contains equivalent property values.
          *
-         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes, and
-         * strings. Objects are compared by their own, not inherited, enumerable properties. For comparing a single own
-         * or inherited property value see _.matchesProperty.
+         * **Note:** This method supports comparing the same values as `_.isEqual`.
          *
+         * @category Lang
+         * @param object The object to inspect.
          * @param source The object of property values to match.
-         * @return Returns the new function.
+         * @returns Returns `true` if `object` is a match, else `false`.
+         * @example
+         *
+         * var object = { 'user': 'fred', 'age': 40 };
+         *
+         * _.isMatch(object, { 'age': 40 });
+         * // => true
+         *
+         * _.isMatch(object, { 'age': 36 });
+         * // => false
          */
-        (): Matches;
+        (): IsMatch;
         /**
-         * Creates a function that performs a deep comparison between a given object and source, returning true if the
-         * given object has equivalent property values, else false.
+         * Performs a deep comparison between `object` and `source` to determine if
+         * `object` contains equivalent property values.
          *
-         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes, and
-         * strings. Objects are compared by their own, not inherited, enumerable properties. For comparing a single own
-         * or inherited property value see _.matchesProperty.
+         * **Note:** This method supports comparing the same values as `_.isEqual`.
          *
+         * @category Lang
+         * @param object The object to inspect.
          * @param source The object of property values to match.
-         * @return Returns the new function.
+         * @returns Returns `true` if `object` is a match, else `false`.
+         * @example
+         *
+         * var object = { 'user': 'fred', 'age': 40 };
+         *
+         * _.isMatch(object, { 'age': 40 });
+         * // => true
+         *
+         * _.isMatch(object, { 'age': 36 });
+         * // => false
          */
-        <T>(source: T): (value: any) => boolean;
+        (source: object): IsMatch1x1;
         /**
-         * Creates a function that performs a deep comparison between a given object and source, returning true if the
-         * given object has equivalent property values, else false.
+         * Performs a deep comparison between `object` and `source` to determine if
+         * `object` contains equivalent property values.
          *
-         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes, and
-         * strings. Objects are compared by their own, not inherited, enumerable properties. For comparing a single own
-         * or inherited property value see _.matchesProperty.
+         * **Note:** This method supports comparing the same values as `_.isEqual`.
          *
+         * @category Lang
+         * @param object The object to inspect.
          * @param source The object of property values to match.
-         * @return Returns the new function.
-         */
-        <T, V>(source: T): (value: V) => boolean;
-    }
-}
-
-declare const matches: Lodash.Matches;
-export = matches;
-sMatch(object, { 'age': 40 });
+         * @returns Returns `true` if `object` is a match, else `false`.
+         * @example
+         *
+         * var object = { 'user': 'fred', 'age': 40 };
+         *
+         * _.isMatch(object, { 'age': 40 });
          * // => true
          *
          * _.isMatch(object, { 'age': 36 });

@@ -147,7 +147,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        (start: number): Fill2x2;
+        (start: number): Fill1x2;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *

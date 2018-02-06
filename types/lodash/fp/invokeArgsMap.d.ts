@@ -123,7 +123,7 @@ declare namespace Lodash {
         * @param methodName The name of the method to invoke.
         * @param args Arguments to invoke the method with.
         **/
-        (collection: object | null | undefined): InvokeMap2x2;
+        (collection: object | null | undefined): InvokeMap1x2;
         /**
         * Invokes the method named by methodName on each element in the collection returning
         * an array of the results of each invoked method. Additional arguments will be provided

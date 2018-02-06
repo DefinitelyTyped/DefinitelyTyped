@@ -135,7 +135,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        (path: _.PropertyPath): SetWith2x2<T>;
+        (path: _.PropertyPath): SetWith1x2<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -147,7 +147,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        (path: _.PropertyPath, value: any): SetWith2x3<T>;
+        (path: _.PropertyPath, value: any): SetWith1x3<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -209,7 +209,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        (value: any): SetWith2x3<T>;
+        (value: any): SetWith1x3<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is

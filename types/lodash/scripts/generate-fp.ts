@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { ary, cloneDeep, flatMap, flatten, isEqual, pull, range, remove, trim, union, uniqWith, upperFirst, without } from "lodash";
+import { ary, cloneDeep, defaults, flatMap, flatten, isEqual, pull, range, remove, trim, union, uniqWith, upperFirst, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
@@ -43,13 +43,11 @@ async function main() {
                 console.error(`failed to list directory contents for '${subfolder}': `, err);
                 return;
             }
-            for (const file of files) {
-                const filePath = path.join("..", subfolder, file);
-                try {
-                    processDefinition(filePath, commonTypes);
-                } catch (e) {
-                    console.error(`failed to process file '${filePath}': `, e);
-                }
+            const filePaths = files.map(f => path.join("..", subfolder, f));
+            try {
+                processDefinitions(filePaths, commonTypes);
+            } catch (e) {
+                console.error(`failed to process files in '${subfolder}': `, e);
             }
         });
     }
@@ -71,36 +69,49 @@ function readFile(filePath: string): Promise<string> {
     });
 }
 
-async function processDefinition(filePath: string, commonTypes: string[]): Promise<void> {
-    const definition = await parseFile(filePath);
-    if (!definition)
-        return;
-    let interfaceName = upperFirst(definition.name);
-    if (interfaceName === "Pick")
-        interfaceName = "Lodash" + interfaceName;
-    const builder = {
-        [definition.name]: (...args: number[][]) => {
-            // args were originally passed in as [0], [1], [2], [3]. IF they changed order, that indicates how the functoin was re-arged
-            const interfaces = curryOverloads(definition.overloads, definition.name, flatten(args), definition.jsdoc);
-            return () => interfaces.map(interfaceToString).join("\n");
-        },
+async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<void> {
+    const builder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
+    const unconvertedBuilder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
+    for (const filePath of filePaths) {
+        const definition = await parseFile(filePath);
+        if (!definition)
+            continue;
+
+        if (definition.overloads.every(o => o.params.length === 1)) {
+            // Only 1 parameter. No need to rearg (in fact, rearging some funtions like runInContext causes issues)
+            unconvertedBuilder[definition.name] = (...args: number[][]) => {
+                if (definition.name === "includes"){
+                    console.log("includes")
+                }
+                return () => curryOverloads(definition.overloads, definition.name, args[0], definition.jsdoc);
+            };
+        } else {
+            builder[definition.name] = (...args: number[][]) => {
+                if (definition.name === "includes"){
+                    console.log("includes")
+                }
+                // args were originally passed in as [0], [1], [2], [3]. If they changed order, that indicates how the functoin was re-arged
+                // Return a function because some definitons (like rearg) expect to have a function return value
+                return () => curryOverloads(definition.overloads, definition.name, flatten(args), definition.jsdoc);
+            };
+        }
     }
 
-    let builderFp: any;
-    if (definition.overloads.every(o => o.params.length === 1)) {
-        // Only 1 parameter. No need to rearg (in fact, reaging some funtions like runInContext causes issues)
-        builderFp = {
-            [definition.name]: ary(builder[definition.name], 1),
-        };
-    } else {
-        builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
-    }
+    let builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
+    defaults(builderFp, unconvertedBuilder);
 
     for (const functionName of Object.keys(builderFp)) {
         if (functionName === "convert" || typeof builderFp[functionName] !== "function")
             continue;
-        let outputFn: (...args: any[]) => string = builderFp[functionName]([0], [1], [2], [3]); // Assuming the maximum arity is 4
-        let output = outputFn([0], [1], [2], [3]).replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
+        if (functionName === "contains")
+            console.log("contains");
+        let outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3]); // Assuming the maximum arity is 4
+        let output = outputFn([0], [1], [2], [3])
+            .map(interfaceToString)
+            .join("\n")
+            .replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
+        const interfaceNameMatch = output.match(/(?:interface|type) ([A-Za-z0-9]+)/);
+        const interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || upperFirst(functionName);
         output =
 `import _ = require("../index");
 
@@ -128,13 +139,13 @@ async function parseFile(filePath: string): Promise<Definition | undefined> {
 function parseDefinition(name: string, definitionString: string): Definition | undefined {
     if (name === "chain" || name.startsWith("prototype."))
         return undefined;
-    const jsdocStartIndex = definitionString.indexOf("/**");
+    let overloadIndex = definitionString.indexOf("    " + name);
+    const jsdocStartIndex = definitionString.lastIndexOf("/**", overloadIndex);
     const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
     const definition: Definition = { name, overloads: [], jsdoc: "" };
-    if (jsdocStartIndex !== -1 && jsdocEndIndex !== -1) {
+    if (jsdocStartIndex !== -1 && jsdocEndIndex !== -1 && jsdocEndIndex < overloadIndex) {
         definition.jsdoc = definitionString.substring(jsdocStartIndex, jsdocEndIndex + 2).replace(/    /g, "");
     }
-    let overloadIndex = definitionString.indexOf(name, jsdocEndIndex);
     let wrapperIndex = definitionString.indexOf("Wrapper<");
     if (wrapperIndex === -1)
         wrapperIndex = definitionString.length;
@@ -194,7 +205,7 @@ function parseDefinition(name: string, definitionString: string): Definition | u
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], jsdoc: string): Interface[] {
     paramOrder = paramOrder.filter(p => typeof p === "number");
     const arity = paramOrder.length;
-    const filteredOverloads = overloads.filter(o => o.params.length === arity && !o.params[o.params.length - 1].startsWith("..."));
+    const filteredOverloads = cloneDeep(overloads.filter(o => o.params.length === arity && !o.params[o.params.length - 1].startsWith("...")));
     if (filteredOverloads.length === 0) {
         const restOverloads = cloneDeep(overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("...")));
         for (const restOverload of restOverloads) {
@@ -260,6 +271,9 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
                     remove(otherReturnInterface.overloads, o => new RegExp(`\\b${otherReturnInterface.name}\\b`).test(o.returnType));
                     mergeInterfaces([returnInterface, otherReturnInterface]);
                     pull(interfaces, otherReturnInterface);
+                    // Rename any other references to the removed interface(s)
+                    for (const overload of flatMap(interfaces, i => i.overloads))
+                        overload.returnType = overload.returnType.replace(new RegExp(`\\b${otherReturnInterface.name}\\b`), returnInterface.name);
                 }
             }
         }
@@ -292,7 +306,7 @@ function capCallback(parameter: string): string {
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {
     let baseName = upperFirst(functionName);
-    if (baseName === "Pick")
+    if (baseName === "Pick") // A type called "Pick" already exists, so rename to avoid conflicts
         baseName = "Lodash" + baseName;
     let output = "";
     if (overload.params.length === 0) {
@@ -409,7 +423,11 @@ function interfaceToString(interfaceDef: Interface): string {
         return "";
     } else if (interfaceDef.overloads.length === 1) {
         // Don't create an interface for a single type. Instead use a basic type def.
-        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} = ${overloadToString(interfaceDef.overloads[0], true)};`;
+        let jsdoc = interfaceDef.overloads[0].jsdoc;
+        if (jsdoc)
+            jsdoc += "\n";
+        interfaceDef.overloads[0].jsdoc = "";
+        return `${jsdoc}type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} = ${overloadToString(interfaceDef.overloads[0], true)}`;
     } else {
         const overloadStrings = interfaceDef.overloads.map(o => "\n" + tab(overloadToString(o), 1)).join("");
         return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}\n}`;
@@ -418,7 +436,10 @@ function interfaceToString(interfaceDef: Interface): string {
 
 function overloadToString(overload: Overload, arrowSyntax = false): string {
     const joinedParams = overload.params.join(", ");
-    return `${overload.jsdoc}\n${typeParamsToString(overload.typeParams)}(${joinedParams})${arrowSyntax ? " =>" : ":"} ${overload.returnType};`;
+    let jsdoc = overload.jsdoc;
+    if (jsdoc)
+        jsdoc += "\n";
+    return `${jsdoc}${typeParamsToString(overload.typeParams)}(${joinedParams})${arrowSyntax ? " =>" : ":"} ${overload.returnType};`;
 }
 
 function typeParamsToString(typeParams: TypeParam[], includeConstraints = true): string {

@@ -231,7 +231,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the matched element, else undefined.
          */
-        <T>(collection: _.List<T> | null | undefined): Find2x2<T>;
+        <T>(collection: _.List<T> | null | undefined): Find1x2<T>;
         /**
          * Iterates over elements of collection, returning the first element predicate returns truthy for.
          * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -307,7 +307,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the matched element, else undefined.
          */
-        <T extends object>(collection: T | null | undefined): Find4x2<T>;
+        <T extends object>(collection: T | null | undefined): Find3x2<T>;
         /**
          * Iterates over elements of collection, returning the first element predicate returns truthy for.
          * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).

@@ -276,7 +276,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 2 }]
          */
-        (values: _.List<T>): PullAllBy2x2<T>;
+        (values: _.List<T>): PullAllBy1x2<T>;
         /**
          * This method is like `_.pullAll` except that it accepts `iteratee` which is
          * invoked for each element of `array` and `values` to to generate the criterion
@@ -448,7 +448,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [{ 'x': 2 }]
          */
-        (values: _.List<T2>): PullAllBy4x2<T1>;
+        (values: _.List<T2>): PullAllBy3x2<T1>;
         /**
          * This method is like `_.pullAll` except that it accepts `iteratee` which is
          * invoked for each element of `array` and `values` to to generate the criterion

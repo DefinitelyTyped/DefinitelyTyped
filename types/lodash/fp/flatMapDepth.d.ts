@@ -423,7 +423,7 @@ declare namespace Lodash {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        (collection: object | null | undefined): FlatMapDepth5x2;
+        (collection: object | null | undefined): FlatMapDepth4x2;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results up to `depth` times.
