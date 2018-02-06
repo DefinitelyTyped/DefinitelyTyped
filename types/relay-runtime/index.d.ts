@@ -37,13 +37,14 @@ export type RelayContainer = any;
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // File: https://github.com/facebook/relay/blob/fe0e70f10bbcba1fff89911313ea69f24569464b/packages/relay-runtime/util/RelayConcreteNode.js
-// Using enum here to create a distinct types.
 export type ConcreteFragment = any;
 export type ConcreteRequest = any;
 export type ConcreteBatchRequest = any;
 
 export type RequestNode = ConcreteRequest | ConcreteBatchRequest;
 
+// Using `enum` here to create a distinct type and `const` to ensure it doesn’t leave any generated code.
+// tslint:disable-next-line:no-const-enum
 export const enum FragmentReference {}
 
 // ~~~~~~~~~~~~~~~~~~~~~

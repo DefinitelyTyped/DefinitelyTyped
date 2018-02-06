@@ -1,5 +1,3 @@
-// tslint:disable:interface-over-type-literal
-
 import * as React from "react";
 import { Environment, Network, RecordSource, Store, ConnectionHandler, FragmentReference } from "relay-runtime";
 
@@ -61,8 +59,10 @@ const MyQueryRenderer = (props: { name: string }) => (
 type StoryLike = (storyID: string) => void;
 
 // Artifact produced by relay-compiler-language-typescript
+// tslint:disable-next-line:no-const-enum
 const enum _Story_story$ref {}
 type Story_story$ref = _Story_story$ref & FragmentReference;
+// tslint:disable-next-line:interface-over-type-literal
 type Story_story = {
     readonly id: string;
     readonly text: string;
@@ -145,8 +145,10 @@ const Story = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
+// tslint:disable-next-line:no-const-enum
 const enum _FeedStories_feed$ref {}
 type FeedStories_feed$ref = _FeedStories_feed$ref & FragmentReference;
+// tslint:disable-next-line:interface-over-type-literal
 type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
@@ -207,8 +209,10 @@ const Feed = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
+// tslint:disable-next-line:no-const-enum
 const enum _UserFeed_user$ref {}
 type UserFeed_user$ref = _UserFeed_user$ref & FragmentReference;
+// tslint:disable-next-line:interface-over-type-literal
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
