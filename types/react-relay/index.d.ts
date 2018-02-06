@@ -92,7 +92,7 @@ export class QueryRenderer extends ReactRelayQueryRenderer {}
 export function createFragmentContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
-): React.ComponentType<RemoveRelayProp<T>>;
+): React.ComponentType<RemoveRelayProp<T> & { componentRef?: any }>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createPaginationContainer
@@ -140,7 +140,7 @@ export function createPaginationContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     connectionConfig: ConnectionConfig<T>
-): React.ComponentType<RemoveRelayProp<T>>;
+): React.ComponentType<RemoveRelayProp<T> & { componentRef?: any }>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createRefetchContainer
@@ -163,4 +163,4 @@ export function createRefetchContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
-): React.ComponentType<RemoveRelayProp<T>>;
+): React.ComponentType<RemoveRelayProp<T> & { componentRef?: any }>;
