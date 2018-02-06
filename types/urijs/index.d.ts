@@ -234,6 +234,18 @@ declare namespace uri {
         withinString(source: string, func: (url: string) => string): string;
     }
 
+    type URITemplateValue = string | string[] | { [key: string] : string } | undefined | null;
+    type URITemplateCallback = (keyName: string) => URITemplateValue;
+
+    interface URITemplate {
+      expand(data: { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback, opts?: Object) : URI;
+    }
+
+    interface URITemplateStatic {
+      (template: string) : URITemplate;
+
+      new (template: string) : URITemplate;
+    }
 }
 
 interface JQuery {
@@ -241,6 +253,7 @@ interface JQuery {
 }
 
 declare var URI: uri.URIStatic;
+declare var URITemplate : uri.URITemplateStatic;
 
 declare module 'URI' {
     export = URI;
@@ -251,5 +264,5 @@ declare module 'urijs' {
 }
 
 declare module 'urijs/src/URITemplate' {
-    export = URI;
+    export = URITemplate;
 }
