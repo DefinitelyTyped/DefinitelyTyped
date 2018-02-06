@@ -1,4 +1,4 @@
-import * as QueryStream from 'pg-query-stream';
+import QueryStream = require('pg-query-stream');
 import * as pg from 'pg';
 
 const options: QueryStream.Options = {
