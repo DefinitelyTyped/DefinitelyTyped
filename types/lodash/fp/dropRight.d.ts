@@ -2,13 +2,48 @@ import _ = require("../index");
 
 declare namespace Lodash {
     interface DropRight {
+        /**
+         * Creates a slice of array with n elements dropped from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
         (): DropRight;
-        (n: number): DropRight1x1<T>;
+        /**
+         * Creates a slice of array with n elements dropped from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
+        (n: number): DropRight1x1;
+        /**
+         * Creates a slice of array with n elements dropped from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
         <T>(n: number, array: _.List<T> | null | undefined): T[];
     }
-    interface DropRight1x1<T> {
-        (): DropRight1x1<T>;
-        (array: _.List<T> | null | undefined): T[];
+    interface DropRight1x1 {
+        /**
+         * Creates a slice of array with n elements dropped from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
+        (): DropRight1x1;
+        /**
+         * Creates a slice of array with n elements dropped from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
+         */
+        <T>(array: _.List<T> | null | undefined): T[];
     }
 }
 

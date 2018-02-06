@@ -6,7 +6,7 @@ import * as path from "path";
 interface Definition {
     name: string;
     overloads: Overload[];
-    tsdoc: string;
+    jsdoc: string;
 }
 interface Interface {
     name: string;
@@ -17,6 +17,7 @@ interface Overload {
     typeParams: TypeParam[];
     params: string[];
     returnType: string;
+    jsdoc: string;
 }
 interface TypeParam {
     name: string;
@@ -76,7 +77,7 @@ async function processDefinition(filePath: string, commonTypes: string[]) {
     const builder = {
         [definition.name]: (...args: number[][]) => {
             // args were originally passed in as [0], [1], [2], [3]. IF they changed order, that indicates how the functoin was re-arged
-            const interfaces = curryOverloads(definition.overloads, definition.name, flatten(args));
+            const interfaces = curryOverloads(definition.overloads, definition.name, flatten(args), definition.jsdoc);
             return () => interfaces.map(interfaceToString).join("\n");
         },
     }
@@ -120,26 +121,27 @@ async function parseFile(filePath: string): Promise<Definition> {
 }
 
 function parseDefinition(name: string, definitionString: string): Definition {
-    const tsdocStartIndex = definitionString.indexOf("/**");
-    const tsdocEndIndex = definitionString.indexOf("*/", tsdocStartIndex);
-    const definition: Definition = { name, overloads: [], tsdoc: "" };
-    if (tsdocStartIndex !== -1 && tsdocEndIndex !== -1) {
-        definition.tsdoc = definitionString.substring(tsdocStartIndex, tsdocEndIndex + 2);
+    const jsdocStartIndex = definitionString.indexOf("/**");
+    const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
+    const definition: Definition = { name, overloads: [], jsdoc: "" };
+    if (jsdocStartIndex !== -1 && jsdocEndIndex !== -1) {
+        definition.jsdoc = definitionString.substring(jsdocStartIndex, jsdocEndIndex + 2).replace(/    /g, "");
     }
-    let overloadIndex = definitionString.indexOf(name, tsdocEndIndex);
+    let overloadIndex = definitionString.indexOf(name, jsdocEndIndex);
     let wrapperIndex = definitionString.indexOf("Wrapper<");
     if (wrapperIndex === -1)
         wrapperIndex = definitionString.length;
 
     while (overloadIndex !== -1 && overloadIndex < wrapperIndex) {
-        const paramStartIndex = definitionString.indexOf("(", overloadIndex);
+        let paramStartIndex = definitionString.indexOf("(", overloadIndex);
         const returnTypeEndIndex = definitionString.indexOf(";", paramStartIndex);
         if (returnTypeEndIndex !== -1) {
             if (paramStartIndex !== -1) {
-                const overload: Overload = { typeParams: [], params: [], returnType: "" };
+                const overload: Overload = { typeParams: [], params: [], returnType: "", jsdoc: definition.jsdoc };
                 const typeParamStartIndex = definitionString.indexOf("<", overloadIndex);
                 if (typeParamStartIndex !== -1 && typeParamStartIndex < paramStartIndex) {
-                    const typeParamEndIndex = definitionString.indexOf(">", typeParamStartIndex);
+                    const typeParamEndIndex = definitionString.indexOf(">(", typeParamStartIndex);
+                    paramStartIndex = typeParamEndIndex + 1;
                     if (typeParamEndIndex !== -1 && typeParamEndIndex < paramStartIndex) {
                         overload.typeParams = definitionString
                             .substring(typeParamStartIndex + 1, typeParamEndIndex)
@@ -155,6 +157,11 @@ function parseDefinition(name: string, definitionString: string): Definition {
                                 typeParam.name = parts[0].trim();
                                 return typeParam;
                             });
+                        if (overload.typeParams.some(tp => tp.name.includes("\n"))) {
+                            // Invalid
+                            // TODO: handle this case properly (e.g. _.partial)
+                            return definition;
+                        }
                     }
                 }
                 const paramEndIndex = definitionString.indexOf("):", paramStartIndex);
@@ -177,24 +184,18 @@ function parseDefinition(name: string, definitionString: string): Definition {
     return definition;
 }
 
-function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[]): Interface[] {
-    const origParamOrder = paramOrder
+function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], jsdoc: string): Interface[] {
     paramOrder = paramOrder.filter(p => typeof p === "number");
-    if (!isEqual(origParamOrder, paramOrder)) {
-        console.warn("Parameters were removed!");
-    }
     const arity = paramOrder.length;
     overloads = overloads.filter(o => o.params.length === arity); // TODO: handle rest parameters
     overloads.forEach(preProcessOverload);
     const interfaces = flatMap(overloads, (o, i) => {
         const reargParams = o.params.map((p, i) => o.params[paramOrder[i]]);
-        if (reargParams.some(p => !p)) {
-            console.log("undefined parameter!");
-        }
         return curryOverload({
             typeParams: o.typeParams,
             params: reargParams,
             returnType: o.returnType,
+            jsdoc,
         }, functionName, i + 1);
     });
     if (interfaces.length === 0)
@@ -270,7 +271,7 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
     const interfaces: Interface[] = [];
     let passTypeParams: TypeParam[] = [];
     for (let i = 0; i < overload.params.length; ++i) {
-        interfaces.push({
+        const interfaceDef = {
             name: getInterfaceName(baseName, overloadId, i, []),
             typeParams: cloneDeep(passTypeParams),
             overloads: curryParams(
@@ -281,18 +282,21 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
                 passTypeParams,
                 overloadId,
                 i,
+                overload.jsdoc,
             ),
-        });
-        const joinedUnusedParams = overload.params.slice(i + 1).concat(overload.returnType).join(", ");
-        passTypeParams = overload.typeParams.filter(tp => new RegExp(`\\b${tp.name}\\b`).test(joinedUnusedParams));
+        };
+        interfaces.push(interfaceDef);
+        const currentParam = overload.params[i];
+        //const usedTypeParams = interfaceDef.overloads[1] && interfaceDef.overloads[1].typeParams.slice(0, i + 1);
+        const usedTypeParams = currentParam ? overload.typeParams.filter(tp => new RegExp(`\\b${tp.name}\\b`).test(currentParam)) : [];
+        const unusedParams = overload.params.slice(i + 1).concat(overload.returnType);
+        passTypeParams = usedTypeParams.filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+        //passTypeParams = overload.typeParams.filter(tp => new RegExp(`\\b${tp.name}\\b`).test(joinedUnusedParams));
     }
     // The T[keyof T] constraint doesn't work so well if it's the only constraint. Convert to a plain old T constraint so it can be merged with
     // other ValueIteratee<T> overloads
     for (const interfaceDef of interfaces) {
         for (const overload of interfaceDef.overloads) {
-            if (overload.params.some(p => !p)) {
-                console.log("undefined parameter!");
-            }
             const objectTypeParam = overload.typeParams.find(tp => tp.name === "T" && (tp.extends === "object" || !tp.extends));
             if (objectTypeParam && overload.params.some(p => p.includes("T[keyof T]")) && !overload.params.some(p => /T(?!]|\[keyof T])/.test(p))) {
                 delete objectTypeParam.extends;
@@ -323,24 +327,27 @@ function curryParams(
     interfaceTypeParams: TypeParam[],
     overloadId: number,
     index: number,
+    jsdoc: string,
 ): Overload[] {
     // Assume params.length >= 1
     const overloads: Overload[] = [{
         typeParams: [],
         params: [],
         returnType: getInterfaceName(baseName, overloadId, index, interfaceTypeParams),
+        jsdoc,
     }];
     for (let i = 1; i <= params.length; ++i) {
         const currentParams = params.slice(0, i);
         const usedTypeParams = i < params.length ? typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p))) : typeParams;
         const unusedParams = params.slice(i).concat(returnType);
-        const passTypeParams = typeParams.concat(interfaceTypeParams).filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+        const passTypeParams = usedTypeParams.concat(interfaceTypeParams).filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
         const currentReturnType = i < params.length ? getInterfaceName(baseName, overloadId, index + i, passTypeParams) : returnType;
 
         overloads.push({
             typeParams: cloneDeep(usedTypeParams),
             params: currentParams,
             returnType: currentReturnType,
+            jsdoc,
         });
     }
     return overloads;
@@ -368,14 +375,14 @@ function interfaceToString(interfaceDef: Interface): string {
         // Don't create an interface for a single type. Instead use a basic type def.
         return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} = ${overloadToString(interfaceDef.overloads[0], true)};`;
     } else {
-        const overloadStrings = interfaceDef.overloads.map(o => "\n    " + overloadToString(o)).join("");
+        const overloadStrings = interfaceDef.overloads.map(o => "\n" + tab(overloadToString(o), 1)).join("");
         return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}\n}`;
     }
 }
 
 function overloadToString(overload: Overload, arrowSyntax = false): string {
     const joinedParams = overload.params.join(", ");
-    return `${typeParamsToString(overload.typeParams)}(${joinedParams})${arrowSyntax ? " =>" : ":"} ${overload.returnType};`;
+    return `${overload.jsdoc}\n${typeParamsToString(overload.typeParams)}(${joinedParams})${arrowSyntax ? " =>" : ":"} ${overload.returnType};`;
 }
 
 function typeParamsToString(typeParams: TypeParam[], includeConstraints = true): string {

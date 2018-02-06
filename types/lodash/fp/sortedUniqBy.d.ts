@@ -2,18 +2,135 @@ import _ = require("../index");
 
 declare namespace Lodash {
     interface SortedUniqBy {
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         (): SortedUniqBy;
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         (iteratee: _.StringIterator<_.NotVoid>): SortedUniqBy1x1;
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         (iteratee: _.StringIterator<_.NotVoid>, array: string | null | undefined): string[];
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         <T>(iteratee: _.ValueIteratee<T>): SortedUniqBy2x1<T>;
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         <T>(iteratee: _.ValueIteratee<T>, array: _.List<T> | null | undefined): T[];
     }
     interface SortedUniqBy1x1 {
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         (): SortedUniqBy1x1;
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         (array: string | null | undefined): string[];
     }
     interface SortedUniqBy2x1<T> {
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         (): SortedUniqBy2x1<T>;
+        /**
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
+         */
         (array: _.List<T> | null | undefined): T[];
     }
 }
