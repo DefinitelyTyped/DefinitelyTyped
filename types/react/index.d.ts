@@ -14,6 +14,7 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 Daniel K. <https://github.com/fredyc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -167,7 +168,7 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null;
 
     //
     // Top Level API
@@ -3732,7 +3733,7 @@ declare namespace React {
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        interface Element extends React.ReactNode { }
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
