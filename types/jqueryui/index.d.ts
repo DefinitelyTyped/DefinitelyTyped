@@ -720,6 +720,7 @@ declare namespace JQueryUI {
 
     interface SortableOptions extends SortableEvents {
         appendTo?: any; // jQuery, Element, Selector or string
+        attribute?: string;
         axis?: string;
         cancel?: any; // Selector
         connectWith?: any; // Selector
