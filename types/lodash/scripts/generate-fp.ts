@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { ary, cloneDeep, defaults, flatMap, flatten, isArray, isEqual, min, pull, range, remove, trim, union, uniqWith, upperFirst, without } from "lodash";
+import { ary, cloneDeep, defaults, flatMap, flatten, isArray, isEqual, min, pull, range, remove, sortBy, sortedUniq, trim, union, uniqWith, upperFirst, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
@@ -37,20 +37,66 @@ async function main() {
 
     // Read each function definition and fp-ify it
     const subfolders = ["array", "collection", "date", "function", "lang", "math", "number", "object", "seq", "string", "util"];
+    const promises: Array<Promise<string[]>> = [];
     for (const subfolder of subfolders) {
-        fs.readdir(path.join("..", subfolder), (err, files) => {
-            if (err) {
-                console.error(`failed to list directory contents for '${subfolder}': `, err);
-                return;
-            }
-            const filePaths = files.map(f => path.join("..", subfolder, f));
-            try {
-                processDefinitions(filePaths, commonTypes);
-            } catch (e) {
-                console.error(`failed to process files in '${subfolder}': `, e);
-            }
-        });
+        promises.push(new Promise<string[]>((resolve, reject) => {
+            fs.readdir(path.join("..", subfolder), (err, files) => {
+                if (err) {
+                    console.error(`failed to list directory contents for '${subfolder}': `, err);
+                    reject(err);
+                    return;
+                }
+                const filePaths = files.map(f => path.join("..", subfolder, f));
+                try {
+                    resolve(processDefinitions(filePaths, commonTypes));
+                } catch (e) {
+                    console.error(`failed to process files in '${subfolder}': `, e);
+                    reject(e);
+                }
+            });
+        }))
     }
+
+    let functionNames: string[];
+    try {
+        functionNames = flatten(await Promise.all(promises));
+    } catch (err) {
+        console.error("Failed to parse all functions: ", err);
+        return;
+    }
+    functionNames = sortedUniq(sortBy(functionNames));
+    const fpFile =
+`// AUTO-GENERATED: do not modify this file directly.
+// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
+// npm run fp
+
+${functionNames.map(f => `import ${f} = require("./fp/${f}");`).join("\n")}
+
+export = _;
+
+declare const _: _.LoDashFp;
+declare namespace _ {
+    interface LoDashFp {
+${functionNames.map(f => `        ${f}: typeof ${f};`).join("\n")}
+    }
+}
+
+// Backward compatibility with --target es5
+declare global {
+    // tslint:disable-next-line:no-empty-interface
+    interface Set<T> { }
+    // tslint:disable-next-line:no-empty-interface
+    interface Map<K, V> { }
+    // tslint:disable-next-line:no-empty-interface
+    interface WeakSet<T> { }
+    // tslint:disable-next-line:no-empty-interface
+    interface WeakMap<K extends object, V> { }
+}
+`;
+    fs.writeFile(path.join("..", "fp.d.ts"), fpFile, (err) => {
+        if (err)
+            console.error("Failed to write fp.d.ts: ", err);
+    });
 }
 
 function readFile(filePath: string): Promise<string> {
@@ -69,7 +115,7 @@ function readFile(filePath: string): Promise<string> {
     });
 }
 
-async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<void> {
+async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<string[]> {
     const builder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     const unconvertedBuilder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     for (const filePath of filePaths) {
@@ -99,12 +145,12 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
         }
     }
 
+    // Use convert() to tell us how functions will be rearged and aliased
     let builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
     defaults(builderFp, unconvertedBuilder);
 
-    for (const functionName of Object.keys(builderFp)) {
-        if (functionName === "convert" || typeof builderFp[functionName] !== "function")
-            continue;
+    let functionNames = Object.keys(builderFp).filter(key => key !== "convert" && typeof builderFp[key] === "function");
+    for (const functionName of functionNames) {
         let outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3]); // Assuming the maximum arity is 4
         let output = outputFn([0], [1], [2], [3])
             .map(interfaceToString)
@@ -113,7 +159,11 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
         const interfaceNameMatch = output.match(/(?:interface|type) ([A-Za-z0-9]+)/);
         const interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || upperFirst(functionName);
         output =
-`import _ = require("../index");
+`// AUTO-GENERATED: do not modify this file directly.
+// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
+// npm run fp
+
+import _ = require("../index");
 
 declare namespace Lodash {
 ${tab(output, 1)}
@@ -128,18 +178,18 @@ export = ${functionName};
                 console.error(`failed to write file: ${targetFile}`, err);
         });
     }
+    return functionNames;
 }
 
 async function parseFile(filePath: string, commonTypes: string[]): Promise<Definition | undefined> {
     const name = path.basename(filePath, ".d.ts");
     const data = await readFile(filePath);
-    return parseDefinition(name, data, commonTypes);
+    return parseDefinition(name, data, filePath, commonTypes);
 }
 
-function parseDefinition(name: string, definitionString: string, commonTypes: string[]): Definition | undefined {
+async function parseDefinition(name: string, definitionString: string, filePath: string, commonTypes: string[]): Promise<Definition | undefined> {
     if (name === "chain" || name === "mixin" || name.startsWith("prototype."))
         return undefined;
-
     const newCommonTypeRegExp = /    (?:type|interface) ([A-Za-z0-9]+)/g;
     let newCommonType = newCommonTypeRegExp.exec(definitionString);
     while (newCommonType) {
@@ -161,8 +211,15 @@ function parseDefinition(name: string, definitionString: string, commonTypes: st
     if (!firstOverload.includes("(")) {
         // This overload actually points to an interface. Try to find said interface and get the overloads from there.
         const interfaceName = firstOverload.split(":")[1].trim();
-        if (interfaceName.startsWith("typeof"))
-            return undefined; // This is an alias. It will be covered by the convert() function, so don't worry about it here.
+        if (interfaceName.startsWith("typeof")) {
+            // This is an alias
+            const aliasOf = trim(interfaceName.substring(7).trim(), "_.");
+            const dir = path.dirname(filePath);
+            const aliasOfDefiniton = await parseFile(path.join(dir, aliasOf + ".d.ts"), commonTypes);
+            if (aliasOfDefiniton)
+                aliasOfDefiniton.name = name;
+            return aliasOfDefiniton;
+        }
         const interfaceIndex = definitionString.indexOf(`interface ${interfaceName} {`);
         if (interfaceIndex !== -1) {
             pull(commonTypes, interfaceName);

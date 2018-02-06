@@ -3377,8 +3377,6 @@ namespace TestZipObject {
 
 // _.zipWith
 {
-    type TestZipWithFn = (a1: number, a2: number) => number;
-
     {
         let result: number[];
 
