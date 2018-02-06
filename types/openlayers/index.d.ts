@@ -12379,7 +12379,7 @@ declare module ol {
          * @return {ol.Coordinate|undefined} Constrained center.
          * @api
          */
-        constrainCenter(center: ol.Coordinate): ol.Coordinate;
+        constrainCenter(center?: ol.Coordinate): ol.Coordinate;
 
         /**
          * Get the constrained resolution of this view.
@@ -12389,7 +12389,7 @@ declare module ol {
          * @return {number|undefined} Constrained resolution.
          * @api
          */
-        constrainResolution(resolution: number, opt_delta?: number, opt_direction?: number): number;
+        constrainResolution(resolution?: number, opt_delta?: number, opt_direction?: number): number;
 
         /**
          * Get the constrained rotation of this view.
@@ -12398,7 +12398,7 @@ declare module ol {
          * @return {number|undefined} Constrained rotation.
          * @api
          */
-        constrainRotation(rotation: number, opt_delta?: number): number;
+        constrainRotation(rotation?: number, opt_delta?: number): number;
 
         /**
          * Get the view center.
@@ -12433,33 +12433,33 @@ declare module ol {
          */
         getMinResolution(): number;
 
-         /**
-          * Get the maximum zoom level for the view.
-          * @return {number} The maximum zoom level.
-          * @api
-          */
-         getMaxZoom(): number;
+        /**
+         * Get the maximum zoom level for the view.
+         * @return {number} The maximum zoom level.
+         * @api
+         */
+        getMaxZoom(): number;
 
-         /**
-          * Set a new maximum zoom level for the view.
-          * @param {number} zoom The maximum zoom level.
-          * @api stable
-          */
-         setMaxZoom(zoom: number): void;
+        /**
+         * Set a new maximum zoom level for the view.
+         * @param {number} zoom The maximum zoom level.
+         * @api stable
+         */
+        setMaxZoom(zoom: number): void;
 
-         /**
-          * Get the minimum zoom level for the view.
-          * @return {number} The minimum zoom level.
-          * @api
-          */
-         getMinZoom(): number;
+        /**
+         * Get the minimum zoom level for the view.
+         * @return {number} The minimum zoom level.
+         * @api
+         */
+        getMinZoom(): number;
 
-         /**
-          * Set a new minimum zoom level for the view.
-          * @param {number} zoom The minimum zoom level.
-          * @api stable
-          */
-         setMinZoom(zoom: number): void;
+        /**
+         * Set a new minimum zoom level for the view.
+         * @param {number} zoom The minimum zoom level.
+         * @api stable
+         */
+        setMinZoom(zoom: number): void;
 
         /**
          * Get the view projection.
@@ -12569,7 +12569,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setResolution(resolution: number): void;
+        setResolution(resolution?: number): void;
 
         /**
          * Set the rotation for this view.
@@ -12668,7 +12668,7 @@ declare module olx {
             zoom?: number | undefined;
             resolution?: number | undefined;
             rotation?: number | undefined;
-            anchor?: number | undefined;
+            anchor?: ol.Coordinate | undefined;
             duration?: number | undefined;
             easing?: ((t: number) => number) | undefined;
         }
