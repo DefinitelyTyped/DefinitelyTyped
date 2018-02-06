@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDataGrid from 'react-data-grid';
+import ReactDataGrid = require('react-data-grid');
 import * as ReactDataGridPlugins from 'react-data-grid-addons';
 import faker = require('faker');
 

@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Dispatcher from "./lib/Dispatcher";
+import Dispatcher = require("./lib/Dispatcher");
 
 export {
     Dispatcher
