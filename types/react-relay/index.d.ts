@@ -28,8 +28,13 @@ type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: n
 // tslint:disable-next-line:strict-export-declare-modifiers
 type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
-// tslint:disable-next-line:strict-export-declare-modifiers
-type RemoveRelayProp<P> = Omit<P & { relay: never }, "relay">;
+export type RemoveRelayProp<P> = Omit<P & { relay: never }, "relay">;
+
+export interface ComponentRef {
+    componentRef?: (ref: any) => void;
+}
+
+export type RelayContainer<T> = React.ComponentType<RemoveRelayProp<T> & ComponentRef>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
@@ -95,7 +100,7 @@ export class QueryRenderer extends ReactRelayQueryRenderer {}
 export function createFragmentContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
-): React.ComponentType<RemoveRelayProp<T> & { componentRef?: any }>;
+): RelayContainer<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createPaginationContainer
@@ -143,7 +148,7 @@ export function createPaginationContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     connectionConfig: ConnectionConfig<T>
-): React.ComponentType<RemoveRelayProp<T> & { componentRef?: any }>;
+): RelayContainer<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createRefetchContainer
@@ -166,4 +171,4 @@ export function createRefetchContainer<T>(
     Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
-): React.ComponentType<RemoveRelayProp<T> & { componentRef?: any }>;
+): RelayContainer<T>;
