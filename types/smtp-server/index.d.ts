@@ -93,7 +93,7 @@ export interface SMTPServerSession {
     envelope: SMTPServerEnvelope;
     transmissionType: string;
 
-    tlsOptions: tls.TlsOptions;
+    tlsOptions: tls.TlsServerOptions;
 }
 
 export interface SMTPServerEnvelope {
@@ -107,7 +107,7 @@ export interface SMTPServerEnvelope {
     rcptTo: SMTPServerAddress[];
 }
 
-export interface SMTPServerOptions extends tls.TlsOptions {
+export interface SMTPServerOptions extends tls.TlsServerOptions {
     /**
      * if true, the connection will use TLS. The default is false.
      * If the server doesn't start in TLS mode,
@@ -188,7 +188,7 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     /**
      * optional Map or an object of TLS options for SNI where servername is the key. Overrided by SNICallback.
      */
-    sniOptions?: { [servername: string]: tls.TlsOptions } | Map<string, tls.TlsOptions>;
+    sniOptions?: { [servername: string]: tls.TlsServerOptions } | Map<string, tls.TlsServerOptions>;
     /**
      * optional boolean, if set to true then upgrade sockets to TLS immediately after connection is established. Works with secure: true
      */
@@ -282,7 +282,7 @@ export class SMTPServer extends EventEmitter {
     /** Closes the server */
     close(callback: (err?: Error | null) => void): void;
 
-    updateSecureContext(options: tls.TlsOptions): void;
+    updateSecureContext(options: tls.TlsServerOptions): void;
 
     /** Authentication handler. Override this */
     onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response: SMTPServerAuthenticationResponse) => void): void;
