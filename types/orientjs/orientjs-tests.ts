@@ -1,4 +1,4 @@
-import * as orientjs from 'orientjs';
+import orientjs = require('orientjs');
 
 const dbserver = orientjs({
     host: 'localhost',

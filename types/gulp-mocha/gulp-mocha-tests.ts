@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as mocha from "gulp-mocha";
+import mocha = require("gulp-mocha");
 
 gulp.task('default', function () {
     return gulp.src('test.js', {read: false})

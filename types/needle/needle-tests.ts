@@ -1,4 +1,4 @@
-import * as needle from "needle";
+import needle = require("needle");
 import * as fs from "fs";
 
 function Usage() {
