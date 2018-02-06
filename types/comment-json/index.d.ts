@@ -19,4 +19,4 @@ export function parse(json: string, reviver?: Reviver, removes_comments?: boolea
   * @param replacer A function that transforms the results or an array of strings and numbers that acts as a approved list for selecting the object properties that will be stringified.
   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
   */
-export function stringify(value: any, replacer?: ((key: string, value: any) => any) | (number | string)[] | null, space?: string | number): string;
+export function stringify(value: any, replacer?: ((key: string, value: any) => any) | Array<number | string> | null, space?: string | number): string;
