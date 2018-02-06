@@ -37,7 +37,7 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        <T2>(values: _.List<T2>): IntersectionWith1x1<T2>;
+        <T1, T2>(comparator: _.Comparator2<T1, T2>): IntersectionWith1x1<T1, T2>;
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -55,7 +55,7 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        <T1, T2>(values: _.List<T2>, comparator: _.Comparator2<T1, T2>): IntersectionWith1x2<T1>;
+        <T1, T2>(comparator: _.Comparator2<T1, T2>, array: _.List<T1> | null | undefined): IntersectionWith1x2<T1, T2>;
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -73,9 +73,9 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        <T1, T2>(values: _.List<T2>, comparator: _.Comparator2<T1, T2>, array: _.List<T1> | null | undefined): T1[];
+        <T1, T2>(comparator: _.Comparator2<T1, T2>, array: _.List<T1> | null | undefined, values: _.List<T2>): T1[];
     }
-    interface IntersectionWith1x1<T2> {
+    interface IntersectionWith1x1<T1, T2> {
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -93,7 +93,7 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        (): IntersectionWith1x1<T2>;
+        (): IntersectionWith1x1<T1, T2>;
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -111,7 +111,7 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        <T1>(comparator: _.Comparator2<T1, T2>): IntersectionWith1x2<T1>;
+        (array: _.List<T1> | null | undefined): IntersectionWith1x2<T1, T2>;
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -129,9 +129,9 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        <T1>(comparator: _.Comparator2<T1, T2>, array: _.List<T1> | null | undefined): T1[];
+        (array: _.List<T1> | null | undefined, values: _.List<T2>): T1[];
     }
-    interface IntersectionWith1x2<T1> {
+    interface IntersectionWith1x2<T1, T2> {
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -149,7 +149,7 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        (): IntersectionWith1x2<T1>;
+        (): IntersectionWith1x2<T1, T2>;
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -167,7 +167,7 @@ declare namespace Lodash {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        <T2>(array: _.List<T1> | null | undefined): T1[];
+        (values: _.List<T2>): T1[];
     }
 }
 

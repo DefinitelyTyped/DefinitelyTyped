@@ -23,7 +23,7 @@ declare namespace Lodash {
          * @param resolver The function to resolve the cache key.
          * @return Returns the new memoizing function.
          */
-        <T extends (...args: any[]) => any>(func: T): T & MemoizedFunction;
+        <T extends (...args: any[]) => any>(func: T): T & _.MemoizedFunction;
     }
 }
 

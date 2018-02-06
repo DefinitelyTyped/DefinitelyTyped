@@ -47,7 +47,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        <T extends object>(customizer: SetWithCustomizer<T>): UpdateWith1x1<T>;
+        <T extends object>(customizer: _.SetWithCustomizer<T>): UpdateWith1x1<T>;
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -70,7 +70,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        <T extends object>(customizer: SetWithCustomizer<T>, path: _.PropertyPath): UpdateWith1x2<T>;
+        <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): UpdateWith1x2<T>;
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -93,7 +93,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        <T extends object>(customizer: SetWithCustomizer<T>, path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith1x3<T>;
+        <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith1x3<T>;
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -116,7 +116,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        <T extends object>(customizer: SetWithCustomizer<T>, path: _.PropertyPath, updater: (oldValue: any) => any, object: T): T;
+        <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, updater: (oldValue: any) => any, object: T): T;
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -139,7 +139,7 @@ declare namespace Lodash {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        <T extends object, TResult>(customizer: SetWithCustomizer<T>, path: _.PropertyPath, updater: (oldValue: any) => any, object: T): TResult;
+        <T extends object, TResult>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, updater: (oldValue: any) => any, object: T): TResult;
     }
     interface UpdateWith1x1<T extends object> {
         /**

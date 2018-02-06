@@ -39,7 +39,7 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        <T2>(values: _.List<T2>): IntersectionBy1x1<T2>;
+        <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>): IntersectionBy1x1<T1, T2>;
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -58,7 +58,7 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        <T1, T2>(values: _.List<T2>, iteratee: _.ValueIteratee<T1 | T2>): IntersectionBy1x2<T1>;
+        <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null): IntersectionBy1x2<T1, T2>;
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -77,9 +77,9 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        <T1, T2>(values: _.List<T2>, iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null): T1[];
+        <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null, values: _.List<T2>): T1[];
     }
-    interface IntersectionBy1x1<T2> {
+    interface IntersectionBy1x1<T1, T2> {
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -98,7 +98,7 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        (): IntersectionBy1x1<T2>;
+        (): IntersectionBy1x1<T1, T2>;
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -117,7 +117,7 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        <T1>(iteratee: _.ValueIteratee<T1 | T2>): IntersectionBy1x2<T1>;
+        (array: _.List<T1> | null): IntersectionBy1x2<T1, T2>;
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -136,9 +136,9 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        <T1>(iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null): T1[];
+        (array: _.List<T1> | null, values: _.List<T2>): T1[];
     }
-    interface IntersectionBy1x2<T1> {
+    interface IntersectionBy1x2<T1, T2> {
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -157,7 +157,7 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        (): IntersectionBy1x2<T1>;
+        (): IntersectionBy1x2<T1, T2>;
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -176,7 +176,7 @@ declare namespace Lodash {
          * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }]
          */
-        <T2>(array: _.List<T1> | null): T1[];
+        (values: _.List<T2>): T1[];
     }
 }
 

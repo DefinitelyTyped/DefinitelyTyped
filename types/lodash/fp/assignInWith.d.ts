@@ -53,7 +53,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TSource>(source: TSource): AssignInWith1x1<TSource>;
+        (customizer: _.AssignCustomizer): AssignInWith1x1;
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -79,7 +79,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TSource>(source: TSource, customizer: AssignCustomizer): AssignInWith1x2<TSource>;
+        <TObject>(customizer: _.AssignCustomizer, object: TObject): AssignInWith1x2<TObject>;
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -105,9 +105,9 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TObject, TSource>(source: TSource, customizer: AssignCustomizer, object: TObject): TObject & TSource;
+        <TObject, TSource>(customizer: _.AssignCustomizer, object: TObject, source: TSource): TObject & TSource;
     }
-    interface AssignInWith1x1<TSource> {
+    interface AssignInWith1x1 {
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -133,7 +133,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        (): AssignInWith1x1<TSource>;
+        (): AssignInWith1x1;
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -159,7 +159,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        (customizer: AssignCustomizer): AssignInWith1x2<TSource>;
+        <TObject>(object: TObject): AssignInWith1x2<TObject>;
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -185,9 +185,9 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TObject>(customizer: AssignCustomizer, object: TObject): TObject & TSource;
+        <TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
     }
-    interface AssignInWith1x2<TSource> {
+    interface AssignInWith1x2<TObject> {
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -213,7 +213,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        (): AssignInWith1x2<TSource>;
+        (): AssignInWith1x2<TObject>;
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -239,7 +239,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TObject>(object: TObject): TObject & TSource;
+        <TSource>(source: TSource): TObject & TSource;
     }
 }
 

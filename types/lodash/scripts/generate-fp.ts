@@ -73,23 +73,17 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     const builder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     const unconvertedBuilder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     for (const filePath of filePaths) {
-        const definition = await parseFile(filePath);
+        const definition = await parseFile(filePath, commonTypes);
         if (!definition)
             continue;
 
-        if (definition.overloads.every(o => o.params.length === 1)) {
+        if (definition.overloads.every(o => o.params.length === 1 && !o.params[0].startsWith("..."))) {
             // Only 1 parameter. No need to rearg (in fact, rearging some funtions like runInContext causes issues)
             unconvertedBuilder[definition.name] = (...args: number[][]) => {
-                if (definition.name === "includes"){
-                    console.log("includes")
-                }
                 return () => curryOverloads(definition.overloads, definition.name, args[0], definition.jsdoc);
             };
         } else {
             builder[definition.name] = (...args: number[][]) => {
-                if (definition.name === "includes"){
-                    console.log("includes")
-                }
                 // args were originally passed in as [0], [1], [2], [3]. If they changed order, that indicates how the functoin was re-arged
                 // Return a function because some definitons (like rearg) expect to have a function return value
                 return () => curryOverloads(definition.overloads, definition.name, flatten(args), definition.jsdoc);
@@ -103,8 +97,6 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     for (const functionName of Object.keys(builderFp)) {
         if (functionName === "convert" || typeof builderFp[functionName] !== "function")
             continue;
-        if (functionName === "contains")
-            console.log("contains");
         let outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3]); // Assuming the maximum arity is 4
         let output = outputFn([0], [1], [2], [3])
             .map(interfaceToString)
@@ -130,15 +122,24 @@ export = ${functionName};
     }
 }
 
-async function parseFile(filePath: string): Promise<Definition | undefined> {
+async function parseFile(filePath: string, commonTypes: string[]): Promise<Definition | undefined> {
     const name = path.basename(filePath, ".d.ts");
     const data = await readFile(filePath);
-    return parseDefinition(name, data);
+    return parseDefinition(name, data, commonTypes);
 }
 
-function parseDefinition(name: string, definitionString: string): Definition | undefined {
-    if (name === "chain" || name.startsWith("prototype."))
+function parseDefinition(name: string, definitionString: string, commonTypes: string[]): Definition | undefined {
+    if (name === "chain" || name === "mixin" || name.startsWith("prototype."))
         return undefined;
+
+    const newCommonTypeRegExp = /    (?:type|interface) ([A-Za-z0-9]+)/g;
+    let newCommonType = newCommonTypeRegExp.exec(definitionString);
+    while (newCommonType) {
+        if (!commonTypes.includes(newCommonType[1]))
+            commonTypes.push(newCommonType[1]);
+        newCommonType = newCommonTypeRegExp.exec(definitionString);
+    }
+
     let overloadIndex = definitionString.indexOf("    " + name);
     const jsdocStartIndex = definitionString.lastIndexOf("/**", overloadIndex);
     const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
@@ -184,7 +185,12 @@ function parseDefinition(name: string, definitionString: string): Definition | u
                 }
                 const paramEndIndex = definitionString.indexOf("):", paramStartIndex);
                 if (paramEndIndex !== -1) {
-                    overload.params = definitionString.substring(paramStartIndex + 1, paramEndIndex).split(/,(?=[^,]+:)/g).map(trim).filter(o => !!o);
+                    overload.params = definitionString
+                        .substring(paramStartIndex + 1, paramEndIndex)
+                        .split(/,(?=[^,]+:)/g)
+                        .map(trim)
+                        .map(s => trim(s, ","))
+                        .filter(o => !!o);
                     overload.returnType = definitionString.substring(paramEndIndex + 2, returnTypeEndIndex).trim();
                     definition.overloads.push(overload);
                 } else {
@@ -237,7 +243,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
 
     filteredOverloads.forEach(preProcessOverload);
     const interfaces = flatMap(filteredOverloads, (o, i) => {
-        const reargParams = o.params.map((p, i) => o.params[paramOrder[i]]);
+        const reargParams = o.params.map((p, i) => o.params[paramOrder.indexOf(i)]);
         return curryOverload({
             typeParams: o.typeParams,
             params: reargParams,

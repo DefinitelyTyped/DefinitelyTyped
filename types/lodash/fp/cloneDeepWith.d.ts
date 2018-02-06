@@ -17,7 +17,7 @@ declare namespace Lodash {
          * @param customizer The function to customize cloning.
          * @return Returns the deep cloned value.
          */
-        <T>(customizer: CloneDeepWithCustomizer<T>): CloneDeepWith1x1<T>;
+        <T>(customizer: _.CloneDeepWithCustomizer<T>): CloneDeepWith1x1<T>;
         /**
          * This method is like _.cloneWith except that it recursively clones value.
          *
@@ -25,7 +25,7 @@ declare namespace Lodash {
          * @param customizer The function to customize cloning.
          * @return Returns the deep cloned value.
          */
-        <T>(customizer: CloneDeepWithCustomizer<T>, value: T): any;
+        <T>(customizer: _.CloneDeepWithCustomizer<T>, value: T): any;
     }
     interface CloneDeepWith1x1<T> {
         /**

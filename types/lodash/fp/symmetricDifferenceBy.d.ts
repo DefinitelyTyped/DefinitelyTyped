@@ -39,7 +39,7 @@ declare namespace Lodash {
          * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 2 }]
          */
-        <T>(arrays2: _.List<T> | null | undefined): XorBy1x1<T>;
+        <T>(iteratee: _.ValueIteratee<T>): XorBy1x1<T>;
         /**
          * This method is like `_.xor` except that it accepts `iteratee` which is
          * invoked for each element of each `arrays` to generate the criterion by which
@@ -58,7 +58,7 @@ declare namespace Lodash {
          * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 2 }]
          */
-        <T>(arrays2: _.List<T> | null | undefined, iteratee: _.ValueIteratee<T>): XorBy1x2<T>;
+        <T>(iteratee: _.ValueIteratee<T>, arrays: _.List<T> | null | undefined): XorBy1x2<T>;
         /**
          * This method is like `_.xor` except that it accepts `iteratee` which is
          * invoked for each element of each `arrays` to generate the criterion by which
@@ -77,7 +77,7 @@ declare namespace Lodash {
          * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 2 }]
          */
-        <T>(arrays2: _.List<T> | null | undefined, iteratee: _.ValueIteratee<T>, arrays: _.List<T> | null | undefined): T[];
+        <T>(iteratee: _.ValueIteratee<T>, arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): T[];
     }
     interface XorBy1x1<T> {
         /**
@@ -117,7 +117,7 @@ declare namespace Lodash {
          * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 2 }]
          */
-        (iteratee: _.ValueIteratee<T>): XorBy1x2<T>;
+        (arrays: _.List<T> | null | undefined): XorBy1x2<T>;
         /**
          * This method is like `_.xor` except that it accepts `iteratee` which is
          * invoked for each element of each `arrays` to generate the criterion by which
@@ -136,7 +136,7 @@ declare namespace Lodash {
          * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 2 }]
          */
-        (iteratee: _.ValueIteratee<T>, arrays: _.List<T> | null | undefined): T[];
+        (arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): T[];
     }
     interface XorBy1x2<T> {
         /**
@@ -176,7 +176,7 @@ declare namespace Lodash {
          * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 2 }]
          */
-        (arrays: _.List<T> | null | undefined): T[];
+        (arrays2: _.List<T> | null | undefined): T[];
     }
 }
 

@@ -41,7 +41,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [3, 2, 1]
          */
-        <TList extends _.List<any>>(array: TList,): TList;
+        <TList extends _.List<any>>(array: TList): TList;
     }
 }
 

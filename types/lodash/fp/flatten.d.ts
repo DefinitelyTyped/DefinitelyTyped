@@ -19,7 +19,7 @@ declare namespace Lodash {
          * @param isDeep Specify a deep flatten.
          * @return Returns the new flattened array.
          */
-        <T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): Flatten1x1<T>;
+        <T>(array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): Flatten1x1<T>;
         /**
          * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it’s only
          * flattened a single level.
@@ -28,7 +28,7 @@ declare namespace Lodash {
          * @param isDeep Specify a deep flatten.
          * @return Returns the new flattened array.
          */
-        <T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, isDeep: boolean): T[];
+        <T>(array: _.ListOfRecursiveArraysOrValues<T> | null | undefined, isDeep: boolean): T[];
         /**
          * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it’s only
          * flattened a single level.

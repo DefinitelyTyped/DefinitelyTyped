@@ -25,7 +25,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object>(customizer: SetWithCustomizer<T>): SetWith1x1<T>;
+        <T extends object>(customizer: _.SetWithCustomizer<T>): SetWith1x1<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -37,7 +37,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object>(customizer: SetWithCustomizer<T>, path: _.PropertyPath): SetWith1x2<T>;
+        <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): SetWith1x2<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -49,7 +49,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object>(customizer: SetWithCustomizer<T>, path: _.PropertyPath, value: any): SetWith1x3<T>;
+        <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any): SetWith1x3<T>;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -61,7 +61,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object>(customizer: SetWithCustomizer<T>, path: _.PropertyPath, value: any, object: T): T;
+        <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any, object: T): T;
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -73,7 +73,7 @@ declare namespace Lodash {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
-        <T extends object, TResult>(customizer: SetWithCustomizer<T>, path: _.PropertyPath, value: any, object: T): TResult;
+        <T extends object, TResult>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any, object: T): TResult;
     }
     interface SetWith1x1<T extends object> {
         /**

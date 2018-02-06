@@ -19,7 +19,7 @@ declare namespace Lodash {
          * @param options The options object or maximum string length.
          * @return Returns the truncated string.
          */
-        (options: TruncateOptions): Truncate1x1;
+        (options: _.TruncateOptions): Truncate1x1;
         /**
          * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
          * string are replaced with the omission string which defaults to "…".
@@ -28,7 +28,7 @@ declare namespace Lodash {
          * @param options The options object or maximum string length.
          * @return Returns the truncated string.
          */
-        (options: TruncateOptions, string: string): string;
+        (options: _.TruncateOptions, string: string): string;
     }
     interface Truncate1x1 {
         /**

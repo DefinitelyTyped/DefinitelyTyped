@@ -61,7 +61,7 @@ declare namespace Lodash {
          * _.isMatchWith(object, source, customizer);
          * // => true
          */
-        (customizer: isMatchWithCustomizer): IsMatchWith1x1;
+        (customizer: _.isMatchWithCustomizer): IsMatchWith1x1;
         /**
          * This method is like `_.isMatch` except that it accepts `customizer` which
          * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -91,7 +91,7 @@ declare namespace Lodash {
          * _.isMatchWith(object, source, customizer);
          * // => true
          */
-        (customizer: isMatchWithCustomizer, source: object): IsMatchWith1x2;
+        (customizer: _.isMatchWithCustomizer, source: object): IsMatchWith1x2;
         /**
          * This method is like `_.isMatch` except that it accepts `customizer` which
          * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -121,7 +121,7 @@ declare namespace Lodash {
          * _.isMatchWith(object, source, customizer);
          * // => true
          */
-        (customizer: isMatchWithCustomizer, source: object, object: object): boolean;
+        (customizer: _.isMatchWithCustomizer, source: object, object: object): boolean;
     }
     interface IsMatchWith1x1 {
         /**

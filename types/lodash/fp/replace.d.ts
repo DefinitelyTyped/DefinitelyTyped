@@ -17,7 +17,7 @@ declare namespace Lodash {
          *
          * @return Returns the modified string.
          */
-        (replacement: ReplaceFunction | string): Replace1x1;
+        (pattern: RegExp | string): Replace1x1;
         /**
          * Replaces matches for pattern in string with replacement.
          *
@@ -25,7 +25,7 @@ declare namespace Lodash {
          *
          * @return Returns the modified string.
          */
-        (replacement: ReplaceFunction | string, string: string): Replace1x2;
+        (pattern: RegExp | string, replacement: _.ReplaceFunction | string): Replace1x2;
         /**
          * Replaces matches for pattern in string with replacement.
          *
@@ -33,7 +33,7 @@ declare namespace Lodash {
          *
          * @return Returns the modified string.
          */
-        (replacement: ReplaceFunction | string, string: string, pattern: RegExp | string): string;
+        (pattern: RegExp | string, replacement: _.ReplaceFunction | string, string: string): string;
     }
     interface Replace1x1 {
         /**
@@ -51,7 +51,7 @@ declare namespace Lodash {
          *
          * @return Returns the modified string.
          */
-        (string: string): Replace1x2;
+        (replacement: _.ReplaceFunction | string): Replace1x2;
         /**
          * Replaces matches for pattern in string with replacement.
          *
@@ -59,7 +59,7 @@ declare namespace Lodash {
          *
          * @return Returns the modified string.
          */
-        (string: string, pattern: RegExp | string): string;
+        (replacement: _.ReplaceFunction | string, string: string): string;
     }
     interface Replace1x2 {
         /**
@@ -77,7 +77,7 @@ declare namespace Lodash {
          *
          * @return Returns the modified string.
          */
-        (pattern: RegExp | string): string;
+        (string: string): string;
     }
 }
 

@@ -51,7 +51,7 @@ declare namespace Lodash {
          */
         (key: string, mport * as _ from "../index";
         declare module "../index" {
-            interface FunctionBindKey {
+            interface _.FunctionBindKey {
                 placeholder: any;
 
                 (
@@ -74,7 +74,7 @@ declare namespace Lodash {
                  * @param partials The arguments to be partially applied.
                  * @return Returns the new bound function.
                  */
-                bindKey: FunctionBindKey;
+                bindKey: _.FunctionBindKey;
             }
 
             interface _.LoDashImplicitWrapper<TValue> {
@@ -120,7 +120,7 @@ declare namespace Lodash {
          */
         (mport * as _ from "../index";
         declare module "../index" {
-            interface FunctionBindKey {
+            interface _.FunctionBindKey {
                 placeholder: any;
 
                 (
@@ -143,7 +143,7 @@ declare namespace Lodash {
                  * @param partials The arguments to be partially applied.
                  * @return Returns the new bound function.
                  */
-                bindKey: FunctionBindKey;
+                bindKey: _.FunctionBindKey;
             }
 
             interface _.LoDashImplicitWrapper<TValue> {

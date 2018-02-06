@@ -37,7 +37,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [1, 1]
          */
-        <T>(values: _.List<T>,): PullAll1x1<T>;
+        <T>(values: _.List<T>): PullAll1x1<T>;
         /**
          * This method is like `_.pull` except that it accepts an array of values to remove.
          *
@@ -55,7 +55,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [1, 1]
          */
-        <T>(values: _.List<T>,, array: T[]): T[];
+        <T>(values: _.List<T>, array: T[]): T[];
         /**
          * This method is like `_.pull` except that it accepts an array of values to remove.
          *
@@ -73,7 +73,7 @@ declare namespace Lodash {
          * console.log(array);
          * // => [1, 1]
          */
-        <T>(values: _.List<T>,, array: _.List<T>): _.List<T>;
+        <T>(values: _.List<T>, array: _.List<T>): _.List<T>;
     }
     interface PullAll1x1<T> {
         /**

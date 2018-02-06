@@ -67,7 +67,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (end: number): RangeRight1x1;
+        (step: number): RangeRight1x1;
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -100,7 +100,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (end: number, step: number): RangeRight1x2;
+        (step: number, start: number): RangeRight1x2;
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -133,7 +133,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (end: number, step: number, start: number): number[];
+        (step: number, start: number, end: number): number[];
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -166,7 +166,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (index: string | number): RangeRight2x1;
+        (guard: object): RangeRight2x1;
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -199,7 +199,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (index: string | number, guard: object): RangeRight2x2;
+        (guard: object, end: number): RangeRight2x2;
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -232,7 +232,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (index: string | number, guard: object, end: number): number[];
+        (guard: object, end: number, index: string | number): number[];
     }
     interface RangeRight1x1 {
         /**
@@ -300,7 +300,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (step: number): RangeRight1x2;
+        (start: number): RangeRight1x2;
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -333,7 +333,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (step: number, start: number): number[];
+        (start: number, end: number): number[];
     }
     interface RangeRight1x2 {
         /**
@@ -401,7 +401,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (start: number): number[];
+        (end: number): number[];
     }
     interface RangeRight2x1 {
         /**
@@ -469,7 +469,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (guard: object): RangeRight2x2;
+        (end: number): RangeRight2x2;
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -502,7 +502,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (guard: object, end: number): number[];
+        (end: number, index: string | number): number[];
     }
     interface RangeRight2x2 {
         /**
@@ -570,7 +570,7 @@ declare namespace Lodash {
          * _.rangeRight(0);
          * // => []
          */
-        (end: number): number[];
+        (index: string | number): number[];
     }
 }
 

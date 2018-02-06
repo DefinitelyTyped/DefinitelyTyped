@@ -61,7 +61,7 @@ declare namespace Lodash {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        (other: any): IsEqualWith1x1;
+        (customizer: _.IsEqualCustomizer): IsEqualWith1x1;
         /**
          * This method is like `_.isEqual` except that it accepts `customizer` which is
          * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -91,7 +91,7 @@ declare namespace Lodash {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        (other: any, customizer: IsEqualCustomizer): IsEqualWith1x2;
+        (customizer: _.IsEqualCustomizer, value: any): IsEqualWith1x2;
         /**
          * This method is like `_.isEqual` except that it accepts `customizer` which is
          * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -121,7 +121,7 @@ declare namespace Lodash {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        (other: any, customizer: IsEqualCustomizer, value: any): boolean;
+        (customizer: _.IsEqualCustomizer, value: any, other: any): boolean;
     }
     interface IsEqualWith1x1 {
         /**
@@ -183,7 +183,7 @@ declare namespace Lodash {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        (customizer: IsEqualCustomizer): IsEqualWith1x2;
+        (value: any): IsEqualWith1x2;
         /**
          * This method is like `_.isEqual` except that it accepts `customizer` which is
          * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -213,7 +213,7 @@ declare namespace Lodash {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        (customizer: IsEqualCustomizer, value: any): boolean;
+        (value: any, other: any): boolean;
     }
     interface IsEqualWith1x2 {
         /**
@@ -275,7 +275,7 @@ declare namespace Lodash {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        (value: any): boolean;
+        (other: any): boolean;
     }
 }
 

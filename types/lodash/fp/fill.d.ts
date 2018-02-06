@@ -25,7 +25,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        (end: number): Fill1x1;
+        (start: number): Fill1x1;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -37,7 +37,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        (end: number, start: number): Fill1x2;
+        (start: number, end: number): Fill1x2;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -49,7 +49,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <U>(end: number, start: number, array: U[] | null | undefined): Fill1x3<U>;
+        <T>(start: number, end: number, value: T): Fill1x3<T>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -61,7 +61,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <T, U>(end: number, start: number, array: U[] | null | undefined, value: T): Array<T | U>;
+        <T, U>(start: number, end: number, value: T, array: U[] | null | undefined): Array<T | U>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -73,19 +73,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <U>(end: number, start: number, array: _.List<U> | null | undefined): Fill2x3<U>;
-        /**
-         * Fills elements of array with value from start up to, but not including, end.
-         *
-         * Note: This method mutates array.
-         *
-         * @param array The array to fill.
-         * @param value The value to fill array with.
-         * @param start The start position.
-         * @param end The end position.
-         * @return Returns array.
-         */
-        <T, U>(end: number, start: number, array: _.List<U> | null | undefined, value: T): _.List<T | U>;
+        <T, U>(start: number, end: number, value: T, array: _.List<U> | null | undefined): _.List<T | U>;
     }
     interface Fill1x1 {
         /**
@@ -111,7 +99,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        (start: number): Fill1x2;
+        (end: number): Fill1x2;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -123,7 +111,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <U>(start: number, array: U[] | null | undefined): Fill1x3<U>;
+        <T>(end: number, value: T): Fill1x3<T>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -135,7 +123,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <T, U>(start: number, array: U[] | null | undefined, value: T): Array<T | U>;
+        <T, U>(end: number, value: T, array: U[] | null | undefined): Array<T | U>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -147,7 +135,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        (start: number): Fill1x2;
+        (end: number): Fill1x2;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -159,7 +147,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <U>(start: number, array: _.List<U> | null | undefined): Fill2x3<U>;
+        <T>(end: number, value: T): Fill1x3<T>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -171,7 +159,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <T, U>(start: number, array: _.List<U> | null | undefined, value: T): _.List<T | U>;
+        <T, U>(end: number, value: T, array: _.List<U> | null | undefined): _.List<T | U>;
     }
     interface Fill1x2 {
         /**
@@ -197,7 +185,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <U>(array: U[] | null | undefined): Fill1x3<U>;
+        <T>(value: T): Fill1x3<T>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -209,7 +197,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <T, U>(array: U[] | null | undefined, value: T): Array<T | U>;
+        <T, U>(value: T, array: U[] | null | undefined): Array<T | U>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -221,7 +209,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <U>(array: _.List<U> | null | undefined): Fill2x3<U>;
+        <T>(value: T): Fill1x3<T>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -233,9 +221,9 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <T, U>(array: _.List<U> | null | undefined, value: T): _.List<T | U>;
+        <T, U>(value: T, array: _.List<U> | null | undefined): _.List<T | U>;
     }
-    interface Fill1x3<U> {
+    interface Fill1x3<T> {
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -247,7 +235,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        (): Fill1x3<U>;
+        (): Fill1x3<T>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -259,9 +247,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        <T>(value: T): Array<T | U>;
-    }
-    interface Fill2x3<U> {
+        <U>(array: U[] | null | undefined): Array<T | U>;
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -273,19 +259,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns array.
          */
-        (): Fill2x3<U>;
-        /**
-         * Fills elements of array with value from start up to, but not including, end.
-         *
-         * Note: This method mutates array.
-         *
-         * @param array The array to fill.
-         * @param value The value to fill array with.
-         * @param start The start position.
-         * @param end The end position.
-         * @return Returns array.
-         */
-        <T>(value: T): _.List<T | U>;
+        <U>(array: _.List<U> | null | undefined): _.List<T | U>;
     }
 }
 

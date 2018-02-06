@@ -39,7 +39,7 @@ declare namespace Lodash {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        <T, TResult>(iteratee: _.ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDeep1x1<T, TResult>;
+        <T, TResult>(iteratee: _.ListIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDeep1x1<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results.
@@ -58,7 +58,7 @@ declare namespace Lodash {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        <T, TResult>(iteratee: _.ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, collection: _.List<T> | null | undefined): TResult[];
+        <T, TResult>(iteratee: _.ListIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, collection: _.List<T> | null | undefined): TResult[];
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results.
@@ -77,7 +77,7 @@ declare namespace Lodash {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        <T, TResult>(iteratee: _.NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDeep2x1<T, TResult>;
+        <T, TResult>(iteratee: _.NumericDictionaryIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDeep2x1<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results.
@@ -96,7 +96,7 @@ declare namespace Lodash {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        <T, TResult>(iteratee: _.NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, collection: _.NumericDictionary<T> | null | undefined): TResult[];
+        <T, TResult>(iteratee: _.NumericDictionaryIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, collection: _.NumericDictionary<T> | null | undefined): TResult[];
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results.
@@ -115,7 +115,7 @@ declare namespace Lodash {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        <T extends object, TResult>(iteratee: _.ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDeep3x1<T, TResult>;
+        <T extends object, TResult>(iteratee: _.ObjectIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>): FlatMapDeep3x1<T, TResult>;
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results.
@@ -134,7 +134,7 @@ declare namespace Lodash {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        <T extends object, TResult>(iteratee: _.ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, collection: T | null | undefined): TResult[];
+        <T extends object, TResult>(iteratee: _.ObjectIterator<T, _.ListOfRecursiveArraysOrValues<TResult> | TResult>, collection: T | null | undefined): TResult[];
         /**
          * This method is like `_.flatMap` except that it recursively flattens the
          * mapped results.

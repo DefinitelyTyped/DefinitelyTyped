@@ -28,7 +28,7 @@ declare namespace Lodash {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        <T1, R>(arity: number, func: (t1: T1) => R): CurriedFunction1<T1, R>;
+        <T1, R>(arity: number, func: (t1: T1) => R): _.CurriedFunction1<T1, R>;
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
          * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
@@ -57,7 +57,7 @@ declare namespace Lodash {
          * @param arity The arity of func.
          * @return Returns the new curried function.
          */
-        <T1, R>(func: (t1: T1) => R): CurriedFunction1<T1, R>;
+        <T1, R>(func: (t1: T1) => R): _.CurriedFunction1<T1, R>;
         /**
          * Creates a function that accepts one or more arguments of func that when called either invokes func returning
          * its result, if all func arguments have been provided, or returns a function that accepts one or more of the

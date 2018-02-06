@@ -19,7 +19,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        (end: number): Slice1x1;
+        (start: number): Slice1x1;
         /**
          * Creates a slice of array from start up to, but not including, end.
          *
@@ -28,7 +28,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        <T>(end: number, array: _.List<T> | null | undefined): Slice1x2<T>;
+        (start: number, end: number): Slice1x2;
         /**
          * Creates a slice of array from start up to, but not including, end.
          *
@@ -37,7 +37,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        <T>(end: number, array: _.List<T> | null | undefined, start: number): T[];
+        <T>(start: number, end: number, array: _.List<T> | null | undefined): T[];
     }
     interface Slice1x1 {
         /**
@@ -57,7 +57,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        <T>(array: _.List<T> | null | undefined): Slice1x2<T>;
+        (end: number): Slice1x2;
         /**
          * Creates a slice of array from start up to, but not including, end.
          *
@@ -66,9 +66,9 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        <T>(array: _.List<T> | null | undefined, start: number): T[];
+        <T>(end: number, array: _.List<T> | null | undefined): T[];
     }
-    interface Slice1x2<T> {
+    interface Slice1x2 {
         /**
          * Creates a slice of array from start up to, but not including, end.
          *
@@ -77,7 +77,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        (): Slice1x2<T>;
+        (): Slice1x2;
         /**
          * Creates a slice of array from start up to, but not including, end.
          *
@@ -86,7 +86,7 @@ declare namespace Lodash {
          * @param end The end position.
          * @return Returns the slice of array.
          */
-        (start: number): T[];
+        <T>(array: _.List<T> | null | undefined): T[];
     }
 }
 

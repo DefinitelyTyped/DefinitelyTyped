@@ -23,7 +23,7 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        <T2>(values: _.List<T2>): DifferenceBy1x1<T2>;
+        <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>): DifferenceBy1x1<T1, T2>;
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -34,7 +34,7 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        <T1, T2>(values: _.List<T2>, iteratee: _.ValueIteratee<T1 | T2>): DifferenceBy1x2<T1>;
+        <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null | undefined): DifferenceBy1x2<T1, T2>;
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -45,9 +45,9 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        <T1, T2>(values: _.List<T2>, iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null | undefined): T1[];
+        <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null | undefined, values: _.List<T2>): T1[];
     }
-    interface DifferenceBy1x1<T2> {
+    interface DifferenceBy1x1<T1, T2> {
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -58,7 +58,7 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        (): DifferenceBy1x1<T2>;
+        (): DifferenceBy1x1<T1, T2>;
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -69,7 +69,7 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        <T1>(iteratee: _.ValueIteratee<T1 | T2>): DifferenceBy1x2<T1>;
+        (array: _.List<T1> | null | undefined): DifferenceBy1x2<T1, T2>;
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -80,9 +80,9 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        <T1>(iteratee: _.ValueIteratee<T1 | T2>, array: _.List<T1> | null | undefined): T1[];
+        (array: _.List<T1> | null | undefined, values: _.List<T2>): T1[];
     }
-    interface DifferenceBy1x2<T1> {
+    interface DifferenceBy1x2<T1, T2> {
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -93,7 +93,7 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        (): DifferenceBy1x2<T1>;
+        (): DifferenceBy1x2<T1, T2>;
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -104,7 +104,7 @@ declare namespace Lodash {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        <T2>(array: _.List<T1> | null | undefined): T1[];
+        (values: _.List<T2>): T1[];
     }
 }
 

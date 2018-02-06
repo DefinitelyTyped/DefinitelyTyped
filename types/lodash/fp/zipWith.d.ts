@@ -21,7 +21,7 @@ declare namespace Lodash {
          * @param [thisArg] The `this` binding of `iteratee`.
          * @return Returns the new array of grouped elements.
          */
-        <T, TResult>(iteratee2: ((...group: T[]) => TResult) | _.List<T> | null | undefined): ZipWith1x1<T, TResult>;
+        <T, TResult>(iteratee3: ((...group: T[]) => TResult) | _.List<T> | null | undefined): ZipWith1x1<T, TResult>;
         /**
          * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
          * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
@@ -31,7 +31,7 @@ declare namespace Lodash {
          * @param [thisArg] The `this` binding of `iteratee`.
          * @return Returns the new array of grouped elements.
          */
-        <T, TResult>(iteratee2: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee3: ((...group: T[]) => TResult) | _.List<T> | null | undefined): ZipWith1x2<T, TResult>;
+        <T, TResult>(iteratee3: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee: ((...group: T[]) => TResult) | _.List<T> | null | undefined): ZipWith1x2<T, TResult>;
         /**
          * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
          * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
@@ -41,7 +41,7 @@ declare namespace Lodash {
          * @param [thisArg] The `this` binding of `iteratee`.
          * @return Returns the new array of grouped elements.
          */
-        <T, TResult>(iteratee2: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee3: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee: ((...group: T[]) => TResult) | _.List<T> | null | undefined): TResult[];
+        <T, TResult>(iteratee3: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee2: ((...group: T[]) => TResult) | _.List<T> | null | undefined): TResult[];
     }
     interface ZipWith1x1<T, TResult> {
         /**
@@ -63,7 +63,7 @@ declare namespace Lodash {
          * @param [thisArg] The `this` binding of `iteratee`.
          * @return Returns the new array of grouped elements.
          */
-        (iteratee3: ((...group: T[]) => TResult) | _.List<T> | null | undefined): ZipWith1x2<T, TResult>;
+        (iteratee: ((...group: T[]) => TResult) | _.List<T> | null | undefined): ZipWith1x2<T, TResult>;
         /**
          * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
          * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
@@ -73,7 +73,7 @@ declare namespace Lodash {
          * @param [thisArg] The `this` binding of `iteratee`.
          * @return Returns the new array of grouped elements.
          */
-        (iteratee3: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee: ((...group: T[]) => TResult) | _.List<T> | null | undefined): TResult[];
+        (iteratee: ((...group: T[]) => TResult) | _.List<T> | null | undefined, iteratee2: ((...group: T[]) => TResult) | _.List<T> | null | undefined): TResult[];
     }
     interface ZipWith1x2<T, TResult> {
         /**
@@ -95,7 +95,7 @@ declare namespace Lodash {
          * @param [thisArg] The `this` binding of `iteratee`.
          * @return Returns the new array of grouped elements.
          */
-        (iteratee: ((...group: T[]) => TResult) | _.List<T> | null | undefined): TResult[];
+        (iteratee2: ((...group: T[]) => TResult) | _.List<T> | null | undefined): TResult[];
     }
 }
 

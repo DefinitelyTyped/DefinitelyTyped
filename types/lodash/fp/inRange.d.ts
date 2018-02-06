@@ -21,7 +21,7 @@ declare namespace Lodash {
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        (end: number): InRange1x1;
+        (start: number): InRange1x1;
         /**
          * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
          * with start then set to 0.
@@ -31,7 +31,7 @@ declare namespace Lodash {
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        (end: number, n: number): InRange1x2;
+        (start: number, end: number): InRange1x2;
         /**
          * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
          * with start then set to 0.
@@ -41,7 +41,7 @@ declare namespace Lodash {
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        (end: number, n: number, start: number): boolean;
+        (start: number, end: number, n: number): boolean;
     }
     interface InRange1x1 {
         /**
@@ -63,7 +63,7 @@ declare namespace Lodash {
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        (n: number): InRange1x2;
+        (end: number): InRange1x2;
         /**
          * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
          * with start then set to 0.
@@ -73,7 +73,7 @@ declare namespace Lodash {
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        (n: number, start: number): boolean;
+        (end: number, n: number): boolean;
     }
     interface InRange1x2 {
         /**
@@ -95,7 +95,7 @@ declare namespace Lodash {
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        (start: number): boolean;
+        (n: number): boolean;
     }
 }
 

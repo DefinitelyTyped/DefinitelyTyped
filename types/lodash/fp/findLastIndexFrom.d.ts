@@ -37,7 +37,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        (fromIndex: number): FindLastIndex1x1;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>): FindLastIndex1x1<T>;
         /**
          * This method is like _.findIndex except that it iterates over elements of collection from right to left.
          *
@@ -55,7 +55,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(fromIndex: number, array: _.List<T> | null | undefined): FindLastIndex1x2<T>;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: number): FindLastIndex1x2<T>;
         /**
          * This method is like _.findIndex except that it iterates over elements of collection from right to left.
          *
@@ -73,9 +73,9 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(fromIndex: number, array: _.List<T> | null | undefined, predicate: _.ValueIterateeCustom<T, boolean>): number;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: number, array: _.List<T> | null | undefined): number;
     }
-    interface FindLastIndex1x1 {
+    interface FindLastIndex1x1<T> {
         /**
          * This method is like _.findIndex except that it iterates over elements of collection from right to left.
          *
@@ -93,7 +93,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        (): FindLastIndex1x1;
+        (): FindLastIndex1x1<T>;
         /**
          * This method is like _.findIndex except that it iterates over elements of collection from right to left.
          *
@@ -111,7 +111,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(array: _.List<T> | null | undefined): FindLastIndex1x2<T>;
+        (fromIndex: number): FindLastIndex1x2<T>;
         /**
          * This method is like _.findIndex except that it iterates over elements of collection from right to left.
          *
@@ -129,7 +129,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(array: _.List<T> | null | undefined, predicate: _.ValueIterateeCustom<T, boolean>): number;
+        (fromIndex: number, array: _.List<T> | null | undefined): number;
     }
     interface FindLastIndex1x2<T> {
         /**
@@ -167,7 +167,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        (predicate: _.ValueIterateeCustom<T, boolean>): number;
+        (array: _.List<T> | null | undefined): number;
     }
 }
 

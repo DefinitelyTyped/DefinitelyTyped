@@ -39,7 +39,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        (fromIndex: number): FindIndex1x1;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>): FindIndex1x1<T>;
         /**
          * This method is like _.find except that it returns the index of the first element predicate returns truthy
          * for instead of the element itself.
@@ -58,7 +58,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(fromIndex: number, array: _.List<T> | null | undefined): FindIndex1x2<T>;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: number): FindIndex1x2<T>;
         /**
          * This method is like _.find except that it returns the index of the first element predicate returns truthy
          * for instead of the element itself.
@@ -77,9 +77,9 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(fromIndex: number, array: _.List<T> | null | undefined, predicate: _.ValueIterateeCustom<T, boolean>): number;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: number, array: _.List<T> | null | undefined): number;
     }
-    interface FindIndex1x1 {
+    interface FindIndex1x1<T> {
         /**
          * This method is like _.find except that it returns the index of the first element predicate returns truthy
          * for instead of the element itself.
@@ -98,7 +98,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        (): FindIndex1x1;
+        (): FindIndex1x1<T>;
         /**
          * This method is like _.find except that it returns the index of the first element predicate returns truthy
          * for instead of the element itself.
@@ -117,7 +117,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(array: _.List<T> | null | undefined): FindIndex1x2<T>;
+        (fromIndex: number): FindIndex1x2<T>;
         /**
          * This method is like _.find except that it returns the index of the first element predicate returns truthy
          * for instead of the element itself.
@@ -136,7 +136,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        <T>(array: _.List<T> | null | undefined, predicate: _.ValueIterateeCustom<T, boolean>): number;
+        (fromIndex: number, array: _.List<T> | null | undefined): number;
     }
     interface FindIndex1x2<T> {
         /**
@@ -176,7 +176,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
-        (predicate: _.ValueIterateeCustom<T, boolean>): number;
+        (array: _.List<T> | null | undefined): number;
     }
 }
 

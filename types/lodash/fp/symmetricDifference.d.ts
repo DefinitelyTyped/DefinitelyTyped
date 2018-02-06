@@ -42,5 +42,5 @@ declare namespace Lodash {
     }
 }
 
-declare const xor: Lodash.Xor;
-export = xor;
+declare const symmetricDifference: Lodash.Xor;
+export = symmetricDifference;

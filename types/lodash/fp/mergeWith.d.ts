@@ -69,7 +69,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        <TSource>(source: TSource): MergeWith1x1<TSource>;
+        (customizer: _.MergeWithCustomizer): MergeWith1x1;
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -103,7 +103,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        <TSource>(source: TSource, customizer: MergeWithCustomizer): MergeWith1x2<TSource>;
+        <TObject>(customizer: _.MergeWithCustomizer, object: TObject): MergeWith1x2<TObject>;
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -137,9 +137,9 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        <TObject, TSource>(source: TSource, customizer: MergeWithCustomizer, object: TObject): TObject & TSource;
+        <TObject, TSource>(customizer: _.MergeWithCustomizer, object: TObject, source: TSource): TObject & TSource;
     }
-    interface MergeWith1x1<TSource> {
+    interface MergeWith1x1 {
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -173,7 +173,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        (): MergeWith1x1<TSource>;
+        (): MergeWith1x1;
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -207,7 +207,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        (customizer: MergeWithCustomizer): MergeWith1x2<TSource>;
+        <TObject>(object: TObject): MergeWith1x2<TObject>;
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -241,9 +241,9 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        <TObject>(customizer: MergeWithCustomizer, object: TObject): TObject & TSource;
+        <TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
     }
-    interface MergeWith1x2<TSource> {
+    interface MergeWith1x2<TObject> {
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -277,7 +277,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        (): MergeWith1x2<TSource>;
+        (): MergeWith1x2<TObject>;
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -311,7 +311,7 @@ declare namespace Lodash {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        <TObject>(object: TObject): TObject & TSource;
+        <TSource>(source: TSource): TObject & TSource;
     }
 }
 

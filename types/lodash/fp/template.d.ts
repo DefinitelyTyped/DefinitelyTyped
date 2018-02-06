@@ -55,7 +55,7 @@ declare namespace Lodash {
          * @param options.variable The data object variable name.
          * @return Returns the compiled template function.
          */
-        (string: string): TemplateExecutor;
+        (string: string): _.TemplateExecutor;
     }
 }
 

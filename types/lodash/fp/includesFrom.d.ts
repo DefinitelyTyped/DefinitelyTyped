@@ -21,7 +21,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        (fromIndex: number): Includes1x1;
+        <T>(target: T): Includes1x1<T>;
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
          * it’s used as the offset from the end of collection.
@@ -31,7 +31,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        <T>(fromIndex: number, collection: _.List<T>|_.Dictionary<T> | null | undefined): Includes1x2<T>;
+        <T>(target: T, fromIndex: number): Includes1x2<T>;
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
          * it’s used as the offset from the end of collection.
@@ -41,9 +41,9 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        <T>(fromIndex: number, collection: _.List<T>|_.Dictionary<T> | null | undefined, target: T): boolean;
+        <T>(target: T, fromIndex: number, collection: _.List<T>|_.Dictionary<T> | null | undefined): boolean;
     }
-    interface Includes1x1 {
+    interface Includes1x1<T> {
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
          * it’s used as the offset from the end of collection.
@@ -53,7 +53,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        (): Includes1x1;
+        (): Includes1x1<T>;
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
          * it’s used as the offset from the end of collection.
@@ -63,7 +63,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        <T>(collection: _.List<T>|_.Dictionary<T> | null | undefined): Includes1x2<T>;
+        (fromIndex: number): Includes1x2<T>;
         /**
          * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
          * it’s used as the offset from the end of collection.
@@ -73,7 +73,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        <T>(collection: _.List<T>|_.Dictionary<T> | null | undefined, target: T): boolean;
+        (fromIndex: number, collection: _.List<T>|_.Dictionary<T> | null | undefined): boolean;
     }
     interface Includes1x2<T> {
         /**
@@ -95,7 +95,7 @@ declare namespace Lodash {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        (target: T): boolean;
+        (collection: _.List<T>|_.Dictionary<T> | null | undefined): boolean;
     }
 }
 

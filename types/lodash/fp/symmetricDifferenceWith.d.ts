@@ -37,7 +37,7 @@ declare namespace Lodash {
          * _.xorWith(objects, others, _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        <T>(arrays2: _.List<T> | null | undefined): XorWith1x1<T>;
+        <T>(comparator: _.Comparator<T>): XorWith1x1<T>;
         /**
          * This method is like `_.xor` except that it accepts `comparator` which is
          * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -55,7 +55,7 @@ declare namespace Lodash {
          * _.xorWith(objects, others, _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        <T>(arrays2: _.List<T> | null | undefined, comparator: _.Comparator<T>): XorWith1x2<T>;
+        <T>(comparator: _.Comparator<T>, arrays: _.List<T> | null | undefined): XorWith1x2<T>;
         /**
          * This method is like `_.xor` except that it accepts `comparator` which is
          * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -73,7 +73,7 @@ declare namespace Lodash {
          * _.xorWith(objects, others, _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        <T>(arrays2: _.List<T> | null | undefined, comparator: _.Comparator<T>, arrays: _.List<T> | null | undefined): T[];
+        <T>(comparator: _.Comparator<T>, arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): T[];
     }
     interface XorWith1x1<T> {
         /**
@@ -111,7 +111,7 @@ declare namespace Lodash {
          * _.xorWith(objects, others, _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        (comparator: _.Comparator<T>): XorWith1x2<T>;
+        (arrays: _.List<T> | null | undefined): XorWith1x2<T>;
         /**
          * This method is like `_.xor` except that it accepts `comparator` which is
          * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -129,7 +129,7 @@ declare namespace Lodash {
          * _.xorWith(objects, others, _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        (comparator: _.Comparator<T>, arrays: _.List<T> | null | undefined): T[];
+        (arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): T[];
     }
     interface XorWith1x2<T> {
         /**
@@ -167,7 +167,7 @@ declare namespace Lodash {
          * _.xorWith(objects, others, _.isEqual);
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
-        (arrays: _.List<T> | null | undefined): T[];
+        (arrays2: _.List<T> | null | undefined): T[];
     }
 }
 

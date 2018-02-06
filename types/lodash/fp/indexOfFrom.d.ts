@@ -45,7 +45,7 @@ declare namespace Lodash {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        (fromIndex: boolean|number): IndexOf1x1;
+        <T>(value: T): IndexOf1x1<T>;
         /**
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -67,7 +67,7 @@ declare namespace Lodash {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        <T>(fromIndex: boolean|number, array: _.List<T> | null | undefined): IndexOf1x2<T>;
+        <T>(value: T, fromIndex: boolean|number): IndexOf1x2<T>;
         /**
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -89,9 +89,9 @@ declare namespace Lodash {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        <T>(fromIndex: boolean|number, array: _.List<T> | null | undefined, value: T): number;
+        <T>(value: T, fromIndex: boolean|number, array: _.List<T> | null | undefined): number;
     }
-    interface IndexOf1x1 {
+    interface IndexOf1x1<T> {
         /**
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -113,7 +113,7 @@ declare namespace Lodash {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        (): IndexOf1x1;
+        (): IndexOf1x1<T>;
         /**
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -135,7 +135,7 @@ declare namespace Lodash {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        <T>(array: _.List<T> | null | undefined): IndexOf1x2<T>;
+        (fromIndex: boolean|number): IndexOf1x2<T>;
         /**
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -157,7 +157,7 @@ declare namespace Lodash {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        <T>(array: _.List<T> | null | undefined, value: T): number;
+        (fromIndex: boolean|number, array: _.List<T> | null | undefined): number;
     }
     interface IndexOf1x2<T> {
         /**
@@ -203,7 +203,7 @@ declare namespace Lodash {
          * _.indexOf([1, 2, 1, 2], 2, 2);
          * // => 3
          */
-        (value: T): number;
+        (array: _.List<T> | null | undefined): number;
     }
 }
 

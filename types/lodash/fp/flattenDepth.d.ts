@@ -25,7 +25,7 @@ declare namespace Lodash {
            * @param number The maximum recursion depth.
            * @return Returns the new flattened array.
            */
-        <T>(depth: number, array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
+        <T>(depth: number, array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
     }
     interface FlattenDepth1x1 {
         /**
@@ -43,7 +43,7 @@ declare namespace Lodash {
            * @param number The maximum recursion depth.
            * @return Returns the new flattened array.
            */
-        <T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
+        <T>(array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
     }
 }
 

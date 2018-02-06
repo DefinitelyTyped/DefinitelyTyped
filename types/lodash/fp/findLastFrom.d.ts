@@ -19,7 +19,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        (fromIndex: number): FindLast1x1;
+        <T, S extends T>(predicate: _.ValueIteratorTypeGuard<T, S>): FindLast1x1<T, S>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -28,7 +28,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T>(fromIndex: number, collection: _.List<T> | null | undefined): FindLast1x2<T>;
+        <T, S extends T>(predicate: _.ValueIteratorTypeGuard<T, S>, fromIndex: number): FindLast1x2<T, S>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -37,7 +37,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T, S extends T>(fromIndex: number, collection: _.List<T> | null | undefined, predicate: _.ValueIteratorTypeGuard<T, S>): S|undefined;
+        <T, S extends T>(predicate: _.ValueIteratorTypeGuard<T, S>, fromIndex: number, collection: _.List<T> | null | undefined): S|undefined;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -46,7 +46,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T>(fromIndex: number, collection: _.List<T> | null | undefined, predicate: _.ValueIterateeCustom<T, boolean>): T|undefined;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>): FindLast2x1<T>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -55,7 +55,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T extends object>(fromIndex: number, collection: T | null | undefined): FindLast3x2<T>;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: number): FindLast2x2<T>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -64,7 +64,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T extends object, S extends T[keyof T]>(fromIndex: number, collection: T | null | undefined, predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): S|undefined;
+        <T>(predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: number, collection: _.List<T> | null | undefined): T|undefined;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -73,9 +73,36 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T extends object>(fromIndex: number, collection: T | null | undefined, predicate: _.ValueIterateeCustom<T[keyof T], boolean>): T[keyof T]|undefined;
+        <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): FindLast3x1<T, S>;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, fromIndex: number): FindLast3x2<T, S>;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, fromIndex: number, collection: T | null | undefined): S|undefined;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        <T extends object>(predicate: _.ValueIterateeCustom<T[keyof T], boolean>, fromIndex: number, collection: T | null | undefined): T[keyof T]|undefined;
     }
-    interface FindLast1x1 {
+    interface FindLast1x1<T, S extends T> {
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -84,7 +111,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        (): FindLast1x1;
+        (): FindLast1x1<T, S>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -93,7 +120,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T>(collection: _.List<T> | null | undefined): FindLast1x2<T>;
+        (fromIndex: number): FindLast1x2<T, S>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -102,63 +129,9 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <T, S extends T>(collection: _.List<T> | null | undefined, predicate: _.ValueIteratorTypeGuard<T, S>): S|undefined;
-        /**
-        * This method is like _.find except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection Searches for a value in this list.
-        * @param predicate The function called per iteration.
-        * @param fromIndex The index to search from.
-        * @return The found element, else undefined.
-        **/
-        <T>(collection: _.List<T> | null | undefined): FindLast1x2<T>;
-        /**
-        * This method is like _.find except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection Searches for a value in this list.
-        * @param predicate The function called per iteration.
-        * @param fromIndex The index to search from.
-        * @return The found element, else undefined.
-        **/
-        <T>(collection: _.List<T> | null | undefined, predicate: _.ValueIterateeCustom<T, boolean>): T|undefined;
-        /**
-        * This method is like _.find except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection Searches for a value in this list.
-        * @param predicate The function called per iteration.
-        * @param fromIndex The index to search from.
-        * @return The found element, else undefined.
-        **/
-        <T extends object>(collection: T | null | undefined): FindLast3x2<T>;
-        /**
-        * This method is like _.find except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection Searches for a value in this list.
-        * @param predicate The function called per iteration.
-        * @param fromIndex The index to search from.
-        * @return The found element, else undefined.
-        **/
-        <T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): S|undefined;
-        /**
-        * This method is like _.find except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection Searches for a value in this list.
-        * @param predicate The function called per iteration.
-        * @param fromIndex The index to search from.
-        * @return The found element, else undefined.
-        **/
-        <T extends object>(collection: T | null | undefined): FindLast3x2<T>;
-        /**
-        * This method is like _.find except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection Searches for a value in this list.
-        * @param predicate The function called per iteration.
-        * @param fromIndex The index to search from.
-        * @return The found element, else undefined.
-        **/
-        <T extends object>(collection: T | null | undefined, predicate: _.ValueIterateeCustom<T[keyof T], boolean>): T[keyof T]|undefined;
+        (fromIndex: number, collection: _.List<T> | null | undefined): S|undefined;
     }
-    interface FindLast1x2<T> {
+    interface FindLast1x2<T, S extends T> {
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -167,7 +140,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        (): FindLast1x2<T>;
+        (): FindLast1x2<T, S>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -176,18 +149,9 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <S extends T>(predicate: _.ValueIteratorTypeGuard<T, S>): S|undefined;
-        /**
-        * This method is like _.find except that it iterates over elements of a collection from
-        * right to left.
-        * @param collection Searches for a value in this list.
-        * @param predicate The function called per iteration.
-        * @param fromIndex The index to search from.
-        * @return The found element, else undefined.
-        **/
-        (predicate: _.ValueIterateeCustom<T, boolean>): T|undefined;
+        (collection: _.List<T> | null | undefined): S|undefined;
     }
-    interface FindLast3x2<T extends object> {
+    interface FindLast2x1<T> {
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -196,7 +160,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        (): FindLast3x2<T>;
+        (): FindLast2x1<T>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -205,7 +169,7 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        <S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): S|undefined;
+        (fromIndex: number): FindLast2x2<T>;
         /**
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
@@ -214,7 +178,103 @@ declare namespace Lodash {
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        (predicate: _.ValueIterateeCustom<T[keyof T], boolean>): T[keyof T]|undefined;
+        (fromIndex: number, collection: _.List<T> | null | undefined): T|undefined;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (fromIndex: number): FindLast2x2<T>;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (fromIndex: number, collection: object | null | undefined): T[keyof T]|undefined;
+    }
+    interface FindLast2x2<T> {
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (): FindLast2x2<T>;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (collection: _.List<T> | null | undefined): T|undefined;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (collection: object | null | undefined): T[keyof T]|undefined;
+    }
+    interface FindLast3x1<T extends object, S extends T[keyof T]> {
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (): FindLast3x1<T, S>;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (fromIndex: number): FindLast3x2<T, S>;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (fromIndex: number, collection: T | null | undefined): S|undefined;
+    }
+    interface FindLast3x2<T extends object, S extends T[keyof T]> {
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (): FindLast3x2<T, S>;
+        /**
+        * This method is like _.find except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection Searches for a value in this list.
+        * @param predicate The function called per iteration.
+        * @param fromIndex The index to search from.
+        * @return The found element, else undefined.
+        **/
+        (collection: T | null | undefined): S|undefined;
     }
 }
 

@@ -131,7 +131,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TObject, TSource1, TSource2>(source1: TSource1, object: TObject, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        <TObject, TSource1, TSource2>(source1: TSource1, object: TObject, source2: TSource2, customizer: _.AssignCustomizer): TObject & TSource1 & TSource2;
     }
     interface AssignInWith1x1<TSource1> {
         /**
@@ -237,7 +237,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TObject, TSource2>(object: TObject, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        <TObject, TSource2>(object: TObject, source2: TSource2, customizer: _.AssignCustomizer): TObject & TSource1 & TSource2;
     }
     interface AssignInWith1x2<TObject, TSource1> {
         /**
@@ -317,7 +317,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        <TSource2>(source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        <TSource2>(source2: TSource2, customizer: _.AssignCustomizer): TObject & TSource1 & TSource2;
     }
     interface AssignInWith1x3<TObject, TSource1, TSource2> {
         /**
@@ -371,7 +371,7 @@ declare namespace Lodash {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        (customizer: AssignCustomizer): TObject & TSource1 & TSource2;
+        (customizer: _.AssignCustomizer): TObject & TSource1 & TSource2;
     }
 }
 

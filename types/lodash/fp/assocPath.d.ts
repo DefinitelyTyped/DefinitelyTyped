@@ -23,7 +23,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        (value: any): Set1x1;
+        (path: _.PropertyPath): Set1x1;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -34,7 +34,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        <T extends object>(value: any, object: T): Set1x2<T>;
+        (path: _.PropertyPath, value: any): Set1x2;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -45,7 +45,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        <T extends object>(value: any, object: T, path: _.PropertyPath): T;
+        <T extends object>(path: _.PropertyPath, value: any, object: T): T;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -56,18 +56,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        (value: any, object: object): Set2x2;
-        /**
-         * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
-         * missing index properties while objects are created for all other missing properties. Use _.setWith to
-         * customize path creation.
-         *
-         * @param object The object to modify.
-         * @param path The path of the property to set.
-         * @param value The value to set.
-         * @return Returns object.
-         */
-        <TResult>(value: any, object: object, path: _.PropertyPath): TResult;
+        <TResult>(path: _.PropertyPath, value: any, object: object): TResult;
     }
     interface Set1x1 {
         /**
@@ -91,7 +80,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        <T extends object>(object: T): Set1x2<T>;
+        (value: any): Set1x2;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -102,7 +91,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        <T extends object>(object: T, path: _.PropertyPath): T;
+        <T extends object>(value: any, object: T): T;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -113,7 +102,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        (object: object): Set2x2;
+        (value: any): Set1x2;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -124,9 +113,9 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        <TResult>(object: object, path: _.PropertyPath): TResult;
+        <TResult>(value: any, object: object): TResult;
     }
-    interface Set1x2<T extends object> {
+    interface Set1x2 {
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -137,7 +126,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        (): Set1x2<T>;
+        (): Set1x2;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -148,9 +137,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        (path: _.PropertyPath): T;
-    }
-    interface Set2x2 {
+        <T extends object>(object: T): T;
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -161,18 +148,7 @@ declare namespace Lodash {
          * @param value The value to set.
          * @return Returns object.
          */
-        (): Set2x2;
-        /**
-         * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
-         * missing index properties while objects are created for all other missing properties. Use _.setWith to
-         * customize path creation.
-         *
-         * @param object The object to modify.
-         * @param path The path of the property to set.
-         * @param value The value to set.
-         * @return Returns object.
-         */
-        <TResult>(path: _.PropertyPath): TResult;
+        <TResult>(object: object): TResult;
     }
 }
 

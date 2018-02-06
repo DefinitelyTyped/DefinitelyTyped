@@ -35,7 +35,7 @@ declare namespace Lodash {
          * _.clamp(10, -5, 5);
          * // => 5
          */
-        (upper: number): Clamp1x1;
+        (lower: number): Clamp1x1;
         /**
          * Clamps `number` within the inclusive `lower` and `upper` bounds.
          *
@@ -52,7 +52,7 @@ declare namespace Lodash {
          * _.clamp(10, -5, 5);
          * // => 5
          */
-        (upper: number, number: number): Clamp1x2;
+        (lower: number, upper: number): Clamp1x2;
         /**
          * Clamps `number` within the inclusive `lower` and `upper` bounds.
          *
@@ -69,7 +69,7 @@ declare namespace Lodash {
          * _.clamp(10, -5, 5);
          * // => 5
          */
-        (upper: number, number: number, lower: number): number;
+        (lower: number, upper: number, number: number): number;
     }
     interface Clamp1x1 {
         /**
@@ -105,7 +105,7 @@ declare namespace Lodash {
          * _.clamp(10, -5, 5);
          * // => 5
          */
-        (number: number): Clamp1x2;
+        (upper: number): Clamp1x2;
         /**
          * Clamps `number` within the inclusive `lower` and `upper` bounds.
          *
@@ -122,7 +122,7 @@ declare namespace Lodash {
          * _.clamp(10, -5, 5);
          * // => 5
          */
-        (number: number, lower: number): number;
+        (upper: number, number: number): number;
     }
     interface Clamp1x2 {
         /**
@@ -158,7 +158,7 @@ declare namespace Lodash {
          * _.clamp(10, -5, 5);
          * // => 5
          */
-        (lower: number): number;
+        (number: number): number;
     }
 }
 
