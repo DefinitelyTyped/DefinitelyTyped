@@ -227,7 +227,16 @@ declare namespace IWshRuntimeLibrary {
          */
         CreateShortcut(PathLink: string): WshShortcut | WshURLShortcut;
         CurrentDirectory: string;
-        Environment(Type: 'System' | 'User' | 'Process' | 'Volatile'): WshEnvironment;
+
+        /**
+         * Note that **Environment** doesn't actually return a callable object; the call is only usable in the context of the **Environment** property. The following:
+         *
+         *     let env = new ActiveXObject('WScript.Shell').Environment;
+         *     WScript.Echo(env('System'));
+         *
+         * will return an empty string, unless there is an environment variable named `System`
+         */
+        Environment: WshEnvironment & ((Type: 'System' | 'User' | 'Process' | 'Volatile') => WshEnvironment);
         Exec(Command: string): WshExec;
         ExpandEnvironmentStrings(Src: string): string;
 
