@@ -57,6 +57,30 @@ export function init(settings: Settings): void;
 export interface Settings {
   table_toolbar?: string;
 
+  table_appearance_options?: boolean;
+
+  table_clone_elements?: string;
+
+  table_grid?: boolean;
+
+  table_tab_navigation?: boolean;
+
+  table_default_attributes?: object | string;
+
+  table_default_styles?: object | string;
+
+  table_class_list?: object[];
+
+  table_cell_class_list?: object[];
+
+  table_row_class_list?: object[];
+
+  table_advtab?: boolean;
+
+  table_cell_advtab?: boolean;
+
+  table_row_advtab?: boolean;
+
   auto_focus?: string;
 
   cache_suffix?: string;
