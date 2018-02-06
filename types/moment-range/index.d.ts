@@ -6,7 +6,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from 'moment';
+import moment = require('moment');
 
 export class DateRange {
     start: moment.Moment;

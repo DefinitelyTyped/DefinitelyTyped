@@ -1,4 +1,4 @@
-import * as multisort from 'multisort';
+import multisort = require('multisort');
 
 const gameShowHosts = [
     {

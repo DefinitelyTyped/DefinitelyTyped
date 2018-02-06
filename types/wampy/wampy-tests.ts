@@ -1,4 +1,4 @@
-import * as Wampy from 'wampy';
+import Wampy = require('wampy');
 declare var console: { log(...args: any[]): void };
 
 let ws = new Wampy('http://wamp.router.url', {realm: 'WAMPRealm'});

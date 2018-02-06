@@ -1,4 +1,4 @@
-import * as UndertakerRegistry from "undertaker-registry";
+import UndertakerRegistry = require("undertaker-registry");
 
 const ArgTask = (firstArg: string, secondArg: number) => {
     // Task

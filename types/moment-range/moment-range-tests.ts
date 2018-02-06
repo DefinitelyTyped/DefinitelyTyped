@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 import * as momentRange from "moment-range";
 
 const range: momentRange.DateRange = new momentRange.DateRange(new Date(2012, 0, 15), new Date(2012, 4, 23));

@@ -1,4 +1,4 @@
-import * as tock from 'tocktimer';
+import tock = require('tocktimer');
 
 let timer: tock.Tock;
 

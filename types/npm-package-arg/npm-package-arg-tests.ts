@@ -1,4 +1,4 @@
-import * as npa from "npm-package-arg";
+import npa = require("npm-package-arg");
 
 const result1 = npa("npm-package-arg@5.1");
 const result2 = npa("npm-package-arg@5.1", "..");
