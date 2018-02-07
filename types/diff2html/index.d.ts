@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Diff2Html {
-    
+
     export interface Options {
         inputFormat?: string;
         outputFormat?: string;
@@ -53,10 +53,11 @@ declare namespace Diff2Html {
         checksumAfter?: string;
         mode?: string;
     }
-    
+
     export interface Diff2Html {
-        getJsonFromDiff(input: string, configuration?: Options): Result;
+        getJsonFromDiff(input: string, configuration?: Options): Result[];
         getPrettyHtml(input: any, configuration?: Options): string;
+        getPrettyHtmlFromJson(input: Result[], configuration?: Options): string;
     }
 }
 
