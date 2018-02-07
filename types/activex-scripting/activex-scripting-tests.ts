@@ -280,7 +280,7 @@ ${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
         const textStream = fso.OpenTextFile("c:\\testfile.txt", Scripting.IOMode.ForReading);
         WScript.Echo(`File contents = "${textStream.ReadLine()}"`);
         textStream.Close();
-    }
+    };
 
     const manipulateFiles = () => {
         const file = fso.CreateTextFile("c:\\testfile.txt", true);
