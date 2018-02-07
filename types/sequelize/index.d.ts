@@ -10,6 +10,7 @@
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Carven Zhang <https://github.com/zjy01>
 //                 Nikola Vidic <https://github.com/nidzov>
+//                 Anjun Wang <https://github.com/wanganjun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -5770,8 +5771,7 @@ declare namespace sequelize {
          *     database.
          * @param options An object with options.
          */
-        new (database: string, username: string, password: string, options?: Options): Sequelize;
-        new (database: string, username: string, options?: Options): Sequelize;
+        new (database: string, username: string, password: string | null, options?: Options): Sequelize;
 
         /**
          * Instantiate sequelize with an URI
