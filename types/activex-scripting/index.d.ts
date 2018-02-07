@@ -2,14 +2,17 @@
 // Project: https://msdn.microsoft.com/en-us/library/bstcxhf7(v=vs.84).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
 declare namespace Scripting {
+    // tslint:disable-next-line:no-const-enum
     const enum CompareMethod {
         BinaryCompare = 0,
         DatabaseCompare = 2,
         TextCompare = 1
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum DriveTypeConst {
         CDRom = 4,
         Fixed = 2,
@@ -19,6 +22,7 @@ declare namespace Scripting {
         UnknownType = 0
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum FileAttribute {
         Alias = 1024,
         Archive = 32,
@@ -31,24 +35,28 @@ declare namespace Scripting {
         Volume = 8
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum IOMode {
         ForAppending = 8,
         ForReading = 1,
         ForWriting = 2
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum SpecialFolderConst {
         SystemFolder = 1,
         TemporaryFolder = 2,
         WindowsFolder = 0
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum StandardStreamTypes {
         StdErr = 2,
         StdIn = 0,
         StdOut = 1
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum Tristate {
         TristateFalse = 0,
         TristateMixed = -2,
@@ -452,15 +460,11 @@ declare namespace Scripting {
 
 interface ActiveXObject {
     set(obj: Scripting.Dictionary, propertyName: 'Item', parameterTypes: [any], newValue: any): void;
-    new(progid: 'Scripting.Dictionary'): Scripting.Dictionary;
-    new(progid: 'Scripting.Encoder'): Scripting.Encoder;
-    new(progid: 'Scripting.FileSystemObject'): Scripting.FileSystemObject;
+    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
-interface EnumeratorConstructor {
-    // tslint:disable-next-line:no-unnecessary-generics
-    new<TKey, TItem>(col: Scripting.Dictionary<TKey, TItem>): TItem;
-    new(col: Scripting.Drives): Scripting.Drive;
-    new(col: Scripting.Files): Scripting.File;
-    new(col: Scripting.Folders): Scripting.Folder;
+interface ActiveXObjectNameMap {
+    'Scripting.Dictionary': Scripting.Dictionary;
+    'Scirpting.Encoder': Scripting.Encoder;
+    'Scripting.FileSystemObject': Scripting.FileSystemObject;
 }
