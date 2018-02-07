@@ -142,6 +142,7 @@ export type SelectOptions = Array<{
 
 export interface SelectProps extends FieldProps, React.SelectHTMLAttributes<HTMLSelectElement> {
     options: SelectOptions;
+    placeholder: string;
 }
 
 export const Select: React.StatelessComponent<SelectProps>;
