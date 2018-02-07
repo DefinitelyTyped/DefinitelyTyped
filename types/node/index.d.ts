@@ -1743,20 +1743,18 @@ declare module "https" {
 
     export type ServerOptions = tls.SecureContextOptions & tls.TlsServerOptions;
 
-    // see https://nodejs.org/dist/latest/docs/api/https.html#https_https_request_options_callback
-
     export type RequestOptions = http.RequestOptions & {
-        ca?: tls.ConnectionOptions["ca"];
-        cert?: tls.ConnectionOptions["cert"];
-        ciphers?: tls.ConnectionOptions["ciphers"];
-        clientCertEngine?: tls.ConnectionOptions["clientCertEngine"];
-        key?: tls.ConnectionOptions["key"];
-        passphrase?: tls.ConnectionOptions["passphrase"];
-        pfx?: tls.ConnectionOptions["pfx"];
-        rejectUnauthorized?: tls.ConnectionOptions["rejectUnauthorized"];
-        secureProtocol?: tls.ConnectionOptions["secureProtocol"];
-        servername?: tls.ConnectionOptions["servername"];
-    }
+        rejectUnauthorized?: boolean; // Defaults to true
+        servername?: string; // SNI TLS Extension
+        pfx?: string | Buffer | Array<string | Buffer | Object>;
+        key?: string | Buffer | Array<Buffer | Object>;
+        passphrase?: string;
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
+        ciphers?: string;
+        clientCertEngine?: string;
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+    };
 
     export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
