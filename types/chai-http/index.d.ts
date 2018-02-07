@@ -10,7 +10,7 @@
 /// <reference types="node" />
 /// <reference types="chai" />
 
-import request = require('superagent');
+import * as request from 'superagent';
 
 declare global {
 	namespace Chai {
