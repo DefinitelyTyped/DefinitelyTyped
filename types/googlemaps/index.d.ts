@@ -2684,7 +2684,7 @@ declare namespace google.maps {
             constructor(options?: DrawingManagerOptions);
             getDrawingMode(): OverlayType;
             getMap(): Map;
-            setDrawingMode(drawingMode: OverlayType): void;
+            setDrawingMode(drawingMode: OverlayType | null): void;
             setMap(map: Map | null): void;
             setOptions(options: DrawingManagerOptions): void;
         }
