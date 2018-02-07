@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from "gulp";
-import * as inject from "gulp-inject";
+import inject = require("gulp-inject");
 
 gulp.task("inject:simple", () => {
     gulp.src("src/index.html")

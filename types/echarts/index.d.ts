@@ -2,6 +2,7 @@
 // Project: http://echarts.baidu.com/
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>, AntiMoron <https://github.com/AntiMoron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace echarts {
     function init(dom: HTMLDivElement | HTMLCanvasElement, theme?: Object | string, opts?: {
@@ -9,13 +10,13 @@ declare namespace echarts {
         renderer?: string
     }): ECharts;
 
-    const graphic: {
+    const graphic: Graphic;
+
+    interface Graphic {
         clipPointsByRect(points: number[][], rect: ERectangle): number[][];
         clipRectByRect(targetRect: ERectangle, rect: ERectangle): ERectangle;
-        LinearGradient: { new  (x: number, y: number, x2: number, y2: number, colorStops: Array<Object>, globalCoord?: boolean): LinearGradient }
-
-    };
-
+        LinearGradient: { new(x: number, y: number, x2: number, y2: number, colorStops: Array<Object>, globalCoord?: boolean): LinearGradient }
+    }
 
     function connect(group: string | Array<string>): void;
 
@@ -29,6 +30,15 @@ declare namespace echarts {
 
     function registerTheme(themeName: string, theme: Object): void;
 
+    interface MapObj {
+        /** geoJson data for map */
+        geoJson: object,
+        /** special areas fro map */
+        specialAreas: object
+    }
+
+    function getMap(mapName: string): MapObj;
+
     interface LinearGradient {
         colorStops: Array<Object>;
         global: boolean;
@@ -39,9 +49,8 @@ declare namespace echarts {
         y2: number
     }
 
-
     interface ECharts {
-        group: string;
+        group: string
 
         setOption(option: EChartOption, notMerge?: boolean, notRefreshImmediately?: boolean): void
 
@@ -66,20 +75,20 @@ declare namespace echarts {
         hideLoading(): void
 
         getDataURL(opts: {
-            // 导出的格式，可选 png, jpeg
+            /** 导出的格式，可选 png, jpeg */
             type?: string,
-            // 导出的图片分辨率比例，默认为 1。
+            /** 导出的图片分辨率比例，默认为 1。*/
             pixelRatio?: number,
-            // 导出的图片背景色，默认使用 option 里的 backgroundColor
+            /** 导出的图片背景色，默认使用 option 里的 backgroundColor */
             backgroundColor?: string
         }): string
 
         getConnectedDataURL(opts: {
-            // 导出的格式，可选 png, jpeg
+            /** 导出的格式，可选 png, jpeg */
             type: string,
-            // 导出的图片分辨率比例，默认为 1。
+            /** 导出的图片分辨率比例，默认为 1。 */
             pixelRatio: number,
-            // 导出的图片背景色，默认使用 option 里的 backgroundColor
+            /** 导出的图片背景色，默认使用 option 里的 backgroundColor */
             backgroundColor: string
         }): string
 
@@ -89,42 +98,32 @@ declare namespace echarts {
 
         dispose(): void
 
-        // 转换逻辑点到像素
-        convertToPixel(finder: {
-            seriesIndex?: number,
-            seriesId?: string,
-            seriesName?: string,
-            geoIndex?: number,
-            geoId?: string,
-            geoName?: string,
-            xAxisIndex?: number,
-            xAxisId?: string,
-            xAxisName?: string,
-            yAxisIndex?: number,
-            yAxisId?: string,
-            yAxisName?: string,
-            gridIndex?: number,
-            gridId?: string
-            gridName?: string
-        } | string, value: string | Array<any>): string | Array<any>
+        /** 转换逻辑点到像素 */
+        convertToPixel(finder: ConvertFinder | string, value: string | Array<any>): string | Array<any>
 
-        convertFromPixel(finder: {
-            seriesIndex?: number,
-            seriesId?: string,
-            seriesName?: string,
-            geoIndex?: number,
-            geoId?: string,
-            geoName?: string,
-            xAxisIndex?: number,
-            xAxisId?: string,
-            xAxisName?: string,
-            yAxisIndex?: number,
-            yAxisId?: string,
-            yAxisName?: string,
-            gridIndex?: number,
-            gridId?: string
-            gridName?: string
-        } | string, value: Array<any> | string): Array<any> | string
+        convertFromPixel(finder: ConvertFinder | string, value: Array<any> | string): Array<any> | string
+
+        containPixel(finder: ConvertFinder | string,
+            /** 要被判断的点，为像素坐标值，以 echarts 实例的 dom 节点的左上角为坐标 [0, 0] 点。*/
+            value: any[]): boolean
+    }
+
+    interface ConvertFinder {
+        seriesIndex?: number,
+        seriesId?: string,
+        seriesName?: string,
+        geoIndex?: number,
+        geoId?: string,
+        geoName?: string,
+        xAxisIndex?: number,
+        xAxisId?: string,
+        xAxisName?: string,
+        yAxisIndex?: number,
+        yAxisId?: string,
+        yAxisName?: string,
+        gridIndex?: number,
+        gridId?: string
+        gridName?: string
     }
 
     interface ERectangle {

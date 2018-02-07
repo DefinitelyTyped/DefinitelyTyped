@@ -489,6 +489,21 @@ declare class cropperjs {
     rotateTo(degree: number): void;
 
     /**
+     * Scale the image.
+     */
+    scale(scaleX: number, scaleY?: number): void;
+
+    /**
+     * Scale the abscissa of the image.
+     */
+    scaleX(scaleX: number): void;
+
+    /**
+     * Scale the ordinate of the image.
+     */
+    scaleY(scaleY: number): void;
+
+    /**
      * Clear the crop box.
      */
     clear(): void;

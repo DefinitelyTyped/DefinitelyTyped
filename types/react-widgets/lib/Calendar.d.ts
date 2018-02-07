@@ -1,7 +1,13 @@
 import * as React from 'react';
-import { ReactWidgetsCommonProps } from './CommonProps';
+import { ReactWidgetsCommonProps, AutoFocus } from './CommonProps';
 
-interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>{
+type CalendarView = 'month' | 'year' | 'decade' | 'century';
+
+interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>, AutoFocus {
+    /**
+     * Set the culture of the Calendar, passed to the configured localizer.
+     */
+    culture?: string;
     /**
      * The current selected date, should be a Date object or null.
      */
@@ -16,10 +22,18 @@ interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>{
      */
     onChange?: (date?: Date) => void;
     /**
+     * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
+     */
+    onKeyDown?: (event: KeyboardEvent) => void;
+    /**
      * Callback fired when the Calendar navigates between views, or forward and backwards in
      * time.
      */
     onNavigate?: (date: Date, direction: string, view: string ) => void;
+    /**
+     * A callback fired when the view changes.
+     */
+    onViewChange?: () => void;
     /**
      * The minimum date that the Calendar can navigate from.
      */
@@ -99,6 +113,18 @@ interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>{
      */
     centuryFormat?: string | ((day: Date) => string);
     messages?: CalendarMessages;
+    /**
+     * Set a unique starting view
+     */
+    defaultView?: CalendarView;
+    /**
+     * Controls the currently displayed calendar view. Use defaultView to set a unique starting view.
+     */
+    view?: CalendarView;
+    /**
+     * Defines a list of views the Calendar can traverse through, starting with the first in the list to the last.
+     */
+    views?: CalendarView[];
 }
 
 interface CalendarMessages {

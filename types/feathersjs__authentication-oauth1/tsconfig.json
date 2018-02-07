@@ -15,12 +15,18 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
-            "@feathersjs/authentication-oauth1": ["feathersjs__authentication-oauth1"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/authentication-oauth1": [
+                "feathersjs__authentication-oauth1"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__authentication-oauth1-tests.ts"
+        "index.d.ts",
+        "feathersjs__authentication-oauth1-tests.ts"
     ]
 }

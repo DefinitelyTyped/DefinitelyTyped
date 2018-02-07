@@ -1,6 +1,6 @@
-import * as Knex from 'knex';
-import * as Bookshelf from 'bookshelf';
-import * as assert from 'assert';
+import Knex = require('knex');
+import Bookshelf = require('bookshelf');
+import assert = require('assert');
 import * as express from 'express';
 import * as _ from "lodash";
 

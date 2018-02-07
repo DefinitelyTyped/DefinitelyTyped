@@ -251,11 +251,12 @@ stripe.customers.create({
     customer.cards.list().then(function (cards) {});
     customer.cards.del("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (confirmation) {});
 
-    customer.subscriptions.create({ plan: "gold" }).then(function (subscription) { });
-    customer.subscriptions.create({ plan: "gold", trial_end: "now" }).then(function (subscription) { });
-    customer.subscriptions.create({ plan: "gold", trial_end: 1516881177 }).then(function (subscription) { });
-    customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) { });
-    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { plan: "silver" }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }] }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: "now" }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: 1516881177 }).then(function (subscription) { });
+    customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) {
+        customer.subscriptions.update("sub_8Eluur5KoIKxuy", { items: [{ id: subscription.items.data[0].id, plan: "silver" }] }).then(function (subscription) { });
+     });
     customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: "now" });
     customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177 });
     customer.subscriptions.list().then(function (subscriptions) { });
@@ -504,12 +505,12 @@ stripe.customers.retrieveSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp"
     // asynchronously called
 });
 
-stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { plan: "platypi-dev" },
+stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }] },
     function (err, subscription) {
         // asynchronously called
     }
 );
-stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { plan: "platypi-dev" }).then(function (subscription) {
+stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }] }).then(function (subscription) {
     // asynchronously called
 });
 
@@ -1134,11 +1135,18 @@ stripe.plans.list().then(function (plans) {
 //#region Subscriptions tests
 // ##################################################################################
 
-stripe.subscriptions.create({ plan: "platypi-dev", customer: "cus_5rfJKDJkuxzh5Q" }, function(err, subscription) {
+stripe.subscriptions.create({ items: [{ plan: "platypi-dev" }], customer: "cus_5rfJKDJkuxzh5Q" }, function(err, subscription) {
     // asynchronously called
 });
-stripe.subscriptions.create({ plan: "platypi-dev", customer: "cus_5rfJKDJkuxzh5Q" }).then(function(subscription) {
+stripe.subscriptions.create({ items: [{ plan: "platypi-dev" }], customer: "cus_5rfJKDJkuxzh5Q" }).then(function(subscription) {
     // asynchronously called
+
+    stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { items: [{ id: subscription.items.data[0].id, plan: "platypi" }] }, function(err, subscription) {
+        // asynchronously called
+    });
+    stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { items: [{ id: subscription.items.data[0].id, plan: "platypi" }] }).then(function(subscription) {
+        // asynchronously called
+    });
 });
 
 stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt", function(err, subscription) {
@@ -1152,13 +1160,6 @@ stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt").then(function(subscription) 
     if (typeof subscription.customer === "object") {
         subscription.customer.email;
     }
-});
-
-stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { plan: "platypi" }, function(err, subscription) {
-    // asynchronously called
-});
-stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { plan: "platypi" }).then(function(subscription) {
-    // asynchronously called
 });
 
 stripe.subscriptions.del("sub_8QwCiwZ9tmMSpt", function(err, subscription) {

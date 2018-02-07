@@ -1,17 +1,26 @@
 {
     "compilerOptions": {
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "jsx": "react",
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "noEmit": true
     },
-    "files": ["index.d.ts", "react-router-navigation-core-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-router-navigation-core-tests.tsx"
+    ]
 }

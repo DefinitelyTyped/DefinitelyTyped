@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.org/package/express-session
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 Jacob Bogers <https://github.com/jacobbogers>
+//                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Ryan Cannon <https://github.com/ry7n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -66,7 +67,7 @@ declare namespace session {
   }
 
   interface BaseMemoryStore {
-    get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
+    get: (sid: string, callback: (err: any, session: Express.SessionData) => void) => void;
     set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
     destroy: (sid: string, callback: (err: any) => void) => void;
     length?: (callback: (err: any, length: number) => void) => void;
@@ -80,7 +81,7 @@ declare namespace session {
     load: (sid: string, fn: (err: any, session: Express.Session) => any) => void;
     createSession: (req: express.Request, sess: Express.SessionData) => void;
 
-    get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
+    get: (sid: string, callback: (err: any, session: Express.SessionData) => void) => void;
     set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
     destroy: (sid: string, callback: (err: any) => void) => void;
     all: (callback: (err: any, obj: { [sid: string]: Express.SessionData; }) => void) => void;
@@ -89,7 +90,7 @@ declare namespace session {
   }
 
   class MemoryStore implements BaseMemoryStore {
-    get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
+    get: (sid: string, callback: (err: any, session: Express.SessionData) => void) => void;
     set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
     destroy: (sid: string, callback: (err: any) => void) => void;
     all: (callback: (err: any, obj: { [sid: string]: Express.Session; }) => void) => void;
