@@ -30,6 +30,7 @@ export type HandlerRendererResult = JSX.Element | null | false;
 export type FocusOptionHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
 export type SelectValueHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
 export type ArrowRendererHandler = (props: ArrowRendererProps) => HandlerRendererResult;
+export type ClearRendererHandler = () => HandlerRendererResult;
 export type FilterOptionHandler<TValue = OptionValues> = (option: Option<TValue>, filter: string) => boolean;
 export type FilterOptionsHandler<TValue = OptionValues> = (options: Options<TValue>, filter: string, currentValues: Options<TValue>) => Options<TValue>;
 export type InputRendererHandler = (props: { [key: string]: any }) => HandlerRendererResult;
@@ -187,6 +188,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * @default "Clear all"
      */
     clearAllText?: string;
+    /**
+     * Renders a custom clear to be shown in the right-hand side of the select when clearable true
+     * @default undefined
+     */
+    clearRenderer?: ClearRendererHandler;
     /**
      * title for the "clear" control
      * @default "Clear value"
