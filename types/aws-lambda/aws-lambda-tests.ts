@@ -1,28 +1,34 @@
-let str: string;
-let date: Date;
-let anyObj: any;
-let num: number;
-let error: Error;
-let b: boolean;
-let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
-let apiGwEvt: AWSLambda.APIGatewayEvent;
-let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
-let clientCtx: AWSLambda.ClientContext;
-let clientContextEnv: AWSLambda.ClientContextEnv;
-let clientContextClient: AWSLambda.ClientContextClient;
-let context: AWSLambda.Context;
-let identity: AWSLambda.CognitoIdentity;
-let proxyResult: AWSLambda.ProxyResult;
-let authResponse: AWSLambda.AuthResponse;
-let policyDocument: AWSLambda.PolicyDocument;
-let statement: AWSLambda.Statement;
-let authResponseContext: AWSLambda.AuthResponseContext;
-let snsEvt: AWSLambda.SNSEvent;
-let snsEvtRecs: AWSLambda.SNSEventRecord[];
-let snsEvtRec: AWSLambda.SNSEventRecord;
-let snsMsg: AWSLambda.SNSMessage;
-let snsMsgAttr: AWSLambda.SNSMessageAttribute;
-let snsMsgAttrs: AWSLambda.SNSMessageAttributes;
+declare let str: string;
+declare let strOrNull: string | null;
+declare let strOrUndefined: string | undefined;
+declare let date: Date;
+declare let anyObj: any;
+declare let num: number;
+declare let error: Error;
+declare let bool: boolean;
+declare let boolOrUndefined: boolean | undefined;
+declare let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
+declare let apiGwEvt: AWSLambda.APIGatewayEvent;
+declare let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
+declare let clientCtx: AWSLambda.ClientContext;
+declare let clientCtxOrUndefined: AWSLambda.ClientContext | undefined;
+declare let clientContextEnv: AWSLambda.ClientContextEnv;
+declare let clientContextClient: AWSLambda.ClientContextClient;
+declare let context: AWSLambda.Context;
+declare let identity: AWSLambda.CognitoIdentity;
+declare let identityOrUndefined: AWSLambda.CognitoIdentity | undefined;
+declare let proxyResult: AWSLambda.ProxyResult;
+declare let authResponse: AWSLambda.AuthResponse;
+declare let policyDocument: AWSLambda.PolicyDocument;
+declare let statement: AWSLambda.Statement;
+declare let authResponseContext: AWSLambda.AuthResponseContext;
+declare let authResponseContextOpt: AWSLambda.AuthResponseContext | null | undefined;
+declare let snsEvt: AWSLambda.SNSEvent;
+declare let snsEvtRecs: AWSLambda.SNSEventRecord[];
+declare let snsEvtRec: AWSLambda.SNSEventRecord;
+declare let snsMsg: AWSLambda.SNSMessage;
+declare let snsMsgAttr: AWSLambda.SNSMessageAttribute;
+declare let snsMsgAttrs: AWSLambda.SNSMessageAttributes;
 const S3EvtRec: AWSLambda.S3EventRecord = {
     eventVersion: '2.0',
     eventSource: 'aws:s3',
@@ -72,44 +78,44 @@ declare const scheduledEvent: AWSLambda.ScheduledEvent;
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
 str = apiGwEvtReqCtx.apiId;
-authResponseContext = apiGwEvtReqCtx.authorizer;
+authResponseContextOpt = apiGwEvtReqCtx.authorizer;
 str = apiGwEvtReqCtx.httpMethod;
-str = apiGwEvtReqCtx.identity.accessKey;
-str = apiGwEvtReqCtx.identity.accountId;
-str = apiGwEvtReqCtx.identity.apiKey;
-str = apiGwEvtReqCtx.identity.caller;
-str = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
-str = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
-str = apiGwEvtReqCtx.identity.cognitoIdentityId;
-str = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
+strOrNull = apiGwEvtReqCtx.identity.accessKey;
+strOrNull = apiGwEvtReqCtx.identity.accountId;
+strOrNull = apiGwEvtReqCtx.identity.apiKey;
+strOrNull = apiGwEvtReqCtx.identity.caller;
+strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
+strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
+strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityId;
+strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
 str = apiGwEvtReqCtx.identity.sourceIp;
-str = apiGwEvtReqCtx.identity.user;
-str = apiGwEvtReqCtx.identity.userAgent;
-str = apiGwEvtReqCtx.identity.userArn;
+strOrNull = apiGwEvtReqCtx.identity.user;
+strOrNull = apiGwEvtReqCtx.identity.userAgent;
+strOrNull = apiGwEvtReqCtx.identity.userArn;
 str = apiGwEvtReqCtx.stage;
 str = apiGwEvtReqCtx.requestId;
 str = apiGwEvtReqCtx.resourceId;
 str = apiGwEvtReqCtx.resourcePath;
 
 /* API Gateway Event */
-str = apiGwEvt.body;
+strOrNull = apiGwEvt.body;
 str = apiGwEvt.headers["example"];
 str = apiGwEvt.httpMethod;
-b = apiGwEvt.isBase64Encoded;
+bool = apiGwEvt.isBase64Encoded;
 str = apiGwEvt.path;
-str = apiGwEvt.pathParameters["example"];
-str = apiGwEvt.queryStringParameters["example"];
-str = apiGwEvt.stageVariables["example"];
+str = apiGwEvt.pathParameters!["example"];
+str = apiGwEvt.queryStringParameters!["example"];
+str = apiGwEvt.stageVariables!["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
 str = apiGwEvt.resource;
 
 /* API Gateway CustomAuthorizer Event */
 str = customAuthorizerEvt.type;
 str = customAuthorizerEvt.methodArn;
-str = customAuthorizerEvt.authorizationToken;
-str = apiGwEvt.pathParameters["example"];
-str = apiGwEvt.queryStringParameters["example"];
-str = apiGwEvt.stageVariables["example"];
+strOrUndefined = customAuthorizerEvt.authorizationToken;
+str = apiGwEvt.pathParameters!["example"];
+str = apiGwEvt.queryStringParameters!["example"];
+str = apiGwEvt.stageVariables!["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
 
 /* DynamoDB Stream Event */
@@ -234,17 +240,17 @@ str = snsMsgAttr.Value;
 
 /* Lambda Proxy Result */
 num = proxyResult.statusCode;
-proxyResult.headers["example"] = str;
-proxyResult.headers["example"] = b;
-proxyResult.headers["example"] = num;
-b = proxyResult.isBase64Encoded;
+proxyResult.headers!["example"] = str;
+proxyResult.headers!["example"] = bool;
+proxyResult.headers!["example"] = num;
+boolOrUndefined = proxyResult.isBase64Encoded;
 str = proxyResult.body;
 
 /* API Gateway CustomAuthorizer AuthResponse */
 authResponseContext = {
     stringKey: str,
     numberKey: num,
-    booleanKey: b
+    booleanKey: bool
 };
 
 statement = {
@@ -300,36 +306,36 @@ cognitoUserPoolEvent.triggerSource === "TokenGeneration_AuthenticateDevice";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_RefreshTokens";
 str = cognitoUserPoolEvent.region;
 str = cognitoUserPoolEvent.userPoolId;
-str = cognitoUserPoolEvent.userName;
+strOrUndefined = cognitoUserPoolEvent.userName;
 str = cognitoUserPoolEvent.callerContext.awsSdkVersion;
 str = cognitoUserPoolEvent.callerContext.clientId;
 str = cognitoUserPoolEvent.request.userAttributes["email"];
-str = cognitoUserPoolEvent.request.validationData["k1"];
-str = cognitoUserPoolEvent.request.codeParameter;
-str = cognitoUserPoolEvent.request.usernameParameter;
-b = cognitoUserPoolEvent.request.newDeviceUsed;
-cognitoUserPoolEvent.request.session[0].challengeName === "CUSTOM_CHALLENGE";
-cognitoUserPoolEvent.request.session[0].challengeName === "PASSWORD_VERIFIER";
-cognitoUserPoolEvent.request.session[0].challengeName === "SMS_MFA";
-cognitoUserPoolEvent.request.session[0].challengeName === "DEVICE_SRP_AUTH";
-cognitoUserPoolEvent.request.session[0].challengeName === "DEVICE_PASSWORD_VERIFIER";
-cognitoUserPoolEvent.request.session[0].challengeName === "ADMIN_NO_SRP_AUTH";
-b = cognitoUserPoolEvent.request.session[0].challengeResult;
-str = cognitoUserPoolEvent.request.session[0].challengeMetaData;
-str = cognitoUserPoolEvent.request.challengeName;
-str = cognitoUserPoolEvent.request.privateChallengeParameters["answer"];
-str = cognitoUserPoolEvent.request.challengeAnswer["answer"];
-b = cognitoUserPoolEvent.response.answerCorrect;
-str = cognitoUserPoolEvent.response.smsMessage;
-str = cognitoUserPoolEvent.response.emailMessage;
-str = cognitoUserPoolEvent.response.emailSubject;
-str = cognitoUserPoolEvent.response.challengeName;
-b = cognitoUserPoolEvent.response.issueTokens;
-b = cognitoUserPoolEvent.response.failAuthentication;
-str = cognitoUserPoolEvent.response.publicChallengeParameters["captchaUrl"];
-str = cognitoUserPoolEvent.response.privateChallengeParameters["answer"];
-str = cognitoUserPoolEvent.response.challengeMetaData;
-b = cognitoUserPoolEvent.response.answerCorrect;
+str = cognitoUserPoolEvent.request.validationData!["k1"];
+strOrUndefined = cognitoUserPoolEvent.request.codeParameter;
+strOrUndefined = cognitoUserPoolEvent.request.usernameParameter;
+boolOrUndefined = cognitoUserPoolEvent.request.newDeviceUsed;
+cognitoUserPoolEvent.request.session![0].challengeName === "CUSTOM_CHALLENGE";
+cognitoUserPoolEvent.request.session![0].challengeName === "PASSWORD_VERIFIER";
+cognitoUserPoolEvent.request.session![0].challengeName === "SMS_MFA";
+cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_SRP_AUTH";
+cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_PASSWORD_VERIFIER";
+cognitoUserPoolEvent.request.session![0].challengeName === "ADMIN_NO_SRP_AUTH";
+bool = cognitoUserPoolEvent.request.session![0].challengeResult;
+strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.request.challengeName;
+str = cognitoUserPoolEvent.request.privateChallengeParameters!["answer"];
+str = cognitoUserPoolEvent.request.challengeAnswer!["answer"];
+boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
+strOrUndefined = cognitoUserPoolEvent.response.smsMessage;
+strOrUndefined = cognitoUserPoolEvent.response.emailMessage;
+strOrUndefined = cognitoUserPoolEvent.response.emailSubject;
+strOrUndefined = cognitoUserPoolEvent.response.challengeName;
+boolOrUndefined = cognitoUserPoolEvent.response.issueTokens;
+boolOrUndefined = cognitoUserPoolEvent.response.failAuthentication;
+str = cognitoUserPoolEvent.response.publicChallengeParameters!["captchaUrl"];
+str = cognitoUserPoolEvent.response.privateChallengeParameters!["answer"];
+strOrUndefined = cognitoUserPoolEvent.response.challengeMetaData;
+boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
@@ -353,7 +359,7 @@ switch (cloudformationCustomResourceEvent.RequestType) {
 anyObj = cloudformationCustomResourceResponse.Data;
 str = cloudformationCustomResourceResponse.LogicalResourceId;
 str = cloudformationCustomResourceResponse.PhysicalResourceId;
-str = cloudformationCustomResourceResponse.Reason;
+strOrUndefined = cloudformationCustomResourceResponse.Reason;
 str = cloudformationCustomResourceResponse.RequestId;
 str = cloudformationCustomResourceResponse.StackId;
 str = cloudformationCustomResourceResponse.Status;
@@ -368,7 +374,7 @@ str = scheduledEvent.source;
 str = scheduledEvent.time;
 
 /* Context */
-b = context.callbackWaitsForEmptyEventLoop;
+bool = context.callbackWaitsForEmptyEventLoop;
 str = context.functionName;
 str = context.functionVersion;
 str = context.invokedFunctionArn;
@@ -376,8 +382,8 @@ num = context.memoryLimitInMB;
 str = context.awsRequestId;
 str = context.logGroupName;
 str = context.logStreamName;
-identity = context.identity;
-clientCtx = context.clientContext;
+identityOrUndefined = context.identity;
+clientCtxOrUndefined = context.clientContext;
 
 /* CognitoIdentity */
 str = identity.cognitoIdentityId;
@@ -420,7 +426,7 @@ function callback(cb: AWSLambda.Callback) {
     cb(null);
     cb(error);
     cb(null, anyObj);
-    cb(null, b);
+    cb(null, bool);
     cb(null, str);
     cb(null, num);
 }
