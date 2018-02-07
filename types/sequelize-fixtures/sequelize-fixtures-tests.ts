@@ -1,7 +1,7 @@
 import Sequelize = require('sequelize');
 import SequelizeFixtures = require('sequelize-fixtures');
 
-var sequelize = new Sequelize("", "", null);
+var sequelize = new Sequelize("", "");
 
 SequelizeFixtures.loadFile("", {}).then(() => { });
 SequelizeFixtures.loadFile("", {}, { encoding: "utf8" }).then(() => { });
