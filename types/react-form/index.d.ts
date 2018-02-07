@@ -1,6 +1,7 @@
 // Type definitions for react-form 2.12
 // Project: https://github.com/tannerlinsley/react-form#readme
 // Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
+//                 James Pluck <https://github.com/PapaBearNZ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -43,6 +44,7 @@ export interface FormProps {
         [field: string]: (value: FormValue) => Promise<any>
     };
     dontPreventDefault?: boolean;
+    getApi?(formApi: FormApi): void;
 }
 
 export interface FormApi {
