@@ -46,7 +46,7 @@ export interface APIGatewayEventRequestContext {
 }
 
 // API Gateway "event"
-export interface APIGatewayEvent {
+export interface APIGatewayProxyEvent {
     body: string | null;
     headers: { [name: string]: string };
     httpMethod: string;
@@ -58,6 +58,7 @@ export interface APIGatewayEvent {
     requestContext: APIGatewayEventRequestContext;
     resource: string;
 }
+export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
 
 // API Gateway CustomAuthorizer "event"
 export interface CustomAuthorizerEvent {
@@ -201,7 +202,7 @@ export type S3CreateEvent = S3Event; // old name
  * Cognito User Pool event
  * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
  */
-export interface CognitoUserPoolEvent {
+export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
         | "PreSignUp_SignUp"
@@ -261,6 +262,7 @@ export interface CognitoUserPoolEvent {
         answerCorrect?: boolean;
     };
 }
+export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
 
 /**
  * CloudFormation Custom Resource event and response
@@ -496,6 +498,15 @@ export interface CloudFrontEvent {
     };
 }
 
+// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses.html#lambda-generating-http-responses-object
+export interface CloudFrontResultResponse {
+    status: string;
+    statusDescription?: string;
+    headers?: CloudFrontHeaders;
+    bodyEncoding?: 'text' | 'base64';
+    body?: string;
+}
+
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
@@ -505,6 +516,8 @@ export interface CloudFrontResponseEvent {
     }>;
 }
 
+export type CloudFrontRequestResult = undefined | null | CloudFrontResultResponse;
+
 export interface CloudFrontRequestEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
@@ -513,14 +526,7 @@ export interface CloudFrontRequestEvent {
     }>;
 }
 
-// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-generating-http-responses.html#lambda-generating-http-responses-object
-export interface CloudFrontResult {
-    status: string;
-    statusDescription?: string;
-    headers?: CloudFrontHeaders;
-    bodyEncoding?: 'text' | 'base64';
-    body?: string;
-}
+export type CloudFrontResponseResult = undefined | null | CloudFrontResultResponse;
 
 /**
  * AWS Lambda handler function.
@@ -547,15 +553,17 @@ export type Callback<TResult = any> = (error?: Error | null, result?: TResult) =
 
 export type S3Handler = Handler<S3Event, void>;
 
-export type DynamoDBHandler = Handler<DynamoDBStreamEvent, void>;
+export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, void>;
 
 export type SNSHandler = Handler<SNSEvent, void>;
 
 // No SESHandler: SES event source is delivered as SNS notifications
 // https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-ses
 
-export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolEvent>;
-// TODO: Different event triggers/response pairs?
+// Result type is weird: docs and samples say to return the mutated event, but it only requires an object
+// with a "response" field, the type of which is specific to the event.triggerType. Leave as any for now.
+export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>;
+// TODO: Different event/handler types for each event trigger so we can type the result?
 
 // TODO: CognitoSync
 
@@ -567,21 +575,24 @@ export type CloudWatchLogsHandler = Handler<CloudWatchLogsEvent, void>;
 
 // TODO: CodeCommit
 
-export type ScheduledEventHandler = Handler<ScheduledEvent, void>;
+export type ScheduledHandler = Handler<ScheduledEvent, void>;
 
 // TODO: AWS Config
 
 // TODO: Alexa
 
-export type APIGatewayProxyHandler = Handler<APIGatewayEvent, APIGatewayProxyResult>;
-export type ProxyHandler = APIGatewayProxyHandler; // Old name
+export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
+export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
 
 // TODO: IoT
 
-export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, undefined | null | CloudFrontResult>;
-export type CloudFrontResponseHandler = Handler<CloudFrontResponseEvent, undefined | null | CloudFrontResult>;
+export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, CloudFrontRequestResult>;
+export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;
+
+export type CloudFrontResponseHandler = Handler<CloudFrontResponseEvent, CloudFrontResponseResult>;
+export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 
 // TODO: Kinesis (should be very close to DynamoDB stream?)
 

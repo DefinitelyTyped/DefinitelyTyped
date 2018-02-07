@@ -584,8 +584,72 @@ context.fail(str);
 
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+
+// async methods return Promise, test assignability
 let asyncHandler: AWSLambda.Handler = async (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+
+let inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
+    // $ExpectType S3Event
+    event;
+    str = event.Records[0].eventName;
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    // $ExpectType Callback<void>
+    cb;
+    cb();
+    cb(null);
+    cb(new Error());
+    // $ExpectError
+    cb(null, { });
+};
+
+// Test using default Callback type still works.
+let defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+
+// Specific types
+let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+// Test old name
+let s3CreateHandler: AWSLambda.S3Handler = (event: AWSLambda.S3CreateEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+s3Handler = s3CreateHandler;
+
+let dynamoDBStreamHandler: AWSLambda.DynamoDBStreamHandler = (event: AWSLambda.DynamoDBStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+
+let snsHandler: AWSLambda.SNSHandler = (event: AWSLambda.SNSEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+
+let cognitoUserPoolHandler: AWSLambda.CognitoUserPoolTriggerHandler = (event: AWSLambda.CognitoUserPoolEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+
+let cloudFormationCustomResourceHandler: AWSLambda.CloudFormationCustomResourceHandler =
+    (event: AWSLambda.CloudFormationCustomResourceEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+
+let cloudWatchLogsHandler: AWSLambda.CloudWatchLogsHandler = (event: AWSLambda.CloudWatchLogsEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+
+let scheduledHandler: AWSLambda.ScheduledHandler = (event: AWSLambda.ScheduledEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+
+let apiGtwProxyHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayProxyEvent, context: AWSLambda.Context, cb: AWSLambda.APIGatewayProxyCallback) => { };
+// Test old names
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
-let asyncProxyHandler: AWSLambda.ProxyHandler = async (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+apiGtwProxyHandler = proxyHandler;
+
+let cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => { };
+
+let cloudFrontResponseHandler: AWSLambda.CloudFrontResponseHandler = (event: AWSLambda.CloudFrontResponseEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontResponseCallback) => { };
+
 let customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
-let asyncCustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = async (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
+
+interface CustomEvent { eventString: string; eventBool: boolean; }
+interface CustomResult { resultString: string; resultBool?: boolean; }
+type CustomCallback = AWSLambda.Callback<CustomResult>;
+let customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, context, cb) => {
+    // $ExpectType CustomEvent
+    event;
+    str = event.eventString;
+    bool = event.eventBool;
+    // $ExpectType Context
+    context;
+    // $ExpectType Callback<CustomResult>
+    cb;
+    cb(null, { resultString: str, resultBool: bool });
+    // $ExpectError
+    cb(null, { resultString: bool });
+};
