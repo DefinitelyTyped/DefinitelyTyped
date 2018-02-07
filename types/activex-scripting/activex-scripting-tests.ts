@@ -263,3 +263,58 @@ ${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
         WScript.Echo(ret);
     };
 })();
+
+// https://msdn.microsoft.com/en-us/library/czxefwt8(v=vs.84).aspx
+(() => {
+    const readFiles = () => {
+        const file = fso.CreateTextFile("c:\\testfile.txt", true);
+
+        // Write a line.
+        WScript.Echo('Writing file');
+        file.WriteLine("Hello World");
+        file.WriteBlankLines(1);
+        file.Close();
+
+        // Read the contents of the file.
+        WScript.Echo('Reading file');
+        const textStream = fso.OpenTextFile("c:\\testfile.txt", Scripting.IOMode.ForReading);
+        WScript.Echo(`File contents = "${textStream.ReadLine()}"`);
+        textStream.Close();
+    }
+
+    const manipulateFiles = () => {
+        const file = fso.CreateTextFile("c:\\testfile.txt", true);
+
+        WScript.Echo('Writing file');
+
+        // Write a line.
+        file.Write("This is a test.");
+
+        // Close the file to writing.
+        file.Close();
+
+        WScript.Echo('Moving file to c:\\tmp');
+
+        // Get a handle to the file in root of C:\.
+        let file2 = fso.GetFile("c:\\testfile.txt");
+
+        // Move the file to \tmp directory.
+        file2.Move("c:\\tmp\\testfile.txt");
+
+        WScript.Echo('Copying file to c:\\temp <br>');
+
+        // Copy the file to \temp.
+        file2.Copy('c:\\temp\\testfile.txt');
+
+        WScript.Echo('Deleting files <br>');
+
+        // Get handles to files' current location.
+        file2 = fso.GetFile('c:\\tmp\\testfile.txt');
+        const file3 = fso.GetFile('c:\\temp\\testfile.txt');
+
+        // Delete the files.
+        file2.Delete();
+        file3.Delete();
+        WScript.Echo('All done!');
+    };
+})();
