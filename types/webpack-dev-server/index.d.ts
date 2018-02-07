@@ -15,9 +15,11 @@ import * as spdy from 'spdy';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
 
 declare namespace WebpackDevServer {
-    type ListeningApp = { address(): { port?: number } };
+    interface ListeningApp {
+        address(): { port?: number };
+    }
 
-    function addDevServerEntrypoints(webpack: webpack.Compiler | webpack.MultiCompiler, config: WebpackDevServer.Configuration, listeningApp?: ListeningApp): void
+    function addDevServerEntrypoints(webpack: webpack.Compiler | webpack.MultiCompiler, config: Configuration, listeningApp?: ListeningApp): void;
 
     interface proxyConfigMap {
         [url: string]: string | httpProxyMiddleware.Config;
