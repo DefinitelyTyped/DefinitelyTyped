@@ -5,21 +5,23 @@
 import _ = require("../index");
 
 declare namespace Lodash {
-    interface EntriesIn {
+    interface ToPairsIn {
         /**
-         * @see _.entriesIn
-         */
-        (): EntriesIn;
-        /**
-         * @see _.entriesIn
+         * Creates an array of own and inherited enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
          */
         <T>(object: _.Dictionary<T>): Array<[string, T]>;
         /**
-         * @see _.entriesIn
+         * Creates an array of own and inherited enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
          */
         (object: object): Array<[string, any]>;
     }
 }
 
-declare const entriesIn: Lodash.EntriesIn;
+declare const entriesIn: Lodash.ToPairsIn;
 export = entriesIn;

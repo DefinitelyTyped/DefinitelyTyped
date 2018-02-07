@@ -6,15 +6,13 @@ import _ = require("../index");
 
 declare namespace Lodash {
     /**
-     * Gets the first element of array.
-     *
-     * @alias _.first
+     * Gets all but the last element of array.
      *
      * @param array The array to query.
-     * @return Returns the first element of array.
+     * @return Returns the slice of array.
      */
-    type Head = <T>(array: _.List<T> | null | undefined) => T | undefined;
+    type Initial = <T>(array: _.List<T> | null | undefined) => T[];
 }
 
-declare const head: Lodash.Head;
-export = head;
+declare const init: Lodash.Initial;
+export = init;

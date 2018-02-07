@@ -12,13 +12,6 @@ declare namespace Lodash {
          * @param value The value to convert.
          * @return Returns the converted array.
          */
-        (): ToArray;
-        /**
-         * Converts value to an array.
-         *
-         * @param value The value to convert.
-         * @return Returns the converted array.
-         */
         <T>(value: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T[];
         /**
          * Converts value to an array.
@@ -27,6 +20,13 @@ declare namespace Lodash {
          * @return Returns the converted array.
          */
         <T>(value: T): Array<T[keyof T]>;
+        /**
+         * Converts value to an array.
+         *
+         * @param value The value to convert.
+         * @return Returns the converted array.
+         */
+        (): any[];
     }
 }
 

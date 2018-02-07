@@ -15,5 +15,5 @@ declare namespace Lodash {
     type Negate = <T extends (...args: any[]) => any>(predicate: T) => T;
 }
 
-declare const negate: Lodash.Negate;
-export = negate;
+declare const complement: Lodash.Negate;
+export = complement;

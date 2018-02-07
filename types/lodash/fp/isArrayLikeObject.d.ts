@@ -27,28 +27,6 @@ declare namespace Lodash {
          * _.isArrayLikeObject(_.noop);
          * // => false
          */
-        (): IsArrayLikeObject;
-        /**
-         * This method is like `_.isArrayLike` except that it also checks if `value`
-         * is an object.
-         *
-         * @category Lang
-         * @param value The value to check.
-         * @returns Returns `true` if `value` is an array-like object, else `false`.
-         * @example
-         *
-         * _.isArrayLikeObject([1, 2, 3]);
-         * // => true
-         *
-         * _.isArrayLikeObject(document.body.children);
-         * // => true
-         *
-         * _.isArrayLikeObject('abc');
-         * // => false
-         *
-         * _.isArrayLikeObject(_.noop);
-         * // => false
-         */
         <T>(value: T & string & number): boolean;
         /**
          * This method is like `_.isArrayLike` except that it also checks if `value`

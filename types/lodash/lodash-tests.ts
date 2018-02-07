@@ -1032,13 +1032,9 @@ namespace TestFlatten {
         result = _.flatten<number>([1, 2, 3]);
         result = _.flatten<number>([1, 2, 3]);
         result = _.flatten<number>([1, [2, 3]]);
-        result = _.flatten<number>([1, [2, [3]]], true);
-        result = _.flatten<number>([1, [2, [3]], [[4]]], true);
 
         result = _.flatten<number>({0: 1, 1: 2, 2: 3, length: 3});
         result = _.flatten<number>({0: 1, 1: [2, 3], length: 2});
-        result = _.flatten<number>({0: 1, 1: [2, [3]], length: 2}, true);
-        result = _.flatten<number>({0: 1, 1: [2, [3]], 2: [[4]], length: 3}, true);
     }
 
     {
@@ -1062,13 +1058,9 @@ namespace TestFlatten {
 
         result = _([1, 2, 3]).flatten<number>();
         result = _([1, [2, 3]]).flatten<number>();
-        result = _([1, [2, [3]]]).flatten<number>(true);
-        result = _([1, [2, [3]], [[4]]]).flatten<number>(true);
 
         result = _({0: 1, 1: 2, 2: 3, length: 3}).flatten<number>();
         result = _({0: 1, 1: [2, 3], length: 2}).flatten<number>();
-        result = _({0: 1, 1: [2, [3]], length: 2}).flatten<number>(true);
-        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).flatten<number>(true);
     }
 
     {
@@ -1092,13 +1084,9 @@ namespace TestFlatten {
 
         result = _([1, 2, 3]).chain().flatten<number>();
         result = _([1, [2, 3]]).chain().flatten<number>();
-        result = _([1, [2, [3]]]).chain().flatten<number>(true);
-        result = _([1, [2, [3]], [[4]]]).chain().flatten<number>(true);
 
         result = _({0: 1, 1: 2, 2: 3, length: 3}).chain().flatten<number>();
         result = _({0: 1, 1: [2, 3], length: 2}).chain().flatten<number>();
-        result = _({0: 1, 1: [2, [3]], length: 2}).chain().flatten<number>(true);
-        result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flatten<number>(true);
     }
 
     {

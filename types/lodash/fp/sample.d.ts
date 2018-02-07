@@ -12,13 +12,6 @@ declare namespace Lodash {
          * @param collection The collection to sample.
          * @return Returns the random element.
          */
-        (): Sample;
-        /**
-         * Gets a random element from collection.
-         *
-         * @param collection The collection to sample.
-         * @return Returns the random element.
-         */
         <T>(collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T | undefined;
         /**
          * Gets a random element from collection.

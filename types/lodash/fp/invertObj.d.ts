@@ -16,5 +16,5 @@ declare namespace Lodash {
     type Invert = (object: object) => _.Dictionary<string>;
 }
 
-declare const invert: Lodash.Invert;
-export = invert;
+declare const invertObj: Lodash.Invert;
+export = invertObj;

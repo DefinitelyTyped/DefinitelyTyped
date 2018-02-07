@@ -21,7 +21,7 @@ declare namespace Lodash {
         * flipped('a', 'b', 'c', 'd');
         * // => ['d', 'c', 'b', 'a']
         */
-        (): Flip;
+        <T extends (...args: any[]) => any>(func: T): T;
         /**
         * Creates a function that invokes `func` with arguments reversed.
         *
@@ -37,7 +37,7 @@ declare namespace Lodash {
         * flipped('a', 'b', 'c', 'd');
         * // => ['d', 'c', 'b', 'a']
         */
-        <T extends (...args: any[]) => any>(func: T): T;
+        (): this;
     }
 }
 

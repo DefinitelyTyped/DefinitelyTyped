@@ -55,9 +55,9 @@ interface AbcObject {
     let iteratee = (value: AbcObject) => 1;
 
     _.differenceBy(iteratee, array, array); // $ExpectType AbcObject[]
-    _.differenceBy(iteratee)(array, array); // $ExpectType AbcObject[]
-    _.differenceBy(iteratee)(array)(array); // $ExpectType AbcObject[]
-    _.differenceBy(iteratee, array, list); // $ExpectType AbcObject[]
+    _.differenceBy<AbcObject, AbcObject>(iteratee)(array, array); // $ExpectType AbcObject[]
+    _.differenceBy<AbcObject, AbcObject>(iteratee)(array)(array); // $ExpectType AbcObject[]
+    _.differenceBy<AbcObject, AbcObject>(iteratee, array)(list); // $ExpectType AbcObject[]
     _.differenceBy(iteratee, list, array); // $ExpectType AbcObject[]
     _.differenceBy(iteratee, list, list); // $ExpectType AbcObject[]
     _.differenceBy('a', array, array); // $ExpectType AbcObject[]
@@ -245,16 +245,27 @@ interface AbcObject {
     let array: number[][] | null | undefined = anything;
     let list: ArrayLike<number[]> | null | undefined = anything;
 
-    _.flatten('abc'); // $ExpectType string
-    _.flatten<number>(array); // $ExpectType number[]
-    _.flatten<number>(list); // $ExpectType number[]
-    _.flatten<number>([1, 2, 3]); // $ExpectType number[]
-    _.flatten<number>([1, 2, 3]); // $ExpectType number[]
-    _.flatten<number>([1, 2, 3]); // $ExpectType number[]
-    _.flatten<number>([1, [2, 3]]); // $ExpectType number[]
+    _.flatten('abc'); // $ExpectType string[]
+    _.flatten(array); // $ExpectType number[]
+    _.flatten(list); // $ExpectType number[]
+    _.flatten([1, 2, 3]); // $ExpectType number[]
+    _.flatten([1, 2, 3]); // $ExpectType number[]
+    _.flatten([1, 2, 3]); // $ExpectType number[]
+    _.flatten([1, [2, 3]]); // $ExpectType number[]
 
-    _.flatten<number>({0: 1, 1: 2, 2: 3, length: 3}); // $ExpectType number[]
-    _.flatten<number>({0: 1, 1: [2, 3], length: 2}); // $ExpectType number[]
+    _.flatten({0: 1, 1: 2, 2: 3, length: 3}); // $ExpectType number[]
+    _.flatten({0: 1, 1: [2, 3], length: 2}); // $ExpectType number[]
+
+    _.unnest('abc'); // $ExpectType string[]
+    _.unnest(array); // $ExpectType number[]
+    _.unnest(list); // $ExpectType number[]
+    _.unnest([1, 2, 3]); // $ExpectType number[]
+    _.unnest([1, 2, 3]); // $ExpectType number[]
+    _.unnest([1, 2, 3]); // $ExpectType number[]
+    _.unnest([1, [2, 3]]); // $ExpectType number[]
+
+    _.unnest({0: 1, 1: 2, 2: 3, length: 3}); // $ExpectType number[]
+    _.unnest({0: 1, 1: [2, 3], length: 2}); // $ExpectType number[]
 }
 
 // _.flattenDeep
@@ -262,7 +273,7 @@ interface AbcObject {
     let array: number[][] | null | undefined = anything;
     let list: ArrayLike<number[]> | null | undefined = anything;
 
-    _.flattenDeep('abc'); // $ExpectType string
+    _.flattenDeep('abc'); // $ExpectType string[]
     _.flattenDeep<number>(array); // $ExpectType number[]
     _.flattenDeep<number>(list); // $ExpectType number[]
     _.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
@@ -347,8 +358,8 @@ interface AbcObject {
     let list: ArrayLike<AbcObject> = anything;
 
     _.intersectionBy('a', array, list); // $ExpectType AbcObject[]
-    _.intersectionBy('a')(array, list); // $ExpectType AbcObject[]
-    _.intersectionBy('a')(array)(list); // $ExpectType AbcObject[]
+    _.intersectionBy<AbcObject, AbcObject>('a')(array, list); // $ExpectType AbcObject[]
+    _.intersectionBy<AbcObject, AbcObject>('a')(array)(list); // $ExpectType AbcObject[]
     _.intersectionBy({ a: 42 }, array, list); // $ExpectType AbcObject[]
     _.intersectionBy(['a', 42], array, list); // $ExpectType AbcObject[]
     _.intersectionBy((value: AbcObject) => 0, array, list); // $ExpectType AbcObject[]

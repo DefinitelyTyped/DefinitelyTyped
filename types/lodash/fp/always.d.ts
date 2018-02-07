@@ -6,13 +6,13 @@ import _ = require("../index");
 
 declare namespace Lodash {
     /**
-     * Converts `string`, as a whole, to upper case.
+     * Creates a function that returns value.
      *
-     * @param string The string to convert.
-     * @return Returns the upper cased string.
+     * @param value The value to return from the new function.
+     * @return Returns the new function.
      */
-    type ToUpper = (string: string) => string;
+    type Constant = <T>(value: T) => () => T;
 }
 
-declare const toUpper: Lodash.ToUpper;
-export = toUpper;
+declare const always: Lodash.Constant;
+export = always;

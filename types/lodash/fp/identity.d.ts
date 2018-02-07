@@ -12,14 +12,14 @@ declare namespace Lodash {
          * @param value Any value.
          * @return Returns value.
          */
-        (): Identity;
+        <T>(value: T): T;
         /**
          * This method returns the first argument provided to it.
          *
          * @param value Any value.
          * @return Returns value.
          */
-        <T>(value: T): T;
+        (): undefined;
     }
 }
 

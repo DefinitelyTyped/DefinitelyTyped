@@ -123,10 +123,11 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
         if (!definition)
             continue;
 
-        if (definition.overloads.every(o => o.params.length === 1 && !o.params[0].startsWith("..."))) {
-            // Only 1 parameter. No need to rearg (in fact, rearging some funtions like runInContext causes issues)
+        if (definition.overloads.every(o => o.params.length <= 1 && o.returnType === "typeof _")) {
+            // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
+            // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
             unconvertedBuilder[definition.name] = (...args: number[][]) => {
-                return () => curryOverloads(definition.overloads, definition.name, args[0], -1, definition.jsdoc);
+                return () => curryOverloads(definition.overloads, definition.name, args[0] || [], -1, definition.jsdoc);
             };
         } else {
             builder[definition.name] = (...args: number[][]) => {
@@ -137,7 +138,8 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                 const spreadIndex = args.findIndex(a => typeof a === "number");
                 if (spreadIndex !== -1) {
                     // If there's a spread parameter, convert() won't cap the number of arguments, so we need to do it manually
-                    args = args.slice(0, Math.max(spreadIndex, args[spreadIndex] as any) + 1); // Ignore all arguments after the spread
+                    const arity = Math.max(spreadIndex, args[spreadIndex] as any) + 1;
+                    args = args.slice(0, arity);
                 }
 
                 return () => curryOverloads(definition.overloads, definition.name, flatten(args), spreadIndex, definition.jsdoc);
@@ -211,14 +213,10 @@ async function parseDefinition(name: string, definitionString: string, filePath:
     if (!firstOverload.includes("(")) {
         // This overload actually points to an interface. Try to find said interface and get the overloads from there.
         const interfaceName = firstOverload.split(":")[1].trim();
-        if (interfaceName.startsWith("typeof")) {
-            // This is an alias
-            const aliasOf = trim(interfaceName.substring(7).trim(), "_.");
-            const dir = path.dirname(filePath);
-            const aliasOfDefiniton = await parseFile(path.join(dir, aliasOf + ".d.ts"), commonTypes);
-            if (aliasOfDefiniton)
-                aliasOfDefiniton.name = name;
-            return aliasOfDefiniton;
+        if (interfaceName.startsWith("typeof ") || interfaceName.startsWith("LoDashStatic[")) {
+            // This is an alias (e.g. first: typeof _.head, or first: LoDashStatic['head']).
+            // Ignore it since convert() will create this alias based on the original function.
+            return undefined;
         }
         const interfaceIndex = definitionString.indexOf(`interface ${interfaceName} {`);
         if (interfaceIndex !== -1) {
@@ -298,6 +296,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
     overloads = cloneDeep(overloads);
     paramOrder = paramOrder.filter(p => typeof p === "number");
     const arity = paramOrder.length;
+
     if (spreadIndex !== -1) {
         // The parameter at this index is an array that will be spread when passed down to the actual function (e.g. assignAll, invokeArgs, partial, without).
         // For these parameters, we expect the input to be an array (so remove the "...")
@@ -456,8 +455,8 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
     if (baseName === "Pick") // A type called "Pick" already exists, so rename to avoid conflicts
         baseName = "Lodash" + baseName;
     let output = "";
-    if (overload.params.length === 0) {
-        // Nothing to curry. Just use a basic function type.
+    if (overload.params.length <= 1) {
+        // Functions with 0 or 1 arguments are not curried. Just use a basic function type.
         return [{
             name: baseName,
             overloads: [overload],

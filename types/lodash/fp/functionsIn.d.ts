@@ -5,48 +5,26 @@
 import _ = require("../index");
 
 declare namespace Lodash {
-    interface FunctionsIn {
-        /**
-         * Creates an array of function property names from own and inherited
-         * enumerable properties of `object`.
-         *
-         * @category Object
-         * @param object The object to inspect.
-         * @returns Returns the new array of property names.
-         * @example
-         *
-         * function Foo() {
-         *   this.a = _.constant('a');
-         *   this.b = _.constant('b');
-         * }
-         *
-         * Foo.prototype.c = _.constant('c');
-         *
-         * _.functionsIn(new Foo);
-         * // => ['a', 'b', 'c']
-         */
-        (): FunctionsIn;
-        /**
-         * Creates an array of function property names from own and inherited
-         * enumerable properties of `object`.
-         *
-         * @category Object
-         * @param object The object to inspect.
-         * @returns Returns the new array of property names.
-         * @example
-         *
-         * function Foo() {
-         *   this.a = _.constant('a');
-         *   this.b = _.constant('b');
-         * }
-         *
-         * Foo.prototype.c = _.constant('c');
-         *
-         * _.functionsIn(new Foo);
-         * // => ['a', 'b', 'c']
-         */
-        <T extends {}>(object: any): string[];
-    }
+    /**
+     * Creates an array of function property names from own and inherited
+     * enumerable properties of `object`.
+     *
+     * @category Object
+     * @param object The object to inspect.
+     * @returns Returns the new array of property names.
+     * @example
+     *
+     * function Foo() {
+     *   this.a = _.constant('a');
+     *   this.b = _.constant('b');
+     * }
+     *
+     * Foo.prototype.c = _.constant('c');
+     *
+     * _.functionsIn(new Foo);
+     * // => ['a', 'b', 'c']
+     */
+    type FunctionsIn = <T extends {}>(object: any) => string[];
 }
 
 declare const functionsIn: Lodash.FunctionsIn;
