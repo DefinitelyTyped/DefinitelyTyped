@@ -1,15 +1,15 @@
 import * as React from 'react';
-import * as ReactGridLayout from 'react-grid-layout';
+import ReactGridLayout = require('react-grid-layout');
+import { Responsive, WidthProvider } from 'react-grid-layout';
 
-const ReactGridLayoutResponsive = ReactGridLayout.Responsive;
-const ReactGridLayoutResponsiveWidth = ReactGridLayout.WidthProvider(ReactGridLayout.Responsive);
+const ResponsiveWidth = WidthProvider(Responsive);
 
-class DefaultGridTest extends React.Component<any, any> {
+class DefaultGridTest extends React.Component {
   render() {
     const layout = [
-      {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
-      {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
-      {i: 'c', x: 4, y: 0, w: 1, h: 2}
+      { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
+      { i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+      { i: 'c', x: 4, y: 0, w: 1, h: 2 }
     ];
 
     return (
@@ -29,33 +29,43 @@ class DefaultGridTest extends React.Component<any, any> {
   }
 }
 
-class ResponsiveGridTest extends React.Component<any, any> {
+class ResponsiveGridTest extends React.Component {
   render() {
+    const layouts = {
+      lg: [
+        { i: '1', x: 0, y: 0, w: 1, h: 2, static: true },
+        { i: '2', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+        { i: '3', x: 4, y: 0, w: 1, h: 2 }
+      ]
+    };
+
     return (
-      <ReactGridLayoutResponsive
+      <Responsive
+        layouts={layouts}
         width={800}
-        breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
+        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
       >
         <div key="1">a</div>
         <div key="2">b</div>
         <div key="3">c</div>
-      </ReactGridLayoutResponsive>
+      </Responsive>
     );
   }
 }
 
-class ResponsiveGridWidthProviderTest extends React.Component<any, any> {
+class ResponsiveGridWidthProviderTest extends React.Component {
   render() {
     return (
-      <ReactGridLayoutResponsiveWidth
-        breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-        cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
+      <ResponsiveWidth
+        measureBeforeMount={true}
+        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
       >
         <div key="1">a</div>
         <div key="2">b</div>
         <div key="3">c</div>
-      </ReactGridLayoutResponsiveWidth>
+      </ResponsiveWidth>
     );
   }
 }

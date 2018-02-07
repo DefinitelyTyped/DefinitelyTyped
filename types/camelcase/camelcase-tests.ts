@@ -1,4 +1,3 @@
-
 import camelCase = require('camelcase');
 
 camelCase('foo-bar');

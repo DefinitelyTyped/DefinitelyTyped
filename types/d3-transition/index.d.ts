@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-transition module 1.0
+// Type definitions for D3JS d3-transition module 1.1
 // Project: https://github.com/d3/d3-transition/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.3
+// Last module patch version validated against: 1.1
 
 import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
 
@@ -110,7 +110,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * The generic represents the type of the descendant element to be selected.
      *
      * @param selector A selector function, which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      * It must return an element, or null if there is no matching element.
      */
     select<DescElement extends BaseType>(selector: ValueFn<GElement, Datum, DescElement>): Transition<DescElement, Datum, PElement, PDatum>;
@@ -135,7 +135,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * datum, of a selected element. This is useful when re-selecting elements with a previously set, know datum type.
      *
      * @param selector A selector function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element. It must return an array of elements
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). It must return an array of elements
      * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
     selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>): Transition<DescElement, OldDatum, GElement, Datum>;
@@ -194,7 +194,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of the attribute.
      * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      * A null value will clear the attribute at the start of the transition.
      */
     attr(name: string, value: ValueFn<GElement, Datum, string | number | boolean | null>): this;
@@ -221,7 +221,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of attribute.
      * @param factory An interpolator factory which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element. The interpolator factory returns a string interpolator,
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The interpolator factory returns a string interpolator,
      * which takes as its argument eased time t, typically in the range [0, 1] and returns the interpolated string.
      */
     attrTween(name: string, factory: ValueFn<GElement, Datum, (t: number) => string>): this;
@@ -234,8 +234,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      */
     style(name: string, value: null): this;
     /**
-     * For each selected element, assigns the style tween for the style with the specified name to the specified target value.
-     * The starting value of the tween is the style’s value when the transition starts.
+     * For each selected element, assigns the style tween for the style with the specified name to the specified target value with the
+     * specified priority.
+     * The starting value of the tween is the style’s inline value if present, and otherwise its computed value.
      * The target value is the specified constant value for all elements.
      *
      * An interpolator is chosen based on the type of the target value, using the following algorithm:
@@ -251,8 +252,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      */
     style(name: string, value: string | number | boolean, priority?: null | 'important'): this;
     /**
-     * For each selected element, assigns the style tween for the style with the specified name to the specified target value.
-     * The starting value of the tween is the style's value when the transition starts.
+     * For each selected element, assigns the style tween for the style with the specified name to the specified target value with the
+     * specified priority.
+     * The starting value of the tween is the style's inline value if present, and otherwise its computed value.
      * The target value is return value of the value function evaluated for the selected element.
      *
      * An interpolator is chosen based on the type of the target value, using the following algorithm:
@@ -264,7 +266,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of the style.
      * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      * A null value will clear the style at the start of the transition.
      * @param priority An optional priority flag, either null or the string important (without the exclamation point)
      */
@@ -292,7 +294,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of style.
      * @param factory An interpolator factory which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element. The interpolator factory returns a string interpolator,
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The interpolator factory returns a string interpolator,
      * which takes as its argument eased time t, typically in the range [0, 1] and returns the interpolated string.
      * @param priority An optional priority flag, either null or the string important (without the exclamation point)
      */
@@ -319,7 +321,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * append a replacement element and cross-fade opacity (for example). Text is not interpolated by default because it is usually undesirable.
      *
      * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element.
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      * A null value will clear the text content at the start of the transition.
      */
     text(value: ValueFn<GElement, Datum, string | number | boolean>): this;
@@ -348,7 +350,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of tween.
      * @param tweenFn A tween function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element. The tween function returns a function
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The tween function returns a function
      * which takes as its argument eased time t, typically in the range [0, 1] and performs the tweening activities for each transition frame.
      */
     tween(name: string, tweenFn: ValueFn<GElement, Datum, (t: number) => void>): this;
@@ -397,7 +399,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the existing transition is returned for that element.
      *
      * @param filter A filter function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element. The filter function returns a boolean indicating,
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The filter function returns a boolean indicating,
      * whether the selected element matches.
      */
     filter(filter: ValueFn<GElement, Datum, boolean>): Transition<GElement, Datum, PElement, PDatum>;
@@ -411,7 +413,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
      *
      * @param filter A filter function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element. The filter function returns a boolean indicating,
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The filter function returns a boolean indicating,
      * whether the selected element matches.
      */
     filter<FilteredElement extends BaseType>(filter: ValueFn<GElement, Datum, boolean>): Transition<FilteredElement, Datum, PElement, PDatum>;
@@ -448,7 +450,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the optional name allows multiple callbacks to be registered to receive events of the same type, such as "start.foo"" and "start.bar".
      * To specify multiple typenames, separate typenames with spaces, such as "interrupt end"" or "start.foo start.bar".
      * @param listener A listener function which will be evaluated for each selected element, being passed the current datum (d), the current index (i),
-     * and the current group (nodes), with this as the current DOM element. Listeners always see the latest datum for their element,
+     * and the current group (nodes), with this as the current DOM element (nodes[i]). Listeners always see the latest datum for their element,
      * but the index is a property of the selection and is fixed when the listener is assigned; to update the index, re-assign the listener.
      */
     on(type: string, listener: ValueFn<GElement, Datum, void>): this;
@@ -457,11 +459,11 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
 
     /**
      * Invoke the specified function for each selected element, passing the current datum (d),
-     * the current index (i), and the current group (nodes), with this of the current DOM element.
+     * the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]).
      * This method can be used to invoke arbitrary code for each selected element, and is useful for creating a context to access parent and child data simultaneously.
      *
      * @param func A function which is invoked for each selected element,
-     *             being passed the current datum (d), the current index (i), and the current group (nodes), with this of the current DOM element.
+     *             being passed the current datum (d), the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]).
      */
     each(func: ValueFn<GElement, Datum, void>): this;
 
@@ -513,7 +515,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * value function.
      *
      * @param milliseconds A value function which is evaluated for each selected element, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this of the current DOM element. The return value is a number
+     * the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]). The return value is a number
      * specifying the delay in milliseconds.
      */
     delay(milliseconds: ValueFn<GElement, Datum, number>): this;
@@ -535,7 +537,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * value function.
      *
      * @param milliseconds A value function which is evaluated for each selected element, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this of the current DOM element. The return value is a number
+     * the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]). The return value is a number
      * specifying the duration in milliseconds.
      */
     duration(milliseconds: ValueFn<GElement, Datum, number>): this;
@@ -567,7 +569,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
  *
  * @param name Name of the transition.
  */
-export function transition<OldDatum>(name: string): Transition<HTMLElement, OldDatum, null, undefined>;
+export function transition<OldDatum>(name?: string): Transition<HTMLElement, OldDatum, null, undefined>;
 
 /**
  * Returns a new transition from an existing transition.

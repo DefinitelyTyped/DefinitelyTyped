@@ -1,5 +1,3 @@
-///<reference types="bluebird"/>
-
 import java = require('java');
 import BluePromise = require('bluebird');
 
@@ -9,7 +7,7 @@ java.asyncOptions = {
   promiseSuffix: 'P',
   promisify: BluePromise.promisify
 };
-// todo: figure out why promise doesn't work here 
+// todo: figure out why promise doesn't work here
 /* java.registerClientP((): Promise<void> => {
   return BluePromise.resolve();
 }); */

@@ -8,17 +8,23 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "paths": {
-            "history": ["history/v2"],
-            "react-router": ["react-router/v2"]
+            "history": [
+                "history/v2"
+            ],
+            "react-router": [
+                "react-router/v2"
+            ]
         },
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",

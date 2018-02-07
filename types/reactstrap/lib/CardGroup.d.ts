@@ -1,7 +1,10 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface CardGroupProps {
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
 }
 
-declare var CardGroup: React.StatelessComponent<Props>;
+declare const CardGroup: React.StatelessComponent<CardGroupProps>;
 export default CardGroup;

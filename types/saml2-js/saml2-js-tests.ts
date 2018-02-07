@@ -1,8 +1,5 @@
-/// <reference types="node" />
-/// <reference types="express" />
-
 import * as fs from 'fs';
-import * as express from 'express';
+import express = require('express');
 import * as saml2 from 'saml2-js';
 
 

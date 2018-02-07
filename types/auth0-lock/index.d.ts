@@ -1,6 +1,8 @@
-// Type definitions for auth0-lock 10.10
+// Type definitions for auth0-lock 10.16
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
+//                 Dan Caddigan <https://github.com/goldcaddy77>
+//                 Larry Faudree <https://github.com/lfaudreejr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="auth0-js" />
@@ -22,15 +24,36 @@ type Auth0LockAdditionalSignUpFieldPrefillCallback =
 type Auth0LockAdditionalSignUpFieldPrefillFunction =
     (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
 
-interface Auth0LockAdditionalSignUpField {
+interface Auth0LockAdditionalTextSignUpField {
+    type?: "text";
     icon?: string;
     name: string;
     options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
-    type?: "select" | "text";
     validator?: (input: string) => { valid: boolean; hint?: string };
 }
+
+interface Auth0LockAdditionalSelectSignUpField {
+    type?: "select";
+    icon?: string;
+    name: string;
+    options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
+    placeholder: string;
+    prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
+    validator?: (input: string) => { valid: boolean; hint?: string };
+}
+
+interface Auth0LockAdditionalCheckboxSignUpField {
+    type?: "checkbox";
+    icon?: string;
+    name: string;
+    placeholder: string;
+    prefill: "true" | "false";
+    validator?: (input: string) => { valid: boolean, hint?: string };
+}
+
+type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField;
 
 type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string) => void;
 type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string) => void;
@@ -40,7 +63,19 @@ interface Auth0LockAvatarOptions {
     displayName: (email: string, callback: Auth0LockAvatarDisplayNameCallback) => void;
 }
 
+interface Auth0LockThemeButton {
+    displayName: string;
+    primaryColor?: string;
+    foregroundColor?: string;
+    icon?: string;
+}
+interface Auth0LockThemeButtonOptions {
+    [provider: string]: Auth0LockThemeButton;
+}
+
 interface Auth0LockThemeOptions {
+    authButtons?: Auth0LockThemeButtonOptions;
+    labeledSubmitButton?: boolean;
     logo?: string;
     primaryColor?: string;
 }
@@ -121,21 +156,36 @@ interface Auth0LockShowOptions {
     rememberLastLogin?: boolean;
 }
 
+interface AuthResult {
+    accessToken: string;
+    idToken: string;
+    idTokenPayload: {
+        aud: string;
+        exp: number;
+        iat: number;
+        iss: string;
+        sub: string;
+    };
+    refreshToken?: string;
+    state: string;
+}
+
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
 
     // deprecated
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
+    checkSession(options: any, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
-    resumeAuth( hash: string, callback: (error: auth0.Auth0Error, authResult: any) =>  void): void;
+    resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;
     hide(): void;
     logout(query: any): void;
 
     on(event: "show" | "hide", callback: () => void): void;
     on(event: "unrecoverable_error" | "authorization_error", callback: (error: auth0.Auth0Error) => void): void;
-    on(event: "authenticated", callback: (authResult: any) => void): void;
+    on(event: "authenticated", callback: (authResult: AuthResult) => void): void;
     on(event: string, callback: (...args: any[]) => void): void;
 }
 

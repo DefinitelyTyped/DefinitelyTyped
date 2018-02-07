@@ -13,8 +13,19 @@ import File = require('vinyl');
 // const spies = require('./spy');
 declare const spies: any;
 
-import * as should from 'should';
 import 'mocha';
+
+// TODO: These aren't useful as types tests since they take `any`.
+declare const should: ShouldStatic;
+interface ShouldStatic {
+	exist(obj: any, desc?: string): void;
+	not: this;
+}
+declare global {
+	interface Object {
+		should: { equal(obj: any): void; };
+	}
+}
 
 declare const gulp: any;
 let bufferStream: any;
@@ -873,7 +884,7 @@ describe('symlink stream', () => {
    });
 
    ['end', 'finish'].forEach(eventName => {
-      it('should emit ' + eventName + ' event', done => {
+      it(`should emit ${eventName} event`, done => {
          const srcPath = path.join(__dirname, './fixtures/test.coffee');
          const stream = vfs.symlink('./out-fixtures/', { cwd: __dirname });
 

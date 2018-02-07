@@ -1,4 +1,3 @@
-import * as $ from "jquery";
 import Masonry = require("masonry-layout");
 
 // responsive layouts
@@ -43,6 +42,7 @@ function testExtendedOptions() {
         },
         transitionDuration: '0.4s',
         resize: true,
-        initLayout: true
+        initLayout: true,
+        horizontalOrder: true
     });
 }

@@ -64,6 +64,7 @@ app.config(function (localStorageServiceProvider: ng.local.storage.ILocalStorage
   localStorageServiceProvider
     .setPrefix('myApp')
     .setStorageType('sessionStorage')
+    .setDefaultToCookie(false)
     .setNotify(true, true);
 });
 

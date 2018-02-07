@@ -1,6 +1,6 @@
-// Type definitions for roslib.js 0.18.0
+// Type definitions for roslib.js 0.18.2
 // Project: http://wiki.ros.org/roslibjs
-// Definitions by: Stefan Profanter <https://github.com/Pro/>, Cooper Benson <https://github.com/skycoop/>
+// Definitions by: Stefan Profanter <https://github.com/Pro>, Cooper Benson <https://github.com/skycoop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -58,7 +58,7 @@ declare namespace ROSLIB {
 		 * @param level - User level as a string given by the client.
 		 * @param end - End time of the client's session.
 		 */
-		authenticate(mac:string, client:string, dest:string, rand:string, t:number, level:string, end:string):void;
+		authenticate(mac:string, client:string, dest:string, rand:string, t:number, level:string, end:number):void;
 
 
 		/**
@@ -417,6 +417,14 @@ declare namespace ROSLIB {
 			goalMessage: any
 		});
 
+		/**
+		 * Connect callback functions to goal based events
+		 * 
+		 * @param eventName Name of event ('timeout', 'status', 'feedback', 'result')
+		 * @param callback Callback function executed on connected event
+		 */
+		on(eventName:string, callback:(event:any) => void):void;
+		
 		/**
 		 * Send the goal to the action server.
 		 *

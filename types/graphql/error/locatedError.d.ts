@@ -6,7 +6,7 @@ import { GraphQLError } from './GraphQLError';
  * document responsible for the original Error.
  */
 export function locatedError<T>(
-    originalError: Error,
-    nodes: Array<T>,
-    path: Array<string | number>
+  originalError: Error,
+  nodes: T[],
+  path: Array<string | number>,
 ): GraphQLError;

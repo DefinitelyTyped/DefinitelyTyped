@@ -1,16 +1,16 @@
 
 
-var doc = new CodeMirror.Doc('text');
+var cm = CodeMirror(document.body, {value: 'text'});
 var pos = new CodeMirror.Pos(2, 3);
-CodeMirror.showHint(doc);
-CodeMirror.showHint(doc, function (cm) {
+CodeMirror.showHint(cm);
+CodeMirror.showHint(cm, function (cm) {
     return {
         from: pos,
         list: ["one", "two"],
         to: pos
     };
 });
-CodeMirror.showHint(doc, function (cm) {
+CodeMirror.showHint(cm, function (cm) {
     return {
         from: pos,
         list: [
@@ -32,7 +32,7 @@ CodeMirror.showHint(doc, function (cm) {
     };
 });
 var asyncHintFunc : CodeMirror.AsyncHintFunction =
-    (doc: CodeMirror.Doc, callback: (hints: CodeMirror.Hints) => any) => {
+    (cm: CodeMirror.Editor, callback: (hints: CodeMirror.Hints) => any) => {
         callback({
             from: pos,
             list: ["one", "two"],
@@ -41,7 +41,7 @@ var asyncHintFunc : CodeMirror.AsyncHintFunction =
     };
 asyncHintFunc.async = true;
 
-doc.showHint({
+cm.showHint({
     completeSingle: false,
     hint: asyncHintFunc
 })

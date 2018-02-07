@@ -1,7 +1,11 @@
-// Type definitions for parse v1.9.2
+// Type definitions for parse 2.4
 // Project: https://parse.com/
-// Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
+// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
+//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
+//                  Cedric Kemp <https://github.com/jaeggerr>
+//                  Flavio Negrão <https://github.com/flavionegrao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="jquery" />
@@ -9,11 +13,12 @@
 
 declare namespace Parse {
 
-    var applicationId: string;
-    var javaScriptKey: string | undefined;
-    var masterKey: string | undefined;
-    var serverURL: string;
-    var VERSION: string;
+    let applicationId: string;
+    let javaScriptKey: string | undefined;
+    let masterKey: string | undefined;
+    let serverURL: string;
+    let liveQueryServerURL: string;
+    let VERSION: string;
 
     interface SuccessOption {
         success?: Function;
@@ -24,6 +29,11 @@ declare namespace Parse {
     }
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
+    }
+
+    interface SignUpOptions {
+        useMasterKey?: boolean;
+        installationId?: string;
     }
 
     interface SessionTokenOption {
@@ -93,11 +103,17 @@ declare namespace Parse {
         reject(error: any): void;
         resolve(result: any): void;
         then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
             rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
             rejectedCallback?: (reason: any) => U): IPromise<U>;
+    }
+
+    interface Pointer {
+        __type: string;
+        className: string;
+        objectId: string;
     }
 
     interface IBaseObject {
@@ -186,7 +202,7 @@ declare namespace Parse {
      *     this is omitted, the content type will be inferred from the name's
      *     extension.
      */
-     class File {
+    class File {
 
         constructor(name: string, data: any, type?: string);
         name(): string;
@@ -267,22 +283,22 @@ declare namespace Parse {
      * A class that is used to access all of the children of a many-to-many relationship.
      * Each instance of Parse.Relation is associated with a particular parent object and key.
      */
-    class Relation extends BaseObject {
+    class Relation<S extends Object = Object, T extends Object = Object> extends BaseObject {
 
-        parent: Object;
+        parent: S;
         key: string;
         targetClassName: string;
 
-        constructor(parent?: Object, key?: string);
+        constructor(parent?: S, key?: string);
 
         //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: Object): void;
+        add(object: T | Array<T>): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
-        query(): Query;
+        query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: Object): void;
+        remove(object: T | Array<T>): void;
     }
 
     /**
@@ -326,12 +342,14 @@ declare namespace Parse {
         constructor(attributes?: string[], options?: any);
 
         static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fetchAll<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
-        static fetchAllIfNeeded<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
+        static fromJSON(json: any, override: boolean): any;
+
+        static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
+        static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
-
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
+        static createWithoutData<T extends Object>(id: string): T;
 
         initialize(): void;
         add(attr: string, item: any): this;
@@ -341,7 +359,7 @@ declare namespace Parse {
         clear(options: any): any;
         clone(): this;
         destroy(options?: Object.DestroyOptions): Promise<this>;
-        dirty(attr: String): boolean;
+        dirty(attr?: string): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
@@ -351,16 +369,20 @@ declare namespace Parse {
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        isNew(): boolean;
         isValid(): boolean;
         op(attr: string): any;
         previous(attr: string): any;
         previousAttributes(): any;
-        relation(attr: string): Relation;
+        relation(attr: string): Relation<this, Object>;
         remove(attr: string, item: any): any;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
+        save(attrs: object, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
+        set(attrs: object, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        toPointer(): Pointer;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -369,6 +391,8 @@ declare namespace Parse {
         interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
         interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
@@ -429,7 +453,7 @@ declare namespace Parse {
 
         model: Object;
         models: Object[];
-        query: Query;
+        query: Query<Object>;
         comparator: (object: Object) => any;
 
         constructor(models?: Object[], options?: Collection.Options);
@@ -454,7 +478,7 @@ declare namespace Parse {
     namespace Collection {
         interface Options {
             model?: Object;
-            query?: Query;
+            query?: Query<Object>;
             comparator?: string;
         }
 
@@ -571,59 +595,59 @@ declare namespace Parse {
      *   }
      * });</pre></p>
      */
-    class Query extends BaseObject {
+    class Query<T extends Object = Object> extends BaseObject {
 
         objectClass: any;
         className: string;
 
         constructor(objectClass: string);
-        constructor(objectClass: new(...args: any[]) => Object);
+        constructor(objectClass: new (...args: any[]) => T);
 
-        static or<U extends Object>(...var_args: Query[]): Query;
+        static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
-        addAscending(key: string): Query;
-        addAscending(key: string[]): Query;
-        addDescending(key: string): Query;
-        addDescending(key: string[]): Query;
-        ascending(key: string): Query;
-        ascending(key: string[]): Query;
+        addAscending(key: string): Query<T>;
+        addAscending(key: string[]): Query<T>;
+        addDescending(key: string): Query<T>;
+        addDescending(key: string[]): Query<T>;
+        ascending(key: string): Query<T>;
+        ascending(key: string[]): Query<T>;
         collection(items?: Object[], options?: Collection.Options): Collection<Object>;
-        containedIn(key: string, values: any[]): Query;
-        contains(key: string, substring: string): Query;
-        containsAll(key: string, values: any[]): Query;
+        containedIn(key: string, values: any[]): Query<T>;
+        contains(key: string, substring: string): Query<T>;
+        containsAll(key: string, values: any[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
-        descending(key: string): Query;
-        descending(key: string[]): Query;
-        doesNotExist(key: string): Query;
-        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
-        doesNotMatchQuery<U extends Object>(key: string, query: Query): Query;
+        descending(key: string): Query<T>;
+        descending(key: string[]): Query<T>;
+        doesNotExist(key: string): Query<T>;
+        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
+        doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith(key: string, suffix: string): Query;
-        equalTo(key: string, value: any): Query;
-        exists(key: string): Query;
-        find(options?: Query.FindOptions): Promise<Object[]>;
-        first(options?: Query.FirstOptions): Promise<Object | undefined>;
-        get(objectId: string, options?: Query.GetOptions): Promise<Object>;
-        greaterThan(key: string, value: any): Query;
-        greaterThanOrEqualTo(key: string, value: any): Query;
-        include(key: string): Query;
-        include(keys: string[]): Query;
-        lessThan(key: string, value: any): Query;
-        lessThanOrEqualTo(key: string, value: any): Query;
-        limit(n: number): Query;
-        matches(key: string, regex: RegExp, modifiers: any): Query;
-        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
-        matchesQuery<U extends Object>(key: string, query: Query): Query;
-        near(key: string, point: GeoPoint): Query;
-        notContainedIn(key: string, values: any[]): Query;
-        notEqualTo(key: string, value: any): Query;
-        select(...keys: string[]): Query;
-        skip(n: number): Query;
-        startsWith(key: string, prefix: string): Query;
-        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query;
-        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query;
-        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query;
-        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query;
+        endsWith(key: string, suffix: string): Query<T>;
+        equalTo(key: string, value: any): Query<T>;
+        exists(key: string): Query<T>;
+        find(options?: Query.FindOptions): Promise<T[]>;
+        first(options?: Query.FirstOptions): Promise<T | undefined>;
+        get(objectId: string, options?: Query.GetOptions): Promise<T>;
+        greaterThan(key: string, value: any): Query<T>;
+        greaterThanOrEqualTo(key: string, value: any): Query<T>;
+        include(key: string): Query<T>;
+        include(keys: string[]): Query<T>;
+        lessThan(key: string, value: any): Query<T>;
+        lessThanOrEqualTo(key: string, value: any): Query<T>;
+        limit(n: number): Query<T>;
+        matches(key: string, regex: RegExp, modifiers: any): Query<T>;
+        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
+        matchesQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
+        near(key: string, point: GeoPoint): Query<T>;
+        notContainedIn(key: string, values: any[]): Query<T>;
+        notEqualTo(key: string, value: any): Query<T>;
+        select(...keys: string[]): Query<T>;
+        skip(n: number): Query<T>;
+        startsWith(key: string, prefix: string): Query<T>;
+        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
+        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
     namespace Query {
@@ -651,8 +675,8 @@ declare namespace Parse {
 
         constructor(name: string, acl: ACL);
 
-        getRoles(): Relation;
-        getUsers(): Relation;
+        getRoles(): Relation<Role, Role>;
+        getUsers(): Relation<Role, User>;
         getName(): string;
         setName(name: string, options?: SuccessFailureOptions): any;
     }
@@ -722,7 +746,7 @@ declare namespace Parse {
     class User extends Object {
 
         static current(): User | undefined;
-        static signUp(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<User>;
+        static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
         static allowCustomUserClass(isAllowed: boolean): void;
@@ -730,7 +754,7 @@ declare namespace Parse {
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
 
-        signUp(attrs: any, options?: SuccessFailureOptions): Promise<this>;
+        signUp(attrs: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
@@ -874,23 +898,36 @@ declare namespace Parse {
             value?: string;
         }
 
-        interface SaveRequest extends FunctionRequest {
+        interface TriggerRequest {
+            installationId?: String;
+            master?: boolean;
+            user?: User;
             object: Object;
         }
 
-        interface AfterSaveRequest extends SaveRequest {}
-        interface AfterDeleteRequest extends FunctionRequest {}
-        interface BeforeDeleteRequest extends FunctionRequest {}
-        interface BeforeDeleteResponse extends FunctionResponse {}
-        interface BeforeSaveRequest extends SaveRequest {}
+        interface BeforeFindTriggerRequest extends TriggerRequest {
+            query?: Query
+            count?: boolean
+        }
+
+        interface AfterSaveRequest extends TriggerRequest { }
+        interface AfterDeleteRequest extends TriggerRequest { }
+        interface BeforeDeleteRequest extends TriggerRequest { }
+        interface BeforeDeleteResponse extends FunctionResponse { }
+        interface BeforeSaveRequest extends TriggerRequest { }
+        interface BeforeFindRequest extends BeforeFindTriggerRequest { }
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
+        }
+        interface BeforeFindRequest extends TriggerRequest {
+            query: Query;
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
         function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
         function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
         function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest, response: BeforeFindRequest) => void): void;
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
@@ -904,7 +941,7 @@ declare namespace Parse {
          *
          *     import Buffer = require("buffer").Buffer;
          */
-        var HTTPOptions: new () => HTTPOptions;
+        let HTTPOptions: new () => HTTPOptions;
         interface HTTPOptions {
             /**
              * The body of the request.
@@ -958,56 +995,56 @@ declare namespace Parse {
 
         OTHER_CAUSE = -1,
         INTERNAL_SERVER_ERROR = 1,
-        CONNECTION_FAILED =  100,
-        OBJECT_NOT_FOUND =  101,
-        INVALID_QUERY =  102,
-        INVALID_CLASS_NAME =  103,
-        MISSING_OBJECT_ID =  104,
-        INVALID_KEY_NAME =  105,
-        INVALID_POINTER =  106,
-        INVALID_JSON =  107,
-        COMMAND_UNAVAILABLE =  108,
-        NOT_INITIALIZED =  109,
-        INCORRECT_TYPE =  111,
-        INVALID_CHANNEL_NAME =  112,
-        PUSH_MISCONFIGURED =  115,
-        OBJECT_TOO_LARGE =  116,
-        OPERATION_FORBIDDEN =  119,
-        CACHE_MISS =  120,
-        INVALID_NESTED_KEY =  121,
-        INVALID_FILE_NAME =  122,
-        INVALID_ACL =  123,
-        TIMEOUT =  124,
-        INVALID_EMAIL_ADDRESS =  125,
-        MISSING_CONTENT_TYPE =  126,
-        MISSING_CONTENT_LENGTH =  127,
-        INVALID_CONTENT_LENGTH =  128,
-        FILE_TOO_LARGE =  129,
-        FILE_SAVE_ERROR =  130,
-        DUPLICATE_VALUE =  137,
-        INVALID_ROLE_NAME =  139,
-        EXCEEDED_QUOTA =  140,
-        SCRIPT_FAILED =  141,
-        VALIDATION_ERROR =  142,
-        INVALID_IMAGE_DATA =  150,
-        UNSAVED_FILE_ERROR =  151,
+        CONNECTION_FAILED = 100,
+        OBJECT_NOT_FOUND = 101,
+        INVALID_QUERY = 102,
+        INVALID_CLASS_NAME = 103,
+        MISSING_OBJECT_ID = 104,
+        INVALID_KEY_NAME = 105,
+        INVALID_POINTER = 106,
+        INVALID_JSON = 107,
+        COMMAND_UNAVAILABLE = 108,
+        NOT_INITIALIZED = 109,
+        INCORRECT_TYPE = 111,
+        INVALID_CHANNEL_NAME = 112,
+        PUSH_MISCONFIGURED = 115,
+        OBJECT_TOO_LARGE = 116,
+        OPERATION_FORBIDDEN = 119,
+        CACHE_MISS = 120,
+        INVALID_NESTED_KEY = 121,
+        INVALID_FILE_NAME = 122,
+        INVALID_ACL = 123,
+        TIMEOUT = 124,
+        INVALID_EMAIL_ADDRESS = 125,
+        MISSING_CONTENT_TYPE = 126,
+        MISSING_CONTENT_LENGTH = 127,
+        INVALID_CONTENT_LENGTH = 128,
+        FILE_TOO_LARGE = 129,
+        FILE_SAVE_ERROR = 130,
+        DUPLICATE_VALUE = 137,
+        INVALID_ROLE_NAME = 139,
+        EXCEEDED_QUOTA = 140,
+        SCRIPT_FAILED = 141,
+        VALIDATION_ERROR = 142,
+        INVALID_IMAGE_DATA = 150,
+        UNSAVED_FILE_ERROR = 151,
         INVALID_PUSH_TIME_ERROR = 152,
         FILE_DELETE_ERROR = 153,
         REQUEST_LIMIT_EXCEEDED = 155,
         INVALID_EVENT_NAME = 160,
-        USERNAME_MISSING =  200,
-        PASSWORD_MISSING =  201,
-        USERNAME_TAKEN =  202,
-        EMAIL_TAKEN =  203,
-        EMAIL_MISSING =  204,
-        EMAIL_NOT_FOUND =  205,
-        SESSION_MISSING =  206,
-        MUST_CREATE_USER_THROUGH_SIGNUP =  207,
-        ACCOUNT_ALREADY_LINKED =  208,
+        USERNAME_MISSING = 200,
+        PASSWORD_MISSING = 201,
+        USERNAME_TAKEN = 202,
+        EMAIL_TAKEN = 203,
+        EMAIL_MISSING = 204,
+        EMAIL_NOT_FOUND = 205,
+        SESSION_MISSING = 206,
+        MUST_CREATE_USER_THROUGH_SIGNUP = 207,
+        ACCOUNT_ALREADY_LINKED = 208,
         INVALID_SESSION_TOKEN = 209,
-        LINKED_ID_MISSING =  250,
-        INVALID_LINKED_SESSION =  251,
-        UNSUPPORTED_SERVICE =  252,
+        LINKED_ID_MISSING = 250,
+        INVALID_LINKED_SESSION = 251,
+        UNSUPPORTED_SERVICE = 252,
         AGGREGATE_ERROR = 600,
         FILE_READ_ERROR = 601,
         X_DOMAIN_REQUEST = 602
@@ -1068,7 +1105,7 @@ declare namespace Parse {
             push_time?: Date;
             expiration_time?: Date;
             expiration_interval?: number;
-            where?: Query;
+            where?: Query<Installation>;
             data?: any;
             alert?: string;
             badge?: string;

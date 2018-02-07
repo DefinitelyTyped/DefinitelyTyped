@@ -49,31 +49,34 @@ export type SectionRenderedParams = {
     rowStartIndex: number,
     rowStopIndex: number
 };
+export type SCROLL_DIRECTION_HORIZONTAL = 'horizontal';
+export type SCROLL_DIRECTION_VERTICAL = 'vertical';
 export type OverscanIndicesGetterParams = {
-    cellCount: number,
-    overscanCellsCount: number,
-    scrollDirection: number,
-    startIndex: number,
-    stopIndex: number
+    direction?: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL;
+    cellCount: number;
+    overscanCellsCount: number;
+    scrollDirection: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL;
+    startIndex: number;
+    stopIndex: number;
 };
 export type OverscanIndices = {
     overscanStartIndex: number,
     overscanStopIndex: number
 };
+export type OverscanIndicesGetter = (params: OverscanIndicesGetterParams) => OverscanIndices;
+
+export type ScrollOffset = {
+    scrollLeft: number,
+    scrollTop: number
+}
 
 export type CellSizeAndPositionManager = {
     areOffsetsAdjusted(): boolean;
-    configure({
-            cellCount,
-        estimatedCellSize
-        }: ConfigureParams): void;
+    configure({ cellCount, estimatedCellSize }: ConfigureParams): void;
     getCellCount(): number;
     getEstimatedCellSize(): number;
     getLastMeasuredIndex(): number;
-    getOffsetAdjustment({
-            containerSize,
-        offset // safe
-    }: ContainerSizeAndOffset): number;
+    getOffsetAdjustment({ containerSize, offset/*safe*/ }: ContainerSizeAndOffset): number;
     /**
      * This method returns the size and position for the cell at the specified index.
      * It just-in-time calculates (or used cached values) for cells leading up to the index.
@@ -123,46 +126,191 @@ export type GridCellRangeProps = {
     rowStartIndex: number,
     rowStopIndex: number,
     scrollLeft: number,
-    scrollTop: number
+    scrollTop: number,
+    deferredMeasurementCache: CellMeasurerCache,
+    horizontalOffsetAdjustment: number,
+    parent: Grid | List | Table,
+    styleCache: Map<React.CSSProperties>,
+    verticalOffsetAdjustment: number,
+    visibleColumnIndices: VisibleCellRange,
+    visibleRowIndices: VisibleCellRange
 }
 export type GridCellRangeRenderer = (params: GridCellRangeProps) => React.ReactNode[];
 
 export type GridCoreProps = {
     'aria-label'?: string;
+    /**
+     * Set the width of the inner scrollable container to 'auto'.
+     * This is useful for single-column Grids to ensure that the column doesn't extend below a vertical scrollbar.
+     */
     autoContainerWidth?: boolean;
+    /**
+     * Removes fixed height from the scrollingContainer so that the total height of rows can stretch the window.
+     * Intended for use with WindowScroller
+     */
     autoHeight?: boolean;
+    /**
+     * Removes fixed width from the scrollingContainer so that the total width of rows can stretch the window.
+     * Intended for use with WindowScroller
+     */
+    autoWidth?: boolean;
+    /**
+     * Responsible for rendering a group of cells given their index ranges.
+     * Should implement the following interface: ({
+     *   cellCache: Map,
+     *   cellRenderer: Function,
+     *   columnSizeAndPositionManager: CellSizeAndPositionManager,
+     *   columnStartIndex: number,
+     *   columnStopIndex: number,
+     *   isScrolling: boolean,
+     *   rowSizeAndPositionManager: CellSizeAndPositionManager,
+     *   rowStartIndex: number,
+     *   rowStopIndex: number,
+     *   scrollLeft: number,
+     *   scrollTop: number
+     * }): Array<PropTypes.node>
+     */
     cellRangeRenderer?: GridCellRangeRenderer;
+    /**
+     * Optional custom CSS class name to attach to root Grid element.
+     */
     className?: string;
+    /** Optional inline style applied to inner cell-container */
     containerStyle?: React.CSSProperties;
+    /**
+     * If CellMeasurer is used to measure this Grid's children, this should be a pointer to its CellMeasurerCache.
+     * A shared CellMeasurerCache reference enables Grid and CellMeasurer to share measurement data.
+     */
     deferredMeasurementCache?: CellMeasurerCache;
+    /**
+     * Used to estimate the total width of a Grid before all of its columns have actually been measured.
+     * The estimated total width is adjusted as columns are rendered.
+     */
     estimatedColumnSize?: number;
+    /**
+     * Used to estimate the total height of a Grid before all of its rows have actually been measured.
+     * The estimated total height is adjusted as rows are rendered.
+     */
     estimatedRowSize?: number;
+    /**
+     * Exposed for testing purposes only.
+     */
     getScrollbarSize?: () => number;
+    /**
+     * Height of Grid; this property determines the number of visible (vs virtualized) rows.
+     */
     height: number;
+    /**
+     * Optional custom id to attach to root Grid element.
+     */
     id?: string;
+    /**
+     * Override internal is-scrolling state tracking.
+     * This property is primarily intended for use with the WindowScroller component.
+     */
     isScrolling?: boolean,
+    /**
+     * Optional renderer to be used in place of rows when either :rowCount or :columnCount is 0.
+     */
     noContentRenderer?: () => React.ReactNode;
+    /**
+     * Callback invoked whenever the scroll offset changes within the inner scrollable region.
+     * This callback can be used to sync scrolling between lists, tables, or grids.
+     * ({ clientHeight, clientWidth, scrollHeight, scrollLeft, scrollTop, scrollWidth }): void
+     */
     onScroll?: (params: ScrollParams) => any;
+    /**
+     * Callback invoked with information about the section of the Grid that was just rendered.
+     * ({ columnStartIndex, columnStopIndex, rowStartIndex, rowStopIndex }): void
+     */
     onSectionRendered?: (params: SectionRenderedParams) => any;
+    /**
+     * Number of columns to render before/after the visible section of the grid.
+     * These columns can help for smoother scrolling on touch devices or browsers that send scroll events infrequently.
+     */
     overscanColumnCount?: number;
-    overscanIndicesGetter?: (params: OverscanIndicesGetterParams) => OverscanIndices;
+    /**
+     * Calculates the number of cells to overscan before and after a specified range.
+     * This function ensures that overscanning doesn't exceed the available cells.
+     * Should implement the following interface: ({
+     *   cellCount: number,
+     *   overscanCellsCount: number,
+     *   scrollDirection: number,
+     *   startIndex: number,
+     *   stopIndex: number
+     * }): {overscanStartIndex: number, overscanStopIndex: number}
+     */
+    overscanIndicesGetter?: OverscanIndicesGetter;
+    /**
+     * Number of rows to render above/below the visible section of the grid.
+     * These rows can help for smoother scrolling on touch devices or browsers that send scroll events infrequently.
+     */
     overscanRowCount?: number;
+    /**
+     * ARIA role for the grid element.
+     */
+    role?: string;
+    /**
+     * Either a fixed row height (number) or a function that returns the height of a row given its index.
+     * Should implement the following interface: ({ index: number }): number
+     */
     rowHeight: number | ((params: Index) => number);
+    /**
+     * Number of rows in grid.
+     */
     rowCount: number;
+    /** Wait this amount of time after the last scroll event before resetting Grid `pointer-events`. */
     scrollingResetTimeInterval?: number;
+    /** Horizontal offset. */
     scrollLeft?: number;
+    /**
+     * Controls scroll-to-cell behavior of the Grid.
+     * The default ("auto") scrolls the least amount possible to ensure that the specified cell is fully visible.
+     * Use "start" to align cells to the top/left of the Grid and "end" to align bottom/right.
+     */
     scrollToAlignment?: Alignment;
+    /**
+     * Column index to ensure visible (by forcefully scrolling if necessary)
+     */
     scrollToColumn?: number;
+    /** Vertical offset. */
     scrollTop?: number;
+    /**
+     * Row index to ensure visible (by forcefully scrolling if necessary)
+     */
     scrollToRow?: number;
+    /** Optional inline style */
     style?: React.CSSProperties;
+    /** Tab index for focus */
     tabIndex?: number;
+    /**
+     * Width of Grid; this property determines the number of visible (vs virtualized) columns.
+     */
     width: number;
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 }
 
 export type GridProps = GridCoreProps & {
+    /**
+     * Responsible for rendering a cell given an row and column index.
+     * Should implement the following interface: ({ columnIndex: number, rowIndex: number }): PropTypes.node
+     */
     cellRenderer: GridCellRenderer;
+    /**
+     * Number of columns in grid.
+     */
     columnCount: number;
+    /**
+     * Either a fixed column width (number) or a function that returns the width of a column given its index.
+     * Should implement the following interface: (index: number): number
+     */
     columnWidth: number | ((params: Index) => number);
 };
 
@@ -189,195 +337,38 @@ export const DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150
 export class Grid extends PureComponent<GridProps, GridState> {
     static propTypes: {
         'aria-label': Requireable<string>,
-
-        /**
-         * Set the width of the inner scrollable container to 'auto'.
-         * This is useful for single-column Grids to ensure that the column doesn't extend below a vertical scrollbar.
-         */
         autoContainerWidth: Requireable<boolean>,
-
-        /**
-         * Removes fixed height from the scrollingContainer so that the total height
-         * of rows can stretch the window. Intended for use with WindowScroller
-         */
         autoHeight: Requireable<boolean>,
-
-        /**
-         * Responsible for rendering a cell given an row and column index.
-         * Should implement the following interface: ({ columnIndex: number, rowIndex: number }): PropTypes.node
-         */
         cellRenderer: Validator<(props: GridCellProps) => React.ReactNode>,
-
-        /**
-         * Responsible for rendering a group of cells given their index ranges.
-         * Should implement the following interface: ({
-         *   cellCache: Map,
-         *   cellRenderer: Function,
-         *   columnSizeAndPositionManager: CellSizeAndPositionManager,
-         *   columnStartIndex: number,
-         *   columnStopIndex: number,
-         *   isScrolling: boolean,
-         *   rowSizeAndPositionManager: CellSizeAndPositionManager,
-         *   rowStartIndex: number,
-         *   rowStopIndex: number,
-         *   scrollLeft: number,
-         *   scrollTop: number
-         * }): Array<PropTypes.node>
-         */
         cellRangeRenderer: Validator<(params: GridCellRangeProps) => React.ReactNode[]>,
-
-        /**
-         * Optional custom CSS class name to attach to root Grid element.
-         */
         className: Requireable<string>,
-
-        /**
-         * Number of columns in grid.
-         */
         columnCount: Validator<number>,
-
-        /**
-         * Either a fixed column width (number) or a function that returns the width of a column given its index.
-         * Should implement the following interface: (index: number): number
-         */
         columnWidth: Validator<number | ((index: number) => number)>,
-
-        /** Optional inline style applied to inner cell-container */
         containerStyle: Requireable<React.CSSProperties>,
-
-        /**
-         * If CellMeasurer is used to measure this Grid's children, this should be a pointer to its CellMeasurerCache.
-         * A shared CellMeasurerCache reference enables Grid and CellMeasurer to share measurement data.
-         */
         deferredMeasurementCache: Requireable<CellMeasurerCache>,
-
-        /**
-         * Used to estimate the total width of a Grid before all of its columns have actually been measured.
-         * The estimated total width is adjusted as columns are rendered.
-         */
         estimatedColumnSize: Validator<number>,
-
-        /**
-         * Used to estimate the total height of a Grid before all of its rows have actually been measured.
-         * The estimated total height is adjusted as rows are rendered.
-         */
         estimatedRowSize: Validator<number>,
-
-        /**
-         * Exposed for testing purposes only.
-         */
         getScrollbarSize: Validator<() => number>,
-
-        /**
-         * Height of Grid; this property determines the number of visible (vs virtualized) rows.
-         */
         height: Validator<number>,
-
-        /**
-         * Optional custom id to attach to root Grid element.
-         */
         id: Requireable<string>,
-
-        /**
-         * Override internal is-scrolling state tracking.
-         * This property is primarily intended for use with the WindowScroller component.
-         */
         isScrolling: Requireable<boolean>,
-
-        /**
-         * Optional renderer to be used in place of rows when either :rowCount or :columnCount is 0.
-         */
         noContentRenderer: Requireable<() => JSX.Element>,
-
-        /**
-         * Callback invoked whenever the scroll offset changes within the inner scrollable region.
-         * This callback can be used to sync scrolling between lists, tables, or grids.
-         * ({ clientHeight, clientWidth, scrollHeight, scrollLeft, scrollTop, scrollWidth }): void
-         */
         onScroll: Validator<(params: ScrollParams) => void>,
-
-        /**
-         * Callback invoked with information about the section of the Grid that was just rendered.
-         * ({ columnStartIndex, columnStopIndex, rowStartIndex, rowStopIndex }): void
-         */
         onSectionRendered: Validator<(params: SectionRenderedParams) => void>,
-
-        /**
-         * Number of columns to render before/after the visible section of the grid.
-         * These columns can help for smoother scrolling on touch devices or browsers that send scroll events infrequently.
-         */
         overscanColumnCount: Validator<number>,
-
-        /**
-         * Calculates the number of cells to overscan before and after a specified range.
-         * This function ensures that overscanning doesn't exceed the available cells.
-         * Should implement the following interface: ({
-         *   cellCount: number,
-         *   overscanCellsCount: number,
-         *   scrollDirection: number,
-         *   startIndex: number,
-         *   stopIndex: number
-         * }): {overscanStartIndex: number, overscanStopIndex: number}
-         */
-        overscanIndicesGetter: Validator<(params: OverscanIndicesGetterParams) => OverscanIndices>,
-
-        /**
-         * Number of rows to render above/below the visible section of the grid.
-         * These rows can help for smoother scrolling on touch devices or browsers that send scroll events infrequently.
-         */
+        overscanIndicesGetter: Validator<OverscanIndicesGetter>,
         overscanRowCount: Validator<number>,
-
-        /**
-         * ARIA role for the grid element.
-         */
         role: Requireable<string>,
-
-        /**
-         * Either a fixed row height (number) or a function that returns the height of a row given its index.
-         * Should implement the following interface: ({ index: number }): number
-         */
         rowHeight: Validator<number | ((params: Index) => number)>,
-
-        /**
-         * Number of rows in grid.
-         */
         rowCount: Validator<number>,
-
-        /** Wait this amount of time after the last scroll event before resetting Grid `pointer-events`. */
         scrollingResetTimeInterval: Requireable<number>,
-
-        /** Horizontal offset. */
         scrollLeft: Requireable<number>,
-
-        /**
-         * Controls scroll-to-cell behavior of the Grid.
-         * The default ("auto") scrolls the least amount possible to ensure that the specified cell is fully visible.
-         * Use "start" to align cells to the top/left of the Grid and "end" to align bottom/right.
-         */
         scrollToAlignment: Validator<Alignment>,
-
-        /**
-         * Column index to ensure visible (by forcefully scrolling if necessary)
-         */
         scrollToColumn: Validator<number>,
-
-        /** Vertical offset. */
         scrollTop: Requireable<number>,
-
-        /**
-         * Row index to ensure visible (by forcefully scrolling if necessary)
-         */
         scrollToRow: Validator<number>,
-
-        /** Optional inline style */
         style: Requireable<React.CSSProperties>,
-
-        /** Tab index for focus */
         tabIndex: Requireable<number>,
-
-        /**
-         * Width of Grid; this property determines the number of visible (vs virtualized) columns.
-         */
         width: Validator<number>
     };
 
@@ -391,7 +382,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
         onScroll: () => null,
         onSectionRendered: () => null,
         overscanColumnCount: 0,
-        overscanIndicesGetter: OverscanIndicesGetterParams,
+        overscanIndicesGetter: OverscanIndicesGetter,
         overscanRowCount: 10,
         role: 'grid',
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL,
@@ -403,6 +394,15 @@ export class Grid extends PureComponent<GridProps, GridState> {
     };
 
     constructor(props: GridProps, context: any);
+
+    /**
+     * Gets offsets for a given cell and alignment.
+     */
+    getOffsetForCell(params?: {
+        alignment?: Alignment,
+        columnIndex?: number,
+        rowIndex?: number
+    }): ScrollOffset
 
     /**
      * Invalidate Grid size and recompute visible cells.
@@ -441,6 +441,15 @@ export class Grid extends PureComponent<GridProps, GridState> {
         rowIndex: number
     }): void;
 
+    /**
+     * Scroll to the specified offset(s).
+     * Useful for animating position changes.
+     */
+    scrollToPosition(params?: {
+        scrollLeft: number,
+        scrollTop: number
+    }): void;
+
     componentDidMount(): void;
 
     /**
@@ -469,3 +478,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
 }
 
 export const defaultCellRangeRenderer: GridCellRangeRenderer;
+
+export const accessibilityOverscanIndicesGetter: OverscanIndicesGetter
+
+export const defaultOverscanIndicesGetter: OverscanIndicesGetter;

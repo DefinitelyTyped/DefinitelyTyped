@@ -1,5 +1,5 @@
 // Type definitions for mu2
-// Project: http://github.com/raycmorgan/mu
+// Project: https://github.com/raycmorgan/mu
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

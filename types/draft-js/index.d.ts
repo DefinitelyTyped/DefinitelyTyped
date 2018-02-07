@@ -1,8 +1,14 @@
-// Type definitions for Draft.js v0.10.0
+// Type definitions for Draft.js v0.10.4
 // Project: https://facebook.github.io/draft-js/
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Eelco Lempsink <https://github.com/eelco>
+// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
+//                 Eelco Lempsink <https://github.com/eelco>
+//                 Yale Cason <https://github.com/ghotiphud>
+//                 Ryan Schwers <https://github.com/schwers>
+//                 Michael Wu <https://github.com/michael-yx-wu>
+//                 Willis Plummer <https://github.com/willisplummer>
+//                 Santiago Vilar <https://github.com/smvilar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -27,12 +33,14 @@ declare namespace Draft {
 
             type DraftBlockRenderMap = Immutable.Map<DraftBlockType, DraftBlockRenderConfig>;
 
+            type EditorCommand = DraftEditorCommand | string;
+
             /**
              * `DraftEditor` is the root editor component. It composes a `contentEditable`
              * div, and provides a wide variety of useful function props for managing the
              * state of the editor. See `DraftEditorProps` for details.
              */
-            class DraftEditor extends React.Component<DraftEditorProps, any> {
+            class DraftEditor extends React.Component<DraftEditorProps, {}> {
                 // Force focus back onto the editor node.
                 focus(): void;
                 // Remove focus from the editor node.
@@ -49,7 +57,7 @@ declare namespace Draft {
              * These props are analagous to `value` and `onChange` in controlled React
              * text inputs.
              */
-            interface DraftEditorProps {
+            export interface DraftEditorProps {
                 editorState: EditorState;
                 onChange(editorState: EditorState): void;
 
@@ -78,8 +86,7 @@ declare namespace Draft {
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
                 // be invoked.
-                keyBindingFn?(e: SyntheticKeyboardEvent): DraftEditorCommand;
-                keyBindingFn?(e: SyntheticKeyboardEvent): string;
+                keyBindingFn?(e: SyntheticKeyboardEvent): EditorCommand | null;
 
                 // Set whether the `DraftEditor` component should be editable. Useful for
                 // temporarily disabling edit behavior or allowing `DraftEditor` rendering
@@ -97,13 +104,18 @@ declare namespace Draft {
 
                 tabIndex?: number;
 
+                // exposed especially to help improve mobile web behaviors
+                autoCapitalize?: string;
+                autoComplete?: string;
+                autoCorrect?: string;
+
                 ariaActiveDescendantID?: string;
                 ariaAutoComplete?: string;
+                ariaControls?: string;
                 ariaDescribedBy?: string;
                 ariaExpanded?: boolean;
-                ariaHasPopup?: boolean;
                 ariaLabel?: string;
-                ariaOwneeID?: string;
+                ariaMultiline?: boolean;
 
                 webDriverTestID?: string;
 
@@ -114,22 +126,20 @@ declare namespace Draft {
 
                 // Useful for managing special behavior for pressing the `Return` key. E.g.
                 // removing the style from an empty list item.
-                handleReturn?(e: SyntheticKeyboardEvent): DraftHandleValue,
+                handleReturn?(e: SyntheticKeyboardEvent, editorState: EditorState): DraftHandleValue,
 
                 // Map a key command string provided by your key binding function to a
                 // specified behavior.
-                handleKeyCommand?(command: DraftEditorCommand): DraftHandleValue,
-                handleKeyCommand?(command: string): DraftHandleValue,
-
+                handleKeyCommand?(command: EditorCommand, editorState: EditorState): DraftHandleValue,
 
                 // Handle intended text insertion before the insertion occurs. This may be
                 // useful in cases where the user has entered characters that you would like
                 // to trigger some special behavior. E.g. immediately converting `:)` to an
                 // emoji Unicode character, or replacing ASCII quote characters with smart
                 // quotes.
-                handleBeforeInput?(chars: string): DraftHandleValue,
+                handleBeforeInput?(chars: string, editorState: EditorState): DraftHandleValue,
 
-                handlePastedText?(text: string, html?: string): DraftHandleValue,
+                handlePastedText?(text: string, html: string|undefined, editorState: EditorState): DraftHandleValue,
 
                 handlePastedFiles?(files: Array<Blob>): DraftHandleValue,
 
@@ -146,6 +156,8 @@ declare namespace Draft {
                 onTab?(e: SyntheticKeyboardEvent): void,
                 onUpArrow?(e: SyntheticKeyboardEvent): void,
                 onDownArrow?(e: SyntheticKeyboardEvent): void,
+                onRightArrow?(e: SyntheticKeyboardEvent): void,
+                onLeftArrow?(e: SyntheticKeyboardEvent): void,
 
                 onBlur?(e: SyntheticEvent): void,
                 onFocus?(e: SyntheticEvent): void,
@@ -160,7 +172,7 @@ declare namespace Draft {
         }
 
         namespace Components {
-            class DraftEditorBlock extends React.Component<any, any> {
+            class DraftEditorBlock extends React.Component<any, {}> {
             }
         }
 
@@ -201,8 +213,7 @@ declare namespace Draft {
             /**
              * Retrieve a bound key command for the given event.
              */
-            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): DraftEditorCommand;
-            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): string;
+            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): DraftEditorCommand | null;
         }
     }
 
@@ -251,9 +262,10 @@ declare namespace Draft {
                  * or block types.
                  */
                 "bold" |
-                "italic" |
-                "underline" |
                 "code" |
+                "italic" |
+                "strikethrough" |
+                "underline" |
 
                 /**
                  * Split a block in two.
@@ -311,6 +323,66 @@ declare namespace Draft {
              * to indicate whether an event was handled or not.
              */
             type DraftHandleValue = "handled" | "not-handled";
+
+            /**
+             * A type that defines if an fragment shall be inserted before or after
+             * another fragment or if the selected fragment shall be replaced
+             */
+            type DraftInsertionType = "replace" | "before" | "after";
+
+            /**
+             * Valid inline styles.
+             */
+            type DraftInlineStyleType = (
+                "BOLD" |
+                "CODE" |
+                "ITALIC" |
+                "STRIKETHROUGH" |
+                "UNDERLINE"
+            )
+
+            /**
+             * Default entity types.
+             */
+            type ComposedEntityType = (
+              "LINK" |
+              "TOKEN" |
+              "PHOTO" |
+              "IMAGE"
+            )
+
+            /**
+             * Possible entity types.
+             */
+            type DraftEntityType = string | ComposedEntityType;
+
+            /**
+             * Possible "mutability" options for an entity. This refers to the behavior
+             * that should occur when inserting or removing characters in a text range
+             * with an entity applied to it.
+             *
+             * `MUTABLE`:
+             *   The text range can be modified freely. Generally used in cases where
+             *   the text content and the entity do not necessarily have a direct
+             *   relationship. For instance, the text and URI for a link may be completely
+             *   different. The user is allowed to edit the text as needed, and the entity
+             *   is preserved and applied to any characters added within the range.
+             *
+             * `IMMUTABLE`:
+             *   Not to be confused with immutable data structures used to represent the
+             *   state of the editor. Immutable entity ranges cannot be modified in any
+             *   way. Adding characters within the range will remove the entity from the
+             *   entire range. Deleting characters will delete the entire range. Example:
+             *   Facebook Page mentions.
+             *
+             * `SEGMENTED`:
+             *   Segmented entities allow the removal of partial ranges of text, as
+             *   separated by a delimiter. Adding characters wihin the range will remove
+             *   the entity from the entire range. Deleting characters within a segmented
+             *   entity will delete only the segments affected by the deletion. Example:
+             *   Facebook User mentions.
+             */
+            type DraftEntityMutability = "MUTABLE" | "IMMUTABLE" | "SEGMENTED";
         }
 
         namespace Decorators {
@@ -391,14 +463,24 @@ declare namespace Draft {
         }
 
         namespace Encoding {
+            import DraftInlineStyleType = Draft.Model.Constants.DraftInlineStyleType;
+            import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+            import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
+            import DraftEntityType = Draft.Model.Constants.DraftEntityType;
+
             import ContentBlock = Draft.Model.ImmutableData.ContentBlock;
             import ContentState = Draft.Model.ImmutableData.ContentState;
 
             import DraftBlockRenderMap = Draft.Component.Base.DraftBlockRenderMap;
-            import DraftBlockType = Draft.Model.Constants.DraftBlockType;
 
-            import DraftEntityType = Draft.Model.Entity.DraftEntityType;
-            import DraftEntityMutability = Draft.Model.Entity.DraftEntityMutability;
+            /**
+             * A plain object representation of an inline style range.
+             */
+            interface RawDraftInlineStyleRange {
+                style: DraftInlineStyleType;
+                offset: number;
+                length: number;
+            }
 
             /**
              * A plain object representation of an entity attribution.
@@ -406,19 +488,10 @@ declare namespace Draft {
              * The `key` value corresponds to the key of the entity in the `entityMap` of
              * a `ComposedText` object, not for use with `DraftEntity.get()`.
              */
-            interface EntityRange {
+            interface RawDraftEntityRange {
                 key: number,
                 offset: number,
                 length: number,
-            }
-
-            /**
-             * A plain object representation of an inline style range.
-             */
-            interface InlineStyleRange {
-                style: string;
-                offset: number;
-                length: number;
             }
 
             /**
@@ -439,8 +512,8 @@ declare namespace Draft {
                 type: DraftBlockType;
                 text: string;
                 depth: number;
-                inlineStyleRanges: Array<InlineStyleRange>;
-                entityRanges: Array<EntityRange>;
+                inlineStyleRanges: Array<RawDraftInlineStyleRange>;
+                entityRanges: Array<RawDraftEntityRange>;
                 data?: Object;
             }
 
@@ -458,42 +531,14 @@ declare namespace Draft {
                 entityMap: { [key: string]: RawDraftEntity };
             }
 
-            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): Array<ContentBlock>;
+            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): { contentBlocks: Array<ContentBlock>, entityMap: any };
             function convertFromRawToDraftState(rawState: RawDraftContentState): ContentState;
             function convertFromDraftStateToRaw(contentState: ContentState): RawDraftContentState;
         }
 
         namespace Entity {
-            type ComposedEntityType = "LINK" | "TOKEN" | "PHOTO";
-            type DraftEntityType = string | ComposedEntityType;
-
-            /**
-             * An enum representing the possible "mutability" options for an entity.
-             * This refers to the behavior that should occur when inserting or removing
-             * characters in a text range with an entity applied to it.
-             *
-             * `MUTABLE`:
-             *   The text range can be modified freely. Generally used in cases where
-             *   the text content and the entity do not necessarily have a direct
-             *   relationship. For instance, the text and URI for a link may be completely
-             *   different. The user is allowed to edit the text as needed, and the entity
-             *   is preserved and applied to any characters added within the range.
-             *
-             * `IMMUTABLE`:
-             *   Not to be confused with immutable data structures used to represent the
-             *   state of the editor. Immutable entity ranges cannot be modified in any
-             *   way. Adding characters within the range will remove the entity from the
-             *   entire range. Deleting characters will delete the entire range. Example:
-             *   Facebook Page mentions.
-             *
-             * `SEGMENTED`:
-             *   Segmented entities allow the removal of partial ranges of text, as
-             *   separated by a delimiter. Adding characters wihin the range will remove
-             *   the entity from the entire range. Deleting characters within a segmented
-             *   entity will delete only the segments affected by the deletion. Example:
-             *   Facebook User mentions.
-             */
-            type DraftEntityMutability = "MUTABLE" | "IMMUTABLE" | "SEGMENTED";
+            import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
+            import DraftEntityType = Draft.Model.Constants.DraftEntityType;
 
             /**
              * A "document entity" is an object containing metadata associated with a
@@ -562,10 +607,10 @@ declare namespace Draft {
 
         namespace ImmutableData {
             import DraftBlockType = Draft.Model.Constants.DraftBlockType;
-            import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
+            import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
+            import DraftEntityType = Draft.Model.Constants.DraftEntityType;
 
-            import DraftEntityType = Draft.Model.Entity.DraftEntityType;
-            import DraftEntityMutability = Draft.Model.Entity.DraftEntityMutability;
+            import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 
             type DraftInlineStyle = Immutable.OrderedSet<string>;
             type BlockMap = Immutable.OrderedMap<string, Draft.Model.ImmutableData.ContentBlock>;
@@ -701,12 +746,14 @@ declare namespace Draft {
             }
 
             class ContentState extends Record {
-                static createFromBlockArray(blocks: Array<ContentBlock>): ContentState;
+                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap?: any): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
                 getEntity(key: string): EntityInstance;
                 getLastCreatedEntityKey(): string;
+                mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
+
 
                 getBlockMap(): BlockMap;
                 getSelectionBefore(): SelectionState;
@@ -750,7 +797,7 @@ declare namespace Draft {
             class CharacterMetadata {
                 static applyStyle(record: CharacterMetadata, style: string): CharacterMetadata;
                 static removeStyle(record: CharacterMetadata, style: string): CharacterMetadata;
-                static applyEntity(record: CharacterMetadata, entityKey: string): CharacterMetadata;
+                static applyEntity(record: CharacterMetadata, entityKey: string | null): CharacterMetadata;
                 static applyEntity(record: CharacterMetadata): CharacterMetadata;
                 /**
                  * Use this function instead of the `CharacterMetadata` constructor.
@@ -788,8 +835,8 @@ declare namespace Draft {
                 "undo"
             )
 
-            interface BlockMapBuilder {
-                createFromArray(blocks: Array<ContentBlock>): BlockMap;
+            class BlockMapBuilder {
+                static createFromArray(blocks: Array<ContentBlock>): BlockMap;
             }
 
             const DefaultDraftBlockRenderMap: Immutable.Map<any, any>;
@@ -817,6 +864,7 @@ declare namespace Draft {
 
             class AtomicBlockUtils {
                 static insertAtomicBlock(editorState: EditorState, entityKey: string, character: string): EditorState;
+                static moveAtomicBlock(editorState: EditorState, atomicBlock: ContentBlock, targetRange: SelectionState, insertionMode?: DraftInsertionType): EditorState;
             }
 
             /**
@@ -846,7 +894,7 @@ declare namespace Draft {
 
                 static setBlockData(contentState: ContentState, selectionState: SelectionState, blockData: Immutable.Map<any, any>): ContentState;
                 static mergeBlockData(contentState: ContentState, selectionState: SelectionState, blockData: Immutable.Map<any, any>): ContentState;
-                static applyEntity(contentState: ContentState, selectionState: SelectionState, entityKey: string): ContentState;
+                static applyEntity(contentState: ContentState, selectionState: SelectionState, entityKey: string | null): ContentState;
             }
 
             class RichTextEditorUtil {
@@ -856,7 +904,7 @@ declare namespace Draft {
                 static getDataObjectForLinkURL(uri: URI): Object;
 
                 static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
-                static handleKeyCommand(editorState: EditorState, command: string): EditorState;
+                static handleKeyCommand(editorState: EditorState, command: string): null;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
 
@@ -881,7 +929,7 @@ declare namespace Draft {
                  */
                 static toggleInlineStyle(editorState: EditorState, inlineStyle: string): EditorState;
 
-                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string): EditorState;
+                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string | null): EditorState;
 
                 /**
                  * When a collapsed cursor is at the start of an empty styled block, allow
@@ -895,6 +943,7 @@ declare namespace Draft {
 }
 
 import Editor = Draft.Component.Base.DraftEditor;
+import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 
@@ -917,6 +966,10 @@ import RichUtils = Draft.Model.Modifier.RichTextEditorUtil;
 import DefaultDraftBlockRenderMap = Draft.Model.ImmutableData.DefaultDraftBlockRenderMap;
 import DefaultDraftInlineStyle = Draft.Model.ImmutableData.DefaultDraftInlineStyle;
 
+import RawDraftInlineStyleRange = Draft.Model.Encoding.RawDraftInlineStyleRange;
+import RawDraftEntityRange = Draft.Model.Encoding.RawDraftEntityRange;
+import RawDraftEntity = Draft.Model.Encoding.RawDraftEntity;
+import RawDraftContentBlock = Draft.Model.Encoding.RawDraftContentBlock;
 import RawDraftContentState = Draft.Model.Encoding.RawDraftContentState;
 import convertFromRaw = Draft.Model.Encoding.convertFromRawToDraftState;
 import convertToRaw = Draft.Model.Encoding.convertFromDraftStateToRaw;
@@ -926,8 +979,19 @@ import genKey = Draft.Model.Keys.generateRandomKey;
 import getDefaultKeyBinding = Draft.Component.Utils.getDefaultKeyBinding;
 import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRect;
 
+import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
+import DraftDragType = Draft.Model.Constants.DraftDragType;
+import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftInlineStyleType = Draft.Model.Constants.DraftInlineStyleType;
+import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
+import DraftEntityType = Draft.Model.Constants.DraftEntityType;
+import DraftRemovalDirection = Draft.Model.Constants.DraftRemovalDirection;
+import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
+import DraftInsertionType = Draft.Model.Constants.DraftInsertionType;
+
 export {
     Editor,
+    EditorProps,
     EditorBlock,
     EditorState,
 
@@ -950,6 +1014,10 @@ export {
     DefaultDraftBlockRenderMap,
     DefaultDraftInlineStyle,
 
+    RawDraftInlineStyleRange,
+    RawDraftEntityRange,
+    RawDraftEntity,
+    RawDraftContentBlock,
     RawDraftContentState,
     convertFromRaw,
     convertToRaw,
@@ -957,5 +1025,15 @@ export {
 
     genKey,
     getDefaultKeyBinding,
-    getVisibleSelectionRect
+    getVisibleSelectionRect,
+
+    DraftEditorCommand,
+    DraftDragType,
+    DraftBlockType,
+    DraftInlineStyleType,
+    DraftEntityType,
+    DraftEntityMutability,
+    DraftRemovalDirection,
+    DraftHandleValue,
+    DraftInsertionType,
 };

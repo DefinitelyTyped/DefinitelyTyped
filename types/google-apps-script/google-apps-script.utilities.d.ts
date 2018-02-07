@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Utilities {
@@ -28,9 +28,9 @@ declare namespace GoogleAppsScript {
      *  and other miscellaneous tasks.
      */
     export interface Utilities {
-      Charset: Charset
-      DigestAlgorithm: DigestAlgorithm
-      MacAlgorithm: MacAlgorithm
+      Charset: typeof Charset;
+      DigestAlgorithm: typeof DigestAlgorithm;
+      MacAlgorithm: typeof MacAlgorithm;
       base64Decode(encoded: string): Byte[];
       base64Decode(encoded: string, charset: Charset): Byte[];
       base64DecodeWebSafe(encoded: string): Byte[];
@@ -51,14 +51,15 @@ declare namespace GoogleAppsScript {
       computeRsaSha256Signature(value: string, key: string, charset: Charset): Byte[];
       formatDate(date: Date, timeZone: string, format: string): string;
       formatString(template: string, ...args: Object[]): string;
+      getUuid(): string;
       newBlob(data: Byte[]): Base.Blob;
       newBlob(data: Byte[], contentType: string): Base.Blob;
       newBlob(data: Byte[], contentType: string, name: string): Base.Blob;
       newBlob(data: string): Base.Blob;
       newBlob(data: string, contentType: string): Base.Blob;
       newBlob(data: string, contentType: string, name: string): Base.Blob;
-      parseCsv(csv: string): String[][];
-      parseCsv(csv: string, delimiter: Char): String[][];
+      parseCsv(csv: string): string[][];
+      parseCsv(csv: string, delimiter: Char): string[][];
       sleep(milliseconds: Integer): void;
       unzip(blob: Base.BlobSource): Base.Blob[];
       zip(blobs: Base.BlobSource[]): Base.Blob;

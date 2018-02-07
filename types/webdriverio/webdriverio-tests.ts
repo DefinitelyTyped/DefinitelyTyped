@@ -99,7 +99,7 @@ webdriverio
     .init()
     .url("https://news.ycombinator.com/")
     .selectorExecute("//div", (inputs: HTMLElement[], message: string) => {
-        return inputs.length + " " + message;
+        return `${inputs.length} ${message}`;
     }, "divs on the page")
     .then((res: string) => {
         console.log(res);

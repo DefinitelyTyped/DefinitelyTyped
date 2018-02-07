@@ -19,7 +19,7 @@ interface MediaSession {
   // Current media session playback state.
   playbackState: MediaSessionPlaybackState;
   // Current media session meta data.
-  metadata?: MediaMetadata;
+  metadata?: MediaMetadata|null;
 
   // Set/Unset actions handlers.
   setActionHandler(action: MediaSessionAction, listener?: () => void): void;

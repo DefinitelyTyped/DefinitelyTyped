@@ -1,11 +1,12 @@
-import * as AWS from 'aws-sdk';
+import * as AWS from "aws-sdk";
 import * as nodemailer from "nodemailer";
-import * as sesTransport from 'nodemailer-ses-transport';
+import sesTransport = require('nodemailer-ses-transport');
 
 const opts: sesTransport.SesOptions = {
-  ses: new AWS.SES(),
-  rateLimit: 5,
-  maxConnections: 3,
+  SES: new AWS.SES(),
+  component: "string",
+  sendingRate: 5,
+  maxConnections: 3
 };
 
 const transport: nodemailer.Transport = sesTransport(opts);

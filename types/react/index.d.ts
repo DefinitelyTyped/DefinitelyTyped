@@ -1,8 +1,54 @@
-// Type definitions for React v15.0
+// Type definitions for React 16.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>, Eric Anderson <https://github.com/ericanderson>
+// Definitions by: Asana <https://asana.com>
+//                 AssureSign <http://www.assuresign.com>
+//                 Microsoft <https://microsoft.com>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Benoit Benezech <https://github.com/bbenezech>
+//                 Patricio Zavolinsky <https://github.com/pzavolinsky>
+//                 Digiguru <https://github.com/digiguru>
+//                 Eric Anderson <https://github.com/ericanderson>
+//                 Albert Kurniawan <https://github.com/morcerf>
+//                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Dovydas Navickas <https://github.com/DovydasNavickas>
+//                 Stéphane Goetz <https://github.com/onigoetz>
+//                 Rich Seviora <https://github.com/richseviora>
+//                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
+
+/*
+Known Problems & Workarounds
+1. The type of cloneElement is incorrect.
+cloneElement(element, props) should accept props object with a subset of properties on element.props.
+React attributes, such as key and ref, should also be accepted in props, but should not exist on element.props.
+The "correct" way to model this, then, is with:
+declare function cloneElement<P extends Q, Q>(
+    element: ReactElement<P>,
+    props?: Q & Attributes,
+    ...children: ReactNode[]): ReactElement<P>;
+However, type inference for Q defaults to {} when intersected with another type.
+(https://github.com/Microsoft/TypeScript/pull/5738#issuecomment-181904905)
+And since any object is assignable to {}, we would lose the type safety of the P extends Q constraint.
+Therefore, the type of props is left as Q, which should work for most cases.
+If you need to call cloneElement with key or ref, you'll need a type cast:
+interface ButtonProps {
+    label: string;
+    isDisabled?: boolean;
+}
+var element: React.CElement<ButtonProps, Button>;
+React.cloneElement(element, { label: "label" });
+// cloning with optional props requires a cast
+React.cloneElement(element, <{ isDisabled?: boolean }>{ isDisabled: true });
+// cloning with key or ref requires a cast
+React.cloneElement(element, <React.ClassAttributes<Button>>{ ref: button => button.reset() });
+React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
+    key: "disabledButton",
+    isDisabled: true
+});
+*/
+
+/// <reference path="global.d.ts" />
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -16,20 +62,23 @@ type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 
+// tslint:disable-next-line:export-just-namespace
 export = React;
 export as namespace React;
 
 declare namespace React {
-
     //
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
+    type ReactType<P = any> = string | ComponentType<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T) => any);
-    type ComponentState = {} | void;
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
+
+    // tslint:disable-next-line:interface-over-type-literal
+    type ComponentState = {};
 
     interface Attributes {
         key?: Key;
@@ -56,47 +105,56 @@ declare namespace React {
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
-    interface DOMElement<P extends DOMAttributes<T>, T extends Element> extends ReactElement<P> {
+    // string fallback for custom web-components
+    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P> {
         type: string;
         ref: Ref<T>;
     }
 
-    interface ReactHTMLElement<T extends HTMLElement> extends DOMElement<HTMLAttributes<T>, T> {
+    // ReactHTML for ReactHTMLElement
+    // tslint:disable-next-line:no-empty-interface
+    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
+
+    interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
+        type: keyof ReactHTML;
     }
 
+    // ReactSVG for ReactSVGElement
     interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
+        type: keyof ReactSVG;
+    }
+
+    interface ReactPortal {
+        key: Key | null;
+        children: ReactNode;
     }
 
     //
     // Factories
     // ----------------------------------------------------------------------
 
-    interface Factory<P> {
-        (props?: Attributes & P, ...children: ReactNode[]): ReactElement<P>;
-    }
+    type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
 
-    interface SFCFactory<P> {
-        (props?: Attributes & P, ...children: ReactNode[]): SFCElement<P>;
-    }
+    type SFCFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => SFCElement<P>;
 
-    interface ComponentFactory<P, T extends Component<P, ComponentState>> {
-        (props?: ClassAttributes<T> & P, ...children: ReactNode[]): CElement<P, T>;
-    }
+    type ComponentFactory<P, T extends Component<P, ComponentState>> =
+        (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
-    interface DOMFactory<P extends DOMAttributes<T>, T extends Element> {
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DOMElement<P, T>;
-    }
+    type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
 
-    interface HTMLFactory<T extends HTMLElement> extends DOMFactory<HTMLAttributes<T>, T> {
-    }
+    // tslint:disable-next-line:no-empty-interface
+    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
-    interface ChangeTargetHTMLFactory<T extends HTMLElement> extends DOMFactory<ChangeTargetHTMLAttributes<T>, T> {
+    interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
     }
 
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
+        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
     }
 
     //
@@ -109,16 +167,21 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
 
     //
     // Top Level API
     // ----------------------------------------------------------------------
 
-    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
-
+    // DOM Elements
+    function createFactory<T extends HTMLElement>(
+        type: keyof ReactHTML): HTMLFactory<T>;
+    function createFactory(
+        type: keyof ReactSVG): SVGFactory;
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
         type: string): DOMFactory<P, T>;
+
+    // Custom components
     function createFactory<P>(type: SFC<P>): SFCFactory<P>;
     function createFactory<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
@@ -126,31 +189,66 @@ declare namespace React {
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
+    // DOM Elements
+    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
+    function createElement(
+        type: "input",
+        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
+        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+    function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+        type: keyof ReactHTML,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+    function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
+        type: keyof ReactSVG,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): ReactSVGElement;
     function createElement<P extends DOMAttributes<T>, T extends Element>(
         type: string,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): DOMElement<P, T>;
+
+    // Custom components
     function createElement<P>(
         type: SFC<P>,
-        props?: Attributes & P,
+        props?: Attributes & P | null,
         ...children: ReactNode[]): SFCElement<P>;
     function createElement<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P,
+        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
         ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P>,
-        props?: Attributes & P,
+        type: SFC<P> | ComponentClass<P> | string,
+        props?: Attributes & P | null,
         ...children: ReactNode[]): ReactElement<P>;
 
+    // DOM Elements
+    // ReactHTMLElement
+    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+        element: DetailedReactHTMLElement<P, T>,
+        props?: P,
+        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+    // ReactHTMLElement, less specific
+    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+        element: ReactHTMLElement<T>,
+        props?: P,
+        ...children: ReactNode[]): ReactHTMLElement<T>;
+    // SVGElement
+    function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
+        element: ReactSVGElement,
+        props?: P,
+        ...children: ReactNode[]): ReactSVGElement;
+    // DOM Element (has to be the last, because type checking stops at first overload that fits)
     function cloneElement<P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
-        props?: ClassAttributes<T> & P,
+        props?: DOMAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
+
+    // Custom components
     function cloneElement<P extends Q, Q>(
         element: SFCElement<P>,
         props?: Q, // should be Q & Attributes, but then Q is inferred as {}
@@ -164,26 +262,34 @@ declare namespace React {
         props?: Q, // should be Q & Attributes
         ...children: ReactNode[]): ReactElement<P>;
 
-    function isValidElement<P>(object: {}): object is ReactElement<P>;
+    function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-    var DOM: ReactDOM;
-    var PropTypes: ReactPropTypes;
-    var Children: ReactChildren;
-    var version: string;
+    const Children: ReactChildren;
+    const Fragment: ComponentType;
+    const version: string;
 
     //
     // Component API
     // ----------------------------------------------------------------------
 
-    type ReactInstance = Component<any, any> | Element;
+    type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    class Component<P, S> implements ComponentLifecycle<P, S> {
-        constructor(props?: P, context?: any);
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null;
+    // tslint:disable-next-line:no-empty-interface
+    interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
+    class Component<P, S> {
+        constructor(props: P, context?: any);
+
+        // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
+        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        // Also, the ` | S` allows intellisense to not be dumbisense
+        setState<K extends keyof S>(
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
+            callback?: () => void
+        ): void;
+
+        forceUpdate(callBack?: () => void): void;
+        render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -198,10 +304,10 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P, S> extends Component<P, S> { }
+    class PureComponent<P = {}, S = {}> extends Component<P, S> { }
 
-    interface ClassicComponent<P, S> extends Component<P, S> {
-        replaceState(nextState: S, callback?: () => any): void;
+    interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
+        replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
     }
@@ -214,17 +320,17 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    type SFC<P> = StatelessComponent<P>;
-    interface StatelessComponent<P> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any>;
+    type SFC<P = {}> = StatelessComponent<P>;
+    interface StatelessComponent<P = {}> {
+        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
 
-    interface ComponentClass<P> {
-        new (props?: P, context?: any): Component<P, ComponentState>;
+    interface ComponentClass<P = {}> {
+        new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -232,8 +338,8 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ClassicComponentClass<P> extends ComponentClass<P> {
-        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
+    interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
+        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -244,25 +350,66 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props?: P, context?: any) => T) &
-        (new (props?: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T) &
+        (new (props: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
 
     interface ComponentLifecycle<P, S> {
+        /**
+         * Called immediately before mounting occurs, and before `Component#render`.
+         * Avoid introducing any side-effects or subscriptions in this method.
+         */
         componentWillMount?(): void;
+        /**
+         * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
+         */
         componentDidMount?(): void;
+        /**
+         * Called when the component may be receiving new props.
+         * React may call this even if props have not changed, so be sure to compare new and existing
+         * props if you only want to handle changes.
+         *
+         * Calling `Component#setState` generally does not trigger this method.
+         */
         componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        /**
+         * Called to determine whether the change in props and state should trigger a re-render.
+         *
+         * `Component` always returns true.
+         * `PureComponent` implements a shallow comparison on props and state and returns true if any
+         * props or states have changed.
+         *
+         * If false is returned, `Component#render`, `componentWillUpdate`
+         * and `componentDidUpdate` will not be called.
+         */
         shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+        /**
+         * Called immediately before rendering when new props or state is received. Not called for the initial render.
+         *
+         * Note: You cannot call `Component#setState` here.
+         */
         componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        /**
+         * Called immediately after updating occurs. Not called for the initial render.
+         */
         componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, prevContext: any): void;
+        /**
+         * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
+         * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
+         */
         componentWillUnmount?(): void;
+        /**
+         * Catches exceptions generated in descendant components. Unhandled exceptions will cause
+         * the entire component tree to unmount.
+         */
+        componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
     }
 
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-        mixins?: Mixin<P, S>;
+        mixins?: Array<Mixin<P, S>>;
         statics?: {
             [key: string]: any;
         };
@@ -277,7 +424,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | null;
+        render(): ReactNode;
 
         [propertyName: string]: any;
     }
@@ -288,6 +435,9 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
+        /**
+         * A reference to the element on which the event listener is registered.
+         */
         currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
@@ -300,6 +450,12 @@ declare namespace React {
         isPropagationStopped(): boolean;
         persist(): void;
         // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+        /**
+         * A reference to the element from which the event was originally dispatched.
+         * This might be a child element to the element on which the event listener is registered.
+         *
+         * @see currentTarget
+         */
         target: EventTarget;
         timeStamp: number;
         type: string;
@@ -325,7 +481,12 @@ declare namespace React {
         relatedTarget: EventTarget;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface FormEvent<T> extends SyntheticEvent<T> {
+    }
+
+    interface InvalidEvent<T> extends SyntheticEvent<T> {
+        target: EventTarget & T;
     }
 
     interface ChangeEvent<T> extends SyntheticEvent<T> {
@@ -336,7 +497,13 @@ declare namespace React {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
+        /**
+         * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
+         */
         key: string;
         keyCode: number;
         locale: string;
@@ -355,6 +522,9 @@ declare namespace React {
         clientX: number;
         clientY: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeMouseEvent;
@@ -370,6 +540,9 @@ declare namespace React {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeTouchEvent;
@@ -410,9 +583,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    interface EventHandler<E extends SyntheticEvent<any>> {
-        (event: E): void;
-    }
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
 
@@ -441,7 +612,7 @@ declare namespace React {
      * `createElement` or a factory, use `ClassAttributes<T>`:
      *
      * ```ts
-     * var b: Button;
+     * var b: Button | null;
      * var props: ButtonProps & ClassAttributes<Button> = {
      *     ref: b => button = b, // ok!
      *     label: "I'm a Button"
@@ -454,11 +625,10 @@ declare namespace React {
         ref?: Ref<T>;
     }
 
-    interface HTMLProps<T> extends HTMLAttributes<T>, ClassAttributes<T> {
+    interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
     }
 
-    interface ChangeTargetHTMLProps<T extends HTMLElement> extends ChangeTargetHTMLAttributes<T>, ClassAttributes<T> {
-    }
+    type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = ClassAttributes<T> & E;
 
     interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     }
@@ -500,6 +670,8 @@ declare namespace React {
         onResetCapture?: FormEventHandler<T>;
         onSubmit?: FormEventHandler<T>;
         onSubmitCapture?: FormEventHandler<T>;
+        onInvalid?: FormEventHandler<T>;
+        onInvalidCapture?: FormEventHandler<T>;
 
         // Image Events
         onLoad?: ReactEventHandler<T>;
@@ -646,7 +818,6 @@ declare namespace React {
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
     interface CSSProperties {
-
         /**
          * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
          */
@@ -663,7 +834,10 @@ declare namespace React {
         alignSelf?: CSSWideKeyword | "auto" | "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
 
         /**
-         * This property allows precise alignment of elements, such as graphics, that do not have a baseline-table or lack the desired baseline in their baseline-table. With the alignment-adjust property, the position of the baseline identified by the alignment-baseline can be explicitly determined. It also determines precisely the alignment point for each glyph within a textual element.
+         * This property allows precise alignment of elements, such as graphics,
+         * that do not have a baseline-table or lack the desired baseline in their baseline-table.
+         * With the alignment-adjust property, the position of the baseline identified by the alignment-baseline
+         * can be explicitly determined. It also determines precisely the alignment point for each glyph within a textual element.
          */
         alignmentAdjust?: CSSWideKeyword | any;
 
@@ -722,7 +896,9 @@ declare namespace React {
 
         /**
          * This property describes how the element's background images should blend with each other and the element's background color.
-         * The value is a list of blend modes that corresponds to each background image. Each element in the list will apply to the corresponding element of background-image. If a property doesn’t have enough comma-separated values to match the number of layers, the UA must calculate its used value by repeating the list of values until there are enough.
+         * The value is a list of blend modes that corresponds to each background image. Each element in the list will apply to the
+         * corresponding element of background-image. If a property doesn’t have enough comma-separated values to match the number of layers,
+         * the UA must calculate its used value by repeating the list of values until there are enough.
          */
         backgroundBlendMode?: CSSWideKeyword | any;
 
@@ -754,6 +930,11 @@ declare namespace React {
         backgroundRepeat?: CSSWideKeyword | any;
 
         /**
+         * Defines the size of the background images
+         */
+        backgroundSize?: CSSWideKeyword | any;
+
+        /**
          * Obsolete - spec retired, not implemented.
          */
         baselineShift?: CSSWideKeyword | any;
@@ -764,7 +945,8 @@ declare namespace React {
         behavior?: CSSWideKeyword | any;
 
         /**
-         * Shorthand property that defines the different properties of all four sides of an element's border in a single declaration. It can be used to set border-width, border-style and border-color, or a subset of these.
+         * Shorthand property that defines the different properties of all four sides of an element's border in a single declaration.
+         * It can be used to set border-width, border-style and border-color, or a subset of these.
          */
         border?: CSSWideKeyword | any;
 
@@ -782,12 +964,12 @@ declare namespace React {
         /**
          * Defines the shape of the border of the bottom-left corner.
          */
-        borderBottomLeftRadius?: CSSWideKeyword | any;
+        borderBottomLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Defines the shape of the border of the bottom-right corner.
          */
-        borderBottomRightRadius?: CSSWideKeyword | any;
+        borderBottomRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the line style of the bottom border of a box.
@@ -795,7 +977,9 @@ declare namespace React {
         borderBottomStyle?: CSSWideKeyword | any;
 
         /**
-         * Sets the width of an element's bottom border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
+         * Sets the width of an element's bottom border. To set all four borders,
+         * use the border-width shorthand property which sets the values simultaneously for border-top-width,
+         * border-right-width, border-bottom-width, and border-left-width.
          */
         borderBottomWidth?: CSSWideKeyword | any;
 
@@ -805,69 +989,95 @@ declare namespace React {
         borderCollapse?: CSSWideKeyword | any;
 
         /**
-         * The CSS border-color property sets the color of an element's four borders. This property can have from one to four values, made up of the elementary properties:
+         * The CSS border-color property sets the color of an element's four borders.
+         * This property can have from one to four values, made up of the elementary properties:
          *      •       border-top-color
          *      •       border-right-color
          *      •       border-bottom-color
          *      •       border-left-color The default color is the currentColor of each of these values.
-         * If you provide one value, it sets the color for the element. Two values set the horizontal and vertical values, respectively. Providing three values sets the top, vertical, and bottom values, in that order. Four values set all for sides: top, right, bottom, and left, in that order.
+         * If you provide one value, it sets the color for the element. Two values set the horizontal and vertical values,
+         * respectively. Providing three values sets the top, vertical, and bottom values, in that order.
+         * Four values set all for sides: top, right, bottom, and left, in that order.
          */
         borderColor?: CSSWideKeyword | any;
 
         /**
-         * Specifies different corner clipping effects, such as scoop (inner curves), bevel (straight cuts) or notch (cut-off rectangles). Works along with border-radius to specify the size of each corner effect.
+         * Specifies different corner clipping effects, such as scoop (inner curves), bevel (straight cuts) or notch (cut-off rectangles).
+         * Works along with border-radius to specify the size of each corner effect.
          */
         borderCornerShape?: CSSWideKeyword | any;
 
         /**
-         * The property border-image-source is used to set the image to be used instead of the border style. If this is set to none the border-style is used instead.
+         * The property border-image-source is used to set the image to be used instead of the border style.
+         * If this is set to none the border-style is used instead.
          */
         borderImageSource?: CSSWideKeyword | any;
 
         /**
-         * The border-image-width CSS property defines the offset to use for dividing the border image in nine parts, the top-left corner, central top edge, top-right-corner, central right edge, bottom-right corner, central bottom edge, bottom-left corner, and central right edge. They represent inward distance from the top, right, bottom, and left edges.
+         * The border-image-width CSS property defines the offset to use for dividing the border image in nine parts,
+         * the top-left corner, central top edge, top-right-corner, central right edge, bottom-right corner, central bottom edge,
+         * bottom-left corner, and central right edge. They represent inward distance from the top, right, bottom, and left edges.
          */
         borderImageWidth?: CSSWideKeyword | any;
 
         /**
-         * Shorthand property that defines the border-width, border-style and border-color of an element's left border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the left border — border-left-width, border-left-style and border-left-color.
+         * Shorthand property that defines the border-width, border-style and border-color of an element's left border in a single declaration.
+         * Note that you can use the corresponding longhand properties to set specific individual properties of the left border — border-left-width,
+         * border-left-style and border-left-color.
          */
         borderLeft?: CSSWideKeyword | any;
 
         /**
-         * The CSS border-left-color property sets the color of an element's left border. This page explains the border-left-color value, but often you will find it more convenient to fix the border's left color as part of a shorthand set, either border-left or border-color.
+         * The CSS border-left-color property sets the color of an element's left border. This page explains the border-left-color value,
+         * but often you will find it more convenient to fix the border's left color as part of a shorthand set, either border-left or border-color.
          * Colors can be defined several ways. For more information, see Usage.
          */
         borderLeftColor?: CSSWideKeyword | any;
 
         /**
-         * Sets the style of an element's left border. To set all four borders, use the shorthand property, border-style. Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
+         * Sets the style of an element's left border. To set all four borders, use the shorthand property, border-style.
+         * Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
          */
         borderLeftStyle?: CSSWideKeyword | any;
 
         /**
-         * Sets the width of an element's left border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
+         * Sets the width of an element's left border. To set all four borders,
+         * use the border-width shorthand property which sets the values simultaneously for border-top-width,
+         * border-right-width, border-bottom-width, and border-left-width.
          */
         borderLeftWidth?: CSSWideKeyword | any;
 
         /**
-         * Shorthand property that defines the border-width, border-style and border-color of an element's right border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the right border — border-right-width, border-right-style and border-right-color.
+         * Shorthand property that sets the rounding of all four corners.
+         */
+        borderRadius?: CSSWideKeyword | CSSLength;
+
+        /**
+         * Shorthand property that defines the border-width, border-style and border-color of an element's right border
+         * in a single declaration. Note that you can use the corresponding longhand properties to set specific
+         * individual properties of the right border — border-right-width, border-right-style and border-right-color.
          */
         borderRight?: CSSWideKeyword | any;
 
         /**
-         * Sets the color of an element's right border. This page explains the border-right-color value, but often you will find it more convenient to fix the border's right color as part of a shorthand set, either border-right or border-color.
+         * Sets the color of an element's right border. This page explains the border-right-color value,
+         * but often you will find it more convenient to fix the border's right color as part of a shorthand set,
+         * either border-right or border-color.
          * Colors can be defined several ways. For more information, see Usage.
          */
         borderRightColor?: CSSWideKeyword | any;
 
         /**
-         * Sets the style of an element's right border. To set all four borders, use the shorthand property, border-style. Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
+         * Sets the style of an element's right border. To set all four borders, use the shorthand property,
+         * border-style. Otherwise, you can set the borders individually with border-top-style, border-right-style,
+         * border-bottom-style, border-left-style.
          */
         borderRightStyle?: CSSWideKeyword | any;
 
         /**
-         * Sets the width of an element's right border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
+         * Sets the width of an element's right border. To set all four borders,
+         * use the border-width shorthand property which sets the values simultaneously for border-top-width,
+         * border-right-width, border-bottom-width, and border-left-width.
          */
         borderRightWidth?: CSSWideKeyword | any;
 
@@ -877,17 +1087,24 @@ declare namespace React {
         borderSpacing?: CSSWideKeyword | any;
 
         /**
-         * Sets the style of an element's four borders. This property can have from one to four values. With only one value, the value will be applied to all four borders; otherwise, this works as a shorthand property for each of border-top-style, border-right-style, border-bottom-style, border-left-style, where each border style may be assigned a separate value.
+         * Sets the style of an element's four borders. This property can have from one to four values.
+         * With only one value, the value will be applied to all four borders;
+         * otherwise, this works as a shorthand property for each of border-top-style, border-right-style,
+         * border-bottom-style, border-left-style, where each border style may be assigned a separate value.
          */
         borderStyle?: CSSWideKeyword | any;
 
         /**
-         * Shorthand property that defines the border-width, border-style and border-color of an element's top border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the top border — border-top-width, border-top-style and border-top-color.
+         * Shorthand property that defines the border-width, border-style and border-color of an element's top border
+         * in a single declaration. Note that you can use the corresponding longhand properties to set specific
+         * individual properties of the top border — border-top-width, border-top-style and border-top-color.
          */
         borderTop?: CSSWideKeyword | any;
 
         /**
-         * Sets the color of an element's top border. This page explains the border-top-color value, but often you will find it more convenient to fix the border's top color as part of a shorthand set, either border-top or border-color.
+         * Sets the color of an element's top border. This page explains the border-top-color value,
+         * but often you will find it more convenient to fix the border's top color as part of a shorthand set,
+         * either border-top or border-color.
          * Colors can be defined several ways. For more information, see Usage.
          */
         borderTopColor?: CSSWideKeyword | any;
@@ -895,30 +1112,38 @@ declare namespace React {
         /**
          * Sets the rounding of the top-left corner of the element.
          */
-        borderTopLeftRadius?: CSSWideKeyword | any;
+        borderTopLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the rounding of the top-right corner of the element.
          */
-        borderTopRightRadius?: CSSWideKeyword | any;
+        borderTopRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
-         * Sets the style of an element's top border. To set all four borders, use the shorthand property, border-style. Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
+         * Sets the style of an element's top border. To set all four borders, use the shorthand property, border-style.
+         * Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
          */
         borderTopStyle?: CSSWideKeyword | any;
 
         /**
-         * Sets the width of an element's top border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
+         * Sets the width of an element's top border. To set all four borders,
+         * use the border-width shorthand property which sets the values simultaneously for border-top-width,
+         * border-right-width, border-bottom-width, and border-left-width.
          */
         borderTopWidth?: CSSWideKeyword | any;
 
         /**
-         * Sets the width of an element's four borders. This property can have from one to four values. This is a shorthand property for setting values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
+         * Sets the width of an element's four borders. This property can have from one to four values.
+         * This is a shorthand property for setting values simultaneously for border-top-width,
+         * border-right-width, border-bottom-width, and border-left-width.
          */
         borderWidth?: CSSWideKeyword | any;
 
         /**
-         * This property specifies how far an absolutely positioned box's bottom margin edge is offset above the bottom edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the bottom edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
+         * This property specifies how far an absolutely positioned box's bottom margin edge
+         * is offset above the bottom edge of the box's containing block. For relatively positioned boxes,
+         * the offset is with respect to the bottom edges of the box itself
+         * (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
          */
         bottom?: CSSWideKeyword | any;
 
@@ -928,7 +1153,9 @@ declare namespace React {
         boxAlign?: CSSWideKeyword | any;
 
         /**
-         * Breaks a box into fragments creating new borders, padding and repeating backgrounds or lets it stay as a continuous box on a page break, column break, or, for inline elements, at a line break.
+         * Breaks a box into fragments creating new borders,
+         * padding and repeating backgrounds or lets it stay as a continuous box on a page break,
+         * column break, or, for inline elements, at a line break.
          */
         boxDecorationBreak?: CSSWideKeyword | any;
 
@@ -951,7 +1178,8 @@ declare namespace React {
 
         /**
          * Do not use. This property has been replaced by flex-order.
-         * Specifies the ordinal group that a child element of the object belongs to. This ordinal value identifies the display order (along the axis defined by the box-orient property) for the group.
+         * Specifies the ordinal group that a child element of the object belongs to.
+         * This ordinal value identifies the display order (along the axis defined by the box-orient property) for the group.
          */
         boxOrdinalGroup?: CSSWideKeyword | any;
 
@@ -972,7 +1200,11 @@ declare namespace React {
         boxShadow?: CSSWideKeyword | any;
 
         /**
-         * The CSS break-after property allows you to force a break on multi-column layouts. More specifically, it allows you to force a break after an element. It allows you to determine if a break should occur, and what type of break it should be. The break-after CSS property describes how the page, column or region break behaves after the generated box. If there is no generated box, the property is ignored.
+         * The CSS break-after property allows you to force a break on multi-column layouts.
+         * More specifically, it allows you to force a break after an element.
+         * It allows you to determine if a break should occur, and what type of break it should be.
+         * The break-after CSS property describes how the page, column or region break behaves after the generated box.
+         * If there is no generated box, the property is ignored.
          */
         breakAfter?: CSSWideKeyword | any;
 
@@ -987,23 +1219,28 @@ declare namespace React {
         breakInside?: CSSWideKeyword | any;
 
         /**
-         * The clear CSS property specifies if an element can be positioned next to or must be positioned below the floating elements that precede it in the markup.
+         * The clear CSS property specifies if an element can be positioned next to
+         * or must be positioned below the floating elements that precede it in the markup.
          */
         clear?: CSSWideKeyword | any;
 
         /**
          * Deprecated; see clip-path.
-         * Lets you specify the dimensions of an absolutely positioned element that should be visible, and the element is clipped into this shape, and displayed.
+         * Lets you specify the dimensions of an absolutely positioned element that should be visible,
+         * and the element is clipped into this shape, and displayed.
          */
         clip?: CSSWideKeyword | any;
 
         /**
-         * Clipping crops an graphic, so that only a portion of the graphic is rendered, or filled. This clip-rule property, when used with the clip-path property, defines which clip rule, or algorithm, to use when filling the different parts of a graphics.
+         * Clipping crops an graphic, so that only a portion of the graphic is rendered, or filled.
+         * This clip-rule property, when used with the clip-path property, defines which clip rule, or algorithm,
+         * to use when filling the different parts of a graphics.
          */
         clipRule?: CSSWideKeyword | any;
 
         /**
-         * The color property sets the color of an element's foreground content (usually text), accepting any standard CSS color from keywords and hex values to RGB(a) and HSL(a).
+         * The color property sets the color of an element's foreground content (usually text),
+         * accepting any standard CSS color from keywords and hex values to RGB(a) and HSL(a).
          */
         color?: CSSWideKeyword | any;
 
@@ -1039,7 +1276,8 @@ declare namespace React {
         columnRuleWidth?: CSSWideKeyword | any;
 
         /**
-         * The column-span CSS property makes it possible for an element to span across all columns when its value is set to all. An element that spans more than one column is called a spanning element.
+         * The column-span CSS property makes it possible for an element to span across all columns when its value is set to all.
+         * An element that spans more than one column is called a spanning element.
          */
         columnSpan?: CSSWideKeyword | any;
 
@@ -1054,22 +1292,31 @@ declare namespace React {
         columns?: CSSWideKeyword | any;
 
         /**
-         * The counter-increment property accepts one or more names of counters (identifiers), each one optionally followed by an integer which specifies the value by which the counter should be incremented (e.g. if the value is 2, the counter increases by 2 each time it is invoked).
+         * The counter-increment property accepts one or more names of counters (identifiers),
+         * each one optionally followed by an integer which specifies the value by which the counter should be incremented
+         * (e.g. if the value is 2, the counter increases by 2 each time it is invoked).
          */
         counterIncrement?: CSSWideKeyword | any;
 
         /**
-         * The counter-reset property contains a list of one or more names of counters, each one optionally followed by an integer (otherwise, the integer defaults to 0.) Each time the given element is invoked, the counters specified by the property are set to the given integer.
+         * The counter-reset property contains a list of one or more names of counters,
+         * each one optionally followed by an integer (otherwise, the integer defaults to 0.).
+         * Each time the given element is invoked, the counters specified by the property are set to the given integer.
          */
         counterReset?: CSSWideKeyword | any;
 
         /**
-         * The cue property specifies sound files (known as an "auditory icon") to be played by speech media agents before and after presenting an element's content; if only one file is specified, it is played both before and after. The volume at which the file(s) should be played, relative to the volume of the main element, may also be specified. The icon files may also be set separately with the cue-before and cue-after properties.
+         * The cue property specifies sound files (known as an "auditory icon") to be played by speech media agents
+         * before and after presenting an element's content; if only one file is specified, it is played both before and after.
+         * The volume at which the file(s) should be played, relative to the volume of the main element, may also be specified.
+         * The icon files may also be set separately with the cue-before and cue-after properties.
          */
         cue?: CSSWideKeyword | any;
 
         /**
-         * The cue-after property specifies a sound file (known as an "auditory icon") to be played by speech media agents after presenting an element's content; the volume at which the file should be played may also be specified. The shorthand property cue sets cue sounds for both before and after the element is presented.
+         * The cue-after property specifies a sound file (known as an "auditory icon") to be played by speech media agents
+         * after presenting an element's content; the volume at which the file should be played may also be specified.
+         * The shorthand property cue sets cue sounds for both before and after the element is presented.
          */
         cueAfter?: CSSWideKeyword | any;
 
@@ -1089,7 +1336,11 @@ declare namespace React {
         display?: CSSWideKeyword | any;
 
         /**
-         * The ‘fill’ property paints the interior of the given graphical element. The area to be painted consists of any areas inside the outline of the shape. To determine the inside of the shape, all subpaths are considered, and the interior is determined according to the rules associated with the current value of the ‘fill-rule’ property. The zero-width geometric outline of a shape is included in the area to be painted.
+         * The ‘fill’ property paints the interior of the given graphical element.
+         * The area to be painted consists of any areas inside the outline of the shape.
+         * To determine the inside of the shape, all subpaths are considered,
+         * and the interior is determined according to the rules associated with the current value of the ‘fill-rule’ property.
+         * The zero-width geometric outline of a shape is included in the area to be painted.
          */
         fill?: CSSWideKeyword | any;
 
@@ -1100,7 +1351,10 @@ declare namespace React {
         fillOpacity?: CSSWideKeyword | number;
 
         /**
-         * The ‘fill-rule’ property indicates the algorithm which is to be used to determine what parts of the canvas are included inside the shape. For a simple, non-intersecting path, it is intuitively clear what region lies "inside"; however, for a more complex path, such as a path that intersects itself or where one subpath encloses another, the interpretation of "inside" is not so obvious.
+         * The ‘fill-rule’ property indicates the algorithm which is to be used to determine what parts of the canvas are included inside the shape.
+         * For a simple, non-intersecting path, it is intuitively clear what region lies "inside";
+         * however, for a more complex path, such as a path that intersects itself or where one subpath encloses another,
+         * the interpretation of "inside" is not so obvious.
          * The ‘fill-rule’ property provides two options for how the inside of a shape is determined:
          */
         fillRule?: CSSWideKeyword | any;
@@ -1122,7 +1376,8 @@ declare namespace React {
         flexAlign?: CSSWideKeyword | any;
 
         /**
-         * The flex-basis CSS property describes the initial main size of the flex item before any free space is distributed according to the flex factors described in the flex property (flex-grow and flex-shrink).
+         * The flex-basis CSS property describes the initial main size of the flex item
+         * before any free space is distributed according to the flex factors described in the flex property (flex-grow and flex-shrink).
          */
         flexBasis?: CSSWideKeyword | any;
 
@@ -1166,13 +1421,17 @@ declare namespace React {
         flexShrink?: CSSWideKeyword | number;
 
         /**
-         * Specifies whether flex items are forced into a single line or can be wrapped onto multiple lines. If wrapping is allowed, this property also enables you to control the direction in which lines are stacked.
+         * Specifies whether flex items are forced into a single line or can be wrapped onto multiple lines.
+         * If wrapping is allowed, this property also enables you to control the direction in which lines are stacked.
          * See CSS flex-wrap property https://drafts.csswg.org/css-flexbox-1/#flex-wrap-property
          */
         flexWrap?: CSSWideKeyword | "nowrap" | "wrap" | "wrap-reverse";
 
         /**
-         * Elements which have the style float are floated horizontally. These elements can move as far to the left or right of the containing element. All elements after the floating element will flow around it, but elements before the floating element are not impacted. If several floating elements are placed after each other, they will float next to each other as long as there is room.
+         * Elements which have the style float are floated horizontally.
+         * These elements can move as far to the left or right of the containing element.
+         * All elements after the floating element will flow around it, but elements before the floating element are not impacted.
+         * If several floating elements are placed after each other, they will float next to each other as long as there is room.
          */
         float?: CSSWideKeyword | any;
 
@@ -1182,17 +1441,20 @@ declare namespace React {
         flowFrom?: CSSWideKeyword | any;
 
         /**
-         * The font property is shorthand that allows you to do one of two things: you can either set up six of the most mature font properties in one line, or you can set one of a choice of keywords to adopt a system font setting.
+         * The font property is shorthand that allows you to do one of two things: you can either set up six of the most mature font properties in one line,
+         * or you can set one of a choice of keywords to adopt a system font setting.
          */
         font?: CSSWideKeyword | any;
 
         /**
-         * The font-family property allows one or more font family names and/or generic family names to be specified for usage on the selected element(s)' text. The browser then goes through the list; for each character in the selection it applies the first font family that has an available glyph for that character.
+         * The font-family property allows one or more font family names and/or generic family names to be specified for usage on the selected element(s)' text.
+         * The browser then goes through the list; for each character in the selection it applies the first font family that has an available glyph for that character.
          */
         fontFamily?: CSSWideKeyword | any;
 
         /**
-         * The font-kerning property allows contextual adjustment of inter-glyph spacing, i.e. the spaces between the characters in text. This property controls <bold>metric kerning</bold> - that utilizes adjustment data contained in the font. Optical Kerning is not supported as yet.
+         * The font-kerning property allows contextual adjustment of inter-glyph spacing, i.e. the spaces between the characters in text.
+         * This property controls <bold>metric kerning</bold> - that utilizes adjustment data contained in the font. Optical Kerning is not supported as yet.
          */
         fontKerning?: CSSWideKeyword | any;
 
@@ -1201,12 +1463,14 @@ declare namespace React {
          * See CSS 3 font-size property https://www.w3.org/TR/css-fonts-3/#propdef-font-size
          */
         fontSize?: CSSWideKeyword |
-                   "xx-small" | "x-small" | "small" | "medium" | "large" | "x-large" | "xx-large" |
-                   "larger" | "smaller" |
-                   CSSLength | CSSPercentage;
+        "xx-small" | "x-small" | "small" | "medium" | "large" | "x-large" | "xx-large" |
+        "larger" | "smaller" |
+        CSSLength | CSSPercentage;
 
         /**
-         * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family, so that the x-height is the same no matter what font is used. This preserves the readability of the text when fallback happens.
+         * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family,
+         * so that the x-height is the same no matter what font is used.
+         * This preserves the readability of the text when fallback happens.
          * See CSS 3 font-size-adjust property https://www.w3.org/TR/css-fonts-3/#propdef-font-size-adjust
          */
         fontSizeAdjust?: CSSWideKeyword | "none" | number;
@@ -1216,11 +1480,13 @@ declare namespace React {
          * See CSS 3 font-stretch property https://drafts.csswg.org/css-fonts-3/#propdef-font-stretch
          */
         fontStretch?: CSSWideKeyword |
-                      "normal" | "ultra-condensed" | "extra-condensed" | "condensed" | "semi-condensed" |
-                      "semi-expanded" | "expanded" | "extra-expanded" | "ultra-expanded";
+        "normal" | "ultra-condensed" | "extra-condensed" | "condensed" | "semi-condensed" |
+        "semi-expanded" | "expanded" | "extra-expanded" | "ultra-expanded";
 
         /**
-         * The font-style property allows normal, italic, or oblique faces to be selected. Italic forms are generally cursive in nature while oblique faces are typically sloped versions of the regular face. Oblique faces can be simulated by artificially sloping the glyphs of the regular face.
+         * The font-style property allows normal, italic, or oblique faces to be selected.
+         * Italic forms are generally cursive in nature while oblique faces are typically sloped versions of the regular face.
+         * Oblique faces can be simulated by artificially sloping the glyphs of the regular face.
          * See CSS 3 font-style property https://www.w3.org/TR/css-fonts-3/#propdef-font-style
          */
         fontStyle?: CSSWideKeyword | "normal" | "italic" | "oblique";
@@ -1257,12 +1523,15 @@ declare namespace React {
         gridColumn?: CSSWideKeyword | any;
 
         /**
-         * Controls a grid item's placement in a grid area as well as grid position and a grid span. The grid-column-end property (with grid-row-start, grid-row-end, and grid-column-start) determines a grid item's placement by specifying the grid lines of a grid item's grid area.
+         * Controls a grid item's placement in a grid area as well as grid position and a grid span.
+         * The grid-column-end property (with grid-row-start, grid-row-end, and grid-column-start) determines a grid item's placement by specifying the grid lines of a grid item's grid area.
          */
         gridColumnEnd?: CSSWideKeyword | any;
 
         /**
-         * Determines a grid item's placement by specifying the starting grid lines of a grid item's grid area . A grid item's placement in a grid area consists of a grid position and a grid span. See also ( grid-row-start, grid-row-end, and grid-column-end)
+         * Determines a grid item's placement by specifying the starting grid lines of a grid item's grid area.
+         * A grid item's placement in a grid area consists of a grid position and a grid span.
+         * See also ( grid-row-start, grid-row-end, and grid-column-end)
          */
         gridColumnStart?: CSSWideKeyword | any;
 
@@ -1272,7 +1541,8 @@ declare namespace React {
         gridRow?: CSSWideKeyword | any;
 
         /**
-         * Determines a grid item’s placement by specifying the block-end. A grid item's placement in a grid area consists of a grid position and a grid span. The grid-row-end property (with grid-row-start, grid-column-start, and grid-column-end) determines a grid item's placement by specifying the grid lines of a grid item's grid area.
+         * Determines a grid item’s placement by specifying the block-end. A grid item's placement in a grid area consists of a grid position and a grid span.
+         * The grid-row-end property (with grid-row-start, grid-column-start, and grid-column-end) determines a grid item's placement by specifying the grid lines of a grid item's grid area.
          */
         gridRowEnd?: CSSWideKeyword | any;
 
@@ -1285,17 +1555,22 @@ declare namespace React {
         gridRowSpan?: CSSWideKeyword | any;
 
         /**
-         * Specifies named grid areas which are not associated with any particular grid item, but can be referenced from the grid-placement properties. The syntax of the grid-template-areas property also provides a visualization of the structure of the grid, making the overall layout of the grid container easier to understand.
+         * Specifies named grid areas which are not associated with any particular grid item, but can be referenced from the grid-placement properties.
+         * The syntax of the grid-template-areas property also provides a visualization of the structure of the grid, making the overall layout of the grid container easier to understand.
          */
         gridTemplateAreas?: CSSWideKeyword | any;
 
         /**
-         * Specifies (with grid-template-rows) the line names and track sizing functions of the grid. Each sizing function can be specified as a length, a percentage of the grid container’s size, a measurement of the contents occupying the column or row, or a fraction of the free space in the grid.
+         * Specifies (with grid-template-rows) the line names and track sizing functions of the grid.
+         * Each sizing function can be specified as a length, a percentage of the grid container’s size,
+         * a measurement of the contents occupying the column or row, or a fraction of the free space in the grid.
          */
         gridTemplateColumns?: CSSWideKeyword | any;
 
         /**
-         * Specifies (with grid-template-columns) the line names and track sizing functions of the grid. Each sizing function can be specified as a length, a percentage of the grid container’s size, a measurement of the contents occupying the column or row, or a fraction of the free space in the grid.
+         * Specifies (with grid-template-columns) the line names and track sizing functions of the grid.
+         * Each sizing function can be specified as a length, a percentage of the grid container’s size,
+         * a measurement of the contents occupying the column or row, or a fraction of the free space in the grid.
          */
         gridTemplateRows?: CSSWideKeyword | any;
 
@@ -1315,7 +1590,8 @@ declare namespace React {
         hyphenateLimitLines?: CSSWideKeyword | any;
 
         /**
-         * Specifies the maximum amount of trailing whitespace (before justification) that may be left in a line before hyphenation is triggered to pull part of a word from the next line back up into the current one.
+         * Specifies the maximum amount of trailing whitespace (before justification) that may be left in a line before hyphenation is triggered
+         * to pull part of a word from the next line back up into the current one.
          */
         hyphenateLimitZone?: CSSWideKeyword | any;
 
@@ -1331,7 +1607,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly" | "stretch";
 
         layoutGrid?: CSSWideKeyword | any;
 
@@ -1372,7 +1648,9 @@ declare namespace React {
         listStyle?: CSSWideKeyword | any;
 
         /**
-         * This property sets the image that will be used as the list item marker. When the image is available, it will replace the marker set with the 'list-style-type' marker. That also means that if the image is not available, it will show the style specified by list-style-property
+         * This property sets the image that will be used as the list item marker. When the image is available,
+         * it will replace the marker set with the 'list-style-type' marker. That also means that if the image is not available,
+         * it will show the style specified by list-style-property
          */
         listStyleImage?: CSSWideKeyword | any;
 
@@ -1387,7 +1665,9 @@ declare namespace React {
         listStyleType?: CSSWideKeyword | any;
 
         /**
-         * The margin property is shorthand to allow you to set all four margins of an element at once. Its equivalent longhand properties are margin-top, margin-right, margin-bottom and margin-left. Negative values are also allowed.
+         * The margin property is shorthand to allow you to set all four margins of an element at once.
+         * Its equivalent longhand properties are margin-top, margin-right, margin-bottom and margin-left.
+         * Negative values are also allowed.
          */
         margin?: CSSWideKeyword | any;
 
@@ -1422,22 +1702,29 @@ declare namespace React {
         marqueeStyle?: CSSWideKeyword | any;
 
         /**
-         * This property is shorthand for setting mask-image, mask-mode, mask-repeat, mask-position, mask-clip, mask-origin, mask-composite and mask-size. Omitted values are set to their original properties' initial values.
+         * This property is shorthand for setting mask-image, mask-mode, mask-repeat, mask-position, mask-clip, mask-origin, mask-composite and mask-size.
+         * Omitted values are set to their original properties' initial values.
          */
         mask?: CSSWideKeyword | any;
 
         /**
-         * This property is shorthand for setting mask-border-source, mask-border-slice, mask-border-width, mask-border-outset, and mask-border-repeat. Omitted values are set to their original properties' initial values.
+         * This property is shorthand for setting mask-border-source, mask-border-slice, mask-border-width, mask-border-outset, and mask-border-repeat.
+         * Omitted values are set to their original properties' initial values.
          */
         maskBorder?: CSSWideKeyword | any;
 
         /**
-         * This property specifies how the images for the sides and the middle part of the mask image are scaled and tiled. The first keyword applies to the horizontal sides, the second one applies to the vertical ones. If the second keyword is absent, it is assumed to be the same as the first, similar to the CSS border-image-repeat property.
+         * This property specifies how the images for the sides and the middle part of the mask image are scaled and tiled.
+         * The first keyword applies to the horizontal sides, the second one applies to the vertical ones.
+         * If the second keyword is absent, it is assumed to be the same as the first, similar to the CSS border-image-repeat property.
          */
         maskBorderRepeat?: CSSWideKeyword | any;
 
         /**
-         * This property specifies inward offsets from the top, right, bottom, and left edges of the mask image, dividing it into nine regions: four corners, four edges, and a middle. The middle image part is discarded and treated as fully transparent black unless the fill keyword is present. The four values set the top, right, bottom and left offsets in that order, similar to the CSS border-image-slice property.
+         * This property specifies inward offsets from the top, right, bottom, and left edges of the mask image,
+         * dividing it into nine regions: four corners, four edges, and a middle.
+         * The middle image part is discarded and treated as fully transparent black unless the fill keyword is present.
+         * The four values set the top, right, bottom and left offsets in that order, similar to the CSS border-image-slice property.
          */
         maskBorderSlice?: CSSWideKeyword | any;
 
@@ -1452,22 +1739,28 @@ declare namespace React {
         maskBorderWidth?: CSSWideKeyword | any;
 
         /**
-         * Determines the mask painting area, which defines the area that is affected by the mask. The painted content of an element may be restricted to this area.
+         * Determines the mask painting area, which defines the area that is affected by the mask.
+         * The painted content of an element may be restricted to this area.
          */
         maskClip?: CSSWideKeyword | any;
 
         /**
-         * For elements rendered as a single box, specifies the mask positioning area. For elements rendered as multiple boxes (e.g., inline boxes on several lines, boxes on several pages) specifies which boxes box-decoration-break operates on to determine the mask positioning area(s).
+         * For elements rendered as a single box, specifies the mask positioning area.
+         * For elements rendered as multiple boxes (e.g., inline boxes on several lines, boxes on several pages)
+         * specifies which boxes box-decoration-break operates on to determine the mask positioning area(s).
          */
         maskOrigin?: CSSWideKeyword | any;
 
         /**
-         * This property must not be used. It is no longer included in any standard or standard track specification, nor is it implemented in any browser. It is only used when the text-align-last property is set to size. It controls allowed adjustments of font-size to fit line content.
+         * This property must not be used. It is no longer included in any standard or standard track specification,
+         * nor is it implemented in any browser. It is only used when the text-align-last property is set to size.
+         * It controls allowed adjustments of font-size to fit line content.
          */
         maxFontSize?: CSSWideKeyword | any;
 
         /**
-         * Sets the maximum height for an element. It prevents the height of the element to exceed the specified value. If min-height is specified and is greater than max-height, max-height is overridden.
+         * Sets the maximum height for an element. It prevents the height of the element to exceed the specified value.
+         * If min-height is specified and is greater than max-height, max-height is overridden.
          */
         maxHeight?: CSSWideKeyword | any;
 
@@ -1477,7 +1770,8 @@ declare namespace React {
         maxWidth?: CSSWideKeyword | any;
 
         /**
-         * Sets the minimum height for an element. It prevents the height of the element to be smaller than the specified value. The value of min-height overrides both max-height and height.
+         * Sets the minimum height for an element. It prevents the height of the element to be smaller than the specified value.
+         * The value of min-height overrides both max-height and height.
          */
         minHeight?: CSSWideKeyword | any;
 
@@ -1507,10 +1801,13 @@ declare namespace React {
         orphans?: CSSWideKeyword | number;
 
         /**
-         * The CSS outline property is a shorthand property for setting one or more of the individual outline properties outline-style, outline-width and outline-color in a single rule. In most cases the use of this shortcut is preferable and more convenient.
+         * The CSS outline property is a shorthand property for setting one or more of the individual outline properties outline-style,
+         * outline-width and outline-color in a single rule. In most cases the use of this shortcut is preferable and more convenient.
          * Outlines differ from borders in the following ways:
          *      •       Outlines do not take up space, they are drawn above the content.
-         *      •       Outlines may be non-rectangular. They are rectangular in Gecko/Firefox. Internet Explorer attempts to place the smallest contiguous outline around all elements or shapes that are indicated to have an outline. Opera draws a non-rectangular shape around a construct.
+         *      •       Outlines may be non-rectangular. They are rectangular in Gecko/Firefox.
+         *              Internet Explorer attempts to place the smallest contiguous outline around all elements or shapes that are indicated to have an outline.
+         *              Opera draws a non-rectangular shape around a construct.
          */
         outline?: CSSWideKeyword | any;
 
@@ -1525,7 +1822,8 @@ declare namespace React {
         outlineOffset?: CSSWideKeyword | any;
 
         /**
-         * The overflow property controls how extra content exceeding the bounding box of an element is rendered. It can be used in conjunction with an element that has a fixed width and height, to eliminate text-induced page distortion.
+         * The overflow property controls how extra content exceeding the bounding box of an element is rendered.
+         * It can be used in conjunction with an element that has a fixed width and height, to eliminate text-induced page distortion.
          */
         overflow?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
@@ -1545,72 +1843,99 @@ declare namespace React {
         overflowY?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
         /**
-         * The padding optional CSS property sets the required padding space on one to four sides of an element. The padding area is the space between an element and its border. Negative values are not allowed but decimal values are permitted. The element size is treated as fixed, and the content of the element shifts toward the center as padding is increased.
+         * The padding optional CSS property sets the required padding space on one to four sides of an element.
+         * The padding area is the space between an element and its border. Negative values are not allowed but decimal values are permitted.
+         * The element size is treated as fixed, and the content of the element shifts toward the center as padding is increased.
          * The padding property is a shorthand to avoid setting each side separately (padding-top, padding-right, padding-bottom, padding-left).
          */
         padding?: CSSWideKeyword | any;
 
         /**
-         * The padding-bottom CSS property of an element sets the padding space required on the bottom of an element. The padding area is the space between the content of the element and its border. Contrary to margin-bottom values, negative values of padding-bottom are invalid.
+         * The padding-bottom CSS property of an element sets the padding space required on the bottom of an element.
+         * The padding area is the space between the content of the element and its border.
+         * Contrary to margin-bottom values, negative values of padding-bottom are invalid.
          */
         paddingBottom?: CSSWideKeyword | any;
 
         /**
-         * The padding-left CSS property of an element sets the padding space required on the left side of an element. The padding area is the space between the content of the element and its border. Contrary to margin-left values, negative values of padding-left are invalid.
+         * The padding-left CSS property of an element sets the padding space required on the left side of an element.
+         * The padding area is the space between the content of the element and its border.
+         * Contrary to margin-left values, negative values of padding-left are invalid.
          */
         paddingLeft?: CSSWideKeyword | any;
 
         /**
-         * The padding-right CSS property of an element sets the padding space required on the right side of an element. The padding area is the space between the content of the element and its border. Contrary to margin-right values, negative values of padding-right are invalid.
+         * The padding-right CSS property of an element sets the padding space required on the right side of an element.
+         * The padding area is the space between the content of the element and its border.
+         * Contrary to margin-right values, negative values of padding-right are invalid.
          */
         paddingRight?: CSSWideKeyword | any;
 
         /**
-         * The padding-top CSS property of an element sets the padding space required on the top of an element. The padding area is the space between the content of the element and its border. Contrary to margin-top values, negative values of padding-top are invalid.
+         * The padding-top CSS property of an element sets the padding space required on the top of an element.
+         * The padding area is the space between the content of the element and its border.
+         * Contrary to margin-top values, negative values of padding-top are invalid.
          */
         paddingTop?: CSSWideKeyword | any;
 
         /**
-         * The page-break-after property is supported in all major browsers. With CSS3, page-break-* properties are only aliases of the break-* properties. The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
+         * The page-break-after property is supported in all major browsers. With CSS3, page-break-* properties are only aliases of the break-* properties.
+         * The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
          */
         pageBreakAfter?: CSSWideKeyword | any;
 
         /**
-         * The page-break-before property sets the page-breaking behavior before an element. With CSS3, page-break-* properties are only aliases of the break-* properties. The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
+         * The page-break-before property sets the page-breaking behavior before an element.
+         * With CSS3, page-break-* properties are only aliases of the break-* properties.
+         * The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
          */
         pageBreakBefore?: CSSWideKeyword | any;
 
         /**
-         * Sets the page-breaking behavior inside an element. With CSS3, page-break-* properties are only aliases of the break-* properties. The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
+         * Sets the page-breaking behavior inside an element. With CSS3, page-break-* properties are only aliases of the break-* properties.
+         * The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
          */
         pageBreakInside?: CSSWideKeyword | any;
 
         /**
-         * The pause property determines how long a speech media agent should pause before and after presenting an element. It is a shorthand for the pause-before and pause-after properties.
+         * The pause property determines how long a speech media agent should pause before and after presenting an element.
+         * It is a shorthand for the pause-before and pause-after properties.
          */
         pause?: CSSWideKeyword | any;
 
         /**
-         * The pause-after property determines how long a speech media agent should pause after presenting an element. It may be replaced by the shorthand property pause, which sets pause time before and after.
+         * The pause-after property determines how long a speech media agent should pause after presenting an element.
+         * It may be replaced by the shorthand property pause, which sets pause time before and after.
          */
         pauseAfter?: CSSWideKeyword | any;
 
         /**
-         * The pause-before property determines how long a speech media agent should pause before presenting an element. It may be replaced by the shorthand property pause, which sets pause time before and after.
+         * The pause-before property determines how long a speech media agent should pause before presenting an element.
+         * It may be replaced by the shorthand property pause, which sets pause time before and after.
          */
         pauseBefore?: CSSWideKeyword | any;
 
         /**
          * The perspective property defines how far an element is placed from the view on the z-axis, from the screen to the viewer.
-         * Perspective defines how an object is viewed. In graphic arts, perspective is the representation on a flat surface of what the viewer's eye would see in a 3D space. (See Wikipedia for more information about graphical perspective and for related illustrations.)
-         * The illusion of perspective on a flat surface, such as a computer screen, is created by projecting points on the flat surface as they would appear if the flat surface were a window through which the viewer was looking at the object. In discussion of virtual environments, this flat surface is called a projection plane.
+         * Perspective defines how an object is viewed. In graphic arts, perspective is the representation on a flat surface of what the viewer's eye would see in a 3D space.
+         * (See Wikipedia for more information about graphical perspective and for related illustrations.)
+         * The illusion of perspective on a flat surface, such as a computer screen,
+         * is created by projecting points on the flat surface as they would appear if the flat surface were a window
+         * through which the viewer was looking at the object. In discussion of virtual environments, this flat surface is called a projection plane.
          */
         perspective?: CSSWideKeyword | any;
 
         /**
-         * The perspective-origin property establishes the origin for the perspective property. It effectively sets the X and Y position at which the viewer appears to be looking at the children of the element.
-         * When used with perspective, perspective-origin changes the appearance of an object, as if a viewer were looking at it from a different origin. An object appears differently if a viewer is looking directly at it versus looking at it from below, above, or from the side. Thus, the perspective-origin is like a vanishing point.
-         * The default value of perspective-origin is 50% 50%. This displays an object as if the viewer's eye were positioned directly at the center of the screen, both top-to-bottom and left-to-right. A value of 0% 0% changes the object as if the viewer was looking toward the top left angle. A value of 100% 100% changes the appearance as if viewed toward the bottom right angle.
+         * The perspective-origin property establishes the origin for the perspective property.
+         * It effectively sets the X and Y position at which the viewer appears to be looking at the children of the element.
+         * When used with perspective, perspective-origin changes the appearance of an object,
+         * as if a viewer were looking at it from a different origin.
+         * An object appears differently if a viewer is looking directly at it versus looking at it from below, above, or from the side.
+         * Thus, the perspective-origin is like a vanishing point.
+         * The default value of perspective-origin is 50% 50%.
+         * This displays an object as if the viewer's eye were positioned directly at the center of the screen, both top-to-bottom and left-to-right.
+         * A value of 0% 0% changes the object as if the viewer was looking toward the top left angle.
+         * A value of 100% 100% changes the appearance as if viewed toward the bottom right angle.
          */
         perspectiveOrigin?: CSSWideKeyword | any;
 
@@ -1620,13 +1945,15 @@ declare namespace React {
         pointerEvents?: CSSWideKeyword | any;
 
         /**
-         * The position property controls the type of positioning used by an element within its parent elements. The effect of the position property depends on a lot of factors, for example the position property of parent elements.
+         * The position property controls the type of positioning used by an element within its parent elements.
+         * The effect of the position property depends on a lot of factors, for example the position property of parent elements.
          */
         position?: CSSWideKeyword | "static" | "relative" | "absolute" | "fixed" | "sticky";
 
         /**
          * Obsolete: unsupported.
-         * This property determines whether or not a full-width punctuation mark character should be trimmed if it appears at the beginning of a line, so that its "ink" lines up with the first glyph in the line above and below.
+         * This property determines whether or not a full-width punctuation mark character should be trimmed if it appears at the beginning of a line,
+         * so that its "ink" lines up with the first glyph in the line above and below.
          */
         punctuationTrim?: CSSWideKeyword | any;
 
@@ -1636,17 +1963,20 @@ declare namespace React {
         quotes?: CSSWideKeyword | any;
 
         /**
-         * Controls whether the last region in a chain displays additional 'overset' content according its default overflow property, or if it displays a fragment of content as if it were flowing into a subsequent region.
+         * Controls whether the last region in a chain displays additional 'overset' content according its default overflow property,
+         * or if it displays a fragment of content as if it were flowing into a subsequent region.
          */
         regionFragment?: CSSWideKeyword | any;
 
         /**
-         * The rest-after property determines how long a speech media agent should pause after presenting an element's main content, before presenting that element's exit cue sound. It may be replaced by the shorthand property rest, which sets rest time before and after.
+         * The rest-after property determines how long a speech media agent should pause after presenting an element's main content,
+         * before presenting that element's exit cue sound. It may be replaced by the shorthand property rest, which sets rest time before and after.
          */
         restAfter?: CSSWideKeyword | any;
 
         /**
-         * The rest-before property determines how long a speech media agent should pause after presenting an intro cue sound for an element, before presenting that element's main content. It may be replaced by the shorthand property rest, which sets rest time before and after.
+         * The rest-before property determines how long a speech media agent should pause after presenting an intro cue sound for an element,
+         * before presenting that element's main content. It may be replaced by the shorthand property rest, which sets rest time before and after.
          */
         restBefore?: CSSWideKeyword | any;
 
@@ -1660,22 +1990,29 @@ declare namespace React {
         rubyPosition?: CSSWideKeyword | any;
 
         /**
-         * Defines the alpha channel threshold used to extract a shape from an image. Can be thought of as a "minimum opacity" threshold; that is, a value of 0.5 means that the shape will enclose all the pixels that are more than 50% opaque.
+         * Defines the alpha channel threshold used to extract a shape from an image. Can be thought of as a "minimum opacity" threshold;
+         * that is, a value of 0.5 means that the shape will enclose all the pixels that are more than 50% opaque.
          */
         shapeImageThreshold?: CSSWideKeyword | any;
 
         /**
-         * A future level of CSS Shapes will define a shape-inside property, which will define a shape to wrap content within the element. See Editor's Draft <http://dev.w3.org/csswg/css-shapes/> and CSSWG wiki page on next-level plans <http://wiki.csswg.org/spec/css-shapes>
+         * A future level of CSS Shapes will define a shape-inside property, which will define a shape to wrap content within the element.
+         * See Editor's Draft <http://dev.w3.org/csswg/css-shapes/> and CSSWG wiki page on next-level plans <http://wiki.csswg.org/spec/css-shapes>
          */
         shapeInside?: CSSWideKeyword | any;
 
         /**
-         * Adds a margin to a shape-outside. In effect, defines a new shape that is the smallest contour around all the points that are the shape-margin distance outward perpendicular to each point on the underlying shape. For points where a perpendicular direction is not defined (e.g., a triangle corner), takes all points on a circle centered at the point and with a radius of the shape-margin distance. This property accepts only non-negative values.
+         * Adds a margin to a shape-outside. In effect, defines a new shape that is the smallest contour around all the points
+         * that are the shape-margin distance outward perpendicular to each point on the underlying shape.
+         * For points where a perpendicular direction is not defined (e.g., a triangle corner),
+         * takes all points on a circle centered at the point and with a radius of the shape-margin distance.
+         * This property accepts only non-negative values.
          */
         shapeMargin?: CSSWideKeyword | any;
 
         /**
-         * Declares a shape around which text should be wrapped, with possible modifications from the shape-margin property. The shape defined by shape-outside and shape-margin changes the geometry of a float element's float area.
+         * Declares a shape around which text should be wrapped, with possible modifications from the shape-margin property.
+         * The shape defined by shape-outside and shape-margin changes the geometry of a float element's float area.
          */
         shapeOutside?: CSSWideKeyword | any;
 
@@ -1685,7 +2022,8 @@ declare namespace React {
         speak?: CSSWideKeyword | any;
 
         /**
-         * The speak-as property determines how the speech synthesizer interprets the content: words as whole words or as a sequence of letters, numbers as a numerical value or a sequence of digits, punctuation as pauses in speech or named punctuation characters.
+         * The speak-as property determines how the speech synthesizer interprets the content: words as whole words or as a sequence of letters,
+         * numbers as a numerical value or a sequence of digits, punctuation as pauses in speech or named punctuation characters.
          */
         speakAs?: CSSWideKeyword | any;
 
@@ -1712,7 +2050,8 @@ declare namespace React {
         tableLayout?: CSSWideKeyword | any;
 
         /**
-         * The text-align CSS property describes how inline content like text is aligned in its parent block element. text-align does not control the alignment of block elements itself, only their inline content.
+         * The text-align CSS property describes how inline content like text is aligned in its parent block element.
+         * text-align does not control the alignment of block elements itself, only their inline content.
          */
         textAlign?: CSSWideKeyword | any;
 
@@ -1749,14 +2088,17 @@ declare namespace React {
         textDecorationSkip?: CSSWideKeyword | any;
 
         /**
-         * This property specifies the style of the text decoration line drawn on the specified element. The intended meaning for the values are the same as those of the border-style-properties.
+         * This property specifies the style of the text decoration line drawn on the specified element.
+         * The intended meaning for the values are the same as those of the border-style-properties.
          */
         textDecorationStyle?: CSSWideKeyword | any;
 
         textDecorationUnderline?: CSSWideKeyword | any;
 
         /**
-         * The text-emphasis property will apply special emphasis marks to the elements text. Slightly similar to the text-decoration property only that this property can have affect on the line-height. It also is noted that this is shorthand for text-emphasis-style and for text-emphasis-color.
+         * The text-emphasis property will apply special emphasis marks to the elements text.
+         * Slightly similar to the text-decoration property only that this property can have affect on the line-height.
+         * It also is noted that this is shorthand for text-emphasis-style and for text-emphasis-color.
          */
         textEmphasis?: CSSWideKeyword | any;
 
@@ -1771,12 +2113,16 @@ declare namespace React {
         textEmphasisStyle?: CSSWideKeyword | any;
 
         /**
-         * This property helps determine an inline box's block-progression dimension, derived from the text-height and font-size properties for non-replaced elements, the height or the width for replaced elements, and the stacked block-progression dimension for inline-block elements. The block-progression dimension determines the position of the padding, border and margin for the element.
+         * This property helps determine an inline box's block-progression dimension,
+         * derived from the text-height and font-size properties for non-replaced elements,
+         * the height or the width for replaced elements, and the stacked block-progression dimension for inline-block elements.
+         * The block-progression dimension determines the position of the padding, border and margin for the element.
          */
         textHeight?: CSSWideKeyword | any;
 
         /**
-         * Specifies the amount of space horizontally that should be left on the first line of the text of an element. This horizontal spacing is at the beginning of the first line and is in respect to the left edge of the containing block box.
+         * Specifies the amount of space horizontally that should be left on the first line of the text of an element.
+         * This horizontal spacing is at the beginning of the first line and is in respect to the left edge of the containing block box.
          */
         textIndent?: CSSWideKeyword | any;
 
@@ -1785,7 +2131,8 @@ declare namespace React {
         textKashidaSpace?: CSSWideKeyword | any;
 
         /**
-         * The text-line-through property is a shorthand property for text-line-through-style, text-line-through-color and text-line-through-mode. (Considered obsolete; use text-decoration instead.)
+         * The text-line-through property is a shorthand property for text-line-through-style, text-line-through-color and text-line-through-mode.
+         * (Considered obsolete; use text-decoration instead.)
          */
         textLineThrough?: CSSWideKeyword | any;
 
@@ -1813,7 +2160,9 @@ declare namespace React {
         textLineThroughWidth?: CSSWideKeyword | any;
 
         /**
-         * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the users. It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string. It covers the two long-hand properties text-overflow-mode and text-overflow-ellipsis
+         * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the users.
+         * It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string.
+         * It covers the two long-hand properties text-overflow-mode and text-overflow-ellipsis
          */
         textOverflow?: CSSWideKeyword | any;
 
@@ -1843,7 +2192,8 @@ declare namespace React {
         textOverlineWidth?: CSSWideKeyword | any;
 
         /**
-         * The text-rendering CSS property provides information to the browser about how to optimize when rendering text. Options are: legibility, speed or geometric precision.
+         * The text-rendering CSS property provides information to the browser about how to optimize when rendering text.
+         * Options are: legibility, speed or geometric precision.
          */
         textRendering?: CSSWideKeyword | any;
 
@@ -1853,7 +2203,8 @@ declare namespace React {
         textScript?: CSSWideKeyword | any;
 
         /**
-         * The CSS text-shadow property applies one or more drop shadows to the text and <text-decorations> of an element. Each shadow is specified as an offset from the text, along with optional color and blur radius values.
+         * The CSS text-shadow property applies one or more drop shadows to the text and <text-decorations> of an element.
+         * Each shadow is specified as an offset from the text, along with optional color and blur radius values.
          */
         textShadow?: CSSWideKeyword | any;
 
@@ -1875,7 +2226,9 @@ declare namespace React {
         textUnderlineStyle?: CSSWideKeyword | any;
 
         /**
-         * This property specifies how far an absolutely positioned box's top margin edge is offset below the top edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the top edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
+         * This property specifies how far an absolutely positioned box's top margin edge is offset below the top edge of the box's containing block.
+         * For relatively positioned boxes, the offset is with respect to the top edges of the box itself (i.e., the box is given a position in the normal flow,
+         * then offset from that position according to these properties).
          */
         top?: CSSWideKeyword | any;
 
@@ -1885,7 +2238,8 @@ declare namespace React {
         touchAction?: CSSWideKeyword | any;
 
         /**
-         * CSS transforms allow elements styled with CSS to be transformed in two-dimensional or three-dimensional space. Using this property, elements can be translated, rotated, scaled, and skewed. The value list may consist of 2D and/or 3D transform values.
+         * CSS transforms allow elements styled with CSS to be transformed in two-dimensional or three-dimensional space.
+         * Using this property, elements can be translated, rotated, scaled, and skewed. The value list may consist of 2D and/or 3D transform values.
          */
         transform?: CSSWideKeyword | any;
 
@@ -1905,12 +2259,14 @@ declare namespace React {
         transformStyle?: CSSWideKeyword | any;
 
         /**
-         * The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay. It allows to define the transition between two states of an element.
+         * The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function,
+         * and transition-delay. It allows to define the transition between two states of an element.
          */
         transition?: CSSWideKeyword | any;
 
         /**
-         * Defines when the transition will start. A value of ‘0s’ means the transition will execute as soon as the property is changed. Otherwise, the value specifies an offset from the moment the property is changed, and the transition will delay execution by that offset.
+         * Defines when the transition will start. A value of ‘0s’ means the transition will execute as soon as the property is changed.
+         * Otherwise, the value specifies an offset from the moment the property is changed, and the transition will delay execution by that offset.
          */
         transitionDelay?: CSSWideKeyword | any;
 
@@ -1950,7 +2306,8 @@ declare namespace React {
         userInput?: CSSWideKeyword | any;
 
         /**
-         * The vertical-align property controls how inline elements or text are vertically aligned compared to the baseline. If this property is used on table-cells it controls the vertical alignment of content of the table cell.
+         * The vertical-align property controls how inline elements or text are vertically aligned compared to the baseline.
+         * If this property is used on table-cells it controls the vertical alignment of content of the table cell.
          */
         verticalAlign?: CSSWideKeyword | any;
 
@@ -1965,22 +2322,34 @@ declare namespace React {
         voiceBalance?: CSSWideKeyword | any;
 
         /**
-         * The voice-duration property allows the author to explicitly set the amount of time it should take a speech synthesizer to read an element's content, for example to allow the speech to be synchronized with other media. With a value of auto (the default) the length of time it takes to read the content is determined by the content itself and the voice-rate property.
+         * The voice-duration property allows the author to explicitly set the amount of time it should take a speech synthesizer to read an element's content,
+         * for example to allow the speech to be synchronized with other media.
+         * With a value of auto (the default) the length of time it takes to read the content is determined by the content itself and the voice-rate property.
          */
         voiceDuration?: CSSWideKeyword | any;
 
         /**
-         * The voice-family property sets the speaker's voice used by a speech media agent to read an element. The speaker may be specified as a named character (to match a voice option in the speech reading software) or as a generic description of the age and gender of the voice. Similar to the font-family property for visual media, a comma-separated list of fallback options may be given in case the speech reader does not recognize the character name or cannot synthesize the requested combination of generic properties.
+         * The voice-family property sets the speaker's voice used by a speech media agent to read an element.
+         * The speaker may be specified as a named character (to match a voice option in the speech reading software)
+         * or as a generic description of the age and gender of the voice.
+         * Similar to the font-family property for visual media,
+         * a comma-separated list of fallback options may be given in case the speech reader does not recognize the character name
+         * or cannot synthesize the requested combination of generic properties.
          */
         voiceFamily?: CSSWideKeyword | any;
 
         /**
-         * The voice-pitch property sets pitch or tone (high or low) for the synthesized speech when reading an element; the pitch may be specified absolutely or relative to the normal pitch for the voice-family used to read the text.
+         * The voice-pitch property sets pitch or tone (high or low) for the synthesized speech when reading an element;
+         * the pitch may be specified absolutely or relative to the normal pitch for the voice-family used to read the text.
          */
         voicePitch?: CSSWideKeyword | any;
 
         /**
-         * The voice-range property determines how much variation in pitch or tone will be created by the speech synthesize when reading an element. Emphasized text, grammatical structures and punctuation may all be rendered as changes in pitch, this property determines how strong or obvious those changes are; large ranges are associated with enthusiastic or emotional speech, while small ranges are associated with flat or mechanical speech.
+         * The voice-range property determines how much variation in pitch or tone will be created by the speech synthesize when reading an element.
+         * Emphasized text, grammatical structures and punctuation may all be rendered as changes in pitch,
+         * this property determines how strong or obvious those changes are;
+         * large ranges are associated with enthusiastic or emotional speech,
+         * while small ranges are associated with flat or mechanical speech.
          */
         voiceRange?: CSSWideKeyword | any;
 
@@ -2022,7 +2391,8 @@ declare namespace React {
         width?: CSSWideKeyword | any;
 
         /**
-         * The word-break property is often used when there is long generated content that is strung together without and spaces or hyphens to beak apart. A common case of this is when there is a long URL that does not have any hyphens. This case could potentially cause the breaking of the layout as it could extend past the parent element.
+         * The word-break property is often used when there is long generated content that is strung together without and spaces or hyphens to beak apart.
+         * A common case of this is when there is a long URL that does not have any hyphens. This case could potentially cause the breaking of the layout as it could extend past the parent element.
          */
         wordBreak?: CSSWideKeyword | any;
 
@@ -2080,129 +2450,28 @@ declare namespace React {
         suppressContentEditableWarning?: boolean;
 
         // Standard HTML Attributes
-        accept?: string;
-        acceptCharset?: string;
         accessKey?: string;
-        action?: string;
-        allowFullScreen?: boolean;
-        allowTransparency?: boolean;
-        alt?: string;
-        async?: boolean;
-        autoComplete?: string;
-        autoFocus?: boolean;
-        autoPlay?: boolean;
-        capture?: boolean;
-        cellPadding?: number | string;
-        cellSpacing?: number | string;
-        charSet?: string;
-        challenge?: string;
-        checked?: boolean;
-        cite?: string;
-        classID?: string;
         className?: string;
-        cols?: number;
-        colSpan?: number;
-        content?: string;
         contentEditable?: boolean;
         contextMenu?: string;
-        controls?: boolean;
-        coords?: string;
-        crossOrigin?: string;
-        data?: string;
-        dateTime?: string;
-        default?: boolean;
-        defer?: boolean;
         dir?: string;
-        disabled?: boolean;
-        download?: any;
         draggable?: boolean;
-        encType?: string;
-        form?: string;
-        formAction?: string;
-        formEncType?: string;
-        formMethod?: string;
-        formNoValidate?: boolean;
-        formTarget?: string;
-        frameBorder?: number | string;
-        headers?: string;
-        height?: number | string;
         hidden?: boolean;
-        high?: number;
-        href?: string;
-        hrefLang?: string;
-        htmlFor?: string;
-        httpEquiv?: string;
         id?: string;
-        inputMode?: string;
-        integrity?: string;
-        is?: string;
-        keyParams?: string;
-        keyType?: string;
-        kind?: string;
-        label?: string;
         lang?: string;
-        list?: string;
-        loop?: boolean;
-        low?: number;
-        manifest?: string;
-        marginHeight?: number;
-        marginWidth?: number;
-        max?: number | string;
-        maxLength?: number;
-        media?: string;
-        mediaGroup?: string;
-        method?: string;
-        min?: number | string;
-        minLength?: number;
-        multiple?: boolean;
-        muted?: boolean;
-        name?: string;
-        nonce?: string;
-        noValidate?: boolean;
-        open?: boolean;
-        optimum?: number;
-        pattern?: string;
-        placeholder?: string;
-        playsInline?: boolean;
-        poster?: string;
-        preload?: string;
-        radioGroup?: string;
-        readOnly?: boolean;
-        rel?: string;
-        required?: boolean;
-        reversed?: boolean;
-        role?: string;
-        rows?: number;
-        rowSpan?: number;
-        sandbox?: string;
-        scope?: string;
-        scoped?: boolean;
-        scrolling?: string;
-        seamless?: boolean;
-        selected?: boolean;
-        shape?: string;
-        size?: number;
-        sizes?: string;
         slot?: string;
-        span?: number;
         spellCheck?: boolean;
-        src?: string;
-        srcDoc?: string;
-        srcLang?: string;
-        srcSet?: string;
-        start?: number;
-        step?: number | string;
         style?: CSSProperties;
-        summary?: string;
         tabIndex?: number;
-        target?: string;
         title?: string;
-        type?: string;
-        useMap?: string;
-        value?: string | string[] | number;
-        width?: number | string;
-        wmode?: string;
-        wrap?: string;
+
+        // Unknown
+        inputMode?: string;
+        is?: string;
+        radioGroup?: string; // <command>, <menuitem>
+
+        // WAI-ARIA
+        role?: string;
 
         // RDFa Attributes
         about?: string;
@@ -2229,8 +2498,680 @@ declare namespace React {
         unselectable?: boolean;
     }
 
-    interface ChangeTargetHTMLAttributes<T extends HTMLElement> extends HTMLAttributes<T> {
+    // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
+    interface HTMLAttributes<T> extends DOMAttributes<T> {
+        /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
+        'aria-activedescendant'?: string;
+        /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
+        'aria-atomic'?: boolean | 'false' | 'true';
+        /**
+         * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
+         * presented if they are made.
+         */
+        'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both';
+        /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
+        'aria-busy'?: boolean | 'false' | 'true';
+        /**
+         * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
+         * @see aria-pressed @see aria-selected.
+         */
+        'aria-checked'?: boolean | 'false' | 'mixed' | 'true';
+        /**
+         * Defines the total number of columns in a table, grid, or treegrid.
+         * @see aria-colindex.
+         */
+        'aria-colcount'?: number;
+        /**
+         * Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
+         * @see aria-colcount @see aria-colspan.
+         */
+        'aria-colindex'?: number;
+        /**
+         * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
+         * @see aria-colindex @see aria-rowspan.
+         */
+        'aria-colspan'?: number;
+        /** Indicates the element that represents the current item within a container or set of related elements. */
+        'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time';
+        /**
+         * Identifies the element (or elements) that describes the object.
+         * @see aria-labelledby
+         */
+        'aria-describedby'?: string;
+        /**
+         * Identifies the element that provides a detailed, extended description for the object.
+         * @see aria-describedby.
+         */
+        'aria-details'?: string;
+        /**
+         * Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
+         * @see aria-hidden @see aria-readonly.
+         */
+        'aria-disabled'?: boolean | 'false' | 'true';
+        /**
+         * Indicates what functions can be performed when a dragged object is released on the drop target.
+         * @deprecated in ARIA 1.1
+         */
+        'aria-dropeffect'?: 'none' | 'copy' | 'execute' | 'link' | 'move' | 'popup';
+        /**
+         * Identifies the element that provides an error message for the object.
+         * @see aria-invalid @see aria-describedby.
+         */
+        'aria-errormessage'?: string;
+        /** Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. */
+        'aria-expanded'?: boolean | 'false' | 'true';
+        /**
+         * Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
+         * allows assistive technology to override the general default of reading in document source order.
+         */
+        'aria-flowto'?: string;
+        /**
+         * Indicates an element's "grabbed" state in a drag-and-drop operation.
+         * @deprecated in ARIA 1.1
+         */
+        'aria-grabbed'?: boolean | 'false' | 'true';
+        /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
+        'aria-haspopup'?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        /**
+         * Indicates whether the element is exposed to an accessibility API.
+         * @see aria-disabled.
+         */
+        'aria-hidden'?: boolean | 'false' | 'true';
+        /**
+         * Indicates the entered value does not conform to the format expected by the application.
+         * @see aria-errormessage.
+         */
+        'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling';
+        /** Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. */
+        'aria-keyshortcuts'?: string;
+        /**
+         * Defines a string value that labels the current element.
+         * @see aria-labelledby.
+         */
+        'aria-label'?: string;
+        /**
+         * Identifies the element (or elements) that labels the current element.
+         * @see aria-describedby.
+         */
+        'aria-labelledby'?: string;
+        /** Defines the hierarchical level of an element within a structure. */
+        'aria-level'?: number;
+        /** Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
+        'aria-live'?: 'off' | 'assertive' | 'polite';
+        /** Indicates whether an element is modal when displayed. */
+        'aria-modal'?: boolean | 'false' | 'true';
+        /** Indicates whether a text box accepts multiple lines of input or only a single line. */
+        'aria-multiline'?: boolean | 'false' | 'true';
+        /** Indicates that the user may select more than one item from the current selectable descendants. */
+        'aria-multiselectable'?: boolean | 'false' | 'true';
+        /** Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. */
+        'aria-orientation'?: 'horizontal' | 'vertical';
+        /**
+         * Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
+         * between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
+         * @see aria-controls.
+         */
+        'aria-owns'?: string;
+        /**
+         * Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
+         * A hint could be a sample value or a brief description of the expected format.
+         */
+        'aria-placeholder'?: string;
+        /**
+         * Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
+         * @see aria-setsize.
+         */
+        'aria-posinset'?: number;
+        /**
+         * Indicates the current "pressed" state of toggle buttons.
+         * @see aria-checked @see aria-selected.
+         */
+        'aria-pressed'?: boolean | 'false' | 'mixed' | 'true';
+        /**
+         * Indicates that the element is not editable, but is otherwise operable.
+         * @see aria-disabled.
+         */
+        'aria-readonly'?: boolean | 'false' | 'true';
+        /**
+         * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
+         * @see aria-atomic.
+         */
+        'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text';
+        /** Indicates that user input is required on the element before a form may be submitted. */
+        'aria-required'?: boolean | 'false' | 'true';
+        /** Defines a human-readable, author-localized description for the role of an element. */
+        'aria-roledescription'?: string;
+        /**
+         * Defines the total number of rows in a table, grid, or treegrid.
+         * @see aria-rowindex.
+         */
+        'aria-rowcount'?: number;
+        /**
+         * Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
+         * @see aria-rowcount @see aria-rowspan.
+         */
+        'aria-rowindex'?: number;
+        /**
+         * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
+         * @see aria-rowindex @see aria-colspan.
+         */
+        'aria-rowspan'?: number;
+        /**
+         * Indicates the current "selected" state of various widgets.
+         * @see aria-checked @see aria-pressed.
+         */
+        'aria-selected'?: boolean | 'false' | 'true';
+        /**
+         * Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
+         * @see aria-posinset.
+         */
+        'aria-setsize'?: number;
+        /** Indicates if items in a table or grid are sorted in ascending or descending order. */
+        'aria-sort'?: 'none' | 'ascending' | 'descending' | 'other';
+        /** Defines the maximum allowed value for a range widget. */
+        'aria-valuemax'?: number;
+        /** Defines the minimum allowed value for a range widget. */
+        'aria-valuemin'?: number;
+        /**
+         * Defines the current value for a range widget.
+         * @see aria-valuetext.
+         */
+        'aria-valuenow'?: number;
+        /** Defines the human readable text alternative of aria-valuenow for a range widget. */
+        'aria-valuetext'?: string;
+    }
+
+    interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
+        // Standard HTML Attributes
+        accept?: string;
+        acceptCharset?: string;
+        action?: string;
+        allowFullScreen?: boolean;
+        allowTransparency?: boolean;
+        alt?: string;
+        as?: string;
+        async?: boolean;
+        autoComplete?: string;
+        autoFocus?: boolean;
+        autoPlay?: boolean;
+        capture?: boolean;
+        cellPadding?: number | string;
+        cellSpacing?: number | string;
+        charSet?: string;
+        challenge?: string;
+        checked?: boolean;
+        cite?: string;
+        classID?: string;
+        cols?: number;
+        colSpan?: number;
+        content?: string;
+        controls?: boolean;
+        coords?: string;
+        crossOrigin?: string;
+        data?: string;
+        dateTime?: string;
+        default?: boolean;
+        defer?: boolean;
+        disabled?: boolean;
+        download?: any;
+        encType?: string;
+        form?: string;
+        formAction?: string;
+        formEncType?: string;
+        formMethod?: string;
+        formNoValidate?: boolean;
+        formTarget?: string;
+        frameBorder?: number | string;
+        headers?: string;
+        height?: number | string;
+        high?: number;
+        href?: string;
+        hrefLang?: string;
+        htmlFor?: string;
+        httpEquiv?: string;
+        integrity?: string;
+        keyParams?: string;
+        keyType?: string;
+        kind?: string;
+        label?: string;
+        list?: string;
+        loop?: boolean;
+        low?: number;
+        manifest?: string;
+        marginHeight?: number;
+        marginWidth?: number;
+        max?: number | string;
+        maxLength?: number;
+        media?: string;
+        mediaGroup?: string;
+        method?: string;
+        min?: number | string;
+        minLength?: number;
+        multiple?: boolean;
+        muted?: boolean;
+        name?: string;
+        nonce?: string;
+        noValidate?: boolean;
+        open?: boolean;
+        optimum?: number;
+        pattern?: string;
+        placeholder?: string;
+        playsInline?: boolean;
+        poster?: string;
+        preload?: string;
+        readOnly?: boolean;
+        rel?: string;
+        required?: boolean;
+        reversed?: boolean;
+        rows?: number;
+        rowSpan?: number;
+        sandbox?: string;
+        scope?: string;
+        scoped?: boolean;
+        scrolling?: string;
+        seamless?: boolean;
+        selected?: boolean;
+        shape?: string;
+        size?: number;
+        sizes?: string;
+        span?: number;
+        src?: string;
+        srcDoc?: string;
+        srcLang?: string;
+        srcSet?: string;
+        start?: number;
+        step?: number | string;
+        summary?: string;
+        target?: string;
+        type?: string;
+        useMap?: string;
+        value?: string | string[] | number;
+        width?: number | string;
+        wmode?: string;
+        wrap?: string;
+    }
+
+    interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
+        download?: any;
+        href?: string;
+        hrefLang?: string;
+        media?: string;
+        rel?: string;
+        target?: string;
+        type?: string;
+        as?: string;
+    }
+
+    // tslint:disable-next-line:no-empty-interface
+    interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
+
+    interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
+        alt?: string;
+        coords?: string;
+        download?: any;
+        href?: string;
+        hrefLang?: string;
+        media?: string;
+        rel?: string;
+        shape?: string;
+        target?: string;
+    }
+
+    interface BaseHTMLAttributes<T> extends HTMLAttributes<T> {
+        href?: string;
+        target?: string;
+    }
+
+    interface BlockquoteHTMLAttributes<T> extends HTMLAttributes<T> {
+        cite?: string;
+    }
+
+    interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoFocus?: boolean;
+        disabled?: boolean;
+        form?: string;
+        formAction?: string;
+        formEncType?: string;
+        formMethod?: string;
+        formNoValidate?: boolean;
+        formTarget?: string;
+        name?: string;
+        type?: string;
+        value?: string | string[] | number;
+    }
+
+    interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
+        height?: number | string;
+        width?: number | string;
+    }
+
+    interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
+        span?: number;
+        width?: number | string;
+    }
+
+    interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
+        span?: number;
+    }
+
+    interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
+        open?: boolean;
+    }
+
+    interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
+        cite?: string;
+        dateTime?: string;
+    }
+
+    interface EmbedHTMLAttributes<T> extends HTMLAttributes<T> {
+        height?: number | string;
+        src?: string;
+        type?: string;
+        width?: number | string;
+    }
+
+    interface FieldsetHTMLAttributes<T> extends HTMLAttributes<T> {
+        disabled?: boolean;
+        form?: string;
+        name?: string;
+    }
+
+    interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
+        acceptCharset?: string;
+        action?: string;
+        autoComplete?: string;
+        encType?: string;
+        method?: string;
+        name?: string;
+        noValidate?: boolean;
+        target?: string;
+    }
+
+    interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
+        manifest?: string;
+    }
+
+    interface IframeHTMLAttributes<T> extends HTMLAttributes<T> {
+        allowFullScreen?: boolean;
+        allowTransparency?: boolean;
+        frameBorder?: number | string;
+        height?: number | string;
+        marginHeight?: number;
+        marginWidth?: number;
+        name?: string;
+        sandbox?: string;
+        scrolling?: string;
+        seamless?: boolean;
+        src?: string;
+        srcDoc?: string;
+        width?: number | string;
+    }
+
+    interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
+        alt?: string;
+        height?: number | string;
+        sizes?: string;
+        src?: string;
+        srcSet?: string;
+        useMap?: string;
+        width?: number | string;
+    }
+
+    interface InsHTMLAttributes<T> extends HTMLAttributes<T> {
+        cite?: string;
+        dateTime?: string;
+    }
+
+    interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
+        accept?: string;
+        alt?: string;
+        autoComplete?: string;
+        autoFocus?: boolean;
+        capture?: boolean; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        checked?: boolean;
+        crossOrigin?: string;
+        disabled?: boolean;
+        form?: string;
+        formAction?: string;
+        formEncType?: string;
+        formMethod?: string;
+        formNoValidate?: boolean;
+        formTarget?: string;
+        height?: number | string;
+        list?: string;
+        max?: number | string;
+        maxLength?: number;
+        min?: number | string;
+        minLength?: number;
+        multiple?: boolean;
+        name?: string;
+        pattern?: string;
+        placeholder?: string;
+        readOnly?: boolean;
+        required?: boolean;
+        size?: number;
+        src?: string;
+        step?: number | string;
+        type?: string;
+        value?: string | string[] | number;
+        width?: number | string;
+
         onChange?: ChangeEventHandler<T>;
+    }
+
+    interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoFocus?: boolean;
+        challenge?: string;
+        disabled?: boolean;
+        form?: string;
+        keyType?: string;
+        keyParams?: string;
+        name?: string;
+    }
+
+    interface LabelHTMLAttributes<T> extends HTMLAttributes<T> {
+        form?: string;
+        htmlFor?: string;
+    }
+
+    interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
+        value?: string | string[] | number;
+    }
+
+    interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
+        crossOrigin?: string;
+        href?: string;
+        hrefLang?: string;
+        integrity?: string;
+        media?: string;
+        rel?: string;
+        sizes?: string;
+        type?: string;
+    }
+
+    interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
+        name?: string;
+    }
+
+    interface MenuHTMLAttributes<T> extends HTMLAttributes<T> {
+        type?: string;
+    }
+
+    interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoPlay?: boolean;
+        controls?: boolean;
+        controlsList?: string;
+        crossOrigin?: string;
+        loop?: boolean;
+        mediaGroup?: string;
+        muted?: boolean;
+        playsinline?: boolean;
+        preload?: string;
+        src?: string;
+    }
+
+    interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
+        charSet?: string;
+        content?: string;
+        httpEquiv?: string;
+        name?: string;
+    }
+
+    interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
+        form?: string;
+        high?: number;
+        low?: number;
+        max?: number | string;
+        min?: number | string;
+        optimum?: number;
+        value?: string | string[] | number;
+    }
+
+    interface QuoteHTMLAttributes<T> extends HTMLAttributes<T> {
+        cite?: string;
+    }
+
+    interface ObjectHTMLAttributes<T> extends HTMLAttributes<T> {
+        classID?: string;
+        data?: string;
+        form?: string;
+        height?: number | string;
+        name?: string;
+        type?: string;
+        useMap?: string;
+        width?: number | string;
+        wmode?: string;
+    }
+
+    interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
+        reversed?: boolean;
+        start?: number;
+    }
+
+    interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
+        disabled?: boolean;
+        label?: string;
+    }
+
+    interface OptionHTMLAttributes<T> extends HTMLAttributes<T> {
+        disabled?: boolean;
+        label?: string;
+        selected?: boolean;
+        value?: string | string[] | number;
+    }
+
+    interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
+        form?: string;
+        htmlFor?: string;
+        name?: string;
+    }
+
+    interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
+        name?: string;
+        value?: string | string[] | number;
+    }
+
+    interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
+        max?: number | string;
+        value?: string | string[] | number;
+    }
+
+    interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
+        async?: boolean;
+        charSet?: string;
+        crossOrigin?: string;
+        defer?: boolean;
+        integrity?: string;
+        nonce?: string;
+        src?: string;
+        type?: string;
+    }
+
+    interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoFocus?: boolean;
+        disabled?: boolean;
+        form?: string;
+        multiple?: boolean;
+        name?: string;
+        required?: boolean;
+        size?: number;
+        value?: string | string[] | number;
+        onChange?: ChangeEventHandler<T>;
+    }
+
+    interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
+        media?: string;
+        sizes?: string;
+        src?: string;
+        srcSet?: string;
+        type?: string;
+    }
+
+    interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
+        media?: string;
+        nonce?: string;
+        scoped?: boolean;
+        type?: string;
+    }
+
+    interface TableHTMLAttributes<T> extends HTMLAttributes<T> {
+        cellPadding?: number | string;
+        cellSpacing?: number | string;
+        summary?: string;
+    }
+
+    interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
+        autoFocus?: boolean;
+        cols?: number;
+        dirName?: string;
+        disabled?: boolean;
+        form?: string;
+        maxLength?: number;
+        minLength?: number;
+        name?: string;
+        placeholder?: string;
+        readOnly?: boolean;
+        required?: boolean;
+        rows?: number;
+        value?: string | string[] | number;
+        wrap?: string;
+
+        onChange?: ChangeEventHandler<T>;
+    }
+
+    interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
+        colSpan?: number;
+        headers?: string;
+        rowSpan?: number;
+        scope?: string;
+    }
+
+    interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
+        colSpan?: number;
+        headers?: string;
+        rowSpan?: number;
+        scope?: string;
+    }
+
+    interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
+        dateTime?: string;
+    }
+
+    interface TrackHTMLAttributes<T> extends HTMLAttributes<T> {
+        default?: boolean;
+        kind?: string;
+        label?: string;
+        src?: string;
+        srcLang?: string;
+    }
+
+    interface VideoHTMLAttributes<T> extends MediaHTMLAttributes<T> {
+        height?: number | string;
+        playsInline?: boolean;
+        poster?: string;
+        width?: number | string;
     }
 
     // this list is "complete" in that it contains every SVG attribute
@@ -2259,11 +3200,16 @@ declare namespace React {
         type?: string;
         width?: number | string;
 
+        // Other HTML properties supported by SVG elements in browsers
+        role?: string;
+        tabIndex?: number;
+
         // SVG Specific attributes
         accentHeight?: number | string;
         accumulate?: "none" | "sum";
         additive?: "replace" | "sum";
-        alignmentBaseline?: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" | "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit";
+        alignmentBaseline?: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" |
+        "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit";
         allowReorder?: "no" | "yes";
         alphabetic?: number | string;
         amplitude?: number | string;
@@ -2438,7 +3384,7 @@ declare namespace React {
         strokeDashoffset?: string | number;
         strokeLinecap?: "butt" | "round" | "square" | "inherit";
         strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
-        strokeMiterlimit?: string;
+        strokeMiterlimit?: number | string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         surfaceScale?: number | string;
@@ -2501,137 +3447,188 @@ declare namespace React {
         zoomAndPan?: string;
     }
 
+    interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
+        allowFullScreen?: boolean;
+        allowpopups?: boolean;
+        autoFocus?: boolean;
+        autosize?: boolean;
+        blinkfeatures?: string;
+        disableblinkfeatures?: string;
+        disableguestresize?: boolean;
+        disablewebsecurity?: boolean;
+        guestinstance?: string;
+        httpreferrer?: string;
+        nodeintegration?: boolean;
+        partition?: string;
+        plugins?: boolean;
+        preload?: string;
+        src?: string;
+        useragent?: string;
+        webpreferences?: string;
+    }
+
     //
     // React.DOM
     // ----------------------------------------------------------------------
 
-    interface ReactDOM {
-        // HTML
-        a: HTMLFactory<HTMLAnchorElement>;
-        abbr: HTMLFactory<HTMLElement>;
-        address: HTMLFactory<HTMLElement>;
-        area: HTMLFactory<HTMLAreaElement>;
-        article: HTMLFactory<HTMLElement>;
-        aside: HTMLFactory<HTMLElement>;
-        audio: HTMLFactory<HTMLAudioElement>;
-        b: HTMLFactory<HTMLElement>;
-        base: HTMLFactory<HTMLBaseElement>;
-        bdi: HTMLFactory<HTMLElement>;
-        bdo: HTMLFactory<HTMLElement>;
-        big: HTMLFactory<HTMLElement>;
-        blockquote: HTMLFactory<HTMLElement>;
-        body: HTMLFactory<HTMLBodyElement>;
-        br: HTMLFactory<HTMLBRElement>;
-        button: HTMLFactory<HTMLButtonElement>;
-        canvas: HTMLFactory<HTMLCanvasElement>;
-        caption: HTMLFactory<HTMLElement>;
-        cite: HTMLFactory<HTMLElement>;
-        code: HTMLFactory<HTMLElement>;
-        col: HTMLFactory<HTMLTableColElement>;
-        colgroup: HTMLFactory<HTMLTableColElement>;
-        data: HTMLFactory<HTMLElement>;
-        datalist: HTMLFactory<HTMLDataListElement>;
-        dd: HTMLFactory<HTMLElement>;
-        del: HTMLFactory<HTMLElement>;
-        details: HTMLFactory<HTMLElement>;
-        dfn: HTMLFactory<HTMLElement>;
-        dialog: HTMLFactory<HTMLElement>;
-        div: HTMLFactory<HTMLDivElement>;
-        dl: HTMLFactory<HTMLDListElement>;
-        dt: HTMLFactory<HTMLElement>;
-        em: HTMLFactory<HTMLElement>;
-        embed: HTMLFactory<HTMLEmbedElement>;
-        fieldset: HTMLFactory<HTMLFieldSetElement>;
-        figcaption: HTMLFactory<HTMLElement>;
-        figure: HTMLFactory<HTMLElement>;
-        footer: HTMLFactory<HTMLElement>;
-        form: HTMLFactory<HTMLFormElement>;
-        h1: HTMLFactory<HTMLHeadingElement>;
-        h2: HTMLFactory<HTMLHeadingElement>;
-        h3: HTMLFactory<HTMLHeadingElement>;
-        h4: HTMLFactory<HTMLHeadingElement>;
-        h5: HTMLFactory<HTMLHeadingElement>;
-        h6: HTMLFactory<HTMLHeadingElement>;
-        head: HTMLFactory<HTMLHeadElement>;
-        header: HTMLFactory<HTMLElement>;
-        hgroup: HTMLFactory<HTMLElement>;
-        hr: HTMLFactory<HTMLHRElement>;
-        html: HTMLFactory<HTMLHtmlElement>;
-        i: HTMLFactory<HTMLElement>;
-        iframe: HTMLFactory<HTMLIFrameElement>;
-        img: HTMLFactory<HTMLImageElement>;
-        input: ChangeTargetHTMLFactory<HTMLInputElement>;
-        ins: HTMLFactory<HTMLModElement>;
-        kbd: HTMLFactory<HTMLElement>;
-        keygen: HTMLFactory<HTMLElement>;
-        label: HTMLFactory<HTMLLabelElement>;
-        legend: HTMLFactory<HTMLLegendElement>;
-        li: HTMLFactory<HTMLLIElement>;
-        link: HTMLFactory<HTMLLinkElement>;
-        main: HTMLFactory<HTMLElement>;
-        map: HTMLFactory<HTMLMapElement>;
-        mark: HTMLFactory<HTMLElement>;
-        menu: HTMLFactory<HTMLElement>;
-        menuitem: HTMLFactory<HTMLElement>;
-        meta: HTMLFactory<HTMLMetaElement>;
-        meter: HTMLFactory<HTMLElement>;
-        nav: HTMLFactory<HTMLElement>;
-        noscript: HTMLFactory<HTMLElement>;
-        object: HTMLFactory<HTMLObjectElement>;
-        ol: HTMLFactory<HTMLOListElement>;
-        optgroup: HTMLFactory<HTMLOptGroupElement>;
-        option: HTMLFactory<HTMLOptionElement>;
-        output: HTMLFactory<HTMLElement>;
-        p: HTMLFactory<HTMLParagraphElement>;
-        param: HTMLFactory<HTMLParamElement>;
-        picture: HTMLFactory<HTMLElement>;
-        pre: HTMLFactory<HTMLPreElement>;
-        progress: HTMLFactory<HTMLProgressElement>;
-        q: HTMLFactory<HTMLQuoteElement>;
-        rp: HTMLFactory<HTMLElement>;
-        rt: HTMLFactory<HTMLElement>;
-        ruby: HTMLFactory<HTMLElement>;
-        s: HTMLFactory<HTMLElement>;
-        samp: HTMLFactory<HTMLElement>;
-        script: HTMLFactory<HTMLElement>;
-        section: HTMLFactory<HTMLElement>;
-        select: ChangeTargetHTMLFactory<HTMLSelectElement>;
-        small: HTMLFactory<HTMLElement>;
-        source: HTMLFactory<HTMLSourceElement>;
-        span: HTMLFactory<HTMLSpanElement>;
-        strong: HTMLFactory<HTMLElement>;
-        style: HTMLFactory<HTMLStyleElement>;
-        sub: HTMLFactory<HTMLElement>;
-        summary: HTMLFactory<HTMLElement>;
-        sup: HTMLFactory<HTMLElement>;
-        table: HTMLFactory<HTMLTableElement>;
-        tbody: HTMLFactory<HTMLTableSectionElement>;
-        td: HTMLFactory<HTMLTableDataCellElement>;
-        textarea: ChangeTargetHTMLFactory<HTMLTextAreaElement>;
-        tfoot: HTMLFactory<HTMLTableSectionElement>;
-        th: HTMLFactory<HTMLTableHeaderCellElement>;
-        thead: HTMLFactory<HTMLTableSectionElement>;
-        time: HTMLFactory<HTMLElement>;
-        title: HTMLFactory<HTMLTitleElement>;
-        tr: HTMLFactory<HTMLTableRowElement>;
-        track: HTMLFactory<HTMLTrackElement>;
-        u: HTMLFactory<HTMLElement>;
-        ul: HTMLFactory<HTMLUListElement>;
-        "var": HTMLFactory<HTMLElement>;
-        video: HTMLFactory<HTMLVideoElement>;
-        wbr: HTMLFactory<HTMLElement>;
+    interface ReactHTML {
+        a: DetailedHTMLFactory<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+        abbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        address: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        area: DetailedHTMLFactory<AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
+        article: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        aside: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        audio: DetailedHTMLFactory<AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
+        b: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        base: DetailedHTMLFactory<BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
+        bdi: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        bdo: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        big: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        blockquote: DetailedHTMLFactory<BlockquoteHTMLAttributes<HTMLElement>, HTMLElement>;
+        body: DetailedHTMLFactory<HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
+        br: DetailedHTMLFactory<HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
+        button: DetailedHTMLFactory<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+        canvas: DetailedHTMLFactory<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
+        caption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        cite: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+        colgroup: DetailedHTMLFactory<ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+        data: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        datalist: DetailedHTMLFactory<HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
+        dd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        del: DetailedHTMLFactory<DelHTMLAttributes<HTMLElement>, HTMLElement>;
+        details: DetailedHTMLFactory<DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
+        dfn: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dialog: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        div: DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+        dl: DetailedHTMLFactory<HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
+        dt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        em: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        embed: DetailedHTMLFactory<EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
+        fieldset: DetailedHTMLFactory<FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
+        figcaption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        figure: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        footer: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        form: DetailedHTMLFactory<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
+        h1: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h2: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h3: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h4: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h5: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h6: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        head: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLHeadElement>;
+        header: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        hgroup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        hr: DetailedHTMLFactory<HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
+        html: DetailedHTMLFactory<HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
+        i: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        iframe: DetailedHTMLFactory<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
+        img: DetailedHTMLFactory<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+        input: DetailedHTMLFactory<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        ins: DetailedHTMLFactory<InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
+        kbd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        keygen: DetailedHTMLFactory<KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
+        label: DetailedHTMLFactory<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+        legend: DetailedHTMLFactory<HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
+        li: DetailedHTMLFactory<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
+        link: DetailedHTMLFactory<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
+        main: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        map: DetailedHTMLFactory<MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
+        mark: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        menu: DetailedHTMLFactory<MenuHTMLAttributes<HTMLElement>, HTMLElement>;
+        menuitem: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        meta: DetailedHTMLFactory<MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
+        meter: DetailedHTMLFactory<MeterHTMLAttributes<HTMLElement>, HTMLElement>;
+        nav: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        noscript: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        object: DetailedHTMLFactory<ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
+        ol: DetailedHTMLFactory<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
+        optgroup: DetailedHTMLFactory<OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
+        option: DetailedHTMLFactory<OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
+        output: DetailedHTMLFactory<OutputHTMLAttributes<HTMLElement>, HTMLElement>;
+        p: DetailedHTMLFactory<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
+        param: DetailedHTMLFactory<ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
+        picture: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        pre: DetailedHTMLFactory<HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
+        progress: DetailedHTMLFactory<ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
+        q: DetailedHTMLFactory<QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
+        rp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        rt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
+        section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        select: DetailedHTMLFactory<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
+        small: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        source: DetailedHTMLFactory<SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
+        span: DetailedHTMLFactory<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+        strong: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        style: DetailedHTMLFactory<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
+        sub: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        summary: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        sup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        table: DetailedHTMLFactory<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+        tbody: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        td: DetailedHTMLFactory<TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
+        textarea: DetailedHTMLFactory<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+        tfoot: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        th: DetailedHTMLFactory<ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
+        thead: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        time: DetailedHTMLFactory<TimeHTMLAttributes<HTMLElement>, HTMLElement>;
+        title: DetailedHTMLFactory<HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
+        tr: DetailedHTMLFactory<HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
+        track: DetailedHTMLFactory<TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
+        u: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        ul: DetailedHTMLFactory<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+        "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
+        wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
+    }
 
-        // SVG
-        svg: SVGFactory;
+    interface ReactSVG {
         animate: SVGFactory;
         circle: SVGFactory;
+        clipPath: SVGFactory;
         defs: SVGFactory;
+        desc: SVGFactory;
         ellipse: SVGFactory;
+        feBlend: SVGFactory;
+        feColorMatrix: SVGFactory;
+        feComponentTransfer: SVGFactory;
+        feComposite: SVGFactory;
+        feConvolveMatrix: SVGFactory;
+        feDiffuseLighting: SVGFactory;
+        feDisplacementMap: SVGFactory;
+        feDistantLight: SVGFactory;
+        feDropShadow: SVGFactory;
+        feFlood: SVGFactory;
+        feFuncA: SVGFactory;
+        feFuncB: SVGFactory;
+        feFuncG: SVGFactory;
+        feFuncR: SVGFactory;
+        feGaussianBlur: SVGFactory;
+        feImage: SVGFactory;
+        feMerge: SVGFactory;
+        feMergeNode: SVGFactory;
+        feMorphology: SVGFactory;
+        feOffset: SVGFactory;
+        fePointLight: SVGFactory;
+        feSpecularLighting: SVGFactory;
+        feSpotLight: SVGFactory;
+        feTile: SVGFactory;
+        feTurbulence: SVGFactory;
+        filter: SVGFactory;
+        foreignObject: SVGFactory;
         g: SVGFactory;
         image: SVGFactory;
         line: SVGFactory;
         linearGradient: SVGFactory;
+        marker: SVGFactory;
         mask: SVGFactory;
+        metadata: SVGFactory;
         path: SVGFactory;
         pattern: SVGFactory;
         polygon: SVGFactory;
@@ -2639,25 +3636,29 @@ declare namespace React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        svg: SVGFactory;
+        switch: SVGFactory;
         symbol: SVGFactory;
         text: SVGFactory;
+        textPath: SVGFactory;
         tspan: SVGFactory;
         use: SVGFactory;
+        view: SVGFactory;
     }
+
+    interface ReactDOM extends ReactHTML, ReactSVG { }
 
     //
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    interface Validator<T> {
-        (object: T, key: string, componentName: string, ...rest: any[]): Error | null;
-    }
+    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
 
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
     }
 
-    type ValidationMap<T> = { [K in keyof T]?: Validator<T> };
+    type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
 
     interface ReactPropTypes {
         any: Requireable<any>;
@@ -2671,7 +3672,7 @@ declare namespace React {
         element: Requireable<any>;
         instanceOf(expectedClass: {}): Requireable<any>;
         oneOf(types: any[]): Requireable<any>;
-        oneOfType(types: Validator<any>[]): Requireable<any>;
+        oneOfType(types: Array<Validator<any>>): Requireable<any>;
         arrayOf(type: Validator<any>): Requireable<any>;
         objectOf(type: Validator<any>): Requireable<any>;
         shape(type: ValidationMap<any>): Requireable<any>;
@@ -2683,7 +3684,7 @@ declare namespace React {
 
     interface ReactChildren {
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
-        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
+        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => void): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactElement<any>;
         toArray(children: ReactNode): ReactChild[];
@@ -2716,140 +3717,156 @@ declare namespace React {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
+
+    //
+    // Error Interfaces
+    // ----------------------------------------------------------------------
+    interface ErrorInfo {
+        /**
+         * Captures which component contained the exception, and its ancestors.
+         */
+        componentStack: string;
+    }
 }
 
 declare global {
     namespace JSX {
+        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
-        interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element | null;
+        interface ElementClass extends React.Component<any> {
+            render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
+        interface ElementChildrenAttribute { children: {}; }
 
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
         interface IntrinsicElements {
             // HTML
-            a: React.HTMLProps<HTMLAnchorElement>;
-            abbr: React.HTMLProps<HTMLElement>;
-            address: React.HTMLProps<HTMLElement>;
-            area: React.HTMLProps<HTMLAreaElement>;
-            article: React.HTMLProps<HTMLElement>;
-            aside: React.HTMLProps<HTMLElement>;
-            audio: React.HTMLProps<HTMLAudioElement>;
-            b: React.HTMLProps<HTMLElement>;
-            base: React.HTMLProps<HTMLBaseElement>;
-            bdi: React.HTMLProps<HTMLElement>;
-            bdo: React.HTMLProps<HTMLElement>;
-            big: React.HTMLProps<HTMLElement>;
-            blockquote: React.HTMLProps<HTMLElement>;
-            body: React.HTMLProps<HTMLBodyElement>;
-            br: React.HTMLProps<HTMLBRElement>;
-            button: React.HTMLProps<HTMLButtonElement>;
-            canvas: React.HTMLProps<HTMLCanvasElement>;
-            caption: React.HTMLProps<HTMLElement>;
-            cite: React.HTMLProps<HTMLElement>;
-            code: React.HTMLProps<HTMLElement>;
-            col: React.HTMLProps<HTMLTableColElement>;
-            colgroup: React.HTMLProps<HTMLTableColElement>;
-            data: React.HTMLProps<HTMLElement>;
-            datalist: React.HTMLProps<HTMLDataListElement>;
-            dd: React.HTMLProps<HTMLElement>;
-            del: React.HTMLProps<HTMLElement>;
-            details: React.HTMLProps<HTMLElement>;
-            dfn: React.HTMLProps<HTMLElement>;
-            dialog: React.HTMLProps<HTMLElement>;
-            div: React.HTMLProps<HTMLDivElement>;
-            dl: React.HTMLProps<HTMLDListElement>;
-            dt: React.HTMLProps<HTMLElement>;
-            em: React.HTMLProps<HTMLElement>;
-            embed: React.HTMLProps<HTMLEmbedElement>;
-            fieldset: React.HTMLProps<HTMLFieldSetElement>;
-            figcaption: React.HTMLProps<HTMLElement>;
-            figure: React.HTMLProps<HTMLElement>;
-            footer: React.HTMLProps<HTMLElement>;
-            form: React.HTMLProps<HTMLFormElement>;
-            h1: React.HTMLProps<HTMLHeadingElement>;
-            h2: React.HTMLProps<HTMLHeadingElement>;
-            h3: React.HTMLProps<HTMLHeadingElement>;
-            h4: React.HTMLProps<HTMLHeadingElement>;
-            h5: React.HTMLProps<HTMLHeadingElement>;
-            h6: React.HTMLProps<HTMLHeadingElement>;
-            head: React.HTMLProps<HTMLHeadElement>;
-            header: React.HTMLProps<HTMLElement>;
-            hgroup: React.HTMLProps<HTMLElement>;
-            hr: React.HTMLProps<HTMLHRElement>;
-            html: React.HTMLProps<HTMLHtmlElement>;
-            i: React.HTMLProps<HTMLElement>;
-            iframe: React.HTMLProps<HTMLIFrameElement>;
-            img: React.HTMLProps<HTMLImageElement>;
-            input: React.ChangeTargetHTMLProps<HTMLInputElement>;
-            ins: React.HTMLProps<HTMLModElement>;
-            kbd: React.HTMLProps<HTMLElement>;
-            keygen: React.HTMLProps<HTMLElement>;
-            label: React.HTMLProps<HTMLLabelElement>;
-            legend: React.HTMLProps<HTMLLegendElement>;
-            li: React.HTMLProps<HTMLLIElement>;
-            link: React.HTMLProps<HTMLLinkElement>;
-            main: React.HTMLProps<HTMLElement>;
-            map: React.HTMLProps<HTMLMapElement>;
-            mark: React.HTMLProps<HTMLElement>;
-            menu: React.HTMLProps<HTMLElement>;
-            menuitem: React.HTMLProps<HTMLElement>;
-            meta: React.HTMLProps<HTMLMetaElement>;
-            meter: React.HTMLProps<HTMLElement>;
-            nav: React.HTMLProps<HTMLElement>;
-            noindex: React.HTMLProps<HTMLElement>;
-            noscript: React.HTMLProps<HTMLElement>;
-            object: React.HTMLProps<HTMLObjectElement>;
-            ol: React.HTMLProps<HTMLOListElement>;
-            optgroup: React.HTMLProps<HTMLOptGroupElement>;
-            option: React.HTMLProps<HTMLOptionElement>;
-            output: React.HTMLProps<HTMLElement>;
-            p: React.HTMLProps<HTMLParagraphElement>;
-            param: React.HTMLProps<HTMLParamElement>;
-            picture: React.HTMLProps<HTMLElement>;
-            pre: React.HTMLProps<HTMLPreElement>;
-            progress: React.HTMLProps<HTMLProgressElement>;
-            q: React.HTMLProps<HTMLQuoteElement>;
-            rp: React.HTMLProps<HTMLElement>;
-            rt: React.HTMLProps<HTMLElement>;
-            ruby: React.HTMLProps<HTMLElement>;
-            s: React.HTMLProps<HTMLElement>;
-            samp: React.HTMLProps<HTMLElement>;
-            script: React.HTMLProps<HTMLElement>;
-            section: React.HTMLProps<HTMLElement>;
-            select: React.ChangeTargetHTMLProps<HTMLSelectElement>;
-            small: React.HTMLProps<HTMLElement>;
-            source: React.HTMLProps<HTMLSourceElement>;
-            span: React.HTMLProps<HTMLSpanElement>;
-            strong: React.HTMLProps<HTMLElement>;
-            style: React.HTMLProps<HTMLStyleElement>;
-            sub: React.HTMLProps<HTMLElement>;
-            summary: React.HTMLProps<HTMLElement>;
-            sup: React.HTMLProps<HTMLElement>;
-            table: React.HTMLProps<HTMLTableElement>;
-            tbody: React.HTMLProps<HTMLTableSectionElement>;
-            td: React.HTMLProps<HTMLTableDataCellElement>;
-            textarea: React.ChangeTargetHTMLProps<HTMLTextAreaElement>;
-            tfoot: React.HTMLProps<HTMLTableSectionElement>;
-            th: React.HTMLProps<HTMLTableHeaderCellElement>;
-            thead: React.HTMLProps<HTMLTableSectionElement>;
-            time: React.HTMLProps<HTMLElement>;
-            title: React.HTMLProps<HTMLTitleElement>;
-            tr: React.HTMLProps<HTMLTableRowElement>;
-            track: React.HTMLProps<HTMLTrackElement>;
-            u: React.HTMLProps<HTMLElement>;
-            ul: React.HTMLProps<HTMLUListElement>;
-            "var": React.HTMLProps<HTMLElement>;
-            video: React.HTMLProps<HTMLVideoElement>;
-            wbr: React.HTMLProps<HTMLElement>;
+            a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+            abbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            address: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            area: React.DetailedHTMLProps<React.AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
+            article: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            aside: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            audio: React.DetailedHTMLProps<React.AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
+            b: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            base: React.DetailedHTMLProps<React.BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
+            bdi: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            bdo: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            big: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            blockquote: React.DetailedHTMLProps<React.BlockquoteHTMLAttributes<HTMLElement>, HTMLElement>;
+            body: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
+            br: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
+            button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+            canvas: React.DetailedHTMLProps<React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
+            caption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            cite: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+            colgroup: React.DetailedHTMLProps<React.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+            data: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            datalist: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
+            dd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;
+            details: React.DetailedHTMLProps<React.DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
+            dfn: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dialog: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+            dl: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
+            dt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            em: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            embed: React.DetailedHTMLProps<React.EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
+            fieldset: React.DetailedHTMLProps<React.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
+            figcaption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            figure: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            footer: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            form: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
+            h1: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h2: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h3: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h4: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h5: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h6: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            head: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>;
+            header: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            hgroup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            hr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
+            html: React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
+            i: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            iframe: React.DetailedHTMLProps<React.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
+            img: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+            input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+            ins: React.DetailedHTMLProps<React.InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
+            kbd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            keygen: React.DetailedHTMLProps<React.KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
+            label: React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+            legend: React.DetailedHTMLProps<React.HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
+            li: React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
+            link: React.DetailedHTMLProps<React.LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
+            main: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            map: React.DetailedHTMLProps<React.MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
+            mark: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            menu: React.DetailedHTMLProps<React.MenuHTMLAttributes<HTMLElement>, HTMLElement>;
+            menuitem: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            meta: React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
+            meter: React.DetailedHTMLProps<React.MeterHTMLAttributes<HTMLElement>, HTMLElement>;
+            nav: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            noindex: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            noscript: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            object: React.DetailedHTMLProps<React.ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
+            ol: React.DetailedHTMLProps<React.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
+            optgroup: React.DetailedHTMLProps<React.OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
+            option: React.DetailedHTMLProps<React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
+            output: React.DetailedHTMLProps<React.OutputHTMLAttributes<HTMLElement>, HTMLElement>;
+            p: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
+            param: React.DetailedHTMLProps<React.ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
+            picture: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            pre: React.DetailedHTMLProps<React.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
+            progress: React.DetailedHTMLProps<React.ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
+            q: React.DetailedHTMLProps<React.QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
+            rp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            rt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
+            section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            select: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
+            small: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            source: React.DetailedHTMLProps<React.SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
+            span: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+            strong: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            style: React.DetailedHTMLProps<React.StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
+            sub: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            sup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            table: React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+            tbody: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+            td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
+            textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+            tfoot: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+            th: React.DetailedHTMLProps<React.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
+            thead: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+            time: React.DetailedHTMLProps<React.TimeHTMLAttributes<HTMLElement>, HTMLElement>;
+            title: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
+            tr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
+            track: React.DetailedHTMLProps<React.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
+            u: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+            "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
+            wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
 
             // SVG
             svg: React.SVGProps<SVGSVGElement>;
 
             animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+            animateTransform: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
             circle: React.SVGProps<SVGCircleElement>;
             clipPath: React.SVGProps<SVGClipPathElement>;
             defs: React.SVGProps<SVGDefsElement>;

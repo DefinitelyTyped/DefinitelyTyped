@@ -5,12 +5,14 @@
     ],
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
-            "es5"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +20,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "isolatedModules": true
+        "esModuleInterop": true
     }
 }

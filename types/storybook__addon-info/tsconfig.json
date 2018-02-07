@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@storybook/addon-info": [
+                "storybook__addon-info"
+            ],
+            "@storybook/react": [
+                "storybook__react"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "storybook__addon-info-tests.tsx"
+    ]
+}

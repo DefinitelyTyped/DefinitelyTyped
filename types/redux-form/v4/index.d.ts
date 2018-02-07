@@ -1,18 +1,19 @@
-// Type definitions for redux-form v4.0.3
+// Type definitions for redux-form 4.0
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
-import { Component, SyntheticEvent, FormEventHandler } from 'react';
 import { Dispatch, ActionCreator, Reducer } from 'redux';
 
-export const actionTypes: {[actionName:string]: string};
+export const actionTypes: {[actionName: string]: string};
 
 export type FieldValue = any;
 
-export type FormData = { [fieldName: string]: FieldValue };
+export interface FormData {
+    [fieldName: string]: FieldValue;
+}
 
 export interface FieldProp<T> {
     /**
@@ -63,14 +64,14 @@ export interface FieldProp<T> {
      * either receive the React SyntheticEvent or the current value of the
      * field.
      */
-    onBlur(eventOrValue: SyntheticEvent<T> | FieldValue): void;
+    onBlur(eventOrValue: React.SyntheticEvent<T> | FieldValue): void;
 
     /**
      * A function to call when the form field is changed. It expects to either
      * receive the React SyntheticEvent or the new value of the field.
      * @param eventOrValue
      */
-    onChange(eventOrValue: SyntheticEvent<T> | FieldValue): void;
+    onChange(eventOrValue: React.SyntheticEvent<T> | FieldValue): void;
 
     /**
      * A function to call when the form field receives a 'dragStart' event.
@@ -137,7 +138,7 @@ export interface ReduxFormProps<T> {
      * A function that may be called to initiate asynchronous validation if
      * asynchronous validation is enabled.
      */
-    asyncValidate?: Function;
+    asyncValidate?(): void;
 
     /**
      * true if the asynchronous validation function has been called but has not
@@ -189,9 +190,9 @@ export interface ReduxFormProps<T> {
      * that as if it were the error for a field called _error, and it will be
      * given as the error prop.
      */
-    handleSubmit?(event: SyntheticEvent<T>): void;
+    handleSubmit?(event: React.SyntheticEvent<T>): void;
     handleSubmit?(event: React.MouseEvent<HTMLButtonElement>): void;
-    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): FormEventHandler<T>;
+    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): React.FormEventHandler<T>;
 
     /**
      * Initializes the form data to the given values. All dirty and pristine
@@ -272,7 +273,7 @@ export interface ReduxFormProps<T> {
     values?: FormData;
 }
 
-declare class ElementClass extends Component<any, any> {
+declare class ElementClass extends React.Component<any> {
 }
 interface ClassDecorator {
     <T extends (typeof ElementClass)>(component: T): T;
@@ -335,7 +336,7 @@ export interface ReduxFormConfig {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: Object): Promise<any>;
+    asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: {}): Promise<any>;
 
     /**
      * Whether or not to automatically destroy your form's state in the Redux
@@ -434,7 +435,7 @@ export interface ReduxFormConfig {
      * { field1: <String>, field2: <String> }.
      * Defaults to (values, props) => ({}).
      */
-    validate?(values: FormData, props: { [fieldName: string]: FieldProp<any> }): Object;
+    validate?(values: FormData, props: { [fieldName: string]: FieldProp<any> }): {};
 }
 
 /**
@@ -473,5 +474,4 @@ export declare const reducer: {
      * form.
      */
     plugin(reducers: { [formName: string]: Reducer<any> }): Reducer<any>;
-}
-
+};

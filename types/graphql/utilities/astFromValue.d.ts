@@ -1,12 +1,15 @@
 import {
-    ValueNode,
-    //IntValueNode,
-    //FloatValueNode,
-    //StringValueNode,
-    //BooleanValueNode,
-    //EnumValueNode,
-    //ListValueNode,
-    //ObjectValueNode,
+  ValueNode,
+  /*
+    TODO:
+    IntValueNode,
+    FloatValueNode,
+    StringValueNode,
+    BooleanValueNode,
+    EnumValueNode,
+    ListValueNode,
+    ObjectValueNode,
+    */
 } from '../language/ast';
 import { GraphQLInputType } from '../type/definition';
 
@@ -27,7 +30,4 @@ import { GraphQLInputType } from '../type/definition';
  *
  */
 // TODO: this should set overloads according to above the table
-export function astFromValue(
-    value: any,
-    type: GraphQLInputType
-): ValueNode // Warning: there is a code in bottom: throw new TypeError
+export function astFromValue(value: any, type: GraphQLInputType): ValueNode; // Warning: there is a code in bottom: throw new TypeError

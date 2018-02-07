@@ -1,6 +1,6 @@
-import * as Knex from 'knex';
-import * as Bookshelf from 'bookshelf';
-import * as assert from 'assert';
+import Knex = require('knex');
+import Bookshelf = require('bookshelf');
+import assert = require('assert');
 import * as express from 'express';
 import * as _ from "lodash";
 
@@ -182,10 +182,10 @@ exports.down = (knex: Knex) => {
 
 {
 	class Site extends bookshelf.Model<Site> {
-	get tableName() { return 'sites'; }
-		photo(): Photo {
-		return this.morphOne(Photo, 'imageable');
-	}
+		get tableName() { return 'sites'; }
+			photo(): Photo {
+			return this.morphOne(Photo, 'imageable');
+		}
 	}
 
 	class Post extends bookshelf.Model<Post> {
@@ -481,6 +481,15 @@ new Book({'ISBN-13': '9780440180296'})
 
 /* model.fetchAll(), see http://bookshelfjs.org/#Model-instance-fetchAll */
 
+{
+	(new User).fetchAll({
+		columns: ['id', 'name'],
+		withRelated: ['posts.tags']
+	}).then((user: any) => {
+		console.log(user);
+	})
+}
+
 /* model.format(), see http://bookshelfjs.org/#Model-instance-format */
 
 /* model.get(), see http://bookshelfjs.org/#Model-instance-get */
@@ -636,6 +645,16 @@ customer.on('fetching', (model, columns) => {
 });
 
 /* model.once(), see http://bookshelfjs.org/#Model-instance-once */
+
+/* model.orderBy(), see http://bookshelfjs.org/#Model-instance-orderBy */
+{
+	(new User)
+		.orderBy('name', 'ASC')
+		.fetchAll()
+		.then((users: Bookshelf.Collection<User>) => {
+			console.log(users)
+		});
+}
 
 /* model.parse(), see http://bookshelfjs.org/#Model-instance-parse */
 
@@ -847,6 +866,10 @@ model.where('favorite_color', 'red').fetch().then(() => {
 // or
 model.where({favorite_color: 'red', shoe_size: 12}).fetch().then(() => {
 	//...
+});
+// or
+model.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+	// ...
 });
 
 /* Lodash methods, see http://bookshelfjs.org/#Model-subsection-lodash-methods */
@@ -1096,6 +1119,16 @@ ships.on('fetched', (collection, response) => {
 
 /* collection.once(), see http://bookshelfjs.org/#Collection-instance-once */
 
+/* collection.orderBy(), see http://bookshelfjs.org/#Collection-instance-orderBy */
+{
+	User.collection()
+		.orderBy('-name')
+		.fetch()
+		.then((users: Bookshelf.Collection<User>) => {
+			console.log(users);
+		})
+}
+
 /* collection.parse(), see http://bookshelfjs.org/#Collection-instance-parse */
 
 /* collection.pluck(), see http://bookshelfjs.org/#Collection-instance-pluck */
@@ -1167,6 +1200,13 @@ ships.trigger('fetched');
 /* collection.updatePivot(), see http://bookshelfjs.org/#Collection-instance-updatePivot */
 
 /* collection.where(), see http://bookshelfjs.org/#Collection-instance-where */
+
+(new Author())
+	.where('first_name', 'in', ['User', 'Resu'])
+	.fetchAll()
+	.then(() => {
+		// ...
+	})
 
 /* collection.withPivot(), see http://bookshelfjs.org/#Collection-instance-withPivot */
 

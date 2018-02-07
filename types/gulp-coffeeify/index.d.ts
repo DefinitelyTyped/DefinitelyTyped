@@ -26,15 +26,15 @@ declare namespace coffeeify {
         transforms?: Transforms;
     }
 
-    interface Aliases {
+    type Aliases = Array<{
         cwd?: string;
         base?: string;
-    }
+    }>;
 
-    interface Transforms {
+    type Transforms = Array<{
         ext?: string;
         transform?(data: string): string;
-    }
+    }>;
 }
 
 declare var coffeeify: coffeeify.Coffeeify;

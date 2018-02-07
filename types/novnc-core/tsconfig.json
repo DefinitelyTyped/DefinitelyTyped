@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "lib/display.d.ts",
+        "lib/input/devices.d.ts",
+        "lib/util/events.d.ts",
+        "lib/util/logging.d.ts",
+        "novnc-core-tests.ts"
+    ]
+}

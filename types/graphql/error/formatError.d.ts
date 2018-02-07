@@ -6,13 +6,13 @@ import { GraphQLError } from './GraphQLError';
  */
 export function formatError(error: GraphQLError): GraphQLFormattedError;
 
-export type GraphQLFormattedError = {
-    message: string,
-    locations: Array<GraphQLErrorLocation>,
-    path: Array<string | number>
-};
+export interface GraphQLFormattedError {
+  message: string;
+  locations?: GraphQLErrorLocation[];
+  path?: Array<string | number>;
+}
 
-export type GraphQLErrorLocation = {
-    line: number,
-    column: number
-};
+export interface GraphQLErrorLocation {
+  line: number;
+  column: number;
+}

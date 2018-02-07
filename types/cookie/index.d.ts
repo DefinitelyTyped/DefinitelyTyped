@@ -1,15 +1,16 @@
-// Type definitions for cookie v0.3.0
+// Type definitions for cookie 0.3
 // Project: https://github.com/jshttp/cookie
 // Definitions by: Pine Mizune <https://github.com/pine613>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface CookieSerializeOptions {
+export interface CookieSerializeOptions {
     /**
      * Specifies the value for the Domain Set-Cookie attribute. By default, no
      * domain is set, and most clients will consider the cookie to apply to only
      * the current domain.
      */
     domain?: string;
+
     /**
      * Specifies a function that will be used to encode a cookie's value. Since
      * value of a cookie has a limited character set (and must be a simple
@@ -20,7 +21,8 @@ interface CookieSerializeOptions {
      * encode a JavaScript string into UTF-8 byte sequences and then URL-encode
      * any that fall outside of the cookie range.
      */
-    encode?: (val: string) => string;
+    encode?(val: string): string;
+
     /**
      * Specifies the `Date` object to be the value for the `Expires`
      * `Set-Cookie` attribute. By default, no expiration is set, and most
@@ -83,7 +85,7 @@ interface CookieSerializeOptions {
     secure?: boolean;
 }
 
-interface CookieParseOptions {
+export interface CookieParseOptions {
     /**
      * Specifies a function that will be used to decode a cookie's value. Since
      * the value of a cookie has a limited character set (and must be a simple
@@ -96,7 +98,7 @@ interface CookieParseOptions {
      * *Note* if an error is thrown from this function, the original, non-decoded
      * cookie value will be returned as the cookie's value.
      */
-    decode?: (val: string) => string;
+    decode?(val: string): string;
 }
 
 /**

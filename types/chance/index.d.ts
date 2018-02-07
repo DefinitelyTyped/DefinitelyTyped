@@ -1,28 +1,29 @@
-// Type definitions for Chance 0.7.3
+// Type definitions for Chance 0.7.4
 // Project: http://chancejs.com
-// Definitions by: Chris Bowdon <https://github.com/cbowdon/>
+// Definitions by: Chris Bowdon <https://github.com/cbowdon>
+//                 Brice BERNARD <https://github.com/brikou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chance {
+    type Seed = number | string;
 
     interface Seeded {
-        seed: number;
+        seed: Seed;
     }
 
     type SeededChance = Chance & Seeded;
 
     interface ChanceStatic {
-        (): Chance
-        (seed: number): SeededChance
-        (generator: () => any): Chance
+        (): Chance;
+        (seed: Seed): SeededChance;
+        (generator: () => any): Chance;
 
-        new(): Chance;
-        new(seed: number): SeededChance;
-        new(generator: () => any): Chance;
+        new (): Chance;
+        new (seed: Seed): SeededChance;
+        new (generator: () => any): Chance;
     }
 
     interface Chance {
-
         // Basics
         bool(opts?: Options): boolean;
         character(opts?: Options): string;
@@ -41,7 +42,7 @@ declare namespace Chance {
         age(opts?: Options): number;
         gender(): string;
         birthday(): Date;
-        birthday(opts?: Options): Date|string;
+        birthday(opts?: Options): Date | string;
         cpf(): string;
         first(opts?: Options): string;
         last(opts?: Options): string;
@@ -94,7 +95,7 @@ declare namespace Chance {
         // Time
         ampm(): string;
         date(): Date;
-        date(opts: DateOptions): Date|string;
+        date(opts: DateOptions): Date | string;
         hammertime(): number;
         hour(opts?: Options): number;
         millisecond(): number;
@@ -108,12 +109,12 @@ declare namespace Chance {
         // Finance
         cc(opts?: Options): string;
         cc_type(): string;
-        cc_type(opts: Options): string|CreditCardType;
+        cc_type(opts: Options): string | CreditCardType;
         currency(): Currency;
-        currency_pair(): [ Currency, Currency ];
+        currency_pair(): [Currency, Currency];
         dollar(opts?: Options): string;
         exp(): string;
-        exp(opts: Options): string|CreditCardExpiration;
+        exp(opts: Options): string | CreditCardExpiration;
         exp_month(opts?: Options): string;
         exp_year(opts?: Options): string;
 
@@ -123,11 +124,11 @@ declare namespace Chance {
         pad(num: number, width: number, padChar?: string): string;
         /**
          * @deprecated Use pickone
-        */
+         */
         pick<T>(arr: T[]): T;
         pickone<T>(arr: T[]): T;
         /**
-         * @deprecated Use pickset 
+         * @deprecated Use pickset
          */
         pick<T>(arr: T[], count: number): T[];
         pickset<T>(arr: T[], count?: number): T[];
@@ -143,20 +144,20 @@ declare namespace Chance {
         d20(): number;
         d30(): number;
         d100(): number;
-        guid(): string;
+        guid(options?: { version: 4 | 5 }): string;
         hash(opts?: Options): string;
         n<T>(generator: () => T, count: number, opts?: Options): T[];
         normal(opts?: Options): number;
         radio(opts?: Options): string;
         rpg(dice: string): number[];
-        rpg(dice: string, opts?: Options): number[]|number;
+        rpg(dice: string, opts?: Options): number[] | number;
         tv(opts?: Options): string;
         unique<T>(generator: () => T, count: number, opts?: Options): T[];
         weighted<T>(values: T[], weights: number[]): T;
 
         // "Hidden"
         cc_types(): CreditCardType[];
-        mersenne_twister(seed?: number): any; // API return type not defined in docs
+        mersenne_twister(seed?: Seed): any; // API return type not defined in docs
         months(): Month[];
         name_prefixes(): Name[];
         provinces(): Name[];
@@ -167,7 +168,9 @@ declare namespace Chance {
 
     // A more rigorous approach might be to produce
     // the correct options interfaces for each method
-    interface Options { [id: string]: any; }
+    interface Options {
+        [id: string]: any;
+    }
 
     interface DateOptions {
         string?: boolean;
@@ -200,19 +203,21 @@ declare namespace Chance {
         year: string;
     }
 
-    interface MixinDescriptor { [id: string]: () => any; }
+    interface MixinDescriptor {
+        [id: string]: () => any;
+    }
 
     interface Setter {
-        (key: 'firstNames', values: string[]): any;
-        (key: 'lastNames', values: string[]): any;
-        (key: 'provinces', values: string[]): any;
-        (key: 'us_states_and_dc', values: string[]): any;
-        (key: 'territories', values: string[]): any;
-        (key: 'armed_forces', values: string[]): any;
-        (key: 'street_suffixes', values: string[]): any;
-        (key: 'months', values: string[]): any;
-        (key: 'cc_types', values: string[]): any;
-        (key: 'currency_types', values: string[]): any;
+        (key: "firstNames", values: string[]): any;
+        (key: "lastNames", values: string[]): any;
+        (key: "provinces", values: string[]): any;
+        (key: "us_states_and_dc", values: string[]): any;
+        (key: "territories", values: string[]): any;
+        (key: "armed_forces", values: string[]): any;
+        (key: "street_suffixes", values: string[]): any;
+        (key: "months", values: string[]): any;
+        (key: "cc_types", values: string[]): any;
+        (key: "currency_types", values: string[]): any;
         <T>(key: string, values: T[]): any;
     }
 
@@ -227,7 +232,7 @@ declare var chance: Chance.Chance;
 declare var Chance: Chance.ChanceStatic;
 
 // import Chance = require('chance');
-declare module 'chance' {
+declare module "chance" {
     interface ExportedChance extends Chance.ChanceStatic {
         Chance: ExportedChance;
     }

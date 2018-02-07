@@ -1,5 +1,5 @@
 import * as inputrules from 'prosemirror-inputrules';
-import { NodeType } from 'prosemirror-model'
+import { NodeType } from 'prosemirror-model';
 
-let nodeType = new NodeType();
-let rule = inputrules.blockQuoteRule(nodeType);
+const nodeType = new NodeType();
+const rule: inputrules.InputRule = inputrules.wrappingInputRule(/^\$/, nodeType);

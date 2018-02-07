@@ -7,7 +7,7 @@ import { Plugin, Transformer as PostcssTransformer } from 'postcss';
 
 declare namespace autoprefixer {
     interface Options {
-        browsers?: string[];
+        browsers?: string[] | string;
         env?: string;
         cascade?: boolean;
         add?: boolean;

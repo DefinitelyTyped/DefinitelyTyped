@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,11 +16,13 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "lib/RootCloseWrapper.d.ts",
-        "react-overlays-tests.tsx"
+        "test/react-overlays-tests.tsx",
+        "test/react-overlays-tests-individual.tsx",
+        "test/react-overlays-tests-transition.tsx"
     ]
 }

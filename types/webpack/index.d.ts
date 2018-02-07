@@ -1,15 +1,19 @@
-// Type definitions for webpack 2.2
+// Type definitions for webpack 3.8
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
-//                 Matt Lewis <https://github.com/mattlewis92>
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
+//                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Jonathan Creamer <https://github.com/jcreamer898>
+//                 Ahmed T. Ali <https://github.com/ahmed-taj>
+//                 Alan Agius <https://github.com/alan-agius4>
+//                 Spencer Elliott <https://github.com/elliottsj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-import * as Tapable from 'tapable';
+import Tapable = require('tapable');
 import * as UglifyJS from 'uglify-js';
 
 export = webpack;
@@ -28,16 +32,16 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
+        /** Name of the configuration. Used when loading multiple configurations. */
+        name?: string;
+        /**
+         * The base directory (absolute path!) for resolving the `entry` option.
+         * If `output.pathinfo` is set, the included pathinfo is shortened to this directory.
+         */
         context?: string;
-        entry?: string | string[] | Entry;
+        entry?: string | string[] | Entry | EntryFunc;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
-        // tslint:disable-next-line:max-line-length
-        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
-            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
-            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
-            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
-            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
-            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        devtool?: Options.Devtool;
         /** Options affecting the output. */
         output?: Output;
         /** Options affecting the normal modules (NormalModuleFactory) */
@@ -59,9 +63,14 @@ declare namespace webpack {
          *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
          *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
          *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
+         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
+         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
+         *   <li>"electron-main" Compile for Electron for main process.</li>
+         *   <li>"atom" Alias for electron-main</li>
+         *   <li>"electron" Alias for electron-main</li>
          * <ul>
          */
-        target?: string;
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -91,10 +100,26 @@ declare namespace webpack {
         stats?: Options.Stats;
         /** Performance options */
         performance?: Options.Performance;
+        /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
+        parallelism?: number;
     }
 
     interface Entry {
         [name: string]: string | string[];
+    }
+
+    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
+
+    interface DevtoolModuleFilenameTemplateInfo {
+        identifier: string;
+        shortIdentifier: string;
+        resource: any;
+        resourcePath: string;
+        absoluteResourcePath: string;
+        allLoaders: any[];
+        query: string;
+        moduleId: string;
+        hash: string;
     }
 
     interface Output {
@@ -107,9 +132,9 @@ declare namespace webpack {
         /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
         sourceMapFilename?: string;
         /** Filename template string of function for the sources array in a generated SourceMap. */
-        devtoolModuleFilenameTemplate?: string;
+        devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
-        devtoolFallbackModuleFilenameTemplate?: string;
+        devtoolFallbackModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /**
          * Enable line to line mapped mode for all/specified modules.
          * Line to line mapped mode uses a simple SourceMap where each line of the generated source is mapped to the same line of the original source.
@@ -130,7 +155,7 @@ declare namespace webpack {
         /** Include comments with information about the modules. */
         pathinfo?: boolean;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string;
+        library?: string | string[];
         /**
          * Which format to export the library:
          * <ul>
@@ -140,9 +165,14 @@ declare namespace webpack {
          *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
          *   <li>"amd" - Export to AMD (optionally named)</li>
          *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
+         *   <li>"window" - Assign to widnow</li>
+         *   <li>"assign" - Assign to a global variable</li>
+         *   <li>"jsonp" - Generate Webpack JSONP module<li>
          * </ul>
          */
-        libraryTarget?: string;
+        libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
+        /** Configure which module or modules will be exposed via the `libraryTarget` */
+        libraryExport?: string | string[];
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
         /** Prefixes every line of the source in the bundle with this string. */
@@ -157,7 +187,7 @@ declare namespace webpack {
         /** A array of applied post loaders. */
         postLoaders?: Rule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
-        noParse?: RegExp | RegExp[];
+        noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
         unknownContextRecursive?: boolean;
         unknownContextRegExp?: RegExp;
@@ -169,6 +199,7 @@ declare namespace webpack {
         wrappedContextRegExp?: RegExp;
         wrappedContextRecursive?: boolean;
         wrappedContextCritical?: boolean;
+        strictExportPresence?: boolean;
     }
     interface OldModule extends BaseModule {
         /** An array of automatically applied loaders. */
@@ -178,9 +209,10 @@ declare namespace webpack {
         /** An array of rules applied for modules. */
         rules: Rule[];
     }
+
     type Module = OldModule | NewModule;
 
-    interface NewResolve {
+    interface Resolve {
         /**
          * A list of directories to resolve modules from.
          *
@@ -277,71 +309,7 @@ declare namespace webpack {
         symlinks?: boolean;
     }
 
-    interface OldResolve {
-        /** Replace modules by other modules or paths. */
-        alias?: { [key: string]: string; };
-        /**
-         * The directory (absolute path) that contains your modules.
-         * May also be an array of directories.
-         * This setting should be used to add individual directories to the search path.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        root?: string | string[];
-        /**
-         * An array of directory names to be resolved to the current directory as well as its ancestors, and searched for modules.
-         * This functions similarly to how node finds “node_modules” directories.
-         * For example, if the value is ["mydir"], webpack will look in “./mydir”, “../mydir”, “../../mydir”, etc.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        modulesDirectories?: string[];
-        /**
-         * A directory (or array of directories absolute paths),
-         * in which webpack should look for modules that weren’t found in resolve.root or resolve.modulesDirectories.
-         *
-         * @deprecated Replaced by `modules` in webpack 2.
-         */
-        fallback?: string | string[];
-        /**
-         * An array of extensions that should be used to resolve modules.
-         * For example, in order to discover CoffeeScript files, your array should contain the string ".coffee".
-         */
-        extensions?: string[];
-        /**
-         * Check these fields in the package.json for suitable files.
-         *
-         * @deprecated Replaced by `mainFields` in webpack 2.
-         */
-        packageMains?: Array<string | string[]>;
-
-        /**
-         * Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec
-         *
-         * @deprecated Replaced by `aliasFields` in webpack 2.
-         */
-        packageAlias?: Array<string | string[]>;
-
-        /**
-         * Enable aggressive but unsafe caching for the resolving of a part of your files.
-         * Changes to cached paths may cause failure (in rare cases). An array of RegExps, only a RegExp or true (all files) is expected.
-         * If the resolved path matches, it’ll be cached.
-         *
-         * @deprecated Split into `unsafeCache` and `cachePredicate` in webpack 2.
-         */
-        unsafeCache?: RegExp | RegExp[] | boolean;
-    }
-
-    type Resolve = OldResolve | NewResolve;
-
-    interface OldResolveLoader extends OldResolve {
-        /** It describes alternatives for the module name that are tried.
-         * @deprecated Replaced by `moduleExtensions` in webpack 2.
-         */
-        moduleTemplates?: string[];
-    }
-
-    interface NewResolveLoader extends NewResolve {
+    interface ResolveLoader extends Resolve {
         /**
          * List of strings to append to a loader's name when trying to resolve it.
          */
@@ -349,8 +317,6 @@ declare namespace webpack {
 
         enforceModuleExtension?: boolean;
     }
-
-    type ResolveLoader = OldResolveLoader | NewResolveLoader;
 
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
@@ -395,7 +361,7 @@ declare namespace webpack {
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
     // tslint:disable-next-line:no-empty-interface
-    interface ConditionArray extends Array<Condition> {}
+    interface ConditionArray extends Array<Condition> { }
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
     interface OldLoader {
@@ -497,6 +463,14 @@ declare namespace webpack {
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
     namespace Options {
+        // tslint:disable-next-line:max-line-length
+        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
+            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
+            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
+            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
+            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
+            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
             assetFilter?(assetFilename: string): boolean;
@@ -504,7 +478,7 @@ declare namespace webpack {
              * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are
              * found. This property is set to "warning" by default.
              */
-            hints?: 'warning' | 'error' | boolean;
+            hints?: 'warning' | 'error' | false;
             /**
              * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint
              * based on individual asset size. The default value is 250000 (bytes).
@@ -542,7 +516,7 @@ declare namespace webpack {
              * It is possible to exclude a huge folder like node_modules.
              * It is also possible to use anymatch patterns.
              */
-            ignored?: string | RegExp;
+            ignored?: string | string[] | RegExp;
             /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
             poll?: boolean | number;
         }
@@ -580,7 +554,8 @@ declare namespace webpack {
         }
     }
 
-    abstract class MultiCompiler implements ICompiler {
+    abstract class MultiCompiler extends Tapable implements ICompiler {
+        compilers: ICompiler[];
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
@@ -630,6 +605,8 @@ declare namespace webpack {
             assetsSort?: string;
             /** Add information about cached (not built) modules */
             cached?: boolean;
+            /** Show cached assets (setting this to `false` only shows emitted files) */
+            cachedAssets?: boolean;
             /** Add children information */
             children?: boolean;
             /** Add built modules information to chunk information */
@@ -642,16 +619,32 @@ declare namespace webpack {
             chunksSort?: string;
             /** Context directory for request shortening */
             context?: string;
-            /** Add details to errors (like resolving log) */
-            errorDetails?: boolean;
+            /** Display the distance from the entry point for each module */
+            depth?: boolean;
+            /** Display the entry points with the corresponding bundles */
+            entrypoints?: boolean;
+            /** Add --env information */
+            env?: boolean;
             /** Add errors */
             errors?: boolean;
+            /** Add details to errors (like resolving log) */
+            errorDetails?: boolean;
+            /** Exclude assets from being displayed in stats */
+            excludeAssets?: StatsExcludeFilter;
+            /** Exclude modules from being displayed in stats */
+            excludeModules?: StatsExcludeFilter;
+            /** See excludeModules */
+            exclude?: StatsExcludeFilter;
             /** Add the hash of the compilation */
             hash?: boolean;
+            /** Set the maximum number of modules to be shown */
+            maxModules?: number;
             /** Add built modules information */
             modules?: boolean;
             /** Sort the modules by a field */
             modulesSort?: string;
+            /** Show dependencies and origin of warnings/errors */
+            moduleTrace?: boolean;
             /** Add public path information */
             publicPath?: boolean;
             /** Add information about the reasons why modules are included */
@@ -664,9 +657,19 @@ declare namespace webpack {
             version?: boolean;
             /** Add warnings */
             warnings?: boolean;
+            /** Show which exports of a module are used */
+            usedExports?: boolean;
+            /** Filter warnings to be shown */
+            warningsFilter?: string | RegExp | Array<string | RegExp> | ((warning: string) => boolean);
+            /** Show performance hint when file size exceeds `performance.maxAssetSize` */
+            performance?: boolean;
+            /** Show the exports of the modules */
+            providedExports?: boolean;
         }
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
+
+        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | Array<(assetName: string) => boolean>;
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
@@ -702,7 +705,7 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: {[key: string]: any});
+        constructor(definitions: { [key: string]: any });
     }
 
     class DllPlugin extends Plugin {
@@ -753,7 +756,7 @@ declare namespace webpack {
             /**
              * An object containing `content` and `name`.
              */
-            manifest: { content: string, name: string };
+            manifest: { content: string, name: string } | string;
 
             /**
              * The name where the DLL is exposed.
@@ -803,6 +806,14 @@ declare namespace webpack {
         constructor();
     }
 
+    class HashedModuleIdsPlugin extends Plugin {
+        constructor(options?: {
+            hashFunction?: string,
+            hashDigest?: string,
+            hashDigestLength?: number
+        });
+    }
+
     class HotModuleReplacementPlugin extends Plugin {
         constructor(options?: any);
     }
@@ -817,6 +828,10 @@ declare namespace webpack {
 
     class NamedModulesPlugin extends Plugin {
         constructor();
+    }
+
+    class NamedChunksPlugin extends Plugin {
+        constructor(nameResolver?: (chunk: any) => string | null);
     }
 
     class NoEmitOnErrorsPlugin extends Plugin {
@@ -839,15 +854,15 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string) => void);
+        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
     }
 
     class EnvironmentPlugin extends Plugin {
-        constructor(envs: string[] | {[key: string]: any});
+        constructor(envs: string[] | { [key: string]: any });
     }
 
     class ProvidePlugin extends Plugin {
-        constructor(definitions: {[key: string]: any});
+        constructor(definitions: { [key: string]: any });
     }
 
     class SourceMapDevToolPlugin extends Plugin {
@@ -877,10 +892,11 @@ declare namespace webpack {
     }
 
     class WatchIgnorePlugin extends Plugin {
-        constructor(paths: RegExp[]);
+        constructor(paths: Array<string | RegExp>);
     }
 
     namespace optimize {
+        class ModuleConcatenationPlugin extends Plugin { }
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
         }
@@ -907,7 +923,59 @@ declare namespace webpack {
         }
 
         class CommonsChunkPlugin extends Plugin {
-            constructor(options?: any);
+            constructor(options?: CommonsChunkPlugin.Options);
+        }
+
+        namespace CommonsChunkPlugin {
+            type MinChunksFn = (module: any, count: number) => boolean;
+
+            interface Options {
+                /**
+                 * The chunk name of the commons chunk. An existing chunk can be selected by passing a name of an existing chunk.
+                 * If an array of strings is passed this is equal to invoking the plugin multiple times for each chunk name.
+                 * If omitted and `options.async` or `options.children` is set all chunks are used,
+                 * otherwise `options.filename` is used as chunk name.
+                 */
+                name?: string;
+                names?: string[];
+
+                /**
+                 * The filename template for the commons chunk. Can contain the same placeholders as `output.filename`.
+                 * If omitted the original filename is not modified (usually `output.filename` or `output.chunkFilename`).
+                 */
+                filename?: string;
+
+                /**
+                 * The minimum number of chunks which need to contain a module before it's moved into the commons chunk.
+                 * The number must be greater than or equal 2 and lower than or equal to the number of chunks.
+                 * Passing `Infinity` just creates the commons chunk, but moves no modules into it.
+                 * By providing a `function` you can add custom logic. (Defaults to the number of chunks)
+                 */
+                minChunks?: number | MinChunksFn;
+
+                /**
+                 * Select the source chunks by chunk names. The chunk must be a child of the commons chunk.
+                 * If omitted all entry chunks are selected.
+                 */
+                chunks?: string[];
+
+                /**
+                 * If `true` all children of the commons chunk are selected
+                 */
+                children?: boolean;
+
+                /**
+                 * If `true` a new async commons chunk is created as child of `options.name` and sibling of `options.chunks`.
+                 * It is loaded in parallel with `options.chunks`. It is possible to change the name of the output file
+                 * by providing the desired string instead of `true`.
+                 */
+                async?: boolean | string;
+
+                /**
+                 * Minimum size of all common module before a commons chunk is created.
+                 */
+                minSize?: number;
+            }
         }
 
         /** @deprecated */
@@ -939,6 +1007,8 @@ declare namespace webpack {
                 comments?: boolean | RegExp | CommentFilter;
                 exclude?: Condition | Condition[];
                 include?: Condition | Condition[];
+                /** Parallelization can speedup your build significantly and is therefore highly recommended. */
+                parallel?: boolean | { cache: boolean, workers: boolean | number };
                 sourceMap?: boolean;
                 test?: Condition | Condition[];
             }
@@ -958,9 +1028,6 @@ declare namespace webpack {
              * They only care for metadata. The pitch method on the loaders is called from left to right before the loaders are called (from right to left).
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
-             * @param remainingRequest
-             * @param precedingRequest
-             * @param data
              */
             pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
 
@@ -1065,38 +1132,29 @@ declare namespace webpack {
 
             /**
              * Emit a warning.
-             * @param message
              */
-            emitWarning(message: string): void;
+            emitWarning(message: string | Error): void;
 
             /**
              * Emit a error.
-             * @param message
              */
-            emitError(message: string): void;
+            emitError(message: string | Error): void;
 
             /**
              * Execute some code fragment like a module.
              *
              * Don't use require(this.resourcePath), use this function to make loaders chainable!
              *
-             * @param code
-             * @param filename
              */
             exec(code: string, filename: string): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
-             * @param callback
              */
             resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
 
             /**
              * Resolve a request like a require expression.
-             * @param context
-             * @param request
              */
             resolveSync(context: string, request: string): string;
 
@@ -1104,7 +1162,6 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             addDependency(file: string): void;
 
@@ -1112,13 +1169,11 @@ declare namespace webpack {
              * Adds a file as dependency of the loader result in order to make them watchable.
              * For example, html-loader uses this technique as it finds src and src-set attributes.
              * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
-             * @param file
              */
             dependency(file: string): void;
 
             /**
              * Add a directory as dependency of the loader result.
-             * @param directory
              */
             addContextDependency(directory: string): void;
 
@@ -1163,7 +1218,7 @@ declare namespace webpack {
              * Target of compilation. Passed from configuration options.
              * Example values: "web", "node"
              */
-            target: 'web' | 'node' | string;
+            target: 'web' | 'webworker' | 'async-node' | 'node' | 'electron-main' | 'electron-renderer' | 'node-webkit' | string;
 
             /**
              * This boolean is set to true when this is compiled by webpack.
@@ -1176,11 +1231,8 @@ declare namespace webpack {
 
             /**
              * Emit a file. This is webpack-specific.
-             * @param name
-             * @param content
-             * @param sourceMap
              */
-            emitFile(name: string, content: Buffer|string, sourceMap: any): void;
+            emitFile(name: string, content: Buffer | string, sourceMap: any): void;
 
             /**
              * Access to the compilation's inputFileSystem property.

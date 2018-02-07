@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import events2 = require("events");
@@ -24,9 +24,10 @@ import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
 import * as repl from "repl";
+import * as dns from "dns";
 
 // Specifically test buffer module regression.
-import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -59,6 +60,8 @@ namespace assert_tests {
         }, undefined, "What the...*crunch*");
 
         assert.equal(3, "3", "uses == comparator");
+
+        assert.fail("actual", "expected", "message");
 
         assert.fail(1, 2, undefined, '>');
 
@@ -167,19 +170,51 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
         var content: string;
         var buffer: Buffer;
+        var stringOrBuffer: string | Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
+        stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
+
         buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', null);
+        buffer = fs.readFileSync('testfile', { encoding: null });
+        stringOrBuffer = fs.readFileSync('testfile', nullEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: nullEncoding });
+
         buffer = fs.readFileSync('testfile', { flag: 'r' });
+
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', null, (err, data) => buffer = data);
+        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
+        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
 
@@ -295,6 +330,20 @@ function bufferTests() {
         const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
+    }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
@@ -406,6 +455,8 @@ namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        url.format('http://www.example.com/xyz');
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
@@ -429,7 +480,29 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], false, null);
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: 5,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: 10,
+          breakLength: 20
+        });
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: null,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: null,
+          breakLength: Infinity
+        });
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
@@ -539,6 +612,32 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true
     })
+}
+
+// Subclassing stream classes
+{
+    class SubclassedReadable extends stream.Readable {};
+
+    let subclassedReadable: SubclassedReadable = new SubclassedReadable();
+    subclassedReadable = subclassedReadable.pause();
+    subclassedReadable = subclassedReadable.resume();
+
+    class SubclassedTransform extends stream.Transform {};
+
+    let subclassedTransform: SubclassedTransform = new SubclassedTransform();
+    subclassedTransform = subclassedTransform.pause();
+    subclassedTransform = subclassedTransform.resume();
+
+    class SubclassedDuplex extends stream.Duplex {};
+
+    let subclassedDuplex: SubclassedDuplex = new SubclassedDuplex();
+    subclassedDuplex = subclassedDuplex.pause();
+    subclassedDuplex = subclassedDuplex.resume();
+
+    // assignability
+    let readable: stream.Readable = subclassedDuplex;
+    readable = subclassedTransform;
+    let duplex: stream.Duplex = subclassedTransform;
 }
 
 ////////////////////////////////////////////////////////
@@ -835,16 +934,39 @@ namespace http_tests {
     }
 
     {
+        http.request('http://www.example.com/xyz');
+    }
+
+    {
         // Make sure .listen() and .close() retuern a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
+    }
+
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
     }
 }
 
@@ -872,6 +994,8 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
 }
 
 ////////////////////////////////////////////////////
@@ -1158,6 +1282,47 @@ namespace path_tests {
     });
     // returns
     //    '/home/user/dir/file.txt'
+
+
+    path.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        root: "/",
+        dir: "/home/user/dir",
+        base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.win32.format({
+        root: "C:\\",
+        dir: "C:\\home\\user\\dir",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
+
+    path.win32.format({
+        dir: "C:\\home\\user\\dir",
+        base: "file.txt"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
 }
 
 ////////////////////////////////////////////////////
@@ -1719,6 +1884,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -1791,7 +1976,12 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket;
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
 
         let bool: boolean;
         let buffer: Buffer;
@@ -1941,6 +2131,7 @@ namespace net_tests {
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
 
+        bool = _socket.connecting;
         bool = _socket.destroyed;
         _socket.destroy();
     }
@@ -2037,6 +2228,80 @@ namespace repl_tests {
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
     }
+}
+
+///////////////////////////////////////////////////
+/// DNS Tests : https://nodejs.org/api/dns.html ///
+///////////////////////////////////////////////////
+
+namespace dns_tests {
+    dns.lookup("nodejs.org", (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 4, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 6, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", {}, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup(
+        "nodejs.org",
+        {
+            family: 4,
+            hints: dns.ADDRCONFIG | dns.V4MAPPED,
+            all: false
+        },
+        (err, address, family) => {
+            const _err: NodeJS.ErrnoException = err;
+            const _address: string = address;
+            const _family: number = family;
+        }
+    );
+    dns.lookup("nodejs.org", {all: true}, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
+
+    function trueOrFalse(): boolean {
+        return Math.random() > 0.5 ? true : false;
+    }
+    dns.lookup("nodejs.org", {all: trueOrFalse()}, (err, addresses, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _addresses: string | dns.LookupAddress[] = addresses;
+        const _family: number | undefined = family;
+    });
+
+    dns.resolve("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "A", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+        const _addresses: dns.MxRecord[] = addresses;
+    });
+
+    dns.resolve4("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+
+    dns.resolve6("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
 }
 
 /*****************************************************************************
@@ -2203,3 +2468,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
+}

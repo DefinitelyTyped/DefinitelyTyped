@@ -1,8 +1,12 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface DropdownMenuProps {
   tag?: React.ReactType;
   right?: boolean;
-  className?: boolean;
+  className?: string;
+  cssModule?: CSSModule;
+  flip?: boolean;
 }
 
-declare var DropdownMenu: React.StatelessComponent<Props>;
+declare const DropdownMenu: React.StatelessComponent<DropdownMenuProps>;
 export default DropdownMenu;

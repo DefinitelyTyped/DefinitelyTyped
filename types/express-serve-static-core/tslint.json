@@ -1,0 +1,11 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "ban-types": false,
+        "comment-format": false,
+        "interface-name": false,
+        "no-empty-interface": false,
+        "unified-signatures": false
+    }
+  }

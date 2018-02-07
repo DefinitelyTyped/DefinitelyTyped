@@ -1,41 +1,47 @@
-// Type definitions for auto-launch 0.1.18
+// Type definitions for auto-launch 5.0
 // Project: https://github.com/Teamwork/node-auto-launch
-// Definitions by: rhysd <https://github.com/rhysd>
+// Definitions by: rhysd <https://github.com/rhysd>, Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface AutoLaunchOption {
-	/**
-	 * Application name.
-	 */
-	name: string;
-	/**
-	 * Hidden on launch or not.  Default is false.
-	 */
-	isHidden?: boolean;
-	/**
-	 * Path to application directory.
-	 * Default is process.execPath.
-	 */
-	path?: string;
+interface AutoLaunchOptions {
+  /**
+   * Application name.
+   */
+  name: string;
+  /**
+   * Path to application. Default is `process.execPath`.
+   */
+  path?: string;
+  /**
+   * Hidden on launch. Default is `false`.
+   */
+  isHidden?: boolean;
+  /**
+   * For Mac-only options.
+   */
+  mac?: {
+    /**
+     * By default, AppleScript is used to add a Login Item. If this is `true`, Launch Agent will be used to auto-launch your app. Defaults is `false`.
+     */
+    useLaunchAgent?: boolean;
+  };
 }
 
 declare class AutoLaunch {
-	constructor(opts: AutoLaunchOption);
-	/**
-	 * Enables to launch at start up
-	 */
-	enable(callback?: (err: Error) => void): void;
-	/**
-	 * Disables to launch at start up
-	 */
-	disable(callback?: (err: Error) => void): void;
-	/**
-	 * Returns if auto start up is enabled
-	 */
-	isEnabled(callback: (enabled: boolean) => void): void;
+  constructor(options: AutoLaunchOptions);
+
+  /**
+   * Enables auto-launch at start up.
+   */
+  enable(): Promise<void>;
+  /**
+   * Disables auto-launch at start up.
+   */
+  disable(): Promise<void>;
+  /**
+   * Returns true if auto-launch is enabled.
+   */
+  isEnabled(): Promise<boolean>;
 }
 
-declare module "auto-launch" {
-	var al: typeof AutoLaunch;
-	export = al;
-}
+export = AutoLaunch;

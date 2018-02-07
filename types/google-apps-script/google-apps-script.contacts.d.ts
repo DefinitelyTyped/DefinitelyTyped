@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Contacts {
@@ -91,7 +91,7 @@ declare namespace GoogleAppsScript {
       setPrefix(prefix: string): Contact;
       setShortName(shortName: string): Contact;
       setSuffix(suffix: string): Contact;
-      getEmailAddresses(): String[];
+      getEmailAddresses(): string[];
       getHomeAddress(): string;
       getHomeFax(): string;
       getHomePhone(): string;
@@ -136,12 +136,12 @@ declare namespace GoogleAppsScript {
      *  contacts listed therein.
      */
     export interface ContactsApp {
-      ExtendedField: ExtendedField
-      Field: Field
-      Gender: Gender
-      Month: Base.Month
-      Priority: Priority
-      Sensitivity: Sensitivity
+      ExtendedField: typeof ExtendedField;
+      Field: typeof Field;
+      Gender: typeof Gender;
+      Month: typeof Base.Month;
+      Priority: typeof Priority;
+      Sensitivity: typeof Sensitivity;
       createContact(givenName: string, familyName: string, email: string): Contact;
       createContactGroup(name: string): ContactGroup;
       deleteContact(contact: Contact): void;
@@ -197,6 +197,11 @@ declare namespace GoogleAppsScript {
 
     /**
      * A date field in a Contact.
+     *
+     * This class is only used by the Contacts service, and dates used elsewhere in App Script use
+     *  JavaScript's standard
+     *
+     *  Date object.
      */
     export interface DateField {
       deleteDateField(): void;

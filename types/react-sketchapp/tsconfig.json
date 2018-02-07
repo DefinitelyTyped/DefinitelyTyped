@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "commonjs",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "baseUrl": "../",
+        "jsx": "preserve",
+        "typeRoots": [
+            "../"
+        ],
+        "lib": [
+            "es2015"
+        ],
+        "types": [],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-sketchapp-tests.tsx"
+    ]
+}

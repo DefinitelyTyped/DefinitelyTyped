@@ -3,42 +3,71 @@ import mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
 var format = require('util').format;
-MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err: mongodb.MongoError, db: mongodb.Db) {
+let options: mongodb.MongoClientOptions = {
+    authSource: ' ',
+    w: 1,
+    wtimeout: 300,
+    j: true,
+    bufferMaxEntries: 1000,
+    readPreference: 'ReadPreference | string',
+    promoteValues: {},
+    pkFactory: {},
+    poolSize: 1,
+
+    socketOptions: {},
+
+    reconnectTries: 123456,
+    reconnectInterval: 123456,
+
+    ssl: true,
+    sslValidate: {},
+    checkServerIdentity: function () { },
+    sslCA: ['str'],
+    sslCert: new Buffer(999),
+    sslKey: new Buffer(999),
+    sslPass: new Buffer(999)
+}
+MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
-
+    const db = client.db('test');
     var collection = db.collection('test_insert');
-    collection.insertOne({ a: 2 }, function(err: mongodb.MongoError, docs: any) {
+    collection.insertOne({ a: 2 }, function (err: mongodb.MongoError, docs: any) {
 
-        collection.count(function(err: mongodb.MongoError, count: any) {
+        collection.count(function (err: mongodb.MongoError, count: any) {
             console.log(format("count = %s", count));
         });
 
         // Locate all the entries using find
-        collection.find({}).toArray(function(err: mongodb.MongoError, results: any) {
+        collection.find({}).toArray(function (err: mongodb.MongoError, results: any) {
             console.dir(results);
             // Let's close the db
-            db.close();
+            client.close();
         });
 
         // Get some statistics
-        collection.stats(function(err: mongodb.MongoError, stats: any) {
+        collection.stats(function (err: mongodb.MongoError, stats: any) {
             console.log(stats.count + " documents");
         });
 
-        collection.createIndex({}, {partialFilterExpression: {rating: {$exists: 1}}})
+        //
+        collection.stats().then(function (stats) {
+            console.log(stats.wiredTiger.cache['bytes currently in the cache']);
+        })
+
+        collection.createIndex({}, { partialFilterExpression: { rating: { $exists: 1 } } })
     });
 
     {
-    let cursor: mongodb.Cursor<any>;
+        let cursor: mongodb.Cursor;
         cursor = collection.find();
-        cursor = cursor.addCursorFlag('',true);
-        cursor = cursor.addQueryModifier('',true);
+        cursor = cursor.addCursorFlag('', true);
+        cursor = cursor.addQueryModifier('', true);
         cursor = cursor.batchSize(1);
         cursor = cursor.comment('');
         cursor = cursor.filter(1);
         cursor = cursor.hint({});
         cursor = cursor.limit(1);
-        cursor = cursor.map(function (result) {});
+        cursor = cursor.map(function (result) { });
         cursor = cursor.max(1);
         cursor = cursor.min(1);
         cursor = cursor.maxAwaitTimeMS(1);
@@ -46,7 +75,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err: mongodb.Mong
         cursor = cursor.maxTimeMS(1);
         cursor = cursor.project({});
         cursor = cursor.returnKey({});
-        cursor = cursor.setCursorOption('',{});
+        cursor = cursor.setCursorOption('', {});
         cursor = cursor.setReadPreference('');
         cursor = cursor.showRecordId({});
         cursor = cursor.skip(1);
@@ -56,15 +85,17 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err: mongodb.Mong
     }
     // Collection .findM<T>() & .agggregate<T>() generic tests
     {
-    let bag : {cost: number, color: string};
-   type bag = typeof bag;
-    let cursor: mongodb.Cursor<bag> = collection.find<bag>({color: 'black'})
-        cursor.toArray(function (err,r) { r[0].cost} );
-        cursor.forEach(function (bag  ) { bag.color }, () => {});
+        let bag: { cost: number, color: string };
+        type bag = typeof bag;
+        let cursor: mongodb.Cursor<bag> = collection.find<bag>({ color: 'black' })
+        cursor.toArray(function (err, r) { r[0].cost });
+        cursor.forEach(function (bag) { bag.color }, () => { });
+        collection.findOne({ color: 'white' }).then(b => { let _b: bag = b; })
+        collection.findOne<bag>({ color: 'white' }).then(b => { b.cost; })
     }
     {
-    let payment: {total: number};
-   type payment = typeof payment;
-    let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
+        let payment: { total: number };
+        type payment = typeof payment;
+        let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
     }
 })

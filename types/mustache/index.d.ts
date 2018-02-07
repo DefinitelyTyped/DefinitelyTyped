@@ -1,6 +1,6 @@
 // Type definitions for Mustache 0.8.2
 // Project: https://github.com/janl/mustache.js
-// Definitions by: Mark Ashley Bell <https://github.com/markashleybell/>
+// Definitions by: Mark Ashley Bell <https://github.com/markashleybell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

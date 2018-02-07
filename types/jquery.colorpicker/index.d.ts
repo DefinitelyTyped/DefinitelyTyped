@@ -1,7 +1,8 @@
 // Type definitions for jQuery Colorpicker Plugin 1.4.3
 // Project: https://github.com/vanderlee/colorpicker
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay/>
+// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -30,6 +31,7 @@ interface JQueryColorpickerOptions {
     closeOnOutside?: boolean;
     color?: string;
     colorFormat?: string;
+    disabled: boolean;
     draggable?: boolean;
     duration?: string;
     format?: string;
@@ -37,7 +39,7 @@ interface JQueryColorpickerOptions {
     hsv?: boolean;
     inline?: boolean;
     inlineFrame?: boolean;
-    layout?: {[part: string]: number[];};
+    layout?: { [part: string]: number[]; };
     limit?: string;
     modal?: boolean;
     mode?: string;
@@ -66,7 +68,7 @@ interface JQueryColorpickerStatic {
     regional: { [key: string]: string; };
     swatches: { [swatch: string]: { [name: string]: JQueryColorpickerStatic.RGB; }; };
     writers: { [name: string]: (color: any, that: any) => any; };
-    Color: { new (r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color; };
+    Color: { new(r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color; };
 }
 
 declare namespace JQueryColorpickerStatic {
@@ -161,6 +163,6 @@ interface JQuery {
     colorpicker(method: "open"): JQuery;
     colorpicker(method: string): JQuery;
     colorpicker(method: "setColor", color: any): JQuery;
-    colorpicker(method: string, param: any): JQuery;
+    colorpicker(method: string, ...params: any[]): JQuery;
     colorpicker(options?: JQueryColorpickerOptions): JQuery;
 }

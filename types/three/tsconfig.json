@@ -8,13 +8,15 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
@@ -52,6 +54,8 @@
         "test/examples/effects/vreffect.ts",
         "test/examples/controls/vrcontrols.ts",
         "test/examples/ctm/ctmloader.ts",
-        "test/examples/octree.ts"
+        "test/examples/octree.ts",
+        "test/examples/loaders/webgl_loader_obj_mtl.ts",
+        "test/webvr/webvr.ts"
     ]
 }

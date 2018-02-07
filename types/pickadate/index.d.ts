@@ -1,7 +1,8 @@
 // Type definitions for pickadate.js 3.5.5
 // Project: https://github.com/amsul/pickadate.js
-// Definitions by: Theodore Brown <https://github.com/theodorejb/>
+// Definitions by: Theodore Brown <https://github.com/theodorejb>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference types="jquery" />
 
@@ -504,42 +505,53 @@ declare namespace Pickadate {
 
     export interface DatePicker extends Picker<DatePicker, DateItem, SetObject> { }
     export interface TimePicker extends Picker<TimePicker, TimeItem, TimeSetObject> { }
+
+    interface Pickadate {
+        defaults: DateOptions;
+
+        /**
+         * Access the API object on an initialized date picker element.
+         */
+        (keyword: "picker"): Pickadate.DatePicker;
+        (objectName: "$node"): JQuery;
+        (objectName: "$root"): JQuery;
+        (objectName: "_hidden"): HTMLInputElement;
+
+        /**
+         * Invoke API methods after date picker initialization.
+         */
+        (methodName: string, ...arguments: any[]): any;
+
+        /**
+         * Initialize a date picker.
+         */
+        (options?: Pickadate.DateOptions): JQuery;
+    }
+
+    interface Pickatime {
+        defaults: TimeOptions;
+
+        /**
+         * Access the API object on an initialized time picker element.
+         */
+        (keyword: "picker"): Pickadate.TimePicker;
+        (objectName: "$node"): JQuery;
+        (objectName: "$root"): JQuery;
+        (objectName: "_hidden"): HTMLInputElement;
+
+        /**
+         * Invoke API methods after time picker initialization.
+         */
+        (methodName: string, ...arguments: any[]): any;
+
+        /**
+         * Initialize a time picker.
+         */
+        (options?: Pickadate.TimeOptions): JQuery;
+    }
 }
 
 interface JQuery {
-    /**
-     * Access the API object on an initialized date picker element.
-     */
-    pickadate(keyword: "picker"): Pickadate.DatePicker;
-    pickadate(objectName: "$node"): JQuery;
-    pickadate(objectName: "$root"): JQuery;
-    pickadate(objectName: "_hidden"): HTMLInputElement;
-
-    /**
-     * Invoke API methods after date picker initialization.
-     */
-    pickadate(methodName: string, ...arguments: any[]): any;
-
-    /**
-     * Initialize a date picker.
-     */
-    pickadate(options?: Pickadate.DateOptions): JQuery;
-
-    /**
-     * Access the API object on an initialized time picker element.
-     */
-    pickatime(keyword: "picker"): Pickadate.TimePicker;
-    pickatime(objectName: "$node"): JQuery;
-    pickatime(objectName: "$root"): JQuery;
-    pickatime(objectName: "_hidden"): HTMLInputElement;
-
-    /**
-     * Invoke API methods after time picker initialization.
-     */
-    pickatime(methodName: string, ...arguments: any[]): any;
-
-    /**
-     * Initialize a time picker.
-     */
-    pickatime(options?: Pickadate.TimeOptions): JQuery;
+    pickadate: Pickadate.Pickadate;
+    pickatime: Pickadate.Pickatime;
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/zippyui/react-datagrid.git
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react"/>
 
@@ -303,6 +303,6 @@ declare namespace ReactDataGrid {
 				}
     }
 
-    export class DataGrid extends React.Component<DataGridProps, {}> {
+    export class DataGrid extends React.Component<DataGridProps> {
     }
 }

@@ -361,13 +361,13 @@ declare namespace p2 {
 
     export class ContactMaterialOptions {
 
-        friction: number;
-        restitution: number;
-        stiffness: number;
-        relaxation: number;
-        frictionStiffness: number;
-        frictionRelaxation: number;
-        surfaceVelocity: number;
+        friction?: number;
+        restitution?: number;
+        stiffness?: number;
+        relaxation?: number;
+        frictionStiffness?: number;
+        frictionRelaxation?: number;
+        surfaceVelocity?: number;
 
     }
 
@@ -384,7 +384,7 @@ declare namespace p2 {
         restitution: number;
         stiffness: number;
         relaxation: number;
-        frictionStuffness: number;
+        frictionStiffness: number;
         frictionRelaxation: number;
         surfaceVelocity: number;
         contactSkinSize: number;
@@ -624,8 +624,8 @@ declare namespace p2 {
 
     export interface ConvexOptions extends SharedShapeOptions {
 
-      length?: number;
-      radius?: number;
+        vertices?: ArrayLike<number>[];
+        axes?: ArrayLike<number>[];
 
     }
 
@@ -636,7 +636,7 @@ declare namespace p2 {
         constructor(options?: ConvexOptions);
 
         vertices: number[][];
-        axes: number[];
+        axes: number[][];
         centerOfMass: number[];
         triangles: number[];
         boundingRadius: number;

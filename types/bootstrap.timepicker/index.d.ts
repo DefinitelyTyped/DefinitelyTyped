@@ -1,12 +1,13 @@
 // Type definitions for bootstrap.timepicker
 // Project: https://github.com/jdewit/bootstrap-timepicker
-// Definitions by: derikwhittaker <https://github.com/derikwhittaker/>
+// Definitions by: derikwhittaker <https://github.com/derikwhittaker>, Heather Booker <https://github.com/heatherbooker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
 interface TimepickerOptions {
-    defaultTime?: string|boolean;
+    defaultTime?: string|boolean|Date;
     disableFocus?: boolean;
     disableMousewheel?: boolean;
     explicitMode?: boolean;
@@ -44,6 +45,6 @@ interface JQuery {
     timepicker(options: TimepickerOptions): JQuery;
 }
 
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
+interface JQueryEventObject {
     time?: TimepickerTime;
 }

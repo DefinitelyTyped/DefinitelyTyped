@@ -6,18 +6,22 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "paths": {
-            "d3": ["d3/v3"]
+            "d3": [
+                "d3/v3"
+            ]
         },
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",

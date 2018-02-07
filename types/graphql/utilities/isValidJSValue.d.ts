@@ -5,7 +5,4 @@ import { GraphQLInputType } from '../type/definition';
  * accepted for that type. This is primarily useful for validating the
  * runtime values of query variables.
  */
-export function isValidJSValue(
-    value: any,
-    type: GraphQLInputType
-): Array<string>
+export function isValidJSValue(value: any, type: GraphQLInputType): string[];

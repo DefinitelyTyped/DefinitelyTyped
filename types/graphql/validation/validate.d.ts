@@ -1,26 +1,23 @@
 import { GraphQLError } from '../error';
 import {
-    DocumentNode,
-    OperationDefinitionNode,
-    VariableNode,
-    SelectionSetNode,
-    FragmentSpreadNode,
-    FragmentDefinitionNode,
+  DocumentNode,
+  OperationDefinitionNode,
+  VariableNode,
+  SelectionSetNode,
+  FragmentSpreadNode,
+  FragmentDefinitionNode,
 } from '../language/ast';
 import { GraphQLSchema } from '../type/schema';
 import {
-    GraphQLInputType,
-    GraphQLOutputType,
-    GraphQLCompositeType,
-    GraphQLField,
-    GraphQLArgument
+  GraphQLInputType,
+  GraphQLOutputType,
+  GraphQLCompositeType,
+  GraphQLField,
+  GraphQLArgument,
 } from '../type/definition';
 import { GraphQLDirective } from '../type/directives';
 import { TypeInfo } from '../utilities/TypeInfo';
 import { specifiedRules } from './specifiedRules';
-
-
-//type ValidationRule = (context: ValidationContext) => any;
 
 /**
  * Implements the "Validation" section of the spec.
@@ -36,10 +33,10 @@ import { specifiedRules } from './specifiedRules';
  * GraphQLErrors, or Arrays of GraphQLErrors when invalid.
  */
 export function validate(
-    schema: GraphQLSchema,
-    ast: DocumentNode,
-    rules?: Array<any>
-): Array<GraphQLError>;
+  schema: GraphQLSchema,
+  ast: DocumentNode,
+  rules?: any[],
+): GraphQLError[];
 
 /**
  * This uses a specialized visitor which runs multiple visitors in parallel,
@@ -48,16 +45,18 @@ export function validate(
  * @internal
  */
 export function visitUsingRules(
-    schema: GraphQLSchema,
-    typeInfo: TypeInfo,
-    documentAST: DocumentNode,
-    rules: Array<any>
-): Array<GraphQLError>;
+  schema: GraphQLSchema,
+  typeInfo: TypeInfo,
+  documentAST: DocumentNode,
+  rules: any[],
+): GraphQLError[];
 
-export type NodeWithSelectionSet = OperationDefinitionNode | FragmentDefinitionNode;
+export type NodeWithSelectionSet =
+  | OperationDefinitionNode
+  | FragmentDefinitionNode;
 export interface VariableUsage {
-    node: VariableNode,
-    type: GraphQLInputType
+  node: VariableNode;
+  type: GraphQLInputType;
 }
 
 /**
@@ -66,38 +65,38 @@ export interface VariableUsage {
  * validation rule.
  */
 export class ValidationContext {
-    constructor(schema: GraphQLSchema, ast: DocumentNode, typeInfo: TypeInfo);
-    reportError(error: GraphQLError): void;
+  constructor(schema: GraphQLSchema, ast: DocumentNode, typeInfo: TypeInfo);
+  reportError(error: GraphQLError): void;
 
-    getErrors(): Array<GraphQLError>;
+  getErrors(): GraphQLError[];
 
-    getSchema(): GraphQLSchema;
+  getSchema(): GraphQLSchema;
 
-    getDocument(): DocumentNode;
+  getDocument(): DocumentNode;
 
-    getFragment(name: string): FragmentDefinitionNode;
+  getFragment(name: string): FragmentDefinitionNode;
 
-    getFragmentSpreads(node: SelectionSetNode): Array<FragmentSpreadNode>;
+  getFragmentSpreads(node: SelectionSetNode): FragmentSpreadNode[];
 
-    getRecursivelyReferencedFragments(
-        operation: OperationDefinitionNode
-    ): Array<FragmentDefinitionNode>;
+  getRecursivelyReferencedFragments(
+    operation: OperationDefinitionNode,
+  ): FragmentDefinitionNode[];
 
-    getVariableUsages(node: NodeWithSelectionSet): Array<VariableUsage>;
+  getVariableUsages(node: NodeWithSelectionSet): VariableUsage[];
 
-    getRecursiveVariableUsages(
-        operation: OperationDefinitionNode
-    ): Array<VariableUsage>;
+  getRecursiveVariableUsages(
+    operation: OperationDefinitionNode,
+  ): VariableUsage[];
 
-    getType(): GraphQLOutputType;
+  getType(): GraphQLOutputType;
 
-    getParentType(): GraphQLCompositeType;
+  getParentType(): GraphQLCompositeType;
 
-    getInputType(): GraphQLInputType;
+  getInputType(): GraphQLInputType;
 
-    getFieldDef(): GraphQLField<any, any>;
+  getFieldDef(): GraphQLField<any, any>;
 
-    getDirective(): GraphQLDirective;
+  getDirective(): GraphQLDirective;
 
-    getArgument(): GraphQLArgument;
+  getArgument(): GraphQLArgument;
 }

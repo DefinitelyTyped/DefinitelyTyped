@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import CW = require('simple-cw-node');
 var client = CW();
 var Deferred:any = client.Deferred;

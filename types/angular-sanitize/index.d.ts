@@ -1,7 +1,8 @@
 // Type definitions for Angular JS (ngSanitize module) 1.3
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: Diego Vilar <https://github.com/diegovilar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare var _: string;
 export = _;
@@ -35,7 +36,7 @@ declare module 'angular' {
              * see https://docs.angularjs.org/api/ngSanitize/filter/linky
              */
             interface ILinky {
-                (text: string, target: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
+                (text: string, target?: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
             }
         }
 

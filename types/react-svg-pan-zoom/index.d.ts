@@ -2,7 +2,8 @@
 // Project: https://github.com/chrvadala/react-svg-pan-zoom#readme
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
+
 import * as React from 'react';
 
 // String constants:
@@ -110,7 +111,7 @@ export interface OptionalProps {
 
 	// override default toolbar component
 	// TODO: specify function type more clearly
-	customToolbar: React.Component<any, any> | React.StatelessComponent<any>;
+	customToolbar: React.Component<any> | React.StatelessComponent<any>;
 
 	// How about touch events? They are in README but not in `propTypes`.
 }
@@ -129,7 +130,7 @@ export interface RequiredProps {
 
 export type Props = RequiredProps & Partial<OptionalProps>;
 
-export class ReactSVGPanZoom extends React.Component<Props, {}> {
+export class ReactSVGPanZoom extends React.Component<Props> {
 	pan(SVGDeltaX: number, SVGDeltaY: number): void;
 	zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
 	fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
@@ -148,7 +149,7 @@ export interface Point {
 	y: number;
 }
 
-export interface ViewerMouseEvent<T>{
+export interface ViewerMouseEvent<T> {
 	originalEvent: React.MouseEvent<T>;
 	SVGViewer: SVGSVGElement;
 	point: Point;

@@ -1,15 +1,11 @@
+import { GraphQLObjectType } from './definition';
 import {
-    GraphQLObjectType,
+  GraphQLType,
+  GraphQLNamedType,
+  GraphQLAbstractType,
 } from './definition';
-import {
-    GraphQLType,
-    GraphQLNamedType,
-    GraphQLAbstractType
-} from './definition';
-import {
-    GraphQLDirective,
-} from './directives';
-
+import { SchemaDefinitionNode } from '../language/ast';
+import { GraphQLDirective } from './directives';
 
 /**
  * Schema Definition
@@ -38,36 +34,38 @@ import {
  *
  */
 export class GraphQLSchema {
-    // private _queryType: GraphQLObjectType;
-    // private _mutationType: GraphQLObjectType;
-    // private _subscriptionType: GraphQLObjectType;
-    // private _directives: Array<GraphQLDirective>;
-    // private _typeMap: TypeMap;
-    // private _implementations: { [interfaceName: string]: Array<GraphQLObjectType> };
-    // private _possibleTypeMap: { [abstractName: string]: { [possibleName: string]: boolean } };
+  astNode?: SchemaDefinitionNode;
+  // private _queryType: GraphQLObjectType;
+  // private _mutationType: GraphQLObjectType;
+  // private _subscriptionType: GraphQLObjectType;
+  // private _directives: Array<GraphQLDirective>;
+  // private _typeMap: TypeMap;
+  // private _implementations: { [interfaceName: string]: Array<GraphQLObjectType> };
+  // private _possibleTypeMap: { [abstractName: string]: { [possibleName: string]: boolean } };
 
-    constructor(config: GraphQLSchemaConfig)
+  constructor(config: GraphQLSchemaConfig);
 
-    getQueryType(): GraphQLObjectType;
-    getMutationType(): GraphQLObjectType;
-    getSubscriptionType(): GraphQLObjectType;
-    getTypeMap(): GraphQLNamedType;
-    getType(name: string): GraphQLType;
-    getPossibleTypes(abstractType: GraphQLAbstractType): Array<GraphQLObjectType>;
+  getQueryType(): GraphQLObjectType;
+  getMutationType(): GraphQLObjectType | null | undefined;
+  getSubscriptionType(): GraphQLObjectType | null | undefined;
+  getTypeMap(): { [typeName: string]: GraphQLNamedType };
+  getType(name: string): GraphQLNamedType;
+  getPossibleTypes(abstractType: GraphQLAbstractType): GraphQLObjectType[];
 
-    isPossibleType(
-        abstractType: GraphQLAbstractType,
-        possibleType: GraphQLObjectType
-    ): boolean;
+  isPossibleType(
+    abstractType: GraphQLAbstractType,
+    possibleType: GraphQLObjectType,
+  ): boolean;
 
-    getDirectives(): Array<GraphQLDirective>;
-    getDirective(name: string): GraphQLDirective;
+  getDirectives(): GraphQLDirective[];
+  getDirective(name: string): GraphQLDirective;
 }
 
 export interface GraphQLSchemaConfig {
-    query: GraphQLObjectType;
-    mutation?: GraphQLObjectType;
-    subscription?: GraphQLObjectType;
-    types?: Array<GraphQLNamedType>;
-    directives?: Array<GraphQLDirective>;
+  query: GraphQLObjectType;
+  mutation?: GraphQLObjectType;
+  subscription?: GraphQLObjectType;
+  types?: GraphQLNamedType[];
+  directives?: GraphQLDirective[];
+  astNode?: SchemaDefinitionNode;
 }

@@ -1,13 +1,27 @@
-// Type definitions for navigo 4.0
+// Type definitions for navigo 7.0
 // Project: https://github.com/krasimir/navigo
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
+//                 Dancespiele <https://github.com/dancespiele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+type Keys = string;
+type State = {[k in Keys]: any};
+type Params = State;
 
 interface NavigoHooks {
-    before?(done: (suppress?: boolean) => void): void;
-    after?(): void;
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+    leave?(params?: Params): void;
+    already?(params?: Params): void;
 }
-type RouteHandler = ((parametersObj: any, query: string) => void) | { as: string; uses(parametersObj: any): void };
+
+interface GenericHooks {
+    before?(done: (suppress?: boolean) => void, params?: Params): void;
+    after?(params?: Params): void;
+}
+
+type RouteHandler = ((params: Params, query: string) => void) | { as: string; uses(params: Params, query: string): void };
 
 declare class Navigo {
     /**
@@ -15,13 +29,15 @@ declare class Navigo {
      * @param root The main URL of your application.
      * @param useHash If useHash set to true then the router uses an old routing approach with hash in the URL. Navigo anyways falls back to this mode if there is no History API supported.
      */
-    constructor(root?: string | null, useHash?: boolean);
+    constructor(root?: string | null, useHash?: boolean, hash?: string);
 
     on(location: string, handler: RouteHandler, hooks?: NavigoHooks): Navigo;
     on(location: RegExp, handler: (...parameters: string[]) => void, hooks?: NavigoHooks): Navigo;
     on(routes: { [key: string]: RouteHandler }): Navigo;
 
     on(rootHandler: RouteHandler, hooks?: NavigoHooks): Navigo;
+
+    off(location: string, handler: RouteHandler): void;
 
     notFound(handler: ((query: string) => void), hooks?: NavigoHooks): void;
 
@@ -31,13 +47,21 @@ declare class Navigo {
 
     generate(path: string, params?: any): string;
 
+    getLinkPath(link: any): any;
+
     resolve(currentURL?: string): boolean;
 
     link(path: string): string;
 
+    lastRouteResolved(): {url: string, query: string};
+
     disableIfAPINotAvailable(): void;
 
-    pause(): void;
+    historyAPIUpdateMethod(method?: string): void;
+
+    hooks(hooks: GenericHooks): void;
+
+    pause(change?: boolean): void;
 
     resume(): void;
 

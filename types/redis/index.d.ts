@@ -1,685 +1,1241 @@
-// Type definitions for redis 0.12.2
+// Type definitions for redis 2.8
 // Project: https://github.com/mranney/node_redis
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+//                 Peter Harris <https://github.com/CodeAnimal>
+//                 TANAKA Koichi <https://github.com/MugeSo>
+//                 Stuart Schechter <https://github.com/UppaJung>
+//                 Junyoung Choi <https://github.com/Rokt33r>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Imported from: https://github.com/soywiz/typescript-node-definitions/redis.d.ts
+// Imported from: https://github.com/types/npm-redis
 
 /// <reference types="node" />
 
-export declare function createClient(port_arg: number, host_arg?: string, options?: ClientOpts): RedisClient;
-export declare function createClient(unix_socket: string, options?: ClientOpts): RedisClient;
-export declare function createClient(options?: ClientOpts): RedisClient;
+import { EventEmitter } from 'events';
+import { Duplex } from 'stream';
 
-export declare function print(err: Error, reply: any): void;
-
-export declare var debug_mode: boolean;
-
-export interface MessageHandler<M> {
-    (channel: string, message: M): void;
+export interface RetryStrategyOptions {
+    error: NodeJS.ErrnoException;
+    total_retry_time: number;
+    times_connected: number;
+    attempt: number;
 }
 
-export interface CommandT<R> { //This is a placeholder to be used eventually, to not have to define each command twice, or four times if all caps versions are to be implemented.
-    (args: any[], callback?: ResCallbackT<R>): void;
-    (...args: any[]): void;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+
+export interface ClientOpts {
+    host?: string;
+    port?: number;
+    path?: string;
+    url?: string;
+    parser?: string;
+    string_numbers?: boolean;
+    return_buffers?: boolean;
+    detect_buffers?: boolean;
+    socket_keepalive?: boolean;
+    no_ready_check?: boolean;
+    enable_offline_queue?: boolean;
+    retry_max_delay?: number;
+    connect_timeout?: number;
+    max_attempts?: number;
+    retry_unfulfilled_commands?: boolean;
+    auth_pass?: string;
+    password?: string;
+    db?: string | number;
+    family?: string;
+    rename_commands?: { [command: string]: string } | null;
+    tls?: any;
+    prefix?: string;
+    retry_strategy?: RetryStrategy;
 }
 
-export interface ResCallbackT<R> {
-    (err: Error, res: R): void;
-}
+export type Callback<T> = (err: Error | null, reply: T) => void;
 
 export interface ServerInfo {
     redis_version: string;
     versions: number[];
 }
 
-export interface RetryStrategyOptions {
-    error: Error;
-    total_retry_time: number;
-    times_connected: number;
-    attempt: number;
+export interface OverloadedCommand<T, U, R> {
+    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T | T[], cb?: Callback<U>): R;
+    (arg1: T | T[], cb?: Callback<U>): R;
+    (...args: Array<T | Callback<U>>): R;
 }
 
-export interface RetryStrategy {
-    (options: RetryStrategyOptions): number | Error;
+export interface OverloadedKeyCommand<T, U, R> {
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
+    (key: string, arg1: T| T[], cb?: Callback<U>): R;
+    (key: string, ...args: Array<T | Callback<U>>): R;
+    (...args: Array<string | T | Callback<U>>): R;
 }
 
-export interface ClientOpts {
-    auth_pass?: string;
-    command_queue_high_water?: number;
-    command_queue_low_water?: number;
-    connect_timeout?: number;
-    db?: string;
-    detect_buffers?: boolean;
-    disable_resubscribing?: boolean;
-    enable_offline_queue?: boolean;
-    family?: string;
-    host?: string;
-    max_attempts?: number;
-    no_ready_check?: boolean;
-    parser?: string;
-    password?: string;
-    path?: string;
-    port?: number;
-    prefix?: string;
-    rename_commands?: any;
-    retry_max_delay?: number;
-    retry_strategy?: RetryStrategy;
-    retry_unfulfilled_commands?: boolean;
-    return_buffers?: boolean;
-    socket_keepalive?: boolean;
-    socket_nodelay?: boolean;
-    string_numbers?: boolean;
-    tls?: any;
-    url?: string;
+export interface OverloadedListCommand<T, U, R> {
+    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
+    (arg1: T, arg2: T, cb?: Callback<U>): R;
+    (arg1: T | T[], cb?: Callback<U>): R;
+    (...args: Array<T | Callback<U>>): R;
 }
 
-export interface RedisClient extends NodeJS.EventEmitter {
-    // event: connect
-    // event: error
-    // event: message
-    // event: pmessage
-    // event: subscribe
-    // event: psubscribe
-    // event: unsubscribe
-    // event: punsubscribe
+export interface OverloadedSetCommand<T, U, R> {
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
+    (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
+    (key: string, ...args: Array<T | Callback<U>>): R;
+}
 
+export interface OverloadedLastCommand<T1, T2, U, R> {
+    (arg1: T1, arg2: T1, arg3: T1, arg4: T1, arg5: T1, arg6: T2, cb?: Callback<U>): R;
+    (arg1: T1, arg2: T1, arg3: T1, arg4: T1, arg5: T2, cb?: Callback<U>): R;
+    (arg1: T1, arg2: T1, arg3: T1, arg4: T2, cb?: Callback<U>): R;
+    (arg1: T1, arg2: T1, arg3: T2, cb?: Callback<U>): R;
+    (arg1: T1, arg2: T2 | Array<T1 | T2>, cb?: Callback<U>): R;
+    (args: Array<T1 | T2>, cb?: Callback<U>): R;
+    (...args: Array<T1 | T2 | Callback<U>>): R;
+}
+
+export interface Commands<R> {
+    /**
+     * Listen for all requests received by the server in real time.
+     */
+    monitor(cb?: Callback<undefined>): R;
+    MONITOR(cb?: Callback<undefined>): R;
+
+    /**
+     * Get information and statistics about the server.
+     */
+    info(cb?: Callback<ServerInfo>): R;
+    info(section?: string | string[], cb?: Callback<ServerInfo>): R;
+    INFO(cb?: Callback<ServerInfo>): R;
+    INFO(section?: string | string[], cb?: Callback<ServerInfo>): R;
+
+    /**
+     * Ping the server.
+     */
+    ping(callback?: Callback<string>): R;
+    ping(message: string, callback?: Callback<string>): R;
+    PING(callback?: Callback<string>): R;
+    PING(message: string, callback?: Callback<string>): R;
+
+    /**
+     * Post a message to a channel.
+     */
+    publish(channel: string, value: string, cb?: Callback<number>): R;
+    PUBLISH(channel: string, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Authenticate to the server.
+     */
+    auth(password: string, callback?: Callback<string>): R;
+    AUTH(password: string, callback?: Callback<string>): R;
+
+    /**
+     * KILL - Kill the connection of a client.
+     * LIST - Get the list of client connections.
+     * GETNAME - Get the current connection name.
+     * PAUSE - Stop processing commands from clients for some time.
+     * REPLY - Instruct the server whether to reply to commands.
+     * SETNAME - Set the current connection name.
+     */
+    client: OverloadedCommand<string, any, R>;
+    CLIENT: OverloadedCommand<string, any, R>;
+
+    /**
+     * Set multiple hash fields to multiple values.
+     */
+    hmset: OverloadedSetCommand<string | number, boolean, R>;
+    HMSET: OverloadedSetCommand<string | number, boolean, R>;
+
+    /**
+     * Listen for messages published to the given channels.
+     */
+    subscribe: OverloadedListCommand<string, string, R>;
+    SUBSCRIBE: OverloadedListCommand<string, string, R>;
+
+    /**
+     * Stop listening for messages posted to the given channels.
+     */
+    unsubscribe: OverloadedListCommand<string, string, R>;
+    UNSUBSCRIBE: OverloadedListCommand<string, string, R>;
+
+    /**
+     * Listen for messages published to channels matching the given patterns.
+     */
+    psubscribe: OverloadedListCommand<string, string, R>;
+    PSUBSCRIBE: OverloadedListCommand<string, string, R>;
+
+    /**
+     * Stop listening for messages posted to channels matching the given patterns.
+     */
+    punsubscribe: OverloadedListCommand<string, string, R>;
+    PUNSUBSCRIBE: OverloadedListCommand<string, string, R>;
+
+    /**
+     * Append a value to a key.
+     */
+    append(key: string, value: string, cb?: Callback<number>): R;
+    APPEND(key: string, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Asynchronously rewrite the append-only file.
+     */
+    bgrewriteaof(cb?: Callback<'OK'>): R;
+    BGREWRITEAOF(cb?: Callback<'OK'>): R;
+
+    /**
+     * Asynchronously save the dataset to disk.
+     */
+    bgsave(cb?: Callback<string>): R;
+    BGSAVE(cb?: Callback<string>): R;
+
+    /**
+     * Count set bits in a string.
+     */
+    bitcount(key: string, cb?: Callback<number>): R;
+    bitcount(key: string, start: number, end: number, cb?: Callback<number>): R;
+    BITCOUNT(key: string, cb?: Callback<number>): R;
+    BITCOUNT(key: string, start: number, end: number, cb?: Callback<number>): R;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings.
+     */
+    bitfield: OverloadedKeyCommand<string | number, [number, number], R>;
+    BITFIELD: OverloadedKeyCommand<string | number, [number, number], R>;
+
+    /**
+     * Perform bitwise operations between strings.
+     */
+    bitop(operation: string, destkey: string, key1: string, key2: string, key3: string, cb?: Callback<number>): R;
+    bitop(operation: string, destkey: string, key1: string, key2: string, cb?: Callback<number>): R;
+    bitop(operation: string, destkey: string, key: string, cb?: Callback<number>): R;
+    bitop(operation: string, destkey: string, ...args: Array<string | Callback<number>>): R;
+    BITOP(operation: string, destkey: string, key1: string, key2: string, key3: string, cb?: Callback<number>): R;
+    BITOP(operation: string, destkey: string, key1: string, key2: string, cb?: Callback<number>): R;
+    BITOP(operation: string, destkey: string, key: string, cb?: Callback<number>): R;
+    BITOP(operation: string, destkey: string, ...args: Array<string | Callback<number>>): R;
+
+    /**
+     * Find first bit set or clear in a string.
+     */
+    bitpos(key: string, bit: number, start: number, end: number, cb?: Callback<number>): R;
+    bitpos(key: string, bit: number, start: number, cb?: Callback<number>): R;
+    bitpos(key: string, bit: number, cb?: Callback<number>): R;
+    BITPOS(key: string, bit: number, start: number, end: number, cb?: Callback<number>): R;
+    BITPOS(key: string, bit: number, start: number, cb?: Callback<number>): R;
+    BITPOS(key: string, bit: number, cb?: Callback<number>): R;
+
+    /**
+     * Remove and get the first element in a list, or block until one is available.
+     */
+    blpop: OverloadedLastCommand<string, number, [string, string], R>;
+    BLPOP: OverloadedLastCommand<string, number, [string, string], R>;
+
+    /**
+     * Remove and get the last element in a list, or block until one is available.
+     */
+    brpop: OverloadedLastCommand<string, number, [string, string], R>;
+    BRPOP: OverloadedLastCommand<string, number, [string, string], R>;
+
+    /**
+     * Pop a value from a list, push it to another list and return it; or block until one is available.
+     */
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+
+    /**
+     * ADDSLOTS - Assign new hash slots to receiving node.
+     * COUNT-FAILURE-REPORTS - Return the number of failure reports active for a given node.
+     * COUNTKEYSINSLOT - Return the number of local keys in the specified hash slot.
+     * DELSLOTS - Set hash slots as unbound in receiving node.
+     * FAILOVER - Forces a slave to perform a manual failover of its master.
+     * FORGET - Remove a node from the nodes table.
+     * GETKEYSINSLOT - Return local key names in the specified hash slot.
+     * INFO - Provides info about Redis Cluster node state.
+     * KEYSLOT - Returns the hash slot of the specified key.
+     * MEET - Force a node cluster to handshake with another node.
+     * NODES - Get cluster config for the node.
+     * REPLICATE - Reconfigure a node as a slave of the specified master node.
+     * RESET - Reset a Redis Cluster node.
+     * SAVECONFIG - Forces the node to save cluster state on disk.
+     * SET-CONFIG-EPOCH - Set the configuration epoch in a new node.
+     * SETSLOT - Bind a hash slot to a specified node.
+     * SLAVES - List slave nodes of the specified master node.
+     * SLOTS - Get array of Cluster slot to node mappings.
+     */
+    cluster: OverloadedCommand<string, any, this>;
+    CLUSTER: OverloadedCommand<string, any, this>;
+
+    /**
+     * Get array of Redis command details.
+     *
+     * COUNT - Get total number of Redis commands.
+     * GETKEYS - Extract keys given a full Redis command.
+     * INFO - Get array of specific REdis command details.
+     */
+    command(cb?: Callback<Array<[string, number, string[], number, number, number]>>): R;
+    COMMAND(cb?: Callback<Array<[string, number, string[], number, number, number]>>): R;
+
+    /**
+     * Get array of Redis command details.
+     *
+     * COUNT - Get array of Redis command details.
+     * GETKEYS - Extract keys given a full Redis command.
+     * INFO - Get array of specific Redis command details.
+     * GET - Get the value of a configuration parameter.
+     * REWRITE - Rewrite the configuration file with the in memory configuration.
+     * SET - Set a configuration parameter to the given value.
+     * RESETSTAT - Reset the stats returned by INFO.
+     */
+    config: OverloadedCommand<string, boolean, R>;
+    CONFIG: OverloadedCommand<string, boolean, R>;
+
+    /**
+     * Return the number of keys in the selected database.
+     */
+    dbsize(cb?: Callback<number>): R;
+    DBSIZE(cb?: Callback<number>): R;
+
+    /**
+     * OBJECT - Get debugging information about a key.
+     * SEGFAULT - Make the server crash.
+     */
+    debug: OverloadedCommand<string, boolean, R>;
+    DEBUG: OverloadedCommand<string, boolean, R>;
+
+    /**
+     * Decrement the integer value of a key by one.
+     */
+    decr(key: string, cb?: Callback<number>): R;
+    DECR(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Decrement the integer value of a key by the given number.
+     */
+    decrby(key: string, decrement: number, cb?: Callback<number>): R;
+    DECRBY(key: string, decrement: number, cb?: Callback<number>): R;
+
+    /**
+     * Delete a key.
+     */
+    del: OverloadedCommand<string, number, R>;
+    DEL: OverloadedCommand<string, number, R>;
+
+    /**
+     * Discard all commands issued after MULTI.
+     */
+    discard(cb?: Callback<'OK'>): R;
+    DISCARD(cb?: Callback<'OK'>): R;
+
+    /**
+     * Return a serialized version of the value stored at the specified key.
+     */
+    dump(key: string, cb?: Callback<string>): R;
+    DUMP(key: string, cb?: Callback<string>): R;
+
+    /**
+     * Echo the given string.
+     */
+    echo<T extends string>(message: T, cb?: Callback<T>): R;
+    ECHO<T extends string>(message: T, cb?: Callback<T>): R;
+
+    /**
+     * Execute a Lua script server side.
+     */
+    eval: OverloadedCommand<string | number, any, R>;
+    EVAL: OverloadedCommand<string | number, any, R>;
+
+    /**
+     * Execute a Lue script server side.
+     */
+    evalsha: OverloadedCommand<string | number, any, R>;
+    EVALSHA: OverloadedCommand<string | number, any, R>;
+
+    /**
+     * Determine if a key exists.
+     */
+    exists: OverloadedCommand<string, number, R>;
+    EXISTS: OverloadedCommand<string, number, R>;
+
+    /**
+     * Set a key's time to live in seconds.
+     */
+    expire(key: string, seconds: number, cb?: Callback<number>): R;
+    EXPIRE(key: string, seconds: number, cb?: Callback<number>): R;
+
+    /**
+     * Set the expiration for a key as a UNIX timestamp.
+     */
+    expireat(key: string, timestamp: number, cb?: Callback<number>): R;
+    EXPIREAT(key: string, timestamp: number, cb?: Callback<number>): R;
+
+    /**
+     * Remove all keys from all databases.
+     */
+    flushall(cb?: Callback<string>): R;
+    FLUSHALL(cb?: Callback<string>): R;
+
+    /**
+     * Remove all keys from the current database.
+     */
+    flushdb(cb?: Callback<string>): R;
+    FLUSHDB(cb?: Callback<string>): R;
+
+    /**
+     * Add one or more geospatial items in the geospatial index represented using a sorted set.
+     */
+    geoadd: OverloadedKeyCommand<string | number, number, R>;
+    GEOADD: OverloadedKeyCommand<string | number, number, R>;
+
+    /**
+     * Returns members of a geospatial index as standard geohash strings.
+     */
+    geohash: OverloadedKeyCommand<string, string, R>;
+    GEOHASH: OverloadedKeyCommand<string, string, R>;
+
+    /**
+     * Returns longitude and latitude of members of a geospatial index.
+     */
+    geopos: OverloadedKeyCommand<string, Array<[number, number]>, R>;
+    GEOPOS: OverloadedKeyCommand<string, Array<[number, number]>, R>;
+
+    /**
+     * Returns the distance between two members of a geospatial index.
+     */
+    geodist: OverloadedKeyCommand<string, string, R>;
+    GEODIST: OverloadedKeyCommand<string, string, R>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point.
+     */
+    georadius: OverloadedKeyCommand<string | number, Array<string | [string, string | [string, string]]>, R>;
+    GEORADIUS: OverloadedKeyCommand<string | number, Array<string | [string, string | [string, string]]>, R>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member.
+     */
+    georadiusbymember: OverloadedKeyCommand<string | number, Array<string | [string, string | [string, string]]>, R>;
+    GEORADIUSBYMEMBER: OverloadedKeyCommand<string | number, Array<string | [string, string | [string, string]]>, R>;
+
+    /**
+     * Get the value of a key.
+     */
+    get(key: string, cb?: Callback<string>): R;
+    GET(key: string, cb?: Callback<string>): R;
+
+    /**
+     * Returns the bit value at offset in the string value stored at key.
+     */
+    getbit(key: string, offset: number, cb?: Callback<number>): R;
+    GETBIT(key: string, offset: number, cb?: Callback<number>): R;
+
+    /**
+     * Get a substring of the string stored at a key.
+     */
+    getrange(key: string, start: number, end: number, cb?: Callback<string>): R;
+    GETRANGE(key: string, start: number, end: number, cb?: Callback<string>): R;
+
+    /**
+     * Set the string value of a key and return its old value.
+     */
+    getset(key: string, value: string, cb?: Callback<string>): R;
+    GETSET(key: string, value: string, cb?: Callback<string>): R;
+
+    /**
+     * Delete on or more hash fields.
+     */
+    hdel: OverloadedKeyCommand<string, number, R>;
+    HDEL: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Determine if a hash field exists.
+     */
+    hexists(key: string, field: string, cb?: Callback<number>): R;
+    HEXISTS(key: string, field: string, cb?: Callback<number>): R;
+
+    /**
+     * Get the value of a hash field.
+     */
+    hget(key: string, field: string, cb?: Callback<string>): R;
+    HGET(key: string, field: string, cb?: Callback<string>): R;
+
+    /**
+     * Get all fields and values in a hash.
+     */
+    hgetall(key: string, cb?: Callback<{ [key: string]: string }>): R;
+    HGETALL(key: string, cb?: Callback<{ [key: string]: string }>): R;
+
+    /**
+     * Increment the integer value of a hash field by the given number.
+     */
+    hincrby(key: string, field: string, increment: number, cb?: Callback<number>): R;
+    HINCRBY(key: string, field: string, increment: number, cb?: Callback<number>): R;
+
+    /**
+     * Increment the float value of a hash field by the given amount.
+     */
+    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<number>): R;
+    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<number>): R;
+
+    /**
+     * Get all the fields of a hash.
+     */
+    hkeys(key: string, cb?: Callback<string[]>): R;
+    HKEYS(key: string, cb?: Callback<string[]>): R;
+
+    /**
+     * Get the number of fields in a hash.
+     */
+    hlen(key: string, cb?: Callback<number>): R;
+    HLEN(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Get the values of all the given hash fields.
+     */
+    hmget: OverloadedKeyCommand<string, string[], R>;
+    HMGET: OverloadedKeyCommand<string, string[], R>;
+
+    /**
+     * Set the string value of a hash field.
+     */
+    hset(key: string, field: string, value: string, cb?: Callback<number>): R;
+    HSET(key: string, field: string, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Set the value of a hash field, only if the field does not exist.
+     */
+    hsetnx(key: string, field: string, value: string, cb?: Callback<number>): R;
+    HSETNX(key: string, field: string, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Get the length of the value of a hash field.
+     */
+    hstrlen(key: string, field: string, cb?: Callback<number>): R;
+    HSTRLEN(key: string, field: string, cb?: Callback<number>): R;
+
+    /**
+     * Get all the values of a hash.
+     */
+    hvals(key: string, cb?: Callback<string[]>): R;
+    HVALS(key: string, cb?: Callback<string[]>): R;
+
+    /**
+     * Increment the integer value of a key by one.
+     */
+    incr(key: string, cb?: Callback<number>): R;
+    INCR(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Increment the integer value of a key by the given amount.
+     */
+    incrby(key: string, increment: number, cb?: Callback<number>): R;
+    INCRBY(key: string, increment: number, cb?: Callback<number>): R;
+
+    /**
+     * Increment the float value of a key by the given amount.
+     */
+    incrbyfloat(key: string, increment: number, cb?: Callback<number>): R;
+    INCRBYFLOAT(key: string, increment: number, cb?: Callback<number>): R;
+
+    /**
+     * Find all keys matching the given pattern.
+     */
+    keys(pattern: string, cb?: Callback<string[]>): R;
+    KEYS(pattern: string, cb?: Callback<string[]>): R;
+
+    /**
+     * Get the UNIX time stamp of the last successful save to disk.
+     */
+    lastsave(cb?: Callback<number>): R;
+    LASTSAVE(cb?: Callback<number>): R;
+
+    /**
+     * Get an element from a list by its index.
+     */
+    lindex(key: string, index: number, cb?: Callback<string>): R;
+    LINDEX(key: string, index: number, cb?: Callback<string>): R;
+
+    /**
+     * Insert an element before or after another element in a list.
+     */
+    linsert(key: string, dir: 'BEFORE' | 'AFTER', pivot: string, value: string, cb?: Callback<string>): R;
+    LINSERT(key: string, dir: 'BEFORE' | 'AFTER', pivot: string, value: string, cb?: Callback<string>): R;
+
+    /**
+     * Get the length of a list.
+     */
+    llen(key: string, cb?: Callback<number>): R;
+    LLEN(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Remove and get the first element in a list.
+     */
+    lpop(key: string, cb?: Callback<string>): R;
+    LPOP(key: string, cb?: Callback<string>): R;
+
+    /**
+     * Prepend one or multiple values to a list.
+     */
+    lpush: OverloadedKeyCommand<string, number, R>;
+    LPUSH: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Prepend a value to a list, only if the list exists.
+     */
+    lpushx(key: string, value: string, cb?: Callback<number>): R;
+    LPUSHX(key: string, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Get a range of elements from a list.
+     */
+    lrange(key: string, start: number, stop: number, cb?: Callback<string[]>): R;
+    LRANGE(key: string, start: number, stop: number, cb?: Callback<string[]>): R;
+
+    /**
+     * Remove elements from a list.
+     */
+    lrem(key: string, count: number, value: string, cb?: Callback<number>): R;
+    LREM(key: string, count: number, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Set the value of an element in a list by its index.
+     */
+    lset(key: string, index: number, value: string, cb?: Callback<'OK'>): R;
+    LSET(key: string, index: number, value: string, cb?: Callback<'OK'>): R;
+
+    /**
+     * Trim a list to the specified range.
+     */
+    ltrim(key: string, start: number, stop: number, cb?: Callback<'OK'>): R;
+    LTRIM(key: string, start: number, stop: number, cb?: Callback<'OK'>): R;
+
+    /**
+     * Get the values of all given keys.
+     */
+    mget: OverloadedCommand<string, string[], R>;
+    MGET: OverloadedCommand<string, string[], R>;
+
+    /**
+     * Atomically tranfer a key from a Redis instance to another one.
+     */
+    migrate: OverloadedCommand<string, boolean, R>;
+    MIGRATE: OverloadedCommand<string, boolean, R>;
+
+    /**
+     * Move a key to another database.
+     */
+    move(key: string, db: string | number): R;
+    MOVE(key: string, db: string | number): R;
+
+    /**
+     * Set multiple keys to multiple values.
+     */
+    mset: OverloadedCommand<string, boolean, R>;
+    MSET: OverloadedCommand<string, boolean, R>;
+
+    /**
+     * Set multiple keys to multiple values, only if none of the keys exist.
+     */
+    msetnx: OverloadedCommand<string, boolean, R>;
+    MSETNX: OverloadedCommand<string, boolean, R>;
+
+    /**
+     * Inspect the internals of Redis objects.
+     */
+    object: OverloadedCommand<string, any, R>;
+    OBJECT: OverloadedCommand<string, any, R>;
+
+    /**
+     * Remove the expiration from a key.
+     */
+    persist(key: string, cb?: Callback<number>): R;
+    PERSIST(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Remove a key's time to live in milliseconds.
+     */
+    pexpire(key: string, milliseconds: number, cb?: Callback<number>): R;
+    PEXPIRE(key: string, milliseconds: number, cb?: Callback<number>): R;
+
+    /**
+     * Set the expiration for a key as a UNIX timestamp specified in milliseconds.
+     */
+    pexpireat(key: string, millisecondsTimestamp: number, cb?: Callback<number>): R;
+    PEXPIREAT(key: string, millisecondsTimestamp: number, cb?: Callback<number>): R;
+
+    /**
+     * Adds the specified elements to the specified HyperLogLog.
+     */
+    pfadd: OverloadedKeyCommand<string, number, R>;
+    PFADD: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).
+     */
+    pfcount: OverloadedCommand<string, number, R>;
+    PFCOUNT: OverloadedCommand<string, number, R>;
+
+    /**
+     * Merge N different HyperLogLogs into a single one.
+     */
+    pfmerge: OverloadedCommand<string, boolean, R>;
+    PFMERGE: OverloadedCommand<string, boolean, R>;
+
+    /**
+     * Set the value and expiration in milliseconds of a key.
+     */
+    psetex(key: string, milliseconds: number, value: string, cb?: Callback<'OK'>): R;
+    PSETEX(key: string, milliseconds: number, value: string, cb?: Callback<'OK'>): R;
+
+    /**
+     * Inspect the state of the Pub/Sub subsytem.
+     */
+    pubsub: OverloadedCommand<string, number, R>;
+    PUBSUB: OverloadedCommand<string, number, R>;
+
+    /**
+     * Get the time to live for a key in milliseconds.
+     */
+    pttl(key: string, cb?: Callback<number>): R;
+    PTTL(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Close the connection.
+     */
+    quit(cb?: Callback<'OK'>): R;
+    QUIT(cb?: Callback<'OK'>): R;
+
+    /**
+     * Return a random key from the keyspace.
+     */
+    randomkey(cb?: Callback<string>): R;
+    RANDOMKEY(cb?: Callback<string>): R;
+
+    /**
+     * Enables read queries for a connection to a cluster slave node.
+     */
+    readonly(cb?: Callback<string>): R;
+    READONLY(cb?: Callback<string>): R;
+
+    /**
+     * Disables read queries for a connection to cluster slave node.
+     */
+    readwrite(cb?: Callback<string>): R;
+    READWRITE(cb?: Callback<string>): R;
+
+    /**
+     * Rename a key.
+     */
+    rename(key: string, newkey: string, cb?: Callback<'OK'>): R;
+    RENAME(key: string, newkey: string, cb?: Callback<'OK'>): R;
+
+    /**
+     * Rename a key, only if the new key does not exist.
+     */
+    renamenx(key: string, newkey: string, cb?: Callback<number>): R;
+    RENAMENX(key: string, newkey: string, cb?: Callback<number>): R;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     */
+    restore(key: string, ttl: number, serializedValue: string, cb?: Callback<'OK'>): R;
+    RESTORE(key: string, ttl: number, serializedValue: string, cb?: Callback<'OK'>): R;
+
+    /**
+     * Return the role of the instance in the context of replication.
+     */
+    role(cb?: Callback<[string, number, Array<[string, string, string]>]>): R;
+    ROLE(cb?: Callback<[string, number, Array<[string, string, string]>]>): R;
+
+    /**
+     * Remove and get the last element in a list.
+     */
+    rpop(key: string, cb?: Callback<string>): R;
+    RPOP(key: string, cb?: Callback<string>): R;
+
+    /**
+     * Remove the last element in a list, prepend it to another list and return it.
+     */
+    rpoplpush(source: string, destination: string, cb?: Callback<string>): R;
+    RPOPLPUSH(source: string, destination: string, cb?: Callback<string>): R;
+
+    /**
+     * Append one or multiple values to a list.
+     */
+    rpush: OverloadedKeyCommand<string, number, R>;
+    RPUSH: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Append a value to a list, only if the list exists.
+     */
+    rpushx(key: string, value: string, cb?: Callback<number>): R;
+    RPUSHX(key: string, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Append one or multiple members to a set.
+     */
+    sadd: OverloadedKeyCommand<string, number, R>;
+    SADD: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Synchronously save the dataset to disk.
+     */
+    save(cb?: Callback<string>): R;
+    SAVE(cb?: Callback<string>): R;
+
+    /**
+     * Get the number of members in a set.
+     */
+    scard(key: string, cb?: Callback<number>): R;
+    SCARD(key: string, cb?: Callback<number>): R;
+
+    /**
+     * DEBUG - Set the debug mode for executed scripts.
+     * EXISTS - Check existence of scripts in the script cache.
+     * FLUSH - Remove all scripts from the script cache.
+     * KILL - Kill the script currently in execution.
+     * LOAD - Load the specified Lua script into the script cache.
+     */
+    script: OverloadedCommand<string, any, R>;
+    SCRIPT: OverloadedCommand<string, any, R>;
+
+    /**
+     * Subtract multiple sets.
+     */
+    sdiff: OverloadedCommand<string, string[], R>;
+    SDIFF: OverloadedCommand<string, string[], R>;
+
+    /**
+     * Subtract multiple sets and store the resulting set in a key.
+     */
+    sdiffstore: OverloadedKeyCommand<string, number, R>;
+    SDIFFSTORE: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Change the selected database for the current connection.
+     */
+    select(index: number | string, cb?: Callback<string>): R;
+    SELECT(index: number | string, cb?: Callback<string>): R;
+
+    /**
+     * Set the string value of a key.
+     */
+    set(key: string, value: string, cb?: Callback<'OK'>): R;
+    set(key: string, value: string, flag: string, cb?: Callback<'OK'>): R;
+    set(key: string, value: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
+    set(key: string, value: string, mode: string, duration: number, flag: string, cb?: Callback<'OK' | undefined>): R;
+    SET(key: string, value: string, cb?: Callback<'OK'>): R;
+    SET(key: string, value: string, flag: string, cb?: Callback<'OK'>): R;
+    SET(key: string, value: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
+    SET(key: string, value: string, mode: string, duration: number, flag: string, cb?: Callback<'OK' | undefined>): R;
+
+    /**
+     * Sets or clears the bit at offset in the string value stored at key.
+     */
+    setbit(key: string, offset: number, value: string, cb?: Callback<number>): R;
+    SETBIT(key: string, offset: number, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Set the value and expiration of a key.
+     */
+    setex(key: string, seconds: number, value: string, cb?: Callback<string>): R;
+    SETEX(key: string, seconds: number, value: string, cb?: Callback<string>): R;
+
+    /**
+     * Set the value of a key, only if the key does not exist.
+     */
+    setnx(key: string, value: string, cb?: Callback<number>): R;
+    SETNX(key: string, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Overwrite part of a string at key starting at the specified offset.
+     */
+    setrange(key: string, offset: number, value: string, cb?: Callback<number>): R;
+    SETRANGE(key: string, offset: number, value: string, cb?: Callback<number>): R;
+
+    /**
+     * Synchronously save the dataset to disk and then shut down the server.
+     */
+    shutdown: OverloadedCommand<string, string, R>;
+    SHUTDOWN: OverloadedCommand<string, string, R>;
+
+    /**
+     * Intersect multiple sets.
+     */
+    sinter: OverloadedKeyCommand<string, string[], R>;
+    SINTER: OverloadedKeyCommand<string, string[], R>;
+
+    /**
+     * Intersect multiple sets and store the resulting set in a key.
+     */
+    sinterstore: OverloadedCommand<string, number, R>;
+    SINTERSTORE: OverloadedCommand<string, number, R>;
+
+    /**
+     * Determine if a given value is a member of a set.
+     */
+    sismember(key: string, member: string, cb?: Callback<number>): R;
+    SISMEMBER(key: string, member: string, cb?: Callback<number>): R;
+
+    /**
+     * Make the server a slave of another instance, or promote it as master.
+     */
+    slaveof(host: string, port: string | number, cb?: Callback<string>): R;
+    SLAVEOF(host: string, port: string | number, cb?: Callback<string>): R;
+
+    /**
+     * Manages the Redis slow queries log.
+     */
+    slowlog: OverloadedCommand<string, Array<[number, number, number, string[]]>, R>;
+    SLOWLOG: OverloadedCommand<string, Array<[number, number, number, string[]]>, R>;
+
+    /**
+     * Get all the members in a set.
+     */
+    smembers(key: string, cb?: Callback<string[]>): R;
+    SMEMBERS(key: string, cb?: Callback<string[]>): R;
+
+    /**
+     * Move a member from one set to another.
+     */
+    smove(source: string, destination: string, member: string, cb?: Callback<number>): R;
+    SMOVE(source: string, destination: string, member: string, cb?: Callback<number>): R;
+
+    /**
+     * Sort the elements in a list, set or sorted set.
+     */
+    sort: OverloadedCommand<string, string[], R>;
+    SORT: OverloadedCommand<string, string[], R>;
+
+    /**
+     * Remove and return one or multiple random members from a set.
+     */
+    spop(key: string, cb?: Callback<string>): R;
+    spop(key: string, count: number, cb?: Callback<string[]>): R;
+    SPOP(key: string, cb?: Callback<string>): R;
+    SPOP(key: string, count: number, cb?: Callback<string[]>): R;
+
+    /**
+     * Get one or multiple random members from a set.
+     */
+    srandmember(key: string, cb?: Callback<string>): R;
+    srandmember(key: string, count: number, cb?: Callback<string[]>): R;
+    SRANDMEMBER(key: string, cb?: Callback<string>): R;
+    SRANDMEMBER(key: string, count: number, cb?: Callback<string[]>): R;
+
+    /**
+     * Remove one or more members from a set.
+     */
+    srem: OverloadedKeyCommand<string, number, R>;
+    SREM: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Get the length of the value stored in a key.
+     */
+    strlen(key: string, cb?: Callback<number>): R;
+    STRLEN(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Add multiple sets.
+     */
+    sunion: OverloadedCommand<string, string[], R>;
+    SUNION: OverloadedCommand<string, string[], R>;
+
+    /**
+     * Add multiple sets and store the resulting set in a key.
+     */
+    sunionstore: OverloadedCommand<string, number, R>;
+    SUNIONSTORE: OverloadedCommand<string, number, R>;
+
+    /**
+     * Internal command used for replication.
+     */
+    sync(cb?: Callback<undefined>): R;
+    SYNC(cb?: Callback<undefined>): R;
+
+    /**
+     * Return the current server time.
+     */
+    time(cb?: Callback<[string, string]>): R;
+    TIME(cb?: Callback<[string, string]>): R;
+
+    /**
+     * Get the time to live for a key.
+     */
+    ttl(key: string, cb?: Callback<number>): R;
+    TTL(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Determine the type stored at key.
+     */
+    type(key: string, cb?: Callback<string>): R;
+    TYPE(key: string, cb?: Callback<string>): R;
+
+    /**
+     * Forget about all watched keys.
+     */
+    unwatch(cb?: Callback<'OK'>): R;
+    UNWATCH(cb?: Callback<'OK'>): R;
+
+    /**
+     * Wait for the synchronous replication of all the write commands sent in the context of the current connection.
+     */
+    wait(numslaves: number, timeout: number, cb?: Callback<number>): R;
+    WAIT(numslaves: number, timeout: number, cb?: Callback<number>): R;
+
+    /**
+     * Watch the given keys to determine execution of the MULTI/EXEC block.
+     */
+    watch: OverloadedCommand<string, 'OK', R>;
+    WATCH: OverloadedCommand<string, 'OK', R>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists.
+     */
+    zadd: OverloadedKeyCommand<string | number, number, R>;
+    ZADD: OverloadedKeyCommand<string | number, number, R>;
+
+    /**
+     * Get the number of members in a sorted set.
+     */
+    zcard(key: string, cb?: Callback<number>): R;
+    ZCARD(key: string, cb?: Callback<number>): R;
+
+    /**
+     * Count the members in a sorted set with scores between the given values.
+     */
+    zcount(key: string, min: number | string, max: number | string, cb?: Callback<number>): R;
+    ZCOUNT(key: string, min: number | string, max: number | string, cb?: Callback<number>): R;
+
+    /**
+     * Increment the score of a member in a sorted set.
+     */
+    zincrby(key: string, increment: number, member: string, cb?: Callback<number>): R;
+    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<number>): R;
+
+    /**
+     * Intersect multiple sorted sets and store the resulting sorted set in a new key.
+     */
+    zinterstore: OverloadedCommand<string | number, number, R>;
+    ZINTERSTORE: OverloadedCommand<string | number, number, R>;
+
+    /**
+     * Count the number of members in a sorted set between a given lexicographic range.
+     */
+    zlexcount(key: string, min: string, max: string, cb?: Callback<number>): R;
+    ZLEXCOUNT(key: string, min: string, max: string, cb?: Callback<number>): R;
+
+    /**
+     * Return a range of members in a sorted set, by index.
+     */
+    zrange(key: string, start: number, stop: number, cb?: Callback<string[]>): R;
+    zrange(key: string, start: number, stop: number, withscores: string, cb?: Callback<string[]>): R;
+    ZRANGE(key: string, start: number, stop: number, cb?: Callback<string[]>): R;
+    ZRANGE(key: string, start: number, stop: number, withscores: string, cb?: Callback<string[]>): R;
+
+    /**
+     * Return a range of members in a sorted set, by lexicographical range.
+     */
+    zrangebylex(key: string, min: string, max: string, cb?: Callback<string[]>): R;
+    zrangebylex(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZRANGEBYLEX(key: string, min: string, max: string, cb?: Callback<string[]>): R;
+    ZRANGEBYLEX(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+
+    /**
+     * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
+     */
+    zrevrangebylex(key: string, min: string, max: string, cb?: Callback<string[]>): R;
+    zrevrangebylex(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZREVRANGEBYLEX(key: string, min: string, max: string, cb?: Callback<string[]>): R;
+    ZREVRANGEBYLEX(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+
+    /**
+     * Return a range of members in a sorted set, by score.
+     */
+    zrangebyscore(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
+    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
+    zrangebyscore(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
+    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
+    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+
+    /**
+     * Determine the index of a member in a sorted set.
+     */
+    zrank(key: string, member: string, cb?: Callback<number | undefined>): R;
+    ZRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+
+    /**
+     * Remove one or more members from a sorted set.
+     */
+    zrem: OverloadedKeyCommand<string, number, R>;
+    ZREM: OverloadedKeyCommand<string, number, R>;
+
+    /**
+     * Remove all members in a sorted set between the given lexicographical range.
+     */
+    zremrangebylex(key: string, min: string, max: string, cb?: Callback<number>): R;
+    ZREMRANGEBYLEX(key: string, min: string, max: string, cb?: Callback<number>): R;
+
+    /**
+     * Remove all members in a sorted set within the given indexes.
+     */
+    zremrangebyrank(key: string, start: number, stop: number, cb?: Callback<number>): R;
+    ZREMRANGEBYRANK(key: string, start: number, stop: number, cb?: Callback<number>): R;
+
+    /**
+     * Remove all members in a sorted set within the given indexes.
+     */
+    zremrangebyscore(key: string, min: string | number, max: string | number, cb?: Callback<number>): R;
+    ZREMRANGEBYSCORE(key: string, min: string | number, max: string | number, cb?: Callback<number>): R;
+
+    /**
+     * Return a range of members in a sorted set, by index, with scores ordered from high to low.
+     */
+    zrevrange(key: string, start: number, stop: number, cb?: Callback<string[]>): R;
+    zrevrange(key: string, start: number, stop: number, withscores: string, cb?: Callback<string[]>): R;
+    ZREVRANGE(key: string, start: number, stop: number, cb?: Callback<string[]>): R;
+    ZREVRANGE(key: string, start: number, stop: number, withscores: string, cb?: Callback<string[]>): R;
+
+    /**
+     * Return a range of members in a sorted set, by score, with scores ordered from high to low.
+     */
+    zrevrangebyscore(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
+    zrevrangebyscore(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
+    zrevrangebyscore(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    zrevrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
+    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
+    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+
+    /**
+     * Determine the index of a member in a sorted set, with scores ordered from high to low.
+     */
+    zrevrank(key: string, member: string, cb?: Callback<number | undefined>): R;
+    ZREVRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+
+    /**
+     * Get the score associated with the given member in a sorted set.
+     */
+    zscore(key: string, member: string, cb?: Callback<string>): R;
+    ZSCORE(key: string, member: string, cb?: Callback<string>): R;
+
+    /**
+     * Add multiple sorted sets and store the resulting sorted set in a new key.
+     */
+    zunionstore: OverloadedCommand<string | number, number, R>;
+    ZUNIONSTORE: OverloadedCommand<string | number, number, R>;
+
+    /**
+     * Incrementally iterate the keys space.
+     */
+    scan: OverloadedCommand<string, [string, string[]], R>;
+    SCAN: OverloadedCommand<string, [string, string[]], R>;
+
+    /**
+     * Incrementally iterate Set elements.
+     */
+    sscan: OverloadedKeyCommand<string, [string, string[]], R>;
+    SSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
+
+    /**
+     * Incrementally iterate hash fields and associated values.
+     */
+    hscan: OverloadedKeyCommand<string, [string, string[]], R>;
+    HSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
+
+    /**
+     * Incrementally iterate sorted sets elements and associated scores.
+     */
+    zscan: OverloadedKeyCommand<string, [string, string[]], R>;
+    ZSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
+}
+
+export const RedisClient: {
+    new (options: ClientOpts): RedisClient;
+};
+
+export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
+    command_queue_length: number;
+    offline_queue_length: number;
     retry_delay: number;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];
+    connection_id: number;
     server_info: ServerInfo;
+    stream: Duplex;
+
+    on(event: 'message' | 'message_buffer', listener: (channel: string, message: string) => void): this;
+    on(event: 'pmessage' | 'pmessage_buffer', listener: (pattern: string, channel: string, message: string) => void): this;
+    on(event: 'subscribe' | 'unsubscribe', listener: (channel: string, count: number) => void): this;
+    on(event: 'psubscribe' | 'punsubscribe', listener: (pattern: string, count: number) => void): this;
+    on(event: string, listener: (...args: any[]) => void): this;
 
     /**
-     * Forcibly close the connection to the Redis server. Note that this does not wait until all replies have been parsed. If you want to exit cleanly, call client.quit()
-     *
-     * @param {boolean} flush You should set flush to true, if you are not absolutely sure you do not care about any other commands. If you set flush to false all still running commands will silently fail.
+     * Client methods.
      */
-    end(flush: boolean): void;
+
+    end(flush?: boolean): void;
     unref(): void;
 
-    /**
-     * Stop sending commands and queue the commands.
-     */
     cork(): void;
-
-    /**
-     * Resume and send the queued commands at once.
-     */
     uncork(): void;
 
-    // Low level command execution
-    send_command(command: string, ...args: any[]): boolean;
+    duplicate(options?: ClientOpts, cb?: Callback<RedisClient>): RedisClient;
 
-    // Connection (http://redis.io/commands#connection)
-    auth(password: string, callback?: ResCallbackT<any>): boolean;
-    ping(callback?: ResCallbackT<number>): boolean;
+    sendCommand(command: string, cb?: Callback<any>): boolean;
+    sendCommand(command: string, args?: any[], cb?: Callback<any>): boolean;
+    send_command(command: string, cb?: Callback<any>): boolean;
+    send_command(command: string, args?: any[], cb?: Callback<any>): boolean;
 
-    // Strings (http://redis.io/commands#strings)
-    append(key: string, value: string, callback?: ResCallbackT<number>): boolean;
-    bitcount(key: string, callback?: ResCallbackT<number>): boolean;
-    bitcount(key: string, start: number, end: number, callback?: ResCallbackT<number>): boolean;
-    set(key: string, value: string, callback?: ResCallbackT<string>): boolean;
-    get(key: string, callback?: ResCallbackT<string>): boolean;
-    exists(key: string, value: string, callback?: ResCallbackT<number>): boolean;
+    addCommand(command: string): void;
+    add_command(command: string): void;
 
-    publish(channel: string, value: any): boolean;
-    subscribe(channel: string): boolean;
-
-    /*
-     commands = set_union([
-     "get", "set", "setnx", "setex", "append", "strlen", "del", "exists", "setbit", "getbit", "setrange", "getrange", "substr",
-     "incr", "decr", "mget", "rpush", "lpush", "rpushx", "lpushx", "linsert", "rpop", "lpop", "brpop", "brpoplpush", "blpop", "llen", "lindex",
-     "lset", "lrange", "ltrim", "lrem", "rpoplpush", "sadd", "srem", "smove", "sismember", "scard", "spop", "srandmember", "sinter", "sinterstore",
-     "sunion", "sunionstore", "sdiff", "sdiffstore", "smembers", "zadd", "zincrby", "zrem", "zremrangebyscore", "zremrangebyrank", "zunionstore",
-     "zinterstore", "zrange", "zrangebyscore", "zrevrangebyscore", "zcount", "zrevrange", "zcard", "zscore", "zrank", "zrevrank", "hset", "hsetnx",
-     "hget", "hmset", "hmget", "hincrby", "hincrbyfloat", "hdel", "hlen", "hkeys", "hvals", "hgetall", "hexists", "incrby", "decrby", "getset", "mset", "msetnx",
-     "randomkey", "select", "move", "rename", "renamenx", "expire", "expireat", "keys", "dbsize", "auth", "ping", "echo", "save", "bgsave",
-     "bgrewriteaof", "shutdown", "lastsave", "type", "multi", "exec", "discard", "sync", "flushdb", "flushall", "sort", "info", "monitor", "ttl",
-     "persist", "slaveof", "debug", "config", "subscribe", "unsubscribe", "psubscribe", "punsubscribe", "publish", "watch", "unwatch", "cluster",
-     "restore", "migrate", "dump", "object", "client", "eval", "evalsha"], require("./lib/commands"));
+    /**
+     * Mark the start of a transaction block.
      */
+    multi(args?: Array<Array<string | number | Callback<any>>>): Multi;
+    MULTI(args?: Array<Array<string | number | Callback<any>>>): Multi;
 
-    get(args: any[], callback?: ResCallbackT<string>): boolean;
-    get(...args: any[]): boolean;
-    set(args: any[], callback?: ResCallbackT<string>): boolean;
-    set(...args: any[]): boolean;
-    setnx(args: any[], callback?: ResCallbackT<any>): boolean;
-    setnx(...args: any[]): boolean;
-    setex(args: any[], callback?: ResCallbackT<any>): boolean;
-    setex(...args: any[]): boolean;
-    append(args: any[], callback?: ResCallbackT<any>): boolean;
-    append(...args: any[]): boolean;
-    strlen(args: any[], callback?: ResCallbackT<any>): boolean;
-    strlen(...args: any[]): boolean;
-    del(args: any[], callback?: ResCallbackT<any>): boolean;
-    del(...args: any[]): boolean;
-    exists(args: any[], callback?: ResCallbackT<any>): boolean;
-    exists(...args: any[]): boolean;
-    setbit(args: any[], callback?: ResCallbackT<any>): boolean;
-    setbit(...args: any[]): boolean;
-    getbit(args: any[], callback?: ResCallbackT<any>): boolean;
-    getbit(...args: any[]): boolean;
-    setrange(args: any[], callback?: ResCallbackT<any>): boolean;
-    setrange(...args: any[]): boolean;
-    getrange(args: any[], callback?: ResCallbackT<any>): boolean;
-    getrange(...args: any[]): boolean;
-    substr(args: any[], callback?: ResCallbackT<any>): boolean;
-    substr(...args: any[]): boolean;
-    incr(args: any[], callback?: ResCallbackT<any>): boolean;
-    incr(...args: any[]): boolean;
-    decr(args: any[], callback?: ResCallbackT<any>): boolean;
-    decr(...args: any[]): boolean;
-    mget(args: any[], callback?: ResCallbackT<any>): boolean;
-    mget(...args: any[]): boolean;
-    rpush(...args: any[]): boolean;
-    lpush(args: any[], callback?: ResCallbackT<any>): boolean;
-    lpush(...args: any[]): boolean;
-    rpushx(args: any[], callback?: ResCallbackT<any>): boolean;
-    rpushx(...args: any[]): boolean;
-    lpushx(args: any[], callback?: ResCallbackT<any>): boolean;
-    lpushx(...args: any[]): boolean;
-    linsert(args: any[], callback?: ResCallbackT<any>): boolean;
-    linsert(...args: any[]): boolean;
-    rpop(args: any[], callback?: ResCallbackT<any>): boolean;
-    rpop(...args: any[]): boolean;
-    lpop(args: any[], callback?: ResCallbackT<any>): boolean;
-    lpop(...args: any[]): boolean;
-    brpop(args: any[], callback?: ResCallbackT<any>): boolean;
-    brpop(...args: any[]): boolean;
-    brpoplpush(args: any[], callback?: ResCallbackT<any>): boolean;
-    brpoplpush(...args: any[]): boolean;
-    blpop(args: any[], callback?: ResCallbackT<any>): boolean;
-    blpop(...args: any[]): boolean;
-    llen(args: any[], callback?: ResCallbackT<any>): boolean;
-    llen(...args: any[]): boolean;
-    lindex(args: any[], callback?: ResCallbackT<any>): boolean;
-    lindex(...args: any[]): boolean;
-    lset(args: any[], callback?: ResCallbackT<any>): boolean;
-    lset(...args: any[]): boolean;
-    lrange(args: any[], callback?: ResCallbackT<any>): boolean;
-    lrange(...args: any[]): boolean;
-    ltrim(args: any[], callback?: ResCallbackT<any>): boolean;
-    ltrim(...args: any[]): boolean;
-    lrem(args: any[], callback?: ResCallbackT<any>): boolean;
-    lrem(...args: any[]): boolean;
-    rpoplpush(args: any[], callback?: ResCallbackT<any>): boolean;
-    rpoplpush(...args: any[]): boolean;
-    sadd(args: any[], callback?: ResCallbackT<any>): boolean;
-    sadd(...args: any[]): boolean;
-    srem(args: any[], callback?: ResCallbackT<any>): boolean;
-    srem(...args: any[]): boolean;
-    smove(args: any[], callback?: ResCallbackT<any>): boolean;
-    smove(...args: any[]): boolean;
-    sismember(args: any[], callback?: ResCallbackT<any>): boolean;
-    sismember(...args: any[]): boolean;
-    scard(args: any[], callback?: ResCallbackT<any>): boolean;
-    scard(...args: any[]): boolean;
-    spop(args: any[], callback?: ResCallbackT<any>): boolean;
-    spop(...args: any[]): boolean;
-    srandmember(args: any[], callback?: ResCallbackT<any>): boolean;
-    srandmember(...args: any[]): boolean;
-    sinter(args: any[], callback?: ResCallbackT<any>): boolean;
-    sinter(...args: any[]): boolean;
-    sinterstore(args: any[], callback?: ResCallbackT<any>): boolean;
-    sinterstore(...args: any[]): boolean;
-    sunion(args: any[], callback?: ResCallbackT<any>): boolean;
-    sunion(...args: any[]): boolean;
-    sunionstore(args: any[], callback?: ResCallbackT<any>): boolean;
-    sunionstore(...args: any[]): boolean;
-    sdiff(args: any[], callback?: ResCallbackT<any>): boolean;
-    sdiff(...args: any[]): boolean;
-    sdiffstore(args: any[], callback?: ResCallbackT<any>): boolean;
-    sdiffstore(...args: any[]): boolean;
-    smembers(args: any[], callback?: ResCallbackT<any>): boolean;
-    smembers(...args: any[]): boolean;
-    zadd(args: any[], callback?: ResCallbackT<any>): boolean;
-    zadd(...args: any[]): boolean;
-    zincrby(args: any[], callback?: ResCallbackT<any>): boolean;
-    zincrby(...args: any[]): boolean;
-    zrem(args: any[], callback?: ResCallbackT<any>): boolean;
-    zrem(...args: any[]): boolean;
-    zremrangebyscore(args: any[], callback?: ResCallbackT<any>): boolean;
-    zremrangebyscore(...args: any[]): boolean;
-    zremrangebyrank(args: any[], callback?: ResCallbackT<any>): boolean;
-    zremrangebyrank(...args: any[]): boolean;
-    zunionstore(args: any[], callback?: ResCallbackT<any>): boolean;
-    zunionstore(...args: any[]): boolean;
-    zinterstore(args: any[], callback?: ResCallbackT<any>): boolean;
-    zinterstore(...args: any[]): boolean;
-    zrange(args: any[], callback?: ResCallbackT<any>): boolean;
-    zrange(...args: any[]): boolean;
-    zrangebyscore(args: any[], callback?: ResCallbackT<any>): boolean;
-    zrangebyscore(...args: any[]): boolean;
-    zrevrangebyscore(args: any[], callback?: ResCallbackT<any>): boolean;
-    zrevrangebyscore(...args: any[]): boolean;
-    zcount(args: any[], callback?: ResCallbackT<any>): boolean;
-    zcount(...args: any[]): boolean;
-    zrevrange(args: any[], callback?: ResCallbackT<any>): boolean;
-    zrevrange(...args: any[]): boolean;
-    zcard(args: any[], callback?: ResCallbackT<any>): boolean;
-    zcard(...args: any[]): boolean;
-    zscore(args: any[], callback?: ResCallbackT<any>): boolean;
-    zscore(...args: any[]): boolean;
-    zrank(args: any[], callback?: ResCallbackT<any>): boolean;
-    zrank(...args: any[]): boolean;
-    zrevrank(args: any[], callback?: ResCallbackT<any>): boolean;
-    zrevrank(...args: any[]): boolean;
-    hset(args: any[], callback?: ResCallbackT<any>): boolean;
-    hset(...args: any[]): boolean;
-    hsetnx(args: any[], callback?: ResCallbackT<any>): boolean;
-    hsetnx(...args: any[]): boolean;
-    hget(args: any[], callback?: ResCallbackT<any>): boolean;
-    hget(...args: any[]): boolean;
-    hmset(args: any[], callback?: ResCallbackT<any>): boolean;
-    hmset(key: string, hash: any, callback?: ResCallbackT<any>): boolean;
-    hmset(...args: any[]): boolean;
-    hmget(args: any[], callback?: ResCallbackT<any>): boolean;
-    hmget(...args: any[]): boolean;
-    hincrby(args: any[], callback?: ResCallbackT<any>): boolean;
-    hincrby(...args: any[]): boolean;
-    hincrbyfloat(args: any[], callback?: ResCallbackT<any>): boolean;
-    hincrbyfloat(...args: any[]): boolean;
-    hdel(args: any[], callback?: ResCallbackT<any>): boolean;
-    hdel(...args: any[]): boolean;
-    hlen(args: any[], callback?: ResCallbackT<any>): boolean;
-    hlen(...args: any[]): boolean;
-    hkeys(args: any[], callback?: ResCallbackT<any>): boolean;
-    hkeys(...args: any[]): boolean;
-    hvals(args: any[], callback?: ResCallbackT<any>): boolean;
-    hvals(...args: any[]): boolean;
-    hgetall(args: any[], callback?: ResCallbackT<any>): boolean;
-    hgetall(...args: any[]): boolean;
-    hgetall(key: string, callback?: ResCallbackT<any>): boolean;
-    hexists(args: any[], callback?: ResCallbackT<any>): boolean;
-    hexists(...args: any[]): boolean;
-    incrby(args: any[], callback?: ResCallbackT<any>): boolean;
-    incrby(...args: any[]): boolean;
-    decrby(args: any[], callback?: ResCallbackT<any>): boolean;
-    decrby(...args: any[]): boolean;
-    getset(args: any[], callback?: ResCallbackT<any>): boolean;
-    getset(...args: any[]): boolean;
-    mset(args: any[], callback?: ResCallbackT<any>): boolean;
-    mset(...args: any[]): boolean;
-    msetnx(args: any[], callback?: ResCallbackT<any>): boolean;
-    msetnx(...args: any[]): boolean;
-    randomkey(args: any[], callback?: ResCallbackT<any>): boolean;
-    randomkey(...args: any[]): boolean;
-    select(args: any[], callback?: ResCallbackT<any>): void;
-    select(...args: any[]): void;
-    move(args: any[], callback?: ResCallbackT<any>): boolean;
-    move(...args: any[]): boolean;
-    rename(args: any[], callback?: ResCallbackT<any>): boolean;
-    rename(...args: any[]): boolean;
-    renamenx(args: any[], callback?: ResCallbackT<any>): boolean;
-    renamenx(...args: any[]): boolean;
-    expire(args: any[], callback?: ResCallbackT<any>): boolean;
-    expire(...args: any[]): boolean;
-    expireat(args: any[], callback?: ResCallbackT<any>): boolean;
-    expireat(...args: any[]): boolean;
-    keys(args: any[], callback?: ResCallbackT<any>): boolean;
-    keys(...args: any[]): boolean;
-    dbsize(args: any[], callback?: ResCallbackT<any>): boolean;
-    dbsize(...args: any[]): boolean;
-    auth(args: any[], callback?: ResCallbackT<any>): void;
-    auth(...args: any[]): void;
-    ping(args: any[], callback?: ResCallbackT<any>): boolean;
-    ping(...args: any[]): boolean;
-    echo(args: any[], callback?: ResCallbackT<any>): boolean;
-    echo(...args: any[]): boolean;
-    save(args: any[], callback?: ResCallbackT<any>): boolean;
-    save(...args: any[]): boolean;
-    bgsave(args: any[], callback?: ResCallbackT<any>): boolean;
-    bgsave(...args: any[]): boolean;
-    bgrewriteaof(args: any[], callback?: ResCallbackT<any>): boolean;
-    bgrewriteaof(...args: any[]): boolean;
-    shutdown(args: any[], callback?: ResCallbackT<any>): boolean;
-    shutdown(...args: any[]): boolean;
-    lastsave(args: any[], callback?: ResCallbackT<any>): boolean;
-    lastsave(...args: any[]): boolean;
-    type(args: any[], callback?: ResCallbackT<any>): boolean;
-    type(...args: any[]): boolean;
-    multi(args: any[], callback?: ResCallbackT<any>): Multi;
-    multi(...args: any[]): Multi;
-    exec(args: any[], callback?: ResCallbackT<any>): boolean;
-    exec(...args: any[]): boolean;
-    discard(args: any[], callback?: ResCallbackT<any>): boolean;
-    discard(...args: any[]): boolean;
-    sync(args: any[], callback?: ResCallbackT<any>): boolean;
-    sync(...args: any[]): boolean;
-    flushdb(args: any[], callback?: ResCallbackT<any>): boolean;
-    flushdb(...args: any[]): boolean;
-    flushall(args: any[], callback?: ResCallbackT<any>): boolean;
-    flushall(...args: any[]): boolean;
-    sort(args: any[], callback?: ResCallbackT<any>): boolean;
-    sort(...args: any[]): boolean;
-    info(args: any[], callback?: ResCallbackT<any>): boolean;
-    info(...args: any[]): boolean;
-    monitor(args: any[], callback?: ResCallbackT<any>): boolean;
-    monitor(...args: any[]): boolean;
-    ttl(args: any[], callback?: ResCallbackT<any>): boolean;
-    ttl(...args: any[]): boolean;
-    persist(args: any[], callback?: ResCallbackT<any>): boolean;
-    persist(...args: any[]): boolean;
-    slaveof(args: any[], callback?: ResCallbackT<any>): boolean;
-    slaveof(...args: any[]): boolean;
-    debug(args: any[], callback?: ResCallbackT<any>): boolean;
-    debug(...args: any[]): boolean;
-    config(args: any[], callback?: ResCallbackT<any>): boolean;
-    config(...args: any[]): boolean;
-    subscribe(args: any[], callback?: ResCallbackT<any>): boolean;
-    subscribe(...args: any[]): boolean;
-    unsubscribe(args: any[], callback?: ResCallbackT<any>): boolean;
-    unsubscribe(...args: any[]): boolean;
-    psubscribe(args: any[], callback?: ResCallbackT<any>): boolean;
-    psubscribe(...args: any[]): boolean;
-    punsubscribe(args: any[], callback?: ResCallbackT<any>): boolean;
-    punsubscribe(...args: any[]): boolean;
-    publish(args: any[], callback?: ResCallbackT<any>): boolean;
-    publish(...args: any[]): boolean;
-    watch(args: any[], callback?: ResCallbackT<any>): boolean;
-    watch(...args: any[]): boolean;
-    unwatch(args: any[], callback?: ResCallbackT<any>): boolean;
-    unwatch(...args: any[]): boolean;
-    cluster(args: any[], callback?: ResCallbackT<any>): boolean;
-    cluster(...args: any[]): boolean;
-    restore(args: any[], callback?: ResCallbackT<any>): boolean;
-    restore(...args: any[]): boolean;
-    migrate(args: any[], callback?: ResCallbackT<any>): boolean;
-    migrate(...args: any[]): boolean;
-    dump(args: any[], callback?: ResCallbackT<any>): boolean;
-    dump(...args: any[]): boolean;
-    object(args: any[], callback?: ResCallbackT<any>): boolean;
-    object(...args: any[]): boolean;
-    client(args: any[], callback?: ResCallbackT<any>): boolean;
-    client(...args: any[]): boolean;
-    eval(args: any[], callback?: ResCallbackT<any>): boolean;
-    eval(...args: any[]): boolean;
-    evalsha(args: any[], callback?: ResCallbackT<any>): boolean;
-    evalsha(...args: any[]): boolean;
-    script(args: any[], callback?: ResCallbackT<any>): boolean;
-    script(...args: any[]): boolean;
-    script(key: string, callback?: ResCallbackT<any>): boolean;
-    quit(args: any[], callback?: ResCallbackT<any>): boolean;
-    quit(...args: any[]): boolean;
-    sscan(...args: any[]): boolean;
-    sscan(args: any[], callback?: ResCallbackT<any>): boolean;
-    scan(...args: any[]): boolean;
-    scan(args: any[], callback?: ResCallbackT<any>): boolean;
-    hscan(...args: any[]): boolean;
-    hscan(args: any[], callback?: ResCallbackT<any>): boolean;
-    zscan(...args: any[]): boolean;
-    zscan(args: any[], callback?: ResCallbackT<any>): boolean;
-
-    // Extras
-    duplicate(options?: any[], callback?: ResCallbackT<any>): RedisClient;
+    batch(args?: Array<Array<string | number | Callback<any>>>): Multi;
+    BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi;
 }
 
-export interface Multi {
-    exec(callback?: ResCallbackT<any[]>): boolean;
+export const Multi: {
+    new (): Multi;
+};
 
-    get(args: any[], callback?: ResCallbackT<string>): Multi;
-    get(...args: any[]): Multi;
-    set(args: any[], callback?: ResCallbackT<string>): Multi;
-    set(...args: any[]): Multi;
-    setnx(args: any[], callback?: ResCallbackT<any>): Multi;
-    setnx(...args: any[]): Multi;
-    setex(args: any[], callback?: ResCallbackT<any>): Multi;
-    setex(...args: any[]): Multi;
-    append(args: any[], callback?: ResCallbackT<any>): Multi;
-    append(...args: any[]): Multi;
-    strlen(args: any[], callback?: ResCallbackT<any>): Multi;
-    strlen(...args: any[]): Multi;
-    del(args: any[], callback?: ResCallbackT<any>): Multi;
-    del(...args: any[]): Multi;
-    exists(args: any[], callback?: ResCallbackT<any>): Multi;
-    exists(...args: any[]): Multi;
-    setbit(args: any[], callback?: ResCallbackT<any>): Multi;
-    setbit(...args: any[]): Multi;
-    getbit(args: any[], callback?: ResCallbackT<any>): Multi;
-    getbit(...args: any[]): Multi;
-    setrange(args: any[], callback?: ResCallbackT<any>): Multi;
-    setrange(...args: any[]): Multi;
-    getrange(args: any[], callback?: ResCallbackT<any>): Multi;
-    getrange(...args: any[]): Multi;
-    substr(args: any[], callback?: ResCallbackT<any>): Multi;
-    substr(...args: any[]): Multi;
-    incr(args: any[], callback?: ResCallbackT<any>): Multi;
-    incr(...args: any[]): Multi;
-    decr(args: any[], callback?: ResCallbackT<any>): Multi;
-    decr(...args: any[]): Multi;
-    mget(args: any[], callback?: ResCallbackT<any>): Multi;
-    mget(...args: any[]): Multi;
-    rpush(...args: any[]): Multi;
-    lpush(args: any[], callback?: ResCallbackT<any>): Multi;
-    lpush(...args: any[]): Multi;
-    rpushx(args: any[], callback?: ResCallbackT<any>): Multi;
-    rpushx(...args: any[]): Multi;
-    lpushx(args: any[], callback?: ResCallbackT<any>): Multi;
-    lpushx(...args: any[]): Multi;
-    linsert(args: any[], callback?: ResCallbackT<any>): Multi;
-    linsert(...args: any[]): Multi;
-    rpop(args: any[], callback?: ResCallbackT<any>): Multi;
-    rpop(...args: any[]): Multi;
-    lpop(args: any[], callback?: ResCallbackT<any>): Multi;
-    lpop(...args: any[]): Multi;
-    brpop(args: any[], callback?: ResCallbackT<any>): Multi;
-    brpop(...args: any[]): Multi;
-    brpoplpush(args: any[], callback?: ResCallbackT<any>): Multi;
-    brpoplpush(...args: any[]): Multi;
-    blpop(args: any[], callback?: ResCallbackT<any>): Multi;
-    blpop(...args: any[]): Multi;
-    llen(args: any[], callback?: ResCallbackT<any>): Multi;
-    llen(...args: any[]): Multi;
-    lindex(args: any[], callback?: ResCallbackT<any>): Multi;
-    lindex(...args: any[]): Multi;
-    lset(args: any[], callback?: ResCallbackT<any>): Multi;
-    lset(...args: any[]): Multi;
-    lrange(args: any[], callback?: ResCallbackT<any>): Multi;
-    lrange(...args: any[]): Multi;
-    ltrim(args: any[], callback?: ResCallbackT<any>): Multi;
-    ltrim(...args: any[]): Multi;
-    lrem(args: any[], callback?: ResCallbackT<any>): Multi;
-    lrem(...args: any[]): Multi;
-    rpoplpush(args: any[], callback?: ResCallbackT<any>): Multi;
-    rpoplpush(...args: any[]): Multi;
-    sadd(args: any[], callback?: ResCallbackT<any>): Multi;
-    sadd(...args: any[]): Multi;
-    srem(args: any[], callback?: ResCallbackT<any>): Multi;
-    srem(...args: any[]): Multi;
-    smove(args: any[], callback?: ResCallbackT<any>): Multi;
-    smove(...args: any[]): Multi;
-    sismember(args: any[], callback?: ResCallbackT<any>): Multi;
-    sismember(...args: any[]): Multi;
-    scard(args: any[], callback?: ResCallbackT<any>): Multi;
-    scard(...args: any[]): Multi;
-    spop(args: any[], callback?: ResCallbackT<any>): Multi;
-    spop(...args: any[]): Multi;
-    srandmember(args: any[], callback?: ResCallbackT<any>): Multi;
-    srandmember(...args: any[]): Multi;
-    sinter(args: any[], callback?: ResCallbackT<any>): Multi;
-    sinter(...args: any[]): Multi;
-    sinterstore(args: any[], callback?: ResCallbackT<any>): Multi;
-    sinterstore(...args: any[]): Multi;
-    sunion(args: any[], callback?: ResCallbackT<any>): Multi;
-    sunion(...args: any[]): Multi;
-    sunionstore(args: any[], callback?: ResCallbackT<any>): Multi;
-    sunionstore(...args: any[]): Multi;
-    sdiff(args: any[], callback?: ResCallbackT<any>): Multi;
-    sdiff(...args: any[]): Multi;
-    sdiffstore(args: any[], callback?: ResCallbackT<any>): Multi;
-    sdiffstore(...args: any[]): Multi;
-    smembers(args: any[], callback?: ResCallbackT<any>): Multi;
-    smembers(...args: any[]): Multi;
-    zadd(args: any[], callback?: ResCallbackT<any>): Multi;
-    zadd(...args: any[]): Multi;
-    zincrby(args: any[], callback?: ResCallbackT<any>): Multi;
-    zincrby(...args: any[]): Multi;
-    zrem(args: any[], callback?: ResCallbackT<any>): Multi;
-    zrem(...args: any[]): Multi;
-    zremrangebyscore(args: any[], callback?: ResCallbackT<any>): Multi;
-    zremrangebyscore(...args: any[]): Multi;
-    zremrangebyrank(args: any[], callback?: ResCallbackT<any>): Multi;
-    zremrangebyrank(...args: any[]): Multi;
-    zunionstore(args: any[], callback?: ResCallbackT<any>): Multi;
-    zunionstore(...args: any[]): Multi;
-    zinterstore(args: any[], callback?: ResCallbackT<any>): Multi;
-    zinterstore(...args: any[]): Multi;
-    zrange(args: any[], callback?: ResCallbackT<any>): Multi;
-    zrange(...args: any[]): Multi;
-    zrangebyscore(args: any[], callback?: ResCallbackT<any>): Multi;
-    zrangebyscore(...args: any[]): Multi;
-    zrevrangebyscore(args: any[], callback?: ResCallbackT<any>): Multi;
-    zrevrangebyscore(...args: any[]): Multi;
-    zcount(args: any[], callback?: ResCallbackT<any>): Multi;
-    zcount(...args: any[]): Multi;
-    zrevrange(args: any[], callback?: ResCallbackT<any>): Multi;
-    zrevrange(...args: any[]): Multi;
-    zcard(args: any[], callback?: ResCallbackT<any>): Multi;
-    zcard(...args: any[]): Multi;
-    zscore(args: any[], callback?: ResCallbackT<any>): Multi;
-    zscore(...args: any[]): Multi;
-    zrank(args: any[], callback?: ResCallbackT<any>): Multi;
-    zrank(...args: any[]): Multi;
-    zrevrank(args: any[], callback?: ResCallbackT<any>): Multi;
-    zrevrank(...args: any[]): Multi;
-    hset(args: any[], callback?: ResCallbackT<any>): Multi;
-    hset(...args: any[]): Multi;
-    hsetnx(args: any[], callback?: ResCallbackT<any>): Multi;
-    hsetnx(...args: any[]): Multi;
-    hget(args: any[], callback?: ResCallbackT<any>): Multi;
-    hget(...args: any[]): Multi;
-    hmset(args: any[], callback?: ResCallbackT<any>): Multi;
-    hmset(key: string, hash: any, callback?: ResCallbackT<any>): Multi;
-    hmset(...args: any[]): Multi;
-    hmget(args: any[], callback?: ResCallbackT<any>): Multi;
-    hmget(...args: any[]): Multi;
-    hincrby(args: any[], callback?: ResCallbackT<any>): Multi;
-    hincrby(...args: any[]): Multi;
-    hdel(args: any[], callback?: ResCallbackT<any>): Multi;
-    hdel(...args: any[]): Multi;
-    hlen(args: any[], callback?: ResCallbackT<any>): Multi;
-    hlen(...args: any[]): Multi;
-    hkeys(args: any[], callback?: ResCallbackT<any>): Multi;
-    hkeys(...args: any[]): Multi;
-    hvals(args: any[], callback?: ResCallbackT<any>): Multi;
-    hvals(...args: any[]): Multi;
-    hgetall(args: any[], callback?: ResCallbackT<any>): Multi;
-    hgetall(...args: any[]): Multi;
-    hgetall(key: string, callback?: ResCallbackT<any>): Multi;
-    hexists(args: any[], callback?: ResCallbackT<any>): Multi;
-    hexists(...args: any[]): Multi;
-    incrby(args: any[], callback?: ResCallbackT<any>): Multi;
-    incrby(...args: any[]): Multi;
-    decrby(args: any[], callback?: ResCallbackT<any>): Multi;
-    decrby(...args: any[]): Multi;
-    getset(args: any[], callback?: ResCallbackT<any>): Multi;
-    getset(...args: any[]): Multi;
-    mset(args: any[], callback?: ResCallbackT<any>): Multi;
-    mset(...args: any[]): Multi;
-    msetnx(args: any[], callback?: ResCallbackT<any>): Multi;
-    msetnx(...args: any[]): Multi;
-    randomkey(args: any[], callback?: ResCallbackT<any>): Multi;
-    randomkey(...args: any[]): Multi;
-    select(args: any[], callback?: ResCallbackT<any>): void;
-    select(...args: any[]): Multi;
-    move(args: any[], callback?: ResCallbackT<any>): Multi;
-    move(...args: any[]): Multi;
-    rename(args: any[], callback?: ResCallbackT<any>): Multi;
-    rename(...args: any[]): Multi;
-    renamenx(args: any[], callback?: ResCallbackT<any>): Multi;
-    renamenx(...args: any[]): Multi;
-    expire(args: any[], callback?: ResCallbackT<any>): Multi;
-    expire(...args: any[]): Multi;
-    expireat(args: any[], callback?: ResCallbackT<any>): Multi;
-    expireat(...args: any[]): Multi;
-    keys(args: any[], callback?: ResCallbackT<any>): Multi;
-    keys(...args: any[]): Multi;
-    dbsize(args: any[], callback?: ResCallbackT<any>): Multi;
-    dbsize(...args: any[]): Multi;
-    auth(args: any[], callback?: ResCallbackT<any>): void;
-    auth(...args: any[]): void;
-    ping(args: any[], callback?: ResCallbackT<any>): Multi;
-    ping(...args: any[]): Multi;
-    echo(args: any[], callback?: ResCallbackT<any>): Multi;
-    echo(...args: any[]): Multi;
-    save(args: any[], callback?: ResCallbackT<any>): Multi;
-    save(...args: any[]): Multi;
-    bgsave(args: any[], callback?: ResCallbackT<any>): Multi;
-    bgsave(...args: any[]): Multi;
-    bgrewriteaof(args: any[], callback?: ResCallbackT<any>): Multi;
-    bgrewriteaof(...args: any[]): Multi;
-    shutdown(args: any[], callback?: ResCallbackT<any>): Multi;
-    shutdown(...args: any[]): Multi;
-    lastsave(args: any[], callback?: ResCallbackT<any>): Multi;
-    lastsave(...args: any[]): Multi;
-    type(args: any[], callback?: ResCallbackT<any>): Multi;
-    type(...args: any[]): Multi;
-    multi(args: any[], callback?: ResCallbackT<any>): Multi;
-    multi(...args: any[]): Multi;
-    exec(args: any[], callback?: ResCallbackT<any>): Multi;
-    exec(...args: any[]): Multi;
-    discard(args: any[], callback?: ResCallbackT<any>): Multi;
-    discard(...args: any[]): Multi;
-    sync(args: any[], callback?: ResCallbackT<any>): Multi;
-    sync(...args: any[]): Multi;
-    flushdb(args: any[], callback?: ResCallbackT<any>): Multi;
-    flushdb(...args: any[]): Multi;
-    flushall(args: any[], callback?: ResCallbackT<any>): Multi;
-    flushall(...args: any[]): Multi;
-    sort(args: any[], callback?: ResCallbackT<any>): Multi;
-    sort(...args: any[]): Multi;
-    info(args: any[], callback?: ResCallbackT<any>): Multi;
-    info(...args: any[]): Multi;
-    monitor(args: any[], callback?: ResCallbackT<any>): Multi;
-    monitor(...args: any[]): Multi;
-    ttl(args: any[], callback?: ResCallbackT<any>): Multi;
-    ttl(...args: any[]): Multi;
-    persist(args: any[], callback?: ResCallbackT<any>): Multi;
-    persist(...args: any[]): Multi;
-    slaveof(args: any[], callback?: ResCallbackT<any>): Multi;
-    slaveof(...args: any[]): Multi;
-    debug(args: any[], callback?: ResCallbackT<any>): Multi;
-    debug(...args: any[]): Multi;
-    config(args: any[], callback?: ResCallbackT<any>): Multi;
-    config(...args: any[]): Multi;
-    subscribe(args: any[], callback?: ResCallbackT<any>): Multi;
-    subscribe(...args: any[]): Multi;
-    unsubscribe(args: any[], callback?: ResCallbackT<any>): Multi;
-    unsubscribe(...args: any[]): Multi;
-    psubscribe(args: any[], callback?: ResCallbackT<any>): Multi;
-    psubscribe(...args: any[]): Multi;
-    punsubscribe(args: any[], callback?: ResCallbackT<any>): Multi;
-    punsubscribe(...args: any[]): Multi;
-    publish(args: any[], callback?: ResCallbackT<any>): Multi;
-    publish(...args: any[]): Multi;
-    watch(args: any[], callback?: ResCallbackT<any>): Multi;
-    watch(...args: any[]): Multi;
-    unwatch(args: any[], callback?: ResCallbackT<any>): Multi;
-    unwatch(...args: any[]): Multi;
-    cluster(args: any[], callback?: ResCallbackT<any>): Multi;
-    cluster(...args: any[]): Multi;
-    restore(args: any[], callback?: ResCallbackT<any>): Multi;
-    restore(...args: any[]): Multi;
-    migrate(args: any[], callback?: ResCallbackT<any>): Multi;
-    migrate(...args: any[]): Multi;
-    dump(args: any[], callback?: ResCallbackT<any>): Multi;
-    dump(...args: any[]): Multi;
-    object(args: any[], callback?: ResCallbackT<any>): Multi;
-    object(...args: any[]): Multi;
-    client(args: any[], callback?: ResCallbackT<any>): Multi;
-    client(...args: any[]): Multi;
-    eval(args: any[], callback?: ResCallbackT<any>): Multi;
-    eval(...args: any[]): Multi;
-    evalsha(args: any[], callback?: ResCallbackT<any>): Multi;
-    evalsha(...args: any[]): Multi;
-    quit(args: any[], callback?: ResCallbackT<any>): Multi;
-    quit(...args: any[]): Multi;
-    scan(...args: any[]): Multi;
-    scan(args: any[], callback?: ResCallbackT<any>): Multi;
-    hscan(...args: any[]): Multi;
-    hscan(args: any[], callback?: ResCallbackT<any>): Multi;
-    zscan(...args: any[]): Multi;
-    zscan(args: any[], callback?: ResCallbackT<any>): Multi;
+export interface Multi extends Commands<Multi> {
+    exec(cb?: Callback<any[]>): boolean;
+    EXEC(cb?: Callback<any[]>): boolean;
+
+    exec_atomic(cb?: Callback<any[]>): boolean;
+    EXEC_ATOMIC(cb?: Callback<any[]>): boolean;
 }
+
+export let debug_mode: boolean;
+
+export function createClient(port: number, host?: string, options?: ClientOpts): RedisClient;
+export function createClient(unix_socket: string, options?: ClientOpts): RedisClient;
+export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
+export function createClient(options?: ClientOpts): RedisClient;
+
+export function print(err: Error | undefined, reply: any): void;

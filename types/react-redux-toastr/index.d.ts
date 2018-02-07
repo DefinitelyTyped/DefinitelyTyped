@@ -1,107 +1,130 @@
-// Type definitions for react-redux-toastr 3.7.0
+// Type definitions for react-redux-toastr 7.0.0
 // Project: https://github.com/diegoddox/react-redux-toastr
 // Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
+//                 Artyom Stukans <https://github.com/artyomsv>
+//                 Mika Kuitunen <https://github.com/kulmajaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
-declare module "react-redux-toastr" {
-    import * as React from "react";
-    import * as Redux from "redux";
+import { Component } from 'react';
+import { Action, ActionCreator, Reducer } from 'redux';
 
-    interface ToastrOptions {
-        /**
-         * Timeout in miliseconds.
-         */
-        timeOut?: number,
-        /**
-         * Show newest on top or bottom.
-         */
-        newestOnTop?: boolean,
-        /**
-         * Position of the toastr: top-left, top-center, top-right, bottom-left, bottom-center and bottom-right
-         */
-        position?: string,
-        confirmText?: ConfirmText
-    }
+export type iconType = 'success' | 'info' | 'warning' | 'error';
+export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';
+export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
+export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 
-    interface ConfirmText {
-        okText: string,
-        cancelText: string
-    }
-
-    /**
-     * Toastr react component.
-     */
-    export default class ReduxToastr extends React.Component<ToastrOptions, any>{ }
-
-    interface EmitterOptions {
-        /**
-         * Notification popup icon.
-         * icon-close-round, icon-information-circle, icon-check-1, icon-exclamation-triangle, icon-exclamation-alert
-         */
-        icon?: string,
-        /**
-         * Timeout in miliseconds.
-         */
-        timeOut?: number,
-        removeOnHover?: boolean,
-        removeOnClick?: boolean,
-        component?: React.Component<any, any>,
-        onShowComplete?(): void;
-        onHideComplete?(): void;
-    }
-
-    interface ToastrConfirmOptions {
-        onOk(): void;
-        onCancel(): void;
-    }
-
-    interface ToastrEmitter {
-        /**
-         * Used to provide a large amount of information.
-         * It will not close unless a timeOut is provided.
-         */
-        message(title: string, message: string, options?: EmitterOptions): void;
-        info(title: string, message: string, options?: EmitterOptions): void;
-        success(title: string, message: string, options?: EmitterOptions): void;
-        warning(title: string, message: string, options?: EmitterOptions): void;
-        error(title: string, message: string, options?: EmitterOptions): void;
-        /**
-         * Clear all notifications
-         */
-        clean(): void;
-        /**
-         * Hook confirmation toastr with callback.
-         */
-        confirm(message: string, options: ToastrConfirmOptions): void;
-    }
-
-    /**
-     * Possible actions to dispatch.
-     */
-    interface Actions {
-        addToastrAction: Redux.Action,
-        clean: Redux.Action,
-        remove: Redux.Action,
-        success: Redux.Action,
-        info: Redux.Action,
-        warning: Redux.Action,
-        error: Redux.Action,
-        showConfirm: Redux.Action,
-        hideConfirm: Redux.Action
-    }
-
-    /**
-     * Action creator for toastr.
-     */
-    export var actions: Redux.ActionCreator<Actions>;
-    /**
-     * Reducer for the toastr state.
-     * Combine with your reducers.
-     */
-    export var reducer: Redux.Reducer<any>;
-    /**
-     * Used to issue toastr notifications.
-     */
-    export var toastr: ToastrEmitter;
+interface BasicToastrOptions {
+    attention?: boolean;
+    className?: string;
+    component?: Component | JSX.Element;
+    icon?: JSX.Element;
+    onCloseButtonClick?: () => void;
+    onHideComplete?: () => void;
+    onShowComplete?: () => void;
+    progressBar?: boolean;
+    removeOnHover?: boolean;
+    showCloseButton?: boolean;
+    timeOut?: number;
+    transitionIn?: transitionInType;
+    transitionOut?: transitionOutType;
 }
+
+interface LightToastrOptions {
+    attention?: boolean;
+    className?: string;
+    component?: JSX.Element;
+    icon?: iconType | JSX.Element;
+    onCloseButtonClick?: () => void;
+    onHideComplete?: () => void;
+    onShowComplete?: () => void;
+    progressBar?: boolean;
+    removeOnHover?: boolean;
+    showCloseButton?: boolean;
+    status?: iconType;
+    timeOut?: number;
+    transitionIn?: transitionInType;
+    transitionOut?: transitionOutType;
+}
+
+interface ConfirmToastrOptions {
+    disableCancel?: boolean;
+    onCancel?: () => void;
+    onOk?: () => void;
+}
+
+interface ConfirmToastrCustomOptions {
+    component: JSX.Element;
+}
+
+export interface Toastr {
+    id: string;
+    message?: string;
+    options: BasicToastrOptions | LightToastrOptions;
+    position: positionType;
+    title?: string;
+    type: toastType;
+}
+
+export interface AddToastPayload {
+    id?: string;
+    message?: string;
+    options?: BasicToastrOptions | LightToastrOptions;
+    position?: positionType;
+    title?: string;
+    type: toastType;
+}
+
+export interface ToastrState {
+    confirm?: {
+        id: string;
+        message: string;
+        options: ConfirmToastrOptions | ConfirmToastrCustomOptions;
+        show: boolean;
+    };
+    toastrs: Toastr[];
+}
+
+interface ReduxToastrProps {
+    confirmOptions?: {
+        cancelText: string;
+        okText: string;
+    };
+    newestOnTop?: boolean;
+    options?: any; // This is currently not used, waiting for response from the package author to remove
+    position?: positionType
+    preventDuplicates?: boolean;
+    progressBar?: boolean;
+    timeOut?: number;
+    toastr?: ToastrState;
+    transitionIn?: transitionInType;
+    transitionOut?: transitionOutType;
+    className?: string;
+}
+
+interface ToastrEmitter {
+    clean: () => void;
+    confirm: (message: string, options: ConfirmToastrOptions) => void;
+    error: (title: string, message: string, options?: BasicToastrOptions) => void;
+    info: (title: string, message: string, options?: BasicToastrOptions) => void;
+    light: (title: string, message: string, options?: LightToastrOptions) => void;
+    message: (title: string, message: string, options?: BasicToastrOptions) => void;
+    removeByType: (type: string) => void;
+    success: (title: string, message: string, options?: BasicToastrOptions) => void;
+    warning: (title: string, message: string, options?: BasicToastrOptions) => void;
+}
+
+interface ToastrActionCreators {
+    add: (toastr: AddToastPayload) => Action;
+    clean: () => Action;
+    hideConfirm: () => Action;
+    remove: (id: string) => Action;
+    removeByType: (type: toastType) => Action;
+    showConfirm: (confirm: ConfirmToastrOptions | ConfirmToastrCustomOptions) => Action;
+}
+
+export default class ReduxToastr extends Component<ReduxToastrProps> {}
+export const actions: ToastrActionCreators;
+export const reducer: Reducer<ToastrState>;
+export const toastr: ToastrEmitter;

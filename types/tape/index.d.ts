@@ -1,6 +1,9 @@
-// Type definitions for tape v4.2.2
+// Type definitions for tape v4.2.30
 // Project: https://github.com/substack/tape
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Haoqun Jiang <https://github.com/sodatea>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Haoqun Jiang <https://github.com/sodatea>
+//                 Dennis Schwartz <https://github.com/DennisSchwartz>
+//                 Michael Henretty <https://github.com/mikehenrty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -45,6 +48,11 @@ declare namespace tape {
     export function skip(name: string, cb: tape.TestCase): void;
 
     /**
+     * The onFinish hook will get invoked when ALL tape tests have finished right before tape is about to print the test summary.
+     */
+    export function onFinish(cb: () => void): void;
+
+    /**
      * Like test(name, cb) except if you use .only this is the only test case that will run for the entire process, all other test cases using tape will be ignored.
      */
     export function only(name: string, cb: tape.TestCase): void;
@@ -66,6 +74,7 @@ declare namespace tape {
          * Additional tests queued up after t will not be run until all subtests finish.
          */
         test(name: string, cb: tape.TestCase): void;
+        test(name: string, opts: TestOptions, cb: tape.TestCase): void;
 
         /**
          * Declare that n assertions should be run. end() will be called automatically after the nth assertion.

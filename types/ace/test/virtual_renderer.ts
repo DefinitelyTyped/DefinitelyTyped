@@ -15,6 +15,7 @@ const aceVirtualRendererTests = {
 
         var renderer = new AceAjax.VirtualRenderer(el);
         renderer.setPadding(0);
+        renderer.setScrollMargin(0,0,0,0)
         renderer.setSession(new AceAjax.EditSession("1234"));
 
         var r = renderer.scroller.getBoundingClientRect();

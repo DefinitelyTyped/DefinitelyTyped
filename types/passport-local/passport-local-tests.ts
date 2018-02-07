@@ -12,6 +12,10 @@ interface IUser {
     username: string;
 }
 
+const testingLocalStrategy = new local.Strategy(()=>{});
+testingLocalStrategy.success = () => {};
+testingLocalStrategy.fail = () => {};
+
 class User implements IUser {
     public username: string;
     public password: string;

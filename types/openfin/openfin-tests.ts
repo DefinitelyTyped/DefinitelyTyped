@@ -44,12 +44,11 @@ function test_application() {
 	});
 	// getGroups
 	application.getGroups(allGroups => {
-		console.log("There are a total of " + allGroups.length + " groups.");
+		console.log(`There are a total of ${allGroups.length} groups.`);
 
 		let groupCounter = 1;
 		allGroups.forEach(windowGroup => {
-			console.log("Group " + groupCounter + " contains " +
-				windowGroup.length + " windows.");
+			console.log(`Group ${groupCounter} contains ${windowGroup.length} windows.`);
 			++groupCounter;
 		});
 	});
@@ -122,7 +121,7 @@ function test_application() {
 	});
 	// setTrayIcon
 	application.setTrayIcon("https://developer.openf.in/download/openfin.png", clickInfo => {
-		console.log("The mouse has clicked at (" + clickInfo.x + "," + clickInfo.y + ")");
+		console.log(`The mouse has clicked at (${clickInfo.x}, ${clickInfo.y})`);
 	});
 	// terminate
 	application.terminate();
@@ -157,11 +156,11 @@ function test_external_application() {
 function test_inter_application_bus() {
 	// addSubscribeListener
 	fin.desktop.InterApplicationBus.addSubscribeListener((uuid, topic, name) => {
-		console.log("The application " + uuid + " has subscribed to " + topic);
+		console.log(`The application ${uuid} has subscribed to ${topic}`);
 	});
 	// addUnsubscribeListener
 	fin.desktop.InterApplicationBus.addUnsubscribeListener((uuid, topic, name) => {
-		console.log("The application " + uuid + " has unsubscribed to " + topic);
+		console.log(`The application ${uuid} has unsubscribed to ${topic}`);
 	});
 	// removeSubscribeListener
 	const aRegisteredListener = (uuid: string, topic: string, name: string) => { };
@@ -180,7 +179,7 @@ function test_inter_application_bus() {
 	});
 	// subscribe
 	fin.desktop.InterApplicationBus.subscribe("*", "a topic", (message, uuid, name) => {
-		console.log("The application " + uuid + " sent this message: " + message);
+		console.log(`The application ${uuid} sent this message: ${message}`);
 	});
 	// unsubscribe
 	const aRegisteredMessageListener = (message: any, senderUuid: string) => {
@@ -305,10 +304,7 @@ function test_system() {
 	// getLogList
 	fin.desktop.System.getLogList(logList => {
 		logList.forEach(logInfo => {
-			console.log("The filename of the log is " +
-				logInfo.name + ", the size is " +
-				logInfo.size + ", and the date of creation is " +
-				logInfo.date);
+			console.log(`The filename of the log is ${logInfo.name}, the size is ${logInfo.size}, and the date of creation is ${logInfo.date}`);
 		});
 	});
 	// getMonitorInfo
@@ -317,12 +313,12 @@ function test_system() {
 	});
 	// getMousePosition
 	fin.desktop.System.getMousePosition(mousePosition => {
-		console.log("The mouse is located at left: " + mousePosition.left + ", top: " + mousePosition.top);
+		console.log(`The mouse is located at left: ${mousePosition.left}, top: ${mousePosition.top}`);
 	});
 	// getProcessList
 	fin.desktop.System.getProcessList(list => {
 		list.forEach(process => {
-			console.log("UUID: " + process.uuid + ", Application Name: " + process.name);
+			console.log(`UUID: ${process.uuid}, Application Name: ${process.name}`);
 		});
 	});
 	// getProxySettings
@@ -612,10 +608,7 @@ function test_window() {
 	finWindow.focus();
 	// getBounds
 	finWindow.getBounds(bounds => {
-		console.log("top: " + bounds.top +
-			"left: " + bounds.left +
-			"height: " + bounds.height +
-			"width: " + bounds.width);
+		console.log(`top: ${bounds.top} left: ${bounds.left} height: ${bounds.height} width: ${bounds.width}`);
 	});
 	// getOptions
 	finWindow.getOptions(options => {

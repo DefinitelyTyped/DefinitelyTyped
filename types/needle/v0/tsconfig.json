@@ -7,18 +7,20 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "needle": [
-            "needle/v0"
-          ]
+            "needle": [
+                "needle/v0"
+            ]
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
