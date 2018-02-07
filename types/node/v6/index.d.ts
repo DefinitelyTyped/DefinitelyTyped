@@ -3605,7 +3605,6 @@ declare module "stream" {
              *   5. error
              **/
             addListener(event: string, listener: Function): this;
-            addListener(event: string, listener: Function): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
             addListener(event: "end", listener: () => void): this;
