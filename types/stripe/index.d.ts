@@ -1,4 +1,4 @@
-// Type definitions for stripe 5.0
+// Type definitions for stripe 6.0
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -4051,7 +4051,7 @@ declare namespace Stripe {
             /**
              * The card number
              */
-            number: number;
+            number: string;
 
             /**
              * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
@@ -4167,7 +4167,7 @@ declare namespace Stripe {
             /**
              * The card number, as a string without any separators.
              */
-            number: number;
+            number: string;
 
             /**
              * Card security code. Required unless your account is registered in
