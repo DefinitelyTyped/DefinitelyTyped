@@ -8,6 +8,7 @@ import TokenOpts = X.TokenOpts;
 var exp: RegExp;
 var expArr: RegExp[];
 var expArrArr: RegExp[][];
+var strOrExpArr: (string | RegExp)[];
 var chain: RegExp[];
 var groupChain: { regex: RegExp; backref: string }[];
 var groupChain1: { regex: RegExp; backref: number }[];
@@ -145,5 +146,9 @@ XRegExp.uninstall(str);
 
 regex = XRegExp.union(strArr, flags);
 regex = XRegExp.union(strArr);
+regex = XRegExp.union(expArr, flags);
+regex = XRegExp.union(expArr);
+regex = XRegExp.union(strOrExpArr, flags);
+regex = XRegExp.union(strOrExpArr);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --

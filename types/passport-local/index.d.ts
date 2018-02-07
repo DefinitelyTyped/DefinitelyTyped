@@ -2,12 +2,13 @@
 // Project: https://github.com/jaredhanson/passport-local
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="passport"/>
 
 
 
-import passport = require('passport');
+import { Strategy as PassportStrategy } from 'passport-strategy';
 import express = require('express');
 
 interface IStrategyOptions {
@@ -34,11 +35,10 @@ interface VerifyFunction {
     (username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
 }
 
-declare class Strategy implements passport.Strategy {
+declare class Strategy extends PassportStrategy {
     constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
     constructor(options: IStrategyOptions, verify: VerifyFunction);
     constructor(verify: VerifyFunction);
 
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
 }

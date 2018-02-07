@@ -2,24 +2,25 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "q": [ "q/v0" ]
-        },
+        "jsx": "react",
         "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "noEmit": true
     },
     "files": [
         "index.d.ts",
-        "gulp-tests.ts"
+        "test/index.ts"
     ]
 }

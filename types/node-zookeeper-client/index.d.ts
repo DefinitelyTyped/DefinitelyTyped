@@ -1,6 +1,7 @@
 // Type definitions for node-zookeeper-client 0.2
 // Project: https://github.com/alexguan/node-zookeeper-client
-// Definitions by: York Yao <https://github.com/plantain-00/>
+// Definitions by: York Yao <https://github.com/plantain-00>
+//                 Jesse Zhang <https://github.com/jessezhang91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -62,12 +63,12 @@ export class Event {
     static NODE_DELETED: number;
     static NODE_DATA_CHANGED: number;
     static NODE_CHILDREN_CHANGED: number;
-    type: string;
+    type: number;
     name: string;
     path: string;
-    constructor(type: string, name: string, path: string);
+    constructor(type: number, name: string, path: string);
     toString(): string;
-    getType(): string;
+    getType(): number;
     getName(): string;
     getPath(): string;
 }
@@ -170,8 +171,14 @@ export class Exception {
 
     code: number;
     name: string;
-    path: number;
-    constructor(code: number, name: string, path: number);
+    path?: string;
+
+    // tslint:disable-next-line ban-types
+    constructor(code: number, name: string, path: string, ctor: Function);
+
+    // tslint:disable-next-line ban-types
+    constructor(code: number, name: string, ctor: Function);
+
     toString(): string;
     getCode(): number;
     getName(): string;

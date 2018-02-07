@@ -1,23 +1,28 @@
-// Type definitions for o.js v0.2.2
+// Type definitions for o.js v0.3.4
 // Project: https://github.com/janhommes/o.js
-// Definitions by: Matteo Antony Mistretta <https://github.com/IceOnFire>, Brad Zacher <https://github.com/bradzacher>
+// Definitions by: Matteo Antony Mistretta <https://github.com/IceOnFire>, Brad Zacher <https://github.com/bradzacher>, Jan Hommes <https://github.com/janhommes>, Jean-Christophe Chalte <https://github.com/jcchalte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare module 'o.js' {
     import Q = require("q");
 
     interface Options {
         endpoint : string
-        json ?: boolean
+        format ?: string
+        autoFormat ?: boolean
         version ?: number
         strictMode ?: boolean
         start ?: () => any
         ready ?: () => any
         error ?: () => any
-        headers ?: string[]
+        headers ?: { name: string, value: string }[]
         username ?: string
         password ?: string
         isAsync ?: boolean
+		isCors ?: boolean
+		isHashRoute ?: boolean
+		appending ?: string
     }
 
     interface OHandler<T> {

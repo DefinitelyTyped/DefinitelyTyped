@@ -21,21 +21,18 @@ const users: Users = {
 };
 
 function validate(decoded: User, request: Hapi.Request, callback: hapiAuthJwt2.ValidateCallback) {
-  if (!users[decoded.id]) {
-    return callback(null, false);
-  }
-
-  return callback(null, true);
+  callback(null, !!users[decoded.id]);
 }
 
 server.register(hapiAuthJwt2, err => {
-  server.auth.strategy('jwt', 'jwt', <hapiAuthJwt2.Options> {
+  const options: hapiAuthJwt2.Options = {
     key: 'NeverShareYourSecret',
     validateFunc: validate,
     verifyOptions: {
       algorithms: ['HS256']
     }
-  });
+  };
+  server.auth.strategy('jwt', 'jwt', options);
 });
 
 server.start();

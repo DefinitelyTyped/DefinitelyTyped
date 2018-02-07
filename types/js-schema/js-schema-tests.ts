@@ -1,4 +1,4 @@
-import {default as schema} from 'js-schema';
+import * as schema from 'js-schema';
 
 var Duck = schema({              // A duck
     swim : Function,               //  - can swim

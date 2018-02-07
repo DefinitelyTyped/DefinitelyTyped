@@ -16,6 +16,7 @@ tape(name, (test: tape.Test) => {
 
 tape.skip(name, cb);
 tape.only(name, cb);
+tape.onFinish(() => {});
 
 
 var sopts: tape.StreamOptions;
@@ -152,6 +153,10 @@ tape(name, (test: tape.Test) => {
 	test.doesNotThrow(fn, exceptionExpected, msg);
 
 	test.test(name, (st) => {
+		t = st;
+	});
+
+	test.test(name, opts, (st) => {
 		t = st;
 	});
 

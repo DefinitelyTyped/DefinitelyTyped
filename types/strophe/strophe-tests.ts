@@ -98,3 +98,26 @@ function onConnect(status: Strophe.Status): void {
         connection.send($pres().tree());
     }
 }
+
+function onRoomMessage(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
+  console.log(Strophe.serialize(stanza));
+  room.groupchat("hello");
+  return true;
+}
+
+function onRoomPresence(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
+  let from = stanza.getAttribute("from");
+  console.log(`${from} precense updated`);
+  return true;
+}
+
+function onRoomRoster(occupants: Strophe.MUC.OccupantMap, room: Strophe.MUC.XmppRoom): boolean {
+  for (let nick of Object.keys(occupants)) {
+    let occupant = occupants[nick];
+    console.log(occupant.nick, occupant.show, occupant.status);
+  }
+  return true;
+}
+
+connection.muc.init(connection);
+connection.muc.join("room", "nick", onRoomMessage, onRoomPresence, onRoomRoster);

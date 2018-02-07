@@ -1,15 +1,13 @@
-// Type definitions for react-icon-base 2.0
+// Type definitions for react-icon-base 2.1
 // Project: https://github.com/gorangajic/react-icon-base#readme
-// Definitions by: Alexandre Paré <https://github.com/apare>
+// Definitions by: Alexandre Paré <https://github.com/apare>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-import * as React from 'react';
+import * as React from "react";
 
-export interface IconBaseProps {
-    color?: string;
+export interface IconBaseProps extends React.SVGProps<React.ReactSVGElement> {
     size?: string | number;
-    style?: React.CSSProperties;
 }
 
-export default class IconBase extends React.Component<IconBaseProps, any> {}
+export default class IconBaseClass extends React.Component<IconBaseProps> {}

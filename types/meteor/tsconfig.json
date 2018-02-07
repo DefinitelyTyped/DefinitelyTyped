@@ -8,15 +8,37 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
+        "accounts.d.ts",
+        "blaze.d.ts",
+        "browser-policy-common.d.ts",
+        "check.d.ts",
+        "ddp-rate-limiter.d.ts",
+        "ddp.d.ts",
+        "ejson.d.ts",
+        "email.d.ts",
+        "http.d.ts",
+        "meteor.d.ts",
+        "mongo.d.ts",
+        "reactive-var.d.ts",
+        "server-render.d.ts",
+        "service-configuration.d.ts",
+        "session.d.ts",
+        "tiny-test.d.ts",
+        "tools.d.ts",
+        "tracker.d.ts",
+        "underscore.d.ts",
+        "webapp.d.ts",
         "index.d.ts",
         "meteor-tests.ts"
     ]

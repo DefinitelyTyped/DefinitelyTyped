@@ -1,3 +1,6 @@
+import * as L from 'leaflet';
+import 'leaflet-editable';
+
 class MarkerClass { }
 class MarkerEditorClass { }
 class MiddleMarkerClass { }
@@ -7,7 +10,7 @@ class PolylineClass { }
 class PolylineEditorClass { }
 class VertexMarkerClass { }
 
-var map: L.Map = L.map('div', {
+const map: L.Map = L.map('div', {
     editable: true,
     editOptions: {
         drawingCSSClass: 'css-class',
@@ -26,16 +29,16 @@ var map: L.Map = L.map('div', {
     }
 });
 
-var currentPoly: L.Polygon|L.Polyline| L.Marker = map.editTools.currentPolygon;
+const currentPoly: L.Polygon|L.Polyline| L.Marker = map.editTools.currentPolygon;
 map.editTools.stopDrawing();
 
-var marker: L.Marker = map.editTools.startMarker(L.latLng(0, 0), { draggable: true });
+const marker: L.Marker = map.editTools.startMarker(L.latLng(0, 0), { draggable: true });
 marker.disable();
 marker.enable();
 marker.toggleEdit();
-var enabled: boolean = marker.editEnabled();
+let enabled: boolean = marker.editEnabled();
 
-var polyline: L.Polyline = map.editTools.startPolyline(L.latLng(0, 0), { noClip: true });
+const polyline: L.Polyline = map.editTools.startPolyline(L.latLng(0, 0), { noClip: true });
 polyline.continueBackward();
 polyline.continueForward();
 polyline.disable();
@@ -44,7 +47,7 @@ enabled = polyline.editEnabled();
 polyline.reset();
 polyline.toggleEdit();
 
-var polygon: L.Polygon = map.editTools.startPolygon(L.latLng(0, 0), { noClip: true });
+const polygon: L.Polygon = map.editTools.startPolygon(L.latLng(0, 0), { noClip: true });
 polygon.continueBackward();
 polygon.continueForward();
 polygon.disable();

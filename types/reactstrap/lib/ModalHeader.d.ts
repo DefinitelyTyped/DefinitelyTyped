@@ -1,9 +1,12 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface ModalHeaderProps {
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
   wrapTag?: React.ReactType;
   toggle?: () => void;
 }
 
-declare var ModalHeader: React.StatelessComponent<Props>;
+declare const ModalHeader: React.StatelessComponent<ModalHeaderProps>;
 export default ModalHeader;

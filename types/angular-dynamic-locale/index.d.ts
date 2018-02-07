@@ -2,6 +2,7 @@
 // Project: https://github.com/lgalfaso/angular-dynamic-locale
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
@@ -16,6 +17,7 @@ declare module 'angular' {
         }
 
         interface tmhDynamicLocaleProvider extends angular.IServiceProvider {
+            defaultLocale(locale: string): void;
             localeLocationPattern(location: string): tmhDynamicLocaleProvider;
             localeLocationPattern(): string;
             storageKey(storageKey: string): void;

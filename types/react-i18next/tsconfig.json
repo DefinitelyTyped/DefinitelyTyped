@@ -8,23 +8,27 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"],
-            "history/*": ["history/v2/*"],
-            "react-router": ["react-router/v2"]
-        },
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "jsx": "react",
         "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
-        "react-i18next-tests.tsx"
+        "test/react-i18next-tests.tsx",
+        "src/context.d.ts",
+        "src/I18n.d.ts",
+        "src/I18nextProvider.d.ts",
+        "src/interpolate.d.ts",
+        "src/loadNamespaces.d.ts",
+        "src/trans.d.ts",
+        "src/translate.d.ts"
     ]
 }

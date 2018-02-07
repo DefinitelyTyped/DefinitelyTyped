@@ -1,6 +1,9 @@
 export {
-    execute,
-    defaultFieldResolver,
-    responsePathAsArray,
-    ExecutionResult
+  execute,
+  defaultFieldResolver,
+  responsePathAsArray,
+  ExecutionArgs,
+  ExecutionResult,
 } from './execute';
+
+export { getDirectiveValues } from './values';

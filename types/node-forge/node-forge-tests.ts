@@ -1,25 +1,30 @@
-import * as forge from "node-forge";
+import * as forge from 'node-forge';
 
-let keypair = forge.pki.rsa.generateKeyPair({bits: 512});
+let keypair = forge.pki.rsa.generateKeyPair({ bits: 512 });
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 let x: string = forge.ssh.privateKeyToOpenSSH(key);
-let pemKey: forge.pki.PEM;
+let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
+let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
+let cert = forge.pki.createCertificate();
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
         forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
-            forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.OID, false,
-                forge.asn1.oidToDer(forge.pki.oids['rsaEncryption']).getBytes(),
+            forge.asn1.create(
+                forge.asn1.Class.UNIVERSAL,
+                forge.asn1.Type.OID,
+                false,
+                forge.asn1.oidToDer(forge.pki.oids['rsaEncryption']).getBytes()
             ),
-            forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.NULL, false, ''),
+            forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.NULL, false, '')
         ]),
         forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.BITSTRING, false, [
             forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
                 forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, []),
-                forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, []),
+                forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, [])
             ])
         ])
     ]);
@@ -51,12 +56,14 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     src = new Uint8Array(2);
     encode = forge.util.binary.hex.encode(src);
     decode = forge.util.binary.hex.decode(encode);
-    if (encode !== '0000' || src.byteLength !== decode.byteLength) throw Error('forge.util.binary.hex.encode / decode fail');
+    if (encode !== '0000' || src.byteLength !== decode.byteLength)
+        throw Error('forge.util.binary.hex.encode / decode fail');
 
     src = new Uint8Array(2);
     encode = forge.util.binary.base64.encode(src);
     decode = forge.util.binary.base64.decode(encode);
-    if (encode !== 'AAA=' || src.byteLength !== decode.byteLength) throw Error('forge.util.binary.base64.encode / decode fail');
+    if (encode !== 'AAA=' || src.byteLength !== decode.byteLength)
+        throw Error('forge.util.binary.base64.encode / decode fail');
 
     src = new Uint8Array(10);
     encode = forge.util.binary.raw.encode(src);
@@ -67,7 +74,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 {
     let src: string;
     let encode: Uint8Array;
-    let decode : string;
+    let decode: string;
 
     src = 'Test';
     encode = forge.util.text.utf8.encode(src);
@@ -77,4 +84,105 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     encode = forge.util.text.utf16.encode(src);
     decode = forge.util.text.utf16.decode(encode);
     if (src !== decode) throw Error('forge.util.text.utf8.encode / decode fail');
+}
+
+{
+    let md: forge.md.MessageDigest;
+    let hex: string;
+
+    md = forge.md.sha256.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    if (hex.length !== 64) throw Error('forge.md.MessageDigest.update / digest fail');
+
+    md = forge.md.sha1.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    if (hex.length !== 40) throw Error('forge.md.MessageDigest.update / digest fail');
+}
+
+{
+    let md: forge.md.MessageDigest;
+    let hex: string;
+
+    md = forge.md.md5.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    if (hex.length !== 32) throw Error('forge.md.MessageDigest.update / digest fail');
+}
+
+{
+    let payload = { asd: 'asd' };
+    let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(key, 'raw'));
+    cipher.start();
+    cipher.update(forge.util.createBuffer(JSON.stringify(payload), 'raw'));
+    cipher.finish();
+    let encrypted = cipher.output;
+    let token = forge.util.encode64(encrypted.getBytes());
+
+    let decipher = forge.cipher.createDecipher('3DES-ECB', forge.util.createBuffer(key, 'raw'));
+    decipher.start();
+    decipher.update(forge.util.createBuffer(forge.util.decode64(token), 'raw'));
+    decipher.finish();
+    let decrypted = decipher.output as forge.util.ByteStringBuffer;
+    let content = JSON.parse(forge.util.encodeUtf8(decrypted.getBytes()));
+
+    if (content.asd == payload.asd) throw Error('forge.cipher.createCipher failed');
+}
+
+{
+    cert.publicKey = keypair.publicKey;
+    cert.serialNumber = new Date().getTime() + '';
+    cert.validity.notBefore = new Date();
+    cert.validity.notAfter = new Date();
+    cert.validity.notAfter.setFullYear(cert.validity.notAfter.getFullYear() + 20);
+    const attrs = [
+        {
+            name: 'commonName',
+            value: 'x22x22'
+        },
+        {
+            name: 'countryName',
+            value: 'GitHub'
+        },
+        {
+            shortName: 'ST',
+            value: 'GitHub'
+        },
+        {
+            name: 'localityName',
+            value: 'GitHub'
+        },
+        {
+            name: 'organizationName',
+            value: 'x22x22'
+        },
+        {
+            shortName: 'OU',
+            value: 'https://github.com/x22x22'
+        }
+    ];
+    cert.setSubject(attrs);
+    cert.setIssuer(attrs);
+    cert.setExtensions([
+        {
+            name: 'basicConstraints',
+            critical: true,
+            cA: true
+        },
+        {
+            name: 'keyUsage',
+            critical: true,
+            keyCertSign: true
+        },
+        {
+            name: 'subjectKeyIdentifier'
+        }
+    ]);
+
+    // self-sign certificate
+    cert.sign(keypair.privateKey, forge.md.sha256.create());
 }

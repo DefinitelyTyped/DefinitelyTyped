@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-color module v1.0.1
+// Type definitions for D3JS d3-color module 1.0
 // Project: https://github.com/d3/d3-color/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.1
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -127,14 +129,14 @@ export interface CubehelixColorFactory extends Function {
 // Color object factories
 // --------------------------------------------------------------------------
 
-export var color: ColorFactory;
+export const color: ColorFactory;
 
-export var rgb: RGBColorFactory;
+export const rgb: RGBColorFactory;
 
-export var hsl: HSLColorFactory;
+export const hsl: HSLColorFactory;
 
-export var lab: LabColorFactory;
+export const lab: LabColorFactory;
 
-export var hcl: HCLColorFactory;
+export const hcl: HCLColorFactory;
 
-export var cubehelix: CubehelixColorFactory;
+export const cubehelix: CubehelixColorFactory;

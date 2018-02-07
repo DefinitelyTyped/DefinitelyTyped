@@ -1,13 +1,14 @@
-// Type definitions for bytes v2.4.0
+// Type definitions for bytes v2.5.0
 // Project: https://github.com/visionmedia/bytes.js
-// Definitions by: Zhiyuan Wang <https://github.com/danny8002/>
+// Definitions by: Zhiyuan Wang <https://github.com/danny8002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface BytesOptions {
     decimalPlaces?: number,
     thousandsSeparator?: string,
     unitSeparator?: string,
-    fixedDecimals?: boolean
+    fixedDecimals?: boolean,
+    unit?: string
 }
 /**
  *Convert the given value in bytes into a string.

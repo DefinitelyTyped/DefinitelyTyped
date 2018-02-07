@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import imported = require("jssha");
 
 // constructor

@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "postcss": "^5.2.15"
-  }
+    "private": true,
+    "dependencies": {
+        "postcss": "^5.2.15"
+    }
 }

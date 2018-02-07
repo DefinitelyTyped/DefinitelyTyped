@@ -5,11 +5,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-function repeat(s: string, count: number) {
-	return Array(count + 1).join(s);
-}
-
-const home = path.join(__dirname, '..');
+const home = path.join(__dirname, "..", "types");
 
 for (const dirName of fs.readdirSync(home)) {
 	if (dirName.startsWith(".") || dirName === "node_modules" || dirName === "scripts") {

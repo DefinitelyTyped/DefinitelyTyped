@@ -1,16 +1,18 @@
-// Type definitions for React Daterange Picker v1.1.0
+// Type definitions for React Daterange Picker 1.1
 // Project: https://github.com/onefinestay/react-daterange-picker
-// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth/>
+// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
-import * as moment from "moment-range";
+import * as moment from "moment";
+import * as momentRange from "moment-range";
 
-export default class DateRangePicker extends React.Component<Props, {}> {}
+export default class DateRangePicker extends React.Component<Props> { }
 export as namespace ReactDateRangePicker;
 
-interface Props extends React.Props<{}> {
+export interface Props extends React.Props<{}> {
     bemBlock?: string;
     bemNamespace?: string;
     dateStates?: DateState[];
@@ -30,37 +32,35 @@ interface Props extends React.Props<{}> {
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
     onSelect?(value: Props): void;
-    onSelectStart?(value: moment.Moment): void;
+    onSelectStart?(value: momentRange.MomentRangeExtends): void;
     paginationArrowComponent?: PaginationArrow;
     selectedLabel?: string;
-    selectionType?: 'single' |'range';
+    selectionType?: 'single' | 'range';
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: moment.Moment | moment.Range;
+    value?: momentRange.MomentRangeExtends | momentRange.DateRange;
 }
 
-interface DateState {
+export interface DateState {
     state: string;
-    range: moment.Range;
+    range: momentRange.DateRange;
 }
 
-interface StateDefinitions {
+export interface StateDefinitions {
     [key: string]: StateDefinition;
 }
 
-interface StateDefinition {
+export interface StateDefinition {
     color: string;
     label: string;
     selectable?: boolean;
 }
 
-interface PaginationArrowProps extends React.Props<{}> {
+export interface PaginationArrowProps extends React.Props<{}> {
     disabled?: boolean;
     onTrigger?(): void;
     direction?: 'next' | 'previous';
 }
 
-declare class PaginationArrow extends React.Component<PaginationArrowProps, {}> {
-}
-
+export class PaginationArrow extends React.Component<PaginationArrowProps> { }

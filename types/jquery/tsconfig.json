@@ -5,19 +5,29 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "jquery-tests.ts"
+        "jquery-tests.ts",
+        "test/example-tests.ts",
+        "test/longdesc-tests.ts",
+        "test/learn-tests.ts",
+        "test/jquery-no-window-module-tests.ts",
+        "test/jquery-window-module-tests.ts",
+        "test/jquery-slim-no-window-module-tests.ts",
+        "test/jquery-slim-window-module-tests.ts"
     ]
 }

@@ -1,130 +1,136 @@
-// Type definitions for nes 6.2.1
+// Type definitions for nes 7.0.0
 // Project: https://github.com/hapijs/nes
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
-/// <reference types="hapi" />
+/* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ +                                                                           +
+ +                                                                           +
+ +                                                                           +
+ +                      WARNING: BACKWARDS INCOMPATIBLE                      +
+ +                                                                           +
+ +                                                                           +
+ +                                                                           +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + *
+ *
+ * Removal of Nes.Server.  No longer need to cast to Nes.Server as Hapi.Server
+ *      has been modified directly.
+ * Removal of Nes.Request.  Same reason as Nes.Server
+ * Move Nes.Socket from class to just an interface as it is not mentioned
+ *      publically in docs.  Perhaps this should be included though?  Add
+ *      failing test demonstrating use if so.
+ */
 
-declare module 'nes' {
-    import Hapi = require('hapi');
+import * as Hapi from 'hapi';
+import NesClient = require('nes/client');
 
-    export interface SocketAuthObject {
+declare module 'hapi' {
+    interface Server {
+        broadcast(message: any, options?: nes.ServerBroadcastOptions): void;
+        subscription(path: string, options?: nes.ServerSubscriptionOptions): void;
+        publish(path: string, message: any, options?: nes.ServerPublishOptions): void;
+        eachSocket(each: (socket: nes.Socket) => void, options?: nes.ServerEachSocketOptions): void;
+    }
+
+    interface Request {
+        socket: nes.Socket;
+    }
+}
+
+declare module nes {
+    interface SocketAuthObject {
         isAuthenticated: boolean;
         credentials: any;
         artifacts: any;
     }
 
-    export class Socket {
-        id: any;
-        app: Object;
-        auth: SocketAuthObject;
-        disconect(callback?: () => void): void;
-        send(message: any, callback?: (err?: any) => void): void;
-        publish(path: string, message: any, callback?: (err?: any) => void): void;
-        revoke(path: string, message: any, callback?: (err?: any) => void): void;
-    }
-
-    export interface ServerBroadcastOptions {
+    interface ServerBroadcastOptions {
         user: any
     }
 
-    export interface ServerSubscriptionOptionsFilterOptions {
+    interface ServerSubscriptionOptionsFilterOptions {
         socket: Socket;
         credentials?: any;
         params?: any;
     }
 
-    export interface ServerSubscriptionOptionsAuthOptions {
+    interface ServerSubscriptionOptionsAuthOptions {
         mode?: 'required' | 'optional';
         scope?: string | string[];
         entity?: 'user' | 'app' | 'any';
         index?: boolean;
     }
 
-    export type ServerOnSubscribeWithParams = (socket: Socket, path: string, params: any, next: (err?: any) => void) => void;
-    export type ServerOnSubscribeWithoutParams = (socket: Socket, path: string, next: (err?: any) => void) => void;
+    export type ServerOnSubscribeWithParams = (socket: Socket, path: string, params: any) => Promise<any>;
+    export type ServerOnSubscribeWithoutParams = (socket: Socket, path: string) => Promise<any>;
     export type ServerOnSubscribe = ServerOnSubscribeWithParams | ServerOnSubscribeWithoutParams;
 
-    export type ServerOnUnSubscribeWithParams = (socket: Socket, path: string, params: any, next: () => void) => void;
-    export type ServerOnUnSubscribeWithoutParams = (socket: Socket, path: string, next: () => void) => void;
+    export type ServerOnUnSubscribeWithParams = (socket: Socket, path: string, params: any) => void;
+    export type ServerOnUnSubscribeWithoutParams = (socket: Socket, path: string) => void;
     export type ServerOnUnSubscribe = ServerOnUnSubscribeWithParams | ServerOnUnSubscribeWithoutParams;
 
-    export interface ServerSubscriptionOptions {
-        filter?: (path: string, message: any, options: ServerSubscriptionOptionsFilterOptions, next: (isMatch: boolean, override: any) => void) => void;
+    interface ServerSubscriptionOptions {
+        filter?: (path: string, message: any, options: ServerSubscriptionOptionsFilterOptions, next: (isMatch: boolean, override?: any) => void) => void;
         auth?: boolean | ServerSubscriptionOptionsAuthOptions;
         onSubscribe?: ServerOnSubscribe;
         onUnsubscribe?: ServerOnUnSubscribe;
     }
 
-    export interface ServerPublishOptions {
+    interface ServerPublishOptions {
         internal?: any;
         user?: any;
     }
 
-    export interface ServerEachSocketOptions {
+    interface ServerEachSocketOptions {
         subscription?: string;
         user?: any;
     }
 
-    export class Server extends Hapi.Server {
-        broadcast(message: any, options?: ServerBroadcastOptions): void;
-        subscription(path: string, options?: ServerSubscriptionOptions): void;
-        publish(path: string, message: any, options?: ServerPublishOptions): void;
-        eachSocket(each: (socket: Socket) => void, options?: ServerEachSocketOptions): void;
+    interface Socket {
+        id: string;
+        app: Object;
+        auth: nes.SocketAuthObject;
+        disconnect(): Promise<any>;
+        send(message: any): Promise<any>;
+        publish(path: string, message: any): Promise<any>;
+        revoke(path: string, message: any): Promise<any>;
     }
 
-    export class Request extends Hapi.Request {
-        socket: Socket;
-    }
+    /**
+     * TODO (if possible) use a drier, more robust way of doing this that
+     * allows for:
+     *      * the export to have be of type Hapi.PluginFunction whilst
+     *      * also exposing the Client type
+     *      * exporting the NesClient as the Client class without having to
+     *          duplicate the constructor definition
+     *      * and all the type exports from the NesClient namespace (Handler,
+     *          ClientOptions, ClientConnectOptions, ClientRequestOptions,
+     *          ClientSubscribeFlags)
+     */
 
-    export interface ClientOptions {
-        ws?: any;
-        timeout?: number | boolean;
-    }
+    interface Client extends NesClient {}
 
-    export interface ClientConnectOptions {
-        auth?: any;
-        delay?: number;
-        maxDelay?: number;
-        retries?: number;
-        timeout?: number;
-    }
+    interface Handler extends NesClient.Handler {}
 
-    export interface ClientRequestOptions {
-        path: string;
-        method?: string;
-        headers?: Object;
-        payload?: any;
-    }
+    interface ClientOptions extends NesClient.ClientOptions {}
 
-    export interface ClientSubscribeFlags {
-        revoked?: boolean;
-    }
+    interface ClientConnectOptions extends NesClient.ClientConnectOptions {}
 
-    export class Client {
-        constructor(url: string, options?: ClientOptions);
-        onError: (err: any) => void;
-        onConnect: () => void;
-        onDisconnect: () => void;
-        onUpdate: (message: any) => void;
-        connect(options: ClientConnectOptions, callback: (err?: any) => void): void;
-        connect(callback: (err?: any) => void): void;
-        disconnect(): void;
-        id: any;
-        request(options: string | ClientRequestOptions, callback: (err: any, payload: any, statusCode?: number, headers?: Object) => void): void;
-        message(message: any, callback: (err: any, message: any) => void): void;
-        subscribe(path: string, handler: (message: any, flags: ClientSubscribeFlags) => void, callback: (err?: any) => void): void;
-        unsubscribe(path: string, handler: (message: any, flags: ClientSubscribeFlags) => void, callback: (err?: any) => void): void;
-        subscriptions(): string[];
-        overrideReconnectionAuth(auth: any): void;
-    }
+    interface ClientRequestOptions extends NesClient.ClientRequestOptions {}
+
+    interface ClientSubscribeFlags extends NesClient.ClientSubscribeFlags {}
 }
 
-declare module 'nes/client' {
-    export {
-        Client,
-        ClientConnectOptions,
-        ClientRequestOptions,
-        ClientSubscribeFlags
-    } from 'nes';
+interface NesClassExports {
+    Client: {
+        new(url: string, options?: NesClient.ClientOptions): NesClient;
+    };
 }
+
+interface NesAllExports extends NesClassExports, Hapi.PluginFunction<{}> {}
+
+declare var nes: NesAllExports;
+
+export = nes;

@@ -17,53 +17,49 @@ interface Interpolator<T> {
 }
 
 class NumCoercible {
-    public a: number;
+    a: number;
 
     constructor(a: number) {
         this.a = a;
     }
-    public valueOf() {
+    valueOf() {
         return this.a;
     }
 }
 
 class StringCoercible {
-    public a: string;
+    a: string;
 
     constructor(a: string) {
         this.a = a;
     }
 
-    public toString() {
+    toString() {
         return this.a;
     }
 }
 
+let iNum: Interpolator<number>;
+let iString: Interpolator<string>;
+let iDate: Interpolator<Date>;
+let iArrayNum: Interpolator<number[]>;
+let iArrayStr: Interpolator<string[]>;
+let iArrayMixed: Interpolator<[Date, string]>;
+let iKeyVal: Interpolator<{ [key: string]: any }>;
+let iRGBColorObj: Interpolator<d3Color.RGBColor>;
+let iZoom: d3Interpolate.ZoomInterpolator;
 
-let iNum: Interpolator<number>,
-    iString: Interpolator<string>,
-    iDate: Interpolator<Date>,
-    iArrayNum: Interpolator<Array<number>>,
-    iArrayStr: Interpolator<Array<string>>,
-    iArrayDate: Interpolator<Array<Date>>,
-    iArrayMixed: Interpolator<[Date, string]>,
-    iKeyVal: Interpolator<{ [key: string]: any }>,
-    iRGBColorObj: Interpolator<d3Color.RGBColor>,
-    iZoom: d3Interpolate.ZoomInterpolator;
-
-let num: number,
-    str: string,
-    arrNum: number[],
-    arrStr: string[],
-    objKeyVal: { [key: string]: any },
-    objRGBColor: d3Color.RGBColor,
-    objHSVColor: d3Hsv.HSVColor,
-    zoom: [number, number, number];
+let num: number;
+let str: string;
+let arrNum: number[];
+let arrStr: string[];
+let objKeyVal: { [key: string]: any };
+let objRGBColor: d3Color.RGBColor;
+let zoom: [number, number, number];
 
 // test interpolate(a, b) signature ----------------------------------------------------
 
 iNum = d3Interpolate.interpolate('1', 5);
-
 
 // color interpolator returning a color string
 iString = d3Interpolate.interpolate('seagreen', d3Color.rgb(100, 100, 100));
@@ -118,13 +114,13 @@ iDate = d3Interpolate.interpolateDate(new Date(2016, 6, 1), new Date(2016, 6, 31
 
 // test interpolateArray(a, b) signature ----------------------------------------------------
 
-iArrayNum = d3Interpolate.interpolateArray<Array<number>>([1, 2], [4, 8]); // explicit typing
+iArrayNum = d3Interpolate.interpolateArray<number[]>([1, 2], [4, 8]); // explicit typing
 arrNum = iArrayNum(0.5);
 
 iArrayNum = d3Interpolate.interpolateArray<[number, number]>(['1', '2'], [4, 8]); // explicit typing
 arrNum = iArrayNum(0.5);
 
-iArrayStr = d3Interpolate.interpolateArray<Array<string>>(['1', '2'], ['4', '8']); // explicit typing
+iArrayStr = d3Interpolate.interpolateArray<string[]>(['1', '2'], ['4', '8']); // explicit typing
 arrStr = iArrayStr(0.5);
 
 iArrayStr = d3Interpolate.interpolateArray([1, 2], ['4', '8']); // infered typing <string>
@@ -150,7 +146,6 @@ str = iString(0.5);
 
 iString = d3Interpolate.interpolateTransformSvg('rotate(0)', 'rotate(60)');
 str = iString(0.5);
-
 
 // test interpolateZoom(a, b) signature ----------------------------------------------------
 
@@ -229,9 +224,7 @@ str = iString(0.5);
 // with gamma correction
 iString = d3Interpolate.interpolateCubehelixLong.gamma(2.2)('purple', 'orange');
 
-
-
-// test interpolateBasis(splineNodes) and interpolateBasisClosed(splineNodes: Array<number>) ----------------------------
+// test interpolateBasis(splineNodes) and interpolateBasisClosed(splineNodes: number[]) ----------------------------
 
 iNum = d3Interpolate.interpolateBasis([1, 50, 30, 10]);
 

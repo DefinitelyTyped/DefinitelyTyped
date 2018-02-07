@@ -1,13 +1,17 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
+//                 lostfictions <https://github.com/lostfictions>
+//                 sapphiredev <https://github.com/sapphiredev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="geojson" />
 
 declare module 'twit' {
   import { IncomingMessage } from 'http';
+  import { EventEmitter } from 'events';
 
   namespace Twit {
     export type StreamEndpoint = 'statuses/filter' | 'statuses/sample' | 'statuses/firehose' | 'user' | 'site';
@@ -28,7 +32,7 @@ declare module 'twit' {
        * @see https://dev.twitter.com/overview/api/entities
        */
       export interface HashtagEntity {
-        indices: number[],
+        indices: [number, number],
         text: string,
       }
       export interface Size {
@@ -45,7 +49,7 @@ declare module 'twit' {
       export interface MediaEntity {
         id: number,
         id_str: string,
-        indices: number[],
+        indices: [number, number],
         url: string,
         display_url: string,
         expanded_url: string,
@@ -60,12 +64,12 @@ declare module 'twit' {
         url: string,
         display_url: string,
         expanded_url: string,
-        indices: number[],
+        indices: [number, number],
       }
       export interface UserMentionEntity {
         id: number,
         id_str: string,
-        indices: number[],
+        indices: [number, number],
         name: string,
         screen_name: string,
       }
@@ -206,12 +210,22 @@ declare module 'twit' {
         query?: string,
         max_id_str?: string
       }
+
+      export interface Errors {
+        errors: {
+          code: number
+          message: string
+        }[]
+      }
+
+      export interface SearchResults {
+        statuses: Twitter.Status[],
+        search_metadata: Twitter.Metadata,
+      }
     }
 
-    export interface Response {
-      statuses: Twitter.Status[],
-      search_metadata: Twitter.Metadata,
-    }
+    export type Response = object
+
     interface MediaParam {
       file_path: string
     }
@@ -230,6 +244,7 @@ declare module 'twit' {
       include_entities?: boolean,
 
       // Other params from various endpoints
+      track?: string | string[],
       media_id?: string,
       media_ids?: string[],
       alt_text?: {
@@ -240,10 +255,15 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
+      user_id?: number,
+      lat?: number,
+      long?: number,
+      follow?: boolean,
+      include_email?: boolean,
     }
     export interface PromiseResponse {
       data: Response,
-      responde: IncomingMessage,
+      resp: IncomingMessage,
     }
     export interface Callback {
       (err: Error, result: Response, response: IncomingMessage): void
@@ -258,6 +278,10 @@ declare module 'twit' {
       app_only_auth?: boolean,
       timeout_ms?: number,
       trusted_cert_fingerprints?: string[],
+    }
+    export interface Stream extends EventEmitter {
+      start(): void;
+      stop(): void;
     }
   }
 
@@ -299,7 +323,7 @@ declare module 'twit' {
     /**
      * @see https://github.com/ttezel/twit#tstreampath-params
      */
-    stream(path: Twit.StreamEndpoint, params?: Twit.Params): NodeJS.ReadableStream;
+    stream(path: Twit.StreamEndpoint, params?: Twit.Params): Twit.Stream;
   }
 
   export = Twit;

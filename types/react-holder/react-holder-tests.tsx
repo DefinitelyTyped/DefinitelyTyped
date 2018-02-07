@@ -1,7 +1,7 @@
 import * as React from "react";
 import Holder from "react-holder";
 
-export class ReactHolderTest extends React.Component<any, any> {
+export class ReactHolderTest extends React.Component {
     public render() {
         return (
             <div>

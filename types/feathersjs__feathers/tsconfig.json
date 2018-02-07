@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es2015"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "paths": {
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "feathersjs__feathers-tests.ts"
+    ]
+}

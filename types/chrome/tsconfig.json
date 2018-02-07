@@ -8,19 +8,23 @@
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
         "chrome-app.d.ts",
         "chrome-cast.d.ts",
+        "chrome-webview.d.ts",
         "test/index.ts",
-        "test/chrome-app.ts"
+        "test/chrome-app.ts",
+        "test/chrome-webview.ts"
     ]
 }

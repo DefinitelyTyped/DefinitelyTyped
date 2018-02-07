@@ -1,3 +1,5 @@
+import * as PouchDB from 'pouchdb-core';
+
 function isString(someString: string) {
 }
 function isNumber(someNumber: number) {
@@ -17,7 +19,9 @@ function testAllDocs() {
 
             // check document property
             isNumber(doc!.foo);
-        })
+            isString(doc!._id);
+            isString(doc!._rev);
+        });
     });
 
     db.allDocs({ startkey: "a", endkey: "b" });
@@ -37,9 +41,11 @@ function testAllDocs() {
 
 function testBulkDocs() {
     const db = new PouchDB<MyModel>();
-    type MyModel = { property: string };
-    let model = { property: 'test' };
-    let model2 = { property: 'test' };
+    interface MyModel {
+        property: string;
+    }
+    const model = { property: 'test' };
+    const model2 = { property: 'test' };
 
     db.bulkDocs([model, model2]).then((result) => {
         result.forEach(({ ok, id, rev }) => {
@@ -53,28 +59,35 @@ function testBulkDocs() {
 }
 
 function testBulkGet() {
-    const db = new PouchDB<{}>();
-    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((result) => {});
+    const db = new PouchDB();
+    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((response) => {
+        const results = response.results;
+        results.forEach((result) => {
+            const id = result.id;
+            const docs = result.docs;
+            docs.map((doc) => doc);
+        });
+    });
     db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}, (error, response) => {});
 }
 function testRevsDiff() {
-    const db = new PouchDB<{}>();
-    db.revsDiff({'a': ['1-a', '2-b']}).then((result) => {});
-    db.revsDiff({'a': ['1-a', '2-b']}, (error, response) => {});
+    const db = new PouchDB();
+    db.revsDiff({a: ['1-a', '2-b']}).then((result) => {});
+    db.revsDiff({a: ['1-a', '2-b']}, (error, response) => {});
 }
 
 function testCompact() {
-    const db = new PouchDB<{}>();
+    const db = new PouchDB();
     // Promise version
-    db.compact().then( (res: PouchDB.Core.Response) => {});
+    db.compact().then((res: PouchDB.Core.Response) => {});
     // Promise version with optional options
-    db.compact({interval: 300}).then( (res: PouchDB.Core.Response) => {});
+    db.compact({interval: 300}).then((res: PouchDB.Core.Response) => {});
     // Options with a callback
-    db.compact({interval: 300},  (res: PouchDB.Core.Response) => {});
+    db.compact({interval: 300}, (res: PouchDB.Core.Response) => {});
 }
 
 function testDestroy() {
-    const db = new PouchDB<{}>();
+    const db = new PouchDB();
 
     db.destroy({}, (error) => {
     });
@@ -84,7 +97,9 @@ function testDestroy() {
 }
 
 function testBasics() {
-    type MyModel = { property: string };
+    interface MyModel {
+        property: string;
+    }
     let model = { property: 'test' };
     const id = 'model';
 
@@ -96,7 +111,11 @@ function testBasics() {
     db.post(model, null, (error, response) => {
     });
 
-    db.get(id).then((result) => model = result);
+    db.get(id).then((result) => {
+        model = result;
+        isString(result._id);
+        isString(result._rev);
+    });
     db.get(id, null, (error, result) => {
     });
 
@@ -110,28 +129,33 @@ function testBasics() {
     db.info((error, result) => {
     });
 
+    // "Round-trippable": can put back a document from get
+    db.get('id').then(doc => db.put(doc));
+
     PouchDB.debug.enable('*');
 }
 
 function testRemove() {
-    type MyModel = { property: string };
+    interface MyModel {
+        property: string;
+    }
     const id = 'model';
     const rev = 'rev';
-    let model = { _id: id, _rev: rev, existingDocProperty: 'any' };
+    const model = { _id: id, _rev: rev, existingDocProperty: 'any' };
 
     const db = new PouchDB<MyModel>();
 
     // Promise version with doc
-    db.remove(model).then( (res: PouchDB.Core.Response) => {});
+    db.remove(model).then((res: PouchDB.Core.Response) => {});
 
     // Promise version with doc and options
-    db.remove(model, {}).then( (res: PouchDB.Core.Response) => {});
+    db.remove(model, {}).then((res: PouchDB.Core.Response) => {});
 
     // Promise version with docId and rev
-    db.remove(id, rev).then( (res: PouchDB.Core.Response) => {});
+    db.remove(id, rev).then((res: PouchDB.Core.Response) => {});
 
     // Promise version with docId and rev and options
-    db.remove(id, rev, {}).then( (res: PouchDB.Core.Response) => {});
+    db.remove(id, rev, {}).then((res: PouchDB.Core.Response) => {});
 
     // Callback version with doc
     db.remove(model, {}, (res: PouchDB.Core.Response) => {});
@@ -141,7 +165,9 @@ function testRemove() {
 }
 
 function testChanges() {
-    type MyModel = { foo: string };
+    interface MyModel {
+        foo: string;
+    }
     const db = new PouchDB<MyModel>();
 
     db.changes({
@@ -161,23 +187,26 @@ function testChanges() {
         view: ''
     })
     .on('change', (change) => {
-        let _id: string = change.id;
-        let _seq: number = change.seq;
-        let _changes: { rev: string }[] = change.changes;
-        let _foo: string = change.doc!.foo;
-        let _deleted: boolean | undefined = change.doc!._deleted;
-        let _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
+        const _id: string = change.id;
+        const _seq: number = change.seq as number;
+        const _seq_couch20: string = change.seq as string;
+        const _changes: Array<{ rev: string }> = change.changes;
+        const _foo: string = change.doc!.foo;
+        const _deleted: boolean | undefined = change.doc!._deleted;
+        const _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
     })
     .on('complete', (info) => {
-        let _status: string = info.status;
-        let _last_req: number = info.last_seq;
-        let change = info.results[0];
+        const _status: string = info.status;
+        const _last_req: number = info.last_seq as number;
+        const _last_seq_couch20: string = info.last_seq as string;
+        const change = info.results[0];
 
-        let _id: string = change.id;
-        let _seq: number = change.seq;
-        let _changes: { rev: string }[] = change.changes;
-        let _deleted: boolean | undefined = change.doc!._deleted;
-        let _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
+        const _id: string = change.id;
+        const _seq: number = change.seq as number;
+        const _seq_couch20: string = change.seq as string;
+        const _changes: Array<{ rev: string }> = change.changes;
+        const _deleted: boolean | undefined = change.doc!._deleted;
+        const _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
     });
 
     db.changes({
@@ -192,7 +221,7 @@ function testChanges() {
 }
 
 function testRemoteOptions() {
-    let db = new PouchDB('http://example.com/dbname', {
+    const db = new PouchDB('http://example.com/dbname', {
         ajax: {
             cache: false,
             timeout: 10000,
@@ -206,4 +235,48 @@ function testRemoteOptions() {
         },
         skip_setup: true
     });
+}
+
+function heterogeneousGenericsDatabase(db: PouchDB.Database) {
+    interface Cat {
+        meow: string;
+    }
+
+    interface Boot {
+        thud: boolean;
+    }
+
+    // Attachment test
+    db.put<Cat>({
+        _attachments: {
+            ['meme.gif']: {
+                content_type: 'image/gif',
+                data: new Blob(['fake example'])
+            }
+        },
+        meow: 'roar'
+    });
+
+    db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true })
+        .then(cats => {
+            for (const row of cats.rows) {
+                if (row.doc) {
+                    row.doc.meow; // $ExpectType string
+
+                    // Round-trip test
+                    db.put(row.doc);
+                    db.put<Cat>(row.doc);
+                    // Generic strictness test
+                    db.put<Boot>(row.doc); // $ExpectError
+                }
+            }
+        });
+    db.allDocs<Boot>({ startkey: 'boot/', endkey: 'boot/\uffff', include_docs: true })
+        .then(boots => {
+            for (const row of boots.rows) {
+                if (row.doc) {
+                    row.doc.thud; // $ExpectType boolean
+                }
+            }
+        });
 }

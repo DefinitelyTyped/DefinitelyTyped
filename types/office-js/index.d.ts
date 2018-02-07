@@ -1,6 +1,6 @@
 // Type definitions for Office.js
 // Project: http://dev.office.com
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Kim Brandl <https://github.com/kbrandl>, Ricky Kirkham <https://github.com/Rick-Kirkham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -105,6 +105,7 @@ declare namespace Office {
         value: any;
     }
     export interface Context {
+        auth: Auth;
         contentLanguage: string;
         displayLanguage: string;
         license: string;
@@ -133,17 +134,14 @@ declare namespace Office {
     export interface Error {
         /**
          * Gets the numeric code of the error.
-         * @since 1.0
          */
         code: number;
         /**
          * Gets the name of the error.
-         * @since 1.0
          */
         message: string;
         /**
          * Gets a detailed description of the error.
-         * @since 1.0
          */
         name: string;
     }
@@ -151,15 +149,47 @@ declare namespace Office {
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
+        */
+        displayDialogAsync(startAddress: string): void;
+        /**
+        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
+        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
+        * @param options Optional. Accepts a DialogOptions object to define dialog behaviors.
+        */
+        displayDialogAsync(startAddress: string, options: DialogOptions): void;
+        /**
+        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
+        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
+        * @param callback Optional. Accepts a callback method to handle the dialog creation attempt.
+        */
+        displayDialogAsync(startAddress: string, callback: (result: AsyncResult) => void): void;
+        /**
+        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
+        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
         * @param options Optional. Accepts a DialogOptions object to define dialog behaviors.
         * @param callback Optional. Accepts a callback method to handle the dialog creation attempt.
         */
-        displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;
+        displayDialogAsync(startAddress: string, options: DialogOptions, callback: (result: AsyncResult) => void): void;
+
         /**
          * Synchronously delivers a message from the dialog to its parent add-in.
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
         messageParent(messageObject: any): void;
+        /**
+         * Closes the UI container where the JavaScript is executing.
+         * 
+         * Supported hosts: Outlook - Minimum requirement set: Mailbox 1.5
+         * 
+         * The behavior of this method is specified by the following:
+         * 
+         * Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
+         * 
+         * Called from a taskpane: The taskpane will close. Any dialog opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * 
+         * Called from a module extension: No effect.
+         */
+        closeContainer(): void;
     }
     export interface DialogOptions {
         /**
@@ -175,11 +205,43 @@ declare namespace Office {
          */
         displayInIframe?: boolean
     }
+    export interface Auth {
+        /**
+        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
+        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+        */
+        getAccessTokenAsync(callback: (result: AsyncResult) => void): void;
+        /**
+        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
+        * @param options Optional. Accepts an AuthOptions object to define sign-on behaviors.
+        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+        */
+        getAccessTokenAsync(options: AuthOptions, callback: (result: AsyncResult) => void): void;
+
+    }
+    export interface AuthOptions {
+        /**
+         * Optional. Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has been revoked.
+         */
+        forceConsent?: boolean,
+        /**
+         * Optional. Prompts the user to add (or to switch if already added) his or her Office account.
+         */
+        forceAddAccount?: boolean,
+        /**
+         * Optional. Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try" call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should be used with the authChallenge option.
+         */
+        authChallenge?: string
+        /**
+         * Optional. A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         */
+        asyncContext?: any
+    }
     export interface OfficeTheme {
         bodyBackgroundColor: string;
         bodyForegroundColor: string;
         controlBackgroundColor: string;
-        controlForgroundColor: string;
+        controlForegroundColor: string;
     }
     /**
      * Dialog object returned as part of the displayDialogAsync callback. The object exposes methods for registering event handlers and closing the dialog
@@ -288,6 +350,10 @@ declare namespace Office {
          * Triggers when a document level selection happens
          */
         DocumentSelectionChanged,
+        /**
+         * Triggers when the active item changes
+         */
+        ItemChanged,
         /**
          * Triggers when a customXmlPart node was deleted
          */
@@ -1668,10 +1734,17 @@ declare namespace Office {
         /**
          * Returns the current body in a specified format
          * @param coercionType The format of the returned body
-         * @param options Any optional parameters or state data passed to the method
-         * @param The optional method to call when the getAsync method returns
+         * @param callback optional method to call when the getAsync method returns
          */
-        getAsync(coercionType: CoercionType, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(coercionType: CoercionType, callback: (result: AsyncResult) => void): void;
+        /**
+         * Returns the current body in a specified format
+         * @param coercionType The format of the returned body
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback optional method to call when the getAsync method returns
+         */
+        getAsync(coercionType: CoercionType, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
         /*
          * Gets a value that indicates whether the content is in HTML or text format
          * @param tableData  A TableData object with the headers and rows
@@ -1682,24 +1755,78 @@ declare namespace Office {
         /**
          * Adds the specified content to the beginning of the item body
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         */
+        prependAsync(data: string): void;
+        /**
+         * Adds the specified content to the beginning of the item body
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        prependAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+        /**
+         * Adds the specified content to the beginning of the item body
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param callback The optional method to call when the string is inserted
+         */
+        prependAsync(data: string, callback: (result: AsyncResult) => void): void;
+        /**
+         * Adds the specified content to the beginning of the item body
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        prependAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        prependAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Replaces the entire body with the specified text.
+         * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters
+         */
+        setAsync(data: string): void;
+        /**
+         * Replaces the entire body with the specified text.
+         * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        setAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+        /**
+         * Replaces the entire body with the specified text.
+         * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters
+         * @param callback the optional method to call when the body is replaced
+         */
+        setAsync(data: string, callback: (result: AsyncResult) => void): void;
         /**
          * Replaces the entire body with the specified text.
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback the optional method to call when the body is replaced
          */
-        setAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Replaces the selection in the body with the specified text
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         */
+        setSelectedDataAsync(data: string): void;
+        /**
+         * Replaces the selection in the body with the specified text
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+        /**
+         * Replaces the selection in the body with the specified text
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param callback The optional method to call when the string is inserted
+         */
+        setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
         /**
          * Replaces the selection in the body with the specified text
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions, callback: (result: AsyncResult) => void): void;
+
     }
     export interface Contact {
         addresses: Array<string>;
@@ -1762,9 +1889,15 @@ declare namespace Office {
         urls: Array<string>;
     }
     export interface Item {
+        /**
+        * You can cast item with `(Item as Office.[CAST_TYPE])` where CAST_TYPE is one of the following: ItemRead, ItemCompose, Message,
+        * MessageRead, MessageCompose, Appointment, AppointmentRead, AppointmentCompose
+        */
+        __BeSureToCastThisObject__: void;
         body: Body;
         itemType: Office.MailboxEnums.ItemType;
         notificationMessages: NotificationMessages;
+        dateTimeCreated: Date;
         /**
          * Asynchronously loads custom properties that are specific to the item and a app for Office
          * @param callback The optional callback method
@@ -1778,10 +1911,51 @@ declare namespace Office {
          * Adds a file to a message as an attachment
          * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string): void;
+        /**
+         * Adds a file to a message as an attachment
+         * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options: AsyncContextOptions): void;
+        /**
+         * Adds a file to a message as an attachment
+         * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param callback The optional callback method
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
+        /**
+         * Adds a file to a message as an attachment
+         * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Adds an Exchange item, such as a message, as an attachment to the message
+         * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         */
+        addItemAttachmentAsync(itemId: any, attachmentName: string): void;
+        /**
+         * Adds an Exchange item, such as a message, as an attachment to the message
+         * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options: AsyncContextOptions): void;
+        /**
+         * Adds an Exchange item, such as a message, as an attachment to the message
+         * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param callback The optional callback method
+         */
+        addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: AsyncResult) => void): void;
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message
          * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
@@ -1789,57 +1963,120 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
         /**
          * Closes the current item that is being composed
-         * 
+         *
          * The behaviors of the close method depends on the current state of the item being composed. If the item has unsaved changes, the client
          * prompts the user to save, discard, or close the action.
-         * 
+         *
          * In the Outlook desktop client, if the message is an inline reply, the close method has no effect.
          */
         close(): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
-         * 
+         *
          * If there is no selection but the cursor is in the body or the subject, the method returns null for the selected data. If a field other
          * than the body or subject is selected, the method returns the InvalidSelection error
          */
-        getSelectedDataAsync(coercionType: CoercionType, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getSelectedDataAsync(coercionType: CoercionType, callback: (result: AsyncResult) => void): void;
+        /**
+         * Asynchronously returns selected data from the subject or body of a message.
+         *
+         * If there is no selection but the cursor is in the body or the subject, the method returns null for the selected data. If a field other
+         * than the body or subject is selected, the method returns the InvalidSelection error
+         */
+        getSelectedDataAsync(coercionType: CoercionType, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         */
+        removeAttachmentAsync(attachmentIndex: string): void;
+        /**
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions): void;
+        /**
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param callback The optional callback method
+         */
+        removeAttachmentAsync(attachmentIndex: string, callback: (result: AsyncResult) => void): void;
         /**
          * Removes an attachment from a message
          * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        removeAttachmentAsync(attachmentIndex: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
         /**
          * Asynchronously saves an item.
-         * 
-         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or 
+         *
+         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or
          * Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
          */
-        saveAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        saveAsync(): void;
+        /**
+         * Asynchronously saves an item.
+         *
+         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or
+         * Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
+         */
+        saveAsync(options: AsyncContextOptions): void;
+        /**
+         * Asynchronously saves an item.
+         *
+         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or
+         * Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
+         */
+        saveAsync(callback: (result: AsyncResult) => void): void;
+        /**
+         * Asynchronously saves an item.
+         *
+         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or
+         * Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
+         */
+        saveAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
         /**
          * Asynchronously inserts data into the body or subject of a message.
          */
-        setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        setSelectedDataAsync(data: string): void;
+        /**
+         * Asynchronously inserts data into the body or subject of a message.
+         */
+        setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions): void;
+        /**
+         * Asynchronously inserts data into the body or subject of a message.
+         */
+        setSelectedDataAsync(data: string, callback: (result: AsyncResult) => void): void;
+        /**
+         * Asynchronously inserts data into the body or subject of a message.
+         */
+        setSelectedDataAsync(data: string, options: AsyncContextOptions & CoercionTypeOptions, callback: (result: AsyncResult) => void): void;
+
     }
     export interface ItemRead extends Item {
+        attachments: Array<AttachmentDetails>;
         itemClass: string;
         itemId: string;
         normalizedSubject: string;
         subject: string;
         /**
          * Displays a reply form that includes the sender and all the recipients of the selected message
-         * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB 
+         * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
          *  OR
          * An object that contains body or attachment data and a callback function
          */
         displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
          * Displays a reply form that includes only the sender of the selected message
-         * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB 
+         * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
          *  OR
          * An object that contains body or attachment data and a callback function
          */
@@ -1880,23 +2117,55 @@ declare namespace Office {
     export interface Location {
         /**
          * Begins an asynchronous request for the location of an appointment
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(callback: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request for the location of an appointment
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Begins an asynchronous request to set the location of an appointment
+         * @param data The location of the appointment. The string is limited to 255 characters
+         */
+        setAsync(location: string): void;
+        /**
+         * Begins an asynchronous request to set the location of an appointment
+         * @param data The location of the appointment. The string is limited to 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        setAsync(location: string, options: AsyncContextOptions): void;
+        /**
+         * Begins an asynchronous request to set the location of an appointment
+         * @param data The location of the appointment. The string is limited to 255 characters
+         * @param callback The optional method to call when the location is set
+         */
+        setAsync(location: string, callback: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the location of an appointment
          * @param data The location of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the location is set
          */
-        setAsync(location: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(location: string, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
     }
     export interface Mailbox {
         diagnostics: Diagnostics;
         ewsUrl: string;
         item: Item;
         userProfile: UserProfile;
+        /**
+         * Adds an event handler for a supported event
+         * @param eventType The event that should invoke the handler
+         * @param handler The function to handle the event
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the handler is added
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Converts an item ID formatted for REST into EWS format.
          * @param itemId An item ID formatted for the Outlook REST APIs
@@ -1995,23 +2264,88 @@ declare namespace Office {
          * Adds a notification to an item
          * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
          * @param JSONmessage A JSON object that contains the notification message to be added to this item
+         */
+        addAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+        /**
+         * Adds a notification to an item
+         * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
+         * @param JSONmessage A JSON object that contains the notification message to be added to this item
+         * @param options Any optional parameters or state data passed to the method
+         */
+        addAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
+        /**
+         * Adds a notification to an item
+         * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
+         * @param JSONmessage A JSON object that contains the notification message to be added to this item
+         * @param callback The optional callback method
+         */
+        addAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
+        /**
+         * Adds a notification to an item
+         * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
+         * @param JSONmessage A JSON object that contains the notification message to be added to this item
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Returns all keys and messages for an item.
+         * @param callback The optional callback method
+         */
+        getAllAsync(callback: (result: AsyncResult) => void): void;
         /**
          * Returns all keys and messages for an item.
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        getAllAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAllAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Removes a notification message for an item.
+         * @param key The key for the notification message to remove
+         */
+        removeAsync(key: string): void;
+        /**
+         * Removes a notification message for an item.
+         * @param key The key for the notification message to remove
+         * @param options Any optional parameters or state data passed to the method
+         */
+        removeAsync(key: string, options: AsyncContextOptions): void;
+        /**
+         * Removes a notification message for an item.
+         * @param key The key for the notification message to remove
+         * @param callback The optional callback method
+         */
+        removeAsync(key: string, callback: (result: AsyncResult) => void): void;
         /**
          * Removes a notification message for an item.
          * @param key The key for the notification message to remove
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        removeAsync(key: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        removeAsync(key: string, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Replaces a notification message that has a given key with another message
+         * @param key The key for the notification message to replace.
+         * @param JSONmessage A JSON object that contains the new notification message to replace the existing message
+         */
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+        /**
+         * Replaces a notification message that has a given key with another message
+         * @param key The key for the notification message to replace.
+         * @param JSONmessage A JSON object that contains the new notification message to replace the existing message
+         * @param options Any optional parameters or state data passed to the method
+         */
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
+        /**
+         * Replaces a notification message that has a given key with another message
+         * @param key The key for the notification message to replace.
+         * @param JSONmessage A JSON object that contains the new notification message to replace the existing message
+         * @param callback The optional callback method
+         */
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
         /**
          * Replaces a notification message that has a given key with another message
          * @param key The key for the notification message to replace.
@@ -2019,7 +2353,8 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
     }
     export interface PhoneNumber {
         phoneString: string;
@@ -2030,23 +2365,64 @@ declare namespace Office {
         /**
          * Begins an asynchronous request to add a recipient list to an appointment or message
          * @param recipients The recipients to add to the recipients list
+         */
+        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>): void;
+        /**
+         * Begins an asynchronous request to add a recipient list to an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param options Any optional parameters or state data passed to the method
+         */
+        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options: AsyncContextOptions): void;
+        /**
+         * Begins an asynchronous request to add a recipient list to an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param callback The optional method to call when the string is inserted
+         */
+        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, callback: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to add a recipient list to an appointment or message
+         * @param recipients The recipients to add to the recipients list
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to get the recipient list for an appointment or message
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(callback: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to get the recipient list for an appointment or message
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Begins an asynchronous request to set the recipient list for an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         */
+        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>): void;
+        /**
+         * Begins an asynchronous request to set the recipient list for an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param options Any optional parameters or state data passed to the method
+         */
+        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options: AsyncContextOptions): void;
+        /**
+         * Begins an asynchronous request to set the recipient list for an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, callback: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the recipient list for an appointment or message
          * @param recipients The recipients to add to the recipients list
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
     }
     export interface ReplyFormAttachment {
         type: string;
@@ -2085,17 +2461,41 @@ declare namespace Office {
     export interface Subject {
         /**
          * Begins an asynchronous request to get the subject of an appointment or message
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(callback: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to get the subject of an appointment or message
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Begins an asynchronous call to set the subject of an appointment or message
+         * @param data The subject of the appointment. The string is limited to 255 characters
+         */
+        setAsync(data: string): void;
+        /**
+         * Begins an asynchronous call to set the subject of an appointment or message
+         * @param data The subject of the appointment. The string is limited to 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
+        setAsync(data: string, options: AsyncContextOptions): void;
+        /**
+         * Begins an asynchronous call to set the subject of an appointment or message
+         * @param data The subject of the appointment. The string is limited to 255 characters
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(data: string, callback: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous call to set the subject of an appointment or message
          * @param data The subject of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(data: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(data: string, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
     }
     export interface TaskSuggestion {
         assignees: Array<EmailUser>;
@@ -2104,17 +2504,41 @@ declare namespace Office {
     export interface Time {
         /**
          * Begins an asynchronous request to get the start or end time
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(callback: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to get the start or end time
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Begins an asynchronous request to set the start or end time
+         * @param dateTime A date-time object in Coordinated Universal Time (UTC)
+         */
+        setAsync(dateTime: Date): void;
+        /**
+         * Begins an asynchronous request to set the start or end time
+         * @param dateTime A date-time object in Coordinated Universal Time (UTC)
+         * @param options Any optional parameters or state data passed to the method
+         */
+        setAsync(dateTime: Date, options: AsyncContextOptions): void;
+        /**
+         * Begins an asynchronous request to set the start or end time
+         * @param dateTime A date-time object in Coordinated Universal Time (UTC)
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(dateTime: Date, callback: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the start or end time
          * @param dateTime A date-time object in Coordinated Universal Time (UTC)
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(dateTime: Date, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(dateTime: Date, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
+
     }
     export interface UserProfile {
         displayName: string;
@@ -2135,11 +2559,10 @@ declare namespace Office {
 
 
 ////////////////////////////////////////////////////////////////
-///////////////// Begin OfficeExtension runtime ////////////////
+//////////////// Begin OfficeExtension runtime /////////////////
 ////////////////////////////////////////////////////////////////
 
-
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
     class ClientObject {
         /** The request context associated with the object */
@@ -2148,7 +2571,7 @@ declare module OfficeExtension {
         isNullObject: boolean;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     interface LoadOption {
         select?: string | string[];
         expand?: string | string[];
@@ -2168,31 +2591,43 @@ declare module OfficeExtension {
         /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
         load(object: ClientObject, option?: string | string[] | LoadOption): void;
 
-        /**
-        * Queues up a command to recursively load the specified properties of the object and its navigation properties.
-        * You must call "context.sync()" before reading the properties.
-        *
-        * @param object The object to be loaded.
-        * @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
-        * @param maxDepth The maximum recursive depth.
-        */
+		/**
+		* Queues up a command to recursively load the specified properties of the object and its navigation properties.
+		* You must call "context.sync()" before reading the properties.
+		*
+		* @param object The object to be loaded.
+		* @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
+		* @param maxDepth The maximum recursive depth.
+		*/
         loadRecursive(object: ClientObject, options: { [typeName: string]: string | string[] | LoadOption }, maxDepth?: number): void;
 
         /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
         trace(message: string): void;
 
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
+        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code.�This method returns a promise, which is resolved when the synchronization is complete. */
         sync<T>(passThroughValue?: T): IPromise<T>;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
     class ClientResult<T> {
         /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
         value: T;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
+    export interface DebugInfo {
+        /** Error code string, such as "InvalidArgument". */
+        code: string;
+        /** The error message passed through from the host Office application. */
+        message: string;
+        /** Inner error, if applicable. */
+        innerError?: DebugInfo | string;
+
+        /** The object type and property or method name (or similar information), if available. */
+        errorLocation?: string
+    }
+
     /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
     class Error {
         /** Error name: "OfficeExtension.Error".*/
@@ -2205,195 +2640,203 @@ declare module OfficeExtension {
         code: string;
         /** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
         traceMessages: Array<string>;
-        /** Debug info, if applicable. The ".errorLocation" property can describe the object and method or property that caused the error. */
-        debugInfo: {
-            /** If applicable, will return the object type and the name of the method or property that caused the error. */
-            errorLocation?: string;
-        };
+        /** Debug info (useful for detailed logging of the error, i.e., via JSON.stringify(...)). */
+        debugInfo: DebugInfo;
+        /** Inner error, if applicable. */
+        innerError: Error;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     class ErrorCodes {
-        static accessDenied: string;
-        static generalException: string;
-        static activityLimitReached: string;
+        public static accessDenied: string;
+        public static generalException: string;
+        public static activityLimitReached: string;
+        public static invalidObjectPath: string;
+        public static propertyNotLoaded: string;
+        public static valueNotLoaded: string;
+        public static invalidRequestContext: string;
+        public static invalidArgument: string;
+        public static runMustReturnPromise: string;
+        public static cannotRegisterEvent: string;
+        public static apiNotFound: string;
+        public static connectionFailure: string;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** An IPromise object that represents a deferred interaction with the host Office application. */
     interface IPromise<R> {
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
 
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
         catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
         catch<U>(onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
         catch<U>(onRejected?: (error: any) => void): IPromise<U>;
     }
 
     /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
     export class Promise<R> implements IPromise<R>
     {
-        /**
-         * Creates a new promise based on a function that accepts resolve and reject handlers.
-         */
+		/**
+		 * Creates a new promise based on a function that accepts resolve and reject handlers.
+		 */
         constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
 
-        /**
-         * Creates a promise that resolves when all of the child promises resolve.
-         */
+		/**
+		 * Creates a promise that resolves when all of the child promises resolve.
+		 */
         static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
 
-        /**
-         * Creates a promise that is resolved.
-         */
+		/**
+		 * Creates a promise that is resolved.
+		 */
         static resolve<U>(value: U): IPromise<U>;
 
-        /**
-         * Creates a promise that is rejected.
-         */
+		/**
+		 * Creates a promise that is rejected.
+		 */
         static reject<U>(error: any): IPromise<U>;
 
-        /* This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/* This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
 
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
         catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
         catch<U>(onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
         catch<U>(onRejected?: (error: any) => void): IPromise<U>;
     }
 }
 
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
     class TrackedObjects {
         /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
@@ -2407,12 +2850,11 @@ declare module OfficeExtension {
     }
 }
 
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     export class EventHandlers<T> {
         constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
         add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
         remove(handler: (args: T) => IPromise<any>): void;
-        removeAll(): void;
     }
 
     export class EventHandlerResult<T> {
@@ -2426,10 +2868,10 @@ declare module OfficeExtension {
         eventArgsTransformFunc: (args: any) => IPromise<T>;
     }
 }
-declare module OfficeExtension {
-    /**
-    * Request URL and headers
-    */
+declare namespace OfficeExtension {
+	/**
+	* Request URL and headers
+	*/
     interface RequestUrlAndHeaderInfo {
         /** Request URL */
         url: string;
@@ -2442,8 +2884,80 @@ declare module OfficeExtension {
 
 
 
+declare namespace OfficeCore {
+    /**
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    class FlightingService extends OfficeExtension.ClientObject {
+        getFeature(featureName: string, type: string, defaultValue: number | boolean | string, possibleValues?: Array<number> | Array<string> | Array<boolean> | Array<ScopedValue>): OfficeCore.ABType;
+        getFeatureGate(featureName: string, scope?: string): OfficeCore.ABType;
+        resetOverride(featureName: string): void;
+        setOverride(featureName: string, type: string, value: number | boolean | string): void;
+        /**
+         * Create a new instance of OfficeCore.FlightingService object
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): OfficeCore.FlightingService;
+        toJSON(): {};
+    }
+    /**
+     *
+     * Provides information about the scoped value.
+     *
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    interface ScopedValue {
+        /**
+         *
+         * Gets the scope.
+         *
+         * [Api set: Experiment 1.1 (PREVIEW)]
+         */
+        scope: string;
+        /**
+         *
+         * Gets the value.
+         *
+         * [Api set: Experiment 1.1 (PREVIEW)]
+         */
+        value: string | number | boolean;
+    }
+    /**
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    class ABType extends OfficeExtension.ClientObject {
+        readonly value: string | number | boolean;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): OfficeCore.ABType;
+        toJSON(): {
+            "value": string | number | boolean;
+        };
+    }
+    /**
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    namespace FeatureType {
+        var boolean: string;
+        var integer: string;
+        var string: string;
+    }
+    namespace ExperimentErrorCodes {
+        var generalException: string;
+    }
+    module Interfaces {
+    }
+}
+declare namespace OfficeCore {
+    class RequestContext extends OfficeExtension.ClientRequestContext {
+        constructor(url?: string | OfficeExtension.RequestUrlAndHeaderInfo | any);
+        readonly flightingService: FlightingService;
+    }
+}
+
+
 ////////////////////////////////////////////////////////////////
-////////////////// End OfficeExtension runtime /////////////////
+///////////////// End OfficeExtension runtime //////////////////
 ////////////////////////////////////////////////////////////////
 
 
@@ -2632,7 +3146,7 @@ declare namespace Excel {
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string | Session);
         readonly workbook: Workbook;
         readonly application: Application;
@@ -2789,7 +3303,7 @@ declare namespace Excel {
          *
          * Suspends calculation until the next "context.sync()" is called. Once set, it is the developer's responsibility to re-calc the workbook, to ensure that any dependencies are propagated.
          *
-         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         * [Api set: ExcelApi 1.6 (PREVIEW)]
          */
         suspendApiCalculationUntilNextSync(): void;
         /**
@@ -4729,7 +5243,7 @@ declare namespace Excel {
     /**
      *
      * Represents a collection of all the rows that are part of the table.
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -4750,7 +5264,7 @@ declare namespace Excel {
         /**
          *
          * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -4772,7 +5286,7 @@ declare namespace Excel {
         /**
          *
          * Gets a row based on its position in the collection.
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -4794,7 +5308,7 @@ declare namespace Excel {
     /**
      *
      * Represents a row in a table.
-            
+
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -6748,7 +7262,7 @@ declare namespace Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
              For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-            
+
              Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
@@ -12805,6 +13319,7 @@ declare namespace Excel {
         var itemNotFound: string;
         var notImplemented: string;
         var unsupportedOperation: string;
+        var invalidOperationInCellEditMode: string;
     }
     module Interfaces {
         /** An interface for updating data on the Worksheet object, for use in "worksheet.set({ ... })". */

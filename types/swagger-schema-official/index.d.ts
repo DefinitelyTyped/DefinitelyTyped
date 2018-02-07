@@ -1,6 +1,6 @@
 // Type definitions for swagger-schema-official 2.0
 // Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
@@ -55,18 +55,19 @@ export interface QueryParameter extends BaseParameter, BaseSchema {
   allowEmptyValue?: boolean;
 }
 
-export interface PathParameter extends BaseParameter {
+export interface PathParameter extends BaseParameter, BaseSchema {
   type: string;
   required: boolean;
 }
 
-export interface HeaderParameter extends BaseParameter {
+export interface HeaderParameter extends BaseParameter, BaseSchema {
   type: string;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
   type: string;
   collectionFormat?: string;
+  allowEmptyValue?: boolean;
 }
 
 export type Parameter =
@@ -151,10 +152,10 @@ export interface Schema extends BaseSchema {
 }
 
 export interface XML {
-  type?: string;
+  name?: string;
   namespace?: string;
   prefix?: string;
-  attribute?: string;
+  attribute?: boolean;
   wrapped?: boolean;
 }
 
@@ -164,7 +165,7 @@ export interface BaseSecurity {
   description?: string;
 }
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line no-empty-interface
 export interface BasicAuthenticationSecurity extends BaseSecurity {
   // It's the exact same interface as BaseSecurity
 }
@@ -224,7 +225,7 @@ export interface Spec {
   definitions?: {[definitionsName: string]: Schema };
   parameters?: {[parameterName: string]: BodyParameter|QueryParameter};
   responses?: {[responseName: string]: Response };
-  security?: Security[];
+  security?: Array<{[securityDefinitionName: string]: string[]}>;
   securityDefinitions?: { [securityDefinitionName: string]: Security};
   tags?: Tag[];
 }

@@ -1,9 +1,10 @@
 'use strict';
 
+import stream = require("stream");
+import Q = require('q');
 import Orchestrator = require('orchestrator');
 
-var orchestrator = new Orchestrator();
-
+const orchestrator = new Orchestrator();
 
 // API:
 
@@ -13,60 +14,64 @@ var orchestrator = new Orchestrator();
 
 orchestrator.add('thing1', function() {
     // do stuff
-});
-orchestrator.add('thing2', function() {
+}).add('thing2', function() {
     // do stuff
 });
 orchestrator.add('mytask', ['array', 'of', 'task', 'names'], function() {
     // Do stuff
 });
-orchestrator.add('thing2', function(callback: any){
-    var err: any = null;
+orchestrator.add('thing2', function(callback){
+    const err: any = null;
     // do stuff
     callback(err);
 });
 
-
-import Q = require('q');
-
 orchestrator.add('thing3', function(){
-    var deferred = Q.defer();
+    const deferred = Q.defer<void>();
 
     // do async stuff
-    setTimeout(function () {
+    setTimeout(function() {
         deferred.resolve();
     }, 1);
 
     return deferred.promise;
 });
 
+orchestrator.add('thing4', function(){
+    const stm = new stream.Stream();
+    // do stream stuff
+    return stm;
+});
 
-//TODO: map-stream currently not on DefinitelyTyped
-//var map = require('map-stream');
 //
-//orchestrator.add('thing4', function(){
-//    var stream = map(function (args, cb) {
-//        cb(null, args);
-//    });
-//    // do stream stuff
-//    return stream;
-//});
+// orchestrator.task(name[, deps][, function]);
+//
+
+orchestrator.task('task1');
+
+orchestrator.task('task2', function(cb) {
+    cb(null);
+});
+
+orchestrator.task('task3', ['task1', 'task2'], function() {
+    // do stuff
+});
 
 //
 // orchestrator.hasTask(name);
 //
 
-orchestrator.hasTask('thing1');
+const hasThing1: boolean = orchestrator.hasTask('thing1');
 
 //
 // orchestrator.start(tasks...[, cb]);
 //
 
-orchestrator.start('thing1', 'thing2', 'thing3', 'thing4', function (err: any) {
+orchestrator.start('thing1', 'thing2', 'thing3', 'thing4', function(err: any) {
     // all done
+}).start(['thing1', 'thing2'], ['thing3', 'thing4'], "thing5", function(err) {
+    const res: any = err;
 });
-orchestrator.start(['thing1','thing2'], ['thing3','thing4']);
-
 
 //
 // orchestrator.stop()
@@ -75,30 +80,33 @@ orchestrator.start(['thing1','thing2'], ['thing3','thing4']);
 orchestrator.stop();
 
 //
+// orchestrator.reset()
+//
+
+orchestrator.reset();
+
+//
 // orchestrator.on(event, cb);
 //
 
-orchestrator.on('task_start', function (e) {
-    var message: string = e.message;
-    var task: string = e.task;
-    var err: any = e.err;
+orchestrator.on('task_start', function(e) {
+    const message: string = e.message;
+    const task: string = e.task;
+    const err: any = e.err;
 });
-orchestrator.on('task_stop', function (e) {
-    var message: string = e.message;
-    var task: string = e.task;
-    var duration: number = e.duration;
+orchestrator.on('task_stop', function(e) {
+    const message: string = e.message;
+    const task: string = e.task;
+    const duration: number = e.duration;
 });
 
 //
 // orchestrator.onAll(cb);
 //
 
-orchestrator.onAll(function (e) {
-    var message: string = e.message;
-    var task: string = e.task;
-    var err: any = e.err;
-    var src: string = e.src;
+orchestrator.onAll(function(e) {
+    const message: string = e.message;
+    const task: string = e.task;
+    const err: any = e.err;
+    const src: string = e.src;
 });
-
-
-

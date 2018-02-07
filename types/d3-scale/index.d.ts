@@ -17,8 +17,6 @@ import { CountableTimeInterval, TimeInterval } from 'd3-time';
  * The first generic correponds to the data type of the interpolation boundaries.
  * The second generic corresponds to the data type of the return type of the interpolator.
  */
-// This is a base interface to be extended, hence the suppression of the warning
-// tslint:disable-next-line:callable-types
 export interface InterpolatorFactory<T, U> {
     /**
      * Construct a new interpolator function, based on the provided interpolation boundaries.
@@ -154,7 +152,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -628,7 +626,7 @@ export interface ScaleIdentity {
      *
      * @param range Array of range values.
      */
-    range(range: Array<Range | { valueOf(): number }>): this;
+    range(range: Array<number | { valueOf(): number }>): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -666,7 +664,7 @@ export interface ScaleIdentity {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -1233,7 +1231,7 @@ export interface ScaleQuantize<Range> {
      * Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using continuous.domain.
      * You must re-nice the scale after setting the new domain, if desired.
      *
-     * @param count An optional number of ticks expexted to be used.
+     * @param count An optional number of ticks expected to be used.
      */
     nice(count?: number): this;
 
@@ -1299,7 +1297,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Array<number | { valueOf(): number } | null | undefined>): this;
+    domain(domain: Array<number | { valueOf(): number } | null | undefined >): this;
 
     /**
      * Returns the current range.

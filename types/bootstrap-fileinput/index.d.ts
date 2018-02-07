@@ -2,13 +2,18 @@
 // Project: https://github.com/kartik-v/bootstrap-fileinput
 // Definitions by: Ché Coxshall <https://github.com/CheCoxshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
-interface JQuery {
-    fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;
-}
+export = BootstrapFileInput;
+export as namespace BootstrapFileInput;
 
+declare global {
+   interface JQuery {
+        fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;
+    }
+}
 
 declare module BootstrapFileInput {
     interface FileInputOptions {
@@ -18,6 +23,11 @@ declare module BootstrapFileInput {
         The locale JS file for the language code must be defined as mentioned in the translations section: http://plugins.krajee.com/file-input#translations
         */
         language?: string;
+
+        /**
+         * Theming
+         */
+        theme?: string;
         /**
         Whether to display the file caption.
         Defaults to true.

@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "experimentalDecorators": true,
@@ -16,7 +17,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",

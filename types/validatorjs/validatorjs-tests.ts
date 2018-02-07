@@ -24,7 +24,14 @@ var error: Array<string> = errors.get("foo")
 var first: string | boolean = errors.first("foo")
 var has: boolean = errors.has("foo")
 
-Validator.setMessages("en", {})
+Validator.setMessages("en", {
+        integer: 'The :attribute must be an integer.',
+        min: {
+            numeric: 'The :attribute must be at least :min.',
+            string: 'The :attribute must be at least :min characters.'
+        }
+    }
+);
 var messages: Validator.ErrorMessages = Validator.getMessages("en")
 Validator.useLang("en")
 var lang: string = Validator.getDefaultLang()

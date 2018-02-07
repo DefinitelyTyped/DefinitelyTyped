@@ -39,7 +39,7 @@ const withFont = StyleSheet.create({
 });
 
 
-class App extends React.Component<{}, {}> {
+class App extends React.Component {
     render() {
         return <div>
             <span className={css(styles.red)}>

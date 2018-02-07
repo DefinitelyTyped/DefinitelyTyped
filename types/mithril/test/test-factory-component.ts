@@ -1,5 +1,5 @@
 import * as m from 'mithril';
-import {Component, FactoryComponent, Vnode} from 'mithril';
+import { Component, FactoryComponent, Vnode } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -23,7 +23,7 @@ m.mount(document.getElementById('comp0')!, null);
 // 1.
 // Simple example. Vnode type for component methods is inferred.
 //
-function comp1() {
+function comp1(): Component {
 	return {
 		oncreate({dom}) {
 			// vnode.dom type inferred
@@ -31,7 +31,7 @@ function comp1() {
 		view(vnode) {
 			return m('span', "Test");
 		}
-	} as Component<{}, {}>;
+	};
 }
 
 ///////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ interface Comp4Attrs {
 	name: string;
 }
 
-function comp4(): Component<Comp4Attrs, {}> {
+function comp4(): Component<Comp4Attrs> {
 	let count = 0;
 
 	function add(num: number) {
@@ -165,8 +165,8 @@ interface Attrs {
 	name: string;
 }
 
-export default (): Component<Attrs, {}> => {
-	let count = 0;
+export default (): Component<Attrs> => {
+	const count = 0;
 	return {
 		view({attrs}) {
 			return m('span', `name: ${attrs.name}, count: ${count}`);

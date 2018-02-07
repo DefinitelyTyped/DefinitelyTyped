@@ -2,6 +2,7 @@
 // Project: https://github.com/zeroclipboard/zeroclipboard
 // Definitions by: Eric J. Smith <https://github.com/ejsmith>, Blake Niemyjski <https://github.com/niemyjski>, György Balássy <https://github.com/balassy>, Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace ZC {
   // Basic collection types for shorthands and interoperation
@@ -329,13 +330,13 @@ declare namespace ZC {
      * @param {string} eventType
      * @param {EventListener<ZeroClipboardEvent>} listener
      */
-    off(eventType: string, listener: EventListenerOrEventListenerObject<ZeroClipboardEvent>): void;
     off(eventType: "ready", listener: EventListenerOrEventListenerObject<ZeroClipboardReadyEvent>): void;
     off(eventType: "beforecopy", listener: EventListenerOrEventListenerObject<ZeroClipboardBeforeCopyEvent>): void;
     off(eventType: "copy", listener: EventListenerOrEventListenerObject<ZeroClipboardCopyEvent>): void;
     off(eventType: "aftercopy", listener: EventListenerOrEventListenerObject<ZeroClipboardAfterCopyEvent>): void;
     off(eventType: "destroy", listener: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent>): void;
     off(eventType: "error", listener: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent>): void;
+    off(eventType: string, listener: EventListenerOrEventListenerObject<ZeroClipboardEvent>): void;
     /**
      * Remove a set of eventType to listener function/object mappings.
      * @param {EventListener<ZeroClipboardErrorEvent>} listenerObj
@@ -348,6 +349,16 @@ declare namespace ZC {
       destroy?: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent>;
       error?: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent>;
     }): void;
+    /**
+     * Remove a set of eventType to listener function/object mappings.
+     */
+    off(eventType: "ready"): void;
+    off(eventType: "beforecopy"): void;
+    off(eventType: "copy"): void;
+    off(eventType: "aftercopy"): void;
+    off(eventType: "destroy"): void;
+    off(eventType: "error"): void;
+    off(eventType: string): void;
     /**
      * Remove ALL listener functions/objects for ALL registered event types.
      */

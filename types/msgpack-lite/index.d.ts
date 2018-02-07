@@ -1,6 +1,6 @@
 // Type definitions for msgpack-lite 0.1
 // Project: https://github.com/kawanet/msgpack-lite
-// Definitions by: Endel Dreyer <https://github.com/endel/>, Edmund Fokschaner <https://github.com/efokschaner>
+// Definitions by: Endel Dreyer <https://github.com/endel>, Edmund Fokschaner <https://github.com/efokschaner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -19,7 +19,7 @@ export function decode(input: Buffer | Uint8Array | number[], options?: DecoderO
 /**
  * create a stream that encodes from JS Object to MessagePack
  */
-export function createEncodeStream(options?: EncoderOptions & stream.TransformOptions ): EncodeStream;
+export function createEncodeStream(options?: EncoderOptions & stream.TransformOptions): EncodeStream;
 
 /**
  * create a stream that decodes from MessagePack (Buffer) to JS Object
@@ -125,7 +125,7 @@ export interface CodecOptions {
    * @see https://github.com/kawanet/msgpack-lite#compatibility-mode
    * @default false
    */
-  raw?: boolean;
+  useraw?: boolean;
   /**
    * It decodes msgpack's int64/uint64 formats with int64-buffer object.
    * int64-buffer is a cutom integer type with 64 bits of precision instead
@@ -140,8 +140,14 @@ export interface CodecOptions {
   binarraybuffer?: boolean;
   /**
    * It returns Uint8Array object when encoding, instead of Buffer object.
+   * @default false
    */
   uint8array?: boolean;
+  /**
+   * It uses the global JavaScript Map type, if available, to unpack MessagePack map elements.
+   * @default false
+   */
+  usemap?: boolean;
 }
 
 export interface EncoderOptions {

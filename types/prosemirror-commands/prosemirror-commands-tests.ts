@@ -1,5 +1,11 @@
 import * as commands from 'prosemirror-commands';
-import {EditorState} from 'prosemirror-state';
+import { NodeType } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
 
-let state = new EditorState();
+const nodeType = new NodeType();
+
+const state = new EditorState();
 commands.deleteSelection(state);
+
+commands.baseKeymap["Ctrl-h"];
+commands.wrapIn(nodeType, { attr: 'value' });

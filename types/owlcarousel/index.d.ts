@@ -2,6 +2,7 @@
 // Project: https://github.com/OwlFonk/OwlCarousel
 // Definitions by: Damian Piątkowski <https://github.com/dpiatkowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -30,7 +31,7 @@ interface IOwlCarouselOptions {
     paginationNumbers?: boolean;
     responsive?: boolean;
     responsiveRefreshRate?: number;
-    responsiveBaseWidth?: JQuery;
+    responsiveBaseWidth?: JQuery | string;
     baseClass?: string;
     theme?: string;
     lazyLoad?: boolean;
@@ -43,6 +44,8 @@ interface IOwlCarouselOptions {
     mouseDrag?: boolean;
     touchDrag?: boolean;
     addClassActive?: boolean;
+    loop?: boolean;
+    nav?: boolean;
     transitionStyle?: any;
 
     // callbacks

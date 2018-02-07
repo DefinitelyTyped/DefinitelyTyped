@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "react-custom-scrollbars": [
+                "react-custom-scrollbars/v3"
+            ],
+            "react-custom-scrollbars/*": [
+                "react-custom-scrollbars/v3/*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "react-custom-scrollbars-tests.tsx"
+    ]
+}

@@ -1,11 +1,24 @@
-
-
-
 /// Module
 function ModuleTest(): void {
+    Module.environment = "WEB";
+    Module.environment = "NODE";
+    Module.noInitialRun = false;
+    Module.logReadFiles = false;
+    Module.filePackagePrefixURL = "http://www.example.org/";
+    Module.preinitializedWebGLContext = new WebGLRenderingContext();
+
+    let package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
+    let exports: WebAssembly.Exports = Module.instantiateWasm(
+        [{name: "func-name", kind: "function"}],
+        (module: WebAssembly.Module) => {}
+    );
+    let memFile: string = Module.locateFile("http://www.example.org/file.mem");
+    Module.onCustomMessage(new MessageEvent("TestType"));
+
     Module.print = function(text) { alert('stdout: ' + text) };
 
     var int_sqrt = Module.cwrap('int_sqrt', 'number', ['number'])
+    int_sqrt = Module.cwrap('int_sqrt', null, ['number'])
     int_sqrt(12)
     int_sqrt(28)
 
@@ -15,7 +28,9 @@ function ModuleTest(): void {
     var x = Module.getValue(buf, 'i32') + 123;
     Module.HEAPU8.set(myTypedArray, buf);
     Module.ccall('my_function', 'number', ['number'], [buf]);
+    Module.ccall('my_function', null, ['number'], [buf]);
     Module._free(buf);
+    Module.destroy({});
 }
 
 /// FS

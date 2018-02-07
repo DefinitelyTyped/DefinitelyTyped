@@ -1,7 +1,7 @@
-import * as SparkPost from "sparkpost";
+import SparkPost = require("sparkpost");
 
-let key = "YOURAPIKEY";
-let client = new SparkPost(key);
+const key = "YOURAPIKEY";
+const client = new SparkPost(key);
 
 // Callback
 client.get({
@@ -45,7 +45,7 @@ client.inboundDomains.create({ domain: 'example1.com' })
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.inboundDomains.delete("example1.com", (err, res) => {
@@ -66,7 +66,7 @@ client.inboundDomains.delete('example1.com')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.inboundDomains.get("example1.com", (err, res) => {
@@ -87,7 +87,7 @@ client.inboundDomains.get('example1.com')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.inboundDomains.list((err, res) => {
@@ -108,7 +108,7 @@ client.inboundDomains.list()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.messageEvents.search({}, (err, res) => {
@@ -152,8 +152,8 @@ client.messageEvents.search({
 
 // Promise
 client.messageEvents.search({
-    events: 'click',
-    campaign_ids: 'monday_mailshot'
+  events: 'click',
+  campaign_ids: 'monday_mailshot'
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -162,7 +162,7 @@ client.messageEvents.search({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Promise
 client.messageEvents.search({})
@@ -173,16 +173,16 @@ client.messageEvents.search({})
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Promise
 client.messageEvents.search({
-    from: '2016-01-01T00:00',
-    to: '2016-01-02T23:59',
-    page: 1,
-    per_page: 5,
-    events: ['bounce', 'out_of_band'],
-    bounce_classes: [10]
+  from: '2016-01-01T00:00',
+  to: '2016-01-02T23:59',
+  page: 1,
+  per_page: 5,
+  events: ['bounce', 'out_of_band'],
+  bounce_classes: [10]
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -191,7 +191,7 @@ client.messageEvents.search({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.recipientLists.create({
@@ -248,7 +248,7 @@ client.recipientLists.create({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.recipientLists.delete("UNIQUE_TEST_ID", (err, res) => {
@@ -269,7 +269,7 @@ client.recipientLists.delete('UNIQUE_TEST_ID')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.recipientLists.list((err, res) => {
@@ -290,7 +290,7 @@ client.recipientLists.list()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.recipientLists.get('UNIQUE_TEST_ID', (err, res) => {
@@ -325,7 +325,7 @@ client.recipientLists.get('UNIQUE_TEST_ID', {
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Promise
 client.recipientLists.get('UNIQUE_TEST_ID')
@@ -336,7 +336,7 @@ client.recipientLists.get('UNIQUE_TEST_ID')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.recipientLists.update('EXISTING_TEST_ID', {
@@ -410,11 +410,11 @@ client.relayWebhooks.create({
 
 // Promise
 client.relayWebhooks.create({
-    name: 'Test Relay Webhook',
-    target: 'http://client.test.com/test-webhook',
-    match: {
-      domain: 'inbound.example.com'
-    }
+  name: 'Test Relay Webhook',
+  target: 'http://client.test.com/test-webhook',
+  match: {
+    domain: 'inbound.example.com'
+  }
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -423,7 +423,7 @@ client.relayWebhooks.create({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.relayWebhooks.delete("123456789", (err, res) => {
@@ -444,7 +444,7 @@ client.relayWebhooks.delete('123456789')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.relayWebhooks.get('123456789', (err, res) => {
@@ -465,7 +465,7 @@ client.relayWebhooks.get('123456789')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 client.relayWebhooks.list((err, res) => {
   if (err) {
@@ -485,7 +485,7 @@ client.relayWebhooks.list()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.relayWebhooks.update('123456789', {
@@ -501,7 +501,7 @@ client.relayWebhooks.update('123456789', {
 
 // Promise
 client.relayWebhooks.update('123456789', {
-    target: 'http://client.test.com/test-webhook'
+  target: 'http://client.test.com/test-webhook'
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -510,7 +510,7 @@ client.relayWebhooks.update('123456789', {
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.sendingDomains.create({
@@ -532,13 +532,13 @@ client.sendingDomains.create({
 
 // Promise
 client.sendingDomains.create({
-    domain: 'example1.com',
-    dkim: {
-      private: 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==',
-      public: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
-      selector: 'brisbane',
-      headers: 'from:to:subject:date'
-    }
+  domain: 'example1.com',
+  dkim: {
+    private: 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==',
+    public: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
+    selector: 'brisbane',
+    headers: 'from:to:subject:date'
+  }
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -547,7 +547,7 @@ client.sendingDomains.create({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.sendingDomains.delete("example1.com", (err, data) => {
@@ -568,7 +568,7 @@ client.sendingDomains.delete('example1.com')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.sendingDomains.list((err, res) => {
@@ -589,7 +589,7 @@ client.sendingDomains.list()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.sendingDomains.get('example1.com', (err, res) => {
@@ -610,7 +610,7 @@ client.sendingDomains.get('example1.com')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.sendingDomains.update('example1.com', {
@@ -630,12 +630,12 @@ client.sendingDomains.update('example1.com', {
 });
 
 client.sendingDomains.update('example1.com', {
-	dkim: {
-      private: 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==',
-      public: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
-      selector: 'hello_selector',
-      headers: 'from:to:subject:date'
-    }
+  dkim: {
+    private: 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==',
+    public: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
+    selector: 'hello_selector',
+    headers: 'from:to:subject:date'
+  }
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -644,14 +644,14 @@ client.sendingDomains.update('example1.com', {
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.sendingDomains.verify('example1.com', {
-	dkim_verify: true,
-	spf_verify: true,
-	abuse_at_verify: true,
-	postmaster_at_verify: true
+  dkim_verify: true,
+  spf_verify: true,
+  abuse_at_verify: true,
+  postmaster_at_verify: true
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -663,7 +663,7 @@ client.sendingDomains.verify('example1.com', {
 
 // Callback
 client.sendingDomains.verify('example1.com', {
-	dkim_verify: false
+  dkim_verify: false
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -675,10 +675,10 @@ client.sendingDomains.verify('example1.com', {
 
 // Promise
 client.sendingDomains.verify('example1.com', {
-    dkim_verify: true,
-    spf_verify: true,
-    abuse_at_verify: true,
-    postmaster_at_verify: true
+  dkim_verify: true,
+  spf_verify: true,
+  abuse_at_verify: true,
+  postmaster_at_verify: true
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -687,7 +687,7 @@ client.sendingDomains.verify('example1.com', {
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.subaccounts.create({
@@ -708,12 +708,12 @@ client.subaccounts.create({
 
 // Promise
 client.subaccounts.create({
-    name: 'Test Subaccount',
-    key_label: 'Test Subaccount key',
-    key_grants: [
-      'smtp/inject',
-      'transmissions/modify'
-    ]
+  name: 'Test Subaccount',
+  key_label: 'Test Subaccount key',
+  key_grants: [
+    'smtp/inject',
+    'transmissions/modify'
+  ]
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -722,7 +722,7 @@ client.subaccounts.create({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.subaccounts.list((err, res) => {
@@ -743,7 +743,7 @@ client.subaccounts.list()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.subaccounts.get(123, (err, res) => {
@@ -764,7 +764,7 @@ client.subaccounts.get('123')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.subaccounts.update('123', {
@@ -781,8 +781,8 @@ client.subaccounts.update('123', {
 
 // Promise
 client.subaccounts.update('123', {
-    name: 'Test Subaccount',
-    status: 'suspended'
+  name: 'Test Subaccount',
+  status: 'suspended'
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -791,7 +791,7 @@ client.subaccounts.update('123', {
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.suppressionList.delete('test@test.com', (err, data) => {
@@ -813,7 +813,7 @@ client.suppressionList.delete('test@test.com')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Promise
 client.suppressionList.get('test@test.com')
@@ -824,7 +824,7 @@ client.suppressionList.get('test@test.com')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.suppressionList.get('test@test.com', (err, data) => {
@@ -839,9 +839,9 @@ client.suppressionList.get('test@test.com', (err, data) => {
 
 // Promise
 client.suppressionList.list({
-    from: '2015-05-07T00:00:00+0000',
-    to: '2015-05-07T23:59:59+0000',
-    limit: 5
+  from: '2015-05-07T00:00:00+0000',
+  to: '2015-05-07T23:59:59+0000',
+  limit: 5
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -854,9 +854,9 @@ client.suppressionList.list({
 
 // Callback
 client.suppressionList.list({
-    from: '2015-05-07T00:00:00+0000',
-    to: '2015-05-07T23:59:59+0000',
-    limit: 5
+  from: '2015-05-07T00:00:00+0000',
+  to: '2015-05-07T23:59:59+0000',
+  limit: 5
 }, (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
@@ -880,10 +880,10 @@ client.suppressionList.list((err, data) => {
 
 // Promise
 client.suppressionList.upsert({
-    recipient: 'test1@test.com',
-    transactional: false,
-    non_transactional: true,
-    description: 'Test description 1'
+  recipient: 'test1@test.com',
+  transactional: false,
+  non_transactional: true,
+  description: 'Test description 1'
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -896,10 +896,10 @@ client.suppressionList.upsert({
 
 // Callback
 client.suppressionList.upsert({
-    recipient: 'test1@test.com',
-    transactional: false,
-    non_transactional: true,
-    description: 'Test description 1'
+  recipient: 'test1@test.com',
+  transactional: false,
+  non_transactional: true,
+  description: 'Test description 1'
 }, (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
@@ -912,24 +912,24 @@ client.suppressionList.upsert({
 
 // Promise
 client.suppressionList.upsert([
-    {
-      recipient: 'test1@test.com',
-      transactional: false,
-      non_transactional: true,
-      description: 'Test description 1'
-    },
-    {
-      recipient: 'test2@test.com',
-      transactional: true,
-      non_transactional: true,
-      description: 'Test description 2'
-    },
-    {
-      recipient: 'test3@test.com',
-      transactional: true,
-      non_transactional: false,
-      description: 'Test description 3'
-    }
+  {
+    recipient: 'test1@test.com',
+    transactional: false,
+    non_transactional: true,
+    description: 'Test description 1'
+  },
+  {
+    recipient: 'test2@test.com',
+    transactional: true,
+    non_transactional: true,
+    description: 'Test description 2'
+  },
+  {
+    recipient: 'test3@test.com',
+    transactional: true,
+    non_transactional: false,
+    description: 'Test description 3'
+  }
 ])
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -942,24 +942,24 @@ client.suppressionList.upsert([
 
 // Callback
 client.suppressionList.upsert([
-    {
-      recipient: 'test1@test.com',
-      transactional: false,
-      non_transactional: true,
-      description: 'Test description 1'
-    },
-    {
-      recipient: 'test2@test.com',
-      transactional: true,
-      non_transactional: true,
-      description: 'Test description 2'
-    },
-    {
-      recipient: 'test3@test.com',
-      transactional: true,
-      non_transactional: false,
-      description: 'Test description 3'
-    }
+  {
+    recipient: 'test1@test.com',
+    transactional: false,
+    non_transactional: true,
+    description: 'Test description 1'
+  },
+  {
+    recipient: 'test2@test.com',
+    transactional: true,
+    non_transactional: true,
+    description: 'Test description 2'
+  },
+  {
+    recipient: 'test3@test.com',
+    transactional: true,
+    non_transactional: false,
+    description: 'Test description 3'
+  }
 ], (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
@@ -972,13 +972,13 @@ client.suppressionList.upsert([
 
 // Callback
 client.templates.create({
-    id: "TEST_ID",
-    name: "Test Template",
-    content: {
-      from: "test@test.com",
-      subject: "Test email template!",
-      html: "<b>This is a test email template!</b>"
-    }
+  id: "TEST_ID",
+  name: "Test Template",
+  content: {
+    from: "test@test.com",
+    subject: "Test email template!",
+    html: "<b>This is a test email template!</b>"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -990,13 +990,13 @@ client.templates.create({
 
 // Promise
 client.templates.create({
-    id: 'TEST_ID',
-    name: 'Test Template',
-    content: {
-      from: 'test@test.com',
-      subject: 'Test email template!',
-      html: '<b>This is a test email template!</b>'
-    }
+  id: 'TEST_ID',
+  name: 'Test Template',
+  content: {
+    from: 'test@test.com',
+    subject: 'Test email template!',
+    html: '<b>This is a test email template!</b>'
+  }
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1005,7 +1005,7 @@ client.templates.create({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.templates.delete("TEST_ID", (err, res) => {
@@ -1026,7 +1026,7 @@ client.templates.delete('TEST_ID')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.templates.list((err, res) => {
@@ -1047,7 +1047,7 @@ client.templates.list()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.templates.get('TEST_ID', {
@@ -1080,7 +1080,7 @@ client.templates.get('TEST_ID')
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.templates.preview('TEST_ID', {
@@ -1096,12 +1096,12 @@ client.templates.preview('TEST_ID', {
 
 // Promise
 client.templates.preview('TEST_ID', {
-	substitution_data: {
-		name: 'Natalie',
-		age: 35,
-		member: true
-	},
-	draft: true
+  substitution_data: {
+    name: 'Natalie',
+    age: 35,
+    member: true
+  },
+  draft: true
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1110,32 +1110,32 @@ client.templates.preview('TEST_ID', {
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.templates.update('TEST_ID', {
-    content: {
-      from: "test@test.com",
-      subject: "Updated Published Test email template!",
-      html: "<b>This is a published test email template! Updated!</b>"
-    },
+  content: {
+    from: "test@test.com",
+    subject: "Updated Published Test email template!",
+    html: "<b>This is a published test email template! Updated!</b>"
+  },
 }, { update_published: true },
-(err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
-  }
-});
+  (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res.body);
+      console.log("Congrats you can use our SDK!");
+    }
+  });
 
 // Callback
 client.templates.update('TEST_ID', {
-    content: {
-      from: "test@test.com",
-      subject: "Updated Test email template!",
-      html: "<b>This is a test email template! Updated!</b>"
-    }
+  content: {
+    from: "test@test.com",
+    subject: "Updated Test email template!",
+    html: "<b>This is a test email template! Updated!</b>"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1147,11 +1147,11 @@ client.templates.update('TEST_ID', {
 
 // Promise
 client.templates.update('TEST_ID', {
-    content: {
-      from: 'test@test.com',
-      subject: 'Updated Test email template!',
-      html: '<b>This is a test email template! Updated!</b>'
-    }
+  content: {
+    from: 'test@test.com',
+    subject: 'Updated Test email template!',
+    html: '<b>This is a test email template! Updated!</b>'
+  }
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1227,17 +1227,17 @@ client.transmissions.get('YOUR-TRANSMISSION-KEY')
 
 // Callback
 client.transmissions.send({
-    recipients: [{ address: { email: "john.doe@example.com" } }],
-    content: {
-      from: "From Envelope <from@example.com>",
-      subject: "Example Email for MIME Parts",
-      html: "<html><body><p>Hello World!</p></body></html>",
-      text: "Hello World!"
-    },
-    options: {
-      open_tracking: true,
-      click_tracking: true
-    }
+  recipients: [{ address: { email: "john.doe@example.com" } }],
+  content: {
+    from: "From Envelope <from@example.com>",
+    subject: "Example Email for MIME Parts",
+    html: "<html><body><p>Hello World!</p></body></html>",
+    text: "Hello World!"
+  },
+  options: {
+    open_tracking: true,
+    click_tracking: true
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1249,10 +1249,10 @@ client.transmissions.send({
 
 // Callback
 client.transmissions.send({
-    recipients: [{address: {email: "john.doe@example.com"}}],
-    content: {
-      email_rfc822: "Content-Type: text/plain\nFrom: From Envelope <from@example.com>\nSubject: Example Email\n\nHello World"
-    }
+  recipients: [{ address: { email: "john.doe@example.com" } }],
+  content: {
+    email_rfc822: "Content-Type: text/plain\nFrom: From Envelope <from@example.com>\nSubject: Example Email\n\nHello World"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1264,52 +1264,52 @@ client.transmissions.send({
 
 // Callback
 client.transmissions.send({
-    options: {
-      open_tracking: true,
-      click_tracking: true
-    },
-    campaign_id: "christmas_campaign",
-    return_path: "bounces-christmas-campaign@flintstone.com",
-    metadata: {
-      user_type: "students"
-    },
-    substitution_data: {
-      sender: "Big Store Team"
-    },
-    recipients: [
-      {
-        return_path: "123@bounces.flintstone.com",
-        address: {
-          email: "wilma@flintstone.com",
-          name: "Wilma Flintstone"
-        },
-        tags: [
-          "greeting",
-          "prehistoric",
-          "fred",
-          "flintstone"
-        ],
-        metadata: {
-          place: "Bedrock"
-        },
-        substitution_data: {
-          customer_type: "Platinum"
-        }
+  options: {
+    open_tracking: true,
+    click_tracking: true
+  },
+  campaign_id: "christmas_campaign",
+  return_path: "bounces-christmas-campaign@flintstone.com",
+  metadata: {
+    user_type: "students"
+  },
+  substitution_data: {
+    sender: "Big Store Team"
+  },
+  recipients: [
+    {
+      return_path: "123@bounces.flintstone.com",
+      address: {
+        email: "wilma@flintstone.com",
+        name: "Wilma Flintstone"
+      },
+      tags: [
+        "greeting",
+        "prehistoric",
+        "fred",
+        "flintstone"
+      ],
+      metadata: {
+        place: "Bedrock"
+      },
+      substitution_data: {
+        customer_type: "Platinum"
       }
-    ],
-    content: {
-      from: {
-        name: "Fred Flintstone",
-        email: "fred@flintstone.com"
-      },
-      subject: "Big Christmas savings!",
-      reply_to: "Christmas Sales <sales@flintstone.com>",
-      headers: {
-        "X-Customer-Campaign-ID": "christmas_campaign"
-      },
-      text: "Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}",
-      html: "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p>"
-	}
+    }
+  ],
+  content: {
+    from: {
+      name: "Fred Flintstone",
+      email: "fred@flintstone.com"
+    },
+    subject: "Big Christmas savings!",
+    reply_to: "Christmas Sales <sales@flintstone.com>",
+    headers: {
+      "X-Customer-Campaign-ID": "christmas_campaign"
+    },
+    text: "Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}",
+    html: "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p>"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1321,35 +1321,35 @@ client.transmissions.send({
 
 // Callback
 client.transmissions.send({
-    recipients: [
-      {
-        address: {
-          email: "original.recipient@example.com",
-          name: "Original Recipient"
-        },
-        substitution_data: {
-          recipient_type: "Original"
-        }
+  recipients: [
+    {
+      address: {
+        email: "original.recipient@example.com",
+        name: "Original Recipient"
       },
-      {
-        address: {
-          email: "bcc.recipient@example.com",
-          header_to: "\"Original Recipient\" <original.recipient@example.com>"
-        },
-        substitution_data: {
-          recipient_type: "BCC"
-        }
+      substitution_data: {
+        recipient_type: "Original"
       }
-    ],
-    content: {
-      from: {
-        name: "Node BCC Test",
-        email: "from@example.com"
+    },
+    {
+      address: {
+        email: "bcc.recipient@example.com",
+        header_to: "\"Original Recipient\" <original.recipient@example.com>"
       },
-      subject: "Example email using bcc",
-      text: "An example email using bcc with SparkPost to the {{recipient_type}} recipient.",
-      html: "<p>An example email using bcc with SparkPost to the {{recipient_type}} recipient.</p>"
+      substitution_data: {
+        recipient_type: "BCC"
+      }
     }
+  ],
+  content: {
+    from: {
+      name: "Node BCC Test",
+      email: "from@example.com"
+    },
+    subject: "Example email using bcc",
+    text: "An example email using bcc with SparkPost to the {{recipient_type}} recipient.",
+    html: "<p>An example email using bcc with SparkPost to the {{recipient_type}} recipient.</p>"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1361,39 +1361,39 @@ client.transmissions.send({
 
 // Callback
 client.transmissions.send({
-    recipients: [
-      {
-        address: {
-          email: "original.recipient@example.com",
-          name: "Original Recipient"
-        },
-        substitution_data: {
-          recipient_type: "Original"
-        }
+  recipients: [
+    {
+      address: {
+        email: "original.recipient@example.com",
+        name: "Original Recipient"
       },
-      {
-        address: {
-          email: "cc.recipient@example.com",
-          name: "Carbon Copy Recipient",
-          header_to: "\"Original Recipient\" <original.recipient@example.com>"
-        },
-        substitution_data: {
-          recipient_type: "CC"
-        }
+      substitution_data: {
+        recipient_type: "Original"
       }
-    ],
-    content: {
-      from: {
-        name: "Node CC Test",
-        email: "from@example.com"
+    },
+    {
+      address: {
+        email: "cc.recipient@example.com",
+        name: "Carbon Copy Recipient",
+        header_to: "\"Original Recipient\" <original.recipient@example.com>"
       },
-      headers: {
-        CC: "\"Carbon Copy Recipient\" <cc.recipient@example.com>"
-      },
-      subject: "Example email using cc",
-      text: "An example email using cc with SparkPost to the {{recipient_type}} recipient.",
-      html: "<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>"
+      substitution_data: {
+        recipient_type: "CC"
+      }
     }
+  ],
+  content: {
+    from: {
+      name: "Node CC Test",
+      email: "from@example.com"
+    },
+    headers: {
+      CC: "\"Carbon Copy Recipient\" <cc.recipient@example.com>"
+    },
+    subject: "Example email using cc",
+    text: "An example email using cc with SparkPost to the {{recipient_type}} recipient.",
+    html: "<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1405,15 +1405,15 @@ client.transmissions.send({
 
 // Callback
 client.transmissions.send({
-    recipients: {
-      list_id: "example-list"
-    },
-    content: {
-      from: "From Envelope <from@example.com>",
-      subject: "Example Email for Stored List and Inline Content",
-      html: "<html><body><p>Hello World</p></body></html>",
-      text: "Hello World!"
-    }
+  recipients: {
+    list_id: "example-list"
+  },
+  content: {
+    from: "From Envelope <from@example.com>",
+    subject: "Example Email for Stored List and Inline Content",
+    html: "<html><body><p>Hello World</p></body></html>",
+    text: "Hello World!"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1425,14 +1425,14 @@ client.transmissions.send({
 
 // Callback
 client.transmissions.send({
-    recipients: {
-      list_id: "example-list"
-    },
-    content: {
-      from: "From Envelope <from@example.com>",
-      subject: "Example Email for Stored List and Template",
-      template_id: "my-template"
-    }
+  recipients: {
+    list_id: "example-list"
+  },
+  content: {
+    from: "From Envelope <from@example.com>",
+    subject: "Example Email for Stored List and Template",
+    template_id: "my-template"
+  }
 }, (err, res) => {
   if (err) {
     console.log(err);
@@ -1444,70 +1444,70 @@ client.transmissions.send({
 
 // Callback
 client.transmissions.send({
-    campaign_id: "ricks-campaign",
-    content: {
-      template_id: "ricks-template"
-    },
-    recipients: [{ address: { email: "rick.sanchez@rickandmorty100years.com", name: "Rick Sanchez" } }]
+  campaign_id: "ricks-campaign",
+  content: {
+    template_id: "ricks-template"
+  },
+  recipients: [{ address: { email: "rick.sanchez@rickandmorty100years.com", name: "Rick Sanchez" } }]
 }, {
-	num_rcpt_errors: 3
-}, (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(res.body);
-    console.log("What up my glib globs! SparkPost!");
-  }
-});
+    num_rcpt_errors: 3
+  }, (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res.body);
+      console.log("What up my glib globs! SparkPost!");
+    }
+  });
 
 // Promise
 client.transmissions.send({
-    options: {
-      open_tracking: true,
-      click_tracking: true
-    },
-    campaign_id: 'christmas_campaign',
-    metadata: {
-      user_type: 'students'
-    },
-    substitution_data: {
-      sender: 'Big Store Team'
-    },
-	cc: [],
-	bcc: [],
-    recipients: [
-      {
-        address: {
-          email: 'wilma@flintstone.com',
-          name: 'Wilma Flintstone'
-        },
-        tags: [
-          'greeting',
-          'prehistoric',
-          'fred',
-          'flintstone'
-        ],
-        metadata: {
-          place: 'Bedrock'
-        },
-        substitution_data: {
-          customer_type: 'Platinum'
-        }
+  options: {
+    open_tracking: true,
+    click_tracking: true
+  },
+  campaign_id: 'christmas_campaign',
+  metadata: {
+    user_type: 'students'
+  },
+  substitution_data: {
+    sender: 'Big Store Team'
+  },
+  cc: [],
+  bcc: [],
+  recipients: [
+    {
+      address: {
+        email: 'wilma@flintstone.com',
+        name: 'Wilma Flintstone'
+      },
+      tags: [
+        'greeting',
+        'prehistoric',
+        'fred',
+        'flintstone'
+      ],
+      metadata: {
+        place: 'Bedrock'
+      },
+      substitution_data: {
+        customer_type: 'Platinum'
       }
-    ],
-    content: {
-      from: {
-        name: 'Fred Flintstone',
-        email: 'fred@flintstone.com'
-      },
-      subject: 'Big Christmas savings!',
-      reply_to: 'Christmas Sales <sales@flintstone.com>',
-      headers: {
-        'X-Customer-Campaign-ID': 'christmas_campaign'
-      },
-      text: 'Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}',
-      html: '<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p>'
     }
+  ],
+  content: {
+    from: {
+      name: 'Fred Flintstone',
+      email: 'fred@flintstone.com'
+    },
+    subject: 'Big Christmas savings!',
+    reply_to: 'Christmas Sales <sales@flintstone.com>',
+    headers: {
+      'X-Customer-Campaign-ID': 'christmas_campaign'
+    },
+    text: 'Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}',
+    html: '<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p>'
+  }
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1516,43 +1516,43 @@ client.transmissions.send({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Promise
 client.transmissions.send({
-    recipients: [
-      {
-        address: {
-          email: 'original.recipient@example.com',
-          name: 'Original Recipient'
-        },
-        substitution_data: {
-          recipient_type: 'Original'
-        }
+  recipients: [
+    {
+      address: {
+        email: 'original.recipient@example.com',
+        name: 'Original Recipient'
       },
-      {
-        address: {
-          email: 'cc.recipient@example.com',
-          name: 'Carbon Copy Recipient',
-          header_to: '"Original Recipient" <original.recipient@example.com>'
-        },
-        substitution_data: {
-          recipient_type: 'CC'
-        }
+      substitution_data: {
+        recipient_type: 'Original'
       }
-    ],
-    content: {
-      from: {
-        name: 'Node CC Test',
-        email: 'from@example.com'
+    },
+    {
+      address: {
+        email: 'cc.recipient@example.com',
+        name: 'Carbon Copy Recipient',
+        header_to: '"Original Recipient" <original.recipient@example.com>'
       },
-      headers: {
-        CC: '"Carbon Copy Recipient" <cc.recipient@example.com>'
-      },
-      subject: 'Example email using cc',
-      text: 'An example email using cc with SparkPost to the {{recipient_type}} recipient.',
-      html: '<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>'
+      substitution_data: {
+        recipient_type: 'CC'
+      }
     }
+  ],
+  content: {
+    from: {
+      name: 'Node CC Test',
+      email: 'from@example.com'
+    },
+    headers: {
+      CC: '"Carbon Copy Recipient" <cc.recipient@example.com>'
+    },
+    subject: 'Example email using cc',
+    text: 'An example email using cc with SparkPost to the {{recipient_type}} recipient.',
+    html: '<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>'
+  }
 })
   .then(data => {
     console.log('Congrats! You sent an email with cc using SparkPost!');
@@ -1561,7 +1561,7 @@ client.transmissions.send({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.webhooks.create({
@@ -1585,15 +1585,15 @@ client.webhooks.create({
 
 // Promise
 client.webhooks.create({
-    name: 'Test Webhook',
-    target: 'http://client.test.com/test-webhook',
-    auth_token: 'AUTH_TOKEN',
-    events: [
-      'delivery',
-      'injection',
-      'open',
-      'click'
-    ]
+  name: 'Test Webhook',
+  target: 'http://client.test.com/test-webhook',
+  auth_token: 'AUTH_TOKEN',
+  events: [
+    'delivery',
+    'injection',
+    'open',
+    'click'
+  ]
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1602,7 +1602,7 @@ client.webhooks.create({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.webhooks.delete("TEST_WEBHOOK_UUID", (err, res) => {
@@ -1627,7 +1627,7 @@ client.webhooks.delete('TEST_WEBHOOK_UUID')
 
 // Callback
 client.webhooks.get('TEST_WEBHOOK_UUID', {
-    timezone: 'America/New_York'
+  timezone: 'America/New_York'
 }, (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
@@ -1640,7 +1640,7 @@ client.webhooks.get('TEST_WEBHOOK_UUID', {
 
 // Promise
 client.webhooks.get('TEST_WEBHOOK_UUID', {
-    timezone: 'America/New_York'
+  timezone: 'America/New_York'
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1665,7 +1665,7 @@ client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
 
 // Promise
 client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
-    limit: 1000
+  limit: 1000
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1695,7 +1695,7 @@ client.webhooks.getDocumentation()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.webhooks.getSamples({
@@ -1711,7 +1711,7 @@ client.webhooks.getSamples({
 
 // Promise
 client.webhooks.getSamples({
-    events: 'bounce'
+  events: 'bounce'
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1720,7 +1720,7 @@ client.webhooks.getSamples({
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.webhooks.list((err, res) => {
@@ -1741,7 +1741,7 @@ client.webhooks.list()
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.webhooks.update('TEST_WEBHOOK_UUID', {
@@ -1761,11 +1761,11 @@ client.webhooks.update('TEST_WEBHOOK_UUID', {
 
 // Promise
 client.webhooks.update('TEST_WEBHOOK_UUID', {
-    name: 'Renamed Test Webhook',
-    events: [
-      'policy_rejection',
-      'delay'
-    ]
+  name: 'Renamed Test Webhook',
+  events: [
+    'policy_rejection',
+    'delay'
+  ]
 })
   .then(data => {
     console.log('Congrats you can use our client library!');
@@ -1774,7 +1774,7 @@ client.webhooks.update('TEST_WEBHOOK_UUID', {
   .catch(err => {
     console.log('Whoops! Something went wrong');
     console.log(err);
-});
+  });
 
 // Callback
 client.webhooks.validate('TEST_WEBHOOK_UUID', {
@@ -1792,9 +1792,9 @@ client.webhooks.validate('TEST_WEBHOOK_UUID', {
 
 // Promise
 client.webhooks.validate('TEST_WEBHOOK_UUID', {
-    message: {
-      msys: {}
-    }
+  message: {
+    msys: {}
+  }
 })
   .then(data => {
     console.log('Congrats you can use our client library!');

@@ -52,6 +52,23 @@ function test_config() {
             [ 'list', 'indent', 'blocks', 'align', 'bidi' ],
         ],
     };
+    var config3: CKEDITOR.config = {
+        toolbarGroups: [
+            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+		    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+		    { name: 'links', groups: [ 'links' ] },
+		    { name: 'insert', groups: [ 'insert' ] },
+		    { name: 'tools', groups: [ 'tools' ] },
+		    { name: 'document', groups: [ 'mode' ] },
+		    { name: 'about', groups: [ 'about' ] },
+		    '/',
+		    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'paragraph' ] },
+		    '/',
+		    { name: 'styles', groups: [ 'styles' ] },
+		    { name: 'colors', groups: [ 'colors' ] },
+        ],
+    }
 }
 
 function test_dom_comment() {
@@ -406,4 +423,86 @@ function test_sharedSpace() {
 
 function test_specifying_editor_path() {
     window.CKEDITOR_BASEPATH = '/ckeditor/';
+}
+
+function test_editor_instance_event() {
+    var textarea = document.createElement('textarea');
+    var instance = CKEDITOR.replace(textarea, {
+        on: {
+            activeEnterModeChange: function() {},
+            activeFilterChange: function() {},
+            afterCommandExec: function() {},
+            afterInsertHtml: function() {},
+            afterPaste: function() {},
+            afterPasteFromWord: function() {},
+            afterSetData: function() {},
+            afterUndoImage: function() {},
+            ariaEditorHelpLabel: function() {},
+            ariaWidget: function() {},
+            autogrow: function() {},
+            beforeCommandExec: function() {},
+            beforeDestroy: function() {},
+            beforeModeUnload: function() {},
+            beforeSetMode: function() {},
+            beforeUndoImage: function() {},
+            blur: function() {},
+            change: function() {},
+            configLoaded: function() {},
+            contentDirChanged: function() {},
+            contentDom: function() {},
+            contentDomInvalidated: function() {},
+            contentDomUnload: function() {},
+            customConfigLoaded: function() {},
+            dataFiltered: function() {},
+            dataReady: function() {},
+            destroy: function() {},
+            dialogHide: function() {},
+            dialogShow: function() {},
+            dirChanged: function() {},
+            doubleclick: function() {},
+            dragend: function() {},
+            dragstart: function() {},
+            drop: function() {},
+            elementsPathUpdate: function() {},
+            fileUploadRequest: function() {},
+            fileUploadResponse: function() {},
+            floatingSpaceLayout: function() {},
+            focus: function() {},
+            getData: function() {},
+            getSnapshot: function() {},
+            insertElement: function() {},
+            insertHtml: function() {},
+            insertText: function() {},
+            instanceReady: function() {},
+            key: function() {},
+            langLoaded: function() {},
+            loadSnapshot: function() {},
+            loaded: function() {},
+            lockSnapshot: function() {},
+            maximize: function() {},
+            menuShow: function() {},
+            mode: function() {},
+            notificationHide: function() {},
+            notificationShow: function() {},
+            notificationUpdate: function() {},
+            paste: function() {},
+            pasteFromWord: function() {},
+            pluginsLoaded: function() {},
+            readOnly: function() {},
+            removeFormatCleanup: function() {},
+            required: function() {},
+            resize: function() {},
+            save: function() {},
+            saveSnapshot: function() {},
+            selectionChange: function() {},
+            setData: function() {},
+            stylesSet: function() {},
+            template: function() {},
+            toDataFormat: function() {},
+            toHtml: function() {},
+            unlockSnapshot: function() {},
+            updateSnapshot: function() {},
+            widgetDefinition: function() {}
+        }
+    });
 }

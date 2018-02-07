@@ -25,7 +25,7 @@ deviceDesc.bcdUSB = 1;
 deviceDesc.bDeviceClass = 1;
 deviceDesc.bDeviceSubClass = 1;
 deviceDesc.bDeviceProtocol = 1;
-deviceDesc.bMaxPacketSize = 1;
+deviceDesc.bMaxPacketSize0 = 1;
 deviceDesc.idVendor = 1;
 deviceDesc.idProduct = 1;
 deviceDesc.bcdDevice = 1;
@@ -51,15 +51,36 @@ configDesc.extra = new Buffer([]);
 const deviceInterface: usb.Interface = device.interface(1);
 
 device.interfaces = [deviceInterface];
+device.parent = device;
+device.configDescriptor = configDesc;
+device.allConfigDescriptors = [configDesc];
 
 const iface = new usb.Interface(device, 1);
 
+iface.interface = 1;
+iface.altSetting = 0;
 iface.claim();
-iface.release((error: string) => null, (error: string) => null);
+iface.release((error: string) => null);
+iface.release(false, (error: string) => null);
 const kernelActive: boolean = iface.isKernelDriverActive();
 const detachKernel: number = iface.detachKernelDriver();
 const attachKernel: number = iface.attachKernelDriver();
 iface.setAltSetting(1, (error: string) => null);
+
+const ifaceDesc: usb.InterfaceDescriptor = new usb.InterfaceDescriptor();
+
+ifaceDesc.bLength = 1;
+ifaceDesc.bDescriptorType = 1;
+ifaceDesc.bInterfaceNumber = 1;
+ifaceDesc.bAlternateSetting = 1;
+ifaceDesc.bNumEndpoints = 1;
+ifaceDesc.bInterfaceClass = 1;
+ifaceDesc.bInterfaceSubClass = 1;
+ifaceDesc.bInterfaceProtocol = 1;
+ifaceDesc.iInterface = 1;
+ifaceDesc.extra = new Buffer([]);
+
+iface.descriptor = ifaceDesc;
 
 const endpointDesc: usb.EndpointDescriptor = new usb.EndpointDescriptor();
 
@@ -71,6 +92,7 @@ endpointDesc.wMaxPacketSize = 1;
 endpointDesc.bInterval = 1;
 endpointDesc.bRefresh = 1;
 endpointDesc.bSynchAddress = 1;
+endpointDesc.extra = new Buffer([]);
 
 const ifaceInEndpoint: usb.Endpoint = iface.endpoint(1) as usb.InEndpoint;
 const ifaceOutEndpoint: usb.Endpoint = iface.endpoint(1) as usb.OutEndpoint;
@@ -82,16 +104,23 @@ inEndpoint.transferType = 1;
 inEndpoint.timeout = 1;
 inEndpoint.descriptor = endpointDesc;
 const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error: string, data: Buffer) => inEndpoint);
+inEndpoint.on("data", (data) => null);
 inEndpoint.startPoll(1, 1);
+inEndpoint.startPoll(1);
+inEndpoint.startPoll();
 inEndpoint.stopPoll(() => null);
+inEndpoint.stopPoll();
 
 const outEndpoint: usb.OutEndpoint = new usb.OutEndpoint(device, endpointDesc);
 outEndpoint.direction = "out";
 outEndpoint.transferType = 1;
 outEndpoint.timeout = 1;
 outEndpoint.descriptor = endpointDesc;
+inEndpoint.on("error", (err) => null);
 const xferOutEndpoint: usb.OutEndpoint = outEndpoint.transfer(new Buffer([]), (error: string) => null);
 outEndpoint.transferWithZLP(new Buffer([]), (error: string) => null);
+
+iface.endpoints = [inEndpoint, outEndpoint];
 
 const findByDevice: usb.Device = usb.findByIds(1, 1);
 usb.on("hey", (device: usb.Device) => null);

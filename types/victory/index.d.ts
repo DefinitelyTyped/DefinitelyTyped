@@ -1,8 +1,10 @@
-// Type definitions for Victory 0.9.0
+// Type definitions for Victory 0.9.1
 // Project: https://github.com/FormidableLabs/victory
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, snerks <https://github.com/snerks>
+// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
+//                 snerks <https://github.com/snerks>
+//                 Krzysztof Cebula <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react"/>
 
@@ -34,6 +36,7 @@ declare module "victory" {
         parent?: React.CSSProperties;
         data?: React.CSSProperties;
         labels?: React.CSSProperties;
+        tickLabels?: React.CSSProperties;
     }
 
     export interface VictoryAnimationProps {
@@ -300,6 +303,14 @@ declare module "victory" {
             after?: (datum: any) => AnimationStyle;
         };
         /**
+         * Animation load transition configuration
+         */
+        onLoad?: {
+            duration?: number;
+            before?: (datum: any) => AnimationStyle;
+            after?: (datum: any) => AnimationStyle;
+        };
+        /**
          * The easing prop specifies an easing function name to use for tweening.
          * @default "quadInOut"
          */
@@ -355,10 +366,8 @@ declare module "victory" {
     /**
      * Data domain type
      */
-    type DomainPropType = [number, number] | {
-        x: [number, number];
-        y: [number, number];
-    };
+    type DomainTuple = [number, number] | [Date, Date];
+    type DomainPropType = DomainTuple | { x?: DomainTuple; y: DomainTuple; } | { x: DomainTuple; y?: DomainTuple; };
     /**
      * Domain padding
      */
@@ -755,6 +764,10 @@ declare module "victory" {
          * @default <GridLine/>
          */
         gridComponent?: React.ReactElement<any>;
+        /**
+         * If true, this value will flip the domain of a given axis.
+         */
+        invertAxis?: boolean;
         /**
          * The label prop defines the label that will appear along the axis. This
          * prop should be given as a value or an entire, HTML-complete label
@@ -1154,6 +1167,17 @@ declare module "victory" {
          */
         samples?: number;
         /**
+         * The labels prop defines the labels that will appear above each point.
+         * This prop should be given as an array or as a function of data.
+         */
+        labels?: string[]|number[]|Function;
+        /**
+         * Use the sortKey prop to indicate how data should be sorted. This prop
+         * is given directly to the lodash sortBy function to be executed on the
+         * final dataset.
+         */
+        sortKey?: string|string[]|Function;
+        /**
          * The style prop specifies styles for your VictoryLine. Any valid inline style properties
          * will be applied. Height, width, and padding should be specified via the height,
          * width, and padding props, as they are used to calculate the alignment of
@@ -1169,6 +1193,151 @@ declare module "victory" {
      * Check out VictoryChart for easy to use line charts and more.
      */
     export class VictoryLine extends React.Component<VictoryLineProps, any> {}
+
+    export interface VictoryLegendProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
+        /**
+         * The colorScale prop defines a color scale to be applied to each data
+         * symbol in VictoryLegend. This prop should be given as an array of CSS
+         * colors, or as a string corresponding to one of the built in color
+         * scales: "grayscale", "qualitative", "heatmap", "warm", "cool", "red",
+         * "green", "blue". VictoryLegend will assign a color to each symbol by
+         * index, unless they are explicitly specified in the data object.
+         * Colors will repeat when there are more symbols than colors in the
+         * provided colorScale.
+         */
+        colorScale?: ColorScalePropType;
+        /**
+         * The style prop defines the style of the VictoryLegend component.
+         * The style prop should be given as an object with styles defined for data, labels and
+         * parent. Any valid svg styles are supported, but width, height, and
+         * padding should be specified via props as they determine relative
+         * layout for components in VictoryLegend.
+         */
+        style?: VictoryStyleInterface;
+        /**
+         * The containerComponent prop takes a component instance which will be
+         * used to create a container element for standalone legends. The new
+         * element created from the passed containerComponent will be provided
+         * with the following props: height, width, children (the legend itself)
+         * and style. If a containerComponent is not provided, the default
+         * VictoryContainer component will be used. VictoryContainer supports
+         * title and desc props, which are intended to add accessibility to
+         * Victory components. The more descriptive these props are, the more
+         * accessible your data will be for people using screen readers. These
+         * props may be set by passing them directly to the supplied component.
+         * By default, VictoryContainer renders a responsive svg using the
+         * viewBox attribute. To render a static container, set
+         * responsive={false} directly on the instance of VictoryContainer
+         * supplied via the containerComponent prop. VictoryContainer also
+         * renders a Portal element that may be used in conjunction with
+         * VictoryPortal to force components to render above other children.
+         * @default <VictoryContainer/>
+         */
+        containerComponent?: React.ReactElement<any>;
+        /**
+         * Specify data via the data prop. VictoryLegend expects data as an
+         * array of objects with name (required), symbol, and labels properties.
+         * The data prop must be given as an array.
+         */
+        data?: Array<{
+            name?: string;
+            symbol?: {
+                type?: string;
+            };
+        }>;
+        /**
+         * The dataComponent prop takes a component instance which will be
+         * responsible for rendering a data element used to associate a symbol
+         * or color with each data series. The new element created from the
+         * passed dataComponent will be provided with the following properties
+         * calculated by VictoryLegend: x, y, size, style, and symbol. Any of
+         * these props may be overridden by passing in props to the supplied
+         * component, or modified or ignored within the custom component itself.
+         * If a dataComponent is not provided, VictoryLegend will use its
+         * default Point component.
+         */
+        dataComponent?: React.ReactElement<any>;
+        /**
+         * The groupComponent prop takes an entire component which will be used to
+         * create group elements for use within container elements. This prop defaults
+         * to a <g> tag on web, and a react-native-svg <G> tag on mobile
+         * @default <g/>
+         */
+        groupComponent?: React.ReactElement<any>;
+        /**
+         * The gutter prop defines the number of pixels between legend rows or
+         * columns, depending on orientation. When orientation is horizontal,
+         * gutters are between columns. When orientation is vertical, gutters
+         * are the space between rows.
+         */
+        gutter?: number;
+        /**
+         * The labelComponent prop takes a component instance which will be used
+         * to render each legend label. The new element created from the passed
+         * labelComponent will be supplied with the following properties: x, y,
+         * style, and text. Any of these props may be overridden by passing in
+         * props to the supplied component, or modified or ignored within the
+         * custom component itself. If labelComponent is omitted, a new
+         * VictoryLabel will be created with the props described above.
+         */
+        labelComponent?: React.ReactElement<any>;
+        /**
+         * The orientation prop takes a string that defines whether legend data
+         * are displayed in a row or column. When orientation is "horizontal",
+         * legend items will be displayed in a single row. When orientation is
+         * "vertical", legend items will be displayed in a single column. Line
+         * and text-wrapping is not currently supported, so "vertical"
+         * orientation is both the default setting and recommended for
+         * displaying many series of data.
+         * @default 'vertical'
+         */
+        orientation?: 'horizontal'|'vertical';
+        /**
+         * The padding prop specifies the amount of padding in pixels between
+         * the edge of the legend and any rendered child components. This prop
+         * can be given as a number or as an object with padding specified for
+         * top, bottom, left and right. As with width and height, the absolute
+         * padding will depend on whether the component is rendered in a
+         * responsive container. When a component is nested within
+         * VictoryLegend, setting padding on the child component will have no
+         * effect.
+         */
+        padding?: number | {
+            top?: number;
+            bottom?: number;
+            left?: number;
+            right?: number;
+        };
+        /**
+         * The standalone props specifies whether the component should be
+         * rendered in an independent <svg> element or in a <g> tag. This prop
+         * defaults to true, and renders an svg.
+         */
+        standalone?: boolean;
+        /**
+         * The symbolSpacer prop defines the number of pixels between data
+         * components and label components.
+         */
+        symbolSpacer?: number;
+        /**
+         * The width and height props define the width and height of the legend.
+         * These props may be given as positive numbers or functions of data. If
+         * these props are not set, width and height will be determined based on
+         * an approximate text size calculated from the text and style props
+         * provided to VictoryLegend.
+         */
+        width?: number;
+        height?: number;
+        /**
+         * The x and y props define the base position of the legend element.
+         */
+        x?: number;
+        y?: number;
+    }
+    /**
+     * VictoryLegend renders a chart legend component.
+     */
+    export class VictoryLegend extends React.Component<VictoryLegendProps, any> {}
 
     type ScatterSymbolType = "circle" | "diamond" | "plus" | "square" | "star" | "triangleDown" | "triangleUp";
     export interface VictoryScatterProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
@@ -1390,6 +1559,11 @@ declare module "victory" {
          * If a dataComponent is not provided, VictoryPie's Slice component will be used.
          */
         dataComponent?: React.ReactElement<any>;
+        /**
+         * The labelRadius prop defines the radius of the arc that will be used for positioning each slice label.
+         * If this prop is not set, the label radius will default to the radius of the pie + label padding.
+         */
+        labelRadius?: number;
         /**
          * The overall end angle of the pie in degrees. This prop is used in conjunction with
          * startAngle to create a pie that spans only a segment of a circle.

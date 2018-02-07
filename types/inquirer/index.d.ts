@@ -1,6 +1,8 @@
 // Type definitions for Inquirer.js
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
+//                 Parvez <https://github.com/ppathan>
+//                 Jouderian <https://github.com/jouderianjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="rx" />
@@ -110,6 +112,18 @@ declare namespace inquirer {
          * Change the number of lines that will be rendered when using list, rawList, expand or checkbox.
          */
         pageSize?: number;
+        /**
+         * Add a mask when password will entered
+         */
+        mask?: string;
+        /**
+         * Change the default prefix message.
+         */
+        prefix?: string;
+        /**
+         * Change the default suffix message.
+         */
+        suffix?: string;
     }
 
     /**

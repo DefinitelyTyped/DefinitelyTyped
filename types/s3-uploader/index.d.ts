@@ -29,7 +29,7 @@ declare namespace Upload {
         tmpDir?: string;
         workers?: number;
         url?: string;
-        versions?: S3UploaderVersion;
+        versions?: S3UploaderVersion[];
     }
 
     interface Meta {

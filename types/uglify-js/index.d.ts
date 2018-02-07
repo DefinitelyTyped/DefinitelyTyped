@@ -174,7 +174,7 @@ declare namespace UglifyJS {
         /**
          * Output a source map
          */
-        source_map?: SourceMapOptions;
+        source_map?: SourceMap;
 
         /**
          * Use brackets every time?

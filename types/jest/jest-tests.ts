@@ -1,22 +1,34 @@
-/// <reference types="node" />
+// TODO: Avoid requiring things that don't exist.
+declare var require: {
+    (s: string): any;
+    requireActual(s: string): any;
+    requireMock(s: string): any;
+};
+// TODO: use real jquery types?
+declare const $: any;
 
 // Tests based on the Jest website
 jest.unmock('../sum');
 
-describe('sum', function() {
-    it('adds 1 + 2 to equal 3', function() {
-        var sum: (a: number, b: number) => number = require('../sum');
+describe('sum', () => {
+    it('adds 1 + 2 to equal 3', () => {
+        const sum: (a: number, b: number) => number = require('../sum');
         expect(sum(1, 2)).toBe(3);
     });
 });
 
-describe('fetchCurrentUser', function() {
-    it('calls the callback when $.ajax requests are finished', function() {
-        var $ = require('jquery');
-        var fetchCurrentUser = require('../fetchCurrentUser');
+describe('restoreAllMocks', () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+});
+
+describe('fetchCurrentUser', () => {
+    it('calls the callback when $.ajax requests are finished', () => {
+        const fetchCurrentUser = require('../fetchCurrentUser');
 
         // Create a mock function for our callback
-        var callback = jest.fn();
+        const callback = jest.fn();
         fetchCurrentUser(callback);
 
         // Now we emulate the process by which `$.ajax` would execute its own
@@ -36,10 +48,10 @@ describe('fetchCurrentUser', function() {
 });
 
 // unmock is the recommended approach for unmocking...
-jest.unmock('../displayUser.js')
+jest.unmock('../displayUser.js');
 
-describe('displayUser', function() {
-    it('displays a user after a click', function() {
+describe('displayUser', () => {
+    it('displays a user after a click', () => {
         // Set up our document body
         document.body.innerHTML =
             '<div>' +
@@ -47,13 +59,13 @@ describe('displayUser', function() {
             '  <button id="button" />' +
             '</div>';
 
-        var displayUser = require.requireActual('../displayUser');
-        var $ = require('jquery');
-        var fetchCurrentUser = require('../fetchCurrentUser');
+        const displayUser = require.requireActual('../displayUser');
+        const $ = require('jquery');
+        const fetchCurrentUser = require('../fetchCurrentUser');
 
         // Tell the fetchCurrentUser mock function to automatically invoke
         // its callback with some data
-        fetchCurrentUser.mockImplementation(function(cb: Function) {
+        fetchCurrentUser.mockImplementation((cb: (...args: any[]) => any) => {
             cb({
                 loggedIn: true,
                 fullName: 'Johnny Cash'
@@ -71,14 +83,14 @@ describe('displayUser', function() {
 });
 
 jest.unmock('../CheckboxWithLabel.js');
-describe('CheckboxWithLabel', function() {
-    it('changes the text after click', function() {
-        var React = require('react/addons');
-        var CheckboxWithLabel = require('../CheckboxWithLabel.js');
-        var TestUtils = React.addons.TestUtils;
+describe('CheckboxWithLabel', () => {
+    it('changes the text after click', () => {
+        const React = require('react/addons');
+        const CheckboxWithLabel = require('../CheckboxWithLabel.js');
+        const TestUtils = React.addons.TestUtils;
 
         // Render a checkbox with label in the document
-        var checkbox = TestUtils.renderIntoDocument(
+        const checkbox = TestUtils.renderIntoDocument(
             CheckboxWithLabel({
                     labelOn: "On",
                     labelOff: "Off"
@@ -86,12 +98,12 @@ describe('CheckboxWithLabel', function() {
         );
 
         // Verify that it's Off by default
-        var label = TestUtils.findRenderedDOMComponentWithTag(
+        const label = TestUtils.findRenderedDOMComponentWithTag(
             checkbox, 'label');
         expect(label.getDOMNode().textContent).toEqual('Off');
 
         // Simulate a click and verify that it is now On
-        var input = TestUtils.findRenderedDOMComponentWithTag(
+        const input = TestUtils.findRenderedDOMComponentWithTag(
             checkbox, 'input');
         TestUtils.Simulate.change(input);
         expect(label.getDOMNode().textContent).toEqual('On');
@@ -99,100 +111,108 @@ describe('CheckboxWithLabel', function() {
 });
 
 jest.runAllTicks();
-xdescribe('Hooks and Suits', function () {
+xdescribe('Hooks and Suits', () => {
     let tested: boolean;
 
-    beforeEach(function () {
+    beforeEach(() => {
         tested = false;
     });
 
-    afterEach(function () {
+    afterEach(() => {
        tested = true;
     });
 
-    test('tested', function () {
+    test('tested', () => {
        expect(tested).toBeTruthy();
        expect(tested).not.toBeFalsy();
     });
 
-    fit('tested', function () {
+    fit('tested', () => {
        expect(tested).toBeDefined();
        expect(tested).not.toBeUndefined();
     });
 
-    xit('expect null to be null', function () {
+    xit('expect null to be null', () => {
        expect(null).toBeNull();
+    });
+
+    xit('expect NaN to be NaN', () => {
+       expect(NaN).toBeNaN();
     });
 });
 
-describe('compartion', function () {
-    var sum: (a: number, b: number) => number = require.requireMock('../sum');
+describe('compartion', () => {
+    const sum: (a: number, b: number) => number = require.requireMock('../sum');
 
-    it('compares is 7 + 2 greater than 3', function () {
+    it('compares is 7 + 2 greater than 3', () => {
        expect(sum(7, 2)).toBeGreaterThan(3);
     });
 
-    it('compares is 2 + 7 greater than or equal to 3', function () {
+    it('compares is 2 + 7 greater than or equal to 3', () => {
        expect(sum(2, 7)).toBeGreaterThanOrEqual(3);
     });
 
-    it('compares is 3 less than 3 + 4', function () {
+    it('compares is 3 less than 3 + 4', () => {
        expect(3).toBeLessThan(sum(3, 4));
     });
 
-    it('compares is 3 less than or equal to 4 + 3', function () {
+    it('compares is 3 less than or equal to 4 + 3', () => {
        expect(3).toBeLessThanOrEqual(sum(4, 3));
     });
 
-    it('works sanely with simple decimals', function () {
+    it('works sanely with simple decimals', () => {
         expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
     });
 
-    it('works sanely with simple decimals and the default delta', function () {
+    it('works sanely with simple decimals and the default delta', () => {
         expect(0.2 + 0.1).toBeCloseTo(0.3);
     });
 });
 
-describe('toThrow API', function () {
+describe('toThrow API', () => {
    function throwTypeError(): void {
        throw new TypeError('toThrow Definition was out of date');
    }
 
-   it('throws', function () {
+   it('throws', () => {
       expect(throwTypeError()).toThrow();
       expect(throwTypeError()).toThrowError();
    });
 
-   it('throws TypeError', function () {
+   it('throws TypeError', () => {
        expect(throwTypeError()).toThrow(TypeError);
        expect(throwTypeError()).toThrowError(TypeError);
    });
 
-   it('throws \'Definition was out of date\'', function () {
+   it('throws \'Definition was out of date\'', () => {
        expect(throwTypeError()).toThrow(/Definition was out of date/);
-      expect(throwTypeError()).toThrowError(/Definition was out of date/);
+       expect(throwTypeError()).toThrowError(/Definition was out of date/);
    });
 
-   it('throws \'toThorow Definition was out of date\'', function () {
+   it('throws \'toThorow Definition was out of date\'', () => {
        expect(throwTypeError()).toThrow('toThrow Definition was out of date');
-      expect(throwTypeError()).toThrowError('toThrow Definition was out of date');
+       expect(throwTypeError()).toThrowError('toThrow Definition was out of date');
    });
 });
 
-describe('Assymetric matchers', function () {
-    it('works', function () {
+describe('Assymetric matchers', () => {
+    it('works', () => {
         expect({
             timestamp: 1480807810388,
-            text: 'Some text content, but we care only about *this part*'
+            text: 'Some text content, but we care only about *this part*',
+            color: '#bada55',
+            greeting: 'hello, world!',
         }).toEqual({
             timestamp: expect.any(Number),
-            text: expect.stringMatching('*this part*')
+            text: expect.stringMatching('*this part*'),
+            color: expect.stringMatching(/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i),
+            greeting: expect.stringContaining('hello'),
         });
 
         const callback = jest.fn();
         expect(callback).toEqual(expect.any(Function));
         callback(5, "test");
-        expect(callback).toBeCalledWith(expect.any(Number), expect.any(String))
+        expect(callback).toBeCalledWith(expect.any(Number), expect.any(String));
         const obj = {
             items: [1]
         };
@@ -214,18 +234,35 @@ describe('Assymetric matchers', function () {
         const test: Test = {
             a: expect.any(Number),
             b: expect.anything()
-        }
+        };
         expect(callback).toHaveBeenCalledWith(test);
     });
 });
 
-describe('Extending extend', function () {
-    it('works', function () {
+describe('setTimeout', () => {
+    it('works as expected', done => {
+        jest.setTimeout(1000);
+
+        setTimeout(() => {
+            expect(true).toBeTruthy();
+            done();
+        }, 900);
+    });
+});
+
+describe('Extending extend', () => {
+    it('works', () => {
         expect.extend({
             toBeNumber(received: any, actual: any) {
                 const pass = received === actual;
                 const message =
                     () => `expected ${received} ${pass ? 'not ' : ''} to be ${actual}`;
+                return { message, pass };
+            },
+            toBeVariadicMatcher(received: any, floor: number, ceiling: number) {
+                const pass = received >= floor && received <= ceiling;
+                const message =
+                    () => `expected ${received} ${pass ? 'not ' : ''} to be within range ${floor}-${ceiling}`;
                 return { message, pass };
             },
             toBeTest(received: any, actual: any) {
@@ -246,27 +283,27 @@ describe('Extending extend', function () {
     });
 });
 
-describe('missing tests', function () {
-    it('creates closures', function () {
+describe('missing tests', () => {
+    it('creates closures', () => {
        class Closure<T> {
            private arg: T;
 
-           public constructor(private fn: (arg: T) => void) {
+           constructor(private readonly fn: (arg: T) => void) {
                this.fn = fn;
            }
 
-           public bind(arg: T): void {
+           bind(arg: T): void {
                this.arg = arg;
            }
 
-           public call(): void {
+           call(): void {
                this.fn(this.arg);
            }
        }
 
        type StringClosure = (arg: string) => void;
-       let spy: jest.Mock<StringClosure> = jest.fn<StringClosure>();
-       let closure: Closure<string> = new Closure<string>(spy);
+       const spy: jest.Mock<StringClosure> = jest.fn<StringClosure>();
+       const closure: Closure<string> = new Closure<string>(spy);
        closure.bind('jest');
        closure.call();
        expect(spy).lastCalledWith('jest');
@@ -274,10 +311,10 @@ describe('missing tests', function () {
        expect(jest.isMockFunction(spy)).toBeTruthy();
    });
 
-   it('tests all mising Mocks functionality', function () {
-       type FruitsGetter = () => Array<string>;
-       let mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
-       mock.mockImplementationOnce(() => ['Orange', 'Apple', 'Plum'])
+    it('tests all missing Mocks functionality', () => {
+       type FruitsGetter = () => string[];
+       const mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
+       mock.mockImplementationOnce(() => ['Orange', 'Apple', 'Plum']);
        jest.setMock('./../tesks/getFruits', mock);
        const getFruits: FruitsGetter = require('./../tesks/getFruits');
        expect(getFruits()).toContain('Orange');
@@ -285,72 +322,101 @@ describe('missing tests', function () {
        expect(mock()).not.toContain('Orange');
        const myBeverage: any = {delicious: true, sour: false};
        expect(myBeverage).toContainEqual({delicious: true, sour: false});
-       mock.mockReturnValue([]); //Deprecated: Use jest.fn(() => value) instead.
+       mock.mockReturnValue([]); // Deprecated: Use jest.fn(() => value) instead.
        mock.mockClear();
-       let thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
+       const thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
        expect(thisMock()).toBe(this);
    });
 
-   it('creates snapshoter', function () {
+    it('tests mock name functionality', () => {
+        const mock: jest.Mock = jest.fn();
+        mock.mockName('Carrot');
+        expect(mock.getMockName()).toBe('Carrot');
+    });
+
+    it('creates snapshoter', () => {
        jest.disableAutomock().mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });
        const render: () => string = require('./render');
        expect(render()).toMatch(/Link/);
        jest.enableAutomock();
    });
 
-   it('runs only pending timers', function () {
+    it('runs only pending timers', () => {
         jest.useRealTimers();
         setTimeout(() => expect(1).not.toEqual(0), 3000);
         jest.runOnlyPendingTimers().runTimersToTime(300);
    });
 
-   it('runs all timers', function () {
+    it('runs all timers', () => {
         jest.clearAllTimers();
         jest.useFakeTimers();
         setTimeout(() => expect(0).not.toEqual(1), 3000);
         jest.runAllTimers();
    });
 
-   it('cleares cache', function () {
+    it('cleares cache', () => {
        const sum1 = require('../sum');
        jest.resetModules();
        const sum2 = require('../sum');
        expect(sum1).not.toBe(sum2);
-   })
+   });
 });
 
-describe('toMatchSnapshot', function () {
-   it('compares snapshots', function () {
+describe('toMatchSnapshot', () => {
+   it('compares snapshots', () => {
         expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot();
     });
 
-   it('can give name to snapshot', function () {
+   it('can give name to snapshot', () => {
         expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot('given name');
    });
 });
 
-describe('toThrowErrorMatchingSnapshot', function () {
-   it('compares snapshots', function () {
-        expect(() => { throw new Error('descriptiton') }).toThrowErrorMatchingSnapshot();
+describe('toThrowErrorMatchingSnapshot', () => {
+   it('compares snapshots', () => {
+        expect(() => { throw new Error('descriptiton'); }).toThrowErrorMatchingSnapshot();
+    });
+});
+
+const testSerializerPluginString = "set by testSerializerPlugin";
+let testSerializerPluginCallCount = 0;
+expect.addSnapshotSerializer({
+  print(val, serialize, indent, opts, colors) {
+    val.willOverwrite = testSerializerPluginString;
+    testSerializerPluginCallCount += 1;
+    return 'plugin called: ' + serialize(val.willOverwrite);
+  },
+  test(val) {
+    return val && val.willOverwrite && val.willOverwrite !== testSerializerPluginString;
+  },
+});
+describe('addSnapshotSerializer', () => {
+    it('the plugin does its work', () => {
+        testSerializerPluginCallCount = 0;
+        expect({ willOverwrite: { x: 1, y: 2, } }).toMatchSnapshot();
+        expect({ willOverwrite: "this will get overwritten by testSerializerPlugin" }).toMatchSnapshot();
+        expect({ willOverwrite: "so will this" }).toMatchSnapshot();
+        expect({ foo: "this will not" }).toMatchSnapshot();
+        expect(testSerializerPluginCallCount).toBe(3);
     });
 });
 
 function testInstances() {
-    var mockFn = jest.fn<Function>();
-    var a = new mockFn();
-    var b = new mockFn();
+    const mockFn = jest.fn<(...args: any[]) => any>();
+    const a = new mockFn();
+    const b = new mockFn();
 
     mockFn.mock.instances[0] === a; // true
     mockFn.mock.instances[1] === b; // true
 }
 
 function testMockImplementation() {
-    var mockFn = jest.fn<Function>().mockImplementation(function (scalar:number):number {
+    const mockFn = jest.fn<(...args: any[]) => any>().mockImplementation((scalar: number): number => {
         return 42 + scalar;
     });
 
-    var a = mockFn(0);
-    var b = mockFn(1);
+    const a = mockFn(0);
+    const b = mockFn(1);
 
     a === 42; // true
     b === 43; // true
@@ -360,15 +426,15 @@ function testMockImplementation() {
 }
 
 // Test from jest Docs: <http://facebook.github.io/jest/docs/manual-mocks.html#content>
-describe('genMockFromModule', function () {
+describe('genMockFromModule', () => {
    // Interfaces:
     interface MockFiles {
         [index: string]: string;
     }
 
     interface MockedFS {
-        readdirSync: (dir: string) => string[];
-        __setMockFiles: (newMockFiles: MockFiles) => void ;
+        readdirSync(dir: string): string[];
+        __setMockFiles(newMockFiles: MockFiles): void ;
     }
 
     // ------------------------------------------------------------------------------------
@@ -383,7 +449,7 @@ describe('genMockFromModule', function () {
       }));
     }
 
-    //export default summarizeFilesInDirectorySync; // For sake of compilation
+    // export default summarizeFilesInDirectorySync; // For sake of compilation
 
     // ------------------------------------------------------------------------------------
     // __mocks__/fs.js
@@ -395,7 +461,7 @@ describe('genMockFromModule', function () {
     let mockFiles: any = Object.create(null);
     function __setMockFiles(newMockFiles: MockFiles): void {
       mockFiles = Object.create(null);
-      for(const file in newMockFiles) {
+      for (const file in newMockFiles) {
         const dir: string = path.dirname(file);
 
         if (!mockFiles[dir]) {
@@ -412,7 +478,7 @@ describe('genMockFromModule', function () {
     mockedFS.readdirSync = readdirSync;
     mockedFS.__setMockFiles = __setMockFiles;
 
-    //export = mockedFS; // For sake of compilation
+    // export = mockedFS; // For sake of compilation
     // ------------------------------------------------------------------------------------
     // __tests__/FileSummarizer-test.js
 
@@ -441,16 +507,22 @@ describe('genMockFromModule', function () {
 /**
  * Pass strictNullChecks
  */
-describe('strictNullChecks', function () {
+describe('strictNullChecks', () => {
     it('does not complain when using done callback', (done) => {
         done();
-    })
+    });
+});
+
+describe('beforeEach with timeout', () => {
+    beforeEach(() => {
+        // this shouldn't take more than a second
+    }, 1000);
 });
 
 class TestApi {
-    constructor() { };
+    constructor() { }
     testProp: boolean;
-    private anotherProp: string;
+    private readonly anotherProp: string;
     testMethod(a: number): string { return ""; }
 }
 
@@ -458,8 +530,8 @@ declare function mockedFunc(a: number): string;
 
 declare function mockedFuncWithApi(api: TestApi): void;
 
-describe('Mocked type', function () {
-    it('Works', function () {
+describe('Mocked type', () => {
+    it('Works', () => {
         const mock: jest.Mocked<TestApi> = new TestApi() as any;
         mock.testProp;
         mock.testMethod.mockImplementation(() => 'test');
@@ -469,8 +541,8 @@ describe('Mocked type', function () {
     });
 });
 
-describe('Mocks', function () {
-    it('jest.fn() without args is a function type', function () {
+describe('Mocks', () => {
+    it('jest.fn() without args is a function type', () => {
         const test = jest.fn();
         test();
         new test();
@@ -478,7 +550,7 @@ describe('Mocks', function () {
         test.mockImplementation(() => { });
     });
 
-    it('jest.fn() with returned object infers type', function () {
+    it('jest.fn() with returned object infers type', () => {
         const testMock = jest.fn(() => ({ a: 5, test: jest.fn() }));
 
         testMock(5, 5, 'a');
@@ -500,4 +572,108 @@ describe('Mocks', function () {
         const anotherIns: jest.Mocked<TestApi> = new anotherMock() as any;
         anotherIns.testMethod.mockImplementation(() => 1);
     });
+
+    it('jest.fn() accepts constructor arguments', () => {
+        interface TestLog {
+            log(...msg: any[]): void;
+        }
+
+        class LogMock extends jest.fn<TestLog>((verbose?: boolean) => {
+            const mockLog = () => {
+                if (verbose) {
+                    return jest.fn((...args) => {
+                        const subj = args.shift() || "";
+                        console.log(subj, ...args);
+                    });
+                }
+                return jest.fn();
+            };
+
+            return {
+                log: mockLog()
+            };
+        }) {
+        }
+
+        const nonVerboseLog = new LogMock();
+        nonVerboseLog.log("this is completely catched by jest");
+        expect(nonVerboseLog.log).toBeCalledWith("this is completely catched by jest");
+        const verboseLog = new LogMock(true);
+        verboseLog.log("this should also be printed to the console");
+        expect(verboseLog.log).toBeCalledWith("this should also be printed to the console");
+    });
+});
+
+// https://facebook.github.io/jest/docs/en/expect.html#resolves
+describe('resolves', () => {
+    it('unwraps the expected Promise', () => {
+        const expectation = expect(Promise.resolve('test')).resolves.toEqual('test');
+        expect(expectation instanceof Promise).toBeTruthy();
+        return expectation;
+    });
+
+    it('unwraps a .toHaveBeenCalledX', done => {
+        expect.assertions(2);
+
+        const fn = jest.fn();
+        return expect(Promise.resolve(fn)).resolves.toHaveBeenCalledTimes(0).then(val => {
+            expect(val).toEqual(true);
+            done();
+        });
+    });
+
+    it('unwraps a not.toHaveBeenCalledX', done => {
+        expect.assertions(2);
+
+        const fn = jest.fn();
+        return expect(Promise.resolve(fn)).resolves.not.toHaveBeenCalledTimes(1).then(val => {
+            expect(val).toEqual(true);
+            done();
+        });
+    });
+});
+
+// https://facebook.github.io/jest/docs/en/expect.html#rejects
+describe('rejects', () => {
+    it('unwraps the expected Promise', () => {
+        const expectation = expect(Promise.reject(new Error('error'))).rejects.toMatch('error');
+        expect(expectation instanceof Promise).toBeTruthy();
+        return expectation;
+    });
+});
+
+class MyTransformer implements jest.Transformer {
+    process(text: string, path: string) {
+        return `
+            // some comments
+            ${text}
+        `;
+    }
+}
+
+class MyReporter implements jest.Reporter {
+    onRunStart() {
+        console.log('hello world');
+    }
+}
+
+declare const testResult: jest.TestResult;
+const myTestRunner: jest.TestFramework = () => Promise.resolve(testResult);
+
+const testResultsProcessor: jest.TestResultsProcessor = result => ({...result, numFailedTests: 1});
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18826
+test('moduleName 1', () => {
+    jest.doMock('../moduleName', () => {
+        return jest.fn(() => 1);
+    });
+    const moduleName = require('../moduleName');
+    expect(moduleName()).toEqual(1);
+});
+test('moduleName 2', () => {
+    jest.doMock('../moduleName', () => {
+        return jest.fn(() => 2);
+    });
+    const moduleName = require('../moduleName');
+    expect(moduleName()).toEqual(2);
 });

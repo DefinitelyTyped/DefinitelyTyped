@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "target": "es6",
+        "jsx": "react",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "document.d.ts",
+        "dynamic.d.ts",
+        "error.d.ts",
+        "head.d.ts",
+        "link.d.ts",
+        "router.d.ts",
+        "test/next-tests.ts",
+        "test/next-error-tests.tsx",
+        "test/next-head-tests.tsx",
+        "test/next-document-tests.tsx",
+        "test/next-link-tests.tsx",
+        "test/next-dynamic-tests.tsx",
+        "test/next-router-tests.tsx"
+    ]
+}

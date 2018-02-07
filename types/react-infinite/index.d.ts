@@ -2,16 +2,16 @@
 // Project: https://github.com/seatgeek/react-infinite
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///<reference types="react" />
 
 import * as React from "react";
 
-import Infinite = ReactInfinite.Infinite;
 export = Infinite;
+export as namespace Infinite;
 
-declare namespace ReactInfinite {
+declare namespace Infinite {
 	interface InfiniteProps extends React.Props<Infinite> {
 		elementHeight: number | number[];
 		containerHeight?: number;
@@ -28,8 +28,8 @@ declare namespace ReactInfinite {
 		useWindowAsScrollContainer?: boolean;
 		displayBottomUpwards?: boolean;
 	}
+}
 
-	export class Infinite extends React.Component<InfiniteProps, {}> {
-		static containerHeightScaleFactor(n: number): any;
-	}
+declare class Infinite extends React.Component<Infinite.InfiniteProps> {
+	static containerHeightScaleFactor(n: number): any;
 }

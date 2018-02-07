@@ -15,8 +15,8 @@ function test_validate() {
             const errors = validator.numberOfInvalids();
             if (errors) {
                 const message = errors === 1
-                  ? 'You missed 1 field. It has been highlighted'
-                  : 'You missed ' + errors + ' fields. They have been highlighted';
+                    ? 'You missed 1 field. It has been highlighted'
+                    : `You missed ${errors} fields. They have been highlighted`;
                 $("div.error span").html(message);
                 $("div.error").show();
             } else {
@@ -56,7 +56,7 @@ function test_validate() {
         },
         errorPlacement: (error, element) => {
             if (element.attr("name") === "fname"
-                        || element.attr("name") === "lname")
+                || element.attr("name") === "lname")
                 error.insertAfter("#lastname");
             else
                 error.insertAfter(element);
@@ -84,7 +84,7 @@ function test_validate() {
         onclick: (elt) => { }
     });
     $(".selector").validate({
-    onfocusout: (elt, event) => { },
+        onfocusout: (elt, event) => { },
         onkeyup: (elt, event) => { },
         onclick: (elt, event) => { }
     });
@@ -124,7 +124,7 @@ function test_validate() {
     });
     $(".selector").validate({
         showErrors: (errorMap: JQueryValidation.ErrorDictionary, errorList: JQueryValidation.ErrorListItem[]) => {
-            $("#summary").html("Your form contains " + this.numberOfInvalids() + " errors, see details below.");
+            $("#summary").html(`Your form contains ${this.numberOfInvalids()} errors, see details below.`);
             this.defaultShowErrors();
         }
     });
@@ -154,13 +154,13 @@ function test_validate() {
     $(".selector").validate({
         highlight: (element: HTMLInputElement, errorClass, validClass) => {
             $(element).addClass(errorClass).removeClass(validClass);
-            $((<HTMLInputElement> element).form).find("label[for=" + element.id + "]")
-                           .addClass(errorClass);
+            $(element.form).find(`label[for=${element.id}]`)
+                .addClass(errorClass);
         },
         unhighlight: (element: HTMLInputElement, errorClass, validClass) => {
             $(element).removeClass(errorClass).addClass(validClass);
-            $((<HTMLInputElement> element).form).find("label[for=" + element.id + "]")
-                           .removeClass(errorClass);
+            $(element.form).find(`label[for=${element.id}]`)
+                .removeClass(errorClass);
         }
     });
     $(".selector").validate({
@@ -174,8 +174,8 @@ function test_validate() {
         onclick: false,
     });
     $('.selector').validate({
-        onfocusout: () => {},
-        onkeyup: () => {},
+        onfocusout: () => { },
+        onkeyup: () => { },
         onclick: elt => 2,
     });
 }

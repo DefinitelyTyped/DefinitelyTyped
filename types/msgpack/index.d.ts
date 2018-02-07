@@ -72,7 +72,7 @@ declare namespace msgpack {
     /**
      * @param data string or ByteArray
      */
-    (data: any, option: MsgPackDownloadCallback, result: MsgPackCallbackResult): void;
+    (data: any, option: MsgPackDownloadOption, result: MsgPackCallbackResult): void;
   }
 
   interface MsgPackCallbackResult {

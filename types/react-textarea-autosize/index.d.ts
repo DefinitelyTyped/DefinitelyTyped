@@ -1,8 +1,8 @@
-// Type definitions for react-textarea-autosize 4.0.3
+// Type definitions for react-textarea-autosize 4.3.0
 // Project: https://github.com/andreypopp/react-textarea-autosize
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
+// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Jerry Zou <https://github.com/zry656565>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-textarea-autosize" {
     import * as React from "react";
@@ -46,11 +46,15 @@ declare module "react-textarea-autosize" {
          * Maximum number of rows to show.
          */
         maxRows?: number;
+        /**
+         * Allows an owner to retrieve the DOM node.
+         */
+        inputRef?: (node: HTMLTextAreaElement) => void;
     }
 
     /**
      * <TextareaAutosize/>
      */
-    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps, any> { }
+    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps> { }
 
 }

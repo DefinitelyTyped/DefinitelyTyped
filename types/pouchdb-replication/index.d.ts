@@ -1,14 +1,13 @@
-// Type definitions for pouchdb-replication v6.1.2
+// Type definitions for pouchdb-replication 6.1
 // Project: https://pouchdb.com/
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {
-
     namespace Replication {
-
         interface ReplicateOptions {
             /** If true, starts subscribing to future changes in the source database and continue replicating them. */
             live?: boolean;
@@ -25,7 +24,7 @@ declare namespace PouchDB {
              * To use a view function, pass '_view' here and provide a reference to the view function in options.view.
              * See filtered changes for details.
              */
-            filter?: string | {(doc: any, params: any): any};
+            filter?: string | ((doc: any, params: any) => any);
 
             /** Only show changes for docs with these ids (array of strings). */
             doc_ids?: string[];
@@ -76,67 +75,61 @@ declare namespace PouchDB {
              * Defaults to a function that chooses a random backoff between 0 and 2 seconds and doubles every time it fails to connect.
              * The default delay will never exceed 10 minutes.
              */
-            back_off_function?: (delay: number) => number;
+            back_off_function?(delay: number): number;
         }
 
-        interface ReplicationEventEmitter<Content extends Core.Encodable, C, F> extends EventEmitter {
+        interface ReplicationEventEmitter<Content extends {}, C, F> extends EventEmitter {
             on(event: 'change', listener: (info: C) => any): this;
-            on(event: 'paused', listener: (err: {}) => any): this;
+            on(event: 'paused' | 'denied' | 'error', listener: (err: {}) => any): this;
             on(event: 'active', listener: () => any): this;
-            on(event: 'denied', listener: (err: {}) => any): this;
             on(event: 'complete', listener: (info: F) => any): this;
-            on(event: 'error', listener: (err: {}) => any): this;
 
             cancel(): void;
         }
 
-        interface Replication<Content extends Core.Encodable>
+        interface Replication<Content extends {}>
             extends ReplicationEventEmitter<Content, ReplicationResult<Content>, ReplicationResultComplete<Content>>,
                     Promise<ReplicationResultComplete<Content>> {
-
         }
 
-        interface ReplicationResult<Content extends Core.Encodable> {
+        interface ReplicationResult<Content extends {}> {
             doc_write_failures: number;
             docs_read: number;
             docs_written: number;
-            last_seq: number,
-            start_time: Date,
-            ok: boolean,
+            last_seq: number;
+            start_time: Date;
+            ok: boolean;
             errors: any[];
-            docs: Core.ExistingDocument<Content>[];
+            docs: Array<Core.ExistingDocument<Content>>;
         }
 
-        interface ReplicationResultComplete<Content extends Core.Encodable> extends ReplicationResult<Content> {
+        interface ReplicationResultComplete<Content extends {}> extends ReplicationResult<Content> {
             end_time: Date;
             status: string;
         }
 
         interface SyncOptions extends ReplicateOptions {
-            push?: boolean;
-            pull?: boolean;
+            push?: ReplicateOptions;
+            pull?: ReplicateOptions;
         }
 
-        interface Sync<Content extends Core.Encodable>
+        interface Sync<Content extends {}>
             extends ReplicationEventEmitter<Content, SyncResult<Content>, SyncResultComplete<Content>>,
                     Promise<SyncResultComplete<Content>> {
-
         }
 
-        interface SyncResult<Content extends Core.Encodable> {
+        interface SyncResult<Content extends {}> {
             direction: 'push' | 'pull';
             change: ReplicationResult<Content>;
         }
 
-        interface SyncResultComplete<Content extends Core.Encodable> {
+        interface SyncResultComplete<Content extends {}> {
             push?: ReplicationResultComplete<Content>;
             pull?: ReplicationResultComplete<Content>;
         }
-
     }
 
     interface Static {
-
         /**
          * Replicate data from source to target. Both the source and target can be a PouchDB instance or a string
          * representing a CouchDB database URL or the name of a local PouchDB database. If options.live is true,
@@ -147,7 +140,7 @@ declare namespace PouchDB {
             source: string | Database<Content>,
             target: string | Database<Content>,
             options?: Replication.ReplicateOptions,
-            callback?: Core.Callback<any, Replication.ReplicationResultComplete<Content>>
+            callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
         ): Replication.Replication<Content>;
 
         /**
@@ -163,13 +156,11 @@ declare namespace PouchDB {
             source: string | Database<Content>,
             target: string | Database<Content>,
             options?: Replication.SyncOptions,
-            callback?: Core.Callback<any, Replication.SyncResultComplete<Content>>
+            callback?: Core.Callback<Replication.SyncResultComplete<Content>>
         ): Replication.Sync<Content>;
-
     }
 
-    interface Database<Content extends Core.Encodable> {
-
+    interface Database<Content extends {} = {}> {
         replicate: {
             /**
              * Replicate data to `target`. Both the source and target can be a PouchDB instance
@@ -180,7 +171,7 @@ declare namespace PouchDB {
             to<Content>(
                 target: string | Database<Content>,
                 options?: Replication.ReplicateOptions,
-                callback?: Core.Callback<any, Replication.ReplicationResultComplete<Content>>
+                callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
             ): Replication.Replication<Content>;
 
             /**
@@ -192,7 +183,7 @@ declare namespace PouchDB {
             from<Content>(
                 source: string | Database<Content>,
                 options?: Replication.ReplicateOptions,
-                callback?: Core.Callback<any, Replication.ReplicationResultComplete<Content>>
+                callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
             ): Replication.Replication<Content>;
         };
 
@@ -208,9 +199,8 @@ declare namespace PouchDB {
         sync<Content>(
             remote: string | Database<Content>,
             options?: Replication.SyncOptions,
-            callback?: Core.Callback<any, Replication.SyncResultComplete<Content>>
+            callback?: Core.Callback<Replication.SyncResultComplete<Content>>
         ): Replication.Sync<Content>;
-
     }
 }
 

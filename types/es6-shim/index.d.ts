@@ -1,6 +1,6 @@
 // Type definitions for es6-shim v0.31.2
 // Project: https://github.com/paulmillr/es6-shim
-// Definitions by: Ron Buckton <http://github.com/rbuckton>
+// Definitions by: Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -185,11 +185,10 @@ interface Array<T> {
       * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
-    find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T;
+    find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T | undefined;
 
     /**
-      * Returns the index of the first element in the array where predicate is true, and undefined
-      * otherwise.
+      * Returns the index of the first element in the array where predicate is true, and -1 otherwise.
       * @param predicate find calls predicate once for each element of the array, in ascending
       * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
@@ -556,9 +555,9 @@ interface Map<K, V> {
     clear(): void;
     delete(key: K): boolean;
     forEach(callbackfn: (value: V, index: K, map: Map<K, V>) => void, thisArg?: any): void;
-    get(key: K): V;
+    get(key: K): V | undefined;
     has(key: K): boolean;
-    set(key: K, value?: V): Map<K, V>;
+    set(key: K, value: V): Map<K, V>;
     size: number;
     entries(): IterableIteratorShim<[K, V]>;
     keys(): IterableIteratorShim<K>;
@@ -596,9 +595,9 @@ declare var Set: SetConstructor;
 
 interface WeakMap<K extends object, V> {
     delete(key: K): boolean;
-    get(key: K): V;
+    get(key: K): V | undefined;
     has(key: K): boolean;
-    set(key: K, value?: V): WeakMap<K, V>;
+    set(key: K, value: V): WeakMap<K, V>;
 }
 
 interface WeakMapConstructor {

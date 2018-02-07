@@ -1,7 +1,6 @@
 import { DocumentNode } from '../language/ast';
 import { GraphQLSchema } from '../type/schema';
 
-
 /**
  * Produces a new schema given an existing schema and a document which may
  * contain GraphQL type extensions and definitions. The original schema will
@@ -15,6 +14,6 @@ import { GraphQLSchema } from '../type/schema';
  * producing the copy. The original schema remains unaltered.
  */
 export function extendSchema(
-    schema: GraphQLSchema,
-    documentAST: DocumentNode
+  schema: GraphQLSchema,
+  documentAST: DocumentNode,
 ): GraphQLSchema;

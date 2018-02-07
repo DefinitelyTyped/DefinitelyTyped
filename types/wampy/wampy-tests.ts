@@ -1,7 +1,5 @@
-
-/// <reference types="node" />
-
 import * as Wampy from 'wampy';
+declare var console: { log(...args: any[]): void };
 
 let ws = new Wampy('http://wamp.router.url', {realm: 'WAMPRealm'});
 

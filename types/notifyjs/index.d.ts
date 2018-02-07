@@ -1,4 +1,4 @@
-// Type definitions for notify.js 1.2.8
+// Type definitions for notifyjs 1.2.8
 // Project: https://github.com/alexgibson/notify.js
 // Definitions by: soundTricker <https://github.com/soundTricker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -107,6 +107,12 @@ declare namespace notifyjs {
         /**
          * callback when user has denied permission
          */
-        permissionDenied? : Function;
+        permissionDenied?: Function;
+
+        /**
+         * whether we expect for user interaction or not
+         * in case value is true the timeout for closing the notification won't be set
+         */
+        requireInteraction?: boolean;
     }
 }

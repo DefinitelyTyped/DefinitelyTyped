@@ -1,7 +1,9 @@
 // Type definitions for connect-redis
 // Project: https://npmjs.com/package/connect-redis
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
+//                 Albert Kurniawan <https://github.com/morcerf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="express" />
 /// <reference types="express-session" />
@@ -32,6 +34,8 @@ declare module "connect-redis" {
             prefix?: string;
             unref?: boolean;
             serializer?: Serializer | JSON;
+            logErrors?: boolean | ((error: string) => void);
+            scanCount?: number;
         }
         interface Serializer {
             stringify: Function;

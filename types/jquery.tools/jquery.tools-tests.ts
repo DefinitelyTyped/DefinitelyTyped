@@ -13,7 +13,7 @@ const triggers = $(".modalInput").overlay({
     closeOnClick: false
 });
 
-const buttons = $("#yesno button").click(function(this: JQuery, e: JQueryEventObject) {
+const buttons = $("#yesno button").click(function(e) {
     // get user input
     const yes = buttons.index(this) === 0;
 
@@ -32,14 +32,14 @@ $(".my_overlay_trigger").overlay({
     // ... the rest of the configuration properties
 });
 
-$("#prompt form").submit(function(this: JQuery, e: JQueryEventObject) {
+$("#prompt form").submit(function(e) {
     // close the overlay
     triggers.eq(1).overlay<JQueryTools.overlay.Overlay>().close();
     // or more straightforward:
     triggers.data('overlay').close();
 
     // get user input
-    const input = $("input", this).val();
+    const input = $("input", this).val() as string;
 
     // do something with the answer
     triggers.eq(1).html(input);
@@ -57,13 +57,13 @@ $.tools.overlay.addEffect("myEffect",
         - 'this' variable is a reference to the overlay API
         - here we use jQuery's fadeIn() method to perform the effect
         */
-        this.getOverlay().css(position).fadeIn(this.getConf().speed, done);
+        this.getOverlay().css(position).fadeIn(this.getConf().speed!, done);
     },
 
     // close function
     function(done) {
         // fade out the overlay
-        this.getOverlay().fadeOut(this.getConf().closeSpeed, done);
+        this.getOverlay().fadeOut(this.getConf().closeSpeed!, done);
     }
 );
 
@@ -100,7 +100,7 @@ $(() => {
             const wrap = this.getOverlay().find(".contentWrap");
 
             // load the page specified in the trigger
-            wrap.load(this.getTrigger().attr("href"));
+            wrap.load(this.getTrigger().attr("href")!);
         }
     });
 });
@@ -115,7 +115,7 @@ $(() => {
     ];
 
     // setup triggers
-    $("button[rel]").each(function(this: JQuery, i: number) {
+    $("button[rel]").each(function(i) {
         $(this).overlay({
             // common configuration for each overlay
             oneInstance: false,
@@ -161,7 +161,7 @@ $.tools.overlay.addEffect("drop",
             { top: '-=55', opacity: 0, width: '-=20' },
             300,
             'drop',
-            function(this: JQuery) {
+            function() {
                 $(this).hide();
                 done.call(null);
             });

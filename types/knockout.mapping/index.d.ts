@@ -1,7 +1,9 @@
 // Type definitions for Knockout.Mapping 2.0
 // Project: https://github.com/SteveSanderson/knockout.mapping
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, 
+//                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="knockout" />
 
@@ -36,14 +38,18 @@ declare global {
 
     interface KnockoutMapping {
         isMapped(viewModel: any): boolean;
-        fromJS(jsObject: any): any;
-        fromJS(jsObject: any, targetOrOptions: any): any;
-        fromJS(jsObject: any, inputOptions: any, target: any): any;
+        fromJS<T>(jsObject: T[]): KnockoutObservableArray<KnockoutObservableType<T>>;
+        fromJS<T>(jsObject: T[], targetOrOptions: any): KnockoutObservableArray<KnockoutObservableType<T>>;
+        fromJS<T>(jsObject: T[], inputOptions: any, target: any): KnockoutObservableArray<KnockoutObservableType<T>>;
+        fromJS<T>(jsObject: T): KnockoutObservableType<T>;
+        fromJS<T>(jsObject: T, targetOrOptions: any): KnockoutObservableType<T>;
+        fromJS<T>(jsObject: T, inputOptions: any, target: any): KnockoutObservableType<T>;
         fromJSON(jsonString: string): any;
         fromJSON(jsonString: string, targetOrOptions: any): any;
         fromJSON(jsonString: string, inputOptions: any, target: any): any;
-        toJS(rootObject: any, options?: KnockoutMappingOptions): any;
-        toJSON(rootObject: any, options?: KnockoutMappingOptions): any;
+        toJS<T>(viewModel: KnockoutObservableArray<T>|KnockoutObservableType<T>[]|KnockoutObservableArray<KnockoutObservableType<T>>|T[], options?: KnockoutMappingOptions): T[];
+        toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableType<T>|KnockoutObservable<KnockoutObservableType<T>>|T, options?: KnockoutMappingOptions): T;
+        toJSON(rootObject: any, options?: KnockoutMappingOptions): string;
         defaultOptions(): KnockoutMappingOptions;
         resetDefaultOptions(): void;
         getType(x: any): any;

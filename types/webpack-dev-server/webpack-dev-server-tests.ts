@@ -1,18 +1,29 @@
-import * as webpack from 'webpack';
-import * as WebpackDevServer from 'webpack-dev-server';
-var compiler = webpack({});
+import webpack = require('webpack');
+import WebpackDevServer = require('webpack-dev-server');
+import * as core from 'express-serve-static-core';
+const compiler = webpack({});
+const multipleCompiler = webpack([]);
 
 // basic example
-var server = new WebpackDevServer(compiler, {
+let server = new WebpackDevServer(compiler, {
     publicPath: "/assets/"
 });
 server.listen(8080);
 
-// API example
-server = new WebpackDevServer(compiler, {
+// Configuration can be used as a type
+const config: WebpackDevServer.Configuration = {
     // webpack-dev-server options
+    inline: true,
+    // Toggle between the dev-server's two different modes --- inline (default, recommended for HMR) or iframe.
+
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
+
+    public: 'public-host.ru',
+    // Public host for server
+
+    disableHostCheck: true,
+    // Disable public host check, use it carefully
 
     hot: true,
     // Enable special support for Hot Module Replacement
@@ -35,12 +46,12 @@ server = new WebpackDevServer(compiler, {
         "**": "http://localhost:9090"
     },
 
-    setup: function (app) {
+    setup: (app: core.Express) => {
         // Here you can access the Express app object and add your own custom middleware to it.
         // For example, to define custom handlers for some paths:
-        // app.get('/some/path', function(req, res) {
-        //   res.json({ custom: 'response' });
-        // });
+        app.get('/some/path', (req, res) => {
+            res.json({ custom: 'response' });
+        });
     },
 
     // pass [static options](http://expressjs.com/en/4x/api.html#express.static) to inner express server
@@ -60,5 +71,22 @@ server = new WebpackDevServer(compiler, {
     publicPath: "/assets/",
     headers: { "X-Custom-Header": "yes" },
     stats: { colors: true }
+};
+
+// API example
+server = new WebpackDevServer(compiler, config);
+server.listen(8080, "localhost", () => {});
+
+// HTTPS example
+server = new WebpackDevServer(compiler, {
+    publicPath: "/assets/",
+    https: true
 });
-server.listen(8080, "localhost", function () { });
+
+server.listen(8080, "localhost", () => {});
+
+server.close();
+
+// multiple compilers
+
+server = new WebpackDevServer(multipleCompiler, config);

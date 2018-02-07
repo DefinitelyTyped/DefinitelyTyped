@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as gulpCopy from "gulp-copy";
+import gulpCopy = require("gulp-copy");
 
 gulp.task("copy-files", () => {
     gulp.src("*.nonexistent")

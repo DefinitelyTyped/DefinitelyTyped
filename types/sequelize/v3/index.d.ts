@@ -1,17 +1,20 @@
-// Type definitions for Sequelize 3.4.1
+// Type definitions for Sequelize 3.30.4
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
+// Definitions by: samuelneff <https://github.com/samuelneff>
+//                 Peter Harris <https://github.com/codeanimal>
+//                 Ivan Drinchev <https://github.com/drinchev>
+//                 Nick Mueller <https://github.com/morpheusxaut>
+//                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="lodash" />
-/// <reference types="bluebird" />
 /// <reference types="validator" />
 
 
 import * as _ from "lodash";
+import * as Promise from "bluebird";
 
 declare namespace sequelize {
 
@@ -2096,7 +2099,7 @@ declare namespace sequelize {
 
     }
 
-    interface UniqueConstraintError extends DatabaseError {
+    interface UniqueConstraintError extends ValidationError {
 
         /**
          * Thrown when a unique constraint is violated in the database
@@ -3053,7 +3056,8 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     interface WhereOptions {
-        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object;
+        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | object | boolean | null;
+
     }
 
     /**
@@ -3130,12 +3134,13 @@ declare namespace sequelize {
          */
         include?: Array<Model<any, any> | IncludeOptions>;
 
+        all?: boolean | string;
     }
 
     /**
-         * Shortcut for types used in FindOptions.attributes
-         */
-    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    * Shortcut for types used in FindOptions.attributes
+    */
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;    
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -3211,11 +3216,16 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-                     
+
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
+
+        /**
+         * Prevents a subquery on the main table when using include
+         */
+        subQuery?: boolean;
     }
 
     /**
@@ -3232,6 +3242,11 @@ declare namespace sequelize {
          * Include options. See `find` for details
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+
+        /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
 
         /**
          * Apply COUNT(DISTINCT(col))
@@ -3371,6 +3386,13 @@ declare namespace sequelize {
          * Defaults to false;
          */
         cascade?: boolean;
+
+        /**
+         * Delete instead of setting deletedAt to current timestamp (only applicable if paranoid is enabled)
+         *
+         * Defaults to false;
+         */
+        force?: boolean;
     }
 
     /**
@@ -3724,15 +3746,15 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
-        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
+        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
+        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
          * instance.
          */
-        findOne(options?: FindOptions): Promise<TInstance>;
-        find(options?: FindOptions): Promise<TInstance>;
+        findOne(options?: FindOptions): Promise<TInstance | null>;
+        find(options?: FindOptions): Promise<TInstance | null>;
 
         /**
          * Run an aggregation method on the specified field
@@ -4497,7 +4519,7 @@ declare namespace sequelize {
         /**
          * Set of flags that control when a query is automatically retried.
          */
-        retry?: { match?: string[], max?: number };
+        retry?: RetryOptions;
 
         /**
          * If false do not prepend the query with the search_path (Postgres only)
@@ -4649,7 +4671,7 @@ declare namespace sequelize {
         /**
          * only allow uuids
          */
-        isUUID?: number | { msg: string, args: number };
+        isUUID?: 3|4|5|"3"|"4"|"5"|"all" | { msg: string, args: number };
 
         /**
          * only allow date strings
@@ -4748,7 +4770,12 @@ declare namespace sequelize {
          * (field name), `length` (create a prefix index of length chars), `order` (the direction the column
          * should be sorted in), `collate` (the collation (sort order) for the column)
          */
-        fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
+        fields?: Array<string | fn | { attribute: string, length: number, order: string, collate: string }>;
+
+        /**
+         * Condition for partioal index
+         */
+        where?: WhereOptions;
 
     }
 
@@ -5053,6 +5080,25 @@ declare namespace sequelize {
     }
 
     /**
+     * Interface for retry Options in the sequelize constructor and QueryOptions
+     *
+     * @see Options, QueryOptions
+     */
+    interface RetryOptions {
+
+        /**
+         * Only retry a query if the error matches one of these strings.
+         */
+        match?: string[];
+
+        /**
+         * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.
+         */
+        max?: number
+
+    }
+
+    /**
      * Options for the constructor of Sequelize main class
      */
     interface Options {
@@ -5100,6 +5146,21 @@ declare namespace sequelize {
          * Defaults to 'tcp'
          */
         protocol?: string;
+
+        /**
+         * The username which is used to authenticate against the database.
+         */
+        username?: string;
+
+        /**
+         * The password which is used to authenticate against the database.
+         */
+        password?: string;
+
+        /**
+         * The name of the database
+         */
+        database?: string;
 
         /**
          * Default options for model definitions. See sequelize.define for options
@@ -5163,6 +5224,11 @@ declare namespace sequelize {
          * Defaults to false
          */
         replication?: ReplicationOptions;
+
+        /**
+         * Set of flags that control when a query is automatically retried.
+         */
+        retry?: RetryOptions;
 
         /**
          * Connection pool options
@@ -5389,6 +5455,15 @@ declare namespace sequelize {
         new (uri: string, options?: Options): Sequelize;
 
         /**
+         * Instantiate sequelize with an options object which containing username, password, database
+         * @name Sequelize
+         * @constructor
+         *
+         * @param options An object with options. See above for possible options
+         */
+        new (options: Options): Sequelize;
+
+        /**
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
          */
         cls: any;
@@ -5423,6 +5498,11 @@ declare namespace sequelize {
          * Defined models.
          */
         models: ModelsHashInterface;
+
+        /**
+         * Defined options.
+         */
+        options: Options;
 
         /**
          * Returns the specified dialect.
@@ -5692,9 +5772,10 @@ declare namespace sequelize {
          * @param autoCallback Callback for the transaction
          */
         transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
-        transaction(): Promise<Transaction>;
+            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction(options?: TransactionOptions): Promise<Transaction>;
+
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be
@@ -6087,8 +6168,6 @@ declare namespace sequelize {
 
     interface SequelizeLoDash extends _.LoDashStatic {
 
-        camelizeIf(str: string, condition: boolean): string;
-        underscoredIf(str: string, condition: boolean): string;
         /**
          * * Returns an array with some falsy values removed. The values null, "", undefined and NaN are considered
          * falsey.
@@ -6102,6 +6181,9 @@ declare namespace sequelize {
 
     interface Utils {
 
+        camelizeIf(str: string, condition: boolean): string;
+        underscoredIf(str: string, condition: boolean): string;
+                     
         _: SequelizeLoDash;
 
         /**

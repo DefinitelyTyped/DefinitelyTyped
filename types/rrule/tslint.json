@@ -1,1 +1,9 @@
-{ "extends": "dtslint/dt.json" }
+{
+	"extends": "dtslint/dt.json",
+	"rules": {
+		// TODOs
+        "no-declare-current-package": false,
+		"no-mergeable-namespace": false,
+		"no-unnecessary-qualifier": false
+	}
+}

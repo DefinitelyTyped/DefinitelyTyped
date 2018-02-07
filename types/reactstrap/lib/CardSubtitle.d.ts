@@ -1,7 +1,10 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface CardSubtitleProps {
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
 }
 
-declare var CardSubtitle: React.StatelessComponent<Props>;
+declare const CardSubtitle: React.StatelessComponent<CardSubtitleProps>;
 export default CardSubtitle;

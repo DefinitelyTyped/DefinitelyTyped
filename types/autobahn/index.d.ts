@@ -1,6 +1,6 @@
 // Type definitions for AutobahnJS v0.9.7
 // Project: http://autobahn.ws/js/
-// Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
+// Definitions by: Elad Zelingher <https://github.com/darkl>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Wladimir Totino <https://github.com/valepu>, Mathias Teier <https://github.com/glenroy37/,http://kagent.at>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="when" />
@@ -167,12 +167,19 @@ declare namespace autobahn {
     interface IPublishOptions {
         acknowledge?: boolean;
         exclude?: number[];
+        exclude_authid?: string[];
+        exclude_authrole?: string[];
         eligible?: number[];
-        disclose_me?: Boolean;
+        eligible_authid?: string[];
+        eligible_authrole?: string[];
+        retain?: boolean;
+        disclose_me?: boolean;
+        exclude_me?: boolean;
     }
 
     interface ISubscribeOptions {
         match?: string;
+        get_retained?: boolean;
     }
 
     interface IRegisterOptions {
@@ -199,7 +206,7 @@ declare namespace autobahn {
 
     type DeferFactory = () => When.Promise<any>;
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
+    type OnChallengeHandler = (session: Session, method: string, extra: any) => string;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean;

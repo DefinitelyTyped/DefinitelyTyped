@@ -1,12 +1,12 @@
 import * as m from 'mithril';
-import {ClassComponent, CVnode, CVnodeDOM} from 'mithril';
+import { ClassComponent, Vnode, CVnode, CVnodeDOM } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
 // Simplest component example - no attrs or state.
 //
-class Comp0 implements ClassComponent<{}> {
-	constructor(vnode: CVnode<{}>) {
+class Comp0 implements ClassComponent {
+	constructor(vnode: CVnode) {
 	}
 	view() {
 		return m('span', "Test");
@@ -23,12 +23,12 @@ m.mount(document.getElementById('comp0')!, null);
 // 1.
 // Simple example with lifecycle methods.
 //
-class Comp1 implements ClassComponent<{}> {
-	oninit(vnode: CVnode<{}>) {
+class Comp1 implements ClassComponent {
+	oninit(vnode: CVnode) {
 	}
-	oncreate({dom}: CVnodeDOM<{}>) {
+	oncreate({dom}: CVnodeDOM) {
 	}
-	view(vnode: CVnode<{}>) {
+	view(vnode: CVnode) {
 		return m('span', "Test");
 	}
 }
@@ -95,12 +95,13 @@ class Comp4 implements ClassComponent<Comp4Attrs> {
 	add(num: number) {
 		this.count += num;
 	}
-	view({attrs}: CVnode<Comp4Attrs>) {
+	view(vnode: Vnode<Comp4Attrs, Comp4>) {
 		return [
-			m('h1', `This ${attrs.name} has been clicked ${this.count} times`),
+			m('h1', `This ${vnode.attrs.name} has been clicked ${this.count} times`),
 			m('button',
 				{
-					onclick: () => this.add(1)
+					// Can access 'this' via vnode.state
+					onclick: () => vnode.state.add(1)
 				},
 			"Click me")
 		];

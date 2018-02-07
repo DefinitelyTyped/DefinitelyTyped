@@ -1,6 +1,9 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface DropdownToggleProps {
   caret?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<any>;
   'data-toggle'?: string;
@@ -12,5 +15,5 @@ interface Props {
   size?: string;
 }
 
-declare var DropdownToggle: React.StatelessComponent<Props>;
+declare const DropdownToggle: React.StatelessComponent<DropdownToggleProps>;
 export default DropdownToggle;
