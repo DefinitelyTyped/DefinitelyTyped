@@ -88,6 +88,18 @@ function testNine() {
     sinon.assert.calledWithMatch(callback, { x: 5 });
     sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
     sinon.assert.neverCalledWithMatch(callback, { x: 6 });
+
+    callback.call("this", "that");
+    callback.throws("Error");
+    try {
+        callback(15);
+    } catch (e) { }
+    sinon.assert.calledWith(callback.firstCall, { x: 5, y: 5});
+    sinon.assert.calledWithExactly(callback.firstCall, { x: 5, y: 5 });
+    sinon.assert.calledWithMatch(callback.firstCall, { x: 5 });
+    sinon.assert.calledOn(callback.secondCall, "this");
+    sinon.assert.threw(callback.thirdCall);
+    sinon.assert.threw(callback.thirdCall, "Error");
 }
 
 function testAssert() {
