@@ -1744,23 +1744,19 @@ declare module "https" {
     export type ServerOptions = tls.SecureContextOptions & tls.TlsServerOptions;
 
     // see https://nodejs.org/dist/latest/docs/api/https.html#https_https_request_options_callback
-    type extendedRequestKeys = "ca" |
-        "cert" |
-        "ciphers" |
-        "clientCertEngine" |
-        "key" |
-        "passphrase" |
-        "pfx" |
-        "rejectUnauthorized" |
-        "secureProtocol" |
-        "servername";
 
-    // as many type definitions rely on node, redefine Pick here instead of updating all of them to typescript 2.1
-    type PortedPick<T, K extends keyof T> = {
-        [P in K]: T[P];
-    };
-
-    export type RequestOptions = http.RequestOptions & PortedPick<tls.ConnectionOptions, extendedRequestKeys>;
+    export type RequestOptions = http.RequestOptions & {
+        ca?: tls.ConnectionOptions["ca"];
+        cert?: tls.ConnectionOptions["cert"];
+        ciphers?: tls.ConnectionOptions["ciphers"];
+        clientCertEngine?: tls.ConnectionOptions["clientCertEngine"];
+        key?: tls.ConnectionOptions["key"];
+        passphrase?: tls.ConnectionOptions["passphrase"];
+        pfx?: tls.ConnectionOptions["pfx"];
+        rejectUnauthorized?: tls.ConnectionOptions["rejectUnauthorized"];
+        secureProtocol?: tls.ConnectionOptions["secureProtocol"];
+        servername?: tls.ConnectionOptions["servername"];
+    }
 
     export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
