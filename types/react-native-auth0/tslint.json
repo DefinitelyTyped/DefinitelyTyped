@@ -1,0 +1,7 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Lowercase `object` is available in TypeScript 2.2 only.
+        "ban-types": false
+    }
+}
