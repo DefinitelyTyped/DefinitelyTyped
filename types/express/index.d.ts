@@ -15,7 +15,7 @@
 /// <reference types="serve-static" />
 
 import * as bodyParser from "body-parser";
-import * as serveStatic from "serve-static";
+import serveStatic = require("serve-static");
 import * as core from "express-serve-static-core";
 
 /**

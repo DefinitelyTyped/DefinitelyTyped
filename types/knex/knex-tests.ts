@@ -459,6 +459,44 @@ knex.select('*').from('accounts').joinRaw('natural full join table1').where('id'
 
 knex.select('*').from('accounts').join(knex.raw('natural full join table1')).where('id', 1);
 
+knex.select('*').from('accounts')
+  .join(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .leftJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .leftOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .rightJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .rightOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .innerJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .crossJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .fullOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .outerJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+
+
 knex('customers')
   .distinct('first_name', 'last_name')
   .select();

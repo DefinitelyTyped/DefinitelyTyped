@@ -1,4 +1,4 @@
-import * as CombinedStream from "combined-stream";
+import CombinedStream = require("combined-stream");
 import { createReadStream, createWriteStream } from "fs";
 
 const stream1 = new CombinedStream();

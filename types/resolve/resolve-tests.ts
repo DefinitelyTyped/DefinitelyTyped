@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as resolve from 'resolve';
+import resolve = require('resolve');
 
 function test_basic_async() {
   resolve('typescript', function(error, resolved, pkg) {

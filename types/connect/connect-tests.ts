@@ -1,6 +1,5 @@
-
 import * as http from "http";
-import * as connect from "connect";
+import connect = require("connect");
 
 const app = connect();
 
@@ -15,7 +14,7 @@ app.use((err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: 
     if (err) {
         return res.end(`Error: ${err}`);
     }
-    
+
     next();
 });
 
