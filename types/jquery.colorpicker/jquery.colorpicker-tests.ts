@@ -70,6 +70,9 @@ colorpicker.colorpicker("destroy");
 colorpicker.colorpicker("setColor", "#deadbeef");
 colorpicker.colorpicker("option", "disabled", true);
 
+// check if all options are optional
+let defaultColorpicker = $("<input type=\"text\"/>").colorpicker({});
+
 // example plugins provided
 
 $.colorpicker.parts["memory"] = function (inst) {
