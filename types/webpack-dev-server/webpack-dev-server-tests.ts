@@ -75,7 +75,7 @@ const config: WebpackDevServer.Configuration = {
 
 // API example
 server = new WebpackDevServer(compiler, config);
-server.listen(8080, "localhost", () => {});
+server.listen(8080, "localhost", () => { });
 
 // HTTPS example
 server = new WebpackDevServer(compiler, {
@@ -83,10 +83,25 @@ server = new WebpackDevServer(compiler, {
     https: true
 });
 
-server.listen(8080, "localhost", () => {});
+server.listen(8080, "localhost", () => { });
 
 server.close();
 
-// multiple compilers
+WebpackDevServer.addDevServerEntrypoints(compiler, {
+    publicPath: "/assets/",
+    https: true
+});
 
+WebpackDevServer.addDevServerEntrypoints(
+    compiler,
+    {
+        publicPath: "/assets/",
+        https: true
+    },
+    {
+        address: () => ({ port: 80 })
+    }
+);
+
+// multiple compilers
 server = new WebpackDevServer(multipleCompiler, config);
