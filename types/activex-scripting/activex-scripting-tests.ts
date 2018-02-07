@@ -214,18 +214,16 @@ ${subfolders.map(folderContentsString).join('')}`
 })();
 
 // source --https://msdn.microsoft.com/en-us/library/ts2t8ybh(v=vs.84).aspx
-function showFreeSpace(drvPath: string) {
-    const fso = new ActiveXObject('Scripting.FileSystemObject');
+const showFreeSpace = (drvPath: string) => {
     const d = fso.GetDrive(fso.GetDriveName(drvPath));
     let s = `Drive ${drvPath} - `;
     s += d.VolumeName + '<br>';
     s += `Free Space: ${d.FreeSpace / 1024} Kbytes`;
     return (s);
-}
+};
 
 // source -- https://msdn.microsoft.com/en-us/library/kaf6yaft(v=vs.84).aspx
-function getALine(filespec: string) {
-    const fso = new ActiveXObject('Scripting.FileSystemObject');
+const getALine = (filespec: string) => {
     const file = fso.OpenTextFile(filespec, Scripting.IOMode.ForReading, false);
 
     let s = '';
@@ -234,4 +232,34 @@ function getALine(filespec: string) {
     }
     file.Close();
     return (s);
-}
+};
+
+// https://msdn.microsoft.com/en-us/library/ch28h2s7(v=vs.84).aspx
+(() => {
+    const showDriveInfo = (path: string) => {
+        const bytesPerGB = 1024 * 1024 * 1024;
+        const drv = fso.GetDrive(fso.GetDriveName(path));
+        const ret =
+            drv.IsReady ?
+            `${drv.Path} - ${drv.FreeSpace / bytesPerGB} GB free of ${drv.TotalSize / bytesPerGB} GB` :
+            'Not ready';
+        WScript.Echo(ret);
+    };
+
+    const showFolderInfo = () => {
+        const fldr = fso.GetFolder("c:\\");
+        let ret = `
+Folder: ${fldr.Path}
+Drive: ${fldr.Drive}
+${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
+        `.trim();
+
+        // Create and delete a folder.
+        const newFolderName = 'C:\\TempFolder1';
+        fso.CreateFolder(newFolderName);
+        ret += `Base Name of Added Folder: ${fso.GetBaseName(newFolderName)}`;
+        fso.DeleteFolder(newFolderName);
+
+        WScript.Echo(ret);
+    };
+})();
