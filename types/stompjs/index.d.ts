@@ -51,9 +51,14 @@ export interface Message {
     nack(headers?: {}): any;
 }
 
-export class Frame {
+export class Frame implements Message {
+    command: string;
+    headers: {};
+    body: string;
     constructor(command: string, headers?: {}, body?: string);
 
+    ack(headers?: {}): any;
+    nack(headers?: {}): any;
     toString(): string;
     sizeOfUTF8(s: string): number;
     unmarshall(datas: any): any;
