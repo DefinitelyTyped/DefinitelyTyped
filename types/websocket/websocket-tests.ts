@@ -180,8 +180,18 @@ function clientTest2() {
     
 }
 
+function testClientAbortApi() {
+    var ipArray = getLocalIpArray();
+    var client = new websocket.client();
+    client.connect(`ws://${ipArray[0]}:8888`, undefined, undefined, undefined, {
+        localAddress: ipArray[0]
+    });
+    client.abort();
+}
+
 {
     console.log(`websocket test start.`);
     serverTest2();
     clientTest2();
+    testClientAbortApi();
 }
