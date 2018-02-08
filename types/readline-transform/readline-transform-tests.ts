@@ -1,5 +1,5 @@
 import { PassThrough } from 'stream';
-import ReadlineTransform = require('readline-transform');
+import ReadlineTransform from 'readline-transform';
 
 const readStream = new PassThrough();
 const transform = new ReadlineTransform({
