@@ -1,5 +1,5 @@
 import gulp = require("gulp");
-import * as sass from "gulp-sass"; 
+import sass = require("gulp-sass");
 
 gulp.task('sass', function () {
     gulp.src('./scss/*.scss')

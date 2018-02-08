@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as nano from "nano";
+import nano = require("nano");
 
 /*
  * Instantiate with configuration object

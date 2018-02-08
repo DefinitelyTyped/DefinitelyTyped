@@ -1,7 +1,5 @@
-/// <reference types="express" />
-
-import * as express from 'express';
-import * as send from 'send';
+import express = require('express');
+import send = require('send');
 
 var app = express();
 
