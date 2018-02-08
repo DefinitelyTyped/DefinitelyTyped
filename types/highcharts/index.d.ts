@@ -1487,6 +1487,13 @@ declare namespace Highcharts {
          */
         redraw?(event: Event): void;
         /**
+		 * Fires after initial load of the chart (directly after the `load`
+		 * event), and after each redraw (directly after the `redraw` event).
+		 *
+		 * @since 5.0.7
+		 */
+        render?(event: Event): void;
+        /**
          * Fires when an area of the chart has been selected. Selection is enabled by setting the chart's zoomType. One
          * parameter, event, is passed to the function. This contains common event information based on jQuery or MooTools
          * depending on which library is used as the base for Highcharts. The default action for the selection event is to
