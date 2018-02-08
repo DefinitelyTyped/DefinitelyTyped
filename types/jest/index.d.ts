@@ -199,7 +199,7 @@ declare namespace jest {
 
     type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
 
-    interface IClassLike {
+    interface FunctionLike {
         readonly name: string;
     }
 
@@ -224,7 +224,8 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: number | string | IClassLike, fn: EmptyFunction): void;
+        // tslint:disable-next-line ban-types
+        (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
