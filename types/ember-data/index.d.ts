@@ -917,12 +917,12 @@ declare module 'ember-data' {
              */
             snapshots(): any[];
         }
-        class Snapshot<K extends keyof ModelRegistry = ''> {
+        class Snapshot<K extends keyof ModelRegistry = any> {
             /**
              * The underlying record for this snapshot. Can be used to access methods and
              * properties defined on the record.
              */
-            record: Model;
+            record: ModelRegistry[K];
             /**
              * The id of the snapshot's underlying record
              */
@@ -942,7 +942,7 @@ declare module 'ember-data' {
             /**
              * Returns the value of an attribute.
              */
-            attr(keyName: string): {};
+            attr<L extends keyof ModelRegistry[K]>(keyName: L): {};
             /**
              * Returns all attributes and their corresponding values.
              */
@@ -954,14 +954,14 @@ declare module 'ember-data' {
             /**
              * Returns the current value of a belongsTo relationship.
              */
-            belongsTo(
-                keyName: string,
+            belongsTo<L extends keyof ModelRegistry[K]>(
+                keyName: L,
                 options?: {}
             ): Snapshot<K> | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
-            hasMany(keyName: string, options?: {}): any[] | undefined;
+            hasMany<L extends keyof ModelRegistry[K]>(keyName: L, options?: {}): any[] | undefined;
             /**
              * Iterates through all the attributes of the model, calling the passed
              * function on each attribute.

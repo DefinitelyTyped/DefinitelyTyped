@@ -1,6 +1,11 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
+class Session extends Ember.Service {}
+declare module '@ember/service' {
+    interface Registry { 'session': Session; }
+}
+
 const JsonApi = DS.JSONAPIAdapter.extend({
     // Application specific overrides go here
 });
@@ -54,6 +59,13 @@ const UseAjaxOptionsWithOptionalThirdParams = DS.JSONAPIAdapter.extend({
         });
     }
 });
+
+declare module 'ember-data' {
+    interface ModelRegistry {
+        'rootModel': any;
+        'super-user': any;
+    }
+}
 
 // https://github.com/emberjs/data/blob/c9d8212c857ca78218ad98d11621819b38dba98f/tests/unit/adapters/build-url-mixin/build-url-test.js
 const BuildURLAdapter = DS.RESTAdapter.extend({
