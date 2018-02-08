@@ -355,4 +355,24 @@ describe("Examples", () => {
     it("No Results renderer with element", () => {
         <ReactSelect noResultsText={<i>no results</i>} />;
     });
+
+    it("onSelectResetsInput", () => {
+        <ReactSelect onSelectResetsInput />;
+    });
+
+    it("onCloseResetsInput", () => {
+        <ReactSelect onCloseResetsInput />;
+    });
+
+    it("pageSize", () => {
+        <ReactSelect pageSize={5} />;
+    });
+
+    it("removeSelected", () => {
+        <ReactSelect removeSelected />;
+    });
+
+    it("rtl", () => {
+        <ReactSelect rtl />;
+    });
 });

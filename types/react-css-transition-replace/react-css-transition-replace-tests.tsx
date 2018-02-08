@@ -1,6 +1,6 @@
 import * as React from "react"
 import { render } from 'react-dom';
-import * as CSSTransitionReplace from "react-css-transition-replace"
+import CSSTransitionReplace = require("react-css-transition-replace");
 
 render(
     <CSSTransitionReplace overflowHidden transitionName="test">

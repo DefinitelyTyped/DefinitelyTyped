@@ -1,4 +1,4 @@
-// Type definitions for react-select 1.1
+// Type definitions for react-select 1.2
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -10,6 +10,7 @@
 //                 Onat Yigit Mercan <https://github.com/onatm>
 //                 Ian Johnson <https://github.com/ninjaferret>
 //                 Anton Novik <https://github.com/tehbi4>
+//                 David Schkalee <https://github.com/misantronic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -230,6 +231,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     filterOptions?: FilterOptionsHandler<TValue>;
     /**
+     * id for the underlying HTML input element
+     * @default undefined
+     */
+    id?: string;
+    /**
      * whether to strip diacritics when filtering
      * @default true
      */
@@ -320,6 +326,18 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     onBlurResetsInput?: boolean;
     /**
+     * whether the input value should be reset when options are selected.
+     * Also input value will be set to empty if 'onSelectResetsInput=true' and
+     * Select will get new value that not equal previous value.
+     * @default true
+     */
+    onSelectResetsInput?: boolean;
+    /**
+     * whether to clear input when closing the menu through the arrow
+     * @default true
+     */
+    onCloseResetsInput?: boolean;
+    /**
      * onChange handler: function (newValue) {}
      */
     onChange?: OnChangeHandler<TValue>;
@@ -375,10 +393,20 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     options?: Options<TValue>;
     /**
+     * number of options to jump when using page up/down keys
+     * @default 5
+     */
+    pageSize?: number;
+    /**
      * field placeholder, displayed when there's no value
      * @default "Select..."
      */
     placeholder?: string | JSX.Element;
+    /**
+     * whether the selected option is removed from the dropdown on multi selects
+     * @default true
+     */
+    removeSelected?: boolean;
     /**
      * applies HTML5 required attribute when needed
      * @default false
@@ -388,6 +416,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * value to use when you clear the control
      */
     resetValue?: any;
+    /**
+     * use react-select in right-to-left direction
+     * @default false
+     */
+    rtl?: boolean;
     /**
      * whether the viewport will shift to display the entire menu when engaged
      * @default true

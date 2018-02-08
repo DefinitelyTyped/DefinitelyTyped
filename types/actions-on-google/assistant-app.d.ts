@@ -263,14 +263,24 @@ export interface UserName {
  * User's permissioned device location.
  */
 export interface DeviceLocation {
-    /** {latitude, longitude}. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
-    coordinates: object;
+    /** Coordinates: {latitude, longitude}. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
+    coordinates: Coordinates;
     /** Full, formatted street address. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
     address: string;
     /** Zip code. Requested with SupportedPermissions.DEVICE_COARSE_LOCATION. */
     zipCode: string;
     /** Device city. Requested with SupportedPermissions.DEVICE_COARSE_LOCATION. */
     city: string;
+}
+
+/**
+ * Coordinates containing latitude and longitude
+ */
+export interface Coordinates {
+    /** Latitude coordinate. */
+    latitude: number;
+    /** Longitude coordinate. */
+    longitude: number;
 }
 
 /**

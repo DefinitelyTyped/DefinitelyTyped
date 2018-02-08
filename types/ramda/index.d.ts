@@ -1245,16 +1245,16 @@ declare namespace R {
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
-        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): string[][];
-        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T[][];
-        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => string[][];
+        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): [string[], string[]];
+        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): [T[], T[]];
+        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => [T[], T[]];
+        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => [string[], string[]];
 
         /**
          * Retrieve the value at a given path.
          */
-        path<T>(path: Path, obj: any): T;
-        path<T>(path: Path): (obj: any) => T;
+        path<T>(path: Path, obj: any): T | undefined;
+        path<T>(path: Path): (obj: any) => T | undefined;
 
         /**
          * Determines whether a nested path on an object has a specific value,
@@ -1487,14 +1487,12 @@ declare namespace R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
-        // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
-        // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
-        propEq<T>(name: string, val: T, obj: any): boolean;
-        // propEq<T>(name: number, val: T, obj: any): boolean;
-        propEq<T>(name: string, val: T): (obj: any) => boolean;
-        // propEq<T>(name: number, val: T): (obj: any) => boolean;
-        propEq(name: string): <T>(val: T, obj: any) => boolean;
-        // propEq(name: number): <T>(val: T, obj: any) => boolean;
+        propEq<T>(name: string | number, val: T, obj: any): boolean;
+        propEq<T>(name: string | number, val: T): (obj: any) => boolean;
+        propEq(name: string | number): {
+            <T>(val: T, obj: any): boolean;
+            <T>(val: T): (obj: any) => boolean;
+        };
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.

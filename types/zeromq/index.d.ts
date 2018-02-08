@@ -1,6 +1,8 @@
-// Type definitions for zeromq 4.5
+// Type definitions for zeromq 4.6
 // Project: https://github.com/zeromq/zeromq.js
-// Definitions by: Dave McKeown <https://github.com/davemckeown>, Erik Mavrinac <https://github.com/erikma>
+// Definitions by: Dave McKeown <https://github.com/davemckeown>
+//                 Erik Mavrinac <https://github.com/erikma>
+//                 Philippe D'Alva <https://github.com/TitaneBoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Forked from the DefinitelyTyped 'zmq' project originally created by Dave McKeown,
@@ -149,9 +151,10 @@ export class Socket {
      * Each event receives the parameters: (eventValue, eventEndpointAddrress, error)
      *
      * @param timer interval in ms > 0 or Undefined for default
+     * @param numOfEvents The maximum number of events to read on each interval, default is 1, use 0 for reading all events
      * @return for chaining
      */
-    monitor(interval?: number): Socket;
+    monitor(interval?: number, numOfEvents?: number): Socket;
 
     /**
      * Close the socket.

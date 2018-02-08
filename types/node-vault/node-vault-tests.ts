@@ -1,4 +1,4 @@
-import * as nv from "node-vault";
+import nv = require("node-vault");
 
 // Test code came from the sample code in README of the module.
 const options = {

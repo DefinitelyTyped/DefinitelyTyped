@@ -2,6 +2,7 @@
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
+//                 Sergio Sánchez <https://github.com/ssanchezmarc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -90,7 +91,7 @@ export class Asset {
  * AuthSession
  */
 export namespace AuthSession {
-    function startAsync(options: { authUrl: string; returnUrl: string; }): Promise<{
+    function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<{
         type: 'cancel';
     } | {
         type: 'dismissed';
@@ -728,13 +729,11 @@ export namespace Facebook {
         permissions?: string[];
         behavior?: 'web' | 'native' | 'browser' | 'system';
     }
-    type Response = {
-        type: 'success';
-        token: string;
-        expires: number;
-    } | {
-        type: 'cancel';
-    };
+    interface Response {
+        type: 'cancel' | 'success';
+        token?: string;
+        expires?: number;
+    }
     function logInWithReadPermissionsAsync(appId: string, options?: Options): Promise<Response>;
 }
 
@@ -1213,7 +1212,7 @@ export namespace Notifications {
     type LocalNotificationId = string | number;
 
     function addListener(listener: (notification: Notification) => any): EventSubscription;
-    function getExponentPushTokenAsync(): Promise<string>;
+    function getExpoPushTokenAsync(): Promise<string>;
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,

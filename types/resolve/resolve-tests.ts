@@ -1,13 +1,14 @@
 import * as fs from 'fs';
-import * as resolve from 'resolve';
+import resolve = require('resolve');
 
 function test_basic_async() {
-  resolve('typescript', function(error, resolved) {
+  resolve('typescript', function(error, resolved, pkg) {
     if (error) {
       console.error(error.message);
       return;
     }
     console.log(resolved);
+    console.log(pkg.version);
   });
 }
 
@@ -41,12 +42,13 @@ function test_options_async() {
         }
       });
     }
-  }, function(error, resolved) {
+  }, function(error, resolved, pkg) {
     if (error) {
       console.error(error.message);
       return;
     }
     console.log(resolved);
+    console.log(pkg.version);
   });
 }
 

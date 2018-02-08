@@ -15,6 +15,7 @@ export function get(key?: string, callback?: ICallbackFunction): any;
 export declare function merge(key: string, value: any, callback?: ICallbackFunction): any;
 export declare function set(key: string, value: any, callback?: ICallbackFunction): any;
 export declare function reset(callback?: ICallbackFunction): any;
+export declare function any(keys: string[], callback?: ICallbackFunction): any;
 
 export declare function load(callback?: ICallbackFunction): any;
 export declare function mergeSources(data: any): void;
@@ -24,6 +25,7 @@ export declare function save(value: any, callback?: ICallbackFunction): any;
 export declare function add(name: string, options?: IOptions): Provider;
 export declare function argv(options?: IOptions): Provider;
 export declare function env(options?: IOptions): Provider;
+export declare function env(separator: string): Provider;
 export declare function file(name: string, options?: IFileOptions): Provider;
 export declare function file(name: string, filename: string): Provider;
 export declare function file(options: IFileOptions): Provider;
@@ -32,7 +34,7 @@ export declare function defaults(options?: IOptions): Provider;
 export declare function init(options?: IOptions): void;
 export declare function overrides(options?: IOptions): Provider;
 export declare function remove(name: string): void;
-export declare function required(keys: string[]): boolean;
+export declare function required(keys: string[]): Provider; 
 export declare function create(name: string, options: IOptions): IStore;
 
 export declare function key(...values: any[]): string;
@@ -79,6 +81,7 @@ export declare class Provider {
     merge(key: string, value: any, callback?: ICallbackFunction): any;
     set(key: string, value: any, callback?: ICallbackFunction): any;
     reset(callback?: ICallbackFunction): any;
+    any(keys: string[], callback?: ICallbackFunction): any;
 
     load(callback?: ICallbackFunction): any;
     mergeSources(data: any): void;
@@ -88,6 +91,7 @@ export declare class Provider {
     add(name: string, options?: IOptions): Provider;
     argv(options?: IOptions): Provider;
     env(options?: IOptions): Provider;
+    env(separator: string): Provider;
     file(name: string, options?: IFileOptions): Provider;
     file(name: string, filename: string): Provider;
     file(options: IFileOptions): Provider;
@@ -97,7 +101,7 @@ export declare class Provider {
     init(options?: IOptions): void;
     overrides(options?: IOptions): Provider;
     remove(name: string): void;
-    required(keys: string[]): boolean;
+    required(keys: string[]): Provider;
     create(name: string, options: IOptions): IStore;
 }
 

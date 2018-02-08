@@ -4111,6 +4111,9 @@ export interface PackageManager {
     /** Activate a single package by name or path. */
     activatePackage(nameOrPath: string): Promise<Package>;
 
+    /** Deactivate a single package by name or path. */
+    deactivatePackage(nameOrPath: string, suppressSerialization?: boolean): Promise<void>;
+
     /** Triggers the given package activation hook. */
     triggerActivationHook(hook: string): void;
 
@@ -4810,7 +4813,8 @@ export class Task {
      *  Throws an error if this task has already been terminated or if sending a
      *  message to the child process fails.
      */
-    send(message: string): void;
+    // tslint:disable-next-line:no-any
+    send(message: string | number | boolean | object | null | any[]): void;
 
     /** Call a function when an event is emitted by the child process. */
     // tslint:disable-next-line:no-any
