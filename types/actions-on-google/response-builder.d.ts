@@ -20,7 +20,9 @@ export enum ImageDisplays {
      */
     WHITE,
     /**
-     * Image is centered and resized so the image fits perfectly in the container.
+     * Image is scaled such that the image width matches the container width. This may crop the top
+     * and bottom of the image if the scaled image height is greater than the container height. This
+     * is similar to "Zoom Mode" on a widescreen TV when playing a 4:3 video.
      */
     CROPPED
 }
