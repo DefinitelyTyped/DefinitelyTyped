@@ -474,8 +474,8 @@ declare namespace R {
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
          * first (default) argument is returned.
          */
-        defaultTo<T, U>(a: T, b: U): T | U;
-        defaultTo<T>(a: T): <U>(b: U) => T | U;
+        defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
+        defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
         /**
          * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
