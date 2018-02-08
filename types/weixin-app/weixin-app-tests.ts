@@ -1,6 +1,6 @@
 getCurrentPages();
 
-Behavior({
+let behavior = Behavior({
   behaviors: [],
   properties: {
     myBehaviorProperty: {
@@ -19,7 +19,7 @@ Behavior({
 });
 
 Component({
-  behaviors: [],
+  behaviors: [behavior, 'wx://form-field'],
 
   properties: {
     myProperty: { // 属性名

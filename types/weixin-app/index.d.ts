@@ -3141,7 +3141,7 @@ interface ComponentOptions<
    * 类似于mixins和traits的组件间代码复用机制
    * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
    */
-  behaviors?: Array<(ComponentOptions<Component<object>>)>;
+  behaviors?: Array<(ComponentOptions<Component<object>>) | string>;
   /**
    * 组件生命周期函数，在组件实例进入页面节点树时执行
    * 注意此时不能调用 setData
