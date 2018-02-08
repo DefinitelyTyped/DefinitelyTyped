@@ -257,6 +257,15 @@ export interface CognitoUserPoolEvent {
         privateChallengeParameters?: {[key: string]: string};
         challengeMetaData?: string;
         answerCorrect?: boolean;
+        claimsOverrideDetails: {
+            claimsToAddOrOverride?: {[key: string]: string};
+            claimsToSuppress?: {[key: string]: string};
+            groupOverrideDetails?: {
+                groupsToOverride?: string[];
+                iamRolesToOverride?: string[];
+                preferredRole?: string;
+            }
+        }
     };
 }
 
