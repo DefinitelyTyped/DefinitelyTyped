@@ -376,7 +376,7 @@ declare namespace algoliasearch {
      * @param cb(err, res)
      * https://github.com/algolia/algoliasearch-client-js#add-objects---addobjects
      */
-    addObjects(objects: [{}], cb: (err: Error, res: any) => void): void;
+    addObjects(objects: {}[], cb: (err: Error, res: any) => void): void;
     /**
      * Add or replace a specific object
      * @param object
@@ -405,7 +405,7 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObjects(
-      objects: [{}],
+      objects: {}[],
       cb: (err: Error, res: any) => void
     ): void;
     /**

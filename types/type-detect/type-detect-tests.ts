@@ -1,19 +1,26 @@
+import type from 'type-detect';
 
-import td = require('type-detect');
+// $ExpectType string
+type(123);
 
-var str: string;
-var bool: boolean;
-var x: any;
+// $ExpectType string
+type('foo');
 
-str = td(123);
+// $ExpectType string
+type({});
 
-var lib: td.Library = new td.Library();
+// $ExpectType string
+type([]);
 
-lib.define(str, /aa/);
-lib.define(str, (val) => {
-	return bool;
-});
-str = lib.of(x);
-bool = lib.test(x, str);
+// $ExpectType string
+type(null);
 
+// $ExpectType string
+type(undefined);
+
+// $ExpectType string
+type(new Map());
+
+// $ExpectType string
+type(new Set());
 

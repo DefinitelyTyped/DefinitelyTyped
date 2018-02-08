@@ -634,4 +634,5 @@ export interface FinalState extends TableProps {
     rowMinWidth: number;
 }
 
+export const ReactTableDefaults: TableProps;
 export default class ReactTable extends React.Component<Partial<TableProps>> { }

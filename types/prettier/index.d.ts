@@ -1,12 +1,12 @@
-// Type definitions for prettier 1.9
+// Type definitions for prettier 1.10
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { File } from 'babel-types';
-
-export type AST = File;
+export type AST = any;
+export type Doc = any; // https://github.com/prettier/prettier/blob/master/commands.md
+export type FastPath = any; // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
@@ -19,7 +19,8 @@ export type BuiltInParserName =
     | 'scss'
     | 'json'
     | 'graphql'
-    | 'markdown';
+    | 'markdown'
+    | 'vue';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -97,6 +98,35 @@ export interface Options {
      * Include parentheses around a sole arrow function parameter.
      */
     arrowParens?: 'avoid' | 'always';
+    /**
+     * The plugin API is in a beta state.
+     */
+    plugins?: Array<string | Plugin>;
+}
+
+export interface Plugin {
+    languages: SupportLanguage;
+    parsers: { [parserName: string]: Parser };
+    printers: { [astFormat: string]: Printer };
+}
+
+export interface Parser {
+    parse: (text: string, parsers: { [parserName: string]: Parser }, options: object) => AST;
+    astFormat: string;
+}
+
+export interface Printer {
+    print(
+        path: FastPath,
+        options: object,
+        print: (path: FastPath) => Doc,
+    ): Doc;
+    embed(
+        path: FastPath,
+        print: (path: FastPath) => Doc,
+        textToDoc: (text: string, options: object) => Doc,
+        options: object,
+    ): Doc | null;
 }
 
 export interface CursorOptions extends Options {
@@ -193,8 +223,42 @@ export interface SupportLanguage {
     vscodeLanguageIds: string[];
 }
 
+export interface SupportOption {
+    since: string;
+    type: 'int' | 'boolean' | 'choice' | 'path';
+    deprecated?: string;
+    redirect?: SupportOptionRedirect;
+    description: string;
+    oppositeDescription?: string;
+    default: SupportOptionValue;
+    range?: SupportOptionRange;
+    choices?: SupportOptionChoice;
+}
+
+export interface SupportOptionRedirect {
+    options: string;
+    value: SupportOptionValue;
+}
+
+export interface SupportOptionRange {
+    start: number;
+    end: number;
+    step: number;
+}
+
+export interface SupportOptionChoice {
+    value: boolean | string;
+    description?: string;
+    since?: string;
+    deprecated?: string;
+    redirect?: SupportOptionValue;
+}
+
+export type SupportOptionValue = number | boolean | string;
+
 export interface SupportInfo {
     languages: SupportLanguage[];
+    options: SupportOption[];
 }
 
 /**

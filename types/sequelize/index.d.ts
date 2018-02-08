@@ -1830,11 +1830,15 @@ declare namespace sequelize {
 
     }
 
-    interface DataTypeUUID extends DataTypeAbstract { }
+    interface DataTypeAbstractUUID<T> extends DataTypeAbstract {
+        (): T;
+    }
 
-    interface DataTypeUUIDv1 extends DataTypeAbstract { }
+    interface DataTypeUUID extends DataTypeAbstractUUID<DataTypeUUID> { }
 
-    interface DataTypeUUIDv4 extends DataTypeAbstract { }
+    interface DataTypeUUIDv1 extends DataTypeAbstractUUID<DataTypeUUIDv1> { }
+
+    interface DataTypeUUIDv4 extends DataTypeAbstractUUID<DataTypeUUIDv4> { }
 
     interface DataTypeVirtual extends DataTypeAbstract {
 
