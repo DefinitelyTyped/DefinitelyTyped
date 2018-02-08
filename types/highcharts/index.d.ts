@@ -1487,11 +1487,11 @@ declare namespace Highcharts {
          */
         redraw?(event: Event): void;
         /**
-		 * Fires after initial load of the chart (directly after the `load`
-		 * event), and after each redraw (directly after the `redraw` event).
-		 *
-		 * @since 5.0.7
-		 */
+         * Fires after initial load of the chart (directly after the load
+         * event), and after each redraw (directly after the redraw event).
+         *
+         * @since 5.0.7
+         */
         render?(event: Event): void;
         /**
          * Fires when an area of the chart has been selected. Selection is enabled by setting the chart's zoomType. One
