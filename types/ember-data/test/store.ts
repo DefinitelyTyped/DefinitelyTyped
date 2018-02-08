@@ -34,9 +34,12 @@ class User extends DS.Model {
     username = DS.attr('string');
 }
 
+class Author extends User {}
+
 declare module 'ember-data' {
     interface ModelRegistry {
-        user: User;
+        'user': User;
+        'author': Author;
     }
 }
 
@@ -79,7 +82,7 @@ messages.forEach(function(message) {
 });
 messages.save();
 
-const people = store.peekAll('person');
+const people = store.peekAll('user');
 people.get('isUpdating'); // false
 people.update().then(function() {
     people.get('isUpdating'); // false
@@ -92,6 +95,16 @@ const MyRoute = Ember.Route.extend({
             include: 'comments,comments.author',
         });
     },
+});
+
+// Store is injectable via `inject` and resolves to `DS.Store`.
+const SomeComponent = Ember.Component.extend({
+    store: Ember.inject.service('store'),
+
+    lookUpUsers() {
+        assertType<User>(this.get('store').findRecord('user', 123));
+        assertType<DS.PromiseArray<User>>(this.get('store').findAll('user'));
+    }
 });
 
 // GET to /users?filter[email]=tomster@example.com

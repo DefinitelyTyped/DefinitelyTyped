@@ -10,17 +10,9 @@ declare module 'ember-data' {
     import Ember from 'ember';
     import RSVP from 'rsvp';
 
-    export interface ModelRegistry {
-        [key: string]: DS.Model;
-    }
-
-    export interface AdapterRegistry {
-        [key: string]: DS.Adapter;
-    }
-
-    export interface SerializerRegistry {
-        [key: string]: DS.Serializer;
-    }
+    export interface ModelRegistry {}
+    export interface AdapterRegistry {}
+    export interface SerializerRegistry {}
 
     namespace DS {
         /**
@@ -2100,10 +2092,18 @@ declare module 'ember' {
             store: DS.Store;
         }
     }
+
+    // It is also available to inject anywhere
+    module '@ember/service' {
+        interface Registry {
+            'store': DS.Store;
+        }
+    }
 }
 declare module 'ember-data/adapter' {
     import DS from 'ember-data';
     export default DS.Adapter;
+    export { AdapterRegistry } from 'ember-data';
 }
 declare module 'ember-data/adapters/errors' {
     import DS from 'ember-data';
@@ -2134,6 +2134,7 @@ declare module 'ember-data/attr' {
 declare module 'ember-data/model' {
     import DS from 'ember-data';
     export default DS.Model;
+    export { ModelRegistry } from 'ember-data';
 }
 declare module 'ember-data/relationships' {
     import DS from 'ember-data';
@@ -2143,6 +2144,7 @@ declare module 'ember-data/relationships' {
 declare module 'ember-data/serializer' {
     import DS from 'ember-data';
     export default DS.Serializer;
+    export { SerializerRegistry } from 'ember-data';
 }
 declare module 'ember-data/serializers/embedded-records-mixin' {
     import DS from 'ember-data';

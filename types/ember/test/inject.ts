@@ -8,13 +8,15 @@ class ApplicationController extends Ember.Controller {
     transitionToLogin() {}
 }
 
-declare module 'ember' {
-    interface ServiceRegistry {
-        auth: AuthService;
+declare module '@ember/service' {
+    interface Registry {
+        'auth': AuthService;
     }
+}
 
-    interface ControllerRegistry {
-        application: ApplicationController;
+declare module '@ember/controller' {
+    interface Registry {
+        'application': ApplicationController;
     }
 }
 
@@ -25,6 +27,27 @@ class LoginRoute extends Ember.Route {
     didTransition() {
         if (!this.get('auth').get('isAuthenticated')) {
             this.get('application').transitionToLogin();
+        }
+    }
+}
+
+// New module injection style.
+import Controller, { inject as controller } from '@ember/controller';
+import Service, { inject as service } from '@ember/service';
+import { assertType } from './lib/assert';
+
+class ComponentInjection extends Ember.Component {
+    applicationController = controller('application');
+    auth = service('auth');
+    router = service('router');
+    misc = service();
+
+    testem() {
+        assertType<Ember.Service>(this.get('misc'));
+        const url = this.get('router').urlFor('some-route', 1, 2, 3, { queryParams: { seriously: 'yes' } });
+        assertType<string>(url);
+        if (!this.get('auth').isAuthenticated) {
+            this.get('applicationController').transitionToLogin();
         }
     }
 }
