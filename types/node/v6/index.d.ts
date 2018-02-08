@@ -2614,7 +2614,7 @@ declare module "fs" {
      * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: string | Buffer, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: Array<string | Buffer>) => void): void;
+    export function readdir(path: string | Buffer, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -2640,7 +2640,7 @@ declare module "fs" {
      * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: string | Buffer, options?: { encoding?: string | null } | string | null): Array<string | Buffer>;
+    export function readdirSync(path: string | Buffer, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function closeSync(fd: number): void;
     export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;

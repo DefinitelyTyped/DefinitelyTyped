@@ -231,6 +231,10 @@ namespace fs_tests {
 
         let fsBufferOut: Buffer[] = fs.readdirSync('utf8', 'buffer');
         fsBufferOut = fs.readdirSync('foo', {encoding: 'buffer'});
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
     }
 
     {
