@@ -2,13 +2,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
-import * as CSSTransitionGroup from "react-addons-css-transition-group";
+import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
-import * as shallowCompare from "react-addons-shallow-compare";
+import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
-import * as TransitionGroup from "react-addons-transition-group";
+import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
 interface Props extends React.Attributes {
@@ -346,7 +346,11 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
-    }
+    },
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test'
 };
 React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as chaiEnzyme from "chai-enzyme";
+import chaiEnzyme = require("chai-enzyme");
 import { expect } from "chai";
 import { shallow } from "enzyme";
 

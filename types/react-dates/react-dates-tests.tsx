@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as moment from "moment";
+import moment = require("moment");
 
 import {
         SingleDatePicker,
@@ -12,9 +12,6 @@ import {
         toISODateString,
         toLocalizedDateString,
         toMomentObject } from "react-dates";
-
-
-
 
 class SingleDatePickerMinimumTest extends React.Component {
     render() {

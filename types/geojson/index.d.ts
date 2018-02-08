@@ -161,5 +161,6 @@ export interface Feature<G extends GeometryObject, P = GeoJsonProperties> extend
  *  https://tools.ietf.org/html/rfc7946#section-3.3
  */
 export interface FeatureCollection<G extends GeometryObject, P = GeoJsonProperties> extends GeoJsonObject {
+    type: "FeatureCollection";
     features: Array<Feature<G, P>>;
 }

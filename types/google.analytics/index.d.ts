@@ -39,9 +39,8 @@ interface GoogleAnalytics {
 declare namespace UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 
-    enum HitType {
-        'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
-    }
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hitType
+    type HitType = 'pageview' | 'screenview' | 'event' | 'transaction' | 'item' | 'social' | 'exception' | 'timing';
 
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference
 
@@ -294,7 +293,7 @@ declare namespace UniversalAnalytics {
         flashVersion?: string;
         forceSSL?: boolean;
         hitCallback?(): void;
-        hitType?: string;
+        hitType?: HitType;
         hostname?: string;
         id?: string;
         javaEnabled?: boolean;

@@ -3,6 +3,7 @@
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
+//                 Nicolas Pirotte <https://github.com/npirotte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -10,6 +11,7 @@ export {
     commitLocalUpdate,
     commitRelayModernMutation as commitMutation,
     fetchRelayModernQuery as fetchQuery,
+    GraphQLTaggedNode,
     requestRelaySubscription as requestSubscription,
 } from "relay-runtime";
 
@@ -17,13 +19,28 @@ import * as React from "react";
 import * as RelayRuntimeTypes from "relay-runtime";
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// Utility types
+// ~~~~~~~~~~~~~~~~~~~~~
+
+// Taken from https://github.com/pelotom/type-zoo
+// tslint:disable-next-line:strict-export-declare-modifiers
+type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
+// tslint:disable-next-line:strict-export-declare-modifiers
+type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+
+export type RemoveRelayProp<P> = Omit<P & { relay: never }, "relay">;
+
+export interface ComponentRef {
+    componentRef?: (ref: any) => void;
+}
+
+export type RelayContainer<T> = React.ComponentType<RemoveRelayProp<T> & ComponentRef>;
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
 // ~~~~~~~~~~~~~~~~~~~~~
-export type ConcreteFragment = any;
-export type ConcreteBatch = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
-export type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayProp
@@ -39,24 +56,19 @@ export interface RelayProp {
 export function RelayQL(strings: string[], ...substitutions: any[]): RelayRuntimeTypes.RelayConcreteNode;
 
 // ~~~~~~~~~~~~~~~~~~~~~
-// RelayModernGraphQLTag
+// ReactRelayTypes
 // ~~~~~~~~~~~~~~~~~~~~~
 export interface GeneratedNodeMap {
-    [key: string]: GraphQLTaggedNode;
+    [key: string]: RelayRuntimeTypes.GraphQLTaggedNode;
 }
-export type GraphQLTaggedNode =
-    | (() => ConcreteFragment | ConcreteBatch)
-    | {
-          modern(): ConcreteFragment | ConcreteBatch;
-          classic(relayQL: typeof RelayQL): ConcreteFragmentDefinition | ConcreteOperationDefinition;
-      };
+
 /**
  * Runtime function to correspond to the `graphql` tagged template function.
  * All calls to this function should be transformed by the plugin.
  */
 export interface GraphqlInterface {
-    (strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
-    experimental(strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
+    (strings: string[] | TemplateStringsArray): RelayRuntimeTypes.GraphQLTaggedNode;
+    experimental(strings: string[] | TemplateStringsArray): RelayRuntimeTypes.GraphQLTaggedNode;
 }
 export const graphql: GraphqlInterface;
 
@@ -66,7 +78,7 @@ export const graphql: GraphqlInterface;
 export interface QueryRendererProps {
     cacheConfig?: RelayRuntimeTypes.CacheConfig;
     environment: RelayRuntimeTypes.Environment;
-    query: GraphQLTaggedNode;
+    query: RelayRuntimeTypes.GraphQLTaggedNode;
     render(readyState: ReadyState): React.ReactElement<any> | undefined | null;
     variables: RelayRuntimeTypes.Variables;
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
@@ -86,9 +98,9 @@ export class QueryRenderer extends ReactRelayQueryRenderer {}
 // createFragmentContainer
 // ~~~~~~~~~~~~~~~~~~~~~
 export function createFragmentContainer<T>(
-    Component: ReactBaseComponent<T>,
-    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap
-): ReactBaseComponent<T>;
+    Component: React.ComponentType<T>,
+    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
+): RelayContainer<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createPaginationContainer
@@ -130,16 +142,16 @@ export interface ConnectionConfig<T> {
         paginationInfo: { count: number; cursor?: string },
         fragmentVariables: RelayRuntimeTypes.Variables
     ): RelayRuntimeTypes.Variables;
-    query: GraphQLTaggedNode;
+    query: RelayRuntimeTypes.GraphQLTaggedNode;
 }
 export function createPaginationContainer<T>(
-    Component: ReactBaseComponent<T>,
-    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
+    Component: React.ComponentType<T>,
+    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     connectionConfig: ConnectionConfig<T>
-): ReactBaseComponent<T>;
+): RelayContainer<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
-// createFragmentContainer
+// createRefetchContainer
 // ~~~~~~~~~~~~~~~~~~~~~
 export interface RefetchOptions {
     force?: boolean;
@@ -156,7 +168,7 @@ export type RelayRefetchProp = RelayProp & {
     ): RelayRuntimeTypes.Disposable;
 };
 export function createRefetchContainer<T>(
-    Component: ReactBaseComponent<T>,
-    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
-    taggedNode: GraphQLTaggedNode
-): ReactBaseComponent<T>;
+    Component: React.ComponentType<T>,
+    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
+    taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
+): RelayContainer<T>;

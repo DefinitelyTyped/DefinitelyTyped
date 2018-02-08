@@ -1,5 +1,5 @@
 {
-	"files": [
+    "files": [
         "index.d.ts",
         "mirrorx-tests.ts"
     ],
@@ -21,6 +21,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     }
 }

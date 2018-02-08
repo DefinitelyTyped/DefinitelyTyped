@@ -1,6 +1,6 @@
 import * as gulp from 'gulp';
-import * as gulpConcat from 'gulp-concat';
-import * as gulpLoadPlugins from 'gulp-load-plugins';
+import gulpConcat = require('gulp-concat');
+import gulpLoadPlugins = require('gulp-load-plugins');
 
 interface GulpPlugins extends IGulpPlugins {
 	concat: typeof gulpConcat;
