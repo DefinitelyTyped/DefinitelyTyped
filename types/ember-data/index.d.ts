@@ -2,6 +2,7 @@
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
