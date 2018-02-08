@@ -68,7 +68,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (end: number): RangeRight1x1;
+    (start: number): RangeRight1x1;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -101,7 +101,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (end: number, start: number): number[];
+    (start: number, end: number): number[];
 }
 interface RangeRight1x1 {
     /**
@@ -169,7 +169,7 @@ interface RangeRight1x1 {
      * _.rangeRight(0);
      * // => []
      */
-    (start: number): number[];
+    (end: number): number[];
 }
 
 declare const rangeRight: RangeRight;

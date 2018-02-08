@@ -58,7 +58,7 @@ interface Merge {
      * _.merge(users, ages);
      * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
      */
-    <TSource>(source: TSource): Merge1x1<TSource>;
+    <TObject>(object: TObject): Merge1x1<TObject>;
     /**
      * Recursively merges own and inherited enumerable properties of source
      * objects into the destination object, skipping source properties that resolve
@@ -86,9 +86,9 @@ interface Merge {
      * _.merge(users, ages);
      * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
      */
-    <TObject, TSource>(source: TSource, object: TObject): TObject & TSource;
+    <TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
 }
-interface Merge1x1<TSource> {
+interface Merge1x1<TObject> {
     /**
      * Recursively merges own and inherited enumerable properties of source
      * objects into the destination object, skipping source properties that resolve
@@ -116,7 +116,7 @@ interface Merge1x1<TSource> {
      * _.merge(users, ages);
      * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
      */
-    (): Merge1x1<TSource>;
+    (): Merge1x1<TObject>;
     /**
      * Recursively merges own and inherited enumerable properties of source
      * objects into the destination object, skipping source properties that resolve
@@ -144,7 +144,7 @@ interface Merge1x1<TSource> {
      * _.merge(users, ages);
      * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
      */
-    <TObject>(object: TObject): TObject & TSource;
+    <TSource>(source: TSource): TObject & TSource;
 }
 
 declare const merge: Merge;

@@ -32,7 +32,7 @@ interface Bind {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (thisArg: any): Bind1x1;
+    (func: (...args: any[]) => any): Bind1x1;
     /**
      * Creates a function that invokes func with the this binding of thisArg and prepends any additional _.bind
      * arguments to those provided to the bound function.
@@ -47,7 +47,7 @@ interface Bind {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (thisArg: any, func: (...args: any[]) => any): (...args: any[]) => any;
+    (func: (...args: any[]) => any, thisArg: any): (...args: any[]) => any;
 }
 interface Bind1x1 {
     /**
@@ -79,7 +79,7 @@ interface Bind1x1 {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (func: (...args: any[]) => any): (...args: any[]) => any;
+    (thisArg: any): (...args: any[]) => any;
 }
 
 declare const bind: Bind;

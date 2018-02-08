@@ -19,6 +19,13 @@ interface ToArray {
      * @return Returns the converted array.
      */
     <T>(value: T): Array<T[keyof T]>;
+    /**
+     * Converts value to an array.
+     *
+     * @param value The value to convert.
+     * @return Returns the converted array.
+     */
+    (): any[];
 }
 
 declare const toArray: ToArray;

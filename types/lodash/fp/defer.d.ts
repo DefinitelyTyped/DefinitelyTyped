@@ -11,7 +11,7 @@ type Defer =
      * @param args The arguments to invoke the function with.
      * @return Returns the timer id.
      */
-    (func: (...args: any[]) => any) => number;
+    (func: (...args: any[]) => any, ...args: any[]) => number;
 
 declare const defer: Defer;
 declare namespace defer {}

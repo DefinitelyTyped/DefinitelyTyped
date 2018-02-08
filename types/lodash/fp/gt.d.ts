@@ -18,7 +18,7 @@ interface Gt {
      * @param other The other value to compare.
      * @return Returns true if value is greater than other, else false.
      */
-    (other: any): Gt1x1;
+    (value: any): Gt1x1;
     /**
      * Checks if value is greater than other.
      *
@@ -26,7 +26,7 @@ interface Gt {
      * @param other The other value to compare.
      * @return Returns true if value is greater than other, else false.
      */
-    (other: any, value: any): boolean;
+    (value: any, other: any): boolean;
 }
 interface Gt1x1 {
     /**
@@ -44,7 +44,7 @@ interface Gt1x1 {
      * @param other The other value to compare.
      * @return Returns true if value is greater than other, else false.
      */
-    (value: any): boolean;
+    (other: any): boolean;
 }
 
 declare const gt: Gt;

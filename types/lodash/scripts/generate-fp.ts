@@ -130,7 +130,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
             // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
             // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
             unconvertedBuilder[definition.name] = (...args: number[][]) => {
-                return () => curryOverloads(definition.overloads, definition.name, args[0] || [], -1, definition.jsdoc);
+                return () => curryOverloads(definition.overloads, definition.name, args[0] || [], -1, false);
             };
         } else {
             builder[definition.name] = (...args: Array<number | number[]>) => {
@@ -139,17 +139,25 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
 
                 // If any argument is a number instead of an array, then the argument at that index is being spread (e.g. assignAll, invokeArgs, partial, without)
                 const spreadIndex = args.findIndex(a => typeof a === "number");
+                let isFixed = true;
                 if (spreadIndex !== -1) {
                     // If there's a spread parameter, convert() won't cap the number of arguments, so we need to do it manually
                     const arity = Math.max(spreadIndex, args[spreadIndex] as number) + 1;
                     args = args.slice(0, arity);
-                } else if (args.length > 4) {
-                    // Arity wasn't fixed by convert(). Manually fix arity by ignoring rest parameters
-                    const arity = max(definition.overloads.map(o => o.params.filter(p => !!p && !p.startsWith("...")).length)) || 0;
-                    args = args.splice(0, arity);
+                } else if (args.length > 4 || definition.name === "flow" || definition.name === "flowRight") {
+                    // Arity wasn't fixed by convert()
+                    isFixed = false;
+                } else {
+                    // For some reason, convert() doesn't seems to tell us which functions have unchanged argument order.
+                    // So we have to hard-code it.
+                    const unchangedOrders = ["add", "assign", "assignIn", "bind", "bindKey", "concat", "difference", "divide", "eq",
+                        "gt", "gte", "isEqual", "lt", "lte", "matchesProperty", "merge", "multiply", "overArgs", "partial", "partialRight",
+                        "propertyOf", "random", "range", "rangeRight", "subtract", "zip", "zipObject", "zipObjectDeep"];
+                    if (unchangedOrders.includes(definition.name))
+                        args = sortBy(args as number[][], (a: number[]) => a[0]);
                 }
 
-                return () => curryOverloads(definition.overloads, definition.name, flatten(args), spreadIndex, definition.jsdoc);
+                return () => curryOverloads(definition.overloads, definition.name, flatten(args), spreadIndex, isFixed);
             };
         }
     }
@@ -295,16 +303,18 @@ async function parseDefinition(name: string, definitionString: string, filePath:
     return definition;
 }
 
-function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, jsdoc: string): Interface[] {
-    if (functionName === "noop") {
-        // This function is not transformed. Leave it as-is.
+function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, isFixed: boolean): Interface[] {
+    overloads = cloneDeep(overloads);
+    if (!isFixed) {
+        // Non-fixed arity functions cannot be curried.
+        for (const overload of overloads)
+            overload.params = overload.params.map(p => p.replace(/\?:/g, ":")); // No optional parameters
         return [{
             name: upperFirst(functionName),
             typeParams: [],
             overloads,
         }];
     }
-    overloads = cloneDeep(overloads);
     paramOrder = paramOrder.filter(p => typeof p === "number");
     const arity = paramOrder.length;
 
@@ -387,7 +397,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
             typeParams: o.typeParams,
             params: reargParams,
             returnType: o.returnType,
-            jsdoc,
+            jsdoc: o.jsdoc,
         }, functionName, i + 1);
     });
     if (interfaces.length === 0)

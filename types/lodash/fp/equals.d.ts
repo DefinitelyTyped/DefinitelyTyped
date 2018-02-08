@@ -54,7 +54,7 @@ interface IsEqual {
      * object === other;
      * // => false
      */
-    (other: any): IsEqual1x1;
+    (value: any): IsEqual1x1;
     /**
      * Performs a deep comparison between two values to determine if they are
      * equivalent.
@@ -80,7 +80,7 @@ interface IsEqual {
      * object === other;
      * // => false
      */
-    (other: any, value: any): boolean;
+    (value: any, other: any): boolean;
 }
 interface IsEqual1x1 {
     /**
@@ -134,7 +134,7 @@ interface IsEqual1x1 {
      * object === other;
      * // => false
      */
-    (value: any): boolean;
+    (other: any): boolean;
 }
 
 declare const equals: IsEqual;

@@ -68,7 +68,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (step: number): RangeRight1x1;
+    (start: number): RangeRight1x1;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -101,7 +101,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (step: number, start: number): RangeRight1x2;
+    (start: number, end: number): RangeRight1x2;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -134,7 +134,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (step: number, start: number, end: number): number[];
+    (start: number, end: number, step: number): number[];
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -167,7 +167,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (guard: object): RangeRight2x1;
+    (end: number): RangeRight2x1;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -200,7 +200,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (guard: object, end: number): RangeRight2x2;
+    (end: number, index: string | number): RangeRight2x2;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -233,7 +233,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (guard: object, end: number, index: string | number): number[];
+    (end: number, index: string | number, guard: object): number[];
 }
 interface RangeRight1x1 {
     /**
@@ -301,7 +301,7 @@ interface RangeRight1x1 {
      * _.rangeRight(0);
      * // => []
      */
-    (start: number): RangeRight1x2;
+    (end: number): RangeRight1x2;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -334,7 +334,7 @@ interface RangeRight1x1 {
      * _.rangeRight(0);
      * // => []
      */
-    (start: number, end: number): number[];
+    (end: number, step: number): number[];
 }
 interface RangeRight1x2 {
     /**
@@ -402,7 +402,7 @@ interface RangeRight1x2 {
      * _.rangeRight(0);
      * // => []
      */
-    (end: number): number[];
+    (step: number): number[];
 }
 interface RangeRight2x1 {
     /**
@@ -470,7 +470,7 @@ interface RangeRight2x1 {
      * _.rangeRight(0);
      * // => []
      */
-    (end: number): RangeRight2x2;
+    (index: string | number): RangeRight2x2;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -503,7 +503,7 @@ interface RangeRight2x1 {
      * _.rangeRight(0);
      * // => []
      */
-    (end: number, index: string | number): number[];
+    (index: string | number, guard: object): number[];
 }
 interface RangeRight2x2 {
     /**
@@ -571,7 +571,7 @@ interface RangeRight2x2 {
      * _.rangeRight(0);
      * // => []
      */
-    (index: string | number): number[];
+    (guard: object): number[];
 }
 
 declare const rangeStepRight: RangeRight;

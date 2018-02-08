@@ -18,7 +18,7 @@ interface Add {
      * @param addend The second number to add.
      * @return Returns the sum.
      */
-    (addend: number): Add1x1;
+    (augend: number): Add1x1;
     /**
      * Adds two numbers.
      *
@@ -26,7 +26,7 @@ interface Add {
      * @param addend The second number to add.
      * @return Returns the sum.
      */
-    (addend: number, augend: number): number;
+    (augend: number, addend: number): number;
 }
 interface Add1x1 {
     /**
@@ -44,7 +44,7 @@ interface Add1x1 {
      * @param addend The second number to add.
      * @return Returns the sum.
      */
-    (augend: number): number;
+    (addend: number): number;
 }
 
 declare const add: Add;

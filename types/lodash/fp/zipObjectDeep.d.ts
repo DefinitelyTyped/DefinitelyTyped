@@ -20,7 +20,7 @@ interface ZipObjectDeep {
      * @param values The property values.
      * @return Returns the new object.
      */
-    (values: _.List<any>): ZipObjectDeep1x1;
+    (paths: _.List<_.PropertyPath>): ZipObjectDeep1x1;
     /**
      * This method is like _.zipObject except that it supports property paths.
      *
@@ -28,7 +28,7 @@ interface ZipObjectDeep {
      * @param values The property values.
      * @return Returns the new object.
      */
-    (values: _.List<any>, paths: _.List<_.PropertyPath>): object;
+    (paths: _.List<_.PropertyPath>, values: _.List<any>): object;
 }
 interface ZipObjectDeep1x1 {
     /**
@@ -46,7 +46,7 @@ interface ZipObjectDeep1x1 {
      * @param values The property values.
      * @return Returns the new object.
      */
-    (paths: _.List<_.PropertyPath>): object;
+    (values: _.List<any>): object;
 }
 
 declare const zipObjectDeep: ZipObjectDeep;

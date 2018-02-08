@@ -60,7 +60,7 @@ interface Eq {
      * _.eq(NaN, NaN);
      * // => true
      */
-    (other: any): Eq1x1;
+    (value: any): Eq1x1;
     /**
      * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * comparison between two values to determine if they are equivalent.
@@ -89,7 +89,7 @@ interface Eq {
      * _.eq(NaN, NaN);
      * // => true
      */
-    (other: any, value: any): boolean;
+    (value: any, other: any): boolean;
 }
 interface Eq1x1 {
     /**
@@ -149,7 +149,7 @@ interface Eq1x1 {
      * _.eq(NaN, NaN);
      * // => true
      */
-    (value: any): boolean;
+    (other: any): boolean;
 }
 
 declare const identical: Eq;

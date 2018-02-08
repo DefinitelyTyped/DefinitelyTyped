@@ -22,7 +22,7 @@ interface ZipObject {
      * @param values The property values.
      * @return Returns the new object.
      */
-    <T>(values: _.List<T>): ZipObject1x1<T>;
+    (props: _.List<_.PropertyName>): ZipObject1x1;
     /**
      * This method is like _.fromPairs except that it accepts two arrays, one of property
      * identifiers and one of corresponding values.
@@ -31,9 +31,9 @@ interface ZipObject {
      * @param values The property values.
      * @return Returns the new object.
      */
-    <T>(values: _.List<T>, props: _.List<_.PropertyName>): _.Dictionary<T>;
+    <T>(props: _.List<_.PropertyName>, values: _.List<T>): _.Dictionary<T>;
 }
-interface ZipObject1x1<T> {
+interface ZipObject1x1 {
     /**
      * This method is like _.fromPairs except that it accepts two arrays, one of property
      * identifiers and one of corresponding values.
@@ -42,7 +42,7 @@ interface ZipObject1x1<T> {
      * @param values The property values.
      * @return Returns the new object.
      */
-    (): ZipObject1x1<T>;
+    (): ZipObject1x1;
     /**
      * This method is like _.fromPairs except that it accepts two arrays, one of property
      * identifiers and one of corresponding values.
@@ -51,7 +51,7 @@ interface ZipObject1x1<T> {
      * @param values The property values.
      * @return Returns the new object.
      */
-    (props: _.List<_.PropertyName>): _.Dictionary<T>;
+    <T>(values: _.List<T>): _.Dictionary<T>;
 }
 
 declare const zipObject: ZipObject;

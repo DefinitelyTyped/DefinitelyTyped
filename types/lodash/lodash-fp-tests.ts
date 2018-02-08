@@ -1,5 +1,5 @@
-import _ = require('lodash/fp');
-import lodash = require('lodash');
+import _ = require("lodash/fp");
+import lodash = require("lodash");
 
 declare const anything: any;
 
@@ -29,8 +29,8 @@ interface AbcObject {
 {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
-    const array2: Array<AbcObject | null | undefined | false | '' | 0> | null | undefined = anything;
-    const list2: ArrayLike<AbcObject | null | undefined | false | '' | 0> | null | undefined = anything;
+    const array2: Array<AbcObject | null | undefined | false | "" | 0> | null | undefined = anything;
+    const list2: ArrayLike<AbcObject | null | undefined | false | "" | 0> | null | undefined = anything;
 
     _.compact(array); // $ExpectTypeAbcObject[]
     _.compact(list); // $ExpectTypeAbcObject[]
@@ -62,10 +62,10 @@ interface AbcObject {
     _.differenceBy<AbcObject, AbcObject>(iteratee, array)(list); // $ExpectType AbcObject[]
     _.differenceBy(iteratee, list, array); // $ExpectType AbcObject[]
     _.differenceBy(iteratee, list, list); // $ExpectType AbcObject[]
-    _.differenceBy('a', array, array); // $ExpectType AbcObject[]
-    _.differenceBy('a', array, list); // $ExpectType AbcObject[]
-    _.differenceBy('a', list, array); // $ExpectType AbcObject[]
-    _.differenceBy('a', list, list); // $ExpectType AbcObject[]
+    _.differenceBy("a", array, array); // $ExpectType AbcObject[]
+    _.differenceBy("a", array, list); // $ExpectType AbcObject[]
+    _.differenceBy("a", list, array); // $ExpectType AbcObject[]
+    _.differenceBy("a", list, list); // $ExpectType AbcObject[]
     _.differenceBy({a: 1}, array, array); // $ExpectType AbcObject[]
     _.differenceBy({a: 1}, array, list); // $ExpectType AbcObject[]
     _.differenceBy({a: 1}, list, array); // $ExpectType AbcObject[]
@@ -83,12 +83,12 @@ interface AbcObject {
         a: string;
         b: boolean;
     }
-    const t1: T1 = { a: 'a', b: 'b' };
-    const t2: T2 = { a: 'a', b: 30 };
-    const t3: T3 = { a: 'a', b: true };
+    const t1: T1 = { a: "a", b: "b" };
+    const t2: T2 = { a: "a", b: 30 };
+    const t3: T3 = { a: "a", b: true };
 
     // $ExpectType T1[]
-    _.differenceBy('name', [t1], [t2]);
+    _.differenceBy("name", [t1], [t2]);
     // $ExpectType T1[]
     _.differenceBy((value: T1 | T2) => 0, [t1], [t2]);
     // $ExpectType T1[]
@@ -116,7 +116,7 @@ interface AbcObject {
         a: string;
         b: number;
     }
-    const t1: T1 = { a: 'a', b: 'b' };
+    const t1: T1 = { a: "a", b: "b" };
     const t2: T2 | undefined = anything;
 
     _.differenceWith((a: T1, b: T2 | undefined) => true, [t1], [t2]); // $ExpectType T1[]
@@ -150,10 +150,10 @@ interface AbcObject {
 
     _.dropRightWhile(predicateFn, array); // $ExpectType AbcObject[]
     _.dropRightWhile(predicateFn)(array); // $ExpectType AbcObject[]
-    _.dropRightWhile('', array); // $ExpectType AbcObject[]
+    _.dropRightWhile("", array); // $ExpectType AbcObject[]
     _.dropRightWhile({a: 42}, array); // $ExpectType AbcObject[]
     _.dropRightWhile(predicateFn, list); // $ExpectType AbcObject[]
-    _.dropRightWhile('', list); // $ExpectType AbcObject[]
+    _.dropRightWhile("", list); // $ExpectType AbcObject[]
     _.dropRightWhile({a: 42}, list); // $ExpectType AbcObject[]
 }
 
@@ -165,10 +165,10 @@ interface AbcObject {
 
     _.dropWhile(predicateFn, array); // $ExpectType AbcObject[]
     _.dropWhile(predicateFn)(array); // $ExpectType AbcObject[]
-    _.dropWhile('', array); // $ExpectType AbcObject[]
+    _.dropWhile("", array); // $ExpectType AbcObject[]
     _.dropWhile({a: 42}, array); // $ExpectType AbcObject[]
     _.dropWhile(predicateFn, list); // $ExpectType AbcObject[]
-    _.dropWhile('', list); // $ExpectType AbcObject[]
+    _.dropWhile("", list); // $ExpectType AbcObject[]
     _.dropWhile({a: 42}, list); // $ExpectType AbcObject[]
 }
 
@@ -193,18 +193,18 @@ interface AbcObject {
 
     _.findIndex(predicateFn, array); // $ExpectType number
     _.findIndex(predicateFn)(array); // $ExpectType number
-    _.findIndex('', array); // $ExpectType number
+    _.findIndex("", array); // $ExpectType number
     _.findIndex({a: 42}, array); // $ExpectType number
     _.findIndex(predicateFn, list); // $ExpectType number
-    _.findIndex('', list); // $ExpectType number
+    _.findIndex("", list); // $ExpectType number
     _.findIndex({a: 42}, list); // $ExpectType number
 
     _.findIndexFrom(predicateFn, fromIndex, array); // $ExpectType number
     _.findIndexFrom(predicateFn)(fromIndex)(array); // $ExpectType number
-    _.findIndexFrom('', fromIndex, array); // $ExpectType number
+    _.findIndexFrom("", fromIndex, array); // $ExpectType number
     _.findIndexFrom({a: 42}, fromIndex, array); // $ExpectType number
     _.findIndexFrom(predicateFn, fromIndex, list); // $ExpectType number
-    _.findIndexFrom('', fromIndex, list); // $ExpectType number
+    _.findIndexFrom("", fromIndex, list); // $ExpectType number
     _.findIndexFrom({a: 42}, fromIndex, list); // $ExpectType number
 }
 
@@ -217,18 +217,18 @@ interface AbcObject {
 
     _.findLastIndex(predicateFn, array); // $ExpectType number
     _.findLastIndex(predicateFn)(array); // $ExpectType number
-    _.findLastIndex('', array); // $ExpectType number
+    _.findLastIndex("", array); // $ExpectType number
     _.findLastIndex({a: 42}, array); // $ExpectType number
     _.findLastIndex(predicateFn, list); // $ExpectType number
-    _.findLastIndex('', list); // $ExpectType number
+    _.findLastIndex("", list); // $ExpectType number
     _.findLastIndex({a: 42}, list); // $ExpectType number
 
     _.findLastIndexFrom(predicateFn, fromIndex, array); // $ExpectType number
     _.findLastIndexFrom(predicateFn)(fromIndex)(array); // $ExpectType number
-    _.findLastIndexFrom('', fromIndex, array); // $ExpectType number
+    _.findLastIndexFrom("", fromIndex, array); // $ExpectType number
     _.findLastIndexFrom({a: 42}, fromIndex, array); // $ExpectType number
     _.findLastIndexFrom(predicateFn, fromIndex, list); // $ExpectType number
-    _.findLastIndexFrom('', fromIndex, list); // $ExpectType number
+    _.findLastIndexFrom("", fromIndex, list); // $ExpectType number
     _.findLastIndexFrom({a: 42}, fromIndex, list); // $ExpectType number
 }
 
@@ -237,7 +237,7 @@ interface AbcObject {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
 
-    _.first('abc'); // $ExpectType string | undefined
+    _.first("abc"); // $ExpectType string | undefined
     _.first(array); // $ExpectType AbcObject | undefined
     _.first(list); // $ExpectType AbcObject | undefined
 }
@@ -247,7 +247,7 @@ interface AbcObject {
     const array: number[][] | null | undefined = anything;
     const list: ArrayLike<number[]> | null | undefined = anything;
 
-    _.flatten('abc'); // $ExpectType string[]
+    _.flatten("abc"); // $ExpectType string[]
     _.flatten(array); // $ExpectType number[]
     _.flatten(list); // $ExpectType number[]
     _.flatten([1, 2, 3]); // $ExpectType number[]
@@ -258,7 +258,7 @@ interface AbcObject {
     _.flatten({0: 1, 1: 2, 2: 3, length: 3}); // $ExpectType number[]
     _.flatten({0: 1, 1: [2, 3], length: 2}); // $ExpectType number[]
 
-    _.unnest('abc'); // $ExpectType string[]
+    _.unnest("abc"); // $ExpectType string[]
     _.unnest(array); // $ExpectType number[]
     _.unnest(list); // $ExpectType number[]
     _.unnest([1, 2, 3]); // $ExpectType number[]
@@ -275,7 +275,7 @@ interface AbcObject {
     const array: number[][] | null | undefined = anything;
     const list: ArrayLike<number[]> | null | undefined = anything;
 
-    _.flattenDeep('abc'); // $ExpectType string[]
+    _.flattenDeep("abc"); // $ExpectType string[]
     _.flattenDeep<number>(array); // $ExpectType number[]
     _.flattenDeep<number>(list); // $ExpectType number[]
     _.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
@@ -303,7 +303,7 @@ interface AbcObject {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
 
-    _.head('abc'); // $ExpectType string | undefined
+    _.head("abc"); // $ExpectType string | undefined
     _.head(array); // $ExpectType AbcObject | undefined
     _.head(list); // $ExpectType AbcObject | undefined
 }
@@ -312,7 +312,7 @@ interface AbcObject {
 {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
     _.indexOf(value, array); // $ExpectType number
     _.indexOf(value)(array); // $ExpectType number
@@ -325,7 +325,7 @@ interface AbcObject {
 {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
     _.sortedIndexOf(value, array); // $ExpectType number
     _.sortedIndexOf(value)(array); // $ExpectType number
@@ -359,11 +359,11 @@ interface AbcObject {
     const array: AbcObject[] = anything;
     const list: ArrayLike<AbcObject> = anything;
 
-    _.intersectionBy('a', array, list); // $ExpectType AbcObject[]
-    _.intersectionBy<AbcObject, AbcObject>('a')(array, list); // $ExpectType AbcObject[]
-    _.intersectionBy<AbcObject, AbcObject>('a')(array)(list); // $ExpectType AbcObject[]
+    _.intersectionBy("a", array, list); // $ExpectType AbcObject[]
+    _.intersectionBy<AbcObject, AbcObject>("a")(array, list); // $ExpectType AbcObject[]
+    _.intersectionBy<AbcObject, AbcObject>("a")(array)(list); // $ExpectType AbcObject[]
     _.intersectionBy({ a: 42 }, array, list); // $ExpectType AbcObject[]
-    _.intersectionBy(['a', 42], array, list); // $ExpectType AbcObject[]
+    _.intersectionBy(["a", 42], array, list); // $ExpectType AbcObject[]
     _.intersectionBy((value: AbcObject) => 0, array, list); // $ExpectType AbcObject[]
 }
 
@@ -384,8 +384,8 @@ interface AbcObject {
         a: string;
         b: number;
     }
-    const t1: T1 = { a: 'a', b: 'b' };
-    const t2: T2 = { a: 'a', b: 1 };
+    const t1: T1 = { a: "a", b: "b" };
+    const t2: T2 = { a: "a", b: 1 };
 
     _.intersectionWith((a: T1, b: T2) => true)([t1])([t2]); // $ExpectType T1[]
 }
@@ -397,12 +397,12 @@ interface AbcObject {
     const nilArray: string[] | null | undefined = anything;
     const nilList: ArrayLike<string> | null | undefined = anything;
 
-    _.join('_', 'abc'); // $ExpectType string
-    _.join('_')('abc'); // $ExpectType string
-    _.join('_', array); // $ExpectType string
-    _.join('_', list); // $ExpectType string
-    _.join('_', nilArray); // $ExpectType string
-    _.join('_', nilList); // $ExpectType string
+    _.join("_", "abc"); // $ExpectType string
+    _.join("_")("abc"); // $ExpectType string
+    _.join("_", array); // $ExpectType string
+    _.join("_", list); // $ExpectType string
+    _.join("_", nilArray); // $ExpectType string
+    _.join("_", nilList); // $ExpectType string
 }
 
 // _.last
@@ -410,7 +410,7 @@ interface AbcObject {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
 
-    _.last('abc'); // $ExpectType string | undefined
+    _.last("abc"); // $ExpectType string | undefined
     _.last(array); // $ExpectType AbcObject | undefined
     _.last(list); // $ExpectType AbcObject | undefined
 }
@@ -419,7 +419,7 @@ interface AbcObject {
 {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
     _.lastIndexOf(value, array); // $ExpectType number
     _.lastIndexOf(value)(array); // $ExpectType number
@@ -444,7 +444,7 @@ interface AbcObject {
 {
     const array: AbcObject[] = [];
     const list: ArrayLike<AbcObject> = [];
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
     _.pull(value, array); // $ExpectType AbcObject[]
     _.pull(value, list); // $ExpectType ArrayLike<AbcObject>
@@ -468,16 +468,16 @@ interface AbcObject {
     const list: ArrayLike<AbcObject> = anything;
     const values: ArrayLike<AbcObject> = anything;
 
-    _.pullAllBy('a', values, array); // $ExpectType AbcObject[]
+    _.pullAllBy("a", values, array); // $ExpectType AbcObject[]
     _.pullAllBy({ a: 42 }, values, array); // $ExpectType AbcObject[]
-    _.pullAllBy(['a', 42], values, array); // $ExpectType AbcObject[]
+    _.pullAllBy(["a", 42], values, array); // $ExpectType AbcObject[]
     _.pullAllBy((value: AbcObject) => true, values, array); // $ExpectType AbcObject[]
     _.pullAllBy((value: AbcObject) => true)(values, array); // $ExpectType AbcObject[]
     _.pullAllBy((value: AbcObject) => true, values)(array); // $ExpectType AbcObject[]
     _.pullAllBy((value: AbcObject) => true)(values)(array); // $ExpectType AbcObject[]
-    _.pullAllBy('a', values, list); // $ExpectType ArrayLike<AbcObject>
+    _.pullAllBy("a", values, list); // $ExpectType ArrayLike<AbcObject>
     _.pullAllBy({ a: 42 }, values, list); // $ExpectType ArrayLike<AbcObject>
-    _.pullAllBy(['a', 42], values, list); // $ExpectType ArrayLike<AbcObject>
+    _.pullAllBy(["a", 42], values, list); // $ExpectType ArrayLike<AbcObject>
     _.pullAllBy((value: AbcObject) => true, values, list); // $ExpectType ArrayLike<AbcObject>
     _.pullAllBy((value: AbcObject) => true)(values, list); // $ExpectType ArrayLike<AbcObject>
     _.pullAllBy((value: AbcObject) => true, values)(list); // $ExpectType ArrayLike<AbcObject>
@@ -491,8 +491,8 @@ interface AbcObject {
         a: string;
         b: number;
     }
-    const t1: T1 = { a: 'a', b: 'b' };
-    const t2: T2 = { a: 'a', b: 1 };
+    const t1: T1 = { a: "a", b: "b" };
+    const t2: T2 = { a: "a", b: 1 };
 
     _.pullAllBy((value: T1 | T2) => value.a, [t2], [t1]); // $ExpectType T1[]
     _.pullAllBy((value: T1 | T2) => value.a)([t2])([t1]); // $ExpectType (T1 | T2)[]
@@ -517,8 +517,8 @@ interface AbcObject {
         a: string;
         b: number;
     }
-    const t1: T1 = { a: 'a', b: 'b' };
-    const t2: T2 = { a: 'a', b: 1 };
+    const t1: T1 = { a: "a", b: "b" };
+    const t2: T2 = { a: "a", b: 1 };
 
     _.pullAllWith((a, b) => a.a === b.a, [t2], [t1]); // $ExpectType T1[]
     _.pullAllWith((a: T1, b: T2) => a.a === b.a)([t2], [t1]); // $ExpectType T1[]
@@ -544,7 +544,7 @@ interface AbcObject {
 
     _.remove(predicateFn, list); // $ExpectType AbcObject[]
     _.remove(predicateFn)(list); // $ExpectType AbcObject[]
-    _.remove('', list); // $ExpectType AbcObject[]
+    _.remove("", list); // $ExpectType AbcObject[]
     _.remove({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
@@ -567,9 +567,9 @@ interface AbcObject {
 // _.sortedIndex
 {
     const list: ArrayLike<AbcObject> = [];
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
-    _.sortedIndex('a', 'abc'); // $ExpectType number
+    _.sortedIndex("a", "abc"); // $ExpectType number
     _.sortedIndex(value, list); // $ExpectType number
     _.sortedIndex(value)(list); // $ExpectType number
 }
@@ -577,26 +577,26 @@ interface AbcObject {
 // _.sortedIndexBy
 {
     const list: ArrayLike<AbcObject> = [];
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
     const stringIterator = (x: string) => 0;
     const arrayIterator = (x: AbcObject) => 0;
     const listIterator = (x: AbcObject) => 0;
 
-    _.sortedIndexBy(stringIterator, 'a', 'abc'); // $ExpectType number
+    _.sortedIndexBy(stringIterator, "a", "abc"); // $ExpectType number
     _.sortedIndexBy(listIterator, value, list); // $ExpectType number
     _.sortedIndexBy(listIterator)(value)(list); // $ExpectType number
-    _.sortedIndexBy('a', value, list); // $ExpectType number
+    _.sortedIndexBy("a", value, list); // $ExpectType number
     _.sortedIndexBy({ a: 42 }, value, list); // $ExpectType number
-    _.sortedIndexBy(['a', 42], value, list); // $ExpectType number
+    _.sortedIndexBy(["a", 42], value, list); // $ExpectType number
 }
 
 // _.sortedLastIndex
 {
     const list: ArrayLike<AbcObject> = [];
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
-    _.sortedLastIndex('a', 'abc'); // $ExpectType number
+    _.sortedLastIndex("a", "abc"); // $ExpectType number
     _.sortedLastIndex(value, list); // $ExpectType number
     _.sortedLastIndex(value)(list); // $ExpectType number
 }
@@ -604,18 +604,18 @@ interface AbcObject {
 // _.sortedLastIndexBy
 {
     const list: ArrayLike<AbcObject> = [];
-    const value: AbcObject = { a: 1, b: '', c: true };
+    const value: AbcObject = { a: 1, b: "", c: true };
 
     const stringIterator = (x: string) => 0;
     const arrayIterator = (x: AbcObject) => 0;
     const listIterator = (x: AbcObject) => 0;
 
-    _.sortedLastIndexBy(stringIterator, 'a', 'abc'); // $ExpectType number
+    _.sortedLastIndexBy(stringIterator, "a", "abc"); // $ExpectType number
     _.sortedLastIndexBy(listIterator, value, list); // $ExpectType number
     _.sortedLastIndexBy(listIterator)(value)(list); // $ExpectType number
-    _.sortedLastIndexBy('a', value, list); // $ExpectType number
+    _.sortedLastIndexBy("a", value, list); // $ExpectType number
     _.sortedLastIndexBy({ a: 42 }, value, list); // $ExpectType number
-    _.sortedLastIndexBy(['a', 42], value, list); // $ExpectType number
+    _.sortedLastIndexBy(["a", 42], value, list); // $ExpectType number
 }
 
 // _.take
@@ -641,7 +641,7 @@ interface AbcObject {
 
     _.takeRightWhile(predicateFn, list); // $ExpectType AbcObject[]
     _.takeRightWhile(predicateFn)(list); // $ExpectType AbcObject[]
-    _.takeRightWhile('a', list); // $ExpectType AbcObject[]
+    _.takeRightWhile("a", list); // $ExpectType AbcObject[]
     _.takeRightWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
@@ -652,7 +652,7 @@ interface AbcObject {
 
     _.takeWhile(predicateFn, list); // $ExpectType AbcObject[]
     _.takeWhile(predicateFn)(list); // $ExpectType AbcObject[]
-    _.takeWhile('a', list); // $ExpectType AbcObject[]
+    _.takeWhile("a", list); // $ExpectType AbcObject[]
     _.takeWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
@@ -673,7 +673,7 @@ interface AbcObject {
 
     _.unionBy(iteratee, array, list); // $ExpectType AbcObject[]
     _.unionBy(iteratee)(array)(list); // $ExpectType AbcObject[]
-    _.unionBy('a', array, list); // $ExpectType AbcObject[]
+    _.unionBy("a", array, list); // $ExpectType AbcObject[]
     _.unionBy({ a: 1 }, array, list); // $ExpectType AbcObject[]
 }
 
@@ -681,7 +681,7 @@ interface AbcObject {
 {
     const list: ArrayLike<AbcObject> | null | undefined = anything;
 
-    _.uniq('abc'); // $ExpectType string[]
+    _.uniq("abc"); // $ExpectType string[]
     _.uniq(list); // $ExpectType AbcObject[]
 }
 
@@ -689,13 +689,13 @@ interface AbcObject {
 {
     const list: ArrayLike<AbcObject> | null | undefined = anything;
 
-    const stringIterator = (value: string) => '';
+    const stringIterator = (value: string) => "";
     const listIterator = (value: AbcObject) => 0;
 
-    _.uniqBy(stringIterator, 'abc'); // $ExpectType string[]
+    _.uniqBy(stringIterator, "abc"); // $ExpectType string[]
     _.uniqBy(listIterator, list); // $ExpectType AbcObject[]
     _.uniqBy(listIterator)(list); // $ExpectType AbcObject[]
-    _.uniqBy('a', list); // $ExpectType AbcObject[]
+    _.uniqBy("a", list); // $ExpectType AbcObject[]
     _.uniqBy({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
@@ -703,7 +703,7 @@ interface AbcObject {
 {
     const list: ArrayLike<AbcObject> | null | undefined = anything;
 
-    _.sortedUniq('abc'); // $ExpectType string[]
+    _.sortedUniq("abc"); // $ExpectType string[]
     _.sortedUniq(list); // $ExpectType AbcObject[]
 }
 
@@ -711,13 +711,13 @@ interface AbcObject {
 {
     const list: ArrayLike<AbcObject> | null | undefined = anything;
 
-    const stringIterator = (value: string) => '';
+    const stringIterator = (value: string) => "";
     const listIterator = (value: AbcObject) => 0;
 
-    _.sortedUniqBy(stringIterator, 'abc'); // $ExpectType string[]
+    _.sortedUniqBy(stringIterator, "abc"); // $ExpectType string[]
     _.sortedUniqBy(listIterator, list); // $ExpectType AbcObject[]
     _.sortedUniqBy(listIterator)(list); // $ExpectType AbcObject[]
-    _.sortedUniqBy('a', list); // $ExpectType AbcObject[]
+    _.sortedUniqBy("a", list); // $ExpectType AbcObject[]
     _.sortedUniqBy({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
@@ -732,9 +732,9 @@ interface AbcObject {
 {
     const testUnzipWithList: ArrayLike<number[]|ArrayLike<number>> | null | undefined = anything;
 
-    _.unzipWith((value1: number, value2: number) => '', testUnzipWithList); // $ExpectType string[]
-    _.unzipWith((...values: number[]) => '', testUnzipWithList); // $ExpectType string[]
-    _.unzipWith((...values: number[]) => '')(testUnzipWithList); // $ExpectType string[]
+    _.unzipWith((value1: number, value2: number) => "", testUnzipWithList); // $ExpectType string[]
+    _.unzipWith((...values: number[]) => "", testUnzipWithList); // $ExpectType string[]
+    _.unzipWith((...values: number[]) => "")(testUnzipWithList); // $ExpectType string[]
 }
 
 // _.without
@@ -763,8 +763,8 @@ interface AbcObject {
     _.zip(array, list); // $ExpectType [AbcObject | undefined, AbcObject | undefined][]
     _.zip(array)(list); // $ExpectType [AbcObject | undefined, AbcObject | undefined][]
     _.zipAll([array, list, array]); // $ExpectType (AbcObject | undefined)[][]
-    _.zip(['a', 'b'], [1, 2]); // $ExpectType [number | undefined, string | undefined][]
-    _.zipAll<number | string | boolean>([[1, 2], ['a', 'b'], [true, false]]); // $ExpectType (string | number | boolean | undefined)[][]
+    _.zip(["a", "b"], [1, 2]); // $ExpectType [number | undefined, string | undefined][]
+    _.zipAll<number | string | boolean>([[1, 2], ["a", "b"], [true, false]]); // $ExpectType (string | number | boolean | undefined)[][]
 }
 
 // _.zipObject
@@ -772,19 +772,19 @@ interface AbcObject {
     const listOfKeys: ArrayLike<string> = [];
     const listOfValues: ArrayLike<number> = [];
 
-    _.zipObject([1, 2], ['a', 'b']); // $ExpectType Dictionary<number>
-    _.zipObject([1, 2])(['a', 'b']); // $ExpectType Dictionary<number>
+    _.zipObject([1, 2], ["a", "b"]); // $ExpectType Dictionary<number>
+    _.zipObject([1, 2])(["a", "b"]); // $ExpectType Dictionary<number>
     _.zipObject(listOfValues, listOfKeys); // $ExpectType Dictionary<number>
 
-    _.zipObjectDeep([1, 2], ['a.b[0].c', 'a.b[1].d']); // $ExpectType object
-    _.zipObjectDeep([1, 2])(['a.b[0].c', 'a.b[1].d']); // $ExpectType object
+    _.zipObjectDeep([1, 2], ["a.b[0].c", "a.b[1].d"]); // $ExpectType object
+    _.zipObjectDeep([1, 2])(["a.b[0].c", "a.b[1].d"]); // $ExpectType object
     _.zipObjectDeep(listOfValues, listOfKeys); // $ExpectType object
 }
 
 // _.zipWith
 {
-    _.zipWith((value1, value2) => 'a', [1, 2], [1, 2]); // $ExpectType string[]
-    _.zipWith((value1: number, value2: number) => 'a')([1, 2])([1, 2]); // $ExpectType string[]
+    _.zipWith((value1, value2) => "a", [1, 2], [1, 2]); // $ExpectType string[]
+    _.zipWith((value1: number, value2: number) => "a")([1, 2])([1, 2]); // $ExpectType string[]
 }
 
 /*********
@@ -793,9 +793,9 @@ interface AbcObject {
 
 // _.tap
 {
-    _.tap((value: string) => {}, ''); // $ExpectType ""
-    _.tap((value: string) => {})(''); // $ExpectType string
-    _.tap((value: string[]) => {}, ['']); // $ExpectType string[]
+    _.tap((value: string) => {}, ""); // $ExpectType ""
+    _.tap((value: string) => {})(""); // $ExpectType string
+    _.tap((value: string[]) => {}, [""]); // $ExpectType string[]
 }
 
 // _.thru
@@ -816,10 +816,10 @@ interface AbcObject {
 
     _.at(0, list); // $ExpectType AbcObject[]
     _.at(0)(list); // $ExpectType AbcObject[]
-    _.at([0, '1'], list); // $ExpectType AbcObject[]
-    _.at('a', obj); // $ExpectType (string | number | boolean)[]
-    _.at(['a' as 'a', 'b' as 'b'], obj); // $ExpectType (string | number | boolean)[]
-    _.at<AbcObject>(['a' as 'a', 'b' as 'b'])(obj); // $ExpectType (string | number | boolean)[]
+    _.at([0, "1"], list); // $ExpectType AbcObject[]
+    _.at("a", obj); // $ExpectType (string | number | boolean)[]
+    _.at(["a" as "a", "b" as "b"], obj); // $ExpectType (string | number | boolean)[]
+    _.at<AbcObject>(["a" as "a", "b" as "b"])(obj); // $ExpectType (string | number | boolean)[]
 }
 
 // _.countBy
@@ -831,16 +831,16 @@ interface AbcObject {
     const stringIterator = (value: string) => 1;
     const abcIterator = (value: AbcObject) => 1;
 
-    _.countBy(stringIterator, ''); // $ExpectType Dictionary<number>
-    _.countBy(stringIterator)(''); // $ExpectType Dictionary<number>
+    _.countBy(stringIterator, ""); // $ExpectType Dictionary<number>
+    _.countBy(stringIterator)(""); // $ExpectType Dictionary<number>
     _.countBy(abcIterator, list); // $ExpectType Dictionary<number>
-    _.countBy('', list); // $ExpectType Dictionary<number>
+    _.countBy("", list); // $ExpectType Dictionary<number>
     _.countBy({ a: 42 }, list); // $ExpectType Dictionary<number>
     _.countBy(abcIterator, dictionary); // $ExpectType Dictionary<number>
-    _.countBy('', dictionary); // $ExpectType Dictionary<number>
+    _.countBy("", dictionary); // $ExpectType Dictionary<number>
     _.countBy({ a: 42 }, dictionary); // $ExpectType Dictionary<number>
     _.countBy(abcIterator, numericDictionary); // $ExpectType Dictionary<number>
-    _.countBy('', numericDictionary); // $ExpectType Dictionary<number>
+    _.countBy("", numericDictionary); // $ExpectType Dictionary<number>
     _.countBy({ a: 42 }, numericDictionary); // $ExpectType Dictionary<number>
 }
 
@@ -856,7 +856,7 @@ interface AbcObject {
     const stringIterator = (char: string) => 1;
     const listIterator = (value: AbcObject) => 1;
 
-    _.each(stringIterator, ''); // $ExpectType string
+    _.each(stringIterator, ""); // $ExpectType string
     _.each(listIterator, array); // $ExpectType AbcObject[]
     _.each(listIterator)(array); // $ExpectType AbcObject[]
     _.each(listIterator, list); // $ExpectType ArrayLike<AbcObject>
@@ -878,7 +878,7 @@ interface AbcObject {
     const stringIterator = (char: string) => 1;
     const listIterator = (value: AbcObject) => 1;
 
-    _.eachRight(stringIterator, ''); // $ExpectType string
+    _.eachRight(stringIterator, ""); // $ExpectType string
     _.eachRight(listIterator, array); // $ExpectType AbcObject[]
     _.eachRight(listIterator)(array); // $ExpectType AbcObject[]
     _.eachRight(listIterator, list); // $ExpectType ArrayLike<AbcObject>
@@ -898,27 +898,27 @@ interface AbcObject {
 
     _.every(iterator, list); // $ExpectType boolean
     _.every(iterator)(list); // $ExpectType boolean
-    _.every('a', list); // $ExpectType boolean
-    _.every('a')(list); // $ExpectType boolean
+    _.every("a", list); // $ExpectType boolean
+    _.every("a")(list); // $ExpectType boolean
     _.every({ a: 42 }, list); // $ExpectType boolean
-    _.every(['a', 42], list); // $ExpectType boolean
-    _.every(['a', 42], list); // $ExpectType boolean
+    _.every(["a", 42], list); // $ExpectType boolean
+    _.every(["a", 42], list); // $ExpectType boolean
 
     _.every(iterator, dictionary); // $ExpectType boolean
     _.every(iterator)(dictionary); // $ExpectType boolean
-    _.every('a', dictionary); // $ExpectType boolean
-    _.every('a')(dictionary); // $ExpectType boolean
+    _.every("a", dictionary); // $ExpectType boolean
+    _.every("a")(dictionary); // $ExpectType boolean
     _.every({ a: 42 }, dictionary); // $ExpectType boolean
-    _.every(['a', 42], dictionary); // $ExpectType boolean
-    _.every(['a', 42], dictionary); // $ExpectType boolean
+    _.every(["a", 42], dictionary); // $ExpectType boolean
+    _.every(["a", 42], dictionary); // $ExpectType boolean
 
     _.every(iterator, numericDictionary); // $ExpectType boolean
     _.every(iterator)(numericDictionary); // $ExpectType boolean
-    _.every('a', numericDictionary); // $ExpectType boolean
-    _.every('a')(numericDictionary); // $ExpectType boolean
+    _.every("a", numericDictionary); // $ExpectType boolean
+    _.every("a")(numericDictionary); // $ExpectType boolean
     _.every({ a: 42 }, numericDictionary); // $ExpectType boolean
-    _.every(['a', 42], numericDictionary); // $ExpectType boolean
-    _.every(['a', 42], numericDictionary); // $ExpectType boolean
+    _.every(["a", 42], numericDictionary); // $ExpectType boolean
+    _.every(["a", 42], numericDictionary); // $ExpectType boolean
 }
 
 // _.filter
@@ -930,21 +930,21 @@ interface AbcObject {
     const listIterator = (value: AbcObject | undefined) => true;
     const listIteratorTypeGuard = (value: AbcObject | undefined): value is AbcObject => !!value;
 
-    _.filter(stringIterator, ''); // $ExpectType string[]
+    _.filter(stringIterator, ""); // $ExpectType string[]
 
     _.filter(listIterator, list); // $ExpectType (AbcObject | undefined)[]
     _.filter(listIterator)(list); // $ExpectType (AbcObject | undefined)[]
     _.filter(listIteratorTypeGuard, list); // $ExpectType AbcObject[]
-    _.filter('', list); // $ExpectType (AbcObject | undefined)[]
+    _.filter("", list); // $ExpectType (AbcObject | undefined)[]
     _.filter({ a: 42 }, list); // $ExpectType (AbcObject | undefined)[]
-    _.filter(['a', 42], list); // $ExpectType (AbcObject | undefined)[]
+    _.filter(["a", 42], list); // $ExpectType (AbcObject | undefined)[]
 
     _.filter(listIterator, dictionary); // $ExpectType (AbcObject | undefined)[]
     _.filter(listIterator)(dictionary); // $ExpectType (AbcObject | undefined)[]
     _.filter(listIteratorTypeGuard, dictionary); // $ExpectType AbcObject[]
-    _.filter('', dictionary); // $ExpectType (AbcObject | undefined)[]
+    _.filter("", dictionary); // $ExpectType (AbcObject | undefined)[]
     _.filter({ a: 42 }, dictionary); // $ExpectType (AbcObject | undefined)[]
-    _.filter(['a', 42], dictionary); // $ExpectType (AbcObject | undefined)[]
+    _.filter(["a", 42], dictionary); // $ExpectType (AbcObject | undefined)[]
 }
 
 // _.find
@@ -956,21 +956,21 @@ interface AbcObject {
     const listIterator = (value: AbcObject | null) => true;
     const listIteratorTypeGuard = (value: AbcObject | null): value is AbcObject => !!value;
 
-    _.find(stringIterator, ''); // $ExpectType string | undefined
+    _.find(stringIterator, ""); // $ExpectType string | undefined
 
     _.find(listIterator, list); // $ExpectType AbcObject | null | undefined
     _.find(listIterator)(list); // $ExpectType AbcObject | null | undefined
     _.find(listIteratorTypeGuard, list); // $ExpectType AbcObject | undefined
-    _.find('', list); // $ExpectType AbcObject | null | undefined
+    _.find("", list); // $ExpectType AbcObject | null | undefined
     _.find({ a: 42 }, list); // $ExpectType AbcObject | null | undefined
-    _.find(['a', 42], list); // $ExpectType AbcObject | null | undefined
+    _.find(["a", 42], list); // $ExpectType AbcObject | null | undefined
 
     _.find(listIterator, dictionary); // $ExpectType AbcObject | null | undefined
     _.find(listIterator)(dictionary); // $ExpectType AbcObject | null | undefined
     _.find(listIteratorTypeGuard, dictionary); // $ExpectType AbcObject | undefined
-    _.find('', dictionary); // $ExpectType AbcObject | null | undefined
+    _.find("", dictionary); // $ExpectType AbcObject | null | undefined
     _.find({ a: 42 }, dictionary); // $ExpectType AbcObject | null | undefined
-    _.find(['a', 42], dictionary); // $ExpectType AbcObject | null | undefined
+    _.find(["a", 42], dictionary); // $ExpectType AbcObject | null | undefined
 }
 
 // _.findLast
@@ -982,21 +982,21 @@ interface AbcObject {
     const listIterator = (value: AbcObject | null) => true;
     const listIteratorTypeGuard = (value: AbcObject | null): value is AbcObject => !!value;
 
-    _.findLast(stringIterator, ''); // $ExpectType string | undefined
+    _.findLast(stringIterator, ""); // $ExpectType string | undefined
 
     _.findLast(listIterator, list); // $ExpectType AbcObject | null | undefined
     _.findLast(listIterator)(list); // $ExpectType AbcObject | null | undefined
     _.findLast(listIteratorTypeGuard, list); // $ExpectType AbcObject | undefined
-    _.findLast('', list); // $ExpectType AbcObject | null | undefined
+    _.findLast("", list); // $ExpectType AbcObject | null | undefined
     _.findLast({ a: 42 }, list); // $ExpectType AbcObject | null | undefined
-    _.findLast(['a', 42], list); // $ExpectType AbcObject | null | undefined
+    _.findLast(["a", 42], list); // $ExpectType AbcObject | null | undefined
 
     _.findLast(listIterator, dictionary); // $ExpectType AbcObject | null | undefined
     _.findLast(listIterator)(dictionary); // $ExpectType AbcObject | null | undefined
     _.findLast(listIteratorTypeGuard, dictionary); // $ExpectType AbcObject | undefined
-    _.findLast('', dictionary); // $ExpectType AbcObject | null | undefined
+    _.findLast("", dictionary); // $ExpectType AbcObject | null | undefined
     _.findLast({ a: 42 }, dictionary); // $ExpectType AbcObject | null | undefined
-    _.findLast(['a', 42], dictionary); // $ExpectType AbcObject | null | undefined
+    _.findLast(["a", 42], dictionary); // $ExpectType AbcObject | null | undefined
 }
 
 // _.flatMap
@@ -1005,23 +1005,23 @@ interface AbcObject {
     const dictionary: { [key: string]: AbcObject } | null | undefined = anything;
     const numericDictionary: { [key: number]: AbcObject } | null | undefined = anything;
 
-    const stringIterator: (value: string) => string|string[] = (a) => '';
+    const stringIterator: (value: string) => string|string[] = (a) => "";
     const objIterator: (value: AbcObject) => AbcObject|AbcObject[] = (a) => anything;
 
-    _.flatMap(stringIterator, 'abc'); // $ExpectType string[]
+    _.flatMap(stringIterator, "abc"); // $ExpectType string[]
     _.flatMap(objIterator, list); // $ExpectType AbcObject[]
     _.flatMap(objIterator)(list); // $ExpectType AbcObject[]
-    _.flatMap('a', list); // $ExpectType any[]
+    _.flatMap("a", list); // $ExpectType any[]
     _.flatMap({ a: 42 }, list); // $ExpectType boolean[]
-    _.flatMap(['a', 42], list); // $ExpectType boolean[]
+    _.flatMap(["a", 42], list); // $ExpectType boolean[]
     _.flatMap(objIterator, dictionary); // $ExpectType AbcObject[]
-    _.flatMap('a', dictionary); // $ExpectType any[]
+    _.flatMap("a", dictionary); // $ExpectType any[]
     _.flatMap({ a: 42 }, dictionary); // $ExpectType boolean[]
-    _.flatMap(['a', 42], dictionary); // $ExpectType boolean[]
+    _.flatMap(["a", 42], dictionary); // $ExpectType boolean[]
     _.flatMap(objIterator, numericDictionary); // $ExpectType AbcObject[]
-    _.flatMap('a', numericDictionary); // $ExpectType any[]
+    _.flatMap("a", numericDictionary); // $ExpectType any[]
     _.flatMap({ a: 42 }, numericDictionary); // $ExpectType boolean[]
-    _.flatMap(['a', 42], numericDictionary); // $ExpectType boolean[]
+    _.flatMap(["a", 42], numericDictionary); // $ExpectType boolean[]
 }
 
 // _.flatMapDeep
@@ -1034,9 +1034,9 @@ interface AbcObject {
 
     _.flatMapDeep(iterator, list); // $ExpectType number[]
     _.flatMapDeep(iterator)(list); // $ExpectType number[]
-    _.flatMapDeep('a', list); // $ExpectType any[]
+    _.flatMapDeep("a", list); // $ExpectType any[]
     _.flatMapDeep({ a: 42 }, list); // $ExpectType boolean[]
-    _.flatMapDeep(['a', 42], list); // $ExpectType boolean[]
+    _.flatMapDeep(["a", 42], list); // $ExpectType boolean[]
     _.flatMapDeep(iterator, dictionary); // $ExpectType number[]
     _.flatMapDeep(iterator, numericDictionary); // $ExpectType number[]
 }
@@ -1051,9 +1051,9 @@ interface AbcObject {
 
     _.flatMapDepth(iterator, 5, list); // $ExpectType number[]
     _.flatMapDepth(iterator)(5)(list); // $ExpectType number[]
-    _.flatMapDepth('a', 5, list); // $ExpectType any[]
+    _.flatMapDepth("a", 5, list); // $ExpectType any[]
     _.flatMapDepth({ a: 42 }, 5, list); // $ExpectType boolean[]
-    _.flatMapDepth(['a', 42], 5, list); // $ExpectType boolean[]
+    _.flatMapDepth(["a", 42], 5, list); // $ExpectType boolean[]
     _.flatMapDepth(iterator, 5, dictionary); // $ExpectType number[]
     _.flatMapDepth(iterator, 5, numericDictionary); // $ExpectType number[]
 }
@@ -1070,7 +1070,7 @@ interface AbcObject {
     const stringIterator = (char: string) => 1;
     const listIterator = (value: AbcObject) => 1;
 
-    _.forEach(stringIterator, ''); // $ExpectType string
+    _.forEach(stringIterator, ""); // $ExpectType string
     _.forEach(listIterator, array); // $ExpectType AbcObject[]
     _.forEach(listIterator)(array); // $ExpectType AbcObject[]
     _.forEach(listIterator, list); // $ExpectType ArrayLike<AbcObject>
@@ -1092,7 +1092,7 @@ interface AbcObject {
     const stringIterator = (char: string) => 1;
     const listIterator = (value: AbcObject) => 1;
 
-    _.forEachRight(stringIterator, ''); // $ExpectType string
+    _.forEachRight(stringIterator, ""); // $ExpectType string
     _.forEachRight(listIterator, array); // $ExpectType AbcObject[]
     _.forEachRight(listIterator)(array); // $ExpectType AbcObject[]
     _.forEachRight(listIterator, list); // $ExpectType ArrayLike<AbcObject>
@@ -1110,19 +1110,19 @@ interface AbcObject {
     const stringIterator = (char: string) => 0;
     const listIterator = (value: AbcObject) => 0;
 
-    _.groupBy(stringIterator, ''); // $ExpectType Dictionary<string[]>
+    _.groupBy(stringIterator, ""); // $ExpectType Dictionary<string[]>
 
     _.groupBy(listIterator, list); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(listIterator)(list); // $ExpectType Dictionary<AbcObject[]>
-    _.groupBy('a', list); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy("a", list); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy({ a: 42 }, list); // $ExpectType Dictionary<AbcObject[]>
-    _.groupBy(['a', 42], list); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(["a", 42], list); // $ExpectType Dictionary<AbcObject[]>
 
     _.groupBy(listIterator, dictionary); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(listIterator)(dictionary); // $ExpectType Dictionary<AbcObject[]>
-    _.groupBy('a', dictionary); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy("a", dictionary); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy({ a: 42 }, dictionary); // $ExpectType Dictionary<AbcObject[]>
-    _.groupBy(['a', 42], dictionary); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(["a", 42], dictionary); // $ExpectType Dictionary<AbcObject[]>
 }
 
 // _.includes
@@ -1130,7 +1130,7 @@ interface AbcObject {
     const list: ArrayLike<AbcObject> | null | undefined = anything;
     const dictionary: lodash.Dictionary<AbcObject> | null | undefined = anything;
 
-    const target: AbcObject = { a: 1, b: '', c: true };
+    const target: AbcObject = { a: 1, b: "", c: true };
 
     _.includes(target, list); // $ExpectType boolean
     _.includes(target)(list); // $ExpectType boolean
@@ -1150,27 +1150,27 @@ interface AbcObject {
     const numericDictionary: lodash.NumericDictionary<AbcObject> | null | undefined = anything;
 
     const stringIterator = (value: string) => 1;
-    const listIterator = (value: AbcObject) => 'a';
+    const listIterator = (value: AbcObject) => "a";
     const listIteratorSymbol = (value: AbcObject) => Symbol.name;
 
-    _.keyBy(stringIterator, 'abcd'); // $ExpectType Dictionary<string>
+    _.keyBy(stringIterator, "abcd"); // $ExpectType Dictionary<string>
 
     _.keyBy(listIterator, list);
     _.keyBy(listIterator)(list);
     _.keyBy(listIteratorSymbol, list);
-    _.keyBy('a', list);
+    _.keyBy("a", list);
     _.keyBy({ a: 42 }, list);
-    _.keyBy(['a', 42], list);
+    _.keyBy(["a", 42], list);
 
     _.keyBy(listIterator, dictionary);
-    _.keyBy('a', dictionary);
+    _.keyBy("a", dictionary);
     _.keyBy({ a: 42 }, dictionary);
-    _.keyBy(['a', 42], dictionary);
+    _.keyBy(["a", 42], dictionary);
 
     _.keyBy(listIterator, numericDictionary);
-    _.keyBy('a', numericDictionary);
+    _.keyBy("a", numericDictionary);
     _.keyBy({ a: 42 }, numericDictionary);
-    _.keyBy(['a', 42], numericDictionary);
+    _.keyBy(["a", 42], numericDictionary);
 }
 
 //_.invoke
@@ -1188,17 +1188,17 @@ interface AbcObject {
         d: 4
     }
 
-    _.invoke('[1]', boolArray); // $ExpectType any
-    _.invoke('[1]')(boolArray); // $ExpectType any
-    _.invoke(['[1]', 2], boolArray); // $ExpectType any
+    _.invoke("[1]", boolArray); // $ExpectType any
+    _.invoke("[1]")(boolArray); // $ExpectType any
+    _.invoke(["[1]", 2], boolArray); // $ExpectType any
 
-    _.invoke('a.toString', numDict); // $ExpectType any
-    _.invoke(['a.toString', 2], numDict); // $ExpectType any
-    _.invoke('a[0].toString', nestedDict); // $ExpectType any
-    _.invoke(['a', 0, 'toString'], nestedDict); // $ExpectType any
+    _.invoke("a.toString", numDict); // $ExpectType any
+    _.invoke(["a.toString", 2], numDict); // $ExpectType any
+    _.invoke("a[0].toString", nestedDict); // $ExpectType any
+    _.invoke(["a", 0, "toString"], nestedDict); // $ExpectType any
 
-    _.invokeArgs('a.toString', [16], numDict); // $ExpectType any
-    _.invokeArgs('a.toString')([16])(numDict); // $ExpectType any
+    _.invokeArgs("a.toString", [16], numDict); // $ExpectType any
+    _.invokeArgs("a.toString")([16])(numDict); // $ExpectType any
 }
 
 //_.invokeMap
@@ -1212,16 +1212,16 @@ interface AbcObject {
     };
     const numDict: lodash.Dictionary<number> | null | undefined = anything;
 
-    _.invokeMap('toString', numArray); // $ExpectType any[]
-    _.invokeMap('toString')(numArray); // $ExpectType any[]
+    _.invokeMap("toString", numArray); // $ExpectType any[]
+    _.invokeMap("toString")(numArray); // $ExpectType any[]
     _.invokeMap(Number.prototype.toString, numArray); // $ExpectType string[]
-    _.invokeMap('toString', numDict); // $ExpectType any[]
+    _.invokeMap("toString", numDict); // $ExpectType any[]
     _.invokeMap(Number.prototype.toString, numDict); // $ExpectType string[]
 
-    _.invokeArgsMap('toString', [16], numArray); // $ExpectType any[]
-    _.invokeArgsMap('toString')([16])(numArray); // $ExpectType any[]
+    _.invokeArgsMap("toString", [16], numArray); // $ExpectType any[]
+    _.invokeArgsMap("toString")([16])(numArray); // $ExpectType any[]
     _.invokeArgsMap(Number.prototype.toString, [16], numArray); // $ExpectType string[]
-    _.invokeArgsMap('toString', [16], numDict); // $ExpectType any[]
+    _.invokeArgsMap("toString", [16], numDict); // $ExpectType any[]
     _.invokeArgsMap(Number.prototype.toString, [16], numDict); // $ExpectType string[]
 }
 
@@ -1237,9 +1237,9 @@ interface AbcObject {
     _.map(listIterator)(array); // $ExpectType number[]
     _.map(listIterator, list); // $ExpectType number[]
     _.map(listIterator, dictionary); // $ExpectType number[]
-    _.map('a', array); // $ExpectType number[]
+    _.map("a", array); // $ExpectType number[]
     _.map({ a: 42 }, list); // $ExpectType boolean[]
-    _.map(['a', 42], dictionary); // $ExpectType boolean[]
+    _.map(["a", 42], dictionary); // $ExpectType boolean[]
 }
 
 // _.partition
@@ -1247,26 +1247,26 @@ interface AbcObject {
     // $ExpectType [any[], any[]]
     _.partition((n) => {
         n; // $ExpectType any
-        return n < 'c';
+        return n < "c";
     }, anything);
 
     // $ExpectType [any[], any[]]
-    _.partition((n: any) => n < 'c')(anything);
+    _.partition((n: any) => n < "c")(anything);
 
     // $ExpectType [string[], string[]]
     _.partition((n) => {
         n; // $ExpectType string
-        return n < 'c';
-    }, 'abcd');
+        return n < "c";
+    }, "abcd");
 }
 
 // _.reduce
 {
-    _.reduce((s: string, num: number) => s + num, '', [1, 2, 3]); // $ExpectType string
-    _.reduce((s: string, num: number) => s + num)('')([1, 2, 3]); // $ExpectType string
+    _.reduce((s: string, num: number) => s + num, "", [1, 2, 3]); // $ExpectType string
+    _.reduce((s: string, num: number) => s + num)("")([1, 2, 3]); // $ExpectType string
 
-    _.reduceRight((num: number, s: string) => s + num, '', [1, 2, 3]); // $ExpectType string
-    _.reduceRight((num: number, s: string) => s + num)('')([1, 2, 3]); // $ExpectType string
+    _.reduceRight((num: number, s: string) => s + num, "", [1, 2, 3]); // $ExpectType string
+    _.reduceRight((num: number, s: string) => s + num)("")([1, 2, 3]); // $ExpectType string
 }
 
 // _.reject
@@ -1277,13 +1277,13 @@ interface AbcObject {
     const stringIterator = (char: string) => true;
     const listIterator = (value: AbcObject) => true;
 
-    _.reject(stringIterator, ''); // $ExpectType string[]
+    _.reject(stringIterator, ""); // $ExpectType string[]
     _.reject(listIterator, list); // $ExpectType AbcObject[]
     _.reject(listIterator)(list); // $ExpectType AbcObject[]
     _.reject(listIterator, dictionary); // $ExpectType AbcObject[]
-    _.reject('a', list); // $ExpectType AbcObject[]
+    _.reject("a", list); // $ExpectType AbcObject[]
     _.reject({ a: 42 }, list); // $ExpectType AbcObject[]
-    _.reject(['a', 42], list); // $ExpectType AbcObject[]
+    _.reject(["a", 42], list); // $ExpectType AbcObject[]
 }
 
 // _.sample
@@ -1291,10 +1291,10 @@ interface AbcObject {
     const array: string[] | null | undefined = anything;
     const list: ArrayLike<string> | null | undefined = anything;
 
-    _.sample('abc'); // $ExpectType string | undefined
+    _.sample("abc"); // $ExpectType string | undefined
     _.sample(array); // $ExpectType string | undefined
     _.sample(list); // $ExpectType string | undefined
-    _.sample({a: 'foo'}); // $ExpectType string | undefined
+    _.sample({a: "foo"}); // $ExpectType string | undefined
 }
 
 // _.sampleSize
@@ -1302,11 +1302,11 @@ interface AbcObject {
     const array: string[] | null | undefined = anything;
     const list: ArrayLike<string> | null | undefined = anything;
 
-    _.sampleSize(42, 'abc'); // $ExpectType string[]
-    _.sampleSize(42)('abc'); // $ExpectType string[]
+    _.sampleSize(42, "abc"); // $ExpectType string[]
+    _.sampleSize(42)("abc"); // $ExpectType string[]
     _.sampleSize(42, array); // $ExpectType string[]
     _.sampleSize(42, list); // $ExpectType string[]
-    _.sampleSize(42, {a: 'foo'}); // $ExpectType string[]
+    _.sampleSize(42, {a: "foo"}); // $ExpectType string[]
 }
 
 // _.shuffle
@@ -1314,7 +1314,7 @@ interface AbcObject {
     const list: ArrayLike<AbcObject> | null | undefined = anything;
     const dictionary: lodash.Dictionary<AbcObject> | null | undefined = anything;
 
-    _.shuffle('abc'); // $ExpectType string[]
+    _.shuffle("abc"); // $ExpectType string[]
     _.shuffle(list); // $ExpectType AbcObject[]
     _.shuffle(dictionary); // $ExpectType AbcObject[]
 }
@@ -1328,7 +1328,7 @@ interface AbcObject {
     _.size(array); // $ExpectType number
     _.size(list); // $ExpectType number
     _.size(dictionary); // $ExpectType number
-    _.size(''); // $ExpectType number
+    _.size(""); // $ExpectType number
 }
 
 // _.some
@@ -1343,21 +1343,21 @@ interface AbcObject {
 
     _.some(listIterator, list); // $ExpectType boolean
     _.some(listIterator)(list); // $ExpectType boolean
-    _.some('a', list); // $ExpectType boolean
+    _.some("a", list); // $ExpectType boolean
     _.some({ a: 42 }, list); // $ExpectType boolean
-    _.some(['a', 42], list); // $ExpectType boolean
+    _.some(["a", 42], list); // $ExpectType boolean
 
     _.some(listIterator, dictionary); // $ExpectType boolean
     _.some(listIterator)(dictionary); // $ExpectType boolean
-    _.some('a', dictionary); // $ExpectType boolean
+    _.some("a", dictionary); // $ExpectType boolean
     _.some({ a: 42 }, dictionary); // $ExpectType boolean
-    _.some(['a', 42], dictionary); // $ExpectType boolean
+    _.some(["a", 42], dictionary); // $ExpectType boolean
 
     _.some(listIterator, numericDictionary); // $ExpectType boolean
     _.some(listIterator)(numericDictionary); // $ExpectType boolean
-    _.some('a', numericDictionary); // $ExpectType boolean
+    _.some("a", numericDictionary); // $ExpectType boolean
     _.some({ a: 42 }, numericDictionary); // $ExpectType boolean
-    _.some(['a', 42], numericDictionary); // $ExpectType boolean
+    _.some(["a", 42], numericDictionary); // $ExpectType boolean
 }
 
 // _.sortBy
@@ -1367,15 +1367,15 @@ interface AbcObject {
 
     const listIterator = (value: AbcObject) => 0;
 
-    _.sortBy(_.identity, 'bca'); // $ExpectType string[]
+    _.sortBy(_.identity, "bca"); // $ExpectType string[]
     _.sortBy(listIterator, list); // $ExpectType AbcObject[]
     _.sortBy(listIterator)(list); // $ExpectType AbcObject[]
-    _.sortBy('a', list); // $ExpectType AbcObject[]
+    _.sortBy("a", list); // $ExpectType AbcObject[]
     _.sortBy({ a: 42 }, list); // $ExpectType AbcObject[]
 
     _.sortBy(_.identity, dictionary); // $ExpectType AbcObject[]
     _.sortBy(listIterator, dictionary); // $ExpectType AbcObject[]
-    _.sortBy('a', dictionary); // $ExpectType AbcObject[]
+    _.sortBy("a", dictionary); // $ExpectType AbcObject[]
     _.sortBy({ a: 42 }, dictionary); // $ExpectType AbcObject[]
 }
 
@@ -1386,16 +1386,16 @@ interface AbcObject {
 
     const listIterator = (value: AbcObject) => 0;
 
-    _.orderBy(_.identity, 'asc', 'bca'); // $ExpectType string[]
-    _.orderBy(_.identity, true, 'bca'); // $ExpectType string[]
+    _.orderBy(_.identity, "asc", "bca"); // $ExpectType string[]
+    _.orderBy(_.identity, true, "bca"); // $ExpectType string[]
     _.orderBy(listIterator, true, list); // $ExpectType AbcObject[]
     _.orderBy(listIterator)(true)(list); // $ExpectType AbcObject[]
-    _.orderBy('a', true, list); // $ExpectType AbcObject[]
+    _.orderBy("a", true, list); // $ExpectType AbcObject[]
     _.orderBy({ a: 42 }, true, list); // $ExpectType AbcObject[]
 
     _.orderBy(_.identity, true, dictionary); // $ExpectType AbcObject[]
     _.orderBy(listIterator, true, dictionary); // $ExpectType AbcObject[]
-    _.orderBy('a', true, dictionary); // $ExpectType AbcObject[]
+    _.orderBy("a", true, dictionary); // $ExpectType AbcObject[]
     _.orderBy({ a: 42 }, true, dictionary); // $ExpectType AbcObject[]
 }
 
@@ -1431,8 +1431,8 @@ interface AbcObject {
 
 // _.bind
 {
-    _.bind(anything, (a: string, b: number) => true); // $ExpectType (...args: any[]) => any
-    _.bind(anything)((a: string, b: number) => true); // $ExpectType (...args: any[]) => any
+    _.bind((a: string, b: number) => true, anything); // $ExpectType (...args: any[]) => any
+    _.bind((a: string, b: number) => true)(anything); // $ExpectType (...args: any[]) => any
 }
 
 // _.bindAll
@@ -1445,8 +1445,8 @@ interface AbcObject {
 
     const object: SampleObject = anything;
 
-    _.bindAll('c', object); // $ExpectType SampleObject
-    _.bindAll(['b', 'c'], object); // $ExpectType SampleObject
+    _.bindAll("c", object); // $ExpectType SampleObject
+    _.bindAll(["b", "c"], object); // $ExpectType SampleObject
 }
 
 // _.bindKey
@@ -1455,27 +1455,27 @@ interface AbcObject {
         foo: (a: number, b: string) => true,
     };
 
-    _.bindKey('foo', object); // $ExpectType (...args: any[]) => any
-    _.bindKey('foo')(object); // $ExpectType (...args: any[]) => any
+    _.bindKey(object, "foo"); // $ExpectType (...args: any[]) => any
+    _.bindKey(object)("foo"); // $ExpectType (...args: any[]) => any
 }
 
 // _.curry
 {
     const testCurryFn = (a: string, b: number, c: boolean): [string, number, boolean] => [a, b, c];
 
-    _.curry(testCurryFn)('1', 2, true); // $ExpectType [string, number, boolean]
-    _.curry(testCurryFn)('1', 2)(true); // $ExpectType [string, number, boolean]
-    _.curry(testCurryFn)('1')(2, true); // $ExpectType [string, number, boolean]
-    _.curry(testCurryFn)('1')(2)(true); // $ExpectType [string, number, boolean]
-    _.curry(testCurryFn)('1', 2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
-    _.curry(testCurryFn)('1')(2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
-    _.curry(testCurryFn)('1'); // $ExpectType CurriedFunction2<number, boolean, [string, number, boolean]>
+    _.curry(testCurryFn)("1", 2, true); // $ExpectType [string, number, boolean]
+    _.curry(testCurryFn)("1", 2)(true); // $ExpectType [string, number, boolean]
+    _.curry(testCurryFn)("1")(2, true); // $ExpectType [string, number, boolean]
+    _.curry(testCurryFn)("1")(2)(true); // $ExpectType [string, number, boolean]
+    _.curry(testCurryFn)("1", 2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
+    _.curry(testCurryFn)("1")(2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
+    _.curry(testCurryFn)("1"); // $ExpectType CurriedFunction2<number, boolean, [string, number, boolean]>
     _.curry(testCurryFn); // $ExpectType CurriedFunction3<string, number, boolean, [string, number, boolean]>
 
-    _.curryRight(testCurryFn)('1', 2, true); // $ExpectType [string, number, boolean]
-    _.curryRight(testCurryFn)(true)('1', 2); // $ExpectType [string, number, boolean]
-    _.curryRight(testCurryFn)(2, true)('1'); // $ExpectType [string, number, boolean]
-    _.curryRight(testCurryFn)(true)(2)('1'); // $ExpectType [string, number, boolean]
+    _.curryRight(testCurryFn)("1", 2, true); // $ExpectType [string, number, boolean]
+    _.curryRight(testCurryFn)(true)("1", 2); // $ExpectType [string, number, boolean]
+    _.curryRight(testCurryFn)(2, true)("1"); // $ExpectType [string, number, boolean]
+    _.curryRight(testCurryFn)(true)(2)("1"); // $ExpectType [string, number, boolean]
     _.curryRight(testCurryFn)(2, true); // $ExpectType RightCurriedFunction1<string, [string, number, boolean]>
     _.curryRight(testCurryFn)(true)(2); // $ExpectType RightCurriedFunction1<string, [string, number, boolean]>
     _.curryRight(testCurryFn)(true); // $ExpectType RightCurriedFunction2<string, number, [string, number, boolean]>
@@ -1485,12 +1485,15 @@ interface AbcObject {
 // _.debounce
 {
     const func = (a: number, b: string) => true;
-    const result = _.debounce(42, func);
-    result(1, 'a'); // $ExpectType boolean
-    result.cancel(); // $ExpectType void
-    result.flush(); // $ExpectType void
+    const result1 = _.debounce(42, func);
+    result1(1, "a"); // $ExpectType boolean
+    result1.cancel(); // $ExpectType void
+    result1.flush(); // $ExpectType void
 
-    _.debounce(42)(func); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
+    const result2 = _.debounce(42)(func);
+    result2(1, "a"); // $ExpectType boolean
+    result2.cancel(); // $ExpectType void
+    result2.flush(); // $ExpectType void
 }
 
 // _.defer
@@ -1509,458 +1512,257 @@ interface AbcObject {
     // TODO: fix - output arguments should be reversed
     _.flip((a: string, b: number) => true); // $ExpectType (a: string, b: number) => boolean
 }
-/*
+
 // _.flow
 {
-    const Fn1 = (n: number) => 0;
-    const Fn2 = (m: number, n: number) => 0;
-    const Fn3 = (a: number) => '';
-    const Fn4 = (a: string) => 0;
+    const Fn1 = (a: number) => 0;
+    const Fn2 = (a: number, b: number) => 0;
+    const Fn3 = (a: number) => "";
+    const Fn4 = (a: string) => true;
 
-    {
-        // type infer test
-        const result: (m: number, n: number) => number;
-
-        _.flow(Fn2, Fn1);
-        _.flow(Fn2, Fn1, Fn1);
-        _.flow(Fn2, Fn1, Fn1, Fn1);
-        _.flow(Fn2, Fn1, Fn1, Fn1, Fn1);
-        _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
-        _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
-        _.flow(Fn2, Fn1, Fn3, Fn4);
-        _.flow([Fn2, Fn1, Fn3, Fn4]);
-    }
-
-    {
-        const result: (m: number, n: number) => number;
-
-        _.flow(Fn2, Fn1);
-        _.flow(Fn2, Fn1, Fn1);
-        _.flow(Fn2, Fn1, Fn1, Fn1);
-        _.flow([Fn1, Fn1, Fn1, Fn2]);
-    }
+    _.flow(Fn1, Fn1); // $ExpectType (a1: number) => number
+    _.flow(Fn1, Fn3); // $ExpectType (a1: number) => string
+    _.flow(Fn2, Fn1, Fn1); // $ExpectType (a1: number, a2: number) => number
+    _.flow(Fn2, Fn1, Fn1, Fn1); // $ExpectType (a1: number, a2: number) => number
+    _.flow(Fn2, Fn1, Fn1, Fn1, Fn1); // $ExpectType (a1: number, a2: number) => number
+    _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1); // $ExpectType (a1: number, a2: number) => number
+    _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1); // $ExpectType (a1: number, a2: number) => number
+    _.flow(Fn2, Fn3); // $ExpectType (a1: number, a2: number) => string
+    _.flow(Fn2, Fn3, Fn4); // $ExpectType (a1: number, a2: number) => boolean
+    _.flow(Fn2, Fn1, Fn3, Fn4); // $ExpectType (a1: number, a2: number) => boolean
+    _.flow([Fn2, Fn1, Fn3, Fn4]); // $ExpectType (...args: any[]) => any
 }
 
 // _.flowRight
 {
-    const Fn1 = (n: number) => 0;
-    const Fn2 = (m: number, n: number) => 0;
+    const Fn1 = (a: number) => 0;
+    const Fn2 = (a: number, b: number) => 0;
+    const Fn3 = (a: number) => "";
+    const Fn4 = (a: string) => true;
 
-    {
-        const result: (m: number, n: number) => number;
-
-        _.flowRight(Fn1, Fn2);
-        _.flowRight(Fn1, Fn1, Fn2);
-        _.flowRight(Fn1, Fn1, Fn1, Fn2);
-        _.flowRight([Fn1, Fn1, Fn1, Fn2]);
-    }
+    _.flowRight(Fn1, Fn1); // $ExpectType (a1: number) => number
+    _.flowRight(Fn3, Fn1); // $ExpectType (a1: number) => string
+    _.flowRight(Fn1, Fn1, Fn2); // $ExpectType (a1: number, a2: number) => number
+    _.flowRight(Fn1, Fn1, Fn1, Fn2); // $ExpectType (a1: number, a2: number) => number
+    _.flowRight(Fn1, Fn1, Fn1, Fn1, Fn2); // $ExpectType (a1: number, a2: number) => number
+    _.flowRight(Fn1, Fn1, Fn1, Fn1, Fn1, Fn2); // $ExpectType (a1: number, a2: number) => number
+    _.flowRight(Fn1, Fn1, Fn1, Fn1, Fn1, Fn1, Fn2); // $ExpectType (a1: number, a2: number) => number
+    _.flowRight(Fn3, Fn2); // $ExpectType (a1: number, a2: number) => string
+    _.flowRight(Fn4, Fn3, Fn2); // $ExpectType (a1: number, a2: number) => boolean
+    _.flowRight(Fn4, Fn3, Fn1, Fn2); // $ExpectType (a1: number, a2: number) => boolean
+    _.flowRight([Fn4, Fn3, Fn1, Fn2]); // $ExpectType (...args: any[]) => any
 }
 
 // _.memoize
 {
-    {
-        const fn: any = () => {};
-        const memoizedFunction: _.MemoizedFunction = fn;
-        const cache: _.MapCache = memoizedFunction.cache;
-    }
-
-    interface MemoizedResultFn extends _.MemoizedFunction {
-        (a1: string, a2: number): boolean;
-    }
-
     const memoizeFn = (a1: string, a2: number) => true;
-    const memoizeResolverFn = (a1: string, a2: number) => '';
 
-    {
-        const result: MemoizedResultFn;
-
-        _.memoize(memoizeFn);
-        _.memoize(memoizeFn, memoizeResolverFn);
-
-        result('foo', 1);
-        result.cache.get('foo1');
-    }
-
-    interface MemoizeCache<K, V> {
-        delete(key: K): boolean;
-        get(key: K): V;
-        has(key: K): boolean;
-        set(key: K, value: V): this;
-        clear(): void;
-    }
-    class MemoizeCacheClass implements MemoizeCache<any, any> {
-        delete: (key: any) => true;
-        get: (key: any) => 1;
-        has: (key: any) => true;
-        set: (key: any, value: any) => this;
-        clear: () => { };
-    }
-
-    _.memoize.Cache = MemoizeCacheClass;
+    const result = _.memoize((a1: string, a2: number) => true);
+    result("a", 1); // $ExpectType boolean
+    result.cache.delete("key"); // $ExpectType boolean
+    result.cache.get("key"); // $ExpectType any
+    result.cache.has("key"); // $ExpectType boolean
+    result.cache.set("key", "value"); // $ExpectType Dictionary<any>
+    result.cache.clear(); // $ExpectType void
 }
 
 // _.overArgs
 {
-    type Func1 = (a: boolean) => boolean;
-    type Func2 = (a: boolean, b: boolean) => boolean;
-
-    const func1: Func1 = (a) => true;
-    const func2: Func2 = (a, b) => true;
-
+    const func1 = (a: boolean) => true;
+    const func2 = (a: boolean, b: boolean) => true;
     const transform1 = (a: string) => true;
     const transform2 = (b: number) => true;
 
-    {
-        const result: (a: string) => boolean;
-
-        _.overArgs(func1, transform1);
-        _.overArgs(func1, [transform1]);
-    }
-
-    {
-        const result: (a: string, b: number) => boolean;
-
-        _.overArgs(func2, transform1, transform2);
-        _.overArgs(func2, [transform1, transform2]);
-    }
+    _.overArgs(func1, transform1);
+    _.overArgs(func1)(transform1);
+    _.overArgs(func1, [transform1]);
+    _.overArgs(func2, [transform1, transform2]);
+    _.overArgs(func2)([transform1, transform2]);
 }
 
 // _.negate
 {
-    type PredicateFn = (a1: number, a2: number) => boolean;
-
-    const predicate = (a1: number, a2: number) => a1 > a2;
-
-    {
-        const result: PredicateFn;
-
-        _.negate<PredicateFn>(predicate);
-    }
+    _.negate((a1: number, a2: number) => true); // $ExpectType (a1: number, a2: number) => boolean
 }
 
 // _.once
 {
-    type Func = (a: string, b: number) => boolean;
+    const func = (a: string, b: number) => true;
 
-    const func: Func = (a, b) => true;
-
-    {
-        const result: Func;
-
-        _.once(func);
-    }
+    _.once(func); // $ExpectType (a: string, b: number) => boolean
 }
 
-//_.rearg
+// _.rearg
 {
     const testReargFn = (a: string, b: string, c: string) => [a, b, c];
-    _.rearg(testReargFn, 2, 0, 1)('b', 'c', 'a'); // $ExpectType string[]
-    _.rearg(testReargFn, [2, 0, 1])('b', 'c', 'a'); // $ExpectType string[]
+    _.rearg([2, 0, 1], testReargFn); // $ExpectType (...args: any[]) => any
+    _.rearg([2, 0, 1])(testReargFn); // $ExpectType (...args: any[]) => any
 }
 
 // _.rest
 {
-    type Func = (a: string, b: number[]) => boolean;
-    type ResultFunc = (a: string, ...b: number[]) => boolean;
-
-    const func: Func = (a, b) => true;
-
-    {
-        const result: ResultFunc;
-
-        _.rest(func);
-        _.rest(func, 1);
-    }
+    _.rest((a, b) => true); // $ExpectType (...args: any[]) => any
 }
 
-//_.spread
+// _.spread
 {
-    type SampleFunc = (args: Array<number|string>) => boolean;
-    type Sample(a: number, b: string) => boolean;
-
-    const func: SampleFunc = (a) => true;
-
-    {
-        const result: SampleResult;
-
-        _.spread(func);
-    }
+    _.spread((a) => true); // $ExpectType (...args: any[]) => boolean
 }
 
 // _.throttle
 {
-    type SampleFunc = (n: number, s: string) => boolean;
+    const func = (a: number, b: string) => true;
+    const result1 = _.throttle(42, func);
+    result1(1, "a"); // $ExpectType boolean
+    result1.cancel(); // $ExpectType void
+    result1.flush(); // $ExpectType void
 
-    interface Options {
-        leading?: boolean;
-        trailing?: boolean;
-    }
-
-    interface ResultFunc {
-        (n: number, s: string): boolean;
-        cancel(): void;
-        flush(): void;
-    }
-
-    const func: SampleFunc = (a, b) => true;
-    const options: Options = {};
-
-    {
-        const result: ResultFunc;
-
-        _.throttle<SampleFunc>(func);
-        _.throttle<SampleFunc>(func, 42);
-        _.throttle<SampleFunc>(func, 42, options);
-    }
+    const result2 = _.throttle(42)(func);
+    result2(1, "a"); // $ExpectType boolean
+    result2.cancel(); // $ExpectType void
+    result2.flush(); // $ExpectType void
 }
 
 // _.unary
 {
-    type Func = (a: string, b: number[]) => boolean;
-
-    const func: Func = (a, b) => true;
-
-    {
-        const result: Func;
-
-        _.unary(func);
-    }
+    _.unary((a: string, b: number) => true); // $ExpectType (arg1: string) => boolean
 }
 
 // _.wrap
 {
-    type SampleValue = {a: number; b: string; c: boolean}
-    type Sample(arg2: number, arg3: string) => boolean;
+    const value: AbcObject = { a: 1, b: "", c: true };
+    const wrapper = (a: AbcObject, b: number, c: string) => true;
 
-    {
-        type SampleWrapper = (arg1: SampleValue, arg2: number, arg3: string) => boolean;
-
-        const value: SampleValue = { a: 1, b: '', c: true };
-        const wrapper: SampleWrapper = (a, b, c) => true;
-        const result: SampleResult;
-
-        _.wrap(value, wrapper);
-    }
+    _.wrap(wrapper, value); // $ExpectType (...args: any[]) => boolean
 }
-*/
+
 /********
  * Lang *
  ********/
-/*
+
 // _.castArray
 {
-    {
-        const result: number[];
-
-        _.castArray(42);
-    }
+    _.castArray(42); // $ExpectType number[]
 }
 
 // _.clone
 {
-    {
-        const result: number;
-
-        _.clone<number>(42);
-    }
-    {
-        const result: string[];
-
-        _.clone<string[]>(['']);
-    }
-
-    {
-        const result: {a: {b: number;};};
-
-        _.clone<{a: {b: number;};}>({a: {b: 42}});
-    }
+    _.clone(42); // $ExpectType 42
+    _.clone([""]); // $ExpectType string[]
+    _.clone({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
 }
 
 // _.cloneDeep
 {
-    {
-        const result: number;
-
-        _.cloneDeep<number>(42);
-    }
-
-    {
-        const result: string[];
-
-        _.cloneDeep<string[]>(['']);
-    }
-
-    {
-        const result: {a: {b: number;};};
-
-        _.cloneDeep<{a: {b: number;};}>({a: {b: 42}});
-    }
+    _.cloneDeep(42); // $ExpectType 42
+    _.cloneDeep([""]); // $ExpectType string[]
+    _.cloneDeep({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
 }
 
 // _.cloneDeepWith
 {
-    type CloneDeepWithCustomizer<V, R> = (value: V) => R;
-
-    {
-        const customizer: CloneDeepWithCustomizer<number, string> = (x) => '';
-        const result: string;
-
-        _.cloneDeepWith(42, customizer);
-    }
-
-    {
-        const customizer: CloneDeepWithCustomizer<number[], string[]> = (x) => [];
-        const result: string[];
-
-        _.cloneDeepWith([42], customizer);
-    }
-
-    {
-        const customizer: CloneDeepWithCustomizer<{a: {b: number;};}, {a: {b: string;};}> = (x) => ({ a: { b: '' } });
-        const result: {a: {b: string;};};
-
-        _.cloneDeepWith({a: {b: 42}}, customizer);
-    }
+    _.cloneDeepWith((x) => "", 42); // $ExpectType any
+    _.cloneDeepWith((x) => "")(42); // $ExpectType any
+    _.cloneDeepWith((x) => "", [42]); // $ExpectType any
+    _.cloneDeepWith((x) => "", { a: { b: 42 } }); // $ExpectType any
 }
 
 // _.cloneWith
 {
-    type CloneWithCustomizer<V, R> = (value: V) => R;
-
-    {
-        const customizer: CloneWithCustomizer<number, string> = (x) => '';
-        const result: string;
-
-        _.cloneWith(42, customizer);
-    }
-
-    {
-        const customizer: CloneWithCustomizer<number[], string[]> = (x) => [];
-        const result: string[];
-
-        _.cloneWith([42], customizer);
-    }
-
-    {
-        const customizer: CloneWithCustomizer<{a: {b: number;};}, {a: {b: string;};}> = (x) => ({ a: { b: '' } });
-        const result: {a: {b: string;};};
-
-        _.cloneWith({a: {b: 42}}, customizer);
-    }
+    _.cloneWith((x): "" | undefined => "", 42); // $ExpectType "" | 42
+    _.cloneWith((x: number): "" | undefined => "")(42); // $ExpectType number | ""
+    _.cloneWith((x: any): "" | undefined => "")(42); // $ExpectType any
+    _.cloneWith((x): "" | undefined => "", [42]); // $ExpectType "" | number[]
+    _.cloneWith((x): "" | undefined => "", { a: { b: 42 } }); // $ExpectType "" | { a: { b: number; }; }
 }
 
 // _.conforms
 {
-    const result: boolean = _.conforms({foo: (v: string) => false})({foo: 'foo'});
-    const result2: boolean = _.conforms({})({foo: 'foo'});
+    _.conforms({foo: (v: string) => false})({foo: "foo"}); // $ExpectType boolean
 }
 
 // _.conformsTo
 {
-    const result: boolean = _.conformsTo({foo: 'foo'}, {foo: (v: string) => false});
-    const result2: boolean = _.conformsTo({}, {foo: (v: string) => false});
+    _.conformsTo({foo: (v: string) => false}, {foo: "foo"}, ); // $ExpectType boolean
+    _.conformsTo({foo: (v: string) => false})({foo: "foo"}, ); // $ExpectType boolean
 }
 
 // _.eq
 {
-    const customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
-
-    {
-        const result: boolean;
-
-        _.eq(anything, anything);
-    }
+    _.eq(anything, anything); // $ExpectType boolean
+    _.eq(anything)(anything); // $ExpectType boolean
 }
 
 // _.gt
 {
-    {
-        const result: boolean;
-
-        _.gt(anything, anything);
-    }
+    _.gt(anything, anything); // $ExpectType boolean
+    _.gt(anything)(anything); // $ExpectType boolean
 }
 
 // _.gte
 {
-    {
-        const result: boolean;
-
-        _.gte(anything, anything);
-    }
+    _.gte(anything, anything); // $ExpectType boolean
+    _.gte(anything)(anything); // $ExpectType boolean
 }
 
 // _.isArguments
 {
+    _.isArguments(anything); // $ExpectType boolean
+
     {
-        const value: number|IArguments = 0;
+        const value: number | IArguments = 0;
 
         if (_.isArguments(value)) {
             const result: IArguments = value;
+        } else {
+            value; // $ExpectType number
         }
-        else {
-            const result: number = value;
-        }
-    }
-
-    {
-        const result: boolean;
-
-        _.isArguments(anything);
     }
 }
 
 // _.isArray
 {
+    _.isArray(anything); // $ExpectType boolean
+
     {
-        const value: number|string[]|boolean[] = anything;
+        const value: number | string[] | boolean[] = anything;
 
         if (_.isArray(value)) {
             value; // $ExpectType string[] | boolean[]
-        }
-        else {
+        } else {
             value; // $ExpectType number
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isArray(anything);
     }
 }
 
 // _.isArrayBuffer
 {
+    _.isArrayBuffer(anything); // $ExpectType boolean
+
     {
-        const value: ArrayBuffer|number = anything;
+        const value: ArrayBuffer | number = anything;
 
         if (_.isArrayBuffer(value)) {
             value; // $ExpectType ArrayBuffer
-        }
-        else {
+        } else {
             value; // $ExpectType number
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isArrayBuffer(anything);
     }
 }
 
 // _.isArrayLike
 {
+    _.isArrayLike(anything); // $ExpectType boolean
+
     {
         const value: string | string[] | { [index: number]: boolean, length: number } | [number, boolean]
             | number | { length: string } | { a: string } | null | undefined
             = anything;
 
         if (_.isArrayLike(value)) {
-            const result: string | string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
+            value; // $ExpectType string | string[] | { [index: number]: boolean; length: number; } | [number, boolean]
         } else {
-            const result: number | { length: string } | { a: string; } | null | undefined = value;
+            value; // $ExpectType number | { length: string; } | { a: string; } | null | undefined
         }
     }
 
@@ -1968,9 +1770,8 @@ interface AbcObject {
         const value: boolean[] = anything;
 
         if (_.isArrayLike(value)) {
-            const result: boolean[] = value;
-        }
-        else {
+            value; // $ExpectType boolean[]
+        } else {
             value; // $ExpectType never
         }
     }
@@ -1990,8 +1791,7 @@ interface AbcObject {
 
         if (_.isArrayLike(value)) {
             const result: { a: string, length: number } = value;
-        }
-        else {
+        } else {
             value; // $ExpectType { a: string; }
         }
     }
@@ -2001,30 +1801,25 @@ interface AbcObject {
 
         if (_.isArrayLike(value)) {
             value; // $ExpectType any
-        }
-        else {
+        } else {
             value; // $ExpectType any
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isArrayLike(anything);
     }
 }
 
 // _.isArrayLikeObject
 {
+    _.isArrayLikeObject(anything); // $ExpectType boolean
+
     {
         const value: string[] | { [index: number]: boolean, length: number } | [number, boolean]
             | number | string | { length: string } | { a: string } | null | undefined
             = anything;
 
         if (_.isArrayLikeObject(value)) {
-            const result: string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
+            value; // $ExpectType string[] | [number, boolean] | { [index: number]: boolean; length: number; }
         } else {
-            const result: string | number | { length: string; } | { a: string; } | null | undefined = value;
+            value; // $ExpectTpye string | number | { length: string; } | { a: string; } | null | undefined
         }
     }
 
@@ -2033,8 +1828,7 @@ interface AbcObject {
 
         if (_.isArrayLikeObject(value)) {
             const result: boolean[] = value;
-        }
-        else {
+        } else {
             value; // $ExpectType never
         }
     }
@@ -2054,8 +1848,7 @@ interface AbcObject {
 
         if (_.isArrayLikeObject(value)) {
             const result: { a: string, length: number } = value;
-        }
-        else {
+        } else {
             value; // $ExpectType { a: string; }
         }
     }
@@ -2065,119 +1858,83 @@ interface AbcObject {
 
         if (_.isArrayLikeObject(value)) {
             value; // $ExpectType any
-        }
-        else {
+        } else {
             value; // $ExpectType any
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isArrayLikeObject(anything);
     }
 }
 
 // _.isBoolean
 {
+    _.isBoolean(anything); // $ExpectType boolean
+
     {
-        const value: number|boolean = 0;
+        const value: number | boolean = anything;
 
         if (_.isBoolean(value)) {
-            const result: boolean = value;
+            value; // $ExpectType boolean
+        } else {
+            value; // $ExpectType number
         }
-        else {
-            const result: number = value;
-        }
-    }
-
-    {
-        const result: boolean;
-
-        _.isBoolean(anything);
     }
 }
 
 // _.isBuffer
 {
-    {
-        const result: boolean;
-
-        _.isBuffer(anything);
-    }
+    _.isBuffer(anything); // $ExpectType boolean
 }
 
 // _.isDate
 {
+    _.isDate(anything); // $ExpectType boolean
+
     {
-        const value: number|Date = 0;
+        const value: number | Date = 0;
 
         if (_.isDate(value)) {
-            const result: Date = value;
+            const date: Date = value;
+        } else {
+            value; // $ExpectType number
         }
-        else {
-            const result: number = value;
-        }
-    }
-
-    {
-        const result: boolean;
-
-        _.isDate(anything);
     }
 }
 
 // _.isElement
 {
-    {
-        const result: boolean;
-
-        _.isElement(anything);
-    }
+     _.isElement(anything); // $ExpectType boolean
 }
 
 // _.isEmpty
 {
-    {
-        const result: boolean;
-
-        _.isEmpty(anything);
-    }
+    _.isEmpty(anything); // $ExpectType boolean
 }
 
 // _.isEqual
 {
-    const customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
-
-    {
-        const result: boolean;
-
-        _.isEqual(anything, anything);
-    }
+    _.isEqual(anything, anything); // $ExpectType boolean
+    _.isEqual(anything)(anything); // $ExpectType boolean
+    _.equals(anything)(anything); // $ExpectType boolean
 }
 
 // _.isEqualWith
 {
     const customizer = (value: any, other: any, indexOrKey: number|string|symbol|undefined, parent: any, otherParent: any, stack: any) => true;
 
-    {
-        const result: boolean;
-
-        _.isEqualWith(anything, anything, customizer);
-    }
+    _.isEqualWith(customizer, anything, anything); // $ExpectType boolean
+    _.isEqualWith(customizer)(anything)(anything); // $ExpectType boolean
 }
 
 // _.isError
 {
-    const x: any = 1;
+    _.isError(anything); // $ExpectType boolean
+
     {
-        const value: number|Error = x;
+        const value: number|Error = anything;
 
         if (_.isError(value)) {
-            const result: Error = value;
-        }
-        else {
-            const result: number = value;
+            value; // $ExpectType Error
+        } else {
+            value; // $ExpectType number
         }
     }
 
@@ -2186,41 +1943,31 @@ interface AbcObject {
             custom: string
         }
 
-        const value: number|CustomError = x;
+        const value: number | CustomError = anything;
 
         if (_.isError(value)) {
-            const result: CustomError = value;
+            value; // $ExpectType CustomError
+        } else {
+            value; // $ExpectType number
         }
-        else {
-            const result: number = value;
-        }
-    }
-
-    {
-        const result: boolean;
-
-        _.isError(anything);
     }
 }
 
 // _.isFinite
 {
-    {
-        const result: boolean;
-
-        _.isFinite(anything);
-    }
+    _.isFinite(anything); // $ExpectType boolean
 }
 
 // _.isFunction
 {
+    _.isFunction(anything); // $ExpectType boolean
+
     {
         const value: number|(() => void) = anything;
 
         if (_.isFunction(value)) {
             value; // $ExpectType () => void
-        }
-        else {
+        } else {
             value; // $ExpectType number
         }
 
@@ -2228,49 +1975,30 @@ interface AbcObject {
             anything();
         }
     }
-
-    {
-        const result: boolean;
-
-        _.isFunction(anything);
-    }
 }
 
 // _.isInteger
 {
-    {
-        const result: boolean;
-
-        _.isInteger(anything);
-    }
+    _.isInteger(anything); // $ExpectType boolean
 }
 
 // _.isLength
 {
-    {
-        const result: boolean;
-
-        _.isLength(anything);
-    }
+    _.isLength(anything); // $ExpectType boolean
 }
 
 // _.isMap
 {
+    _.isMap(anything); // $ExpectType boolean
+
     {
-        const value: number|Map<string, number> = 0;
+        const value: number | Map<string, number> = 0;
 
         if (_.isMap(value)) {
             const result: Map<string, number> = value;
-        }
-        else {
+        } else {
             const result: number = value;
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isMap(anything);
     }
 }
 
@@ -2283,156 +2011,111 @@ interface AbcObject {
 {
     const testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol) => true;
 
-    _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
+    _.isMatchWith(testIsMatchCustiomizerFn, {}, {}); // $ExpectType boolean
+    _.isMatchWith(testIsMatchCustiomizerFn)({})({}); // $ExpectType boolean
 }
 
 // _.isNaN
 {
-    {
-        const result: boolean;
-
-        _.isNaN(anything);
-    }
+    _.isNaN(anything); // $ExpectType boolean
 }
 
 // _.isNative
 {
+    _.isNative(anything); // $ExpectType boolean
+
     {
         const value: number|(() => void) = anything;
 
         if (_.isNative(value)) {
             value; // $ExpectType () => void
-        }
-        else {
+        } else {
             value; // $ExpectType number
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isNative(anything);
     }
 }
 
 // _.isNil
 {
-    {
-        const result: boolean;
-
-        _.isNil(anything);
-    }
+    _.isNil(anything); // $ExpectType boolean
 }
 
 // _.isNull
 {
-    {
-        const result: boolean;
-
-        _.isNull(anything);
-    }
+    _.isNull(anything); // $ExpectType boolean
 }
 
 // _.isNumber
 {
+    _.isNumber(anything); // $ExpectType boolean
+
     {
-        const value: string|number = 0;
+        const value: string | number = 0;
 
         if (_.isNumber(value)) {
             const result: number = value;
-        }
-        else {
+        } else {
             const result: string = value;
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isNumber(anything);
     }
 }
 
 // _.isObject
 {
-    {
-        const result: boolean;
-
-        _.isObject(anything);
-    }
+    _.isObject(anything); // $ExpectType boolean
 }
 
 // _.isObjectLike
 {
-    {
-        const result: boolean;
-
-        _.isObjectLike(anything);
-    }
+    _.isObjectLike(anything); // $ExpectType boolean
 }
 
 // _.isPlainObject
 {
-    {
-        const result: boolean;
-
-        _.isPlainObject(anything);
-    }
+    _.isPlainObject(anything); // $ExpectType boolean
 }
 
 // _.isRegExp
 {
+    _.isRegExp(anything); // $ExpectType boolean
+
     {
         const value: number|RegExp = /./;
 
         if (_.isRegExp(value)) {
             const result: RegExp = value;
-        }
-        else {
+        } else {
             const result: number = value;
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isRegExp(anything);
     }
 }
 
 // _.isSafeInteger
 {
-    {
-        const result: boolean;
-
-        _.isSafeInteger(anything);
-    }
+    _.isSafeInteger(anything); // $ExpectType boolean
 }
 
 // _.isSet
 {
+    _.isSet(anything); // $ExpectType boolean
+
     {
         const value: number|Set<string> = 0;
 
         if (_.isSet(value)) {
             const result: Set<string> = value;
-        }
-        else {
+        } else {
             const result: number = value;
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isSet(anything);
     }
 }
 
 // _.isString
 {
+    _.isString(anything); // $ExpectType boolean
+
     {
-        const value: number|string = '';
+        const value: number|string = "";
 
         if (_.isString(value)) {
             const result: string = value;
@@ -2441,63 +2124,42 @@ interface AbcObject {
             const result: number = value;
         }
     }
-
-    {
-        const result: boolean;
-
-        _.isString(anything);
-    }
 }
 
 // _.isSymbol
 {
-    {
-        const result: boolean;
-
-        _.isSymbol(anything);
-    }
+    _.isSymbol(anything); // $ExpectType boolean
 }
 
 // _.isTypedArray
 {
-    {
-        const result: boolean;
-
-        _.isTypedArray([]);
-    }
+    _.isTypedArray([]); // $ExpectType boolean
 }
 
 // _.isUndefined
 {
-    {
-        const result: boolean;
-
-        _.isUndefined(anything);
-    }
+    _.isUndefined(anything); // $ExpectType boolean
 }
 
 // _.isWeakMap
 {
+    _.isWeakMap(anything); // $ExpectType boolean
+
     {
         const value: number | WeakMap<object, number> = 0;
 
         if (_.isWeakMap(value)) {
             const result: WeakMap<object, number> = value;
-        }
-        else {
+        } else {
             const result: number = value;
         }
-    }
-
-    {
-        const result: boolean;
-
-        _.isWeakMap(anything);
     }
 }
 
 // _.isWeakSet
 {
+    _.isWeakSet(anything); // $ExpectType boolean
+
     {
         const value: number | WeakSet<object> = 0;
 
@@ -2508,30 +2170,16 @@ interface AbcObject {
             const result: number = value;
         }
     }
-
-    {
-        const result: boolean;
-
-        _.isWeakSet(anything);
-    }
 }
 
 // _.lt
 {
-    {
-        const result: boolean;
-
-        _.lt(anything, anything);
-    }
+    _.lt(anything, anything); // $ExpectType boolean
 }
 
 // _.lte
 {
-    {
-        const result: boolean;
-
-        _.lte(anything, anything);
-    }
+    _.lte(anything, anything); // $ExpectType boolean
 }
 
 // _.toArray
@@ -2541,349 +2189,199 @@ interface AbcObject {
     const dictionary: lodash.Dictionary<AbcObject> = {};
     const numericDictionary: lodash.NumericDictionary<AbcObject> = {};
 
-    {
-        const result: string[];
+    _.toArray(""); // $ExpectType string[]
 
-        _.toArray<string>('');
-        _.toArray('');
-    }
-
-    {
-        const result: AbcObject[];
-
-        _.toArray<AbcObject>(array);
-        _.toArray<AbcObject>(list);
-        _.toArray<AbcObject>(dictionary);
-        _.toArray<AbcObject>(numericDictionary);
-
-        _.toArray(array);
-        _.toArray(list);
-        _.toArray(dictionary);
-        _.toArray(numericDictionary);
-    }
-
-    {
-        const result: any[];
-
-        _.toArray();
-        _.toArray(42);
-        _.toArray(true);
-    }
+    _.toArray(array); // $ExpectType AbcObject[]
+    _.toArray(list); // $ExpectType AbcObject[]
+    _.toArray(dictionary); // $ExpectType AbcObject[]
+    _.toArray(numericDictionary); // $ExpectType AbcObject[]
 }
 
 // _.toPlainObject
 {
-    {
-        const result: AbcObject;
-        _.toPlainObject();
-        _.toPlainObject(true);
-        _.toPlainObject(1);
-        _.toPlainObject('a');
-        _.toPlainObject([]);
-        _.toPlainObject({});
-    }
+    _.toPlainObject(true); // $ExpectType any
+    _.toPlainObject(1); // $ExpectType any
+    _.toPlainObject("a"); // $ExpectType any
+    _.toPlainObject([]); // $ExpectType any
+    _.toPlainObject({}); // $ExpectType any
 }
 
 // _.toFinite
 {
-   {
-       const result: number;
-       _.toFinite(true);
-       _.toFinite(1);
-       _.toFinite('3.2');
-       _.toFinite([]);
-       _.toFinite({});
-   }
+    _.toFinite(true); // $ExpectType number
+    _.toFinite(1); // $ExpectType number
+    _.toFinite("3.2"); // $ExpectType number
 }
 
 // _.toInteger
 {
-   {
-       const result: number;
-       _.toInteger(true);
-       _.toInteger(1);
-       _.toInteger('3.2');
-       _.toInteger([]);
-       _.toInteger({});
-   }
+    _.toInteger(true); // $ExpectType number
+    _.toInteger(1); // $ExpectType number
+    _.toInteger("3.2"); // $ExpectType number
 }
 
 // _.toLength
 {
-   {
-       const result: number;
-       _.toLength(true);
-       _.toLength(1);
-       _.toLength('a');
-       _.toLength([]);
-       _.toLength({});
-   }
+    _.toLength(true); // $ExpectType number
+    _.toLength(1); // $ExpectType number
+    _.toLength("a"); // $ExpectType number
 }
 
 // _.toNumber
 {
-   {
-       const result: number;
-       _.toNumber(true);
-       _.toNumber(1);
-       _.toNumber('a');
-       _.toNumber([]);
-       _.toNumber({});
-   }
+    _.toNumber(true); // $ExpectType number
+    _.toNumber(1); // $ExpectType number
+    _.toNumber("a"); // $ExpectType number
 }
 
 // _.toSafeInteger
 {
-   {
-       const result: number;
-       _.toSafeInteger(true);
-       _.toSafeInteger(1);
-       _.toSafeInteger('a');
-       _.toSafeInteger([]);
-       _.toSafeInteger({});
-   }
+    _.toSafeInteger(true); // $ExpectType number
+    _.toSafeInteger(1); // $ExpectType number
+    _.toSafeInteger("a"); // $ExpectType number
 }
-*/
+
 /********
  * Math *
  ********/
-/*
+
 // _.add
 {
-    {
-        const result: number;
-
-        _.add(1, 1);
-    }
+    _.add(1, 1); // $ExpectType number
 }
 
 // _.ceil
 {
-    {
-        const result: number;
-
-        _.ceil(6.004);
-        _.ceil(6.004, 2);
-    }
+    _.ceil(6.004); // $ExpectType number
 }
 
 // _.divide
 {
-    {
-        const result: number;
-
-        _.divide(6, 4);
-    }
+    _.divide(6, 4); // $ExpectType number
 }
 
 // _.floor
 {
-    {
-        const result: number;
-
-        _.floor(4.006);
-        _.floor(0.046, 2);
-        _.floor(4060, -2);
-    }
+    _.floor(4.006); // $ExpectType number
 }
 
 // _.max
 {
-    const array: number[] = [];
     const list: ArrayLike<number> = [];
 
-    const result: number | undefined;
-
-    _.max<number>(array);
-    _.max<number>(list);
+    _.max(list); // $ExpectType number | undefined
 }
 
 // _.maxBy
 {
-    const array: number[] = [];
     const list: ArrayLike<number> = [];
-    const array2: AbcObject[] = [];
     const list2: ArrayLike<AbcObject> = [];
 
-    const listIterator = (value: number, index: number, collection: ArrayLike<number>) => 0;
+    const listIterator = (value: number) => 0;
 
-    const result: number | undefined;
-    const result2: AbcObject | undefined;
-
-    _.maxBy<number>(array);
-    _.maxBy<number>(array, listIterator);
-    _.maxBy<number>(array, '');
-    result2 = _.maxBy(array2, {a: 42});
-
-    _.maxBy<number>(list);
-    _.maxBy<number>(list, listIterator);
-    _.maxBy<number>(list, '');
-    result2 = _.maxBy(list2, {a: 42});
+    _.maxBy(listIterator, list); // $ExpectType number | undefined
+    _.maxBy(listIterator)(list); // $ExpectType number | undefined
+    _.maxBy((value) => value.a, list2); // $ExpectType AbcObject | undefined
+    _.maxBy("a", list2); // $ExpectType AbcObject | undefined
+    _.maxBy({ a: 42 }, list2); // $ExpectType AbcObject | undefined
 }
 
 // _.mean
 {
     const array: number[] = [];
 
-    const result: number;
-
-    _.mean(array);
+    _.mean(array); // $ExpectType number
 }
 
 // _.meanBy
 {
     const array: AbcObject[] = [];
 
-    const result: number;
-
-    _.meanBy(array, (x) => x.a);
-    _.meanBy(array, 'a');
+    _.meanBy((x) => x.a, array); // $ExpectType number
+    _.meanBy((x: AbcObject) => x.a)(array); // $ExpectType number
+    _.meanBy("a", array); // $ExpectType number
 }
 
 // _.min
 {
-    const array: number[] = [];
     const list: ArrayLike<number> = [];
 
-    const result: number | undefined;
-
-    _.min<number>(array);
-    _.min<number>(list);
+    _.min(list); // $ExpectType number | undefined
 }
 
 // _.minBy
 {
-    const array: number[] = [];
     const list: ArrayLike<number> = [];
-    const array2: AbcObject[] = [];
     const list2: ArrayLike<AbcObject> = [];
 
-    const listIterator = (value: number, index: number, collection: ArrayLike<number>) => 0;
+    const listIterator = (value: number) => 0;
 
-    const result: number | undefined;
-    const result2: AbcObject | undefined;
-
-    _.minBy<number>(array);
-    _.minBy<number>(array, listIterator);
-    _.minBy<number>(array, '');
-    result2 = _.minBy(array2, {a: 42});
-
-    _.minBy<number>(list);
-    _.minBy<number>(list, listIterator);
-    _.minBy<number>(list, '');
-    result2 = _.minBy(list2, {a: 42});
+    _.minBy(listIterator, list); // $ExpectType number | undefined
+    _.minBy(listIterator)(list); // $ExpectType number | undefined
+    _.minBy((value) => value.a, list2); // $ExpectType AbcObject | undefined
+    _.minBy("a", list2); // $ExpectType AbcObject | undefined
+    _.minBy({ a: 42 }, list2); // $ExpectType AbcObject | undefined
 }
 
 // _.multiply
 {
-    {
-        const result: number;
-
-        _.multiply(6, 4);
-    }
+    _.multiply(6, 4); // $ExpectType number
+    _.multiply(6)(4); // $ExpectType number
 }
 
 // _.round
 {
-    {
-        const result: number;
-
-        _.round(4.006);
-        _.round(4.006, 2);
-    }
+    _.round(4.006); // $ExpectType number
 }
 
 // _.sum
 {
-    const array: number[] | null | undefined = anything;
     const list: ArrayLike<number> | null | undefined = anything;
-    const dictionary: lodash.Dictionary<number> | null | undefined = anything;
 
-    const listIterator = (value: number, index: number, collection: ArrayLike<number>) => 0;
-    const dictionaryIterator = (value: number, key: string, collection: lodash.Dictionary<number>) => 0;
-
-    {
-        const result: number;
-
-        _.sum(array);
-
-        _.sum(list);
-    }
+    _.sum(list); // $ExpectType number
 }
 
 // _.sumBy
 {
-    const array: number[] | null | undefined = anything;
-    const objectArray: Array<{ 'age': number }> | null | undefined = anything;
-
     const list: ArrayLike<number> | null | undefined = anything;
-    const objectList: ArrayLike<{ 'age': number }> | null | undefined = anything;
+    const objectList: ArrayLike<{ "age": number }> | null | undefined = anything;
 
     const listIterator = (value: number) => 0;
 
-    {
-        const result: number;
-
-        _.sumBy(array);
-        _.sumBy(array, listIterator);
-        _.sumBy(objectArray, 'age');
-
-        _.sumBy(list);
-        _.sumBy(list, listIterator);
-        _.sumBy(objectList, 'age');
-    }
+    _.sumBy(listIterator, list); // $ExpectType number
+    _.sumBy(listIterator)(list); // $ExpectType number
+    _.sumBy("age", objectList); // $ExpectType number
+    _.sumBy("age")(objectList); // $ExpectType number
 }
-*/
+
 /**********
  * Number *
  **********/
-/*
- // _.subtract
- {
-     {
-         const result: number;
 
-         _.subtract(3, 2);
-     }
- }
+// _.subtract
+{
+     _.subtract(3, 2); // $ExpectType number
+     _.subtract(3)(2); // $ExpectType number
+}
 
 // _.clamp
 {
-    {
-        const result: number;
-
-        _.clamp(3, 2, 4);
-        _.clamp(3, 4);
-    }
+    _.clamp(2, 4, 3); // $ExpectType number
+    _.clamp(2)(4)(3); // $ExpectType number
 }
 
 // _.inRange
 {
-    {
-        const result: boolean;
-
-        _.inRange(3, 2, 4);
-        _.inRange(4, 8);
-    }
+    _.inRange(2, 4, 3); // $ExpectType number
+    _.inRange(2)(4)(3); // $ExpectType number
 }
 
 // _.random
 {
-    {
-        const result: number;
-
-        _.random();
-        _.random(1);
-        _.random(1, 2);
-        _.random(1, 2, true);
-        _.random(1, true);
-        _.random(true);
-    }
-
-    // $ExpectType number[]
-    _.map([5, 5], _.random);
+    _.random(1, 2); // $ExpectType number
+    _.random(1)(2); // $ExpectType number
 }
-*/
+
 /**********
  * Object *
  **********/
@@ -2897,7 +2395,7 @@ interface AbcObject {
     interface S4 { d: number };
     interface S5 { e: number };
 
-    const obj: Obj = { a: '' };
+    const obj: Obj = { a: "" };
     const s1: S1 = { a: 1 };
     const s2: S2 = { b: 1 };
     const s3: S3 = { c: 1 };
@@ -2950,7 +2448,7 @@ interface AbcObject {
     interface S4 { d: number };
     interface S5 { e: number };
 
-    const obj: Obj = { a: '' };
+    const obj: Obj = { a: "" };
     const s1: S1 = { a: 1 };
     const s2: S2 = { b: 1 };
     const s3: S3 = { c: 1 };
@@ -3000,7 +2498,7 @@ interface AbcObject {
     interface S4 { d: number };
     interface S5 { e: number };
 
-    const obj: Obj = { a: '' };
+    const obj: Obj = { a: "" };
     const s1: S1 = { a: 1 };
     const s2: S2 = { b: 1 };
     const s3: S3 = { c: 1 };
@@ -3055,7 +2553,7 @@ interface AbcObject {
     interface S4 { d: number };
     interface S5 { e: number };
 
-    const obj: Obj = { a: '' };
+    const obj: Obj = { a: "" };
     const s1: S1 = { a: 1 };
     const s2: S2 = { b: 1 };
     const s3: S3 = { c: 1 };
@@ -3102,7 +2600,7 @@ interface AbcObject {
     type SampleProps = {b: string};
 
     const prototype: SampleProto = { a: 1 };
-    const properties: SampleProps = { b: '' };
+    const properties: SampleProps = { b: "" };
 
     {
         const result: {a: number; b: string};
@@ -3121,7 +2619,7 @@ interface AbcObject {
   interface S4 { d: number };
   interface S5 { e: number };
 
-    const obj: Obj = { a: '' };
+    const obj: Obj = { a: "" };
     const s1: S1 = { a: 1 };
     const s2: S2 = { b: 1 };
     const s3: S3 = { c: 1 };
@@ -3173,8 +2671,8 @@ interface AbcObject {
             age: number;
         }
     }
-    const TestDefaultsDeepObject = { 'user': { 'name': 'barney' } };
-    const TestDefaultsDeepSource = { 'user': { 'name': 'fred', 'age': 36 } };
+    const TestDefaultsDeepObject = { "user": { "name": "barney" } };
+    const TestDefaultsDeepSource = { "user": { "name": "fred", "age": 36 } };
     _.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource); // $ExpectType DefaultsDeepResult
 }
 
@@ -3209,7 +2707,7 @@ interface AbcObject {
     type S4 = { d: number };
     type S5 = { e: number };
 
-    const obj: Obj = { a: '' };
+    const obj: Obj = { a: "" };
     const s1: S1 = { a: 1 };
     const s2: S2 = { b: 1 };
     const s3: S3 = { c: 1 };
@@ -3264,7 +2762,7 @@ interface AbcObject {
     type S4 = { d: number };
     type S5 = { e: number };
 
-    const obj: Obj = { a: '' };
+    const obj: Obj = { a: "" };
     const s1: S1 = { a: 1 };
     const s2: S2 = { b: 1 };
     const s3: S3 = { c: 1 };
@@ -3317,22 +2815,22 @@ interface AbcObject {
         const predicateFn = (value: any, key: string, object: {}) => true;
         const result: string | undefined;
 
-        _.findKey<{a: string;}>({a: ''});
+        _.findKey<{a: string;}>({a: ""});
 
-        _.findKey<{a: string;}>({a: ''}, predicateFn);
+        _.findKey<{a: string;}>({a: ""}, predicateFn);
 
-        _.findKey<{a: string;}>({a: ''}, '');
+        _.findKey<{a: string;}>({a: ""}, "");
 
         _.findKey({a: { b: 5 }}, {b: 42});
 
-        _.findKey({a: { b: 5 }}, ['b', 5]);
+        _.findKey({a: { b: 5 }}, ["b", 5]);
     }
 
     {
         const predicateFn = (value: string, key: string, collection: lodash.Dictionary<string>) => true;
         const result: string | undefined;
 
-        _.findKey({a: ''}, predicateFn);
+        _.findKey({a: ""}, predicateFn);
     }
 }
 
@@ -3342,22 +2840,22 @@ interface AbcObject {
         const predicateFn = (value: any, key: string, object: {}) => true;
         const result: string | undefined;
 
-        _.findLastKey<{a: string;}>({a: ''});
+        _.findLastKey<{a: string;}>({a: ""});
 
-        _.findLastKey<{a: string;}>({a: ''}, predicateFn);
+        _.findLastKey<{a: string;}>({a: ""}, predicateFn);
 
-        _.findLastKey<{a: string;}>({a: ''}, '');
+        _.findLastKey<{a: string;}>({a: ""}, "");
 
         _.findLastKey({a: { b: 5 }}, {b: 42});
 
-        _.findLastKey({a: { b: 5 }}, ['b', 5]);
+        _.findLastKey({a: { b: 5 }}, ["b", 5]);
     }
 
     {
         const predicateFn = (value: string, key: string, collection: lodash.Dictionary<string>) => true;
         const result: string | undefined;
 
-        _.findLastKey({a: ''}, predicateFn);
+        _.findLastKey({a: ""}, predicateFn);
     }
 }
 
@@ -3369,7 +2867,7 @@ interface AbcObject {
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
     const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
     const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
@@ -3410,7 +2908,7 @@ interface AbcObject {
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
     const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
     const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
@@ -3451,7 +2949,7 @@ interface AbcObject {
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
     const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
     const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
@@ -3492,7 +2990,7 @@ interface AbcObject {
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
     const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
     const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
@@ -3529,7 +3027,7 @@ interface AbcObject {
 {
     type AbcObject = {a: number; b: string; c: boolean;};
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
 
     {
         const result: string[];
@@ -3542,7 +3040,7 @@ interface AbcObject {
 {
     type AbcObject = {a: number; b: string; c: boolean;};
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
 
     {
         const result: string[];
@@ -3555,36 +3053,36 @@ interface AbcObject {
 {
     _.get([], Symbol.iterator); // $ExpectType any
     _.get([], [Symbol.iterator]); // $ExpectType any
-    _.get('abc', 1); // $ExpectType string
-    _.get({ a: { b: true } }, 'a'); // $ExpectType { b: boolean; }
-    _.get({ a: { b: true } }, ['a']); // $ExpectType { b: boolean; }
-    _.get({ a: { b: true } }, ['a', 'b']); // $ExpectType any
+    _.get("abc", 1); // $ExpectType string
+    _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
+    _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
+    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
 
     {
         const result: string;
 
-        _.get('abc', '0');
-        _.get('abc', '0', '_');
-        _.get('abc', ['0']);
-        _.get('abc', ['0'], '_');
+        _.get("abc", "0");
+        _.get("abc", "0", "_");
+        _.get("abc", ["0"]);
+        _.get("abc", ["0"], "_");
     }
 
     {
         const result: number;
 
-        _.get([42], '0');
-        _.get([42], '0', -1);
-        _.get([42], ['0']);
-        _.get([42], ['0'], -1);
+        _.get([42], "0");
+        _.get([42], "0", -1);
+        _.get([42], ["0"]);
+        _.get([42], ["0"], -1);
     }
 
     {
         const result: boolean;
 
-        _.get({a: true}, 'a');
-        _.get({a: true}, 'a', false);
-        _.get({a: true}, ['a']);
-        _.get({a: true}, ['a'], false);
+        _.get({a: true}, "a");
+        _.get({a: true}, "a", false);
+        _.get({a: true}, ["a"]);
+        _.get({a: true}, ["a"], false);
     }
 }
 
@@ -3592,14 +3090,14 @@ interface AbcObject {
 {
     type AbcObject = {a: number; b: string; c: boolean;};
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
 
     {
         const result: boolean;
 
-        _.has<AbcObject>(object, '');
+        _.has<AbcObject>(object, "");
         _.has<AbcObject>(object, 42);
-        _.has<AbcObject>(object, ['', 42]);
+        _.has<AbcObject>(object, ["", 42]);
     }
 }
 
@@ -3607,14 +3105,14 @@ interface AbcObject {
 {
     type AbcObject = {a: number; b: string; c: boolean;};
 
-    const object: AbcObject = { a: 1, b: '', c: true };
+    const object: AbcObject = { a: 1, b: "", c: true };
 
     {
         const result: boolean;
 
-        _.hasIn<AbcObject>(object, '');
+        _.hasIn<AbcObject>(object, "");
         _.hasIn<AbcObject>(object, 42);
-        _.hasIn<AbcObject>(object, ['', 42]);
+        _.hasIn<AbcObject>(object, ["", 42]);
     }
 }
 
@@ -3643,26 +3141,26 @@ interface AbcObject {
     {
         const result: lodash.Dictionary<string[]>;
 
-        _.invertBy('foo');
-        _.invertBy('foo', stringIterator);
+        _.invertBy("foo");
+        _.invertBy("foo", stringIterator);
 
         _.invertBy(array);
-        _.invertBy<{a: number;}>(array, 'a');
+        _.invertBy<{a: number;}>(array, "a");
         _.invertBy<{a: number;}>(array, arrayIterator);
         _.invertBy<{a: number;}>(array, {a: 1});
 
         _.invertBy(list);
-        _.invertBy<{a: number;}>(list, 'a');
+        _.invertBy<{a: number;}>(list, "a");
         _.invertBy<{a: number;}>(list, listIterator);
         _.invertBy<{a: number;}>(list, {a: 1});
 
         _.invertBy(dictionary);
-        _.invertBy<{a: number;}>(dictionary, 'a');
+        _.invertBy<{a: number;}>(dictionary, "a");
         _.invertBy<{a: number;}>(dictionary, dictionaryIterator);
         _.invertBy<{a: number;}>(dictionary, {a: 1});
 
         _.invertBy(numericDictionary);
-        _.invertBy<{a: number;}>(numericDictionary, 'a');
+        _.invertBy<{a: number;}>(numericDictionary, "a");
         _.invertBy<{a: number;}>(numericDictionary, numericDictionaryIterator);
         _.invertBy<{a: number;}>(numericDictionary, {a: 1});
     }
@@ -3696,25 +3194,25 @@ interface AbcObject {
     const list: ArrayLike<AbcObject>| null | undefined = anything;
     const dictionary: lodash.Dictionary<AbcObject> | null | undefined = anything;
 
-    const listIterator = (value: AbcObject, index: number, collection: ArrayLike<AbcObject>) => '';
-    const dictionaryIterator = (value: AbcObject, key: string, collection: lodash.Dictionary<AbcObject>) => '';
+    const listIterator = (value: AbcObject, index: number, collection: ArrayLike<AbcObject>) => "";
+    const dictionaryIterator = (value: AbcObject, key: string, collection: lodash.Dictionary<AbcObject>) => "";
 
     {
         const result: lodash.Dictionary<AbcObject>;
 
         _.mapKeys(array);
         _.mapKeys(array, listIterator);
-        _.mapKeys(array, '');
+        _.mapKeys(array, "");
         _.mapKeys(array, {});
 
         _.mapKeys(list);
         _.mapKeys(list, listIterator);
-        _.mapKeys(list, '');
+        _.mapKeys(list, "");
         _.mapKeys(list, {});
 
         _.mapKeys(dictionary);
         _.mapKeys(dictionary, dictionaryIterator);
-        _.mapKeys(dictionary, '');
+        _.mapKeys(dictionary, "");
         _.mapKeys(dictionary, {});
     }
 }
@@ -3722,7 +3220,7 @@ interface AbcObject {
 // _.merge
 {
     const initialValue = { a : 1 };
-    const mergingValue = { b : 'hi' };
+    const mergingValue = { b : "hi" };
 
     interface ExpectedResult {
         a: number;
@@ -3746,7 +3244,7 @@ interface AbcObject {
     type ComplicatedExpectedType = { a: number, b: string, c: {}, d: number[], e: boolean };
 
     const complicatedResult: ComplicatedExpectedType = _.merge({ a: 1 },
-                                                             { b: 'string' },
+                                                             { b: "string" },
                                                              { c: {} },
                                                              { d: [1] },
                                                              { e: true });
@@ -3755,7 +3253,7 @@ interface AbcObject {
     type ExpectedTypeAfterOverriding = { a: boolean };
 
     const overriddenResult: ExpectedTypeAfterOverriding = _.merge({ a: 1 },
-                                                                { a: 'string' },
+                                                                { a: "string" },
                                                                 { a: {} },
                                                                 { a: [1] },
                                                                 { a: true });
@@ -3764,7 +3262,7 @@ interface AbcObject {
 // _.mergeWith
 {
     const initialValue  = { a : 1 };
-    const mergingValue  = { b : 'hi' };
+    const mergingValue  = { b : "hi" };
 
     interface ExpectedResult {
         a: number;
@@ -3792,11 +3290,11 @@ interface AbcObject {
     {
         const result: Partial<AbcObject>;
 
-        _.omit(obj, 'a');
-        _.omit(obj, 0, 'a');
-        _.omit(obj, ['b', 1], 0, 'a');
+        _.omit(obj, "a");
+        _.omit(obj, 0, "a");
+        _.omit(obj, ["b", 1], 0, "a");
 
-        dict = _.omit(dict, 'a');
+        dict = _.omit(dict, "a");
     }
 }
 */
@@ -3817,15 +3315,15 @@ interface AbcObject {
     {
         const result: Partial<AbcObject>;
 
-        _.pick(obj1, 'a');
-        _.pick(obj1, 0, 'a');
-        _.pick(obj1, ['b', 1], 0, 'a');
+        _.pick(obj1, "a");
+        _.pick(obj1, 0, "a");
+        _.pick(obj1, ["b", 1], 0, "a");
     }
 
     {
-        const result: Pick<AbcObject, 'a' | 'b'>;
-        _.pick(obj2, 'a', 'b');
-        _.pick(obj2, ['a' as 'a', 'b' as 'b']);
+        const result: Pick<AbcObject, "a" | "b">;
+        _.pick(obj2, "a", "b");
+        _.pick(obj2, ["a" as "a", "b" as "b"]);
     }
 }
 
@@ -3846,34 +3344,34 @@ interface AbcObject {
     {
         const result: string;
 
-        _.result<string>('abc', '0');
-        _.result<string>('abc', '0', '_');
-        _.result<string>('abc', '0', () => '_');
-        _.result<string>('abc', ['0']);
-        _.result<string>('abc', ['0'], '_');
-        _.result<string>('abc', ['0'], () => '_');
+        _.result<string>("abc", "0");
+        _.result<string>("abc", "0", "_");
+        _.result<string>("abc", "0", () => "_");
+        _.result<string>("abc", ["0"]);
+        _.result<string>("abc", ["0"], "_");
+        _.result<string>("abc", ["0"], () => "_");
     }
 
     {
         const result: number;
 
-        _.result<number>([42], '0');
-        _.result<number>([42], '0', -1);
-        _.result<number>([42], '0', () => -1);
-        _.result<number>([42], ['0']);
-        _.result<number>([42], ['0'], -1);
-        _.result<number>([42], ['0'], () => -1);
+        _.result<number>([42], "0");
+        _.result<number>([42], "0", -1);
+        _.result<number>([42], "0", () => -1);
+        _.result<number>([42], ["0"]);
+        _.result<number>([42], ["0"], -1);
+        _.result<number>([42], ["0"], () => -1);
     }
 
     {
         const result: boolean;
 
-        _.result<boolean>({a: true}, 'a');
-        _.result<boolean>({a: true}, 'a', false);
-        _.result<boolean>({a: true}, 'a', () => false);
-        _.result<boolean>({a: true}, ['a']);
-        _.result<boolean>({a: true}, ['a'], false);
-        _.result<boolean>({a: true}, ['a'], () => false);
+        _.result<boolean>({a: true}, "a");
+        _.result<boolean>({a: true}, "a", false);
+        _.result<boolean>({a: true}, "a", () => false);
+        _.result<boolean>({a: true}, ["a"]);
+        _.result<boolean>({a: true}, ["a"], false);
+        _.result<boolean>({a: true}, ["a"], () => false);
     }
 }
 
@@ -3888,22 +3386,22 @@ interface AbcObject {
     {
         const result: SampleResult;
 
-        _.set<SampleResult>(object, 'a.b[1]', value);
-        _.set<SampleResult>(object, ['a', 'b', 1], value);
+        _.set<SampleResult>(object, "a.b[1]", value);
+        _.set<SampleResult>(object, ["a", "b", 1], value);
     }
 
     {
         const result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
-        _(object).set<SampleResult>('a.b[1]', value);
-        _(object).set<SampleResult>(['a', 'b', 1], value);
+        _(object).set<SampleResult>("a.b[1]", value);
+        _(object).set<SampleResult>(["a", "b", 1], value);
     }
 
     {
         const result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
-        _(object).chain().set<SampleResult>('a.b[1]', value);
-        _(object).chain().set<SampleResult>(['a', 'b', 1], value);
+        _(object).chain().set<SampleResult>("a.b[1]", value);
+        _(object).chain().set<SampleResult>(["a", "b", 1], value);
     }
 }
 
@@ -3918,10 +3416,10 @@ interface AbcObject {
     {
         const result: SampleResult;
 
-        _.setWith<SampleResult>(object, 'a.b[1]', value);
-        _.setWith<SampleResult>(object, 'a.b[1]', value, customizer);
-        _.setWith<SampleResult>(object, ['a', 'b', 1], value);
-        _.setWith<SampleResult>(object, ['a', 'b', 1], value, customizer);
+        _.setWith<SampleResult>(object, "a.b[1]", value);
+        _.setWith<SampleResult>(object, "a.b[1]", value, customizer);
+        _.setWith<SampleResult>(object, ["a", "b", 1], value);
+        _.setWith<SampleResult>(object, ["a", "b", 1], value, customizer);
     }
 }
 
@@ -3993,13 +3491,13 @@ interface AbcObject {
 {
     type SampleObject = {a: {b: string; c: boolean}};
 
-    const object: SampleObject = { a: { b: '', c: true } };
+    const object: SampleObject = { a: { b: "", c: true } };
 
     {
         const result: boolean;
 
-        _.unset(object, 'a.b');
-        _.unset(object, ['a', 'b']);
+        _.unset(object, "a.b");
+        _.unset(object, ["a", "b"]);
     }
 }
 
@@ -4013,8 +3511,8 @@ interface AbcObject {
     {
         const result: SampleResult;
 
-        _.update(object, 'a.b[1]', updater);
-        _.update(object, ['a', 'b', 1], updater);
+        _.update(object, "a.b[1]", updater);
+        _.update(object, ["a", "b", 1], updater);
     }
 }
 
@@ -4029,15 +3527,15 @@ interface AbcObject {
     {
         const result: SampleResult;
 
-        _.updateWith<SampleResult>(object, 'a.b[1]', updater);
-        _.updateWith<SampleResult>(object, 'a.b[1]', updater, customizer);
-        _.updateWith<SampleResult>(object, ['a', 'b', 1], updater);
-        _.updateWith<SampleResult>(object, ['a', 'b', 1], updater, customizer);
+        _.updateWith<SampleResult>(object, "a.b[1]", updater);
+        _.updateWith<SampleResult>(object, "a.b[1]", updater, customizer);
+        _.updateWith<SampleResult>(object, ["a", "b", 1], updater);
+        _.updateWith<SampleResult>(object, ["a", "b", 1], updater, customizer);
 
-        _.updateWith<SampleResult>(object, 'a.b[1]', updater);
-        _.updateWith<SampleResult>(object, 'a.b[1]', updater, customizer);
-        _.updateWith<SampleResult>(object, ['a', 'b', 1], updater);
-        _.updateWith<SampleResult>(object, ['a', 'b', 1], updater, customizer);
+        _.updateWith<SampleResult>(object, "a.b[1]", updater);
+        _.updateWith<SampleResult>(object, "a.b[1]", updater, customizer);
+        _.updateWith<SampleResult>(object, ["a", "b", 1], updater);
+        _.updateWith<SampleResult>(object, ["a", "b", 1], updater, customizer);
     }
 }
 
@@ -4056,8 +3554,8 @@ interface AbcObject {
     {
         const result: string[];
 
-        _.values('hi');
-        _.values(['h', 'i']);
+        _.values("hi");
+        _.values(["h", "i"]);
     }
 
     {
@@ -4119,7 +3617,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.camelCase('Foo Bar');
+        _.camelCase("Foo Bar");
     }
 }
 
@@ -4128,7 +3626,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.capitalize('fred');
+        _.capitalize("fred");
     }
 }
 
@@ -4137,7 +3635,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.deburr('déjà vu');
+        _.deburr("déjà vu");
     }
 }
 
@@ -4146,8 +3644,8 @@ interface AbcObject {
     {
         const result: boolean;
 
-        _.endsWith('abc', 'c');
-        _.endsWith('abc', 'c', 1);
+        _.endsWith("abc", "c");
+        _.endsWith("abc", "c", 1);
     }
 }
 
@@ -4156,7 +3654,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.escape('fred, barney, & pebbles');
+        _.escape("fred, barney, & pebbles");
     }
 }
 
@@ -4165,7 +3663,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.escapeRegExp('[lodash](https://lodash.com/)');
+        _.escapeRegExp("[lodash](https://lodash.com/)");
     }
 }
 
@@ -4174,7 +3672,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.kebabCase('Foo Bar');
+        _.kebabCase("Foo Bar");
     }
 }
 
@@ -4183,7 +3681,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.lowerCase('Foo Bar');
+        _.lowerCase("Foo Bar");
     }
 }
 
@@ -4192,7 +3690,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.lowerFirst('Foo Bar');
+        _.lowerFirst("Foo Bar");
     }
 }
 
@@ -4201,9 +3699,9 @@ interface AbcObject {
     {
         const result: string;
 
-        _.pad('abc');
-        _.pad('abc', 8);
-        _.pad('abc', 8, '_-');
+        _.pad("abc");
+        _.pad("abc", 8);
+        _.pad("abc", 8, "_-");
     }
 }
 
@@ -4212,9 +3710,9 @@ interface AbcObject {
     {
         const result: string;
 
-        _.padEnd('abc');
-        _.padEnd('abc', 6);
-        _.padEnd('abc', 6, '_-');
+        _.padEnd("abc");
+        _.padEnd("abc", 6);
+        _.padEnd("abc", 6, "_-");
     }
 }
 
@@ -4223,9 +3721,9 @@ interface AbcObject {
     {
         const result: string;
 
-        _.padStart('abc');
-        _.padStart('abc', 6);
-        _.padStart('abc', 6, '_-');
+        _.padStart("abc");
+        _.padStart("abc", 6);
+        _.padStart("abc", 6, "_-");
     }
 }
 
@@ -4234,8 +3732,8 @@ interface AbcObject {
     {
         const result: number;
 
-        _.parseInt('08');
-        _.parseInt('08', 10);
+        _.parseInt("08");
+        _.parseInt("08", 10);
     }
 }
 
@@ -4243,28 +3741,28 @@ interface AbcObject {
 {
     {
         const result: string;
-        _.repeat('*');
-        _.repeat('*', 3);
+        _.repeat("*");
+        _.repeat("*", 3);
     }
 }
 
 // _.replace
 {
-    const replacer = (match: string, offset: number, string: string) => 'Barney';
+    const replacer = (match: string, offset: number, string: string) => "Barney";
 
     {
         const result: string;
 
-        _.replace('Hi Fred', 'Fred', 'Barney');
-        _.replace('Hi Fred', 'Fred', replacer);
+        _.replace("Hi Fred", "Fred", "Barney");
+        _.replace("Hi Fred", "Fred", replacer);
 
-        _.replace('Hi Fred', /fred/i, 'Barney');
-        _.replace('Hi Fred', /fred/i, replacer);
+        _.replace("Hi Fred", /fred/i, "Barney");
+        _.replace("Hi Fred", /fred/i, replacer);
 
-        _.replace('Fred', 'Barney');
-        _.replace('Fred', replacer);
+        _.replace("Fred", "Barney");
+        _.replace("Fred", replacer);
 
-        _.replace(/fred/i, 'Barney');
+        _.replace(/fred/i, "Barney");
         _.replace(/fred/i, replacer);
     }
 }
@@ -4274,7 +3772,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.snakeCase('Foo Bar');
+        _.snakeCase("Foo Bar");
     }
 }
 
@@ -4283,13 +3781,13 @@ interface AbcObject {
     {
         const result: string[];
 
-        _.split('a-b-c');
-        _.split('a-b-c', '-');
-        _.split('a-b-c', '-', 2);
+        _.split("a-b-c");
+        _.split("a-b-c", "-");
+        _.split("a-b-c", "-", 2);
     }
 
     // $ExpectType string[][]
-    _.map(['abc', 'def'], _.split);
+    _.map(["abc", "def"], _.split);
 }
 
 // _.startCase
@@ -4297,7 +3795,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.startCase('--foo-bar');
+        _.startCase("--foo-bar");
     }
 }
 
@@ -4306,8 +3804,8 @@ interface AbcObject {
     {
         const result: boolean;
 
-        _.startsWith('abc', 'a');
-        _.startsWith('abc', 'a', 1);
+        _.startsWith("abc", "a");
+        _.startsWith("abc", "a", 1);
     }
 }
 
@@ -4330,8 +3828,8 @@ interface AbcObject {
     {
         const result: TemplateExecutor;
 
-        _.template('');
-        _.template('', options);
+        _.template("");
+        _.template("", options);
     }
 }
 
@@ -4340,7 +3838,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.toLower('fred, barney, &amp; pebbles');
+        _.toLower("fred, barney, &amp; pebbles");
     }
 }
 
@@ -4349,7 +3847,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.toUpper('fred, barney, &amp; pebbles');
+        _.toUpper("fred, barney, &amp; pebbles");
     }
 }
 
@@ -4359,11 +3857,11 @@ interface AbcObject {
         const result: string;
 
         _.trim();
-        _.trim('  abc  ');
-        _.trim('-_-abc-_-', '_-');
+        _.trim("  abc  ");
+        _.trim("-_-abc-_-", "_-");
     }
     // $ExpectType string[]
-    _.map(['  foo  ', '  bar  '], _.trim);
+    _.map(["  foo  ", "  bar  "], _.trim);
 }
 
 // _.trimEnd
@@ -4372,8 +3870,8 @@ interface AbcObject {
         const result: string;
 
         _.trimEnd();
-        _.trimEnd('  abc  ');
-        _.trimEnd('-_-abc-_-', '_-');
+        _.trimEnd("  abc  ");
+        _.trimEnd("-_-abc-_-", "_-");
     }
 }
 
@@ -4383,8 +3881,8 @@ interface AbcObject {
         const result: string;
 
         _.trimStart();
-        _.trimStart('  abc  ');
-        _.trimStart('-_-abc-_-', '_-');
+        _.trimStart("  abc  ");
+        _.trimStart("-_-abc-_-", "_-");
     }
 }
 
@@ -4393,10 +3891,10 @@ interface AbcObject {
     {
         const result: string;
 
-        _.truncate('hi-diddly-ho there, neighborino');
-        _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
-        _.truncate('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
-        _.truncate('hi-diddly-ho there, neighborino', { 'omission': ' […]' });
+        _.truncate("hi-diddly-ho there, neighborino");
+        _.truncate("hi-diddly-ho there, neighborino", { "length": 24, "separator": " " });
+        _.truncate("hi-diddly-ho there, neighborino", { "length": 24, "separator": /,? +/ });
+        _.truncate("hi-diddly-ho there, neighborino", { "omission": " […]" });
     }
 }
 
@@ -4405,7 +3903,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.unescape('fred, barney, &amp; pebbles');
+        _.unescape("fred, barney, &amp; pebbles");
     }
 }
 
@@ -4414,7 +3912,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.upperCase('fred, barney, &amp; pebbles');
+        _.upperCase("fred, barney, &amp; pebbles");
     }
 }
 
@@ -4423,7 +3921,7 @@ interface AbcObject {
     {
         const result: string;
 
-        _.upperFirst('fred, barney, &amp; pebbles');
+        _.upperFirst("fred, barney, &amp; pebbles");
     }
 }
 
@@ -4432,12 +3930,12 @@ interface AbcObject {
     {
         const result: string[];
 
-        _.words('fred, barney, & pebbles');
-        _.words('fred, barney, & pebbles', /[^, ]+/g);
+        _.words("fred, barney, & pebbles");
+        _.words("fred, barney, & pebbles", /[^, ]+/g);
     }
 
     // $ExpectType string[][]
-    _.map(['fred, barney', 'pebbles'], _.words);
+    _.map(["fred, barney", "pebbles"], _.words);
 }
 */
 /***********
@@ -4446,13 +3944,13 @@ interface AbcObject {
 /*
 // _.attempt
 {
-    const func: (...args: any[]) => {a: string} = (...args) => ({ a: '' });
+    const func: (...args: any[]) => {a: string} = (...args) => ({ a: "" });
 
     {
         const result: {a: string}|Error;
 
         _.attempt<{a: string}>(func);
-        _.attempt<{a: string}>(func, 'foo', 'bar', 'baz');
+        _.attempt<{a: string}>(func, "foo", "bar", "baz");
     }
 }
 
@@ -4466,7 +3964,7 @@ interface AbcObject {
     {
         const result: number;
 
-        _.cond([[pairPred1, pairRes1],[pairPred2, pairRes2]])('hello');
+        _.cond([[pairPred1, pairRes1],[pairPred2, pairRes2]])("hello");
     }
 }
 
@@ -4479,7 +3977,7 @@ interface AbcObject {
 
     {
         const result: () => string;
-        _.constant<string>('a');
+        _.constant<string>("a");
     }
 
     {
@@ -4489,12 +3987,12 @@ interface AbcObject {
 
     {
         const result: () => string[];
-        _.constant<string[]>(['a']);
+        _.constant<string[]>(["a"]);
     }
 
     {
         const result: () => {a: string};
-        _.constant<{a: string}>({a: 'a'});
+        _.constant<{a: string}>({a: "a"});
     }
 }
 
@@ -4510,9 +4008,9 @@ interface AbcObject {
 
     {
         const result: string;
-        _.defaultTo<string>('a', 'default');
-        _.defaultTo<string>(undefined, 'default');
-        _.defaultTo<string>(null, 'default');
+        _.defaultTo<string>("a", "default");
+        _.defaultTo<string>(undefined, "default");
+        _.defaultTo<string>(null, "default");
     }
 
     {
@@ -4524,16 +4022,16 @@ interface AbcObject {
 
     {
         const result: string[];
-        _.defaultTo<string[]>(['a'], ['default']);
-        _.defaultTo<string[]>(undefined, ['default']);
-        _.defaultTo<string[]>(null, ['default']);
+        _.defaultTo<string[]>(["a"], ["default"]);
+        _.defaultTo<string[]>(undefined, ["default"]);
+        _.defaultTo<string[]>(null, ["default"]);
     }
 
     {
         const result: {a: string};
-        _.defaultTo<{a: string}>({a: 'a'}, {a: 'a'});
-        _.defaultTo<{a: string}>(undefined, {a: 'a'});
-        _.defaultTo<{a: string}>(null, {a: 'a'});
+        _.defaultTo<{a: string}>({a: "a"}, {a: "a"});
+        _.defaultTo<{a: string}>(undefined, {a: "a"});
+        _.defaultTo<{a: string}>(null, {a: "a"});
     }
 }
 
@@ -4575,7 +4073,7 @@ interface AbcObject {
     {
         const result: (object: any) => AbcObject;
 
-        _.iteratee('');
+        _.iteratee("");
     }
 
     {
@@ -4587,7 +4085,7 @@ interface AbcObject {
 
 // _.matches
 {
-    const source: AbcObject = { a: 1, b: '', c: true };
+    const source: AbcObject = { a: 1, b: "", c: true };
 
     {
         const result: (value: any) => boolean;
@@ -4603,7 +4101,7 @@ interface AbcObject {
 // _.matchesProperty
 {
     const path: string | string[] = [];
-    const source: AbcObject = { a: 1, b: '', c: true };
+    const source: AbcObject = { a: 1, b: "", c: true };
 
     {
         const result: (value: any) => boolean;
@@ -4623,27 +4121,27 @@ interface AbcObject {
     {
         const result: (object: any) => {a: string};
 
-        _.method('a.0');
-        _.method('a.0', anything, anything);
-        _.method('a.0', anything, anything, anything);
+        _.method("a.0");
+        _.method("a.0", anything, anything);
+        _.method("a.0", anything, anything, anything);
 
-        _.method(['a', 0]);
-        _.method(['a', 0], anything);
-        _.method(['a', 0], anything, anything);
-        _.method(['a', 0], anything, anything, anything);
+        _.method(["a", 0]);
+        _.method(["a", 0], anything);
+        _.method(["a", 0], anything, anything);
+        _.method(["a", 0], anything, anything, anything);
     }
 
     {
         const result: (object: {a: string}) => {b: string};
 
-        _.method('a.0');
-        _.method('a.0', anything, anything);
-        _.method('a.0', anything, anything, anything);
+        _.method("a.0");
+        _.method("a.0", anything, anything);
+        _.method("a.0", anything, anything, anything);
 
-        _.method(['a', 0]);
-        _.method(['a', 0], anything);
-        _.method(['a', 0], anything, anything);
-        _.method(['a', 0], anything, anything, anything);
+        _.method(["a", 0]);
+        _.method(["a", 0], anything);
+        _.method(["a", 0], anything, anything);
+        _.method(["a", 0], anything, anything, anything);
     }
 }
 
@@ -4699,8 +4197,8 @@ interface AbcObject {
     {
         _.noop(); // $ExpectType void
         _.noop(1); // $ExpectType void
-        _.noop('a', 1); // $ExpectType void
-        _.noop(true, 'a', 1); // $ExpectType void
+        _.noop("a", 1); // $ExpectType void
+        _.noop(true, "a", 1); // $ExpectType void
     }
 }
 
@@ -4762,8 +4260,8 @@ interface AbcObject {
     {
         const result: (object: SampleObject) => number;
 
-        _.property<SampleObject, number>('a.b[0]');
-        _.property<SampleObject, number>(['a', 'b', 0]);
+        _.property<SampleObject, number>("a.b[0]");
+        _.property<SampleObject, number>(["a", "b", 0]);
     }
 }
 
@@ -4866,7 +4364,7 @@ interface AbcObject {
 
 // _.times
 {
-    const iteratee: (num: number) => AbcObject = (num: number) => ({ a: 1, b: '', c: true });
+    const iteratee: (num: number) => AbcObject = (num: number) => ({ a: 1, b: "", c: true });
 
     {
         const result: number[];
@@ -4887,8 +4385,8 @@ interface AbcObject {
        const result: string[];
        _.toPath(true);
        _.toPath(1);
-       _.toPath('a');
-       _.toPath(['a']);
+       _.toPath("a");
+       _.toPath(["a"]);
        _.toPath({});
    }
 }
@@ -4899,7 +4397,7 @@ interface AbcObject {
         const result: string;
 
         _.uniqueId();
-        _.uniqueId('');
+        _.uniqueId("");
     }
 }
 
@@ -4928,18 +4426,18 @@ interface AbcObject {
     // with arity 2 function
     res12__ = _.partial(func2           );
     res_2__ = _.partial(func2, 42       );
-    res____ = _.partial(func2, 42, 'foo');
+    res____ = _.partial(func2, 42, "foo");
     // with arity 3 function
     res123_ = _.partial(func3                 );
     res_23_ = _.partial(func3, 42             );
-    res__3_ = _.partial(func3, 42, 'foo'      );
-    res____ = _.partial(func3, 42, 'foo', true);
+    res__3_ = _.partial(func3, 42, "foo"      );
+    res____ = _.partial(func3, 42, "foo", true);
     // with arity 4 function
     res1234 = _.partial(func4                      );
     res_234 = _.partial(func4, 42                  );
-    res__34 = _.partial(func4, 42, 'foo'           );
-    res___4 = _.partial(func4, 42, 'foo', true     );
-    res____ = _.partial(func4, 42, 'foo', true, 100);
+    res__34 = _.partial(func4, 42, "foo"           );
+    res___4 = _.partial(func4, 42, "foo", true     );
+    res____ = _.partial(func4, 42, "foo", true, 100);
 
     //
     // _.partialRight
@@ -4951,18 +4449,18 @@ interface AbcObject {
     res1___ = _.partialRight(func1           );
     // with arity 2 function
     res12__ = _.partialRight(func2           );
-    res1___ = _.partialRight(func2,     'foo');
-    res____ = _.partialRight(func2, 42, 'foo');
+    res1___ = _.partialRight(func2,     "foo");
+    res____ = _.partialRight(func2, 42, "foo");
     // with arity 3 function
     res123_ = _.partialRight(func3                 );
     res12__ = _.partialRight(func3,            true);
-    res1___ = _.partialRight(func3,     'foo', true);
-    res____ = _.partialRight(func3, 42, 'foo', true);
+    res1___ = _.partialRight(func3,     "foo", true);
+    res____ = _.partialRight(func3, 42, "foo", true);
     // with arity 4 function
     res1234 = _.partialRight(func4                      );
     res123_ = _.partialRight(func4,                  100);
     res12__ = _.partialRight(func4,            true, 100);
-    res1___ = _.partialRight(func4,     'foo', true, 100);
-    res____ = _.partialRight(func4, 42, 'foo', true, 100);
+    res1___ = _.partialRight(func4,     "foo", true, 100);
+    res____ = _.partialRight(func4, 42, "foo", true, 100);
 }
 */

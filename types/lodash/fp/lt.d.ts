@@ -18,7 +18,7 @@ interface Lt {
      * @param other The other value to compare.
      * @return Returns true if value is less than other, else false.
      */
-    (other: any): Lt1x1;
+    (value: any): Lt1x1;
     /**
      * Checks if value is less than other.
      *
@@ -26,7 +26,7 @@ interface Lt {
      * @param other The other value to compare.
      * @return Returns true if value is less than other, else false.
      */
-    (other: any, value: any): boolean;
+    (value: any, other: any): boolean;
 }
 interface Lt1x1 {
     /**
@@ -44,7 +44,7 @@ interface Lt1x1 {
      * @param other The other value to compare.
      * @return Returns true if value is less than other, else false.
      */
-    (value: any): boolean;
+    (other: any): boolean;
 }
 
 declare const lt: Lt;

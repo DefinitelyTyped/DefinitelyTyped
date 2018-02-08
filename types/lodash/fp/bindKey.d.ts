@@ -34,7 +34,7 @@ interface BindKey {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (key: string): BindKey1x1;
+    (object: object): BindKey1x1;
     /**
      * Creates a function that invokes the method at object[key] and prepends any additional _.bindKey arguments
      * to those provided to the bound function.
@@ -50,7 +50,7 @@ interface BindKey {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (key: string, object: object): (...args: any[]) => any;
+    (object: object, key: string): (...args: any[]) => any;
 }
 interface BindKey1x1 {
     /**
@@ -84,7 +84,7 @@ interface BindKey1x1 {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (object: object): (...args: any[]) => any;
+    (key: string): (...args: any[]) => any;
 }
 
 declare const bindKey: BindKey;

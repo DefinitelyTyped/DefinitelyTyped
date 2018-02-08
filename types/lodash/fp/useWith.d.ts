@@ -22,7 +22,7 @@ interface OverArgs {
      * of functions.
      * @return Returns the new function.
      */
-    (transforms: _.Many<(...args: any[]) => any>): OverArgs1x1;
+    (func: (...args: any[]) => any): OverArgs1x1;
     /**
      * Creates a function that runs each argument through a corresponding transform function.
      *
@@ -31,7 +31,7 @@ interface OverArgs {
      * of functions.
      * @return Returns the new function.
      */
-    (transforms: _.Many<(...args: any[]) => any>, func: (...args: any[]) => any): (...args: any[]) => any;
+    (func: (...args: any[]) => any, transforms: _.Many<(...args: any[]) => any>): (...args: any[]) => any;
 }
 interface OverArgs1x1 {
     /**
@@ -51,7 +51,7 @@ interface OverArgs1x1 {
      * of functions.
      * @return Returns the new function.
      */
-    (func: (...args: any[]) => any): (...args: any[]) => any;
+    (transforms: _.Many<(...args: any[]) => any>): (...args: any[]) => any;
 }
 
 declare const useWith: OverArgs;

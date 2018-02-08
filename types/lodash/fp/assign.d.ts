@@ -60,7 +60,7 @@ interface Assign {
      * _.assign({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'c': 3, 'e': 5 }
      */
-    <TSource>(source: TSource): Assign1x1<TSource>;
+    <TObject>(object: TObject): Assign1x1<TObject>;
     /**
      * Assigns own enumerable properties of source objects to the destination
      * object. Source objects are applied from left to right. Subsequent sources
@@ -89,9 +89,9 @@ interface Assign {
      * _.assign({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'c': 3, 'e': 5 }
      */
-    <TObject, TSource>(source: TSource, object: TObject): TObject & TSource;
+    <TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
 }
-interface Assign1x1<TSource> {
+interface Assign1x1<TObject> {
     /**
      * Assigns own enumerable properties of source objects to the destination
      * object. Source objects are applied from left to right. Subsequent sources
@@ -120,7 +120,7 @@ interface Assign1x1<TSource> {
      * _.assign({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'c': 3, 'e': 5 }
      */
-    (): Assign1x1<TSource>;
+    (): Assign1x1<TObject>;
     /**
      * Assigns own enumerable properties of source objects to the destination
      * object. Source objects are applied from left to right. Subsequent sources
@@ -149,7 +149,7 @@ interface Assign1x1<TSource> {
      * _.assign({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'c': 3, 'e': 5 }
      */
-    <TObject>(object: TObject): TObject & TSource;
+    <TSource>(source: TSource): TObject & TSource;
 }
 
 declare const assign: Assign;

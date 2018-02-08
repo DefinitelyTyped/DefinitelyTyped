@@ -24,7 +24,7 @@ interface Random {
      * @param floating Specify returning a floating-point number.
      * @return Returns the random number.
      */
-    (floating: boolean): Random1x1;
+    (max: number): Random1x1;
     /**
      * Produces a random number between min and max (inclusive). If only one argument is provided a number between
      * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
@@ -35,7 +35,7 @@ interface Random {
      * @param floating Specify returning a floating-point number.
      * @return Returns the random number.
      */
-    (floating: boolean, max: number): number;
+    (max: number, floating: boolean): number;
 }
 interface Random1x1 {
     /**
@@ -59,7 +59,7 @@ interface Random1x1 {
      * @param floating Specify returning a floating-point number.
      * @return Returns the random number.
      */
-    (max: number): number;
+    (floating: boolean): number;
 }
 
 declare const random: Random;

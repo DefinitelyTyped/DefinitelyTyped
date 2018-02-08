@@ -28,7 +28,7 @@ interface Subtract {
      * _.subtract(6, 4);
      * // => 2
      */
-    (subtrahend: number): Subtract1x1;
+    (minuend: number): Subtract1x1;
     /**
      * Subtract two numbers.
      *
@@ -41,7 +41,7 @@ interface Subtract {
      * _.subtract(6, 4);
      * // => 2
      */
-    (subtrahend: number, minuend: number): number;
+    (minuend: number, subtrahend: number): number;
 }
 interface Subtract1x1 {
     /**
@@ -69,7 +69,7 @@ interface Subtract1x1 {
      * _.subtract(6, 4);
      * // => 2
      */
-    (minuend: number): number;
+    (subtrahend: number): number;
 }
 
 declare const subtract: Subtract;

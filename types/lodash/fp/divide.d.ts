@@ -18,7 +18,7 @@ interface Divide {
     * @param divisor The second number in a division.
     * @returns Returns the quotient.
     */
-    (divisor: number): Divide1x1;
+    (dividend: number): Divide1x1;
     /**
     * Divide two numbers.
     *
@@ -26,7 +26,7 @@ interface Divide {
     * @param divisor The second number in a division.
     * @returns Returns the quotient.
     */
-    (divisor: number, dividend: number): number;
+    (dividend: number, divisor: number): number;
 }
 interface Divide1x1 {
     /**
@@ -44,7 +44,7 @@ interface Divide1x1 {
     * @param divisor The second number in a division.
     * @returns Returns the quotient.
     */
-    (dividend: number): number;
+    (divisor: number): number;
 }
 
 declare const divide: Divide;

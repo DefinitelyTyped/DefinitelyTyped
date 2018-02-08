@@ -58,7 +58,7 @@ interface AssignIn {
      * _.assignIn({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
      */
-    <TSource>(source: TSource): AssignIn1x1<TSource>;
+    <TObject>(object: TObject): AssignIn1x1<TObject>;
     /**
      * This method is like `_.assign` except that it iterates over own and
      * inherited source properties.
@@ -86,9 +86,9 @@ interface AssignIn {
      * _.assignIn({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
      */
-    <TObject, TSource>(source: TSource, object: TObject): TObject & TSource;
+    <TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
 }
-interface AssignIn1x1<TSource> {
+interface AssignIn1x1<TObject> {
     /**
      * This method is like `_.assign` except that it iterates over own and
      * inherited source properties.
@@ -116,7 +116,7 @@ interface AssignIn1x1<TSource> {
      * _.assignIn({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
      */
-    (): AssignIn1x1<TSource>;
+    (): AssignIn1x1<TObject>;
     /**
      * This method is like `_.assign` except that it iterates over own and
      * inherited source properties.
@@ -144,7 +144,7 @@ interface AssignIn1x1<TSource> {
      * _.assignIn({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
      */
-    <TObject>(object: TObject): TObject & TSource;
+    <TSource>(source: TSource): TObject & TSource;
 }
 
 declare const assignIn: AssignIn;

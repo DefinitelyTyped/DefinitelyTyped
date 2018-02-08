@@ -24,7 +24,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (step: number): Range1x1;
+    (start: number): Range1x1;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -35,7 +35,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (step: number, start: number): Range1x2;
+    (start: number, end: number): Range1x2;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -46,7 +46,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (step: number, start: number, end: number): number[];
+    (start: number, end: number, step: number): number[];
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -57,7 +57,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (guard: object): Range2x1;
+    (end: number): Range2x1;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -68,7 +68,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (guard: object, end: number): Range2x2;
+    (end: number, index: string | number): Range2x2;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -79,7 +79,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (guard: object, end: number, index: string | number): number[];
+    (end: number, index: string | number, guard: object): number[];
 }
 interface Range1x1 {
     /**
@@ -103,7 +103,7 @@ interface Range1x1 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (start: number): Range1x2;
+    (end: number): Range1x2;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -114,7 +114,7 @@ interface Range1x1 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (start: number, end: number): number[];
+    (end: number, step: number): number[];
 }
 interface Range1x2 {
     /**
@@ -138,7 +138,7 @@ interface Range1x2 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (end: number): number[];
+    (step: number): number[];
 }
 interface Range2x1 {
     /**
@@ -162,7 +162,7 @@ interface Range2x1 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (end: number): Range2x2;
+    (index: string | number): Range2x2;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -173,7 +173,7 @@ interface Range2x1 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (end: number, index: string | number): number[];
+    (index: string | number, guard: object): number[];
 }
 interface Range2x2 {
     /**
@@ -197,7 +197,7 @@ interface Range2x2 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (index: string | number): number[];
+    (guard: object): number[];
 }
 
 declare const rangeStep: Range;

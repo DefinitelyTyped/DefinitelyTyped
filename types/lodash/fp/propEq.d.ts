@@ -26,7 +26,7 @@ interface MatchesProperty {
      * @param srcValue The value to match.
      * @return Returns the new function.
      */
-    <T>(srcValue: T): MatchesProperty1x1;
+    (path: _.PropertyPath): MatchesProperty1x1;
     /**
      * Creates a function that compares the property value of path on a given object to value.
      *
@@ -37,7 +37,7 @@ interface MatchesProperty {
      * @param srcValue The value to match.
      * @return Returns the new function.
      */
-    <T>(srcValue: T, path: _.PropertyPath): (value: any) => boolean;
+    <T>(path: _.PropertyPath, srcValue: T): (value: any) => boolean;
     /**
      * Creates a function that compares the property value of path on a given object to value.
      *
@@ -48,7 +48,7 @@ interface MatchesProperty {
      * @param srcValue The value to match.
      * @return Returns the new function.
      */
-    <T, V>(srcValue: T, path: _.PropertyPath): (value: V) => boolean;
+    <T, V>(path: _.PropertyPath, srcValue: T): (value: V) => boolean;
 }
 interface MatchesProperty1x1 {
     /**
@@ -72,7 +72,7 @@ interface MatchesProperty1x1 {
      * @param srcValue The value to match.
      * @return Returns the new function.
      */
-    <T>(path: _.PropertyPath): (value: any) => boolean;
+    <T>(srcValue: T): (value: any) => boolean;
     /**
      * Creates a function that compares the property value of path on a given object to value.
      *
@@ -83,7 +83,7 @@ interface MatchesProperty1x1 {
      * @param srcValue The value to match.
      * @return Returns the new function.
      */
-    <T, V>(path: _.PropertyPath): (value: V) => boolean;
+    <T, V>(srcValue: T): (value: V) => boolean;
 }
 
 declare const propEq: MatchesProperty;

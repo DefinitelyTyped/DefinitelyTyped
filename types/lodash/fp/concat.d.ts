@@ -44,7 +44,7 @@ interface Concat {
      * console.log(array);
      * // => [1]
      */
-    <T>(values: _.Many<T>): Concat1x1<T>;
+    <T>(array: _.Many<T>): Concat1x1<T>;
     /**
      * Creates a new array concatenating `array` with any additional arrays
      * and/or values.
@@ -64,7 +64,7 @@ interface Concat {
      * console.log(array);
      * // => [1]
      */
-    <T>(values: _.Many<T>, array: _.Many<T>): T[];
+    <T>(array: _.Many<T>, values: _.Many<T>): T[];
 }
 interface Concat1x1<T> {
     /**
@@ -106,7 +106,7 @@ interface Concat1x1<T> {
      * console.log(array);
      * // => [1]
      */
-    (array: _.Many<T>): T[];
+    (values: _.Many<T>): T[];
 }
 
 declare const concat: Concat;

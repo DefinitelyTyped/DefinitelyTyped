@@ -24,7 +24,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (end: number): Range1x1;
+    (start: number): Range1x1;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -35,7 +35,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (end: number, start: number): number[];
+    (start: number, end: number): number[];
 }
 interface Range1x1 {
     /**
@@ -59,7 +59,7 @@ interface Range1x1 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (start: number): number[];
+    (end: number): number[];
 }
 
 declare const range: Range;
