@@ -4,7 +4,6 @@ import bytes = require('bytes');
 console.log(bytes(undefined));
 console.log(bytes(null));
 
-console.log(bytes(1024));
 console.log(bytes(104857));
 console.log(bytes(104857, { thousandsSeparator: ' ' }));
 console.log(bytes(104857, { decimalPlaces: 2 }));
