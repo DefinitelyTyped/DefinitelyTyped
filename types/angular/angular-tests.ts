@@ -710,6 +710,24 @@ function test_angular_forEach() {
         this.push(`${key}: ${value}`);
     }, log);
     // expect(log).toEqual(['name: misko', 'gender: male']);
+    // $ExpectType NodeListOf<HTMLImageElement>
+    angular.forEach(document.getElementsByTagName('img'), (value, key, obj) => {
+        value; // $ExpectType HTMLImageElement
+        key; // $ExpectType number
+        obj; // $ExpectType NodeListOf<HTMLImageElement>
+    });
+    // $ExpectType number[]
+    angular.forEach([1, 2, 3], (value, key, obj) => {
+        value; // $ExpectType number
+        key; // $ExpectType number
+        obj; // $ExpectType number[]
+    });
+    // $ExpectType string
+    angular.forEach('123', (value, key, obj) => {
+        value; // $ExpectType string
+        key; // $ExpectType number
+        obj; // $ExpectType string
+    });
 }
 
 // angular.element() tests
