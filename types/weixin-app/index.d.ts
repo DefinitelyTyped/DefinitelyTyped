@@ -3088,6 +3088,19 @@ type ThisTypedComponentOptionsWithRecordProps<V extends Component<Data>, Data, M
   object &
   ComponentOptions<V, Data | ((this: Readonly<Props> & V) => Data), Methods, Options, PropsDefinition<Props>> &
   ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
+
+interface ComponentRelation {
+  /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
+  type: string;
+  /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
+  target?: string;
+  /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
+  linked?: (...args: any[]) => void;
+  /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
+  linkChanged?: (...args: any[]) => void;
+  /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
+  unlinked?: (...args: any[]) => void;
+}
 /**
  * Component组件参数
  */
@@ -3147,7 +3160,7 @@ interface ComponentOptions<
   /**
    * 组件间关系定义，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
    */
-  relations?: any;
+  relations?: { [key: string]: ComponentRelation };
 }
 /**
  * Component实例方法
@@ -3171,7 +3184,6 @@ interface Component<T> {
   data: T;
   /**
    * 设置data并执行视图层渲染
-   * @param data
    */
   setData(data: object): void;
   /**
@@ -3181,40 +3193,44 @@ interface Component<T> {
   hasBehavior(behavior: any): void;
   /**
    * 触发事件，参见 [组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
-   * @param name string
    */
   triggerEvent(name: string): void;
   /**
    * 创建一个 SelectorQuery 对象
    * 选择器选取范围为这个[组件实例](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)内
-   * @param query
    */
   createSelectorQuery(query: string): void;
   /**
    * 使用选择器选择组件实例节点
    * 返回匹配到的第一个组件实例对象
-   * @param selector
    */
   selectComponent(selector: string): void;
   /**
    * selector  使用选择器选择组件实例节点，返回匹配到的全部组件实例对象组成的数组
-   * @param selector
    */
   selectAllComponents(selector: string): void;
   /**
    * 获取所有这个关系对应的所有关联节点，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
-   * @param relationKey
    */
   getRelationNodes(relationKey: string): void;
 }
 declare function Component<D, M, O, P>(options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>): ExtendedComponent<Component<D>, D, M, O, P>;
+/**
+ * behaviors 是用于组件间代码共享的特性
+ * 类似于一些编程语言中的“mixins”或“traits”
+ * 每个 behavior 可以包含一组属性、数据、生命周期函数和方法
+ * 组件引用它时，它的属性、数据和方法会被合并到组件中，生命周期函数也会在对应时机被调用
+ * 每个组件可以引用多个 behavior 
+ * behavior 也可以引用其他 behavior
+ */
+declare function Behavior<D, M, O, P>(options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>): ExtendedComponent<Component<D>, D, M, O, P>;
 // #endregion
 // #region Page
 interface PageShareAppMessageOptions {
   /** 转发事件来源。button：页面内转发按钮；menu：右上角转发菜单 */
-  from: string;
+  from: 'button' | 'menu';
   /** 如果 from 值是 button，则 target 是触发这次转发事件的 button，否则为 undefined */
-  target: object;
+  target: object | undefined;
 }
 /**
  * Page 实现的接口对象
@@ -3228,7 +3244,7 @@ interface PageOptions {
    * 生命周期函数--监听页面加载
    * @param options 接收页面参数可以获取wx.navigateTo和wx.redirectTo及<navigator/>中的 query
    */
-  onLoad?: (options?: object) => void;
+  onLoad?: (options: object) => void;
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -3294,7 +3310,7 @@ interface Page {
    * @param data object 以 key，value 的形式表示将 this.data 中的 key 对应的值改变成 value
    * @param [callback] callback 是一个回调函数，在这次setData对界面渲染完毕后调用
    */
-  setData(data: any, callback?: () => any): void;
+  setData(data: { [key: string]: string | number | boolean | symbol | object | null | any[] }, callback?: () => any): void;
   /**
    * 更新
    */

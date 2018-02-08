@@ -1,5 +1,23 @@
 getCurrentPages();
 
+Behavior({
+  behaviors: [],
+  properties: {
+    myBehaviorProperty: {
+      type: String
+    }
+  },
+  data: {
+    myBehaviorData: {}
+  },
+  attached() { },
+  methods: {
+    myBehaviorMethod() {
+      this.myBehaviorData;
+    }
+  }
+});
+
 Component({
   behaviors: [],
 
@@ -17,7 +35,6 @@ Component({
   attached() { },
   moved() { },
   detached() { },
-
   methods: {
     onMyButtonTap() {
       this.setData({
@@ -32,6 +49,20 @@ Component({
     _propertyChange(newVal: string, oldVal: string) {
       //
     }
+  },
+  relations: {
+    './custom-ul': {
+      type: 'parent', // 关联的目标节点应为父节点
+      linked(target) {
+        // 每次被插入到custom-ul时执行，target是custom-ul节点实例对象，触发在attached生命周期之后
+      },
+      linkChanged(target) {
+        // 每次被移动后执行，target是custom-ul节点实例对象，触发在moved生命周期之后
+      },
+      unlinked(target) {
+        // 每次被移除时执行，target是custom-ul节点实例对象，触发在detached生命周期之后
+      }
+    }
   }
 });
 
@@ -40,7 +71,7 @@ Page({
   data: {
     text: "This is page data."
   },
-  onLoad: (options) => {
+  onLoad: () => {
     // Do some initialize when page load.
   },
   onReady: () => {
@@ -62,7 +93,7 @@ Page({
     // Do something when page reach bottom.
   },
   onShareAppMessage: (res) => {
-    if (res && res.from) {
+    if (res && res.from === 'menu') {
       //
     }
     // return custom share data when user share.
@@ -77,6 +108,10 @@ Page({
     // Do something when page scroll
   },
   onTabItemTap(item: any) {
+    this.setData({
+      1: null,
+      _2: "undefined"
+    });
     console.log(item.index);
     console.log(item.pagePath);
     console.log(item.text);
