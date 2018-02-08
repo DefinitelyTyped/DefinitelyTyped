@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsError = 
     /**
      * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
      * object.
@@ -12,8 +10,8 @@ declare namespace Lodash {
      * @param value The value to check.
      * @return Returns true if value is an error object, else false.
      */
-    type IsError = (value: any) => value is Error;
-}
+    (value: any) => value is Error;
 
-declare const isError: Lodash.IsError;
+declare const isError: IsError;
+declare namespace isError {}
 export = isError;

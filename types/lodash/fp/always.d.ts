@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Constant = 
     /**
      * Creates a function that returns value.
      *
      * @param value The value to return from the new function.
      * @return Returns the new function.
      */
-    type Constant = <T>(value: T) => () => T;
-}
+    <T>(value: T) => () => T;
 
-declare const always: Lodash.Constant;
+declare const always: Constant;
+declare namespace always {}
 export = always;

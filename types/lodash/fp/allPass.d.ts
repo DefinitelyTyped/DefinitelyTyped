@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type OverEvery = 
     /**
      * Creates a function that checks if all of the predicates return truthy when invoked with the arguments
      * provided to the created function.
@@ -12,8 +12,8 @@ declare namespace Lodash {
      * @param predicates The predicates to check.
      * @return Returns the new function.
      */
-    type OverEvery = <T>(predicates: _.Many<(...args: T[]) => boolean>) => (...args: T[]) => boolean;
-}
+    <T>(predicates: _.Many<(...args: T[]) => boolean>) => (...args: T[]) => boolean;
 
-declare const allPass: Lodash.OverEvery;
+declare const allPass: OverEvery;
+declare namespace allPass {}
 export = allPass;

@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type ToUpper = 
     /**
      * Converts `string`, as a whole, to upper case.
      *
      * @param string The string to convert.
      * @return Returns the upper cased string.
      */
-    type ToUpper = (string: string) => string;
-}
+    (string: string) => string;
 
-declare const toUpper: Lodash.ToUpper;
+declare const toUpper: ToUpper;
+declare namespace toUpper {}
 export = toUpper;

@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Compact = 
     /**
      * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
      * falsey.
@@ -12,8 +12,8 @@ declare namespace Lodash {
      * @param array The array to compact.
      * @return Returns the new array of filtered values.
      */
-    type Compact = <T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
-}
+    <T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
 
-declare const compact: Lodash.Compact;
+declare const compact: Compact;
+declare namespace compact {}
 export = compact;

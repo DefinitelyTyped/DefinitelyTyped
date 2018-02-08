@@ -4,15 +4,15 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type FlattenDeep = 
     /**
      * Recursively flattens a nested array.
      *
      * @param array The array to recursively flatten.
      * @return Returns the new flattened array.
      */
-    type FlattenDeep = <T>(array: _.ListOfRecursiveArraysOrValues<T> | null | undefined) => T[];
-}
+    <T>(array: _.ListOfRecursiveArraysOrValues<T> | null | undefined) => T[];
 
-declare const flattenDeep: Lodash.FlattenDeep;
+declare const flattenDeep: FlattenDeep;
+declare namespace flattenDeep {}
 export = flattenDeep;

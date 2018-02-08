@@ -4,86 +4,85 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
-    interface Replace {
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (): Replace;
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (pattern: RegExp | string): Replace1x1;
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (pattern: RegExp | string, replacement: _.ReplaceFunction | string): Replace1x2;
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (pattern: RegExp | string, replacement: _.ReplaceFunction | string, string: string): string;
-    }
-    interface Replace1x1 {
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (): Replace1x1;
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (replacement: _.ReplaceFunction | string): Replace1x2;
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (replacement: _.ReplaceFunction | string, string: string): string;
-    }
-    interface Replace1x2 {
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (): Replace1x2;
-        /**
-         * Replaces matches for pattern in string with replacement.
-         *
-         * Note: This method is based on String#replace.
-         *
-         * @return Returns the modified string.
-         */
-        (string: string): string;
-    }
+interface Replace {
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (): Replace;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string): Replace1x1;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string, replacement: _.ReplaceFunction | string): Replace1x2;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string, replacement: _.ReplaceFunction | string, string: string): string;
+}
+interface Replace1x1 {
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (): Replace1x1;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (replacement: _.ReplaceFunction | string): Replace1x2;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (replacement: _.ReplaceFunction | string, string: string): string;
+}
+interface Replace1x2 {
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (): Replace1x2;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (string: string): string;
 }
 
-declare const replace: Lodash.Replace;
+declare const replace: Replace;
+declare namespace replace {}
 export = replace;

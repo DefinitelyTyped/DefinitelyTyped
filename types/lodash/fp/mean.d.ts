@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Mean = 
     /**
      * Computes the mean of the values in `array`.
      *
@@ -16,8 +16,8 @@ declare namespace Lodash {
      * _.mean([4, 2, 8, 6]);
      * // => 5
      */
-    type Mean = (collection: _.List<any> | null | undefined) => number;
-}
+    (collection: _.List<any> | null | undefined) => number;
 
-declare const mean: Lodash.Mean;
+declare const mean: Mean;
+declare namespace mean {}
 export = mean;

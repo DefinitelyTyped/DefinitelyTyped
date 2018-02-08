@@ -2,16 +2,14 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type StubObject = 
     /**
      * This method returns a new empty object.
      *
      * @returns Returns the new empty object.
      */
-    type StubObject = () => any;
-}
+    () => any;
 
-declare const stubObject: Lodash.StubObject;
+declare const stubObject: StubObject;
+declare namespace stubObject {}
 export = stubObject;

@@ -2,16 +2,14 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Now = 
     /**
      * Gets the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
      *
      * @return The number of milliseconds.
      */
-    type Now = () => number;
-}
+    () => number;
 
-declare const now: Lodash.Now;
+declare const now: Now;
+declare namespace now {}
 export = now;

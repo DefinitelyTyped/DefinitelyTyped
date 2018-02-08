@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Over = 
     /**
      * Creates a function that invokes iteratees with the arguments provided to the created function and returns
      * their results.
@@ -12,8 +12,8 @@ declare namespace Lodash {
      * @param iteratees The iteratees to invoke.
      * @return Returns the new function.
      */
-    type Over = <TResult>(iteratees: _.Many<(...args: any[]) => TResult>) => (...args: any[]) => TResult[];
-}
+    <TResult>(iteratees: _.Many<(...args: any[]) => TResult>) => (...args: any[]) => TResult[];
 
-declare const juxt: Lodash.Over;
+declare const juxt: Over;
+declare namespace juxt {}
 export = juxt;

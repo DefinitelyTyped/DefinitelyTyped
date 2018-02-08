@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type KeysIn = 
     /**
      * Creates an array of the own and inherited enumerable property names of object.
      *
@@ -13,8 +11,8 @@ declare namespace Lodash {
      * @param object The object to query.
      * @return An array of property names.
      */
-    type KeysIn = (object: any) => string[];
-}
+    (object: any) => string[];
 
-declare const keysIn: Lodash.KeysIn;
+declare const keysIn: KeysIn;
+declare namespace keysIn {}
 export = keysIn;

@@ -4,15 +4,15 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Tail = 
     /**
      * Gets all but the first element of array.
      *
      * @param array The array to query.
      * @return Returns the slice of array.
      */
-    type Tail = <T>(array: _.List<T> | null | undefined) => T[];
-}
+    <T>(array: _.List<T> | null | undefined) => T[];
 
-declare const tail: Lodash.Tail;
+declare const tail: Tail;
+declare namespace tail {}
 export = tail;

@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsNumber = 
     /**
      * Checks if value is classified as a Number primitive or object.
      *
@@ -13,8 +11,8 @@ declare namespace Lodash {
      * @param value The value to check.
      * @return Returns true if value is correctly classified, else false.
      */
-    type IsNumber = (value: any) => value is number;
-}
+    (value: any) => value is number;
 
-declare const isNumber: Lodash.IsNumber;
+declare const isNumber: IsNumber;
+declare namespace isNumber {}
 export = isNumber;

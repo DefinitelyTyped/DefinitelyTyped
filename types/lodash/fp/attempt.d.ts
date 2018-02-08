@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Attempt = 
     /**
      * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
      * are provided to func when it’s invoked.
@@ -12,8 +10,8 @@ declare namespace Lodash {
      * @param func The function to attempt.
      * @return Returns the func result or error object.
      */
-    type Attempt = <TResult>(func: (...args: any[]) => TResult) => TResult|Error;
-}
+    <TResult>(func: (...args: any[]) => TResult) => TResult|Error;
 
-declare const attempt: Lodash.Attempt;
+declare const attempt: Attempt;
+declare namespace attempt {}
 export = attempt;

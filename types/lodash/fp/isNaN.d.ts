@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsNaN = 
     /**
      * Checks if value is NaN.
      *
@@ -13,8 +11,8 @@ declare namespace Lodash {
      * @param value The value to check.
      * @return Returns true if value is NaN, else false.
      */
-    type IsNaN = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isNaN: Lodash.IsNaN;
+declare const isNaN: IsNaN;
+declare namespace isNaN {}
 export = isNaN;

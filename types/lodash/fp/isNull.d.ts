@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsNull = 
     /**
      * Checks if value is null.
      *
      * @param value The value to check.
      * @return Returns true if value is null, else false.
      */
-    type IsNull = (value: any) => value is null;
-}
+    (value: any) => value is null;
 
-declare const isNull: Lodash.IsNull;
+declare const isNull: IsNull;
+declare namespace isNull {}
 export = isNull;

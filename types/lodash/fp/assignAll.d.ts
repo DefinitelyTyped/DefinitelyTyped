@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Assign = 
     /**
      * Assigns own enumerable properties of source objects to the destination
      * object. Source objects are applied from left to right. Subsequent sources
@@ -33,8 +31,8 @@ declare namespace Lodash {
      * _.assign({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'c': 3, 'e': 5 }
      */
-    type Assign = (object: ReadonlyArray<any>) => any;
-}
+    (object: ReadonlyArray<any>) => any;
 
-declare const assignAll: Lodash.Assign;
+declare const assignAll: Assign;
+declare namespace assignAll {}
 export = assignAll;

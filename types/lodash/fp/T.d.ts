@@ -2,16 +2,14 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type StubTrue = 
     /**
      * This method returns `true`.
      *
      * @returns Returns `true`.
      */
-    type StubTrue = () => boolean;
-}
+    () => boolean;
 
-declare const T: Lodash.StubTrue;
+declare const T: StubTrue;
+declare namespace T {}
 export = T;

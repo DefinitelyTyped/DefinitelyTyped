@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Max = 
     /**
       * Computes the maximum value of `array`. If `array` is empty or falsey
       * `undefined` is returned.
@@ -13,8 +13,8 @@ declare namespace Lodash {
       * @param array The array to iterate over.
       * @returns Returns the maximum value.
       */
-    type Max = <T>(collection: _.List<T> | null | undefined) => T | undefined;
-}
+    <T>(collection: _.List<T> | null | undefined) => T | undefined;
 
-declare const max: Lodash.Max;
+declare const max: Max;
+declare namespace max {}
 export = max;

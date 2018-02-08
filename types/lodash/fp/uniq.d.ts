@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Uniq = 
     /**
      * Creates a duplicate-free version of an array, using
      * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -19,8 +19,8 @@ declare namespace Lodash {
      * _.uniq([2, 1, 2]);
      * // => [2, 1]
      */
-    type Uniq = <T>(array: _.List<T> | null | undefined) => T[];
-}
+    <T>(array: _.List<T> | null | undefined) => T[];
 
-declare const uniq: Lodash.Uniq;
+declare const uniq: Uniq;
+declare namespace uniq {}
 export = uniq;

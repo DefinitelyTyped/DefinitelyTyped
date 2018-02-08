@@ -1,5 +1,8 @@
+// Script for converting the lodash types into unctional programming (FP) format.
+// The convertion is done based on this guide: https://github.com/lodash/lodash/wiki/FP-Guide
+
 import * as fs from "fs";
-import { ary, cloneDeep, defaults, flatMap, flatten, isArray, isEqual, min, pull, range, remove, sortBy, sortedUniq, trim, union, uniqWith, upperFirst, without } from "lodash";
+import { ary, cloneDeep, defaults, flatMap, flatten, isArray, isEqual, min, max, pull, range, remove, sortBy, sortedUniq, trim, union, uniqWith, upperFirst, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
@@ -130,16 +133,20 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                 return () => curryOverloads(definition.overloads, definition.name, args[0] || [], -1, definition.jsdoc);
             };
         } else {
-            builder[definition.name] = (...args: number[][]) => {
-                // args were originally passed in as [0], [1], [2], [3]. If they changed order, that indicates how the functoin was re-arged
+            builder[definition.name] = (...args: Array<number | number[]>) => {
+                // args were originally passed in as [0], [1], [2], [3], [4]. If they changed order, that indicates how the functoin was re-arged
                 // Return a function because some definitons (like rearg) expect to have a function return value
 
                 // If any argument is a number instead of an array, then the argument at that index is being spread (e.g. assignAll, invokeArgs, partial, without)
                 const spreadIndex = args.findIndex(a => typeof a === "number");
                 if (spreadIndex !== -1) {
                     // If there's a spread parameter, convert() won't cap the number of arguments, so we need to do it manually
-                    const arity = Math.max(spreadIndex, args[spreadIndex] as any) + 1;
+                    const arity = Math.max(spreadIndex, args[spreadIndex] as number) + 1;
                     args = args.slice(0, arity);
+                } else if (args.length > 4) {
+                    // Arity wasn't fixed by convert(). Manually fix arity by ignoring rest parameters
+                    const arity = max(definition.overloads.map(o => o.params.filter(p => !!p && !p.startsWith("...")).length)) || 0;
+                    args = args.splice(0, arity);
                 }
 
                 return () => curryOverloads(definition.overloads, definition.name, flatten(args), spreadIndex, definition.jsdoc);
@@ -153,25 +160,29 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
 
     let functionNames = Object.keys(builderFp).filter(key => key !== "convert" && typeof builderFp[key] === "function");
     for (const functionName of functionNames) {
-        let outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3]); // Assuming the maximum arity is 4
-        let output = outputFn([0], [1], [2], [3])
+        // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
+        let outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3], [4]);
+        const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
+        commonTypeSearch.lastIndex;
+        let importCommon = false;
+        let output = outputFn([0], [1], [2], [3], [4])
             .map(interfaceToString)
             .join("\n")
-            .replace(new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g"), "_.$1");
+            .replace(commonTypeSearch, match => {
+                importCommon = true;
+                return `_.${match}`;
+            });
         const interfaceNameMatch = output.match(/(?:interface|type) ([A-Za-z0-9]+)/);
         const interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || upperFirst(functionName);
         output =
 `// AUTO-GENERATED: do not modify this file directly.
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
+${importCommon ? '\nimport _ = require("../index");\n' : '' }
+${output}
 
-import _ = require("../index");
-
-declare namespace Lodash {
-${tab(output, 1)}
-}
-
-declare const ${functionName}: Lodash.${interfaceName};
+declare const ${functionName}: ${interfaceName};
+declare namespace ${functionName} {}
 export = ${functionName};
 `
         const targetFile = `../fp/${functionName}.d.ts`;
@@ -337,7 +348,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         }
     }
 
-    const filteredOverloads = overloads.filter(o => o.params.length === arity && !o.params[o.params.length - 1].startsWith("..."));
+    const filteredOverloads = overloads.filter(o => o.params.length === arity && (arity === 0 || !o.params[o.params.length - 1].startsWith("...")));
     if (filteredOverloads.length === 0) {
         const restOverloads = overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("..."));
         for (const restOverload of restOverloads) {
@@ -437,6 +448,12 @@ function capCallback(parameter: string, functionName: string): string {
             .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<string,$3>");
     }
 
+    // Special case for reduceRight: callback argument order of (b, a)
+    if (functionName === "reduceRight") {
+        parameter = parameter
+            .replace(/(iteratee|predicate|callback): *Memo(Void)?(?:List|Object|Dictionary)Iterator<([^,>]+),([^,>]+)(?:,[^,>]+?(<T>)?)?>/g, "$1: Memo$2IteratorCappedRight<$3,$4>");
+    }
+
     return parameter
         .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<$2>")
         .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<$2,$3>")
@@ -447,7 +464,11 @@ function capCallback(parameter: string, functionName: string): string {
         .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary)Iterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2) => $3")
         .replace(/(iteratee|predicate|callback): *StringIterator<([^,>]+)>/g, "$1: (value: string) => $2")
         .replace(/(iteratee|predicate|callback): *ObjectIterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2[keyof $2]) => $3")
-        .replace(/(iteratee|predicate|callback): *Memo(Void)?(?:List|Object|Dictionary)Iterator<([^,>]+),([^,>]+)(?:,[^,>]+?(<T>)?)?>/g, "$1: Memo$2IteratorCapped<$3,$4>");
+        .replace(/(iteratee|predicate|callback): *Memo(Void)?(?:List|Object|Dictionary)Iterator<([^,>]+),([^,>]+)(?:,[^,>]+?(<T>)?)?>/g, "$1: Memo$2IteratorCapped<$3,$4>")
+        .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>>/g, "$1: Many<ValueIteratee<$2>>")
+        .replace(/(iteratees|predicates|callbacks): *Many<ObjectIteratee<([^,>]+)>>/g, "$1: Many<ValueIteratee<$2[keyof $2]>>")
+        .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary)Iterator<([^,>]+), *([^,>]+)>>/g, "$1: Many<(value: $2) => $3>")
+        .replace(/(iteratees|predicates|callbacks): *Many<ObjectIterator<([^,>]+), *([^,>]+)>>/g, "$1: Many<(value: $2[keyof $2]) => $3>");
 }
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {
@@ -502,8 +523,29 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
                     const fixTypeParam = fixInterface.typeParams.find(tp => tp.name === objectTypeParam.name && (tp.extends === "object" || !tp.extends));
                     if (fixTypeParam) {
                         delete fixTypeParam.extends;
-                        for (const fixOverload of fixInterface.overloads)
-                            fixOverload.params = fixOverload.params.map(p => p.replace(new RegExp(`\\b${fixTypeParam.name}\\b`, "g"), "object"));
+                        for (const fixOverload of fixInterface.overloads) {
+                            // This overload has T referring to a whole object. But now T refers to a single element, so fix it.
+                            // If there's only 1 usage, replace it with 'object'. If there are multiple, create a new type constraint.
+                            const typeParamSearch = new RegExp(`\\b${fixTypeParam.name}\\b(?:(?!(?:\\[keyof ${fixTypeParam.name})?\\])|$)`);
+                            const matches = fixOverload.params.concat(fixOverload.returnType).filter(value => typeParamSearch.test(value));
+                            let replacement = "object";
+                            if (matches.length >= 2) {
+                                let i = 1;
+                                const newTypeParam: TypeParam = { name: "T" + i, extends: replacement };
+                                while (fixInterface.typeParams.some(t => t.name === newTypeParam.name) || fixOverload.typeParams.some(t => t.name === newTypeParam.name))
+                                    newTypeParam.name = "T" + (++i);
+                                fixOverload.typeParams.push(newTypeParam);
+                                replacement = newTypeParam.name;
+                            }
+                            fixOverload.params = fixOverload.params
+                                .map(p => p.replace(new RegExp(typeParamSearch, "g"), replacement)
+                                           .replace(`${fixTypeParam.name}[keyof ${fixTypeParam.name}]`, fixTypeParam.name));
+                            if (!new RegExp(`\\b${baseName}[0-9]+x[0-9]+\\b`).test(fixOverload.returnType)) {
+                                fixOverload.returnType = fixOverload.returnType
+                                    .replace(new RegExp(typeParamSearch, "g"), replacement)
+                                    .replace(`${fixTypeParam.name}[keyof ${fixTypeParam.name}]`, fixTypeParam.name);
+                            }
+                        }
                     }
                 } else {
                     console.warn(`Fixed T[keyof T] overload, but could not find corresponding interface '${fixInterfaceName}'.`);
@@ -573,7 +615,7 @@ function interfaceToString(interfaceDef: Interface): string {
         if (jsdoc)
             jsdoc += "\n";
         interfaceDef.overloads[0].jsdoc = "";
-        return `${jsdoc}type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} = ${overloadToString(interfaceDef.overloads[0], true)}`;
+        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} = \n${tab(jsdoc + overloadToString(interfaceDef.overloads[0], true), 1)}`;
     } else {
         const overloadStrings = interfaceDef.overloads.map(o => "\n" + tab(overloadToString(o), 1)).join("");
         return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}\n}`;

@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Unescape = 
     /**
      * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
      * in string to their corresponding characters.
@@ -15,8 +13,8 @@ declare namespace Lodash {
      * @param string The string to unescape.
      * @return Returns the unescaped string.
      */
-    type Unescape = (string: string) => string;
-}
+    (string: string) => string;
 
-declare const unescape: Lodash.Unescape;
+declare const unescape: Unescape;
+declare namespace unescape {}
 export = unescape;

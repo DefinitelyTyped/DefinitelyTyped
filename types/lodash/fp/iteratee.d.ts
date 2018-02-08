@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Iteratee = 
     /**
      * Creates a function that invokes `func` with the arguments of the created
      * function. If `func` is a property name the created callback returns the
@@ -32,8 +30,8 @@ declare namespace Lodash {
      * _.filter(users, 'age > 36');
      * // => [{ 'user': 'fred', 'age': 40 }]
      */
-    type Iteratee = <TFunction extends (...args: any[]) => any>(func: TFunction | string | object) => TFunction;
-}
+    <TFunction extends (...args: any[]) => any>(func: TFunction | string | object) => TFunction;
 
-declare const iteratee: Lodash.Iteratee;
+declare const iteratee: Iteratee;
+declare namespace iteratee {}
 export = iteratee;

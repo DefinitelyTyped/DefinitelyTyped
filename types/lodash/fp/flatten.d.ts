@@ -4,15 +4,15 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Flatten = 
     /**
      * Flattens `array` a single level deep.
      *
      * @param array The array to flatten.
      * @return Returns the new flattened array.
      */
-    type Flatten = <T>(array: _.List<_.Many<T>> | null | undefined) => T[];
-}
+    <T>(array: _.List<_.Many<T>> | null | undefined) => T[];
 
-declare const flatten: Lodash.Flatten;
+declare const flatten: Flatten;
+declare namespace flatten {}
 export = flatten;

@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Words = 
     /**
      * Splits `string` into an array of its words.
      *
@@ -12,8 +10,8 @@ declare namespace Lodash {
      * @param pattern The pattern to match words.
      * @return Returns the words of `string`.
      */
-    type Words = (string: string) => string[];
-}
+    (string: string) => string[];
 
-declare const words: Lodash.Words;
+declare const words: Words;
+declare namespace words {}
 export = words;

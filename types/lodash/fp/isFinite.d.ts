@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsFinite = 
     /**
      * Checks if value is a finite primitive number.
      *
@@ -13,8 +11,8 @@ declare namespace Lodash {
      * @param value The value to check.
      * @return Returns true if value is a finite number, else false.
      */
-    type IsFinite = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isFinite: Lodash.IsFinite;
+declare const isFinite: IsFinite;
+declare namespace isFinite {}
 export = isFinite;

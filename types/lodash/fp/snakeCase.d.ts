@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type SnakeCase = 
     /**
      * Converts string to snake case.
      *
      * @param string The string to convert.
      * @return Returns the snake cased string.
      */
-    type SnakeCase = (string: string) => string;
-}
+    (string: string) => string;
 
-declare const snakeCase: Lodash.SnakeCase;
+declare const snakeCase: SnakeCase;
+declare namespace snakeCase {}
 export = snakeCase;

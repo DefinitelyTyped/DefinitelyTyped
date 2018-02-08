@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsBuffer = 
     /**
      * Checks if value is a buffer.
      *
      * @param value The value to check.
      * @return Returns true if value is a buffer, else false.
      */
-    type IsBuffer = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isBuffer: Lodash.IsBuffer;
+declare const isBuffer: IsBuffer;
+declare namespace isBuffer {}
 export = isBuffer;

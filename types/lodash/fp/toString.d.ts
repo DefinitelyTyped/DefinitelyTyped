@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type ToString = 
     /**
      * Converts `value` to a string if it's not one. An empty string is returned
      * for `null` and `undefined` values. The sign of `-0` is preserved.
@@ -23,8 +21,8 @@ declare namespace Lodash {
      * _.toString([1, 2, 3]);
      * // => '1,2,3'
      */
-    type ToString = (value: any) => string;
-}
+    (value: any) => string;
 
-declare const toString: Lodash.ToString;
+declare const toString: ToString;
+declare namespace toString {}
 export = toString;

@@ -209,6 +209,7 @@ declare module "../index" {
     type MemoListIterator<T, TResult, TList> = (prev: TResult, curr: T, index: number, list: TList) => TResult;
     type MemoObjectIterator<T, TResult, TList> = (prev: TResult, curr: T, key: string, list: TList) => TResult;
     type MemoIteratorCapped<T, TResult> = (prev: TResult, curr: T) => TResult;
+    type MemoIteratorCappedRight<T, TResult> = (curr: T, prev: TResult) => TResult;
 
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;

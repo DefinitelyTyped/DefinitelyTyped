@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type ToLength = 
     /**
      * Converts `value` to an integer suitable for use as the length of an
      * array-like object.
@@ -28,8 +26,8 @@ declare namespace Lodash {
      * _.toLength('3');
      * // => 3
      */
-    type ToLength = (value: any) => number;
-}
+    (value: any) => number;
 
-declare const toLength: Lodash.ToLength;
+declare const toLength: ToLength;
+declare namespace toLength {}
 export = toLength;

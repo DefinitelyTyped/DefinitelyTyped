@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Unzip = 
     /**
      * This method is like _.zip except that it accepts an array of grouped elements and creates an array
      * regrouping the elements to their pre-zip configuration.
@@ -12,8 +12,8 @@ declare namespace Lodash {
      * @param array The array of grouped elements to process.
      * @return Returns the new array of regrouped elements.
      */
-    type Unzip = <T>(array: T[][] | _.List<_.List<T>> | null | undefined) => T[][];
-}
+    <T>(array: T[][] | _.List<_.List<T>> | null | undefined) => T[][];
 
-declare const unzip: Lodash.Unzip;
+declare const unzip: Unzip;
+declare namespace unzip {}
 export = unzip;

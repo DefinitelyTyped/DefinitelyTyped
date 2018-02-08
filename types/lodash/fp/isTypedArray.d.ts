@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsTypedArray = 
     /**
      * Checks if value is classified as a typed array.
      *
      * @param value The value to check.
      * @return Returns true if value is correctly classified, else false.
      */
-    type IsTypedArray = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isTypedArray: Lodash.IsTypedArray;
+declare const isTypedArray: IsTypedArray;
+declare namespace isTypedArray {}
 export = isTypedArray;

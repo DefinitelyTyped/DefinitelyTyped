@@ -2210,10 +2210,6 @@ namespace TestSortedIndex {
 
     let value: SampleType = { a: 1, b: "", c: true };
 
-    let stringIterator: (x: string) => number;
-    let arrayIterator: (x: SampleType) => number;
-    let listIterator: (x: SampleType) => number;
-
     {
         let result: number;
 
@@ -2301,10 +2297,6 @@ namespace TestSortedLastIndex {
     let list: _.List<SampleType> = [];
 
     let value: SampleType = { a: 1, b: "", c: true };
-
-    let stringIterator: (x: string) => number;
-    let arrayIterator: (x: SampleType) => number;
-    let listIterator: (x: SampleType) => number;
 
     {
         let result: number;

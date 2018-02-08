@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Memoize = 
     /**
      * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
      * storing the result based on the arguments provided to the memoized function. By default, the first argument
@@ -15,8 +15,8 @@ declare namespace Lodash {
      * @param resolver The function to resolve the cache key.
      * @return Returns the new memoizing function.
      */
-    type Memoize = <T extends (...args: any[]) => any>(func: T) => T & _.MemoizedFunction;
-}
+    <T extends (...args: any[]) => any>(func: T) => T & _.MemoizedFunction;
 
-declare const memoize: Lodash.Memoize;
+declare const memoize: Memoize;
+declare namespace memoize {}
 export = memoize;

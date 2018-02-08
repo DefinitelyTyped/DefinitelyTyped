@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Template = 
     /**
      * Creates a compiled template function that can interpolate data properties in "interpolate" delimiters,
      * HTML-escape interpolated data properties in "escape" delimiters, and execute JavaScript in "evaluate"
@@ -31,8 +31,8 @@ declare namespace Lodash {
      * @param options.variable The data object variable name.
      * @return Returns the compiled template function.
      */
-    type Template = (string: string) => _.TemplateExecutor;
-}
+    (string: string) => _.TemplateExecutor;
 
-declare const template: Lodash.Template;
+declare const template: Template;
+declare namespace template {}
 export = template;

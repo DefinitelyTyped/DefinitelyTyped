@@ -4,15 +4,15 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type CastArray = 
     /**
      * Casts value as an array if it’s not one.
      *
      * @param value The value to inspect.
      * @return Returns the cast array.
      */
-    type CastArray = <T>(value: _.Many<T>) => T[];
-}
+    <T>(value: _.Many<T>) => T[];
 
-declare const castArray: Lodash.CastArray;
+declare const castArray: CastArray;
+declare namespace castArray {}
 export = castArray;

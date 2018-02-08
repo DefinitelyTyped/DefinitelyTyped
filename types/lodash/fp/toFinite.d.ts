@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type ToFinite = 
     /**
      * Converts `value` to a finite number.
      *
@@ -26,8 +24,8 @@ declare namespace Lodash {
      * _.toFinite('3.2');
      * // => 3.2
      */
-    type ToFinite = (value: any) => number;
-}
+    (value: any) => number;
 
-declare const toFinite: Lodash.ToFinite;
+declare const toFinite: ToFinite;
+declare namespace toFinite {}
 export = toFinite;

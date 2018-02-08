@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsInteger = 
     /**
      * Checks if `value` is an integer.
      *
@@ -27,8 +25,8 @@ declare namespace Lodash {
      * _.isInteger('3');
      * // => false
      */
-    type IsInteger = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isInteger: Lodash.IsInteger;
+declare const isInteger: IsInteger;
+declare namespace isInteger {}
 export = isInteger;

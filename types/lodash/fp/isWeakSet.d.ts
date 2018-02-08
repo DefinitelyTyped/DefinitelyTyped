@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsWeakSet = 
     /**
      * Checks if value is classified as a WeakSet object.
      *
      * @param value The value to check.
      * @returns Returns true if value is correctly classified, else false.
      */
-    type IsWeakSet = (value: any) => value is WeakSet<object>;
-}
+    (value: any) => value is WeakSet<object>;
 
-declare const isWeakSet: Lodash.IsWeakSet;
+declare const isWeakSet: IsWeakSet;
+declare namespace isWeakSet {}
 export = isWeakSet;

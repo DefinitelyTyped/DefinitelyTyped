@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Head = 
     /**
      * Gets the first element of array.
      *
@@ -13,8 +13,8 @@ declare namespace Lodash {
      * @param array The array to query.
      * @return Returns the first element of array.
      */
-    type Head = <T>(array: _.List<T> | null | undefined) => T | undefined;
-}
+    <T>(array: _.List<T> | null | undefined) => T | undefined;
 
-declare const first: Lodash.Head;
+declare const first: Head;
+declare namespace first {}
 export = first;

@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsSafeInteger = 
     /**
      * Checks if `value` is a safe integer. An integer is safe if it's an IEEE-754
      * double precision number which isn't the result of a rounded unsafe integer.
@@ -28,8 +26,8 @@ declare namespace Lodash {
      * _.isSafeInteger('3');
      * // => false
      */
-    type IsSafeInteger = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isSafeInteger: Lodash.IsSafeInteger;
+declare const isSafeInteger: IsSafeInteger;
+declare namespace isSafeInteger {}
 export = isSafeInteger;

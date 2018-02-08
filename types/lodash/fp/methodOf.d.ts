@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type MethodOf = 
     /**
      * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
      * Any additional arguments are provided to the invoked method.
@@ -13,8 +13,8 @@ declare namespace Lodash {
      * @param args The arguments to invoke the method with.
      * @return Returns the new function.
      */
-    type MethodOf = (object: object) => (path: _.PropertyPath) => any;
-}
+    (object: object) => (path: _.PropertyPath) => any;
 
-declare const methodOf: Lodash.MethodOf;
+declare const methodOf: MethodOf;
+declare namespace methodOf {}
 export = methodOf;

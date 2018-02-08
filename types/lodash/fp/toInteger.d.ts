@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type ToInteger = 
     /**
      * Converts `value` to an integer.
      *
@@ -27,8 +25,8 @@ declare namespace Lodash {
      * _.toInteger('3');
      * // => 3
      */
-    type ToInteger = (value: any) => number;
-}
+    (value: any) => number;
 
-declare const toInteger: Lodash.ToInteger;
+declare const toInteger: ToInteger;
+declare namespace toInteger {}
 export = toInteger;

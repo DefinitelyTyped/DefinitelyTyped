@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type ToSafeInteger = 
     /**
      * Converts `value` to a safe integer. A safe integer can be compared and
      * represented correctly.
@@ -26,8 +24,8 @@ declare namespace Lodash {
      * _.toSafeInteger('3');
      * // => 3
      */
-    type ToSafeInteger = (value: any) => number;
-}
+    (value: any) => number;
 
-declare const toSafeInteger: Lodash.ToSafeInteger;
+declare const toSafeInteger: ToSafeInteger;
+declare namespace toSafeInteger {}
 export = toSafeInteger;

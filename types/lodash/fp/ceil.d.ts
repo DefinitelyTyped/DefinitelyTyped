@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Ceil = 
     /**
      * Calculates n rounded up to precision.
      *
@@ -12,8 +10,8 @@ declare namespace Lodash {
      * @param precision The precision to round up to.
      * @return Returns the rounded up number.
      */
-    type Ceil = (n: number) => number;
-}
+    (n: number) => number;
 
-declare const ceil: Lodash.Ceil;
+declare const ceil: Ceil;
+declare namespace ceil {}
 export = ceil;

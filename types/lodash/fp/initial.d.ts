@@ -4,15 +4,15 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Initial = 
     /**
      * Gets all but the last element of array.
      *
      * @param array The array to query.
      * @return Returns the slice of array.
      */
-    type Initial = <T>(array: _.List<T> | null | undefined) => T[];
-}
+    <T>(array: _.List<T> | null | undefined) => T[];
 
-declare const initial: Lodash.Initial;
+declare const initial: Initial;
+declare namespace initial {}
 export = initial;

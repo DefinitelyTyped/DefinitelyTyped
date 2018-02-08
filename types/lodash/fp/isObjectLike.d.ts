@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsObjectLike = 
     /**
      * Checks if `value` is object-like. A value is object-like if it's not `null`
      * and has a `typeof` result of "object".
@@ -26,8 +24,8 @@ declare namespace Lodash {
      * _.isObjectLike(null);
      * // => false
      */
-    type IsObjectLike = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isObjectLike: Lodash.IsObjectLike;
+declare const isObjectLike: IsObjectLike;
+declare namespace isObjectLike {}
 export = isObjectLike;

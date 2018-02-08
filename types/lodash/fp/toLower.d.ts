@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type ToLower = 
     /**
      * Converts `string`, as a whole, to lower case.
      *
      * @param string The string to convert.
      * @return Returns the lower cased string.
      */
-    type ToLower = (string: string) => string;
-}
+    (string: string) => string;
 
-declare const toLower: Lodash.ToLower;
+declare const toLower: ToLower;
+declare namespace toLower {}
 export = toLower;

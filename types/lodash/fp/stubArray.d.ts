@@ -2,16 +2,14 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type StubArray = 
     /**
      * This method returns a new empty array.
      *
      * @returns Returns the new empty array.
      */
-    type StubArray = () => any[];
-}
+    () => any[];
 
-declare const stubArray: Lodash.StubArray;
+declare const stubArray: StubArray;
+declare namespace stubArray {}
 export = stubArray;

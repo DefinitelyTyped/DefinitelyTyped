@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type AssignIn = 
     /**
      * This method is like `_.assign` except that it iterates over own and
      * inherited source properties.
@@ -32,8 +30,8 @@ declare namespace Lodash {
      * _.assignIn({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
      */
-    type AssignIn = <TResult>(object: ReadonlyArray<any>) => TResult;
-}
+    <TResult>(object: ReadonlyArray<any>) => TResult;
 
-declare const assignInAll: Lodash.AssignIn;
+declare const assignInAll: AssignIn;
+declare namespace assignInAll {}
 export = assignInAll;

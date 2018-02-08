@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Reverse = 
     /**
      * Reverses `array` so that the first element becomes the last, the second
      * element becomes the second to last, and so on.
@@ -24,8 +24,8 @@ declare namespace Lodash {
      * console.log(array);
      * // => [3, 2, 1]
      */
-    type Reverse = <TList extends _.List<any>>(array: TList) => TList;
-}
+    <TList extends _.List<any>>(array: TList) => TList;
 
-declare const reverse: Lodash.Reverse;
+declare const reverse: Reverse;
+declare namespace reverse {}
 export = reverse;

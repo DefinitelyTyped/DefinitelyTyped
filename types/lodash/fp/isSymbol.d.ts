@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsSymbol = 
     /**
      * Checks if `value` is classified as a `Symbol` primitive or object.
      *
@@ -19,8 +17,8 @@ declare namespace Lodash {
      * _.isSymbol('abc');
      * // => false
      */
-    type IsSymbol = (value: any) => boolean;
-}
+    (value: any) => boolean;
 
-declare const isSymbol: Lodash.IsSymbol;
+declare const isSymbol: IsSymbol;
+declare namespace isSymbol {}
 export = isSymbol;

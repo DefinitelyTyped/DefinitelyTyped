@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Sum = 
     /**
      * Computes the sum of the values in `array`.
      *
@@ -16,8 +16,8 @@ declare namespace Lodash {
      * _.sum([4, 2, 8, 6]);
      * // => 20
      */
-    type Sum = (collection: _.List<any> | null | undefined) => number;
-}
+    (collection: _.List<any> | null | undefined) => number;
 
-declare const sum: Lodash.Sum;
+declare const sum: Sum;
+declare namespace sum {}
 export = sum;

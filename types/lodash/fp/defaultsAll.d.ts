@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Defaults = 
     /**
      * Assigns own enumerable properties of source object(s) to the destination object for all destination
      * properties that resolve to undefined. Once a property is set, additional values of the same property are
@@ -16,8 +14,8 @@ declare namespace Lodash {
      * @param sources The source objects.
      * @return The destination object.
      */
-    type Defaults = (object: ReadonlyArray<any>) => any;
-}
+    (object: ReadonlyArray<any>) => any;
 
-declare const defaultsAll: Lodash.Defaults;
+declare const defaultsAll: Defaults;
+declare namespace defaultsAll {}
 export = defaultsAll;

@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsWeakMap = 
     /**
      * Checks if value is classified as a WeakMap object.
      *
      * @param value The value to check.
      * @returns Returns true if value is correctly classified, else false.
      */
-    type IsWeakMap = (value: any) => value is WeakMap<object, any>;
-}
+    (value: any) => value is WeakMap<object, any>;
 
-declare const isWeakMap: Lodash.IsWeakMap;
+declare const isWeakMap: IsWeakMap;
+declare namespace isWeakMap {}
 export = isWeakMap;

@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Min = 
     /**
      * Computes the minimum value of `array`. If `array` is empty or falsey
      * `undefined` is returned.
@@ -13,8 +13,8 @@ declare namespace Lodash {
      * @param array The array to iterate over.
      * @returns Returns the minimum value.
      */
-    type Min = <T>(collection: _.List<T> | null | undefined) => T | undefined;
-}
+    <T>(collection: _.List<T> | null | undefined) => T | undefined;
 
-declare const min: Lodash.Min;
+declare const min: Min;
+declare namespace min {}
 export = min;

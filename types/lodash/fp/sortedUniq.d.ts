@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type SortedUniq = 
     /**
      * This method is like `_.uniq` except that it's designed and optimized
      * for sorted arrays.
@@ -17,8 +17,8 @@ declare namespace Lodash {
      * _.sortedUniq([1, 1, 2]);
      * // => [1, 2]
      */
-    type SortedUniq = <T>(array: _.List<T> | null | undefined) => T[];
-}
+    <T>(array: _.List<T> | null | undefined) => T[];
 
-declare const sortedUniq: Lodash.SortedUniq;
+declare const sortedUniq: SortedUniq;
+declare namespace sortedUniq {}
 export = sortedUniq;

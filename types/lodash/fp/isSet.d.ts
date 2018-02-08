@@ -2,17 +2,15 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsSet = 
     /**
      * Checks if value is classified as a Set object.
      *
      * @param value The value to check.
      * @returns Returns true if value is correctly classified, else false.
      */
-    type IsSet = (value: any) => value is Set<any>;
-}
+    (value: any) => value is Set<any>;
 
-declare const isSet: Lodash.IsSet;
+declare const isSet: IsSet;
+declare namespace isSet {}
 export = isSet;

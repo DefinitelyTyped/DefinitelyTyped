@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type IsNil = 
     /**
      * Checks if `value` is `null` or `undefined`.
      *
@@ -22,8 +20,8 @@ declare namespace Lodash {
      * _.isNil(NaN);
      * // => false
      */
-    type IsNil = (value: any) => value is null | undefined;
-}
+    (value: any) => value is null | undefined;
 
-declare const isNil: Lodash.IsNil;
+declare const isNil: IsNil;
+declare namespace isNil {}
 export = isNil;

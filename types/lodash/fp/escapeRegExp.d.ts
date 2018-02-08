@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type EscapeRegExp = 
     /**
      * Escapes the RegExp special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]",
      * "{", "}", and "|" in string.
@@ -12,8 +10,8 @@ declare namespace Lodash {
      * @param string The string to escape.
      * @return Returns the escaped string.
      */
-    type EscapeRegExp = (string: string) => string;
-}
+    (string: string) => string;
 
-declare const escapeRegExp: Lodash.EscapeRegExp;
+declare const escapeRegExp: EscapeRegExp;
+declare namespace escapeRegExp {}
 export = escapeRegExp;

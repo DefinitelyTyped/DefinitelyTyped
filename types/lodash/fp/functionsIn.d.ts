@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type FunctionsIn = 
     /**
      * Creates an array of function property names from own and inherited
      * enumerable properties of `object`.
@@ -24,8 +22,8 @@ declare namespace Lodash {
      * _.functionsIn(new Foo);
      * // => ['a', 'b', 'c']
      */
-    type FunctionsIn = <T extends {}>(object: any) => string[];
-}
+    <T extends {}>(object: any) => string[];
 
-declare const functionsIn: Lodash.FunctionsIn;
+declare const functionsIn: FunctionsIn;
+declare namespace functionsIn {}
 export = functionsIn;

@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Clone = 
     /**
      * Creates a shallow clone of value.
      *
@@ -16,8 +14,8 @@ declare namespace Lodash {
      * @param value The value to clone.
      * @return Returns the cloned value.
      */
-    type Clone = <T>(value: T) => T;
-}
+    <T>(value: T) => T;
 
-declare const clone: Lodash.Clone;
+declare const clone: Clone;
+declare namespace clone {}
 export = clone;

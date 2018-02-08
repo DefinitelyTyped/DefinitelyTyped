@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Merge = 
     /**
      * Recursively merges own and inherited enumerable properties of source
      * objects into the destination object, skipping source properties that resolve
@@ -32,8 +30,8 @@ declare namespace Lodash {
      * _.merge(users, ages);
      * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
      */
-    type Merge = (object: ReadonlyArray<any>) => any;
-}
+    (object: ReadonlyArray<any>) => any;
 
-declare const mergeAll: Lodash.Merge;
+declare const mergeAll: Merge;
+declare namespace mergeAll {}
 export = mergeAll;

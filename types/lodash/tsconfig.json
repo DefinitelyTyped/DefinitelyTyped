@@ -19,7 +19,6 @@
     "files": [
         "index.d.ts",
         "lodash-fp-tests.ts",
-        "lodash-tests.ts",
         "add.d.ts",
         "after.d.ts",
         "ary.d.ts",

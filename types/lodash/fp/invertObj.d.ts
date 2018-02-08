@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Invert = 
     /**
      * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
      * subsequent values overwrite property assignments of previous values unless multiValue is true.
@@ -13,8 +13,8 @@ declare namespace Lodash {
      * @param multiValue Allow multiple values per key.
      * @return Returns the new inverted object.
      */
-    type Invert = (object: object) => _.Dictionary<string>;
-}
+    (object: object) => _.Dictionary<string>;
 
-declare const invertObj: Lodash.Invert;
+declare const invertObj: Invert;
+declare namespace invertObj {}
 export = invertObj;

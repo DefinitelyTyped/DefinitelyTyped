@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type FlowRight = 
     /**
      * This method is like _.flow except that it creates a function that invokes the provided functions from right
      * to left.
@@ -12,8 +12,8 @@ declare namespace Lodash {
      * @param funcs Functions to invoke.
      * @return Returns the new function.
      */
-    type FlowRight = (funcs: ReadonlyArray<_.Many<(...args: any[]) => any>>) => (...args: any[]) => any;
-}
+    (funcs: ReadonlyArray<_.Many<(...args: any[]) => any>>) => (...args: any[]) => any;
 
-declare const compose: Lodash.FlowRight;
+declare const compose: FlowRight;
+declare namespace compose {}
 export = compose;

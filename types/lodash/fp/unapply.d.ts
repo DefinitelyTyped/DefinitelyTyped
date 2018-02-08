@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Rest = 
     /**
      * Creates a function that invokes func with the this binding of the created function and arguments from start
      * and beyond provided as an array.
@@ -15,8 +13,8 @@ declare namespace Lodash {
      * @param start The start position of the rest parameter.
      * @return Returns the new function.
      */
-    type Rest = (func: (...args: any[]) => any) => (...args: any[]) => any;
-}
+    (func: (...args: any[]) => any) => (...args: any[]) => any;
 
-declare const unapply: Lodash.Rest;
+declare const unapply: Rest;
+declare namespace unapply {}
 export = unapply;

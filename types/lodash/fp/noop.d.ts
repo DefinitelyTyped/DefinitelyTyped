@@ -2,16 +2,14 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Noop = 
     /**
      * A no-operation function that returns undefined regardless of the arguments it receives.
      *
      * @return undefined
      */
-    type Noop = (...args: any[]) => void;
-}
+    (...args: any[]) => void;
 
-declare const noop: Lodash.Noop;
+declare const noop: Noop;
+declare namespace noop {}
 export = noop;

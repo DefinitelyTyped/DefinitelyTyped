@@ -4,15 +4,15 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Last = 
     /**
      * Gets the last element of array.
      *
      * @param array The array to query.
      * @return Returns the last element of array.
      */
-    type Last = <T>(array: _.List<T> | null | undefined) => T | undefined;
-}
+    <T>(array: _.List<T> | null | undefined) => T | undefined;
 
-declare const last: Lodash.Last;
+declare const last: Last;
+declare namespace last {}
 export = last;

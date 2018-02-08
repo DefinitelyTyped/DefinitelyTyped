@@ -2,9 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-import _ = require("../index");
-
-declare namespace Lodash {
+type Round = 
     /**
      * Calculates n rounded to precision.
      *
@@ -12,8 +10,8 @@ declare namespace Lodash {
      * @param precision The precision to round to.
      * @return Returns the rounded number.
      */
-    type Round = (n: number) => number;
-}
+    (n: number) => number;
 
-declare const round: Lodash.Round;
+declare const round: Round;
+declare namespace round {}
 export = round;

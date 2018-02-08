@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-declare namespace Lodash {
+type Cond = 
     /**
      * Creates a function that iterates over `pairs` and invokes the corresponding
      * function of the first predicate to return truthy. The predicate-function
@@ -32,8 +32,8 @@ declare namespace Lodash {
      * func({ 'a': '1', 'b': '2' });
      * // => 'no match'
      */
-    type Cond = <T, R>(pairs: ReadonlyArray<_.CondPair<T, R>>) => (Target: T) => R;
-}
+    <T, R>(pairs: ReadonlyArray<_.CondPair<T, R>>) => (Target: T) => R;
 
-declare const cond: Lodash.Cond;
+declare const cond: Cond;
+declare namespace cond {}
 export = cond;
