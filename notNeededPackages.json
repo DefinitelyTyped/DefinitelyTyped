@@ -7,6 +7,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "Ably Realtime and Rest client library",
+            "typingsPackageName": "ably",
+            "sourceRepoURL": "https://www.ably.io/",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "ag-grid",
             "typingsPackageName": "ag-grid",
             "sourceRepoURL": "https://github.com/ceolter/ag-grid",
@@ -587,6 +593,12 @@
             "typingsPackageName": "gulp-tslint",
             "sourceRepoURL": "https://github.com/panuhorsmalahti/gulp-tslint",
             "asOfVersion": "4.2.0"
+        },
+        {
+            "libraryName": "gulp-typedoc",
+            "typingsPackageName": "gulp-typedoc",
+            "sourceRepoURL": "https://github.com/rogierschouten/gulp-typedoc",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "gulp-typescript",
@@ -1513,6 +1525,12 @@
             "asOfVersion": "2.11.0"
         },
         {
+            "libraryName": "Webix UI",
+            "typingsPackageName": "webix",
+            "sourceRepoURL": "http://webix.com",
+            "asOfVersion": "5.1.1"
+        },
+        {
             "libraryName": "wolfy87-eventemitter",
             "typingsPackageName": "wolfy87-eventemitter",
             "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
@@ -1541,6 +1559,12 @@
             "typingsPackageName": "xadesjs",
             "sourceRepoURL": "https://github.com/PeculiarVentures/xadesjs",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "xhr-mock",
+            "typingsPackageName": "xhr-mock",
+            "sourceRepoURL": "https://github.com/jameslnewell/xhr-mock#readme",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "xlsx",

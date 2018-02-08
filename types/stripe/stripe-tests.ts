@@ -1124,6 +1124,46 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 
 //#endregion
 
+//#region Subscription Items tests
+// ##################################################################################
+
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev" }, function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev" }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.retrieve("si_C9gimdd2l9qvCU", function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.retrieve("si_C9gimdd2l9qvCU").then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.update("si_C9gimdd2l9qvCU", { plan: "platypi" }, function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.update("si_C9gimdd2l9qvCU", { plan: "platypi" }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.del("si_C9gimdd2l9qvCU", function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.del("si_C9gimdd2l9qvCU").then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }, function(err, subscriptionItems) {
+    // asynchronously called
+});
+stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }).then(function(subscriptionItems) {
+    // asynchronously called
+});
+
+//#endregion
+
 //#region Ephemeral keys tests
 // ##################################################################################
 

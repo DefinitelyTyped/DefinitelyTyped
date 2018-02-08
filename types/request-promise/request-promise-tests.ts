@@ -23,6 +23,8 @@ rp('http://google.com').finally(() => {});
 rp('http://google.com').then(console.dir);
 rp('http://google.com').catch(console.error);
 rp('http://google.com').then(console.dir, console.error);
+rp('http://google.com').cancel();
+rp('http://google.com').promise().then(console.dir);
 
 // This works as well since additional methods are only used AFTER the FIRST call in the chain:
 

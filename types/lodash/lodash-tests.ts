@@ -1,19 +1,19 @@
 declare const $: any;
 
-interface IFoodOrganic {
+interface FoodOrganic {
     name: string;
     organic: boolean;
 }
-interface IStoogesAge {
+interface StoogesAge {
     name: string;
     age: number;
 }
 
-const foodsOrganic: IFoodOrganic[] = [
+const foodsOrganic: FoodOrganic[] = [
     { name: 'banana', organic: true },
     { name: 'beet', organic: false },
 ];
-const stoogesAges: IStoogesAge[] = [
+const stoogesAges: StoogesAge[] = [
     { 'name': 'moe', 'age': 40 },
     { 'name': 'larry', 'age': 50 }
 ];
@@ -80,22 +80,22 @@ namespace TestWrapper {
     }
 }
 
-//Wrapped array shortcut methods
-result = <number>_([1, 2, 3, 4]).pop();
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
-result = <number>_([1, 2, 3, 4]).shift();
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+// Wrapped array shortcut methods
+_([1, 2, 3, 4]).pop(); // $ExpectType number | undefined
+_([1, 2, 3, 4]).push(5, 6, 7); // $ExpectType LoDashImplicitWrapper<number[]>
+_([1, 2, 3, 4]).shift(); // $ExpectType number | undefined
+_([1, 2, 3, 4]).sort((a, b) => 1); // $ExpectType LoDashImplicitWrapper<number[]>
+_([1, 2, 3, 4]).splice(1); // $ExpectType LoDashImplicitWrapper<number[]>
+_([1, 2, 3, 4]).splice(1, 2, 5, 6); // $ExpectType LoDashImplicitWrapper<number[]>
+_([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashImplicitWrapper<number[]>
 
-result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).pop();
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).push(5, 6, 7);
-result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).shift();
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).sort((a, b) => 1);
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1);
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).unshift(5, 6);
+_.chain([1, 2, 3, 4]).pop(); // $ExpectType LoDashExplicitWrapper<number | undefined>
+_.chain([1, 2, 3, 4]).push(5, 6, 7); // $ExpectType LoDashExplicitWrapper<number[]>
+_.chain([1, 2, 3, 4]).shift(); // $ExpectType LoDashExplicitWrapper<number | undefined>
+_.chain([1, 2, 3, 4]).sort((a, b) => 1); // $ExpectType LoDashExplicitWrapper<number[]>
+_.chain([1, 2, 3, 4]).splice(1); // $ExpectType LoDashExplicitWrapper<number[]>
+_.chain([1, 2, 3, 4]).splice(1, 2, 5, 6); // $ExpectType LoDashExplicitWrapper<number[]>
+_.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number[]>
 
 /*********
  * Array *
@@ -1203,7 +1203,7 @@ namespace TestFlattenDeep {
 // _.fromPairs
 namespace TestFromPairs {
     let twoDimensionalArray: string[][] | null | undefined = [] as any;
-    let numberTupleArray: [string, number][] | null | undefined = [] as any;
+    let numberTupleArray: Array<[string, number]> | null | undefined = [] as any;
     let stringDict: _.Dictionary<string>;
     let numberDict: _.Dictionary<number>;
 
@@ -1301,7 +1301,7 @@ namespace TestIndexOf {
 }
 
 // _.sortedIndexOf
-namespace TestIndexOf {
+{
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
     let value: TResult = { a: 1, b: "", c: true };
@@ -2397,33 +2397,6 @@ namespace TestSortedLastIndexBy {
     }
 }
 
-// _.tail
-namespace TestTail {
-    let array: TResult[] | null | undefined = [] as any;
-    let list: _.List<TResult> | null | undefined = [] as any;
-
-    {
-        let result: TResult[];
-
-        result = _.tail<TResult>(array);
-        result = _.tail<TResult>(list);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
-
-        result = _(array).tail();
-        result = _(list).tail<TResult>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
-
-        result = _(array).chain().tail();
-        result = _(list).chain().tail<TResult>();
-    }
-}
-
 // _.take
 namespace TestTake {
     let array: TResult[] | null | undefined = [] as any;
@@ -3046,21 +3019,21 @@ namespace TestUnzip {
     }
 
     {
-        let result: (string|number|boolean)[][];
+        let result: Array<Array<string|number|boolean>>;
 
         result = _.unzip<string|number|boolean>(array);
         result = _.unzip<string|number|boolean>(list);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<(string|number|boolean)[]>;
+        let result: _.LoDashImplicitArrayWrapper<Array<string|number|boolean>>;
 
         result = _(array).unzip<string|number|boolean>();
         result = _(list).unzip<string|number|boolean>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<(string|number|boolean)[]>;
+        let result: _.LoDashExplicitArrayWrapper<Array<string|number|boolean>>;
 
         result = _(array).chain().unzip<string|number|boolean>();
         result = _(list).chain().unzip<string|number|boolean>();
@@ -3666,9 +3639,7 @@ namespace TestTap {
 
 // _.thru
 namespace TestThru {
-    interface Interceptor<T> {
-        (value: T): T;
-    }
+    type Interceptor<T> = (value: T) => T;
 
     {
         let interceptor: Interceptor<number> = (x) => x;
@@ -4780,18 +4751,18 @@ namespace TestFindLast {
 
 // _.flatMap
 namespace TestFlatMap {
-    let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
-    let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
+    let numArray: Array<number|number[]> | null | undefined = [1, [2, 3]] as any;
+    let objArray: Array<{a: number}|Array<{a: number}>> | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
     let obj: any = {};
     let numList: _.List<number|number[]> | null | undefined = obj;
-    let objList: _.List<{a: number}|{a: number}[]> | null | undefined = obj;
+    let objList: _.List<{a: number}|Array<{a: number}>> | null | undefined = obj;
 
     let numDictionary: _.Dictionary<number|number[]> | null | undefined = obj;
-    let objDictionary: _.Dictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let objDictionary: _.Dictionary<{a: number}|Array<{a: number}>> | null | undefined = obj;
 
     let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = obj;
-    let objNumericDictionary: _.NumericDictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let objNumericDictionary: _.NumericDictionary<{a: number}|Array<{a: number}>> | null | undefined = obj;
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => string|string[] = (a, b, c) => "";
 
@@ -4964,18 +4935,17 @@ namespace TestFlatMap {
 
 // _.flatMapDeep
 namespace TestFlatMapDeep {
-    let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
-    let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
+    let numArray: Array<number|number[]> | null | undefined = [1, [2, 3]] as any;
+    let objArray: Array<{a: number}|Array<{a: number}>> | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
-    let obj: any = {};
-    let numList: _.List<number|number[]> | null | undefined = obj;
-    let objList: _.List<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numList: _.List<number|number[]> | null | undefined = any;
+    let objList: _.List<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numDictionary: _.Dictionary<number|number[]> | null | undefined = obj;
-    let objDictionary: _.Dictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numDictionary: _.Dictionary<number|number[]> | null | undefined = any;
+    let objDictionary: _.Dictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = obj;
-    let objNumericDictionary: _.NumericDictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = any;
+    let objNumericDictionary: _.NumericDictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => _.ListOfRecursiveArraysOrValues<string> = (a, b, c) => ['a', 'b', 'c'];
 
@@ -5126,18 +5096,17 @@ namespace TestFlatMapDeep {
 
 // _.flatMapDepth
 namespace TestFlatMapDepth {
-    let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
-    let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
+    let numArray: Array<number|number[]> | null | undefined = [1, [2, 3]] as any;
+    let objArray: Array<{a: number}|Array<{a: number}>> | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
-    let obj: any = {};
-    let numList: _.List<number|number[]> | null | undefined = obj;
-    let objList: _.List<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numList: _.List<number|number[]> | null | undefined = any;
+    let objList: _.List<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numDictionary: _.Dictionary<number|number[]> | null | undefined = obj;
-    let objDictionary: _.Dictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numDictionary: _.Dictionary<number|number[]> | null | undefined = any;
+    let objDictionary: _.Dictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
-    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = obj;
-    let objNumericDictionary: _.NumericDictionary<{a: number}|{a: number}[]> | null | undefined = obj;
+    let numNumericDictionary: _.NumericDictionary<number|number[]> | null | undefined = any;
+    let objNumericDictionary: _.NumericDictionary<{a: number}|Array<{a: number}>> | null | undefined = any;
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => _.ListOfRecursiveArraysOrValues<string> = (a, b, c) => "";
 
@@ -5948,7 +5917,7 @@ namespace TestKeyBy {
 namespace TestInvoke {
     let boolArray: boolean[] = [true, false];
 
-    let nestedDict: _.Dictionary<Array<number>> = {
+    let nestedDict: _.Dictionary<number[]> = {
         a: [0, 1, 2]
     }
 
@@ -6367,32 +6336,43 @@ namespace TestPartition {
 // }
 namespace TestReduce {
     interface ABC {
-        [index: string]: number;
+        [key: string]: number;
         a: number;
         b: number;
         c: number;
     }
 
-    result = <number>_.reduce<number, number>([1, 2, 3], (sum: number, num: number) => sum + num);
-    result = <number>_.reduce<number, number>(null, (sum: number, num: number) => sum + num);
+    // $ExpectType number | undefined
+    _.reduce([1, 2, 3], (sum: number, num: number) => sum + num);
+    // $ExpectType number | undefined
+    _.reduce(null, (sum: number, num: number) => sum + num);
 
     // chained
-    result = _([1, 2 ,3]).reduce((sum: number, num: number) => sum + num);
-    result = _.chain([1, 2 ,3]).reduce((sum: number, num: number) => sum + num).value();
+    _([1, 2 ,3]).reduce((sum: number, num: number) => sum + num);
+    _.chain([1, 2 ,3]).reduce((sum: number, num: number) => sum + num).value();
 
-    result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, (r: ABC, num: number, key: string) => {
+    // $ExpectType ABC
+    _.reduce({ 'a': 1, 'b': 2, 'c': 3 }, (r: ABC, num: number, key: string) => {
         r[key] = num * 3;
         return r;
-    }, {} as ABC); // tslint:disable-line no-object-literal-type-assertion
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    }, {} as ABC);
 
-    result = <number>_([1, 2, 3]).reduce((sum: number, num: number) => sum + num);
-    result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce((r: ABC, num: number, key: string) => {
+    // $ExpectType number | undefined
+    _([1, 2, 3]).reduce((sum: number, num: number) => sum + num);
+
+    const initial: ABC = { a: 1, b: 2, c: 3 };
+    // $ExpectType ABC
+    _({ 'a': 1, 'b': 2, 'c': 3 }).reduce((r: ABC, num: number, key: string) => {
         r[key] = num * 3;
         return r;
-    }, { a: 1, b: 2, c: 3 });
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    }, initial);
 
-    result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], (a: number[], b: number[]) => a.concat(b), <number[]>[]);
+    // $ExpectType number[]
+    _.reduceRight([[0, 1], [2, 3], [4, 5]], (a: number[], b: number[]) => a.concat(b), []);
 }
+
 // _.reject
 namespace TestReject {
     let array: TResult[] | null | undefined = [] as any;
@@ -6844,11 +6824,11 @@ namespace TestSortBy {
     }
 }
 
-result = <IStoogesAge[]>_.sortBy(stoogesAges, stooge => Math.sin(stooge.age), stooge => stooge.name.slice(1));
-result = <IStoogesAge[]>_.sortBy(stoogesAges, ['name', 'age']);
-result = <IStoogesAge[]>_.sortBy(stoogesAges, 'name', stooge => Math.sin(stooge.age));
+_.sortBy(stoogesAges, stooge => Math.sin(stooge.age), stooge => stooge.name.slice(1)); // $ExpectType StoogesAge[]
+_.sortBy(stoogesAges, ['name', 'age']); // $ExpectType StoogesAge[]
+_.sortBy(stoogesAges, 'name', stooge => Math.sin(stooge.age)); // $ExpectType StoogesAge[]
 
-result = <IFoodOrganic[]>_(foodsOrganic).sortBy('organic', (food) => food.name, { organic: true }).value();
+_(foodsOrganic).sortBy('organic', (food) => food.name, { organic: true }).value(); // $ExpectType FoodOrganic[]
 
 // _.orderBy
 namespace TestorderBy {
@@ -6861,7 +6841,7 @@ namespace TestorderBy {
     const orders: boolean|string|Array<boolean|string> = any;
 
     {
-        let iteratees: (value: string) => any|((value: string) => any)[] = (value) => 1;
+        let iteratees: ((value: string) => any)|Array<(value: string) => any> = any;
         let result: string[];
 
         result = _.orderBy<string>('acbd', iteratees);
@@ -6968,9 +6948,7 @@ namespace TestNow {
  *************/
 // _.after
 namespace TestAfter {
-    interface Func {
-        (a: string, b: number): boolean;
-    }
+    type Func = (a: string, b: number) => boolean;
 
     let func: Func = (a, b) => true;
 
@@ -7025,9 +7003,7 @@ namespace TestAry {
 
 // _.before
 namespace TestBefore {
-    interface Func {
-        (a: string, b: number): boolean;
-    }
+    type Func = (a: string, b: number) => boolean;
 
     let func: Func = (a, b) => true;
 
@@ -7135,9 +7111,9 @@ namespace TestBind {
 // _.bindAll
 namespace TestBindAll {
     interface SampleObject {
-        a: Function;
-        b: Function;
-        c: Function;
+        a(): void;
+        b(): void;
+        c(): void;
     }
 
     let object: SampleObject = { a: () => {}, b: () => {}, c: () => {} };
@@ -7300,9 +7276,7 @@ curryResult9 = _.curryRight(testCurry2);
 
 // _.debounce
 namespace TestDebounce {
-    interface SampleFunc {
-        (n: number, s: string): boolean;
-    }
+    type SampleFunc = (n: number, s: string) => boolean;
 
     interface Options {
         leading?: boolean;
@@ -7411,9 +7385,7 @@ namespace TestDelay {
 
 // _.flip
 namespace TestFlip {
-    interface Func {
-        (a: number, b: string): boolean;
-    }
+    type Func = (a: string, b: number) => boolean;
 
     let func: Func = (a, b) => true;
 
@@ -7631,30 +7603,24 @@ namespace TestOverArgs {
 
 // _.negate
 namespace TestNegate {
-    interface PredicateFn {
-        (a1: number, a2: number): boolean;
-    }
-
-    interface ResultFn {
-        (a1: number, a2: number): boolean;
-    }
+    type PredicateFn = (a1: number, a2: number) => boolean;
 
     const predicate = (a1: number, a2: number) => a1 > a2;
 
     {
-        let result: ResultFn;
+        let result: PredicateFn;
 
         result = _.negate<PredicateFn>(predicate);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<ResultFn>;
+        let result: _.LoDashImplicitObjectWrapper<PredicateFn>;
 
         result = _(predicate).negate();
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<ResultFn>;
+        let result: _.LoDashExplicitObjectWrapper<PredicateFn>;
 
         result = _(predicate).chain().negate();
     }
@@ -7662,9 +7628,7 @@ namespace TestNegate {
 
 // _.once
 namespace TestOnce {
-    interface Func {
-        (a: number, b: string): boolean;
-    }
+    type Func = (a: string, b: number) => boolean;
 
     let func: Func = (a, b) => true;
 
@@ -7691,7 +7655,7 @@ const greetPartial = (greeting: string, name: string) => `${greeting} ${name}`;
 const hi = _.partial(greetPartial, 'hi');
 hi('moe');
 
-const defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
+const defaultsDeep: (...args: any[]) => any = _.partialRight(_.merge, _.defaults);
 
 const optionsPartialRight = {
     'variable': 'data',
@@ -7702,9 +7666,6 @@ defaultsDeep(optionsPartialRight, _.templateSettings);
 
 //_.rearg
 const testReargFn = (a: string, b: string, c: string) => [a, b, c];
-interface TestReargResultFn {
-    (b: string, c: string, a: string): string[];
-}
 result = <string[]>(_.rearg(testReargFn, 2, 0, 1))('b', 'c', 'a');
 result = <string[]>(_.rearg(testReargFn, [2, 0, 1]))('b', 'c', 'a');
 result = <string[]>(_(testReargFn).rearg(2, 0, 1).value())('b', 'c', 'a');
@@ -7741,7 +7702,7 @@ namespace TestRest {
 
 //_.spread
 namespace TestSpread {
-    type SampleFunc = (args: (number|string)[]) => boolean;
+    type SampleFunc = (args: Array<number|string>) => boolean;
     type SampleResult = (a: number, b: string) => boolean;
 
     let func: SampleFunc = (a) => true;
@@ -7767,9 +7728,7 @@ namespace TestSpread {
 
 // _.throttle
 namespace TestThrottle {
-    interface SampleFunc {
-        (n: number, s: string): boolean;
-    }
+    type SampleFunc = (n: number, s: string) => boolean;
 
     interface Options {
         leading?: boolean;
@@ -7812,9 +7771,7 @@ namespace TestThrottle {
 
 // _.unary
 namespace TestUnary {
-    interface Func {
-        (a: number, b: string): boolean;
-    }
+    type Func = (a: string, b: number[]) => boolean;
 
     let func: Func = (a, b) => true;
 
@@ -8038,9 +7995,7 @@ namespace TestCloneDeep {
 
 // _.cloneDeepWith
 namespace TestCloneDeepWith {
-    interface CloneDeepWithCustomizer<V, R> {
-        (value: V): R;
-    }
+    type CloneDeepWithCustomizer<V, R> = (value: V) => R;
 
     {
         let customizer: CloneDeepWithCustomizer<number, string> = (x) => "";
@@ -8090,9 +8045,7 @@ namespace TestCloneDeepWith {
 
 // _.cloneWith
 namespace TestCloneWith {
-    interface CloneWithCustomizer<V, R> {
-        (value: V): R;
-    }
+    type CloneWithCustomizer<V, R> = (value: V) => R;
 
     {
         let customizer: CloneWithCustomizer<number, string> = (x) => "";
@@ -8333,12 +8286,12 @@ namespace TestIsArrayLike {
     }
 
     {
-        let value: Function = any;
+        let value: () => number = any;
 
         if (_.isArrayLike(value)) {
             value; // $ExpectType never
         } else {
-            value; // $ExpectType Function
+            value; // $ExpectType () => number
         }
     }
 
@@ -8408,12 +8361,12 @@ namespace TestIsArrayLikeObject {
     }
 
     {
-        let value: string | Function = any;
+        let value: (a: string) => boolean = any;
 
         if (_.isArrayLikeObject(value)) {
             value; // $ExpectType never
         } else {
-            value; // $ExpectType string | Function
+            value; // $ExpectType (a: string) => boolean
         }
     }
 
@@ -8509,7 +8462,7 @@ namespace TestIsBuffer {
 }
 
 // _.isDate
-namespace TestIsBoolean {
+{
     {
         let value: number|Date = 0;
 
@@ -8690,13 +8643,13 @@ namespace TestIsFinite {
 // _.isFunction
 namespace TestIsFunction {
     {
-        let value: number|Function = () => {};
+        let value: number|(() => void) = any;
 
         if (_.isFunction(value)) {
-            let result: Function = value;
+            value; // $ExpectType () => void
         }
         else {
-            let result: number|Function = value;
+            value; // $ExpectType number
         }
 
         if (_.isFunction(any)) {
@@ -8797,22 +8750,18 @@ namespace TestIsMap {
 
 // _.isMatch
 namespace TestIsMatch {
-    let testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
-
-    let result: boolean;
-
-    result = <boolean>_.isMatch({}, {});
-    result = <boolean>_({}).isMatch({});
+    _.isMatch({}, {}); // $ExpectType boolean
+    _({}).isMatch({}); // $ExpectType boolean
+    _.chain({}).isMatch({}); // $ExpectType LoDashExplicitWrapper<boolean>
 }
 
 // _.isMatchWith
 namespace TestIsMatchWith {
     let testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol) => true;
 
-    let result: boolean;
-
-    result = <boolean>_.isMatchWith({}, {}, testIsMatchCustiomizerFn);
-    result = <boolean>_({}).isMatchWith({}, testIsMatchCustiomizerFn);
+    _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType LoDashExplicitWrapper<boolean>
 }
 
 // _.isNaN
@@ -8839,13 +8788,13 @@ namespace TestIsNaN {
 // _.isNative
 namespace TestIsNative {
     {
-        let value: number|Function = () => {};
+        let value: number|(() => void) = any;
 
         if (_.isNative(value)) {
-            let result: Function = value;
+            value; // $ExpectType () => void
         }
         else {
-            let result: number = value;
+            value; // $ExpectType number
         }
     }
 
@@ -9609,7 +9558,7 @@ namespace TestMean {
 }
 
 // _.meanBy
-namespace TestMean {
+{
     let array: TResult[] = [];
 
     let result: number;
@@ -9742,7 +9691,7 @@ namespace TestSum {
 // _.sumBy
 namespace TestSumBy {
     let array: number[] | null | undefined = [] as any;
-    let objectArray: { 'age': number }[] | null | undefined = [] as any;
+    let objectArray: Array<{ 'age': number }> | null | undefined = [] as any;
 
     let list: _.List<number> | null | undefined = [] as any;
     let objectList: _.List<{ 'age': number }> | null | undefined = [] as any;
@@ -10523,7 +10472,7 @@ namespace TestEntries {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.entries(object);
     }
@@ -10546,7 +10495,7 @@ namespace TestEntriesIn {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.entriesIn(object);
     }
@@ -11444,7 +11393,7 @@ namespace TestInvert {
 
 // _.invertBy
 namespace TestInvertBy {
-    let array: ({a: number;})[] = [];
+    let array: Array<{a: number;}> = [];
     let list: _.List<{a: number;}> = [];
     let dictionary: _.Dictionary<{a: number;}> = {};
     let numericDictionary: _.NumericDictionary<{a: number;}> = {};
@@ -12065,7 +12014,7 @@ namespace TestToPairs {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.toPairs(object);
     }
@@ -12088,7 +12037,7 @@ namespace TestToPairsIn {
     let object: _.Dictionary<string> = {};
 
     {
-        let result: [string, string][];
+        let result: Array<[string, string]>;
 
         result = _.toPairsIn(object);
     }
@@ -12823,7 +12772,7 @@ namespace TestStartsWith {
 // _.template
 namespace TestTemplate {
     interface TemplateExecutor {
-        (obj?: Object): string;
+        (obj?: object): string;
         source: string;
     }
 
@@ -13409,7 +13358,7 @@ namespace TestMatches {
 }
 
 // _.matchesProperty
-namespace TestMatches {
+{
     let path: string | string[] = [];
     let source: TResult = { a: 1, b: "", c: true };
 
@@ -13537,7 +13486,7 @@ namespace TestMethod {
 
 // _.methodOf
 namespace TestMethodOf {
-    type SampleObject = { a: { b(): TResult }[] };
+    type SampleObject = { a: Array<{ b(): TResult }> };
     type ResultFn = (path: string | string[]) => TResult;
 
     let object: SampleObject = { a: [] };
@@ -13951,14 +13900,14 @@ namespace TestRangeRight {
 // _.stubObject
 {
     {
-        let result: Object;
+        let result: object;
 
         result = _.stubObject();
         result = _(any).stubObject();
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<Object>;
+        let result: _.LoDashExplicitObjectWrapper<object>;
 
         result = _('a').chain().stubObject();
         result = _([1]).chain().stubObject();
@@ -14080,8 +14029,8 @@ namespace TestUniqueId {
     }
 }
 
-result = <string>_.VERSION;
-result = <_.TemplateSettings>_.templateSettings;
+_.VERSION; // $ExpectType string
+_.templateSettings; // $ExpectType TemplateSettings
 
 // _.partial & _.partialRight
 {
