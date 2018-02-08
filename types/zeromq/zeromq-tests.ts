@@ -37,6 +37,7 @@ function test5() {
     });
     sock.monitor();
     sock.monitor(10);
+    sock.monitor(10, 2);
 }
 
 function test6() {

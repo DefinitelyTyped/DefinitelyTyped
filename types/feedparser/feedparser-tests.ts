@@ -1,5 +1,5 @@
 import request = require('request');
-import * as FeedParser from "feedparser";
+import FeedParser = require("feedparser");
 
 const req = request('https://news.google.com/news?cf=all&hl=en&pz=1&ned=us&output=rss');
 const feedparser = new FeedParser({});

@@ -1,17 +1,17 @@
-import { NamedTypeNode, TypeNode, ValueNode, DocumentNode } from "./ast";
-import { Source } from "./source";
-import { Lexer } from "./lexer";
+import { NamedTypeNode, TypeNode, ValueNode, DocumentNode } from './ast';
+import { Source } from './source';
+import { Lexer } from './lexer';
 
 /**
  * Configuration options to control parser behavior
  */
 export interface ParseOptions {
-    /**
-     * By default, the parser creates AST nodes that know the location
-     * in the source that they correspond to. This configuration flag
-     * disables that behavior for performance or testing.
-     */
-    noLocation?: boolean;
+  /**
+   * By default, the parser creates AST nodes that know the location
+   * in the source that they correspond to. This configuration flag
+   * disables that behavior for performance or testing.
+   */
+  noLocation?: boolean;
 }
 
 /**
@@ -19,8 +19,8 @@ export interface ParseOptions {
  * Throws GraphQLError if a syntax error is encountered.
  */
 export function parse(
-    source: string | Source,
-    options?: ParseOptions
+  source: string | Source,
+  options?: ParseOptions,
 ): DocumentNode;
 
 /**
@@ -31,8 +31,8 @@ export function parse(
  * in isolation of complete GraphQL documents.
  */
 export function parseValue(
-    source: Source | string,
-    options?: ParseOptions
+  source: Source | string,
+  options?: ParseOptions,
 ): ValueNode;
 
 export function parseConstValue<TOptions>(lexer: Lexer<TOptions>): ValueNode;

@@ -1,5 +1,5 @@
 declare namespace adone {
-    namespace x {
+    namespace exception {
         class Exception extends Error {
             constructor(message?: string | Error, captureStackTrace?: boolean);
         }

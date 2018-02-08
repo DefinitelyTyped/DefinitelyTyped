@@ -1,6 +1,7 @@
-// Type definitions for navigo 4.0
+// Type definitions for navigo 7.0
 // Project: https://github.com/krasimir/navigo
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
+//                 Dancespiele <https://github.com/dancespiele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -20,7 +21,7 @@ interface GenericHooks {
     after?(params?: Params): void;
 }
 
-type RouteHandler = ((parametersObj: any, query: string) => void) | { as: string; uses(parametersObj: any): void };
+type RouteHandler = ((params: Params, query: string) => void) | { as: string; uses(params: Params, query: string): void };
 
 declare class Navigo {
     /**
@@ -36,6 +37,8 @@ declare class Navigo {
 
     on(rootHandler: RouteHandler, hooks?: NavigoHooks): Navigo;
 
+    off(location: string, handler: RouteHandler): void;
+
     notFound(handler: ((query: string) => void), hooks?: NavigoHooks): void;
 
     navigate(path: string, absolute?: boolean): void;
@@ -43,6 +46,8 @@ declare class Navigo {
     updatePageLinks(): void;
 
     generate(path: string, params?: any): string;
+
+    getLinkPath(link: any): any;
 
     resolve(currentURL?: string): boolean;
 
@@ -52,9 +57,11 @@ declare class Navigo {
 
     disableIfAPINotAvailable(): void;
 
+    historyAPIUpdateMethod(method?: string): void;
+
     hooks(hooks: GenericHooks): void;
 
-    pause(): void;
+    pause(change?: boolean): void;
 
     resume(): void;
 

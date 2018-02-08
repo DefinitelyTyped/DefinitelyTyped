@@ -1,14 +1,14 @@
 import * as tinymce from 'tinymce';
 
-tinymce.init({
+const settings: tinymce.Settings = {
   selector: 'textarea',
   height: 500,
   menubar: false,
   plugins: [
-    'advlist autolink lists link image charmap print preview anchor',
-    'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table contextmenu paste code',
-    'autosave imagetools'
+      'advlist autolink lists link image charmap print preview anchor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table contextmenu paste code',
+      'autosave imagetools'
   ],
   autosave_ask_before_unload: false,
   autosave_interval: "20s",
@@ -18,7 +18,38 @@ tinymce.init({
   toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
   content_css: '//www.tinymce.com/css/codepen.min.css',
   imagetools_cors_hosts: ['mydomain.com', 'otherdomain.com'],
-  imagetools_proxy: "proxy.php"
-});
+  imagetools_proxy: "proxy.php",
+  table_toolbar: "tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol",
+  table_appearance_options: false,
+  table_clone_elements: "strong em a",
+  table_grid: false,
+  table_tab_navigation: false,
+  table_default_attributes: {
+    title: 'My table'
+  },
+  table_default_styles: {
+    fontWeight: 'bold'
+  },
+  table_class_list: [
+    {title: 'None', value: ''},
+    {title: 'Dog', value: 'dog'},
+    {title: 'Cat', value: 'cat'}
+  ],
+  table_cell_class_list: [
+    {title: 'None', value: ''},
+    {title: 'Dog', value: 'dog'},
+    {title: 'Cat', value: 'cat'}
+  ],
+  table_row_class_list: [
+    {title: 'None', value: ''},
+    {title: 'Dog', value: 'dog'},
+    {title: 'Cat', value: 'cat'}
+  ],
+  table_advtab: false,
+  table_cell_advtab: false,
+  table_row_advtab: false,
+};
+
+tinymce.init(settings);
 
 const t = new tinymce.util.Color('#FFFFFF');

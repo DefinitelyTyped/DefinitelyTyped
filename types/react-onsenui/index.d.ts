@@ -1,6 +1,6 @@
 // Type definitions for React Onsen UI (react-onsenui) 2.8
 // Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>
+// Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>, Jemmyw <https://github.com/jemmyw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -223,6 +223,20 @@ export class Popover extends Component<{
     onPostHide?(): void,
 }, any> {}
 
+export class Toast extends Component<{
+    isOpen: boolean,
+    animation?: 'default' | 'ascend' | 'lift' | 'fall' | 'fade' | 'none',
+    modifier?: string,
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    onDeviceBackButton?(): void,
+    className?: string,
+    style?: React.CSSProperties,
+}, any> {}
+
 export class ActionSheet extends Component<{
     onCancel?(): void,
     isOpen?: boolean,
@@ -249,8 +263,8 @@ export class ActionSheetButton extends Component<{
 export class ProgressBar extends Component<{
     modifier?: string,
     value?: number,
-    secondaryValue?: boolean,
-    intermediate?: boolean,
+    secondaryValue?: number,
+    indeterminate?: boolean,
 }, any> {}
 
 export class ProgressCircular extends Component<{
@@ -334,21 +348,33 @@ export class Switch extends Component<{
  * Tabs
  */
 
-export class Tab extends Component { }
+export class Tab extends Component<{
+    label?: string,
+    icon?: string,
+}> { }
 
 export class TabActive extends Component { }
 
 export class TabInactive extends Component { }
 
+export interface TabbarRenderTab {
+    content: JSX.Element;
+    tab: JSX.Element;
+}
+
 export class Tabbar extends Component<{
-    index?: number,
-    renderTabs?(): any,
+    index: number,
+    renderTabs(): TabbarRenderTab[],
     position?: "bottom" | "top" | "auto",
-    animation: "none" | "slide" | "fade",
+    swipeable?: boolean,
+    ignoreEdgeWidth?: number,
+    animation?: "none" | "slide",
     animationOptions?: AnimationOptions,
+    tabBorder?: boolean,
     onPreChange?(): void,
     onPostChange?(): void,
     onReactive?(): void,
+    onSwipe?(index: number, animationOptions: AnimationOptions): void,
 }, any> { }
 
 /**
@@ -392,6 +418,10 @@ export class Card extends Component<{
     modifier?: string,
 }, any> {}
 
+/**
+ * Controls
+ */
+
 /** Pull-to-refresh hook. */
 export class PullHook extends Component<{
     onChange?(e: PullHookChangeEvent): void,
@@ -401,4 +431,33 @@ export class PullHook extends Component<{
     height?: number,
     thresholdHeight?: number,
     fixedContent?: boolean,
+}, any> {}
+
+export class Segment extends Component<{
+    index?: number,
+    tabbarId?: string,
+    modifier?: string,
+    onPostChange?(): void,
+    className?: string,
+    style?: React.CSSProperties,
+}, any> {}
+
+export type SpeedDialPosition = 'top' | 'right' | 'bottom' | 'left' |
+    'top right' | 'top left' | 'bottom right' | 'bottom left';
+export type SpeedDialDirection = 'up' | 'down' | 'left' | 'right';
+
+export class SpeedDial extends Component<{
+    modifier?: string,
+    position?: SpeedDialPosition,
+    direction?: SpeedDialDirection,
+    disabled?: boolean,
+    className?: string,
+    style?: React.CSSProperties,
+}, any> {}
+
+export class SpeedDialItem extends Component<{
+    modifier?: string;
+    onClick?(e?: React.MouseEvent<HTMLElement>): void,
+    className?: string,
+    style?: React.CSSProperties,
 }, any> {}

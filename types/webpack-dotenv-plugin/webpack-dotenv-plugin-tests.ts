@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-import * as DotenvPlugin from 'webpack-dotenv-plugin';
+import DotenvPlugin = require('webpack-dotenv-plugin');
 
 const config: webpack.Configuration = {
     plugins: [

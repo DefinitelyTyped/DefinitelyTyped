@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as TagsInput from 'react-tagsinput';
+import TagsInput = require('react-tagsinput');
 
 interface StateI {
     tags: string[];

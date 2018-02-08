@@ -14,10 +14,12 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",
+        "lib/customLocale.d.ts",
         "yup-tests.ts"
     ]
 }

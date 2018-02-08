@@ -1,4 +1,4 @@
-import * as Koa from 'koa';
+import Koa = require('koa');
 import * as passport from 'koa-passport';
 
 const app = new Koa();

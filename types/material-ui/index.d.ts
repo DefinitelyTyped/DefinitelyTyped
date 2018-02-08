@@ -1262,7 +1262,7 @@ declare namespace __MaterialUI {
 
             // Other properties from <Menu/>
             autoWidth?: boolean;
-            children?: Array<React.ReactElement<MenuItemProps>>;
+            children?: React.ReactElement<MenuItemProps> | Array<React.ReactElement<MenuItemProps>>;
             desktop?: boolean;
             disableAutoFocus?: boolean;
             initiallyKeyboardFocused?: boolean;
@@ -1409,6 +1409,7 @@ declare namespace __MaterialUI {
         // <DropDownMenu/> is the element that get the 'other' properties
         autoWidth?: boolean;
         disabled?: boolean;
+        dropDownMenuProps?: Menus.DropDownMenuProps;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
         floatingLabelFixed?: boolean;

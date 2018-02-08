@@ -18,7 +18,7 @@ export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 interface BasicToastrOptions {
     attention?: boolean;
     className?: string;
-    component?: Component;
+    component?: Component | JSX.Element;
     icon?: JSX.Element;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
@@ -100,6 +100,7 @@ interface ReduxToastrProps {
     toastr?: ToastrState;
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
+    className?: string;
 }
 
 interface ToastrEmitter {

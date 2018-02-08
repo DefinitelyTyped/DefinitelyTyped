@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import events2 = require("events");
@@ -216,6 +216,21 @@ namespace fs_tests {
         fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
 
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
+    }
+
+    {
+        fs.readdir('foo', (err: any, files: string[]) => {})
+        fs.readdir('foo', 'utf8', (err: any, files: string[]) => {});
+        fs.readdir('foo', {encoding: 'utf8'}, (err: any, files: string[]) => {});
+        fs.readdir('foo', 'buffer', (err: any, files: Buffer[]) => {});
+        fs.readdir('foo', {encoding: 'buffer'}, (err: any, files: Buffer[]) => {});
+
+        let fsStringOut: string[] = fs.readdirSync('utf8');
+        fsStringOut = fs.readdirSync('foo', 'utf8');
+        fsStringOut = fs.readdirSync('foo', {encoding: 'utf8'});
+
+        let fsBufferOut: Buffer[] = fs.readdirSync('utf8', 'buffer');
+        fsBufferOut = fs.readdirSync('foo', {encoding: 'buffer'});
     }
 
     {
