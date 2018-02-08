@@ -1,10 +1,3 @@
-// Type definitions for wx-app 1.9
-// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
-// Definitions by: taoqf <https://github.com/taoqf>
-//                 AlexStacker <https://github.com/AlexStacker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace wx {
   // #region 基本参数
   interface DataResponse {
@@ -260,10 +253,13 @@ declare namespace wx {
    * @deprecated 1.6.0
    */
   function startRecord(options: StartRecordOptions): void;
+  interface StopRecordOptions extends BaseOptions {
+    success?(): void;
+  }
   /**
    * ​ 主动调用停止录音。
    */
-  function stopRecord(): void;
+  function stopRecord(options?: StopRecordOptions): void;
   type EncodeBitRate = 8000 | 11025 | 12000 | 16000 | 22050 | 24000 | 32000 | 44100 | 48000;
   interface RecorderManagerStartOptions {
     /**
@@ -366,20 +362,19 @@ declare namespace wx {
   // 媒体-----音乐播放控制
   interface BackgroundAudioPlayerState {
     /** 选定音频的长度（单位：s），只有在当前有音乐播放时返回 */
-    duration?: number;
+    duration: number;
     /** 选定音频的播放位置（单位：s），只有在当前有音乐播放时返回 */
-    currentPosition?: number;
+    currentPosition: number;
     /** 播放状态（2：没有音乐在播放，1：播放中，0：暂停中） */
     status: number;
     /** 音频的下载进度（整数，80 代表 80%），只有在当前有音乐播放时返回 */
-    downloadPercent?: number;
+    downloadPercent: number;
     /** 歌曲数据链接，只有在当前有音乐播放时返回 */
-    dataUrl?: string;
+    dataUrl: string;
   }
-  type GetBackgroundAudioPlayerStateSuccessCallback = (state: BackgroundAudioPlayerState) => void;
   interface GetBackgroundAudioPlayerStateOptions extends BaseOptions {
     /** 接口调用成功的回调函数 */
-    success?: GetBackgroundAudioPlayerStateSuccessCallback;
+    success?(state: BackgroundAudioPlayerState): void;
     /** 接口调用失败的回调函数 */
     fail?(): void;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -407,7 +402,7 @@ declare namespace wx {
    * 暂停播放音乐。
    * @deprecated 1.2.0
    */
-  function pauseBackgroundAudio(): void;
+  function pauseBackgroundAudio(options: PlayBackgroundAudioOptions): void;
   interface SeekBackgroundAudioOptions extends BaseOptions {
     /** 音乐位置，单位：秒 */
     position: number;
@@ -421,7 +416,7 @@ declare namespace wx {
    * 停止播放音乐。
    * @deprecated 1.2.0
    */
-  function stopBackgroundAudio(): void;
+  function stopBackgroundAudio(options: PlayBackgroundAudioOptions): void;
   /**
    * 监听音乐播放。
    * @deprecated 1.2.0
@@ -676,7 +671,7 @@ declare namespace wx {
     timeoutCallback?(res: { tempThumbPath: string, tempVideoPath: string }): void;
   }
   interface StopRecordOptions extends BaseOptions {
-    success(res: { tempThumbPath: string, tempVideoPath: string }): void;
+    success?(res: { tempThumbPath: string, tempVideoPath: string }): void;
   }
   interface CameraContext {
     /** 拍照，可指定质量，成功则返回图片 */
@@ -2615,7 +2610,7 @@ declare namespace wx {
    * 停止当前页面下拉刷新
    * @version 1.5.0
    */
-  function stopPullDownRefresh(): void;
+  function stopPullDownRefresh(options?: BaseOptions): void;
   // #endregion
   // #region 第三方平台
   interface ExtConfig {
@@ -2952,6 +2947,12 @@ declare namespace wx {
     detail: {
       target: EventTarget;
       value: string;
+      /**
+       * 指定focus时的光标位置
+       * 
+       * @version 1.5.0
+       */
+      cursor: number;
     };
   }
   interface FormEvent extends BaseEvent {
