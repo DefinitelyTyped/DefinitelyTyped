@@ -44,6 +44,13 @@ blogPost.get('commentsAsync').then(comments => {
     assertType<string>(comments.get('firstObject')!.get('text'));
 });
 
+class PaymentMethod extends DS.Model {}
+declare module 'ember-data' {
+    interface ModelRegistry {
+        'payment-method': PaymentMethod;
+    }
+}
+
 class Polymorphic extends DS.Model {
     paymentMethods = DS.hasMany('payment-method', { polymorphic: true });
 }
