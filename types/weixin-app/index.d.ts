@@ -1,3 +1,10 @@
+// Type definitions for wx-app 1.9
+// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
+// Definitions by: taoqf <https://github.com/taoqf>
+//                 AlexStacker <https://github.com/AlexStacker>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
 declare namespace wx {
   // #region 基本参数
   interface DataResponse {
@@ -2949,7 +2956,6 @@ declare namespace wx {
       value: string;
       /**
        * 指定focus时的光标位置
-       * 
        * @version 1.5.0
        */
       cursor: number;
@@ -3221,7 +3227,7 @@ declare function Component<D, M, O, P>(options?: ThisTypedComponentOptionsWithRe
  * 类似于一些编程语言中的“mixins”或“traits”
  * 每个 behavior 可以包含一组属性、数据、生命周期函数和方法
  * 组件引用它时，它的属性、数据和方法会被合并到组件中，生命周期函数也会在对应时机被调用
- * 每个组件可以引用多个 behavior 
+ * 每个组件可以引用多个 behavior
  * behavior 也可以引用其他 behavior
  */
 declare function Behavior<D, M, O, P>(options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>): ExtendedComponent<Component<D>, D, M, O, P>;
