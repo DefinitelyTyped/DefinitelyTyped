@@ -245,6 +245,7 @@ export function mutationWithClientMutationId(
 export interface GraphQLNodeDefinitions {
     nodeInterface: GraphQLInterfaceType;
     nodeField: GraphQLFieldConfig<any, any>;
+    nodesField: GraphQLFieldConfig<any, any>;
 }
 
 export type typeResolverFn = ((any: any) => GraphQLObjectType) |
