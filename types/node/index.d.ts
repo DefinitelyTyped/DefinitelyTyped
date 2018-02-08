@@ -3721,7 +3721,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: Array<string | Buffer>) => void): void;
+    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -3750,7 +3750,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<Array<string | Buffer>>;
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
     }
 
     /**
@@ -3772,7 +3772,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): Array<string | Buffer>;
+    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.

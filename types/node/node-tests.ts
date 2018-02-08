@@ -236,6 +236,25 @@ namespace fs_tests {
     }
 
     {
+        let listS: string[];
+        listS = fs.readdirSync('path');
+        listS = fs.readdirSync('path', { encoding: 'utf8' });
+        listS = fs.readdirSync('path', { encoding: null });
+        listS = fs.readdirSync('path', { encoding: undefined });
+        listS = fs.readdirSync('path', 'utf8');
+        listS = fs.readdirSync('path', null);
+        listS = fs.readdirSync('path', undefined);
+
+        let listB: Buffer[];
+        listB = fs.readdirSync('path', { encoding: 'buffer' });
+        listB = fs.readdirSync("path", 'buffer');
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
+    }
+
+    {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
             // Prints: /tmp/foo-itXde2
