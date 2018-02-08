@@ -5,6 +5,7 @@
 		"no-any-union": false,
 		"no-irregular-whitespace": false,
 		"no-mergeable-namespace": false,
-		"no-unnecessary-qualifier": false
+    "no-unnecessary-qualifier": false,
+    "no-unnecessary-generics": false
 	}
 }

@@ -2349,8 +2349,6 @@ declare namespace wx {
     fillText(text: string, x: number, y: number): void;
     /**
      * 用于设置文字的对齐
-     *
-     *
      */
     setTextAlign(align: 'left' | 'center' | 'right'): void;
     /**
@@ -3069,11 +3067,13 @@ declare function getApp(): App;
 // #region Compontent组件
 type DefaultData<V> = object | ((this: V) => object);
 type DefaultProps = Record<string, any>;
-type DefaultMethods<V> = { [key: string]: (this: V, ...args: any[]) => any };
 type ExtendedComponent<Instance extends Component<Data>, Data, Methods, Options, Props> = CombinedInstance<Instance, Data, Methods, Options, Props> & Component<Data>;
 type CombinedInstance<Instance extends Component<Data>, Data, Methods, Options, Props> = Data & Methods & Options & Props & Instance;
 type Prop<T> = (() => T) | { new(...args: any[]): T & object };
 type PropValidator<T> = PropOptions<T> | Prop<T> | Array<Prop<T>>;
+interface DefaultMethods<V> {
+  [key: string]: (this: V, ...args: any[]) => any;
+}
 interface PropOptions<T = any> {
   type?: Prop<T> | Array<Prop<T>>;
   value?: T | null | (() => object);
