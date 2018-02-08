@@ -409,7 +409,7 @@ declare namespace wx {
    * 暂停播放音乐。
    * @deprecated 1.2.0
    */
-  function pauseBackgroundAudio(options: PlayBackgroundAudioOptions): void;
+  function pauseBackgroundAudio(options?: PlayBackgroundAudioOptions): void;
   interface SeekBackgroundAudioOptions extends BaseOptions {
     /** 音乐位置，单位：秒 */
     position: number;
@@ -423,7 +423,7 @@ declare namespace wx {
    * 停止播放音乐。
    * @deprecated 1.2.0
    */
-  function stopBackgroundAudio(options: PlayBackgroundAudioOptions): void;
+  function stopBackgroundAudio(options?: PlayBackgroundAudioOptions): void;
   /**
    * 监听音乐播放。
    * @deprecated 1.2.0
@@ -2355,20 +2355,37 @@ declare namespace wx {
     setTextAlign(align: 'left' | 'center' | 'right'): void;
     /**
      * 绘制图像，图像保持原始尺寸。
-     *
-     * @param imageResource 所要绘制的图片资源。 通过chooseImage得到一个文件路径或者一个项目目录内的图片
-     * @param x 图像左上角的x坐标
-     * @param y 图像左上角的y坐标
-     * @param width 图像宽度
-     * @param height 图像高度
-     *
+     * @param imageResource 所要绘制的图片资源, 通过chooseImage得到一个文件路径或者一个项目目录内的图片
+     * @param dx            源图像的矩形选择框的左上角 X 坐标
+     * @param dy            源图像的矩形选择框的左上角 Y 坐标
      */
-    drawImage(imageResource: string, x: number, y: number, width: number, height: number): void;
+    drawImage(imageResource: string, dx: number, dy: number): void;
+    /**
+     * 绘制图像，图像保持原始尺寸。
+     * @param imageResource 所要绘制的图片资源, 通过chooseImage得到一个文件路径或者一个项目目录内的图片
+     * @param dx            源图像的矩形选择框的左上角 X 坐标
+     * @param dy            源图像的矩形选择框的左上角 Y 坐标
+     * @param dWidth        源图像的矩形选择框的高度
+     * @param dHeight       源图像的矩形选择框的高度
+     */
+    drawImage(imageResource: string, dx: number, dy: number, dWidth: number, dHeight: number): void;
+    /**
+     * 绘制图像，图像保持原始尺寸。
+     * @param imageResource 所要绘制的图片资源, 通过chooseImage得到一个文件路径或者一个项目目录内的图片
+     * @param sx            图像的左上角在目标canvas上 X 轴的位置
+     * @param sy            图像的左上角在目标canvas上 Y 轴的位置
+     * @param sWidth        在目标画布上绘制图像的宽度，允许对绘制的图像进行缩放
+     * @param sHeight       在目标画布上绘制图像的高度，允许对绘制的图像进行缩放
+     * @param dx            源图像的矩形选择框的左上角 X 坐标
+     * @param dy            源图像的矩形选择框的左上角 Y 坐标
+     * @param dWidth        源图像的矩形选择框的高度
+     * @param dHeight       源图像的矩形选择框的高度
+     * @version 1.9.0
+     */
+    drawImage(imageResource: string, sx: number, sy: number, sWidth: number, sHeight: number, dx: number, dy: number, dWidth: number, dHeight: number): void;
     /**
      * 设置全局画笔透明度。
-     *
      * @param alpha 0~1  透明度，0 表示完全透明，1 表示完全不透明
-     *
      */
     setGlobalAlpha(alpha: number): void;
     /**
@@ -2494,7 +2511,6 @@ declare namespace wx {
      * @param y0 起点的y坐标
      * @param x1 终点的x坐标
      * @param y1 终点的y坐标
-     *
      */
     createLinearGradient(x0: number, y0: number, x1: number, y1: number): void;
     /**
