@@ -34,6 +34,8 @@ declare namespace uri {
         equals(): boolean;
         equals(url: string | URI): boolean;
 
+        expand(vals: Object): string;
+
         filename(): string;
         filename(file: boolean): string;
         filename(file: string): URI;
