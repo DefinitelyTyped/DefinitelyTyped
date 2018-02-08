@@ -1,4 +1,4 @@
-import * as PubSub from '@google-cloud/pubsub';
+import PubSub = require('@google-cloud/pubsub');
 
 // AUTHOR NOTES: We use the examples directly from the library documentation
 // where possible. If there is a problem with a given example (e.g. undocumented

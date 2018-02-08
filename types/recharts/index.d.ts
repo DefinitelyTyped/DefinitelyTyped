@@ -4,6 +4,7 @@
 //                 Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
+//                 Rich Baird <https://github.com/richbai90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,7 +12,7 @@ import * as React from 'react';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
-export type RechartsFunction = () => void;
+export type RechartsFunction = (...args: any[]) => void;
 export type TickFormatterFunction = (value: any) => any;
 export type TickGeneratorFunction = (noTicksProps: object) => any[];
 export type LabelFormatter = (label: string | number) => React.ReactNode;
@@ -160,7 +161,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     dot?: boolean | object | React.ReactElement<any> | ContentRenderer<DotProps>;
-    label?: boolean | object | React.ReactElement<any> | Label['content'];
+    label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     hide?: boolean;
     layout?: LayoutType;
     baseLine?: number | any[];
@@ -229,10 +230,7 @@ export interface BrushProps {
     endIndex?: number;
     tickFormatter?: TickFormatterFunction;
     children?: React.ReactNode;
-    onChange?: (newIndex: {
-        startIndex: number;
-        endIndex: number;
-    }) => void;
+    onChange?: RechartsFunction;
     updateId?: string | number;
 }
 
@@ -261,6 +259,13 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
 
 export class CartesianAxis extends React.Component<CartesianAxisProps> { }
 
+export type CoordinatesGenerator = (arg: {
+    yAxis: CartesianGridProps['yAxis'];
+    width: CartesianGridProps['chartWidth'];
+    height: CartesianGridProps['chartHeight'];
+    offset: CartesianGridProps['offset'];
+}) => number[];
+
 export interface CartesianGridProps extends Partial<PresentationAttributes> {
     y?: number;
     width?: number;
@@ -269,18 +274,8 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     vertical?: object | React.ReactElement<any> | ContentRenderer<LineProps & CartesianGridProps> | boolean;
     horizontalPoints?: number[];
     verticalPoints?: number[];
-    horizontalCoordinatesGenerator?: (arg: {
-        yAxis: CartesianGridProps['yAxis'];
-        width: CartesianGridProps['chartWidth'];
-        height: CartesianGridProps['chartHeight'];
-        offset: CartesianGridProps['offset'];
-    }) => number[];
-    verticalCoordinatesGenerator?: (arg: {
-        yAxis: CartesianGridProps['xAxis'];
-        width: CartesianGridProps['chartWidth'];
-        height: CartesianGridProps['chartHeight'];
-        offset: CartesianGridProps['offset'];
-    }) => number[];
+    horizontalCoordinatesGenerator?: CoordinatesGenerator;
+    verticalCoordinatesGenerator?: CoordinatesGenerator;
     xAxis?: object;
     yAxis?: object;
     offset?: object;
@@ -336,13 +331,15 @@ export interface DotProps extends EventAttributes {
 
 export class Dot extends React.Component<DotProps> { }
 
+export type DataPointFormatter = (entry: any, dataKey: DataKey) => { x: number; y: number, value: any; errorVal: any; };
+
 export interface ErrorBarProps {
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     data?: any[];
     xAxis?: object;
     yAxis?: object;
     layout?: string;
-    dataPointFormatter?: (entry: any, dataKey: DataKey) => { x: number; y: number, value: any; errorVal: any; };
+    dataPointFormatter?: DataPointFormatter;
     stroke?: string;
     strokeWidth?: number;
     width?: number;
@@ -356,6 +353,8 @@ export interface LegendPayload {
     id: any;
     type: LegendType;
 }
+
+export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
 
 export interface LegendProps {
     content?: React.ReactElement<any> | ContentRenderer<LegendProps>;
@@ -375,7 +374,7 @@ export interface LegendProps {
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
-    onBBoxUpdate?: (box: { width: number; height: number; }) => void;
+    onBBoxUpdate?: BBoxUpdateCallback;
 }
 
 export class Legend extends React.Component<LegendProps> { }
@@ -400,7 +399,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     width?: number;
     height?: number;
     dataKey: string | number; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
-    label?: boolean | object | React.ReactElement<any> | Label['content'];
+    label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     points?: Point[];
 }
 
@@ -433,7 +432,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
     label?: {
         offsetRadius: number;
-    } | Label['content'] | React.ReactElement<any> | boolean;
+    } | LabelProps['content'] | React.ReactElement<any> | boolean;
     activeShape?: object |ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
 }
@@ -548,7 +547,7 @@ export interface RadarProps extends EventAttributes, Partial<PresentationAttribu
     shape?: React.ReactElement<any> | ContentRenderer<RadarProps>;
     activeDot?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
     dot?: object | React.ReactElement<any> | ContentRenderer<DotProps> | boolean;
-    label?: object | React.ReactElement<any> | Label['content'] | boolean;
+    label?: object | React.ReactElement<any> | LabelProps['content'] | boolean;
     legendType?: LegendType;
     hide?: boolean;
 }
@@ -587,7 +586,7 @@ export interface RadialBarProps extends EventAttributes, Partial<PresentationAtt
     maxBarSize?: number;
     data?: RadialBarData[];
     legendType?: LegendType;
-    label?: boolean | React.ReactElement<any> | Label['content'] | object;
+    label?: boolean | React.ReactElement<any> | LabelProps['content'] | object;
     background?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
     hide?: boolean;
 }
@@ -634,11 +633,16 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
 
+export type ScaleCalculator = (x: number | string) => number;
+export interface ReferenceDotAxisConfiguration {
+    scale: ScaleCalculator;
+}
+
 export interface ReferenceDotProps extends EventAttributes, Partial<PresentationAttributes<number | string, number | string>> {
     className?: number | string;
     r?: number;
-    xAxis?: { scale: (x: ReferenceDotProps['x']) => number };
-    yAxis?: { scale: (y: ReferenceDotProps['y']) => number };
+    xAxis?: ReferenceDotAxisConfiguration;
+    yAxis?: ReferenceDotAxisConfiguration;
     isFront?: boolean;
     alwaysShow?: boolean;
     x?: number | string;
@@ -770,7 +774,11 @@ export interface Coordinate {
 export interface TooltipPayload {
     name: string;
     value: string | number | Array<string | number>;
-    unit: string;
+    unit?: string;
+    color?: string;
+    fill?: string;
+    dataKey?: string;
+    formatter?: TooltipFormatter;
 }
 
 export interface TooltipProps extends Animatable {
@@ -791,6 +799,7 @@ export interface TooltipProps extends Animatable {
     payload?: TooltipPayload[];
     itemSorter?: ItemSorter<TooltipPayload>;
     filterNull?: boolean;
+    useTranslate3d?: boolean;
 }
 
 export class Tooltip extends React.Component<TooltipProps> { }
@@ -812,22 +821,16 @@ export interface TreemapProps extends EventAttributes, Animatable {
 
 export class Treemap extends React.Component<TreemapProps> { }
 
-export interface Label {
-    className?: string;
+export class Label extends React.Component<LabelProps> { }
+
+export interface LabelProps {
     viewBox?: ViewBox | PolarViewBox;
     formatter?: LabelFormatter;
-    value: string | number;
+    value?: number | string;
     offset?: number;
     position?: PositionType;
     children?: React.ReactNode[] | React.ReactNode;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
-}
-
-export interface LabelProps extends ViewBox {
-    index: number;
-    value: string | number;
-    offset?: number;
-    viewBox: ViewBox;
+    className?: string;
     content?: React.ReactElement<any> | ContentRenderer<Label>;
 }
 

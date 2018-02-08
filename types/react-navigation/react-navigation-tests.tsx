@@ -5,6 +5,8 @@ import {
     ViewStyle,
 } from 'react-native';
 import {
+    DrawerNavigator,
+    DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
     NavigationBackAction,
@@ -138,6 +140,7 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
     tabBarVisible: true,
     tabBarIcon: <View />,
     tabBarLabel: 'label',
+    tabBarOnPress: (scene, index) => {}
 };
 
 const tabNavigatorConfig: TabNavigatorConfig = {
@@ -187,6 +190,36 @@ const BasicStackNavigator = StackNavigator(
 function renderBasicStackNavigator(): JSX.Element {
     return (
         <BasicStackNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
+/**
+ * Drawer navigator.
+ */
+
+const drawerNavigatorScreenOptions: NavigationTabScreenOptions = {
+    title: 'title',
+};
+
+const drawerNavigatorConfig: DrawerNavigatorConfig = {
+    drawerBackgroundColor: '#777777',
+    contentOptions: {
+        activeTintColor: '#7A9B49',
+        inactiveTintColor: '#FFFFFF',
+    },
+};
+
+const BasicDrawerNavigator = DrawerNavigator(
+    routeConfigMap,
+    stackNavigatorConfig,
+);
+
+function renderBasicDrawerNavigator(): JSX.Element {
+    return (
+        <BasicDrawerNavigator
             ref={(ref: any) => { }}
             style={viewStyle}
         />

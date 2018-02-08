@@ -13,7 +13,7 @@
 
 /// <reference types="node" />
 
-import * as Tapable from 'tapable';
+import Tapable = require('tapable');
 import * as UglifyJS from 'uglify-js';
 
 export = webpack;
@@ -516,7 +516,7 @@ declare namespace webpack {
              * It is possible to exclude a huge folder like node_modules.
              * It is also possible to use anymatch patterns.
              */
-            ignored?: string | RegExp;
+            ignored?: string | string[] | RegExp;
             /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
             poll?: boolean | number;
         }

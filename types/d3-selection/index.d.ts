@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-selection module 1.2
+// Type definitions for D3JS d3-selection module 1.3
 // Project: https://github.com/d3/d3-selection/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.0
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -531,6 +531,15 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * Returns this selection (the removed elements) which are now detached from the DOM.
      */
     remove(): this;
+
+    /**
+     * Inserts clones of the selected elements immediately following the selected elements and returns a selection of the newly
+     * added clones. If deep is true, the descendant nodes of the selected elements will be cloned as well. Otherwise, only the elements
+     * themselves will be cloned.
+     *
+     * @param deep Perform deep cloning if this flag is set to true.
+     */
+    clone(deep?: boolean): Selection<GElement, Datum, PElement, PDatum>;
 
     /**
      * Returns a new selection merging this selection with the specified other selection.
@@ -1102,6 +1111,15 @@ export function window(DOMNode: Window | Document | Element): Window;
 // creator.js and matcher.js Complex helper closure generating functions
 // for explicit bound-context dependent use
 // ---------------------------------------------------------------------------
+
+/**
+ * Given the specified element name, returns a single-element selection containing
+ * a detached element of the given name in the current document.
+ *
+ * @param name Tag name of the element to be added. See "namespace" for details on supported namespace prefixes,
+ * such as for SVG elements.
+ */
+export function create<NewGElement extends Element>(name: string): Selection<NewGElement, undefined, null, undefined>;
 
 /**
  * Given the specified element name, returns a function which creates an element of the given name,

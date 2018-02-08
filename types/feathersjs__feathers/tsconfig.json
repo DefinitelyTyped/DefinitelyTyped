@@ -15,11 +15,15 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__feathers-tests.ts"
+        "index.d.ts",
+        "feathersjs__feathers-tests.ts"
     ]
 }

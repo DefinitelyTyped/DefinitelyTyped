@@ -1,4 +1,4 @@
-import * as Client from 'ssh2-sftp-client';
+import Client = require('ssh2-sftp-client');
 import * as fs from 'fs';
 const client = new Client();
 

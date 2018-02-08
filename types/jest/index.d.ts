@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.0.5
+// Type definitions for Jest 22.1
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -10,11 +10,10 @@
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
+//                 Ahn <https://github.com/AhnpGit>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
 declare var afterAll: jest.Lifecycle;
 declare var afterEach: jest.Lifecycle;
@@ -170,7 +169,7 @@ declare namespace jest {
     /**
      * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M): SpyInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -553,16 +552,6 @@ declare namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
-declare function spyOn(object: any, method: string): jasmine.Spy;
-/**
- * If you call the function pending anywhere in the spec body,
- * no matter the expectations, the spec will be marked pending.
- */
-declare function pending(reason?: string): void;
-/**
- * Fails a test when called within one.
- */
-declare function fail(error?: any): void;
 declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;

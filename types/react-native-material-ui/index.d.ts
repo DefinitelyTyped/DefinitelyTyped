@@ -1,4 +1,4 @@
-// Type definitions for react-native-material-ui 1.12
+// Type definitions for react-native-material-ui 1.19
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,6 +18,7 @@ export interface ActionButtonProps {
     style?: {
         container?: ViewStyle
         icon?: TextStyle
+        positionContainer?: ViewStyle
     };
     transition?: 'toolbar' | 'speedDial';
     onPress?(): void;
@@ -432,6 +433,12 @@ export interface ToolBarRightElement {
     menu?: {icon: string, labels: string[]};
 }
 
+export interface RightElementPressEvent {
+    action: string;
+    index: number;
+    result?: any;
+}
+
 export interface ToolbarProps {
     isSearchActive?: boolean;
     size?: number;
@@ -443,7 +450,7 @@ export interface ToolbarProps {
     searchable?: Searchable;
     onPress?(): void;
     onLeftElementPress?(): void;
-    onRightElementPress?(): void;
+    onRightElementPress?(e: RightElementPressEvent): void;
 }
 
 /**

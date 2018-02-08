@@ -2,15 +2,15 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
-import * as CSSTransitionGroup from "react-addons-css-transition-group";
+import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
-import * as shallowCompare from "react-addons-shallow-compare";
+import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
-import * as TransitionGroup from "react-addons-transition-group";
+import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
-import * as createReactClass from "create-react-class";
+import createReactClass = require("create-react-class");
 import * as PropTypes from "prop-types";
 import * as DOM from "react-dom-factories";
 
@@ -141,6 +141,9 @@ const StatelessComponent3: React.SFC<SCProps> =
     // allows null return
     props => props.foo ? DOM.div(null, props.foo, props.children) : null;
 
+// allows null as props
+const StatelessComponent4: React.SFC = props => null;
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
@@ -160,15 +163,22 @@ const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
+const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
+const statelessElementNullProps: React.SFCElement<SCProps> = React.createElement(StatelessComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
+const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
+const inputElementNullProps: React.DOMElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = React.createElement("input", null);
 const svgElement = React.createElement("svg", { accentHeight: 12 });
+const svgElementNullProps = React.createElement("svg", null);
 const fragmentElement: React.ReactElement<{}> = React.createElement(React.Fragment, {}, [React.createElement("div"), React.createElement("div")]);
+const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(React.Fragment, null, [React.createElement("div"), React.createElement("div")]);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
 const nonLiteralElement = React.createElement(customDomElement, customProps);
+const customDomElementNullProps = React.createElement(customDomElement, null);
 
 // https://github.com/Microsoft/TypeScript/issues/15019
 
@@ -307,7 +317,11 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
-    }
+    },
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test'
 };
 DOM.div(htmlAttr);
 DOM.span(htmlAttr);

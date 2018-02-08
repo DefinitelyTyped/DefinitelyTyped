@@ -42,7 +42,6 @@ declare namespace libphonenumber {
         hasCountryCode(): boolean;
         countryCodeCount(): number;
         clearCountryCode(): void;
-
         getNationalNumber(): number | undefined;
         getNationalNumberOrDefault(): number;
         setNationalNumber(value: number): number;
@@ -115,6 +114,7 @@ declare namespace libphonenumber {
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
+        getCountryCodeForRegion(supportedRegion:string):string;
         getRegionCodeForCountryCode(countryCallingCode: number): string;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string | undefined;
         getSupportedRegions():string [];
