@@ -5,11 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface BytesOptions {
-    decimalPlaces?: number;
-    thousandsSeparator?: string;
-    unitSeparator?: string;
-    fixedDecimals?: boolean;
-    unit?: string;
+    decimalPlaces?: number,
+    thousandsSeparator?: string,
+    unitSeparator?: string,
+    fixedDecimals?: boolean,
+    unit?: string
 }
 
 /**
