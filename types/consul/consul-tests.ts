@@ -1,5 +1,4 @@
-
-import * as Consul from "consul";
+import Consul = require("consul");
 
 let ConsulStatic: Consul.ConsulStatic;
 let AclStatic: Consul.AclStatic = ConsulStatic.Acl;

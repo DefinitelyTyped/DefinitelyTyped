@@ -1,5 +1,5 @@
 import * as passport from 'passport';
-import * as express from 'express';
+import express = require('express');
 import 'express-session';
 
 class TestStrategy implements passport.Strategy {
