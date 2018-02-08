@@ -43,6 +43,11 @@ client.connect('user', 'pass', () => { }, (error) => { });
 client.connect('user', 'pass', () => { }, (error) => { }, 'host');
 client.connect('user', 'pass', (frame) => { }, (error) => { });
 client.connect('user', 'pass', (frame) => { }, (error) => { }, 'host');
+client.connect('user', 'pass', (frame) => {
+    if (!!frame) {
+        frame.command;
+    }
+ }, (error) => { }, 'host');
 
 client.disconnect(() => { });
 client.disconnect(() => { }, {});
