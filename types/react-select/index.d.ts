@@ -457,7 +457,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  optional tab index of the control
      */
-    tabIndex?: string;
+    tabIndex?: string | number;
 
     /**
      *  value component to render
