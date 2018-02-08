@@ -3325,7 +3325,6 @@ declare module 'ember' {
         function expandProperties(pattern: string, callback: (expanded: string) => void): void;
     }
 
-
     type RouteModel = object | string | number;
     // https://emberjs.com/api/ember/2.18/classes/RouterService
     /**
