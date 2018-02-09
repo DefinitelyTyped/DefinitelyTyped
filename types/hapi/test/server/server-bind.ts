@@ -8,7 +8,7 @@ const handler = (request: Request, h: ResponseToolkit) => {
     return h.context.message;    // Or h.context.message
 };
 
-const plugin: Plugin = {
+const plugin: Plugin<any> = {
     name: 'example',
     register: async (server: Server, options: ServerRegisterOptions) => {
         const bind = {

@@ -33,15 +33,17 @@ export interface PluginPackage {
  * certain properties. For example, setting a file path in one plugin doesn't affect the file path set
  * in another plugin.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#plugins)
+ *
+ * The type T is the type of the plugin options.
  */
-export interface PluginBase {
+export interface PluginBase<T> {
 
     /**
      * (required) the registration function with the signature async function(server, options) where:
      * * server - the server object with a plugin-specific server.realm.
      * * options - any options passed to the plugin during registration via server.register().
      */
-    register: (server: Server, options: any) => Promise<void>;
+    register: (server: Server, options: T) => Promise<void>;
 
     /** (optional) if true, allows the plugin to be registered multiple times with the same server. Defaults to false. */
     multiple?: boolean;
@@ -53,4 +55,4 @@ export interface PluginBase {
     once?: boolean;
 }
 
-export type Plugin = PluginBase & (PluginNameVersion | PluginPackage);
+export type Plugin<T> = PluginBase<T> & (PluginNameVersion | PluginPackage);
