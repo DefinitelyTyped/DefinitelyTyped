@@ -2,9 +2,7 @@
 // Project: https://github.com/jadejs/void-elements
 // Definitions by: Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-declare interface VoidElements {
-    readonly [tagname: string]: true;
-}
-declare const voidElements: Partial<VoidElements>;
+declare const voidElements: Partial<Record<string, true>>;
 export = voidElements;
