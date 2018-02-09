@@ -47,6 +47,19 @@ export namespace VanillaTilt {
          * Easing on enter/exit.
          */
         easing?: string;
+        /**
+         * if it should have a "glare" effect
+         */
+        glare?: boolean;
+        /**
+         * the maximum "glare" opacity
+         */
+        "max-glare"?: number;
+        /**
+         * false = VanillaTilt creates the glare elements for you, otherwise
+         * you need to add .js-tilt-glare>.js-tilt-glare-inner by yourself
+         */
+        "glare-prerender"?: boolean;
     }
 
     interface TiltValues {
