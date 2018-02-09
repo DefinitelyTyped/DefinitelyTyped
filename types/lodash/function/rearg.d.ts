@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates a function that invokes func with arguments arranged according to the specified indexes where the

@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates a function that iterates over `pairs` and invokes the corresponding

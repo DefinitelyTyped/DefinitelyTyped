@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like _.tap except that it returns the result of interceptor.

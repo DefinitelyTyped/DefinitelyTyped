@@ -6,7 +6,7 @@ import { GraphQLError } from './GraphQLError';
  * descriptive information about the syntax error's position in the source.
  */
 export function syntaxError(
-    source: Source,
-    position: number,
-    description: string
+  source: Source,
+  position: number,
+  description: string,
 ): GraphQLError;

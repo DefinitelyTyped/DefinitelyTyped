@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface TruncateOptions {
         /** The maximum string length. */
         length?: number;

@@ -44,7 +44,7 @@
  *   d. target es6, latest "es20xx", e.g. "es2017"
  */
 
-import * as Bluebird from "bluebird";
+import Bluebird = require("bluebird");
 
 declare global {
     /*

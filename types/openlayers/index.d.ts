@@ -12345,12 +12345,41 @@ declare module ol {
         constructor(opt_options?: olx.ViewOptions);
 
         /**
+         * Animate the view. The view's center, zoom (or resolution), and
+         * rotation can be animated for smooth transitions between view states.
+         * @param {olx.AnimateOptions} var_args Animation options.
+         * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
+         * @api experimental
+         */
+        animate(...var_args: Array<olx.animation.AnimateOptions | olx.animation.AnimateCallback>): void;
+
+        /**
+         * Determine if the view is being animated.
+         * @return {boolean} The view is being animated.
+         * @api
+         */
+        getAnimating(): boolean;
+
+        /**
+         * Determine if the user is interacting with the view, such as panning or zooming.
+         * @return {boolean} The view is being interacted with.
+         * @api
+         */
+        getInteracting(): boolean;
+
+        /**
+         * Cancel any ongoing animations.
+         * @api
+         */
+        cancelAnimations(): void;
+
+        /**
          * Get the constrained center of this view.
          * @param {ol.Coordinate|undefined} center Center.
          * @return {ol.Coordinate|undefined} Constrained center.
          * @api
          */
-        constrainCenter(center: (ol.Coordinate)): (ol.Coordinate);
+        constrainCenter(center?: ol.Coordinate): ol.Coordinate;
 
         /**
          * Get the constrained resolution of this view.
@@ -12360,7 +12389,7 @@ declare module ol {
          * @return {number|undefined} Constrained resolution.
          * @api
          */
-        constrainResolution(resolution: (number), opt_delta?: number, opt_direction?: number): (number);
+        constrainResolution(resolution?: number, opt_delta?: number, opt_direction?: number): number;
 
         /**
          * Get the constrained rotation of this view.
@@ -12369,7 +12398,7 @@ declare module ol {
          * @return {number|undefined} Constrained rotation.
          * @api
          */
-        constrainRotation(rotation: (number), opt_delta?: number): (number);
+        constrainRotation(rotation?: number, opt_delta?: number): number;
 
         /**
          * Get the view center.
@@ -12377,7 +12406,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getCenter(): (ol.Coordinate);
+        getCenter(): ol.Coordinate;
 
         /**
          * Calculate the extent for the current view state and the passed size.
@@ -12405,6 +12434,34 @@ declare module ol {
         getMinResolution(): number;
 
         /**
+         * Get the maximum zoom level for the view.
+         * @return {number} The maximum zoom level.
+         * @api
+         */
+        getMaxZoom(): number;
+
+        /**
+         * Set a new maximum zoom level for the view.
+         * @param {number} zoom The maximum zoom level.
+         * @api stable
+         */
+        setMaxZoom(zoom: number): void;
+
+        /**
+         * Get the minimum zoom level for the view.
+         * @return {number} The minimum zoom level.
+         * @api
+         */
+        getMinZoom(): number;
+
+        /**
+         * Set a new minimum zoom level for the view.
+         * @param {number} zoom The minimum zoom level.
+         * @api stable
+         */
+        setMinZoom(zoom: number): void;
+
+        /**
          * Get the view projection.
          * @return {ol.proj.Projection} The projection of the view.
          * @api stable
@@ -12417,7 +12474,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getResolution(): (number);
+        getResolution(): number;
 
         /**
          * Get the resolutions for the view. This returns the array of resolutions
@@ -12425,7 +12482,17 @@ declare module ol {
          * @return {Array.<number>|undefined} The resolutions of the view.
          * @api stable
          */
-        getResolutions(): (number[]);
+        getResolutions(): number[];
+
+        /**
+         * Get the resolution for a provided extent (in map units) and size (in pixels).
+         * @param {ol.Extent} extent Extent.
+         * @param {ol.Size=} opt_size Box pixel size.
+         * @return {number} The resolution at which the provided extent will render at
+         *     the given size.
+         * @api
+         */
+        getResolutionForExtent(extent: ol.Extent, opt_size?: ol.Size): number;
 
         /**
          * Get the view rotation.
@@ -12436,12 +12503,29 @@ declare module ol {
         getRotation(): number;
 
         /**
-         * Get the current zoom level. Return undefined if the current
-         * resolution is undefined or not within the "resolution constraints".
+         * Get the current zoom level.  If you configured your view with a resolutions
+         * array (this is rare), this method may return non-integer zoom levels (so
+         * the zoom level is not safe to use as an index into a resolutions array).
          * @return {number|undefined} Zoom.
-         * @api stable
+         * @api
          */
-        getZoom(): (number);
+        getZoom(): number;
+
+        /**
+         * Get the zoom level for a resolution.
+         * @param {number} resolution The resolution.
+         * @return {number|undefined} The zoom level for the provided resolution.
+         * @api
+         */
+        getZoomForResolution(resolution: number): number;
+
+        /**
+         * Get the resolution for a zoom level.
+         * @param {number} zoom Zoom level.
+         * @return {number} The view resolution for the provided zoom level.
+         * @api
+         */
+        getResolutionForZoom(zoom: number): number;
 
         /**
          * Fit the given geometry or extent based on the given map size and border.
@@ -12452,7 +12536,7 @@ declare module ol {
          * @param {olx.view.FitOptions=} opt_options Options.
          * @api
          */
-        fit(geometry: (ol.geom.SimpleGeometry | ol.Extent), opt_options?: olx.view.FitOptions): void;
+        fit(geometryOrExtent: (ol.geom.SimpleGeometry | ol.Extent), opt_options?: olx.view.FitOptions): void;
 
         /**
          * Center on coordinate and view position.
@@ -12477,7 +12561,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setCenter(center: (ol.Coordinate)): void;
+        setCenter(center: ol.Coordinate): void;
 
         /**
          * Set the resolution for this view.
@@ -12485,7 +12569,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setResolution(resolution: (number)): void;
+        setResolution(resolution?: number): void;
 
         /**
          * Set the rotation for this view.
@@ -12496,34 +12580,11 @@ declare module ol {
         setRotation(rotation: number): void;
 
         /**
-         * Set a new maximum zoom level for the view.
-         * @param {number} zoom The maximum zoom level.
-         * @api stable
-         */
-        setMaxZoom(zoom: number): void;
-
-        /**
-         * Set a new minimum zoom level for the view.
-         * @param {number} zoom The minimum zoom level.
-         * @api stable
-         */
-        setMinZoom(zoom: number): void;
-
-        /**
          * Zoom to a specific zoom level.
          * @param {number} zoom Zoom level.
          * @api stable
          */
         setZoom(zoom: number): void;
-
-        /**
-         * Animate the view. The view's center, zoom (or resolution), and
-         * rotation can be animated for smooth transitions between view states.
-         * @param {olx.AnimateOptions} var_args Animation options.
-         * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
-         * @api experimental
-         */
-        animate(...var_args: Array<olx.animation.AnimateOptions | olx.animation.AnimateCallback>): void;
 
     }
 
@@ -12607,7 +12668,7 @@ declare module olx {
             zoom?: number | undefined;
             resolution?: number | undefined;
             rotation?: number | undefined;
-            anchor?: number | undefined;
+            anchor?: ol.Coordinate | undefined;
             duration?: number | undefined;
             easing?: ((t: number) => number) | undefined;
         }
@@ -14618,6 +14679,7 @@ declare module olx {
             maxZoom?: number;
             duration?: number;
             easing?: ((t: number) => number);
+            callback?: olx.animation.AnimateCallback;
         }
     }
 

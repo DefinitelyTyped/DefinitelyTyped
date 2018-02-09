@@ -1,29 +1,29 @@
-var str: string = "any string";
-var date: Date = new Date();
-var anyObj: any = { abc: 123 };
-var num: number = 5;
-var error: Error = new Error();
-var b: boolean = true;
-var apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
-var apiGwEvt: AWSLambda.APIGatewayEvent;
-var customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
-var clientCtx: AWSLambda.ClientContext;
-var clientContextEnv: AWSLambda.ClientContextEnv;
-var clientContextClient: AWSLambda.ClientContextClient;
-var context: AWSLambda.Context;
-var identity: AWSLambda.CognitoIdentity;
-var proxyResult: AWSLambda.ProxyResult;
-var authResponse: AWSLambda.AuthResponse;
-var policyDocument: AWSLambda.PolicyDocument;
-var statement: AWSLambda.Statement;
-var authResponseContext: AWSLambda.AuthResponseContext;
-var snsEvt: AWSLambda.SNSEvent;
-var snsEvtRecs: AWSLambda.SNSEventRecord[];
-var snsEvtRec: AWSLambda.SNSEventRecord;
-var snsMsg: AWSLambda.SNSMessage;
-var snsMsgAttr: AWSLambda.SNSMessageAttribute;
-var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
-var S3EvtRec: AWSLambda.S3EventRecord = {
+let str: string;
+let date: Date;
+let anyObj: any;
+let num: number;
+let error: Error;
+let b: boolean;
+let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
+let apiGwEvt: AWSLambda.APIGatewayEvent;
+let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
+let clientCtx: AWSLambda.ClientContext;
+let clientContextEnv: AWSLambda.ClientContextEnv;
+let clientContextClient: AWSLambda.ClientContextClient;
+let context: AWSLambda.Context;
+let identity: AWSLambda.CognitoIdentity;
+let proxyResult: AWSLambda.ProxyResult;
+let authResponse: AWSLambda.AuthResponse;
+let policyDocument: AWSLambda.PolicyDocument;
+let statement: AWSLambda.Statement;
+let authResponseContext: AWSLambda.AuthResponseContext;
+let snsEvt: AWSLambda.SNSEvent;
+let snsEvtRecs: AWSLambda.SNSEventRecord[];
+let snsEvtRec: AWSLambda.SNSEventRecord;
+let snsMsg: AWSLambda.SNSMessage;
+let snsMsgAttr: AWSLambda.SNSMessageAttribute;
+let snsMsgAttrs: AWSLambda.SNSMessageAttributes;
+const S3EvtRec: AWSLambda.S3EventRecord = {
     eventVersion: '2.0',
     eventSource: 'aws:s3',
     awsRegion: 'us-east-1',
@@ -32,7 +32,7 @@ var S3EvtRec: AWSLambda.S3EventRecord = {
     userIdentity: {
         principalId: 'AIDAJDPLRKLG7UEXAMPLE'
     },
-    requestParameters:{
+    requestParameters: {
         sourceIPAddress: '127.0.0.1'
     },
     responseElements: {
@@ -59,15 +59,15 @@ var S3EvtRec: AWSLambda.S3EventRecord = {
     }
 };
 
-var S3CreateEvent: AWSLambda.S3CreateEvent = {
+const S3CreateEvent: AWSLambda.S3CreateEvent = {
     Records: [S3EvtRec]
 };
-var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
-var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
-var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
-var cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
-var cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
-var scheduledEvent: AWSLambda.ScheduledEvent;
+declare const cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
+declare const cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
+declare const cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
+declare const cloudwatchLogsEvent: AWSLambda.CloudWatchLogsEvent;
+declare const cloudwatchLogsDecodedData: AWSLambda.CloudWatchLogsDecodedData;
+declare const scheduledEvent: AWSLambda.ScheduledEvent;
 
 /* API Gateway Event request context */
 str = apiGwEvtReqCtx.accountId;
@@ -113,7 +113,7 @@ str = apiGwEvt.stageVariables["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
 
 /* DynamoDB Stream Event */
-var dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
+const dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
     Records: [
         {
             eventID: '1',
@@ -266,13 +266,13 @@ policyDocument = {
 
 authResponse = {
     principalId: str,
-    policyDocument: policyDocument,
+    policyDocument,
     context: authResponseContext
 };
 
 authResponse = {
     principalId: str,
-    policyDocument: policyDocument
+    policyDocument,
 };
 
 // CognitoUserPoolEvent
@@ -442,67 +442,67 @@ function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
 }
 
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
-var CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
-  "Records": [
+const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
+  Records: [
     {
-      "cf": {
-        "config": {
-          "distributionId": "EDFDVBD6EXAMPLE",
-          "requestId": "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+      cf: {
+        config: {
+          distributionId: "EDFDVBD6EXAMPLE",
+          requestId: "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
         },
-        "request": {
-          "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
-          "method": "GET",
-          "uri": "/picture.jpg",
-          "querystring": "size=large",
-          "headers": {
-            "host": [
+        request: {
+          clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          method: "GET",
+          uri: "/picture.jpg",
+          querystring: "size=large",
+          headers: {
+            host: [
               {
-                "key": "Host",
-                "value": "d111111abcdef8.cloudfront.net"
+                key: "Host",
+                value: "d111111abcdef8.cloudfront.net"
               }
             ],
             "user-agent": [
               {
-                "key": "User-Agent",
-                "value": "curl/7.51.0"
+                key: "User-Agent",
+                value: "curl/7.51.0"
               }
             ]
           },
-          "origin": {
-            "custom": {
-              "customHeaders": {
+          origin: {
+            custom: {
+              customHeaders: {
                 "my-origin-custom-header": [
                   {
-                    "key": "My-Origin-Custom-Header",
-                    "value": "Test"
+                    key: "My-Origin-Custom-Header",
+                    value: "Test"
                   }
                 ]
               },
-              "domainName": "example.com",
-              "keepaliveTimeout": 5,
-              "path": "/custom_path",
-              "port": 443,
-              "protocol": "https",
-              "readTimeout": 5,
-              "sslProtocols": [
+              domainName: "example.com",
+              keepaliveTimeout: 5,
+              path: "/custom_path",
+              port: 443,
+              protocol: "https",
+              readTimeout: 5,
+              sslProtocols: [
                 "TLSv1",
                 "TLSv1.1"
               ]
             },
-            "s3": {
-              "authMethod": "origin-access-identity",
-              "customHeaders": {
+            s3: {
+              authMethod: "origin-access-identity",
+              customHeaders: {
                 "my-origin-custom-header": [
                   {
-                    "key": "My-Origin-Custom-Header",
-                    "value": "Test"
+                    key: "My-Origin-Custom-Header",
+                    value: "Test"
                   }
                 ]
               },
-              "domainName": "my-bucket.s3.amazonaws.com",
-              "path": "/s3_path",
-              "region": "us-east-1"
+              domainName: "my-bucket.s3.amazonaws.com",
+              path: "/s3_path",
+              region: "us-east-1"
             }
           }
         }
@@ -511,52 +511,52 @@ var CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
   ]
 };
 
-var CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
-    "Records": [
+const CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
+    Records: [
         {
-            "cf": {
-                "config": {
-                    "distributionId": "EDFDVBD6EXAMPLE",
-                    "requestId": "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
+            cf: {
+                config: {
+                    distributionId: "EDFDVBD6EXAMPLE",
+                    requestId: "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
                 },
-                "request": {
-                    "clientIp": "2001:0db8:85a3:0:0:8a2e:0370:7334",
-                    "method": "GET",
-                    "uri": "/picture.jpg",
-                    "querystring": "size=large",
-                    "headers": {
-                        "host": [
+                request: {
+                    clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
+                    method: "GET",
+                    uri: "/picture.jpg",
+                    querystring: "size=large",
+                    headers: {
+                        host: [
                             {
-                                "key": "Host",
-                                "value": "d111111abcdef8.cloudfront.net"
+                                key: "Host",
+                                value: "d111111abcdef8.cloudfront.net"
                             }
                         ],
                         "user-agent": [
                             {
-                                "key": "User-Agent",
-                                "value": "curl/7.18.1"
+                                key: "User-Agent",
+                                value: "curl/7.18.1"
                             }
                         ]
                     }
                 },
-                "response": {
-                    "status": "200",
-                    "statusDescription": "OK",
-                    "headers": {
-                        "server": [
+                response: {
+                    status: "200",
+                    statusDescription: "OK",
+                    headers: {
+                        server: [
                             {
-                                "key": "Server",
-                                "value": "MyCustomOrigin"
+                                key: "Server",
+                                value: "MyCustomOrigin"
                             }
                         ],
                         "set-cookie": [
                             {
-                                "key": "Set-Cookie",
-                                "value": "theme=light"
+                                key: "Set-Cookie",
+                                value: "theme=light"
                             },
                             {
-                                "key": "Set-Cookie",
-                                "value": "sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT"
+                                key: "Set-Cookie",
+                                value: "sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT"
                             }
                         ]
                     }

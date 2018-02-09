@@ -1,5 +1,3 @@
-/// <reference types="express" />
-
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
@@ -12,7 +10,7 @@ import {
     PaginateResult,
     Document
 } from 'mongoose';
-import * as mongoosePaginate from 'mongoose-paginate';
+import mongoosePaginate = require('mongoose-paginate');
 import { Router, Request, Response } from 'express';
 
 

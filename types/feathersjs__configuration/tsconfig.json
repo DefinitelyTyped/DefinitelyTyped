@@ -15,12 +15,18 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
-            "@feathersjs/configuration": ["feathersjs__configuration"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/configuration": [
+                "feathersjs__configuration"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__configuration-tests.ts"
+        "index.d.ts",
+        "feathersjs__configuration-tests.ts"
     ]
 }

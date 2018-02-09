@@ -1,4 +1,4 @@
-import * as Redis from "ioredis";
+import Redis = require("ioredis");
 const redis = new Redis();
 
 redis.set('foo', 'bar');

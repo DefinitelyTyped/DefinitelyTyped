@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Iterates over own enumerable properties of an object invoking iteratee for each property. The iteratee is

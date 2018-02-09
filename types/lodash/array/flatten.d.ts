@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it’s only

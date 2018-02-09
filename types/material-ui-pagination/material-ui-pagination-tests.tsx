@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom';
 import Pagination from 'material-ui-pagination';
 import * as ui from 'material-ui';
 import { MuiThemeProvider } from 'material-ui/styles';
-import * as injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin = require('react-tap-event-plugin');
 
 // Needed for onTouchTap
 // Check this repo:

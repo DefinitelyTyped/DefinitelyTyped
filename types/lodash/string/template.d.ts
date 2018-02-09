@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface TemplateOptions extends TemplateSettings {
         /**
          * The sourceURL of the template's compiled source.

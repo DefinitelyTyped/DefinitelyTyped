@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashImplicitWrapper<TValue> {
         /**
          * Creates a clone of the chained sequence planting value as the wrapped value.

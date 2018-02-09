@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashWrapper<TValue> {
         /**
          * Produces the result of coercing the unwrapped value to a string.

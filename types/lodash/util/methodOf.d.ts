@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * The opposite of _.method; this method creates a function that invokes the method at a given path on object.

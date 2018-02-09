@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Converts string to an integer of the specified radix. If radix is undefined or 0, a radix of 10 is used

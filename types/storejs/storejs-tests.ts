@@ -2,6 +2,9 @@
 import * as store from 'store';
 import * as engine from 'store/src/store-engine';
 
+// https://github.com/marcuswestin/store.js/blob/master/README-More.md#storeenabled-flag
+console.log('storage is supported: ', store.enabled === true);
+
 // https://github.com/marcuswestin/store.js/#api
 
 // Store current user

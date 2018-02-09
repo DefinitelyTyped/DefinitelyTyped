@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as moment from "moment";
+import moment = require("moment");
 
 import {
         SingleDatePicker,
@@ -12,9 +12,6 @@ import {
         toISODateString,
         toLocalizedDateString,
         toMomentObject } from "react-dates";
-
-
-
 
 class SingleDatePickerMinimumTest extends React.Component {
     render() {
@@ -64,6 +61,11 @@ class SingleDatePickerFullTest extends React.Component {
                     orientation="horizontal"
                     monthFormat="MM"
                     renderDayContents={day => day.toString()}
+                    verticalSpacing={4}
+                    keepFocusOnInput={true}
+                    verticalHeight={5}
+                    regular={true}
+                    small={true}
                     />
     }
 }

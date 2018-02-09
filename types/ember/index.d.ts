@@ -1111,7 +1111,7 @@ declare module 'ember' {
              * item. This method corresponds to the `forEach()` method defined in
              * JavaScript 1.6.
              */
-            forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
+            forEach: GlobalArray<T>['forEach'];
             /**
              * Alias for `mapBy`
              */
@@ -1127,7 +1127,7 @@ declare module 'ember' {
              * Maps all of the items in the enumeration to another value, returning
              * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
              */
-            map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+            map: GlobalArray<T>['map'];
             /**
              * Similar to map, this specialized function returns the value of the named
              * property on all items in the enumeration.
@@ -1138,11 +1138,7 @@ declare module 'ember' {
              * function returns true for. This method corresponds to `filter()` defined in
              * JavaScript 1.6.
              */
-            filter<S extends T>(
-                callbackfn: (value: T, index: number, array: T[]) => value is S,
-                thisArg?: any
-            ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
+            filter: GlobalArray<T>['filter'];
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
@@ -1165,10 +1161,7 @@ declare module 'ember' {
              * This method works similar to the `filter()` method defined in JavaScript 1.6
              * except that it will stop working on the array once a match is found.
              */
-            find(
-                predicate: (value: T, index: number, obj: T[]) => boolean,
-                thisArg?: any
-            ): T | undefined;
+            find: GlobalArray<T>['find'];
             /**
              * Returns the first item with a property matching the passed value. You
              * can pass an optional second argument with the target value. Otherwise
@@ -1179,10 +1172,7 @@ declare module 'ember' {
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
              */
-            every(
-                callbackfn: (value: T, index: number, array: T[]) => boolean,
-                thisArg?: any
-            ): boolean;
+            every: GlobalArray<T>['every'];
             /**
              * Returns `true` if the passed property resolves to the value of the second
              * argument for all items in the enumerable. This method is often simpler/faster
@@ -1205,8 +1195,7 @@ declare module 'ember' {
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+            reduce: GlobalArray<T>['reduce'];
             /**
              * Invokes the named method on every object in the receiver that
              * implements it. This method corresponds to the implementation in
@@ -1616,32 +1605,6 @@ declare module 'ember' {
              * __Required.__ You must implement this method to apply this mixin.
              */
             length: number;
-
-            // NOTE: some array polyfill methods are re-declared here because their signatures
-            // differ between typescript versions 2.4 and 2.6. Since we need to compile against
-            // both, pick the more recent signature and re-declare it here as a tie-breaker.
-
-            /**
-             * Returns the first item in the array for which the callback returns true.
-             * This method works similar to the `filter()` method defined in JavaScript 1.6
-             * except that it will stop working on the array once a match is found.
-             */
-            find(
-                predicate: (value: T, index: number, obj: T[]) => boolean,
-                thisArg?: any
-            ): T | undefined;
-            /**
-             * This will combine the values of the enumerator into a single value. It
-             * is a useful way to collect a summary value from an enumeration. This
-             * corresponds to the `reduce()` method defined in JavaScript 1.8.
-             */
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
-            filter<S extends T>(
-                callbackfn: (value: T, index: number, array: T[]) => value is S,
-                thisArg?: any
-            ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): Enumerable<T>;
         }
         const NativeArray: Mixin<NativeArray<any>>;
         /**
@@ -3321,7 +3284,7 @@ declare module 'ember' {
 
 declare module '@ember/application' {
     import Ember from 'ember';
-    export default Ember.Application;
+    export default class Application extends Ember.Application { }
     export const getOwner: typeof Ember.getOwner;
     export const onLoad: typeof Ember.onLoad;
     export const runLoadHooks: typeof Ember.runLoadHooks;
@@ -3336,22 +3299,23 @@ declare module '@ember/application/deprecations' {
 
 declare module '@ember/application/globals-resolver' {
     import Ember from 'ember';
-    export default Ember.DefaultResolver;
+    export default class GlobalsResolver extends Ember.DefaultResolver { }
 }
 
 declare module '@ember/application/instance' {
     import Ember from 'ember';
-    export default Ember.ApplicationInstance;
+    export default class ApplicationInstance extends Ember.ApplicationInstance { }
 }
 
 declare module '@ember/application/resolver' {
     import Ember from 'ember';
-    export default Ember.Resolver;
+    export default class Resolver extends Ember.Resolver { }
 }
 
 declare module '@ember/array' {
     import Ember from 'ember';
-    export default Ember.Array;
+    const EmberArray: typeof Ember.Array;
+    export default EmberArray;
     export const A: typeof Ember.A;
     export const isArray: typeof Ember.isArray;
     export const makeArray: typeof Ember.makeArray;
@@ -3359,43 +3323,44 @@ declare module '@ember/array' {
 
 declare module '@ember/array/mutable' {
     import Ember from 'ember';
-    export default Ember.MutableArray;
+    const MutableArray: typeof Ember.MutableArray;
+    export default MutableArray;
 }
 
 declare module '@ember/array/proxy' {
     import Ember from 'ember';
-    export default Ember.ArrayProxy;
+    export default class ArrayProxy<T> extends Ember.ArrayProxy<T> { }
 }
 
 declare module '@ember/component' {
     import Ember from 'ember';
-    export default Ember.Component;
+    export default class Component extends Ember.Component { }
 }
 
 declare module '@ember/component/checkbox' {
     import Ember from 'ember';
-    export default Ember.Checkbox;
+    export default class Checkbox extends Ember.Checkbox { }
 }
 
 declare module '@ember/component/helper' {
     import Ember from 'ember';
-    export default Ember.Helper;
+    export default class Helper extends Ember.Helper { }
     export const helper: typeof Ember.Helper.helper;
 }
 
 declare module '@ember/component/text-area' {
     import Ember from 'ember';
-    export default Ember.TextArea;
+    export default class TextArea extends Ember.TextArea { }
 }
 
 declare module '@ember/component/text-field' {
     import Ember from 'ember';
-    export default Ember.TextField;
+    export default class TextField extends Ember.TextField { }
 }
 
 declare module '@ember/controller' {
     import Ember from 'ember';
-    export default Ember.Controller;
+    export default class Controller extends Ember.Controller { }
     export const inject: typeof Ember.inject.controller;
 }
 
@@ -3412,28 +3377,29 @@ declare module '@ember/debug' {
 
 declare module '@ember/debug/container-debug-adapter' {
     import Ember from 'ember';
-    export default Ember.ContainerDebugAdapter;
+    export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
 }
 
 declare module '@ember/debug/data-adapter' {
     import Ember from 'ember';
-    export default Ember.DataAdapter;
+    export default class DataAdapter extends Ember.DataAdapter { }
 }
 
 declare module '@ember/engine' {
     import Ember from 'ember';
-    export default Ember.Engine;
+    export default class Engine extends Ember.Engine { }
     export const getEngineParent: typeof Ember.getEngineParent;
 }
 
 declare module '@ember/engine/instance' {
     import Ember from 'ember';
-    export default Ember.EngineInstance;
+    export default class EngineInstance extends Ember.EngineInstance { }
 }
 
 declare module '@ember/enumerable' {
     import Ember from 'ember';
-    export default Ember.Enumerable;
+    const Enumerable: typeof Ember.Enumerable;
+    export default Enumerable;
 }
 
 declare module '@ember/instrumentation' {
@@ -3446,17 +3412,17 @@ declare module '@ember/instrumentation' {
 
 declare module '@ember/map' {
     import Ember from 'ember';
-    export default Ember.Map;
+    export default class EmberMap extends Ember.Map { }
 }
 
 declare module '@ember/map/with-default' {
     import Ember from 'ember';
-    export default Ember.MapWithDefault;
+    export default class MapWithDefault extends Ember.MapWithDefault { }
 }
 
 declare module '@ember/object' {
     import Ember from 'ember';
-    export default Ember.Object;
+    export default class EmberObject extends Ember.Object { }
     export const aliasMethod: typeof Ember.aliasMethod;
     export const computed: typeof Ember.computed;
     export const defineProperty: typeof Ember.defineProperty;
@@ -3471,7 +3437,7 @@ declare module '@ember/object' {
 
 declare module '@ember/object/computed' {
     import Ember from 'ember';
-    export default Ember.ComputedProperty;
+    export default class ComputedProperty<T> extends Ember.ComputedProperty<T> { }
     export const alias: typeof Ember.computed.alias;
     export const and: typeof Ember.computed.and;
     export const bool: typeof Ember.computed.bool;
@@ -3509,12 +3475,13 @@ declare module '@ember/object/computed' {
 
 declare module '@ember/object/core' {
     import Ember from 'ember';
-    export default Ember.CoreObject;
+    export default class CoreObject extends Ember.CoreObject { }
 }
 
 declare module '@ember/object/evented' {
     import Ember from 'ember';
-    export default Ember.Evented;
+    const Evented: typeof Ember.Evented;
+    export default Evented;
     export const on: typeof Ember.on;
 }
 
@@ -3534,12 +3501,14 @@ declare module '@ember/object/internals' {
 
 declare module '@ember/object/mixin' {
     import Ember from 'ember';
-    export default Ember.Mixin;
+    const Mixin: typeof Ember.Mixin;
+    export default Mixin;
 }
 
 declare module '@ember/object/observable' {
     import Ember from 'ember';
-    export default Ember.Observable;
+    const Observable: typeof Ember.Observable;
+    export default Observable;
 }
 
 declare module '@ember/object/observers' {
@@ -3550,12 +3519,13 @@ declare module '@ember/object/observers' {
 
 declare module '@ember/object/promise-proxy-mixin' {
     import Ember from 'ember';
-    export default Ember.PromiseProxyMixin;
+    const PromiseProxyMixin: typeof Ember.PromiseProxyMixin;
+    export default PromiseProxyMixin;
 }
 
 declare module '@ember/object/proxy' {
     import Ember from 'ember';
-    export default Ember.ObjectProxy;
+    export default class ObjectProxy extends Ember.ObjectProxy { }
 }
 
 declare module '@ember/polyfills' {
@@ -3569,42 +3539,43 @@ declare module '@ember/polyfills' {
 
 declare module '@ember/routing/auto-location' {
     import Ember from 'ember';
-    export default Ember.AutoLocation;
+    export default class AutoLocation extends Ember.AutoLocation { }
 }
 
 declare module '@ember/routing/hash-location' {
     import Ember from 'ember';
-    export default Ember.HashLocation;
+    export default class HashLocation extends Ember.HashLocation { }
 }
 
 declare module '@ember/routing/history-location' {
     import Ember from 'ember';
-    export default Ember.HistoryLocation;
+    export default class HistoryLocation extends Ember.HistoryLocation { }
 }
 
 declare module '@ember/routing/link-component' {
     import Ember from 'ember';
-    export default Ember.LinkComponent;
+    export default class LinkComponent extends Ember.LinkComponent { }
 }
 
 declare module '@ember/routing/location' {
     import Ember from 'ember';
-    export default Ember.Location;
+    const Location: typeof Ember.Location;
+    export default Location;
 }
 
 declare module '@ember/routing/none-location' {
     import Ember from 'ember';
-    export default Ember.NoneLocation;
+    export default class NoneLocation extends Ember.NoneLocation { }
 }
 
 declare module '@ember/routing/route' {
     import Ember from 'ember';
-    export default Ember.Route;
+    export default class Route extends Ember.Route { }
 }
 
 declare module '@ember/routing/router' {
     import Ember from 'ember';
-    export default Ember.Router;
+    export default class EmberRouter extends Ember.Router { }
 }
 
 declare module '@ember/runloop' {
@@ -3626,7 +3597,7 @@ declare module '@ember/runloop' {
 
 declare module '@ember/service' {
     import Ember from 'ember';
-    export default Ember.Service;
+    export default class Service extends Ember.Service { }
     export const inject: typeof Ember.inject.service;
 }
 
@@ -3656,7 +3627,7 @@ declare module '@ember/test' {
 
 declare module '@ember/test/adapter' {
     import Ember from 'ember';
-    export default Ember.Test.Adapter;
+    export default class TestAdapter extends Ember.Test.Adapter { }
 }
 
 declare module '@ember/utils' {

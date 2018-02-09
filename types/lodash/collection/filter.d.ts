@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The

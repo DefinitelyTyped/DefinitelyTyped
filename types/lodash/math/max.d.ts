@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
          /**
           * Computes the maximum value of `array`. If `array` is empty or falsey

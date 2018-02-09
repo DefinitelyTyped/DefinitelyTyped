@@ -38,6 +38,9 @@ export interface DatePickerProps {
 
 declare class DatePicker extends React.Component<DatePickerProps> {
     constructor(props: DatePickerProps);
+
+    onPressDate(): void;
+    onPressCancel(): void;
 }
 
 export default DatePicker;

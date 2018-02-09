@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee

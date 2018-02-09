@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as mm from "musicmetadata";
+import mm = require("musicmetadata");
 
 mm(fs.createReadStream("hype-train.mp3"), (err: Error, metadata: MM.Metadata) => {
     if (err) throw err;

@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
 
     interface LoDashStatic {

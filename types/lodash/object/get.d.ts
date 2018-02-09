@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used

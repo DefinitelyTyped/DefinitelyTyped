@@ -1,4 +1,5 @@
-declare namespace _ {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
       /**
        * Computes the mean of the provided propties of the objects in the `array`
