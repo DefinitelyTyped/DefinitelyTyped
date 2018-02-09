@@ -30,7 +30,7 @@ const mimeOptions: MimosOptions = {
     }
 };
 
-const plugin: Plugin = {
+const plugin: Plugin<any> = {
     name: 'example',
     register: async (server: Server, options: ServerRegisterOptions) => {
         server.expose('key', 'value');

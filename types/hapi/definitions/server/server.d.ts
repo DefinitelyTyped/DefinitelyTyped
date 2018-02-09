@@ -30,6 +30,7 @@ import {
     ServerRealm,
     ServerRegisterOptions,
     ServerRegisterPluginObject,
+    ServerRegisterPluginObjectArray,
     ServerRoute,
     ServerState,
     ServerStateCookieOptions,
@@ -483,8 +484,8 @@ export class Server extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
      */
-    register(plugins: Plugin | Plugin[], options?: ServerRegisterOptions): Promise<void>;
-    register(plugins: ServerRegisterPluginObject | ServerRegisterPluginObject[], options?: ServerRegisterOptions): Promise<void>;
+    register(plugins: Plugin<any> | Plugin<any>[], options?: ServerRegisterOptions): Promise<void>;
+    register<T, U, V, W, X, Y, Z>(plugins: ServerRegisterPluginObject<T> | ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z>, options?: ServerRegisterOptions): Promise<void>;
 
     /**
      * Adds a route where:

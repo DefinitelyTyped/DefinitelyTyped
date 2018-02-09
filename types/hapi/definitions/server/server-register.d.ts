@@ -37,14 +37,29 @@ export interface ServerRegisterOptions {
  * * * prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
  * * * vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
+ *
+ * The type parameter T is the type of the plugin configuration options.
  */
-export interface ServerRegisterPluginObject extends ServerRegisterOptions {
+export interface ServerRegisterPluginObject<T> extends ServerRegisterOptions {
     /**
      * a plugin object.
      */
-    plugin: Plugin;
+    plugin: Plugin<T>;
     /**
      * options passed to the plugin during registration.
      */
-    options?: any;
+    options?: T;
 }
+
+export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> extends Array<ServerRegisterPluginObject<T | U | V | W | X | Y | Z> | undefined> {
+    0: ServerRegisterPluginObject<T>;
+    1?: ServerRegisterPluginObject<U>;
+    2?: ServerRegisterPluginObject<V>;
+    3?: ServerRegisterPluginObject<W>;
+    4?: ServerRegisterPluginObject<X>;
+    5?: ServerRegisterPluginObject<Y>;
+    6?: ServerRegisterPluginObject<Z>;
+}
+
+
+

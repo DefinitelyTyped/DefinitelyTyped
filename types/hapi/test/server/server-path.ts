@@ -13,7 +13,7 @@ const serverRouteOption: ServerRoute = {
     }
 };
 
-const plugin: Plugin = {
+const plugin: Plugin<any> = {
     name: 'example',
     register: async (server: Server, options: ServerRegisterOptions) => {
         // Assuming the Inert plugin was registered previously
