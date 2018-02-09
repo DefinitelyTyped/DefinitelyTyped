@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * The opposite of `_.pickBy`; this method creates an object composed of the

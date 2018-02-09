@@ -12,11 +12,14 @@
             "../../"
         ],
         "paths": {
-          "massive": [ "massive/v3" ]
+            "massive": [
+                "massive/v3"
+            ]
         },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "strictFunctionTypes": true
     },
     "files": [

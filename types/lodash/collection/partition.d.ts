@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
         * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,

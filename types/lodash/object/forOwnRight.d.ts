@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * This method is like _.forOwn except that it iterates over properties of object in the opposite order.

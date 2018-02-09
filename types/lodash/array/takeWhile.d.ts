@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates a slice of array with elements taken from the beginning. Elements are taken until predicate returns

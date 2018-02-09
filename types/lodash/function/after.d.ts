@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.

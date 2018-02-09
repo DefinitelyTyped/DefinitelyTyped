@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface TruncateOptions {
         /** The maximum string length. */
         length?: number;

@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg

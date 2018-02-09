@@ -4,6 +4,7 @@
 //                 Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
+//                 Rich Baird <https://github.com/richbai90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -160,7 +161,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     dot?: boolean | object | React.ReactElement<any> | ContentRenderer<DotProps>;
-    label?: boolean | object | React.ReactElement<any> | Label['content'];
+    label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     hide?: boolean;
     layout?: LayoutType;
     baseLine?: number | any[];
@@ -398,7 +399,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     width?: number;
     height?: number;
     dataKey: string | number; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
-    label?: boolean | object | React.ReactElement<any> | Label['content'];
+    label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     points?: Point[];
 }
 
@@ -431,7 +432,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
     label?: {
         offsetRadius: number;
-    } | Label['content'] | React.ReactElement<any> | boolean;
+    } | LabelProps['content'] | React.ReactElement<any> | boolean;
     activeShape?: object |ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
 }
@@ -546,7 +547,7 @@ export interface RadarProps extends EventAttributes, Partial<PresentationAttribu
     shape?: React.ReactElement<any> | ContentRenderer<RadarProps>;
     activeDot?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
     dot?: object | React.ReactElement<any> | ContentRenderer<DotProps> | boolean;
-    label?: object | React.ReactElement<any> | Label['content'] | boolean;
+    label?: object | React.ReactElement<any> | LabelProps['content'] | boolean;
     legendType?: LegendType;
     hide?: boolean;
 }
@@ -585,7 +586,7 @@ export interface RadialBarProps extends EventAttributes, Partial<PresentationAtt
     maxBarSize?: number;
     data?: RadialBarData[];
     legendType?: LegendType;
-    label?: boolean | React.ReactElement<any> | Label['content'] | object;
+    label?: boolean | React.ReactElement<any> | LabelProps['content'] | object;
     background?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
     hide?: boolean;
 }
@@ -773,7 +774,11 @@ export interface Coordinate {
 export interface TooltipPayload {
     name: string;
     value: string | number | Array<string | number>;
-    unit: string;
+    unit?: string;
+    color?: string;
+    fill?: string;
+    dataKey?: string;
+    formatter?: TooltipFormatter;
 }
 
 export interface TooltipProps extends Animatable {
@@ -794,6 +799,7 @@ export interface TooltipProps extends Animatable {
     payload?: TooltipPayload[];
     itemSorter?: ItemSorter<TooltipPayload>;
     filterNull?: boolean;
+    useTranslate3d?: boolean;
 }
 
 export class Tooltip extends React.Component<TooltipProps> { }
@@ -815,22 +821,16 @@ export interface TreemapProps extends EventAttributes, Animatable {
 
 export class Treemap extends React.Component<TreemapProps> { }
 
-export interface Label {
-    className?: string;
+export class Label extends React.Component<LabelProps> { }
+
+export interface LabelProps {
     viewBox?: ViewBox | PolarViewBox;
     formatter?: LabelFormatter;
-    value: string | number;
+    value?: number | string;
     offset?: number;
     position?: PositionType;
     children?: React.ReactNode[] | React.ReactNode;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
-}
-
-export interface LabelProps extends ViewBox {
-    index: number;
-    value: string | number;
-    offset?: number;
-    viewBox: ViewBox;
+    className?: string;
     content?: React.ReactElement<any> | ContentRenderer<Label>;
 }
 

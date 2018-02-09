@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashWrapper<TValue> {
         /**
          * Produces the result of coercing the unwrapped value to a string.

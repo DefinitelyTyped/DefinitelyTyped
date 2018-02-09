@@ -399,6 +399,10 @@ let view: ol.View = new ol.View({
 
 voidValue = view.setMaxZoom(numberValue);
 voidValue = view.setMinZoom(numberValue);
+voidValue = view.fit(simpleGeometry);
+voidValue = view.fit(extent);
+voidValue = view.fit(extent, {callback: () => {}});
+voidValue = view.fit(extent, {callback: (animationCompleted: boolean) => {}});
 
 //
 // ol.layer.Base

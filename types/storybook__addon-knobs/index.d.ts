@@ -46,6 +46,8 @@ export function date(name: string, value?: Date): Date;
 
 export function array<T>(name: string, value: T[], separator?: string): T[];
 
+export function button(name: string, handler: () => any): void;
+
 export interface WrapStoryProps {
     context?: object;
     storyFn?: RenderFunction;

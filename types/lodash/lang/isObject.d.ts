@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashStatic {
         /**
          * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, new Number(0),

@@ -1,6 +1,8 @@
-// Type definitions for zeromq 4.5
+// Type definitions for zeromq 4.6
 // Project: https://github.com/zeromq/zeromq.js
-// Definitions by: Dave McKeown <https://github.com/davemckeown>, Erik Mavrinac <https://github.com/erikma>
+// Definitions by: Dave McKeown <https://github.com/davemckeown>
+//                 Erik Mavrinac <https://github.com/erikma>
+//                 Philippe D'Alva <https://github.com/TitaneBoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Forked from the DefinitelyTyped 'zmq' project originally created by Dave McKeown,
@@ -149,9 +151,10 @@ export class Socket {
      * Each event receives the parameters: (eventValue, eventEndpointAddrress, error)
      *
      * @param timer interval in ms > 0 or Undefined for default
+     * @param numOfEvents The maximum number of events to read on each interval, default is 1, use 0 for reading all events
      * @return for chaining
      */
-    monitor(interval?: number): Socket;
+    monitor(interval?: number, numOfEvents?: number): Socket;
 
     /**
      * Close the socket.
@@ -237,3 +240,14 @@ export function createSocket(type: string, options?: any): Socket;
  * @return The public and secret portions of the key.
  */
 export function curveKeypair(): CurveKeyPair;
+
+/**
+ * Connects a frontend socket to a backend socket.
+ * @param frontend The frontend socket to connect with the backend socket.
+ *                 Frontend socket should be a 'push', 'pull', 'xpub', 'router' or 'xrep' socket.
+ * @param backend The backend socket to connect with the frontend socket.
+ *                Backend socket should be a 'pull', 'push', 'xsub', 'dealer' or 'xreq' socket.
+ * @param capture If defined, this socket will receive all messages from frontend and backend socket
+ *                Capture socket should be a 'pub', 'dealer', 'push' or 'pair' socket.
+ */
+export function proxy(frontend: Socket, backend: Socket, capture ?: Socket): void;

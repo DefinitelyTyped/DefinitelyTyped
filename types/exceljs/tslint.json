@@ -1,8 +1,8 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // TODO
-        "no-any-union": false,
-        "no-const-enum": false
-    }
+	"extends": "dtslint/dt.json",
+	"rules": {
+		"unified-signatures": false,
+		"no-any-union": false,
+		"no-const-enum": false
+	}
 }

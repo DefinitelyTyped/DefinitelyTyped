@@ -1,5 +1,5 @@
-// import * as _ from "..";
-// declare module ".." {
+// import _ = require("../index");
+// declare module "../index" {
 //     interface LoDashWrapper<TValue> {
 //         /**
 //          * This method is the wrapper version of _.at.

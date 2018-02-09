@@ -1,5 +1,5 @@
-import * as _ from "..";
-declare module ".." {
+import _ = require("../index");
+declare module "../index" {
     interface LoDashWrapper<TValue> {
         /**
          * Reverses the wrapped array so the first element becomes the last, the second element becomes the second to
