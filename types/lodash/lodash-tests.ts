@@ -11788,25 +11788,25 @@ namespace TestPick {
     _.pick(obj1, 0, 'a'); // $ExpectType PartialDeep<AbcObject>
     _.pick(obj1, ['b', 1], 0, 'a'); // $ExpectType PartialDeep<AbcObject>
     _.pick(obj1, readonlyArray); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj2, 'a', 'b'); // $ExpectType Pick<AbcObject, "a" | "b">
-    _.pick(obj2, literalsArray); // $ExpectType Pick<AbcObject, "a" | "b">
-    _.pick(obj2, roLiteralsArray); // $ExpectType Pick<AbcObject, "a" | "b">
+    _.pick<AbcObject, "a" | "b">(obj2, 'a', 'b'); // $ExpectType Pick<AbcObject, "a" | "b">
+    _.pick<AbcObject, "a" | "b">(obj2, literalsArray); // $ExpectType Pick<AbcObject, "a" | "b">
+    _.pick<AbcObject, "a" | "b">(obj2, roLiteralsArray); // $ExpectType Pick<AbcObject, "a" | "b">
 
     _(obj1).pick('a'); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj1).pick(0, 'a'); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj1).pick(['b', 1], 0, 'a'); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj1).pick(readonlyArray); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
-    _(obj2).pick('a', 'b'); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _(obj2).pick(literalsArray); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _(obj2).pick(roLiteralsArray); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _(obj2).pick<AbcObject, "a" | "b">('a', 'b'); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _(obj2).pick<AbcObject, "a" | "b">(literalsArray); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _(obj2).pick<AbcObject, "a" | "b">(roLiteralsArray); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
 
     _.chain(obj1).pick('a'); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj1).pick(0, 'a'); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj1).pick(['b', 1], 0, 'a'); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj1).pick(readonlyArray); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
-    _.chain(obj2).pick('a', 'b'); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _.chain(obj2).pick(literalsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _.chain(obj2).pick(roLiteralsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _.chain(obj2).pick<AbcObject, "a" | "b">('a', 'b'); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _.chain(obj2).pick<AbcObject, "a" | "b">(literalsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _.chain(obj2).pick<AbcObject, "a" | "b">(roLiteralsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
 }
 
 // _.pickBy
@@ -14014,19 +14014,19 @@ _.templateSettings; // $ExpectType TemplateSettings
 
 // _.partial & _.partialRight
 {
-    function func0(): number {
+    const func0 = (): number => {
         return 42;
     }
-    function func1(arg1: number): number {
+    const func1 = (arg1: number): number => {
         return arg1 * 2;
     }
-    function func2(arg1: number, arg2: string): number {
+    const func2 = (arg1: number, arg2: string): number => {
         return arg1 * arg2.length;
     }
-    function func3(arg1: number, arg2: string, arg3: boolean): number {
+    const func3 = (arg1: number, arg2: string, arg3: boolean): number => {
         return arg1 * arg2.length + (arg3 ? 1 : 0);
     }
-    function func4(arg1: number, arg2: string, arg3: boolean, arg4: number): number {
+    const func4 = (arg1: number, arg2: string, arg3: boolean, arg4: number): number => {
         return arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
     }
     let res____: () => number;

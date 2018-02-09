@@ -1728,7 +1728,7 @@ interface AbcObject {
         const value: number | string[] | boolean[] = anything;
 
         if (_.isArray(value)) {
-            value; // $ExpectType string[] | boolean[]
+            const result: string[] | boolean[] = value;
         } else {
             value; // $ExpectType number
         }
@@ -1760,9 +1760,9 @@ interface AbcObject {
             = anything;
 
         if (_.isArrayLike(value)) {
-            value; // $ExpectType string | string[] | { [index: number]: boolean; length: number; } | [number, boolean]
+            const result: string | string[] | { [index: number]: boolean; length: number; } | [number, boolean] = value;
         } else {
-            value; // $ExpectType number | { length: string; } | { a: string; } | null | undefined
+            const result: number | { length: string; } | { a: string; } | null | undefined = value;
         }
     }
 
@@ -1817,9 +1817,9 @@ interface AbcObject {
             = anything;
 
         if (_.isArrayLikeObject(value)) {
-            value; // $ExpectType string[] | [number, boolean] | { [index: number]: boolean; length: number; }
+            const result: string[] | [number, boolean] | { [index: number]: boolean; length: number; } =  value;
         } else {
-            value; // $ExpectTpye string | number | { length: string; } | { a: string; } | null | undefined
+            const result: string | number | { length: string; } | { a: string; } | null | undefined = value;
         }
     }
 
@@ -3166,7 +3166,7 @@ interface AbcObject {
     _.defaultTo(42)(NaN); // $ExpectType number
 
     const arr: boolean[] | undefined = anything;
-    _.defaultTo("a", arr); // $ExpectType "a" | boolean[]
+    const result: boolean[] | "a" = _.defaultTo("a", arr);
 }
 
 // _.identity
