@@ -40,12 +40,12 @@ interface StickemSettings {
     /**
      * Callback to execute when in stick state
      */
-    onStick?: Function,
+    onStick?: () => void;
 
     /**
      * Callback to execute when getting out of stick state
      */
-    onUnstick?: Function
+    onUnstick?: () => void;
 }
 
 interface JQuery {
