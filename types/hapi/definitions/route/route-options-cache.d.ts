@@ -1,9 +1,3 @@
-export const enum RouteOptionsPrivacy {
-    Default = 'default',
-    Public = 'public',
-    Private = 'private'
-}
-
 /**
  * Values are:
  * * * 'default' - no privacy flag.
@@ -16,7 +10,7 @@ export const enum RouteOptionsPrivacy {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscache)
  */
 export type RouteOptionsCache = {
-    privacy?: RouteOptionsPrivacy;
+    privacy?: 'default' | 'public' | 'privacy';
     statuses?: number[];
     otherwise?: string;
 } & (

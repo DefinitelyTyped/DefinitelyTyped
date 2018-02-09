@@ -1,40 +1,3 @@
-/**
- * The required authenticated entity type. If set, must match the entity value of the request authenticated credentials. Available values:
- * * 'any' - the authentication can be on behalf of a user or application.
- * * 'user' - the authentication must be on behalf of a user which is identified by the presence of a 'user' attribute in the credentials object returned by the authentication strategy.
- * * 'app' - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
- * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessentity)
- */
-export const enum RouteOptionsAccessEntity {
-    Any = 'any',
-    User = 'user',
-    App = 'app'
-}
-
-/**
- * The authentication mode. Available values:
- * * 'required' - authentication is required.
- * * 'optional' - authentication is optional - the request must include valid credentials or no credentials at all.
- * * 'try' - similar to 'optional', any request credentials are attempted authentication, but if the credentials are invalid, the request proceeds regardless of the authentication error.
- * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthmode)
- */
-export const enum RouteOptionsAccessMode {
-    Required = 'required',
-    Optional = 'optional',
-    Try = 'try',
-}
-
-/**
- * Available values:
- * * false - no payload authentication.
- * * 'required' - payload authentication required.
- * * 'optional' - payload authentication performed only when the client includes payload authentication information (e.g. hash attribute in Hawk).
- * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthpayload)
- */
-export const enum RouteOptionsAccessPayload {
-    Required = 'required',
-    Optional = 'optional',
-}
 
 /**
  * Route Authentication Options
@@ -65,7 +28,7 @@ export interface RouteOptionsAccess {
      * * 'app' - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessentity)
      */
-    entity?: RouteOptionsAccessEntity;
+    entity?: 'any' | 'user' | 'app';
 
     /**
      * Default value: 'required'.
@@ -75,7 +38,7 @@ export interface RouteOptionsAccess {
      * * 'try' - similar to 'optional', any request credentials are attempted authentication, but if the credentials are invalid, the request proceeds regardless of the authentication error.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthmode)
      */
-    mode?: RouteOptionsAccessMode;
+    mode?: 'required' | 'optional' | 'try';
 
     /**
      * Default value: false, unless the scheme requires payload authentication.
@@ -86,7 +49,7 @@ export interface RouteOptionsAccess {
      * * 'optional' - payload authentication performed only when the client includes payload authentication information (e.g. hash attribute in Hawk).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthpayload)
      */
-    payload?: false | RouteOptionsAccessPayload;
+    payload?: false | 'required' | 'optional';
 
     /**
      * Default value: the default strategy set via server.auth.default().

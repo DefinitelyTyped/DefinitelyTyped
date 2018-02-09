@@ -42,9 +42,4 @@ export interface RequestEvents extends Podium {
     once(criteria: "peek", listener: PeekListener): void;
     once(criteria: "finish" | "disconnect", listener: () => void): void;
     once(criteria: RequestEventType, listener: Function): void;
-
-
-
-    // TODO is it necessary to implement "emmit" event here?
-
 }
