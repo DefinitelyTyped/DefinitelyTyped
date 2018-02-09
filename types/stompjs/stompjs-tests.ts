@@ -44,6 +44,11 @@ client.connect('user', 'pass', () => { }, (error) => { }, 'host');
 client.connect('user', 'pass', (frame) => { }, (error) => { });
 client.connect('user', 'pass', (frame) => { }, (error) => { }, 'host');
 
+client.connect({}, () => { });
+client.connect({}, () => { }, () => { });
+client.connect({}, () => { }, (error) => { });
+client.connect({}, (frame) => { }, (error) => { });
+
 client.disconnect(() => { });
 client.disconnect(() => { }, {});
 
@@ -90,11 +95,11 @@ frame.toString();
 
 frame.sizeOfUTF8('abc');
 
-frame.unmarshall(0);
-frame.unmarshall('data');
-frame.unmarshall({});
-frame.unmarshall([{}, {}]);
+Stomp.Frame.unmarshall(0);
+Stomp.Frame.unmarshall('data');
+Stomp.Frame.unmarshall({});
+Stomp.Frame.unmarshall([{}, {}]);
 
-frame.marshall('command');
-frame.marshall('command', {});
-frame.marshall('command', {}, 'body');
+Stomp.Frame.marshall('command');
+Stomp.Frame.marshall('command', {});
+Stomp.Frame.marshall('command', {}, 'body');
