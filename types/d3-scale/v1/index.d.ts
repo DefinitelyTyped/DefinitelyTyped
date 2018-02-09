@@ -87,7 +87,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[] | ReadonlyArray<Range>): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Sets the scale’s range to the specified array of values while also setting the scale’s interpolator to interpolateRound.
@@ -756,7 +756,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[] | ReadonlyArray<Range>): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Sets the scale’s range to the specified array of values while also setting the scale’s interpolator to interpolateRound.
@@ -1195,7 +1195,7 @@ export interface ScaleQuantize<Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[] | ReadonlyArray<Range>): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -1311,7 +1311,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[] | ReadonlyArray<Range>): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns the quantile thresholds. If the range contains n discrete values, the returned array will contain n - 1 thresholds.
@@ -1385,7 +1385,7 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[] | ReadonlyArray<Domain>): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale’s current range.
@@ -1398,7 +1398,7 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[] | ReadonlyArray<Range>): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
@@ -1463,7 +1463,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[] | ReadonlyArray<Domain>): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale's current range.
@@ -1478,7 +1478,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Range[] | ReadonlyArray<Range>): this;
+    range(range: ReadonlyArray<Range>): this;
 
     /**
      * Returns the current unknown value, which defaults to "implicit".
@@ -1509,7 +1509,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
  *
  * @parm range An optional array of range values to initialize the scale with.
  */
-export function scaleOrdinal<Range>(range?: Range[] | ReadonlyArray<Range>): ScaleOrdinal<string, Range>;
+export function scaleOrdinal<Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<string, Range>;
 /**
  * Constructs a new ordinal scale with an empty domain and the specified range.
  * If a range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
@@ -1522,7 +1522,7 @@ export function scaleOrdinal<Range>(range?: Range[] | ReadonlyArray<Range>): Sca
  *
  * @parm range An optional array of range values to initialize the scale with.
  */
-export function scaleOrdinal<Domain extends { toString(): string }, Range>(range?: Range[] | ReadonlyArray<Range>): ScaleOrdinal<Domain, Range>;
+export function scaleOrdinal<Domain extends { toString(): string }, Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<Domain, Range>;
 
 /**
  * A special value for ordinal.unknown that enables implicit domain construction: unknown values are implicitly added to the domain.
@@ -1561,7 +1561,7 @@ export interface ScaleBand<Domain extends { toString(): string }> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[] | ReadonlyArray<Domain>): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale’s current range, which defaults to [0, 1].
@@ -1713,7 +1713,7 @@ export interface ScalePoint<Domain extends { toString(): string }> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Domain[] | ReadonlyArray<Domain>): this;
+    domain(domain: ReadonlyArray<Domain>): this;
 
     /**
      * Returns the scale’s current range, which defaults to [0, 1].
