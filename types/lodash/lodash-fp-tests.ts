@@ -819,7 +819,6 @@ interface AbcObject {
     _.at(0)(list); // $ExpectType AbcObject[]
     _.at([0, "1"], list); // $ExpectType AbcObject[]
     _.at("a", obj); // $ExpectType (string | number | boolean)[]
-    _.at(["a" as "a", "b" as "b"], obj); // $ExpectType (string | number | boolean)[]
     _.at<AbcObject>(["a" as "a", "b" as "b"])(obj); // $ExpectType (string | number | boolean)[]
 }
 

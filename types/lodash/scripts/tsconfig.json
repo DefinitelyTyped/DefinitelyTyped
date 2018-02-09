@@ -3,6 +3,7 @@
         "target": "es2017",
         "module": "commonjs",
         "baseUrl": "../..",
+        "esModuleInterop": true,
         "noEmit": true,
         "noImplicitAny": true,
         "pretty": true,
