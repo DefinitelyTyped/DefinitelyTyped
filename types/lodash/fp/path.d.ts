@@ -95,6 +95,16 @@ interface Get {
      * @return Returns the resolved value.
      */
     (path: _.PropertyPath, object: null | undefined): undefined;
+    /**
+     * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
+     * in its place.
+     *
+     * @param object The object to query.
+     * @param path The path of the property to get.
+     * @param defaultValue The value returned if the resolved value is undefined.
+     * @return Returns the resolved value.
+     */
+    (path: _.PropertyPath, object: any): any;
 }
 interface Get1x1<TObject extends object, TKey extends keyof TObject> {
     /**
@@ -181,6 +191,16 @@ interface Get5x1 {
      * @return Returns the resolved value.
      */
     (object: null | undefined): undefined;
+    /**
+     * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
+     * in its place.
+     *
+     * @param object The object to query.
+     * @param path The path of the property to get.
+     * @param defaultValue The value returned if the resolved value is undefined.
+     * @return Returns the resolved value.
+     */
+    (object: any): any;
 }
 
 declare const path: Get;

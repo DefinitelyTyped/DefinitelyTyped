@@ -2,7 +2,7 @@
 // The convertion is done based on this guide: https://github.com/lodash/lodash/wiki/FP-Guide
 
 import * as fs from "fs";
-import { ary, cloneDeep, defaults, flatMap, flatten, isArray, isEqual, min, max, pull, range, remove, sortBy, sortedUniq, trim, union, uniqWith, upperFirst, without } from "lodash";
+import { ary, cloneDeep, defaults, flatMap, flatten, isArray, isEqual, min, max, pull, range, remove, sortBy, sortedUniq, trim, union, uniq, uniqWith, upperFirst, without } from "lodash";
 import * as convert from "lodash/fp/convert";
 import * as path from "path";
 
@@ -358,39 +358,37 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         }
     }
 
-    const filteredOverloads = overloads.filter(o => o.params.length === arity && (arity === 0 || !o.params[o.params.length - 1].startsWith("...")));
-    if (filteredOverloads.length === 0) {
-        const restOverloads = overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("..."));
-        for (const restOverload of restOverloads) {
-            if (restOverload.params.length <= arity) {
-                restOverload.params[restOverload.params.length - 1] = restOverload.params[restOverload.params.length - 1]
-                    .substring(3)
-                    .replace(/\[\]$/, "")
-                    .replace(/: Array<(.+)>$/, ": $1");
-                if (restOverload.params.length < arity) {
-                    const paramToCopy = restOverload.params[restOverload.params.length - 1];
-                    const copiedParams = range(2, arity - restOverload.params.length + 2).map(i => paramToCopy.replace(/(^.+?):/, `$1${i}:`));
-                    restOverload.params.push(...copiedParams);
-                }
-            } else {
-                // Remove the rest parameter
-                restOverload.params.pop();
-            }
-            filteredOverloads.push(restOverload);
+    let filteredOverloads = overloads.filter(o => o.params.length >= arity && o.params.slice(arity).every(p => p.includes("?") && !p.startsWith("iteratee"))
+        && o.params.every(p => !p.startsWith("...") && !p.startsWith("guard:")));
+    if (filteredOverloads.length === 0)
+        filteredOverloads = overloads.filter(o => o.params.length >= arity && o.params.slice(arity).every(p => p.includes("?") || p.startsWith("..."))
+            && o.params.every(p => !p.startsWith("guard:")));
+    if (filteredOverloads.length === 0)
+        filteredOverloads = overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("..."))
+    if (filteredOverloads.length === 0)
+        console.warn(`No matching overloads found for ${functionName} with arity ${arity}`);
+
+    const restOverloads = overloads.filter(o => o.params.length > 0 && o.params[o.params.length - 1].startsWith("..."));
+    for (const restOverload of restOverloads) {
+        restOverload.params[restOverload.params.length - 1] = restOverload.params[restOverload.params.length - 1]
+            .substring(3)
+            .replace(/\[\]$/, "")
+            .replace(/: Array<(.+)>$/, ": $1");
+        if (restOverload.params.length < arity) {
+            const paramToCopy = restOverload.params[restOverload.params.length - 1];
+            const copiedParams = range(2, arity - restOverload.params.length + 2).map(i => paramToCopy.replace(/(^.+?):/, `$1${i}:`));
+            restOverload.params.push(...copiedParams);
         }
     }
-    if (filteredOverloads.length === 0) {
-        const optionalOverloads = overloads.filter(o => o.params.slice(arity).every(p => p.includes("?")));
-        for (const optionalOverload of optionalOverloads)
-            optionalOverload.params = optionalOverload.params.slice(0, arity);
-        filteredOverloads.push(...optionalOverloads);
+    for (const overload of filteredOverloads) {
+        overload.params = overload.params
+            .slice(0, arity)
+            .map(p => p
+                .replace(/\?:/g, ":") // No optional parameters
+                .replace(/: *(?:Array<(.+)>|([^ |]+)\[\]|\((.+)\)\[\])$/, ": ReadonlyArray<$1$2$3>")); // Convert Array to ReadonlyArray because lodash/fp treats everything as immutable
+        preProcessOverload(overload, functionName);
     }
-    for (const overload of filteredOverloads)
-        overload.params = overload.params.map(p => p
-            .replace(/\?:/g, ":") // No optional parameters
-            .replace(/: *(?:Array<(.+)>|([^ |]+)\[\]|\((.+)\)\[\])$/, ": ReadonlyArray<$1$2$3>")); // Convert Array to ReadonlyArray because lodash/fp treats everything as immutable
 
-    filteredOverloads.forEach(o => preProcessOverload(o, functionName));
     const interfaces = flatMap(filteredOverloads, (o, i) => {
         const reargParams = o.params.map((p, i) => o.params[paramOrder.indexOf(i)]);
         return curryOverload({
@@ -408,13 +406,20 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
     mergeInterfaces(interfacesToMerge);
     remove(interfaces, i => i !== mainInterface && interfacesToMerge.includes(i));
     // Check for any non-main interfaces that should now be merged
-    const conflictingOverloads = mainInterface.overloads.filter(
-        o1 => mainInterface.overloads.some(
-            o2 => o1 !== o2 && isEqual(o1.typeParams, o2.typeParams) && isEqual(o1.params, o2.params)));
-    for (const overload of conflictingOverloads) {
+    for (const overload of mainInterface.overloads) {
+        const others = mainInterface.overloads.filter(o2 => o2 !== overload
+            && isEqual(overload.typeParams, o2.typeParams)
+            && isEqual(overload.params.map(getParamType), o2.params.map(getParamType)));
         const returnInterface = interfaces.find(i => new RegExp(`\\b${i.name}\\b`).test(overload.returnType));
-        const others = conflictingOverloads.filter(o2 => o2 !== overload && isEqual(overload.typeParams, o2.typeParams) && isEqual(overload.params, o2.params));
         for (const otherOverload of others) {
+            for (let i = 0; i < overload.params.length; ++i) {
+                const paramNames = uniq(others.concat(overload).map(o => getParamName(o.params[i])));
+                if (paramNames.length > 1) {
+                    // Some param names are different. Merge them.
+                    const paramType = getParamType(overload.params[i]);
+                    overload.params[i] = `${paramNames[0]}Or${paramNames.slice(1).map(upperFirst).join("Or")}: ${paramType}`;
+                }
+            }
             if (otherOverload.returnType === overload.returnType) {
                 // Exact duplicate - remove the second overload
                 pull(mainInterface.overloads, otherOverload);
@@ -433,9 +438,16 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
             }
         }
         pull(mainInterface.overloads, ...others);
-        pull(conflictingOverloads, ...others);
     }
     return interfaces;
+}
+
+function getParamName(param: string) {
+    return param.split(":")[0];
+}
+
+function getParamType(param: string) {
+    return param.split(":")[1] || "any";
 }
 
 function preProcessOverload(overload: Overload, functionName: string): void {
