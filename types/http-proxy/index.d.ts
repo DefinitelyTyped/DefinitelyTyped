@@ -10,6 +10,7 @@ import * as http from "http";
 import * as https from "https";
 import * as events from "events";
 import * as url from "url";
+import * as stream from "stream";
 
 type ProxyTargetUrl = string | url.Url;
 
@@ -162,6 +163,8 @@ declare class Server extends events.EventEmitter {
 
 declare namespace Server {
   interface ServerOptions {
+    /** Buffer */
+    buffer?: stream.Stream;
     /** URL string to be parsed with the url module. */
     target?: string;
     /** URL string to be parsed with the url module. */
@@ -194,6 +197,8 @@ declare namespace Server {
     autoRewrite?: boolean;
     /** Rewrites the location protocol on (301 / 302 / 307 / 308) redirects to 'http' or 'https'.Default: null. */
     protocolRewrite?: string;
+    /** Timeout (in milliseconds) when proxy receives no response from target. Default: 120000 (2 minutes) */
+    proxyTimeout?: number;
   }
 }
 

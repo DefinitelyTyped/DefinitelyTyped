@@ -1,12 +1,12 @@
-// Type definitions for prettier 1.8
+// Type definitions for prettier 1.10
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { File } from 'babel-types';
-
-export type AST = File;
+export type AST = any;
+export type Doc = any; // https://github.com/prettier/prettier/blob/master/commands.md
+export type FastPath = any; // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
@@ -19,7 +19,8 @@ export type BuiltInParserName =
     | 'scss'
     | 'json'
     | 'graphql'
-    | 'markdown';
+    | 'markdown'
+    | 'vue';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -85,12 +86,47 @@ export interface Options {
      */
     insertPragma?: boolean;
     /**
-     * By default, Prettier will wrap markdown text at the specified print width.
-     * In some cases you may want to rely on editor/viewer soft wrapping instead,
-     * so this option allows you to opt out. When prose wrapping is disabled,
-     * each paragraph will be printed on its own line.
+     * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
+     * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
      */
-    proseWrap?: boolean;
+    proseWrap?:
+        | boolean // deprecated
+        | 'always'
+        | 'never'
+        | 'preserve';
+    /**
+     * Include parentheses around a sole arrow function parameter.
+     */
+    arrowParens?: 'avoid' | 'always';
+    /**
+     * The plugin API is in a beta state.
+     */
+    plugins?: Array<string | Plugin>;
+}
+
+export interface Plugin {
+    languages: SupportLanguage;
+    parsers: { [parserName: string]: Parser };
+    printers: { [astFormat: string]: Printer };
+}
+
+export interface Parser {
+    parse: (text: string, parsers: { [parserName: string]: Parser }, options: object) => AST;
+    astFormat: string;
+}
+
+export interface Printer {
+    print(
+        path: FastPath,
+        options: object,
+        print: (path: FastPath) => Doc,
+    ): Doc;
+    embed(
+        path: FastPath,
+        print: (path: FastPath) => Doc,
+        textToDoc: (text: string, options: object) => Doc,
+        options: object,
+    ): Doc | null;
 }
 
 export interface CursorOptions extends Options {
@@ -135,6 +171,16 @@ export interface ResolveConfigOptions {
      * Pass directly the path of the config file if you don't wish to search for it.
      */
     config?: string;
+    /**
+     * If set to `true` and an `.editorconfig` file is in your project,
+     * Prettier will parse it and convert its properties to the corresponding prettier configuration.
+     * This configuration will be overridden by `.prettierrc`, etc. Currently,
+     * the following EditorConfig properties are supported:
+     * - indent_style
+     * - indent_size/tab_width
+     * - max_line_length
+     */
+    editorconfig?: boolean;
 }
 
 /**
@@ -160,6 +206,67 @@ export namespace resolveConfig {
  * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
  */
 export function clearConfigCache(): void;
+
+export interface SupportLanguage {
+    name: string;
+    since: string;
+    parsers: string[];
+    group?: string;
+    tmScope: string;
+    aceMode: string;
+    codemirrorMode: string;
+    codemirrorMimeType: string;
+    aliases?: string[];
+    extensions: string[];
+    filenames?: string[];
+    linguistLanguageId: number;
+    vscodeLanguageIds: string[];
+}
+
+export interface SupportOption {
+    since: string;
+    type: 'int' | 'boolean' | 'choice' | 'path';
+    deprecated?: string;
+    redirect?: SupportOptionRedirect;
+    description: string;
+    oppositeDescription?: string;
+    default: SupportOptionValue;
+    range?: SupportOptionRange;
+    choices?: SupportOptionChoice;
+}
+
+export interface SupportOptionRedirect {
+    options: string;
+    value: SupportOptionValue;
+}
+
+export interface SupportOptionRange {
+    start: number;
+    end: number;
+    step: number;
+}
+
+export interface SupportOptionChoice {
+    value: boolean | string;
+    description?: string;
+    since?: string;
+    deprecated?: string;
+    redirect?: SupportOptionValue;
+}
+
+export type SupportOptionValue = number | boolean | string;
+
+export interface SupportInfo {
+    languages: SupportLanguage[];
+    options: SupportOption[];
+}
+
+/**
+ * Returns an object representing the parsers, languages and file types Prettier supports.
+ * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
+ * otherwise information for the current version will be returned.
+ */
+export function getSupportInfo(version?: string): SupportInfo;
 
 /**
  * `version` field in `package.json`

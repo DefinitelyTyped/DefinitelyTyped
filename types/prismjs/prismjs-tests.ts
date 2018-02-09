@@ -1,10 +1,16 @@
 const element = document.createElement("code");
+const container = document.querySelector("div");
 const callback = (element: Element) => console.log(element);
 
 Prism.highlightElement(element, false, callback);
 Prism.highlightElement(element, false);
+Prism.highlightElement(element);
 Prism.highlightAll(true, callback);
 Prism.highlightAll(true);
+Prism.highlightAll();
+if (container) {
+    Prism.highlightAllUnder(container);
+}
 
 const hookCallback: Prism.HookCallback = env => null;
 Prism.hooks.add("before-highlightall", hookCallback);

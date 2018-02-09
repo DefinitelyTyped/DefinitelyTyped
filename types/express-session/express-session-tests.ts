@@ -37,3 +37,34 @@ app.use((req, res, next) => {
     res.end('welcome to the session demo. refresh!');
   }
 });
+
+// Custom Session Store
+
+class MyStore extends session.Store {
+  private sessions: { [sid: string]: string };
+
+  constructor() {
+    super();
+    this.sessions = {};
+  }
+
+  get = (sid: string, callback: (err: any, session: Express.SessionData) => void): void => {
+    callback(null, JSON.parse(this.sessions[sid]));
+  }
+
+  set = (sid: string, session: Express.Session, callback: (err: any) => void): void => {
+    this.sessions[sid] = JSON.stringify(session);
+    callback(null);
+  }
+
+  destroy = (sid: string, callback: (err: any) => void): void => {
+    this.sessions[sid] = undefined;
+    this.sessions = JSON.parse(JSON.stringify(this.sessions));
+    callback(null);
+  }
+}
+
+app.use(session({
+  secret: 'keyboard cat',
+  store: new MyStore()
+}));

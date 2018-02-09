@@ -3,8 +3,6 @@
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>, Ben Rogers <https://github.com/highflying>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="redux" />
-
 import * as Redux from "redux";
 
 type isImmutableDefault = (value: any) => boolean;

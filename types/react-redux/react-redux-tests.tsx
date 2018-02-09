@@ -247,22 +247,26 @@ namespace MapStateAndDispatchAndMerge {
 }
 
 namespace MapStateAndOptions {
+    interface State { state: string; }
     interface OwnProps { foo: string }
     interface StateProps { bar: number }
     interface DispatchProps { dispatch: Dispatch<any> }
 
     class TestComponent extends Component<OwnProps & StateProps & DispatchProps> {}
 
-    const mapStateToProps = () => ({
+    const mapStateToProps = (state: State) => ({
         bar: 1
     })
 
-    const Test = connect(
+    const areStatePropsEqual = (next: StateProps, current: StateProps) => true;
+
+    const Test = connect<StateProps, DispatchProps, OwnProps, State>(
         mapStateToProps,
         null,
         null,
         {
-            pure: true
+            pure: true,
+            areStatePropsEqual,
         }
     )(TestComponent)
 

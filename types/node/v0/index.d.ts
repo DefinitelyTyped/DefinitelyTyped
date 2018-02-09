@@ -221,7 +221,7 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -632,7 +632,7 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
+        id: number;
         process: child.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any): void;
@@ -1486,7 +1486,7 @@ declare module "path" {
      *
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
-    export function resolve(...pathSegments: any[]): string;
+    export function resolve(...pathSegments: string[]): string;
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
@@ -1804,7 +1804,7 @@ declare module "stream" {
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         setDefaultEncoding(encoding: string): this;
-        end(): void;
+        end(cb?: Function): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
     }
@@ -1821,7 +1821,7 @@ declare module "stream" {
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         setDefaultEncoding(encoding: string): this;
-        end(): void;
+        end(cb?: Function): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
     }

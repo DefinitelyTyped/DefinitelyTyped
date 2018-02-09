@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 5.0.10
+// Type definitions for Highcharts 5.0.13
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <https://github.com/damianog>
 //                 Dan Lewi Harkestad <https://github.com/baltie>
@@ -55,6 +55,12 @@ declare namespace Highcharts {
         max: number;
     }
 
+    interface AxisLabelFormatterOptions {
+        value: any;
+        isFirst: number;
+        isLast: number;
+    }
+
     interface AxisLabels {
         /**
          * What part of the string the given position is anchored to. Can be one of 'left', 'center' or 'right'. Defaults to
@@ -100,7 +106,7 @@ declare namespace Highcharts {
          * this are axis, chart, isFirst and isLast.
          * @default function() {return this.value;}
          */
-        formatter?(): string;
+        formatter?(this: AxisLabelFormatterOptions): string;
         /**
          * Horizontal axis only. When staggerLines is not set, maxStaggerLines defines how many lines the axis is allowed to
          * add to automatically avoid overlapping X labels. Set to 1 to disable overlap detection.
@@ -168,7 +174,7 @@ declare namespace Highcharts {
          * font size on bottom axis.
          * @default null
          */
-        y?: number;
+        y?: number | null;
         /**
          * The Z index for the axis labels.
          * @default 7
@@ -250,7 +256,7 @@ declare namespace Highcharts {
          * Border color for the plot band. Also requires borderWidth to be set.
          * @default null
          */
-        borderColor?: Color;
+        borderColor?: Color | null;
         /**
          * Border width for the plot band. Also requires borderColor to be set.
          * @default 0
@@ -283,7 +289,7 @@ declare namespace Highcharts {
          * @default null
          * @since 2.3
          */
-        innerRadius?: number | string;
+        innerRadius?: number | string  | null;
         /**
          * Text labels for the plot bands
          */
@@ -479,7 +485,7 @@ declare namespace Highcharts {
          * @default 'middle'
          * @deprecated
          */
-        enabled?: string;
+        enabled?: string | null;
         /**
          * The pixel distance between the axis labels or line and the title.
          * @default xAxis: 0 for horizontal axes, 10 for vertical axes, yAxis: 40
@@ -575,7 +581,7 @@ declare namespace Highcharts {
          * categories: ['Apples', 'Bananas', 'Oranges']
          * @default null
          */
-        categories?: any[];
+        categories?: any[] | null;
         /**
          * The highest allowed value for automatically computed axis extremes.
          * @since 4.0
@@ -646,7 +652,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.0
          */
-        floor?: number;
+        floor?: number | null;
         /**
          * Color of the grid lines extending the ticks across the plot area.
          * @defaults to '#D8D8D8'.
@@ -699,7 +705,7 @@ declare namespace Highcharts {
          * The maximum value of the axis. If null, the max value is automatically calculated. If the endOnTick option is
          * true, the max value might be rounded up. The actual maximum value is also influenced by chart.alignTicks.
          */
-        max?: number;
+        max?: number | null;
         /**
          * Padding of the max value relative to the length of the axis. A padding of 0.05 will make a 100px axis 5px longer.
          * This is useful when you don't want the highest data value to appear on the edge of the plot area. When the axis'
@@ -717,7 +723,7 @@ declare namespace Highcharts {
          * The minimum value of the axis. If null the min value is automatically calculated. If the startOnTick option is
          * true, the min value might be rounded down.
          */
-        min?: number;
+        min?: number | null;
         /**
          * Padding of the min value relative to the length of the axis. A padding of 0.05 will make a 100px axis 5px longer.
          * This is useful when you don't want the lowest data value to appear on the edge of the plot area. When the axis'
@@ -781,7 +787,7 @@ declare namespace Highcharts {
          *
          * On axes using categories, minor ticks are not supported.
          */
-        minorTickInterval?: number | string;
+        minorTickInterval?: number | string | null;
         /**
          * The pixel length of the minor tick marks.
          * @default 2
@@ -980,7 +986,7 @@ declare namespace Highcharts {
          *
          * If the tickInterval is too dense for labels to be drawn, Highcharts may remove ticks.
          */
-        tickInterval?: number;
+        tickInterval?: number | null;
         /**
          * The pixel length of the main tick marks.
          * @default 10
@@ -992,7 +998,7 @@ declare namespace Highcharts {
          *
          * @default 72 for the Y axis, 100 for the X axis.
          */
-        tickPixelInterval?: number;
+        tickPixelInterval?: number | null;
         /**
          * The position of the major tick marks relative to the axis line. Can be one of 'inside' and 'outside'.
          * @default 'outside'
@@ -1019,7 +1025,7 @@ declare namespace Highcharts {
          * mark is placed between categories. The default is 'between' if the tickInterval is 1, else 'on'.
          * @default null
          */
-        tickmarkPlacement?: string;
+        tickmarkPlacement?: string | null;
         /**
          * The axis title, showing next to the axis line. To disable the title, set the text to null.
          */
@@ -1155,12 +1161,12 @@ declare namespace Highcharts {
              * @default 'gray'
              */
             color?: string | Gradient;
-        };
+        } | null;
         /**
          * The maximum value of the axis in terms of map point values. If null, the max value is automatically calculated.
          * If the endOnTick option is true, the max value might be rounded up.
          */
-        max?: number;
+        max?: number | null;
         /**
          * The color to represent the maximum of the color axis. Unless dataClasses or stops are set, the gradient ends at
          * this value.
@@ -1179,7 +1185,7 @@ declare namespace Highcharts {
          * The minimum value of the axis in terms of map point values. If null, the min value is automatically calculated.
          * If the startOnTick option is true, the min value might be rounded down.
          */
-        min?: number;
+        min?: number | null;
         /**
          * The color to represent the minimum of the color axis. Unless dataClasses or stops are set, the gradient starts at
          * this value.
@@ -1226,7 +1232,7 @@ declare namespace Highcharts {
          * If user settings dictate minor ticks to become too dense, they don't make sense, and will be ignored to prevent
          * performance problems.
          */
-        minorTickInterval?: string | number;
+        minorTickInterval?: string | number | null;
         /**
          * The pixel length of the minor tick marks.
          * @default 2
@@ -1278,7 +1284,7 @@ declare namespace Highcharts {
          * The interval of the tick marks in axis units. When null, the tick interval is computed to approximately follow
          * the tickPixelInterval.
          */
-        tickInterval?: number;
+        tickInterval?: number | null;
         /**
          * The pixel length of the main tick marks.
          * @default 10
@@ -1288,7 +1294,7 @@ declare namespace Highcharts {
          * If tickInterval is null this option sets the approximate pixel interval of the tick marks.
          * @default 72
          */
-        tickPixelInterval?: number;
+        tickPixelInterval?: number | null;
         /**
          * The position of the major tick marks relative to the axis line. Can be one of 'inside' and 'outside'.
          * @default 'outside'
@@ -1765,7 +1771,7 @@ declare namespace Highcharts {
          * @default null
          * @since 5.0.8
          */
-        height?: number | string;
+        height?: number | string | null;
         /**
          * If true, the axes will scale to the remaining visible series once one series is hidden. If false, hiding and
          * showing a series will not affect the axes or the other series. For stacks, once one series within the stack is
@@ -1837,7 +1843,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        pinchType?: string;
+        pinchType?: string | null;
         /**
          * The background color or gradient for the plot area.
          */
@@ -2304,7 +2310,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        text?: string;
+        text?: string | null;
         /**
          * A configuration object for the button theme. The object accepts SVG properties like stroke-width, stroke and
          * fill. Tri-state button styles are supported by the states.hover and states.select objects.
@@ -2384,7 +2390,7 @@ declare namespace Highcharts {
          * specific width and height, or a printer-friendly color scheme.
          * @default null
          */
-        chartOptions?: Options;
+        chartOptions?: Options | null;
         /**
          * Whether to enable the exporting module. Disabling the module will hide the context button, but API methods will
          * still be available.
@@ -2622,7 +2628,7 @@ declare namespace Highcharts {
          * @default ['k', 'M', 'G', 'T', 'P', 'E']
          * @since 2.3.0
          */
-        numericSymbols?: string[];
+        numericSymbols?: string[] | null;
         /**
          * Exporting module only. The text for the menu item to print the chart.
          * @default 'Print chart'
@@ -2706,7 +2712,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        text?: string;
+        text?: string | null;
     }
 
     interface LegendOptions {
@@ -3214,7 +3220,7 @@ declare namespace Highcharts {
          * The text color for the data labels.
          * @default null
          */
-        color?: string | Gradient;
+        color?: string | Gradient | null;
         /**
          * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
          * area according to the overflow option.
@@ -3458,16 +3464,16 @@ declare namespace Highcharts {
          * widespread data points.
          * @default null, true for hover and select
          */
-        enabled?: boolean;
+        enabled?: boolean | null;
         /**
          * The fill color of the point marker. When null, the series' or point's color is used.
          */
-        fillColor?: string;
+        fillColor?: string | null;
         /**
          * The color of the point marker's outline. When null, the series' or point's color is used.
          * @default '#FFFFFF', '#000000' for select state
          */
-        lineColor?: string | Gradient;
+        lineColor?: string | Gradient | null;
         /**
          * The width of the point marker's outline.
          * @default 0
@@ -3501,7 +3507,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.0.4
          */
-        height?: number;
+        height?: number | null;
         states?: {
             hover?: MarkerHoverState;
             /**
@@ -3520,13 +3526,13 @@ declare namespace Highcharts {
          * Custom callbacks for symbol path generation can also be added to Highcharts.SVGRenderer.prototype.symbols. The
          * callback is then used by its method name.
          */
-        symbol?: string; // null, 'circle', 'square', 'diamond', 'triangle' 'triangle-down' or 'url(graphic.png)'
+        symbol?: string | null; // null, 'circle', 'square', 'diamond', 'triangle' 'triangle-down' or 'url(graphic.png)'
         /**
          * Image markers only. Set the image width explicitly. When using this option, a height must also be set.
          * @default null.
          * @since 4.0.4
          */
-        width?: number;
+        width?: number | null;
     }
 
     interface PointEvents {
@@ -3754,7 +3760,7 @@ declare namespace Highcharts {
          * The text color for the data labels.
          * @default null
          */
-        color?: string | Gradient;
+        color?: string | Gradient | null;
         /**
          * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
          * area according to the overflow option.
@@ -4133,7 +4139,7 @@ declare namespace Highcharts {
          * @default null.
          * @since 3.0
          */
-        negativeColor?: string;
+        negativeColor?: string | null;
         point?: {
             events: PointEvents;
         };
@@ -4169,7 +4175,7 @@ declare namespace Highcharts {
          * Defaults to null in cartesian charts, 'between' in polar charts.
          * @since 2.3.0
          */
-        pointPlacement?: string | number;
+        pointPlacement?: string | number | null;
         /**
          * If no x values are given for the points in a series, pointStart defines on what value to start. For example, if a
          * series contains one yearly value starting from 1945, set pointStart to 1945.
@@ -4215,7 +4221,7 @@ declare namespace Highcharts {
          * Whether to stack the values of each series on top of each other. Possible values are null to disable, 'normal' to
          * stack by value or 'percent'.
          */
-        stacking?: string;
+        stacking?: string | null;
         /**
          * A wrapper object for all the series options in specific states.
          */
@@ -4241,7 +4247,7 @@ declare namespace Highcharts {
          * @default 0
          * @since 2.0
          */
-        threshold?: number;
+        threshold?: number | null;
         /**
          * A configuration object for the tooltip rendering of each single series. Properties are inherited from tooltip,
          * but only the following properties can be defined on a series level.
@@ -4279,7 +4285,7 @@ declare namespace Highcharts {
         /**
          * Fill color or gradient for the area. When null, the series' color is used with the series' fillOpacity.
          */
-        fillColor?: string | Gradient;
+        fillColor?: string | Gradient | null;
         /**
          * Fill opacity for the area. Note that when you set an explicit fillColor, the fillOpacity is not applied. Instead,
          * you should define the opacity in the fillColor with an rgba color definition.
@@ -4395,7 +4401,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * The minimal height for a column or width for a bar. By default, 0 values are not shown. To visualize a 0 (or
          * close to zero) point, set the minimal point length to a pixel value like 3. In stacked column charts,
@@ -4420,7 +4426,7 @@ declare namespace Highcharts {
          * pointPadding and groupPadding.
          * @since 1.2.5
          */
-        pointWidth?: number;
+        pointWidth?: number | null;
         /**
          * A wrapper object for all the series options in specific states.
          */
@@ -4468,13 +4474,13 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        medianColor?: string;
+        medianColor?: string | null;
         /**
          * The pixel width of the median line. If null, the lineWidth is used.
          * @default 2
          * @since 3.0
          */
-        medianWidth?: number;
+        medianWidth?: number | null;
     }
 
     /**
@@ -4511,7 +4517,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        negativeColor?: string;
+        negativeColor?: string | null;
         /**
          * Whether the bubble's value should be represented by the area or the width of the bubble. The default, area,
          * corresponds best to the human perception of the size of each bubble.
@@ -4532,13 +4538,13 @@ declare namespace Highcharts {
          * @default null
          * @since 4.0.3
          */
-        zMax?: number;
+        zMax?: number | null;
         /**
          * The minimum for the Z value range. Defaults to the lowest Z value in the data.
          * @default null
          * @since 4.0.3
          */
-        zMin?: number;
+        zMin?: number | null;
         /**
          * When displayNegative is false, bubbles with lower Z values are skipped. When displayNegative is true and a
          * negativeColor is given, points with lower Z is colored.
@@ -4611,7 +4617,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * Padding between each column or bar, in x axis units.
          * @default 0.1
@@ -4629,7 +4635,7 @@ declare namespace Highcharts {
          * pointPadding and groupPadding.
          * @since 1.2.5
          */
-        pointWidth?: number;
+        pointWidth?: number | null;
         /**
          * A wrapper object for all the series options in specific states.
          */
@@ -4645,7 +4651,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        stemColor?: string;
+        stemColor?: string | null;
         /**
          * The dash style of the stem, the vertical line extending from the box to the whiskers.
          * @default 'Solid'
@@ -4658,14 +4664,14 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        stemWidth?: number;
+        stemWidth?: number | null;
         /**
          * The color of the whiskers, the horizontal lines marking low and high values. When null, the general series color
          * is used.
          * @default null
          * @since 3.0
          */
-        whiskerColor?: string;
+        whiskerColor?: string | null;
         /**
          * The length of the whiskers, the horizontal lines marking low and high values. It can be a numerical pixel value,
          * or a percentage value of the box width. Set 0 to disable whiskers.
@@ -4679,7 +4685,7 @@ declare namespace Highcharts {
          * @default 2
          * @since 3.0
          */
-        whiskerWidth?: number;
+        whiskerWidth?: number | null;
     }
 
     /**
@@ -4857,7 +4863,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * The row size - how many Y axis units each heatmap row should span.
          * @default 1
@@ -4895,7 +4901,7 @@ declare namespace Highcharts {
          * borderless pies.
          * @default '#FFFFFF'
          */
-        borderColor?: string | Gradient;
+        borderColor?: string | Gradient | null;
         /**
          * The width of the border surrounding each column or bar.
          * @default 1
@@ -4908,7 +4914,7 @@ declare namespace Highcharts {
          * center should be explicitly set, for example to ['50%', '50%'].
          * @default [null, null]
          */
-        center?: [string | number, string | number];
+        center?: [string | number | null, string | number | null];
         /**
          * A series specific or series type specific color set to apply instead of the global colors when colorByPoint is true.
          * @since 3.0
@@ -4926,7 +4932,7 @@ declare namespace Highcharts {
          * @default null
          * @since 1.3.6
          */
-        endAngle?: number;
+        endAngle?: number | null;
         /**
          * Equivalent to chart.ignoreHiddenSeries, this option tells whether the series shall be redrawn as if the hidden
          * point were null.
@@ -5093,7 +5099,7 @@ declare namespace Highcharts {
          * @default null
          * @since 5.0.3
          */
-        threshold?: number;
+        threshold?: number | null;
         /**
          * When this option is true, the dial will wrap around the axes. For instance, in a full-range gauge going from 0 to
          * 360, a value of 400 will point to 40. When wrap is false, the dial stops at 360.
@@ -5181,7 +5187,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * The sort index of the point inside the treemap level.
          * @since 4.1.10
@@ -5356,7 +5362,7 @@ declare namespace Highcharts {
          * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
          * the pointPadding and groupPadding.
          */
-        pointWidth?: number;
+        pointWidth?: number | null;
         /**
          * This option allows grouping series in a stacked chart. The stack option can be a string or a number or anything
          * else, as long as the grouped series' stack options match each other.
@@ -5578,7 +5584,7 @@ declare namespace Highcharts {
          * @default null
          * @since 2.0
          */
-        y?: number;
+        y?: number | null;
     }
 
     interface TitleOptions {
@@ -5635,7 +5641,7 @@ declare namespace Highcharts {
          * @default null
          * @since 2.0
          */
-        y?: number;
+        y?: number | null;
     }
 
     interface CrosshairObject {
@@ -5689,7 +5695,7 @@ declare namespace Highcharts {
          * The color of the tooltip border. When null, the border takes the color of the corresponding series or point.
          * @default null
          */
-        borderColor?: string | Gradient;
+        borderColor?: string | Gradient | null;
         /**
          * The radius of the rounded border corners.
          * @default 3
@@ -5717,7 +5723,7 @@ declare namespace Highcharts {
          *
          * @default null
          */
-        crosshairs?: boolean | [boolean, boolean] | CrosshairObject | [CrosshairObject, CrosshairObject];
+        crosshairs?: boolean | [boolean, boolean] | CrosshairObject | [CrosshairObject, CrosshairObject] | null;
         /**
          * Enable or disable the tooltip.
          * @default true
@@ -6374,9 +6380,11 @@ declare namespace Highcharts {
          * See also the responsive option set. Switching between responsive.rules basically runs chart.update under the hood.
          * @param option A configuration object for the new chart options as defined in the options section of the API.
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
+         * @param [boolean] oneToOne When true, the series, xAxis and yAxis collections will be updated one to one, and
+         * items will be either added or removed to match the new updated options. Defaults to false.
          * @since 5.0.0
          */
-        update(options: Options, redraw?: boolean): void;
+        update(options: Options, redraw?: boolean, oneToOne?: boolean): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5

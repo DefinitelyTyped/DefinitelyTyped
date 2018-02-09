@@ -314,6 +314,7 @@ interface KnockoutUtils {
     triggerEvent(element: any, eventType: any): void;
 
     unwrapObservable<T>(value: KnockoutObservable<T> | T): T;
+    unwrapObservable<T>(value: KnockoutObservableArray<T> | T[]): T[];
 
     // NOT PART OF THE MINIFIED API SURFACE (ONLY IN knockout-{version}.debug.js) https://github.com/SteveSanderson/knockout/issues/670
     // forceRefresh(node: any): void;
@@ -409,6 +410,9 @@ interface KnockoutTasks {
 }
 
 /////////////////////////////////
+type KnockoutObservableType<T> = {
+    [P in keyof T]: KnockoutObservable<T[P]>;
+};
 
 interface KnockoutStatic {
     utils: KnockoutUtils;
@@ -440,16 +444,18 @@ interface KnockoutStatic {
     contextFor(node: any): any;
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
-    toJS(viewModel: any): any;
-    isObservable(instance: any): instance is KnockoutObservable<any>;
-    isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
-    isComputed(instance: any): instance is KnockoutComputed<any>;
+    toJS<T>(viewModel: KnockoutObservableArray<T>|KnockoutObservableType<T>[]|KnockoutObservableArray<KnockoutObservableType<T>>|T[]): T[];
+    toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableType<T>|KnockoutObservable<KnockoutObservableType<T>>|T): T;
+    isObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
+    isWriteableObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
+    isComputed<T>(instance: KnockoutObservable<T>|T): instance is KnockoutComputed<T>;
     dataFor(node: any): any;
     removeNode(node: Node): void;
     cleanNode(node: Node): Node;
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     unwrap<T>(value: KnockoutObservable<T> | T): T;
+    unwrap<T>(value: KnockoutObservableArray<T> | T[]): T[];
 
     computedContext: KnockoutComputedContext;
 

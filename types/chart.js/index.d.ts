@@ -7,6 +7,8 @@
 //                 Daniel Luz <https://github.com/mernen>
 //                 Joseph Page <https://github.com/josefpaij>
 //                 Dan Manastireanu <https://github.com/danmana>
+//                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
+//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,10 +38,19 @@ declare class Chart {
 
     static defaults: {
         global: Chart.ChartOptions & Chart.ChartFontOptions;
+        [key: string]: any;
     };
+
+    static controllers: {
+        [key: string]: any;
+    };
+
+    // Tooltip Static Options
+    static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
 declare class PluginServiceStatic {
-    register(plugin?: PluginServiceRegistrationOptions): void;
+    register(plugin: PluginServiceRegistrationOptions): void;
+    unregister(plugin: PluginServiceRegistrationOptions): void;
 }
 
 interface PluginServiceRegistrationOptions {
@@ -64,6 +75,13 @@ interface PluginServiceRegistrationOptions {
     // Before the datasets are drawn but after scales are drawn
     beforeDatasetsDraw?(chartInstance: Chart, easing: string): void;
     afterDatasetsDraw?(chartInstance: Chart, easing: string): void;
+
+    // Called before drawing the `tooltip`. If any plugin returns `false`,
+    // the tooltip drawing is cancelled until another `render` is triggered.
+    beforeTooltipDraw?(chartInstance: Chart): void;
+    // Called after drawing the `tooltip`. Note that this hook will not,
+    // be called if the tooltip drawing has been previously cancelled.
+    afterTooltipDraw?(chartInstance: Chart): void;
 
     destroy?(chartInstance: Chart): void;
 
@@ -105,6 +123,7 @@ declare namespace Chart {
         lineJoin?: string;
         lineWidth?: number;
         strokeStyle?: string;
+        pointStyle?: PointStyle;
     }
 
     interface ChartTooltipItem {
@@ -159,6 +178,7 @@ declare namespace Chart {
     interface ChartOptions {
         responsive?: boolean;
         responsiveAnimationDuration?: number;
+        aspectRatio?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
@@ -175,6 +195,8 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
+        // Plugins can require any options
+        plugins?: any;
     }
 
     interface ChartFontOptions {
@@ -214,6 +236,8 @@ declare namespace Chart {
         fontFamily?: string;
         padding?: number;
         generateLabels?(chart: any): any;
+        filter?(item: ChartLegendItem, data: ChartData): any;
+        usePointStyle?: boolean;
     }
 
     interface ChartTooltipOptions {
@@ -247,12 +271,18 @@ declare namespace Chart {
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
-        position?: "average"|"nearest";
+        position?: string;
         caretPadding?: number;
         displayColors?: boolean;
         borderColor?: ChartColor;
         borderWidth?: number;
     }
+
+    interface ChartTooltipsStaticConfiguration {
+        positioners: {[mode: string]: ChartTooltipPositioner};
+    }
+
+    type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
 
     interface ChartHoverOptions {
         mode?: string;
@@ -361,7 +391,7 @@ declare namespace Chart {
 
     interface TickOptions {
         autoSkip?: boolean;
-        autoSkipPadding?: boolean;
+        autoSkipPadding?: number;
         callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
@@ -530,6 +560,7 @@ declare namespace Chart {
         tooltipFormat?: string;
         unit?: TimeUnit;
         unitStepSize?: number;
+        stepSize?: number;
         minUnit?: TimeUnit;
     }
 
@@ -538,6 +569,11 @@ declare namespace Chart {
         angleLines?: AngleLineOptions;
         pointLabels?: PointLabelOptions;
         ticks?: TickOptions;
+    }
+
+    interface Point {
+        x: number;
+        y: number;
     }
 }
 

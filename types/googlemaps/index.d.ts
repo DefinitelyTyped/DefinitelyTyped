@@ -31,7 +31,7 @@ declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
         constructor(mapDiv: Element|null, opts?: MapOptions);
-        fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
+        fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral, padding?: number): void;
         getBounds(): LatLngBounds|null|undefined;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -2471,8 +2471,16 @@ declare namespace google.maps {
             description: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
+            reference: string;
+            structured_formatting: AutocompleteStructuredFormatting;
             terms: PredictionTerm[];
             types: string[];
+        }
+
+        export interface AutocompleteStructuredFormatting {
+            main_text: string;
+            main_text_matched_substrings: PredictionSubstring[];
+            secondary_text: string;
         }
 
         export interface OpeningHours {
@@ -2607,7 +2615,7 @@ declare namespace google.maps {
             getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void): void;
             nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
             radarSearch(request: RadarSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
-            textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
+            textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
         }
 
         export enum PlacesServiceStatus {

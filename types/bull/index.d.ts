@@ -4,6 +4,7 @@
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
+//                 Gabriel Terwesten <https://github.com/blaugold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,12 +17,10 @@ import * as Promise from "bluebird";
  * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
  */
 declare const Bull: {
-  // tslint:disable:unified-signatures
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  (queueName: string, url?: string): Bull.Queue;
+  (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
   new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url?: string): Bull.Queue;
-  // tslint:enable:unified-signatures
+  new (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
 };
 
 declare namespace Bull {
@@ -136,7 +135,7 @@ declare namespace Bull {
     promote(): Promise<void>;
   }
 
-  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
+  type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -229,11 +228,11 @@ declare namespace Bull {
   }
 
   interface JobCounts {
-    wait: number;
     active: number;
     completed: number;
     failed: number;
     delayed: number;
+    waiting: number;
   }
 
   interface JobInformation {
@@ -385,21 +384,27 @@ declare namespace Bull {
 
     /**
      * Returns a promise that resolves when the queue is paused.
-     * The pause is global, meaning that all workers in all queue instances for a given queue will be paused.
-     * A paused queue will not process new jobs until resumed,
-     * but current jobs being processed will continue until they are finalized.
+     *
+     * A paused queue will not process new jobs until resumed, but current jobs being processed will continue until
+     * they are finalized. The pause can be either global or local. If global, all workers in all queue instances
+     * for a given queue will be paused. If local, just this worker will stop processing new jobs after the current
+     * lock expires. This can be useful to stop a worker from taking new jobs prior to shutting down.
      *
      * Pausing a queue that is already paused does nothing.
      */
-    pause(): Promise<void>;
+    pause(isLocal?: boolean): Promise<void>;
 
     /**
      * Returns a promise that resolves when the queue is resumed after being paused.
-     * The resume is global, meaning that all workers in all queue instances for a given queue will be resumed.
+     *
+     * The resume can be either local or global. If global, all workers in all queue instances for a given queue
+     * will be resumed. If local, only this worker will be resumed. Note that resuming a queue globally will not
+     * resume workers that have been paused locally; for those, resume(true) must be called directly on their
+     * instances.
      *
      * Resuming a queue that is not paused does nothing.
      */
-    resume(): Promise<void>;
+    resume(isLocal?: boolean): Promise<void>;
 
     /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
@@ -447,6 +452,11 @@ declare namespace Bull {
     getFailed(start?: number, end?: number): Promise<Job[]>;
 
     /**
+     * Returns a promise that will return an array with the waiting jobs between start and end.
+     */
+    getWaiting(start?: number, end?: number): Promise<Job[]>;
+
+    /**
      * Returns JobInformation of repeatable jobs (ordered descending). Provide a start and/or an end
      * index to limit the number of results. Start defaults to 0, end to -1 and asc to false.
      */
@@ -458,18 +468,18 @@ declare namespace Bull {
     nextRepeatableJob(name: string, data: any, opts: JobOptions): Promise<Job>;
 
     /**
-     * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
-     * the job when it was added.
+     * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
+     * used for the job when it was added.
      */
-    removeRepeatable(repeat: RepeatOptions): Promise<void>;
+    removeRepeatable(repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
 
     /**
-     * Removes a given repeatable job. The RepeatOpts needs to be the same as the ones used for
-     * the job when it was added.
+     * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
+     * used for the job when it was added.
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: RepeatOptions): Promise<void>;
+    removeRepeatable(name: string, repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
@@ -520,8 +530,6 @@ declare namespace Bull {
      */
     clean(grace: number, status?: JobStatus, limit?: number): Promise<Job[]>;
 
-    // tslint:disable:unified-signatures
-
     /**
      * Listens to queue events
      */
@@ -566,7 +574,7 @@ declare namespace Bull {
     /**
      * The queue has been resumed
      */
-    on(event: 'resumed', callback: EventCallback): this;
+    on(event: 'resumed', callback: EventCallback): this; // tslint:disable-line unified-signatures
 
     /**
      * Old jobs have been cleaned from the queue.
@@ -575,8 +583,6 @@ declare namespace Bull {
      * @see Queue#clean() for details
      */
     on(event: 'cleaned', callback: CleanedEventCallback): this;
-
-    // tslint:enable:unified-signatures
   }
 
   type EventCallback = () => void;

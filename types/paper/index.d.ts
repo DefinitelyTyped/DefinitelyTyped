@@ -1,11 +1,14 @@
 // Type definitions for Paper.js v0.9.24
 // Project: http://paperjs.org/
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
+// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Jon Lucas <https://github.com/Xakaloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type NativeMouseEvent = MouseEvent;
 
-declare module 'paper' {
+/**
+ * @namespace paper
+ */
+declare module paper {
 
     /**
      * The version of Paper.js, as a string.
@@ -287,7 +290,7 @@ declare module 'paper' {
          * Transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        transform(point: Point): Matrix;
+        transform(point: Point): Point;
 
         /**
          * Transforms an array of coordinates by this matrix and stores the results into the destination array, which is also returned.
@@ -301,7 +304,7 @@ declare module 'paper' {
          * Inverse transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        inverseTransform(point: Point): Matrix;
+        inverseTransform(point: Point): Point;
 
         /**
          * Attempts to decompose the affine transformation described by this matrix into scaling, rotation and shearing, and returns an object with these properties if it succeeded, null otherwise.
@@ -1307,6 +1310,11 @@ declare module 'paper' {
         onMouseDown: (event: MouseEvent) => void;
 
         /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
+
+        /**
          * The function to be called when the mouse button is released over the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
          */
@@ -1345,9 +1353,11 @@ declare module 'paper' {
 
         /**
          * Clones the item within the same project and places the copy above the item.
-         * @param insert [optional] - specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options [optional] - object with 2 parameters
+         * insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * deep: specifies whether the item’s children should also be cloned — default: true
          */
-        clone(insert?: boolean): Item;
+        clone(options?: { insert?: boolean, deep?: boolean }): Item;
 
         /**
          * When passed a project, copies the item to the project, or duplicates it within the same project. When passed an item, copies the item into the specified item.
@@ -2088,8 +2098,7 @@ declare module 'paper' {
          * @param data
          * @param point
          */
-        getImageData(data: ImageData, point: Point): void;
-
+        setImageData(data: ImageData, point: Point): void;
     }
     /**
      * A PlacedSymbol represents an instance of a symbol which has been placed in a Paper.js project.
@@ -3228,6 +3237,16 @@ declare module 'paper' {
          * Deselects all selected items in the project.
          */
         deselectAll(): void;
+         
+        /**
+         * Adds the specified layer at the end of the this project’s layers list.
+         */
+        addLayer(layer: Layer): Layer;
+
+        /**
+         * Inserts the specified layer at the specified index in this project’s layers list.
+         */
+        insertLayer(index: number, layer: Layer): Layer;
 
         /**
          * Perform a hit-test on the items contained within the project at the location of the specified point.
@@ -3528,7 +3547,7 @@ declare module 'paper' {
          * @param highlight [optional] -
          */
         constructor(color: Gradient, origin: Point, destination: Point, highlight?: Point);
-        
+
         /**
          * Creates a RGB Color object.
          * @param hex - the RGB color in hex, i.e. #000000
@@ -3761,6 +3780,48 @@ declare module 'paper' {
          * Handler function that is called whenever a view is resized.
          */
         onResize: (event: Event) => void;
+
+        /**
+         * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDown: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse button is released over the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseUp: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onDoubleClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called repeatedly when the mouse moves on top of the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseMove: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves over the item. This function will only be called again, once the mouse moved outside of the item first. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseEnter: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves out of the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseLeave: (event: MouseEvent) => void;
 
         /**
          * Removes this view from the project and frees the associated element.
@@ -4190,4 +4251,9 @@ declare module 'paper' {
          */
         stop(): void;
     }
+}
+
+declare module 'paper'
+{
+    export = paper;
 }

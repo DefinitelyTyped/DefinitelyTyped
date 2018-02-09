@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as moment from 'moment';
+import moment = require('moment');
 import DatePicker from 'react-datepicker';
 
 class ReactDatePicker extends React.Component<{}, { startDate: moment.Moment; displayName: string; }> {
@@ -18,11 +18,19 @@ class ReactDatePicker extends React.Component<{}, { startDate: moment.Moment; di
 		});
 	};
 
+	handleYearChange = (date: moment.Moment) => {
+		this.setState({
+			startDate: date
+		});
+	}
+
 	render() {
 		return (
 			<DatePicker
 				selected={this.state.startDate}
-				onChange={this.handleChange} />
+				onChange={this.handleChange}
+				onYearChange={this.handleYearChange}
+			/>
 		);
 	}
 }

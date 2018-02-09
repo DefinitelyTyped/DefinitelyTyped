@@ -1,11 +1,21 @@
-// Type definitions for cucumber-js 2.0
+// Type definitions for cucumber-js 4.0
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
 //                 Isaiah Soung <https://github.com/isoung>
 //                 BendingBender <https://github.com/BendingBender>
+//                 ErikSchierboom <https://github.com/ErikSchierboom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
+
+export enum Status {
+    AMBIGUOUS = "ambiguous",
+    FAILED = "failed",
+    PASSED = "passed",
+    PENDING = "pending",
+    SKIPPED = "skipped",
+    UNDEFINED = "undefined"
+}
 
 export interface World {
     [key: string]: any;
@@ -23,9 +33,7 @@ export interface TableDefinition {
     hashes(): Array<{ [colName: string]: string }>;
 }
 
-export type StepDefinitionParam = string | number | CallbackStepDefinition | TableDefinition;
-
-export type StepDefinitionCode = (this: World, ...stepArgs: StepDefinitionParam[]) => PromiseLike<any> | any | void;
+export type StepDefinitionCode = (this: World, ...stepArgs: any[]) => any;
 
 export interface StepDefinitionOptions {
     timeout?: number;
@@ -41,23 +49,85 @@ export interface StepDefinitions {
     setDefaultTimeout(time: number): void;
 }
 
+export function After(code: HookCode): void;
+export function After(options: HookOptions | string, code: HookCode): void;
+export function AfterAll(code: GlobalHookCode): void;
+export function AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
+export function Before(code: HookCode): void;
+export function Before(options: HookOptions | string, code: HookCode): void;
+export function BeforeAll(code: GlobalHookCode): void;
+export function BeforeAll(options: HookOptions | string, code: GlobalHookCode): void;
+
+export function defineParameterType(transform: Transform): void;
+export function defineStep(pattern: RegExp | string, code: StepDefinitionCode): void;
+
+export function Given(pattern: RegExp | string, code: StepDefinitionCode): void;
+export function Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+export function setDefaultTimeout(time: number): void;
+export function setDefinitionFunctionWrapper(fn: () => void, options?: {[key: string]: any}): void;
+// tslint:disable-next-line ban-types
+export function setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
+export function Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+export function Then(pattern: RegExp | string, code: StepDefinitionCode): void;
+export function When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+export function When(pattern: RegExp | string, code: StepDefinitionCode): void;
+
 export interface HookScenarioResult {
+    sourceLocation: SourceLocation;
+    result: ScenarioResult;
+    pickle: pickle.Pickle;
+}
+
+export interface SourceLocation {
+    line: number;
+    url: string;
+}
+
+export interface ScenarioResult {
     duration: number;
-    failureException: Error;
-    scenario: Scenario;
-    status: string;
-    stepsResults: any;
+    status: Status;
+}
+
+export namespace pickle {
+    interface Pickle {
+        language: string;
+        locations: Location[];
+        name: string;
+        steps: Step[];
+        tags: string[];
+    }
+
+    interface Location {
+        column: number;
+        line: number;
+    }
+
+    interface Step {
+        arguments: Argument[];
+        locations: Location[];
+        text: string;
+    }
+
+    interface Argument {
+        rows: Cell[];
+    }
+
+    interface Cell {
+        location: Location;
+        value: string;
+    }
 }
 
 export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
-
-// tslint:disable-next-line ban-types
-export type AroundCode = (scenario: HookScenarioResult, runScenario?: (error: string, callback?: Function) => void) => void;
+export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
 export interface Transform {
     regexp: RegExp;
     transformer(arg: string): any;
-    typeName: string;
+    useForSnippets?: boolean;
+    preferForRegexpMatch?: boolean;
+    name?: string;
+    typeName?: string; // deprecated
 }
 
 export interface HookOptions {
@@ -67,15 +137,16 @@ export interface HookOptions {
 
 export interface Hooks {
     Before(code: HookCode): void;
-    Before(options: HookOptions, code: HookCode): void;
+    Before(options: HookOptions | string, code: HookCode): void;
+    BeforeAll(code: GlobalHookCode): void;
+    BeforeAll(options: HookOptions | string, code: GlobalHookCode): void;
     After(code: HookCode): void;
-    After(options: HookOptions, code: HookCode): void;
-    Around(code: AroundCode): void;
+    After(options: HookOptions | string, code: HookCode): void;
+    AfterAll(code: GlobalHookCode): void;
+    AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
     setDefaultTimeout(time: number): void;
     // tslint:disable-next-line ban-types
     setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
-    registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
-    registerListener(listener: EventListener): void;
     defineParameterType(transform: Transform): void;
 }
 
@@ -139,7 +210,7 @@ export namespace events {
         duration: any;
         failureException: Error;
         scenario: Scenario;
-        status: string;
+        status: Status;
         stepResults: any[];
     }
 
@@ -161,7 +232,7 @@ export namespace events {
         failureException: Error;
         step: Step;
         stepDefinition: StepDefinition;
-        status: string;
+        status: Status;
     }
 }
 

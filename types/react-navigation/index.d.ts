@@ -10,6 +10,7 @@
 //                 charlesfamu <https://github.com/charlesfamu>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Qibang Sun <https://github.com/bang88>
+//                 Sergei Butko: <https://github.com/svbutko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -326,7 +327,12 @@ export interface NavigationTabRouterConfig {
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
 }
-
+export interface TabScene {
+    route: NavigationRoute<any>;
+    focused: boolean;
+    index: number;
+    tintColor?: string;
+}
 export interface NavigationTabScreenOptions extends NavigationScreenOptions {
   tabBarIcon?:
     React.ReactElement<any>
@@ -340,6 +346,11 @@ export interface NavigationTabScreenOptions extends NavigationScreenOptions {
       any
     > | string | null));
   tabBarVisible?: boolean;
+  tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string };
+  tabBarOnPress?: (
+    scene: TabScene,
+    jumpToIndex: (index: number) => void
+  ) => void;
 }
 
 export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
@@ -349,7 +360,8 @@ export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
       any
     > | null));
   drawerLabel?:
-    React.ReactElement<any>
+    string
+    | React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null));
@@ -532,15 +544,16 @@ export function StackNavigator(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: React.ComponentClass<any>;
+export const DrawerItems: React.ComponentType;
 
 /**
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
+  drawerBackgroundColor?: string;
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
-  contentComponent?: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+  contentComponent?: React.ComponentType;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }
@@ -567,10 +580,11 @@ export function DrawerNavigator(
 
 // From views/TabView/TabView.js
 export interface TabViewConfig {
-  tabBarComponent?: React.ComponentClass<any>;
+  tabBarComponent?: React.ComponentType;
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,
+    allowFontScaling?: boolean,
     activeBackgroundColor?: string,
     inactiveTintColor?: string,
     inactiveBackgroundColor?: string,
@@ -593,7 +607,9 @@ export interface TabViewConfig {
 }
 
 // From navigators/TabNavigator.js
-export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig { }
+export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig {
+  initialLayout?: { height: number, width: number };
+}
 
 // From navigators/TabNavigator.js
 export function TabNavigator(
@@ -601,13 +617,20 @@ export function TabNavigator(
   drawConfig?: TabNavigatorConfig,
 ): NavigationContainer;
 
-export const TabBarTop: React.ComponentClass<any>;
-export const TabBarBottom: React.ComponentClass<any>;
+export const TabBarTop: React.ComponentType;
+export const TabBarBottom: React.ComponentType;
 
 /**
  * NavigationActions
  */
 export namespace NavigationActions {
+  const BACK: 'Navigation/BACK';
+  const INIT: 'Navigation/INIT';
+  const NAVIGATE: 'Navigation/NAVIGATE';
+  const RESET: 'Navigation/RESET';
+  const SET_PARAMS: 'Navigation/SET_PARAMS';
+  const URI: 'Navigation/URI';
+
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(options: NavigationNavigateActionPayload): NavigationNavigateAction;
   function reset(options: NavigationResetActionPayload): NavigationResetAction;
@@ -688,7 +711,7 @@ export function createNavigator<C, S, A, Options>(
  */
 export function createNavigationContainer(
   Component: NavigationNavigator<any, any, any, any>
-): React.Component<any, any>;
+): NavigationContainer;
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */

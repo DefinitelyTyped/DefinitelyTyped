@@ -1,8 +1,11 @@
-// Type definitions for dom4 v1.5
+// Type definitions for dom4 v2.0
 // Project: https://github.com/WebReflection/dom4
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>, Gilad Gray <https://github.com/giladgray>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/**
+ * https://dom.spec.whatwg.org/#parentnode
+ */
 interface ParentNode {
     /**
      * Returns the child elements.
@@ -10,21 +13,46 @@ interface ParentNode {
     readonly children: HTMLCollection;
 
     /**
-     * Returns the first element that is a descendant of node that matches relativeSelectors.
+     * Inserts `nodes` after the last child of this node, while replacing strings with equivalent `Text` nodes.
      */
-    query(relativeSelectors: string): Element;
+    append(...nodes: Array<Node | string>): void;
 
     /**
-     * Returns all element descendants of node that match relativeSelectors.
+     * Inserts `nodes` before the first child of this node, while replacing strings with equivalent `Text` nodes.
      */
-    queryAll(relativeSelectors: string): Elements;
+    prepend(...nodes: Array<Node | string>): void;
+}
+
+/**
+ * https://dom.spec.whatwg.org/#childnode
+ */
+interface ChildNode {
+    /**
+     * Inserts `nodes` just after this node, while replacing strings with equivalent `Text` nodes.
+     */
+    after(...nodes: Array<Node | string>): void;
+
+    /**
+     * Inserts `nodes` just before this node, while replacing strings with equivalent `Text` nodes.
+     */
+    before(...nodes: Array<Node | string>): void;
+
+    /**
+     * Replaces this node with `nodes`, while replacing strings in nodes with equivalent Text nodes.
+     */
+    replaceWith(...nodes: Array<Node | string>): void;
+
+    /**
+     * Removes this node.
+     */
+    remove(): void;
 }
 
 interface Element extends ParentNode {
     /**
      * Returns the first (starting at element) inclusive ancestor that matches selectors, and null otherwise.
      */
-    closest(selectors: string): Element;
+    closest(selectors: string): Element | null;
 
     /**
      * Returns true if matching selectors against element’s root yields element, and false otherwise.

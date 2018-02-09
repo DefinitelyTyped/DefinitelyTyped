@@ -23,7 +23,10 @@
         "no-void-expression": false,
         "only-arrow-functions": false,
         "no-submodule-imports": false,
-        
-        "no-unnecessary-class": false
+
+        "no-unnecessary-class": false,
+
+        // false positives
+        "unified-signatures": false
     }
 }

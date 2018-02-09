@@ -41,6 +41,7 @@ map.addControl(drawControl);
 map.on(L.Draw.Event.CREATED, (e: L.DrawEvents.Created) => {
     const type = e.layerType;
     const layer = e.layer;
+    const geojson = e.layer.toGeoJSON();
 
     drawnItems.addLayer(layer);
 });

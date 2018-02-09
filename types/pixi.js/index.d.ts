@@ -1,4 +1,4 @@
-// Type definitions for Pixi.js 4.6
+// Type definitions for Pixi.js 4.7
 // Project: https://github.com/pixijs/pixi.js/tree/dev
 // Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,6 +63,7 @@ declare namespace PIXI {
         let PRECISION: string;
         let UPLOADS_PER_FRAME: number;
         let CAN_UPLOAD_SAME_BUFFER: boolean;
+        let MESH_CANVAS_PADDING: number;
     }
 
     //////////////////////////////////////////////////////////////////////////////
@@ -208,6 +209,7 @@ declare namespace PIXI {
         renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
         stage: Container;
         ticker: ticker.Ticker;
+        loader: loaders.Loader;
         readonly screen: Rectangle;
 
         stop(): void;
@@ -497,6 +499,7 @@ declare namespace PIXI {
         drawCircle(x: number, y: number, radius: number): Graphics;
         drawEllipse(x: number, y: number, width: number, height: number): Graphics;
         drawPolygon(path: number[] | Point[] | Polygon): Graphics;
+        drawStar(x: number, y: number, points: number, radius: number, innerRadius: number, rotation?: number): Graphics;
         clear(): Graphics;
         isFastRect(): boolean;
         protected _renderCanvas(renderer: CanvasRenderer): void;
@@ -827,6 +830,7 @@ declare namespace PIXI {
         preserveDrawingBuffer: boolean;
         clearBeforeRender: boolean;
         roundPixels: boolean;
+        backgroundColor: number;
         protected _backgroundColor: number;
         protected _backgroundColorRgba: number[];
         protected _backgroundColorString: string;
@@ -834,7 +838,7 @@ declare namespace PIXI {
         protected _lastObjectRendered: DisplayObject;
 
         resize(screenWidth: number, screenHeight: number): void;
-        generateTexture(displayObject: DisplayObject, scaleMode?: number, resolution?: number): RenderTexture;
+        generateTexture(displayObject: DisplayObject, scaleMode?: number, resolution?: number, region?: Rectangle): RenderTexture;
         render(...args: any[]): void;
         destroy(removeView?: boolean): void;
     }
@@ -948,7 +952,6 @@ declare namespace PIXI {
         extract: extract.WebGLExtract;
         protected drawModes: any;
         protected _activeShader: Shader;
-        protected _activeVao: glCore.VertexArrayObject;
         _activeRenderTarget: RenderTarget;
         protected _initContext(): void;
 
@@ -1032,7 +1035,7 @@ declare namespace PIXI {
 
         update(): void;
         run(): void;
-        unload(): void;
+        unload(displayObject: DisplayObject): void;
     }
     abstract class ObjectRenderer extends WebGLManager {
         constructor(renderer: WebGLRenderer);
@@ -1737,7 +1740,9 @@ declare namespace PIXI {
 
     // shader
 
-    class Shader extends glCore.GLShader { }
+    class Shader extends glCore.GLShader {
+        constructor(gl: WebGLRenderingContext, vertexSrc: string | string[], fragmentSrc: string | string[], attributeLocations?: { [key: string]: number }, precision?: string);
+    }
 
     //////////////////////////////////////////////////////////////////////////////
     ////////////////////////////EXTRACT///////////////////////////////////////////
@@ -2124,7 +2129,7 @@ declare namespace PIXI {
             protected _tempPoint: Point;
             resolution: number;
             hitTest(globalPoint: Point, root?: Container): DisplayObject;
-            protected setTargetElement(element: HTMLCanvasElement, resolution?: number): void;
+            setTargetElement(element: HTMLCanvasElement, resolution?: number): void;
             protected addEvents(): void;
             protected removeEvents(): void;
             update(deltaTime?: number): void;
@@ -2163,7 +2168,7 @@ declare namespace PIXI {
 
     // pixi loader extends
     // https://github.com/englercj/resource-loader/
-    // 2.0.9
+    // 2.1.1
 
     class MiniSignalBinding {
         //tslint:disable-next-line:ban-types forbidden-types
@@ -2251,6 +2256,8 @@ declare namespace PIXI {
             onStart: MiniSignal;
             onComplete: MiniSignal;
 
+            concurrency: number;
+
             add(...params: any[]): this;
             //tslint:disable-next-line:ban-types forbidden-types
             add(name: string, url: string, options?: LoaderOptions, cb?: Function): this;
@@ -2268,6 +2275,7 @@ declare namespace PIXI {
             protected _prepareUrl(url: string): string;
             //tslint:disable-next-line:ban-types forbidden-types
             protected _loadResource(resource: Resource, dequeue: Function): void;
+            protected _onStart(): void;
             protected _onComplete(): void;
             protected _onLoad(resource: Resource): void;
 
@@ -2403,6 +2411,7 @@ declare namespace PIXI {
             spineData: any;
             textures?: TextureDictionary;
         }
+        const shared: Loader;
     }
 
     //////////////////////////////////////////////////////////////////////////////
@@ -2522,7 +2531,11 @@ declare namespace PIXI {
     //////////////////////////////////////////////////////////////////////////////
     namespace particles {
         interface ParticleContainerProperties {
+            /**
+             * DEPRECIATED - Use `vertices`
+             */
             scale?: boolean;
+            vertices?: boolean;
             position?: boolean;
             rotation?: boolean;
             uvs?: boolean;
@@ -2530,7 +2543,7 @@ declare namespace PIXI {
             alpha?: boolean;
         }
         class ParticleContainer extends Container {
-            constructor(maxSize?: number, properties?: ParticleContainerProperties, batchSize?: number, autoSize?: boolean);
+            constructor(maxSize?: number, properties?: ParticleContainerProperties, batchSize?: number, autoResize?: boolean);
             protected _tint: number;
             protected tintRgb: number | any[];
             tint: number;
@@ -2661,7 +2674,7 @@ declare namespace PIXI {
     //////////////////////////////////////////////////////////////////////////////
     /////////////////////////////pixi-gl-core/////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
-    // pixi-gl-core 1.1.2 https://github.com/pixijs/pixi-gl-core
+    // pixi-gl-core 1.1.4 https://github.com/pixijs/pixi-gl-core
     // sharedArrayBuffer as a type is not available yet.
     // need to fully define what an `Attrib` is.
     namespace glCore {
@@ -2813,13 +2826,13 @@ declare namespace PIXI {
             indexBuffer: GLBuffer;
             dirty: boolean;
 
-            bind(): VertexArrayObject;
-            unbind(): VertexArrayObject;
-            activate(): VertexArrayObject;
-            addAttribute(buffer: GLBuffer, attribute: Attrib, type: number, normalized: boolean, stride: number, start: number): VertexArrayObject;
-            addIndex(buffer: GLBuffer, options?: any): VertexArrayObject;
-            clear(): VertexArrayObject;
-            draw(type: number, size: number, start: number): VertexArrayObject;
+            bind(): this;
+            unbind(): this;
+            activate(): this;
+            addAttribute(buffer: GLBuffer, attribute: Attrib, type?: number, normalized?: boolean, stride?: number, start?: number): this;
+            addIndex(buffer: GLBuffer, options?: any): this;
+            clear(): this;
+            draw(type: number, size: number, start: number): this;
             destroy(): void;
         }
     }

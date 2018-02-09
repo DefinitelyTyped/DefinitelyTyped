@@ -14,7 +14,8 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes" : false
+        "esModuleInterop": true,
+        "strictFunctionTypes": false
     },
     "files": [
         "index.d.ts",

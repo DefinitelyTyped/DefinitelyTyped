@@ -1,7 +1,8 @@
-// Type definitions for Auth0.js 8.10
+// Type definitions for Auth0.js 8.11
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
+//                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace auth0;
@@ -267,6 +268,14 @@ export class WebAuth {
      * @param options:
      */
     passwordlessVerify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
+
+    /**
+     * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
+     *
+     * @param options options used in {@link authorize} call
+     * @param callback: any(err, token_payload)
+     */
+    checkSession(options: CheckSessionOptions, callback: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -525,14 +534,19 @@ export interface Auth0Error {
     statusText?: string;
 }
 
+/**
+ * The contents of the authResult object returned by {@link WebAuth#parseHash }
+ */
 export interface Auth0DecodedHash {
     accessToken?: string;
     idToken?: string;
     idTokenPayload?: any;
+    appState?: any;
     refreshToken?: string;
     state?: string;
     expiresIn?: number;
     tokenType?: string;
+    scope?: string;
 }
 
 /** Represents the response from an API Token Delegation request. */
@@ -576,7 +590,7 @@ export interface Auth0UserProfile {
     given_name?: string;
     family_name?: string;
     email?: string;
-    email_verified?: string;
+    email_verified?: boolean;
     clientID: string;
     gender?: string;
     locale?: string;
@@ -667,17 +681,72 @@ export interface ParseHashOptions {
 }
 
 export interface RenewAuthOptions {
+    /**
+     * your Auth0 domain
+     */
     domain?: string;
+    /**
+     * your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
+     */
     clientID?: string;
+    /**
+     * url that the Auth0 will redirect after Auth with the Authorization Response
+     */
     redirectUri?: string;
+    /**
+     * type of the response used by OAuth 2.0 flow. It can be any space separated
+     * list of the values `code`, `token`, `id_token`.
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     */
     responseType?: string;
+    /**
+     * how the Auth response is encoded and redirected back to the client.
+     * Supported values are `query`, `fragment` and `form_post`.
+     * The `query` value is only supported when `responseType` is `code`.
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
+     */
     responseMode?: string;
+    /**
+     * value used to mitigate XSRF attacks.
+     * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
+     */
     state?: string;
+    /**
+     * value used to mitigate replay attacks when using Implicit Grant.
+     * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
+     */
     nonce?: string;
+    /**
+     * scopes to be requested during Auth. e.g. `openid email`
+     */
     scope?: string;
+    /**
+     * identifier of the resource server who will consume the access token issued after Auth
+     */
     audience?: string;
-    usePostMessage?: boolean;
+    /**
+     * identifier data type to look for in postMessage event data, where events are initiated
+     * from silent callback urls, before accepting a message event is the event expected.
+     * A value of false means any postMessage event will trigger a callback.
+     */
     postMessageDataType?: string;
+    /**
+     * origin of redirectUri to expect postMessage response from.
+     * Defaults to the origin of the receiving window. Only used if usePostMessage is truthy.
+     */
+    postMessageOrigin?: string;
+    /**
+     * value in milliseconds used to timeout when the `/authorize` call is failing
+     * as part of the silent authentication with postmessage enabled due to a configuration.
+     */
+    timeout?: number;
+    /**
+     * use postMessage to comunicate between the silent callback and the SPA.
+     * When false the SDK will attempt to parse the url hash should ignore the url hash
+     * and no extra behaviour is needed
+     * @default false
+     */
+    usePostMessage?: boolean;
 }
 
 export interface AuthorizeOptions {
@@ -691,4 +760,11 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
+}
+
+export interface CheckSessionOptions extends AuthorizeOptions {
+	/**
+	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+	 */
+	usePostMessage?: boolean;
 }
