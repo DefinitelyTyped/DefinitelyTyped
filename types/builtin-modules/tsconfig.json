@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "static.d.ts",
         "builtin-modules-tests.ts"
     ]
 }
