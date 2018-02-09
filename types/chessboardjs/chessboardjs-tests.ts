@@ -5,36 +5,36 @@ import chessboardjs = require('chessboardjs');
  */
 
 // empty position
-var board = chessboardjs.ChessBoard('board');
+let board = chessboardjs.ChessBoard('board');
 
 // Start position
-var board = chessboardjs.ChessBoard('board', 'start');
+board = chessboardjs.ChessBoard('board', 'start');
 
 // FEN string
-var ruyLopez = 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R';
-var board = chessboardjs.ChessBoard('board', ruyLopez);
+const ruyLopez = 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R';
+board = chessboardjs.ChessBoard('board', ruyLopez);
 
 // Position Object
-var position: chessboardjs.BoardPositionType = {
+let position: chessboardjs.BoardPositionType = {
     d6: chessboardjs.Piece.bK,
     d4: chessboardjs.Piece.wP,
     e4: chessboardjs.Piece.wK
 };
-var board = chessboardjs.ChessBoard('board', position);
+board = chessboardjs.ChessBoard('board', position);
 
 // Multiple boards
-var config1: chessboardjs.BoardConfig = {
+const config1: chessboardjs.BoardConfig = {
     position: 'start',
     showNotation: false
 };
-var board1 = chessboardjs.ChessBoard('board1', config1);
+const board1 = chessboardjs.ChessBoard('board1', config1);
 
-var board2 = chessboardjs.ChessBoard('board2', {
+const board2 = chessboardjs.ChessBoard('board2', {
     position: 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R',
     showNotation: false
 });
 
-var board3 = chessboardjs.ChessBoard('board3', {
+const board3 = chessboardjs.ChessBoard('board3', {
     position: 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1',
     showNotation: false
 });
@@ -44,14 +44,14 @@ var board3 = chessboardjs.ChessBoard('board3', {
  */
 
 // Get Position
-var cfg: chessboardjs.BoardConfig = {
+const cfg: chessboardjs.BoardConfig = {
     draggable: true,
     position: 'start'
 };
-var board = chessboardjs.ChessBoard('board', cfg);
-var pos: chessboardjs.BoardPositionType = board.position();
+board = chessboardjs.ChessBoard('board', cfg);
+const pos: chessboardjs.BoardPositionType = board.position();
 
-var posFEN: string = board.position('fen');
+const posFEN: string = board.position('fen');
 
 // Set position
 
@@ -64,7 +64,7 @@ board.position(ruyLopez, true);
 // instantly
 board.position(ruyLopez, false);
 
-var position: chessboardjs.BoardPositionType = {
+position = {
     a4: chessboardjs.Piece.bK,
     c4: chessboardjs.Piece.wK,
     a7: chessboardjs.Piece.wR
@@ -79,7 +79,7 @@ board.start();
 board.move('e2-e4');
 
 // Orientation
-var oritentation = board.orientation();
+const oritentation = board.orientation();
 
 // change orientation
 board.orientation('black');
