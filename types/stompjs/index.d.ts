@@ -26,7 +26,8 @@ export class Client {
 
     debug(...args: string[]): any;
 
-    connect(headers: { login?: string, passcode?: string, host?: string }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
+    connect(headers: { login: string, passcode: string, host?: string }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
+    connect(headers: { }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
     connect(login: string, passcode: string, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any, host?: string): any;
     disconnect(disconnectCallback: () => any, headers?: {}): any;
 
