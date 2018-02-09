@@ -10,6 +10,7 @@
 /// <reference path="./glosses/assertion.d.ts" />
 /// <reference path="./glosses/collections/index.d.ts" />
 /// <reference path="./glosses/compressors.d.ts" />
+/// <reference path="./glosses/crypto/index.d.ts" />
 /// <reference path="./glosses/data.d.ts" />
 /// <reference path="./glosses/datetime.d.ts" />
 /// <reference path="./glosses/events.d.ts" />
@@ -21,10 +22,15 @@
 /// <reference path="./glosses/math/index.d.ts" />
 /// <reference path="./glosses/meta.d.ts" />
 /// <reference path="./glosses/promise.d.ts" />
-/// <reference path="./glosses/shani.d.ts" />
+/// <reference path="./glosses/regex.d.ts" />
+/// <reference path="./glosses/semver.d.ts" />
 /// <reference path="./glosses/shani-global.d.ts" />
+/// <reference path="./glosses/shani.d.ts" />
 /// <reference path="./glosses/std.d.ts" />
 /// <reference path="./glosses/streams.d.ts" />
+/// <reference path="./glosses/system/index.d.ts" />
+/// <reference path="./glosses/templating/index.d.ts" />
+/// <reference path="./glosses/text/index.d.ts" />
 /// <reference path="./glosses/utils.d.ts" />
 
 declare const _adone: typeof adone;
