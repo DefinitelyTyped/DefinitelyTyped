@@ -393,6 +393,6 @@ myApp.controller('StickyController', ($scope: TestScope, $mdSticky: ng.material.
     const stickyElement = angular.element(new Element());
     const cloneStickyElement = stickyElement.clone();
 
-    $mdSticky($scope, stickyElement);    
-    $mdSticky($scope, stickyElement, cloneStickyElement);    
+    $mdSticky($scope, stickyElement);
+    $mdSticky($scope, stickyElement, cloneStickyElement);
 });
