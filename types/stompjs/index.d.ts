@@ -55,7 +55,7 @@ export class Frame {
     constructor(command: string, headers?: {}, body?: string);
 
     toString(): string;
-    sizeOfUTF8(s: string): number;
+    static sizeOfUTF8(s: string): number;
     static unmarshall(datas: any): any;
     static marshall(command: string, headers?: {}, body?: string): any;
 }
