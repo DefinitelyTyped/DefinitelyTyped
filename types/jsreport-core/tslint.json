@@ -1,1 +1,9 @@
-{ "extends": "dtslint/dt.json" }
+{
+	"extends": "dtslint/dt.json",
+	"rules": {
+		"no-const-enum": false,
+		"no-declare-current-package": false,
+		"no-mergeable-namespace": false,
+		"strict-export-declare-modifiers": false
+	}
+}
