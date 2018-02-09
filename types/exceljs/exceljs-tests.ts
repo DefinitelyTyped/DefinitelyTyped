@@ -1,7 +1,6 @@
-import * as Excel from 'exceljs';
-import * as stream from 'stream';
-import * as fs from 'fs';
-import * as Bluebird from 'bluebird';
+import Excel = require('exceljs');
+import stream = require('stream');
+import fs = require('fs');
 
 // most examples taken and adapted from README.md
 
