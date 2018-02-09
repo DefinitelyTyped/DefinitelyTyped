@@ -51,7 +51,7 @@ export interface ServerRegisterPluginObject<T> extends ServerRegisterOptions {
     options?: T;
 }
 
-export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> extends Array<ServerRegisterPluginObject<T | U | V | W | X | Y | Z> | undefined> {
+export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> extends Array<ServerRegisterPluginObject<T> | ServerRegisterPluginObject<U> | ServerRegisterPluginObject<V> | ServerRegisterPluginObject<W> | ServerRegisterPluginObject<X> | ServerRegisterPluginObject<Y> | ServerRegisterPluginObject<Z> | undefined> {
     0: ServerRegisterPluginObject<T>;
     1?: ServerRegisterPluginObject<U>;
     2?: ServerRegisterPluginObject<V>;
@@ -60,6 +60,3 @@ export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> extends Ar
     5?: ServerRegisterPluginObject<Y>;
     6?: ServerRegisterPluginObject<Z>;
 }
-
-
-
