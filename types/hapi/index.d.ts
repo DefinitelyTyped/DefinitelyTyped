@@ -38,7 +38,6 @@ export * from './definitions/response/response-toolkit';
 /** ROUTE */
 export * from './definitions/route/route-options';
 export * from './definitions/route/route-options-access';
-export * from './definitions/route/route-options-access-scope';
 export * from './definitions/route/route-options-cache';
 export * from './definitions/route/route-options-cors';
 export * from './definitions/route/route-options-payload';

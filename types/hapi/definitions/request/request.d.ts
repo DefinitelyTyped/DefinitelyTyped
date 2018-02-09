@@ -190,7 +190,7 @@ export interface Request extends Podium {
      * @return ResponseObject
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestgenerateresponsesource-options)
      */
-    generateResponse(source: string | object | null, options?: {variety?: string; prepare?: (response: ResponseObject) => Promise<ResponseObject>; marshal?: (response: ResponseObject) => Promise<ResponseValue>; close?: (response: ResponseObject) => {}; }): ResponseObject;
+    generateResponse(source: string | object | null, options?: {variety?: string; prepare?: (response: ResponseObject) => Promise<ResponseObject>; marshal?: (response: ResponseObject) => Promise<ResponseValue>; close?: (response: ResponseObject) => void; }): ResponseObject;
 
     /**
      * Logs request-specific events. When called, the server emits a 'request' event which can be used by other listeners or plugins. The arguments are:

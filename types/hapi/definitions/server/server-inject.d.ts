@@ -1,4 +1,4 @@
-import {PluginsStates, Request} from "hapi";
+import {AuthCredentials, PluginsStates, Request} from "hapi";
 import * as Shot from "shot";
 
 /**
@@ -26,7 +26,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * an credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.
      */
-    credentials?: any;
+    credentials?: AuthCredentials;
     /**
      * (an artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.
      */

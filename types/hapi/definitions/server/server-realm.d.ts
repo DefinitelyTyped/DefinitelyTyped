@@ -3,6 +3,8 @@ import {PluginsStates} from "hapi";
 /**
  * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When registering a plugin or an authentication scheme, a server object reference is provided with a new server.realm container specific to that registration. It allows each plugin to maintain its own settings without leaking and affecting other plugins.
  * For example, a plugin can set a default file path for local resources without breaking other plugins' configured paths. When calling server.bind(), the active realm's settings.bind property is set which is then used by routes and extensions added at the same level (server root or plugin).
+ * 
+ * https://github.com/hapijs/hapi/blob/master/API.md#server.realm
  */
 export interface ServerRealm {
     /** when the server object is provided as an argument to the plugin register() method, modifiers provides the registration preferences passed the server.register() method and includes: */
@@ -16,7 +18,7 @@ export interface ServerRealm {
         }
     };
     /** the realm of the parent server object, or null for the root server. */
-    parent: object | null;
+    parent: ServerRealm | null;
     /** the active plugin name (empty string if at the server root). */
     plugin: string;
     /** the plugin options object passed at registration. */

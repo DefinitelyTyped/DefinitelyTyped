@@ -16,6 +16,9 @@ export interface ServerAuthScheme {
     (server: Server, options?: ServerAuthSchemeOptions): ServerAuthSchemeObject;
 }
 
+export interface ServerAuthSchemeObjectApi {
+}
+
 /**
  * The scheme method must return an object with the following
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#authentication-scheme)
@@ -25,7 +28,7 @@ export interface ServerAuthSchemeObject {
     /**
      * optional object which is exposed via the [server.auth.api](https://github.com/hapijs/hapi/blob/master/API.md#server.auth.api) object.
      */
-    api?: object;
+    api?: ServerAuthSchemeObjectApi;
 
     /**
      * A lifecycle method function called for each incoming request configured with the authentication scheme. The

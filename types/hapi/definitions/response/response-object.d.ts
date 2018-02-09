@@ -207,7 +207,7 @@ export interface ResponseObject extends Podium {
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsestatename-value-options)
      */
-    state(name: string, value: object, options?: ServerStateCookieOptions): ResponseObject;
+    state(name: string, value: object | string, options?: ServerStateCookieOptions): ResponseObject;
 
     /**
      * Sets a string suffix when the response is process via JSON.stringify() where:

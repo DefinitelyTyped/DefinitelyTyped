@@ -27,13 +27,13 @@ export interface ResponseToolkit {
      * without further interaction with the node response stream. It is the developer's responsibility to write
      * and end the response directly via [request.raw.res](https://github.com/hapijs/hapi/blob/master/API.md#request.raw).
      */
-    readonly abandon: Object;
+    readonly abandon: symbol;
 
     /**
      * A response symbol. When returned by a lifecycle method, the request lifecycle skips to the finalizing step after
      * calling request.raw.res.end()) to close the the node response stream.
      */
-    readonly close: Object;
+    readonly close: symbol;
 
     /**
      * A response symbol. Provides access to the route or server context set via the route [bind](https://github.com/hapijs/hapi/blob/master/API.md#route.options.bind)
@@ -44,7 +44,7 @@ export interface ResponseToolkit {
     /**
      * A response symbol. When returned by a lifecycle method, the request lifecycle continues without changing the response.
      */
-    readonly continue: Object;
+    readonly continue: symbol;
 
     /**
      * The [server realm](https://github.com/hapijs/hapi/blob/master/API.md#server.realm) associated with the matching
