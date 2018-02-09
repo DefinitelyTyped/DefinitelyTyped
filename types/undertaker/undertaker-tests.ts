@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import * as fs from "fs";
-import * as Undertaker from "undertaker";
-import * as Registry from "undertaker-registry";
+import Undertaker = require("undertaker");
+import Registry = require("undertaker-registry");
 
 const taker = new Undertaker();
 
@@ -18,6 +18,13 @@ taker.task("task2", () => {
 taker.task("task3", () => {
     return new Promise((resolve, reject) => {
         // do things
+        resolve(); // when everything is done
+    });
+});
+
+taker.task("task3", ["task1"], () => {
+    return new Promise((resolve, reject) => {
+        // do things depending on "task1"
         resolve(); // when everything is done
     });
 });

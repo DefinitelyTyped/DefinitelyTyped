@@ -18,18 +18,15 @@ export class Class {
 
 export class Transformation {
     constructor(a: number, b: number, c: number, d: number);
-
     transform(point: Point, scale?: number): Point;
-
     untransform(point: Point, scale?: number): Point;
 }
 
 export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
-
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
-
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+    function isFlat(latlngs: LatLngExpression[]): boolean;
 }
 
 export namespace PolyUtil {
@@ -241,20 +238,22 @@ export abstract class Evented extends Class {
      */
     on(eventMap: LeafletEventHandlerFnMap): this;
 
-    /* tslint:disable:unified-signatures */ // With an eventMap there are no additional arguments allowed
     /**
      * Removes a previously added listener function. If no function is specified,
      * it will remove all the listeners of that particular event from the object.
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
+     // With an eventMap there are no additional arguments allowed
+    // tslint:disable-next-line:unified-signatures
     off(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Removes a set of type/listener pairs.
      */
+     // With an eventMap there are no additional arguments allowed
+    // tslint:disable-next-line:unified-signatures
     off(eventMap: LeafletEventHandlerFnMap): this;
-    /* tslint:enable */
     /**
      * Removes all listeners to all events on the object.
      */
@@ -667,7 +666,8 @@ export function canvas(options?: RendererOptions): Canvas;
  * added/removed on the map as well. Extends Layer.
  */
 export class LayerGroup<P = any> extends Layer {
-    constructor(layers?: Layer[]);
+    constructor(layers?: Layer[], options?: LayerOptions);
+
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
      */
@@ -729,9 +729,9 @@ export class LayerGroup<P = any> extends Layer {
 }
 
 /**
- * Create a layer group, optionally given an initial set of layers.
+ * Create a layer group, optionally given an initial set of layers and an `options` object.
  */
-export function layerGroup(layers: Layer[]): LayerGroup;
+export function layerGroup(layers?: Layer[], options?: LayerOptions): LayerGroup;
 
 /**
  * Extended LayerGroup that also has mouse events (propagated from
@@ -1128,9 +1128,8 @@ export interface PanOptions {
     noMoveStart?: boolean;
 }
 
-/* tslint:disable:no-empty-interface */ // This is not empty, it extends two interfaces into one...
+// This is not empty, it extends two interfaces into one...
 export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
-/* tslint:enable */
 
 export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingTopLeft?: PointExpression;
@@ -1323,7 +1322,7 @@ export class Map extends Evented {
     flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
 
     // Other methods
-    addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
+    addHandler(name: string, HandlerClass: typeof Handler): this; // Alternatively, HandlerClass: new(map: Map) => Handler
     remove(): this;
     createPane(name: string, container?: HTMLElement): HTMLElement;
     /**

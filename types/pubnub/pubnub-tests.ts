@@ -1,4 +1,4 @@
-import Pubnub from 'pubnub';
+import * as Pubnub from 'pubnub';
 
 const console = {
   log: (params: any) => {}
@@ -36,8 +36,10 @@ pubnub.subscribe({channels: ['channel-1']});
 
 pubnub.addListener({
   status: statusEvent => {
-    if (statusEvent.category === "PNConnectedCategory") {
+    if (statusEvent.category === Pubnub.CATEGORIES.PNConnectedCategory) {
       console.log(statusEvent.category);
+    } else if (statusEvent.operation === Pubnub.OPERATIONS.PNAccessManagerAudit) {
+      console.log(statusEvent.operation);
     }
   },
   message: message => {
@@ -49,3 +51,38 @@ pubnub.addListener({
 });
 
 pubnub.unsubscribe({channels: ['channel-1']});
+
+pubnub.unsubscribeAll();
+
+pubnub.setUUID(Pubnub.generateUUID());
+const uuid = pubnub.getUUID();
+
+pubnub.whereNow({ uuid: '' }, (status, res) => {
+  if (!status.error) {
+    console.log(res.channels[0]);
+  }
+});
+
+pubnub.whereNow({ uuid: '' }).then(res => {
+  console.log(res.channels[1]);
+});
+
+pubnub.getState({ uuid: '' }, (status, res) => {
+  if (!status.error) {
+    console.log(res.channels[0]);
+  }
+});
+
+pubnub.getState({ uuid: '' }).then(res => {
+  console.log(res.channels[1]);
+});
+
+pubnub.setState({ channels: [] }, (status, res) => {
+  if (!status.error) {
+    console.log(res.state);
+  }
+});
+
+pubnub.setState({ channels: [] }).then(res => {
+  console.log(res.state);
+});

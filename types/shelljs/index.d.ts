@@ -97,7 +97,9 @@ export function mkdir(options: string, ...dir: Array<string | string[]>): void;
  * @param   path   The path.
  * @return        See option parameter.
  */
-export function test(option: string, path: string): boolean;
+export function test(option: TestOptions, path: string): boolean;
+
+export type TestOptions = "-b" | "-c" | "-d" | "-e" | "-f" | "-L" | "-p" | "-S";
 
 /**
  * Returns a string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file). Wildcard * accepted.
@@ -416,6 +418,12 @@ export function touch(...files: string[]): void;
 export function touch(files: string[]): void;
 export function touch(options: TouchOptionsLiteral, ...files: Array<string | string[]>): void;
 export function touch(options: TouchOptionsArray, ...files: Array<string | string[]>): void;
+
+/**
+ * Sets global configuration variables
+ * @param options Available options: `+/-e`: exit upon error (`config.fatal`), `+/-v`: verbose: show all commands (`config.verbose`), `+/-f`: disable filename expansion (globbing)
+ */
+export function set(options: string): void;
 
 // Configuration
 

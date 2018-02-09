@@ -27,15 +27,9 @@ type InputType =
   | 'time'
   | 'color';
 
-// Intermediate interface to "redefine" the type of size to string
-// size:number => size:any => size:string
-interface Intermediate extends React.InputHTMLAttributes<HTMLInputElement> {
-  size?: any;
-}
-
-interface InputProps extends Intermediate {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: InputType;
-  size?: string;
+  bsSize?: 'lg' | 'sm';
   state?: string;
   valid?: boolean;
   tag?: React.ReactType;
@@ -46,5 +40,5 @@ interface InputProps extends Intermediate {
   cssModule?: CSSModule;
 }
 
-declare var Input: React.StatelessComponent<InputProps>;
+declare const Input: React.StatelessComponent<InputProps>;
 export default Input;

@@ -356,7 +356,7 @@ export interface CommonWrapper<P = {}, S = {}> {
 // tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ShallowWrapper<P = {}, S = {}> {
-    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);
+    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
     unmount(): this;
 
@@ -373,8 +373,9 @@ export class ShallowWrapper<P = {}, S = {}> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(selector: Partial<P> | string): this;
+    filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ShallowWrapper<P, S>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -441,7 +442,7 @@ export class ShallowWrapper<P = {}, S = {}> {
 // tslint:disable-next-line no-empty-interface
 export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ReactWrapper<P = {}, S = {}> {
-    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper, options?: MountRendererProps);
+    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
 
     unmount(): this;
     mount(): this;
@@ -492,8 +493,9 @@ export class ReactWrapper<P = {}, S = {}> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P> | string): this;
+    filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ReactWrapper<P, S>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector

@@ -1,5 +1,3 @@
-// tslint:disable:interface-name
-
 function JQueryStatic() {
     function type_assertion() {
         const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
@@ -269,6 +267,11 @@ function JQueryStatic() {
             // $ExpectType jqXHR<any>
             jqXHR;
         });
+    }
+
+    function camelCase() {
+        // $ExpectType string
+        $.camelCase('foo-bar');
     }
 
     function contains() {
@@ -2653,6 +2656,9 @@ function JQuery() {
             $('p').addClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').addClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').addClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2675,6 +2681,9 @@ function JQuery() {
             $('p').removeClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').removeClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').removeClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2693,6 +2702,15 @@ function JQuery() {
         function toggleClass() {
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass('className', true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass('className');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy'], false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass(function(index, className, state) {
@@ -6195,7 +6213,7 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
         },
         cache: false,
@@ -6305,7 +6323,7 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
 
             return false;

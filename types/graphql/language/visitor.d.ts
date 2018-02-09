@@ -1,43 +1,43 @@
 export const QueryDocumentKeys: {
-    Name: any[];
-    Document: string[];
-    OperationDefinition: string[];
-    VariableDefinition: string[];
-    Variable: string[];
-    SelectionSet: string[];
-    Field: string[];
-    Argument: string[];
+  Name: any[];
+  Document: string[];
+  OperationDefinition: string[];
+  VariableDefinition: string[];
+  Variable: string[];
+  SelectionSet: string[];
+  Field: string[];
+  Argument: string[];
 
-    FragmentSpread: string[];
-    InlineFragment: string[];
-    FragmentDefinition: string[];
+  FragmentSpread: string[];
+  InlineFragment: string[];
+  FragmentDefinition: string[];
 
-    IntValue: number[];
-    FloatValue: number[];
-    StringValue: string[];
-    BooleanValue: boolean[];
-    NullValue: null[],
-    EnumValue: any[];
-    ListValue: string[];
-    ObjectValue: string[];
-    ObjectField: string[];
+  IntValue: number[];
+  FloatValue: number[];
+  StringValue: string[];
+  BooleanValue: boolean[];
+  NullValue: null[];
+  EnumValue: any[];
+  ListValue: string[];
+  ObjectValue: string[];
+  ObjectField: string[];
 
-    Directive: string[];
+  Directive: string[];
 
-    NamedType: string[];
-    ListType: string[];
-    NonNullType: string[];
+  NamedType: string[];
+  ListType: string[];
+  NonNullType: string[];
 
-    ObjectTypeDefinition: string[];
-    FieldDefinition: string[];
-    InputValueDefinition: string[];
-    InterfaceTypeDefinition: string[];
-    UnionTypeDefinition: string[];
-    ScalarTypeDefinition: string[];
-    EnumTypeDefinition: string[];
-    EnumValueDefinition: string[];
-    InputObjectTypeDefinition: string[];
-    TypeExtensionDefinition: string[];
+  ObjectTypeDefinition: string[];
+  FieldDefinition: string[];
+  InputValueDefinition: string[];
+  InterfaceTypeDefinition: string[];
+  UnionTypeDefinition: string[];
+  ScalarTypeDefinition: string[];
+  EnumTypeDefinition: string[];
+  EnumValueDefinition: string[];
+  InputObjectTypeDefinition: string[];
+  TypeExtensionDefinition: string[];
 };
 
 export const BREAK: any;

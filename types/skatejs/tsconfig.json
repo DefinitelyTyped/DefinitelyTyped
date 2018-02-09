@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/components/custom-base.ts",
+        "test/components/no-shadow-root.ts",
+        "test/components/props-set-get.ts",
+        "test/components/with-custom-base.ts",
+        "test/mixins/with-children.ts",
+        "test/mixins/with-component.ts",
+        "test/mixins/with-context.ts",
+        "test/mixins/with-lifecycle.ts",
+        "test/mixins/with-renderer.ts",
+        "test/mixins/with-update.ts",
+        "test/renderers/custom.ts",
+        "test/renderers/default.ts",
+        "test/utils/define.ts",
+        "test/utils/emit.ts",
+        "test/utils/link.ts",
+        "test/utils/name.ts",
+        "test/utils/shadow.ts"
+    ]
+}

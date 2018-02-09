@@ -64,9 +64,6 @@ interface Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
-// TODO: tslint doesn't like the listener: Function signatures but they are from the
-// original node declarations so I didn't want to touch them
-/* tslint:disable:ban-types */
 interface EventEmitter {
     addListener(event: string | symbol, listener: Function): this;
     on(event: string | symbol, listener: Function): this;
@@ -82,10 +79,6 @@ interface EventEmitter {
     prependOnceListener(event: string | symbol, listener: Function): this;
     eventNames(): Array<string | symbol>;
 }
-/* tslint:eisable:ban-types */
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     namespace Core {
@@ -342,9 +335,10 @@ declare namespace PouchDB {
         }
 
         interface BulkGetResponse<Content extends {}> {
-            results: {
-                docs: Array<{ ok: Content & GetMeta } | { error: Error }>;
-            };
+            results: Array<{
+                id: string,
+                docs: Array<{ ok: Content & GetMeta } | { error: Error }>
+            }>;
         }
 
         interface ChangesMeta {

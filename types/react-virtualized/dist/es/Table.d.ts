@@ -43,6 +43,7 @@ export type TableRowProps = {
     onRowDoubleClick?: (params: RowMouseEventHandlerParams) => void,
     onRowMouseOver?: (params: RowMouseEventHandlerParams) => void,
     onRowMouseOut?: (params: RowMouseEventHandlerParams) => void,
+    onRowRightClick?: (params: RowMouseEventHandlerParams) => void,
     rowData: any,
     style: any
 };
@@ -73,6 +74,8 @@ export type ColumnProps = {
     columnData?: any;
     /** Uniquely identifies the row-data attribute correspnding to this cell */
     dataKey: any;
+    /** Default sort order when clicked for the first time. Valid options include "ASC" and "DESC". Defaults to "ASC" */
+    defaultSortDirection?: SortDirectionType;
     /** If sort is enabled for the table at large, disable it for this column */
     disableSort?: boolean;
     /** Flex grow style; defaults to 0 */
@@ -86,6 +89,10 @@ export type ColumnProps = {
      * ({ columnData: object, dataKey: string, disableSort: boolean, label: string, sortBy: string, sortDirection: string }): PropTypes.node
      */
     headerRenderer?: TableHeaderRenderer;
+    /** Optional inline style to apply to this column's header */
+    headerStyle?: React.CSSProperties;
+    /** Optional id to set on the column header; used for aria-describedby */
+    id?: string;
     /** Header label for this column */
     label?: string;
     /** Maximum width of column; this property will only be used if :flexGrow is > 0. */
@@ -96,8 +103,6 @@ export type ColumnProps = {
     style?: React.CSSProperties;
     /** Flex basis (width) for this column; This value can grow or shrink based on :flexGrow and :flexShrink properties. */
     width: number;
-    /** Optional id to set on the column header; used for aria-describedby */
-    id?: string;
 }
 export class Column extends Component<ColumnProps> {
     static propTypes: {
@@ -291,11 +296,11 @@ export type TableProps = GridCoreProps & {
     width?: number;
 }
 
-export const defaultTableCellDataGetter: TableCellDataGetter;
-export const defaultTableCellRenderer: TableCellRenderer;
-export const defaultTableHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
-export const defaultTableHeaderRowRenderer: TableHeaderRowRenderer;
-export const defaultTableRowRenderer: TableRowRenderer;
+export const defaultCellDataGetter: TableCellDataGetter;
+export const defaultCellRenderer: TableCellRenderer;
+export const defaultHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
+export const defaultHeaderRowRenderer: TableHeaderRowRenderer;
+export const defaultRowRenderer: TableRowRenderer;
 
 export type SortDirectionStatic = {
     /**

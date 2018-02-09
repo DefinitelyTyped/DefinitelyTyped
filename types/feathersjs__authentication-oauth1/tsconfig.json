@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "paths": {
+            "@feathersjs/authentication-oauth1": [
+                "feathersjs__authentication-oauth1"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "feathersjs__authentication-oauth1-tests.ts"
+    ]
+}

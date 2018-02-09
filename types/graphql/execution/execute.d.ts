@@ -1,14 +1,18 @@
 import { GraphQLError, locatedError } from '../error';
 import { GraphQLSchema } from '../type/schema';
-import { GraphQLField, GraphQLFieldResolver, ResponsePath } from '../type/definition';
 import {
-    DirectiveNode,
-    DocumentNode,
-    OperationDefinitionNode,
-    SelectionSetNode,
-    FieldNode,
-    InlineFragmentNode,
-    FragmentDefinitionNode,
+  GraphQLField,
+  GraphQLFieldResolver,
+  ResponsePath,
+} from '../type/definition';
+import {
+  DirectiveNode,
+  DocumentNode,
+  OperationDefinitionNode,
+  SelectionSetNode,
+  FieldNode,
+  InlineFragmentNode,
+  FragmentDefinitionNode,
 } from '../language/ast';
 /**
  * Data that must be available at all points during query execution.
@@ -17,13 +21,13 @@ import {
  * and the fragments defined in the query document
  */
 export interface ExecutionContext {
-    schema: GraphQLSchema;
-    fragments: { [key: string]: FragmentDefinitionNode };
-    rootValue: any;
-    operation: OperationDefinitionNode;
-    variableValues: { [key: string]: any };
-    fieldResolver: GraphQLFieldResolver<any, any>;
-    errors: GraphQLError[];
+  schema: GraphQLSchema;
+  fragments: { [key: string]: FragmentDefinitionNode };
+  rootValue: any;
+  operation: OperationDefinitionNode;
+  variableValues: { [key: string]: any };
+  fieldResolver: GraphQLFieldResolver<any, any>;
+  errors: GraphQLError[];
 }
 
 /**
@@ -33,19 +37,19 @@ export interface ExecutionContext {
  * non-empty array if an error occurred.
  */
 export interface ExecutionResult {
-    data?: { [key: string]: any };
-    extensions?: { [key: string]: any };
-    errors?: GraphQLError[];
+  data?: { [key: string]: any };
+  extensions?: { [key: string]: any };
+  errors?: GraphQLError[];
 }
 
 export type ExecutionArgs = {
-  schema: GraphQLSchema,
-  document: DocumentNode,
-  rootValue?: any,
-  contextValue?: any,
-  variableValues?: {[key: string]: any},
-  operationName?: string,
-  fieldResolver?: GraphQLFieldResolver<any, any>
+  schema: GraphQLSchema;
+  document: DocumentNode;
+  rootValue?: any;
+  contextValue?: any;
+  variableValues?: { [key: string]: any };
+  operationName?: string;
+  fieldResolver?: GraphQLFieldResolver<any, any>;
 };
 
 /**
@@ -60,24 +64,22 @@ export type ExecutionArgs = {
  */
 export function execute(args: ExecutionArgs): Promise<ExecutionResult>;
 export function execute(
-    schema: GraphQLSchema,
-    document: DocumentNode,
-    rootValue?: any,
-    contextValue?: any,
-    variableValues?: {
-        [key: string]: any
-    },
-    operationName?: string,
-    fieldResolver?: GraphQLFieldResolver<any, any>,
+  schema: GraphQLSchema,
+  document: DocumentNode,
+  rootValue?: any,
+  contextValue?: any,
+  variableValues?: {
+    [key: string]: any;
+  },
+  operationName?: string,
+  fieldResolver?: GraphQLFieldResolver<any, any>,
 ): Promise<ExecutionResult>;
 
 /**
  * Given a ResponsePath (found in the `path` entry in the information provided
  * as the last argument to a field resolver), return an Array of the path keys.
  */
-export function responsePathAsArray(
-    path: ResponsePath
-): Array<string | number>;
+export function responsePathAsArray(path: ResponsePath): Array<string | number>;
 
 export function addPath(prev: ResponsePath, key: string | number): any;
 

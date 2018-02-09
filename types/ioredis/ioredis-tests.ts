@@ -1,4 +1,4 @@
-import * as Redis from "ioredis";
+import Redis = require("ioredis");
 const redis = new Redis();
 
 redis.set('foo', 'bar');
@@ -104,3 +104,27 @@ redis.multi([
 ]).exec((err, results) => {
     // results = [[null, 'OK'], [null, 'bar']]
 });
+
+const keys = [ 'foo', 'bar' ];
+redis.mget(...keys);
+
+new Redis.Cluster([
+    'localhost'
+]);
+
+new Redis.Cluster([
+    6379
+]);
+
+new Redis.Cluster([{
+    host: 'localhost'
+}]);
+
+new Redis.Cluster([{
+    port: 6379
+}]);
+
+new Redis.Cluster([{
+    host: 'localhost',
+    port: 6379
+}]);

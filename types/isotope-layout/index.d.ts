@@ -278,7 +278,6 @@ declare var Isotope: {
 };
 
 interface JQuery {
-    // tslint:disable:unified-signatures
     /**
      * Get the Isotope instance from a jQuery object. Isotope instances are useful to access Isotope properties.
      */
@@ -370,5 +369,4 @@ interface JQuery {
      * @param options All options are optional, but itemSelector is recommended. Layout modes have their own separate options.
      */
     isotope(options: IsotopeLibrary.IsotopeOptions): JQuery;
-    // tslint:enable
 }

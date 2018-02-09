@@ -9,8 +9,6 @@ import { Location } from 'redux-first-router';
 
 export type To = string | string[] | object;
 
-export type OnClick = false | ((e: React.SyntheticEvent<HTMLElement>) => boolean | undefined);
-
 export interface Match<P> {
     params: P;
     isExact: boolean;
@@ -18,14 +16,12 @@ export interface Match<P> {
     url: string;
 }
 
-export interface LinkProps {
+// Unfortunately we can't pass `HTMLAnchorElement` since the `tagName` attribute allows you to use other tags than anchor.
+export interface LinkProps extends React.HTMLAttributes<HTMLElement> {
     to: To;
     redirect?: boolean;
     replace?: boolean;
     tagName?: string;
-    children?: React.ReactNode;
-    onPress?: OnClick;
-    onClick?: OnClick;
     down?: boolean;
     shouldDispatch?: boolean;
     target?: string;
@@ -33,18 +29,7 @@ export interface LinkProps {
 
 export default class Link extends React.Component<LinkProps> {}
 
-export interface NavLinkProps {
-    to: To;
-    redirect?: boolean;
-    replace?: boolean;
-    children?: React.ReactNode;
-    onPress?: OnClick;
-    onClick?: OnClick;
-    down?: boolean;
-    shouldDispatch?: boolean;
-    target?: string;
-    className?: string;
-    style?: React.CSSProperties;
+export interface NavLinkProps extends LinkProps {
     activeClassName?: string;
     activeStyle?: React.CSSProperties;
     ariaCurrent?: string;

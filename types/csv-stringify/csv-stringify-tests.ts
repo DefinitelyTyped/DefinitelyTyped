@@ -28,6 +28,26 @@ stringify([["1", true, new Date()], ["4", false, new Date()]], {
   // nothing
 });
 
+// test for columns
+stringify(
+	[{key1: "a", key2: "b"}],
+	{
+		header: true,
+		columns: { key1: "Key1", key2: "Key2" },
+	},
+	(error: Error, output: string): void => {
+		// nothing
+	});
+stringify(
+	[{key1: "a", key2: "b"}],
+	{
+		header: true,
+		columns: ["key1"],
+	},
+	(error: Error, output: string): void => {
+		// nothing
+	});
+
 stream = stringify({ delimiter: "," });
 
 stream.write(["1", "2", "3"]);

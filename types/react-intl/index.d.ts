@@ -7,11 +7,13 @@
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Brian Houser <https://github.com/bhouser>,
 //                 Krister Kari <https://github.com/kristerkari>
+//                 Martin Raedlinger <https://github.com/formatlos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
+    type MessageValue = string | number | boolean | Date | null | undefined;
 
     interface Locale {
         locale: string;
@@ -69,8 +71,8 @@ declare namespace ReactIntl {
         formatRelative(value: DateSource, options?: FormattedRelative.PropsBase & { now?: any }): string;
         formatNumber(value: number, options?: FormattedNumber.PropsBase): string;
         formatPlural(value: number, options?: FormattedPlural.Base): keyof FormattedPlural.PropsBase;
-        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
-        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
+        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
+        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
@@ -138,7 +140,7 @@ declare namespace ReactIntl {
         }
 
         interface Props extends MessageDescriptor {
-            values?: {[key: string]: string | number | boolean | Date | JSX.Element};
+            values?: {[key: string]: MessageValue | JSX.Element};
             tagName?: string;
         }
     }
@@ -188,6 +190,7 @@ declare namespace ReactIntl {
             defaultLocale?: string;
             defaultFormats?: any;
             textComponent?: any;
+            initialNow?: any;
         }
     }
 

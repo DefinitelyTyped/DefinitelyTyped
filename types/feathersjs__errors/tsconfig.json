@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "paths": {
+            "@feathersjs/errors": [
+                "feathersjs__errors"
+            ],
+            "@feathersjs/errors/handler": [
+                "feathersjs__errors/handler"
+            ],
+            "@feathersjs/errors/not-found": [
+                "feathersjs__errors/not-found"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "feathersjs__errors-tests.ts",
+        "handler.d.ts",
+        "not-found.d.ts"
+    ]
+}

@@ -11,7 +11,7 @@ namespace demo.devicemotion {
     msg:string;
 
     static $inject:Array<string> = ["$ionicPlatform", "$cordovaDeviceMotion"];
-    constructor($ionicPlatform:ionic.platform.IonicPlatformService, private $cordovaDeviceMotion:ngCordova.IDeviceMotionService) {
+    constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaDeviceMotion:ngCordova.IDeviceMotionService) {
       $ionicPlatform.ready(() => {
         this.getAcceleration();
       });

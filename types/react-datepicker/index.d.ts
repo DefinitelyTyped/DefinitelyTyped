@@ -1,10 +1,11 @@
-// Type definitions for react-datepicker 0.55
+// Type definitions for react-datepicker 1.1
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
 //                 Greg Smith <https://github.com/smrq>,
 //                 Platon Pronko <https://github.com/Rogach>
 //                 Roy Xue <https://github.com/royxue>
+// 				   Koala Human <https://github.com/KoalaHuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -12,6 +13,7 @@ import * as React from "react";
 import * as moment from "moment";
 
 export interface ReactDatePickerProps {
+	adjustDateOnChange?: boolean;
 	allowSameDay?: boolean;
 	autoComplete?: string;
 	autoFocus?: boolean;
@@ -19,12 +21,13 @@ export interface ReactDatePickerProps {
 	children?: any;
 	className?: string;
 	customInput?: React.ReactNode;
+	customInputRef?: string;
 	dateFormat?: string | string[];
 	dateFormatCalendar?: string;
 	dayClassName?(date: moment.Moment): string | null;
 	disabled?: boolean;
 	disabledKeyboardNavigation?: boolean;
-	dropdownMode?: string;
+	dropdownMode?: 'scroll' | 'select';
 	endDate?: moment.Moment;
 	excludeDates?: any[];
 	filterDate?(date: moment.Moment): boolean;
@@ -34,6 +37,7 @@ export interface ReactDatePickerProps {
 	highlightDates?: any[];
 	id?: string;
 	includeDates?: any[];
+	includeTimes?: any[];
 	inline?: boolean;
 	isClearable?: boolean;
 	locale?: string;
@@ -50,19 +54,24 @@ export interface ReactDatePickerProps {
 	onMonthChange?(date: moment.Moment): void;
 	onSelect?(date: moment.Moment, event: React.SyntheticEvent<any> | undefined): void;
 	onWeekSelect?(firstDayOfWeek: moment.Moment, weekNumber: string | number, event: React.SyntheticEvent<any> | undefined): void;
+	onYearChange?(date: moment.Moment): void;
 	openToDate?: moment.Moment;
 	peekNextMonth?: boolean;
 	placeholderText?: string;
 	popperClassName?: string;
 	popperModifiers?: any;
 	popperPlacement?: string;
+	preventOpenOnFocus?: boolean;
 	readOnly?: boolean;
 	required?: boolean;
 	scrollableYearDropdown?: boolean;
+	scrollableMonthYearDropdown?: boolean;
 	selected?: moment.Moment | null;
 	selectsEnd?: boolean;
 	selectsStart?: boolean;
+	showDisabledMonthNavigation?: boolean;
 	showMonthDropdown?: boolean;
+	showMonthYearDropdown?: boolean;
 	showWeekNumbers?: boolean;
 	showYearDropdown?: boolean;
 	startDate?: moment.Moment;
@@ -70,6 +79,7 @@ export interface ReactDatePickerProps {
 	title?: string;
 	todayButton?: string;
 	useWeekdaysShort?: boolean;
+	useShortMonthInDropdown?: boolean;
 	utcOffset?: number;
 	value?: string;
 	weekLabel?: string;

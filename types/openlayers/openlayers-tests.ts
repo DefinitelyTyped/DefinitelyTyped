@@ -55,6 +55,7 @@ let mapBrowserEvent: ol.MapBrowserEvent;
 let multiLineString: ol.geom.MultiLineString;
 let multiPoint: ol.geom.MultiPoint;
 let multiPolygon: ol.geom.MultiPolygon;
+let pixel: ol.Pixel;
 let point: ol.geom.Point;
 let polygon: ol.geom.Polygon;
 let projection: ol.proj.Projection;
@@ -392,13 +393,97 @@ voidValue = feature.setProperties(object);
 // ol.View
 //
 
-let view: ol.View = new ol.View({
-    center: [0, 0],
+let view: ol.View;
+view = new ol.View();
+view = new ol.View({});
+view = new ol.View({
+    center: coordinate,
+    constrainRotation: numberValue,
+    enableRotation: booleanValue,
+    extent: extent,
+    maxResolution: numberValue,
+    minResolution: numberValue,
+    maxZoom: numberValue,
+    minZoom: numberValue,
+    projection: projectionLike,
+    resolution: numberValue,
+    resolutions: [numberValue, numberValue, numberValue, numberValue, numberValue],
+    rotation: numberValue,
     zoom: numberValue,
+    zoomFactor: numberValue,
+});
+view = new ol.View({
+    constrainRotation: booleanValue,
 });
 
+voidValue = view.animate();
+voidValue = view.animate({});
+voidValue = view.animate({zoom: view.getZoom() + 1});
+voidValue = view.animate({zoom: 10}, {center: [0, 0]});
+voidValue = view.animate({
+    center: coordinate,
+    zoom: numberValue,
+    resolution: numberValue,
+    rotation: numberValue,
+    anchor: coordinate,
+    duration: numberValue,
+    easing: easingFunction,
+});
+extent = view.calculateExtent();
+extent = view.calculateExtent(size);
+voidValue = view.cancelAnimations();
+voidValue = view.centerOn(coordinate, size, pixel);
+coordinate = view.constrainCenter();
+coordinate = view.constrainCenter(coordinate);
+numberValue = view.constrainResolution();
+numberValue = view.constrainResolution(numberValue);
+numberValue = view.constrainResolution(numberValue, numberValue);
+numberValue = view.constrainResolution(numberValue, numberValue, numberValue);
+numberValue = view.constrainRotation();
+numberValue = view.constrainRotation(numberValue);
+numberValue = view.constrainRotation(numberValue, numberValue);
+voidValue = view.fit(simpleGeometry);
+voidValue = view.fit(simpleGeometry, {});
+voidValue = view.fit(extent);
+voidValue = view.fit(extent, {});
+voidValue = view.fit(extent, {callback: () => {}});
+voidValue = view.fit(extent, {callback: (animationCompleted: boolean) => {}});
+voidValue = view.fit(extent, {
+    size: size,
+    padding: [numberValue, numberValue, numberValue, numberValue],
+    constrainResolution: booleanValue,
+    nearest: booleanValue,
+    minResolution: numberValue,
+    maxZoom: numberValue,
+    duration: numberValue,
+    easing: easingFunction,
+    callback: (animationCompleted: boolean) => {}
+});
+booleanValue = view.getAnimating();
+coordinate = view.getCenter();
+booleanValue = view.getInteracting();
+numberValue = view.getMaxResolution();
+numberValue = view.getMaxZoom();
+numberValue = view.getMinResolution();
+numberValue = view.getMinZoom();
+projection = view.getProjection();
+numberValue = view.getResolution();
+numberValue = view.getResolutionForExtent(extent);
+numberValue = view.getResolutionForExtent(extent, size);
+numberValue = view.getResolutionForZoom(numberValue);
+[numberValue, numberValue, numberValue, numberValue, numberValue] = view.getResolutions();
+numberValue = view.getRotation();
+numberValue = view.getZoom();
+numberValue = view.getZoomForResolution(numberValue);
+voidValue = view.rotate(numberValue);
+voidValue = view.rotate(numberValue, coordinate);
+voidValue = view.setCenter(coordinate);
 voidValue = view.setMaxZoom(numberValue);
 voidValue = view.setMinZoom(numberValue);
+voidValue = view.setResolution();
+voidValue = view.setResolution(numberValue);
+voidValue = view.setRotation(numberValue);
+voidValue = view.setZoom(numberValue);
 
 //
 // ol.layer.Base
@@ -463,6 +548,7 @@ let vectorTileLayer: ol.layer.VectorTile = new ol.layer.VectorTile({
     renderOrder: () => 1,
     zIndex: 2
 });
+
 
 //
 // ol.Object
@@ -558,6 +644,12 @@ let tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     url: stringValue
 });
 
+//test without projection
+tileWMS = new ol.source.TileWMS({
+    params: {},
+    serverType: stringValue,
+    url: stringValue
+});
 voidValue = tileWMS.updateParams(tileWMS.getParams());
 stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 

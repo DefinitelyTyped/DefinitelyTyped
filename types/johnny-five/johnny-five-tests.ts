@@ -71,14 +71,14 @@ board.on('ready', function(){
         freq: 100      // optional
     });
 
-    var motion = new five.IR.Motion(7);
+    var motion = new five.Motion(7);
 
 // Options object with pin property
-    var motion = new five.IR.Motion({
+    var motion = new five.Motion({
         pin: 7
     });
 
-    var proximity = new five.IR.Proximity({
+    var proximity = new five.Proximity({
         controller: "GP2Y0A21YK",
         pin: "A0"
     });
@@ -100,7 +100,10 @@ board.on('ready', function(){
     eyes.enable();
 
     var joystick = new five.Joystick({
-        pins: ["A0", "A1"]
+        pins: ["A0", "A1"],
+        invert: false,
+        invertX: false,
+        invertY: false
     });
     joystick.on("data", (value)=>{
         console.log(value);
@@ -210,9 +213,8 @@ board.on('ready', function(){
 
     var sensor = new five.Sensor("A0");
 
-    sensor.scale([ 0, 10 ]).on("data", function() {
-        console.log( this.value );
-    });
+    var value = sensor.scaleTo([ 0, 10 ]);
+    console.log( value );
 
     var servo = new five.Servo({
         pin: 10,
@@ -244,12 +246,26 @@ board.on('ready', function(){
         }
     });
 
-    var temperature = new five.Temperature({
+    var temperature = new five.Thermometer({
         pin: "A0",
         toCelsius: function(raw) { // optional
             return (raw / 100) + 10;
         }
     });
+
+    var hygrometer = new five.Hygrometer({
+        controller: "DHT22_I2C_NANO_BACKPACK"
+    });
+
+    var altimeter =  new five.Altimeter({
+        controller: "MPL3115A2"
+    });
+
+    var Switch = new five.Switch({
+        pin: "A4",
+        type: "NC"
+    });
+
 }).on("ready", function(){
     console.log("Everything is ready!!!");
 });
