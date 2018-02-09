@@ -329,7 +329,7 @@ declare namespace PIXI {
         renderable: boolean;
         parent: Container;
         worldAlpha: number;
-        filterArea: Rectangle;
+        filterArea: Rectangle | null;
         protected _filters: Array<Filter<any>> | null;
         protected _enabledFilters: Array<Filter<any>> | null;
         protected _bounds: Bounds;
@@ -337,7 +337,7 @@ declare namespace PIXI {
         protected _lastBoundsID: number;
         protected _boundsRect: Rectangle;
         protected _localBoundsRect: Rectangle;
-        protected _mask: PIXI.Graphics | PIXI.Sprite;
+        protected _mask: PIXI.Graphics | PIXI.Sprite | null;
         protected readonly _destroyed: boolean;
         x: number;
         y: number;
@@ -349,7 +349,7 @@ declare namespace PIXI {
         skew: ObservablePoint;
         rotation: number;
         worldVisible: boolean;
-        mask: PIXI.Graphics | PIXI.Sprite;
+        mask: PIXI.Graphics | PIXI.Sprite | null;
         filters: Array<Filter<any>> | null;
 
         updateTransform(): void;
@@ -509,8 +509,8 @@ declare namespace PIXI {
         updateLocalBounds(): void;
         drawShape(shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any): GraphicsData;
         generateCanvasTexture(scaleMode?: number, resolution?: number): Texture;
-        protected closePath(): Graphics;
-        protected addHole(): Graphics;
+        closePath(): Graphics;
+        addHole(): Graphics;
         destroy(options?: DestroyOptions | boolean): void;
     }
     class CanvasGraphicsRenderer {
