@@ -41,3 +41,7 @@ interface Fingerprint2Options {
     excludePixelRatio?: boolean;
     excludeHardwareConcurrency?: boolean;
 }
+
+declare module "fingerprintjs2" {
+    export = Fingerprint2;
+}
