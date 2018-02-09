@@ -24,7 +24,7 @@ interface MapKeys {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped object.
      */
-    (iteratee: _.ValueIteratee<string>): MapKeys1x1;
+    (iteratee: _.ValueIteratee<number>): MapKeys1x1;
     /**
      * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
      * by running each own enumerable property of object through iteratee.
@@ -34,7 +34,17 @@ interface MapKeys {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped object.
      */
-    <T>(iteratee: _.ValueIteratee<string>, object: _.List<T> | null | undefined): _.Dictionary<T>;
+    <T>(iteratee: _.ValueIteratee<number>, object: _.List<T> | null | undefined): _.Dictionary<T>;
+    /**
+     * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
+     * by running each own enumerable property of object through iteratee.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns the new mapped object.
+     */
+    (iteratee: _.ValueIteratee<string>): MapKeys2x1;
     /**
      * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
      * by running each own enumerable property of object through iteratee.
@@ -54,17 +64,7 @@ interface MapKeys {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped object.
      */
-    (iteratee: _.ValueIteratee<any[keyof any]>): MapKeys3x1;
-    /**
-     * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
-     * by running each own enumerable property of object through iteratee.
-     *
-     * @param object The object to iterate over.
-     * @param iteratee The function invoked per iteration.
-     * @param thisArg The this binding of iteratee.
-     * @return Returns the new mapped object.
-     */
-    (iteratee: _.ValueIteratee<any[keyof any]>, object: object | null | undefined): _.Dictionary<any>;
+    (iteratee: _.ValueIteratee<string>, object: object | null | undefined): _.Dictionary<any>;
 }
 interface MapKeys1x1 {
     /**
@@ -87,6 +87,18 @@ interface MapKeys1x1 {
      * @return Returns the new mapped object.
      */
     <T>(object: _.List<T> | null | undefined): _.Dictionary<T>;
+}
+interface MapKeys2x1 {
+    /**
+     * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
+     * by running each own enumerable property of object through iteratee.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns the new mapped object.
+     */
+    (): MapKeys2x1;
     /**
      * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
      * by running each own enumerable property of object through iteratee.
@@ -97,18 +109,6 @@ interface MapKeys1x1 {
      * @return Returns the new mapped object.
      */
     <T>(object: _.Dictionary<T> | null | undefined): _.Dictionary<T>;
-}
-interface MapKeys3x1 {
-    /**
-     * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
-     * by running each own enumerable property of object through iteratee.
-     *
-     * @param object The object to iterate over.
-     * @param iteratee The function invoked per iteration.
-     * @param thisArg The this binding of iteratee.
-     * @return Returns the new mapped object.
-     */
-    (): MapKeys3x1;
     /**
      * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
      * by running each own enumerable property of object through iteratee.

@@ -494,7 +494,7 @@ interface AbcObject {
     const t1: T1 = { a: "a", b: "b" };
     const t2: T2 = { a: "a", b: 1 };
 
-    _.pullAllBy((value: T1 | T2) => value.a, [t2], [t1]); // $ExpectType T1[]
+    _.pullAllBy<T1, T2>((value: T1 | T2) => value.a, [t2], [t1]); // $ExpectType T1[]
     _.pullAllBy((value: T1 | T2) => value.a)([t2])([t1]); // $ExpectType (T1 | T2)[]
 }
 
@@ -762,8 +762,8 @@ interface AbcObject {
 
     _.zip(array, list); // $ExpectType [AbcObject | undefined, AbcObject | undefined][]
     _.zip(array)(list); // $ExpectType [AbcObject | undefined, AbcObject | undefined][]
-    _.zipAll([array, list, array]); // $ExpectType (AbcObject | undefined)[][]
-    _.zip(["a", "b"], [1, 2]); // $ExpectType [number | undefined, string | undefined][]
+    _.zipAll<AbcObject>([array, list, array]); // $ExpectType (AbcObject | undefined)[][]
+    _.zip(["a", "b"], [1, 2]); // $ExpectType [string | undefined, number | undefined][]
     _.zipAll<number | string | boolean>([[1, 2], ["a", "b"], [true, false]]); // $ExpectType (string | number | boolean | undefined)[][]
 }
 
@@ -772,13 +772,13 @@ interface AbcObject {
     const listOfKeys: ArrayLike<string> = [];
     const listOfValues: ArrayLike<number> = [];
 
-    _.zipObject([1, 2], ["a", "b"]); // $ExpectType Dictionary<number>
-    _.zipObject([1, 2])(["a", "b"]); // $ExpectType Dictionary<number>
-    _.zipObject(listOfValues, listOfKeys); // $ExpectType Dictionary<number>
+    _.zipObject(["a", "b"], [1, 2]); // $ExpectType Dictionary<number>
+    _.zipObject(["a", "b"])([1, 2]); // $ExpectType Dictionary<number>
+    _.zipObject(listOfKeys)(listOfValues); // $ExpectType Dictionary<number>
 
-    _.zipObjectDeep([1, 2], ["a.b[0].c", "a.b[1].d"]); // $ExpectType object
-    _.zipObjectDeep([1, 2])(["a.b[0].c", "a.b[1].d"]); // $ExpectType object
-    _.zipObjectDeep(listOfValues, listOfKeys); // $ExpectType object
+    _.zipObjectDeep(["a.b[0].c", "a.b[1].d"], [1, 2]); // $ExpectType object
+    _.zipObjectDeep(["a.b[0].c", "a.b[1].d"])([1, 2]); // $ExpectType object
+    _.zipObjectDeep(listOfKeys, listOfValues); // $ExpectType object
 }
 
 // _.zipWith
@@ -793,9 +793,10 @@ interface AbcObject {
 
 // _.tap
 {
-    _.tap((value: string) => {}, ""); // $ExpectType ""
-    _.tap((value: string) => {})(""); // $ExpectType string
-    _.tap((value: string[]) => {}, [""]); // $ExpectType string[]
+    const s: string = anything;
+    _.tap((value: string) => {}, s); // $ExpectType string
+    _.tap((value: string) => {})(s); // $ExpectType string
+    _.tap((value: string[]) => {}, [s]); // $ExpectType string[]
 }
 
 // _.thru
@@ -1669,7 +1670,7 @@ interface AbcObject {
 
 // _.cloneWith
 {
-    _.cloneWith((x): "" | undefined => "", 42); // $ExpectType "" | 42
+    _.cloneWith<42, "">((x): "" | undefined => "", 42); // $ExpectType "" | 42
     _.cloneWith((x: number): "" | undefined => "")(42); // $ExpectType number | ""
     _.cloneWith((x: any): "" | undefined => "")(42); // $ExpectType any
     _.cloneWith((x): "" | undefined => "", [42]); // $ExpectType "" | number[]
@@ -2004,7 +2005,11 @@ interface AbcObject {
 
 // _.isMatch
 {
-    _.isMatch({}, {}); // $ExpectType boolean
+    const source: AbcObject = { a: 1, b: "", c: true };
+    _.isMatch(source, {}); // $ExpectType boolean
+    _.isMatch(source)({}); // $ExpectType boolean
+    _.matches(source, {}); // $ExpectType boolean
+    _.matches(source)({}); // $ExpectType boolean
 }
 
 // _.isMatchWith
@@ -2372,8 +2377,8 @@ interface AbcObject {
 
 // _.inRange
 {
-    _.inRange(2, 4, 3); // $ExpectType number
-    _.inRange(2)(4)(3); // $ExpectType number
+    _.inRange(2, 4, 3); // $ExpectType boolean
+    _.inRange(2)(4)(3); // $ExpectType boolean
 }
 
 // _.random
@@ -2385,282 +2390,78 @@ interface AbcObject {
 /**********
  * Object *
  **********/
-/*
+
 // _.assign
 {
     interface Obj { a: string };
-    interface S1 { a: number };
-    interface S2 { b: number };
-    interface S3 { c: number };
-    interface S4 { d: number };
-    interface S5 { e: number };
+    interface S1 { b: number };
 
     const obj: Obj = { a: "" };
-    const s1: S1 = { a: 1 };
-    const s2: S2 = { b: 1 };
-    const s3: S3 = { c: 1 };
-    const s4: S4 = { d: 1 };
-    const s5: S5 = { e: 1 };
+    const s1: S1 = { b: 1 };
 
-    {
-        const result: Obj;
-
-        _.assign(obj);
-    }
-
-    {
-        const result: { a: number };
-
-        _.assign(obj, s1);
-    }
-
-    {
-        const result: { a: number, b: number };
-
-        _.assign(obj, s1, s2);
-    }
-
-    {
-        const result: { a: number, b: number, c: number };
-
-        _.assign(obj, s1, s2, s3);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number };
-
-        _.assign(obj, s1, s2, s3, s4);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number, e: number };
-
-        _.assign(obj, s1, s2, s3, s4, s5);
-    }
+    _.assign(obj, s1); // $ExpectType Obj & S1
+    _.assign(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.assignWith
 {
     interface Obj { a: string };
-    interface S1 { a: number };
-    interface S2 { b: number };
-    interface S3 { c: number };
-    interface S4 { d: number };
-    interface S5 { e: number };
+    interface S1 { b: number };
 
     const obj: Obj = { a: "" };
-    const s1: S1 = { a: 1 };
-    const s2: S2 = { b: 1 };
-    const s3: S3 = { c: 1 };
-    const s4: S4 = { d: 1 };
-    const s5: S5 = { e: 1 };
+    const s1: S1 = { b: 1 };
 
-    const customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => 1;
+    const customizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any => 1;
 
-    {
-        const result: Obj;
-
-        _.assignWith(obj);
-    }
-
-    {
-        const result: { a: number };
-        _.assignWith(obj, s1, customizer);
-    }
-
-    {
-        const result: { a: number, b: number };
-        _.assignWith(obj, s1, s2, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number };
-        _.assignWith(obj, s1, s2, s3, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number };
-        _.assignWith(obj, s1, s2, s3, s4, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number, e: number };
-        _.assignWith<{ a: number, b: number, c: number, d: number, e: number }>(obj, s1, s2, s3, s4, s5, customizer);
-    }
+    _.assignWith(customizer, obj, s1); // $ExpectType Obj & S1
+    _.assignWith(customizer)(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.assignIn
 {
     interface Obj { a: string };
-    interface S1 { a: number };
-    interface S2 { b: number };
-    interface S3 { c: number };
-    interface S4 { d: number };
-    interface S5 { e: number };
+    interface S1 { b: number };
 
     const obj: Obj = { a: "" };
-    const s1: S1 = { a: 1 };
-    const s2: S2 = { b: 1 };
-    const s3: S3 = { c: 1 };
-    const s4: S4 = { d: 1 };
-    const s5: S5 = { e: 1 };
+    const s1: S1 = { b: 1 };
 
-    const customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => 1;
-
-    {
-        const result: Obj;
-
-        _.assignIn(obj);
-    }
-
-    {
-        const result: { a: number };
-
-        _.assignIn(obj, s1);
-    }
-
-    {
-        const result: { a: number, b: number };
-
-        _.assignIn(obj, s1, s2);
-    }
-
-    {
-        const result: { a: number, b: number, c: number };
-
-        _.assignIn(obj, s1, s2, s3);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number };
-
-        _.assignIn(obj, s1, s2, s3, s4);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number, e: number };
-
-        _.assignIn<{ a: number, b: number, c: number, d: number, e: number }>(obj, s1, s2, s3, s4, s5);
-    }
+    _.assignIn(obj, s1); // $ExpectType Obj & S1
+    _.assignIn(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.assignInWith
 {
     interface Obj { a: string };
-    interface S1 { a: number };
-    interface S2 { b: number };
-    interface S3 { c: number };
-    interface S4 { d: number };
-    interface S5 { e: number };
+    interface S1 { b: number };
 
     const obj: Obj = { a: "" };
-    const s1: S1 = { a: 1 };
-    const s2: S2 = { b: 1 };
-    const s3: S3 = { c: 1 };
-    const s4: S4 = { d: 1 };
-    const s5: S5 = { e: 1 };
+    const s1: S1 = { b: 1 };
 
-    const customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => 1;
+    const customizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any => 1;
 
-    {
-        const result: Obj;
-
-        _.assignInWith(obj);
-    }
-
-    {
-        const result: { a: number };
-        _.assignInWith(obj, s1, customizer);
-    }
-
-    {
-        const result: { a: number, b: number };
-        _.assignInWith(obj, s1, s2, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number };
-        _.assignInWith(obj, s1, s2, s3, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number };
-        _.assignInWith(obj, s1, s2, s3, s4, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number, e: number };
-        _.assignInWith<{ a: number, b: number, c: number, d: number, e: number }>(obj, s1, s2, s3, s4, s5, customizer);
-    }
+    _.assignInWith(customizer, obj, s1); // $ExpectType Obj & S1
+    _.assignInWith(customizer)(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.create
 {
     type SampleProto = {a: number};
-    type SampleProps = {b: string};
 
     const prototype: SampleProto = { a: 1 };
-    const properties: SampleProps = { b: "" };
 
-    {
-        const result: {a: number; b: string};
-
-        _.create<SampleProto, SampleProps>(prototype, properties);
-        _.create(prototype, properties);
-    }
+    const result: SampleProto = _.create(prototype);
 }
 
 // _.defaults
 {
-  interface Obj { a: string };
-  interface S1 { a: number };
-  interface S2 { b: number };
-  interface S3 { c: number };
-  interface S4 { d: number };
-  interface S5 { e: number };
+    interface Obj { a: string };
+    interface S1 { b: number };
 
     const obj: Obj = { a: "" };
-    const s1: S1 = { a: 1 };
-    const s2: S2 = { b: 1 };
-    const s3: S3 = { c: 1 };
-    const s4: S4 = { d: 1 };
-    const s5: S5 = { e: 1 };
+    const s1: S1 = { b: 1 };
 
-    {
-    const result: Obj;
-
-    _.defaults(obj);
-    }
-
-    {
-    const result: { a: string };
-
-    _.defaults(obj, s1);
-    }
-
-    {
-    const result: { a: string, b: number };
-
-    _.defaults(obj, s1, s2);
-    }
-
-    {
-    const result: { a: string, b: number, c: number };
-
-    _.defaults(obj, s1, s2, s3);
-    }
-
-    {
-    const result: { a: string, b: number, c: number, d: number };
-
-    _.defaults(obj, s1, s2, s3, s4);
-    }
-
-    {
-    const result: { a: string, b: number, c: number, d: number, e: number };
-
-    _.defaults(obj, s1, s2, s3, s4, s5);
-    }
+    _.defaults(obj, s1); // $ExpectType Obj & S1
+    _.defaults(obj)(s1); // $ExpectType Obj & S1
 }
 
 //_.defaultsDeep
@@ -2671,550 +2472,259 @@ interface AbcObject {
             age: number;
         }
     }
-    const TestDefaultsDeepObject = { "user": { "name": "barney" } };
-    const TestDefaultsDeepSource = { "user": { "name": "fred", "age": 36 } };
-    _.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource); // $ExpectType DefaultsDeepResult
+    const testDefaultsDeepObject = { "user": { "name": "barney" } };
+    const testDefaultsDeepSource = { "user": { "name": "fred", "age": 36 } };
+    _.defaultsDeep(testDefaultsDeepSource, testDefaultsDeepObject);
+    _.defaultsDeep(testDefaultsDeepSource)(testDefaultsDeepObject);
 }
 
 // _.entries
 {
-    const object: lodash.Dictionary<string> = {};
+    const object: lodash.Dictionary<AbcObject> = {};
 
-    {
-        const result: Array<[string, string]>;
-
-        _.entries(object);
-    }
+    _.entries(object); // $ExpectType [string, AbcObject][]
 }
 
 // _.entriesIn
 {
-    const object: lodash.Dictionary<string> = {};
+    const object: lodash.Dictionary<AbcObject> = {};
 
-    {
-        const result: Array<[string, string]>;
-
-        _.entriesIn(object);
-    }
+    _.entriesIn(object); // $ExpectType [string, AbcObject][]
 }
 
 // _.extend
 {
-    type Obj = { a: string };
-    type S1 = { a: number };
-    type S2 = { b: number };
-    type S3 = { c: number };
-    type S4 = { d: number };
-    type S5 = { e: number };
+    interface Obj { a: string };
+    interface S1 { b: number };
 
     const obj: Obj = { a: "" };
-    const s1: S1 = { a: 1 };
-    const s2: S2 = { b: 1 };
-    const s3: S3 = { c: 1 };
-    const s4: S4 = { d: 1 };
-    const s5: S5 = { e: 1 };
+    const s1: S1 = { b: 1 };
 
-    const customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => 1;
-
-    {
-        const result: Obj;
-
-        _.extend(obj);
-    }
-
-    {
-        const result: { a: number };
-
-        _.extend(obj, s1);
-    }
-
-    {
-        const result: { a: number, b: number };
-
-        _.extend(obj, s1, s2);
-    }
-
-    {
-        const result: { a: number, b: number, c: number };
-
-        _.extend(obj, s1, s2, s3);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number };
-
-        _.extend(obj, s1, s2, s3, s4);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number, e: number };
-
-        _.extend<{ a: number, b: number, c: number, d: number, e: number }>(obj, s1, s2, s3, s4, s5);
-    }
+    _.extend(obj, s1); // $ExpectType Obj & S1
+    _.extend(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.extendWith
 {
-    type Obj = { a: string };
-    type S1 = { a: number };
-    type S2 = { b: number };
-    type S3 = { c: number };
-    type S4 = { d: number };
-    type S5 = { e: number };
+    interface Obj { a: string };
+    interface S1 { b: number };
 
     const obj: Obj = { a: "" };
-    const s1: S1 = { a: 1 };
-    const s2: S2 = { b: 1 };
-    const s3: S3 = { c: 1 };
-    const s4: S4 = { d: 1 };
-    const s5: S5 = { e: 1 };
+    const s1: S1 = { b: 1 };
 
-    const customizer: (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => 1;
+    const customizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any => 1;
 
-    {
-        const result: Obj;
-
-        _.extendWith(obj);
-    }
-
-    {
-        const result: { a: number };
-
-        _.extendWith(obj, s1, customizer);
-    }
-
-    {
-        const result: { a: number, b: number };
-
-        _.extendWith(obj, s1, s2, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number };
-
-        _.extendWith(obj, s1, s2, s3, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number };
-
-        _.extendWith(obj, s1, s2, s3, s4, customizer);
-    }
-
-    {
-        const result: { a: number, b: number, c: number, d: number, e: number };
-
-        _.extendWith<{ a: number, b: number, c: number, d: number, e: number }>(obj, s1, s2, s3, s4, s5, customizer);
-    }
+    _.extendWith(customizer, obj, s1); // $ExpectType Obj & S1
+    _.extendWith(customizer)(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.findKey
 {
-    {
-        const a: keyof undefined;
-        const predicateFn = (value: any, key: string, object: {}) => true;
-        const result: string | undefined;
+    const predicateFn = (value: number) => true;
 
-        _.findKey<{a: string;}>({a: ""});
-
-        _.findKey<{a: string;}>({a: ""}, predicateFn);
-
-        _.findKey<{a: string;}>({a: ""}, "");
-
-        _.findKey({a: { b: 5 }}, {b: 42});
-
-        _.findKey({a: { b: 5 }}, ["b", 5]);
-    }
-
-    {
-        const predicateFn = (value: string, key: string, collection: lodash.Dictionary<string>) => true;
-        const result: string | undefined;
-
-        _.findKey({a: ""}, predicateFn);
-    }
+    _.findKey(predicateFn, { a: 1 }); // $ExpectType string | undefined
+    _.findKey(predicateFn)({ a: 1 }); // $ExpectType string | undefined
 }
 
 // _.findLastKey
 {
-    {
-        const predicateFn = (value: any, key: string, object: {}) => true;
-        const result: string | undefined;
+    const predicateFn = (value: number) => true;
 
-        _.findLastKey<{a: string;}>({a: ""});
-
-        _.findLastKey<{a: string;}>({a: ""}, predicateFn);
-
-        _.findLastKey<{a: string;}>({a: ""}, "");
-
-        _.findLastKey({a: { b: 5 }}, {b: 42});
-
-        _.findLastKey({a: { b: 5 }}, ["b", 5]);
-    }
-
-    {
-        const predicateFn = (value: string, key: string, collection: lodash.Dictionary<string>) => true;
-        const result: string | undefined;
-
-        _.findLastKey({a: ""}, predicateFn);
-    }
+    _.findLastKey(predicateFn, { a: 1 }); // $ExpectType string | undefined
+    _.findLastKey(predicateFn)({ a: 1 }); // $ExpectType string | undefined
 }
 
 // _.forIn
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const dictionary: lodash.Dictionary<number> = {};
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
-    const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
+    const dictionaryIterator = (value: number): void => {};
 
     const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
-    const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
+    const objectIterator = (element: number | string | boolean): void => {};
 
-    {
-        const result: lodash.Dictionary<number>;
+    _.forIn(dictionaryIterator, dictionary); // $ExpectType Dictionary<number>
+    _.forIn(dictionaryIterator)(dictionary); // $ExpectType Dictionary<number>
+    _.forIn(dictionaryIterator, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    _.forIn(dictionaryIterator)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
 
-        _.forIn(dictionary);
-        _.forIn(dictionary, dictionaryIterator);
-    }
-
-    {
-        const result: lodash.Dictionary<number> | null | undefined;
-
-        _.forIn(nilDictionary);
-        _.forIn(nilDictionary, dictionaryIterator);
-    }
-
-    {
-        const result: AbcObject;
-
-        _.forIn<AbcObject>(object);
-        _.forIn<AbcObject>(object, objectIterator);
-    }
-
-    {
-        const result: AbcObject | null | undefined;
-
-        _.forIn<AbcObject | null | undefined>(nilObject);
-        _.forIn<AbcObject | null | undefined>(nilObject, objectIterator);
-    }
+    _.forIn(objectIterator, object); // $ExpectType AbcObject
+    _.forIn(objectIterator)(object); // $ExpectType AbcObject
+    _.forIn(objectIterator, nilObject); // $ExpectType AbcObject | null | undefined
+    _.forIn(objectIterator)(nilObject); // $ExpectType AbcObject | null | undefined
 }
 
 // _.forInRight
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const dictionary: lodash.Dictionary<number> = {};
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
-    const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
+    const dictionaryIterator = (value: number): void => {};
 
     const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
-    const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
+    const objectIterator = (element: number | string | boolean): void => {};
 
-    {
-        const result: lodash.Dictionary<number>;
+    _.forInRight(dictionaryIterator, dictionary); // $ExpectType Dictionary<number>
+    _.forInRight(dictionaryIterator)(dictionary); // $ExpectType Dictionary<number>
+    _.forInRight(dictionaryIterator, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    _.forInRight(dictionaryIterator)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
 
-        _.forInRight(dictionary);
-        _.forInRight(dictionary, dictionaryIterator);
-    }
-
-    {
-        const result: lodash.Dictionary<number> | null | undefined;
-
-        _.forInRight(nilDictionary);
-        _.forInRight(nilDictionary, dictionaryIterator);
-    }
-
-    {
-        const result: AbcObject;
-
-        _.forInRight<AbcObject>(object);
-        _.forInRight<AbcObject>(object, objectIterator);
-    }
-
-    {
-        const result: AbcObject | null | undefined;
-
-        _.forInRight<AbcObject | null | undefined>(nilObject);
-        _.forInRight<AbcObject | null | undefined>(nilObject, objectIterator);
-    }
+    _.forInRight(objectIterator, object); // $ExpectType AbcObject
+    _.forInRight(objectIterator)(object); // $ExpectType AbcObject
+    _.forInRight(objectIterator, nilObject); // $ExpectType AbcObject | null | undefined
+    _.forInRight(objectIterator)(nilObject); // $ExpectType AbcObject | null | undefined
 }
 
 // _.forOwn
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const dictionary: lodash.Dictionary<number> = {};
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
-    const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
+    const dictionaryIterator = (value: number): void => {};
 
     const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
-    const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
+    const objectIterator = (element: number | string | boolean): void => {};
 
-    {
-        const result: lodash.Dictionary<number>;
+    _.forOwn(dictionaryIterator, dictionary); // $ExpectType Dictionary<number>
+    _.forOwn(dictionaryIterator)(dictionary); // $ExpectType Dictionary<number>
+    _.forOwn(dictionaryIterator, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    _.forOwn(dictionaryIterator)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
 
-        _.forOwn(dictionary);
-        _.forOwn(dictionary, dictionaryIterator);
-    }
-
-    {
-        const result: lodash.Dictionary<number> | null | undefined;
-
-        _.forOwn(nilDictionary);
-        _.forOwn(nilDictionary, dictionaryIterator);
-    }
-
-    {
-        const result: AbcObject;
-
-        _.forOwn<AbcObject>(object);
-        _.forOwn<AbcObject>(object, objectIterator);
-    }
-
-    {
-        const result: AbcObject | null | undefined;
-
-        _.forOwn<AbcObject | null | undefined>(nilObject);
-        _.forOwn<AbcObject | null | undefined>(nilObject, objectIterator);
-    }
+    _.forOwn(objectIterator, object); // $ExpectType AbcObject
+    _.forOwn(objectIterator)(object); // $ExpectType AbcObject
+    _.forOwn(objectIterator, nilObject); // $ExpectType AbcObject | null | undefined
+    _.forOwn(objectIterator)(nilObject); // $ExpectType AbcObject | null | undefined
 }
 
 // _.forOwnRight
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const dictionary: lodash.Dictionary<number> = {};
     const nilDictionary: lodash.Dictionary<number> | null | undefined = anything;
-    const dictionaryIterator: (value: number, key: string, collection: lodash.Dictionary<number>) => any = (value: number, key: string, collection: lodash.Dictionary<number>) => 1;
+    const dictionaryIterator = (value: number): void => {};
 
     const object: AbcObject = { a: 1, b: "", c: true };
     const nilObject: AbcObject | null | undefined = anything;
-    const objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
+    const objectIterator = (element: number | string | boolean): void => {};
 
-    {
-        const result: lodash.Dictionary<number>;
+    _.forOwnRight(dictionaryIterator, dictionary); // $ExpectType Dictionary<number>
+    _.forOwnRight(dictionaryIterator)(dictionary); // $ExpectType Dictionary<number>
+    _.forOwnRight(dictionaryIterator, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    _.forOwnRight(dictionaryIterator)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
 
-        _.forOwnRight(dictionary);
-        _.forOwnRight(dictionary, dictionaryIterator);
-    }
-
-    {
-        const result: lodash.Dictionary<number> | null | undefined;
-
-        _.forOwnRight(nilDictionary);
-        _.forOwnRight(nilDictionary, dictionaryIterator);
-    }
-
-    {
-        const result: AbcObject;
-
-        _.forOwnRight<AbcObject>(object);
-        _.forOwnRight<AbcObject>(object, objectIterator);
-    }
-
-    {
-        const result: AbcObject | null | undefined;
-
-        _.forOwnRight<AbcObject | null | undefined>(nilObject);
-        _.forOwnRight<AbcObject | null | undefined>(nilObject, objectIterator);
-    }
+    _.forOwnRight(objectIterator, object); // $ExpectType AbcObject
+    _.forOwnRight(objectIterator)(object); // $ExpectType AbcObject
+    _.forOwnRight(objectIterator, nilObject); // $ExpectType AbcObject | null | undefined
+    _.forOwnRight(objectIterator)(nilObject); // $ExpectType AbcObject | null | undefined
 }
 
 // _.functions
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const object: AbcObject = { a: 1, b: "", c: true };
 
-    {
-        const result: string[];
-
-        _.functions(object);
-    }
+    _.functions(object); // $ExpectType string[]
 }
 
 // _.functionsIn
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const object: AbcObject = { a: 1, b: "", c: true };
 
-    {
-        const result: string[];
-
-        _.functionsIn<AbcObject>(object);
-    }
+    _.functionsIn(object); // $ExpectType string[]
 }
 
 // _.get
 {
-    _.get([], Symbol.iterator); // $ExpectType any
-    _.get([], [Symbol.iterator]); // $ExpectType any
-    _.get("abc", 1); // $ExpectType string
-    _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
-    _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
-    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
+    _.get(Symbol.iterator, []); // $ExpectType any
+    _.get(Symbol.iterator)([]); // $ExpectType any
+    _.get([Symbol.iterator], []); // $ExpectType any
+    _.get(1)("abc"); // $ExpectType string
+    _.get("1")("abc"); // $ExpectType any
+    _.get("a", { a: { b: true } }); // $ExpectType { b: boolean; }
+    _.get<{ a: { b: boolean } }, "a">("a")({ a: { b: true } }); // $ExpectType { b: boolean; }
+    _.get(["a", "b"])({ a: { b: true } }); // $ExpectType any
+    _.get(0)([42]); // $ExpectType number
 
-    {
-        const result: string;
+    _.getOr(-1, 0, [42]); // $ExpectType number
+    _.getOr(-1)(0)([42]); // $ExpectType number
+    _.getOr("empty" as "empty")(0)([42]); // $ExpectType number | "empty"
 
-        _.get("abc", "0");
-        _.get("abc", "0", "_");
-        _.get("abc", ["0"]);
-        _.get("abc", ["0"], "_");
-    }
+    _.property(Symbol.iterator)([]); // $ExpectType any
+    _.property([Symbol.iterator], []); // $ExpectType any
+    _.property(1)("abc"); // $ExpectType string
 
-    {
-        const result: number;
-
-        _.get([42], "0");
-        _.get([42], "0", -1);
-        _.get([42], ["0"]);
-        _.get([42], ["0"], -1);
-    }
-
-    {
-        const result: boolean;
-
-        _.get({a: true}, "a");
-        _.get({a: true}, "a", false);
-        _.get({a: true}, ["a"]);
-        _.get({a: true}, ["a"], false);
-    }
+    _.propertyOf(Symbol.iterator)([]); // $ExpectType any
+    _.propertyOf([Symbol.iterator], []); // $ExpectType any
+    _.propertyOf(1)("abc"); // $ExpectType string
 }
 
 // _.has
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const object: AbcObject = { a: 1, b: "", c: true };
 
-    {
-        const result: boolean;
-
-        _.has<AbcObject>(object, "");
-        _.has<AbcObject>(object, 42);
-        _.has<AbcObject>(object, ["", 42]);
-    }
+    _.has("a", object); // $ExpectType boolean
+    _.has("a")(object); // $ExpectType boolean
+    _.has(["a", 42])(object); // $ExpectType boolean
 }
 
 // _.hasIn
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const object: AbcObject = { a: 1, b: "", c: true };
 
-    {
-        const result: boolean;
-
-        _.hasIn<AbcObject>(object, "");
-        _.hasIn<AbcObject>(object, 42);
-        _.hasIn<AbcObject>(object, ["", 42]);
-    }
+    _.hasIn("a", object); // $ExpectType boolean
+    _.hasIn("a")(object); // $ExpectType boolean
+    _.hasIn(["a", 42])(object); // $ExpectType boolean
 }
 
 // _.invert
 {
-    {
-        const result: lodash.Dictionary<string>;
-
-        _.invert({});
-    }
+    _.invert({}); // $ExpectType Dictionary<string>
 }
 
 // _.invertBy
 {
-    const array: Array<{a: number;}> = [];
     const list: ArrayLike<{a: number;}> = [];
     const dictionary: lodash.Dictionary<{a: number;}> = {};
     const numericDictionary: lodash.NumericDictionary<{a: number;}> = {};
 
     const stringIterator: (value: string) => any = (value: string) => 1;
-    const arrayIterator: (value: {a: number;}) => any = (value: {a: number;}) => 1;
     const listIterator: (value: {a: number;}) => any = (value: {a: number;}) => 1;
-    const dictionaryIterator: (value: {a: number;}) => any = (value: {a: number;}) => 1;
-    const numericDictionaryIterator: (value: {a: number;}) => any = (value: {a: number;}) => 1;
 
-    {
-        const result: lodash.Dictionary<string[]>;
-
-        _.invertBy("foo");
-        _.invertBy("foo", stringIterator);
-
-        _.invertBy(array);
-        _.invertBy<{a: number;}>(array, "a");
-        _.invertBy<{a: number;}>(array, arrayIterator);
-        _.invertBy<{a: number;}>(array, {a: 1});
-
-        _.invertBy(list);
-        _.invertBy<{a: number;}>(list, "a");
-        _.invertBy<{a: number;}>(list, listIterator);
-        _.invertBy<{a: number;}>(list, {a: 1});
-
-        _.invertBy(dictionary);
-        _.invertBy<{a: number;}>(dictionary, "a");
-        _.invertBy<{a: number;}>(dictionary, dictionaryIterator);
-        _.invertBy<{a: number;}>(dictionary, {a: 1});
-
-        _.invertBy(numericDictionary);
-        _.invertBy<{a: number;}>(numericDictionary, "a");
-        _.invertBy<{a: number;}>(numericDictionary, numericDictionaryIterator);
-        _.invertBy<{a: number;}>(numericDictionary, {a: 1});
-    }
+    _.invertBy(stringIterator, "foo"); // $ExpectType Dictionary<string[]>
+    _.invertBy(stringIterator)("foo"); // $ExpectType Dictionary<string[]>
+    _.invertBy(listIterator)(list); // $ExpectType Dictionary<string[]>
+    _.invertBy("a")(list); // $ExpectType Dictionary<string[]>
+    _.invertBy({ a: 1 })(list); // $ExpectType Dictionary<string[]>
+    _.invertBy(listIterator)(dictionary); // $ExpectType Dictionary<string[]>
+    _.invertBy("a")(dictionary); // $ExpectType Dictionary<string[]>
+    _.invertBy({ a: 1 })(dictionary); // $ExpectType Dictionary<string[]>
+    _.invertBy(listIterator)(numericDictionary); // $ExpectType Dictionary<string[]>
+    _.invertBy("a")(numericDictionary); // $ExpectType Dictionary<string[]>
+    _.invertBy({ a: 1 })(numericDictionary); // $ExpectType Dictionary<string[]>
 }
 
 // _.keys
 {
-    const object: lodash.Dictionary<any> | null | undefined = anything;
-
-    {
-        const result: string[];
-
-        _.keys(object);
-    }
+    _.keys({}); // $ExpectType string[]
 }
 
 // _.keysIn
 {
-    const object: lodash.Dictionary<any> | null | undefined = anything;
-
-    {
-        const result: string[];
-
-        _.keysIn(object);
-    }
+    _.keysIn({}); // $ExpectType string[]
 }
 
 // _.mapKeys
 {
-    const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject>| null | undefined = anything;
     const dictionary: lodash.Dictionary<AbcObject> | null | undefined = anything;
+    const obj: AbcObject | null | undefined = anything;
 
-    const listIterator = (value: AbcObject, index: number, collection: ArrayLike<AbcObject>) => "";
-    const dictionaryIterator = (value: AbcObject, key: string, collection: lodash.Dictionary<AbcObject>) => "";
+    const listIterator = (key: number) => "_" + key;
+    const dictionaryIterator = (key: string) => "_" + key;
 
-    {
-        const result: lodash.Dictionary<AbcObject>;
-
-        _.mapKeys(array);
-        _.mapKeys(array, listIterator);
-        _.mapKeys(array, "");
-        _.mapKeys(array, {});
-
-        _.mapKeys(list);
-        _.mapKeys(list, listIterator);
-        _.mapKeys(list, "");
-        _.mapKeys(list, {});
-
-        _.mapKeys(dictionary);
-        _.mapKeys(dictionary, dictionaryIterator);
-        _.mapKeys(dictionary, "");
-        _.mapKeys(dictionary, {});
-    }
+    _.mapKeys(listIterator, list); // $ExpectType Dictionary<AbcObject>
+    _.mapKeys(listIterator)(list); // $ExpectType Dictionary<AbcObject>
+    _.mapKeys(dictionaryIterator)(dictionary); // $ExpectType Dictionary<AbcObject>
+    _.mapKeys(dictionaryIterator)(obj); // $ExpectType Dictionary<any>
 }
 
 // _.merge
@@ -3222,82 +2732,29 @@ interface AbcObject {
     const initialValue = { a : 1 };
     const mergingValue = { b : "hi" };
 
-    interface ExpectedResult {
-        a: number;
-        b: string;
-    }
-    const result: ExpectedResult;
-
-    // Test for basic merging
-
-    _.merge(initialValue, mergingValue);
-
-    _.merge(initialValue, {}, mergingValue);
-
-    _.merge(initialValue, {}, {}, mergingValue);
-
-    _.merge(initialValue, {}, {}, {}, mergingValue);
-
-    // Once we get to the varargs version, you have to specify the result explicitly
-    _.merge(initialValue, {}, {}, {}, {}, mergingValue);
-
-    type ComplicatedExpectedType = { a: number, b: string, c: {}, d: number[], e: boolean };
-
-    const complicatedResult: ComplicatedExpectedType = _.merge({ a: 1 },
-                                                             { b: "string" },
-                                                             { c: {} },
-                                                             { d: [1] },
-                                                             { e: true });
-    // Test for type overriding
-
-    type ExpectedTypeAfterOverriding = { a: boolean };
-
-    const overriddenResult: ExpectedTypeAfterOverriding = _.merge({ a: 1 },
-                                                                { a: "string" },
-                                                                { a: {} },
-                                                                { a: [1] },
-                                                                { a: true });
+    _.merge(mergingValue, initialValue); // $ExpectType { b: string; } & { a: number; }
+    _.merge(mergingValue)(initialValue); // $ExpectType { b: string; } & { a: number; }
 }
 
 // _.mergeWith
 {
-    const initialValue  = { a : 1 };
-    const mergingValue  = { b : "hi" };
+    const initialValue = { a : 1 };
+    const mergingValue = { b : "hi" };
+    const customizer = (value: any, srcValue: any, key: string, object: typeof initialValue, source: typeof mergingValue): any => 1;
 
-    interface ExpectedResult {
-        a: number;
-        b: string;
-    }
-    const result: ExpectedResult;
-
-    const customizer: (value: any, srcValue: any, key: string, object: InitialValue, source: MergingValue) => any = (value: any, srcValue: any, key: string, object: InitialValue, source: MergingValue) => 1;
-
-    // Test for basic merging
-    _.mergeWith(initialValue, mergingValue, customizer);
-    _.mergeWith(initialValue, {}, mergingValue, customizer);
-    _.mergeWith(initialValue, {}, {}, mergingValue, customizer);
-    _.mergeWith(initialValue, {}, {}, {}, mergingValue, customizer);
-
-    // Once we get to the varargs version, you have to specify the result explicitl
-    _.mergeWith(initialValue, {}, {}, {}, {}, mergingValue, customizer);
+    _.mergeWith(customizer, mergingValue, initialValue); // $ExpectType { b: string; } & { a: number; }
+    _.mergeWith(customizer)(mergingValue)(initialValue); // $ExpectType { b: string; } & { a: number; }
 }
 
 // _.omit
 {
     const obj: AbcObject | null | undefined = anything;
-    const dict: { [key: string]: AbcObject } = { };
 
-    {
-        const result: Partial<AbcObject>;
-
-        _.omit(obj, "a");
-        _.omit(obj, 0, "a");
-        _.omit(obj, ["b", 1], 0, "a");
-
-        dict = _.omit(dict, "a");
-    }
+    _.omit("a", obj); // $ExpectType Partial<AbcObject>
+    _.omit("a")(obj); // $ExpectType Partial<AbcObject>
+    _.omit(["a", "b"])(obj); // $ExpectType Partial<AbcObject>
 }
-*/
+
 // _.omitBy
 {
     const obj: AbcObject = anything;
@@ -3306,143 +2763,66 @@ interface AbcObject {
     _.omitBy(predicate, obj); // $ExpectType Partial<AbcObject>
     _.omitBy(predicate)(obj); // $ExpectType Partial<AbcObject>
 }
-/*
+
 // _.pick
 {
-    const obj1: AbcObject | null | undefined = anything;
-    const obj2: AbcObject = anything;
+    const obj: AbcObject = anything;
 
-    {
-        const result: Partial<AbcObject>;
-
-        _.pick(obj1, "a");
-        _.pick(obj1, 0, "a");
-        _.pick(obj1, ["b", 1], 0, "a");
-    }
-
-    {
-        const result: Pick<AbcObject, "a" | "b">;
-        _.pick(obj2, "a", "b");
-        _.pick(obj2, ["a" as "a", "b" as "b"]);
-    }
+    _.pick<AbcObject, "a">("a", obj); // $ExpectType Pick<AbcObject, "a">
+    _.pick<AbcObject, "a">("a")(obj); // $ExpectType Pick<AbcObject, "a">
+    _.pick<AbcObject, "a" | "b">(["a" as "a", "b" as "b"])(obj); // $ExpectType Pick<AbcObject, "a" | "b">
 }
 
 // _.pickBy
 {
     const obj: AbcObject | null | undefined = anything;
-    const predicate = (element: any, key: string) => true;
+    const predicate = (element: string | number | boolean) => true;
 
-    {
-        const result: Partial<AbcObject>;
-
-        _.pickBy(obj, predicate);
-    }
+     _.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
+     _.pickBy(predicate)(obj); // $ExpectType Partial<AbcObject>
 }
 
 // _.result
 {
-    {
-        const result: string;
-
-        _.result<string>("abc", "0");
-        _.result<string>("abc", "0", "_");
-        _.result<string>("abc", "0", () => "_");
-        _.result<string>("abc", ["0"]);
-        _.result<string>("abc", ["0"], "_");
-        _.result<string>("abc", ["0"], () => "_");
-    }
-
-    {
-        const result: number;
-
-        _.result<number>([42], "0");
-        _.result<number>([42], "0", -1);
-        _.result<number>([42], "0", () => -1);
-        _.result<number>([42], ["0"]);
-        _.result<number>([42], ["0"], -1);
-        _.result<number>([42], ["0"], () => -1);
-    }
-
-    {
-        const result: boolean;
-
-        _.result<boolean>({a: true}, "a");
-        _.result<boolean>({a: true}, "a", false);
-        _.result<boolean>({a: true}, "a", () => false);
-        _.result<boolean>({a: true}, ["a"]);
-        _.result<boolean>({a: true}, ["a"], false);
-        _.result<boolean>({a: true}, ["a"], () => false);
-    }
+    _.result<string>("0", "abc"); // $ExpectType string
+    _.result("0")<string>("abc"); // $ExpectType string
 }
 
 // _.set
 {
-    type SampleObject = {a: {}};
-    type Sample{a: {b: number[]}};
-
-    const object: SampleObject = { a: {} };
+    const object: AbcObject = anything;
     const value = 0;
 
-    {
-        const result: SampleResult;
-
-        _.set<SampleResult>(object, "a.b[1]", value);
-        _.set<SampleResult>(object, ["a", "b", 1], value);
-    }
-
-    {
-        const result: _.LoDashImplicitObjectWrapper<SampleResult>;
-
-        _(object).set<SampleResult>("a.b[1]", value);
-        _(object).set<SampleResult>(["a", "b", 1], value);
-    }
-
-    {
-        const result: _.LoDashExplicitObjectWrapper<SampleResult>;
-
-        _(object).chain().set<SampleResult>("a.b[1]", value);
-        _(object).chain().set<SampleResult>(["a", "b", 1], value);
-    }
+    _.set("a", value, object); // $ExpectType AbcObject
+    _.set("a")(value)(object); // $ExpectType AbcObject
+    _.set("a.b[1]")(value)(object); // $ExpectType AbcObject
+    _.set(["a", "b", 1])(value)(object); // $ExpectType AbcObject
 }
 
 // _.setWith
 {
-    type Sample{a: {b: number[]}};
-
-    const object: Sample{ a: { b: [] } };
+    const object: AbcObject = anything;
     const value = 0;
-    const customizer = (value: any, key: string, object: SampleResult) => 0;
+    const customizer = (value: any, key: string, object: AbcObject) => 0;
 
-    {
-        const result: SampleResult;
-
-        _.setWith<SampleResult>(object, "a.b[1]", value);
-        _.setWith<SampleResult>(object, "a.b[1]", value, customizer);
-        _.setWith<SampleResult>(object, ["a", "b", 1], value);
-        _.setWith<SampleResult>(object, ["a", "b", 1], value, customizer);
-    }
+    _.setWith(customizer, "a", value, object); // $ExpectType AbcObject
+    _.setWith(customizer)("a")(value)(object); // $ExpectType AbcObject
+    _.setWith(customizer)("a.b[1]")(value)(object); // $ExpectType AbcObject
+    _.setWith(customizer)(["a", "b", 1])(value)(object); // $ExpectType AbcObject
 }
 
 // _.toPairs
 {
-    const object: lodash.Dictionary<string> = {};
+    const object: lodash.Dictionary<AbcObject> = {};
 
-    {
-        const result: Array<[string, string]>;
-
-        _.toPairs(object);
-    }
+    _.toPairs(object); // $ExpectType [string, AbcObject][]
 }
 
 // _.toPairsIn
 {
-    const object: lodash.Dictionary<string> = {};
+    const object: lodash.Dictionary<AbcObject> = {};
 
-    {
-        const result: Array<[string, string]>;
-
-        _.toPairsIn(object);
-    }
+    _.toPairsIn(object); // $ExpectType [string, AbcObject][]
 }
 
 // _.transform
@@ -3451,362 +2831,226 @@ interface AbcObject {
     const dictionary: lodash.Dictionary<number> = {};
 
     {
-        const iterator = (acc: AbcObject[], curr: number, index?: number, arr?: number[]) => {};
+        const iterator = (acc: AbcObject[], curr: number): AbcObject => anything;
         const accumulator: AbcObject[] = [];
-        const result: AbcObject[];
 
-        _.transform(array);
-        _.transform<number, AbcObject>(array, iterator);
-        _.transform<number, AbcObject>(array, iterator, accumulator);
+        _.transform(iterator, accumulator, array); // $ExpectType AbcObject[]
+        _.transform(iterator)(accumulator)(array); // $ExpectType AbcObject[]
+        _.transform(iterator)(accumulator)(dictionary); // $ExpectType AbcObject[]
     }
 
     {
-        const iterator = (acc: lodash.Dictionary<AbcObject>, curr: number, index?: number, arr?: number[]) => {};
+        const iterator = (acc: lodash.Dictionary<AbcObject>, curr: number): AbcObject => anything;
         const accumulator: lodash.Dictionary<AbcObject> = {};
-        const result: lodash.Dictionary<AbcObject>;
 
-        _.transform<number, AbcObject>(array, iterator, accumulator);
-    }
-
-    {
-        const iterator = (acc: lodash.Dictionary<AbcObject>, curr: number, key?: string, dict?: lodash.Dictionary<number>) => {};
-        const accumulator: lodash.Dictionary<AbcObject> = {};
-        const result: lodash.Dictionary<AbcObject>;
-
-        _.transform(dictionary);
-        _.transform<number, AbcObject>(dictionary, iterator);
-        _.transform<number, AbcObject>(dictionary, iterator, accumulator);
-    }
-
-    {
-        const iterator = (acc: AbcObject[], curr: number, key?: string, dict?: lodash.Dictionary<number>) => {};
-        const accumulator: AbcObject[] = [];
-        const result: AbcObject[];
-
-        _.transform<number, AbcObject>(dictionary, iterator, accumulator);
+        _.transform(iterator)(accumulator)(array); // $ExpectType Dictionary<AbcObject>
+        _.transform(iterator)(accumulator)(dictionary); // $ExpectType Dictionary<AbcObject>
     }
 }
 
 // _.unset
 {
-    type SampleObject = {a: {b: string; c: boolean}};
-
+    interface SampleObject {
+        a: {
+            b: string;
+            c: boolean;
+        };
+    }
     const object: SampleObject = { a: { b: "", c: true } };
 
-    {
-        const result: boolean;
-
-        _.unset(object, "a.b");
-        _.unset(object, ["a", "b"]);
-    }
+    _.unset("a.b", object); // $ExpectType boolean
+    _.unset("a.b")(object); // $ExpectType boolean
+    _.unset(["a", "b"])(object); // $ExpectType boolean
 }
 
 // _.update
 {
-    type Sample{a: {b: number[]}};
-
-    const object: Sample{ a: { b: [] } };
+    interface SampleObject {
+        a: {
+            b: number[];
+        };
+    }
+    const object: SampleObject = { a: { b: [] } };
     const updater = (value: any) => 0;
 
-    {
-        const result: SampleResult;
-
-        _.update(object, "a.b[1]", updater);
-        _.update(object, ["a", "b", 1], updater);
-    }
+    _.update("a.b[1]", updater, object); // $ExpectType any
+    _.update(["a", "b", 1])(updater)(object); // $ExpectType any
 }
 
 // _.updateWith
 {
-    type Sample{a: {b: number[]}};
-
-    const object: Sample{ a: { b: [] } };
-    const updater = (value: any) => 0;
-    const customizer = (value: any, key: string, object: SampleResult) => 0;
-
-    {
-        const result: SampleResult;
-
-        _.updateWith<SampleResult>(object, "a.b[1]", updater);
-        _.updateWith<SampleResult>(object, "a.b[1]", updater, customizer);
-        _.updateWith<SampleResult>(object, ["a", "b", 1], updater);
-        _.updateWith<SampleResult>(object, ["a", "b", 1], updater, customizer);
-
-        _.updateWith<SampleResult>(object, "a.b[1]", updater);
-        _.updateWith<SampleResult>(object, "a.b[1]", updater, customizer);
-        _.updateWith<SampleResult>(object, ["a", "b", 1], updater);
-        _.updateWith<SampleResult>(object, ["a", "b", 1], updater, customizer);
+    interface SampleObject {
+        a: {
+            b: number[];
+        };
     }
+    const object: SampleObject = { a: { b: [] } };
+    const updater = (value: any) => 0;
+    const customizer = (value: any, key: string, object: SampleObject) => 0;
+
+    _.updateWith(customizer, "a.b[1]", updater, object); // $ExpectType SampleObject
+    _.updateWith(customizer)(["a", "b", 1])(updater)(object); // $ExpectType SampleObject
 }
 
 // _.values
 {
-    type SampleObject = {a: {}};
+    _.values("hi"); // $ExpectType string[]
+    _.values(["h", "i"]); // $ExpectType string[]
 
-    {
-        const result: any[];
+    _.values([1, 2]); // $ExpectType number[]
 
-        _.values(123);
-        _.values(true);
-        _.values(null);
-    }
+    _.values([true, false]); // $ExpectType boolean[]
 
-    {
-        const result: string[];
+    const dict: lodash.Dictionary<AbcObject> = {};
+    const numDict: lodash.NumericDictionary<AbcObject> = {};
+    const list: ArrayLike<AbcObject> = [];
+    const object: AbcObject = anything;
 
-        _.values("hi");
-        _.values(["h", "i"]);
-    }
-
-    {
-        const result: number[];
-
-        _.values([1, 2]);
-    }
-
-    {
-        const result: boolean[];
-
-        _.values([true, false]);
-    }
-
-    {
-        const dict: lodash.Dictionary<SampleObject> = {};
-        const numDict: lodash.NumericDictionary<SampleObject> = {};
-        const list: ArrayLike<SampleObject> = [];
-        const object: {a: SampleObject} = { a: { a: {} } };
-        const result: SampleObject[];
-
-        _.values(dict);
-        _.values(numDict);
-        _.values(list);
-        _.values<SampleObject>(object);
-    }
+    _.values(dict); // $ExpectType AbcObject[]
+    _.values(numDict); // $ExpectType AbcObject[]
+    _.values(list); // $ExpectType AbcObject[]
+    _.values(object); // $ExpectType (string | number | boolean)[]
 }
 
 // _.valuesIn
 {
-    const object: lodash.Dictionary<AbcObject> = {};
+    _.valuesIn("hi"); // $ExpectType string[]
+    _.valuesIn(["h", "i"]); // $ExpectType string[]
 
-    {
-        const result: AbcObject[];
+    _.valuesIn([1, 2]); // $ExpectType number[]
 
-        _.valuesIn(object);
-    }
+    _.valuesIn([true, false]); // $ExpectType boolean[]
 
-    {
-        const result: AbcObject[];
+    const dict: lodash.Dictionary<AbcObject> = {};
+    const numDict: lodash.NumericDictionary<AbcObject> = {};
+    const list: ArrayLike<AbcObject> = [];
+    const object: AbcObject = anything;
 
-        // Without this type hint, this will fail to compile, as expected.
-        _.valuesIn<AbcObject>({});
-    }
-
-    {
-        const result: AbcObject[];
-
-        _.values(object);
-    }
+    _.valuesIn(dict); // $ExpectType AbcObject[]
+    _.valuesIn(numDict); // $ExpectType AbcObject[]
+    _.valuesIn(list); // $ExpectType AbcObject[]
+    _.valuesIn(object); // $ExpectType (string | number | boolean)[]
 }
-*/
+
 /**********
  * String *
  **********/
-/*
+
 // _.camelCase
 {
-    {
-        const result: string;
-
-        _.camelCase("Foo Bar");
-    }
+    _.camelCase("Foo Bar"); // $ExpectType string
 }
 
 // _.capitalize
 {
-    {
-        const result: string;
-
-        _.capitalize("fred");
-    }
+    _.capitalize("fred"); // $ExpectType string
 }
 
 // _.deburr
 {
-    {
-        const result: string;
-
-        _.deburr("déjà vu");
-    }
+    _.deburr("déjà vu"); // $ExpectType string
 }
 
 // _.endsWith
 {
-    {
-        const result: boolean;
-
-        _.endsWith("abc", "c");
-        _.endsWith("abc", "c", 1);
-    }
+    _.endsWith("c", "abc"); // $ExpectType boolean
+    _.endsWith("c")("abc"); // $ExpectType boolean
 }
 
 // _.escape
 {
-    {
-        const result: string;
-
-        _.escape("fred, barney, & pebbles");
-    }
+    _.escape("fred, barney, & pebbles"); // $ExpectType string
 }
 
 // _.escapeRegExp
 {
-    {
-        const result: string;
-
-        _.escapeRegExp("[lodash](https://lodash.com/)");
-    }
+    _.escapeRegExp("[lodash](https://lodash.com/)"); // $ExpectType string
 }
 
 // _.kebabCase
 {
-    {
-        const result: string;
-
-        _.kebabCase("Foo Bar");
-    }
+    _.kebabCase("Foo Bar"); // $ExpectType string
 }
 
 // _.lowerCase
 {
-    {
-        const result: string;
-
-        _.lowerCase("Foo Bar");
-    }
+    _.lowerCase("Foo Bar"); // $ExpectType string
 }
 
 // _.lowerFirst
 {
-    {
-        const result: string;
-
-        _.lowerFirst("Foo Bar");
-    }
+    _.lowerFirst("Foo Bar"); // $ExpectType string
 }
 
 // _.pad
 {
-    {
-        const result: string;
-
-        _.pad("abc");
-        _.pad("abc", 8);
-        _.pad("abc", 8, "_-");
-    }
+    _.pad(8, "abc"); // $ExpectType string
+    _.pad(8)("abc"); // $ExpectType string
+    _.padChars("_", 8, "abc"); // $ExpectType string
+    _.padChars("_")(8)("abc"); // $ExpectType string
 }
 
 // _.padEnd
 {
-    {
-        const result: string;
-
-        _.padEnd("abc");
-        _.padEnd("abc", 6);
-        _.padEnd("abc", 6, "_-");
-    }
+    _.padEnd(8, "abc"); // $ExpectType string
+    _.padEnd(8)("abc"); // $ExpectType string
+    _.padCharsEnd("_", 8, "abc"); // $ExpectType string
+    _.padCharsEnd("_")(8)("abc"); // $ExpectType string
 }
 
 // _.padStart
 {
-    {
-        const result: string;
-
-        _.padStart("abc");
-        _.padStart("abc", 6);
-        _.padStart("abc", 6, "_-");
-    }
+    _.padStart(8, "abc"); // $ExpectType string
+    _.padStart(8)("abc"); // $ExpectType string
+    _.padCharsStart("_", 8, "abc"); // $ExpectType string
+    _.padCharsStart("_")(8)("abc"); // $ExpectType string
 }
 
 // _.parseInt
 {
-    {
-        const result: number;
-
-        _.parseInt("08");
-        _.parseInt("08", 10);
-    }
+    _.parseInt(10, "08"); // $ExpectType number
+    _.parseInt(10)("08"); // $ExpectType number
 }
 
 // _.repeat
 {
-    {
-        const result: string;
-        _.repeat("*");
-        _.repeat("*", 3);
-    }
+    _.repeat(3, "*"); // $ExpectType string
 }
 
 // _.replace
 {
     const replacer = (match: string, offset: number, string: string) => "Barney";
 
-    {
-        const result: string;
-
-        _.replace("Hi Fred", "Fred", "Barney");
-        _.replace("Hi Fred", "Fred", replacer);
-
-        _.replace("Hi Fred", /fred/i, "Barney");
-        _.replace("Hi Fred", /fred/i, replacer);
-
-        _.replace("Fred", "Barney");
-        _.replace("Fred", replacer);
-
-        _.replace(/fred/i, "Barney");
-        _.replace(/fred/i, replacer);
-    }
+    _.replace("Fred", "Barney", "Hi Fred"); // $ExpectType string
+    _.replace("Fred")("Barney")("Hi Fred"); // $ExpectType string
+    _.replace("Fred")(replacer)("Hi Fred"); // $ExpectType string
+    _.replace(/fred/i)("Barney")("Hi Fred"); // $ExpectType string
+    _.replace(/fred/i)(replacer)("Hi Fred"); // $ExpectType string
 }
 
 // _.snakeCase
 {
-    {
-        const result: string;
-
-        _.snakeCase("Foo Bar");
-    }
+    _.snakeCase("Foo Bar"); // $ExpectType string
 }
 
 // _.split
 {
-    {
-        const result: string[];
-
-        _.split("a-b-c");
-        _.split("a-b-c", "-");
-        _.split("a-b-c", "-", 2);
-    }
+    _.split("-", "a-b-c"); // $ExpectType string[]
+    _.split("-")("a-b-c"); // $ExpectType string[]
 
     // $ExpectType string[][]
-    _.map(["abc", "def"], _.split);
+    _.map(_.split(""), ["abc", "def"]);
 }
 
 // _.startCase
 {
-    {
-        const result: string;
-
-        _.startCase("--foo-bar");
-    }
+    _.startCase("--foo-bar"); // $ExpectType string
 }
 
 // _.startsWith
 {
-    {
-        const result: boolean;
-
-        _.startsWith("abc", "a");
-        _.startsWith("abc", "a", 1);
-    }
+    _.startsWith("a", "abc"); // $ExpectType boolean
+    _.startsWith("a")("abc"); // $ExpectType boolean
 }
 
 // _.template
@@ -3816,142 +3060,82 @@ interface AbcObject {
         source: string;
     }
 
-    const options: {
-        escape?: RegExp;
-        evaluate?: RegExp;
-        imports?: lodash.Dictionary<any>;
-        interpolate?: RegExp;
-        sourceURL?: string;
-        variable?: string;
-    } = {};
-
-    {
-        const result: TemplateExecutor;
-
-        _.template("");
-        _.template("", options);
-    }
+    const result = _.template("");
+    result(); // $ExpectType string
+    result.source; // $ExpectType string
 }
 
 // _.toLower
 {
-    {
-        const result: string;
-
-        _.toLower("fred, barney, &amp; pebbles");
-    }
+    _.toLower("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.toUpper
 {
-    {
-        const result: string;
-
-        _.toUpper("fred, barney, &amp; pebbles");
-    }
+    _.toUpper("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.trim
 {
-    {
-        const result: string;
+    _.trim("  abc  "); // $ExpectType string
+    _.trimChars(" ", "  abc  "); // $ExpectType string
+    _.trimChars(" ")("  abc  "); // $ExpectType string
 
-        _.trim();
-        _.trim("  abc  ");
-        _.trim("-_-abc-_-", "_-");
-    }
     // $ExpectType string[]
-    _.map(["  foo  ", "  bar  "], _.trim);
+    _.map(_.trim, ["  foo  ", "  bar  "]);
 }
 
 // _.trimEnd
 {
-    {
-        const result: string;
-
-        _.trimEnd();
-        _.trimEnd("  abc  ");
-        _.trimEnd("-_-abc-_-", "_-");
-    }
+    _.trimEnd("  abc  "); // $ExpectType string
+    _.trimCharsEnd(" ", "  abc  "); // $ExpectType string
+    _.trimCharsEnd(" ")("  abc  "); // $ExpectType string
 }
 
 // _.trimStart
 {
-    {
-        const result: string;
-
-        _.trimStart();
-        _.trimStart("  abc  ");
-        _.trimStart("-_-abc-_-", "_-");
-    }
+    _.trimStart("  abc  "); // $ExpectType string
+    _.trimCharsStart(" ", "  abc  "); // $ExpectType string
+    _.trimCharsStart(" ")("  abc  "); // $ExpectType string
 }
 
 // _.truncate
 {
-    {
-        const result: string;
-
-        _.truncate("hi-diddly-ho there, neighborino");
-        _.truncate("hi-diddly-ho there, neighborino", { "length": 24, "separator": " " });
-        _.truncate("hi-diddly-ho there, neighborino", { "length": 24, "separator": /,? +/ });
-        _.truncate("hi-diddly-ho there, neighborino", { "omission": " […]" });
-    }
+    _.truncate({ "length": 24, "separator": " " }, "hi-diddly-ho there, neighborino"); // $ExpectType string
+    _.truncate({ "length": 24, "separator": " " })("hi-diddly-ho there, neighborino"); // $ExpectType string
+    _.truncate({ "length": 24, "separator": /,? +/ }, "hi-diddly-ho there, neighborino"); // $ExpectType string
+    _.truncate({ "omission": " […]" }, "hi-diddly-ho there, neighborino"); // $ExpectType string
 }
 
 // _.unescape
 {
-    {
-        const result: string;
-
-        _.unescape("fred, barney, &amp; pebbles");
-    }
+    _.unescape("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.upperCase
 {
-    {
-        const result: string;
-
-        _.upperCase("fred, barney, &amp; pebbles");
-    }
+    _.upperCase("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.upperFirst
 {
-    {
-        const result: string;
-
-        _.upperFirst("fred, barney, &amp; pebbles");
-    }
+    _.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.words
 {
-    {
-        const result: string[];
-
-        _.words("fred, barney, & pebbles");
-        _.words("fred, barney, & pebbles", /[^, ]+/g);
-    }
-
-    // $ExpectType string[][]
-    _.map(["fred, barney", "pebbles"], _.words);
+    _.words("fred, barney, & pebbles"); // $ExpectType string[]
 }
-*/
+
 /***********
  * Utility *
  ***********/
-/*
+
 // _.attempt
 {
-    const func: (...args: any[]) => {a: string} = (...args) => ({ a: "" });
+    const func = () => ({ a: "" });
 
-    {
-        const result: {a: string}|Error;
-
-        _.attempt<{a: string}>(func);
-        _.attempt<{a: string}>(func, "foo", "bar", "baz");
-    }
+    _.attempt(func); // $ExpectType Error | { a: string; }
 }
 
 // _.cond
@@ -3961,141 +3145,45 @@ interface AbcObject {
     const pairRes1: (val: string) => number = (val) => 1;
     const pairRes2: (val: string) => number = (val) => 2;
 
-    {
-        const result: number;
-
-        _.cond([[pairPred1, pairRes1],[pairPred2, pairRes2]])("hello");
-    }
+    _.cond([[pairPred1, pairRes1],[pairPred2, pairRes2]])("hello"); // $ExpectType number
 }
 
 // _.constant
 {
-    {
-        const result: () => number;
-        _.constant<number>(42);
-    }
-
-    {
-        const result: () => string;
-        _.constant<string>("a");
-    }
-
-    {
-        const result: () => boolean;
-        _.constant<boolean>(true);
-    }
-
-    {
-        const result: () => string[];
-        _.constant<string[]>(["a"]);
-    }
-
-    {
-        const result: () => {a: string};
-        _.constant<{a: string}>({a: "a"});
-    }
+    _.constant(42); // $ExpectType () => number
+    _.constant("a"); // $ExpectType () => string
+    _.constant(true); // $ExpectType () => boolean
+    _.constant<string[]>(["a"]); // $ExpectType () => string[]
+    _.constant<{a: string}>({a: "a"}); // $ExpectType () => { a: string; }
 }
 
 // _.defaultTo
 {
-    {
-        const result: number;
-        _.defaultTo<number>(42, 42);
-        _.defaultTo<number>(undefined, 42);
-        _.defaultTo<number>(null, 42);
-        _.defaultTo<number>(NaN, 42);
-    }
+    const n: number = anything;
+    _.defaultTo(42, n); // $ExpectType number
+    _.defaultTo(42)(n); // $ExpectType number
+    _.defaultTo(42)(undefined); // $ExpectType number
+    _.defaultTo(42)(null); // $ExpectType number
+    _.defaultTo(42)(NaN); // $ExpectType number
 
-    {
-        const result: string;
-        _.defaultTo<string>("a", "default");
-        _.defaultTo<string>(undefined, "default");
-        _.defaultTo<string>(null, "default");
-    }
-
-    {
-        const result: boolean;
-        _.defaultTo<boolean>(true, true);
-        _.defaultTo<boolean>(undefined, true);
-        _.defaultTo<boolean>(null, true);
-    }
-
-    {
-        const result: string[];
-        _.defaultTo<string[]>(["a"], ["default"]);
-        _.defaultTo<string[]>(undefined, ["default"]);
-        _.defaultTo<string[]>(null, ["default"]);
-    }
-
-    {
-        const result: {a: string};
-        _.defaultTo<{a: string}>({a: "a"}, {a: "a"});
-        _.defaultTo<{a: string}>(undefined, {a: "a"});
-        _.defaultTo<{a: string}>(null, {a: "a"});
-    }
+    const arr: boolean[] | undefined = anything;
+    _.defaultTo("a", arr); // $ExpectType "a" | boolean[]
 }
 
 // _.identity
 {
-    {
-        const result: number;
-
-        _.identity(42);
-    }
-
-    {
-        const result: number[];
-
-        _.identity([42]);
-    }
-
-    {
-        const result: {a: number};
-
-        _.identity({a: 42});
-    }
-
-    {
-        const input: { a: number; } | null | undefined = anything;
-        _.identity(input); // $ExpectType { a: number; } | null | undefined
-        _.identity(); // $ExpectType undefined
-    }
+    _.identity(42); // $ExpectType 42
+    _.identity([42]); // $ExpectType number[]
+    _.identity({ a: "b" }); // $ExpectType { a: string; }
 }
 
 // _.iteratee
 {
-    {
-        _.iteratee((...args: any[]): AbcObject => anything); // $ExpectType (...args: any[]) => AbcObject
-        _.iteratee((a: AbcObject): boolean => anything); // $ExpectType (a: AbcObject) => boolean
-        _.iteratee((a: AbcObject | undefined): a is undefined => anything); // $ExpectType (a: AbcObject | undefined) => a is undefined
-    }
-
-    {
-        const result: (object: any) => AbcObject;
-
-        _.iteratee("");
-    }
-
-    {
-        const result: (object: any) => boolean;
-
-        _.iteratee({});
-    }
-}
-
-// _.matches
-{
-    const source: AbcObject = { a: 1, b: "", c: true };
-
-    {
-        const result: (value: any) => boolean;
-        _.matches<AbcObject>(source);
-    }
-
-    {
-        const result: (value: AbcObject) => boolean;
-        _.matches<AbcObject, AbcObject>(source);
-    }
+    _.iteratee((...args: any[]): AbcObject => anything); // $ExpectType (...args: any[]) => AbcObject
+    _.iteratee((a: AbcObject): boolean => anything); // $ExpectType (a: AbcObject) => boolean
+    _.iteratee((a: AbcObject | undefined): a is undefined => anything); // $ExpectType (a: AbcObject | undefined) => a is undefined
+    _.iteratee(""); // $ExpectType (...args: any[]) => any
+    _.iteratee({}); // $ExpectType (...args: any[]) => any
 }
 
 // _.matchesProperty
@@ -4103,93 +3191,25 @@ interface AbcObject {
     const path: string | string[] = [];
     const source: AbcObject = { a: 1, b: "", c: true };
 
-    {
-        const result: (value: any) => boolean;
-
-        _.matchesProperty<AbcObject>(path, source);
-    }
-
-    {
-        const result: (value: AbcObject) => boolean;
-
-        _.matchesProperty<AbcObject, AbcObject>(path, source);
-    }
+    _.matchesProperty(path, source); // $ExpectType (value: any) => boolean
 }
 
 // _.method
 {
-    {
-        const result: (object: any) => {a: string};
-
-        _.method("a.0");
-        _.method("a.0", anything, anything);
-        _.method("a.0", anything, anything, anything);
-
-        _.method(["a", 0]);
-        _.method(["a", 0], anything);
-        _.method(["a", 0], anything, anything);
-        _.method(["a", 0], anything, anything, anything);
-    }
-
-    {
-        const result: (object: {a: string}) => {b: string};
-
-        _.method("a.0");
-        _.method("a.0", anything, anything);
-        _.method("a.0", anything, anything, anything);
-
-        _.method(["a", 0]);
-        _.method(["a", 0], anything);
-        _.method(["a", 0], anything, anything);
-        _.method(["a", 0], anything, anything, anything);
-    }
+    _.method("a.0"); // $ExpectType (object: any) => any
+    _.method(["a", 0]); // $ExpectType (object: any) => any
+    _.method(Symbol.replace); // $ExpectType (object: any) => any
 }
 
 // _.methodOf
 {
-    type SampleObject = { a: Array<{ b(): AbcObject }> };
-    type ResultFn = (path: string | string[]) => AbcObject;
-
-    const object: SampleObject = { a: [] };
-
-    {
-        const result: ResultFn;
-
-        _.methodOf(object);
-        _.methodOf(object, anything);
-        _.methodOf(object, anything, anything);
-        _.methodOf(object, anything, anything, anything);
-    }
-}
-
-// _.mixin
-{
-    const source: lodash.Dictionary<(...args: any[]) => any> = {};
-    const dest: AbcObject = anything;
-    const options: {chain?: boolean} = {};
-
-    {
-        const result: _.LoDashStatic;
-
-        _.mixin(source);
-        _.mixin(source, options);
-    }
-
-    {
-        const result: AbcObject;
-
-        _.mixin(dest, source);
-        _.mixin(dest, source, options);
-    }
+    const object: AbcObject = anything;
+    _.methodOf(object); // $ExpectType (path: Many<PropertyName>) => any
 }
 
 // _.noConflict
 {
-    {
-        const result: typeof _;
-
-        _.noConflict();
-    }
+    _.noConflict(); // $ExpectType LoDashStatic
 }
 
 // _.noop
@@ -4203,264 +3223,99 @@ interface AbcObject {
 }
 
 {
-    type SampleFunc = (...args: any[]) => any;
-
-    {
-        const result: SampleFunc;
-
-        _.nthArg();
-        _.nthArg(1);
-    }
+    _.nthArg(1); // $ExpectType (...args: any[]) => any
 }
 
 // _.over
 {
-    {
-        const result: (...args: any[]) => number[];
-
-        _.over<number>(Math.max);
-        _.over<number>(Math.max, Math.min);
-        _.over<number>([Math.max]);
-        _.over<number>([Math.max], [Math.min]);
-    }
+    _.over(Math.max); // $ExpectType (...args: any[]) => number[]
+    _.over([Math.max, Math.min]); // $ExpectType (...args: any[]) => number[]
 }
 
 // _.overEvery
 {
-    {
-        const result: (...args: number[]) => boolean;
-
-        _.overEvery((number) => true);
-        _.overEvery((number) => true, (number) => true);
-        _.overEvery([(number) => true]);
-        _.overEvery([(number) => true], [(number) => true]);
-    }
+    _.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
+    _.overEvery([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
 }
 
 // _.overSome
 {
-    {
-        const result: (...args: number[]) => boolean;
-
-        _.overSome((n: number) => true);
-        _.overSome((n: number) => true, (n: number) => true);
-        _.overSome([(n: number) => true]);
-        _.overSome([(n: number) => true], [(n: number) => true]);
-    }
-}
-
-// _.property
-{
-    interface SampleObject {
-        a: {
-            b: number[];
-        }
-    }
-
-    {
-        const result: (object: SampleObject) => number;
-
-        _.property<SampleObject, number>("a.b[0]");
-        _.property<SampleObject, number>(["a", "b", 0]);
-    }
-}
-
-// _.propertyOf
-{
-    interface SampleObject {
-        a: {
-            b: number[];
-        }
-    }
-
-    const object: SampleObject = { a: { b: [] } };
-
-    {
-        const result: (path: string|string[]) => any;
-
-        _.propertyOf({});
-        _.propertyOf<SampleObject>(object);
-    }
+    _.overSome((number: number) => true); // $ExpectType (...args: number[]) => boolean
+    _.overSome([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
 }
 
 // _.range
 {
-    {
-        const result: number[];
-
-        _.range(10);
-        _.range(1, 11);
-        _.range(0, 30, 5);
-    }
-    // $ExpectType number[][]
-    _.map([5, 5], _.range);
+    _.range(1, 11); // $ExpectType number[]
+    _.range(1)(11); // $ExpectType number[]
 }
 
 // _.rangeRight
 {
-    {
-        const result: number[];
-
-        _.rangeRight(10);
-        _.rangeRight(1, 11);
-        _.rangeRight(0, 30, 5);
-    }
-
-    // $ExpectType number[][]
-    _.map([5, 5], _.rangeRight);
+    _.rangeRight(1, 11); // $ExpectType number[]
+    _.rangeRight(1)(11); // $ExpectType number[]
 }
 
 // _.runInContext
 {
-    const result: typeof _;
-    _.runInContext();
-    _.runInContext({});
+    _.runInContext({}); // $ExpectType LoDashStatic
 }
 
 // _.stubArray
 {
-    {
-        const result: any[];
-
-        _.stubArray();
-    }
+    _.stubArray(); // $ExpectType any[]
 }
 
 // _.stubFalse
 {
-    {
-        const result: boolean;
-
-        _.stubFalse();
-    }
+    _.stubFalse(); // $ExpectType boolean
 }
 
 // _.stubObject
 {
-    {
-        const result: object;
-
-        _.stubObject();
-    }
+    _.stubObject(); // $ExpectType any
 }
 
 // _.stubString
 {
-    {
-        const result: string;
-
-        _.stubString();
-    }
+    _.stubString(); // $ExpectType string
 }
 
 // _.stubTrue
 {
-    {
-        const result: boolean;
-
-        _.stubTrue();
-    }
+    _.stubTrue(); // $ExpectType boolean
 }
 
 // _.times
 {
-    const iteratee: (num: number) => AbcObject = (num: number) => ({ a: 1, b: "", c: true });
+    const iteratee = (index: number): AbcObject => ({ a: 1, b: "", c: true });
 
-    {
-        const result: number[];
-
-        _.times(42);
-    }
-
-    {
-        const result: AbcObject[];
-
-        _.times(42, iteratee);
-    }
+    _.times(iteratee, 42); // $ExpectType AbcObject[]
+    _.times(iteratee)(42); // $ExpectType AbcObject[]
 }
 
 // _.toPath
 {
-   {
-       const result: string[];
-       _.toPath(true);
-       _.toPath(1);
-       _.toPath("a");
-       _.toPath(["a"]);
-       _.toPath({});
-   }
+    _.toPath(true); // $ExpectType string[]
+    _.toPath(1); // $ExpectType string[]
+    _.toPath("a"); // $ExpectType string[]
+    _.toPath(["a"]); // $ExpectType string[]
+    _.toPath({}); // $ExpectType string[]
 }
 
 // _.uniqueId
 {
-    {
-        const result: string;
-
-        _.uniqueId();
-        _.uniqueId("");
-    }
+    _.uniqueId(""); // $ExpectType string
 }
 
 // _.partial & _.partialRight
 {
     const func0 = (): number => 42;
     const func1 = (arg1: number): number => arg1 * 2;
-    const func2 = (arg1: number, arg2: string): number => arg1 * arg2.length;
-    const func3 = (arg1: number, arg2: string, arg3: boolean): number => arg1 * arg2.length + (arg3 ? 1 : 0);
-    const func4 = (arg1: number, arg2: string, arg3: boolean, arg4: number): number => arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
 
-    const res____: () => number;
-    const res1___: (arg1: number                                              ) => number;
-    const res12__: (arg1: number, arg2: string                                ) => number;
-    const res123_: (arg1: number, arg2: string,   arg3: boolean               ) => number;
-    const res1234: (arg1: number, arg2: string,   arg3: boolean,  arg4: number) => number;
-
-    //
-    // _.partial
-    //
-    // with arity 0 function
-    res____ = _.partial(func0);
-    // with arity 1 function
-    res____ = _.partial(func1, 42       );
-    res1___ = _.partial(func1           );
-    // with arity 2 function
-    res12__ = _.partial(func2           );
-    res_2__ = _.partial(func2, 42       );
-    res____ = _.partial(func2, 42, "foo");
-    // with arity 3 function
-    res123_ = _.partial(func3                 );
-    res_23_ = _.partial(func3, 42             );
-    res__3_ = _.partial(func3, 42, "foo"      );
-    res____ = _.partial(func3, 42, "foo", true);
-    // with arity 4 function
-    res1234 = _.partial(func4                      );
-    res_234 = _.partial(func4, 42                  );
-    res__34 = _.partial(func4, 42, "foo"           );
-    res___4 = _.partial(func4, 42, "foo", true     );
-    res____ = _.partial(func4, 42, "foo", true, 100);
-
-    //
-    // _.partialRight
-    //
-    // with arity 0 function
-    res____ = _.partialRight(func0);
-    // with arity 1 function
-    res____ = _.partialRight(func1, 42       );
-    res1___ = _.partialRight(func1           );
-    // with arity 2 function
-    res12__ = _.partialRight(func2           );
-    res1___ = _.partialRight(func2,     "foo");
-    res____ = _.partialRight(func2, 42, "foo");
-    // with arity 3 function
-    res123_ = _.partialRight(func3                 );
-    res12__ = _.partialRight(func3,            true);
-    res1___ = _.partialRight(func3,     "foo", true);
-    res____ = _.partialRight(func3, 42, "foo", true);
-    // with arity 4 function
-    res1234 = _.partialRight(func4                      );
-    res123_ = _.partialRight(func4,                  100);
-    res12__ = _.partialRight(func4,            true, 100);
-    res1___ = _.partialRight(func4,     "foo", true, 100);
-    res____ = _.partialRight(func4, 42, "foo", true, 100);
+    _.partial([], func0); // $ExpectType (...args: any[]) => any
+    _.partial([])(func0); // $ExpectType (...args: any[]) => any
+    _.partial([42])(func1); // $ExpectType (...args: any[]) => any
+    _.partialRight([])(func0); // $ExpectType (...args: any[]) => any
+    _.partialRight([42])(func1); // $ExpectType (...args: any[]) => any
 }
-*/

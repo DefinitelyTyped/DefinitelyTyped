@@ -305,6 +305,20 @@ async function parseDefinition(name: string, definitionString: string, filePath:
 
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, isFixed: boolean): Interface[] {
     overloads = cloneDeep(overloads);
+
+    // Remove unused type parameters
+    for (const overload of overloads) {
+        for (let i = 0; i < overload.typeParams.length; ++i) {
+            const search = new RegExp(`\\b${overload.typeParams[i].name}\\b`);
+            if (overload.params.every(p => !search.test(p)) && !search.test(overload.returnType)) {
+                overload.typeParams.splice(i, 1);
+                --i;
+            }
+        }
+        if (overloads.some(o => o !== overload && isEqual(o, overload)))
+            pull(overloads, overload);
+    }
+
     if (!isFixed) {
         // Non-fixed arity functions cannot be curried.
         for (const overload of overloads)
@@ -380,14 +394,9 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
             restOverload.params.push(...copiedParams);
         }
     }
-    for (const overload of filteredOverloads) {
-        overload.params = overload.params
-            .slice(0, arity)
-            .map(p => p
-                .replace(/\?:/g, ":") // No optional parameters
-                .replace(/: *(?:Array<(.+)>|([^ |]+)\[\]|\((.+)\)\[\])$/, ": ReadonlyArray<$1$2$3>")); // Convert Array to ReadonlyArray because lodash/fp treats everything as immutable
-        preProcessOverload(overload, functionName);
-    }
+
+    for (const overload of filteredOverloads)
+        preProcessOverload(overload, functionName, arity);
 
     const interfaces = flatMap(filteredOverloads, (o, i) => {
         const reargParams = o.params.map((p, i) => o.params[paramOrder.indexOf(i)]);
@@ -450,9 +459,12 @@ function getParamType(param: string) {
     return param.split(":")[1] || "any";
 }
 
-function preProcessOverload(overload: Overload, functionName: string): void {
-    // No optional parameters
-    //overload.params = overload.params.map(p => p.replace(/\?:/g, ":"));
+function preProcessOverload(overload: Overload, functionName: string, arity: number): void {
+    overload.params = overload.params
+            .slice(0, arity)
+            .map(p => p
+                .replace(/\?:/g, ":") // No optional parameters
+                .replace(/: *(?:Array<(.+)>|([^ |]+)\[\]|\((.+)\)\[\])$/, ": ReadonlyArray<$1$2$3>")); // Convert Array to ReadonlyArray because lodash/fp treats everything as immutable
     // Cap the number of callback arguments
     for (let i = 0; i < overload.params.length; ++i)
         overload.params[i] = capCallback(overload.params[i], functionName);
@@ -466,8 +478,10 @@ function capCallback(parameter: string, functionName: string): string {
     // Special case for mapKeys: callback is capped to the key parameter only
     if (functionName === "mapKeys") {
         parameter = parameter
-            .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<string>")
-            .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<string,$3>");
+            .replace(/(iteratee|predicate|callback): *(?:Array|List|NumericDictionary|String)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<number>")
+            .replace(/(iteratee|predicate|callback): *(?:Dictionary|Object)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<string>")
+            .replace(/(iteratee|predicate|callback): *(?:Array|List|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<number,$3>")
+            .replace(/(iteratee|predicate|callback): *(?:Dictionary|Object)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<string,$3>");
     }
 
     // Special case for reduceRight: callback argument order of (b, a)
@@ -486,7 +500,7 @@ function capCallback(parameter: string, functionName: string): string {
         .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary)Iterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2) => $3")
         .replace(/(iteratee|predicate|callback): *StringIterator<([^,>]+)>/g, "$1: (value: string) => $2")
         .replace(/(iteratee|predicate|callback): *ObjectIterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2[keyof $2]) => $3")
-        .replace(/(iteratee|predicate|callback): *Memo(Void)?(?:List|Object|Dictionary)Iterator<([^,>]+),([^,>]+)(?:,[^,>]+?(<T>)?)?>/g, "$1: Memo$2IteratorCapped<$3,$4>")
+        .replace(/(iteratee|predicate|callback): *Memo(Void)?(?:Array|List|Object|Dictionary)Iterator<([^,>]+),([^,>]+)(?:,[^,>]+?(<T>)?)?>/g, "$1: Memo$2IteratorCapped<$3,$4>")
         .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>>/g, "$1: Many<ValueIteratee<$2>>")
         .replace(/(iteratees|predicates|callbacks): *Many<ObjectIteratee<([^,>]+)>>/g, "$1: Many<ValueIteratee<$2[keyof $2]>>")
         .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary)Iterator<([^,>]+), *([^,>]+)>>/g, "$1: Many<(value: $2) => $3>")

@@ -22,7 +22,7 @@ type FunctionsIn =
      * _.functionsIn(new Foo);
      * // => ['a', 'b', 'c']
      */
-    <T extends {}>(object: any) => string[];
+    (object: any) => string[];
 
 declare const functionsIn: FunctionsIn;
 declare namespace functionsIn {}
