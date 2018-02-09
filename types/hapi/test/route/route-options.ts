@@ -4,12 +4,8 @@ import {
     ResponseToolkit,
     RouteOptions,
     RouteOptionsAccess,
-    RouteOptionsAccessEntity,
-    RouteOptionsAccessMode,
-    RouteOptionsAccessPayload,
     RouteOptionsCors,
     RouteOptionsPayload,
-    RouteOptionsPrivacy,
     RouteOptionsResponse,
     RouteOptionsValidate,
     Server
@@ -18,9 +14,9 @@ import {
 const routeOptionsAccess: RouteOptionsAccess = {
     access: {},
     scope: false,
-    entity: RouteOptionsAccessEntity.User,
-    mode: RouteOptionsAccessMode.Optional,
-    payload: RouteOptionsAccessPayload.Optional,
+    entity: 'user',
+    mode: 'optional',
+    payload: 'optional',
     strategies: ['', ''],
     strategy: ''
 };
@@ -103,7 +99,7 @@ const routeOptions: RouteOptions = {
     auth: routeOptionsAccess,
     bind: null,
     cache: {
-        privacy: RouteOptionsPrivacy.Default,
+        privacy: 'default',
         statuses: [200],
         otherwise: 'no-cache'
     },
