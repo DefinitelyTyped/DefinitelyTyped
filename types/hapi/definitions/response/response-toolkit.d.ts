@@ -57,7 +57,7 @@ export interface ResponseToolkit {
      * The [request] object. This is a duplication of the request lifecycle method argument used by
      * [toolkit decorations](https://github.com/hapijs/hapi/blob/master/API.md#server.decorate()) to access the current request.
      */
-    request: Readonly<Request>
+    readonly request: Readonly<Request>
 
     /**
      * Used by the [authentication] method to pass back valid credentials where:
