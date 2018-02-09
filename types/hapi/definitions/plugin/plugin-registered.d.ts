@@ -2,7 +2,6 @@
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
  */
 export interface PluginsListRegistered {
-    [pluginName: string]: PluginRegistered;
 }
 
 /**

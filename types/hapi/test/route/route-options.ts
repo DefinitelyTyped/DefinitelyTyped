@@ -1,6 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#route-options
 import {
-    EmptyStatusCode,
     Request,
     ResponseToolkit,
     RouteOptions,
@@ -10,6 +9,7 @@ import {
     RouteOptionsAccessPayload,
     RouteOptionsCors,
     RouteOptionsPayload,
+    RouteOptionsPrivacy,
     RouteOptionsResponse,
     RouteOptionsValidate,
     Server
@@ -70,7 +70,7 @@ const pre3 = (request: Request, h: ResponseToolkit) => {
 };
 
 const routeOptionsResponse: RouteOptionsResponse = {
-    emptyStatusCode: EmptyStatusCode.HTTP_200,
+    emptyStatusCode: 200,
     failAction: (request: Request, h: ResponseToolkit) => {
         return 'ok: ' + request.path;
     },
@@ -103,7 +103,7 @@ const routeOptions: RouteOptions = {
     auth: routeOptionsAccess,
     bind: null,
     cache: {
-        privacy: 'default',
+        privacy: RouteOptionsPrivacy.Default,
         statuses: [200],
         otherwise: 'no-cache'
     },

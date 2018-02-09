@@ -1,7 +1,6 @@
 import {Server, ServerRegisterOptions} from "hapi";
 
 export interface PluginsStates {
-    [pluginName: string]: any;
 }
 
 export interface PluginSpecificConfiguration {

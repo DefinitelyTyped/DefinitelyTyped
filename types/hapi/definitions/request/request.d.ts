@@ -2,7 +2,7 @@ import * as stream from "stream";
 import * as url from "url";
 import * as http from "http";
 import * as Podium from "podium";
-import {PluginsStates, RequestAuth, RequestEvents, RequestInfo, RequestRoute, ResponseObject, Server, Util} from "hapi";
+import {ApplicationState, PluginsStates, RequestAuth, RequestEvents, RequestInfo, RequestRoute, ResponseObject, ResponseValue, Server, Util} from "hapi";
 
 /**
  * An object containing the values of params, query, and payload before any validation modifications made. Only set when input validation is performed.
@@ -12,6 +12,14 @@ export interface RequestOrig {
     params: object;
     query: object;
     payload: object;
+}
+
+export interface RequestLog {
+    request: string;
+    timestamp: number;
+    tags: string[];
+    data: string | object;
+    channel: string;
 }
 
 /**
@@ -25,7 +33,7 @@ export interface Request extends Podium {
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestapp)
      */
-    app: object;
+    app: ApplicationState;
 
     /**
      * Authentication information:
@@ -78,7 +86,7 @@ export interface Request extends Podium {
      * An array containing the logged request events.
      * Note that this array will be empty if route log.collect is set to false.
      */
-    readonly logs: object[];
+    readonly logs: RequestLog[];
 
     /**
      * The request method in lower case (e.g. 'get', 'post').
@@ -182,7 +190,7 @@ export interface Request extends Podium {
      * @return ResponseObject
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestgenerateresponsesource-options)
      */
-    generateResponse(source: string | object | null, options?: {variety?: string; prepare?: Function; marshal?: Function; close?: Function; }): ResponseObject;
+    generateResponse(source: string | object | null, options?: {variety?: string; prepare?: (response: ResponseObject) => Promise<ResponseObject>; marshal?: (response: ResponseObject) => Promise<ResponseValue>; close?: (response: ResponseObject) => {}; }): ResponseObject;
 
     /**
      * Logs request-specific events. When called, the server emits a 'request' event which can be used by other listeners or plugins. The arguments are:

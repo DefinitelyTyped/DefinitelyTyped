@@ -5,7 +5,7 @@
  * * 'app' - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessentity)
  */
-export enum RouteOptionsAccessEntity {
+export const enum RouteOptionsAccessEntity {
     Any = 'any',
     User = 'user',
     App = 'app'
@@ -18,7 +18,7 @@ export enum RouteOptionsAccessEntity {
  * * 'try' - similar to 'optional', any request credentials are attempted authentication, but if the credentials are invalid, the request proceeds regardless of the authentication error.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthmode)
  */
-export enum RouteOptionsAccessMode {
+export const enum RouteOptionsAccessMode {
     Required = 'required',
     Optional = 'optional',
     Try = 'try',
@@ -31,7 +31,7 @@ export enum RouteOptionsAccessMode {
  * * 'optional' - payload authentication performed only when the client includes payload authentication information (e.g. hash attribute in Hawk).
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthpayload)
  */
-export enum RouteOptionsAccessPayload {
+export const enum RouteOptionsAccessPayload {
     Required = 'required',
     Optional = 'optional',
 }

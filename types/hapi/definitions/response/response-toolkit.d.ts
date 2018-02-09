@@ -1,4 +1,4 @@
-import {ResponseObject, ServerRealm, ServerStateCookieOptions} from "hapi";
+import {Request, ResponseObject, ServerRealm, ServerStateCookieOptions} from "hapi";
 
 /**
  * See more about Lifecycle
@@ -6,6 +6,12 @@ import {ResponseObject, ServerRealm, ServerStateCookieOptions} from "hapi";
  *
  */
 
+export type ResponseValue = string | object;
+
+export interface AuthenticationData {
+    credentials: object;
+    artifacts?: object;
+}
 
 /**
  * The response toolkit is a collection of properties and utilities passed to every [lifecycle method](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
@@ -51,7 +57,7 @@ export interface ResponseToolkit {
      * The [request] object. This is a duplication of the request lifecycle method argument used by
      * [toolkit decorations](https://github.com/hapijs/hapi/blob/master/API.md#server.decorate()) to access the current request.
      */
-    request: object; // TODO needs review
+    request: Readonly<Request>
 
     /**
      * Used by the [authentication] method to pass back valid credentials where:
@@ -60,7 +66,7 @@ export interface ResponseToolkit {
      * * artifacts - (optional) authentication artifacts object specific to the authentication scheme.
      * @return Return value: an internal authentication object.
      */
-    authenticated(data: {credentials: object, artifacts?: object}): object;
+    authenticated(data: AuthenticationData): object;
 
     /**
      * Sets the response 'ETag' and 'Last-Modified' headers and checks for any conditional request headers to decide if
@@ -94,7 +100,7 @@ export interface ResponseToolkit {
      * @return Returns a response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hresponsevalue)
      */
-    response(value?: string | object): ResponseObject;
+    response(value?: ResponseValue): ResponseObject;
 
     /**
      * Sets a response cookie using the same arguments as response.state().
@@ -119,7 +125,7 @@ export interface ResponseToolkit {
      * There is no difference between throwing the error or passing it with the h.unauthenticated() method is no credentials are passed, but it might still be helpful for code clarity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunauthenticatederror-data)
      */
-    unauthenticated(error: Error, data?: {credentials: object, artifacts?: object}): void;
+    unauthenticated(error: Error, data?: AuthenticationData): void;
 
     /**
      * Clears a response cookie using the same arguments as
