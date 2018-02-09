@@ -7,7 +7,7 @@ import * as catbox from "catbox";
  * * * ttl - 0 if result is valid but cannot be cached. Defaults to cache policy.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  */
-export type ServerMethod = (...args: any[]) => any;
+export type ServerMethod = (...args: any[]) => Promise<any>;
 
 /**
  * The same cache configuration used in server.cache().

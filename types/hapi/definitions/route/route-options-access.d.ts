@@ -1,4 +1,18 @@
 
+export type RouteOptionsAccessScope = false | string | string[];
+
+export type RouteOptionsAccessEntity = 'any' | 'user' | 'app';
+
+export interface RouteOptionsAccessScopeObject {
+    scope: RouteOptionsAccessScope;
+}
+
+export interface RouteOptionsAccessEntityObject {
+    entity: RouteOptionsAccessEntity;
+}
+
+export type RouteOptionsAccessObject = RouteOptionsAccessScopeObject | RouteOptionsAccessEntityObject | (RouteOptionsAccessScopeObject & RouteOptionsAccessEntityObject);
+
 /**
  * Route Authentication Options
  */
@@ -9,7 +23,7 @@ export interface RouteOptionsAccess {
      * An object or array of objects specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one of the rules matches. Each rule object must include at least one of scope or entity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccess)
      */
-    access?: object | object[];
+    access?: RouteOptionsAccessObject | RouteOptionsAccessObject[];
 
     /**
      * Default value: false (no scope requirements).
@@ -18,7 +32,7 @@ export interface RouteOptionsAccess {
      * You may also access properties on the request object (query, params, payload, and credentials) to populate a dynamic scope by using the '{' and '}' characters around the property name, such as 'user-{params.id}'.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessscope)
      */
-    scope?: false | string | string[];
+    scope?: RouteOptionsAccessScope;
 
     /**
      * Default value: 'any'.
@@ -28,7 +42,7 @@ export interface RouteOptionsAccess {
      * * 'app' - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessentity)
      */
-    entity?: 'any' | 'user' | 'app';
+    entity?: RouteOptionsAccessEntity;
 
     /**
      * Default value: 'required'.

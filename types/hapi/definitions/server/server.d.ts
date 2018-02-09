@@ -2,6 +2,7 @@ import * as http from "http";
 import * as zlib from "zlib";
 import * as Podium from "podium";
 import {
+    ApplicationState,
     Lifecycle,
     PayloadCompressionDecoderSettings,
     Plugin,
@@ -62,7 +63,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: any;
+    app?: ApplicationState;
 
     /**
      * Server Auth: properties and methods
@@ -78,15 +79,15 @@ export class Server extends Podium {
         /**
          * decorations on the request object.
          */
-        request: Request,
+        request: string[],
         /**
          * decorations on the response toolkit.
          */
-        toolkit: ResponseToolkit,
+        toolkit: string[],
         /**
          * decorations on the server object.
          */
-        server: Server
+        server: string[]
     };
 
     /**

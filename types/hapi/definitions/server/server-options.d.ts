@@ -4,8 +4,12 @@ import * as catbox from "catbox";
 import {MimosOptions} from "mimos";
 import {PluginSpecificConfiguration, RouteOptions, ServerOptionsCache} from "hapi";
 
+export interface ServerOptionsCompression {
+    minBytes: number;
+}
+
 /**
- * he server options control the behavior of the server object. Note that the options object is deeply cloned
+ * The server options control the behavior of the server object. Note that the options object is deeply cloned
  * (with the exception of listener which is shallowly copied) and should not contain any values that are unsafe to perform deep copy on.
  * All options are optionals.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-server-options)
@@ -55,13 +59,7 @@ export interface ServerOptions {
      * Default value: { minBytes: 1024 }.
      * Defines server handling of content encoding requests. If false, response content encoding is disabled and no compression is performed by the server.
      */
-    compression?: boolean | object;
-
-    /**
-     * Default value: '1024'.
-     * Sets the minimum response payload size in bytes that is required for content encoding compression. If the payload size is under the limit, no compression is performed.
-     */
-    minBytes?: number;
+    compression?: boolean | ServerOptionsCompression;
 
     /**
      * Default value: { request: ['implementation'] }.

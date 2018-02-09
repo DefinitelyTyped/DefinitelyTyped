@@ -12,7 +12,14 @@ import {
 } from "hapi";
 
 const routeOptionsAccess: RouteOptionsAccess = {
-    access: {},
+    access: [
+        {
+            scope: false
+        },
+        {
+            entity: 'user'
+        }
+    ],
     scope: false,
     entity: 'user',
     mode: 'optional',
