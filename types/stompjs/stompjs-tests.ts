@@ -93,7 +93,7 @@ frame = new Stomp.Frame('command', {}, 'body');
 
 frame.toString();
 
-frame.sizeOfUTF8('abc');
+Stomp.Frame.sizeOfUTF8('abc');
 
 Stomp.Frame.unmarshall(0);
 Stomp.Frame.unmarshall('data');
