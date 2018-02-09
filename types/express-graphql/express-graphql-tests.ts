@@ -10,7 +10,8 @@ const graphqlOption: graphqlHTTP.OptionsObj = {
     schema: schema,
     formatError: (error: Error) => ({
         message: error.message
-    })
+    }),
+    extensions: (args) => { }
 };
 
 const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsObj => ({
@@ -23,7 +24,8 @@ const graphqlOptionRequestAsync = async (request: express.Request): Promise<grap
     return {
         graphiql: true,
         schema: await Promise.resolve(schema),
-        context: request.session
+        context: request.session,
+        extensions: async (args) => { }
     };
 };
 
