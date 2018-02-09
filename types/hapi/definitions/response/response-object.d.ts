@@ -1,5 +1,5 @@
 import * as Podium from "podium";
-import {Json, Lifecycle, PluginsStates, ResponseEvents, ResponseSettings, ServerStateCookieOptions, Util} from "hapi";
+import {ApplicationState, Json, Lifecycle, PluginsStates, ResponseEvents, ResponseSettings, ServerStateCookieOptions, Util} from "hapi";
 
 /**
  * Object where:
@@ -31,7 +31,7 @@ export interface ResponseObject extends Podium {
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseapp)
      */
-    app: object;
+    app: ApplicationState;
 
     /**
      * Access: read only and the public podium interface.

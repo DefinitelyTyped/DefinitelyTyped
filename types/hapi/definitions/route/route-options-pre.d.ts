@@ -31,5 +31,3 @@ export interface RouteOptionsPreObject {
      */
     failAction?: Lifecycle.FailAction;
 }
-
-

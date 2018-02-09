@@ -1,15 +1,7 @@
 import {Lifecycle, Util} from "hapi";
 import {ValidationOptions} from "joi";
 
-/**
- * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseemptystatuscode)
- */
-export enum EmptyStatusCode {
-    HTTP_200 = 200,
-    HTTP_204 = 204,
-}
-
-export type RouteOptionsResponseSchema = boolean | ValidationOptions | ((value: object, options: object) => any);
+export type RouteOptionsResponseSchema = boolean | ValidationOptions | ((value: object | Buffer | string, options: ValidationOptions) => Promise<any>);
 
 /**
  * Processing rules for the outgoing response.
@@ -22,7 +14,7 @@ export interface RouteOptionsResponse {
      * The default HTTP status code when the payload is considered empty. Value can be 200 or 204. Note that a 200 status code is converted to a 204 only at the time of response transmission (the response status code will remain 200 throughout the request lifecycle unless manually set).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseemptystatuscode)
      */
-    emptyStatusCode?: EmptyStatusCode;
+    emptyStatusCode?: 200 | 204;
 
     /**
      * Default value: 'error' (return an Internal Server Error (500) error response).
