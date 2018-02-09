@@ -224,6 +224,7 @@ export interface NavigatorStyle {
 export interface NavigatorButtons {
     leftButtons?: NavigatorButton[];
     rightButtons?: NavigatorButton[];
+    fab?: FABAndroid;
 }
 
 export type IdAndroid = 'back' | 'cancel' | 'accept' | 'sideMenu';
