@@ -1,6 +1,6 @@
 // 2.0 examples from https://github.com/apigee-127/swagger-tools/blob/master/examples/2.0/index.js
 
-import * as connect from 'connect';
+import connect = require('connect');
 import { createServer } from 'http';
 import * as swaggerTools from 'swagger-tools';
 

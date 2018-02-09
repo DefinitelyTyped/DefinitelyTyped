@@ -1,5 +1,5 @@
-import * as _ from "../index";
-import { ValueIteratee } from "../index";
+import _ = require("../index");
+
 declare module "../index" {
     interface LoDashStatic {
         /**

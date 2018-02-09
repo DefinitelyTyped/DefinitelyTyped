@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
-import * as NavbarBrand from './NavbarBrand';
-import * as NavbarCollapse from './NavbarCollapse';
-import * as NavbarHeader from './NavbarHeader';
-import * as NavbarToggle from './NavbarToggle';
+import NavbarBrand = require('./NavbarBrand');
+import NavbarCollapse = require('./NavbarCollapse');
+import NavbarHeader = require('./NavbarHeader');
+import NavbarToggle = require('./NavbarToggle');
 
 declare namespace Navbar {
     export interface NavbarProps extends React.HTMLProps<Navbar> {

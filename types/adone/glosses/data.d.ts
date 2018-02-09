@@ -582,7 +582,7 @@ declare namespace adone {
             /**
              * Represents a YAML exception
              */
-            class Exception extends adone.x.Exception {
+            class Exception extends adone.exception.Exception {
                 reason: string;
                 mark: Mark;
 
@@ -1049,6 +1049,184 @@ declare namespace adone {
              * Decodes the given buffer with enabled buffers and values promoting
              */
             function decode(buf: Buffer, options?: I.DeserializeOptions): any;
+        }
+
+        namespace protobuf {
+            namespace schema {
+                namespace I {
+                    interface Field {
+                        name: string | null;
+                        type: string | null;
+                        tag: number;
+                        map: {
+                            from: string;
+                            to: string;
+                        } | null;
+                        oneof: string | null;
+                        required: boolean;
+                        repeated: boolean;
+                        options: object;
+                    }
+
+                    interface Enum {
+                        name: string;
+                        values: object;
+                        options: object;
+                    }
+
+                    interface Extend {
+                        name: string;
+                        message: Message;
+                    }
+
+                    interface Message {
+                        name: string;
+                        enums: Enum[];
+                        extends: Extend[];
+                        messages: Message[];
+                        fields: Field[];
+                        extensions: {
+                            from: number,
+                            to: number
+                        } | null;
+                    }
+
+                    interface RPCMethod {
+                        name: string;
+                        input_type: string | null;
+                        output_type: string | null;
+                        client_streaming: boolean;
+                        server_streaming: boolean;
+                        options: object;
+                    }
+
+                    interface Service {
+                        name: string;
+                        methods: RPCMethod[];
+                        options: object;
+                    }
+
+                    interface Schema {
+                        syntax: any; // ??
+                        package: string | null;
+                        imports: string[];
+                        enums: Enum[];
+                        messages: Message[];
+                        options: object;
+                        extends: Extend[];
+                        services?: Service[];
+                    }
+                }
+
+                function parse(buf: Buffer | string): I.Schema;
+
+                function stringify(schema: object): string;
+            }
+
+            function create(proto: Buffer | string | object, opts?: object): object;
+        }
+
+        namespace base32 {
+            function charmap<T = object>(alphabet: string, mappings?: T): T;
+
+            namespace I {
+                interface Spec {
+                    alphabet: string;
+                    charmap: {
+                        [c: string]: number;
+                    };
+                }
+            }
+
+            const rfc4648: I.Spec;
+
+            const crockford: I.Spec;
+
+            const base32hex: I.Spec;
+
+            namespace I {
+                interface DecoderOptions {
+                    type: "rfc4648" | "crockford" | "base32hex";
+                    charmap?: object;
+                }
+
+                interface EncoderOptions {
+                    type: "rfc4648" | "crockford" | "base32hex";
+                    alphabet?: string;
+                }
+            }
+
+            class Decoder {
+                constructor(options?: I.DecoderOptions);
+
+                write(str: string): this;
+
+                finalize(str?: string): Buffer;
+            }
+
+            class Encoder {
+                constructor(options?: I.EncoderOptions);
+
+                write(buf: Buffer): this;
+
+                finalize(buf?: Buffer): string;
+            }
+
+            function encode(buf: Buffer, options?: I.EncoderOptions): string;
+
+            function decode(str: string, options?: I.DecoderOptions): Buffer;
+        }
+
+        namespace I {
+            interface BaseX {
+                encode(buf: Buffer): string;
+
+                decode(str: string): Buffer;
+
+                decodeUnsafe(str: string): Buffer;
+            }
+        }
+
+        function basex(alphabet: string): I.BaseX;
+
+        const base58: I.BaseX;
+
+        namespace base64url {
+            function unescape(str: string): string;
+
+            function escape(str: string): string;
+
+            namespace I {
+                interface EncodeOptions {
+                    encoding?: string;
+                }
+
+                interface DecodeOptions {
+                    encoding?: string;
+                    buffer?: boolean;
+                }
+            }
+
+            function encode(str: Buffer | string, options?: I.EncodeOptions): string;
+
+            function decode(str: string, options: I.DecodeOptions & { buffer: true }): Buffer;
+            function decode(str: string, options?: I.DecodeOptions): string;
+        }
+
+        namespace varint {
+            function encode<T = any>(num: number, out?: T[], offset?: number): T[];
+
+            function decode(buf: Buffer, offset?: number): number;
+
+            function encodingLength(value: number): number;
+        }
+
+        namespace varintSigned {
+            function encode<T = any>(num: number, out?: T[], offset?: number): T[];
+
+            function decode(buf: Buffer, offset?: number): number;
+
+            function encodingLength(value: number): number;
         }
     }
 }

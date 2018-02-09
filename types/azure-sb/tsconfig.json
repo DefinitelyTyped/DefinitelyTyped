@@ -14,7 +14,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "lib/servicebusservice.d.ts",
@@ -39,4 +40,3 @@
         "index.d.ts"
     ]
 }
-
