@@ -42,6 +42,4 @@ interface Fingerprint2Options {
     excludeHardwareConcurrency?: boolean;
 }
 
-declare module "fingerprintjs2" {
-    export = Fingerprint2;
-}
+export = Fingerprint2;
