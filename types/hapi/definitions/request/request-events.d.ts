@@ -28,7 +28,7 @@ export interface RequestEvents extends Podium {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
     on(criteria: "peek", listener: PeekListener): void;
-    on(criteria: "finish" | "disconnect", listener: () => {}): void;
+    on(criteria: "finish" | "disconnect", listener: () => void): void;
     on(criteria: RequestEventType, listener: Function): void;
 
     /**
@@ -40,7 +40,7 @@ export interface RequestEvents extends Podium {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
     once(criteria: "peek", listener: PeekListener): void;
-    once(criteria: "finish" | "disconnect", listener: () => {}): void;
+    once(criteria: "finish" | "disconnect", listener: () => void): void;
     once(criteria: RequestEventType, listener: Function): void;
 
 
