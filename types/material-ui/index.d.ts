@@ -1051,6 +1051,8 @@ declare namespace __MaterialUI {
         open: boolean;
         overlayClassName?: string;
         overlayStyle?: React.CSSProperties;
+        paperClassName?: string;
+        paperProps?: any;
         repositionOnUpdate?: boolean;
         style?: React.CSSProperties;
         title?: React.ReactNode;
