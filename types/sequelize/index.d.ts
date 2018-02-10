@@ -19,7 +19,7 @@
 
 
 import * as _ from "lodash";
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
@@ -3363,7 +3363,7 @@ declare namespace sequelize {
          * Apply column on which COUNT() should be applied
          */
         col?: string;
-                     
+
         /**
          * Apply COUNT(DISTINCT(col))
          */

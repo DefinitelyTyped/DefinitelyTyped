@@ -550,6 +550,7 @@ export const DrawerItems: React.ComponentType;
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
+  drawerBackgroundColor?: string;
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
   contentComponent?: React.ComponentType;

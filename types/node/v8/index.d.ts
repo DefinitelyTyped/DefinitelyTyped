@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.5.x
+// Type definitions for Node.js 8.9.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -116,10 +116,15 @@ interface NodeRequireFunction {
 }
 
 interface NodeRequire extends NodeRequireFunction {
-    resolve(id: string): string;
+    resolve: RequireResolve;
     cache: any;
     extensions: NodeExtensions;
     main: NodeModule | undefined;
+}
+
+interface RequireResolve {
+    (id: string, options?: { paths?: string[]; }): string;
+    paths(request: string): string[] | null;
 }
 
 interface NodeExtensions {
@@ -2609,9 +2614,9 @@ declare module "net" {
         destroy(err?: any): void;
         pause(): this;
         resume(): this;
-        setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: boolean): void;
-        setKeepAlive(enable?: boolean, initialDelay?: number): void;
+        setTimeout(timeout: number, callback?: Function): this;
+        setNoDelay(noDelay?: boolean): this;
+        setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): { port: number; family: string; address: string; };
         unref(): void;
         ref(): void;
@@ -3693,7 +3698,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: Array<string | Buffer>) => void): void;
+    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -3722,7 +3727,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<Array<string | Buffer>>;
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
     }
 
     /**
@@ -3744,7 +3749,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): Array<string | Buffer>;
+    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
@@ -5309,7 +5314,6 @@ declare module "stream" {
              * 4. readable
              * 5. error
              */
-            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "data", listener: (chunk: Buffer | string) => void): this;

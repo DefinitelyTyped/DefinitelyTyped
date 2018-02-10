@@ -34,13 +34,6 @@ namespace utilTests {
         const b: string = util.functionName((a, b, c) => { });
     }
 
-    namespace mapArguments {
-        const a: (...args: any[]) => any = util.mapArguments(() => { });
-        const b: <T>(...args: T[]) => T[] = util.mapArguments(1);
-        const c: (...args: any[]) => any = util.mapArguments([1]);
-        const d: <T>(x: T) => T = util.mapArguments();
-    }
-
     namespace parseMs {
         const result: {
             days: number;
@@ -54,10 +47,6 @@ namespace utilTests {
         const a: string = util.pluralizeWord("day");
         const b: string = util.pluralizeWord("day", "days");
         const c: string = util.pluralizeWord("day", "days", 1);
-    }
-
-    namespace functionParams {
-        const a: string[] = util.functionParams((a: any, b: any, c: any) => { });
     }
 
     namespace randomChoice {
@@ -174,17 +163,8 @@ namespace utilTests {
         const a: string = util.globParent("a/b/c/**");
     }
 
-    namespace by {
-        const a: (a: number, b: number) => any = util.by((x: number): number => x);
-        const b: (a: number, b: number) => number = util.by((x: number): string => `${x}`, (a: string, b: string) => a.length - b.length);
-    }
-
     namespace toFastProperties {
         const a: object = util.toFastProperties({});
-    }
-
-    namespace stripBom {
-        const a: string = util.stripBom("123");
     }
 
     namespace sortKeys {
@@ -234,14 +214,25 @@ namespace utilTests {
         const b: number | null = util.parseSize("123Kb");
     }
 
+    namespace Cloner {
+        const a = new util.Cloner();
+        a.clone({});
+        a.clone({}, {});
+        a.clone({}, { deep: true });
+        a.clone({}, { nonPlainObjects: false });
+        a.clone({}, { onlyEnumerable: true });
+        const c = a.binding();
+        c({});
+        c({}, {});
+        c({}, { deep: true });
+        c({}, { onlyEnumerable: false });
+        c({}, { nonPlainObjects: true });
+    }
+
     namespace clone {
         const a: object = util.clone({});
         const b: object = util.clone({}, {});
         const c: object = util.clone({}, { deep: true });
-    }
-
-    namespace toUTF8Array {
-        const a: number[] = util.toUTF8Array("hello");
     }
 
     namespace asyncIter {
@@ -298,28 +289,34 @@ namespace utilTests {
         const a: object = util.assignDeep({ a: 1 }, { a: 2 });
     }
 
-    namespace match {
-        const a: number | boolean = util.match(["a", "b", "c"], "a");
-        const b: (a: any, b: any) => number | boolean = util.match("a", { index: true });
-        const c: number | boolean = util.match(["a", "b", "c"], "a", { dot: true });
-        const d: (a: any, b: any) => number | boolean = util.match("a", { end: 2 });
-        const e: (a: any, b: any) => number | boolean = util.match("a", { start: 2 });
-        const f: (a: any, b: any) => number | boolean = util.match("a");
+    namespace matchPath {
+        const a: number | boolean = util.matchPath(["a", "b", "c"], "a");
+        const b: (a: any, b: any) => number | boolean = util.matchPath("a", { index: true });
+        const c: number | boolean = util.matchPath(["a", "b", "c"], "a", { dot: true });
+        const d: (a: any, b: any) => number | boolean = util.matchPath("a", { end: 2 });
+        const e: (a: any, b: any) => number | boolean = util.matchPath("a", { start: 2 });
+        const f: (a: any, b: any) => number | boolean = util.matchPath("a");
     }
 
     namespace toposort {
-        const a: number[] = util.toposort([
-            [0, 1],
-            [2, 3],
-            [4, 5],
-            [6, 7]
+        const a: string[] = util.toposort([
+            ["0", "1"],
+            ["2", "3"],
+            ["4", "5"],
+            ["6", "7"]
         ]);
-        const b: number[] = util.toposort.array([0, 1, 2], [
-            [0, 1],
-            [2, 3],
-            [4, 5],
-            [6, 7]
+        const b: string[] = util.toposort.array(["0", "1", "2"], [
+            ["0", "1"],
+            ["2", "3"],
+            ["4", "5"],
+            ["6", "7"]
         ]);
+        const sorter = new util.toposort.Sorter();
+        sorter.add("a", "b");
+        sorter.add("a", ["c"]);
+        const c: string[] = sorter.sort();
+        sorter.clear();
+        sorter.edges[0][0].charCodeAt(100);
     }
 
     namespace jsesc {
@@ -338,10 +335,6 @@ namespace utilTests {
         const m: string = util.jsesc({ a: 1 }, { indentLevel: 4 });
         const n: string = util.jsesc({ a: 1 }, { __inline1__: true });
         const o: string = util.jsesc({ a: 1 }, { __inline2__: true });
-    }
-
-    namespace typeOf {
-        const a: string = util.typeOf(1);
     }
 
     namespace memcpy {
@@ -394,73 +387,6 @@ namespace utilTests {
         a.getter("a").access("b").method("c").setter("d");
     }
 
-    namespace GlobExp {
-        {
-            const glob = new util.GlobExp("*.js");
-            const a: boolean = glob.hasMagic();
-            const b: string[] = glob.expandBraces();
-            const c: RegExp = glob.makeRe();
-            const d: boolean = glob.test("a.js");
-        }
-        {
-            const a: boolean = util.GlobExp.hasMagic("*.js");
-            const b: string[] = util.GlobExp.expandBraces("*.js");
-            const c: RegExp = util.GlobExp.makeRe("*.js");
-            const d: boolean = util.GlobExp.test("*.js", "a.js");
-        }
-        new util.GlobExp("");
-        new util.GlobExp("", {});
-        new util.GlobExp("", { dot: true });
-        new util.GlobExp("", { flipNegate: true });
-        new util.GlobExp("", { matchBase: true });
-        new util.GlobExp("", { nobrace: true });
-        new util.GlobExp("", { nocase: true });
-        new util.GlobExp("", { nocomment: true });
-        new util.GlobExp("", { noext: true });
-        new util.GlobExp("", { noglobstar: true });
-        new util.GlobExp("", { nonegate: true });
-        util.GlobExp.hasMagic("", {});
-        util.GlobExp.hasMagic("", { dot: true });
-        util.GlobExp.hasMagic("", { flipNegate: true });
-        util.GlobExp.hasMagic("", { matchBase: true });
-        util.GlobExp.hasMagic("", { nobrace: true });
-        util.GlobExp.hasMagic("", { nocase: true });
-        util.GlobExp.hasMagic("", { nocomment: true });
-        util.GlobExp.hasMagic("", { noext: true });
-        util.GlobExp.hasMagic("", { noglobstar: true });
-        util.GlobExp.hasMagic("", { nonegate: true });
-        util.GlobExp.expandBraces("", {});
-        util.GlobExp.expandBraces("", { dot: true });
-        util.GlobExp.expandBraces("", { flipNegate: true });
-        util.GlobExp.expandBraces("", { matchBase: true });
-        util.GlobExp.expandBraces("", { nobrace: true });
-        util.GlobExp.expandBraces("", { nocase: true });
-        util.GlobExp.expandBraces("", { nocomment: true });
-        util.GlobExp.expandBraces("", { noext: true });
-        util.GlobExp.expandBraces("", { noglobstar: true });
-        util.GlobExp.expandBraces("", { nonegate: true });
-        util.GlobExp.makeRe("", {});
-        util.GlobExp.makeRe("", { dot: true });
-        util.GlobExp.makeRe("", { flipNegate: true });
-        util.GlobExp.makeRe("", { matchBase: true });
-        util.GlobExp.makeRe("", { nobrace: true });
-        util.GlobExp.makeRe("", { nocase: true });
-        util.GlobExp.makeRe("", { nocomment: true });
-        util.GlobExp.makeRe("", { noext: true });
-        util.GlobExp.makeRe("", { noglobstar: true });
-        util.GlobExp.makeRe("", { nonegate: true });
-        util.GlobExp.test("a", "b", {});
-        util.GlobExp.test("a", "b", { dot: true });
-        util.GlobExp.test("a", "b", { flipNegate: true });
-        util.GlobExp.test("a", "b", { matchBase: true });
-        util.GlobExp.test("a", "b", { nobrace: true });
-        util.GlobExp.test("a", "b", { nocase: true });
-        util.GlobExp.test("a", "b", { nocomment: true });
-        util.GlobExp.test("a", "b", { noext: true });
-        util.GlobExp.test("a", "b", { noglobstar: true });
-        util.GlobExp.test("a", "b", { nonegate: true });
-    }
-
     namespace iconv {
         // TODO
     }
@@ -475,19 +401,6 @@ namespace utilTests {
         namespace dateToString {
             const a: string = util.sqlstring.dateToString(Date.now());
             const b: string = util.sqlstring.dateToString(123, "local");
-        }
-
-        namespace arrayToList {
-            const a: string = util.sqlstring.arrayToList(["1", "a"]);
-        }
-
-        namespace bufferToString {
-            const a: string = util.sqlstring.bufferToString(Buffer.alloc(10));
-        }
-
-        namespace objectToValues {
-            const a: string = util.sqlstring.objectToValues({ a: 1 });
-            const b: string = util.sqlstring.objectToValues({ a: 1 }, "local");
         }
 
         namespace escape {
@@ -532,44 +445,55 @@ namespace utilTests {
     }
 
     namespace buffer {
-        const a: Buffer = util.buffer.concat([Buffer.alloc(10), Buffer.alloc(20)], 30);
-        util.buffer.mask(Buffer.alloc(10), Buffer.alloc(10), Buffer.alloc(10), 0, 10);
-        util.buffer.unmask(Buffer.alloc(10), Buffer.alloc(10));
+        namespace toArrayBuffer {
+            const a = util.buffer.toArrayBuffer(Buffer.from("hello"));
+            a.slice(10);
+        }
+
+        namespace xor {
+            const a = util.buffer.xor(Buffer.from("hello"), Buffer.from("world"));
+            a.writeUInt32LE(20, 1);
+        }
     }
 
     namespace shebang {
         const a: string | null = util.shebang("#!/bin/sh");
     }
 
-    namespace ReInterval {
-        new util.ReInterval(() => { }, 1000);
-        new util.ReInterval(() => { }, 1000, [1]);
-        const a = new util.ReInterval(() => { }, 1000);
+    namespace reinterval {
+        util.reinterval(() => { }, 1000);
+        util.reinterval(() => { }, 1000, [1]);
+        const a = util.reinterval(() => { }, 1000);
         a.reschedule(400);
         a.clear();
         a.destroy();
     }
 
-    namespace RateLimiter {
-        new util.RateLimiter();
-        new util.RateLimiter(1);
-        new util.RateLimiter(1, 1000);
-        new util.RateLimiter(1, 1000, true);
-        const a = new util.RateLimiter();
-        a.removeTokens(1).then((x: number) => { });
-        const b: boolean = a.tryRemoveTokens(10);
-        const c: number = a.getTokensRemaining();
-    }
-
     namespace throttle {
-        const a: () => Promise<number> = util.throttle(() => 42);
-        const b: (a: number) => Promise<string> = util.throttle((a: number) => `${a}`);
-        const c: (a: number, b: string) => Promise<string> = util.throttle((a: number, b: string) => String(a) + b);
-        const d = util.throttle(() => { }, {});
-        const e = util.throttle(() => { }, { interval: 1000 });
-        const f = util.throttle(() => { }, { max: 10 });
-        const g = util.throttle(() => { }, { ordered: true });
-        const h = util.throttle(() => { }, { waitForReturn: true });
+        namespace RateLimiter {
+            new util.throttle.RateLimiter();
+            new util.throttle.RateLimiter(1);
+            new util.throttle.RateLimiter(1, 1000);
+            new util.throttle.RateLimiter(1, 1000, true);
+            const a = new util.throttle.RateLimiter();
+            a.removeTokens(1).then((x: number) => { });
+            const b: boolean = a.tryRemoveTokens(10);
+            const c: number = a.getTokensRemaining();
+        }
+
+        const a: () => Promise<number> = util.throttle.create(() => 42);
+        const b: (a: number) => Promise<string> = util.throttle.create((a: number) => `${a}`);
+        const c: (a: number, b: string) => Promise<string> = util.throttle.create((a: number, b: string) => String(a) + b);
+        const d = util.throttle.create(() => { }, {});
+        const e = util.throttle.create(() => { }, { interval: 1000 });
+        const f = util.throttle.create(() => { }, { max: 10 });
+        const g = util.throttle.create(() => { }, { ordered: true });
+        const h = util.throttle.create(() => { }, { waitForReturn: true });
+        const i = util.throttle.create(() => { }, { onDone() {} });
+        const j = util.throttle.create(() => { }, { drop: true });
+        const k = util.throttle.create(() => { }, { dropLast: true });
+
+        const l: symbol = util.throttle.DROPPED;
     }
 
     namespace fakeClock {
@@ -741,17 +665,6 @@ namespace utilTests {
         }
     }
 
-    namespace userid {
-        const { userid } = util;
-
-        { const a: number = userid.uid("someone").gid; }
-        { const a: number = userid.uid("someone").uid; }
-        { const a: number = userid.gid("someone"); }
-        { const a: string = userid.username(1000); }
-        { const a: string = userid.groupname(1000); }
-        { const gids: number[] = userid.gids("someone"); }
-    }
-
     namespace LogRotator {
         const { LogRotator } = util;
         new LogRotator("file.log");
@@ -765,5 +678,680 @@ namespace utilTests {
         new LogRotator("file.log").rotate().then(() => {});
         new LogRotator("file.log").start();
         new LogRotator("file.log").stop();
+    }
+
+    namespace arrayDiff {
+        const { arrayDiff } = util;
+
+        arrayDiff([1, 2, 3], [4, 5, 6])[0].toFixed();
+        arrayDiff(["1"])[0].charCodeAt(100);
+    }
+
+    namespace fillRange {
+        const { fillRange } = util;
+
+        { const a: number[] = fillRange(1, 2); }
+        { const a: string[] = fillRange(1, 2, { stringify: true }); }
+        { const a: string = fillRange(1, 2, { toRegex: true }); }
+        { const a: string[] = fillRange("1", "2"); }
+        { const a: string = fillRange("1", "2", { toRegex: true }); }
+    }
+
+    namespace inflection {
+        const { inflection } = util;
+
+        { const a: string = inflection.singularizeWord("hello"); }
+        { const a: string = inflection.singularizeWord("hello", "aaaa"); }
+        { const a: string = inflection.pluralizeWord("hello"); }
+        { const a: string = inflection.pluralizeWord("hello", "aaaa"); }
+        { const a: string = inflection.underscore("hello"); }
+    }
+
+    namespace machineId {
+        const { machineId } = util;
+
+        (async () => {
+            const a: string = await machineId();
+        });
+    }
+
+    namespace merge {
+        const { merge } = util;
+
+        merge({}, {});
+        merge({}, {}, { allowPrototypes: true });
+        merge({}, {}, { plainObjects: false });
+    }
+
+    namespace omit {
+        const { omit } = util;
+
+        omit({}, ["a"]);
+        omit({}, "a");
+        omit({}, (x) => x === "a");
+    }
+
+    namespace parseTime {
+        const { parseTime } = util;
+
+        { const a: number = parseTime(123); }
+        { const a: number | null = parseTime("12"); }
+    }
+
+    namespace pick {
+        const { pick } = util;
+
+        pick({}, ["a", "b", "c"]);
+        pick({}, new Set(["a", "b", "c"]));
+    }
+
+    namespace querystring {
+        const { querystring: qs } = util;
+
+        { const a: string = qs.escape("asd"); }
+        { const a: string = qs.formats.default; }
+        { const a: string = qs.formats.RFC1738; }
+        { const a: string = qs.formats.RFC3986; }
+        { const a: string = qs.formats.formatters.RFC1738("ha"); }
+        { const a: string = qs.formats.formatters.RFC3986("ha"); }
+        { const a: object = qs.parse("asdasd"); }
+        { const a: object = qs.parse("asdasd", {}); }
+        { const a: object = qs.parse("asdasd", { allowDots: false }); }
+        { const a: object = qs.parse("asdasd", { allowPrototypes: false }); }
+        { const a: object = qs.parse("asdasd", { arrayLimit: 100 }); }
+        { const a: object = qs.parse("asdasd", { decoder: (s) => s }); }
+        { const a: object = qs.parse("asdasd", { decoder: (s, d) => d(s) }); }
+        { const a: object = qs.parse("asdasd", { delimiter: "a" }); }
+        { const a: object = qs.parse("asdasd", { depth: 100 }); }
+        { const a: object = qs.parse("asdasd", { ignoreQueryPrefix: false }); }
+        { const a: object = qs.parse("asdasd", { parameterLimit: 100 }); }
+        { const a: object = qs.parse("asdasd", { parseArrays: false }); }
+        { const a: object = qs.parse("asdasd", { plainObjects: true }); }
+        { const a: object = qs.parse("asdasd", { strictNullHandling: false }); }
+        { const a: string = qs.stringify({}); }
+        { const a: string = qs.stringify({}, {}); }
+        { const a: string = qs.stringify({}, { addQueryPrefix: false }); }
+        { const a: string = qs.stringify({}, { allowDots: false }); }
+        { const a: string = qs.stringify({}, { arrayFormat: "indices" }); }
+        { const a: string = qs.stringify({}, { arrayFormat: "brackets" }); }
+        { const a: string = qs.stringify({}, { arrayFormat: "repeat" }); }
+        { const a: string = qs.stringify({}, { delimiter: "1" }); }
+        { const a: string = qs.stringify({}, { encode: true }); }
+        { const a: string = qs.stringify({}, { encoder: (s) => s }); }
+        { const a: string = qs.stringify({}, { encodeValuesOnly: false }); }
+        { const a: string = qs.stringify({}, { filter: [1, 2, 3] }); }
+        { const a: string = qs.stringify({}, { filter: ["1", "2", "3"] }); }
+        { const a: string = qs.stringify({}, { filter: (prefix: string, value: any) => value === 1 }); }
+        { const a: string = qs.stringify({}, { indices: false }); }
+        { const a: string = qs.stringify({}, { serializeDate(d) { return String(d.getTime()); } }); }
+        { const a: string = qs.stringify({}, { skipNulls: false }); }
+        { const a: string = qs.stringify({}, { sort(a, b) { return a - b; } }); }
+        { const a: string = qs.stringify({}, { strictNullHandling: false }); }
+    }
+
+    namespace regexNot {
+        const { regexNot } = util;
+
+        { const a: RegExp = regexNot("a"); }
+        { const a: RegExp = regexNot("a", {}); }
+        { const a: RegExp = regexNot("a", { contains: false }); }
+    }
+
+    namespace repeat {
+        const { repeat } = util;
+        { const a: number[] = repeat(1, 10); }
+        { const a: string[] = repeat("a", 10); }
+        { const a: number[][] = repeat([2], 10); }
+    }
+
+    namespace signalNameToCode {
+        const { signalNameToCode } = util;
+        signalNameToCode("SIGINT").toFixed(2);
+    }
+
+    namespace splitBuffer {
+        const { splitBuffer } = util;
+
+        { const a: Buffer[] = splitBuffer(Buffer.from("asd"), Buffer.from("|")); }
+        { const a: Buffer[] = splitBuffer(Buffer.from("asd"), Buffer.from("|"), true); }
+        { const a: Buffer[] = splitBuffer("asd", Buffer.from("|"), true); }
+        { const a: Buffer[] = splitBuffer("asd", "|"); }
+    }
+
+    namespace splitString {
+        const { splitString } = util;
+
+        splitString("a");
+        splitString("a", {});
+        splitString("a", { braces: false });
+        splitString("a", { keepDoubleQuotes: false });
+        splitString("a", { keepEscaping: false });
+        splitString("a", { keepQuotes: false });
+        splitString("a", { keepSingleQuotes: false });
+        splitString("a", { separator: "|" });
+        splitString("a", {
+            split(token) {
+                { const a: string[] = token.arr; }
+                { const a: number = token.idx; }
+                { const a: string = token.str; }
+                { const a: string = token.val; }
+            }
+        });
+        splitString("a", (token) => {
+            { const a: string[] = token.arr; }
+            { const a: number = token.idx; }
+            { const a: string = token.str; }
+            { const a: string = token.val; }
+        });
+        splitString("a", {}, (token) => {
+            { const a: string[] = token.arr; }
+            { const a: number = token.idx; }
+            { const a: string = token.str; }
+            { const a: string = token.val; }
+        });
+    }
+
+    namespace toRegex {
+        const { toRegex } = util;
+
+        { const a: RegExp = toRegex("a"); }
+        { const a: RegExp = toRegex(["a"]); }
+        { const a: RegExp = toRegex(["a"], {}); }
+        { const a: RegExp = toRegex(["a"], { cache: false }); }
+        { const a: RegExp = toRegex(["a"], { contains: false }); }
+        { const a: RegExp = toRegex(["a"], { flags: "i" }); }
+        { const a: RegExp = toRegex(["a"], { negate: false }); }
+        { const a: RegExp = toRegex(["a"], { nocase: false }); }
+    }
+
+    namespace toRegexRange {
+        const { toRegexRange } = util;
+
+        { const a: RegExp = toRegexRange(1, 10); }
+        { const a: RegExp = toRegexRange("1", "10"); }
+        { const a: RegExp = toRegexRange(1, 10, {}); }
+        { const a: RegExp = toRegexRange(1, 10, { capture: false }); }
+        { const a: RegExp = toRegexRange(1, 10, { relaxZeros: true }); }
+        { const a: RegExp = toRegexRange(1, 10, { shorthand: false }); }
+    }
+
+    namespace xorDistance {
+        const { compare, create, eq, gt, lt } = util.xorDistance;
+
+        { const a: boolean = compare(Buffer.from("1"), Buffer.from("2")); }
+        { const a: Buffer = create(Buffer.from("1"), Buffer.from("2")); }
+        { const a: boolean = gt(Buffer.from("1"), Buffer.from("2")); }
+        { const a: boolean = lt(Buffer.from("1"), Buffer.from("2")); }
+        { const a: boolean = eq(Buffer.from("1"), Buffer.from("2")); }
+    }
+
+    namespace braces {
+        const { braces } = util;
+
+        { const a: string[] = braces("a"); }
+        { const a: string[] = braces("a", {}); }
+        { const a: string[] = braces("a", { expand: false }); }
+        { const a: string[] = braces("a", { nodupes: false }); }
+        { const a: string[] = braces("a", { optimize: true }); }
+        { const a: string[] = braces("a", { quantifiers: false }); }
+        { const a: string[] = braces("a", { rangeLimit: 100 }); }
+        { const a: string[] = braces("a", { transform: (s: string) => s }); }
+        { const a: string[] = braces("a", {  unescape: false }); }
+
+        { const a: string[] = braces.expand("a"); }
+        { const a: string[] = braces.expand("a", {}); }
+        { const a: string[] = braces.expand("a", { expand: false }); }
+        { const a: string[] = braces.expand("a", { nodupes: false }); }
+        { const a: string[] = braces.expand("a", { optimize: true }); }
+        { const a: string[] = braces.expand("a", { quantifiers: false }); }
+        { const a: string[] = braces.expand("a", { rangeLimit: 100 }); }
+        { const a: string[] = braces.expand("a", { transform: (s: string) => s }); }
+        { const a: string[] = braces.expand("a", {  unescape: false }); }
+
+        { const a: RegExp = braces.makeRe("a"); }
+        { const a: RegExp = braces.makeRe("a", {}); }
+        { const a: RegExp = braces.makeRe("a", { expand: false }); }
+        { const a: RegExp = braces.makeRe("a", { nodupes: false }); }
+        { const a: RegExp = braces.makeRe("a", { optimize: true }); }
+        { const a: RegExp = braces.makeRe("a", { quantifiers: false }); }
+        { const a: RegExp = braces.makeRe("a", { rangeLimit: 100 }); }
+        { const a: RegExp = braces.makeRe("a", { transform: (s: string) => s }); }
+        { const a: RegExp = braces.makeRe("a", {  unescape: false }); }
+
+        { const a: number = braces.MAX_LENGTH; }
+        { const a: object = braces.getCache(); }
+        braces.clearCache();
+        braces.resizeCache(100500);
+    }
+
+    namespace match {
+        const { match } = util;
+
+        { const a: string[] = match(["a"], "a"); }
+        { const a: string[] = match(["a"], ["a"]); }
+        { const a: string[] = match(["a"], ["a"], {}); }
+        { const a: string[] = match(["a"], ["a"], { basename: false }); }
+        { const a: string[] = match(["a"], ["a"], { bash: false }); }
+        { const a: string[] = match(["a"], ["a"], { cache: false }); }
+        { const a: string[] = match(["a"], ["a"], { dot: true }); }
+        { const a: string[] = match(["a"], ["a"], { failglob: false }); }
+        { const a: string[] = match(["a"], ["a"], { ignore: "a" }); }
+        { const a: string[] = match(["a"], ["a"], { ignore: ["a"] }); }
+        { const a: string[] = match(["a"], ["a"], { matchBase: false }); }
+        { const a: string[] = match(["a"], ["a"], { nobrace: true }); }
+        { const a: string[] = match(["a"], ["a"], { nocase: false }); }
+        { const a: string[] = match(["a"], ["a"], { nodupes: true }); }
+        { const a: string[] = match(["a"], ["a"], { noext: false }); }
+        { const a: string[] = match(["a"], ["a"], { noglobstar: true }); }
+        { const a: string[] = match(["a"], ["a"], { nonegate: false }); }
+        { const a: string[] = match(["a"], ["a"], { nonull: false }); }
+        { const a: string[] = match(["a"], ["a"], { nullglob: false }); }
+        { const a: string[] = match(["a"], ["a"], { snapdragon: {} }); }
+        { const a: string[] = match(["a"], ["a"], { sourcemap: false }); }
+        { const a: string[] = match(["a"], ["a"], { unescape: false }); }
+        { const a: string[] = match(["a"], ["a"], { unixify: false }); }
+
+        { const a: string[] = match.match(["a"], "a"); }
+        { const a: string[] = match.match(["a"], "a", {}); }
+        { const a: string[] = match.match(["a"], "a", { basename: false }); }
+        { const a: string[] = match.match(["a"], "a", { bash: false }); }
+        { const a: string[] = match.match(["a"], "a", { cache: false }); }
+        { const a: string[] = match.match(["a"], "a", { dot: true }); }
+        { const a: string[] = match.match(["a"], "a", { failglob: false }); }
+        { const a: string[] = match.match(["a"], "a", { ignore: "a" }); }
+        { const a: string[] = match.match(["a"], "a", { ignore: ["a"] }); }
+        { const a: string[] = match.match(["a"], "a", { matchBase: false }); }
+        { const a: string[] = match.match(["a"], "a", { nobrace: true }); }
+        { const a: string[] = match.match(["a"], "a", { nocase: false }); }
+        { const a: string[] = match.match(["a"], "a", { nodupes: true }); }
+        { const a: string[] = match.match(["a"], "a", { noext: false }); }
+        { const a: string[] = match.match(["a"], "a", { noglobstar: true }); }
+        { const a: string[] = match.match(["a"], "a", { nonegate: false }); }
+        { const a: string[] = match.match(["a"], "a", { nonull: false }); }
+        { const a: string[] = match.match(["a"], "a", { nullglob: false }); }
+        { const a: string[] = match.match(["a"], "a", { snapdragon: {} }); }
+        { const a: string[] = match.match(["a"], "a", { sourcemap: false }); }
+        { const a: string[] = match.match(["a"], "a", { unescape: false }); }
+        { const a: string[] = match.match(["a"], "a", { unixify: false }); }
+
+        { const a: boolean = match.isMatch("a", "a"); }
+        { const a: boolean = match.isMatch("a", "a", {}); }
+        { const a: boolean = match.isMatch("a", "a", { basename: false }); }
+        { const a: boolean = match.isMatch("a", "a", { bash: false }); }
+        { const a: boolean = match.isMatch("a", "a", { cache: false }); }
+        { const a: boolean = match.isMatch("a", "a", { dot: true }); }
+        { const a: boolean = match.isMatch("a", "a", { failglob: false }); }
+        { const a: boolean = match.isMatch("a", "a", { ignore: "a" }); }
+        { const a: boolean = match.isMatch("a", "a", { ignore: ["a"] }); }
+        { const a: boolean = match.isMatch("a", "a", { matchBase: false }); }
+        { const a: boolean = match.isMatch("a", "a", { nobrace: true }); }
+        { const a: boolean = match.isMatch("a", "a", { nocase: false }); }
+        { const a: boolean = match.isMatch("a", "a", { nodupes: true }); }
+        { const a: boolean = match.isMatch("a", "a", { noext: false }); }
+        { const a: boolean = match.isMatch("a", "a", { noglobstar: true }); }
+        { const a: boolean = match.isMatch("a", "a", { nonegate: false }); }
+        { const a: boolean = match.isMatch("a", "a", { nonull: false }); }
+        { const a: boolean = match.isMatch("a", "a", { nullglob: false }); }
+        { const a: boolean = match.isMatch("a", "a", { snapdragon: {} }); }
+        { const a: boolean = match.isMatch("a", "a", { sourcemap: false }); }
+        { const a: boolean = match.isMatch("a", "a", { unescape: false }); }
+        { const a: boolean = match.isMatch("a", "a", { unixify: false }); }
+
+        { const a: boolean = match.some(["a"], ["a"]); }
+        { const a: boolean = match.some("a", "a"); }
+        { const a: boolean = match.some("a", "a", {}); }
+        { const a: boolean = match.some("a", "a", { basename: false }); }
+        { const a: boolean = match.some("a", "a", { bash: false }); }
+        { const a: boolean = match.some("a", "a", { cache: false }); }
+        { const a: boolean = match.some("a", "a", { dot: true }); }
+        { const a: boolean = match.some("a", "a", { failglob: false }); }
+        { const a: boolean = match.some("a", "a", { ignore: "a" }); }
+        { const a: boolean = match.some("a", "a", { ignore: ["a"] }); }
+        { const a: boolean = match.some("a", "a", { matchBase: false }); }
+        { const a: boolean = match.some("a", "a", { nobrace: true }); }
+        { const a: boolean = match.some("a", "a", { nocase: false }); }
+        { const a: boolean = match.some("a", "a", { nodupes: true }); }
+        { const a: boolean = match.some("a", "a", { noext: false }); }
+        { const a: boolean = match.some("a", "a", { noglobstar: true }); }
+        { const a: boolean = match.some("a", "a", { nonegate: false }); }
+        { const a: boolean = match.some("a", "a", { nonull: false }); }
+        { const a: boolean = match.some("a", "a", { nullglob: false }); }
+        { const a: boolean = match.some("a", "a", { snapdragon: {} }); }
+        { const a: boolean = match.some("a", "a", { sourcemap: false }); }
+        { const a: boolean = match.some("a", "a", { unescape: false }); }
+        { const a: boolean = match.some("a", "a", { unixify: false }); }
+
+        { const a: boolean = match.every(["a"], ["a"]); }
+        { const a: boolean = match.every("a", "a"); }
+        { const a: boolean = match.every("a", "a", {}); }
+        { const a: boolean = match.every("a", "a", { basename: false }); }
+        { const a: boolean = match.every("a", "a", { bash: false }); }
+        { const a: boolean = match.every("a", "a", { cache: false }); }
+        { const a: boolean = match.every("a", "a", { dot: true }); }
+        { const a: boolean = match.every("a", "a", { failglob: false }); }
+        { const a: boolean = match.every("a", "a", { ignore: "a" }); }
+        { const a: boolean = match.every("a", "a", { ignore: ["a"] }); }
+        { const a: boolean = match.every("a", "a", { matchBase: false }); }
+        { const a: boolean = match.every("a", "a", { nobrace: true }); }
+        { const a: boolean = match.every("a", "a", { nocase: false }); }
+        { const a: boolean = match.every("a", "a", { nodupes: true }); }
+        { const a: boolean = match.every("a", "a", { noext: false }); }
+        { const a: boolean = match.every("a", "a", { noglobstar: true }); }
+        { const a: boolean = match.every("a", "a", { nonegate: false }); }
+        { const a: boolean = match.every("a", "a", { nonull: false }); }
+        { const a: boolean = match.every("a", "a", { nullglob: false }); }
+        { const a: boolean = match.every("a", "a", { snapdragon: {} }); }
+        { const a: boolean = match.every("a", "a", { sourcemap: false }); }
+        { const a: boolean = match.every("a", "a", { unescape: false }); }
+        { const a: boolean = match.every("a", "a", { unixify: false }); }
+
+        { const a: boolean = match.any(["a"], ["a"]); }
+        { const a: boolean = match.any("a", "a"); }
+        { const a: boolean = match.any("a", "a", {}); }
+        { const a: boolean = match.any("a", "a", { basename: false }); }
+        { const a: boolean = match.any("a", "a", { bash: false }); }
+        { const a: boolean = match.any("a", "a", { cache: false }); }
+        { const a: boolean = match.any("a", "a", { dot: true }); }
+        { const a: boolean = match.any("a", "a", { failglob: false }); }
+        { const a: boolean = match.any("a", "a", { ignore: "a" }); }
+        { const a: boolean = match.any("a", "a", { ignore: ["a"] }); }
+        { const a: boolean = match.any("a", "a", { matchBase: false }); }
+        { const a: boolean = match.any("a", "a", { nobrace: true }); }
+        { const a: boolean = match.any("a", "a", { nocase: false }); }
+        { const a: boolean = match.any("a", "a", { nodupes: true }); }
+        { const a: boolean = match.any("a", "a", { noext: false }); }
+        { const a: boolean = match.any("a", "a", { noglobstar: true }); }
+        { const a: boolean = match.any("a", "a", { nonegate: false }); }
+        { const a: boolean = match.any("a", "a", { nonull: false }); }
+        { const a: boolean = match.any("a", "a", { nullglob: false }); }
+        { const a: boolean = match.any("a", "a", { snapdragon: {} }); }
+        { const a: boolean = match.any("a", "a", { sourcemap: false }); }
+        { const a: boolean = match.any("a", "a", { unescape: false }); }
+        { const a: boolean = match.any("a", "a", { unixify: false }); }
+
+        { const a: boolean = match.all("a", "a"); }
+        { const a: boolean = match.all("a", ["a"]); }
+        { const a: boolean = match.all(["a"], "a"); }
+        { const a: boolean = match.all(["a"], "a", {}); }
+        { const a: boolean = match.all(["a"], ["a"], { basename: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { bash: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { cache: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { dot: true }); }
+        { const a: boolean = match.all(["a"], ["a"], { failglob: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { ignore: "a" }); }
+        { const a: boolean = match.all(["a"], ["a"], { ignore: ["a"] }); }
+        { const a: boolean = match.all(["a"], ["a"], { matchBase: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { nobrace: true }); }
+        { const a: boolean = match.all(["a"], ["a"], { nocase: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { nodupes: true }); }
+        { const a: boolean = match.all(["a"], ["a"], { noext: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { noglobstar: true }); }
+        { const a: boolean = match.all(["a"], ["a"], { nonegate: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { nonull: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { nullglob: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { snapdragon: {} }); }
+        { const a: boolean = match.all(["a"], ["a"], { sourcemap: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { unescape: false }); }
+        { const a: boolean = match.all(["a"], ["a"], { unixify: false }); }
+
+        { const a: string[] = match.not(["a"], ["a"]); }
+        { const a: string[] = match.not(["a"], "a"); }
+        { const a: string[] = match.not(["a"], "a", {}); }
+        { const a: string[] = match.not(["a"], "a", { basename: false }); }
+        { const a: string[] = match.not(["a"], "a", { bash: false }); }
+        { const a: string[] = match.not(["a"], "a", { cache: false }); }
+        { const a: string[] = match.not(["a"], "a", { dot: true }); }
+        { const a: string[] = match.not(["a"], "a", { failglob: false }); }
+        { const a: string[] = match.not(["a"], "a", { ignore: "a" }); }
+        { const a: string[] = match.not(["a"], "a", { ignore: ["a"] }); }
+        { const a: string[] = match.not(["a"], "a", { matchBase: false }); }
+        { const a: string[] = match.not(["a"], "a", { nobrace: true }); }
+        { const a: string[] = match.not(["a"], "a", { nocase: false }); }
+        { const a: string[] = match.not(["a"], "a", { nodupes: true }); }
+        { const a: string[] = match.not(["a"], "a", { noext: false }); }
+        { const a: string[] = match.not(["a"], "a", { noglobstar: true }); }
+        { const a: string[] = match.not(["a"], "a", { nonegate: false }); }
+        { const a: string[] = match.not(["a"], "a", { nonull: false }); }
+        { const a: string[] = match.not(["a"], "a", { nullglob: false }); }
+        { const a: string[] = match.not(["a"], "a", { snapdragon: {} }); }
+        { const a: string[] = match.not(["a"], "a", { sourcemap: false }); }
+        { const a: string[] = match.not(["a"], "a", { unescape: false }); }
+        { const a: string[] = match.not(["a"], "a", { unixify: false }); }
+
+        { const a: boolean = match.contains("a", "a"); }
+        { const a: boolean = match.contains("a", ["a"]); }
+        { const a: boolean = match.contains("a", ["a"], {}); }
+        { const a: boolean = match.contains("a", ["a"], { basename: false }); }
+        { const a: boolean = match.contains("a", ["a"], { bash: false }); }
+        { const a: boolean = match.contains("a", ["a"], { cache: false }); }
+        { const a: boolean = match.contains("a", ["a"], { dot: true }); }
+        { const a: boolean = match.contains("a", ["a"], { failglob: false }); }
+        { const a: boolean = match.contains("a", ["a"], { ignore: "a" }); }
+        { const a: boolean = match.contains("a", ["a"], { ignore: ["a"] }); }
+        { const a: boolean = match.contains("a", ["a"], { matchBase: false }); }
+        { const a: boolean = match.contains("a", ["a"], { nobrace: true }); }
+        { const a: boolean = match.contains("a", ["a"], { nocase: false }); }
+        { const a: boolean = match.contains("a", ["a"], { nodupes: true }); }
+        { const a: boolean = match.contains("a", ["a"], { noext: false }); }
+        { const a: boolean = match.contains("a", ["a"], { noglobstar: true }); }
+        { const a: boolean = match.contains("a", ["a"], { nonegate: false }); }
+        { const a: boolean = match.contains("a", ["a"], { nonull: false }); }
+        { const a: boolean = match.contains("a", ["a"], { nullglob: false }); }
+        { const a: boolean = match.contains("a", ["a"], { snapdragon: {} }); }
+        { const a: boolean = match.contains("a", ["a"], { sourcemap: false }); }
+        { const a: boolean = match.contains("a", ["a"], { unescape: false }); }
+        { const a: boolean = match.contains("a", ["a"], { unixify: false }); }
+
+        { const a: object = match.matchKeys({}, "a"); }
+        { const a: object = match.matchKeys({}, ["a"]); }
+        { const a: object = match.matchKeys({}, ["a"], {}); }
+        { const a: object = match.matchKeys({}, ["a"], { basename: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { bash: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { cache: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { dot: true }); }
+        { const a: object = match.matchKeys({}, ["a"], { failglob: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { ignore: "a" }); }
+        { const a: object = match.matchKeys({}, ["a"], { ignore: ["a"] }); }
+        { const a: object = match.matchKeys({}, ["a"], { matchBase: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { nobrace: true }); }
+        { const a: object = match.matchKeys({}, ["a"], { nocase: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { nodupes: true }); }
+        { const a: object = match.matchKeys({}, ["a"], { noext: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { noglobstar: true }); }
+        { const a: object = match.matchKeys({}, ["a"], { nonegate: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { nonull: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { nullglob: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { snapdragon: {} }); }
+        { const a: object = match.matchKeys({}, ["a"], { sourcemap: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { unescape: false }); }
+        { const a: object = match.matchKeys({}, ["a"], { unixify: false }); }
+
+        { const a: (s: string) => boolean = match.matcher("a"); }
+        { const a: (s: string) => boolean = match.matcher(["a"]); }
+        { const a: (s: string) => boolean = match.matcher(["a"], {}); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { basename: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { bash: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { cache: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { dot: true }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { failglob: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { ignore: "a" }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { ignore: ["a"] }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { matchBase: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { nobrace: true }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { nocase: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { nodupes: true }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { noext: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { noglobstar: true }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { nonegate: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { nonull: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { nullglob: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { snapdragon: {} }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { sourcemap: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { unescape: false }); }
+        { const a: (s: string) => boolean = match.matcher(["a"], { unixify: false }); }
+
+        { const a: string[] | null = match.capture("a", "a"); }
+        { const a: string[] | null = match.capture("a", "a", {}); }
+        { const a: string[] | null = match.capture("a", "a", { basename: false }); }
+        { const a: string[] | null = match.capture("a", "a", { bash: false }); }
+        { const a: string[] | null = match.capture("a", "a", { cache: false }); }
+        { const a: string[] | null = match.capture("a", "a", { dot: true }); }
+        { const a: string[] | null = match.capture("a", "a", { failglob: false }); }
+        { const a: string[] | null = match.capture("a", "a", { ignore: "a" }); }
+        { const a: string[] | null = match.capture("a", "a", { ignore: ["a"] }); }
+        { const a: string[] | null = match.capture("a", "a", { matchBase: false }); }
+        { const a: string[] | null = match.capture("a", "a", { nobrace: true }); }
+        { const a: string[] | null = match.capture("a", "a", { nocase: false }); }
+        { const a: string[] | null = match.capture("a", "a", { nodupes: true }); }
+        { const a: string[] | null = match.capture("a", "a", { noext: false }); }
+        { const a: string[] | null = match.capture("a", "a", { noglobstar: true }); }
+        { const a: string[] | null = match.capture("a", "a", { nonegate: false }); }
+        { const a: string[] | null = match.capture("a", "a", { nonull: false }); }
+        { const a: string[] | null = match.capture("a", "a", { nullglob: false }); }
+        { const a: string[] | null = match.capture("a", "a", { snapdragon: {} }); }
+        { const a: string[] | null = match.capture("a", "a", { sourcemap: false }); }
+        { const a: string[] | null = match.capture("a", "a", { unescape: false }); }
+        { const a: string[] | null = match.capture("a", "a", { unixify: false }); }
+
+        { const a: RegExp = match.makeRe("a"); }
+        { const a: RegExp = match.makeRe("a", {}); }
+        { const a: RegExp = match.makeRe("a", { basename: false }); }
+        { const a: RegExp = match.makeRe("a", { bash: false }); }
+        { const a: RegExp = match.makeRe("a", { cache: false }); }
+        { const a: RegExp = match.makeRe("a", { dot: true }); }
+        { const a: RegExp = match.makeRe("a", { failglob: false }); }
+        { const a: RegExp = match.makeRe("a", { ignore: "a" }); }
+        { const a: RegExp = match.makeRe("a", { ignore: ["a"] }); }
+        { const a: RegExp = match.makeRe("a", { matchBase: false }); }
+        { const a: RegExp = match.makeRe("a", { nobrace: true }); }
+        { const a: RegExp = match.makeRe("a", { nocase: false }); }
+        { const a: RegExp = match.makeRe("a", { nodupes: true }); }
+        { const a: RegExp = match.makeRe("a", { noext: false }); }
+        { const a: RegExp = match.makeRe("a", { noglobstar: true }); }
+        { const a: RegExp = match.makeRe("a", { nonegate: false }); }
+        { const a: RegExp = match.makeRe("a", { nonull: false }); }
+        { const a: RegExp = match.makeRe("a", { nullglob: false }); }
+        { const a: RegExp = match.makeRe("a", { snapdragon: {} }); }
+        { const a: RegExp = match.makeRe("a", { sourcemap: false }); }
+        { const a: RegExp = match.makeRe("a", { unescape: false }); }
+        { const a: RegExp = match.makeRe("a", { unixify: false }); }
+
+        { const a: string[] = match.braces("a"); }
+        { const a: string[] = match.braces("a", {}); }
+        { const a: string[] = match.braces("a", {}); }
+        { const a: string[] = match.braces("a", { basename: false }); }
+        { const a: string[] = match.braces("a", { bash: false }); }
+        { const a: string[] = match.braces("a", { cache: false }); }
+        { const a: string[] = match.braces("a", { dot: true }); }
+        { const a: string[] = match.braces("a", { failglob: false }); }
+        { const a: string[] = match.braces("a", { ignore: "a" }); }
+        { const a: string[] = match.braces("a", { ignore: ["a"] }); }
+        { const a: string[] = match.braces("a", { matchBase: false }); }
+        { const a: string[] = match.braces("a", { nobrace: true }); }
+        { const a: string[] = match.braces("a", { nocase: false }); }
+        { const a: string[] = match.braces("a", { nodupes: true }); }
+        { const a: string[] = match.braces("a", { noext: false }); }
+        { const a: string[] = match.braces("a", { noglobstar: true }); }
+        { const a: string[] = match.braces("a", { nonegate: false }); }
+        { const a: string[] = match.braces("a", { nonull: false }); }
+        { const a: string[] = match.braces("a", { nullglob: false }); }
+        { const a: string[] = match.braces("a", { snapdragon: {} }); }
+        { const a: string[] = match.braces("a", { sourcemap: false }); }
+        { const a: string[] = match.braces("a", { unescape: false }); }
+        { const a: string[] = match.braces("a", { unixify: false }); }
+
+        { const a: object = match.create("a"); }
+        { const a: object = match.create("a", {}); }
+        { const a: object = match.create("a", { basename: false }); }
+        { const a: object = match.create("a", { bash: false }); }
+        { const a: object = match.create("a", { cache: false }); }
+        { const a: object = match.create("a", { dot: true }); }
+        { const a: object = match.create("a", { failglob: false }); }
+        { const a: object = match.create("a", { ignore: "a" }); }
+        { const a: object = match.create("a", { ignore: ["a"] }); }
+        { const a: object = match.create("a", { matchBase: false }); }
+        { const a: object = match.create("a", { nobrace: true }); }
+        { const a: object = match.create("a", { nocase: false }); }
+        { const a: object = match.create("a", { nodupes: true }); }
+        { const a: object = match.create("a", { noext: false }); }
+        { const a: object = match.create("a", { noglobstar: true }); }
+        { const a: object = match.create("a", { nonegate: false }); }
+        { const a: object = match.create("a", { nonull: false }); }
+        { const a: object = match.create("a", { nullglob: false }); }
+        { const a: object = match.create("a", { snapdragon: {} }); }
+        { const a: object = match.create("a", { sourcemap: false }); }
+        { const a: object = match.create("a", { unescape: false }); }
+        { const a: object = match.create("a", { unixify: false }); }
+        { const a: object = match.create("a"); }
+
+        { const a: object = match.parse("a", {}); }
+        { const a: object = match.parse("a", { basename: false }); }
+        { const a: object = match.parse("a", { bash: false }); }
+        { const a: object = match.parse("a", { cache: false }); }
+        { const a: object = match.parse("a", { dot: true }); }
+        { const a: object = match.parse("a", { failglob: false }); }
+        { const a: object = match.parse("a", { ignore: "a" }); }
+        { const a: object = match.parse("a", { ignore: ["a"] }); }
+        { const a: object = match.parse("a", { matchBase: false }); }
+        { const a: object = match.parse("a", { nobrace: true }); }
+        { const a: object = match.parse("a", { nocase: false }); }
+        { const a: object = match.parse("a", { nodupes: true }); }
+        { const a: object = match.parse("a", { noext: false }); }
+        { const a: object = match.parse("a", { noglobstar: true }); }
+        { const a: object = match.parse("a", { nonegate: false }); }
+        { const a: object = match.parse("a", { nonull: false }); }
+        { const a: object = match.parse("a", { nullglob: false }); }
+        { const a: object = match.parse("a", { snapdragon: {} }); }
+        { const a: object = match.parse("a", { sourcemap: false }); }
+        { const a: object = match.parse("a", { unescape: false }); }
+        { const a: object = match.parse("a", { unixify: false }); }
+
+        { const a: object = match.compile("a", {}); }
+        { const a: object = match.compile({}, {}); }
+        { const a: object = match.compile("a", { basename: false }); }
+        { const a: object = match.compile({}, { basename: false }); }
+        { const a: object = match.compile("a", { bash: false }); }
+        { const a: object = match.compile({}, { bash: false }); }
+        { const a: object = match.compile("a", { cache: false }); }
+        { const a: object = match.compile({}, { cache: false }); }
+        { const a: object = match.compile("a", { dot: true }); }
+        { const a: object = match.compile({}, { dot: true }); }
+        { const a: object = match.compile("a", { failglob: false }); }
+        { const a: object = match.compile({}, { failglob: false }); }
+        { const a: object = match.compile("a", { ignore: "a" }); }
+        { const a: object = match.compile({}, { ignore: "a" }); }
+        { const a: object = match.compile("a", { ignore: ["a"] }); }
+        { const a: object = match.compile({}, { ignore: ["a"] }); }
+        { const a: object = match.compile("a", { matchBase: false }); }
+        { const a: object = match.compile({}, { matchBase: false }); }
+        { const a: object = match.compile("a", { nobrace: true }); }
+        { const a: object = match.compile({}, { nobrace: true }); }
+        { const a: object = match.compile("a", { nocase: false }); }
+        { const a: object = match.compile({}, { nocase: false }); }
+        { const a: object = match.compile("a", { nodupes: true }); }
+        { const a: object = match.compile({}, { nodupes: true }); }
+        { const a: object = match.compile("a", { noext: false }); }
+        { const a: object = match.compile({}, { noext: false }); }
+        { const a: object = match.compile("a", { noglobstar: true }); }
+        { const a: object = match.compile({}, { noglobstar: true }); }
+        { const a: object = match.compile("a", { nonegate: false }); }
+        { const a: object = match.compile({}, { nonegate: false }); }
+        { const a: object = match.compile("a", { nonull: false }); }
+        { const a: object = match.compile({}, { nonull: false }); }
+        { const a: object = match.compile("a", { nullglob: false }); }
+        { const a: object = match.compile({}, { nullglob: false }); }
+        { const a: object = match.compile("a", { snapdragon: {} }); }
+        { const a: object = match.compile({}, { snapdragon: {} }); }
+        { const a: object = match.compile("a", { sourcemap: false }); }
+        { const a: object = match.compile({}, { sourcemap: false }); }
+        { const a: object = match.compile("a", { unescape: false }); }
+        { const a: object = match.compile({}, { unescape: false }); }
+        { const a: object = match.compile("a", { unixify: false }); }
+        { const a: object = match.compile({}, { unixify: false }); }
+
+        { const a: number = match.MAX_LENGTH; }
+        match.clearCache();
+        match.resizeCache(10050);
+        { const a: object = match.getCache(); }
     }
 }

@@ -3723,7 +3723,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
     interface ErrorInfo {
         /**
-         * Captures which component contained the exception, and it's ancestors.
+         * Captures which component contained the exception, and its ancestors.
          */
         componentStack: string;
     }

@@ -457,7 +457,7 @@ export interface Statement {
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
  */
 export interface AuthResponseContext {
-    [name: string]: string | number | boolean;
+    [name: string]: any;
 }
 
 /**
