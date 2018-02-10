@@ -10,6 +10,7 @@
 //                 Youngrok Kim <https://github.com/rokoroku>
 //                 Dan Kraus <https://github.com/dankraus>
 //                 Anjun Wang <https://github.com/wanganjun>
+//                 Marcin Baszczewski <https://github.com/baszczewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -140,7 +141,7 @@ export interface WhenOptions {
     /**
      * the required condition joi type.
      */
-    is: SchemaLike;
+    is?: SchemaLike;
     /**
      * the alternative schema type if the condition is true. Required if otherwise is missing.
      */
@@ -341,6 +342,7 @@ export interface AnySchema extends JoiObject {
      */
     when(ref: string, options: WhenOptions): AlternativesSchema;
     when(ref: Reference, options: WhenOptions): AlternativesSchema;
+    when(ref: Schema, options: WhenOptions): AlternativesSchema;
 
     /**
      * Overrides the key name in error messages.
