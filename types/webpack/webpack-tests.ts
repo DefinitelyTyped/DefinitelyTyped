@@ -1,4 +1,5 @@
 import webpack = require('webpack');
+import { RawSourceMap } from 'source-map';
 
 const {
     optimize,
@@ -637,7 +638,7 @@ configuration = {
     performance,
 };
 
-function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap?: object): void {
+function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap?: RawSourceMap): void {
     this.cacheable();
 
     this.async();
