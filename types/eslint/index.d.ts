@@ -35,18 +35,10 @@ export namespace AST {
 
     type Range = [number, number];
 
-    interface Ranged {
-        range: Range;
-    }
-
     interface Program extends ESTree.Program {
         comments: ESTree.Comment[];
         tokens: Token[];
         loc: SourceLocation;
-        range: Range;
-    }
-
-    interface Comment extends ESTree.Comment {
         range: Range;
     }
 }
@@ -152,42 +144,62 @@ export class SourceCode {
 
     getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | null;
 
-    getFirstToken(node: AST.Ranged, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getFirstToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getFirstTokens(node: AST.Ranged, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getFirstTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getLastToken(node: AST.Ranged, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getLastToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getLastTokens(node: AST.Ranged, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getTokenBefore(node: AST.Ranged, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getTokensBefore(node: AST.Ranged, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensBefore(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getTokenAfter(node: AST.Ranged, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getTokenAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
 
-    getTokensAfter(node: AST.Ranged, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensAfter(node: ESTree.Node | AST.Token | ESTree.Comment, options?: SourceCode.CursorWithCountOptions): AST.Token[];
 
-    getFirstTokenBetween(left: AST.Ranged, right: AST.Ranged, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getFirstTokenBetween(
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithSkipOptions
+    ): AST.Token | null;
 
-    getFirstTokensBetween(left: AST.Ranged, right: AST.Ranged, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getFirstTokensBetween(
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithCountOptions
+    ): AST.Token[];
 
-    getLastTokenBetween(left: AST.Ranged, right: AST.Ranged, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getLastTokenBetween(
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithSkipOptions
+    ): AST.Token | null;
 
-    getLastTokensBetween(left: AST.Ranged, right: AST.Ranged, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getLastTokensBetween(
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
+        options?: SourceCode.CursorWithCountOptions
+    ): AST.Token[];
 
-    getTokensBetween(left: AST.Ranged, right: AST.Ranged, padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokensBetween(
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
+        padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions
+    ): AST.Token[];
 
-    getTokens(node: AST.Ranged, beforeCount?: number, afterCount?: number): AST.Token[];
-    getTokens(node: AST.Ranged, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
+    getTokens(node: ESTree.Node, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
 
-    commentsExistBetween(left: AST.Ranged, right: AST.Ranged): boolean;
+    commentsExistBetween(left: ESTree.Node | AST.Token, right: ESTree.Node | AST.Token): boolean;
 
-    getCommentsBefore(nodeOrToken: AST.Ranged): ESTree.Comment[];
+    getCommentsBefore(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
-    getCommentsAfter(nodeOrToken: AST.Ranged): ESTree.Comment[];
+    getCommentsAfter(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
-    getCommentsInside(node: AST.Ranged): ESTree.Comment[];
+    getCommentsInside(node: ESTree.Node): ESTree.Comment[];
 }
 
 export namespace SourceCode {
