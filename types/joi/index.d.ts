@@ -376,7 +376,7 @@ export interface AnySchema extends JoiObject {
      * override, that error will be returned and the override will be ignored (unless the `abortEarly`
      * option has been set to `false`).
      */
-    error?(err: Error | ValidationErrorFunction): this;
+    error(err: Error | ValidationErrorFunction): this;
 
     /**
      * Returns a plain object representing the schema's rules and properties
