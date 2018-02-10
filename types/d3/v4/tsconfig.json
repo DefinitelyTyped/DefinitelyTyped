@@ -2,16 +2,21 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "d3-scale": ["d3-scale/v1"],
+            "d3": ["d3/v4"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -19,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3-scale-chromatic-tests.ts"
+        "d3-tests.ts"
     ]
 }
