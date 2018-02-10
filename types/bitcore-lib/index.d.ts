@@ -1,6 +1,6 @@
 // Type definitions for bitcore-lib 0.15
 // Project: https://github.com/bitpay/bitcore-lib
-// Definitions by: Lautaro Dragan <https://github.com/lautarodragan/>
+// Definitions by: Lautaro Dragan <https://github.com/lautarodragan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.2
@@ -17,12 +17,9 @@ export namespace crypto {
         function sha256(buffer: Buffer): Uint8Array;
     }
     namespace Random {
-       function getRandomBuffer(size: number): Buffer
+       function getRandomBuffer(size: number): Buffer;
     }
-    namespace Point {
-
-    }
-
+    namespace Point {}
     class Signature {
         static fromDER(sig: Buffer): Signature;
         static fromString(data: string): Signature;
@@ -87,6 +84,11 @@ export class PrivateKey {
 
 export class PublicKey {
     constructor(source: string);
+
+    static fromPrivateKey(privateKey: PrivateKey): PublicKey;
+
+    toBuffer(): Buffer;
+    toDER(): Buffer;
 }
 
 export interface Output {
