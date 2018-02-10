@@ -8,7 +8,7 @@ const privateKey: bitcore.PrivateKey = new bitcore.PrivateKey('privateKey');
 const publicKey: bitcore.PublicKey = privateKey.publicKey;
 const publicKeyAsString: string = publicKey.toString();
 
-const signature = bitcore.crypto.ECDSA.sign(Buffer.from('sign this message', 'hex'), bitcore.PrivateKey('privateKey'));
+const signature = bitcore.crypto.ECDSA.sign(Buffer.from('sign this message', 'hex'), new bitcore.PrivateKey('privateKey'));
 
 bitcore.crypto.ECDSA.verify(
   Buffer.from('buffer', 'hex'),
