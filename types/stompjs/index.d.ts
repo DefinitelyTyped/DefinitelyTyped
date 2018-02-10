@@ -26,6 +26,7 @@ export class Client {
     debug(...args: string[]): any;
 
     connect(headers: { login: string, passcode: string, host?: string }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
+    connect(headers: { }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
     connect(login: string, passcode: string, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any, host?: string): any;
     disconnect(disconnectCallback: () => any, headers?: {}): any;
 
@@ -59,9 +60,9 @@ export class Frame implements Message {
     ack(headers?: {}): any;
     nack(headers?: {}): any;
     toString(): string;
-    sizeOfUTF8(s: string): number;
-    unmarshall(datas: any): any;
-    marshall(command: string, headers?: {}, body?: string): any;
+    static sizeOfUTF8(s: string): number;
+    static unmarshall(datas: any): any;
+    static marshall(command: string, headers?: {}, body?: string): any;
 }
 
 export function client(url: string, protocols?: string | Array<string>): Client;
