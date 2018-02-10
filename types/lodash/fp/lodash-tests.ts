@@ -332,7 +332,7 @@ interface AbcObject {
     _.sortedIndexOf(value, list); // $ExpectType number
 }
 
-//_.initial
+// _.initial
 {
     const array: AbcObject[] | null | undefined = anything;
     const list: ArrayLike<AbcObject> | null | undefined = anything;
@@ -1143,8 +1143,6 @@ interface AbcObject {
 
 // _.keyBy
 {
-    type AbcObject = {a: number; b: string; c: boolean;};
-
     const list: ArrayLike<AbcObject> | null | undefined = anything;
     const dictionary: lodash.Dictionary<AbcObject> | null | undefined = anything;
     const numericDictionary: lodash.NumericDictionary<AbcObject> | null | undefined = anything;
@@ -1173,20 +1171,20 @@ interface AbcObject {
     _.keyBy(["a", 42], numericDictionary);
 }
 
-//_.invoke
+// _.invoke
 {
     const boolArray: boolean[] = [true, false];
 
     const nestedDict: lodash.Dictionary<number[]> = {
         a: [0, 1, 2]
-    }
+    };
 
     const numDict: lodash.Dictionary<number> = {
         a: 1,
         b: 2,
         c: 3,
         d: 4
-    }
+    };
 
     _.invoke("[1]", boolArray); // $ExpectType any
     _.invoke("[1]")(boolArray); // $ExpectType any
@@ -1201,7 +1199,7 @@ interface AbcObject {
     _.invokeArgs("a.toString")([16])(numDict); // $ExpectType any
 }
 
-//_.invokeMap
+// _.invokeMap
 {
     const numArray: number[] | null | undefined = anything;
     const obj: lodash.Dictionary<number> = {
@@ -1683,8 +1681,8 @@ interface AbcObject {
 
 // _.conformsTo
 {
-    _.conformsTo({foo: (v: string) => false}, {foo: "foo"}, ); // $ExpectType boolean
-    _.conformsTo({foo: (v: string) => false})({foo: "foo"}, ); // $ExpectType boolean
+    _.conformsTo({foo: (v: string) => false}, {foo: "foo"}); // $ExpectType boolean
+    _.conformsTo({foo: (v: string) => false})({foo: "foo"}); // $ExpectType boolean
 }
 
 // _.eq
@@ -1940,7 +1938,7 @@ interface AbcObject {
 
     {
         class CustomError extends Error {
-            custom: string
+            custom: string;
         }
 
         const value: number | CustomError = anything;
@@ -2123,8 +2121,7 @@ interface AbcObject {
 
         if (_.isString(value)) {
             const result: string = value;
-        }
-        else {
+        } else {
             const result: number = value;
         }
     }
@@ -2169,8 +2166,7 @@ interface AbcObject {
 
         if (_.isWeakSet(value)) {
             const result: WeakSet<object> = value;
-        }
-        else {
+        } else {
             const result: number = value;
         }
     }
@@ -2392,8 +2388,8 @@ interface AbcObject {
 
 // _.assign
 {
-    interface Obj { a: string };
-    interface S1 { b: number };
+    interface Obj { a: string; }
+    interface S1 { b: number; }
 
     const obj: Obj = { a: "" };
     const s1: S1 = { b: 1 };
@@ -2404,8 +2400,8 @@ interface AbcObject {
 
 // _.assignWith
 {
-    interface Obj { a: string };
-    interface S1 { b: number };
+    interface Obj { a: string; }
+    interface S1 { b: number; }
 
     const obj: Obj = { a: "" };
     const s1: S1 = { b: 1 };
@@ -2418,8 +2414,8 @@ interface AbcObject {
 
 // _.assignIn
 {
-    interface Obj { a: string };
-    interface S1 { b: number };
+    interface Obj { a: string; }
+    interface S1 { b: number; }
 
     const obj: Obj = { a: "" };
     const s1: S1 = { b: 1 };
@@ -2430,8 +2426,8 @@ interface AbcObject {
 
 // _.assignInWith
 {
-    interface Obj { a: string };
-    interface S1 { b: number };
+    interface Obj { a: string; }
+    interface S1 { b: number; }
 
     const obj: Obj = { a: "" };
     const s1: S1 = { b: 1 };
@@ -2444,7 +2440,7 @@ interface AbcObject {
 
 // _.create
 {
-    type SampleProto = {a: number};
+    interface SampleProto { a: number; }
 
     const prototype: SampleProto = { a: 1 };
 
@@ -2453,8 +2449,8 @@ interface AbcObject {
 
 // _.defaults
 {
-    interface Obj { a: string };
-    interface S1 { b: number };
+    interface Obj { a: string; }
+    interface S1 { b: number; }
 
     const obj: Obj = { a: "" };
     const s1: S1 = { b: 1 };
@@ -2463,16 +2459,16 @@ interface AbcObject {
     _.defaults(obj)(s1); // $ExpectType Obj & S1
 }
 
-//_.defaultsDeep
+// _.defaultsDeep
 {
     interface DefaultsDeepResult {
         user: {
             name: string;
             age: number;
-        }
+        };
     }
-    const testDefaultsDeepObject = { "user": { "name": "barney" } };
-    const testDefaultsDeepSource = { "user": { "name": "fred", "age": 36 } };
+    const testDefaultsDeepObject = { user: { name: "barney" } };
+    const testDefaultsDeepSource = { user: { name: "fred", age: 36 } };
     _.defaultsDeep(testDefaultsDeepSource, testDefaultsDeepObject);
     _.defaultsDeep(testDefaultsDeepSource)(testDefaultsDeepObject);
 }
@@ -2493,8 +2489,8 @@ interface AbcObject {
 
 // _.extend
 {
-    interface Obj { a: string };
-    interface S1 { b: number };
+    interface Obj { a: string; }
+    interface S1 { b: number; }
 
     const obj: Obj = { a: "" };
     const s1: S1 = { b: 1 };
@@ -2505,8 +2501,8 @@ interface AbcObject {
 
 // _.extendWith
 {
-    interface Obj { a: string };
-    interface S1 { b: number };
+    interface Obj { a: string; }
+    interface S1 { b: number; }
 
     const obj: Obj = { a: "" };
     const s1: S1 = { b: 1 };
@@ -2681,12 +2677,12 @@ interface AbcObject {
 
 // _.invertBy
 {
-    const list: ArrayLike<{a: number;}> = [];
-    const dictionary: lodash.Dictionary<{a: number;}> = {};
-    const numericDictionary: lodash.NumericDictionary<{a: number;}> = {};
+    const list: ArrayLike<{ a: number; }> = [];
+    const dictionary: lodash.Dictionary<{ a: number; }> = {};
+    const numericDictionary: lodash.NumericDictionary<{ a: number; }> = {};
 
     const stringIterator: (value: string) => any = (value: string) => 1;
-    const listIterator: (value: {a: number;}) => any = (value: {a: number;}) => 1;
+    const listIterator: (value: { a: number; }) => any = (value: { a: number; }) => 1;
 
     _.invertBy(stringIterator, "foo"); // $ExpectType Dictionary<string[]>
     _.invertBy(stringIterator)("foo"); // $ExpectType Dictionary<string[]>
@@ -3100,10 +3096,10 @@ interface AbcObject {
 
 // _.truncate
 {
-    _.truncate({ "length": 24, "separator": " " }, "hi-diddly-ho there, neighborino"); // $ExpectType string
-    _.truncate({ "length": 24, "separator": " " })("hi-diddly-ho there, neighborino"); // $ExpectType string
-    _.truncate({ "length": 24, "separator": /,? +/ }, "hi-diddly-ho there, neighborino"); // $ExpectType string
-    _.truncate({ "omission": " […]" }, "hi-diddly-ho there, neighborino"); // $ExpectType string
+    _.truncate({ length: 24, separator: " " }, "hi-diddly-ho there, neighborino"); // $ExpectType string
+    _.truncate({ length: 24, separator: " " })("hi-diddly-ho there, neighborino"); // $ExpectType string
+    _.truncate({ length: 24, separator: /,? +/ }, "hi-diddly-ho there, neighborino"); // $ExpectType string
+    _.truncate({ omission: " […]" }, "hi-diddly-ho there, neighborino"); // $ExpectType string
 }
 
 // _.unescape
@@ -3144,7 +3140,7 @@ interface AbcObject {
     const pairRes1: (val: string) => number = (val) => 1;
     const pairRes2: (val: string) => number = (val) => 2;
 
-    _.cond([[pairPred1, pairRes1],[pairPred2, pairRes2]])("hello"); // $ExpectType number
+    _.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
 }
 
 // _.constant
