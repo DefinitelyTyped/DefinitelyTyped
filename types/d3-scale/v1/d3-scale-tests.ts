@@ -9,12 +9,7 @@
 import * as d3Scale from 'd3-scale';
 import { interpolateCubehelix } from 'd3-interpolate';
 import { timeHour } from 'd3-time';
-import {
-    schemePuRd,
-    interpolateRainbow,
-    interpolateCool,
-    interpolateInferno
-} from 'd3-scale-chromatic';
+import { schemePuRd } from 'd3-scale-chromatic';
 
 // -------------------------------------------------------------------------------
 // Preparatory Steps
@@ -555,8 +550,8 @@ const copiedTimeScale: d3Scale.ScaleTime<number, string> = localTimeScaleNumStri
 
 let sequentialScaleColorString: d3Scale.ScaleSequential<string>;
 
-sequentialScaleColorString = d3Scale.scaleSequential<string>(interpolateRainbow);
-sequentialScaleColorString = d3Scale.scaleSequential(interpolateCool); // inferred Output type string
+sequentialScaleColorString = d3Scale.scaleSequential<string>(d3Scale.interpolateRainbow);
+sequentialScaleColorString = d3Scale.scaleSequential(d3Scale.interpolateCool); // inferred Output type string
 
 // ScaleSequential Interface ========================================================
 
@@ -573,7 +568,7 @@ clampFlag = sequentialScaleColorString.clamp();
 
 // interpolate(...) -----------------------------------------------------------------
 
-sequentialScaleColorString = sequentialScaleColorString.interpolator(interpolateInferno);
+sequentialScaleColorString = sequentialScaleColorString.interpolator(d3Scale.interpolateInferno);
 
 let sequentialInterpolator: (t: number) => string;
 sequentialInterpolator = sequentialScaleColorString.interpolator();
@@ -585,6 +580,28 @@ outputString = sequentialScaleColorString(10);
 // copy(...) -----------------------------------------------------------------
 
 const copiedSequentialScale: d3Scale.ScaleSequential<string> = sequentialScaleColorString.copy();
+
+// -------------------------------------------------------------------------------
+// Color Interpolators for Sequential Scale Factory
+// -------------------------------------------------------------------------------
+
+let colorInterpolator: ((t: number) => string);
+
+colorInterpolator = d3Scale.interpolateViridis;
+
+colorInterpolator = d3Scale.interpolateMagma;
+
+colorInterpolator = d3Scale.interpolateInferno;
+
+colorInterpolator = d3Scale.interpolatePlasma;
+
+colorInterpolator = d3Scale.interpolateRainbow;
+
+colorInterpolator = d3Scale.interpolateWarm;
+
+colorInterpolator = d3Scale.interpolateCool;
+
+colorInterpolator = d3Scale.interpolateCubehelixDefault;
 
 // -------------------------------------------------------------------------------
 // Quantize Scale Factory
@@ -937,3 +954,17 @@ outputNumberMaybe = pointScaleCoercible(new StringCoercible('negative'));
 // copy(...) -----------------------------------------------------------------
 
 const copiedPointScale: d3Scale.ScalePoint<StringCoercible> = pointScaleCoercible.copy();
+
+// -------------------------------------------------------------------------------
+// Categorical Color Schemas for Ordinal Scales
+// -------------------------------------------------------------------------------
+
+let colorStrings: string[];
+
+colorStrings = d3Scale.schemeCategory10;
+
+colorStrings = d3Scale.schemeCategory20;
+
+colorStrings = d3Scale.schemeCategory20b;
+
+colorStrings = d3Scale.schemeCategory20c;

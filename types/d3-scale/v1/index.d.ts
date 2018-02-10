@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-scale module 2.0
+// Type definitions for D3JS d3-scale module 1.0
 // Project: https://github.com/d3/d3-scale/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 1.0.7
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -1082,6 +1082,71 @@ export interface ScaleSequential<Output> {
 export function scaleSequential<Output>(interpolator: ((t: number) => Output)): ScaleSequential<Output>;
 
 // -------------------------------------------------------------------------------
+// Color Interpolators for Sequential Scale Factory
+// -------------------------------------------------------------------------------
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “viridis” perceptually-uniform color scheme designed by van der Walt, Smith and Firing for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateViridis(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “inferno” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateInferno(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “magma” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateMagma(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “plasma” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolatePlasma(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from a 180° rotation of Niccoli’s perceptual rainbow, represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateWarm(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from Niccoli’s perceptual rainbow, represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateCool(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from d3.interpolateWarm scale from [0.0, 0.5] followed by the d3.interpolateCool scale from [0.5, 1.0],
+ * thus implementing the cyclical less-angry rainbow color scheme.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateRainbow(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from Green’s default Cubehelix represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateCubehelixDefault(t: number): string;
+
+// -------------------------------------------------------------------------------
 // Quantize Scale Factory
 // -------------------------------------------------------------------------------
 
@@ -1748,3 +1813,28 @@ export function scalePoint(): ScalePoint<string>;
  * The generic corresponds to the data type of domain elements.
  */
 export function scalePoint<Domain extends { toString(): string }>(): ScalePoint<Domain>;
+
+// -------------------------------------------------------------------------------
+// Categorical Color Schemas for Ordinal Scales
+// -------------------------------------------------------------------------------
+
+/**
+ * An array of ten categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeCategory10: string[];
+
+/**
+ * An array of twenty categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeCategory20: string[];
+
+/**
+ * An array of twenty categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeCategory20b: string[];
+
+/**
+ * An array of twenty categorical colors represented as RGB hexadecimal strings.
+ * This color scale includes color specifications and designs developed by Cynthia Brewer (colorbrewer2.org).
+ */
+export const schemeCategory20c: string[];
