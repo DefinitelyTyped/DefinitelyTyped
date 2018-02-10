@@ -15,11 +15,15 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
-            "@feathersjs/rest-client": ["feathersjs__rest-client"]
+            "@feathersjs/rest-client": [
+                "feathersjs__rest-client"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__rest-client-tests.ts"
+        "index.d.ts",
+        "feathersjs__rest-client-tests.ts"
     ]
 }

@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as gulp from "gulp";
-import * as cache from "gulp-cache";
+import cache = require("gulp-cache");
 import File = require("vinyl");
 
 // Some gulp plugin

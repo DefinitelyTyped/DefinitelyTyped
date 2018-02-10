@@ -2,6 +2,7 @@
     "compilerOptions": {
         "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "lib": [
             "es6"
         ],

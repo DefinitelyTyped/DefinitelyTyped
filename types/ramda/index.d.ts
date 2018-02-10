@@ -1245,10 +1245,10 @@ declare namespace R {
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
-        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): string[][];
-        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T[][];
-        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => string[][];
+        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): [string[], string[]];
+        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): [T[], T[]];
+        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => [T[], T[]];
+        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => [string[], string[]];
 
         /**
          * Retrieve the value at a given path.

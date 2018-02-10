@@ -1,8 +1,8 @@
-import * as _ from "../index";
+import _ = require("../index");
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
-    type Many<T> = T | T[];
+    type Many<T> = T | ReadonlyArray<T>;
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps value to enable implicit method chain sequences.

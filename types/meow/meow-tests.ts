@@ -1,19 +1,39 @@
 import meow = require('meow');
-import Options = meow.Options;
 
-const options: Options = {};
-options.description = true;
-options.description = 'string';
-options.help = true;
-options.help = 'string';
-options.version = true;
-options.version = 'string';
-options.argv = ['string', 'string'];
-options.inferType = true;
+const cli = meow("Help text",
+    {
+        flags: {
+            unicorn: {
+                type: 'boolean',
+                alias: 'u'
+            },
+            fooBar: {
+                type: 'string',
+                default: 'foo'
+            }
+        }
+    }
+);
 
-meow(options);
-meow('Usage text', {
-  alias: {
-    opt: 'opt'
-  }
+const cli2 = meow("Help text");
+
+const cli3 = meow({
+    description: "version string",
+    help: "help string",
+    version: "1.0.0",
+    pkg: {},
+    argv: ['foo', 'bar'],
+    inferType: true,
+    autoHelp: true,
+    autoVersion: true,
+    flags: {
+        unicorn: {
+            type: 'boolean',
+            alias: 'u'
+        },
+        fooBar: {
+            type: 'string',
+            default: 'foo'
+        }
+    }
 });

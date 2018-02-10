@@ -66,6 +66,7 @@ declare namespace ReactDates {
         reopenPickerOnClearDates?: boolean,
         renderCalendarInfo?: () => (string | JSX.Element),
         hideKeyboardShortcutsPanel?: boolean,
+        daySize?: number,
         isRTL?: boolean,
 
         // navigation related props
@@ -145,6 +146,9 @@ declare namespace ReactDates {
         customInputIcon?: string | JSX.Element,
         noBorder?: boolean,
         block?: boolean,
+        small?: boolean,
+        regular?: boolean,
+        keepFocusOnInput?: boolean,
 
         // calendar presentation and interaction related props
         renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
@@ -162,6 +166,8 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean,
         daySize?: number,
         isRTL?: boolean,
+        verticalSpacing?: number,        
+        verticalHeight?: number| null,
 
         // navigation related props
         navPrev?: string | JSX.Element,

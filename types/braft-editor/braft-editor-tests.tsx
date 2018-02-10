@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as BraftEditor from "braft-editor";
+import BraftEditor = require("braft-editor");
 import {
 	RawDraftContentState,
 } from 'draft-js';

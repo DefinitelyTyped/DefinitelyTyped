@@ -744,8 +744,9 @@ export interface TooltipOptions {
     contents?(data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any): string;
     /**
      * Set tooltip values order
+     * Available Values: desc, asc, any[], function (data1, data2) { ... }, null
      */
-    order?: string | any[] | ((data: Data) => boolean);
+    order?: string | any[] | ((data1: any, data2: any) => number) | null;
 }
 
 export interface SubchartOptions {

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import * as fs from "fs";
-import * as Undertaker from "undertaker";
-import * as Registry from "undertaker-registry";
+import Undertaker = require("undertaker");
+import Registry = require("undertaker-registry");
 
 const taker = new Undertaker();
 
