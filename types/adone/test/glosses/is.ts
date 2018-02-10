@@ -133,8 +133,20 @@ namespace isTests {
         }
     }
     { const a: boolean = is.dotfile("abc"); }
-    { const a: boolean = is.function(() => { }); }
-    { const a: boolean = is.asyncFunction(async () => { }); }
+    {
+        const a: boolean = is.function(() => { });
+        const b: any = 2;
+        if (is.function(b)) {
+            b();
+        }
+    }
+    {
+        const a: boolean = is.asyncFunction(async () => { });
+        const b: any = 2;
+        if (is.asyncFunction(b)) {
+            b().then(() => {});
+        }
+    }
     {
         const a: boolean = is.promise({});
         const b: any = 2;
