@@ -16,8 +16,12 @@ export namespace crypto {
     namespace Hash {
         function sha256(buffer: Buffer): Uint8Array;
     }
-    const Random: RandomInterface;
-    const Point: PointInterface;
+    namespace Random {
+       function getRandomBuffer(size: number): Buffer
+    }
+    namespace Point {
+
+    }
 
     class Signature {
         static fromDER(sig: Buffer): Signature;
@@ -101,7 +105,7 @@ export class Script { }
 export interface Util {
     readonly buffer: {
         reverse(a: any): any;
-    }
+    };
 }
 
 export namespace Networks {
@@ -119,10 +123,6 @@ export namespace Networks {
     function get(args: string | number | Network, keys: string | string[]): Network;
 }
 
-interface Address {}
+export class Address {}
 
-interface Input {}
-
-interface RandomInterface {}
-
-interface PointInterface {}
+export class Input {}
