@@ -115,5 +115,4 @@ interface MaxBy1x1<T> {
 }
 
 declare const maxBy: MaxBy;
-declare namespace maxBy {}
 export = maxBy;

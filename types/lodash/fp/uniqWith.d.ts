@@ -95,5 +95,4 @@ interface UniqWith1x1<T> {
 }
 
 declare const uniqWith: UniqWith;
-declare namespace uniqWith {}
 export = uniqWith;

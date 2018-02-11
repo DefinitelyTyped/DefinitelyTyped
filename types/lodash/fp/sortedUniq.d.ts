@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type SortedUniq = 
+type SortedUniq =
     /**
      * This method is like `_.uniq` except that it's designed and optimized
      * for sorted arrays.
@@ -20,5 +20,4 @@ type SortedUniq =
     <T>(array: _.List<T> | null | undefined) => T[];
 
 declare const sortedUniq: SortedUniq;
-declare namespace sortedUniq {}
 export = sortedUniq;

@@ -50,5 +50,4 @@ interface DropRight1x1 {
 }
 
 declare const dropLast: DropRight;
-declare namespace dropLast {}
 export = dropLast;

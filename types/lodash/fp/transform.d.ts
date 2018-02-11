@@ -341,5 +341,4 @@ interface Transform2x2<T, TResult> {
 }
 
 declare const transform: Transform;
-declare namespace transform {}
 export = transform;

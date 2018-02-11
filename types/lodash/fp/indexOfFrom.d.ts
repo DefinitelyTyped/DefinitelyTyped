@@ -210,5 +210,4 @@ interface IndexOf1x2<T> {
 }
 
 declare const indexOfFrom: IndexOf;
-declare namespace indexOfFrom {}
 export = indexOfFrom;

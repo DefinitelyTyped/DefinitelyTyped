@@ -422,7 +422,7 @@ interface OrderBy1x1<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (orders: _.Many<boolean|string>, collection: object | null | undefined): Array<T>;
+    (orders: _.Many<boolean|string>, collection: object | null | undefined): T[];
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -554,7 +554,7 @@ interface OrderBy1x2<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (collection: object | null | undefined): Array<T>;
+    (collection: object | null | undefined): T[];
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -712,7 +712,7 @@ interface OrderBy2x1<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (orders: _.Many<boolean|string>, collection: object | null | undefined): Array<T>;
+    (orders: _.Many<boolean|string>, collection: object | null | undefined): T[];
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -844,7 +844,7 @@ interface OrderBy2x2<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (collection: object | null | undefined): Array<T>;
+    (collection: object | null | undefined): T[];
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -874,5 +874,4 @@ interface OrderBy2x2<T> {
 }
 
 declare const orderBy: OrderBy;
-declare namespace orderBy {}
 export = orderBy;

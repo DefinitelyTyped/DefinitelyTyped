@@ -130,5 +130,4 @@ interface HasIn1x1 {
 }
 
 declare const hasIn: HasIn;
-declare namespace hasIn {}
 export = hasIn;

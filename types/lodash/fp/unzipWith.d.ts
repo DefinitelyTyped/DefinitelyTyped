@@ -65,5 +65,4 @@ interface UnzipWith1x1<T, TResult> {
 }
 
 declare const unzipWith: UnzipWith;
-declare namespace unzipWith {}
 export = unzipWith;

@@ -71,5 +71,4 @@ interface ForInRight1x1<T> {
 }
 
 declare const forInRight: ForInRight;
-declare namespace forInRight {}
 export = forInRight;

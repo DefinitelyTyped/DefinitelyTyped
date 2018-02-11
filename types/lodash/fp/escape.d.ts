@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Escape = 
+type Escape =
     /**
      * Converts the characters "&", "<", ">", '"', "'", and "`" in string to their corresponding HTML entities.
      *
@@ -23,5 +23,4 @@ type Escape =
     (string: string) => string;
 
 declare const escape: Escape;
-declare namespace escape {}
 export = escape;

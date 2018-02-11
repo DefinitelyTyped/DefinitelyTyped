@@ -138,5 +138,4 @@ interface SortedUniqBy2x1<T> {
 }
 
 declare const sortedUniqBy: SortedUniqBy;
-declare namespace sortedUniqBy {}
 export = sortedUniqBy;

@@ -85,5 +85,4 @@ interface ForOwn1x1<T> {
 }
 
 declare const forOwn: ForOwn;
-declare namespace forOwn {}
 export = forOwn;

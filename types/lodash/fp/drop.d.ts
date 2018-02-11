@@ -50,5 +50,4 @@ interface Drop1x1 {
 }
 
 declare const drop: Drop;
-declare namespace drop {}
 export = drop;

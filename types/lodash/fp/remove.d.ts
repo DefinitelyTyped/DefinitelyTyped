@@ -115,5 +115,4 @@ interface Remove1x1<T> {
 }
 
 declare const remove: Remove;
-declare namespace remove {}
 export = remove;

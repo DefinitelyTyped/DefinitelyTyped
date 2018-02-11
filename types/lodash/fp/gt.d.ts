@@ -48,5 +48,4 @@ interface Gt1x1 {
 }
 
 declare const gt: Gt;
-declare namespace gt {}
 export = gt;

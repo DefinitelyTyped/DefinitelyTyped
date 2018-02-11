@@ -100,5 +100,4 @@ interface InRange1x2 {
 }
 
 declare const inRange: InRange;
-declare namespace inRange {}
 export = inRange;

@@ -352,5 +352,4 @@ interface Flow {
 }
 
 declare const flow: Flow;
-declare namespace flow {}
 export = flow;

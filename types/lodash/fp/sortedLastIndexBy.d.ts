@@ -165,5 +165,4 @@ interface SortedLastIndexBy1x2<T> {
 }
 
 declare const sortedLastIndexBy: SortedLastIndexBy;
-declare namespace sortedLastIndexBy {}
 export = sortedLastIndexBy;

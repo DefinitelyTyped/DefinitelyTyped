@@ -68,5 +68,4 @@ interface Defaults1x1<TSource> {
 }
 
 declare const defaults: Defaults;
-declare namespace defaults {}
 export = defaults;

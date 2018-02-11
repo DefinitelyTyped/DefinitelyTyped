@@ -109,5 +109,4 @@ interface Range1x2 {
 }
 
 declare const rangeStep: Range;
-declare namespace rangeStep {}
 export = rangeStep;

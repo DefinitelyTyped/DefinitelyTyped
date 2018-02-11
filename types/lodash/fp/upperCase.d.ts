@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type UpperCase = 
+type UpperCase =
     /**
      * Converts `string`, as space separated words, to upper case.
      *
@@ -12,5 +12,4 @@ type UpperCase =
     (string: string) => string;
 
 declare const upperCase: UpperCase;
-declare namespace upperCase {}
 export = upperCase;

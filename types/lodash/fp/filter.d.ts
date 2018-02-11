@@ -333,7 +333,7 @@ interface Filter3x1<T> {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    (collection: object | null | undefined): Array<T>;
+    (collection: object | null | undefined): T[];
 }
 interface Filter4x1<T extends object, S extends T[keyof T]> {
     /**
@@ -377,5 +377,4 @@ interface Filter4x1<T extends object, S extends T[keyof T]> {
 }
 
 declare const filter: Filter;
-declare namespace filter {}
 export = filter;

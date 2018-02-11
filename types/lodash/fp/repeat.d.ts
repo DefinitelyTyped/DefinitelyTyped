@@ -48,5 +48,4 @@ interface Repeat1x1 {
 }
 
 declare const repeat: Repeat;
-declare namespace repeat {}
 export = repeat;

@@ -83,5 +83,4 @@ interface Bind1x1 {
 }
 
 declare const bind: Bind;
-declare namespace bind {}
 export = bind;

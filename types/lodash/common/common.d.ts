@@ -1,4 +1,5 @@
 import _ = require("../index");
+// tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
@@ -85,7 +86,6 @@ declare module "../index" {
         **/
         templateSettings: TemplateSettings;
     }
-
 
     /**
     * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby

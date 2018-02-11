@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Uniq = 
+type Uniq =
     /**
      * Creates a duplicate-free version of an array, using
      * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -22,5 +22,4 @@ type Uniq =
     <T>(array: _.List<T> | null | undefined) => T[];
 
 declare const uniq: Uniq;
-declare namespace uniq {}
 export = uniq;

@@ -105,5 +105,4 @@ interface DropRightWhile1x1<T> {
 }
 
 declare const dropRightWhile: DropRightWhile;
-declare namespace dropRightWhile {}
 export = dropRightWhile;

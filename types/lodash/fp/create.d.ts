@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Create = 
+type Create =
     /**
      * Creates an object that inherits from the given prototype object. If a properties object is provided its own
      * enumerable properties are assigned to the created object.
@@ -14,5 +14,4 @@ type Create =
     <T extends object, U extends object>(prototype: T) => T & U;
 
 declare const create: Create;
-declare namespace create {}
 export = create;

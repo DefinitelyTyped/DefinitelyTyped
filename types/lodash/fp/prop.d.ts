@@ -204,5 +204,4 @@ interface Get5x1 {
 }
 
 declare const prop: Get;
-declare namespace prop {}
 export = prop;

@@ -266,5 +266,4 @@ interface Fill1x3<T> {
 }
 
 declare const fill: Fill;
-declare namespace fill {}
 export = fill;

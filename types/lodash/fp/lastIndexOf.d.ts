@@ -55,5 +55,4 @@ interface LastIndexOf1x1<T> {
 }
 
 declare const lastIndexOf: LastIndexOf;
-declare namespace lastIndexOf {}
 export = lastIndexOf;

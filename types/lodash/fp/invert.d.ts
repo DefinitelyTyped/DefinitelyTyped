@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Invert = 
+type Invert =
     /**
      * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
      * subsequent values overwrite property assignments of previous values unless multiValue is true.
@@ -16,5 +16,4 @@ type Invert =
     (object: object) => _.Dictionary<string>;
 
 declare const invert: Invert;
-declare namespace invert {}
 export = invert;

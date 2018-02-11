@@ -91,5 +91,4 @@ interface Some1x1<T> {
 }
 
 declare const some: Some;
-declare namespace some {}
 export = some;

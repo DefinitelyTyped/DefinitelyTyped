@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Size = 
+type Size =
     /**
      * Gets the size of collection by returning its length for array-like values or the number of own enumerable
      * properties for objects.
@@ -13,5 +13,4 @@ type Size =
     (collection: object | string | null | undefined) => number;
 
 declare const size: Size;
-declare namespace size {}
 export = size;

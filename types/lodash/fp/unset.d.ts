@@ -60,5 +60,4 @@ interface Unset1x1 {
 }
 
 declare const unset: Unset;
-declare namespace unset {}
 export = unset;

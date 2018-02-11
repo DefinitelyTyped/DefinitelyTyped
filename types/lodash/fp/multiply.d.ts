@@ -43,5 +43,4 @@ interface Multiply1x1 {
 }
 
 declare const multiply: Multiply;
-declare namespace multiply {}
 export = multiply;

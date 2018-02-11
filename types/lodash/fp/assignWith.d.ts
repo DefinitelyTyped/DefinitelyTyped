@@ -237,5 +237,4 @@ interface AssignWith1x2<TObject> {
 }
 
 declare const assignWith: AssignWith;
-declare namespace assignWith {}
 export = assignWith;

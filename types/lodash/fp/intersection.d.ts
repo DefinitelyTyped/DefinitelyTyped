@@ -50,5 +50,4 @@ interface Intersection1x1<T> {
 }
 
 declare const intersection: Intersection;
-declare namespace intersection {}
 export = intersection;

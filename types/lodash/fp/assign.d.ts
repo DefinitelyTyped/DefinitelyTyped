@@ -153,5 +153,4 @@ interface Assign1x1<TObject> {
 }
 
 declare const assign: Assign;
-declare namespace assign {}
 export = assign;

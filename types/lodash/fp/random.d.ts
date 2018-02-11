@@ -85,5 +85,4 @@ interface Random1x1 {
 }
 
 declare const random: Random;
-declare namespace random {}
 export = random;

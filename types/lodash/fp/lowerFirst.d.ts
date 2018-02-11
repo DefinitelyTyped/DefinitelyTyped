@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type LowerFirst = 
+type LowerFirst =
     /**
      * Converts the first character of `string` to lower case.
      *
@@ -12,5 +12,4 @@ type LowerFirst =
     (string: string) => string;
 
 declare const lowerFirst: LowerFirst;
-declare namespace lowerFirst {}
 export = lowerFirst;

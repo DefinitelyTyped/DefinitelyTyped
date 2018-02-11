@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Mean = 
+type Mean =
     /**
      * Computes the mean of the values in `array`.
      *
@@ -19,5 +19,4 @@ type Mean =
     (collection: _.List<any> | null | undefined) => number;
 
 declare const mean: Mean;
-declare namespace mean {}
 export = mean;

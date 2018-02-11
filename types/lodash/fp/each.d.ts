@@ -327,5 +327,4 @@ interface ForEach2x1 {
 }
 
 declare const each: ForEach;
-declare namespace each {}
 export = each;

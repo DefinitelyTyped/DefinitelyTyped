@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsWeakMap = 
+type IsWeakMap =
     /**
      * Checks if value is classified as a WeakMap object.
      *
@@ -12,5 +12,4 @@ type IsWeakMap =
     (value: any) => value is WeakMap<object, any>;
 
 declare const isWeakMap: IsWeakMap;
-declare namespace isWeakMap {}
 export = isWeakMap;

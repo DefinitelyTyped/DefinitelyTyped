@@ -34,5 +34,4 @@ interface FromPairs {
 }
 
 declare const fromPairs: FromPairs;
-declare namespace fromPairs {}
 export = fromPairs;

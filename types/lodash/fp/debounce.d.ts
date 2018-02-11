@@ -115,5 +115,4 @@ interface Debounce1x1 {
 }
 
 declare const debounce: Debounce;
-declare namespace debounce {}
 export = debounce;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type KeysIn = 
+type KeysIn =
     /**
      * Creates an array of the own and inherited enumerable property names of object.
      *
@@ -14,5 +14,4 @@ type KeysIn =
     (object: any) => string[];
 
 declare const keysIn: KeysIn;
-declare namespace keysIn {}
 export = keysIn;

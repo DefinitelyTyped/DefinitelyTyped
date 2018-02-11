@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Merge = 
+type Merge =
     /**
      * Recursively merges own and inherited enumerable properties of source
      * objects into the destination object, skipping source properties that resolve
@@ -33,5 +33,4 @@ type Merge =
     (object: ReadonlyArray<any>) => any;
 
 declare const mergeAll: Merge;
-declare namespace mergeAll {}
 export = mergeAll;

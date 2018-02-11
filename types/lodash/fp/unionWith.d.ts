@@ -174,5 +174,4 @@ interface UnionWith1x2<T> {
 }
 
 declare const unionWith: UnionWith;
-declare namespace unionWith {}
 export = unionWith;

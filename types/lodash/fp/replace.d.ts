@@ -84,5 +84,4 @@ interface Replace1x2 {
 }
 
 declare const replace: Replace;
-declare namespace replace {}
 export = replace;

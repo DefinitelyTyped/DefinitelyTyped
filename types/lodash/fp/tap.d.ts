@@ -63,5 +63,4 @@ interface Tap1x1<T> {
 }
 
 declare const tap: Tap;
-declare namespace tap {}
 export = tap;

@@ -148,5 +148,4 @@ interface Merge1x1<TObject> {
 }
 
 declare const merge: Merge;
-declare namespace merge {}
 export = merge;

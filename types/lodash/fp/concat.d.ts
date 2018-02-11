@@ -110,5 +110,4 @@ interface Concat1x1<T> {
 }
 
 declare const concat: Concat;
-declare namespace concat {}
 export = concat;

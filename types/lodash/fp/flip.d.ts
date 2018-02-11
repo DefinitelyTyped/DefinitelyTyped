@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Flip = 
+type Flip =
     /**
      * Creates a function that invokes `func` with arguments reversed.
      *
@@ -21,5 +21,4 @@ type Flip =
     <T extends (...args: any[]) => any>(func: T) => T;
 
 declare const flip: Flip;
-declare namespace flip {}
 export = flip;

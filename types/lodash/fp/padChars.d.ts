@@ -100,5 +100,4 @@ interface Pad1x2 {
 }
 
 declare const padChars: Pad;
-declare namespace padChars {}
 export = padChars;

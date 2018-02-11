@@ -174,5 +174,4 @@ interface XorWith1x2<T> {
 }
 
 declare const symmetricDifferenceWith: XorWith;
-declare namespace symmetricDifferenceWith {}
 export = symmetricDifferenceWith;

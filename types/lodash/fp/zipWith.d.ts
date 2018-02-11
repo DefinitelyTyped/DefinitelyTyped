@@ -102,5 +102,4 @@ interface ZipWith1x2<T2, TResult> {
 }
 
 declare const zipWith: ZipWith;
-declare namespace zipWith {}
 export = zipWith;

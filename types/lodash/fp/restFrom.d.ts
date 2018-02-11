@@ -63,5 +63,4 @@ interface Rest1x1 {
 }
 
 declare const restFrom: Rest;
-declare namespace restFrom {}
 export = restFrom;

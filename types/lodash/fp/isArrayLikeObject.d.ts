@@ -46,6 +46,7 @@ interface IsArrayLikeObject {
      * _.isArrayLikeObject(_.noop);
      * // => false
      */
+    // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
     (value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
     /**
      * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -68,9 +69,9 @@ interface IsArrayLikeObject {
      * _.isArrayLikeObject(_.noop);
      * // => false
      */
+    // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
     <T extends object>(value: T | ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is T & { length: number };
 }
 
 declare const isArrayLikeObject: IsArrayLikeObject;
-declare namespace isArrayLikeObject {}
 export = isArrayLikeObject;

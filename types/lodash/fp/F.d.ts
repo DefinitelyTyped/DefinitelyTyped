@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type StubFalse = 
+type StubFalse =
     /**
      * This method returns `false`.
      *
@@ -11,5 +11,4 @@ type StubFalse =
     () => boolean;
 
 declare const F: StubFalse;
-declare namespace F {}
 export = F;

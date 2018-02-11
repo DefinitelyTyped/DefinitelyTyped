@@ -48,5 +48,4 @@ interface After1x1<TFunc extends (...args: any[]) => any> {
 }
 
 declare const after: After;
-declare namespace after {}
 export = after;

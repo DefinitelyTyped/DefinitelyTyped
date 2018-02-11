@@ -184,5 +184,4 @@ interface InvokeMap2x2<TResult> {
 }
 
 declare const invokeArgsMap: InvokeMap;
-declare namespace invokeArgsMap {}
 export = invokeArgsMap;

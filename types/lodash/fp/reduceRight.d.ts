@@ -241,5 +241,4 @@ interface ReduceRight3x2<T extends object, TResult> {
 }
 
 declare const reduceRight: ReduceRight;
-declare namespace reduceRight {}
 export = reduceRight;

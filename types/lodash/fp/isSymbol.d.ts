@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsSymbol = 
+type IsSymbol =
     /**
      * Checks if `value` is classified as a `Symbol` primitive or object.
      *
@@ -20,5 +20,4 @@ type IsSymbol =
     (value: any) => boolean;
 
 declare const isSymbol: IsSymbol;
-declare namespace isSymbol {}
 export = isSymbol;

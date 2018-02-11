@@ -63,5 +63,4 @@ interface Range1x1 {
 }
 
 declare const range: Range;
-declare namespace range {}
 export = range;

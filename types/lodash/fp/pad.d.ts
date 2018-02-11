@@ -58,5 +58,4 @@ interface Pad1x1 {
 }
 
 declare const pad: Pad;
-declare namespace pad {}
 export = pad;

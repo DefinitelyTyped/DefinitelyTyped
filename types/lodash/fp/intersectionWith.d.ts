@@ -174,5 +174,4 @@ interface IntersectionWith1x2<T1, T2> {
 }
 
 declare const intersectionWith: IntersectionWith;
-declare namespace intersectionWith {}
 export = intersectionWith;

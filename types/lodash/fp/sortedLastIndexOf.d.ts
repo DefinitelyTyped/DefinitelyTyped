@@ -80,5 +80,4 @@ interface SortedLastIndexOf1x1<T> {
 }
 
 declare const sortedLastIndexOf: SortedLastIndexOf;
-declare namespace sortedLastIndexOf {}
 export = sortedLastIndexOf;

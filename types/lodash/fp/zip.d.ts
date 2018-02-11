@@ -50,5 +50,4 @@ interface Zip1x1<T1> {
 }
 
 declare const zip: Zip;
-declare namespace zip {}
 export = zip;

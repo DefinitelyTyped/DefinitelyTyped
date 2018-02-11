@@ -210,5 +210,4 @@ interface SortedIndexBy1x2<T> {
 }
 
 declare const sortedIndexBy: SortedIndexBy;
-declare namespace sortedIndexBy {}
 export = sortedIndexBy;

@@ -146,9 +146,8 @@ interface Partition1x1<T> {
     * @param thisArg The this binding of predicate.
     * @return Returns the array of grouped elements.
     **/
-    (collection: object | null | undefined): [Array<T>, Array<T[keyof T]>];
+    (collection: object | null | undefined): [T[], T[]];
 }
 
 declare const partition: Partition;
-declare namespace partition {}
 export = partition;

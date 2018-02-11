@@ -100,5 +100,4 @@ interface PadStart1x2 {
 }
 
 declare const padCharsStart: PadStart;
-declare namespace padCharsStart {}
 export = padCharsStart;

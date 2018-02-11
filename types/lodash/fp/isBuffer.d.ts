@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsBuffer = 
+type IsBuffer =
     /**
      * Checks if value is a buffer.
      *
@@ -12,5 +12,4 @@ type IsBuffer =
     (value: any) => boolean;
 
 declare const isBuffer: IsBuffer;
-declare namespace isBuffer {}
 export = isBuffer;

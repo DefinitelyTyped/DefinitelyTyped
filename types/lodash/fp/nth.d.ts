@@ -50,5 +50,4 @@ interface Nth1x1 {
 }
 
 declare const nth: Nth;
-declare namespace nth {}
 export = nth;

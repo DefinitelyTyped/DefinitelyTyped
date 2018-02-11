@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Ceil = 
+type Ceil =
     /**
      * Calculates n rounded up to precision.
      *
@@ -13,5 +13,4 @@ type Ceil =
     (n: number) => number;
 
 declare const ceil: Ceil;
-declare namespace ceil {}
 export = ceil;

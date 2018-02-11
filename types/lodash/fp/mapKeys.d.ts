@@ -122,5 +122,4 @@ interface MapKeys2x1 {
 }
 
 declare const mapKeys: MapKeys;
-declare namespace mapKeys {}
 export = mapKeys;

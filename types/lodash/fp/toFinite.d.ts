@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToFinite = 
+type ToFinite =
     /**
      * Converts `value` to a finite number.
      *
@@ -27,5 +27,4 @@ type ToFinite =
     (value: any) => number;
 
 declare const toFinite: ToFinite;
-declare namespace toFinite {}
 export = toFinite;

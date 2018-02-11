@@ -155,5 +155,4 @@ interface Set1x2 {
 }
 
 declare const assocPath: Set;
-declare namespace assocPath {}
 export = assocPath;

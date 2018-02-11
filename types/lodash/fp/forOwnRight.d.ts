@@ -71,5 +71,4 @@ interface ForOwnRight1x1<T> {
 }
 
 declare const forOwnRight: ForOwnRight;
-declare namespace forOwnRight {}
 export = forOwnRight;

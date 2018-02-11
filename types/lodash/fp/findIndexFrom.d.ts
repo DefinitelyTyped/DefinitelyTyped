@@ -183,5 +183,4 @@ interface FindIndex1x2<T> {
 }
 
 declare const findIndexFrom: FindIndex;
-declare namespace findIndexFrom {}
 export = findIndexFrom;

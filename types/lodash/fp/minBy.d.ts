@@ -115,5 +115,4 @@ interface MinBy1x1<T> {
 }
 
 declare const minBy: MinBy;
-declare namespace minBy {}
 export = minBy;

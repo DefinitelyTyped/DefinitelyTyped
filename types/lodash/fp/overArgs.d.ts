@@ -55,5 +55,4 @@ interface OverArgs1x1 {
 }
 
 declare const overArgs: OverArgs;
-declare namespace overArgs {}
 export = overArgs;

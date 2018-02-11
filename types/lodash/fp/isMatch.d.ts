@@ -113,5 +113,4 @@ interface IsMatch1x1 {
 }
 
 declare const isMatch: IsMatch;
-declare namespace isMatch {}
 export = isMatch;

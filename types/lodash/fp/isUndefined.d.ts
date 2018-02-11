@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsUndefined = 
+type IsUndefined =
     /**
      * Checks if value is undefined.
      *
@@ -12,5 +12,4 @@ type IsUndefined =
     (value: any) => value is undefined;
 
 declare const isUndefined: IsUndefined;
-declare namespace isUndefined {}
 export = isUndefined;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Unescape = 
+type Unescape =
     /**
      * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
      * in string to their corresponding characters.
@@ -16,5 +16,4 @@ type Unescape =
     (string: string) => string;
 
 declare const unescape: Unescape;
-declare namespace unescape {}
 export = unescape;

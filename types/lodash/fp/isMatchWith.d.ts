@@ -282,5 +282,4 @@ interface IsMatchWith1x2 {
 }
 
 declare const isMatchWith: IsMatchWith;
-declare namespace isMatchWith {}
 export = isMatchWith;

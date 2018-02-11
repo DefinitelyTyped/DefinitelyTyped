@@ -50,5 +50,4 @@ interface TakeRight1x1 {
 }
 
 declare const takeLast: TakeRight;
-declare namespace takeLast {}
 export = takeLast;

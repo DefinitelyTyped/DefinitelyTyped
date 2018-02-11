@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Initial = 
+type Initial =
     /**
      * Gets all but the last element of array.
      *
@@ -14,5 +14,4 @@ type Initial =
     <T>(array: _.List<T> | null | undefined) => T[];
 
 declare const initial: Initial;
-declare namespace initial {}
 export = initial;

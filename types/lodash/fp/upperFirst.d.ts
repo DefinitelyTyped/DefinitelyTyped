@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type UpperFirst = 
+type UpperFirst =
     /**
      * Converts the first character of `string` to upper case.
      *
@@ -12,5 +12,4 @@ type UpperFirst =
     (string: string) => string;
 
 declare const upperFirst: UpperFirst;
-declare namespace upperFirst {}
 export = upperFirst;

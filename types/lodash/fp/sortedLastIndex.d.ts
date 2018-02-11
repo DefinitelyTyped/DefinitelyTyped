@@ -85,5 +85,4 @@ interface SortedLastIndex1x1<T> {
 }
 
 declare const sortedLastIndex: SortedLastIndex;
-declare namespace sortedLastIndex {}
 export = sortedLastIndex;

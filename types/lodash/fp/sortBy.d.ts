@@ -230,9 +230,8 @@ interface SortBy1x1<T> {
      * });
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (collection: object | null | undefined): Array<T>;
+    (collection: object | null | undefined): T[];
 }
 
 declare const sortBy: SortBy;
-declare namespace sortBy {}
 export = sortBy;

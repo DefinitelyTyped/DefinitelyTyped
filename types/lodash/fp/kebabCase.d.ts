@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type KebabCase = 
+type KebabCase =
     /**
      * Converts string to kebab case.
      *
@@ -12,5 +12,4 @@ type KebabCase =
     (string: string) => string;
 
 declare const kebabCase: KebabCase;
-declare namespace kebabCase {}
 export = kebabCase;

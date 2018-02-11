@@ -48,5 +48,4 @@ interface Lt1x1 {
 }
 
 declare const lt: Lt;
-declare namespace lt {}
 export = lt;

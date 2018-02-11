@@ -2,7 +2,9 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type RunInContext = 
+import _ = require("../index");
+
+type RunInContext =
     /**
      * Create a new pristine lodash function using the given context object.
      *
@@ -12,5 +14,4 @@ type RunInContext =
     (context: object) => typeof _;
 
 declare const runInContext: RunInContext;
-declare namespace runInContext {}
 export = runInContext;

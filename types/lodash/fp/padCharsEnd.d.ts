@@ -100,5 +100,4 @@ interface PadEnd1x2 {
 }
 
 declare const padCharsEnd: PadEnd;
-declare namespace padCharsEnd {}
 export = padCharsEnd;

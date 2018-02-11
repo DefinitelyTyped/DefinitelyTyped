@@ -55,5 +55,4 @@ interface Rearg1x1 {
 }
 
 declare const rearg: Rearg;
-declare namespace rearg {}
 export = rearg;

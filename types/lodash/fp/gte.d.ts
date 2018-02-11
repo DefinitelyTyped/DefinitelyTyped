@@ -48,5 +48,4 @@ interface Gte1x1 {
 }
 
 declare const gte: Gte;
-declare namespace gte {}
 export = gte;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Noop = 
+type Noop =
     /**
      * A no-operation function that returns undefined regardless of the arguments it receives.
      *
@@ -11,5 +11,4 @@ type Noop =
     (...args: any[]) => void;
 
 declare const noop: Noop;
-declare namespace noop {}
 export = noop;

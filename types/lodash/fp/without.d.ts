@@ -50,5 +50,4 @@ interface Without1x1<T> {
 }
 
 declare const without: Without;
-declare namespace without {}
 export = without;

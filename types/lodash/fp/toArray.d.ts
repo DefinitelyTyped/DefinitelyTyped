@@ -29,5 +29,4 @@ interface ToArray {
 }
 
 declare const toArray: ToArray;
-declare namespace toArray {}
 export = toArray;

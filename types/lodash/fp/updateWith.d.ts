@@ -497,5 +497,4 @@ interface UpdateWith1x3<T extends object> {
 }
 
 declare const updateWith: UpdateWith;
-declare namespace updateWith {}
 export = updateWith;

@@ -50,5 +50,4 @@ interface FlattenDepth1x1 {
 }
 
 declare const flattenDepth: FlattenDepth;
-declare namespace flattenDepth {}
 export = flattenDepth;

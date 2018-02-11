@@ -281,9 +281,8 @@ interface GroupBy2x1<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    (collection: object | null | undefined): _.Dictionary<Array<T>>;
+    (collection: object | null | undefined): _.Dictionary<T[]>;
 }
 
 declare const groupBy: GroupBy;
-declare namespace groupBy {}
 export = groupBy;

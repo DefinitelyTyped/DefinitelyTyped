@@ -206,5 +206,4 @@ interface FlatMap5x1 {
 }
 
 declare const flatMap: FlatMap;
-declare namespace flatMap {}
 export = flatMap;

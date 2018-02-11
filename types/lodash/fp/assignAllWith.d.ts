@@ -135,5 +135,4 @@ interface AssignWith1x1 {
 }
 
 declare const assignAllWith: AssignWith;
-declare namespace assignAllWith {}
 export = assignAllWith;

@@ -58,5 +58,4 @@ interface Spread1x1 {
 }
 
 declare const spreadFrom: Spread;
-declare namespace spreadFrom {}
 export = spreadFrom;

@@ -100,5 +100,4 @@ interface InvokeMap2x1<TResult> {
 }
 
 declare const invokeMap: InvokeMap;
-declare namespace invokeMap {}
 export = invokeMap;

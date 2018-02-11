@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsNative = 
+type IsNative =
     /**
      * Checks if value is a native function.
      * @param value The value to check.
@@ -12,5 +12,4 @@ type IsNative =
     (value: any) => value is (...args: any[]) => any;
 
 declare const isNative: IsNative;
-declare namespace isNative {}
 export = isNative;

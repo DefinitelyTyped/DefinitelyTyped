@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsBoolean = 
+type IsBoolean =
     /**
      * Checks if value is classified as a boolean primitive or object.
      *
@@ -12,5 +12,4 @@ type IsBoolean =
     (value: any) => value is boolean;
 
 declare const isBoolean: IsBoolean;
-declare namespace isBoolean {}
 export = isBoolean;

@@ -29,5 +29,4 @@ interface Sample {
 }
 
 declare const sample: Sample;
-declare namespace sample {}
 export = sample;

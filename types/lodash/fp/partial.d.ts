@@ -53,5 +53,4 @@ interface Partial1x1 {
 }
 
 declare const partial: Partial;
-declare namespace partial {}
 export = partial;

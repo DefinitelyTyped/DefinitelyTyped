@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Flatten = 
+type Flatten =
     /**
      * Flattens `array` a single level deep.
      *
@@ -14,5 +14,4 @@ type Flatten =
     <T>(array: _.List<_.Many<T>> | null | undefined) => T[];
 
 declare const flatten: Flatten;
-declare namespace flatten {}
 export = flatten;

@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Head = 
+type Head =
     /**
      * Gets the first element of array.
      *
@@ -16,5 +16,4 @@ type Head =
     <T>(array: _.List<T> | null | undefined) => T | undefined;
 
 declare const first: Head;
-declare namespace first {}
 export = first;

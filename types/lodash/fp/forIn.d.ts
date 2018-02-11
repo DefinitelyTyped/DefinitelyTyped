@@ -85,5 +85,4 @@ interface ForIn1x1<T> {
 }
 
 declare const forIn: ForIn;
-declare namespace forIn {}
 export = forIn;

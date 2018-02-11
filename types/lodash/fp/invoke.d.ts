@@ -45,5 +45,4 @@ interface Invoke1x1 {
 }
 
 declare const invoke: Invoke;
-declare namespace invoke {}
 export = invoke;

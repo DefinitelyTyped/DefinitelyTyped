@@ -58,5 +58,4 @@ interface Before1x1<TFunc extends (...args: any[]) => any> {
 }
 
 declare const before: Before;
-declare namespace before {}
 export = before;

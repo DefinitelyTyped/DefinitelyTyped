@@ -312,5 +312,4 @@ interface FlowRight {
 }
 
 declare const flowRight: FlowRight;
-declare namespace flowRight {}
 export = flowRight;

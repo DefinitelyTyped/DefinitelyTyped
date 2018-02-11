@@ -55,5 +55,4 @@ interface Truncate1x1 {
 }
 
 declare const truncate: Truncate;
-declare namespace truncate {}
 export = truncate;

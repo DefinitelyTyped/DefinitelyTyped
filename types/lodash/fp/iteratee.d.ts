@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Iteratee = 
+type Iteratee =
     /**
      * Creates a function that invokes `func` with the arguments of the created
      * function. If `func` is a property name the created callback returns the
@@ -33,5 +33,4 @@ type Iteratee =
     <TFunction extends (...args: any[]) => any>(func: TFunction | string | object) => TFunction;
 
 declare const iteratee: Iteratee;
-declare namespace iteratee {}
 export = iteratee;

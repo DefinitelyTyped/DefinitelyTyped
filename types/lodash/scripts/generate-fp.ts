@@ -21,6 +21,7 @@ interface Overload {
     params: string[];
     returnType: string;
     jsdoc: string;
+    tslintDisable?: string;
 }
 interface TypeParam {
     name: string;
@@ -180,6 +181,8 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                 importCommon = true;
                 return `_.${match}`;
             });
+        if (!importCommon && output.includes("typeof _"))
+            importCommon = true;
         const interfaceNameMatch = output.match(/(?:interface|type) ([A-Za-z0-9]+)/);
         const interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || _.upperFirst(functionName);
         output =
@@ -256,6 +259,11 @@ async function parseDefinition(name: string, definitionString: string, filePath:
         if (returnTypeEndIndex !== -1) {
             if (paramStartIndex !== -1) {
                 const overload: Overload = { typeParams: [], params: [], returnType: "", jsdoc: definition.jsdoc };
+
+                const previousLine = getPreviousLine(definitionString, overloadIndex).trim();
+                if (previousLine.startsWith("// tslint:disable"))
+                    overload.tslintDisable = previousLine;
+
                 const typeParamStartIndex = definitionString.indexOf("<", overloadIndex);
                 if (typeParamStartIndex !== -1 && typeParamStartIndex < paramStartIndex) {
                     const typeParamEndIndex = definitionString.indexOf(">(", typeParamStartIndex);
@@ -551,7 +559,7 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
             const objectTypeParam = overload.typeParams.find(tp => tp.name === "T" && (tp.extends === "object" || !tp.extends));
             if (objectTypeParam && overload.params.some(p => p.includes("T[keyof T]")) && !overload.params.some(p => /T(?!]|\[keyof T])/.test(p))) {
                 delete objectTypeParam.extends;
-                overload.params = overload.params.map(p => p.replace("T[keyof T]", "T"));
+                overload.params = overload.params.map(p => p.replace(/\bArray<T\[keyof T]>/g, " T[]").replace(/\bT\[keyof T]/g, "T"));
                 const fixInterfaceName = overload.returnType.split("<")[0];
                 const fixInterface = interfaces.find(i => i.name === fixInterfaceName);
                 if (fixInterface) {
@@ -574,11 +582,17 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
                             }
                             fixOverload.params = fixOverload.params
                                 .map(p => p.replace(new RegExp(typeParamSearch, "g"), replacement)
-                                           .replace(`${fixTypeParam.name}[keyof ${fixTypeParam.name}]`, fixTypeParam.name));
+                                           .replace(new RegExp(`\\bArray<${fixTypeParam.name}\\[keyof ${fixTypeParam.name}]>`, "g"), fixTypeParam.name + "[]")
+                                           .replace(new RegExp(`\\b${fixTypeParam.name}\\[keyof ${fixTypeParam.name}]`, "g"), fixTypeParam.name));
                             if (!new RegExp(`\\b${baseName}[0-9]+x[0-9]+\\b`).test(fixOverload.returnType)) {
                                 fixOverload.returnType = fixOverload.returnType
                                     .replace(new RegExp(typeParamSearch, "g"), replacement)
-                                    .replace(`${fixTypeParam.name}[keyof ${fixTypeParam.name}]`, fixTypeParam.name);
+                                    .replace(new RegExp(`\\bArray<${fixTypeParam.name}\\[keyof ${fixTypeParam.name}]>`, "g"), fixTypeParam.name + "[]")
+                                    .replace(new RegExp(`\\b${fixTypeParam.name}\\[keyof ${fixTypeParam.name}]`, "g"), fixTypeParam.name);
+                                /*const test = `Array<${fixTypeParam.name}[keyof ${fixTypeParam.name}]>`;
+                                if (fixOverload.returnType === test)
+                                    fixTypeParam.name + "[]"
+                                fixOverload.returnType = */
                             }
                         }
                     }
@@ -650,7 +664,7 @@ function interfaceToString(interfaceDef: Interface): string {
         if (jsdoc)
             jsdoc += "\n";
         interfaceDef.overloads[0].jsdoc = "";
-        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} = \n${tab(jsdoc + overloadToString(interfaceDef.overloads[0], true), 1)}`;
+        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =\n${tab(jsdoc + overloadToString(interfaceDef.overloads[0], true), 1)}`;
     } else {
         const overloadStrings = interfaceDef.overloads.map(o => "\n" + tab(overloadToString(o), 1)).join("");
         return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}\n}`;
@@ -662,11 +676,23 @@ function overloadToString(overload: Overload, arrowSyntax = false): string {
     let jsdoc = overload.jsdoc;
     if (jsdoc)
         jsdoc += "\n";
+    if (overload.tslintDisable)
+        jsdoc += overload.tslintDisable + "\n";
     return `${jsdoc}${typeParamsToString(overload.typeParams)}(${joinedParams})${arrowSyntax ? " =>" : ":"} ${overload.returnType};`;
 }
 
 function typeParamsToString(typeParams: TypeParam[], includeConstraints = true): string {
     return typeParams.length > 0 ? `<${typeParams.map(tp => tp.name + (includeConstraints && tp.extends ? " extends " + tp.extends : "")).join(", ")}>` : "";
+}
+
+function getPreviousLine(s: string, index: number): string {
+    const eol = s.lastIndexOf("\n", index);
+    if (eol === -1)
+        return "";
+    const bol = s.lastIndexOf("\n", eol - 1);
+    if (bol === -1)
+        return "";
+    return s.substring(bol + 1, eol);
 }
 
 function tab(s: string, count: number) {

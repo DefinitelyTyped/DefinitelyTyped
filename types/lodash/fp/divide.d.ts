@@ -48,5 +48,4 @@ interface Divide1x1 {
 }
 
 declare const divide: Divide;
-declare namespace divide {}
 export = divide;

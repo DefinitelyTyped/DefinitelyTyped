@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsPlainObject = 
+type IsPlainObject =
     /**
      * Checks if value is a plain object, that is, an object created by the Object constructor or one with a
      * [[Prototype]] of null.
@@ -15,5 +15,4 @@ type IsPlainObject =
     (value: any) => boolean;
 
 declare const isPlainObject: IsPlainObject;
-declare namespace isPlainObject {}
 export = isPlainObject;

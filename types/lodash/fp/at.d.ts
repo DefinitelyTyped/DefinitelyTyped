@@ -93,5 +93,4 @@ interface At2x1<T extends object> {
 }
 
 declare const at: At;
-declare namespace at {}
 export = at;

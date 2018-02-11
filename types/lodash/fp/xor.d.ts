@@ -45,5 +45,4 @@ interface Xor1x1<T> {
 }
 
 declare const xor: Xor;
-declare namespace xor {}
 export = xor;

@@ -22,5 +22,4 @@ interface Shuffle {
 }
 
 declare const shuffle: Shuffle;
-declare namespace shuffle {}
 export = shuffle;

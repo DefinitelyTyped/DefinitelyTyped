@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsNaN = 
+type IsNaN =
     /**
      * Checks if value is NaN.
      *
@@ -14,5 +14,4 @@ type IsNaN =
     (value: any) => boolean;
 
 declare const isNaN: IsNaN;
-declare namespace isNaN {}
 export = isNaN;

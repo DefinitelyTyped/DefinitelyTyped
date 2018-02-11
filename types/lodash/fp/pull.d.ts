@@ -80,5 +80,4 @@ interface Pull1x1<T> {
 }
 
 declare const pull: Pull;
-declare namespace pull {}
 export = pull;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToSafeInteger = 
+type ToSafeInteger =
     /**
      * Converts `value` to a safe integer. A safe integer can be compared and
      * represented correctly.
@@ -27,5 +27,4 @@ type ToSafeInteger =
     (value: any) => number;
 
 declare const toSafeInteger: ToSafeInteger;
-declare namespace toSafeInteger {}
 export = toSafeInteger;

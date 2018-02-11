@@ -105,5 +105,4 @@ interface TakeRightWhile1x1<T> {
 }
 
 declare const takeRightWhile: TakeRightWhile;
-declare namespace takeRightWhile {}
 export = takeRightWhile;

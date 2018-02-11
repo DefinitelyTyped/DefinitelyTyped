@@ -45,5 +45,4 @@ interface Xor1x1<T> {
 }
 
 declare const symmetricDifference: Xor;
-declare namespace symmetricDifference {}
 export = symmetricDifference;

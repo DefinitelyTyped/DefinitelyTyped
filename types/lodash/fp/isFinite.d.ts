@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsFinite = 
+type IsFinite =
     /**
      * Checks if value is a finite primitive number.
      *
@@ -14,5 +14,4 @@ type IsFinite =
     (value: any) => boolean;
 
 declare const isFinite: IsFinite;
-declare namespace isFinite {}
 export = isFinite;

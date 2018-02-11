@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Unary = 
+type Unary =
     /**
      * Creates a function that accepts up to one argument, ignoring any
      * additional arguments.
@@ -18,5 +18,4 @@ type Unary =
     <T, TResult>(func: (arg1: T, ...args: any[]) => TResult) => (arg1: T) => TResult;
 
 declare const unary: Unary;
-declare namespace unary {}
 export = unary;

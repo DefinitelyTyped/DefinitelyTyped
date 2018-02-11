@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type OverSome = 
+type OverSome =
     /**
      * Creates a function that checks if any of the predicates return truthy when invoked with the arguments
      * provided to the created function.
@@ -15,5 +15,4 @@ type OverSome =
     <T>(predicates: _.Many<(...args: T[]) => boolean>) => (...args: T[]) => boolean;
 
 declare const anyPass: OverSome;
-declare namespace anyPass {}
 export = anyPass;

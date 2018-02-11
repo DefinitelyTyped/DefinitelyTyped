@@ -93,5 +93,4 @@ interface Slice1x2 {
 }
 
 declare const slice: Slice;
-declare namespace slice {}
 export = slice;

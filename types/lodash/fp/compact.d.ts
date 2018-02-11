@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Compact = 
+type Compact =
     /**
      * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
      * falsey.
@@ -15,5 +15,4 @@ type Compact =
     <T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
 
 declare const compact: Compact;
-declare namespace compact {}
 export = compact;

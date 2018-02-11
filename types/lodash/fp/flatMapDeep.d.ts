@@ -377,5 +377,4 @@ interface FlatMapDeep5x1 {
 }
 
 declare const flatMapDeep: FlatMapDeep;
-declare namespace flatMapDeep {}
 export = flatMapDeep;

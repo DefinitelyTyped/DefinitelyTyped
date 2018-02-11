@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Assign = 
+type Assign =
     /**
      * Assigns own enumerable properties of source objects to the destination
      * object. Source objects are applied from left to right. Subsequent sources
@@ -34,5 +34,4 @@ type Assign =
     (object: ReadonlyArray<any>) => any;
 
 declare const assignAll: Assign;
-declare namespace assignAll {}
 export = assignAll;

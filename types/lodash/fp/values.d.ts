@@ -29,5 +29,4 @@ interface Values {
 }
 
 declare const values: Values;
-declare namespace values {}
 export = values;

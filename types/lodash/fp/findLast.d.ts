@@ -149,5 +149,4 @@ interface FindLast3x1<T extends object, S extends T[keyof T]> {
 }
 
 declare const findLast: FindLast;
-declare namespace findLast {}
 export = findLast;

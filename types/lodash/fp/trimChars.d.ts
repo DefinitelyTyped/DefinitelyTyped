@@ -48,5 +48,4 @@ interface Trim1x1 {
 }
 
 declare const trimChars: Trim;
-declare namespace trimChars {}
 export = trimChars;

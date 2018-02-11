@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Sum = 
+type Sum =
     /**
      * Computes the sum of the values in `array`.
      *
@@ -19,5 +19,4 @@ type Sum =
     (collection: _.List<any> | null | undefined) => number;
 
 declare const sum: Sum;
-declare namespace sum {}
 export = sum;

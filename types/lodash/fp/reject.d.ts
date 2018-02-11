@@ -118,9 +118,8 @@ interface Reject2x1<T> {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    (collection: object | null | undefined): Array<T>;
+    (collection: object | null | undefined): T[];
 }
 
 declare const reject: Reject;
-declare namespace reject {}
 export = reject;

@@ -75,5 +75,4 @@ interface MeanBy1x1<T> {
 }
 
 declare const meanBy: MeanBy;
-declare namespace meanBy {}
 export = meanBy;

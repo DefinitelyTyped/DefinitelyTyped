@@ -75,5 +75,4 @@ interface BindAll1x1 {
 }
 
 declare const bindAll: BindAll;
-declare namespace bindAll {}
 export = bindAll;

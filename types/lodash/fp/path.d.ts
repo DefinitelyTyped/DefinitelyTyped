@@ -204,5 +204,4 @@ interface Get5x1 {
 }
 
 declare const path: Get;
-declare namespace path {}
 export = path;

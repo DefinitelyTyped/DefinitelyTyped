@@ -45,5 +45,4 @@ interface ConformsTo1x1<T> {
 }
 
 declare const conformsTo: ConformsTo;
-declare namespace conformsTo {}
 export = conformsTo;

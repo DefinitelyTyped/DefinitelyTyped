@@ -316,5 +316,4 @@ interface Reduce3x2<T extends object, TResult> {
 }
 
 declare const reduce: Reduce;
-declare namespace reduce {}
 export = reduce;

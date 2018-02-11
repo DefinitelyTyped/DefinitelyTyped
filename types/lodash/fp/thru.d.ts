@@ -53,5 +53,4 @@ interface Thru1x1<T, TResult> {
 }
 
 declare const thru: Thru;
-declare namespace thru {}
 export = thru;

@@ -95,5 +95,4 @@ interface SortedIndex1x1<T> {
 }
 
 declare const sortedIndex: SortedIndex;
-declare namespace sortedIndex {}
 export = sortedIndex;

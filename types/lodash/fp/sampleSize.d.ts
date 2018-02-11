@@ -66,5 +66,4 @@ interface SampleSize1x1 {
 }
 
 declare const sampleSize: SampleSize;
-declare namespace sampleSize {}
 export = sampleSize;

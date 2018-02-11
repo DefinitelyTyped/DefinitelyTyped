@@ -100,5 +100,4 @@ interface FindLastIndex1x1<T> {
 }
 
 declare const findLastIndex: FindLastIndex;
-declare namespace findLastIndex {}
 export = findLastIndex;

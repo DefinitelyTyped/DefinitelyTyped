@@ -28,7 +28,7 @@ declare module "../index" {
         /**
          * @see _.zip
          */
-        zip<T>(...arrays: Array<List<T> | null | undefined>): (T | undefined)[][];
+        zip<T>(...arrays: Array<List<T> | null | undefined>): Array<Array<T | undefined>>;
     }
 
     interface LoDashImplicitWrapper<TValue> {

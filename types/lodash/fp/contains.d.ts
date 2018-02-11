@@ -60,5 +60,4 @@ interface Includes1x1<T> {
 }
 
 declare const contains: Includes;
-declare namespace contains {}
 export = contains;

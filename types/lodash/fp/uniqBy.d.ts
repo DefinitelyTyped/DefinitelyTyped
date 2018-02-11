@@ -183,5 +183,4 @@ interface UniqBy2x1<T> {
 }
 
 declare const uniqBy: UniqBy;
-declare namespace uniqBy {}
 export = uniqBy;

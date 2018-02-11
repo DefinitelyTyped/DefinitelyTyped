@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type DefaultsDeep = 
+type DefaultsDeep =
     /**
      * This method is like _.defaults except that it recursively assigns default properties.
      * @param object The destination object.
@@ -12,5 +12,4 @@ type DefaultsDeep =
     (object: ReadonlyArray<any>) => any;
 
 declare const defaultsDeepAll: DefaultsDeep;
-declare namespace defaultsDeepAll {}
 export = defaultsDeepAll;

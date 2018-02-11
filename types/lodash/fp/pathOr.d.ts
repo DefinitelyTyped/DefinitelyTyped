@@ -310,5 +310,4 @@ interface Get4x2 {
 }
 
 declare const pathOr: Get;
-declare namespace pathOr {}
 export = pathOr;

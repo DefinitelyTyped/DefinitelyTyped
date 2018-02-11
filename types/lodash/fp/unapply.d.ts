@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Rest = 
+type Rest =
     /**
      * Creates a function that invokes func with the this binding of the created function and arguments from start
      * and beyond provided as an array.
@@ -16,5 +16,4 @@ type Rest =
     (func: (...args: any[]) => any) => (...args: any[]) => any;
 
 declare const unapply: Rest;
-declare namespace unapply {}
 export = unapply;

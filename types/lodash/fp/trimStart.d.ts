@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type TrimStart = 
+type TrimStart =
     /**
      * Removes leading whitespace or specified characters from string.
      *
@@ -13,5 +13,4 @@ type TrimStart =
     (string: string) => string;
 
 declare const trimStart: TrimStart;
-declare namespace trimStart {}
 export = trimStart;

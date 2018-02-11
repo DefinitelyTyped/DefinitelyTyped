@@ -113,5 +113,4 @@ interface IsMatch1x1 {
 }
 
 declare const whereEq: IsMatch;
-declare namespace whereEq {}
 export = whereEq;

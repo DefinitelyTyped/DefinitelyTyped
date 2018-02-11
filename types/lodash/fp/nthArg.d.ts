@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type NthArg = 
+type NthArg =
     /**
      * Creates a function that returns its nth argument.
      *
@@ -12,5 +12,4 @@ type NthArg =
     (n: number) => (...args: any[]) => any;
 
 declare const nthArg: NthArg;
-declare namespace nthArg {}
 export = nthArg;

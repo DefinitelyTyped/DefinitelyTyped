@@ -48,5 +48,4 @@ interface Ary1x1 {
 }
 
 declare const ary: Ary;
-declare namespace ary {}
 export = ary;

@@ -312,5 +312,4 @@ interface FlowRight {
 }
 
 declare const compose: FlowRight;
-declare namespace compose {}
 export = compose;

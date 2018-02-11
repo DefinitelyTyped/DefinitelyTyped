@@ -273,7 +273,6 @@
 /// <reference path="./seq/chain.d.ts" />
 /// <reference path="./seq/tap.d.ts" />
 /// <reference path="./seq/thru.d.ts" />
-/// <reference path="./seq/prototype.at.d.ts" />
 /// <reference path="./seq/prototype.chain.d.ts" />
 /// <reference path="./seq/prototype.commit.d.ts" />
 /// <reference path="./seq/prototype.plant.d.ts" />

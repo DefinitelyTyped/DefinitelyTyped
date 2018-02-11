@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type CastArray = 
+type CastArray =
     /**
      * Casts value as an array if it’s not one.
      *
@@ -14,5 +14,4 @@ type CastArray =
     <T>(value: _.Many<T>) => T[];
 
 declare const castArray: CastArray;
-declare namespace castArray {}
 export = castArray;

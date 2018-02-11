@@ -20,5 +20,4 @@ interface Identity {
 }
 
 declare const identity: Identity;
-declare namespace identity {}
 export = identity;

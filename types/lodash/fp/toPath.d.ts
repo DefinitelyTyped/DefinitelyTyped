@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToPath = 
+type ToPath =
     /**
      * Converts `value` to a property path array.
      *
@@ -29,5 +29,4 @@ type ToPath =
     (value: any) => string[];
 
 declare const toPath: ToPath;
-declare namespace toPath {}
 export = toPath;

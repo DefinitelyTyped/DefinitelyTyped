@@ -88,5 +88,4 @@ interface BindKey1x1 {
 }
 
 declare const bindKey: BindKey;
-declare namespace bindKey {}
 export = bindKey;

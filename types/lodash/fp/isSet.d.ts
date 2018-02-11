@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsSet = 
+type IsSet =
     /**
      * Checks if value is classified as a Set object.
      *
@@ -12,5 +12,4 @@ type IsSet =
     (value: any) => value is Set<any>;
 
 declare const isSet: IsSet;
-declare namespace isSet {}
 export = isSet;

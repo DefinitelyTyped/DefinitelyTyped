@@ -583,5 +583,4 @@ interface Map6x1 {
 }
 
 declare const map: Map;
-declare namespace map {}
 export = map;

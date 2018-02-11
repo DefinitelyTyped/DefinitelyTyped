@@ -56,5 +56,4 @@ interface CurryRight {
 }
 
 declare const curryRight: CurryRight;
-declare namespace curryRight {}
 export = curryRight;

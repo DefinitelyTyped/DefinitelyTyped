@@ -1,6 +1,5 @@
 import _ = require("../index");
 declare module "../index" {
-
     interface LoDashStatic {
         /**
          * Checks if object conforms to source by invoking the predicate properties of source with the

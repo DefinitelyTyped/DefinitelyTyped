@@ -129,5 +129,4 @@ interface Omit1x1 {
 }
 
 declare const omit: Omit;
-declare namespace omit {}
 export = omit;

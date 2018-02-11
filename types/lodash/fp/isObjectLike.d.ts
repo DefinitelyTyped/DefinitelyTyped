@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsObjectLike = 
+type IsObjectLike =
     /**
      * Checks if `value` is object-like. A value is object-like if it's not `null`
      * and has a `typeof` result of "object".
@@ -27,5 +27,4 @@ type IsObjectLike =
     (value: any) => boolean;
 
 declare const isObjectLike: IsObjectLike;
-declare namespace isObjectLike {}
 export = isObjectLike;

@@ -53,5 +53,4 @@ interface Delay1x1 {
 }
 
 declare const delay: Delay;
-declare namespace delay {}
 export = delay;

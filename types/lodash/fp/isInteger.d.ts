@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsInteger = 
+type IsInteger =
     /**
      * Checks if `value` is an integer.
      *
@@ -28,5 +28,4 @@ type IsInteger =
     (value: any) => boolean;
 
 declare const isInteger: IsInteger;
-declare namespace isInteger {}
 export = isInteger;

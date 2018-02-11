@@ -80,5 +80,4 @@ interface InvertBy1x1<T> {
 }
 
 declare const invertBy: InvertBy;
-declare namespace invertBy {}
 export = invertBy;

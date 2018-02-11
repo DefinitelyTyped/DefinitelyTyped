@@ -22,5 +22,4 @@ interface ValuesIn {
 }
 
 declare const valuesIn: ValuesIn;
-declare namespace valuesIn {}
 export = valuesIn;

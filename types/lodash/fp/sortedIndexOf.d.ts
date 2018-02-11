@@ -80,5 +80,4 @@ interface SortedIndexOf1x1<T> {
 }
 
 declare const sortedIndexOf: SortedIndexOf;
-declare namespace sortedIndexOf {}
 export = sortedIndexOf;

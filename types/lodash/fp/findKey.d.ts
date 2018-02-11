@@ -105,5 +105,4 @@ interface FindKey1x1<T> {
 }
 
 declare const findKey: FindKey;
-declare namespace findKey {}
 export = findKey;

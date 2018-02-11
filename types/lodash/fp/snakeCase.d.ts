@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type SnakeCase = 
+type SnakeCase =
     /**
      * Converts string to snake case.
      *
@@ -12,5 +12,4 @@ type SnakeCase =
     (string: string) => string;
 
 declare const snakeCase: SnakeCase;
-declare namespace snakeCase {}
 export = snakeCase;

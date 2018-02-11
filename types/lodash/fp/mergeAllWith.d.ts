@@ -180,5 +180,4 @@ interface MergeWith1x1 {
 }
 
 declare const mergeAllWith: MergeWith;
-declare namespace mergeAllWith {}
 export = mergeAllWith;

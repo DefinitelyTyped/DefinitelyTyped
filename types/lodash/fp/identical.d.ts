@@ -153,5 +153,4 @@ interface Eq1x1 {
 }
 
 declare const identical: Eq;
-declare namespace identical {}
 export = identical;

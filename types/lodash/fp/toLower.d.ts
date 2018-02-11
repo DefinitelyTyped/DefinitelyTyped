@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToLower = 
+type ToLower =
     /**
      * Converts `string`, as a whole, to lower case.
      *
@@ -12,5 +12,4 @@ type ToLower =
     (string: string) => string;
 
 declare const toLower: ToLower;
-declare namespace toLower {}
 export = toLower;

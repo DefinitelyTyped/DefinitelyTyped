@@ -48,5 +48,4 @@ interface TrimEnd1x1 {
 }
 
 declare const trimCharsEnd: TrimEnd;
-declare namespace trimCharsEnd {}
 export = trimCharsEnd;

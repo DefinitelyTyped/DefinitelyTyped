@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type MethodOf = 
+type MethodOf =
     /**
      * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
      * Any additional arguments are provided to the invoked method.
@@ -16,5 +16,4 @@ type MethodOf =
     (object: object) => (path: _.PropertyPath) => any;
 
 declare const methodOf: MethodOf;
-declare namespace methodOf {}
 export = methodOf;

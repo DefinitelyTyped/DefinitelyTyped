@@ -165,5 +165,4 @@ interface DifferenceWith1x2<T1, T2> {
 }
 
 declare const differenceWith: DifferenceWith;
-declare namespace differenceWith {}
 export = differenceWith;

@@ -55,5 +55,4 @@ interface OverArgs1x1 {
 }
 
 declare const useWith: OverArgs;
-declare namespace useWith {}
 export = useWith;

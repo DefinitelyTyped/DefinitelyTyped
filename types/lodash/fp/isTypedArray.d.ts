@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsTypedArray = 
+type IsTypedArray =
     /**
      * Checks if value is classified as a typed array.
      *
@@ -12,5 +12,4 @@ type IsTypedArray =
     (value: any) => boolean;
 
 declare const isTypedArray: IsTypedArray;
-declare namespace isTypedArray {}
 export = isTypedArray;

@@ -102,5 +102,4 @@ interface Update1x2 {
 }
 
 declare const update: Update;
-declare namespace update {}
 export = update;

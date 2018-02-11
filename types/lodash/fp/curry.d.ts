@@ -62,5 +62,4 @@ interface Curry {
 }
 
 declare const curry: Curry;
-declare namespace curry {}
 export = curry;

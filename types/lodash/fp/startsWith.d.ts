@@ -53,5 +53,4 @@ interface StartsWith1x1 {
 }
 
 declare const startsWith: StartsWith;
-declare namespace startsWith {}
 export = startsWith;

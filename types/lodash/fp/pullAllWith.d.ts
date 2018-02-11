@@ -541,5 +541,4 @@ interface PullAllWith3x2<T1> {
 }
 
 declare const pullAllWith: PullAllWith;
-declare namespace pullAllWith {}
 export = pullAllWith;

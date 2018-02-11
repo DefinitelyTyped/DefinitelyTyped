@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Template = 
+type Template =
     /**
      * Creates a compiled template function that can interpolate data properties in "interpolate" delimiters,
      * HTML-escape interpolated data properties in "escape" delimiters, and execute JavaScript in "evaluate"
@@ -34,5 +34,4 @@ type Template =
     (string: string) => _.TemplateExecutor;
 
 declare const template: Template;
-declare namespace template {}
 export = template;

@@ -102,5 +102,4 @@ interface UnionBy1x2<T> {
 }
 
 declare const unionBy: UnionBy;
-declare namespace unionBy {}
 export = unionBy;

@@ -50,5 +50,4 @@ interface Take1x1 {
 }
 
 declare const take: Take;
-declare namespace take {}
 export = take;

@@ -145,5 +145,4 @@ interface Curry1x1 {
 }
 
 declare const curryN: Curry;
-declare namespace curryN {}
 export = curryN;

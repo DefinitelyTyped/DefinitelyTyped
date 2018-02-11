@@ -53,5 +53,4 @@ interface Times1x1<TResult> {
 }
 
 declare const times: Times;
-declare namespace times {}
 export = times;

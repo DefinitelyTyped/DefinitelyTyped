@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Last = 
+type Last =
     /**
      * Gets the last element of array.
      *
@@ -14,5 +14,4 @@ type Last =
     <T>(array: _.List<T> | null | undefined) => T | undefined;
 
 declare const last: Last;
-declare namespace last {}
 export = last;

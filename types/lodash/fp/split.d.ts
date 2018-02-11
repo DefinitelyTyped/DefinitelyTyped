@@ -63,5 +63,4 @@ interface Split1x1 {
 }
 
 declare const split: Split;
-declare namespace split {}
 export = split;

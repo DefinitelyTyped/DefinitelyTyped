@@ -222,5 +222,4 @@ interface ForEachRight2x1 {
 }
 
 declare const forEachRight: ForEachRight;
-declare namespace forEachRight {}
 export = forEachRight;

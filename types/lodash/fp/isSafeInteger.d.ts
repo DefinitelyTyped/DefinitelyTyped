@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsSafeInteger = 
+type IsSafeInteger =
     /**
      * Checks if `value` is a safe integer. An integer is safe if it's an IEEE-754
      * double precision number which isn't the result of a rounded unsafe integer.
@@ -29,5 +29,4 @@ type IsSafeInteger =
     (value: any) => boolean;
 
 declare const isSafeInteger: IsSafeInteger;
-declare namespace isSafeInteger {}
 export = isSafeInteger;

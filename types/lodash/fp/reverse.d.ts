@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Reverse = 
+type Reverse =
     /**
      * Reverses `array` so that the first element becomes the last, the second
      * element becomes the second to last, and so on.
@@ -27,5 +27,4 @@ type Reverse =
     <TList extends _.List<any>>(array: TList) => TList;
 
 declare const reverse: Reverse;
-declare namespace reverse {}
 export = reverse;

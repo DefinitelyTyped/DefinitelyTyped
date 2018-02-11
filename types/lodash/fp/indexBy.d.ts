@@ -285,5 +285,4 @@ interface KeyBy2x1<T> {
 }
 
 declare const indexBy: KeyBy;
-declare namespace indexBy {}
 export = indexBy;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToNumber = 
+type ToNumber =
     /**
      * Converts `value` to a number.
      *
@@ -26,5 +26,4 @@ type ToNumber =
     (value: any) => number;
 
 declare const toNumber: ToNumber;
-declare namespace toNumber {}
 export = toNumber;

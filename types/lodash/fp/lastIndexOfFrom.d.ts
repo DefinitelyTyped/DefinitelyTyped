@@ -93,5 +93,4 @@ interface LastIndexOf1x2<T> {
 }
 
 declare const lastIndexOfFrom: LastIndexOf;
-declare namespace lastIndexOfFrom {}
 export = lastIndexOfFrom;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsError = 
+type IsError =
     /**
      * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
      * object.
@@ -13,5 +13,4 @@ type IsError =
     (value: any) => value is Error;
 
 declare const isError: IsError;
-declare namespace isError {}
 export = isError;

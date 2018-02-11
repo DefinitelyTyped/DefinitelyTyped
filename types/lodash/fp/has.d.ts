@@ -135,5 +135,4 @@ interface Has1x1 {
 }
 
 declare const has: Has;
-declare namespace has {}
 export = has;

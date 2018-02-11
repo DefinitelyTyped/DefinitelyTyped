@@ -100,5 +100,4 @@ interface FindLastKey1x1<T> {
 }
 
 declare const findLastKey: FindLastKey;
-declare namespace findLastKey {}
 export = findLastKey;

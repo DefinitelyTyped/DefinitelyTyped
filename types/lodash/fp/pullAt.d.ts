@@ -87,5 +87,4 @@ interface PullAt1x1 {
 }
 
 declare const pullAt: PullAt;
-declare namespace pullAt {}
 export = pullAt;

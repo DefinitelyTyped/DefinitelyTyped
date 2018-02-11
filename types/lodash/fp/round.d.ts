@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Round = 
+type Round =
     /**
      * Calculates n rounded to precision.
      *
@@ -13,5 +13,4 @@ type Round =
     (n: number) => number;
 
 declare const round: Round;
-declare namespace round {}
 export = round;

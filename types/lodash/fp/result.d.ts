@@ -60,5 +60,4 @@ interface Result1x1 {
 }
 
 declare const result: Result;
-declare namespace result {}
 export = result;

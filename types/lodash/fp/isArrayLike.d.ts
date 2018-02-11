@@ -75,5 +75,4 @@ interface IsArrayLike {
 }
 
 declare const isArrayLike: IsArrayLike;
-declare namespace isArrayLike {}
 export = isArrayLike;

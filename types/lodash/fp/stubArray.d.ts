@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type StubArray = 
+type StubArray =
     /**
      * This method returns a new empty array.
      *
@@ -11,5 +11,4 @@ type StubArray =
     () => any[];
 
 declare const stubArray: StubArray;
-declare namespace stubArray {}
 export = stubArray;

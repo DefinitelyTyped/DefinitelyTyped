@@ -183,5 +183,4 @@ interface IntersectionBy1x2<T1, T2> {
 }
 
 declare const intersectionBy: IntersectionBy;
-declare namespace intersectionBy {}
 export = intersectionBy;

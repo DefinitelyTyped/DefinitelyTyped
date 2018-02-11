@@ -285,5 +285,4 @@ interface KeyBy2x1<T> {
 }
 
 declare const keyBy: KeyBy;
-declare namespace keyBy {}
 export = keyBy;

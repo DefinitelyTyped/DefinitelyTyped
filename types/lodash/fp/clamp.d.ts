@@ -163,5 +163,4 @@ interface Clamp1x2 {
 }
 
 declare const clamp: Clamp;
-declare namespace clamp {}
 export = clamp;

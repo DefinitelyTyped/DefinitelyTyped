@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Spread = 
+type Spread =
     /**
      * Creates a function that invokes func with the this binding of the created function and an array of arguments
      * much like Function#apply.
@@ -15,5 +15,4 @@ type Spread =
     <TResult>(func: (...args: any[]) => TResult) => (...args: any[]) => TResult;
 
 declare const spread: Spread;
-declare namespace spread {}
 export = spread;

@@ -100,5 +100,4 @@ interface DefaultTo2x1<TDefault> {
 }
 
 declare const defaultTo: DefaultTo;
-declare namespace defaultTo {}
 export = defaultTo;

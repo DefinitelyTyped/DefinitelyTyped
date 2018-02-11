@@ -156,5 +156,4 @@ interface LodashPick2x1 {
 }
 
 declare const pickAll: LodashPick;
-declare namespace pickAll {}
 export = pickAll;

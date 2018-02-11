@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToString = 
+type ToString =
     /**
      * Converts `value` to a string if it's not one. An empty string is returned
      * for `null` and `undefined` values. The sign of `-0` is preserved.
@@ -24,5 +24,4 @@ type ToString =
     (value: any) => string;
 
 declare const toString: ToString;
-declare namespace toString {}
 export = toString;

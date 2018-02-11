@@ -91,5 +91,4 @@ interface Every1x1<T> {
 }
 
 declare const all: Every;
-declare namespace all {}
 export = all;

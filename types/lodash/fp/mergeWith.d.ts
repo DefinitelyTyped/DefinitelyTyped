@@ -318,5 +318,4 @@ interface MergeWith1x2<TObject> {
 }
 
 declare const mergeWith: MergeWith;
-declare namespace mergeWith {}
 export = mergeWith;

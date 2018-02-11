@@ -266,5 +266,4 @@ interface SetWith1x3<T extends object> {
 }
 
 declare const setWith: SetWith;
-declare namespace setWith {}
 export = setWith;

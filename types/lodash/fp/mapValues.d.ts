@@ -438,5 +438,4 @@ interface MapValues5x1<TResult> {
 }
 
 declare const mapValues: MapValues;
-declare namespace mapValues {}
 export = mapValues;

@@ -183,5 +183,4 @@ interface XorBy1x2<T> {
 }
 
 declare const xorBy: XorBy;
-declare namespace xorBy {}
 export = xorBy;

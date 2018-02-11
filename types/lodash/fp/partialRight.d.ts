@@ -48,5 +48,4 @@ interface PartialRight1x1 {
 }
 
 declare const partialRight: PartialRight;
-declare namespace partialRight {}
 export = partialRight;

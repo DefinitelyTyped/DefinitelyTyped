@@ -90,5 +90,4 @@ interface PickBy1x1<T> {
 }
 
 declare const pickBy: PickBy;
-declare namespace pickBy {}
 export = pickBy;

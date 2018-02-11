@@ -285,5 +285,4 @@ interface CountBy2x1<T> {
 }
 
 declare const countBy: CountBy;
-declare namespace countBy {}
 export = countBy;

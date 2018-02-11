@@ -115,5 +115,4 @@ interface SumBy1x1<T> {
 }
 
 declare const sumBy: SumBy;
-declare namespace sumBy {}
 export = sumBy;

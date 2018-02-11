@@ -174,5 +174,4 @@ interface XorWith1x2<T> {
 }
 
 declare const xorWith: XorWith;
-declare namespace xorWith {}
 export = xorWith;

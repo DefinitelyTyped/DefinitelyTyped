@@ -53,5 +53,4 @@ interface EndsWith1x1 {
 }
 
 declare const endsWith: EndsWith;
-declare namespace endsWith {}
 export = endsWith;

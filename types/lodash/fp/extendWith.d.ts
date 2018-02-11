@@ -246,5 +246,4 @@ interface AssignInWith1x2<TObject> {
 }
 
 declare const extendWith: AssignInWith;
-declare namespace extendWith {}
 export = extendWith;

@@ -43,5 +43,4 @@ interface DefaultsDeep1x1 {
 }
 
 declare const defaultsDeep: DefaultsDeep;
-declare namespace defaultsDeep {}
 export = defaultsDeep;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type AssignIn = 
+type AssignIn =
     /**
      * This method is like `_.assign` except that it iterates over own and
      * inherited source properties.
@@ -33,5 +33,4 @@ type AssignIn =
     <TResult>(object: ReadonlyArray<any>) => TResult;
 
 declare const extendAll: AssignIn;
-declare namespace extendAll {}
 export = extendAll;

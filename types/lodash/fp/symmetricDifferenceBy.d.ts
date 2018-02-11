@@ -183,5 +183,4 @@ interface XorBy1x2<T> {
 }
 
 declare const symmetricDifferenceBy: XorBy;
-declare namespace symmetricDifferenceBy {}
 export = symmetricDifferenceBy;

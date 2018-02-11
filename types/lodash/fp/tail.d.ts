@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Tail = 
+type Tail =
     /**
      * Gets all but the first element of array.
      *
@@ -14,5 +14,4 @@ type Tail =
     <T>(array: _.List<T> | null | undefined) => T[];
 
 declare const tail: Tail;
-declare namespace tail {}
 export = tail;

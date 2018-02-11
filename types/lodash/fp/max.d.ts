@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Max = 
+type Max =
     /**
       * Computes the maximum value of `array`. If `array` is empty or falsey
       * `undefined` is returned.
@@ -16,5 +16,4 @@ type Max =
     <T>(collection: _.List<T> | null | undefined) => T | undefined;
 
 declare const max: Max;
-declare namespace max {}
 export = max;

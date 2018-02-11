@@ -50,5 +50,4 @@ interface CloneDeepWith1x1<T> {
 }
 
 declare const cloneDeepWith: CloneDeepWith;
-declare namespace cloneDeepWith {}
 export = cloneDeepWith;

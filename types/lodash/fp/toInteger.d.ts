@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToInteger = 
+type ToInteger =
     /**
      * Converts `value` to an integer.
      *
@@ -28,5 +28,4 @@ type ToInteger =
     (value: any) => number;
 
 declare const toInteger: ToInteger;
-declare namespace toInteger {}
 export = toInteger;

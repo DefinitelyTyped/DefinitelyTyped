@@ -55,5 +55,4 @@ interface Difference1x1<T> {
 }
 
 declare const difference: Difference;
-declare namespace difference {}
 export = difference;

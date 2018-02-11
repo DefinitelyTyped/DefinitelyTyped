@@ -48,5 +48,4 @@ interface Add1x1 {
 }
 
 declare const add: Add;
-declare namespace add {}
 export = add;

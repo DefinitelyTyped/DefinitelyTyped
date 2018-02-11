@@ -307,5 +307,4 @@ interface RangeRight1x2 {
 }
 
 declare const rangeStepRight: RangeRight;
-declare namespace rangeStepRight {}
 export = rangeStepRight;

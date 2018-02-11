@@ -63,5 +63,4 @@ interface ParseInt1x1 {
 }
 
 declare const parseInt: ParseInt;
-declare namespace parseInt {}
 export = parseInt;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsMap = 
+type IsMap =
     /**
      * Checks if value is classified as a Map object.
      *
@@ -12,5 +12,4 @@ type IsMap =
     (value: any) => value is Map<any, any>;
 
 declare const isMap: IsMap;
-declare namespace isMap {}
 export = isMap;

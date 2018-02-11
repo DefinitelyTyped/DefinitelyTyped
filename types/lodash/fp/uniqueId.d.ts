@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type UniqueId = 
+type UniqueId =
     /**
      * Generates a unique ID. If prefix is provided the ID is appended to it.
      *
@@ -12,5 +12,4 @@ type UniqueId =
     (prefix: string) => string;
 
 declare const uniqueId: UniqueId;
-declare namespace uniqueId {}
 export = uniqueId;

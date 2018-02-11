@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsNil = 
+type IsNil =
     /**
      * Checks if `value` is `null` or `undefined`.
      *
@@ -23,5 +23,4 @@ type IsNil =
     (value: any) => value is null | undefined;
 
 declare const isNil: IsNil;
-declare namespace isNil {}
 export = isNil;

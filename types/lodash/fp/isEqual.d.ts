@@ -138,5 +138,4 @@ interface IsEqual1x1 {
 }
 
 declare const isEqual: IsEqual;
-declare namespace isEqual {}
 export = isEqual;

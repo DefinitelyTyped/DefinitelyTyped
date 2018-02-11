@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Negate = 
+type Negate =
     /**
      * Creates a function that negates the result of the predicate func. The func predicate is invoked with
      * the this binding and arguments of the created function.
@@ -13,5 +13,4 @@ type Negate =
     <T extends (...args: any[]) => any>(predicate: T) => T;
 
 declare const complement: Negate;
-declare namespace complement {}
 export = complement;

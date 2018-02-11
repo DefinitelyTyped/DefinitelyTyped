@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type StubString = 
+type StubString =
     /**
      * This method returns an empty string.
      *
@@ -11,5 +11,4 @@ type StubString =
     () => string;
 
 declare const stubString: StubString;
-declare namespace stubString {}
 export = stubString;

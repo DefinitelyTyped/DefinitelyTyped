@@ -55,5 +55,4 @@ interface Chunk1x1 {
 }
 
 declare const chunk: Chunk;
-declare namespace chunk {}
 export = chunk;

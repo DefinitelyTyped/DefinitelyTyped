@@ -2,7 +2,9 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type NoConflict = 
+import _ = require("../index");
+
+type NoConflict =
     /**
      * Reverts the _ variable to its previous value and returns a reference to the lodash function.
      *
@@ -11,5 +13,4 @@ type NoConflict =
     () => typeof _;
 
 declare const noConflict: NoConflict;
-declare namespace noConflict {}
 export = noConflict;

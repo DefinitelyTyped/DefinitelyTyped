@@ -310,5 +310,4 @@ interface Get4x2 {
 }
 
 declare const propOr: Get;
-declare namespace propOr {}
 export = propOr;

@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type TrimEnd = 
+type TrimEnd =
     /**
      * Removes trailing whitespace or specified characters from string.
      *
@@ -13,5 +13,4 @@ type TrimEnd =
     (string: string) => string;
 
 declare const trimEnd: TrimEnd;
-declare namespace trimEnd {}
 export = trimEnd;

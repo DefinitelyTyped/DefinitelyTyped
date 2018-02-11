@@ -93,5 +93,4 @@ interface CloneWith2x1<T, TResult> {
 }
 
 declare const cloneWith: CloneWith;
-declare namespace cloneWith {}
 export = cloneWith;

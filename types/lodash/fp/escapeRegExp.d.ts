@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type EscapeRegExp = 
+type EscapeRegExp =
     /**
      * Escapes the RegExp special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]",
      * "{", "}", and "|" in string.
@@ -13,5 +13,4 @@ type EscapeRegExp =
     (string: string) => string;
 
 declare const escapeRegExp: EscapeRegExp;
-declare namespace escapeRegExp {}
 export = escapeRegExp;

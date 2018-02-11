@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsLength = 
+type IsLength =
     /**
      * Checks if `value` is a valid array-like length.
      *
@@ -28,5 +28,4 @@ type IsLength =
     (value: any) => boolean;
 
 declare const isLength: IsLength;
-declare namespace isLength {}
 export = isLength;

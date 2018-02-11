@@ -105,5 +105,4 @@ interface DropWhile1x1<T> {
 }
 
 declare const dropWhile: DropWhile;
-declare namespace dropWhile {}
 export = dropWhile;

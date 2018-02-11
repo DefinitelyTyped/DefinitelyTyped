@@ -299,5 +299,4 @@ interface Find3x1<T extends object, S extends T[keyof T]> {
 }
 
 declare const find: Find;
-declare namespace find {}
 export = find;

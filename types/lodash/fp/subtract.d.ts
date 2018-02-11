@@ -73,5 +73,4 @@ interface Subtract1x1 {
 }
 
 declare const subtract: Subtract;
-declare namespace subtract {}
 export = subtract;

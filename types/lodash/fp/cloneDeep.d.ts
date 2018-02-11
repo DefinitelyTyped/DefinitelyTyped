@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type CloneDeep = 
+type CloneDeep =
     /**
      * This method is like _.clone except that it recursively clones value.
      *
@@ -12,5 +12,4 @@ type CloneDeep =
     <T>(value: T) => T;
 
 declare const cloneDeep: CloneDeep;
-declare namespace cloneDeep {}
 export = cloneDeep;

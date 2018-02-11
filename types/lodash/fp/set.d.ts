@@ -155,5 +155,4 @@ interface Set1x2 {
 }
 
 declare const set: Set;
-declare namespace set {}
 export = set;

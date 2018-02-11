@@ -50,5 +50,4 @@ interface Join1x1 {
 }
 
 declare const join: Join;
-declare namespace join {}
 export = join;

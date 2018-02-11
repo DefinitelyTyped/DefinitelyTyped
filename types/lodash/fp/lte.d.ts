@@ -48,5 +48,4 @@ interface Lte1x1 {
 }
 
 declare const lte: Lte;
-declare namespace lte {}
 export = lte;

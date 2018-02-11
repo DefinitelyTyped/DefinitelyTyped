@@ -111,5 +111,4 @@ interface DifferenceBy1x2<T1, T2> {
 }
 
 declare const differenceBy: DifferenceBy;
-declare namespace differenceBy {}
 export = differenceBy;

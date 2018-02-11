@@ -50,5 +50,4 @@ interface ZipObjectDeep1x1 {
 }
 
 declare const zipObjectDeep: ZipObjectDeep;
-declare namespace zipObjectDeep {}
 export = zipObjectDeep;

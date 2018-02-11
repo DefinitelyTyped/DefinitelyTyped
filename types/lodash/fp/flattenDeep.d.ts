@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type FlattenDeep = 
+type FlattenDeep =
     /**
      * Recursively flattens a nested array.
      *
@@ -14,5 +14,4 @@ type FlattenDeep =
     <T>(array: _.ListOfRecursiveArraysOrValues<T> | null | undefined) => T[];
 
 declare const flattenDeep: FlattenDeep;
-declare namespace flattenDeep {}
 export = flattenDeep;

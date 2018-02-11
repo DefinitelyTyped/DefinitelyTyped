@@ -100,5 +100,4 @@ interface Wrap2x1<T, TResult> {
 }
 
 declare const wrap: Wrap;
-declare namespace wrap {}
 export = wrap;

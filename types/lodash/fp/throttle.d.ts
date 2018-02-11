@@ -95,5 +95,4 @@ interface Throttle1x1 {
 }
 
 declare const throttle: Throttle;
-declare namespace throttle {}
 export = throttle;

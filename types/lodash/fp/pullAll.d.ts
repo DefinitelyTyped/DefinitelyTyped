@@ -136,5 +136,4 @@ interface PullAll1x1<T> {
 }
 
 declare const pullAll: PullAll;
-declare namespace pullAll {}
 export = pullAll;

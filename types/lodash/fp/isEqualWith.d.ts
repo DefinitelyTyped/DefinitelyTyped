@@ -282,5 +282,4 @@ interface IsEqualWith1x2 {
 }
 
 declare const isEqualWith: IsEqualWith;
-declare namespace isEqualWith {}
 export = isEqualWith;

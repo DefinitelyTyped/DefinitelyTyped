@@ -583,5 +583,4 @@ interface Map6x1 {
 }
 
 declare const pluck: Map;
-declare namespace pluck {}
 export = pluck;

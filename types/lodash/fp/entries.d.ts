@@ -22,5 +22,4 @@ interface ToPairs {
 }
 
 declare const entries: ToPairs;
-declare namespace entries {}
 export = entries;

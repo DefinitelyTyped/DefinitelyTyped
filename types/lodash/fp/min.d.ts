@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Min = 
+type Min =
     /**
      * Computes the minimum value of `array`. If `array` is empty or falsey
      * `undefined` is returned.
@@ -16,5 +16,4 @@ type Min =
     <T>(collection: _.List<T> | null | undefined) => T | undefined;
 
 declare const min: Min;
-declare namespace min {}
 export = min;

@@ -153,5 +153,4 @@ interface Eq1x1 {
 }
 
 declare const eq: Eq;
-declare namespace eq {}
 export = eq;

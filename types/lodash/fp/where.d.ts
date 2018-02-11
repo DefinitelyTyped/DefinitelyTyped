@@ -45,5 +45,4 @@ interface ConformsTo1x1<T> {
 }
 
 declare const where: ConformsTo;
-declare namespace where {}
 export = where;

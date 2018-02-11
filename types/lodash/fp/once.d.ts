@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Once = 
+type Once =
     /**
      * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
      * of the first call. The func is invoked with the this binding and arguments of the created function.
@@ -13,5 +13,4 @@ type Once =
     <T extends (...args: any[]) => any>(func: T) => T;
 
 declare const once: Once;
-declare namespace once {}
 export = once;

@@ -4,7 +4,7 @@
 
 import _ = require("../index");
 
-type Over = 
+type Over =
     /**
      * Creates a function that invokes iteratees with the arguments provided to the created function and returns
      * their results.
@@ -15,5 +15,4 @@ type Over =
     <TResult>(iteratees: _.Many<(...args: any[]) => TResult>) => (...args: any[]) => TResult[];
 
 declare const juxt: Over;
-declare namespace juxt {}
 export = juxt;

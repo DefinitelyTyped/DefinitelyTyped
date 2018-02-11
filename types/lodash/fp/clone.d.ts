@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type Clone = 
+type Clone =
     /**
      * Creates a shallow clone of value.
      *
@@ -17,5 +17,4 @@ type Clone =
     <T>(value: T) => T;
 
 declare const clone: Clone;
-declare namespace clone {}
 export = clone;

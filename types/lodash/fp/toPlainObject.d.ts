@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToPlainObject = 
+type ToPlainObject =
     /**
      * Converts value to a plain object flattening inherited enumerable properties of value to own properties
      * of the plain object.
@@ -13,5 +13,4 @@ type ToPlainObject =
     (value: any) => any;
 
 declare const toPlainObject: ToPlainObject;
-declare namespace toPlainObject {}
 export = toPlainObject;

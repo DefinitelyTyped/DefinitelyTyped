@@ -204,5 +204,4 @@ interface Get5x1 {
 }
 
 declare const property: Get;
-declare namespace property {}
 export = property;

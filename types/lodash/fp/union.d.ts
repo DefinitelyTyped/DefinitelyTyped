@@ -50,5 +50,4 @@ interface Union1x1<T> {
 }
 
 declare const union: Union;
-declare namespace union {}
 export = union;

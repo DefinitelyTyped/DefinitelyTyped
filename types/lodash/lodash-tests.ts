@@ -1,3 +1,6 @@
+import fp = require("lodash/fp");
+import _ = require("lodash");
+
 declare const $: any;
 
 interface FoodOrganic {
@@ -136,6 +139,12 @@ namespace TestChunk {
         result = _(list).chain().chunk<AbcObject>();
         result = _(list).chain().chunk<AbcObject>(42);
     }
+
+    fp.chunk(42, array); // $ExpectType AbcObject[][]
+    fp.chunk(42)(array); // $ExpectType AbcObject[][]
+    fp.chunk()(42)()(array); // $ExpectType AbcObject[][]
+    fp.chunk(42, list); // $ExpectType AbcObject[][]
+    fp.chunk(42)(list); // $ExpectType AbcObject[][]
 }
 
 // _.compact
@@ -167,6 +176,11 @@ namespace TestCompact {
         result = _(array).chain().compact();
         result = _(list).chain().compact<AbcObject>();
     }
+
+    fp.compact(array); // $ExpectTypeAbcObject[]
+    fp.compact(list); // $ExpectTypeAbcObject[]
+    fp.compact(array2); // $ExpectTypeAbcObject[]
+    fp.compact(list2); // $ExpectTypeAbcObject[]
 }
 
 // _.difference
@@ -216,6 +230,14 @@ namespace TestDifference {
         result = _(list).chain().difference<AbcObject>(listParam);
         result = _(list).chain().difference<AbcObject>(arrayParam, listParam);
         result = _(list).chain().difference<AbcObject>(listParam, arrayParam, listParam);
+    }
+
+    {
+        fp.difference(array, arrayParam); // $ExpectType AbcObject[]
+        fp.difference(array)(arrayParam); // $ExpectType AbcObject[]
+        fp.difference(array, listParam); // $ExpectType AbcObject[]
+        fp.difference(list, listParam); // $ExpectType AbcObject[]
+        fp.difference(list, arrayParam); // $ExpectType AbcObject[]
     }
 }
 
@@ -407,6 +429,15 @@ namespace TestDifferenceBy {
         result = _(list).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, {a: 1});
         result = _(list).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
         result = _(list).chain().differenceBy<AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
+
+        fp.differenceBy(iteratee, array, arrayParam); // $ExpectType AbcObject[]
+        fp.differenceBy<AbcObject, AbcObject>(iteratee)(array)(listParam); // $ExpectType AbcObject[]
+        fp.differenceBy(iteratee, list, arrayParam); // $ExpectType AbcObject[]
+        fp.differenceBy(iteratee, list, listParam); // $ExpectType AbcObject[]
+        fp.differenceBy("a", array, listParam); // $ExpectType AbcObject[]
+        fp.differenceBy("a", list, arrayParam); // $ExpectType AbcObject[]
+        fp.differenceBy({a: 1}, array, listParam); // $ExpectType AbcObject[]
+        fp.differenceBy({a: 1}, list, arrayParam); // $ExpectType AbcObject[]
     }
 
     {
@@ -545,6 +576,10 @@ namespace TestDifferenceBy {
             value; // $ExpectType string | number | T1 | T2 | T3 | T4
             return 0;
         });
+
+        fp.differenceBy("name", [t1], [t2]); // $ExpectType T1[]
+        fp.differenceBy((value: T1 | T2) => 0, [t1], [t2]); // $ExpectType T1[]
+        fp.differenceBy((value: T1 | T2 | T3) => 0, [t1], [t2, t3]); // $ExpectType T1[]
     }
 }
 
@@ -610,6 +645,12 @@ namespace TestDifferenceBy {
         _.chain(array).differenceWith(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, comparator);
     }
 
+    fp.differenceWith(comparator, array, arrayParam); // $ExpectType AbcObject[]
+    fp.differenceWith(comparator)(array, arrayParam); // $ExpectType AbcObject[]
+    fp.differenceWith(comparator)(array)(arrayParam); // $ExpectType AbcObject[]
+    fp.differenceWith(comparator, array, listParam); // $ExpectType AbcObject[]
+    fp.differenceWith(comparator, list, arrayParam); // $ExpectType AbcObject[]
+
     {
         interface T1 {
             a: string;
@@ -643,6 +684,8 @@ namespace TestDifferenceBy {
             b; // $ExpectType T2 | undefined
             return true;
         });
+
+        fp.differenceWith((a: T1, b: T2 | undefined) => true, [t1], [t2]); // $ExpectType T1[]
     }
 }
 
@@ -679,6 +722,10 @@ namespace TestDifferenceBy {
         result = _(list).chain().drop<AbcObject>();
         result = _(list).chain().drop<AbcObject>(42);
     }
+
+    fp.drop(42, array); // $ExpectType AbcObject[]
+    fp.drop(42)(array); // $ExpectType AbcObject[]
+    fp.drop(42, list); // $ExpectType AbcObject[]
 }
 
 // _.dropRight
@@ -715,6 +762,10 @@ namespace TestDropRight {
         result = _(list).chain().dropRight<AbcObject>();
         result = _(list).chain().dropRight<AbcObject>(42);
     }
+
+    fp.dropRight(42, array); // $ExpectType AbcObject[]
+    fp.dropRight(42)(array); // $ExpectType AbcObject[]
+    fp.dropRight(42, list); // $ExpectType AbcObject[]
 }
 
 // _.dropRightWhile
@@ -764,6 +815,15 @@ namespace TestDropRightWhile {
         result = _(list).chain().dropRightWhile<AbcObject>('');
         result = _(list).chain().dropRightWhile({a: 42});
     }
+
+    const predicateFn2 = (value: AbcObject) => true;
+    fp.dropRightWhile(predicateFn2, array); // $ExpectType AbcObject[]
+    fp.dropRightWhile(predicateFn2)(array); // $ExpectType AbcObject[]
+    fp.dropRightWhile("", array); // $ExpectType AbcObject[]
+    fp.dropRightWhile({ a: 42 }, array); // $ExpectType AbcObject[]
+    fp.dropRightWhile(predicateFn2, list); // $ExpectType AbcObject[]
+    fp.dropRightWhile("", list); // $ExpectType AbcObject[]
+    fp.dropRightWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
 // _.dropWhile
@@ -813,6 +873,15 @@ namespace TestDropWhile {
         result = _(list).chain().dropWhile<AbcObject>('');
         result = _(list).chain().dropWhile({a: 42});
     }
+
+    const predicateFn2 = (value: AbcObject) => true;
+    fp.dropWhile(predicateFn2, array); // $ExpectType AbcObject[]
+    fp.dropWhile(predicateFn2)(array); // $ExpectType AbcObject[]
+    fp.dropWhile("", array); // $ExpectType AbcObject[]
+    fp.dropWhile({ a: 42 }, array); // $ExpectType AbcObject[]
+    fp.dropWhile(predicateFn2, list); // $ExpectType AbcObject[]
+    fp.dropWhile("", list); // $ExpectType AbcObject[]
+    fp.dropWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
 // _.fill
@@ -867,6 +936,12 @@ namespace TestFill {
         result = _(list).chain().fill(42, 0);
         result = _(list).chain().fill(42, 0, 10);
     }
+
+    fp.fill(0, 10, 42, array); // $ExpectType number[]
+    fp.fill(0, 10)(42, array); // $ExpectType number[]
+    fp.fill(0, 10)(42)(array); // $ExpectType number[]
+    fp.fill(0)(10)(42)(array); // $ExpectType number[]
+    fp.fill(0, 10, 42, list); // $ExpectType ArrayLike<number>
 }
 
 // _.findIndex
@@ -920,6 +995,23 @@ namespace TestFindIndex {
         result = _(list).chain().findIndex<{a: number}>({a: 42});
         result = _(list).chain().findIndex<AbcObject>(predicateFn, fromIndex);
     }
+
+    const predicateFn2 = (value: AbcObject) => true;
+    fp.findIndex(predicateFn2, array); // $ExpectType number
+    fp.findIndex(predicateFn2)(array); // $ExpectType number
+    fp.findIndex("", array); // $ExpectType number
+    fp.findIndex({ a: 42 }, array); // $ExpectType number
+    fp.findIndex(predicateFn2, list); // $ExpectType number
+    fp.findIndex("", list); // $ExpectType number
+    fp.findIndex({ a: 42 }, list); // $ExpectType number
+
+    fp.findIndexFrom(predicateFn2, fromIndex, array); // $ExpectType number
+    fp.findIndexFrom(predicateFn2)(fromIndex)(array); // $ExpectType number
+    fp.findIndexFrom("", fromIndex, array); // $ExpectType number
+    fp.findIndexFrom({ a: 42 }, fromIndex, array); // $ExpectType number
+    fp.findIndexFrom(predicateFn2, fromIndex, list); // $ExpectType number
+    fp.findIndexFrom("", fromIndex, list); // $ExpectType number
+    fp.findIndexFrom({ a: 42 }, fromIndex, list); // $ExpectType number
 }
 
 // _.findLastIndex
@@ -974,6 +1066,23 @@ namespace TestFindLastIndex {
         result = _(list).chain().findLastIndex<{a: number}>({a: 42});
         result = _(list).chain().findLastIndex<AbcObject>(predicateFn, fromIndex);
     }
+
+    const predicateFn2 = (value: AbcObject) => true;
+    fp.findLastIndex(predicateFn2, array); // $ExpectType number
+    fp.findLastIndex(predicateFn2)(array); // $ExpectType number
+    fp.findLastIndex("", array); // $ExpectType number
+    fp.findLastIndex({ a: 42 }, array); // $ExpectType number
+    fp.findLastIndex(predicateFn2, list); // $ExpectType number
+    fp.findLastIndex("", list); // $ExpectType number
+    fp.findLastIndex({ a: 42 }, list); // $ExpectType number
+
+    fp.findLastIndexFrom(predicateFn2, fromIndex, array); // $ExpectType number
+    fp.findLastIndexFrom(predicateFn2)(fromIndex)(array); // $ExpectType number
+    fp.findLastIndexFrom("", fromIndex, array); // $ExpectType number
+    fp.findLastIndexFrom({ a: 42 }, fromIndex, array); // $ExpectType number
+    fp.findLastIndexFrom(predicateFn2, fromIndex, list); // $ExpectType number
+    fp.findLastIndexFrom("", fromIndex, list); // $ExpectType number
+    fp.findLastIndexFrom({ a: 42 }, fromIndex, list); // $ExpectType number
 }
 
 // _.first
@@ -1010,6 +1119,10 @@ namespace TestFirst {
         result = _(array).chain().first();
         result = _(list).chain().first();
     }
+
+    fp.first("abc"); // $ExpectType string | undefined
+    fp.first(array); // $ExpectType AbcObject | undefined
+    fp.first(list); // $ExpectType AbcObject | undefined
 }
 
 // _.flatten
@@ -1098,6 +1211,28 @@ namespace TestFlatten {
         result = _({0: 1, 1: [2, [3]], length: 2}).chain().flatten<number|number[]>();
         result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flatten<number|number[]>();
     }
+
+    fp.flatten("abc"); // $ExpectType string[]
+    fp.flatten(array); // $ExpectType number[]
+    fp.flatten(list); // $ExpectType number[]
+    fp.flatten([1, 2, 3]); // $ExpectType number[]
+    fp.flatten([1, 2, 3]); // $ExpectType number[]
+    fp.flatten([1, 2, 3]); // $ExpectType number[]
+    fp.flatten([1, [2, 3]]); // $ExpectType number[]
+
+    fp.flatten({0: 1, 1: 2, 2: 3, length: 3}); // $ExpectType number[]
+    fp.flatten({0: 1, 1: [2, 3], length: 2}); // $ExpectType number[]
+
+    fp.unnest("abc"); // $ExpectType string[]
+    fp.unnest(array); // $ExpectType number[]
+    fp.unnest(list); // $ExpectType number[]
+    fp.unnest([1, 2, 3]); // $ExpectType number[]
+    fp.unnest([1, 2, 3]); // $ExpectType number[]
+    fp.unnest([1, 2, 3]); // $ExpectType number[]
+    fp.unnest([1, [2, 3]]); // $ExpectType number[]
+
+    fp.unnest({0: 1, 1: 2, 2: 3, length: 3}); // $ExpectType number[]
+    fp.unnest({0: 1, 1: [2, 3], length: 2}); // $ExpectType number[]
 }
 
 // _.flattenDeep
@@ -1186,6 +1321,19 @@ namespace TestFlattenDeep {
         result = _({0: 1, 1: [2, [3]], length: 2}).chain().flattenDeep<number|number[]>();
         result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flattenDeep<number|number[]>();
     }
+
+    fp.flattenDeep("abc"); // $ExpectType string[]
+    fp.flattenDeep<number>(array); // $ExpectType number[]
+    fp.flattenDeep<number>(list); // $ExpectType number[]
+    fp.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
+    fp.flattenDeep<number>([1, [2, 3]]); // $ExpectType number[]
+    fp.flattenDeep<number>([1, [2, [3]]]); // $ExpectType number[]
+    fp.flattenDeep<number>([1, [2, [3]], [[4]]]); // $ExpectType number[]
+
+    fp.flattenDeep<number>({0: 1, 1: 2, 2: 3, length: 3}); // $ExpectType number[]
+    fp.flattenDeep<number>({0: 1, 1: [2, 3], length: 2}); // $ExpectType number[]
+    fp.flattenDeep<number>({0: 1, 1: [2, [3]], length: 2}); // $ExpectType number[]
+    fp.flattenDeep<number>({0: 1, 1: [2, [3]], 2: [[4]], length: 3}); // $ExpectType number[]
 }
 
 // _.fromPairs
@@ -1211,6 +1359,8 @@ namespace TestFromPairs {
     {
         stringDict = _.chain(twoDimensionalArray).fromPairs().value();
     }
+
+    fp.fromPairs(numberTupleArray); // $ExpectType Dictionary<number>
 }
 
 // _.head
@@ -1247,6 +1397,10 @@ namespace TestHead {
         result = _(array).chain().head();
         result = _(list).chain().head();
     }
+
+    fp.head("abc"); // $ExpectType string | undefined
+    fp.head(array); // $ExpectType AbcObject | undefined
+    fp.head(list); // $ExpectType AbcObject | undefined
 }
 
 // _.indexOf
@@ -1286,6 +1440,12 @@ namespace TestIndexOf {
         result = _(list).chain().indexOf<AbcObject>(value, true);
         result = _(list).chain().indexOf<AbcObject>(value, 42);
     }
+
+    fp.indexOf(value, array); // $ExpectType number
+    fp.indexOf(value)(array); // $ExpectType number
+    fp.indexOf(value, list); // $ExpectType number
+    fp.indexOfFrom(value)(42)(array); // $ExpectType number
+    fp.indexOfFrom(value, 42, list); // $ExpectType number
 }
 
 // _.sortedIndexOf
@@ -1309,6 +1469,10 @@ namespace TestIndexOf {
         result = _(array).chain().sortedIndexOf(value);
         result = _(list).chain().sortedIndexOf<AbcObject>(value);
     }
+
+    fp.sortedIndexOf(value, array); // $ExpectType number
+    fp.sortedIndexOf(value)(array); // $ExpectType number
+    fp.sortedIndexOf(value, list); // $ExpectType number
 }
 
 //_.initial
@@ -1336,6 +1500,9 @@ namespace TestInitial {
         result = _(array).chain().initial();
         result = _(list).chain().initial<AbcObject>();
     }
+
+    fp.initial(array); // $ExpectType AbcObject[]
+    fp.initial(list); // $ExpectType AbcObject[]
 }
 
 // _.intersection
@@ -1371,6 +1538,13 @@ namespace TestIntersection {
         result = _(list).chain().intersection<AbcObject>(arrayParam);
         result = _(list).chain().intersection<AbcObject>(listParam, arrayParam);
     }
+
+    fp.intersection(array, array); // $ExpectType AbcObject[]
+    fp.intersection(array)(array); // $ExpectType AbcObject[]
+    fp.intersection(array, list); // $ExpectType AbcObject[]
+    fp.intersection(array)(list); // $ExpectType AbcObject[]
+    fp.intersection(list, array); // $ExpectType AbcObject[]
+    fp.intersection(list)(array); // $ExpectType AbcObject[]
 }
 
 // _.intersectionBy
@@ -1474,6 +1648,13 @@ namespace TestIntersection {
         value; // $ExpectType T1 | T2
         return {};
     });
+
+    fp.intersectionBy("a", array, list); // $ExpectType AbcObject[]
+    fp.intersectionBy<AbcObject, AbcObject>("a")(array, list); // $ExpectType AbcObject[]
+    fp.intersectionBy<AbcObject, AbcObject>("a")(array)(list); // $ExpectType AbcObject[]
+    fp.intersectionBy({ a: 42 }, array, list); // $ExpectType AbcObject[]
+    fp.intersectionBy(["a", 42], array, list); // $ExpectType AbcObject[]
+    fp.intersectionBy((value: AbcObject) => 0, array, list); // $ExpectType AbcObject[]
 }
 
 // _.intersectionWith
@@ -1534,6 +1715,10 @@ namespace TestIntersection {
         return true;
     });
 
+    fp.intersectionWith((a: AbcObject, b: AbcObject) => true, list, array); // $ExpectType AbcObject[]
+    fp.intersectionWith((a: AbcObject, b: AbcObject) => true)(list, array); // $ExpectType AbcObject[]
+    fp.intersectionWith((a: AbcObject, b: AbcObject) => true)(list)(array); // $ExpectType AbcObject[]
+
     interface T1 {
         a: string;
         b: string;
@@ -1562,6 +1747,8 @@ namespace TestIntersection {
         b; // $ExpectType T2
         return true;
     });
+
+    fp.intersectionWith((a: T1, b: T2) => true)([t1])([t2]); // $ExpectType T1[]
 }
 
 // _.join
@@ -1603,6 +1790,13 @@ namespace TestJoin {
         result = _(list).chain().join();
         result = _(list).chain().join('_');
     }
+
+    fp.join("_", "abc"); // $ExpectType string
+    fp.join("_")("abc"); // $ExpectType string
+    fp.join("_", array); // $ExpectType string
+    fp.join("_", list); // $ExpectType string
+    fp.join("_", nilArray); // $ExpectType string
+    fp.join("_", nilList); // $ExpectType string
 }
 
 // _.last
@@ -1644,6 +1838,10 @@ namespace TestLast {
 
         result = _(list).chain().last();
     }
+
+    fp.last("abc"); // $ExpectType string | undefined
+    fp.last(array); // $ExpectType AbcObject | undefined
+    fp.last(list); // $ExpectType AbcObject | undefined
 }
 
 // _.lastIndexOf
@@ -1683,6 +1881,14 @@ namespace TestLastIndexOf {
         result = _(list).chain().lastIndexOf<AbcObject>(value, true);
         result = _(list).chain().lastIndexOf<AbcObject>(value, 42);
     }
+
+    fp.lastIndexOf(value, array); // $ExpectType number
+    fp.lastIndexOf(value)(array); // $ExpectType number
+    fp.lastIndexOf(value, list); // $ExpectType number
+    fp.lastIndexOfFrom(value, 42, array); // $ExpectType number
+    fp.lastIndexOfFrom(value, 42)(array); // $ExpectType number
+    fp.lastIndexOfFrom(value)(42)(array); // $ExpectType number
+    fp.lastIndexOfFrom(value, 42, list); // $ExpectType number
 }
 
 // _.nth
@@ -1714,6 +1920,9 @@ namespace TestNth {
         result = _(list).chain().nth<AbcObject>();
         result = _(list).chain().nth<AbcObject>(42);
     }
+
+    fp.nth(42, array); // $ExpectType AbcObject | undefined
+    fp.nth(42)(array); // $ExpectType AbcObject | undefined
 }
 
 // _.pull
@@ -1775,6 +1984,10 @@ namespace TestPull {
         result = _(list).chain().pull<AbcObject>(value, value);
         result = _(list).chain().pull<AbcObject>(value, value, value);
     }
+
+    fp.pull(value, array); // $ExpectType AbcObject[]
+    fp.pull(value, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pull(value)(list); // $ExpectType ArrayLike<AbcObject>
 }
 
 // _.pullAt
@@ -1835,6 +2048,13 @@ namespace TestPullAt {
         result = _(list).chain().pullAt([2, 3], 1);
         result = _(list).chain().pullAt(4, [2, 3], 1);
     }
+
+    fp.pullAt(1, array); // $ExpectType AbcObject[]
+    fp.pullAt([2, 3], array); // $ExpectType AbcObject[]
+    fp.pullAt(1, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAt([2, 3], list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAt(1)(list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAt([2, 3])(list); // $ExpectType ArrayLike<AbcObject>
 }
 
 // _.pullAll
@@ -1869,6 +2089,10 @@ namespace TestPullAt {
     _.chain(list).pullAll();
     // $ExpectType LoDashExplicitWrapper<ArrayLike<AbcObject>>
     _.chain(list).pullAll(values);
+
+    fp.pullAll(values, array); // $ExpectType AbcObject[]
+    fp.pullAll(values, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAll(values)(list); // $ExpectType ArrayLike<AbcObject>
 }
 
 // _.pullAllBy
@@ -1970,6 +2194,21 @@ namespace TestPullAt {
         return 0;
     });
 
+    fp.pullAllBy("a", values, array); // $ExpectType AbcObject[]
+    fp.pullAllBy({ a: 42 }, values, array); // $ExpectType AbcObject[]
+    fp.pullAllBy(["a", 42], values, array); // $ExpectType AbcObject[]
+    fp.pullAllBy((value: AbcObject) => true, values, array); // $ExpectType AbcObject[]
+    fp.pullAllBy((value: AbcObject) => true)(values, array); // $ExpectType AbcObject[]
+    fp.pullAllBy((value: AbcObject) => true, values)(array); // $ExpectType AbcObject[]
+    fp.pullAllBy((value: AbcObject) => true)(values)(array); // $ExpectType AbcObject[]
+    fp.pullAllBy("a", values, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAllBy({ a: 42 }, values, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAllBy(["a", 42], values, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAllBy((value: AbcObject) => true, values, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAllBy((value: AbcObject) => true)(values, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAllBy((value: AbcObject) => true, values)(list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAllBy((value: AbcObject) => true)(values)(list); // $ExpectType ArrayLike<AbcObject>
+
     interface T1 {
         a: string;
         b: string;
@@ -1995,6 +2234,9 @@ namespace TestPullAt {
         value; // $ExpectType T1 | T2
         return "";
     });
+
+    fp.pullAllBy<T1, T2>((value: T1 | T2) => value.a, [t2], [t1]); // $ExpectType T1[]
+    fp.pullAllBy((value: T1 | T2) => value.a)([t2])([t1]); // $ExpectType (T1 | T2)[]
 }
 
 // _.pullAllWith
@@ -2066,6 +2308,11 @@ namespace TestPullAt {
         return true;
     });
 
+    fp.pullAllWith((a, b) => true, values, array); // $ExpectType AbcObject[]
+    fp.pullAllWith((a: AbcObject, b: AbcObject) => true)(values, array); // $ExpectType AbcObject[]
+    fp.pullAllWith((a, b) => true, values, list); // $ExpectType ArrayLike<AbcObject>
+    fp.pullAllWith((a: AbcObject, b: AbcObject) => true)(values, list); // $ExpectType ArrayLike<AbcObject>
+
     interface T1 {
         a: string;
         b: string;
@@ -2094,6 +2341,9 @@ namespace TestPullAt {
         b; // $ExpectType T2
         return true;
     });
+
+    fp.pullAllWith((a, b) => a.a === b.a, [t2], [t1]); // $ExpectType T1[]
+    fp.pullAllWith((a: T1, b: T2) => a.a === b.a)([t2], [t1]); // $ExpectType T1[]
 }
 
 // _.remove
@@ -2143,6 +2393,12 @@ namespace TestRemove {
         result = _(list).chain().remove<AbcObject>('');
         result = _(list).chain().remove({a: 42});
     }
+
+    let predicateFn2 = (value: AbcObject) => true;
+    fp.remove(predicateFn2, list); // $ExpectType AbcObject[]
+    fp.remove(predicateFn2)(list); // $ExpectType AbcObject[]
+    fp.remove("", list); // $ExpectType AbcObject[]
+    fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
 // _.tail
@@ -2170,6 +2426,8 @@ namespace TestTail {
         result = _(array).chain().tail();
         result = _(list).chain().tail<AbcObject>();
     }
+
+    fp.tail(list); // $ExpectType AbcObject[]
 }
 
 // _.slice
@@ -2199,6 +2457,10 @@ namespace TestSlice {
         result = _(array).chain().slice(42);
         result = _(array).chain().slice(42, 42);
     }
+
+    fp.slice(0, 10, array); // $ExpectType AbcObject[]
+    fp.slice(0)(10, array); // $ExpectType AbcObject[]
+    fp.slice(0)(10)(array); // $ExpectType AbcObject[]
 }
 
 // _.sortedIndex
@@ -2235,6 +2497,10 @@ namespace TestSortedIndex {
 
         result = _(list).chain().sortedIndex<SampleType>(value);
     }
+
+    fp.sortedIndex("a", "abc"); // $ExpectType number
+    fp.sortedIndex(value, list); // $ExpectType number
+    fp.sortedIndex(value)(list); // $ExpectType number
 }
 
 // _.sortedIndexBy
@@ -2286,6 +2552,13 @@ namespace TestSortedIndexBy {
         result = _(list).chain().sortedIndexBy<SampleType>(value, listIterator);
         result = _(list).chain().sortedIndexBy<SampleType>(value, '');
         result = _(list).chain().sortedIndexBy<SampleType>(value, {a: 42});
+
+        fp.sortedIndexBy(stringIterator, "a", "abc"); // $ExpectType number
+        fp.sortedIndexBy(listIterator, value, list); // $ExpectType number
+        fp.sortedIndexBy(listIterator)(value)(list); // $ExpectType number
+        fp.sortedIndexBy("a", value, list); // $ExpectType number
+        fp.sortedIndexBy({ a: 42 }, value, list); // $ExpectType number
+        fp.sortedIndexBy(["a", 42], value, list); // $ExpectType number
     }
 }
 
@@ -2323,6 +2596,10 @@ namespace TestSortedLastIndex {
 
         result = _(list).chain().sortedLastIndex<SampleType>(value);
     }
+
+    fp.sortedLastIndex("a", "abc"); // $ExpectType number
+    fp.sortedLastIndex(value, list); // $ExpectType number
+    fp.sortedLastIndex(value)(list); // $ExpectType number
 }
 
 // _.sortedLastIndexBy
@@ -2375,6 +2652,13 @@ namespace TestSortedLastIndexBy {
         result = _(list).chain().sortedLastIndexBy<SampleType>(value, '');
         result = _(list).chain().sortedLastIndexBy<SampleType>(value, {a: 42});
     }
+
+    fp.sortedLastIndexBy(stringIterator, "a", "abc"); // $ExpectType number
+    fp.sortedLastIndexBy(listIterator, value, list); // $ExpectType number
+    fp.sortedLastIndexBy(listIterator)(value)(list); // $ExpectType number
+    fp.sortedLastIndexBy("a", value, list); // $ExpectType number
+    fp.sortedLastIndexBy({ a: 42 }, value, list); // $ExpectType number
+    fp.sortedLastIndexBy(["a", 42], value, list); // $ExpectType number
 }
 
 // _.take
@@ -2411,6 +2695,9 @@ namespace TestTake {
         result = _(list).chain().take<AbcObject>();
         result = _(list).chain().take<AbcObject>(42);
     }
+
+    fp.take(42, list); // $ExpectType AbcObject[]
+    fp.take(42)(list); // $ExpectType AbcObject[]
 }
 
 // _.takeRight
@@ -2447,6 +2734,9 @@ namespace TestTakeRight {
         result = _(list).chain().takeRight<AbcObject>();
         result = _(list).chain().takeRight<AbcObject>(42);
     }
+
+    fp.takeRight(42, list); // $ExpectType AbcObject[]
+    fp.takeRight(42)(list); // $ExpectType AbcObject[]
 }
 
 // _.takeRightWhile
@@ -2496,6 +2786,12 @@ namespace TestTakeRightWhile {
         result = _(list).chain().takeRightWhile<AbcObject>('');
         result = _(list).chain().takeRightWhile({a: 42});
     }
+
+    let predicateFn2 = (value: AbcObject) => true;
+    fp.takeRightWhile(predicateFn2, list); // $ExpectType AbcObject[]
+    fp.takeRightWhile(predicateFn2)(list); // $ExpectType AbcObject[]
+    fp.takeRightWhile("a", list); // $ExpectType AbcObject[]
+    fp.takeRightWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
 // _.takeWhile
@@ -2545,6 +2841,12 @@ namespace TestTakeWhile {
         result = _(list).chain().takeWhile<AbcObject>('');
         result = _(list).chain().takeWhile({a: 42});
     }
+
+    let predicateFn2 = (value: AbcObject) => true;
+    fp.takeWhile(predicateFn2, list); // $ExpectType AbcObject[]
+    fp.takeWhile(predicateFn2)(list); // $ExpectType AbcObject[]
+    fp.takeWhile("a", list); // $ExpectType AbcObject[]
+    fp.takeWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
 // _.union
@@ -2597,6 +2899,9 @@ namespace TestUnion {
         result = _(list).chain().union<AbcObject>(array);
         result = _(list).chain().union<AbcObject>(array, list);
     }
+
+    fp.union(array, list); // $ExpectType AbcObject[]
+    fp.union(array)(list); // $ExpectType AbcObject[]
 }
 
 // _.unionBy
@@ -2760,6 +3065,11 @@ namespace TestUnionBy {
         result = _(list).chain().unionBy(array, list, array, list, {a: 1});
         result = _(list).chain().unionBy<AbcObject>(array, list, array, list, array, {a: 1});
     }
+
+    fp.unionBy(iteratee, array, list); // $ExpectType AbcObject[]
+    fp.unionBy(iteratee)(array)(list); // $ExpectType AbcObject[]
+    fp.unionBy("a", array, list); // $ExpectType AbcObject[]
+    fp.unionBy({ a: 1 }, array, list); // $ExpectType AbcObject[]
 }
 
 // _.uniq
@@ -2805,6 +3115,9 @@ namespace TestUniq {
         result = _(array).chain().uniq();
         result = _(list).chain().uniq<SampleObject>();
     }
+
+    fp.uniq("abc"); // $ExpectType string[]
+    fp.uniq(list); // $ExpectType SampleObject[]
 }
 
 // _.uniqBy
@@ -2870,6 +3183,14 @@ namespace TestUniqBy {
         result = _(list).chain().uniqBy<SampleObject>('a');
         result = _(list).chain().uniqBy<SampleObject>({a: 42});
     }
+
+    const stringIterator2 = (value: string) => "";
+    const listIterator2 = (value: SampleObject) => 0;
+    fp.uniqBy(stringIterator2, "abc"); // $ExpectType string[]
+    fp.uniqBy(listIterator2, list); // $ExpectType SampleObject[]
+    fp.uniqBy(listIterator2)(list); // $ExpectType SampleObject[]
+    fp.uniqBy("a", list); // $ExpectType SampleObject[]
+    fp.uniqBy({ a: 42 }, list); // $ExpectType SampleObject[]
 }
 
 // _.sortedUniq
@@ -2911,6 +3232,9 @@ namespace TestSortedUniq {
         result = _(array).chain().sortedUniq();
         result = _(list).chain().sortedUniq<SampleObject>();
     }
+
+    fp.sortedUniq("abc"); // $ExpectType string[]
+    fp.sortedUniq(list); // $ExpectType SampleObject[]
 }
 
 // _.sortedUniqBy
@@ -2976,6 +3300,14 @@ namespace TestSortedUniqBy {
         result = _(list).chain().sortedUniqBy<SampleObject>('a');
         result = _(list).chain().sortedUniqBy<SampleObject>({a: 42});
     }
+
+    const stringIterator2 = (value: string) => "";
+    const listIterator2 = (value: SampleObject) => 0;
+    fp.sortedUniqBy(stringIterator2, "abc"); // $ExpectType string[]
+    fp.sortedUniqBy(listIterator2, list); // $ExpectType SampleObject[]
+    fp.sortedUniqBy(listIterator2)(list); // $ExpectType SampleObject[]
+    fp.sortedUniqBy("a", list); // $ExpectType SampleObject[]
+    fp.sortedUniqBy({ a: 42 }, list); // $ExpectType SampleObject[]
 }
 
 // _.unzip
@@ -3018,6 +3350,8 @@ namespace TestUnzip {
         result = _(array).chain().unzip<string|number|boolean>();
         result = _(list).chain().unzip<string|number|boolean>();
     }
+
+    fp.unzip(list); // $ExpectType (string | number | boolean)[][]
 }
 
 // _.unzipWith
@@ -3078,6 +3412,10 @@ namespace TestUnzip {
             return anything as AbcObject;
         }).value();
     }
+
+    fp.unzipWith((value1: number, value2: number) => "", testUnzipWithList); // $ExpectType string[]
+    fp.unzipWith((...values: number[]) => "", testUnzipWithList); // $ExpectType string[]
+    fp.unzipWith((...values: number[]) => "")(testUnzipWithList); // $ExpectType string[]
 }
 
 // _.without
@@ -3125,6 +3463,9 @@ namespace TestWithout {
         result = _(list).chain().without<number>(1, 2);
         result = _(list).chain().without<number>(1, 2, 3);
     }
+
+    fp.without([1, 2], list);
+    fp.without([1, 2])(list);
 }
 
 // _.xor
@@ -3169,6 +3510,9 @@ namespace TestXor {
         result = _(list).chain().xor<AbcObject>(array);
         result = _(list).chain().xor<AbcObject>(array, list);
     }
+
+    fp.xor(array, list);
+    fp.xor(array)(list);
 }
 
 // _.zip
@@ -3224,6 +3568,14 @@ namespace TestXor {
         _.zip([1, 2], ["a", "b"]); // $ExpectType [number | undefined, string | undefined][]
         _.zip([1, 2], ["a", "b"], [true, false]); // $ExpectType [number | undefined, string | undefined, boolean | undefined][]
     }
+
+    const array2: AbcObject[] = anything;
+    const list2: ArrayLike<AbcObject> = anything;
+    fp.zip(array2, list2); // $ExpectType [AbcObject | undefined, AbcObject | undefined][]
+    fp.zip(array2)(list2); // $ExpectType [AbcObject | undefined, AbcObject | undefined][]
+    fp.zipAll<AbcObject>([array2, list2, array2]); // $ExpectType (AbcObject | undefined)[][]
+    fp.zip(["a", "b"], [1, 2]); // $ExpectType [string | undefined, number | undefined][]
+    fp.zipAll<number | string | boolean>([[1, 2], ["a", "b"], [true, false]]); // $ExpectType (string | number | boolean | undefined)[][]
 }
 
 // _.zipObject
@@ -3353,6 +3705,14 @@ namespace TestZipObject {
         result = _(listOfKeys).chain().zipObject(arrayOfValues);
         result = _(listOfKeys).chain().zipObjectDeep(arrayOfValues);
     }
+
+    fp.zipObject(["a", "b"], [1, 2]); // $ExpectType Dictionary<number>
+    fp.zipObject(["a", "b"])([1, 2]); // $ExpectType Dictionary<number>
+    fp.zipObject(listOfKeys)(listOfValues); // $ExpectType Dictionary<number>
+
+    fp.zipObjectDeep(["a.b[0].c", "a.b[1].d"], [1, 2]); // $ExpectType object
+    fp.zipObjectDeep(["a.b[0].c", "a.b[1].d"])([1, 2]); // $ExpectType object
+    fp.zipObjectDeep(listOfKeys, listOfValues); // $ExpectType object
 }
 
 // _.zipWith
@@ -3511,6 +3871,9 @@ namespace TestZipObject {
             return 1;
         }).value();
     }
+
+    fp.zipWith((value1, value2) => "a", [1, 2], [1, 2]); // $ExpectType string[]
+    fp.zipWith((value1: number, value2: number) => "a")([1, 2])([1, 2]); // $ExpectType string[]
 }
 
 /*********
@@ -3634,6 +3997,11 @@ namespace TestTap {
 
         _({a: ''}).chain().tap(interceptor);
     }
+
+    const s: string = anything;
+    fp.tap((value: string) => {}, s); // $ExpectType string
+    fp.tap((value: string) => {})(s); // $ExpectType string
+    fp.tap((value: string[]) => {}, [s]); // $ExpectType string[]
 }
 
 // _.thru
@@ -3716,6 +4084,10 @@ namespace TestThru {
 
         result = _([1, 2, 3]).chain().thru(interceptor);
     }
+
+    fp.thru((x: number) => x.toString(), 1); // $ExpectType string
+    fp.thru((x: number) => x.toString())(1); // $ExpectType string
+    fp.thru((x: number[]) => x.toString())([1]); // $ExpectType string
 }
 
 // _.prototype.commit
@@ -4064,6 +4436,13 @@ namespace TestAt {
         result = _(list).chain().at<AbcObject>(0, '1', [2], ['3'], [4, '5']);
         result = _(dictionary).chain().at<AbcObject>(0, '1', [2], ['3'], [4, '5']);
     }
+
+    const obj: AbcObject | null | undefined = anything;
+    fp.at(0, list); // $ExpectType AbcObject[]
+    fp.at(0)(list); // $ExpectType AbcObject[]
+    fp.at([0, "1"], list); // $ExpectType AbcObject[]
+    fp.at("a", obj); // $ExpectType (string | number | boolean)[]
+    fp.at<AbcObject>(["a" as "a", "b" as "b"])(obj); // $ExpectType (string | number | boolean)[]
 }
 
 // _.countBy
@@ -4171,6 +4550,20 @@ namespace TestCountBy {
         result = _(numericDictionary).chain().countBy<{a: number}>({a: 42});
         result = _(numericDictionary).chain().countBy({a: 42});
     }
+
+    const stringIterator2 = (value: string) => 1;
+    const listIterator2 = (value: AbcObject) => 1;
+    fp.countBy(stringIterator2, ""); // $ExpectType Dictionary<number>
+    fp.countBy(stringIterator2)(""); // $ExpectType Dictionary<number>
+    fp.countBy(listIterator2, list); // $ExpectType Dictionary<number>
+    fp.countBy("", list); // $ExpectType Dictionary<number>
+    fp.countBy({ a: 42 }, list); // $ExpectType Dictionary<number>
+    fp.countBy(listIterator2, dictionary); // $ExpectType Dictionary<number>
+    fp.countBy("", dictionary); // $ExpectType Dictionary<number>
+    fp.countBy({ a: 42 }, dictionary); // $ExpectType Dictionary<number>
+    fp.countBy(listIterator2, numericDictionary); // $ExpectType Dictionary<number>
+    fp.countBy("", numericDictionary); // $ExpectType Dictionary<number>
+    fp.countBy({ a: 42 }, numericDictionary); // $ExpectType Dictionary<number>
 }
 
 // _.each
@@ -4281,6 +4674,17 @@ namespace TestEach {
 
         result = _(dictionary).chain().each(dictionaryIterator);
     }
+
+    const stringIterator2 = (char: string) => 1;
+    const listIterator2 = (value: AbcObject) => 1;
+    fp.each(stringIterator2, ""); // $ExpectType string
+    fp.each(listIterator2, array); // $ExpectType AbcObject[]
+    fp.each(listIterator2)(array); // $ExpectType AbcObject[]
+    fp.each(listIterator2, list); // $ExpectType ArrayLike<AbcObject>
+    fp.each(listIterator2, dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.each(listIterator2, nilArray); // $ExpectType AbcObject[] | null | undefined
+    fp.each(listIterator2, nilList); // $ExpectType ArrayLike<AbcObject> | null | undefined
+    fp.each(listIterator2, nilDictionary); // $ExpectType Dictionary<AbcObject> | null | undefined
 }
 
 // _.eachRight
@@ -4391,6 +4795,17 @@ namespace TestEachRight {
 
         result = _(dictionary).chain().eachRight(dictionaryIterator);
     }
+
+    const stringIterator2 = (char: string) => 1;
+    const listIterator2 = (value: AbcObject) => 1;
+    fp.eachRight(stringIterator2, ""); // $ExpectType string
+    fp.eachRight(listIterator2, array); // $ExpectType AbcObject[]
+    fp.eachRight(listIterator2)(array); // $ExpectType AbcObject[]
+    fp.eachRight(listIterator2, list); // $ExpectType ArrayLike<AbcObject>
+    fp.eachRight(listIterator2, dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.eachRight(listIterator2, nilArray); // $ExpectType AbcObject[] | null | undefined
+    fp.eachRight(listIterator2, nilList); // $ExpectType ArrayLike<AbcObject> | null | undefined
+    fp.eachRight(listIterator2, nilDictionary); // $ExpectType Dictionary<AbcObject> | null | undefined
 }
 
 // _.every
@@ -4486,6 +4901,32 @@ namespace TestEvery {
         result = _(numericDictionary).chain().every(['a', 42]);
         result = _(numericDictionary).chain().every<{a: number}>({a: 42});
     }
+
+    const iterator2 = (value: AbcObject) => true;
+
+    fp.every(iterator2, list); // $ExpectType boolean
+    fp.every(iterator2)(list); // $ExpectType boolean
+    fp.every("a", list); // $ExpectType boolean
+    fp.every("a")(list); // $ExpectType boolean
+    fp.every({ a: 42 }, list); // $ExpectType boolean
+    fp.every(["a", 42], list); // $ExpectType boolean
+    fp.every(["a", 42], list); // $ExpectType boolean
+
+    fp.every(iterator2, dictionary); // $ExpectType boolean
+    fp.every(iterator2)(dictionary); // $ExpectType boolean
+    fp.every("a", dictionary); // $ExpectType boolean
+    fp.every("a")(dictionary); // $ExpectType boolean
+    fp.every({ a: 42 }, dictionary); // $ExpectType boolean
+    fp.every(["a", 42], dictionary); // $ExpectType boolean
+    fp.every(["a", 42], dictionary); // $ExpectType boolean
+
+    fp.every(iterator2, numericDictionary); // $ExpectType boolean
+    fp.every(iterator2)(numericDictionary); // $ExpectType boolean
+    fp.every("a", numericDictionary); // $ExpectType boolean
+    fp.every("a")(numericDictionary); // $ExpectType boolean
+    fp.every({ a: 42 }, numericDictionary); // $ExpectType boolean
+    fp.every(["a", 42], numericDictionary); // $ExpectType boolean
+    fp.every(["a", 42], numericDictionary); // $ExpectType boolean
 }
 
 // _.filter
@@ -4586,6 +5027,28 @@ namespace TestFilter {
         _(a2).chain().filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<number[]>
         _(d2).chain().filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<number[]>
     }
+
+    const list2: _.List<AbcObject | undefined> = [];
+    const dictionary2: _.Dictionary<AbcObject | undefined> = {};
+    const stringIterator2 = (char: string) => true;
+    const listIterator2 = (value: AbcObject | undefined) => true;
+    const listIteratorTypeGuard2 = (value: AbcObject | undefined): value is AbcObject => !!value;
+
+    fp.filter(stringIterator2, ""); // $ExpectType string[]
+
+    fp.filter(listIterator2, list2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter(listIterator2)(list2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter(listIteratorTypeGuard2, list2); // $ExpectType AbcObject[]
+    fp.filter("", list2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter({ a: 42 }, list2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter(["a", 42], list2); // $ExpectType (AbcObject | undefined)[]
+
+    fp.filter(listIterator2, dictionary2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter(listIterator2)(dictionary2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter(listIteratorTypeGuard2, dictionary2); // $ExpectType AbcObject[]
+    fp.filter("", dictionary2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter({ a: 42 }, dictionary2); // $ExpectType (AbcObject | undefined)[]
+    fp.filter(["a", 42], dictionary2); // $ExpectType (AbcObject | undefined)[]
 }
 
 // _.find
@@ -4665,6 +5128,28 @@ namespace TestFind {
 
     result = _.find([anything as AbcObject, null, undefined], (value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null);
     result = _([anything as AbcObject, null, undefined]).find((value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null);
+
+    const list2: _.List<AbcObject | null> = [];
+    const dictionary2: _.Dictionary<AbcObject | null> = {};
+    const stringIterator2 = (char: string) => true;
+    const listIterator2 = (value: AbcObject | null) => true;
+    const listIteratorTypeGuard2 = (value: AbcObject | null): value is AbcObject => !!value;
+
+    fp.find(stringIterator2, ""); // $ExpectType string | undefined
+
+    fp.find(listIterator2, list2); // $ExpectType AbcObject | null | undefined
+    fp.find(listIterator2)(list2); // $ExpectType AbcObject | null | undefined
+    fp.find(listIteratorTypeGuard2, list2); // $ExpectType AbcObject | undefined
+    fp.find("", list2); // $ExpectType AbcObject | null | undefined
+    fp.find({ a: 42 }, list2); // $ExpectType AbcObject | null | undefined
+    fp.find(["a", 42], list2); // $ExpectType AbcObject | null | undefined
+
+    fp.find(listIterator2, dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.find(listIterator2)(dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.find(listIteratorTypeGuard2, dictionary2); // $ExpectType AbcObject | undefined
+    fp.find("", dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.find({ a: 42 }, dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.find(["a", 42], dictionary2); // $ExpectType AbcObject | null | undefined
 }
 
 // _.findLast
@@ -4744,6 +5229,28 @@ namespace TestFindLast {
 
     result = _.findLast([anything as AbcObject, null, undefined], (value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null);
     result = _([anything as AbcObject, null, undefined]).findLast((value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null);
+
+    const list2: _.List<AbcObject | null> = [];
+    const dictionary2: _.Dictionary<AbcObject | null> = {};
+    const stringIterator2 = (char: string) => true;
+    const listIterator2 = (value: AbcObject | null) => true;
+    const listIteratorTypeGuard2 = (value: AbcObject | null): value is AbcObject => !!value;
+
+    fp.findLast(stringIterator2, ""); // $ExpectType string | undefined
+
+    fp.findLast(listIterator2, list2); // $ExpectType AbcObject | null | undefined
+    fp.findLast(listIterator2)(list2); // $ExpectType AbcObject | null | undefined
+    fp.findLast(listIteratorTypeGuard2, list2); // $ExpectType AbcObject | undefined
+    fp.findLast("", list2); // $ExpectType AbcObject | null | undefined
+    fp.findLast({ a: 42 }, list2); // $ExpectType AbcObject | null | undefined
+    fp.findLast(["a", 42], list2); // $ExpectType AbcObject | null | undefined
+
+    fp.findLast(listIterator2, dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.findLast(listIterator2)(dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.findLast(listIteratorTypeGuard2, dictionary2); // $ExpectType AbcObject | undefined
+    fp.findLast("", dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.findLast({ a: 42 }, dictionary2); // $ExpectType AbcObject | null | undefined
+    fp.findLast(["a", 42], dictionary2); // $ExpectType AbcObject | null | undefined
 }
 
 // _.flatMap
@@ -4928,6 +5435,26 @@ namespace TestFlatMap {
         const result2: _.LoDashImplicitWrapper<Array<string | number>> = _(obj).flatMap();
         const result3: _.LoDashExplicitWrapper<Array<string | number>> = _.chain(obj).flatMap();
     }
+
+    const list: ArrayLike<AbcObject> | null | undefined = anything;
+    const dictionary: { [key: string]: AbcObject } | null | undefined = anything;
+    const numericDictionary: { [key: number]: AbcObject } | null | undefined = anything;
+    const stringIterator2: (value: string) => string|string[] = (a) => "";
+    const listIterator2: (value: AbcObject) => AbcObject|AbcObject[] = (a) => anything;
+    fp.flatMap(stringIterator2, "abc"); // $ExpectType string[]
+    fp.flatMap(listIterator2, list); // $ExpectType AbcObject[]
+    fp.flatMap(listIterator2)(list); // $ExpectType AbcObject[]
+    fp.flatMap("a", list); // $ExpectType any[]
+    fp.flatMap({ a: 42 }, list); // $ExpectType boolean[]
+    fp.flatMap(["a", 42], list); // $ExpectType boolean[]
+    fp.flatMap(listIterator2, dictionary); // $ExpectType AbcObject[]
+    fp.flatMap("a", dictionary); // $ExpectType any[]
+    fp.flatMap({ a: 42 }, dictionary); // $ExpectType boolean[]
+    fp.flatMap(["a", 42], dictionary); // $ExpectType boolean[]
+    fp.flatMap(listIterator2, numericDictionary); // $ExpectType AbcObject[]
+    fp.flatMap("a", numericDictionary); // $ExpectType any[]
+    fp.flatMap({ a: 42 }, numericDictionary); // $ExpectType boolean[]
+    fp.flatMap(["a", 42], numericDictionary); // $ExpectType boolean[]
 }
 
 // _.flatMapDeep
@@ -5089,6 +5616,18 @@ namespace TestFlatMapDeep {
         result = _(objNumericDictionary).chain().flatMapDeep(['a', 42]);
         result = _(objNumericDictionary).chain().flatMapDeep({a: 42});
     }
+
+    const list2: ArrayLike<AbcObject> | null | undefined = anything;
+    const dictionary2: _.Dictionary<AbcObject> | null | undefined = anything;
+    const numericDictionary2: _.NumericDictionary<AbcObject> | null | undefined = anything;
+    const iterator2: (value: AbcObject) => _.ListOfRecursiveArraysOrValues<number> = (value) => [[[[[1]]]], 2, [[[3], 4]]];
+    fp.flatMapDeep(iterator2, list2); // $ExpectType number[]
+    fp.flatMapDeep(iterator2)(list2); // $ExpectType number[]
+    fp.flatMapDeep("a", list2); // $ExpectType any[]
+    fp.flatMapDeep({ a: 42 }, list2); // $ExpectType boolean[]
+    fp.flatMapDeep(["a", 42], list2); // $ExpectType boolean[]
+    fp.flatMapDeep(iterator2, dictionary2); // $ExpectType number[]
+    fp.flatMapDeep(iterator2, numericDictionary2); // $ExpectType number[]
 }
 
 // _.flatMapDepth
@@ -5250,6 +5789,18 @@ namespace TestFlatMapDepth {
         result = _(objNumericDictionary).chain().flatMapDepth(['a', 42], 1);
         result = _(objNumericDictionary).chain().flatMapDepth({a: 42}, 1);
     }
+
+    const list2: ArrayLike<AbcObject> | null | undefined = anything;
+    const dictionary2: _.Dictionary<AbcObject> | null | undefined = anything;
+    const numericDictionary2: _.NumericDictionary<AbcObject> | null | undefined = anything;
+    const iterator2: (value: AbcObject) => _.ListOfRecursiveArraysOrValues<number> = (value) => [[[[[1]]]], 2, [[[3], 4]]];
+    fp.flatMapDepth(iterator2, 5, list2); // $ExpectType number[]
+    fp.flatMapDepth(iterator2)(5)(list2); // $ExpectType number[]
+    fp.flatMapDepth("a", 5, list2); // $ExpectType any[]
+    fp.flatMapDepth({ a: 42 }, 5, list2); // $ExpectType boolean[]
+    fp.flatMapDepth(["a", 42], 5, list2); // $ExpectType boolean[]
+    fp.flatMapDepth(iterator2, 5, dictionary2); // $ExpectType number[]
+    fp.flatMapDepth(iterator2, 5, numericDictionary2); // $ExpectType number[]
 }
 
 // _.forEach
@@ -5467,6 +6018,17 @@ namespace TestForEach {
 
         result = _(nilDictionary).chain().forEach(dictionaryIterator);
     }
+
+    const stringIterator2 = (char: string) => 1;
+    const listIterator2 = (value: AbcObject) => 1;
+    fp.forEach(stringIterator2, ""); // $ExpectType string
+    fp.forEach(listIterator2, array); // $ExpectType AbcObject[]
+    fp.forEach(listIterator2)(array); // $ExpectType AbcObject[]
+    fp.forEach(listIterator2, list); // $ExpectType ArrayLike<AbcObject>
+    fp.forEach(listIterator2, dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.forEach(listIterator2, nilArray); // $ExpectType AbcObject[] | null | undefined
+    fp.forEach(listIterator2, nilList); // $ExpectType ArrayLike<AbcObject> | null | undefined
+    fp.forEach(listIterator2, nilDictionary); // $ExpectType Dictionary<AbcObject> | null | undefined
 }
 
 // _.forEachRight
@@ -5660,6 +6222,17 @@ namespace TestForEachRight {
 
         result = _(nilDictionary).chain().forEachRight(dictionaryIterator);
     }
+
+    const stringIterator2 = (char: string) => 1;
+    const listIterator2 = (value: AbcObject) => 1;
+    fp.forEachRight(stringIterator2, ""); // $ExpectType string
+    fp.forEachRight(listIterator2, array); // $ExpectType AbcObject[]
+    fp.forEachRight(listIterator2)(array); // $ExpectType AbcObject[]
+    fp.forEachRight(listIterator2, list); // $ExpectType ArrayLike<AbcObject>
+    fp.forEachRight(listIterator2, dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.forEachRight(listIterator2, nilArray); // $ExpectType AbcObject[] | null | undefined
+    fp.forEachRight(listIterator2, nilList); // $ExpectType ArrayLike<AbcObject> | null | undefined
+    fp.forEachRight(listIterator2, nilDictionary); // $ExpectType Dictionary<AbcObject> | null | undefined
 }
 
 // _.groupBy
@@ -5752,6 +6325,23 @@ namespace TestGroupBy {
         result = _(dictionary).chain().groupBy<SampleType>('');
         result = _(dictionary).chain().groupBy<SampleType>({a: 42});
     }
+
+    const stringIterator2 = (char: string) => 0;
+    const listIterator2 = (value: SampleType) => 0;
+
+    fp.groupBy(stringIterator2, ""); // $ExpectType Dictionary<string[]>
+
+    fp.groupBy(listIterator2, list); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy(listIterator2)(list); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy("a", list); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy({ a: 42 }, list); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy(["a", 42], list); // $ExpectType Dictionary<SampleType[]>
+
+    fp.groupBy(listIterator2, dictionary); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy(listIterator2)(dictionary); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy("a", dictionary); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy({ a: 42 }, dictionary); // $ExpectType Dictionary<SampleType[]>
+    fp.groupBy(["a", 42], dictionary); // $ExpectType Dictionary<SampleType[]>
 }
 
 // _.includes
@@ -5799,6 +6389,14 @@ namespace TestIncludes {
         result = _(dictionary).chain().includes<SampleType>(target);
         result = _(dictionary).chain().includes<SampleType>(target, 42);
     }
+
+    fp.includes(target, list); // $ExpectType boolean
+    fp.includes(target)(list); // $ExpectType boolean
+    fp.includes(target, dictionary); // $ExpectType boolean
+
+    fp.includesFrom(target, 42, list); // $ExpectType boolean
+    fp.includesFrom(target)(42)(list); // $ExpectType boolean
+    fp.includesFrom(target, 42, dictionary); // $ExpectType boolean
 }
 
 // _.keyBy
@@ -5908,6 +6506,29 @@ namespace TestKeyBy {
         result = _(dictionary).chain().keyBy('a');
         result = _(dictionary).chain().keyBy({a: 42});
     }
+
+    const stringIterator2 = (value: string) => 1;
+    const listIterator2 = (value: AbcObject) => "a";
+    const listIteratorSymbol2 = (value: AbcObject) => Symbol.name;
+
+    fp.keyBy(stringIterator2, "abcd"); // $ExpectType Dictionary<string>
+
+    fp.keyBy(listIterator2, list);
+    fp.keyBy(listIterator2)(list);
+    fp.keyBy(listIteratorSymbol2, list);
+    fp.keyBy("a", list);
+    fp.keyBy({ a: 42 }, list);
+    fp.keyBy(["a", 42], list);
+
+    fp.keyBy(listIterator2, dictionary);
+    fp.keyBy("a", dictionary);
+    fp.keyBy({ a: 42 }, dictionary);
+    fp.keyBy(["a", 42], dictionary);
+
+    fp.keyBy(listIterator2, numericDictionary);
+    fp.keyBy("a", numericDictionary);
+    fp.keyBy({ a: 42 }, numericDictionary);
+    fp.keyBy(["a", 42], numericDictionary);
 }
 
 //_.invoke
@@ -5990,6 +6611,18 @@ namespace TestInvoke {
         result = _(nestedDict).chain().invoke(["a", 0, "toString"]);
         result = _(nestedDict).chain().invoke(["a", 0, "toString"], 2);
     }
+
+    fp.invoke("[1]", boolArray); // $ExpectType any
+    fp.invoke("[1]")(boolArray); // $ExpectType any
+    fp.invoke(["[1]", 2], boolArray); // $ExpectType any
+
+    fp.invoke("a.toString", numDict); // $ExpectType any
+    fp.invoke(["a.toString", 2], numDict); // $ExpectType any
+    fp.invoke("a[0].toString", nestedDict); // $ExpectType any
+    fp.invoke(["a", 0, "toString"], nestedDict); // $ExpectType any
+
+    fp.invokeArgs("a.toString", [16], numDict); // $ExpectType any
+    fp.invokeArgs("a.toString")([16])(numDict); // $ExpectType any
 }
 
 //_.invokeMap
@@ -6039,6 +6672,18 @@ namespace TestInvokeMap {
     result = _(numDict).invokeMap<string>(Number.prototype.toString, 2).value();
     result = _(numDict).chain().invokeMap<string>(Number.prototype.toString).value();
     result = _(numDict).chain().invokeMap<string>(Number.prototype.toString, 2).value();
+
+    fp.invokeMap("toString", numArray); // $ExpectType any[]
+    fp.invokeMap("toString")(numArray); // $ExpectType any[]
+    fp.invokeMap(Number.prototype.toString, numArray); // $ExpectType string[]
+    fp.invokeMap("toString", numDict); // $ExpectType any[]
+    fp.invokeMap(Number.prototype.toString, numDict); // $ExpectType string[]
+
+    fp.invokeArgsMap("toString", [16], numArray); // $ExpectType any[]
+    fp.invokeArgsMap("toString")([16])(numArray); // $ExpectType any[]
+    fp.invokeArgsMap(Number.prototype.toString, [16], numArray); // $ExpectType string[]
+    fp.invokeArgsMap("toString", [16], numDict); // $ExpectType any[]
+    fp.invokeArgsMap(Number.prototype.toString, [16], numDict); // $ExpectType string[]
 }
 
 // _.map
@@ -6122,6 +6767,17 @@ namespace TestMap {
             k  // $ExpectType number
           ) => k);
     }
+
+    const array2: AbcObject[] = [];
+    const dictionary2: _.Dictionary<AbcObject> = {};
+    const listIterator2 = (value: AbcObject): number => value.a;
+    fp.map(listIterator2, array2); // $ExpectType number[]
+    fp.map(listIterator2)(array2); // $ExpectType number[]
+    fp.map(listIterator2, array2); // $ExpectType number[]
+    fp.map(listIterator2, dictionary2); // $ExpectType number[]
+    fp.map("a", array2); // $ExpectType number[]
+    fp.map({ a: 42 }, list); // $ExpectType boolean[]
+    fp.map(["a", 42], dictionary); // $ExpectType boolean[]
 }
 
 // _.partition
@@ -6266,6 +6922,21 @@ namespace TestPartition {
         result = _.chain({0: {a: 1}, 1: {a: 2}}).partition('a');
         result = _.chain({0: {a: 1}, 1: {a: 2}}).partition(['a', 2]);
     }
+
+    // $ExpectType [any[], any[]]
+    fp.partition((n) => {
+        n; // $ExpectType any
+        return n < "c";
+    }, anything);
+
+    // $ExpectType [any[], any[]]
+    fp.partition((n: any) => n < "c")(anything);
+
+    // $ExpectType [string[], string[]]
+    fp.partition((n) => {
+        n; // $ExpectType string
+        return n < "c";
+    }, "abcd");
 }
 
 // TODO
@@ -6368,6 +7039,12 @@ namespace TestReduce {
 
     // $ExpectType number[]
     _.reduceRight([[0, 1], [2, 3], [4, 5]], (a: number[], b: number[]) => a.concat(b), []);
+
+    fp.reduce((s: string, num: number) => s + num, "", [1, 2, 3]); // $ExpectType string
+    fp.reduce((s: string, num: number) => s + num)("")([1, 2, 3]); // $ExpectType string
+
+    fp.reduceRight((num: number, s: string) => s + num, "", [1, 2, 3]); // $ExpectType string
+    fp.reduceRight((num: number, s: string) => s + num)("")([1, 2, 3]); // $ExpectType string
 }
 
 // _.reject
@@ -6446,6 +7123,16 @@ namespace TestReject {
         result = _(dictionary).chain().reject('');
         result = _(dictionary).chain().reject({a: 42});
     }
+
+    const stringIterator2 = (char: string) => true;
+    const listIterator2 = (value: AbcObject) => true;
+    fp.reject(stringIterator2, ""); // $ExpectType string[]
+    fp.reject(listIterator2, list); // $ExpectType AbcObject[]
+    fp.reject(listIterator2)(list); // $ExpectType AbcObject[]
+    fp.reject(listIterator2, dictionary); // $ExpectType AbcObject[]
+    fp.reject("a", list); // $ExpectType AbcObject[]
+    fp.reject({ a: 42 }, list); // $ExpectType AbcObject[]
+    fp.reject(["a", 42], list); // $ExpectType AbcObject[]
 }
 
 // _.sample
@@ -6485,6 +7172,11 @@ namespace TestSample {
         result = _(numericDictionary).chain().sample();
         result = _({a: 'foo'}).chain().sample();
     }
+
+    fp.sample("abc"); // $ExpectType string | undefined
+    fp.sample(array); // $ExpectType string | undefined
+    fp.sample(list); // $ExpectType string | undefined
+    fp.sample({a: "foo"}); // $ExpectType string | undefined
 }
 
 // _.sampleSize
@@ -6547,6 +7239,12 @@ namespace TestSampleSize {
         result = _({a: 'foo'}).chain().sampleSize<string>();
         result = _({a: 'foo'}).chain().sampleSize<string>(42);
     }
+
+    fp.sampleSize(42, "abc"); // $ExpectType string[]
+    fp.sampleSize(42)("abc"); // $ExpectType string[]
+    fp.sampleSize(42, array); // $ExpectType string[]
+    fp.sampleSize(42, list); // $ExpectType string[]
+    fp.sampleSize(42, {a: "foo"}); // $ExpectType string[]
 }
 
 // _.shuffle
@@ -6597,6 +7295,10 @@ namespace TestShuffle {
         result = _(list).chain().shuffle<AbcObject>();
         result = _(dictionary).chain().shuffle();
     }
+
+    fp.shuffle("abc"); // $ExpectType string[]
+    fp.shuffle(list); // $ExpectType AbcObject[]
+    fp.shuffle(dictionary); // $ExpectType AbcObject[]
 }
 
 // _.size
@@ -6630,6 +7332,11 @@ namespace TestSize {
         result = _(dictionary).chain().size();
         result = _('').chain().size();
     }
+
+    fp.size(array); // $ExpectType number
+    fp.size(list); // $ExpectType number
+    fp.size(dictionary); // $ExpectType number
+    fp.size(""); // $ExpectType number
 }
 
 // _.some
@@ -6751,6 +7458,26 @@ namespace TestSome {
         result = _(sampleObject).chain().some(['a', 42]);
         result = _(sampleObject).chain().some<AbcObject>({a: 42});
     }
+
+    const listIterator2 = (value: AbcObject) => true;
+
+    fp.some(listIterator2, list); // $ExpectType boolean
+    fp.some(listIterator2)(list); // $ExpectType boolean
+    fp.some("a", list); // $ExpectType boolean
+    fp.some({ a: 42 }, list); // $ExpectType boolean
+    fp.some(["a", 42], list); // $ExpectType boolean
+
+    fp.some(listIterator2, dictionary); // $ExpectType boolean
+    fp.some(listIterator2)(dictionary); // $ExpectType boolean
+    fp.some("a", dictionary); // $ExpectType boolean
+    fp.some({ a: 42 }, dictionary); // $ExpectType boolean
+    fp.some(["a", 42], dictionary); // $ExpectType boolean
+
+    fp.some(listIterator2, numericDictionary); // $ExpectType boolean
+    fp.some(listIterator2)(numericDictionary); // $ExpectType boolean
+    fp.some("a", numericDictionary); // $ExpectType boolean
+    fp.some({ a: 42 }, numericDictionary); // $ExpectType boolean
+    fp.some(["a", 42], numericDictionary); // $ExpectType boolean
 }
 
 // _.sortBy
@@ -6819,6 +7546,19 @@ namespace TestSortBy {
         result = _(dictionary).chain().sortBy('');
         result = _(dictionary).chain().sortBy({a: 42});
     }
+
+    const listIterator2 = (value: AbcObject) => 0;
+
+    fp.sortBy(fp.identity, "bca"); // $ExpectType string[]
+    fp.sortBy(listIterator2, list); // $ExpectType AbcObject[]
+    fp.sortBy(listIterator2)(list); // $ExpectType AbcObject[]
+    fp.sortBy("a", list); // $ExpectType AbcObject[]
+    fp.sortBy({ a: 42 }, list); // $ExpectType AbcObject[]
+
+    fp.sortBy(fp.identity, dictionary); // $ExpectType AbcObject[]
+    fp.sortBy(listIterator2, dictionary); // $ExpectType AbcObject[]
+    fp.sortBy("a", dictionary); // $ExpectType AbcObject[]
+    fp.sortBy({ a: 42 }, dictionary); // $ExpectType AbcObject[]
 }
 
 _.sortBy(stoogesAges, stooge => Math.sin(stooge.age), stooge => stooge.name.slice(1)); // $ExpectType StoogesAge[]
@@ -6915,6 +7655,22 @@ namespace TestorderBy {
         result = _(dictionary).chain().orderBy<SampleObject>(iteratees);
         result = _(dictionary).chain().orderBy<SampleObject>(iteratees, orders);
     }
+
+    const list2: _.List<AbcObject> | null | undefined = anything;
+    const dictionary2: _.Dictionary<AbcObject> | null | undefined = anything;
+    const listIterator2 = (value: AbcObject) => 0;
+
+    fp.orderBy(fp.identity, "asc", "bca"); // $ExpectType string[]
+    fp.orderBy(fp.identity, true, "bca"); // $ExpectType string[]
+    fp.orderBy(listIterator2, true, list2); // $ExpectType AbcObject[]
+    fp.orderBy(listIterator2)(true)(list2); // $ExpectType AbcObject[]
+    fp.orderBy("a", true, list2); // $ExpectType AbcObject[]
+    fp.orderBy({ a: 42 }, true, list2); // $ExpectType AbcObject[]
+
+    fp.orderBy(fp.identity, true, dictionary2); // $ExpectType AbcObject[]
+    fp.orderBy(listIterator2, true, dictionary2); // $ExpectType AbcObject[]
+    fp.orderBy("a", true, dictionary2); // $ExpectType AbcObject[]
+    fp.orderBy({ a: 42 }, true, dictionary2); // $ExpectType AbcObject[]
 }
 
 /********
@@ -6938,6 +7694,8 @@ namespace TestNow {
         result = _<any>([]).chain().now();
         result = _({}).chain().now();
     }
+
+    fp.now(); // $ExpectType number
 }
 
 /*************
@@ -6966,6 +7724,9 @@ namespace TestAfter {
 
         _(42).chain().after(func);
     }
+
+    fp.after((a: string, b: number) => true, 42); // $ExpectType (a: string, b: number) => boolean
+    fp.after((a: string, b: number) => true)(42); // $ExpectType (a: string, b: number) => boolean
 }
 
 // _.ary
@@ -6996,6 +7757,8 @@ namespace TestAry {
         result = _(func).chain().ary();
         result = _(func).chain().ary(2);
     }
+
+    fp.ary(1, (a: string, b: number) => true); // $ExpectType (...args: any[]) => any
 }
 
 // _.before
@@ -7021,6 +7784,9 @@ namespace TestBefore {
 
         _(42).chain().before(func);
     }
+
+    fp.before((a: string, b: number) => true, 42); // $ExpectType (a: string, b: number) => boolean
+    fp.before((a: string, b: number) => true)(42); // $ExpectType (a: string, b: number) => boolean
 }
 
 // _.bind
@@ -7103,6 +7869,9 @@ namespace TestBind {
 
         result = _(func).chain().bind(anything, 42, '');
     }
+
+    fp.bind((a: string, b: number) => true, anything); // $ExpectType (...args: any[]) => any
+    fp.bind((a: string, b: number) => true)(anything); // $ExpectType (...args: any[]) => any
 }
 
 // _.bindAll
@@ -7141,6 +7910,9 @@ namespace TestBindAll {
         result = _(object).chain().bindAll(['b'], 'c');
         result = _(object).chain().bindAll('a', ['b'], 'c');
     }
+
+    fp.bindAll("c", object); // $ExpectType SampleObject
+    fp.bindAll(["b", "c"], object); // $ExpectType SampleObject
 }
 
 // _.bindKey
@@ -7220,6 +7992,9 @@ namespace TestBindKey {
 
         result = _(object).chain().bindKey('foo', 42, '');
     }
+
+    fp.bindKey(object, "foo"); // $ExpectType (...args: any[]) => any
+    fp.bindKey(object)("foo"); // $ExpectType (...args: any[]) => any
 }
 
 // _.curry
@@ -7253,6 +8028,16 @@ curryResult4 = _.curry(testCurry2)("1")(2);
 curryResult5 = _.curry(testCurry2)("1");
 curryResult6 = _.curry(testCurry2);
 
+const testCurryFn2 = (a: string, b: number, c: boolean): [string, number, boolean] => [a, b, c];
+fp.curry(testCurryFn2)("1", 2, true); // $ExpectType [string, number, boolean]
+fp.curry(testCurryFn2)("1", 2)(true); // $ExpectType [string, number, boolean]
+fp.curry(testCurryFn2)("1")(2, true); // $ExpectType [string, number, boolean]
+fp.curry(testCurryFn2)("1")(2)(true); // $ExpectType [string, number, boolean]
+fp.curry(testCurryFn2)("1", 2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
+fp.curry(testCurryFn2)("1")(2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
+fp.curry(testCurryFn2)("1"); // $ExpectType CurriedFunction2<number, boolean, [string, number, boolean]>
+fp.curry(testCurryFn2); // $ExpectType CurriedFunction3<string, number, boolean, [string, number, boolean]>
+
 // _.curryRight
 const testCurryRightFn = (a: number, b: number, c: number) => [a, b, c];
 curryResult0 = _.curryRight(testCurryRightFn)(1, 2, 3);
@@ -7270,6 +8055,15 @@ curryResult7 = _.curryRight(testCurry2)(2,true);
 curryResult7 = _.curryRight(testCurry2)(true)(2);
 curryResult8 = _.curryRight(testCurry2)(true);
 curryResult9 = _.curryRight(testCurry2);
+
+fp.curryRight(testCurryFn2)("1", 2, true); // $ExpectType [string, number, boolean]
+fp.curryRight(testCurryFn2)(true)("1", 2); // $ExpectType [string, number, boolean]
+fp.curryRight(testCurryFn2)(2, true)("1"); // $ExpectType [string, number, boolean]
+fp.curryRight(testCurryFn2)(true)(2)("1"); // $ExpectType [string, number, boolean]
+fp.curryRight(testCurryFn2)(2, true); // $ExpectType RightCurriedFunction1<string, [string, number, boolean]>
+fp.curryRight(testCurryFn2)(true)(2); // $ExpectType RightCurriedFunction1<string, [string, number, boolean]>
+fp.curryRight(testCurryFn2)(true); // $ExpectType RightCurriedFunction2<string, number, [string, number, boolean]>
+fp.curryRight(testCurryFn2); // $ExpectType RightCurriedFunction3<string, number, boolean, [string, number, boolean]>
 
 // _.debounce
 namespace TestDebounce {
@@ -7313,6 +8107,16 @@ namespace TestDebounce {
         result = _(func).chain().debounce(42);
         result = _(func).chain().debounce(42, options);
     }
+
+    const result1 = fp.debounce(42, func);
+    result1(1, "a"); // $ExpectType boolean
+    result1.cancel(); // $ExpectType void
+    result1.flush(); // $ExpectType void
+
+    const result2 = fp.debounce(42)(func);
+    result2(1, "a"); // $ExpectType boolean
+    result2.cancel(); // $ExpectType void
+    result2.flush(); // $ExpectType void
 }
 
 // _.defer
@@ -7347,6 +8151,8 @@ namespace TestDefer {
         result = _(func).chain().defer(anything, anything);
         result = _(func).chain().defer(anything, anything, anything);
     }
+
+    fp.defer((a: number, b: string) => true); // number
 }
 
 // _.delay
@@ -7378,10 +8184,14 @@ namespace TestDelay {
         result = _(func).chain().delay(1, 2);
         result = _(func).chain().delay(1, 2, '');
     }
+
+    fp.delay(500, (a, b) => true); // $ExpectType number
+    fp.delay(500)((a, b) => true); // $ExpectType number
 }
 
 // _.flip
 namespace TestFlip {
+    // TODO: fix - output arguments should be reversed
     type Func = (a: string, b: number) => boolean;
 
     let func: Func = (a, b) => true;
@@ -7403,6 +8213,8 @@ namespace TestFlip {
 
         result = _(func).chain().flip();
     }
+
+    fp.flip((a: string, b: number) => true); // $ExpectType (a: string, b: number) => boolean
 }
 
 // _.flow
@@ -7452,12 +8264,30 @@ namespace TestFlow {
         result = _(Fn2).chain().flow(Fn1, Fn1, Fn1);
         result = _(Fn2).chain().flow([Fn1, Fn1, Fn1]);
     }
+
+    const fn5 = (n: number) => 0;
+    const fn6 = (m: number, n: number) => 0;
+    const fn7 = (a: number) => "";
+    const fn8 = (a: string) => true;
+    fp.flow(fn5, fn5); // $ExpectType (a1: number) => number
+    fp.flow(fn5, fn7); // $ExpectType (a1: number) => string
+    fp.flow(fn6, fn5, fn5); // $ExpectType (a1: number, a2: number) => number
+    fp.flow(fn6, fn5, fn5, fn5); // $ExpectType (a1: number, a2: number) => number
+    fp.flow(fn6, fn5, fn5, fn5, fn5); // $ExpectType (a1: number, a2: number) => number
+    fp.flow(fn6, fn5, fn5, fn5, fn5, fn5); // $ExpectType (a1: number, a2: number) => number
+    fp.flow(fn6, fn5, fn5, fn5, fn5, fn5, fn5); // $ExpectType (a1: number, a2: number) => number
+    fp.flow(fn6, fn7); // $ExpectType (a1: number, a2: number) => string
+    fp.flow(fn6, fn7, fn8); // $ExpectType (a1: number, a2: number) => boolean
+    fp.flow(fn6, fn5, fn7, fn8); // $ExpectType (a1: number, a2: number) => boolean
+    fp.flow([fn6, fn5, fn7, fn8]); // $ExpectType (...args: any[]) => any
 }
 
 // _.flowRight
 namespace TestFlowRight {
-    let Fn1 = (n: number) => 0;
-    let Fn2 = (m: number, n: number) => 0;
+    const Fn1 = (n: number) => 0;
+    const Fn2 = (m: number, n: number) => 0;
+    const Fn3 = (a: number) => "";
+    const Fn4 = (a: string) => true;
 
     {
         let result: (m: number, n: number) => number;
@@ -7485,6 +8315,22 @@ namespace TestFlowRight {
         result = _(Fn1).chain().flowRight(Fn1, Fn1, Fn2);
         result = _(Fn1).chain().flowRight([Fn1, Fn1, Fn2]);
     }
+
+    const fn5 = (n: number) => 0;
+    const fn6 = (m: number, n: number) => 0;
+    const fn7 = (a: number) => "";
+    const fn8 = (a: string) => true;
+    fp.flowRight(fn5, fn5); // $ExpectType (a1: number) => number
+    fp.flowRight(fn7, fn5); // $ExpectType (a1: number) => string
+    fp.flowRight(fn5, fn5, fn6); // $ExpectType (a1: number, a2: number) => number
+    fp.flowRight(fn5, fn5, fn5, fn6); // $ExpectType (a1: number, a2: number) => number
+    fp.flowRight(fn5, fn5, fn5, fn5, fn6); // $ExpectType (a1: number, a2: number) => number
+    fp.flowRight(fn5, fn5, fn5, fn5, fn5, fn6); // $ExpectType (a1: number, a2: number) => number
+    fp.flowRight(fn5, fn5, fn5, fn5, fn5, fn5, fn6); // $ExpectType (a1: number, a2: number) => number
+    fp.flowRight(fn7, fn6); // $ExpectType (a1: number, a2: number) => string
+    fp.flowRight(fn8, fn7, fn6); // $ExpectType (a1: number, a2: number) => boolean
+    fp.flowRight(fn8, fn7, fn5, fn6); // $ExpectType (a1: number, a2: number) => boolean
+    fp.flowRight([fn8, fn7, fn5, fn6]); // $ExpectType (...args: any[]) => any
 }
 
 // _.memoize
@@ -7542,6 +8388,14 @@ namespace TestMemoize {
     }
 
     _.memoize.Cache = MemoizeCacheClass;
+
+    const result2 = fp.memoize((a1: string, a2: number) => true);
+    result2("a", 1); // $ExpectType boolean
+    result2.cache.delete("key"); // $ExpectType boolean
+    result2.cache.get("key"); // $ExpectType any
+    result2.cache.has("key"); // $ExpectType boolean
+    result2.cache.set("key", "value"); // $ExpectType Dictionary<any>
+    result2.cache.clear(); // $ExpectType void
 }
 
 // _.overArgs
@@ -7596,6 +8450,12 @@ namespace TestOverArgs {
         result = _(func2).chain().overArgs(transform1, transform2);
         result = _(func2).chain().overArgs([transform1, transform2]);
     }
+
+    fp.overArgs(func1, transform1);
+    fp.overArgs(func1)(transform1);
+    fp.overArgs(func1, [transform1]);
+    fp.overArgs(func2, [transform1, transform2]);
+    fp.overArgs(func2)([transform1, transform2]);
 }
 
 // _.negate
@@ -7621,6 +8481,8 @@ namespace TestNegate {
 
         result = _(predicate).chain().negate();
     }
+
+    fp.negate((a1: number, a2: number) => true); // $ExpectType (a1: number, a2: number) => boolean
 }
 
 // _.once
@@ -7646,6 +8508,8 @@ namespace TestOnce {
 
         result = _(func).chain().once();
     }
+
+    fp.once((a: string, b: number) => true); // $ExpectType (a: string, b: number) => boolean
 }
 
 const greetPartial = (greeting: string, name: string) => `${greeting} ${name}`;
@@ -7667,6 +8531,9 @@ result = <string[]>(_.rearg(testReargFn, 2, 0, 1))('b', 'c', 'a');
 result = <string[]>(_.rearg(testReargFn, [2, 0, 1]))('b', 'c', 'a');
 result = <string[]>(_(testReargFn).rearg(2, 0, 1).value())('b', 'c', 'a');
 result = <string[]>(_(testReargFn).rearg([2, 0, 1]).value())('b', 'c', 'a');
+
+fp.rearg([2, 0, 1], testReargFn); // $ExpectType (...args: any[]) => any
+fp.rearg([2, 0, 1])(testReargFn); // $ExpectType (...args: any[]) => any
 
 // _.rest
 namespace TestRest {
@@ -7695,6 +8562,8 @@ namespace TestRest {
         result = _(func).chain().rest();
         result = _(func).chain().rest(1);
     }
+
+    fp.rest((a, b) => true); // $ExpectType (...args: any[]) => any
 }
 
 //_.spread
@@ -7721,6 +8590,8 @@ namespace TestSpread {
 
         result = _(func).chain().spread();
     }
+
+    fp.spread((a) => true); // $ExpectType (...args: any[]) => boolean
 }
 
 // _.throttle
@@ -7764,6 +8635,16 @@ namespace TestThrottle {
         result = _(func).chain().throttle(42);
         result = _(func).chain().throttle(42, options);
     }
+
+    const result1 = fp.throttle(42, func);
+    result1(1, "a"); // $ExpectType boolean
+    result1.cancel(); // $ExpectType void
+    result1.flush(); // $ExpectType void
+
+    const result2 = fp.throttle(42)(func);
+    result2(1, "a"); // $ExpectType boolean
+    result2.cancel(); // $ExpectType void
+    result2.flush(); // $ExpectType void
 }
 
 // _.unary
@@ -7789,6 +8670,8 @@ namespace TestUnary {
 
         result = _(func).chain().unary();
     }
+
+    fp.unary((a: string, b: number) => true); // $ExpectType (arg1: string) => boolean
 }
 
 // _.wrap
@@ -7865,6 +8748,11 @@ namespace TestWrap {
 
         result = _(value).chain().wrap(wrapper);
     }
+
+    const value1: AbcObject = { a: 1, b: "", c: true };
+    const wrapper1 = (a: AbcObject, b: number, c: string) => true;
+
+    fp.wrap(wrapper1, value1); // $ExpectType (...args: any[]) => boolean
 }
 
 /********
@@ -7904,6 +8792,8 @@ namespace TestCastArray {
 
         result = _({a: 42}).chain().castArray();
     }
+
+    fp.castArray(42); // $ExpectType number[]
 }
 
 // _.clone
@@ -7946,6 +8836,10 @@ namespace TestClone {
 
         result = _({a: {b: 42}}).chain().clone();
     }
+
+    fp.clone(42); // $ExpectType 42
+    fp.clone([""]); // $ExpectType string[]
+    fp.clone({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
 }
 
 // _.cloneDeep
@@ -7988,6 +8882,10 @@ namespace TestCloneDeep {
 
         result = _({a: {b: 42}}).chain().cloneDeep();
     }
+
+    fp.cloneDeep(42); // $ExpectType 42
+    fp.cloneDeep([""]); // $ExpectType string[]
+    fp.cloneDeep({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
 }
 
 // _.cloneDeepWith
@@ -8038,6 +8936,11 @@ namespace TestCloneDeepWith {
 
         result = _({a: {b: 42}}).chain().cloneDeepWith(customizer);
     }
+
+    fp.cloneDeepWith((x) => "", 42); // $ExpectType any
+    fp.cloneDeepWith((x) => "")(42); // $ExpectType any
+    fp.cloneDeepWith((x) => "", [42]); // $ExpectType any
+    fp.cloneDeepWith((x) => "", { a: { b: 42 } }); // $ExpectType any
 }
 
 // _.cloneWith
@@ -8091,18 +8994,29 @@ namespace TestCloneWith {
 
         result = _({a: {b: 42}}).chain().cloneWith<{a: {b: string;};}>(customizer);
     }
+
+    fp.cloneWith<42, "">((x): "" | undefined => "", 42); // $ExpectType "" | 42
+    fp.cloneWith((x: number): "" | undefined => "")(42); // $ExpectType number | ""
+    fp.cloneWith((x: any): "" | undefined => "")(42); // $ExpectType any
+    fp.cloneWith((x): "" | undefined => "", [42]); // $ExpectType "" | number[]
+    fp.cloneWith((x): "" | undefined => "", { a: { b: 42 } }); // $ExpectType "" | { a: { b: number; }; }
 }
 
 // _.conforms
 namespace TestConforms {
     let result: boolean = _.conforms({foo: (v: string) => false})({foo: "foo"});
     let result2: boolean = _.conforms({})({foo: "foo"});
+
+    fp.conforms({foo: (v: string) => false})({foo: "foo"}); // $ExpectType boolean
 }
 
 // _.conformsTo
 namespace TestConformsTo {
     let result: boolean = _.conformsTo({foo: "foo"}, {foo: (v: string) => false});
     let result2: boolean = _.conformsTo({}, {foo: (v: string) => false});
+
+    fp.conformsTo({foo: (v: string) => false}, {foo: "foo"}); // $ExpectType boolean
+    fp.conformsTo({foo: (v: string) => false})({foo: "foo"}); // $ExpectType boolean
 }
 
 // _.eq
@@ -8122,6 +9036,9 @@ namespace TestEq {
 
         result = _(anything).chain().eq(anything);
     }
+
+    fp.eq(anything, anything); // $ExpectType boolean
+    fp.eq(anything)(anything); // $ExpectType boolean
 }
 
 // _.gt
@@ -8142,6 +9059,9 @@ namespace TestGt {
         result = _([]).chain().gt(anything);
         result = _({}).chain().gt(anything);
     }
+
+    fp.gt(anything, anything); // $ExpectType boolean
+    fp.gt(anything)(anything); // $ExpectType boolean
 }
 
 // _.gte
@@ -8162,6 +9082,9 @@ namespace TestGte {
         result = _([]).chain().gte(anything);
         result = _({}).chain().gte(anything);
     }
+
+    fp.gte(anything, anything); // $ExpectType boolean
+    fp.gte(anything)(anything); // $ExpectType boolean
 }
 
 // _.isArguments
@@ -8174,6 +9097,12 @@ namespace TestisArguments {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isArguments(value)) {
+            const result: IArguments = value;
+        } else {
+            value; // $ExpectType number
         }
     }
 
@@ -8193,6 +9122,8 @@ namespace TestisArguments {
         result = _<any>([]).chain().isArguments();
         result = _({}).chain().isArguments();
     }
+
+    fp.isArguments(anything); // $ExpectType boolean
 }
 
 // _.isArray
@@ -8201,9 +9132,15 @@ namespace TestIsArray {
         let value: number|string[]|boolean[] = anything;
 
         if (_.isArray(value)) {
-            value; // $ExpectType string[] | boolean[]
+            const result: string[] | boolean[] = value;
         }
         else {
+            value; // $ExpectType number
+        }
+
+        if (fp.isArray(value)) {
+            const result: string[] | boolean[] = value;
+        } else {
             value; // $ExpectType number
         }
     }
@@ -8224,6 +9161,8 @@ namespace TestIsArray {
         result = _<any>([]).chain().isArray();
         result = _({}).chain().isArray();
     }
+
+    fp.isArray(anything); // $ExpectType boolean
 }
 
 // _.isArrayBuffer
@@ -8235,6 +9174,12 @@ namespace TestIsArrayBuffer {
             value; // $ExpectType ArrayBuffer
         }
         else {
+            value; // $ExpectType number
+        }
+
+        if (fp.isArrayBuffer(value)) {
+            value; // $ExpectType ArrayBuffer
+        } else {
             value; // $ExpectType number
         }
     }
@@ -8255,6 +9200,8 @@ namespace TestIsArrayBuffer {
         result = _<any>([]).chain().isArrayBuffer();
         result = _({}).chain().isArrayBuffer();
     }
+
+    fp.isArrayBuffer(anything); // $ExpectType boolean
 }
 
 // _.isArrayLike
@@ -8269,6 +9216,12 @@ namespace TestIsArrayLike {
         } else {
             let result: number | { length: string } | { a: string; } | null | undefined = value;
         }
+
+        if (fp.isArrayLike(value)) {
+            const result: string | string[] | { [index: number]: boolean; length: number; } | [number, boolean] = value;
+        } else {
+            const result: number | { length: string; } | { a: string; } | null | undefined = value;
+        }
     }
 
     {
@@ -8280,12 +9233,24 @@ namespace TestIsArrayLike {
         else {
             value; // $ExpectType never
         }
+
+        if (fp.isArrayLike(value)) {
+            value; // $ExpectType boolean[]
+        } else {
+            value; // $ExpectType never
+        }
     }
 
     {
         let value: () => number = anything;
 
         if (_.isArrayLike(value)) {
+            value; // $ExpectType never
+        } else {
+            value; // $ExpectType () => number
+        }
+
+        if (fp.isArrayLike(value)) {
             value; // $ExpectType never
         } else {
             value; // $ExpectType () => number
@@ -8301,6 +9266,12 @@ namespace TestIsArrayLike {
         else {
             value; // $ExpectType { a: string; }
         }
+
+        if (fp.isArrayLike(value)) {
+            const result: { a: string, length: number } = value;
+        } else {
+            value; // $ExpectType { a: string; }
+        }
     }
 
     {
@@ -8310,6 +9281,12 @@ namespace TestIsArrayLike {
             value; // $ExpectType any
         }
         else {
+            value; // $ExpectType any
+        }
+
+        if (fp.isArrayLike(value)) {
+            value; // $ExpectType any
+        } else {
             value; // $ExpectType any
         }
     }
@@ -8330,6 +9307,8 @@ namespace TestIsArrayLike {
         result = _<any>([]).chain().isArrayLike();
         result = _({}).chain().isArrayLike();
     }
+
+    fp.isArrayLike(anything); // $ExpectType boolean
 }
 
 // _.isArrayLikeObject
@@ -8344,6 +9323,12 @@ namespace TestIsArrayLikeObject {
         } else {
             let result: string | number | { length: string; } | { a: string; } | null | undefined = value;
         }
+
+        if (fp.isArrayLikeObject(value)) {
+            const result: string[] | [number, boolean] | { [index: number]: boolean; length: number; } =  value;
+        } else {
+            const result: string | number | { length: string; } | { a: string; } | null | undefined = value;
+        }
     }
 
     {
@@ -8355,12 +9340,24 @@ namespace TestIsArrayLikeObject {
         else {
             value; // $ExpectType never
         }
+
+        if (fp.isArrayLikeObject(value)) {
+            const result: boolean[] = value;
+        } else {
+            value; // $ExpectType never
+        }
     }
 
     {
         let value: (a: string) => boolean = anything;
 
         if (_.isArrayLikeObject(value)) {
+            value; // $ExpectType never
+        } else {
+            value; // $ExpectType (a: string) => boolean
+        }
+
+        if (fp.isArrayLikeObject(value)) {
             value; // $ExpectType never
         } else {
             value; // $ExpectType (a: string) => boolean
@@ -8376,6 +9373,12 @@ namespace TestIsArrayLikeObject {
         else {
             value; // $ExpectType { a: string; }
         }
+
+        if (fp.isArrayLikeObject(value)) {
+            const result: { a: string, length: number } = value;
+        } else {
+            value; // $ExpectType { a: string; }
+        }
     }
 
     {
@@ -8385,6 +9388,12 @@ namespace TestIsArrayLikeObject {
             value; // $ExpectType any
         }
         else {
+            value; // $ExpectType any
+        }
+
+        if (fp.isArrayLikeObject(value)) {
+            value; // $ExpectType any
+        } else {
             value; // $ExpectType any
         }
     }
@@ -8405,6 +9414,8 @@ namespace TestIsArrayLikeObject {
         result = _<any>([]).chain().isArrayLikeObject();
         result = _({}).chain().isArrayLikeObject();
     }
+
+    fp.isArrayLikeObject(anything); // $ExpectType boolean
 }
 
 // _.isBoolean
@@ -8417,6 +9428,12 @@ namespace TestIsBoolean {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isBoolean(value)) {
+            const result: boolean = value;
+        } else {
+            value; // $ExpectType number
         }
     }
 
@@ -8436,6 +9453,8 @@ namespace TestIsBoolean {
         result = _<any>([]).chain().isBoolean();
         result = _({}).chain().isBoolean();
     }
+
+    const value: number | boolean = anything;
 }
 
 // _.isBuffer
@@ -8456,6 +9475,8 @@ namespace TestIsBuffer {
         result = _<any>([]).chain().isBuffer();
         result = _({}).chain().isBuffer();
     }
+
+    fp.isBuffer(anything); // $ExpectType boolean
 }
 
 // _.isDate
@@ -8468,6 +9489,12 @@ namespace TestIsBuffer {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isDate(value)) {
+            const date: Date = value;
+        } else {
+            value; // $ExpectType number
         }
     }
 
@@ -8487,6 +9514,8 @@ namespace TestIsBuffer {
         result = _<any>([]).chain().isDate();
         result = _({}).chain().isDate();
     }
+
+    fp.isDate(anything); // $ExpectType boolean
 }
 
 // _.isElement
@@ -8508,6 +9537,8 @@ namespace TestIsElement {
         result = _<any>([]).chain().isElement();
         result = _({}).chain().isElement();
     }
+
+    fp.isElement(anything); // $ExpectType boolean
 }
 
 // _.isEmpty
@@ -8530,6 +9561,8 @@ namespace TestIsEmpty {
         result = _<any>([]).chain().isEmpty();
         result = _({}).chain().isEmpty();
     }
+
+    fp.isEmpty(anything); // $ExpectType boolean
 }
 
 // _.isEqual
@@ -8549,6 +9582,10 @@ namespace TestIsEqual {
 
         result = _(anything).chain().isEqual(anything);
     }
+
+    fp.isEqual(anything, anything); // $ExpectType boolean
+    fp.isEqual(anything)(anything); // $ExpectType boolean
+    fp.equals(anything)(anything); // $ExpectType boolean
 }
 
 // _.isEqualWith
@@ -8568,6 +9605,9 @@ namespace TestIsEqualWith {
 
         result = _(anything).chain().isEqualWith(anything, customizer);
     }
+
+    fp.isEqualWith(customizer, anything, anything); // $ExpectType boolean
+    fp.isEqualWith(customizer)(anything)(anything); // $ExpectType boolean
 }
 
 // _.isError
@@ -8581,6 +9621,12 @@ namespace TestIsError {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isError(value)) {
+            value; // $ExpectType Error
+        } else {
+            value; // $ExpectType number
         }
     }
 
@@ -8596,6 +9642,12 @@ namespace TestIsError {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isError(value)) {
+            value; // $ExpectType CustomError
+        } else {
+            value; // $ExpectType number
         }
     }
 
@@ -8615,6 +9667,8 @@ namespace TestIsError {
         result = _<any>([]).chain().isError();
         result = _({}).chain().isError();
     }
+
+    fp.isError(anything); // $ExpectType boolean
 }
 
 // _.isFinite
@@ -8635,6 +9689,8 @@ namespace TestIsFinite {
         result = _<any>([]).chain().isFinite();
         result = _({}).chain().isFinite();
     }
+
+    fp.isFinite(anything); // $ExpectType boolean
 }
 
 // _.isFunction
@@ -8649,7 +9705,17 @@ namespace TestIsFunction {
             value; // $ExpectType number
         }
 
+        if (fp.isFunction(value)) {
+            value; // $ExpectType () => void
+        } else {
+            value; // $ExpectType number
+        }
+
         if (_.isFunction(anything)) {
+            anything();
+        }
+
+        if (fp.isFunction(anything)) {
             anything();
         }
     }
@@ -8670,6 +9736,8 @@ namespace TestIsFunction {
         result = _<any>([]).chain().isFunction();
         result = _({}).chain().isFunction();
     }
+
+    fp.isFunction(anything); // $ExpectType boolean
 }
 
 // _.isInteger
@@ -8691,6 +9759,8 @@ namespace TestIsInteger {
         result = _<any>([]).chain().isInteger();
         result = _({}).chain().isInteger();
     }
+
+    fp.isInteger(anything); // $ExpectType boolean
 }
 
 // _.isLength
@@ -8712,6 +9782,8 @@ namespace TestIsLength {
         result = _<any>([]).chain().isLength();
         result = _({}).chain().isLength();
     }
+
+    fp.isLength(anything); // $ExpectType boolean
 }
 
 // _.isMap
@@ -8724,6 +9796,12 @@ namespace TestIsMap {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isMap(value)) {
+            const result: Map<string, number> = value;
+        } else {
+            const result: number = value;
         }
     }
 
@@ -8743,6 +9821,8 @@ namespace TestIsMap {
         result = _<any>([]).chain().isMap();
         result = _({}).chain().isMap();
     }
+
+    fp.isMap(anything); // $ExpectType boolean
 }
 
 // _.isMatch
@@ -8750,6 +9830,10 @@ namespace TestIsMatch {
     _.isMatch({}, {}); // $ExpectType boolean
     _({}).isMatch({}); // $ExpectType boolean
     _.chain({}).isMatch({}); // $ExpectType LoDashExplicitWrapper<boolean>
+
+    const source: AbcObject = { a: 1, b: "", c: true };
+    fp.isMatch(source, {}); // $ExpectType boolean
+    fp.isMatch(source)({}); // $ExpectType boolean
 }
 
 // _.isMatchWith
@@ -8759,6 +9843,9 @@ namespace TestIsMatchWith {
     _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
     _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean
     _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType LoDashExplicitWrapper<boolean>
+
+    fp.isMatchWith(testIsMatchCustiomizerFn, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFn)({})({}); // $ExpectType boolean
 }
 
 // _.isNaN
@@ -8780,6 +9867,8 @@ namespace TestIsNaN {
         result = _<any>([]).chain().isNaN();
         result = _({}).chain().isNaN();
     }
+
+    fp.isNaN(anything); // $ExpectType boolean
 }
 
 // _.isNative
@@ -8791,6 +9880,12 @@ namespace TestIsNative {
             value; // $ExpectType () => void
         }
         else {
+            value; // $ExpectType number
+        }
+
+        if (fp.isNative(value)) {
+            value; // $ExpectType () => void
+        } else {
             value; // $ExpectType number
         }
     }
@@ -8812,6 +9907,8 @@ namespace TestIsNative {
         result = _<any>([]).chain().isNative();
         result = _({}).chain().isNative();
     }
+
+    fp.isNative(anything); // $ExpectType boolean
 }
 
 // _.isNil
@@ -8833,6 +9930,8 @@ namespace TestIsNil {
         result = _<any>([]).chain().isNil();
         result = _({}).chain().isNil();
     }
+
+    fp.isNil(anything); // $ExpectType boolean
 }
 
 // _.isNull
@@ -8854,6 +9953,8 @@ namespace TestIsNull {
         result = _<any>([]).chain().isNull();
         result = _({}).chain().isNull();
     }
+
+    fp.isNull(anything); // $ExpectType boolean
 }
 
 // _.isNumber
@@ -8866,6 +9967,12 @@ namespace TestIsNumber {
         }
         else {
             let result: string = value;
+        }
+
+        if (fp.isNumber(value)) {
+            const result: number = value;
+        } else {
+            const result: string = value;
         }
     }
 
@@ -8886,6 +9993,8 @@ namespace TestIsNumber {
         result = _<any>([]).chain().isNumber();
         result = _({}).chain().isNumber();
     }
+
+    fp.isNumber(anything); // $ExpectType boolean
 }
 
 // _.isObject
@@ -8906,6 +10015,8 @@ namespace TestIsObject {
         result = _<any>([]).chain().isObject();
         result = _({}).chain().isObject();
     }
+
+    fp.isObject(anything); // $ExpectType boolean
 }
 
 // _.isObjectLike
@@ -8926,6 +10037,8 @@ namespace TestIsObjectLike {
         result = _<any>([]).chain().isObjectLike();
         result = _({}).chain().isObjectLike();
     }
+
+    fp.isObjectLike(anything); // $ExpectType boolean
 }
 
 // _.isPlainObject
@@ -8946,6 +10059,8 @@ namespace TestIsPlainObject {
         result = _<any>([]).chain().isPlainObject();
         result = _({}).chain().isPlainObject();
     }
+
+    fp.isPlainObject(anything); // $ExpectType boolean
 }
 
 // _.isRegExp
@@ -8958,6 +10073,12 @@ namespace TestIsRegExp {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isRegExp(value)) {
+            const result: RegExp = value;
+        } else {
+            const result: number = value;
         }
     }
 
@@ -8977,6 +10098,8 @@ namespace TestIsRegExp {
         result = _<any>([]).chain().isRegExp();
         result = _({}).chain().isRegExp();
     }
+
+    fp.isRegExp(anything); // $ExpectType boolean
 }
 
 // _.isSafeInteger
@@ -8998,6 +10121,8 @@ namespace TestIsSafeInteger {
         result = _<any>([]).chain().isSafeInteger();
         result = _({}).chain().isSafeInteger();
     }
+
+    fp.isSafeInteger(anything); // $ExpectType boolean
 }
 
 // _.isSet
@@ -9010,6 +10135,12 @@ namespace TestIsSet {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isSet(value)) {
+            const result: Set<string> = value;
+        } else {
+            const result: number = value;
         }
     }
 
@@ -9029,6 +10160,8 @@ namespace TestIsSet {
         result = _<any>([]).chain().isSet();
         result = _({}).chain().isSet();
     }
+
+    fp.isSet(anything); // $ExpectType boolean
 }
 
 // _.isString
@@ -9041,6 +10174,12 @@ namespace TestIsString {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isString(value)) {
+            const result: string = value;
+        } else {
+            const result: number = value;
         }
     }
 
@@ -9060,6 +10199,8 @@ namespace TestIsString {
         result = _<any>([]).chain().isString();
         result = _({}).chain().isString();
     }
+
+    fp.isString(anything); // $ExpectType boolean
 }
 
 // _.isSymbol
@@ -9081,6 +10222,8 @@ namespace TestIsSymbol {
         result = _<any>([]).chain().isSymbol();
         result = _({}).chain().isSymbol();
     }
+
+    fp.isSymbol(anything); // $ExpectType boolean
 }
 
 // _.isTypedArray
@@ -9097,6 +10240,8 @@ namespace TestIsTypedArray {
 
         result = _([]).chain().isTypedArray();
     }
+
+    fp.isTypedArray([]); // $ExpectType boolean
 }
 
 // _.isUndefined
@@ -9118,6 +10263,8 @@ namespace TestIsUndefined {
         result = _<any>([]).chain().isUndefined();
         result = _({}).chain().isUndefined();
     }
+
+    fp.isUndefined(anything); // $ExpectType boolean
 }
 
 // _.isWeakMap
@@ -9130,6 +10277,12 @@ namespace TestIsWeakMap {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isWeakMap(value)) {
+            const result: WeakMap<object, number> = value;
+        } else {
+            const result: number = value;
         }
     }
 
@@ -9149,6 +10302,8 @@ namespace TestIsWeakMap {
         result = _<any>([]).chain().isWeakMap();
         result = _({}).chain().isWeakMap();
     }
+
+    fp.isWeakMap(anything); // $ExpectType boolean
 }
 
 // _.isWeakSet
@@ -9161,6 +10316,12 @@ namespace TestIsWeakSet {
         }
         else {
             let result: number = value;
+        }
+
+        if (fp.isWeakSet(value)) {
+            const result: WeakSet<object> = value;
+        } else {
+            const result: number = value;
         }
     }
 
@@ -9180,6 +10341,8 @@ namespace TestIsWeakSet {
         result = _<any>([]).chain().isWeakSet();
         result = _({}).chain().isWeakSet();
     }
+
+    fp.isWeakSet(anything); // $ExpectType boolean
 }
 
 // _.lt
@@ -9200,6 +10363,9 @@ namespace TestLt {
         result = _([]).chain().lt(anything);
         result = _({}).chain().lt(anything);
     }
+
+    fp.lt(anything, anything); // $ExpectType boolean
+    fp.lt(anything)(anything); // $ExpectType boolean
 }
 
 // _.lte
@@ -9220,6 +10386,9 @@ namespace TestLte {
         result = _([]).chain().lte(anything);
         result = _({}).chain().lte(anything);
     }
+
+    fp.lte(anything, anything); // $ExpectType boolean
+    fp.lte(anything)(anything); // $ExpectType boolean
 }
 
 // _.toArray
@@ -9275,6 +10444,12 @@ namespace TestToArray {
         result = _(dictionary).chain().toArray<AbcObject>();
         result = _(numericDictionary).chain().toArray<AbcObject>();
     }
+
+    fp.toArray(""); // $ExpectType string[]
+    fp.toArray(array); // $ExpectType AbcObject[]
+    fp.toArray(list); // $ExpectType AbcObject[]
+    fp.toArray(dictionary); // $ExpectType AbcObject[]
+    fp.toArray(numericDictionary); // $ExpectType AbcObject[]
 }
 
 // _.toPlainObject
@@ -9299,6 +10474,12 @@ namespace TestToPlainObject {
         result = _(['']).toPlainObject();
         result = _({}).toPlainObject();
     }
+
+    fp.toPlainObject(true); // $ExpectType any
+    fp.toPlainObject(1); // $ExpectType any
+    fp.toPlainObject("a"); // $ExpectType any
+    fp.toPlainObject([]); // $ExpectType any
+    fp.toPlainObject({}); // $ExpectType any
 }
 
 // _.toFinite
@@ -9322,6 +10503,10 @@ namespace TestToFinite {
        result = _([]).toFinite();
        result = _({}).toFinite();
    }
+
+    fp.toFinite(true); // $ExpectType number
+    fp.toFinite(1); // $ExpectType number
+    fp.toFinite("3.2"); // $ExpectType number
 }
 
 // _.toInteger
@@ -9345,6 +10530,10 @@ namespace TestToInteger {
        result = _(['']).toInteger();
        result = _({}).toInteger();
    }
+
+    fp.toInteger(true); // $ExpectType number
+    fp.toInteger(1); // $ExpectType number
+    fp.toInteger("3.2"); // $ExpectType number
 }
 
 // _.toLength
@@ -9368,6 +10557,10 @@ namespace TestToLength {
        result = _(['']).toLength();
        result = _({}).toLength();
    }
+
+    fp.toLength(true); // $ExpectType number
+    fp.toLength(1); // $ExpectType number
+    fp.toLength("a"); // $ExpectType number
 }
 
 // _.toNumber
@@ -9391,6 +10584,10 @@ namespace TestToNumber {
        result = _(['']).toNumber();
        result = _({}).toNumber();
    }
+
+    fp.toNumber(true); // $ExpectType number
+    fp.toNumber(1); // $ExpectType number
+    fp.toNumber("a"); // $ExpectType number
 }
 
 // _.toSafeInteger
@@ -9414,6 +10611,10 @@ namespace TestToSafeInteger {
        result = _(['']).toSafeInteger();
        result = _({}).toSafeInteger();
    }
+
+    fp.toSafeInteger(true); // $ExpectType number
+    fp.toSafeInteger(1); // $ExpectType number
+    fp.toSafeInteger("a"); // $ExpectType number
 }
 
 /********
@@ -9434,6 +10635,9 @@ namespace TestAdd {
 
         result = _(1).chain().add(1);
     }
+
+    fp.add(1, 1); // $ExpectType number
+    fp.add(1)(1); // $ExpectType number
 }
 
 // _.ceil
@@ -9454,6 +10658,8 @@ namespace TestCeil {
         result = _(6.004).chain().ceil();
         result = _(6.004).chain().ceil(2);
     }
+
+    fp.ceil(6.004); // $ExpectType number
 }
 
 // _.divide
@@ -9471,6 +10677,9 @@ namespace TestDivide {
 
         result = _(6).chain().floor(4);
     }
+
+    fp.divide(6, 4); // $ExpectType number
+    fp.divide(6)(4); // $ExpectType number
 }
 
 // _.floor
@@ -9494,6 +10703,8 @@ namespace TestFloor {
         result = _(0.046).chain().floor(2);
         result = _(4060).chain().floor(-2);
     }
+
+    fp.floor(4.006); // $ExpectType number
 }
 
 // _.max
@@ -9508,6 +10719,8 @@ namespace TestMax {
 
     result = _(array).max();
     result = _(list).max<number>();
+
+    fp.max(list); // $ExpectType number | undefined
 }
 
 // _.maxBy
@@ -9541,6 +10754,13 @@ namespace TestMaxBy {
     result = _(list).maxBy<number>(listIterator);
     result = _(list).maxBy<number>('');
     result2 = _(list2).maxBy({a: 42});
+
+    const listIterator2 = (value: number) => 0;
+    fp.maxBy(listIterator2, list); // $ExpectType number | undefined
+    fp.maxBy(listIterator2)(list); // $ExpectType number | undefined
+    fp.maxBy((value) => value.a, list2); // $ExpectType AbcObject | undefined
+    fp.maxBy("a", list2); // $ExpectType AbcObject | undefined
+    fp.maxBy({ a: 42 }, list2); // $ExpectType AbcObject | undefined
 }
 
 // _.mean
@@ -9552,6 +10772,8 @@ namespace TestMean {
     result = _.mean(array);
 
     result = _(array).mean();
+
+    fp.mean(array); // $ExpectType number
 }
 
 // _.meanBy
@@ -9563,7 +10785,12 @@ namespace TestMean {
     result = _.meanBy(array, (x) => x.a);
     result = _.meanBy(array, 'a');
 
-    result = _(array).mean();
+    _(array).meanBy((x) => x.a); // $ExpectType number
+    _.chain(array).meanBy((x) => x.a); // $ExpectType LoDashExplicitWrapper<number>
+
+    fp.meanBy((x) => x.a, array); // $ExpectType number
+    fp.meanBy((x: AbcObject) => x.a)(array); // $ExpectType number
+    fp.meanBy("a", array); // $ExpectType number
 }
 
 // _.min
@@ -9578,6 +10805,8 @@ namespace TestMin {
 
     result = _(array).min();
     result = _(list).min<number>();
+
+    fp.min(list); // $ExpectType number | undefined
 }
 
 // _.minBy
@@ -9611,6 +10840,13 @@ namespace TestMinBy {
     result = _(list).minBy<number>(listIterator);
     result = _(list).minBy<number>('');
     result2 = _(list2).minBy({a: 42});
+
+    const listIterator2 = (value: number) => 0;
+    fp.minBy(listIterator2, list); // $ExpectType number | undefined
+    fp.minBy(listIterator2)(list); // $ExpectType number | undefined
+    fp.minBy((value) => value.a, list2); // $ExpectType AbcObject | undefined
+    fp.minBy("a", list2); // $ExpectType AbcObject | undefined
+    fp.minBy({ a: 42 }, list2); // $ExpectType AbcObject | undefined
 }
 
 // _.multiply
@@ -9628,6 +10864,9 @@ namespace TestMultiply {
 
         result = _(6).chain().multiply(4);
     }
+
+    fp.multiply(6, 4); // $ExpectType number
+    fp.multiply(6)(4); // $ExpectType number
 }
 
 // _.round
@@ -9648,6 +10887,8 @@ namespace TestRound {
         result = _(4.006).chain().round();
         result = _(4.006).chain().round(2);
     }
+
+    fp.round(4.006); // $ExpectType number
 }
 
 // _.sum
@@ -9683,6 +10924,8 @@ namespace TestSum {
 
         result = _(dictionary).chain().sum();
     }
+
+    fp.sum(list); // $ExpectType number
 }
 
 // _.sumBy
@@ -9722,6 +10965,11 @@ namespace TestSumBy {
         result = _(list).chain().sumBy(listIterator);
         result = _(objectList).chain().sumBy('age');
     }
+
+    fp.sumBy(listIterator, list); // $ExpectType number
+    fp.sumBy(listIterator)(list); // $ExpectType number
+    fp.sumBy("age", objectList); // $ExpectType number
+    fp.sumBy("age")(objectList); // $ExpectType number
 }
 
 /**********
@@ -9743,6 +10991,9 @@ namespace TestSumBy {
 
          result = _(3).chain().subtract(2);
      }
+
+     fp.subtract(3, 2); // $ExpectType number
+     fp.subtract(3)(2); // $ExpectType number
  }
 
 // _.clamp
@@ -9762,6 +11013,9 @@ namespace TestInClamp {
 
         result = _(3).chain().clamp(2, 4);
     }
+
+    fp.clamp(2, 4, 3); // $ExpectType number
+    fp.clamp(2)(4)(3); // $ExpectType number
 }
 
 // _.inRange
@@ -9782,6 +11036,9 @@ namespace TestInRange {
         result = _(3).chain().inRange(2, 4);
         result = _(4).chain().inRange(8);
     }
+
+    fp.inRange(2, 4, 3); // $ExpectType boolean
+    fp.inRange(2)(4)(3); // $ExpectType boolean
 }
 
 // _.random
@@ -9815,6 +11072,9 @@ namespace TestRandom {
 
     // $ExpectType number[]
     _.map([5, 5], _.random);
+
+    fp.random(1, 2); // $ExpectType number
+    fp.random(1)(2); // $ExpectType number
 }
 
 /**********
@@ -9944,6 +11204,9 @@ namespace TestAssign {
 
         result = _(obj).chain().assign(s1, s2, s3, s4, s5);
     }
+
+    fp.assign(obj, s1); // $ExpectType Obj & S1
+    fp.assign(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.assignWith
@@ -10056,6 +11319,9 @@ namespace TestAssignWith {
         let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
         result = _(obj).chain().assignWith(s1, s2, s3, s4, s5, customizer);
     }
+
+    fp.assignWith(customizer, obj, s1); // $ExpectType Obj & S1
+    fp.assignWith(customizer)(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.assignIn
@@ -10183,6 +11449,9 @@ namespace TestAssignIn {
 
         result = _(obj).chain().assignIn(s1, s2, s3, s4, s5);
     }
+
+    fp.assignIn(obj, s1); // $ExpectType Obj & S1
+    fp.assignIn(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.assignInWith
@@ -10295,6 +11564,9 @@ namespace TestAssignInWith {
         let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
         result = _(obj).chain().assignInWith(s1, s2, s3, s4, s5, customizer);
     }
+
+    fp.assignInWith(customizer, obj, s1); // $ExpectType Obj & S1
+    fp.assignInWith(customizer)(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.create
@@ -10324,6 +11596,9 @@ namespace TestCreate {
 
         result = _(prototype).chain().create<SampleProps>(properties);
         result = _(prototype).chain().create(properties);
+    }
+    {
+        const result: SampleProto = fp.create(prototype);
     }
 }
 
@@ -10450,6 +11725,9 @@ namespace TestDefaults {
 
     result = _(obj).chain().defaults(s1, s2, s3, s4, s5);
     }
+
+    fp.defaults(obj, s1); // $ExpectType Obj & S1
+    fp.defaults(obj)(s1); // $ExpectType Obj & S1
 }
 
 //_.defaultsDeep
@@ -10463,6 +11741,9 @@ const TestDefaultsDeepObject = { 'user': { 'name': 'barney' } };
 const TestDefaultsDeepSource = { 'user': { 'name': 'fred', 'age': 36 } };
 result = <DefaultsDeepResult>_.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource);
 result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep(TestDefaultsDeepSource).value();
+
+fp.defaultsDeep(TestDefaultsDeepSource, TestDefaultsDeepObject);
+fp.defaultsDeep(TestDefaultsDeepSource)(TestDefaultsDeepObject);
 
 // _.entries
 namespace TestEntries {
@@ -10485,6 +11766,9 @@ namespace TestEntries {
 
         result = _(object).chain().entries();
     }
+
+    const object2: _.Dictionary<AbcObject> = {};
+    fp.entries(object2); // $ExpectType [string, AbcObject][]
 }
 
 // _.entriesIn
@@ -10514,6 +11798,9 @@ namespace TestEntriesIn {
 
         result = _(object).chain().entriesIn();
     }
+
+    const object2: _.Dictionary<AbcObject> = {};
+    fp.entriesIn(object2); // $ExpectType [string, AbcObject][]
 }
 
 // _.extend
@@ -10641,6 +11928,9 @@ namespace TestExtend {
 
         result = _(obj).chain().extend(s1, s2, s3, s4, s5);
     }
+
+    fp.extend(obj, s1); // $ExpectType Obj & S1
+    fp.extend(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.extendWith
@@ -10768,6 +12058,9 @@ namespace TestExtendWith {
 
         result = _(obj).chain().extendWith(s1, s2, s3, s4, s5, customizer);
     }
+
+    fp.extendWith(customizer, obj, s1); // $ExpectType Obj & S1
+    fp.extendWith(customizer)(obj)(s1); // $ExpectType Obj & S1
 }
 
 // _.findKey
@@ -10824,6 +12117,10 @@ namespace TestFindKey {
 
         result = _({a: ''}).chain().findKey(predicateFn);
     }
+
+    const predicateFn2 = (value: number) => true;
+    fp.findKey(predicateFn2, { a: 1 }); // $ExpectType string | undefined
+    fp.findKey(predicateFn2)({ a: 1 }); // $ExpectType string | undefined
 }
 
 // _.findLastKey
@@ -10879,6 +12176,10 @@ namespace TestFindLastKey {
 
         result = _({a: ''}).chain().findLastKey(predicateFn);
     }
+
+    const predicateFn2 = (value: number) => true;
+    fp.findLastKey(predicateFn2, { a: 1 }); // $ExpectType string | undefined
+    fp.findLastKey(predicateFn2)({ a: 1 }); // $ExpectType string | undefined
 }
 
 // _.forIn
@@ -10948,6 +12249,19 @@ namespace TestForIn {
         result = _(nilDictionary).chain().forIn();
         result = _(nilDictionary).chain().forIn(dictionaryIterator);
     }
+
+    const dictionaryIterator2 = (value: number): void => {};
+    const objectIterator2 = (element: number | string | boolean): void => {};
+
+    fp.forIn(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
+    fp.forIn(dictionaryIterator2)(dictionary); // $ExpectType Dictionary<number>
+    fp.forIn(dictionaryIterator2, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    fp.forIn(dictionaryIterator2)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+
+    fp.forIn(objectIterator2, object); // $ExpectType SampleObject
+    fp.forIn(objectIterator2)(object); // $ExpectType SampleObject
+    fp.forIn(objectIterator2, nilObject); // $ExpectType SampleObject | null | undefined
+    fp.forIn(objectIterator2)(nilObject); // $ExpectType SampleObject | null | undefined
 }
 
 // _.forInRight
@@ -11017,6 +12331,19 @@ namespace TestForInRight {
         result = _(nilDictionary).chain().forInRight();
         result = _(nilDictionary).chain().forInRight(dictionaryIterator);
     }
+
+    const dictionaryIterator2 = (value: number): void => {};
+    const objectIterator2 = (element: number | string | boolean): void => {};
+
+    fp.forInRight(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
+    fp.forInRight(dictionaryIterator2)(dictionary); // $ExpectType Dictionary<number>
+    fp.forInRight(dictionaryIterator2, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    fp.forInRight(dictionaryIterator2)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+
+    fp.forInRight(objectIterator2, object); // $ExpectType SampleObject
+    fp.forInRight(objectIterator2)(object); // $ExpectType SampleObject
+    fp.forInRight(objectIterator2, nilObject); // $ExpectType SampleObject | null | undefined
+    fp.forInRight(objectIterator2)(nilObject); // $ExpectType SampleObject | null | undefined
 }
 
 // _.forOwn
@@ -11086,6 +12413,19 @@ namespace TestForOwn {
         result = _(nilDictionary).chain().forOwn();
         result = _(nilDictionary).chain().forOwn(dictionaryIterator);
     }
+
+    const dictionaryIterator2 = (value: number): void => {};
+    const objectIterator2 = (element: number | string | boolean): void => {};
+
+    fp.forOwn(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
+    fp.forOwn(dictionaryIterator2)(dictionary); // $ExpectType Dictionary<number>
+    fp.forOwn(dictionaryIterator2, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    fp.forOwn(dictionaryIterator2)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+
+    fp.forOwn(objectIterator2, object); // $ExpectType SampleObject
+    fp.forOwn(objectIterator2)(object); // $ExpectType SampleObject
+    fp.forOwn(objectIterator2, nilObject); // $ExpectType SampleObject | null | undefined
+    fp.forOwn(objectIterator2)(nilObject); // $ExpectType SampleObject | null | undefined
 }
 
 // _.forOwnRight
@@ -11155,6 +12495,19 @@ namespace TestForOwnRight {
         result = _(nilDictionary).chain().forOwnRight();
         result = _(nilDictionary).chain().forOwnRight(dictionaryIterator);
     }
+
+    const dictionaryIterator2 = (value: number): void => {};
+    const objectIterator2 = (element: number | string | boolean): void => {};
+
+    fp.forOwnRight(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
+    fp.forOwnRight(dictionaryIterator2)(dictionary); // $ExpectType Dictionary<number>
+    fp.forOwnRight(dictionaryIterator2, nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+    fp.forOwnRight(dictionaryIterator2)(nilDictionary); // $ExpectType Dictionary<number> | null | undefined
+
+    fp.forOwnRight(objectIterator2, object); // $ExpectType SampleObject
+    fp.forOwnRight(objectIterator2)(object); // $ExpectType SampleObject
+    fp.forOwnRight(objectIterator2, nilObject); // $ExpectType SampleObject | null | undefined
+    fp.forOwnRight(objectIterator2)(nilObject); // $ExpectType SampleObject | null | undefined
 }
 
 // _.functions
@@ -11180,6 +12533,8 @@ namespace TestFunctions {
 
         result = _(object).chain().functions();
     }
+
+    fp.functions(object); // $ExpectType string[]
 }
 
 // _.functionsIn
@@ -11205,6 +12560,8 @@ namespace TestFunctionsIn {
 
         result = _(object).chain().functionsIn();
     }
+
+    fp.functionsIn(object); // $ExpectType string[]
 }
 
 // _.get
@@ -11311,6 +12668,20 @@ namespace TestGet {
         result = _({a: true}).chain().get(['a']);
         result = _({a: true}).chain().get(['a'], false);
     }
+
+    fp.get(Symbol.iterator, []); // $ExpectType any
+    fp.get(Symbol.iterator)([]); // $ExpectType any
+    fp.get([Symbol.iterator], []); // $ExpectType any
+    fp.get(1)("abc"); // $ExpectType string
+    fp.get("1")("abc"); // $ExpectType any
+    fp.get("a", { a: { b: true } }); // $ExpectType { b: boolean; }
+    fp.get<{ a: { b: boolean } }, "a">("a")({ a: { b: true } }); // $ExpectType { b: boolean; }
+    fp.get(["a", "b"])({ a: { b: true } }); // $ExpectType any
+    fp.get(0)([42]); // $ExpectType number
+
+    fp.getOr(-1, 0, [42]); // $ExpectType number
+    fp.getOr(-1)(0)([42]); // $ExpectType number
+    fp.getOr("empty" as "empty")(0)([42]); // $ExpectType number | "empty"
 }
 
 // _.has
@@ -11338,6 +12709,10 @@ namespace TestHas {
         result = _(object).chain().has(42);
         result = _(object).chain().has(['', 42]);
     }
+
+    fp.has("a", object); // $ExpectType boolean
+    fp.has("a")(object); // $ExpectType boolean
+    fp.has(["a", 42])(object); // $ExpectType boolean
 }
 
 // _.hasIn
@@ -11365,6 +12740,10 @@ namespace TestHasIn {
         result = _(object).chain().hasIn(42);
         result = _(object).chain().hasIn(['', 42]);
     }
+
+    fp.hasIn("a", object); // $ExpectType boolean
+    fp.hasIn("a")(object); // $ExpectType boolean
+    fp.hasIn(["a", 42])(object); // $ExpectType boolean
 }
 
 // _.invert
@@ -11386,6 +12765,8 @@ namespace TestInvert {
 
         result = _({}).chain().invert();
     }
+
+    fp.invert({}); // $ExpectType Dictionary<string>
 }
 
 // _.invertBy
@@ -11481,6 +12862,18 @@ namespace TestInvertBy {
         result = _(numericDictionary).chain().invertBy(numericDictionaryIterator);
         result = _(numericDictionary).chain().invertBy<{a: number;}>({a: 1});
     }
+
+    fp.invertBy(stringIterator, "foo"); // $ExpectType Dictionary<string[]>
+    fp.invertBy(stringIterator)("foo"); // $ExpectType Dictionary<string[]>
+    fp.invertBy(listIterator)(list); // $ExpectType Dictionary<string[]>
+    fp.invertBy("a")(list); // $ExpectType Dictionary<string[]>
+    fp.invertBy({ a: 1 })(list); // $ExpectType Dictionary<string[]>
+    fp.invertBy(listIterator)(dictionary); // $ExpectType Dictionary<string[]>
+    fp.invertBy("a")(dictionary); // $ExpectType Dictionary<string[]>
+    fp.invertBy({ a: 1 })(dictionary); // $ExpectType Dictionary<string[]>
+    fp.invertBy(listIterator)(numericDictionary); // $ExpectType Dictionary<string[]>
+    fp.invertBy("a")(numericDictionary); // $ExpectType Dictionary<string[]>
+    fp.invertBy({ a: 1 })(numericDictionary); // $ExpectType Dictionary<string[]>
 }
 
 // _.keys
@@ -11504,6 +12897,8 @@ namespace TestKeys {
 
         result = _(object).chain().keys();
     }
+
+    fp.keys({}); // $ExpectType string[]
 }
 
 // _.keysIn
@@ -11527,6 +12922,8 @@ namespace TestKeysIn {
 
         result = _(object).chain().keysIn();
     }
+
+    fp.keysIn({}); // $ExpectType string[]
 }
 
 // _.mapKeys
@@ -11594,6 +12991,14 @@ namespace TestMapKeys {
         result = _(dictionary).chain().mapKeys('');
         result = _(dictionary).chain().mapKeys({});
     }
+
+    const obj: AbcObject | null | undefined = anything;
+    const listIterator2 = (key: number) => "_" + key;
+    const dictionaryIterator2 = (key: string) => "_" + key;
+    fp.mapKeys(listIterator2, list); // $ExpectType Dictionary<AbcObject>
+    fp.mapKeys(listIterator2)(list); // $ExpectType Dictionary<AbcObject>
+    fp.mapKeys(dictionaryIterator2)(dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.mapKeys(dictionaryIterator2)(obj); // $ExpectType Dictionary<any>
 }
 
 // _.merge
@@ -11684,6 +13089,9 @@ namespace TestMerge {
 
         //result = _({ a: 1 }).chain().merge({ a: "string" }, { a: {} }, { a: [1] }, { a: true });
     }
+
+    fp.merge(mergingValue, initialValue); // $ExpectType { b: string; } & { a: number; }
+    fp.merge(mergingValue)(initialValue); // $ExpectType { b: string; } & { a: number; }
 }
 
 // _.mergeWith
@@ -11714,6 +13122,9 @@ namespace TestMergeWith {
     result = _(initialValue).mergeWith({}, {}, mergingValue, customizer).value();
     result = _(initialValue).mergeWith({}, {}, {}, mergingValue, customizer).value();
     result = _(initialValue).mergeWith({}, {}, {}, {}, mergingValue, customizer).value();
+
+    fp.mergeWith(customizer, mergingValue, initialValue); // $ExpectType { b: string; } & { a: number; }
+    fp.mergeWith(customizer)(mergingValue)(initialValue); // $ExpectType { b: string; } & { a: number; }
 }
 
 // _.omit
@@ -11750,6 +13161,10 @@ namespace TestOmit {
 
         dict = _(dict).chain().omit('a').value();
     }
+
+    fp.omit("a", obj); // $ExpectType Partial<AbcObject>
+    fp.omit("a")(obj); // $ExpectType Partial<AbcObject>
+    fp.omit(["a", "b"])(obj); // $ExpectType Partial<AbcObject>
 }
 
 // _.omitBy
@@ -11774,6 +13189,9 @@ namespace TestOmitBy {
 
         result = _(obj).chain().omitBy<AbcObject>(predicate);
     }
+
+    fp.omitBy(predicate, obj); // $ExpectType Partial<AbcObject>
+    fp.omitBy(predicate)(obj); // $ExpectType Partial<AbcObject>
 }
 
 // _.pick
@@ -11807,6 +13225,10 @@ namespace TestPick {
     _.chain(obj2).pick<AbcObject, "a" | "b">('a', 'b'); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
     _.chain(obj2).pick<AbcObject, "a" | "b">(literalsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
     _.chain(obj2).pick<AbcObject, "a" | "b">(roLiteralsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
+
+    fp.pick<AbcObject, "a">("a", obj2); // $ExpectType Pick<AbcObject, "a">
+    fp.pick<AbcObject, "a">("a")(obj2); // $ExpectType Pick<AbcObject, "a">
+    fp.pick<AbcObject, "a" | "b">(["a" as "a", "b" as "b"])(obj2); // $ExpectType Pick<AbcObject, "a" | "b">
 }
 
 // _.pickBy
@@ -11831,6 +13253,9 @@ namespace TestPickBy {
 
         result = _(obj).chain().pickBy<AbcObject>(predicate);
     }
+
+    fp.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
+    fp.pickBy(predicate)(obj); // $ExpectType Partial<AbcObject>
 }
 
 // _.result
@@ -11921,6 +13346,9 @@ namespace TestResult {
         result = _({a: true}).chain().result(['a'], false);
         result = _({a: true}).chain().result(['a'], () => false);
     }
+
+    fp.result<string>("0", "abc"); // $ExpectType string
+    fp.result("0")<string>("abc"); // $ExpectType string
 }
 
 // _.set
@@ -11951,6 +13379,11 @@ namespace TestSet {
         result = _(object).chain().set<SampleResult>('a.b[1]', value);
         result = _(object).chain().set<SampleResult>(['a', 'b', 1], value);
     }
+
+    fp.set("a", value, object); // $ExpectType SampleObject
+    fp.set("a")(value)(object); // $ExpectType SampleObject
+    fp.set("a.b[1]")(value)(object); // $ExpectType SampleObject
+    fp.set(["a", "b", 1])(value)(object); // $ExpectType SampleObject
 }
 
 // _.setWith
@@ -11987,6 +13420,11 @@ namespace TestSetWith {
         result = _(object).chain().setWith<SampleResult>(['a', 'b', 1], value);
         result = _(object).chain().setWith<SampleResult>(['a', 'b', 1], value, customizer);
     }
+
+    fp.setWith(customizer, "a", value, object); // $ExpectType SampleResult
+    fp.setWith(customizer)("a")(value)(object); // $ExpectType SampleResult
+    fp.setWith(customizer)("a.b[1]")(value)(object); // $ExpectType SampleResult
+    fp.setWith(customizer)(["a", "b", 1])(value)(object); // $ExpectType SampleResult
 }
 
 // _.toPairs
@@ -12010,6 +13448,9 @@ namespace TestToPairs {
 
         result = _(object).chain().toPairs();
     }
+
+    const object2: _.Dictionary<AbcObject> = {};
+    fp.toPairs(object2); // $ExpectType [string, AbcObject][]
 }
 
 // _.toPairsIn
@@ -12039,6 +13480,9 @@ namespace TestToPairsIn {
 
         result = _(object).chain().toPairsIn();
     }
+
+    const object2: _.Dictionary<AbcObject> = {};
+    fp.toPairsIn(object2); // $ExpectType [string, AbcObject][]
 }
 
 // _.transform
@@ -12093,6 +13537,23 @@ namespace TestTransform {
 
         result = _(dictionary).transform<number, AbcObject>(iterator, accumulator).value();
     }
+
+    {
+        const iterator = (acc: AbcObject[], curr: number): AbcObject => anything;
+        const accumulator: AbcObject[] = [];
+
+        fp.transform(iterator, accumulator, array); // $ExpectType AbcObject[]
+        fp.transform(iterator)(accumulator)(array); // $ExpectType AbcObject[]
+        fp.transform(iterator)(accumulator)(dictionary); // $ExpectType AbcObject[]
+    }
+
+    {
+        const iterator = (acc: _.Dictionary<AbcObject>, curr: number): AbcObject => anything;
+        const accumulator: _.Dictionary<AbcObject> = {};
+
+        fp.transform(iterator)(accumulator)(array); // $ExpectType Dictionary<AbcObject>
+        fp.transform(iterator)(accumulator)(dictionary); // $ExpectType Dictionary<AbcObject>
+    }
 }
 
 // _.unset
@@ -12121,6 +13582,10 @@ namespace TestUnset {
         result = _(object).chain().unset('a.b');
         result = _(object).chain().unset(['a', 'b']);
     }
+
+    fp.unset("a.b", object); // $ExpectType boolean
+    fp.unset("a.b")(object); // $ExpectType boolean
+    fp.unset(["a", "b"])(object); // $ExpectType boolean
 }
 
 // _.update
@@ -12150,6 +13615,9 @@ namespace TestUpdate {
         result = _(object).chain().update('a.b[1]', updater);
         result = _(object).chain().update(['a', 'b', 1], updater);
     }
+
+    fp.update("a.b[1]", updater, object); // $ExpectType any
+    fp.update(["a", "b", 1])(updater)(object); // $ExpectType any
 }
 
 // _.updateWith
@@ -12191,6 +13659,9 @@ namespace TestUpdateWith {
         result = _(object).chain().updateWith<SampleResult>(['a', 'b', 1], updater);
         result = _(object).chain().updateWith<SampleResult>(['a', 'b', 1], updater, customizer);
     }
+
+    fp.updateWith(customizer, "a.b[1]", updater, object); // $ExpectType SampleResult
+    fp.updateWith(customizer)(["a", "b", 1])(updater)(object); // $ExpectType SampleResult
 }
 
 // _.values
@@ -12320,6 +13791,23 @@ namespace TestValues {
         result = _(list).chain().values<SampleObject>();
         result = _(object).chain().values<SampleObject>();
     }
+
+    fp.values("hi"); // $ExpectType string[]
+    fp.values(["h", "i"]); // $ExpectType string[]
+    fp.values([1, 2]); // $ExpectType number[]
+    fp.values([true, false]); // $ExpectType boolean[]
+
+    {
+        const dict: _.Dictionary<AbcObject> = {};
+        const numDict: _.NumericDictionary<AbcObject> = {};
+        const list: ArrayLike<AbcObject> = [];
+        const object: AbcObject = anything;
+
+        fp.values(dict); // $ExpectType AbcObject[]
+        fp.values(numDict); // $ExpectType AbcObject[]
+        fp.values(list); // $ExpectType AbcObject[]
+        fp.values(object); // $ExpectType (string | number | boolean)[]
+    }
 }
 
 // _.valuesIn
@@ -12356,6 +13844,20 @@ namespace TestValuesIn {
 
         result = _(object).chain().valuesIn<AbcObject>();
     }
+
+    fp.valuesIn("hi"); // $ExpectType string[]
+    fp.valuesIn(["h", "i"]); // $ExpectType string[]
+    fp.valuesIn([1, 2]); // $ExpectType number[]
+    fp.valuesIn([true, false]); // $ExpectType boolean[]
+
+    const dict: _.Dictionary<AbcObject> = {};
+    const numDict: _.NumericDictionary<AbcObject> = {};
+    const list: ArrayLike<AbcObject> = [];
+    const object2: AbcObject = anything;
+    fp.valuesIn(dict); // $ExpectType AbcObject[]
+    fp.valuesIn(numDict); // $ExpectType AbcObject[]
+    fp.valuesIn(list); // $ExpectType AbcObject[]
+    fp.valuesIn(object2); // $ExpectType (string | number | boolean)[]
 }
 
 /**********
@@ -12376,6 +13878,8 @@ namespace TestCamelCase {
 
         result = _('Foo Bar').chain().camelCase();
     }
+
+    fp.camelCase("Foo Bar"); // $ExpectType string
 }
 
 // _.capitalize
@@ -12392,6 +13896,8 @@ namespace TestCapitalize {
 
         result = _('fred').chain().capitalize();
     }
+
+    fp.capitalize("fred"); // $ExpectType string
 }
 
 // _.deburr
@@ -12408,6 +13914,8 @@ namespace TestDeburr {
 
         result = _('déjà vu').chain().deburr();
     }
+
+    fp.deburr("déjà vu"); // $ExpectType string
 }
 
 // _.endsWith
@@ -12428,6 +13936,9 @@ namespace TestEndsWith {
         result = _('abc').chain().endsWith('c');
         result = _('abc').chain().endsWith('c', 1);
     }
+
+    fp.endsWith("c", "abc"); // $ExpectType boolean
+    fp.endsWith("c")("abc"); // $ExpectType boolean
 }
 
 // _.escape
@@ -12444,6 +13955,8 @@ namespace TestEscape {
 
         result = _('fred, barney, & pebbles').chain().escape();
     }
+
+    fp.escape("fred, barney, & pebbles"); // $ExpectType string
 }
 
 // _.escapeRegExp
@@ -12460,6 +13973,8 @@ namespace TestEscapeRegExp {
 
         result = _('[lodash](https://lodash.com/)').chain().escapeRegExp();
     }
+
+    fp.escapeRegExp("[lodash](https://lodash.com/)"); // $ExpectType string
 }
 
 // _.kebabCase
@@ -12476,6 +13991,8 @@ namespace TestKebabCase {
 
         result = _('Foo Bar').chain().kebabCase();
     }
+
+    fp.kebabCase("Foo Bar"); // $ExpectType string
 }
 
 // _.lowerCase
@@ -12492,6 +14009,8 @@ namespace TestLowerCase {
 
         result = _('Foo Bar').chain().lowerCase();
     }
+
+    fp.lowerCase("Foo Bar"); // $ExpectType string
 }
 
 // _.lowerFirst
@@ -12508,6 +14027,8 @@ namespace TestLowerFirst {
 
         result = _('Foo Bar').chain().lowerFirst();
     }
+
+    fp.lowerFirst("Foo Bar"); // $ExpectType string
 }
 
 // _.pad
@@ -12531,6 +14052,11 @@ namespace TestPad {
         result = _('abc').chain().pad(8);
         result = _('abc').chain().pad(8, '_-');
     }
+
+    fp.pad(8, "abc"); // $ExpectType string
+    fp.pad(8)("abc"); // $ExpectType string
+    fp.padChars("_", 8, "abc"); // $ExpectType string
+    fp.padChars("_")(8)("abc"); // $ExpectType string
 }
 
 // _.padEnd
@@ -12554,6 +14080,11 @@ namespace TestPadEnd {
         result = _('abc').chain().padEnd(6);
         result = _('abc').chain().padEnd(6, '_-');
     }
+
+    fp.padEnd(8, "abc"); // $ExpectType string
+    fp.padEnd(8)("abc"); // $ExpectType string
+    fp.padCharsEnd("_", 8, "abc"); // $ExpectType string
+    fp.padCharsEnd("_")(8)("abc"); // $ExpectType string
 }
 
 // _.padStart
@@ -12577,6 +14108,11 @@ namespace TestPadStart {
         result = _('abc').chain().padStart(6);
         result = _('abc').chain().padStart(6, '_-');
     }
+
+    fp.padStart(8, "abc"); // $ExpectType string
+    fp.padStart(8)("abc"); // $ExpectType string
+    fp.padCharsStart("_", 8, "abc"); // $ExpectType string
+    fp.padCharsStart("_")(8)("abc"); // $ExpectType string
 }
 
 // _.parseInt
@@ -12597,6 +14133,9 @@ namespace TestParseInt {
         result = _('08').chain().parseInt();
         result = _('08').chain().parseInt(10);
     }
+
+    fp.parseInt(10, "08"); // $ExpectType number
+    fp.parseInt(10)("08"); // $ExpectType number
 }
 
 // _.repeat
@@ -12616,6 +14155,8 @@ namespace TestRepeat {
         result = _('*').chain().repeat();
         result = _('*').chain().repeat(3);
     }
+
+    fp.repeat(3, "*"); // $ExpectType string
 }
 
 // _.replace
@@ -12665,6 +14206,12 @@ namespace TestReplace {
         result = _(/fred/i).chain().replace('Barney');
         result = _(/fred/i).chain().replace(replacer);
     }
+
+    fp.replace("Fred", "Barney", "Hi Fred"); // $ExpectType string
+    fp.replace("Fred")("Barney")("Hi Fred"); // $ExpectType string
+    fp.replace("Fred")(replacer)("Hi Fred"); // $ExpectType string
+    fp.replace(/fred/i)("Barney")("Hi Fred"); // $ExpectType string
+    fp.replace(/fred/i)(replacer)("Hi Fred"); // $ExpectType string
 }
 
 // _.snakeCase
@@ -12681,6 +14228,8 @@ namespace TestSnakeCase {
 
         result = _('Foo Bar').chain().snakeCase();
     }
+
+    fp.snakeCase("Foo Bar"); // $ExpectType string
 }
 
 // _.split
@@ -12709,6 +14258,9 @@ namespace TestSplit {
         result = _('a-b-c').chain().split('-', 2);
     }
 
+    fp.split("-", "a-b-c"); // $ExpectType string[]
+    fp.split("-")("a-b-c"); // $ExpectType string[]
+
     // $ExpectType string[][]
     _.map(['abc', 'def'], _.split);
 }
@@ -12727,6 +14279,8 @@ namespace TestStartCase {
 
         result = _('--foo-bar').chain().startCase();
     }
+
+    fp.startCase("--foo-bar"); // $ExpectType string
 }
 
 // _.startsWith
@@ -12747,6 +14301,9 @@ namespace TestStartsWith {
         result = _('abc').chain().startsWith('a');
         result = _('abc').chain().startsWith('a', 1);
     }
+
+    fp.startsWith("a", "abc"); // $ExpectType boolean
+    fp.startsWith("a")("abc"); // $ExpectType boolean
 }
 
 // _.template
@@ -12781,6 +14338,10 @@ namespace TestTemplate {
         result = _('').chain().template();
         result = _('').chain().template(options);
     }
+
+    const result = fp.template("");
+    result(); // $ExpectType string
+    result.source; // $ExpectType string
 }
 
 // _.toLower
@@ -12797,6 +14358,8 @@ namespace TestToLower {
 
         result = _('fred, barney, &amp; pebbles').chain().toLower();
     }
+
+    fp.toLower("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.toUpper
@@ -12813,6 +14376,8 @@ namespace TestToUpper {
 
         result = _('fred, barney, &amp; pebbles').chain().toUpper();
     }
+
+    fp.toUpper("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.trim
@@ -12834,6 +14399,10 @@ namespace TestTrim {
         result = _('-_-abc-_-').chain().trim();
         result = _('-_-abc-_-').chain().trim('_-');
     }
+
+    fp.trim("  abc  "); // $ExpectType string
+    fp.trimChars(" ", "  abc  "); // $ExpectType string
+    fp.trimChars(" ")("  abc  "); // $ExpectType string
 
     // $ExpectType string[]
     _.map(['  foo  ', '  bar  '], _.trim);
@@ -12858,6 +14427,10 @@ namespace TestTrimEnd {
         result = _('-_-abc-_-').chain().trimEnd();
         result = _('-_-abc-_-').chain().trimEnd('_-');
     }
+
+    fp.trimEnd("  abc  "); // $ExpectType string
+    fp.trimCharsEnd(" ", "  abc  "); // $ExpectType string
+    fp.trimCharsEnd(" ")("  abc  "); // $ExpectType string
 }
 
 // _.trimStart
@@ -12879,6 +14452,10 @@ namespace TestTrimStart {
         result = _('-_-abc-_-').chain().trimStart();
         result = _('-_-abc-_-').chain().trimStart('_-');
     }
+
+    fp.trimStart("  abc  "); // $ExpectType string
+    fp.trimCharsStart(" ", "  abc  "); // $ExpectType string
+    fp.trimCharsStart(" ")("  abc  "); // $ExpectType string
 }
 
 // _.truncate
@@ -12905,6 +14482,11 @@ namespace TestTruncate {
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'length': 24, 'separator': /,? +/ });
         result = _('hi-diddly-ho there, neighborino').chain().truncate({ 'omission': ' […]' });
     }
+
+    fp.truncate({ length: 24, separator: " " }, "hi-diddly-ho there, neighborino"); // $ExpectType string
+    fp.truncate({ length: 24, separator: " " })("hi-diddly-ho there, neighborino"); // $ExpectType string
+    fp.truncate({ length: 24, separator: /,? +/ }, "hi-diddly-ho there, neighborino"); // $ExpectType string
+    fp.truncate({ omission: " […]" }, "hi-diddly-ho there, neighborino"); // $ExpectType string
 }
 
 // _.unescape
@@ -12921,6 +14503,8 @@ namespace TestUnescape {
 
         result = _('fred, barney, &amp; pebbles').chain().unescape();
     }
+
+    fp.unescape("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.upperCase
@@ -12937,6 +14521,8 @@ namespace TestUpperCase {
 
         result = _('fred, barney, &amp; pebbles').chain().upperCase();
     }
+
+    fp.upperCase("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.upperFirst
@@ -12953,6 +14539,8 @@ namespace TestUpperFirst {
 
         result = _('fred, barney, &amp; pebbles').chain().upperFirst();
     }
+
+    fp.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.words
@@ -12973,6 +14561,8 @@ namespace TestWords {
         result = _('fred, barney, & pebbles').chain().words();
         result = _('fred, barney, & pebbles').chain().words(/[^, ]+/g);
     }
+
+    fp.words("fred, barney, & pebbles"); // $ExpectType string[]
 
     // $ExpectType string[][]
     _.map(['fred, barney', 'pebbles'], _.words);
@@ -13001,6 +14591,8 @@ namespace TestAttempt {
         result = _(func).chain().attempt<{a: string}>();
         result = _(func).chain().attempt<{a: string}>('foo', 'bar', 'baz');
     }
+
+    fp.attempt(func); // $ExpectType Error | { a: string; }
 }
 
 // _.cond
@@ -13015,6 +14607,8 @@ namespace TestCond {
 
         result = _.cond([[pairPred1, pairRes1],[pairPred2, pairRes2]])('hello');
     }
+
+    fp.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
 }
 
 // _.constant
@@ -13093,6 +14687,12 @@ namespace TestConstant {
         let result: _.LoDashExplicitObjectWrapper<() => {a: string}>;
         result = _({a: 'a'}).chain().constant();
     }
+
+    fp.constant(42); // $ExpectType () => number
+    fp.constant("a"); // $ExpectType () => string
+    fp.constant(true); // $ExpectType () => boolean
+    fp.constant<string[]>(["a"]); // $ExpectType () => string[]
+    fp.constant<{a: string}>({a: "a"}); // $ExpectType () => { a: string; }
 }
 
 // _.defaultTo
@@ -13203,6 +14803,16 @@ namespace TestDefaultTo {
         result = _(undefined).chain().defaultTo({a : 'a'});
         result = _(null).chain().defaultTo({a : 'a'});
     }
+
+    const n: number = anything;
+    fp.defaultTo(42, n); // $ExpectType number
+    fp.defaultTo(42)(n); // $ExpectType number
+    fp.defaultTo(42)(undefined); // $ExpectType number
+    fp.defaultTo(42)(null); // $ExpectType number
+    fp.defaultTo(42)(NaN); // $ExpectType number
+
+    const arr: boolean[] | undefined = anything;
+    const result: boolean[] | "a" = fp.defaultTo("a", arr);
 }
 
 // _.identity
@@ -13251,6 +14861,10 @@ namespace TestIdentity {
         _.identity(input); // $ExpectType { a: number; } | null | undefined
         _.identity(); // $ExpectType undefined
     }
+
+    fp.identity(42); // $ExpectType 42
+    fp.identity([42]); // $ExpectType number[]
+    fp.identity({ a: "b" }); // $ExpectType { a: string; }
 }
 
 // _.iteratee
@@ -13310,6 +14924,12 @@ namespace TestIteratee {
 
         result = _({}).chain().iteratee();
     }
+
+    fp.iteratee((...args: any[]): AbcObject => anything); // $ExpectType (...args: any[]) => AbcObject
+    fp.iteratee((a: AbcObject): boolean => anything); // $ExpectType (a: AbcObject) => boolean
+    fp.iteratee((a: AbcObject | undefined): a is undefined => anything); // $ExpectType (a: AbcObject | undefined) => a is undefined
+    fp.iteratee(""); // $ExpectType (...args: any[]) => any
+    fp.iteratee({}); // $ExpectType (...args: any[]) => any
 }
 
 // _.matches
@@ -13335,6 +14955,9 @@ namespace TestMatches {
         let result: _.LoDashExplicitObjectWrapper<(value: AbcObject) => boolean>;
         result = _(source).chain().matches<AbcObject>();
     }
+
+    fp.matches(source, {}); // $ExpectType boolean
+    fp.matches(source)({}); // $ExpectType boolean
 }
 
 // _.matchesProperty
@@ -13377,6 +15000,8 @@ namespace TestMatches {
 
         result = _(path).chain().matchesProperty<AbcObject, AbcObject>(source);
     }
+
+    fp.matchesProperty(path, source); // $ExpectType (value: any) => boolean
 }
 
 // _.method
@@ -13462,6 +15087,10 @@ namespace TestMethod {
         result = _(['a', 0]).chain().method(anything, anything);
         result = _(['a', 0]).chain().method(anything, anything, anything);
     }
+
+    fp.method("a.0"); // $ExpectType (object: any) => any
+    fp.method(["a", 0]); // $ExpectType (object: any) => any
+    fp.method(Symbol.replace); // $ExpectType (object: any) => any
 }
 
 // _.methodOf
@@ -13497,6 +15126,8 @@ namespace TestMethodOf {
         result = _(object).chain().methodOf(anything, anything);
         result = _(object).chain().methodOf(anything, anything, anything);
     }
+
+    fp.methodOf(object); // $ExpectType (path: Many<PropertyName>) => any
 }
 
 // _.mixin
@@ -13566,6 +15197,8 @@ namespace TestNoConflict {
         result = _<any>([]).chain().noConflict();
         result = _({}).chain().noConflict();
     }
+
+    fp.noConflict(); // $ExpectType LoDashStatic
 }
 
 // _.noop
@@ -13594,6 +15227,11 @@ namespace TestNoop {
         result = _({}).chain().noop(true, 'a', 1);
         result = _(anything).chain().noop(true, 'a', 1);
     }
+
+    fp.noop(); // $ExpectType void
+    fp.noop(1); // $ExpectType void
+    fp.noop("a", 1); // $ExpectType void
+    fp.noop(true, "a", 1); // $ExpectType void
 }
 
 namespace TestNthArg {
@@ -13617,6 +15255,8 @@ namespace TestNthArg {
 
         result = _(1).chain().nthArg();
     }
+
+    fp.nthArg(1); // $ExpectType (...args: any[]) => any
 }
 
 // _.over
@@ -13647,6 +15287,9 @@ namespace TestOver {
         result = _([Math.max]).chain().over<number>();
         result = _([Math.max]).chain().over<number>([Math.min]);
     }
+
+    fp.over(Math.max); // $ExpectType (...args: any[]) => number[]
+    fp.over([Math.max, Math.min]); // $ExpectType (...args: any[]) => number[]
 }
 
 // _.overEvery
@@ -13677,6 +15320,9 @@ namespace TestOverEvery {
         result = _([Math.max]).chain().overEvery();
         result = _([Math.max]).chain().overEvery([(number) => true]);
     }
+
+    fp.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
+    fp.overEvery([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
 }
 
 // _.overSome
@@ -13707,6 +15353,9 @@ namespace TestOverSome {
         result = _([Math.max]).chain().overSome();
         result = _([Math.max]).chain().overSome([(n: number) => true]);
     }
+
+    fp.overSome((number: number) => true); // $ExpectType (...args: number[]) => boolean
+    fp.overSome([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
 }
 
 // _.property
@@ -13737,6 +15386,10 @@ namespace TestProperty {
         result = _('a.b[0]').chain().property<SampleObject, number>();
         result = _(['a', 'b', 0]).chain().property<SampleObject, number>();
     }
+
+    fp.property(Symbol.iterator)([]); // $ExpectType any
+    fp.property([Symbol.iterator], []); // $ExpectType any
+    fp.property(1)("abc"); // $ExpectType string
 }
 
 // _.propertyOf
@@ -13767,6 +15420,10 @@ namespace TestPropertyOf {
 
         result = _({}).chain().propertyOf();
     }
+
+    fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
+    fp.propertyOf([Symbol.iterator], []); // $ExpectType any
+    fp.propertyOf(1)("abc"); // $ExpectType string
 }
 
 // _.range
@@ -13794,6 +15451,9 @@ namespace TestRange {
         result = _(1).chain().range(11);
         result = _(0).chain().range(30, 5);
     }
+
+    fp.range(1, 11); // $ExpectType number[]
+    fp.range(1)(11); // $ExpectType number[]
 
     // $ExpectType number[][]
     _.map([5, 5], _.range);
@@ -13825,6 +15485,9 @@ namespace TestRangeRight {
         result = _(0).chain().rangeRight(30, 5);
     }
 
+    fp.rangeRight(1, 11); // $ExpectType number[]
+    fp.rangeRight(1)(11); // $ExpectType number[]
+
     // $ExpectType number[][]
     _.map([5, 5], _.rangeRight);
 }
@@ -13835,6 +15498,7 @@ namespace TestRangeRight {
     result = _.runInContext();
     result = _.runInContext({});
     result = _({}).runInContext();
+    fp.runInContext({}); // $ExpectType LoDashStatic
 }
 
 // _.stubArray
@@ -13855,6 +15519,8 @@ namespace TestRangeRight {
         result = _({}).chain().stubArray();
         result = _(anything).chain().stubArray();
     }
+
+    fp.stubArray(); // $ExpectType any[]
 }
 
 // _.stubFalse
@@ -13875,6 +15541,8 @@ namespace TestRangeRight {
         result = _({}).chain().stubFalse();
         result = _(anything).chain().stubFalse();
     }
+
+    fp.stubFalse(); // $ExpectType boolean
 }
 
 // _.stubObject
@@ -13895,6 +15563,8 @@ namespace TestRangeRight {
         result = _({}).chain().stubObject();
         result = _(anything).chain().stubObject();
     }
+
+    fp.stubObject(); // $ExpectType any
 }
 
 // _.stubString
@@ -13915,6 +15585,8 @@ namespace TestRangeRight {
         result = _({}).chain().stubString();
         result = _(anything).chain().stubString();
     }
+
+    fp.stubString(); // $ExpectType string
 }
 
 // _.stubTrue
@@ -13935,6 +15607,8 @@ namespace TestRangeRight {
         result = _({}).chain().stubTrue();
         result = _(anything).chain().stubTrue();
     }
+
+    fp.stubTrue(); // $ExpectType boolean
 }
 
 // _.times
@@ -13966,6 +15640,9 @@ namespace TestTimes {
 
         result = _(42).chain().times(iteratee);
     }
+
+    fp.times(iteratee, 42); // $ExpectType AbcObject[]
+    fp.times(iteratee)(42); // $ExpectType AbcObject[]
 }
 
 // _.toPath
@@ -13989,6 +15666,12 @@ namespace TestToPath {
        result = _(["a"]).toPath();
        result = _({}).toPath();
    }
+
+   fp.toPath(true); // $ExpectType string[]
+   fp.toPath(1); // $ExpectType string[]
+   fp.toPath("a"); // $ExpectType string[]
+   fp.toPath(["a"]); // $ExpectType string[]
+   fp.toPath({}); // $ExpectType string[]
 }
 
 // _.uniqueId
@@ -14007,6 +15690,8 @@ namespace TestUniqueId {
 
         result = _('').chain().uniqueId();
     }
+
+    fp.uniqueId(""); // $ExpectType string
 }
 
 _.VERSION; // $ExpectType string
@@ -14125,4 +15810,10 @@ _.templateSettings; // $ExpectType TemplateSettings
     res_2__ = _.partialRight(func4, 42,     _, true, 100);
     res1___ = _.partialRight(func4,     "foo", true, 100);
     res____ = _.partialRight(func4, 42, "foo", true, 100);
+
+    fp.partial([], func0); // $ExpectType (...args: any[]) => any
+    fp.partial([])(func0); // $ExpectType (...args: any[]) => any
+    fp.partial([42])(func1); // $ExpectType (...args: any[]) => any
+    fp.partialRight([])(func0); // $ExpectType (...args: any[]) => any
+    fp.partialRight([42])(func1); // $ExpectType (...args: any[]) => any
 }

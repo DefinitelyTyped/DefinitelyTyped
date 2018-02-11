@@ -130,5 +130,4 @@ interface CurryRight1x1 {
 }
 
 declare const curryRightN: CurryRight;
-declare namespace curryRightN {}
 export = curryRightN;

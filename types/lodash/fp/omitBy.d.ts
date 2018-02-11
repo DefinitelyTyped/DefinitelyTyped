@@ -95,5 +95,4 @@ interface OmitBy1x1<T> {
 }
 
 declare const omitBy: OmitBy;
-declare namespace omitBy {}
 export = omitBy;

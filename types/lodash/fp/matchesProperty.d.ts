@@ -87,5 +87,4 @@ interface MatchesProperty1x1 {
 }
 
 declare const matchesProperty: MatchesProperty;
-declare namespace matchesProperty {}
 export = matchesProperty;

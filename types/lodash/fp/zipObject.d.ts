@@ -55,5 +55,4 @@ interface ZipObject1x1 {
 }
 
 declare const zipObject: ZipObject;
-declare namespace zipObject {}
 export = zipObject;

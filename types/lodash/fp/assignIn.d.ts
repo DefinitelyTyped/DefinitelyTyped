@@ -148,5 +148,4 @@ interface AssignIn1x1<TObject> {
 }
 
 declare const assignIn: AssignIn;
-declare namespace assignIn {}
 export = assignIn;

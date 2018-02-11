@@ -173,5 +173,4 @@ interface RangeRight1x1 {
 }
 
 declare const rangeRight: RangeRight;
-declare namespace rangeRight {}
 export = rangeRight;

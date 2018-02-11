@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type ToLength = 
+type ToLength =
     /**
      * Converts `value` to an integer suitable for use as the length of an
      * array-like object.
@@ -29,5 +29,4 @@ type ToLength =
     (value: any) => number;
 
 declare const toLength: ToLength;
-declare namespace toLength {}
 export = toLength;

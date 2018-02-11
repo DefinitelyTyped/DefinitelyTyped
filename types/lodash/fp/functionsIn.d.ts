@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type FunctionsIn = 
+type FunctionsIn =
     /**
      * Creates an array of function property names from own and inherited
      * enumerable properties of `object`.
@@ -25,5 +25,4 @@ type FunctionsIn =
     (object: any) => string[];
 
 declare const functionsIn: FunctionsIn;
-declare namespace functionsIn {}
 export = functionsIn;

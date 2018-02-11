@@ -2,7 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
-type IsElement = 
+type IsElement =
     /**
      * Checks if value is a DOM element.
      *
@@ -12,5 +12,4 @@ type IsElement =
     (value: any) => boolean;
 
 declare const isElement: IsElement;
-declare namespace isElement {}
 export = isElement;
