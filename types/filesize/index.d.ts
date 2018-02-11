@@ -1,6 +1,7 @@
-// Type definitions for filesize 3.2.1
+// Type definitions for filesize 3.6.0
 // Project: https://github.com/avoidwork/filesize.js
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Renaud Chaput <https://github.com/renchap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var fileSize: Filesize.IFilesize;
@@ -37,46 +38,63 @@ declare namespace Filesize {
 
     export interface Options {
         /**
+        * Number base, default is 2
+        */
+        base?: number;
+        /**
         * Enables bit sizes, default is false
         */
         bits?: boolean;
         /**
-        * Number base, default is 2
+        * Specifies the SI suffix via exponent, e.g. 2 is MB for bytes, default is -1
         */
-        base?: number;
+        exponent?: number;
+        /**
+        * Enables full form of unit of measure, default is false
+        */
+        fullform?: boolean;
+        /**
+        * Array of full form overrides, default is []
+        */
+        fullforms?: string[];
+        /**
+        * Output of function (array, exponent, object, or string), default is string
+        */
+        output?: "array" | "exponent" | "object" | "string";
         /**
         * Decimal place, default is 2
         */
         round?: number;
         /**
-        * Output of function (array, exponent, object, or string), default is string
+        * Decimal separator character, default is .
         */
-        output?: string;
+        separator?: string;
+        /**
+        * Character between the result and suffix, default is " "
+        */
+        spacer?: string;
+        /*
+        * Standard unit of measure, can be iec or jedec, default is jedec; can be overruled by base
+        */
+        standard?: "iec" | "jedec"
+        /**
+        * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
+        */
+        symbols?: SiJedec;
         /**
         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
         * @deprecated: use 'symbols'
         */
         suffixes?: SiJedec;
         /**
-        * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
-        */
-        symbols?: SiJedec;
-        /**
-        * Specifies the SI suffix via exponent, e.g. 2 is MB for bytes, default is -1
-        */
-        exponent?: number;
-        /**
         *  Enables unix style human readable output, e.g ls -lh, default is false
         */
         unix?: boolean;
-        /**
-        * Character between the result and suffix, default is " "
-        */
-        spacer?: string;
     }
 
     export interface IFilesize {
         (bytes: number): string;
         (bytes: number, options: Options): string;
+        partial: (options: Options) => ((bytes: number) => string)
     }
 }
