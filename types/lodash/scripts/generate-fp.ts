@@ -30,7 +30,7 @@ interface TypeParam {
 }
 
 async function main() {
-    const common = await readFile("../common/common.d.ts");
+    const common = await readFile(path.join("..", "common", "common.d.ts"));
     const commonTypes: string[] = [];
     const typeRegExp = /    (?:type|interface) +([A-Za-z0-9]+)/g;
     let match = typeRegExp.exec(common);
@@ -100,6 +100,24 @@ declare global {
     fs.writeFile(path.join("..", "fp.d.ts"), fpFile, (err) => {
         if (err)
             console.error("Failed to write fp.d.ts: ", err);
+    });
+
+    // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
+    const tsconfigPath = path.join("..", "tsconfig.json");
+    const tsconfigFile = await readFile(tsconfigPath);
+    const lineBreakType = _.find(["\r\n", "\n", "\r"], x => tsconfigFile.includes(x)) || "\n";
+    const tsconfig = tsconfigFile.split(lineBreakType).filter(row => !row.includes("fp/"));
+    const newLines = functionNames.map(f => `        "fp/${f}.d.ts",`);
+    newLines[newLines.length - 1] = newLines[newLines.length - 1].replace(",", "");
+
+    const insertIndex = _.findLastIndex(tsconfig, row => row.trim() === "]"); // Assume "files" is the last array
+    if (!tsconfig[insertIndex - 1].endsWith(","))
+        tsconfig[insertIndex - 1] += ",";
+    tsconfig.splice(insertIndex, 0, ...newLines);
+
+    fs.writeFile(tsconfigPath, tsconfig.join(lineBreakType), (err) => {
+        if (err)
+            console.error(`Failed to write ${tsconfigPath}: `, err);
     });
 }
 
