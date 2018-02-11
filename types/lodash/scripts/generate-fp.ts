@@ -68,7 +68,7 @@ async function main() {
         console.error("Failed to parse all functions: ", err);
         return;
     }
-    functionNames = _.sortedUniq(_.sortBy(functionNames));
+    functionNames = _.sortedUniq(_.sortBy(functionNames, _.toLower));
     const fpFile =
 `// AUTO-GENERATED: do not modify this file directly.
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
@@ -106,14 +106,14 @@ declare global {
     const tsconfigPath = path.join("..", "tsconfig.json");
     const tsconfigFile = await readFile(tsconfigPath);
     const lineBreakType = _.find(["\r\n", "\n", "\r"], x => tsconfigFile.includes(x)) || "\n";
-    const tsconfig = tsconfigFile.split(lineBreakType).filter(row => !row.includes("fp/"));
-    const newLines = functionNames.map(f => `        "fp/${f}.d.ts",`);
-    newLines[newLines.length - 1] = newLines[newLines.length - 1].replace(",", "");
+    const tsconfig = tsconfigFile.split(lineBreakType).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
+    const newRows = functionNames.map(f => `        "fp/${f}.d.ts",`);
+    newRows[newRows.length - 1] = newRows[newRows.length - 1].replace(",", "");
 
     const insertIndex = _.findLastIndex(tsconfig, row => row.trim() === "]"); // Assume "files" is the last array
     if (!tsconfig[insertIndex - 1].endsWith(","))
         tsconfig[insertIndex - 1] += ",";
-    tsconfig.splice(insertIndex, 0, ...newLines);
+    tsconfig.splice(insertIndex, 0, ...newRows);
 
     fs.writeFile(tsconfigPath, tsconfig.join(lineBreakType), (err) => {
         if (err)
