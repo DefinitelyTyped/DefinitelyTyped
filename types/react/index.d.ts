@@ -15,7 +15,7 @@
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /*
 Known Problems & Workarounds
