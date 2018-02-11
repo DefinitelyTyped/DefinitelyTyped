@@ -1354,4 +1354,22 @@ namespace utilTests {
         match.resizeCache(10050);
         { const a: object = match.getCache(); }
     }
+
+    namespace iconv {
+        const {
+            iconv
+        } = util;
+
+        let str: string;
+        let buf: Buffer;
+        let bool: boolean;
+
+        str = iconv.decode(Buffer.from("hello"), "CP1251");
+        str = iconv.decode(Buffer.from("hello"), "CP1251", {});
+
+        buf = iconv.encode("привет", "CP1251");
+        buf = iconv.encode("привет", "CP1251", {});
+
+        bool = iconv.encodingExists("cp1251");
+    }
 }
