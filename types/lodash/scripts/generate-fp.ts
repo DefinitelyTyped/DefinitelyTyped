@@ -58,7 +58,7 @@ async function main() {
                     reject(e);
                 }
             });
-        }))
+        }));
     }
 
     let functionNames: string[];
@@ -164,13 +164,13 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     }
 
     // Use convert() to tell us how functions will be rearged and aliased
-    let builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
+    const builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
     _.defaults(builderFp, unconvertedBuilder);
 
-    let functionNames = Object.keys(builderFp).filter(key => key !== "convert" && typeof builderFp[key] === "function");
+    const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && typeof builderFp[key] === "function");
     for (const functionName of functionNames) {
         // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
-        let outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3], [4]);
+        const outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3], [4]);
         const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
         commonTypeSearch.lastIndex;
         let importCommon = false;
@@ -194,7 +194,7 @@ ${output}
 
 declare const ${functionName}: ${interfaceName};
 export = ${functionName};
-`
+`;
         const targetFile = `../fp/${functionName}.d.ts`;
         fs.writeFile(targetFile, output, (err) => {
             if (err)
@@ -350,7 +350,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         if (spreadIndex === arity - 1) {
             // cases 1-2
             for (let i = 0; i < overloads.length; ++i) {
-                const overload = overloads[i]
+                const overload = overloads[i];
                 if (overload.params.length === arity && overload.params[spreadIndex] && overload.params[spreadIndex].startsWith("...")) {
                     overload.params[spreadIndex] = overload.params[spreadIndex].replace("...", "");
                 } else if (overload.params.length === arity + 1 && overload.params[spreadIndex + 1] && overload.params[spreadIndex + 1].startsWith("...")) {
@@ -385,7 +385,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         filteredOverloads = overloads.filter(o => o.params.length >= arity && o.params.slice(arity).every(p => p.includes("?") || p.startsWith("..."))
             && o.params.every(p => !p.startsWith("guard:")));
     if (filteredOverloads.length === 0)
-        filteredOverloads = overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("..."))
+        filteredOverloads = overloads.filter(o => o.params.length > 0 && o.params.length <= arity + 1 && o.params[o.params.length - 1].startsWith("..."));
     if (filteredOverloads.length === 0)
         console.warn(`No matching overloads found for ${functionName} with arity ${arity}`);
 
@@ -429,7 +429,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         const returnInterface = interfaces.find(i => new RegExp(`\\b${i.name}\\b`).test(overload.returnType));
         for (const otherOverload of others) {
             for (let i = 0; i < overload.params.length; ++i) {
-                const paramNames = _.uniq(others.concat(overload).map(o => getParamName(o.params[i])));
+                const paramNames = _.uniq([overload].concat(others).map(o => getParamName(o.params[i])));
                 if (paramNames.length > 1) {
                     // Some param names are different. Merge them.
                     const paramType = getParamType(overload.params[i]);
@@ -455,15 +455,18 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         }
         _.pull(mainInterface.overloads, ...others);
     }
+    for (const interfaceDef of interfaces)
+        interfaceDef.overloads = mergeSimilarOverloads(interfaceDef.overloads);
     return interfaces;
 }
 
 function getParamName(param: string) {
-    return param.split(":")[0];
+    return param.split(":", 1)[0];
 }
 
 function getParamType(param: string) {
-    return param.split(":")[1] || "any";
+    const index = param.indexOf(":");
+    return index !== -1 ? param.substring(index + 1).trim() : "any";
 }
 
 function preProcessOverload(overload: Overload, functionName: string, arity: number): void {
@@ -518,7 +521,6 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
     let baseName = _.upperFirst(functionName);
     if (baseName === "Pick") // A type called "Pick" already exists, so rename to avoid conflicts
         baseName = "Lodash" + baseName;
-    let output = "";
     if (overload.params.length <= 1) {
         // Functions with 0 or 1 arguments are not curried. Just use a basic function type.
         return [{
@@ -589,10 +591,6 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
                                     .replace(new RegExp(typeParamSearch, "g"), replacement)
                                     .replace(new RegExp(`\\bArray<${fixTypeParam.name}\\[keyof ${fixTypeParam.name}]>`, "g"), fixTypeParam.name + "[]")
                                     .replace(new RegExp(`\\b${fixTypeParam.name}\\[keyof ${fixTypeParam.name}]`, "g"), fixTypeParam.name);
-                                /*const test = `Array<${fixTypeParam.name}[keyof ${fixTypeParam.name}]>`;
-                                if (fixOverload.returnType === test)
-                                    fixTypeParam.name + "[]"
-                                fixOverload.returnType = */
                             }
                         }
                     }
@@ -645,6 +643,45 @@ function mergeInterfaces(interfaces: Interface[]): void {
     if (!mainInterface)
         return;
     mainInterface.overloads = _.uniqWith(_.flatMap(interfaces, i => i.overloads), _.isEqual);
+}
+
+function mergeSimilarOverloads(overloads: Overload[]): Overload[] {
+    const newOverloads = _.cloneDeep(overloads);
+    for (const overload of newOverloads) {
+        // We can merge if all param types are the same except one, and the return types are the same.
+        const others = newOverloads.filter(o2 => o2 !== overload
+            && _.isEqual(overload.typeParams, o2.typeParams)
+            && overload.params.length === o2.params.length
+            && overload.params.length >= 1
+            && overload.params.filter((p, i) => getParamType(p) !== getParamType(o2.params[i])).length <= 1
+            && overload.returnType === o2.returnType);
+        if (_.isEmpty(others))
+            continue;
+
+        const differingParamIndexes = _(others)
+            .map(o2 => overload.params.findIndex((p, i) => getParamType(p) !== getParamType(o2.params[i])))
+            .filter(i => i !== -1)
+            .uniq()
+            .value();
+        if (differingParamIndexes.length > 1)
+            continue; // Only one param is different, but it's a different param for some overloads, so we can't merge
+        for (let i = 0; i < overload.params.length; ++i) {
+            const similarOverloads = [overload].concat(others);
+            const paramNames = _.uniq(similarOverloads.map(o => getParamName(o.params[i])));
+            const newParamName = (paramNames.length > 1) ? `${paramNames[0]}Or${paramNames.slice(1).map(_.upperFirst).join("Or")}` : paramNames[0];
+
+            const newParamType = _(similarOverloads)
+                .map(o => o.params[i])
+                .flatMap(p => getParamType(p).split("|"))
+                .map(_.trim)
+                .uniq()
+                .sortBy(type => type === "undefined" ? 2 : (type === "null" ? 1 : 0))
+                .join(" | ");
+            overload.params[i] = `${newParamName}: ${newParamType}`;
+        }
+        _.pull(newOverloads, ...others);
+    }
+    return newOverloads;
 }
 
 function getInterfaceName(baseName: string, overloadId: number, index: number, typeParams: TypeParam[]): string {

@@ -314,26 +314,7 @@ interface Filter3x1<T> {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    (collection: _.List<T> | null | undefined): T[];
-    /**
-     * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
-     * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
-     *
-     * If a property name is provided for predicate the created _.property style callback returns the property
-     * value of the given element.
-     *
-     * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-     * elements that have a matching property value, else false.
-     *
-     * If an object is provided for predicate the created _.matches style callback returns true for elements that
-     * have the properties of the given object, else false.
-     *
-     * @param collection The collection to iterate over.
-     * @param predicate The function invoked per iteration.
-     * @param thisArg The this binding of predicate.
-     * @return Returns the new filtered array.
-     */
-    (collection: object | null | undefined): T[];
+    (collection: _.List<T> | object | null | undefined): T[];
 }
 interface Filter4x1<T extends object, S extends T[keyof T]> {
     /**

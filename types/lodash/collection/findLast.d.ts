@@ -8,7 +8,7 @@ declare module "../index" {
         * @param predicate The function called per iteration.
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
-        **/
+        */
         findLast<T, S extends T>(
             collection: List<T> | null | undefined,
             predicate: ListIteratorTypeGuard<T, S>,

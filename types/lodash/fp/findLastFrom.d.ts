@@ -181,25 +181,7 @@ interface FindLast2x1<T> {
     * @param fromIndex The index to search from.
     * @return The found element, else undefined.
     **/
-    (fromIndex: number, collection: _.List<T> | null | undefined): T|undefined;
-    /**
-    * This method is like _.find except that it iterates over elements of a collection from
-    * right to left.
-    * @param collection Searches for a value in this list.
-    * @param predicate The function called per iteration.
-    * @param fromIndex The index to search from.
-    * @return The found element, else undefined.
-    **/
-    (fromIndex: number): FindLast2x2<T>;
-    /**
-    * This method is like _.find except that it iterates over elements of a collection from
-    * right to left.
-    * @param collection Searches for a value in this list.
-    * @param predicate The function called per iteration.
-    * @param fromIndex The index to search from.
-    * @return The found element, else undefined.
-    **/
-    (fromIndex: number, collection: object | null | undefined): T|undefined;
+    (fromIndex: number, collection: _.List<T> | object | null | undefined): T|undefined;
 }
 interface FindLast2x2<T> {
     /**
@@ -219,16 +201,7 @@ interface FindLast2x2<T> {
     * @param fromIndex The index to search from.
     * @return The found element, else undefined.
     **/
-    (collection: _.List<T> | null | undefined): T|undefined;
-    /**
-    * This method is like _.find except that it iterates over elements of a collection from
-    * right to left.
-    * @param collection Searches for a value in this list.
-    * @param predicate The function called per iteration.
-    * @param fromIndex The index to search from.
-    * @return The found element, else undefined.
-    **/
-    (collection: object | null | undefined): T|undefined;
+    (collection: _.List<T> | object | null | undefined): T|undefined;
 }
 interface FindLast3x1<T extends object, S extends T[keyof T]> {
     /**

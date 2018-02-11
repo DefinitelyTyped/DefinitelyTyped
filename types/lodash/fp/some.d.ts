@@ -31,7 +31,7 @@ interface Some {
      * @param predicate The function invoked per iteration.
      * @return Returns true if any element passes the predicate check, else false.
      */
-    <T>(predicate: _.ValueIterateeCustom<T, boolean>, collection: _.List<T> | null | undefined): boolean;
+    <T>(predicate: _.ValueIterateeCustom<T, boolean>, collection: _.List<T> | _.NumericDictionary<T> | null | undefined): boolean;
     /**
      * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
      * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
@@ -41,15 +41,6 @@ interface Some {
      * @return Returns true if any element passes the predicate check, else false.
      */
     <T extends object>(predicate: _.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): boolean;
-    /**
-     * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
-     * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
-     *
-     * @param collection The collection to iterate over.
-     * @param predicate The function invoked per iteration.
-     * @return Returns true if any element passes the predicate check, else false.
-     */
-    <T>(predicate: _.ValueIterateeCustom<T, boolean>, collection: _.NumericDictionary<T> | null | undefined): boolean;
 }
 interface Some1x1<T> {
     /**
@@ -69,25 +60,7 @@ interface Some1x1<T> {
      * @param predicate The function invoked per iteration.
      * @return Returns true if any element passes the predicate check, else false.
      */
-    (collection: _.List<T> | null | undefined): boolean;
-    /**
-     * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
-     * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
-     *
-     * @param collection The collection to iterate over.
-     * @param predicate The function invoked per iteration.
-     * @return Returns true if any element passes the predicate check, else false.
-     */
-    (collection: object | null | undefined): boolean;
-    /**
-     * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
-     * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
-     *
-     * @param collection The collection to iterate over.
-     * @param predicate The function invoked per iteration.
-     * @return Returns true if any element passes the predicate check, else false.
-     */
-    (collection: _.NumericDictionary<T> | null | undefined): boolean;
+    (collection: _.List<T> | object | _.NumericDictionary<T> | null | undefined): boolean;
 }
 
 declare const some: Some;

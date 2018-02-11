@@ -108,17 +108,7 @@ interface Reject2x1<T> {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    (collection: _.List<T> | null | undefined): T[];
-    /**
-     * The opposite of _.filter; this method returns the elements of collection that predicate does not return
-     * truthy for.
-     *
-     * @param collection The collection to iterate over.
-     * @param predicate The function invoked per iteration.
-     * @param thisArg The this binding of predicate.
-     * @return Returns the new filtered array.
-     */
-    (collection: object | null | undefined): T[];
+    (collection: _.List<T> | object | null | undefined): T[];
 }
 
 declare const reject: Reject;

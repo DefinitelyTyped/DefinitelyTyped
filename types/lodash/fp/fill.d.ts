@@ -138,30 +138,6 @@ interface Fill1x1 {
      * @param end The end position.
      * @return Returns array.
      */
-    (end: number): Fill1x2;
-    /**
-     * Fills elements of array with value from start up to, but not including, end.
-     *
-     * Note: This method mutates array.
-     *
-     * @param array The array to fill.
-     * @param value The value to fill array with.
-     * @param start The start position.
-     * @param end The end position.
-     * @return Returns array.
-     */
-    <T>(end: number, value: T): Fill1x3<T>;
-    /**
-     * Fills elements of array with value from start up to, but not including, end.
-     *
-     * Note: This method mutates array.
-     *
-     * @param array The array to fill.
-     * @param value The value to fill array with.
-     * @param start The start position.
-     * @param end The end position.
-     * @return Returns array.
-     */
     <T, U>(end: number, value: T, array: _.List<U> | null | undefined): _.List<T | U>;
 }
 interface Fill1x2 {
@@ -201,18 +177,6 @@ interface Fill1x2 {
      * @return Returns array.
      */
     <T, U>(value: T, array: U[] | null | undefined): Array<T | U>;
-    /**
-     * Fills elements of array with value from start up to, but not including, end.
-     *
-     * Note: This method mutates array.
-     *
-     * @param array The array to fill.
-     * @param value The value to fill array with.
-     * @param start The start position.
-     * @param end The end position.
-     * @return Returns array.
-     */
-    <T>(value: T): Fill1x3<T>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *

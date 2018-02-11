@@ -34,17 +34,7 @@ interface FlatMap {
      * @param iteratee The function invoked per iteration.
      * @return Returns the new flattened array.
      */
-    <T, TResult>(iteratee: (value: T) => _.Many<TResult>, collection: _.List<T> | null | undefined): TResult[];
-    /**
-     * Creates an array of flattened values by running each element in collection through iteratee
-     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
-     * (value, index|key, collection).
-     *
-     * @param collection The collection to iterate over.
-     * @param iteratee The function invoked per iteration.
-     * @return Returns the new flattened array.
-     */
-    <T, TResult>(iteratee: (value: T) => _.Many<TResult>, collection: _.NumericDictionary<T> | null | undefined): TResult[];
+    <T, TResult>(iteratee: (value: T) => _.Many<TResult>, collection: _.List<T> | _.NumericDictionary<T> | null | undefined): TResult[];
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
      * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
@@ -126,17 +116,7 @@ interface FlatMap1x1<T, TResult> {
      * @param iteratee The function invoked per iteration.
      * @return Returns the new flattened array.
      */
-    (collection: _.List<T> | null | undefined): TResult[];
-    /**
-     * Creates an array of flattened values by running each element in collection through iteratee
-     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
-     * (value, index|key, collection).
-     *
-     * @param collection The collection to iterate over.
-     * @param iteratee The function invoked per iteration.
-     * @return Returns the new flattened array.
-     */
-    (collection: _.NumericDictionary<T> | null | undefined): TResult[];
+    (collection: _.List<T> | _.NumericDictionary<T> | null | undefined): TResult[];
 }
 interface FlatMap3x1<T extends object, TResult> {
     /**

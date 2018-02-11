@@ -279,27 +279,6 @@ interface PullAllWith1x1<T> {
      * console.log(array);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
-    (values: _.List<T>): PullAllWith1x2<T>;
-    /**
-     * This method is like `_.pullAll` except that it accepts `comparator` which is
-     * invoked to compare elements of array to values. The comparator is invoked with
-     * two arguments: (arrVal, othVal).
-     *
-     * **Note:** Unlike `_.differenceWith`, this method mutates `array`.
-     *
-     * @category Array
-     * @param array The array to modify.
-     * @param values The values to remove.
-     * @param [iteratee=_.identity] The iteratee invoked per element.
-     * @returns Returns `array`.
-     * @example
-     *
-     * var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
-     *
-     * _.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
-     * console.log(array);
-     * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
-     */
     (values: _.List<T>, array: _.List<T>): _.List<T>;
 }
 interface PullAllWith1x2<T> {
@@ -431,27 +410,6 @@ interface PullAllWith3x1<T1, T2> {
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
     (values: _.List<T2>, array: ReadonlyArray<T1>): T1[];
-    /**
-     * This method is like `_.pullAll` except that it accepts `comparator` which is
-     * invoked to compare elements of array to values. The comparator is invoked with
-     * two arguments: (arrVal, othVal).
-     *
-     * **Note:** Unlike `_.differenceWith`, this method mutates `array`.
-     *
-     * @category Array
-     * @param array The array to modify.
-     * @param values The values to remove.
-     * @param [iteratee=_.identity] The iteratee invoked per element.
-     * @returns Returns `array`.
-     * @example
-     *
-     * var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
-     *
-     * _.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
-     * console.log(array);
-     * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
-     */
-    (values: _.List<T2>): PullAllWith3x2<T1>;
     /**
      * This method is like `_.pullAll` except that it accepts `comparator` which is
      * invoked to compare elements of array to values. The comparator is invoked with
