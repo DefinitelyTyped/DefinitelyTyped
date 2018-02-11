@@ -45,8 +45,6 @@ export namespace ReactStripeElements {
 	interface ElementProps extends ElementsOptions {
 		className?: string;
 
-		paymentRequest?: object;
-
 		elementRef?(): void;
 
 		onChange?(event: ElementChangeResponse): void;
