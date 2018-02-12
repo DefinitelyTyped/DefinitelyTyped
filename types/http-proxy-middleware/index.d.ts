@@ -43,7 +43,7 @@ declare namespace proxy {
     target?: string;
     forward?: string;
     agent?: http.Agent;
-    ssl?: tls.TlsOptions;
+    ssl?: tls.TlsServerOptions;
     ws?: boolean;
     xfwd?: boolean;
     secure?: boolean;

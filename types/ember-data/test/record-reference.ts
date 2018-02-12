@@ -7,7 +7,13 @@ class User extends DS.Model {
     username = DS.attr('string');
 }
 
-let userRef = store.getReference<User>('user', 1);
+declare module 'ember-data' {
+    interface ModelRegistry {
+        user: User;
+    }
+}
+
+let userRef = store.getReference('user', 1);
 
 // get the record of the reference (null if not yet available)
 let user = userRef.value();

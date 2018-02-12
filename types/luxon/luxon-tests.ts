@@ -78,6 +78,9 @@ i.toString();
 /* Info */
 Info.months();
 Info.weekdays('long');
+Info.features().intl;
+Info.features().intlTokens;
+Info.features().zones;
 
 /* Settings */
 Settings.defaultLocale;
