@@ -5,8 +5,8 @@ declare function it(desc: string, fn: () => void): void;
 
 describe("Stripe", () => {
     it("should excercise all Stripe API", () => {
-        const stripeInstance = Stripe('public-key');
-        const elements = stripeInstance.elements();
+        const stripe = Stripe('public-key');
+        const elements = stripe.elements();
         const style = {
             base: {
                 color: '#32325d',
@@ -31,7 +31,7 @@ describe("Stripe", () => {
         card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
             console.log(resp.brand);
         });
-        stripeInstance.createToken(card, {
+        stripe.createToken(card, {
             name: 'Jimmy',
             address_city: 'Toronto',
             address_country: 'Canada'
@@ -51,7 +51,7 @@ describe("Stripe", () => {
                 postal_code: 'XYZ'
             }
         };
-        stripeInstance.createSource(card, { owner: ownerInfo }).then(result => {
+        stripe.createSource(card, { owner: ownerInfo }).then(result => {
             if (result.error) {
                 // handle error
                 return Promise.resolve(null);
@@ -60,11 +60,11 @@ describe("Stripe", () => {
                 // handle error
                 return Promise.resolve(null);
             }
-            if (!result.source.card || result.source.card.three_d_secure === stripe.ThreeDSecureSupport.NotSupported) {
+            if (!result.source.card || result.source.card.three_d_secure === 'not_supported') {
                 // make regular payment...
                 return Promise.resolve(null);
             }
-            return stripeInstance.createSource({
+            return stripe.createSource({
                 type: 'three_d_secure',
                 amount: 100,
                 currency: 'usd',
@@ -101,7 +101,7 @@ describe("Stripe", () => {
         });
         card.destroy();
         // test payment request
-        const paymentRequest = stripeInstance.paymentRequest({
+        const paymentRequest = stripe.paymentRequest({
             country: 'US',
             currency: 'usd',
             total: {

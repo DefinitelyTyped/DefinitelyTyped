@@ -173,9 +173,6 @@ declare namespace stripe {
     type checkType = 'pass' | 'fail' | 'unavailable' | 'unchecked';
     type fundingType = 'credit' | 'debit' | 'prepaid' | 'unknown';
     type tokenizationType = 'apple_pay' | 'android_pay';
-    enum ThreeDSecureSupport {
-        Required = 'required', Recommended = 'recommended', Optional = 'optional', NotSupported = 'not_supported'
-    }
     interface Card {
         id: string;
         object: string;
@@ -200,7 +197,7 @@ declare namespace stripe {
         metadata: any;
         name?: string;
         tokenization_method?: tokenizationType;
-        three_d_secure?: ThreeDSecureSupport;
+        three_d_secure?: 'required' | 'recommended' | 'optional' | 'not_supported';
     }
 
     interface RetrieveSourceOptions {
@@ -219,7 +216,7 @@ declare namespace stripe {
         interface StripePaymentRequestUpdateOptions {
             currency: string;
             total: DisplayItem;
-            displayItems?: Array<DisplayItem>;
+            displayItems?: DisplayItem[];
             shippingOptions?: ShippingOption[];
         }
 
@@ -231,13 +228,10 @@ declare namespace stripe {
             requestShipping?: boolean;
         }
 
-        enum UpdateDetailsStatus {
-            Success = 'success', Fail = 'fail', InvalidShippingAddress = 'invalid_shipping_address'
-        }
         interface UpdateDetails {
-            status: UpdateDetailsStatus;
+            status: 'success' | 'fail' | 'invalid_shipping_address';
             total?: DisplayItem;
-            displayItems?: Array<DisplayItem>;
+            displayItems?: DisplayItem[];
             shippingOptions?: ShippingOption[];
         }
 
