@@ -460,21 +460,7 @@ declare namespace PDF {
      * @return A promise that is resolved with PDFDocumentProxy object.
      **/
     getDocument(
-        source: string,
-        pdfDataRangeTransport?: any,
-        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-        progressCallback?: (progressData: PDFProgressData) => void)
-        : PDFPromise<PDFDocumentProxy>;
-
-    getDocument(
-        source: Uint8Array,
-        pdfDataRangeTransport?: any,
-        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-        progressCallback?: (progressData: PDFProgressData) => void)
-        : PDFPromise<PDFDocumentProxy>;
-
-    getDocument(
-        source: PDFSource,
+        source: string | Uint8Array | PDFSource | ArrayBuffer,
         pdfDataRangeTransport?: any,
         passwordCallback?: (fn: (password: string) => void, reason: string) => string,
         progressCallback?: (progressData: PDFProgressData) => void)
