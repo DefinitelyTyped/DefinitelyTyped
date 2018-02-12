@@ -11,7 +11,7 @@ declare global {
     namespace Express {
         interface Request {
             authInfo?: any;
-            user?: any;
+            user?: User;
 
             // These declarations are merged into express's Request type
             login(user: any, done: (err: any) => void): void;
@@ -24,6 +24,8 @@ declare global {
 
             isAuthenticated(): boolean;
             isUnauthenticated(): boolean;
+        }
+        interface User {
         }
     }
 }
