@@ -18,7 +18,7 @@ declare namespace webpackMerge {
         customizeArray?: CustomizeArrayFunction | UniqueFunction;
         customizeObject?: CustomizeObjectFunction;
     }
-    type ConfigurationMergeFunction = (...configs: webpack.Configuration[]) => webpack.Configuration;
+    type ConfigurationMergeFunction = (...configs: Configuration[]) => Configuration;
     type ConfigurationMergeConfigFunction = (customizeOptions: CustomizeOptions) => ConfigurationMergeFunction;
     type MergeFunction = ConfigurationMergeFunction | ConfigurationMergeConfigFunction;
     type MergeStrategy = 'prepend' | 'append' | 'replace';
@@ -29,7 +29,7 @@ declare namespace webpackMerge {
         unique: UniqueFunction;
         smart: ConfigurationMergeFunction;
         multiple: ConfigurationMergeFunction;
-        strategy(options: {[field: string]: MergeStrategy}): ConfigurationMergeFunction;
-        smartStrategy(options: {[key: string]: MergeStrategy}): ConfigurationMergeFunction;
+        strategy(options: { [field: string]: MergeStrategy }): ConfigurationMergeFunction;
+        smartStrategy(options: { [key: string]: MergeStrategy }): ConfigurationMergeFunction;
     }
 }
