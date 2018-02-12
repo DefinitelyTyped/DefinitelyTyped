@@ -14,6 +14,10 @@ const styleSheet = jss.createStyleSheet<string>(
 				const next = typeof observer === 'function' ? observer : observer.next;
 				next({ background: 'blue', display: 'flex' });
 				next({ invalidKey: 'blueish' }); // $ExpectError
+
+				// only kebab case allowed in observables
+				next({ 'align-items': 'center' });
+				next({ alignItems: 'center' }); // $ExpectError
 				return {
 					unsubscribe() {}
 				};
@@ -21,6 +25,7 @@ const styleSheet = jss.createStyleSheet<string>(
 		},
 		container: {
 			display: 'flex',
+			'align-items': 'center',
 			width: 100,
 			opacity: .5,
 		},
@@ -65,7 +70,7 @@ styleSheet.addRule('badProperty', {
 });
 
 styleSheet.addRule('badValue', { // $ExpectError
-	alignItems: 'thisIsNotAValidValue',
+	'align-items': 'thisIsNotAValidValue',
 });
 
 styleSheet.detach();
