@@ -4051,7 +4051,7 @@ declare namespace Stripe {
             /**
              * The card number
              */
-            number: number;
+            number: string;
 
             /**
              * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
@@ -4167,7 +4167,7 @@ declare namespace Stripe {
             /**
              * The card number, as a string without any separators.
              */
-            number: number;
+            number: string;
 
             /**
              * Card security code. Required unless your account is registered in

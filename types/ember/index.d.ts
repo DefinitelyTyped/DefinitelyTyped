@@ -18,6 +18,9 @@ declare module 'ember' {
     import Rsvp from 'rsvp';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
 
+    import { Registry as ServiceRegistry } from '@ember/service';
+    import { Registry as ControllerRegistry } from '@ember/controller';
+
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
 
@@ -2303,12 +2306,18 @@ declare module 'ember' {
              * Creates a property that lazily looks up another controller in the container.
              * Can only be used when defining another controller.
              */
-            function controller(name?: string): ComputedProperty<Controller>;
+            function controller(): ComputedProperty<Ember.Controller>;
+            function controller<K extends keyof ControllerRegistry>(
+                name: K
+            ): ComputedProperty<ControllerRegistry[K]>;
             /**
              * Creates a property that lazily looks up a service in the container. There
              * are no restrictions as to what objects a service can be injected into.
              */
-            function service(name?: string): ComputedProperty<Service>;
+            function service(): ComputedProperty<Ember.Service>;
+            function service<K extends keyof ServiceRegistry>(
+                name: K
+            ): ComputedProperty<ServiceRegistry[K]>;
         }
         namespace ENV {
             const EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
@@ -3279,6 +3288,84 @@ declare module 'ember' {
         function expandProperties(pattern: string, callback: (expanded: string) => void): void;
     }
 
+    type RouteModel = object | string | number;
+    // https://emberjs.com/api/ember/2.18/classes/RouterService
+    /**
+     * The Router service is the public API that provides component/view layer access to the router.
+     */
+    class RouterService extends Ember.Service {
+        //
+        /**
+         * Determines whether a route is active.
+         *
+         * @param routeName the name of the route
+         * @param models    the model(s) or identifier(s) to be used while
+         *                  transitioning to the route
+         * @param options   optional hash with a queryParams property containing a
+         *                  mapping of query parameters
+         */
+        isActive(routeName: string, models: RouteModel, options?: { queryParams: object }): boolean;
+        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): boolean;
+        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): boolean;
+        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): boolean;
+
+        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=replaceWith
+        /**
+         * Transition into another route while replacing the current URL, if
+         * possible. The route may be either a single route or route path.
+         *
+         * @param routeNameOrUrl the name of the route or a URL
+         * @param models         the model(s) or identifier(s) to be used while
+         *                       transitioning to the route.
+         * @param options        optional hash with a queryParams property
+         *                       containing a mapping of query parameters
+         * @returns              the Transition object associated with this attempted transition
+         */
+        replaceWith(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): Ember.Transition;
+
+        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=transitionTo
+        /**
+         * Transition the application into another route. The route may be
+         * either a single route or route path
+         *
+         * @param routeNameOrUrl the name of the route or a URL
+         * @param models         the model(s) or identifier(s) to be used while
+         *                       transitioning to the route.
+         * @param options        optional hash with a queryParams property
+         *                       containing a mapping of query parameters
+         * @returns              the Transition object associated with this attempted transition
+         */
+        transitionTo(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): Ember.Transition;
+
+        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
+        /**
+         * Generate a URL based on the supplied route name.
+         *
+         * @param routeName the name of the route or a URL
+         * @param models    the model(s) or identifier(s) to be used while
+         *                  transitioning to the route.
+         * @param options   optional hash with a queryParams property containing
+         *                  a mapping of query parameters
+         * @returns         the string representing the generated URL
+         */
+        urlFor(routeName: string, models: RouteModel, options?: { queryParams: object }): string;
+        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): string;
+        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): string;
+        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): string;
+    }
+
+    module '@ember/service' {
+        interface Registry {
+            'router': RouterService;
+        }
+    }
+
     export default Ember;
 }
 
@@ -3362,6 +3449,10 @@ declare module '@ember/controller' {
     import Ember from 'ember';
     export default class Controller extends Ember.Controller { }
     export const inject: typeof Ember.inject.controller;
+
+    // A type registry for Ember `Controller`s. Meant to be declaration-merged
+    // so string lookups resolve to the correct type.
+    export interface Registry {}
 }
 
 declare module '@ember/debug' {
@@ -3599,6 +3690,10 @@ declare module '@ember/service' {
     import Ember from 'ember';
     export default class Service extends Ember.Service { }
     export const inject: typeof Ember.inject.service;
+
+    // A type registry for Ember `Service`s. Meant to be declaration-merged so
+    // string lookups resolve to the correct type.
+    interface Registry {}
 }
 
 declare module '@ember/string' {

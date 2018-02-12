@@ -227,7 +227,7 @@ export interface ServiceMap<TProcessor, THandler> {
 export interface ServiceOptions<TProcessor, THandler> {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
-    processor?: { new (handler: THandler): TProcessor };
+    processor?: { new(handler: THandler): TProcessor };
     handler?: THandler;
 }
 
@@ -236,7 +236,7 @@ export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TPro
     files?: string;
     headers?: HttpHeaders;
     services?: ServiceMap<TProcessor, THandler>;
-    tls?: tls.TlsOptions;
+    tls?: tls.TlsServerOptions;
 }
 
 export interface ConnectOptions {
@@ -263,12 +263,12 @@ export interface WSConnectOptions {
 }
 
 export type TClientConstructor<TClient> =
-    { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } |
-    { Client: { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } };
+    { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } |
+    { Client: { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } };
 
 export type TProcessorConstructor<TProcessor, THandler> =
-    { new (handler: THandler): TProcessor } |
-    { Processor: { new (handler: THandler): TProcessor }};
+    { new(handler: THandler): TProcessor } |
+    { Processor: { new(handler: THandler): TProcessor } };
 
 export interface WebServerOptions<TProcessor, THandler> {
     services: {
@@ -361,7 +361,7 @@ export class TFramedTransport implements TTransport {
 }
 
 export interface TTransportConstructor {
-  new (buffer?: Buffer, callback?: TTransportCallback): TTransport;
+    new(buffer?: Buffer, callback?: TTransportCallback): TTransport;
 }
 
 export class TBinaryProtocol implements TProtocol {
@@ -509,7 +509,7 @@ export class TCompactProtocol implements TProtocol {
 }
 
 export interface TProtocolConstructor {
-    new (trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
+    new(trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
 }
 
 // thrift.js

@@ -14,9 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "boom": [
-                "boom/v4"
-            ]
+            "boom": ["boom/v4"],
+            "hapi": ["hapi/v16"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
