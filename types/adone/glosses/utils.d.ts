@@ -555,7 +555,31 @@ declare namespace adone {
                     drop?: boolean;
                     dropLast?: boolean;
                 }
+
+                interface CreateFunction {
+                    <R>(fn: () => Promise<R>): Promise<R>;
+                    <R>(fn: () => R): Promise<R>;
+
+                    <T1, R>(fn: (a: T1) => Promise<R>, a: T1): Promise<R>;
+                    <T1, R>(fn: (a: T1) => R, a: T1): Promise<R>;
+
+                    <T1, T2, R>(fn: (a: T1, b: T2) => Promise<R>, a: T1, b: T2): Promise<R>;
+                    <T1, T2, R>(fn: (a: T1, b: T2) => R, a: T1, b: T2): Promise<R>;
+
+                    <T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => Promise<R>, a: T1, b: T2, c: T3): Promise<R>;
+                    <T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => R, a: T1, b: T2, c: T3): Promise<R>;
+
+                    <T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => Promise<R>, a: T1, b: T2, c: T3, d: T4): Promise<R>;
+                    <T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, a: T1, b: T2, c: T3, d: T4): Promise<R>;
+
+                    <T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>, a: T1, b: T2, c: T3, d: T4, e: T5): Promise<R>;
+                    <T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, a: T1, b: T2, c: T3, d: T4, e: T5): Promise<R>;
+
+                    <R>(fn: (...args: any[]) => Promise<R>, ...args: any[]): Promise<R>;
+                    <R>(fn: (...args: any[]) => R, ...args: any[]): Promise<R>;
+                }
             }
+            function create(options?: I.Options): I.CreateFunction;
             function create<R>(fn: () => R, options?: I.Options): () => Promise<R>;
             function create<T1, R>(fn: (a: T1) => R, options?: I.Options): (a: T1) => Promise<R>;
             function create<T1, T2, R>(fn: (a: T1, b: T2) => R, options?: I.Options): (a: T1, b: T2) => Promise<R>;
