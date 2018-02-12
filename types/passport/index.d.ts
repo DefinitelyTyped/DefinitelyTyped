@@ -25,6 +25,7 @@ declare global {
             isAuthenticated(): boolean;
             isUnauthenticated(): boolean;
         }
+        // tslint:disable-next-line:no-empty-interface
         interface User {
         }
     }
