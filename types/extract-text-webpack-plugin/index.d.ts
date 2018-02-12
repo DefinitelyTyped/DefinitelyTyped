@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Plugin, NewLoader, OldLoader} from 'webpack';
+import { Plugin, NewLoader, OldLoader } from 'webpack';
 
 export = ExtractTextPlugin;
 
