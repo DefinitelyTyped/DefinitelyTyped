@@ -23,7 +23,7 @@ const fab = new M.FloatingActionButton(elem);
 // $ExpectType Toast
 const toast = M.toast({ html: 'I am a toast!' });
 
-// $ExpectType Toast
+// $ExpectType Collapsible
 const collapsible = new M.Collapsible(elem);
 
 // $ExpectType DatePicker
