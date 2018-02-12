@@ -10,6 +10,7 @@
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -76,7 +77,7 @@ declare namespace webpack {
         /** Capture timing information for each module. */
         profile?: boolean;
         /** Cache generated modules and chunks to improve performance for multiple incremental builds. */
-        cache?: boolean | any;
+        cache?: boolean | object;
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
         watchOptions?: Options.WatchOptions;
@@ -1029,7 +1030,7 @@ declare namespace webpack {
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
              */
-            pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
+            pitch?(remainingRequest: string, precedingRequest: string, data: any): any;
 
             /**
              * By default, the resource file is treated as utf-8 string and passed as String to the loader.
