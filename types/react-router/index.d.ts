@@ -16,7 +16,7 @@
 //                 Egor Shulga <https://github.com/egorshulga>
 //                 Youen Toupin <https://github.com/neuoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import * as H from 'history';

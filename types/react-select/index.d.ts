@@ -12,7 +12,7 @@
 //                 Anton Novik <https://github.com/tehbi4>
 //                 David Schkalee <https://github.com/misantronic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 

@@ -3,7 +3,7 @@
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Shoya Tanaka <https://github.com/8398a7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import {
     Store,
