@@ -150,10 +150,9 @@ export interface ListenerParams {
     commandType: string;
 }
 
-export type NavigationComponentProps<P = {}> =
-    P & {
-        navigator: Navigator;
-    };
+export interface NavigationComponentProps {
+    navigator: Navigator;
+}
 
 export interface NavigatorStyle {
     navBarTextColor?: string;
