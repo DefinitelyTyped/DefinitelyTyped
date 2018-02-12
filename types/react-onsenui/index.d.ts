@@ -2,7 +2,7 @@
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>, Jemmyw <https://github.com/jemmyw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import Component = React.Component;
