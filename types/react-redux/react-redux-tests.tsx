@@ -1,7 +1,7 @@
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject } from 'redux';
+import { Store, Dispatch, Action, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject } from 'redux';
 import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options } from 'react-redux';
 import objectAssign = require('object-assign');
 
@@ -877,8 +877,8 @@ namespace TestCreateProvider {
     };
 
     interface State { a: number };
-    const store = createStore<State>(() => ({ a: 1 }));
-    const myStore = createStore<State>(() => ({ a: 2 }));
+    const store = createStore<State, Action, never>(() => ({ a: 1 }));
+    const myStore = createStore<State, Action, never>(() => ({ a: 2 }));
 
     interface AProps { a: number };
     const A = (props: AProps) => (<h1>A is {props.a}</h1>);
@@ -898,4 +898,26 @@ namespace TestCreateProvider {
     // <h1>A is 1</h1>
     // <h1>A is 2</h1>
     ReactDOM.render(<Combined />, document.body);
+}
+
+namespace TestRenderProviderWithEnhancedAction {
+    interface State {
+        prop: string;
+    }
+    interface MyAction extends Action {
+        extra: any;
+    }
+    interface NonAction {
+        (): any;
+    }
+    declare const store: Store<State, MyAction, NonAction>;
+
+    const targetEl = document.getElementById('root');
+
+    class SpecifiedProvider extends Provider<State, MyAction, NonAction> {}
+    ReactDOM.render((
+        <SpecifiedProvider store={store}>
+            {null}
+        </SpecifiedProvider>
+    ), targetEl);
 }
