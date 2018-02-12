@@ -5,8 +5,8 @@ declare function it(desc: string, fn: () => void): void;
 
 describe("Stripe", () => {
     it("should excercise all Stripe API", () => {
-        const stripe = Stripe('public-key');
-        const elements = stripe.elements();
+        const stripeInstance = Stripe('public-key');
+        const elements = stripeInstance.elements();
         const style = {
             base: {
                 color: '#32325d',
@@ -31,7 +31,7 @@ describe("Stripe", () => {
         card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
             console.log(resp.brand);
         });
-        stripe.createToken(card, {
+        stripeInstance.createToken(card, {
             name: 'Jimmy',
             address_city: 'Toronto',
             address_country: 'Canada'
@@ -51,20 +51,20 @@ describe("Stripe", () => {
                 postal_code: 'XYZ'
             }
         };
-        stripe.createSource(card, { owner: ownerInfo }).then(result => {
+        stripeInstance.createSource(card, { owner: ownerInfo }).then(result => {
             if (result.error) {
-                console.log(result.error.message);
+                // handle error
                 return Promise.resolve(null);
             }
             if (!result.source) {
-                console.log('error');
+                // handle error
                 return Promise.resolve(null);
             }
-            if (!result.source.card || result.source.card.three_d_secure === 'not_supported') {
+            if (!result.source.card || result.source.card.three_d_secure === stripe.ThreeDSecureSupport.NotSupported) {
                 // make regular payment...
                 return Promise.resolve(null);
             }
-            return stripe.createSource({
+            return stripeInstance.createSource({
                 type: 'three_d_secure',
                 amount: 100,
                 currency: 'usd',
@@ -84,14 +84,14 @@ describe("Stripe", () => {
                     // make regular payment...
                     return Promise.resolve(null);
                 }
-                console.log('error');
+                // handle error
                 return Promise.resolve(null);
             }
             if (!threeDSource.source || threeDSource.source.status === 'failed' || !threeDSource.source.redirect) {
                 // make regular payment...
                 return Promise.resolve(null);
             }
-            if (threeDSource.source.redirect.status === 'succeeded') {
+            if (threeDSource.source.status === 'chargeable') {
                 // make charge...
                 return Promise.resolve(null);
             }
@@ -101,7 +101,7 @@ describe("Stripe", () => {
         });
         card.destroy();
         // test payment request
-        const paymentRequest = stripe.paymentRequest({
+        const paymentRequest = stripeInstance.paymentRequest({
             country: 'US',
             currency: 'usd',
             total: {
