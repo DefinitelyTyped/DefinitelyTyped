@@ -635,6 +635,21 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
 
+type FilterQuery<T> = {
+    [P in keyof T]?: T[P] | {
+        $eq?: T[P];
+        $gt?: T[P];
+        $gte?: T[P];
+        $in?: T[P][];
+        $lt?: T[P];
+        $lte?: T[P];
+        $ne?: T[P];
+        $nin?: T[P][];
+        $and?: FilterQuery<T[P]>[];
+        $not?: FilterQuery<T[P]>[] | T[P];
+    };
+};
+
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
 export interface CollStats {
     // Namespace.
