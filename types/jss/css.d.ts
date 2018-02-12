@@ -3,47 +3,8 @@
 import { Observable } from './observable'
 import * as csstype from 'csstype'
 
-/**
- * Value of a CSS Property.  Could be a single value or a list of fallbacks
- * NOTE: array is for fallbacks
- */
-export type CSSValue<T> = T | Observable<T>;
-
-/**
- * Remove the variants of the second union of string literals from
- * the first.
- */
-export type Diff<T extends string, U extends string> = (
-  & { [P in T]: P }
-  & { [P in U]: never }
-  & { [x: string]: never }
-)[T];
-
-/**
- * Drop keys `K` from `T`.
- */
-export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
-
-export interface SimpleProperties extends Omit<
-  csstype.Properties<number>,
-  'display' | 'width' | 'height'
-> {
-  // https://github.com/frenic/csstype/issues/7
-  width: number | string;
-  height: number | string;
-  // https://github.com/frenic/csstype/issues/8
-  display:
-    | csstype.All
-    | csstype.DisplayOutside
-    | csstype.DisplayInside
-    | csstype.DisplayInternal
-    | csstype.DisplayBox
-    | csstype.DisplayLegacy
-    ;
-}
-
 export type CSSProperties = {
-  [K in keyof csstype.Properties]: CSSValue<SimpleProperties[K]>
+  [K in keyof csstype.Properties]: csstype.Properties[K] | Observable<csstype.Properties[K]>
 }
 
 export interface JssProps {
