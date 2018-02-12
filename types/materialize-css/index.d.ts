@@ -1,6 +1,7 @@
 // Type definitions for materialize-css 1.0
 // Project: http://materializecss.com/
 // Definitions by:  胡玮文 <https://github.com/huww98>
+//                  OsirisFrik <https://github.com/OsirisFrik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -641,6 +642,73 @@ declare global {
          */
         function toast(options: Partial<ToastOptions>): Toast;
 
+        class Collapsible extends Component<CollapsibleOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Collapsible;
+
+            /**
+             * Open Collapsible
+             */
+            open(): void;
+
+            /**
+             * Close Collapsible
+             */
+            close(): void;
+
+            /**
+             * Destroy Collapsible
+             */
+            destroy(): void;
+        }
+
+        interface CollapsibleOptions {
+            /**
+             * If accordion versus collapsible.
+             * @default true
+             */
+            accordion: boolean;
+
+            /**
+             * Callback function called before collapsible is opened.
+             */
+          onOpenStart: () => void;
+
+          /**
+           * Callback function called after collapsible is opened.
+           */
+          onOpenEnd: () => void;
+
+          /**
+           * Callback function called before collapsible is closed.
+           */
+          onCloseStart: () => void;
+
+          /**
+           * Callback function called after collapsible is closed.
+           */
+          onCloseEnd: () => void;
+
+          /**
+           * Transition in duration in milliseconds.
+           * @default 300
+           */
+          inDuration: number;
+
+           /**
+            * Transition out duration in milliseconds.
+            * @default 300
+            */
+          outDuration: number;
+        }
+
+        /**
+         * Init Collapsible
+         */
+        function init(element: Element, options?: Partial<CollapsibleOptions>): Collapsible;
+
         class Tooltip extends Component<TooltipOptions> implements Openable {
             /**
              * Get Instance
@@ -787,6 +855,8 @@ declare global {
         timepicker(options?: Partial<M.TimePickerOptions>): JQuery;
 
         // Toast can not be invoked using jQuery.
+
+        // Collapsible can not be invoked using jQuery
 
         tooltip(method: keyof Pick<M.Tooltip, "open" | "close" | "destroy">): JQuery;
         tooltip(options?: Partial<M.TooltipOptions>): JQuery;
