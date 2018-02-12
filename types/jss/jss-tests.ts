@@ -65,7 +65,7 @@ styleSheet.addRule('badProperty', {
 });
 
 styleSheet.addRule('badValue', { // $ExpectError
-	display: 'thisIsNotAValidDisplayValue',
+	alignItems: 'thisIsNotAValidValue',
 });
 
 styleSheet.detach();
