@@ -3,7 +3,7 @@
 // Definitions by: Piotr Witek <http://piotrwitek.github.io>
 //                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 declare module 'react-big-calendar' {
     import * as React from 'react';

@@ -29,22 +29,22 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
-import { TlsOptions } from "tls";
+import { TlsServerOptions } from "tls";
 
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | TlsOptions;
+    ssl?: boolean | TlsServerOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
-      // properties from module 'node-pool'
-      max?: number;
-      min?: number;
-      refreshIdle?: boolean;
-      idleTimeoutMillis?: number;
-      reapIntervalMillis?: number;
-      returnToHead?: boolean;
-      application_name?: string;
-      Promise?: PromiseConstructorLike;
+    // properties from module 'node-pool'
+    max?: number;
+    min?: number;
+    refreshIdle?: boolean;
+    idleTimeoutMillis?: number;
+    reapIntervalMillis?: number;
+    returnToHead?: boolean;
+    application_name?: string;
+    Promise?: PromiseConstructorLike;
 }
 
 export interface QueryConfig {

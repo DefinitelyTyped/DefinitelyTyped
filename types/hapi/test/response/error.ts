@@ -1,25 +1,30 @@
+// https://github.com/hapijs/hapi/blob/master/API.md#errors
+import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
+import * as Boom from "boom";
 
-// From https://hapijs.com/api/16.1.1#error-response
+const options: ServerOptions = {
+    port: 8000,
+};
 
-import * as Hapi from 'hapi';
-const Boom = require('boom');
+const serverRoutes: ServerRoute[] = [
+    {
+        path: '/badRequest',
+        method: 'GET',
+        handler: (request: Request, h: ResponseToolkit) => {
+            throw Boom.badRequest('Unsupported parameter');
+        }
+    },
+    {
+        path: '/internal',
+        method: 'GET',
+        handler: (request: Request, h: ResponseToolkit) => {
+            throw new Error('unexpect error');
+        }
+    },
+];
 
-const server = new Hapi.Server();
+const server = new Server(options);
+server.route(serverRoutes);
 
-server.route({
-    method: 'GET',
-    path: '/badRequest',
-    handler: function (request, reply) {
-
-        return reply(Boom.badRequest('Unsupported parameter'));
-    }
-});
-
-server.route({
-    method: 'GET',
-    path: '/internal',
-    handler: function (request, reply) {
-
-        return reply(new Error('unexpect error'));
-    }
-});
+server.start();
+console.log('Server started at: ' + server.info.uri);
