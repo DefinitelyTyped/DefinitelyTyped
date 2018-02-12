@@ -3,7 +3,7 @@
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 // TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
 
 import * as React from 'react';

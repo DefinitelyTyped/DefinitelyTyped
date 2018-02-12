@@ -21,7 +21,7 @@ declare namespace fetch {
         userAgent?: string;
         body?: Buffer | string | { [key: string]: string };
         contentType?: string | false;
-        tls?: tls.TlsOptions;
+        tls?: tls.TlsServerOptions;
         timeout?: ms;
         allowErrorResponse?: boolean;
     }

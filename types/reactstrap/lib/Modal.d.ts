@@ -1,4 +1,5 @@
 import { CSSModule } from '../index';
+import { FadeProps } from './Fade';
 
 export interface ModalProps {
   isOpen?: boolean;
@@ -9,6 +10,8 @@ export interface ModalProps {
   backdrop?: boolean | 'static';
   onEnter?: () => void;
   onExit?: () => void;
+  onOpened?: () => void;
+  onClosed?: () => void;
   className?: string;
   cssModule?: CSSModule;
   wrapClassName?: string;
@@ -17,6 +20,8 @@ export interface ModalProps {
   contentClassName?: string;
   zIndex?: number | string;
   fade?: boolean;
+  backdropTransition?: FadeProps;
+  modalTransition?: FadeProps;
 }
 
 declare const Modal: React.StatelessComponent<ModalProps>;

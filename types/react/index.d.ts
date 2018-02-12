@@ -15,7 +15,7 @@
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /*
 Known Problems & Workarounds
@@ -2863,6 +2863,10 @@ declare namespace React {
         dateTime?: string;
     }
 
+    interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        open?: boolean;
+    }
+
     interface EmbedHTMLAttributes<T> extends HTMLAttributes<T> {
         height?: number | string;
         src?: string;
@@ -3500,7 +3504,7 @@ declare namespace React {
         del: DetailedHTMLFactory<DelHTMLAttributes<HTMLElement>, HTMLElement>;
         details: DetailedHTMLFactory<DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
         dfn: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        dialog: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dialog: DetailedHTMLFactory<DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
         div: DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
         dl: DetailedHTMLFactory<HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
         dt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3774,7 +3778,7 @@ declare global {
             del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;
             details: React.DetailedHTMLProps<React.DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
             dfn: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            dialog: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dialog: React.DetailedHTMLProps<React.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
             div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
             dl: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
             dt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
