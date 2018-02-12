@@ -173,6 +173,9 @@ declare namespace stripe {
     type checkType = 'pass' | 'fail' | 'unavailable' | 'unchecked';
     type fundingType = 'credit' | 'debit' | 'prepaid' | 'unknown';
     type tokenizationType = 'apple_pay' | 'android_pay';
+    enum ThreeDSecureSupport {
+        Required = 'required', Recommended = 'recommended', Optional = 'optional', NotSupported = 'not_supported'
+    }
     interface Card {
         id: string;
         object: string;
@@ -197,7 +200,7 @@ declare namespace stripe {
         metadata: any;
         name?: string;
         tokenization_method?: tokenizationType;
-        three_d_secure?: 'required' | 'recommended' | 'optional' | 'not_supported';
+        three_d_secure?: ThreeDSecureSupport;
     }
 
     interface RetrieveSourceOptions {
@@ -207,18 +210,16 @@ declare namespace stripe {
 
     // Container for all payment request related types
     namespace paymentRequest {
+        interface DisplayItem {
+            amount: number;
+            label: string;
+            pending?: boolean;
+        }
+
         interface StripePaymentRequestUpdateOptions {
             currency: string;
-            total: {
-                amount: number;
-                label: string;
-                pending?: boolean;
-            };
-            displayItems?: Array<{
-                amount: number;
-                label: string;
-                pending?: boolean;
-            }>;
+            total: DisplayItem;
+            displayItems?: Array<DisplayItem>;
             shippingOptions?: ShippingOption[];
         }
 
@@ -230,18 +231,13 @@ declare namespace stripe {
             requestShipping?: boolean;
         }
 
+        enum UpdateDetailsStatus {
+            Success = 'success', Fail = 'fail', InvalidShippingAddress = 'invalid_shipping_address'
+        }
         interface UpdateDetails {
-            status: 'success' | 'fail' | 'invalid_shipping_address';
-            total?: {
-                amount: number;
-                label: string;
-                pending?: boolean;
-            };
-            displayItems?: Array<{
-                amount: number;
-                label: string;
-                pending?: boolean;
-            }>;
+            status: UpdateDetailsStatus;
+            total?: DisplayItem;
+            displayItems?: Array<DisplayItem>;
             shippingOptions?: ShippingOption[];
         }
 
