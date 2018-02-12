@@ -3,9 +3,13 @@
 import { Observable } from './observable'
 import * as csstype from 'csstype'
 
-export type CSSProperties = {
-  [K in keyof csstype.Properties]: csstype.Properties[K] | Observable<csstype.Properties[K]>
+export type ObservableProperties<P> = {
+  [K in keyof P]: P[K] | Observable<P[K]>
 }
+
+export type CSSProperties =
+	& ObservableProperties<csstype.Properties>
+	& ObservableProperties<csstype.PropertiesHyphen>;
 
 export interface JssProps {
 	'@global'?: CSSProperties;
@@ -123,4 +127,4 @@ export interface JssExpand {
 export type JssExpandArr = { [k in keyof JssExpand]?: JssExpand[k] | Array<JssExpand[k]> };
 
 export type SimpleStyle = CSSProperties & JssProps & JssExpandArr;
-export type Style = Observable<SimpleStyle> | SimpleStyle;
+export type Style = SimpleStyle | Observable<csstype.PropertiesHyphen>;
