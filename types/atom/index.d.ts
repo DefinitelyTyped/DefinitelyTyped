@@ -3341,7 +3341,7 @@ export class Directory {
     getEntriesSync(): Array<File|Directory>;
 
     /** Reads file entries in this directory from disk asynchronously. */
-    getEntries(callback: (error: Error, entries: Array<File|Directory>) => void): void;
+    getEntries(callback: (error: Error|null, entries: Array<File|Directory>) => void): void;
 
     /**
      *  Determines if the given path (real or symbolic) is inside this directory. This

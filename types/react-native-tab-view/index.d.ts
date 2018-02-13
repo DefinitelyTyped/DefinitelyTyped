@@ -2,7 +2,7 @@
 // Project: https://github.com/react-native-community/react-native-tab-view
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { PureComponent, ReactNode, ComponentType } from 'react'
 import {

@@ -219,6 +219,25 @@ namespace fs_tests {
     }
 
     {
+        fs.readdir('foo', (err: any, files: string[]) => {})
+        fs.readdir('foo', 'utf8', (err: any, files: string[]) => {});
+        fs.readdir('foo', {encoding: 'utf8'}, (err: any, files: string[]) => {});
+        fs.readdir('foo', 'buffer', (err: any, files: Buffer[]) => {});
+        fs.readdir('foo', {encoding: 'buffer'}, (err: any, files: Buffer[]) => {});
+
+        let fsStringOut: string[] = fs.readdirSync('utf8');
+        fsStringOut = fs.readdirSync('foo', 'utf8');
+        fsStringOut = fs.readdirSync('foo', {encoding: 'utf8'});
+
+        let fsBufferOut: Buffer[] = fs.readdirSync('utf8', 'buffer');
+        fsBufferOut = fs.readdirSync('foo', {encoding: 'buffer'});
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
+    }
+
+    {
         var errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {

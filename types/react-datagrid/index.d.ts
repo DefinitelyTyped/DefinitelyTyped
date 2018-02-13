@@ -2,7 +2,7 @@
 // Project: https://github.com/zippyui/react-datagrid.git
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react"/>
 
