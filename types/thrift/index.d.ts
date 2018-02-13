@@ -236,7 +236,7 @@ export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TPro
     files?: string;
     headers?: HttpHeaders;
     services?: ServiceMap<TProcessor, THandler>;
-    tls?: tls.TlsServerOptions;
+    tls?: tls.TlsOptions;
 }
 
 export interface ConnectOptions {
