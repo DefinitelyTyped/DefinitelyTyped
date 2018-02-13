@@ -432,6 +432,8 @@ new mongoose.Schema({
   }
 });
 
+new mongoose.Schema({foo: String}, {strict: 'throw'});
+
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {
      console.log('success!');
