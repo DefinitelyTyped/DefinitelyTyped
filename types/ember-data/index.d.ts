@@ -964,7 +964,7 @@ declare module 'ember-data' {
             hasMany<L extends keyof ModelRegistry[K]>(
                 keyName: L,
                 options?: { ids: false }
-            ): Snapshot<K>['record'][L][] | undefined;
+            ): Array<Snapshot<K>['record'][L]> | undefined;
             hasMany<L extends keyof ModelRegistry[K]>(
                 keyName: L,
                 options: { ids: true }
