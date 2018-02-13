@@ -1,4 +1,4 @@
-// Type definitions for query-string 5.0
+// Type definitions for query-string 5.1
 // Project: https://github.com/sindresorhus/query-string
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
