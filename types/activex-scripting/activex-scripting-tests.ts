@@ -1,3 +1,5 @@
+// Note -- running these tests under cscript requires some ES5 polyfills
+
 const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
@@ -12,7 +14,7 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
 const fso = new ActiveXObject('Scripting.FileSystemObject');
 
 // https://msdn.microsoft.com/en-us/library/ebkhfaaz(v=vs.84).aspx
-(() => {
+{
     /** Generates a string describing the drive type of a given Drive object. */
     const driveTypeString = (drive: Scripting.Drive) => {
         switch (drive.DriveType) {
@@ -133,14 +135,13 @@ ${subfolders.map(folderContentsString).join('')}`
 
     const deleteTestFolder = () => {
         // two ways to delete a file:
-        const filepathToDelete = `${testPath}\\LoremIpsum\Paragraph1.txt`;
+        const filepathToDelete = `${testPath}\\LoremIpsum\\Paragraph1.txt`;
         fso.DeleteFile(filepathToDelete);
-        fso.GetFile(filepathToDelete).Delete();
+        // fso.GetFile(filepathToDelete).Delete();
 
         // two ways to delete a folder:
-        const folderpathToDelete = `${testPath}\\LoremIpsum`;
-        fso.DeleteFolder(folderpathToDelete);
-        fso.GetFolder(folderpathToDelete).Delete();
+        fso.DeleteFolder(`${testPath}\\LoremIpsum`);
+        fso.GetFolder(testPath).Delete();
     };
 
     const createLyrics = (folder: Scripting.Folder) => {
@@ -201,41 +202,44 @@ ${subfolders.map(folderContentsString).join('')}`
 
     if (!buildTestFolder()) {
         WScript.Echo('Test directory already exists or cannot be created. Cannot continue.');
-        return;
+    } else {
+        WScript.Echo(drivesInfoReport());
+        echoLines(2);
+        WScript.Echo(testfolderInfo());
+        echoLines(2);
+        WScript.Echo(getLyrics());
+        echoLines(2);
+        deleteTestFolder();
     }
-
-    WScript.Echo(drivesInfoReport);
-    echoLines(2);
-    WScript.Echo(testfolderInfo);
-    echoLines(2);
-    WScript.Echo(getLyrics());
-    echoLines(2);
-    deleteTestFolder();
-})();
+}
 
 // source --https://msdn.microsoft.com/en-us/library/ts2t8ybh(v=vs.84).aspx
-const showFreeSpace = (drvPath: string) => {
-    const d = fso.GetDrive(fso.GetDriveName(drvPath));
-    let s = `Drive ${drvPath} - `;
-    s += d.VolumeName + '<br>';
-    s += `Free Space: ${d.FreeSpace / 1024} Kbytes`;
-    return (s);
-};
+{
+    const showFreeSpace = (drvPath: string) => {
+        const d = fso.GetDrive(fso.GetDriveName(drvPath));
+        let s = `Drive ${drvPath} - `;
+        s += d.VolumeName + '<br>';
+        s += `Free Space: ${d.FreeSpace / 1024} Kbytes`;
+        return (s);
+    };
+}
 
 // source -- https://msdn.microsoft.com/en-us/library/kaf6yaft(v=vs.84).aspx
-const getALine = (filespec: string) => {
-    const file = fso.OpenTextFile(filespec, Scripting.IOMode.ForReading, false);
+{
+    const getALine = (filespec: string) => {
+        const file = fso.OpenTextFile(filespec, Scripting.IOMode.ForReading, false);
 
-    let s = '';
-    while (!file.AtEndOfLine) {
-        s += file.Read(1);
-    }
-    file.Close();
-    return (s);
-};
+        let s = '';
+        while (!file.AtEndOfLine) {
+            s += file.Read(1);
+        }
+        file.Close();
+        return (s);
+    };
+}
 
 // https://msdn.microsoft.com/en-us/library/ch28h2s7(v=vs.84).aspx
-(() => {
+{
     const showDriveInfo = (path: string) => {
         const bytesPerGB = 1024 * 1024 * 1024;
         const drv = fso.GetDrive(fso.GetDriveName(path));
@@ -262,10 +266,10 @@ ${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
 
         WScript.Echo(ret);
     };
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/czxefwt8(v=vs.84).aspx
-(() => {
+{
     const readFiles = () => {
         const file = fso.CreateTextFile("c:\\testfile.txt", true);
 
@@ -317,4 +321,4 @@ ${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
         file3.Delete();
         WScript.Echo('All done!');
     };
-})();
+}
