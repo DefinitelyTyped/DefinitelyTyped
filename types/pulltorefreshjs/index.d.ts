@@ -1,4 +1,4 @@
-// Type definitions for pulltorefreshjs 0.2
+// Type definitions for pulltorefreshjs 0.1
 // Project: https://github.com/BoxFactura/pulltorefresh.js
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Tamas Kinsztler <https://github.com/humpedli>
@@ -124,7 +124,8 @@ export interface Options {
     /**
      * This value will be passed as `{ passive: true|false }` to `touchmove`
      * listeners if passive-handlers are supported.
-     * (default: `false`)
+     *
+     * Defaults to `false`
      */
     passive?: boolean;
 }
