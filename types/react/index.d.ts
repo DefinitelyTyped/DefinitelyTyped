@@ -2913,6 +2913,7 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
         height?: number | string;
         sizes?: string;
         src?: string;
