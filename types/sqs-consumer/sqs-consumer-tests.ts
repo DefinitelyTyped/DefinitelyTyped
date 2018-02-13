@@ -18,7 +18,7 @@ const app2 = Consumer.create({
     batchSize: 15,
     visibilityTimeout: 50,
     waitTimeSeconds: 50,
-	terminateVisibilityTimeout: true
+    terminateVisibilityTimeout: true
 });
 
 // Test message handler.
