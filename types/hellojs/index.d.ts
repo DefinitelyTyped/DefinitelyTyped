@@ -2,6 +2,7 @@
 // Project: http://adodson.com/hello.js/
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
 //                 Mikko Vuorinen <https://github.com/vuorinem>
+//                 Vincent Biret <https://github.com/baywet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -53,9 +54,11 @@ declare namespace hello {
 
     type HelloJSTokenResponseType = "token" | "code";
 
+    type HelloJSDisplayType = "popup" | "page" | "none";
+
     interface HelloJSLoginOptions {
         redirect_uri?: string;
-        display?: string;
+        display?: HelloJSDisplayType;
         scope?: string;
         response_type?: HelloJSTokenResponseType;
         force?: boolean | null;
@@ -87,19 +90,39 @@ declare namespace hello {
 
     interface HelloJSEventArgument {
         network: string;
-        authResponse?: any;
+        authResponse?: HelloJSAuthResponse;
+    }
+
+    interface HelloJSLoginEventArguement {
+        network: string;
+        authResponse?: HelloJSAuthResponse;
+        error?: Error;
+    }
+
+    interface HelloJSAuthResponse {
+        access_token?: string;
+        token_type?: string;
+        expires_in?: number;
+        id_token?: string;
+        state?: string;
+        session_state?: string;
+        network?: string;
+        display?: HelloJSDisplayType;
+        redirect_uri?: string;
+        scope?: string;
+        expires?: number;
     }
 
     interface HelloJSStatic extends HelloJSEvent {
         init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
         init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
-        login(callback: () => void): PromiseLike<any>;
-        login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<any>;
-        login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<any>;
+        login(callback: () => void): PromiseLike<HelloJSLoginEventArguement>;
+        login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
+        login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
         logout(callback?: () => void): PromiseLike<any>;
         logout(options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
         logout(network?: string, options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
-        getAuthResponse(network?: string): any;
+        getAuthResponse(network?: string): HelloJSAuthResponse;
         settings: HelloJSLoginOptions;
         (network: string): HelloJSStatic;
         utils: HelloJSUtils;
