@@ -880,6 +880,7 @@ export interface ChartAPI {
         keys?: { x?: string; value: string[]; }
         rows?: PrimitiveArray[];
         columns?: PrimitiveArray[];
+        xs?: { [key: string]: string };
         names?: { [key: string]: string };
         classes?: { [key: string]: string };
         categories?: string[];
