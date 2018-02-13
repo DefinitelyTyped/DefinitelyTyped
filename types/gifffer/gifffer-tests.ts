@@ -1,4 +1,4 @@
-import Gifffer from 'gifffer';
+import * as Gifffer from 'gifffer';
 
 let gifs: HTMLButtonElement[];
 
