@@ -954,10 +954,10 @@ declare module 'ember-data' {
             /**
              * Returns the current value of a belongsTo relationship.
              */
-            belongsTo<L extends keyof ModelRegistry[K]>(
+            belongsTo<L extends keyof ModelRegistry & keyof ModelRegistry[K]>(
                 keyName: L,
                 options?: {}
-            ): Snapshot<K> | string | null | undefined;
+            ): Snapshot<L> | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
