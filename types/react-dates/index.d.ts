@@ -72,8 +72,8 @@ declare namespace ReactDates {
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onClose?: (final: { startDate: momentPropTypes.momentObj, endDate: momentPropTypes.momentObj }) => void,
         transitionDuration?: number,
 
@@ -172,8 +172,8 @@ declare namespace ReactDates {
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onClose?: (final: { startDate: momentPropTypes.momentObj, endDate: momentPropTypes.momentObj }) => void,
         transitionDuration?: number,
 
@@ -249,8 +249,8 @@ declare namespace ReactDates {
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
         hideKeyboardShortcutsPanel?: boolean;
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         transitionDuration?: number,
 
         // day presentation and interaction related props
