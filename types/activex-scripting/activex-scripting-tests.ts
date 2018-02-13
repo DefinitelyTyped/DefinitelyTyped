@@ -203,7 +203,7 @@ ${subfolders.map(folderContentsString).join('')}`
     if (!buildTestFolder()) {
         WScript.Echo('Test directory already exists or cannot be created. Cannot continue.');
     } else {
-        WScript.Echo(drivesInfoReport());
+        drivesInfoReport();
         echoLines(2);
         WScript.Echo(testfolderInfo());
         echoLines(2);
