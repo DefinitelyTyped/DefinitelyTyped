@@ -1,3 +1,10 @@
+// tslint:disable-next-line:no-bad-reference
+/// <reference path="node_modules/es5-shim/es5-shim.js" />
+// tslint:disable-next-line:no-bad-reference
+/// <reference path="node_modules/activex-helpers/activex-js-helpers.js"" />
+
+// Note -- running these tests under cscript requires polyfills for some array methods, like forEach
+
 const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
@@ -155,7 +162,16 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     {
         const v: WIA.Vector<number> = new ActiveXObject('WIA.Vector');
         v.SetFromString('This is a test', true, false);
-        collectionToArray(v).forEach(chr => WScript.Echo(String.fromCharCode(chr)));
+
+        // when iterated using Enumerator / collectionToArray, each item comes back as an Automation Byte
+        // https://stackoverflow.com/questions/48757982/wia-vector-returns-something-which-is-not-a-number
+        // so the following falls, because fromCharCode is expecting a number
+        // collectionToArray(v).forEach(item => WScript.Echo(String.fromCharCode(item)));
+
+        // Instead, use the Vector's Item method, or the Vector's default property:
+        for (let i = 1; i <= v.Count; i++) {
+            WScript.Echo(String.fromCharCode(v(i)));
+        }
     }
 
     // Display detailed image information
@@ -367,13 +383,14 @@ Frame count = ${img.FrameCount}}
 
     // Create an imagefile object that contains a blank page
     {
-        const c = 0xFF0000FF;
+        // This fails with the error: `The Vector's Type is not compatible with this operation`
+        /*const c = 0xFF0000FF;
         const v: WIA.Vector<number> = new ActiveXObject('WIA.Vector');
         for (let i = 0; i < 4; i++) {
             v.Add(c);
         }
         const img = v.ImageFile(2, 2);
-        img.SaveFile('C:\\test.' + img.FileExtension);
+        img.SaveFile('C:\\test.' + img.FileExtension);*/
     }
 
     interface WshArgumentsBase<TKey = number | string> {
