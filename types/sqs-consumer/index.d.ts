@@ -19,6 +19,7 @@ declare namespace Consumer {
         messageAttributeNames?: string[];
         batchSize?: number;
         visibilityTimeout?: number;
+        terminateVisibilityTimeout?: boolean;
         waitTimeSeconds?: number;
         authenticationErrorTimeout?: number;
         sqs?: SQS;
