@@ -227,13 +227,13 @@ declare namespace adone {
         /**
          * Checks whether the given object is a function
          */
-        function _function(obj: any): boolean;
+        function _function(obj: any): obj is (...args: any[]) => any;
         export { _function as function };
 
         /**
          * Checks whether the given object is an async function
          */
-        export function asyncFunction(obj: any): boolean;
+        export function asyncFunction(obj: any): obj is (...args: any[]) => Promise<any>;
 
         /**
          * Checks whether the given object is a promise
@@ -672,5 +672,9 @@ declare namespace adone {
          * Checks whether the given object is a valid UUID identifier (v1, v2, v3, v4 or v5)
          */
         export function uuid(obj: any, version?: "all"): obj is string;
+
+        export function emitter(obj: any): obj is event.Emitter;
+
+        export function asyncEmitter(obj: any): obj is event.AsyncEmitter;
     }
 }

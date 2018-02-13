@@ -243,7 +243,7 @@ stripe.customers.create({
 }).then( function (customer) {
     // asynchronously called
     customer.cards.create({ card: "tok_17wV94BoqMA9o2xkhlAd3ALf"}).then(function (customer) {});
-    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) { 
+    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) {
         let strCustomer: string = <string>card.customer;
         let objCustomer: customers.ICustomer = <customers.ICustomer>card.customer;
     });
@@ -394,7 +394,7 @@ stripe.customers.createSource(
             object: "card",
             exp_month: 1,
             exp_year: 16,
-            number: 4242424242424242
+            number: '4242424242424242'
         }
     },
     function (err, card) {
@@ -409,7 +409,7 @@ stripe.customers.createSource(
             object: "card",
             exp_month: 1,
             exp_year: 16,
-            number: 4242424242424242
+            number: '4242424242424242'
         }
     }).then(
     function (card) {

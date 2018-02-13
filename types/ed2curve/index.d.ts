@@ -15,7 +15,7 @@ export as namespace ed2curve;
 export function convertPublicKey(publicKey: SignKeyPair["publicKey"]): BoxKeyPair["publicKey"] | null;
 
 /** Converts Ed25519 secret key to Curve25519 secret key. */
-export function convertSecretKey(secretKey: SignKeyPair["secretKey"]): BoxKeyPair["secretKey"] | null;
+export function convertSecretKey(secretKey: SignKeyPair["secretKey"]): BoxKeyPair["secretKey"];
 
 /** Converts Ed25519 key pair to Curve25519 key pair. */
-export function convertKeyPair(keyPair: SignKeyPair): BoxKeyPair;
+export function convertKeyPair(keyPair: SignKeyPair): BoxKeyPair | null;
