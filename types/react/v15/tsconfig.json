@@ -1,0 +1,33 @@
+{
+    "files": [
+        "index.d.ts",
+        "test/index.ts",
+        "test/tsx.tsx",
+        "test/cssProperties.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "paths": {
+            "react": [
+                "react/v15"
+            ]
+        },
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "jsx": "preserve"
+    }
+}
