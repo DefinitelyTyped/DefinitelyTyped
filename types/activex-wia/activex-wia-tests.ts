@@ -1,9 +1,4 @@
-// tslint:disable-next-line:no-bad-reference
-/// <reference path="node_modules/es5-shim/es5-shim.js" />
-// tslint:disable-next-line:no-bad-reference
-/// <reference path="node_modules/activex-helpers/activex-js-helpers.js"" />
-
-// Note -- running these tests under cscript requires polyfills for some array methods, like forEach
+// Note -- running these tests under cscript requires some ES5 polyfills
 
 const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     const results: T[] = [];
