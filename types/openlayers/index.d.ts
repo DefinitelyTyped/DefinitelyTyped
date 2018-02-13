@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v4.3.4
+// Type definitions for OpenLayers v4.6.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
@@ -13606,6 +13606,7 @@ declare module olx {
             opacity?: number;
             renderBuffer?: number;
             source: ol.source.Vector;
+            declutter?: boolean;
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
