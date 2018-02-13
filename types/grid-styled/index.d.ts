@@ -2,7 +2,7 @@
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 export type Diff<T extends string, U extends string> = ({ [P in T]: P } &
     { [P in U]: never } & { [x: string]: never })[T];
