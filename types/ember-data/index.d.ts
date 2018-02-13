@@ -942,7 +942,7 @@ declare module 'ember-data' {
             /**
              * Returns the value of an attribute.
              */
-            attr<L extends keyof ModelRegistry[K]>(keyName: L): {};
+            attr<L extends keyof ModelRegistry[K]>(keyName: L): ModelRegistry[K][L];
             /**
              * Returns all attributes and their corresponding values.
              */
@@ -957,7 +957,7 @@ declare module 'ember-data' {
             belongsTo<L extends keyof ModelRegistry & keyof ModelRegistry[K]>(
                 keyName: L,
                 options?: {}
-            ): Snapshot<L> | string | null | undefined;
+            ): Snapshot<K>['record'][L] | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
