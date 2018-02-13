@@ -2056,6 +2056,7 @@ export class SpotLight extends Light {
 }
 
 export class SpotLightShadow extends LightShadow {
+    camera: PerspectiveCamera;
     update(light: Light): void;
 }
 
