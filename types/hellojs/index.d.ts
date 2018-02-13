@@ -6,9 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module 'hellojs' {
-    export = hello;
-}
+export = hello;
 
 declare const hello: hello.HelloJSStatic;
 
