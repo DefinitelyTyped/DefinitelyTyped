@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "react",
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-broadcast-tests.tsx"
+    ]
+}

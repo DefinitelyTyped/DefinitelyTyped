@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../..",
+        "typeRoots": [
+            "../.."
+        ],
+        "types": [],
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
+    },
+    "files": ["generate.ts"]
+}

@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "noUnusedLocals": true
+    },
+    "files": [
+        "index.d.ts",
+        "dist/objects/Comment.d.ts",
+        "dist/objects/index.d.ts",
+        "dist/objects/Listing.d.ts",
+        "dist/objects/LiveThread.d.ts",
+        "dist/objects/MultiReddit.d.ts",
+        "dist/objects/PrivateMessage.d.ts",
+        "dist/objects/RedditContent.d.ts",
+        "dist/objects/RedditUser.d.ts",
+        "dist/objects/ReplyableContent.d.ts",
+        "dist/objects/Submission.d.ts",
+        "dist/objects/Subreddit.d.ts",
+        "dist/objects/VoteableContent.d.ts",
+        "dist/objects/WikiPage.d.ts",
+        "snoowrap-tests.ts"
+    ]
+}
