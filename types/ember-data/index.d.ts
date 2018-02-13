@@ -964,11 +964,11 @@ declare module 'ember-data' {
             hasMany<L extends keyof ModelRegistry[K]>(
                 keyName: L,
                 options?: { ids: false }
-            ): Array<Snapshot<K>['record'][L]> | undefined;
+            ): Snapshot<K>['record'][L][] | undefined;
             hasMany<L extends keyof ModelRegistry[K]>(
                 keyName: L,
                 options: { ids: true }
-            ): Array<string> | undefined;
+            ): string[] | undefined;
             /**
              * Iterates through all the attributes of the model, calling the passed
              * function on each attribute.
