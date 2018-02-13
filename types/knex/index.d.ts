@@ -171,6 +171,7 @@ declare namespace Knex {
     }
 
     interface Select extends ColumnNameQueryBuilder {
+        (aliases: { [alias: string]: string }): QueryBuilder;
     }
 
     interface Table {
