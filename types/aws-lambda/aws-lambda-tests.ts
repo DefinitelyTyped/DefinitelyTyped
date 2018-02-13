@@ -1,4 +1,5 @@
 let str: string;
+let strArray: string[];
 let date: Date;
 let anyObj: any;
 let num: number;
@@ -329,6 +330,13 @@ b = cognitoUserPoolEvent.response.failAuthentication;
 str = cognitoUserPoolEvent.response.publicChallengeParameters["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters["answer"];
 str = cognitoUserPoolEvent.response.challengeMetaData;
+anyObj = cognitoUserPoolEvent.response.claimsOverrideDetails;
+anyObj = cognitoUserPoolEvent.response.claimsOverrideDetails.claimsToAddOrOverride;
+anyObj = cognitoUserPoolEvent.response.claimsOverrideDetails.claimsToSuppress;
+anyObj = cognitoUserPoolEvent.response.claimsOverrideDetails.groupOverrideDetails;
+strArray = cognitoUserPoolEvent.response.claimsOverrideDetails.groupOverrideDetails.groupsToOverride;
+strArray = cognitoUserPoolEvent.response.claimsOverrideDetails.groupOverrideDetails.iamRolesToOverride;
+str = cognitoUserPoolEvent.response.claimsOverrideDetails.groupOverrideDetails.preferredRole;
 b = cognitoUserPoolEvent.response.answerCorrect;
 
 // CloudFormation Custom Resource
