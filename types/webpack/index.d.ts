@@ -10,6 +10,7 @@
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -76,7 +77,7 @@ declare namespace webpack {
         /** Capture timing information for each module. */
         profile?: boolean;
         /** Cache generated modules and chunks to improve performance for multiple incremental builds. */
-        cache?: boolean | any;
+        cache?: boolean | object;
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
         watchOptions?: Options.WatchOptions;
@@ -491,7 +492,7 @@ declare namespace webpack {
              */
             maxEntrypointSize?: number;
         }
-        type Stats = webpack.Stats.ToStringOptions;
+        type Stats = Stats.ToStringOptions;
         type WatchOptions = ICompiler.WatchOptions;
     }
 
@@ -541,7 +542,7 @@ declare namespace webpack {
         type Handler = ICompiler.Handler;
         type WatchOptions = ICompiler.WatchOptions;
 
-        class Watching implements webpack.Watching {
+        class Watching implements Watching {
             constructor(compiler: Compiler, watchOptions: Watching.WatchOptions, handler: Watching.Handler);
 
             close(callback: () => void): void;
@@ -1029,7 +1030,7 @@ declare namespace webpack {
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
              */
-            pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
+            pitch?(remainingRequest: string, precedingRequest: string, data: any): any;
 
             /**
              * By default, the resource file is treated as utf-8 string and passed as String to the loader.
@@ -1259,37 +1260,40 @@ declare namespace webpack {
     /** @deprecated */
     namespace compiler {
         /** @deprecated use webpack.Compiler */
+        // tslint:disable-next-line:no-unnecessary-qualifier
         type Compiler = webpack.Compiler;
 
         /** @deprecated use webpack.Compiler.Watching */
-        type Watching = webpack.Compiler.Watching;
+        type Watching = Compiler.Watching;
 
         /** @deprecated use webpack.Compiler.WatchOptions */
-        type WatchOptions = webpack.Compiler.WatchOptions;
+
+        type WatchOptions = Compiler.WatchOptions;
 
         /** @deprecated use webpack.Stats */
+        // tslint:disable-next-line:no-unnecessary-qualifier
         type Stats = webpack.Stats;
 
         /** @deprecated use webpack.Stats.ToJsonOptions */
-        type StatsOptions = webpack.Stats.ToJsonOptions;
+        type StatsOptions = Stats.ToJsonOptions;
 
         /** @deprecated use webpack.Stats.ToStringOptions */
-        type StatsToStringOptions = webpack.Stats.ToStringOptions;
+        type StatsToStringOptions = Stats.ToStringOptions;
 
         /** @deprecated use webpack.Compiler.Handler */
-        type CompilerCallback = webpack.Compiler.Handler;
+        type CompilerCallback = Compiler.Handler;
     }
 
     /** @deprecated use webpack.Options.Performance */
-    type PerformanceOptions = webpack.Options.Performance;
+    type PerformanceOptions = Options.Performance;
     /** @deprecated use webpack.Options.WatchOptions */
-    type WatchOptions = webpack.Options.WatchOptions;
+    type WatchOptions = Options.WatchOptions;
     /** @deprecated use webpack.EvalSourceMapDevToolPlugin.Options */
-    type EvalSourceMapDevToolPluginOptions = webpack.EvalSourceMapDevToolPlugin.Options;
+    type EvalSourceMapDevToolPluginOptions = EvalSourceMapDevToolPlugin.Options;
     /** @deprecated use webpack.SourceMapDevToolPlugin.Options */
-    type SourceMapDevToolPluginOptions = webpack.SourceMapDevToolPlugin.Options;
+    type SourceMapDevToolPluginOptions = SourceMapDevToolPlugin.Options;
     /** @deprecated use webpack.optimize.UglifyJsPlugin.CommentFilter */
-    type UglifyCommentFunction = webpack.optimize.UglifyJsPlugin.CommentFilter;
+    type UglifyCommentFunction = optimize.UglifyJsPlugin.CommentFilter;
     /** @deprecated use webpack.optimize.UglifyJsPlugin.Options */
-    type UglifyPluginOptions = webpack.optimize.UglifyJsPlugin.Options;
+    type UglifyPluginOptions = optimize.UglifyJsPlugin.Options;
 }
