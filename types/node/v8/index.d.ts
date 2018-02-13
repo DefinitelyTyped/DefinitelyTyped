@@ -1735,7 +1735,7 @@ declare module "https" {
     import * as http from "http";
     import { URL } from "url";
 
-    export type ServerOptions = tls.SecureContextOptions & tls.TlsServerOptions;
+    export type ServerOptions = tls.SecureContextOptions & tls.TlsOptions;
 
     // see https://nodejs.org/docs/latest-v8.x/api/https.html#https_https_request_options_callback
     type extendedRequestKeys = "pfx" |
@@ -4937,7 +4937,7 @@ declare module "tls" {
         prependOnceListener(event: "secureConnect", listener: () => void): this;
     }
 
-    export interface TlsServerOptions extends SecureContextOptions {
+    export interface TlsOptions extends SecureContextOptions {
         handshakeTimeout?: number;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
@@ -5072,7 +5072,7 @@ declare module "tls" {
      * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
      */
     export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
-    export function createServer(options: TlsServerOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
+    export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
@@ -6466,7 +6466,7 @@ declare module "http2" {
     export type ServerSessionOptions = SessionOptions;
 
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
-    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsServerOptions { }
+    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
     export interface ServerOptions extends ServerSessionOptions {
         allowHTTP1?: boolean;
