@@ -2056,6 +2056,7 @@ export class SpotLight extends Light {
 }
 
 export class SpotLightShadow extends LightShadow {
+    camera: PerspectiveCamera;
     update(light: Light): void;
 }
 
@@ -4851,10 +4852,10 @@ export class LineSegments extends Line {
 }
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material []);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material);
 
     geometry: Geometry|BufferGeometry;
-    material: Material | Material[];
+    material: Material;
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -6951,7 +6952,7 @@ export class ArrowHelper extends Object3D {
     setColor(hex: number): void;
 }
 
-export class AxisHelper extends LineSegments {
+export class AxesHelper extends LineSegments {
     constructor(size?: number);
 }
 

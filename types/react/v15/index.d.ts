@@ -13,7 +13,7 @@
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /*
 Known Problems & Workarounds
@@ -2856,6 +2856,7 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
         height?: number | string;
         sizes?: string;
         src?: string;
