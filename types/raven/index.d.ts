@@ -10,6 +10,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { EventEmitter } from 'events';
 
 export const version: string;
+export function config(options?: ConstructorOptions): Client;
 export function config(dsn?: string | false, options?: ConstructorOptions): Client;
 export function wrap<T>(func: () => T): () => T;
 export function wrap<T>(options: any, func: () => T): () => T;
