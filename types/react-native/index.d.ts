@@ -5199,7 +5199,7 @@ export type PlatformOSType = "ios" | "android" | "macos" | "windows" | "web";
 
 interface PlatformStatic {
     OS: PlatformOSType;
-    Version: number;
+    Version: number | string;
 
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
