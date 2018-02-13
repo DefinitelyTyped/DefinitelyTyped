@@ -1,4 +1,4 @@
-import * as Gifffer from 'gifffer';
+import Gifffer = require('gifffer');
 
 let gifs: HTMLButtonElement[];
 
