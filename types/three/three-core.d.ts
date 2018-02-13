@@ -6951,7 +6951,7 @@ export class ArrowHelper extends Object3D {
     setColor(hex: number): void;
 }
 
-export class AxisHelper extends LineSegments {
+export class AxesHelper extends LineSegments {
     constructor(size?: number);
 }
 
