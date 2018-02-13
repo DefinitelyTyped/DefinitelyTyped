@@ -1,6 +1,12 @@
 // Type definitions for Mongoose 5.0.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>, Alorel <https://github.com/Alorel>, jendrikw <https://github.com/jendrikw>
+// Definitions by: simonxca <https://github.com/simonxca>
+//                 horiuchi <https://github.com/horiuchi>
+//                 sindrenm <https://github.com/sindrenm>
+//                 lukasz-zak <https://github.com/lukasz-zak>
+//                 Alorel <https://github.com/Alorel>
+//                 jendrikw <https://github.com/jendrikw>
+//                 Ethan Resnick <https://github.com/ethanresnick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2712,7 +2718,7 @@ declare module "mongoose" {
      * If this is a discriminator model, baseModelName is the
      * name of the base model.
      */
-    baseModelName: String;
+    baseModelName: string | undefined;
 
     /** Collection the model uses. */
     collection: Collection;
