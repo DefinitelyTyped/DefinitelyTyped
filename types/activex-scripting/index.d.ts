@@ -174,7 +174,7 @@ declare namespace Scripting {
 
         /**
          * Delete this file
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to delete the file even if the read-only attribute is set
          */
         Delete(Force?: boolean): void;
 
@@ -251,13 +251,13 @@ declare namespace Scripting {
 
         /**
          * Delete a file
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to also delete files with the read-only attribute set
          */
         DeleteFile(FileSpec: string, Force?: boolean): void;
 
         /**
          * Delete a folder
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to also delete folders with the read-only attribute set
          */
         DeleteFolder(FolderSpec: string, Force?: boolean): void;
 
@@ -325,7 +325,7 @@ declare namespace Scripting {
          * Open a file as a TextStream
          * @param Scripting.IOMode [IOMode=1]
          * @param boolean [Create=false]
-         * @param Scripting.Tristate [Format=0]
+         * @param Scripting.Tristate [Format=0] **TristateTrue** opens the file as Unicode; **TristateFalse** opens the file as ASCII;  **TristateUseDefault** opens the file with  the system default
          */
         OpenTextFile(FileName: string, IOMode?: IOMode, Create?: boolean, Format?: Tristate): TextStream;
     }
@@ -359,7 +359,7 @@ declare namespace Scripting {
 
         /**
          * Delete this folder
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to delete the folder even if the read-only attribute set
          */
         Delete(Force?: boolean): void;
 
