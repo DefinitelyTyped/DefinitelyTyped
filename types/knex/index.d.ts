@@ -16,7 +16,7 @@ import Bluebird = require("bluebird");
 
 type Callback = Function;
 type Client = Function;
-type Value = string | number | boolean | Date | null | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
+type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string };
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
@@ -262,9 +262,9 @@ declare namespace Knex {
         (raw: Raw): QueryBuilder;
         (callback: QueryCallback): QueryBuilder;
         (object: Object): QueryBuilder;
-        (columnName: string, value: Value): QueryBuilder;
-        (columnName: string, operator: string, value: Value): QueryBuilder;
-        (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
+        (columnName: string, value: Value | null): QueryBuilder;
+        (columnName: string, operator: string, value: Value | null): QueryBuilder;
+        (columnName: string, operator: string, query: QueryBuilder | null): QueryBuilder;
     }
 
     interface WhereRaw extends RawQueryBuilder {
