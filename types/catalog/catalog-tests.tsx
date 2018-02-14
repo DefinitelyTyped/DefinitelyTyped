@@ -36,7 +36,7 @@ render(config, document.body);
 markdown`
 # Test
 
-${<ReactSpecimen>
+${<ReactSpecimen sourceText='.'>
   <div />
 </ReactSpecimen>}
 `;
