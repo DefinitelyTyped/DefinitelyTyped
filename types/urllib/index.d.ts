@@ -118,7 +118,7 @@ export interface IRequestOptions {
  * @param data Outgoing message
  * @param res http response
  */
-type Callback = (err: Error, data: any, res: http.IncomingMessage) => void;
+export type Callback = (err: Error, data: any, res: http.IncomingMessage) => void;
 
 /**
  * Handle all http request, both http and https support well.
