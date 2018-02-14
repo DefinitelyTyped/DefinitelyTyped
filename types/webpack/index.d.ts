@@ -9,6 +9,7 @@
 //                 Ahmed T. Ali <https://github.com/ahmed-taj>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
+//                 Jason Cheatham <https://github.com/jason0x43>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -16,6 +17,7 @@
 
 import Tapable = require('tapable');
 import * as UglifyJS from 'uglify-js';
+import { RawSourceMap } from 'source-map';
 
 export = webpack;
 
@@ -1021,7 +1023,7 @@ declare namespace webpack {
 
     namespace loader {
         interface Loader extends Function {
-            (this: LoaderContext, source: string | Buffer, sourceMap: string | Buffer): string | Buffer | void | undefined;
+            (this: LoaderContext, source: string | Buffer, sourceMap?: RawSourceMap): string | Buffer | void | undefined;
 
             /**
              * The order of chained loaders are always called from right to left.
@@ -1041,7 +1043,7 @@ declare namespace webpack {
             raw?: boolean;
         }
 
-        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: string | Buffer) => void;
+        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: RawSourceMap) => void;
 
         interface LoaderContext {
             /**
