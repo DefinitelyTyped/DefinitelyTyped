@@ -536,8 +536,9 @@ let tileLayer: ol.layer.Tile = new ol.layer.Tile({
 //
 // ol.layer.Vector
 //
+let vectorLayerRenderMode: olx.layer.VectorRenderType = 'image';
 let vectorLayer: ol.layer.Vector = new ol.layer.Vector({
-    renderMode: 'image',
+    renderMode: vectorLayerRenderMode,
     source: new ol.source.Vector(),
     zIndex: -1
 });
