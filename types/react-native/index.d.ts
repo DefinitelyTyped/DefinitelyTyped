@@ -8634,6 +8634,7 @@ export namespace addons {
 export var ColorPropType: React.Requireable<any>;
 export var EdgeInsetsPropType: React.Requireable<any>;
 export var PointPropType: React.Requireable<any>;
+export var ViewPropTypes: React.Requireable<any>;
 
 declare global {
     function require(name: string): any;
