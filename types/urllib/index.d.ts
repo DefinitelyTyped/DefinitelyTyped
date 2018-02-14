@@ -141,7 +141,7 @@ export function request(url: string | url.URL, options?: RequestOptions): Promis
 export function request(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see RequestOptions.
+ * @param options @see RequestOptions.
  * @param callback @see Callback
  */
 export function request(url: string | url.URL, options: RequestOptions, callback: Callback): void;
@@ -154,7 +154,7 @@ export function request(url: string | url.URL, options: RequestOptions, callback
 export function requestWithCallback(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see RequestOptions.
+ * @param options @see RequestOptions.
  * @param callback @see Callback
  */
 export function requestWithCallback(url: string | url.URL, options: RequestOptions, callback: Callback): void;
@@ -164,7 +164,7 @@ export function requestWithCallback(url: string | url.URL, options: RequestOptio
  * @param url The URL to request, either a String or a Object that return by url.parse.
  * @param options Optional, @see RequestOptions.
  */
-export function requestThunk(url: string | url.URL, options: RequestOptions): (callback: (...args: any[]) => void) => void;
+export function requestThunk(url: string | url.URL, options?: RequestOptions): (callback: (...args: any[]) => void) => void;
 
 /**
  * alias to request.
@@ -188,24 +188,21 @@ export function curl(url: string | url.URL, options?: RequestOptions): Promise<a
 export function curl(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see RequestOptions.
+ * @param options @see RequestOptions.
  * @param callback @see Callback
  */
 export function curl(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 /**
  * The default request timeout(in milliseconds).
- * @const
  */
 export const TIMEOUT: number;
 /**
  * The default request & response timeout(in milliseconds).
- * @const
  */
 export const TIMEOUTS: [number, number];
 
 /**
  * Request user agent.
- * @const
  */
 export const USER_AGENT: string;
 
