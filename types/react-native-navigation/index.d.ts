@@ -40,10 +40,18 @@ export interface TabBasedApp {
     animationType?: 'none' | 'slide-down' | 'fade';
 }
 
+export interface IconInsets {
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+}
+
 export interface TabScreen {
     label?: string;
     screen: string;
     icon?: any;
+    iconInsets?: IconInsets;
     selectedIcon?: any;
     title?: string;
     navigatorStyle?: NavigatorStyle;
