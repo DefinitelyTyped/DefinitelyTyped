@@ -19,8 +19,6 @@ declare namespace WebpackDevServer {
         address(): { port?: number };
     }
 
-    function addDevServerEntrypoints(webpack: webpack.Compiler | webpack.MultiCompiler, config: Configuration, listeningApp?: ListeningApp): void;
-
     interface proxyConfigMap {
         [url: string]: string | httpProxyMiddleware.Config;
     }
@@ -81,6 +79,12 @@ declare class WebpackDevServer {
         webpack: webpack.Compiler | webpack.MultiCompiler,
         config: WebpackDevServer.Configuration
     );
+
+    static addDevServerEntrypoints(
+        webpack: webpack.Compiler | webpack.MultiCompiler,
+        config: WebpackDevServer.Configuration,
+        listeningApp?: WebpackDevServer.ListeningApp
+    ): void;
 
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
 
