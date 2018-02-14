@@ -264,7 +264,7 @@ declare namespace Knex {
         (object: Object): QueryBuilder;
         (columnName: string, value: Value | null): QueryBuilder;
         (columnName: string, operator: string, value: Value | null): QueryBuilder;
-        (columnName: string, operator: string, query: QueryBuilder | null): QueryBuilder;
+        (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
     }
 
     interface WhereRaw extends RawQueryBuilder {
