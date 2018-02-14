@@ -248,6 +248,6 @@ export class HttpClient2 extends EventEmitter {
 /**
  * Create a HttpClient incetance.
  * @param options
- * @return {HttpClient} HttpClient incetance.
+ * @return HttpClient incetance.
  */
 export function create(options?: IRequestOptions): HttpClient;
