@@ -4,6 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function getCallerFile(position?: number): string;
-declare namespace getCallerFile {}
 
 export = getCallerFile;
