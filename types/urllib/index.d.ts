@@ -194,33 +194,28 @@ export function curl(url: string | url.URL, callback: Callback): void;
 export function curl(url: string | url.URL, options: IRequestOptions, callback: Callback): void;
 /**
  * The default request timeout(in milliseconds).
- * @type {Number}
  * @const
  */
 export const TIMEOUT: number;
 /**
  * The default request & response timeout(in milliseconds).
- * @type {Array}
  * @const
  */
 export const TIMEOUTS: [number, number];
 
 /**
  * Request user agent.
- * @type {String}
  * @const
  */
 export const USER_AGENT: string;
 
 /**
  * Request http agent.
- * @type {http.Agent}
  */
 export const agent: http.Agent;
 
 /**
  * Request https agent.
- * @type {https.Agent}
  */
 export const httpsAgent: https.Agent;
 
@@ -239,7 +234,6 @@ export class HttpClient extends EventEmitter {
 /**
  * request method only return a promise,
  * compatible with async/await and generator in co.
- * @constructor {IRequestOptions} Optional @see IRequestOptions
  */
 export class HttpClient2 extends EventEmitter {
   constructor(options?: IRequestOptions);
