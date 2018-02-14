@@ -13,6 +13,7 @@
 import events = require("events");
 import stream = require ("stream");
 import Bluebird = require("bluebird");
+import { ColumnBuilder } from "knex";
 
 type Callback = Function;
 type Client = Function;
@@ -426,7 +427,7 @@ declare namespace Knex {
         date(columnName: string): ColumnBuilder;
         dateTime(columnName: string): ColumnBuilder;
         time(columnName: string): ColumnBuilder;
-        timestamp(columnName: string): ColumnBuilder;
+        timestamp(columnName: string, standard?: boolean): ColumnBuilder;
         timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
         binary(columnName: string, length?: number): ColumnBuilder;
         enum(columnName: string, values: Value[]): ColumnBuilder;
@@ -439,8 +440,8 @@ declare namespace Knex {
         primary(columnNames: string[]): TableBuilder;
         index(columnNames: (string | Raw)[], indexName?: string, indexType?: string): TableBuilder;
         unique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
-        foreign(column: string): ForeignConstraintBuilder;
-        foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+        foreign(column: string, foreignKeyName?: string): ForeignConstraintBuilder;
+        foreign(columns: string[], foreignKeyName?: string): ForeignConstraintBuilder;
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
         dropUnique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
@@ -465,8 +466,8 @@ declare namespace Knex {
 
     interface ColumnBuilder {
         index(indexName?: string): ColumnBuilder;
-        primary(): ColumnBuilder;
-        unique(): ColumnBuilder;
+        primary(constraintName?: string): ColumnBuilder;
+        unique(indexName?: string): ColumnBuilder;
         references(columnName: string): ReferencingColumnBuilder;
         onDelete(command: string): ColumnBuilder;
         onUpdate(command: string): ColumnBuilder;
