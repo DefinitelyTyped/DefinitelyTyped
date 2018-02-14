@@ -370,3 +370,6 @@ let marker = new mapboxgl.Marker(undefined, {offset: [10, 0]})
 	.addTo(map);
 
 marker.remove();
+let bool:boolean
+let bounds = new mapboxgl.LngLatBounds()
+bool = bounds.isEmpty()
