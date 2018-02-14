@@ -87,13 +87,13 @@ server.listen(8080, "localhost", () => { });
 
 server.close();
 
-WebpackDevServer.addDevServerEntrypoints(compiler, {
+WebpackDevServer.addDevServerEntrypoints(config, {
     publicPath: "/assets/",
     https: true
 });
 
 WebpackDevServer.addDevServerEntrypoints(
-    compiler,
+    [config],
     {
         publicPath: "/assets/",
         https: true

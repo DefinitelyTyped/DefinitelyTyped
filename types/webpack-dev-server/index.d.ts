@@ -81,7 +81,7 @@ declare class WebpackDevServer {
     );
 
     static addDevServerEntrypoints(
-        webpack: webpack.Compiler | webpack.MultiCompiler,
+        webpackOptions: webpack.Configuration | webpack.Configuration[],
         config: WebpackDevServer.Configuration,
         listeningApp?: WebpackDevServer.ListeningApp
     ): void;
