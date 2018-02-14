@@ -1,4 +1,4 @@
-import * as stringifyObject from 'stringify-object';
+import stringifyObject = require('stringify-object');
 
 stringifyObject({ a: 1, b: 2, c: 3 });
 
