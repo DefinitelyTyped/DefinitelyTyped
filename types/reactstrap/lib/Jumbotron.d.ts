@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface JumbotronProps {
+export interface JumbotronProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   fluid?: boolean;
   className?: string;
