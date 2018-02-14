@@ -48,6 +48,7 @@ anyArray = d3Collection.values(keyValueObj);
 
 stringArray = d3Collection.values(keyValueObj2);
 stringArray = d3Collection.values<string>(keyValueObj2);
+// stringArray = d3Collection.values<string>(keyValueObj); // test fails, argument not compatible with generic constraint
 
 anyArray = d3Collection.values(document); // purely for the fun of it
 
@@ -70,7 +71,7 @@ interface TestObject {
     val: number;
 }
 
-let testObject: TestObject;
+let testObjectMaybe: TestObject | undefined;
 let testObjArray: TestObject[];
 let testObjKVArray: Array<{ key: string, value: TestObject }>;
 
@@ -107,7 +108,7 @@ booleanFlag = basicMap.has('foo');
 
 // get(...) ------------------------------------------------------------
 
-testObject = testObjMap.get('foo');
+testObjectMaybe = testObjMap.get('foo');
 
 // set(...) ------------------------------------------------------------
 
@@ -304,11 +305,12 @@ let testL1NestedMapRollup: TestL1NestedMapRollup;
 
 testL2NestedMap = nestL2.map(raw);
 
-num = testL2NestedMap.get('1931').get('Manchuria')[0].yield; // access chain to leaf property
+// Note: Use chaining of get(...) in combination with existence assertion operator "!"" with caution
+num = testL2NestedMap.get('1931')!.get('Manchuria')![0].yield; // access chain to leaf property
 
 testL1NestedMapRollup = nestL1Rollup.map(raw);
 
-num = testL1NestedMapRollup.get('1931'); // get rollup value
+const numMaybe: number | undefined = testL1NestedMapRollup.get('1931'); // get rollup value
 
 // object(...) --------------------------------------------------------
 
@@ -348,13 +350,23 @@ type TestL1NestedArrayRollup = Array<{
     value: number;
 }>;
 
+type TestL1NestedArrayRollupConservative = Array<{
+    key: string;
+    value?: number; // Conservatively pretend, value could be undefined
+}>;
+
 let testL2NestedArray: TestL2NestedArray;
 let testL1NestedArrayRollup: TestL1NestedArrayRollup;
+let testL1NestedArrayRollupConservative: TestL1NestedArrayRollupConservative;
 
 testL2NestedArray = nestL2.entries(raw);
 
 num = testL2NestedArray[0].values[0].values[0].yield; // access chain to leaf property
 
-testL1NestedArrayRollup = nestL1Rollup.entries(raw);
+testL1NestedArrayRollupConservative = nestL1Rollup.entries(raw);
+// With use-case specific knowledge that a rollup function was applied,
+// the existince of value can be asserted with "!"
+num = testL1NestedArrayRollupConservative[0].value!; // get rollup value
 
+testL1NestedArrayRollup = nestL1Rollup.entries(raw) as TestL1NestedArrayRollup; // cast as
 num = testL1NestedArrayRollup[0].value; // get rollup value
