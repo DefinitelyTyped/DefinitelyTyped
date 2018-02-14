@@ -170,6 +170,3 @@ declare namespace hello {
         logout?: ((callback: () => void | string) => void) | string;
     }
 }
-declare global {
-    let hello: hello.HelloJSStatic;
-}
