@@ -2100,6 +2100,12 @@ declare module 'ember' {
         }
     }
 }
+declare module 'ember-test-helpers' {
+    import DS from 'ember-data';
+    interface TestContext {
+        store: DS.Store;
+    }
+}
 declare module 'ember-data/adapter' {
     import DS from 'ember-data';
     export default DS.Adapter;
