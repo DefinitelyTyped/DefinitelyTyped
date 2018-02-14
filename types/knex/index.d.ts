@@ -13,7 +13,6 @@
 import events = require("events");
 import stream = require ("stream");
 import Bluebird = require("bluebird");
-import { ColumnBuilder } from "knex";
 
 type Callback = Function;
 type Client = Function;
@@ -441,7 +440,7 @@ declare namespace Knex {
         index(columnNames: (string | Raw)[], indexName?: string, indexType?: string): TableBuilder;
         unique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         foreign(column: string, foreignKeyName?: string): ForeignConstraintBuilder;
-        foreign(columns: string[], foreignKeyName?: string): ForeignConstraintBuilder;
+        foreign(columns: string[], foreignKeyName?: string): MultikeyForeignConstraintBuilder;
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
         dropUnique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
