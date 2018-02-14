@@ -14412,11 +14412,24 @@ declare module olx {
             width?: number;
         }
 
+        /**
+         * Text placement. One of `'point'`, `'line'`. Default is `'point'`. Note that
+         * `'line'` requires the underlying geometry to be a {@link ol.geom.LineString},
+         * {@link ol.geom.Polygon}, {@link ol.geom.MultiLineString} or
+         * {@link ol.geom.MultiPolygon}.
+         * @enum {string}
+         */
+        type TextPlacement = 'point' | 'line';
+
+
 
         /**
          * @typedef {{font: (string|undefined),
+         *     maxAngle: (number|undefined),
          *     offsetX: (number|undefined),
          *     offsetY: (number|undefined),
+         *     overflow: (boolean|undefined),
+         *     placement: (ol.style.TextPlacement|string|undefined),
          *     scale: (number|undefined),
          *     rotateWithView: (boolean|undefined),
          *     rotation: (number|undefined),
@@ -14424,12 +14437,18 @@ declare module olx {
          *     textAlign: (string|undefined),
          *     textBaseline: (string|undefined),
          *     fill: (ol.style.Fill|undefined),
-         *     stroke: (ol.style.Stroke|undefined)}}
+         *     stroke: (ol.style.Stroke|undefined),
+         *     backgroundFill: (ol.style.Fill|undefined),
+         *     backgroundStroke: (ol.style.Stroke|undefined),
+         *     padding: (Array.<number>|undefined)}}
          */
         interface TextOptions {
             font?: string;
+            maxAngle?: boolean;
             offsetX?: number;
             offsetY?: number;
+            overflow?: boolean;
+            placement?: olx.style.TextPlacement,
             scale?: number;
             rotateWithView?: boolean;
             rotation?: number;
@@ -14438,6 +14457,9 @@ declare module olx {
             textBaseline?: string;
             fill?: ol.style.Fill;
             stroke?: ol.style.Stroke;
+            backgroundFill?: ol.style.Fill;
+            backgroundStroke?: ol.style.Stroke;
+            padding?: number[];
         }
 
 
