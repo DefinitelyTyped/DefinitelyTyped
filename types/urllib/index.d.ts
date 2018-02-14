@@ -11,7 +11,7 @@ import { Readable, Writable } from 'stream';
 import { EventEmitter } from 'events';
 
 export as namespace urllib;
-export interface IRequestOptions {
+export interface RequestOptions {
   /** Request method, defaults to GET. Could be GET, POST, DELETE or PUT. Alias 'type'. */
   method?: "GET" | "POST" | "DELETE" | "PUT";
   /** Data to be sent. Will be stringify automatically. */
@@ -131,9 +131,9 @@ export type Callback = (err: Error, data: any, res: http.IncomingMessage) => voi
  * urllib.request('http://httptest.cnodejs.net/test/post', args, function(err, data, res) {});
  *
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see IRequestOptions.
+ * @param options Optional, @see RequestOptions.
  */
-export function request(url: string | url.URL, options?: IRequestOptions): Promise<any>;
+export function request(url: string | url.URL, options?: RequestOptions): Promise<any>;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
  * @param callback @see Callback
@@ -141,10 +141,10 @@ export function request(url: string | url.URL, options?: IRequestOptions): Promi
 export function request(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see IRequestOptions.
+ * @param options Optional, @see RequestOptions.
  * @param callback @see Callback
  */
-export function request(url: string | url.URL, options: IRequestOptions, callback: Callback): void;
+export function request(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 
 /**
  * Handle request with a callback.
@@ -154,17 +154,17 @@ export function request(url: string | url.URL, options: IRequestOptions, callbac
 export function requestWithCallback(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see IRequestOptions.
+ * @param options Optional, @see RequestOptions.
  * @param callback @see Callback
  */
-export function requestWithCallback(url: string | url.URL, options: IRequestOptions, callback: Callback): void;
+export function requestWithCallback(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 
 /**
  * yield urllib.requestThunk(url, args)
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see IRequestOptions.
+ * @param options Optional, @see RequestOptions.
  */
-export function requestThunk(url: string | url.URL, options: IRequestOptions): (callback: (...args: any[]) => void) => void;
+export function requestThunk(url: string | url.URL, options: RequestOptions): (callback: (...args: any[]) => void) => void;
 
 /**
  * alias to request.
@@ -178,9 +178,9 @@ export function requestThunk(url: string | url.URL, options: IRequestOptions): (
  * urllib.request('http://httptest.cnodejs.net/test/post', args, function(err, data, res) {});
  *
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see IRequestOptions.
+ * @param options Optional, @see RequestOptions.
  */
-export function curl(url: string | url.URL, options?: IRequestOptions): Promise<any>;
+export function curl(url: string | url.URL, options?: RequestOptions): Promise<any>;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
  * @param callback @see Callback
@@ -188,10 +188,10 @@ export function curl(url: string | url.URL, options?: IRequestOptions): Promise<
 export function curl(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see IRequestOptions.
+ * @param options Optional, @see RequestOptions.
  * @param callback @see Callback
  */
-export function curl(url: string | url.URL, options: IRequestOptions, callback: Callback): void;
+export function curl(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 /**
  * The default request timeout(in milliseconds).
  * @const
@@ -220,15 +220,15 @@ export const agent: http.Agent;
 export const httpsAgent: https.Agent;
 
 export class HttpClient extends EventEmitter {
-  constructor(options?: IRequestOptions);
+  constructor(options?: RequestOptions);
 
   request(url: string | url.URL, callback: Callback): void;
-  request(url: string | url.URL, options: IRequestOptions, callback: Callback): void;
+  request(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 
   curl(url: string | url.URL, callback: Callback): void;
-  curl(url: string | url.URL, options: IRequestOptions, callback: Callback): void;
+  curl(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 
-  requestThunk(url: string | url.URL, options?: IRequestOptions): (callback: (...args: any[]) => void) => void;
+  requestThunk(url: string | url.URL, options?: RequestOptions): (callback: (...args: any[]) => void) => void;
 }
 
 /**
@@ -236,13 +236,13 @@ export class HttpClient extends EventEmitter {
  * compatible with async/await and generator in co.
  */
 export class HttpClient2 extends EventEmitter {
-  constructor(options?: IRequestOptions);
+  constructor(options?: RequestOptions);
 
-  request(url: string | url.URL, options?: IRequestOptions): Promise<any>;
+  request(url: string | url.URL, options?: RequestOptions): Promise<any>;
 
-  curl(url: string | url.URL, options?: IRequestOptions): Promise<any>;
+  curl(url: string | url.URL, options?: RequestOptions): Promise<any>;
 
-  requestThunk(url: string | url.URL, options?: IRequestOptions): (callback: (...args: any[]) => void) => void;
+  requestThunk(url: string | url.URL, options?: RequestOptions): (callback: (...args: any[]) => void) => void;
 }
 
 /**
@@ -250,4 +250,4 @@ export class HttpClient2 extends EventEmitter {
  * @param options
  * @return HttpClient incetance.
  */
-export function create(options?: IRequestOptions): HttpClient;
+export function create(options?: RequestOptions): HttpClient;
