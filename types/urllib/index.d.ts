@@ -47,7 +47,7 @@ export interface IRequestOptions {
   /** Fix the control characters (U+0000 through U+001F) before JSON parse response. Default is false. */
   fixJSONCtlChars?: boolean;
   /** Request headers. */
-  headers?: Object;
+  headers?: { [key: string]: any };
   /**
    * Request timeout in milliseconds for connecting phase and response receiving phase.
    * Defaults to exports.
@@ -110,7 +110,7 @@ export interface IRequestOptions {
   /** Enable proxy request, default is false. */
   enableProxy?: boolean;
   /** proxy agent uri or options, default is null. */
-  proxy?: string | Object;
+  proxy?: string | { [key: string]: any };
 }
 
 /**
