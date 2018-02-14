@@ -1,6 +1,6 @@
 import * as http from "http";
 import * as zlib from "zlib";
-import * as Podium from "podium";
+import Podium = require("podium");
 import {
     ApplicationState,
     Lifecycle,
