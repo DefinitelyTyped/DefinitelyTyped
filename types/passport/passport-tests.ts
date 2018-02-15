@@ -146,7 +146,7 @@ declare global {
     }
 }
 
-app.use((req, res, next) => {
+app.use((req: express.Request, res: express.Response, next: (err?: any) => void) => {
     req.user.username = "hello user";
     next();
 });
