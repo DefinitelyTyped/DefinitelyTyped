@@ -161,4 +161,4 @@ interface ObjectMerge {
 
 declare const objectMerge: ObjectMerge;
 
-export default objectMerge;
+export = objectMerge;
