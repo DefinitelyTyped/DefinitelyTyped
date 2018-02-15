@@ -1,3 +1,4 @@
+/// <reference types="jquery"/>
 /* inspired by documentation at http://isotope.metafizzy.co/ */
 
 // test all options
