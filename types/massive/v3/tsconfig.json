@@ -19,7 +19,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "strictFunctionTypes": true
     },
     "files": [
