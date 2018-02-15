@@ -244,7 +244,6 @@ export class HttpClient2 extends EventEmitter {
 
 /**
  * Create a HttpClient incetance.
- * @param options
- * @return HttpClient incetance.
+ * @param options @see RequestOptions
  */
 export function create(options?: RequestOptions): HttpClient;
