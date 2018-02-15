@@ -20,6 +20,8 @@ interface Category {
 o('http://services.odata.org/V4/OData/OData.svc/Products')
     .get<Product>(function(data) {
         console.log(data); //returns an array of Product data
+    }, function(status) {
+        console.error(status); // error with status
     });
 
 
@@ -132,7 +134,9 @@ o('Products').get<Product>(function(data) {
     //same result like the first example on this page
 });
 
-
+const oEequest = o('http://services.odata.org/V4/OData/OData.svc/Products')
+    .find(2);
+const queryString = oEequest.query();
 
 //basic config
 o().config({
