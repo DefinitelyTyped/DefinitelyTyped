@@ -17,6 +17,7 @@ declare module 'angular' {
         }
 
         interface tmhDynamicLocaleProvider extends angular.IServiceProvider {
+            defaultLocale(locale: string): void;
             localeLocationPattern(location: string): tmhDynamicLocaleProvider;
             localeLocationPattern(): string;
             storageKey(storageKey: string): void;

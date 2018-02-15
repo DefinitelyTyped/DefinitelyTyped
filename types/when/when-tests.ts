@@ -7,7 +7,7 @@ import dns = require('dns');
 import when = require("when");
 
 class ForeignPromise<T> {
-	constructor(private value: T) {
+	constructor(private readonly value: T) {
 	}
 
 	then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U) { return new ForeignPromise<U>(onFulfilled(this.value)); }

@@ -3221,6 +3221,11 @@ declare namespace sequelize {
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
+
+        /**
+         * Prevents a subquery on the main table when using include
+         */
+        subQuery?: boolean;
     }
 
     /**
@@ -3237,6 +3242,11 @@ declare namespace sequelize {
          * Include options. See `find` for details
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+
+        /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
 
         /**
          * Apply COUNT(DISTINCT(col))
@@ -6158,8 +6168,6 @@ declare namespace sequelize {
 
     interface SequelizeLoDash extends _.LoDashStatic {
 
-        camelizeIf(str: string, condition: boolean): string;
-        underscoredIf(str: string, condition: boolean): string;
         /**
          * * Returns an array with some falsy values removed. The values null, "", undefined and NaN are considered
          * falsey.
@@ -6173,6 +6181,9 @@ declare namespace sequelize {
 
     interface Utils {
 
+        camelizeIf(str: string, condition: boolean): string;
+        underscoredIf(str: string, condition: boolean): string;
+                     
         _: SequelizeLoDash;
 
         /**

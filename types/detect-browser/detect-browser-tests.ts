@@ -1,5 +1,7 @@
+import { detect } from 'detect-browser';
+const browser = detect();
 
-import detectBrowser = require("detect-browser");
-
-const n: string = detectBrowser.name;
-const v: string = detectBrowser.version;
+if (browser) {
+    const name: string = browser.name;
+    const version: string = browser.version;
+}

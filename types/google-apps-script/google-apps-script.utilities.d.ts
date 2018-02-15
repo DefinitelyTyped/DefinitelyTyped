@@ -58,8 +58,8 @@ declare namespace GoogleAppsScript {
       newBlob(data: string): Base.Blob;
       newBlob(data: string, contentType: string): Base.Blob;
       newBlob(data: string, contentType: string, name: string): Base.Blob;
-      parseCsv(csv: string): String[][];
-      parseCsv(csv: string, delimiter: Char): String[][];
+      parseCsv(csv: string): string[][];
+      parseCsv(csv: string, delimiter: Char): string[][];
       sleep(milliseconds: Integer): void;
       unzip(blob: Base.BlobSource): Base.Blob[];
       zip(blobs: Base.BlobSource[]): Base.Blob;

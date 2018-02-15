@@ -16,7 +16,7 @@ const mockContext: Mocha.IBeforeAndAfterContext = <any> {
     }
 };
 
-chaiJestSnapshot.setFileName("filename");
+chaiJestSnapshot.setFilename("filename");
 chaiJestSnapshot.setTestName("testname");
 chaiJestSnapshot.configureUsingMochaContext(mockContext);
 chaiJestSnapshot.resetSnapshotRegistry();

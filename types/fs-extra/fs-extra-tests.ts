@@ -52,17 +52,9 @@ fs.copy(src, dest,
 	},
 	errorCallback
 );
-fs.copy(src, dest,
-	{
-		overwrite: true,
-		preserveTimestamps: true,
-		filter: /.*/
-	},
-	errorCallback
-);
+
 fs.copySync(src, dest);
 fs.copySync(src, dest, { filter: (src: string, dest: string) => false });
-fs.copySync(src, dest, { filter: /.*/ });
 fs.copySync(src, dest,
 	{
 		overwrite: true,
@@ -70,13 +62,7 @@ fs.copySync(src, dest,
 		filter: (src: string, dest: string) => false
 	}
 );
-fs.copySync(src, dest,
-	{
-		overwrite: true,
-		preserveTimestamps: true,
-		filter: /.*/
-	}
-);
+
 fs.createFile(file).then(() => {
 	// stub
 });

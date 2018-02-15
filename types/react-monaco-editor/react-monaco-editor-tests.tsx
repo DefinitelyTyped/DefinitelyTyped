@@ -21,7 +21,7 @@ class CodeEditor extends React.Component<object, CodeEditorState> {
         console.log('editorDidMount', editor, editor.getValue(), editor.getModel());
         this.editor = editor;
     }
-    onChange = (newValue: string, e: monaco.editor.IModelContentChangedEvent2) => {
+    onChange = (newValue: string, e: monaco.editor.IModelContentChangedEvent) => {
         console.log('onChange', newValue, e);
         this.setState({
             code: newValue,

@@ -8,17 +8,23 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "selenium-webdriver": ["selenium-webdriver/v2"],
-          "selenium-webdriver/*": ["selenium-webdriver/v2/*"]
+            "selenium-webdriver": [
+                "selenium-webdriver/v2"
+            ],
+            "selenium-webdriver/*": [
+                "selenium-webdriver/v2/*"
+            ]
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",

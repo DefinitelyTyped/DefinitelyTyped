@@ -1,17 +1,10 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
-// Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
-// Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 declare module Microsoft.Maps {
 
     /** GeoJSON object definition */
     export interface IGeoJsonObject {
-        /** 
-         * Type of the object 
-         * could be one of the following: 
+        /**
+         * Type of the object
+         * could be one of the following:
          * Point
          * LineString
          * Polygon
@@ -20,7 +13,7 @@ declare module Microsoft.Maps {
          * MultiPolygon
          * GeometryCollection
          * Feature
-         * FeatureCollection 
+         * FeatureCollection
          */
         type: string;
 

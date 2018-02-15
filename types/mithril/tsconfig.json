@@ -1,39 +1,45 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": ["es2015", "dom"],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "../",
-    "typeRoots": ["../"],
-    "types": []
-  },
-  "files": [
-    "test/test-api.ts",
-    "test/test-class-component.ts",
-    "test/test-component.ts",
-    "test/test-factory-component.ts",
-    "test/test-fragment.ts",
-    "test/test-jsonp.ts",
-    "test/test-misc.ts",
-    "test/test-request.ts",
-    "test/test-route.ts",
-    "test/test-stream.ts",
-    "index.d.ts",
-    "hyperscript.d.ts",
-    "mount.d.ts",
-    "redraw.d.ts",
-    "render.d.ts",
-    "request.d.ts",
-    "route.d.ts",
-    "withAttr.d.ts",
-    "stream/index.d.ts"
-  ],
-  "atom": {
-    "rewriteTsconfig": false
-  }
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es2015",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "noEmit": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": []
+    },
+    "files": [
+        "test/test-api.ts",
+        "test/test-class-component.ts",
+        "test/test-component.ts",
+        "test/test-factory-component.ts",
+        "test/test-fragment.ts",
+        "test/test-jsonp.ts",
+        "test/test-misc.ts",
+        "test/test-request.ts",
+        "test/test-route.ts",
+        "test/test-stream.ts",
+        "index.d.ts",
+        "hyperscript.d.ts",
+        "mount.d.ts",
+        "redraw.d.ts",
+        "render.d.ts",
+        "request.d.ts",
+        "route.d.ts",
+        "withAttr.d.ts",
+        "stream/index.d.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": false
+    }
 }

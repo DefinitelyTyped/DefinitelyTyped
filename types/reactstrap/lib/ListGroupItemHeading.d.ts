@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ListGroupItemHeadingProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var ListGroupItemHeading: React.StatelessComponent<Props>;
+declare const ListGroupItemHeading: React.StatelessComponent<ListGroupItemHeadingProps>;
 export default ListGroupItemHeading;

@@ -8,10 +8,10 @@ export as namespace CryptoJS;
 
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
-	type Hash = (message: string, key?: string, ...options: any[]) => WordArray;
+	type Hash = (message: string | LibWordArray, key?: string | WordArray, ...options: any[]) => WordArray;
 	interface Cipher {
-		encrypt(message: string, secretPassphrase: string, option?: CipherOption): WordArray;
-		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string, option?: CipherOption): DecryptedMessage;
+		encrypt(message: string, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
+		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
 	}
 	interface CipherAlgorythm {
 		createEncryptor(secretPassphrase: string, option?: CipherOption): Encriptor;
@@ -24,6 +24,10 @@ declare namespace CryptoJS {
 	interface Decryptor {
 		process(messagePart: string): string;
 		finalize(): string;
+	}
+	interface LibWordArray {
+		sigBytes: number,
+		words: number[],
 	}
 	export interface WordArray {
 		iv: string;
@@ -96,6 +100,11 @@ declare namespace CryptoJS {
 			Utf16: Encoder;
 			Utf16LE: Encoder;
 			Base64: Encoder;
+		};
+		lib: {
+			WordArray: {
+				create: (v: any) => LibWordArray;
+			};
 		};
 		mode: {
 			CBC: Mode;

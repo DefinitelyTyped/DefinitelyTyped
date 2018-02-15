@@ -2,7 +2,7 @@
 // Project: https://github.com/kriasoft/react-app#readme
 // Definitions by: Prakarsh Pandey <https://github.com/prakarshpandey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
@@ -37,5 +37,5 @@ export function createApp(createAppObject: CreateAppObject): JSX.Element;
 
 export class Link extends React.Component<LinkProps> {}
 export class Layout extends React.Component<LayoutProps> {}
-export class Header extends React.Component<{}> {}
-export class Navigation extends React.Component<{}> {}
+export class Header extends React.Component {}
+export class Navigation extends React.Component {}

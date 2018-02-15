@@ -1,8 +1,9 @@
-// Type definitions for nes 6.2.1
+// Type definitions for nes 7.0.0
 // Project: https://github.com/hapijs/nes
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -62,12 +63,12 @@ declare module nes {
         index?: boolean;
     }
 
-    export type ServerOnSubscribeWithParams = (socket: Socket, path: string, params: any, next: (err?: any) => void) => void;
-    export type ServerOnSubscribeWithoutParams = (socket: Socket, path: string, next: (err?: any) => void) => void;
+    export type ServerOnSubscribeWithParams = (socket: Socket, path: string, params: any) => Promise<any>;
+    export type ServerOnSubscribeWithoutParams = (socket: Socket, path: string) => Promise<any>;
     export type ServerOnSubscribe = ServerOnSubscribeWithParams | ServerOnSubscribeWithoutParams;
 
-    export type ServerOnUnSubscribeWithParams = (socket: Socket, path: string, params: any, next: () => void) => void;
-    export type ServerOnUnSubscribeWithoutParams = (socket: Socket, path: string, next: () => void) => void;
+    export type ServerOnUnSubscribeWithParams = (socket: Socket, path: string, params: any) => void;
+    export type ServerOnUnSubscribeWithoutParams = (socket: Socket, path: string) => void;
     export type ServerOnUnSubscribe = ServerOnUnSubscribeWithParams | ServerOnUnSubscribeWithoutParams;
 
     interface ServerSubscriptionOptions {
@@ -91,10 +92,10 @@ declare module nes {
         id: string;
         app: Object;
         auth: nes.SocketAuthObject;
-        disconect(callback?: () => void): void;
-        send(message: any, callback?: (err?: any) => void): void;
-        publish(path: string, message: any, callback?: (err?: any) => void): void;
-        revoke(path: string, message: any, callback?: (err?: any) => void): void;
+        disconnect(): Promise<any>;
+        send(message: any): Promise<any>;
+        publish(path: string, message: any): Promise<any>;
+        revoke(path: string, message: any): Promise<any>;
     }
 
     /**

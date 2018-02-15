@@ -21,6 +21,13 @@ interface ReactWidgetsCommonProps<C> extends React.Props<C> {
     isRtl?: boolean;
 }
 
+export interface AutoFocus {
+    /**
+     * Pass focus to component when it mounts.
+     */
+    autoFocus?: boolean;
+}
+
 interface ReactWidgetsCommonDropdownProps<C> extends ReactWidgetsCommonProps<C> {
     /**
      * Show "drop up" not "drop down"

@@ -1,9 +1,11 @@
-// Type definitions for redux-first-router 1.9
+// Type definitions for redux-first-router 1.10
 // Project: https://github.com/faceyspacey/redux-first-router#readme
 // Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
+//                 janb87 <https://github.com/janb87>
+//                 corydeppen <https://github.com/corydeppen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import {
     Dispatch,
@@ -16,25 +18,28 @@ import { History } from 'history';
 
 export type Nullable<T> = T | null | undefined;
 
-export type StateGetter = () => object;
+export type StateGetter<TState = any> = () => TState;
 
 export type RouteString = string;
 
-export type RouteThunk = <S>(dispatch: Dispatch<S>, getState: StateGetter) => any | Promise<any>;
+export type RouteThunk<TState = any> = (
+    dispatch: Dispatch<any>,
+    getState: StateGetter<TState>,
+) => any | Promise<any>;
 
-export interface RouteObject {
-    path: string;
+export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     capitalizedWords?: boolean;
-    toPath?(param: string, key?: string): string;
-    fromPath?(path: string, key?: string): string;
-    thunk?: RouteThunk;
     navKey?: string;
-}
+    path: string;
+    thunk?: RouteThunk<TState>;
+    fromPath?(path: string, key?: string): string;
+    toPath?(param: string, key?: string): string;
+};
 
-export type Route = RouteString | RouteObject;
+export type Route<TKeys = {}, TState = any> = RouteString | RouteObject<TKeys, TState>;
 
-export interface RoutesMap {
-    [key: string]: Route;
+export interface RoutesMap<TKeys = {}, TState = any> {
+    [key: string]: Route<TKeys, TState>;
 }
 
 export interface ReceivedAction {
@@ -72,7 +77,7 @@ export interface Location {
     search?: string;
 }
 
-export interface LocationState {
+export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
     payload: Payload;
@@ -81,7 +86,7 @@ export interface LocationState {
     prev: Location;
     kind: Nullable<string>;
     history: Nullable<HistoryData>;
-    routesMap: RoutesMap;
+    routesMap: RoutesMap<TKeys, TState>;
     hasSSR?: boolean;
 }
 
@@ -113,8 +118,8 @@ export interface Meta {
 
 export interface Action {
     type: string;
-    payload: Payload;
-    meta: Meta;
+    payload?: Payload;
+    meta?: Meta;
     query?: object;
     navKey?: Nullable<string>;
 }
@@ -126,66 +131,77 @@ export interface HistoryLocation {
 
 export type HistoryAction = string;
 
-export type Listener = (location: HistoryLocation, action: HistoryAction) => void;
+export type Listener = (
+    location: HistoryLocation,
+    action: HistoryAction
+) => void;
 
 export type ScrollBehavior = object;
 
-export interface Router {
-    getStateForActionOriginal(action: object, state: Nullable<object>): Nullable<object>;
-    getStateForAction(action: object, state: Nullable<object>): Nullable<object>;
-    getPathAndParamsForState(state: object): { path: Nullable<string>, params: Nullable<Params> };
+export interface Router<TState = any> {
+    getStateForActionOriginal(
+        action: object,
+        state: Nullable<TState>
+    ): Nullable<TState>;
+    getStateForAction(
+        action: object,
+        state: Nullable<TState>
+    ): Nullable<TState>;
+    getPathAndParamsForState(
+        state: TState
+    ): { path: Nullable<string>; params: Nullable<Params> };
     getActionForPathAndParams(path: string): Nullable<object>;
 }
 
-export interface Navigator {
-    router: Router;
+export interface Navigator<TState = any> {
+    router: Router<TState>;
 }
 
-export interface Navigators {
-    [key: string]: Navigator;
+export interface Navigators<TState = any> {
+    [key: string]: Navigator<TState>;
 }
 
-export type SelectLocationState = (state: object) => LocationState;
-export type SelectTitleState = (state: object) => string;
+export type SelectLocationState<TKeys = {}, TState = any> = (state: TState) => LocationState<TKeys, TState>;
+export type SelectTitleState<TState = any> = (state: TState) => string;
 
 export interface QuerySerializer {
     stringify(params: Params): string;
     parse(queryString: string): object;
 }
 
-export interface NavigatorsConfig {
-    navigators: Navigators;
-    patchNavigators(navigators: Navigators): void;
+export interface NavigatorsConfig<TKeys = {}, TState = any> {
+    navigators: Navigators<TState>;
+    patchNavigators(navigators: Navigators<TState>): void;
 
     actionToNavigation(
-        navigators: Navigators,
+        navigators: Navigators<TState>,
         action: object, // TODO check this
         navigationAction: Nullable<NavigationAction>,
-        route: Nullable<Route>
+        route: Nullable<Route<TKeys, TState>>
     ): object;
-    navigationToAction<S>(
-        navigators: Navigators,
-        store: Store<S>,
-        routesMap: RoutesMap,
+    navigationToAction(
+        navigators: Navigators<TState>,
+        store: Store<TState>,
+        routesMap: RoutesMap<TKeys, TState>,
         action: object
     ): {
-        action: object,
-        navigationAction: Nullable<NavigationAction>
-    };
+            action: object;
+            navigationAction: Nullable<NavigationAction>;
+        };
 }
 
-export interface Options {
-    title?: string | SelectTitleState;
-    location?: string | SelectLocationState;
+export interface Options<TKeys = {}, TState = any> {
+    title?: string | SelectTitleState<TState>;
+    location?: string | SelectLocationState<TKeys, TState>;
     notFoundPath?: string;
     scrollTop?: boolean;
-    onBeforeChange?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
-    onAfterChange?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
-    onBackNext?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
+    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
+    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
+    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
     restoreScroll?(history: History): ScrollBehavior;
     initialDispatch?: boolean;
     querySerializer?: QuerySerializer;
-    navigators?: NavigatorsConfig;
+    navigators?: NavigatorsConfig<TKeys, TState>;
 }
 
 export type Params = object;
@@ -193,9 +209,13 @@ export type Payload = object;
 
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
-export const NOT_FOUND: string;
+export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
 
-export function actionToPath(action: ReceivedAction, routesMap: RoutesMap): string;
+export function actionToPath<TKeys = {}, TState = any>(
+    action: ReceivedAction,
+    routesMap: RoutesMap<TKeys, TState>,
+    querySerializer?: QuerySerializer
+): string;
 
 export function back(): void;
 
@@ -205,13 +225,17 @@ export function canGoBack(): boolean;
 
 export function canGoForward(): boolean;
 
-export function connectRoutes(history: History, routesMap: RoutesMap, options?: Options): {
-    reducer: Reducer<LocationState>,
-    middleware: Middleware,
-    thunk<S>(store: Store<S>): Promise<Nullable<RouteThunk>>,
-    enhancer: GenericStoreEnhancer,
-    initialDispatch?(): void
-};
+export function connectRoutes<TKeys = {}, TState = any>(
+    history: History,
+    routesMap: RoutesMap<TKeys, TState>,
+    options?: Options<TKeys, TState>
+): {
+        reducer: Reducer<LocationState<TKeys, TState>>;
+        middleware: Middleware;
+        thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
+        enhancer: GenericStoreEnhancer;
+        initialDispatch?(): void;
+    };
 
 export function go(n: number): void;
 
@@ -223,7 +247,10 @@ export function next(): void;
 
 export function nextPath(): string | void;
 
-export function pathToAction(pathname: string, routesMap: RoutesMap): ReceivedAction;
+export function pathToAction<TKeys = {}, TState = any>(
+    pathname: string,
+    routesMap: RoutesMap<TKeys, TState>
+): ReceivedAction;
 
 export function prevPath(): string | void;
 

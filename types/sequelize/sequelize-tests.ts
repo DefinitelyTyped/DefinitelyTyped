@@ -7,7 +7,7 @@ import Bluebird = require('bluebird');
 // ~~~~~~~~~~
 //
 
-interface AnyAttributes { };
+interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
 var s         = new Sequelize( '' );
@@ -488,9 +488,39 @@ Sequelize.BOOLEAN;
 Sequelize.DATE;
 Sequelize.DATE(6);
 Sequelize.UUID;
+Sequelize.UUID();
 Sequelize.UUIDV1;
+Sequelize.UUIDV1();
 Sequelize.UUIDV4;
+Sequelize.UUIDV4();
 Sequelize.NOW;
+Sequelize.TINYINT;
+Sequelize.TINYINT.UNSIGNED;
+Sequelize.TINYINT.UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 );
+Sequelize.TINYINT( { length : 11 } );
+Sequelize.TINYINT( 11 ).UNSIGNED;
+Sequelize.TINYINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL;
+Sequelize.TINYINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.SMALLINT;
+Sequelize.SMALLINT.UNSIGNED;
+Sequelize.SMALLINT.UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 );
+Sequelize.SMALLINT( { length : 11 } );
+Sequelize.SMALLINT( 11 ).UNSIGNED;
+Sequelize.SMALLINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL;
+Sequelize.SMALLINT( 11 ).ZEROFILL.UNSIGNED;
+Sequelize.MEDIUMINT;
+Sequelize.MEDIUMINT.UNSIGNED;
+Sequelize.MEDIUMINT.UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 );
+Sequelize.MEDIUMINT( { length : 11 } );
+Sequelize.MEDIUMINT( 11 ).UNSIGNED;
+Sequelize.MEDIUMINT( 11 ).UNSIGNED.ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL;
+Sequelize.MEDIUMINT( 11 ).ZEROFILL.UNSIGNED;
 Sequelize.INTEGER;
 Sequelize.INTEGER.UNSIGNED;
 Sequelize.INTEGER.UNSIGNED.ZEROFILL;
@@ -914,6 +944,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], grou
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
+User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
@@ -937,6 +968,7 @@ User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as 
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
 User.findOne( { where : s.fn('count', []) } );
+User.findOne( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TEST@SEQUELIZEJS.COM')) } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
@@ -951,6 +983,7 @@ User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );
+User.count( { col: 'title', distinct: true, where : { access_level : { gt : 5 } } } );
 
 User.findAndCountAll( { offset : 5, limit : 1, include : [User, { model : User, as : 'a' }] } );
 
@@ -1115,6 +1148,9 @@ queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryK
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
+queryInterface.addColumn({tableName:'users', schema:'test'}, 'enum',{ type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] });
+queryInterface.removeColumn('users','so');
+queryInterface.removeColumn({tableName:'users', schema:'test'},'enum');
 queryInterface.createTable( 'hosts', {
     id : {
         type : Sequelize.INTEGER,
@@ -1199,11 +1235,22 @@ new Sequelize( {
     username: 'user',
     password: 'pass',
     retry: {
-        match: ['failed'],
+        match: ['failed', /failed/i, Sequelize.ForeignKeyConstraintError],
         max: 3
     },
     typeValidation: true
 } );
+
+new Sequelize({
+    operatorsAliases: false,
+});
+
+new Sequelize({
+    operatorsAliases: {
+        $and: Sequelize.Op.and,
+        customAlias: Sequelize.Op.or,
+    },
+});
 
 s.model( 'Project' );
 s.models['Project'];
@@ -1426,7 +1473,7 @@ s.define( 'profile', {
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
     email : Sequelize.STRING,
-    access_level : Sequelize.INTEGER,
+    access_level : Sequelize.TINYINT,
     other_value : Sequelize.INTEGER
 }, {
     defaultScope : {
@@ -1464,6 +1511,13 @@ Chair.findAll({
     where: {
         color: 'blue',
         legs: { $in: [3, 4] },
+    },
+});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { [Sequelize.Op.in]: [3, 4] },
     },
 });
 

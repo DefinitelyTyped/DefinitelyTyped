@@ -1,13 +1,17 @@
 import mailgunTransport = require('nodemailer-mailgun-transport');
 import nodemailer = require('nodemailer');
 
-const opts: mailgunTransport.AuthOptions = {
-	api_key: "harry"
+const opts: mailgunTransport.Options = {
+    auth: {
+        api_key: "harry"
+    }
 };
 
-const optsWithDomain: mailgunTransport.AuthOptions = {
-    api_key: "harry",
-    domain: "http://www.foo.com"
+const optsWithDomain: mailgunTransport.Options = {
+    auth: {
+        api_key: "harry",
+        domain: "http://www.foo.com"
+    }
 };
 
 const transport: nodemailer.Transporter = nodemailer.createTransport(mailgunTransport(optsWithDomain));
@@ -20,6 +24,7 @@ const mailOptions: nodemailer.SendMailOptions = {
     text: 'Hello world ✔', // plaintext body
     html: '<b>Hello world ✔</b>' // html body
 };
-transport.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
+
+transport.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo): void => {
 	// nothing
 });

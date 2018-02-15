@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from "gulp";
-import * as flatten from "gulp-flatten";
+import flatten = require("gulp-flatten");
 
 gulp.task("flatten:simple", () => {
     gulp.src(["files/**/*.txt"])

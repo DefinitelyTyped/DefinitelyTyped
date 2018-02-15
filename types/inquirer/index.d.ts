@@ -2,6 +2,7 @@
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
+//                 Jouderian <https://github.com/jouderianjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="rx" />
@@ -115,6 +116,14 @@ declare namespace inquirer {
          * Add a mask when password will entered
          */
         mask?: string;
+        /**
+         * Change the default prefix message.
+         */
+        prefix?: string;
+        /**
+         * Change the default suffix message.
+         */
+        suffix?: string;
     }
 
     /**

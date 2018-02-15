@@ -1,6 +1,4 @@
-
-
-var testApp = angular.module('testApp');
+const testApp = angular.module('testApp');
 
 testApp.config((
     $accordionConfig: ng.ui.bootstrap.IAccordionConfig,
@@ -176,7 +174,7 @@ testApp.controller('TestCtrl', (
     /**
      * test the $modal service
      */
-    var modalInstance = $modal.open({
+    const modalInstance = $modal.open({
         ariaLabelledBy: "label",
         ariaDescribedBy: "description",
         animation: false,
@@ -221,8 +219,18 @@ testApp.controller('TestCtrl', (
     });
 
     $modal.open({
+        template: () => "<div>i'm a template!</div>"
+    });
+
+    $modal.open({
         templateUrl: () => '/templates/modal.html'
     });
+
+    $modal.getPromiseChain().then(() => {});
+
+    $modal.getPromiseChain().then((value) => value * 2);
+
+    $modal.getPromiseChain().then((value: string) => value);
 
     /**
      * test the $modalStack service
@@ -240,13 +248,13 @@ testApp.controller('TestCtrl', (
     /**
      * test the $position service
      */
-    var elementLogger = (coordinates: ng.ui.bootstrap.IPositionCoordinates): void=> {
+    const elementLogger = (coordinates: ng.ui.bootstrap.IPositionCoordinates): void=> {
         $log.log('height', coordinates.height);
         $log.log('left', coordinates.left);
         $log.log('top', coordinates.top);
         $log.log('width', coordinates.width);
     };
-    var element = angular.element('<div/>');
+    const element = angular.element('<div/>');
     elementLogger($position.position(element));
     elementLogger($position.offset(element));
 
@@ -257,7 +265,7 @@ testApp.controller('TestCtrl', (
     $log.log('animationEndEventName', $transition.animationEndEventName);
     $log.log('transitionEndEventName', $transition.transitionEndEventName);
 
-    var transitionElement = angular.element('<div/>');
+    const transitionElement = angular.element('<div/>');
     $transition(transitionElement, 'transition-class', { animation: true });
     $transition(transitionElement, { height: '100px', width: '50px' }, { animation: true });
     $transition(transitionElement, ()=> {}, { animation: true });

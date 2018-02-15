@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "dist-es/components/category.d.ts",
+        "dist-es/components/emoji.d.ts",
+        "dist-es/components/index.d.ts",
+        "dist-es/components/picker.d.ts",
+        "dist-es/utils/emoji-index.d.ts",
+        "dist-es/utils/frequently.d.ts",
+        "dist-es/utils/store.d.ts",
+        "dist-es/index.d.ts",
+        "emoji-mart-tests.tsx"
+    ]
+}

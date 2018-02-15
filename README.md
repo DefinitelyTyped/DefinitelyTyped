@@ -38,7 +38,7 @@ or just look for any ".d.ts" files in the package and manually include them with
 These can be used by TypeScript 1.0.
 
 * [Typings](https://github.com/typings/typings)
-* ~~[NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
+* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
 * Manually download from the `master` branch of this repository
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
@@ -88,6 +88,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
+  - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
   - Or if there are more people, it can be multiline
   ```typescript
@@ -145,7 +146,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
     Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
     Exception: `new Map<string, number>()` is OK.
 * Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
-* `var foo: string | any`: 
+* `var foo: string | any`:
     When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
     Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
@@ -255,7 +256,7 @@ When it graduates draft mode, we may remove it from DefinitelyTyped and deprecat
 
 #### I want to update a package to a new major version
 
-Before making your change, please create a new subfolder with the current version e.g. `v2`, and copy existing files to it. You will need to:
+If you intend to continue updating the older version of the package, you may create a new subfolder with the current version e.g. `v2`, and copy existing files to it. If so, you will need to:
 
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
@@ -278,11 +279,20 @@ For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/Defi
 }
 ```
 
-Please note that unless upgrading something backwards-compatible like `node`, all packages depending of the updated package need a path mapping to it, as well as packages depending on *those*.
+If there are other packages on DefinitelyTyped that are incompatible with the new version, you will need to add path mappings to the old version. You will also need to do this for packages depending on packages depending on the old version.
+
 For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
 transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+#### How do I write definitions for packages that can be used globally and as a module?
+
+The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
+
+To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the big.js definition.
+
+Please note that it is not required to fully exercise the definition in each test file - it is sufficient to test only the globally-accessible elements on the global test file and fully exercise the definition in the module test file, or vice versa.
 
 #### What about scoped packages?
 
@@ -297,13 +307,25 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
       "@foo/bar": ["foo__bar"]
     }
 }
-``` 
+```
 
 
 #### The file history in GitHub looks incomplete.
 
 GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
+#### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
+
+Some packages, like [chai-http](https://github.com/chaijs/chai-http), export a function.
+
+Importing this module with an ES6 style import in the form `import * as foo from "foo";` leads to the error:
+
+> error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
+
+This error can be suppressed by merging the function declaration with an empty namespace of the same name, but this practice is discouraged.
+This is a commonly cited [Stack Overflow answer](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) regarding this matter.
+
+It is more appropriate to import the module using the `import foo = require("foo");` syntax, or to use a default import like `import foo from "foo";` if using the `--allowSyntheticDefaultImports` flag if your module runtime supports an interop scheme for non-ECMAScript modules as such.
 
 ## License
 

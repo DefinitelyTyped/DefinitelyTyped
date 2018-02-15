@@ -2,13 +2,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
-import * as CSSTransitionGroup from "react-addons-css-transition-group";
+import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
-import * as shallowCompare from "react-addons-shallow-compare";
+import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
-import * as TransitionGroup from "react-addons-transition-group";
+import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
 interface Props extends React.Attributes {
@@ -110,7 +110,7 @@ class ModernComponent extends React.Component<Props, State>
         });
     }
 
-    private _myComponent: MyComponent;
+    private readonly _myComponent: MyComponent;
     private _input: HTMLInputElement | null;
 
     render() {
@@ -192,6 +192,12 @@ const svgElement = React.createElement("svg", { accentHeight: 12 });
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
 const nonLiteralElement = React.createElement(customDomElement, customProps);
+
+// https://github.com/Microsoft/TypeScript/issues/15019
+
+function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessComponent<{ name: string }> | string) {
+    React.createElement(child, { name: "bar" });
+}
 
 // React.cloneElement
 const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement(element, { foo: 43 });
@@ -288,7 +294,7 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line:no-empty-interface
 interface RCProps { }
 
 class RefComponent extends React.Component<RCProps> {
@@ -340,7 +346,11 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
-    }
+    },
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test'
 };
 React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
@@ -492,7 +502,7 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: number;
+    private _interval: NodeJS.Timer;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1

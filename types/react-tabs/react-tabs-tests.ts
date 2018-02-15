@@ -1,8 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Tabs, TabList, Tab, TabPanel, resetIdCounter } from "react-tabs";
+import {
+    Tabs,
+    TabsProps,
+    TabList,
+    TabListProps,
+    Tab,
+    TabProps,
+    TabPanel,
+    TabPanelProps,
+    resetIdCounter } from "react-tabs";
 
 resetIdCounter();
+
+interface TestTabProps extends TabProps {}
+interface TestTabListProps extends TabListProps {}
+interface TestTabPanelProps extends TabPanelProps {}
+interface TestTabsProps extends TabsProps {}
 
 class TestApp extends React.Component {
     onSelect = (index: number, last: number, event: Event) => {

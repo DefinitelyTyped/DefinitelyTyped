@@ -119,4 +119,4 @@ blob._write(buffer, 10);
 blob._write(buffer, 10, (err: Error | null) => {});
 
 /* Stream */
-const strm: NodeJS.ReadWriteStream = new fb.Stream(blob);
+const strm = new fb.Stream(blob);

@@ -29,7 +29,7 @@ declare module 'leaflet' {
         getBounds(): LatLngBounds;
     }
 
-    interface MarkerClusterGroupOptions {
+    interface MarkerClusterGroupOptions extends LayerOptions {
         /*
         * When you mouse over a cluster it shows the bounds of its markers.
         */

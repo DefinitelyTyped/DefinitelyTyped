@@ -22,11 +22,12 @@ function formatPEM(pemString: string) {
     const stringLength = pemString.length;
     let resultString = "";
 
-    for (let i = 0, count = 0; i < stringLength; i++ , count++) {
+    for (let i = 0, count = 0; i < stringLength; i++) {
         if (count > 63) {
             resultString = `${resultString}\r\n`;
             count = 0;
         }
+        count++;
 
         resultString = resultString + pemString[i];
     }

@@ -2,7 +2,7 @@
 // Project: https://github.com/jfgodoy/knex-postgis
 // Definitions by: Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as GeoJSON from 'geojson';
 import * as Knex from 'knex';

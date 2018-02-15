@@ -118,10 +118,10 @@ var types = paymentCountByType.all();
 paymentsByTotal.dispose();
 
 crossfilter.bisect([], null, 0, 0);
-var bisectBy = crossfilter.bisect.by(t => t);
-bisectBy([], null, 0, 0);
-bisectBy.left([], null, 0, 0);
-bisectBy.right([], null, 0, 0);
+var bisectBy = crossfilter.bisect.by<{value: string}, string>(t => t.value);
+bisectBy([{value: 'a'}, {value: 'b'}], 'c', 0, 0); // 2
+bisectBy.left([], 'string', 0, 0); // 0
+bisectBy.right([], 'string', 0, 0); // 0
 
 crossfilter.heap([], 0, 0);
 var heapBy = crossfilter.heap.by(t => t);

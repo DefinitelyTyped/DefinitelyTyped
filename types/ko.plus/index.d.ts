@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery" />
 /// <reference types="knockout" />
 
 /**
@@ -21,6 +20,10 @@
  *
  * Version 1.2 - amended callback on commmand.fail() method - accepts response,
  *               status and message values
+ * 
+ * Version 1.3 - added module declaration so it be used with node, requirejs etc.
+ *               removed jquery reference as it is not required
+ * 
  */
 
 //
@@ -155,4 +158,10 @@ declare namespace KoPlus {
     }
 
     //#endregion
+}
+
+declare var ko: KnockoutStatic;
+
+declare module "ko.plus" {
+    export = ko;
 }

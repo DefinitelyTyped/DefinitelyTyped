@@ -1,6 +1,7 @@
-// Type definitions for karma v0.13.9
+// Type definitions for karma 1.7
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,7 +10,6 @@
 // See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
 import Promise = require('bluebird');
 import https = require('https');
-import log4js = require('log4js');
 
 declare namespace karma {
     interface Karma {
@@ -142,6 +142,16 @@ declare namespace karma {
 
     interface ConfigFile {
         configFile: string;
+    }
+
+    // taken from log4js 1.x typings which are gone...
+    interface Log4jsAppenderConfigBase {
+        type: string;
+        category?: string;
+        layout?: {
+            type: string;
+            [key: string]: any
+        }
     }
 
     interface ConfigOptions {
@@ -283,7 +293,13 @@ declare namespace karma {
          * @default [{type: 'console'}]
          * @description A list of log appenders to be used. See the documentation for [log4js] for more information.
          */
-        loggers?: log4js.AppenderConfigBase[];
+        loggers?: Log4jsAppenderConfigBase[];
+        /**
+         * @default {}
+         * @description Redefine default mapping from file extensions to MIME-type.
+         * Set property name to required MIME, provide Array of extensions (without dots) as it's value.
+         */
+        mime?: {[type: string]: string[]};
         /**
          * @default ['karma-*']
          * @description List of plugins to load. A plugin can be a string (in which case it will be required
@@ -399,6 +415,19 @@ declare namespace karma {
          * @description Capture all console output and pipe it to the terminal.
          */
         captureConsole?: boolean;
+        /**
+         * @default false
+         * @description Run the tests on the same window as the client, without using iframe or a new window
+         */
+        runInParent?: boolean;
+        /**
+         * @default true
+         * @description Clear the context window
+         * If true, Karma clears the context window upon the completion of running the tests.
+         * If false, Karma does not clear the context window upon the completion of running the tests.
+         * Setting this to false is useful when embedding a Jasmine Spec Runner Template.
+         */
+        clearContext?: boolean;
     }
 
     interface FilePattern {

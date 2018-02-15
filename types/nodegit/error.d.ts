@@ -63,18 +63,6 @@ export namespace Error {
 }
 
 export class Error {
-    /**
-     *
-     *
-     * @type {string}
-     * @memberof Error
-     */
     message: string;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof Error
-     */
     klass: number;
 }

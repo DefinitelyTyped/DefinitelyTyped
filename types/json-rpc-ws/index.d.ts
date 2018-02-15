@@ -1,6 +1,7 @@
 // Type definitions for json-rpc-ws 4.0
 // Project: https://www.npmjs.com/package/json-rpc-ws
 // Definitions by: Nicolas Penin <https://github.com/npenin>
+//                 Margus Lamp <https://github.com/mlamp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -15,7 +16,7 @@ export class Server<TConnection extends Connection> extends Base<TConnection> {
     /**
      * Start the server
      */
-    start(options?: ws.IServerOptions, callback?: () => void): void;
+    start(options?: ws.ServerOptions, callback?: () => void): void;
     server: ws.Server;
     /**
      * Stop the server
@@ -79,8 +80,6 @@ export class Base<TConnection extends Connection> {
     getConnection(id: string): Connection;
     /**
      * Shut down all existing connections
-     *
-     * @public
      */
     hangup(): void;
 }

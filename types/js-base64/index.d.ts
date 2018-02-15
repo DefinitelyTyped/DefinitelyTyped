@@ -1,54 +1,43 @@
-// Type definitions for js-base64 v2.1.9
+// Type definitions for js-base64 2.3
 // Project: https://github.com/dankogai/js-base64
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+// Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Tommy Lent <https://github.com/tlent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
-## TODO
+export namespace Base64 {
+    const VERSION: string;
 
-add methods:
-- [x] encode
-- [x] encodeURI
-- [x] decode
-- [ ] atob
-- [ ] btoa
-- [ ] fromBase64
-- [ ] toBase64
-- [ ] utob
-- [ ] btou
-- [ ] noConflict
- */
+    function encode(s: string, uriSafe?: boolean): string;
 
-declare module 'js-base64' {
-    namespace JSBase64 {
-        const Base64: Base64Static
-        interface Base64Static {
-            /**
-             * .encode
-             * @param {String} string
-             * @return {String}
-             */
-            encode(base64: string): string;
+    function encodeURI(s: string): string;
 
-            /**
-             * .encodeURI
-             * @param {String} string
-             * @return {String}
-             */
-            encodeURI(base64: string): string
+    function decode(base64: string): string;
 
-            /**
-             * .decode
-             * @param {String} string
-             * @return {String}
-             */
-            decode(base64: string): string
+    function atob(base64: string): string;
 
-            /**
-             * Library version
-             */
-            VERSION:string
-        }
+    function btoa(s: string): string;
+
+    function fromBase64(base64: string): string;
+
+    function toBase64(s: string, uriSafe?: boolean): string;
+
+    function btou(s: string): string;
+
+    function utob(s: string): string;
+
+    function noConflict(): typeof Base64;
+
+    function extendString(): void;
+}
+
+// Helper to allow referencing Base64 from inside the global declaration without creating a self reference
+export type Base64_ = typeof Base64;
+
+declare global {
+    interface String {
+        fromBase64(): string;
+        toBase64(uriSafe?: boolean): string;
+        toBase64URI(): string;
     }
-    export = JSBase64
+
+    const Base64: Base64_;
 }

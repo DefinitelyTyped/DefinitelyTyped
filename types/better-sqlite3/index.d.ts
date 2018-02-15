@@ -1,11 +1,10 @@
 // Type definitions for better-sqlite3 3.1
 // Project: http://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
+//                 Mathew Rumsey <https://github.com/matrumz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
-import * as Integer from 'integer';
+import Integer = require('integer');
 
 interface RunResult {
 	changes: number;
@@ -42,6 +41,7 @@ declare class Transaction {
 interface DatabaseOptions {
 	memory?: boolean;
 	readonly?: boolean;
+	fileMustExist?: boolean;
 }
 
 interface RegistrationOptions {

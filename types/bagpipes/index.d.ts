@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface FittingContext {
-    /** The input defined in the fitting definition
+    /**
+     * The input defined in the fitting definition
      * (string, number, object, array)
      */
     input: any;
@@ -56,7 +57,7 @@ export type Fitting = (
  * Executed during parsing
  * @see {@link https://github.com/apigee-127/bagpipes#fittings|Docs}
  *
- * @param {Object} fittingDef Fitting Definition
+ * @param fittingDef Fitting Definition
  */
 export type FittingFactory = (fittingDef: FittingDef, bagpipes: any) => Fitting;
 

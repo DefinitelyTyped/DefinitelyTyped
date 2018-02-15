@@ -9,7 +9,7 @@ interface Milliseconds {
 	hours(hours: number): number
 	days(days: number): number
 	weeks(weeks: number): number
-	month(month: number): number
+	months(months: number): number
 	years(years: number): number
 }
 

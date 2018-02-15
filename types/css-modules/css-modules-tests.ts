@@ -2,7 +2,7 @@ import styles from './main.sass';
 import * as classNames from 'classnames';
 
 class App {
-    private theme: string;
+    private readonly theme: string;
     constructor(theme: string) {
         this.theme = theme;
     }

@@ -2,7 +2,7 @@
 // Project: https://github.com/alfw/passport-beam
 // Definitions by: AtlasDev <https://github.com/AtlasDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 ///<reference types="passport"/>
 ///<reference types="express"/>

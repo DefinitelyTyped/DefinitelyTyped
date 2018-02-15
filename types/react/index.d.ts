@@ -13,8 +13,9 @@
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
+//                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /*
 Known Problems & Workarounds
@@ -32,7 +33,7 @@ And since any object is assignable to {}, we would lose the type safety of the P
 Therefore, the type of props is left as Q, which should work for most cases.
 If you need to call cloneElement with key or ref, you'll need a type cast:
 interface ButtonProps {
-    label: string,
+    label: string;
     isDisabled?: boolean;
 }
 var element: React.CElement<ButtonProps, Button>;
@@ -46,6 +47,8 @@ React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
     isDisabled: true
 });
 */
+
+/// <reference path="global.d.ts" />
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -68,11 +71,11 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentType<any>;
+    type ReactType<P = any> = string | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T | null) => any);
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -121,6 +124,11 @@ declare namespace React {
         type: keyof ReactSVG;
     }
 
+    interface ReactPortal {
+        key: Key | null;
+        children: ReactNode;
+    }
+
     //
     // Factories
     // ----------------------------------------------------------------------
@@ -159,13 +167,11 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
 
     //
     // Top Level API
     // ----------------------------------------------------------------------
-
-    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
 
     // DOM Elements
     function createFactory<T extends HTMLElement>(
@@ -187,37 +193,37 @@ declare namespace React {
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
         type: "input",
-        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
+        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
         ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): ReactSVGElement;
     function createElement<P extends DOMAttributes<T>, T extends Element>(
         type: string,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): DOMElement<P, T>;
 
     // Custom components
     function createElement<P>(
         type: SFC<P>,
-        props?: Attributes & P,
+        props?: Attributes & P | null,
         ...children: ReactNode[]): SFCElement<P>;
     function createElement<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P,
+        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
         ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
-        props?: ClassAttributes<T> & P,
+        props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P>,
-        props?: Attributes & P,
+        type: SFC<P> | ComponentClass<P> | string,
+        props?: Attributes & P | null,
         ...children: ReactNode[]): ReactElement<P>;
 
     // DOM Elements
@@ -256,11 +262,10 @@ declare namespace React {
         props?: Q, // should be Q & Attributes
         ...children: ReactNode[]): ReactElement<P>;
 
-    function isValidElement<P>(object: {}): object is ReactElement<P>;
+    function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-    const DOM: ReactDOM;
-    const PropTypes: ReactPropTypes;
     const Children: ReactChildren;
+    const Fragment: ComponentType;
     const version: string;
 
     //
@@ -273,16 +278,18 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
-        constructor(props?: P, context?: any);
+        constructor(props: P, context?: any);
 
-        // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        // tslint:enable:unified-signatures
+        // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
+        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+        // Also, the ` | S` allows intellisense to not be dumbisense
+        setState<K extends keyof S>(
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
+            callback?: () => void
+        ): void;
 
-        forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null | false;
+        forceUpdate(callBack?: () => void): void;
+        render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -300,7 +307,7 @@ declare namespace React {
     class PureComponent<P = {}, S = {}> extends Component<P, S> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
-        replaceState(nextState: S, callback?: () => any): void;
+        replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
     }
@@ -323,7 +330,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> {
-        new (props?: P, context?: any): Component<P, ComponentState>;
+        new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -332,7 +339,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
+        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -343,8 +350,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props?: P, context?: any) => T) &
-        (new (props?: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T) &
+        (new (props: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -417,7 +424,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | null;
+        render(): ReactNode;
 
         [propertyName: string]: any;
     }
@@ -428,6 +435,9 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
+        /**
+         * A reference to the element on which the event listener is registered.
+         */
         currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
@@ -440,6 +450,12 @@ declare namespace React {
         isPropagationStopped(): boolean;
         persist(): void;
         // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+        /**
+         * A reference to the element from which the event was originally dispatched.
+         * This might be a child element to the element on which the event listener is registered.
+         *
+         * @see currentTarget
+         */
         target: EventTarget;
         timeStamp: number;
         type: string;
@@ -481,7 +497,13 @@ declare namespace React {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
+        /**
+         * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
+         */
         key: string;
         keyCode: number;
         locale: string;
@@ -500,6 +522,9 @@ declare namespace React {
         clientX: number;
         clientY: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeMouseEvent;
@@ -515,6 +540,9 @@ declare namespace React {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeTouchEvent;
@@ -555,7 +583,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = (event: E) => void;
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
 
@@ -902,6 +930,11 @@ declare namespace React {
         backgroundRepeat?: CSSWideKeyword | any;
 
         /**
+         * Defines the size of the background images
+         */
+        backgroundSize?: CSSWideKeyword | any;
+
+        /**
          * Obsolete - spec retired, not implemented.
          */
         baselineShift?: CSSWideKeyword | any;
@@ -931,12 +964,12 @@ declare namespace React {
         /**
          * Defines the shape of the border of the bottom-left corner.
          */
-        borderBottomLeftRadius?: CSSWideKeyword | any;
+        borderBottomLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Defines the shape of the border of the bottom-right corner.
          */
-        borderBottomRightRadius?: CSSWideKeyword | any;
+        borderBottomRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the line style of the bottom border of a box.
@@ -1015,6 +1048,11 @@ declare namespace React {
         borderLeftWidth?: CSSWideKeyword | any;
 
         /**
+         * Shorthand property that sets the rounding of all four corners.
+         */
+        borderRadius?: CSSWideKeyword | CSSLength;
+
+        /**
          * Shorthand property that defines the border-width, border-style and border-color of an element's right border
          * in a single declaration. Note that you can use the corresponding longhand properties to set specific
          * individual properties of the right border — border-right-width, border-right-style and border-right-color.
@@ -1074,12 +1112,12 @@ declare namespace React {
         /**
          * Sets the rounding of the top-left corner of the element.
          */
-        borderTopLeftRadius?: CSSWideKeyword | any;
+        borderTopLeftRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the rounding of the top-right corner of the element.
          */
-        borderTopRightRadius?: CSSWideKeyword | any;
+        borderTopRightRadius?: CSSWideKeyword | CSSLength;
 
         /**
          * Sets the style of an element's top border. To set all four borders, use the shorthand property, border-style.
@@ -1569,7 +1607,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly" | "stretch";
 
         layoutGrid?: CSSWideKeyword | any;
 
@@ -2460,6 +2498,189 @@ declare namespace React {
         unselectable?: boolean;
     }
 
+    // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
+    interface HTMLAttributes<T> extends DOMAttributes<T> {
+        /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
+        'aria-activedescendant'?: string;
+        /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
+        'aria-atomic'?: boolean | 'false' | 'true';
+        /**
+         * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
+         * presented if they are made.
+         */
+        'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both';
+        /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
+        'aria-busy'?: boolean | 'false' | 'true';
+        /**
+         * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
+         * @see aria-pressed @see aria-selected.
+         */
+        'aria-checked'?: boolean | 'false' | 'mixed' | 'true';
+        /**
+         * Defines the total number of columns in a table, grid, or treegrid.
+         * @see aria-colindex.
+         */
+        'aria-colcount'?: number;
+        /**
+         * Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
+         * @see aria-colcount @see aria-colspan.
+         */
+        'aria-colindex'?: number;
+        /**
+         * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
+         * @see aria-colindex @see aria-rowspan.
+         */
+        'aria-colspan'?: number;
+        /** Indicates the element that represents the current item within a container or set of related elements. */
+        'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time';
+        /**
+         * Identifies the element (or elements) that describes the object.
+         * @see aria-labelledby
+         */
+        'aria-describedby'?: string;
+        /**
+         * Identifies the element that provides a detailed, extended description for the object.
+         * @see aria-describedby.
+         */
+        'aria-details'?: string;
+        /**
+         * Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
+         * @see aria-hidden @see aria-readonly.
+         */
+        'aria-disabled'?: boolean | 'false' | 'true';
+        /**
+         * Indicates what functions can be performed when a dragged object is released on the drop target.
+         * @deprecated in ARIA 1.1
+         */
+        'aria-dropeffect'?: 'none' | 'copy' | 'execute' | 'link' | 'move' | 'popup';
+        /**
+         * Identifies the element that provides an error message for the object.
+         * @see aria-invalid @see aria-describedby.
+         */
+        'aria-errormessage'?: string;
+        /** Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. */
+        'aria-expanded'?: boolean | 'false' | 'true';
+        /**
+         * Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
+         * allows assistive technology to override the general default of reading in document source order.
+         */
+        'aria-flowto'?: string;
+        /**
+         * Indicates an element's "grabbed" state in a drag-and-drop operation.
+         * @deprecated in ARIA 1.1
+         */
+        'aria-grabbed'?: boolean | 'false' | 'true';
+        /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
+        'aria-haspopup'?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        /**
+         * Indicates whether the element is exposed to an accessibility API.
+         * @see aria-disabled.
+         */
+        'aria-hidden'?: boolean | 'false' | 'true';
+        /**
+         * Indicates the entered value does not conform to the format expected by the application.
+         * @see aria-errormessage.
+         */
+        'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling';
+        /** Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. */
+        'aria-keyshortcuts'?: string;
+        /**
+         * Defines a string value that labels the current element.
+         * @see aria-labelledby.
+         */
+        'aria-label'?: string;
+        /**
+         * Identifies the element (or elements) that labels the current element.
+         * @see aria-describedby.
+         */
+        'aria-labelledby'?: string;
+        /** Defines the hierarchical level of an element within a structure. */
+        'aria-level'?: number;
+        /** Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
+        'aria-live'?: 'off' | 'assertive' | 'polite';
+        /** Indicates whether an element is modal when displayed. */
+        'aria-modal'?: boolean | 'false' | 'true';
+        /** Indicates whether a text box accepts multiple lines of input or only a single line. */
+        'aria-multiline'?: boolean | 'false' | 'true';
+        /** Indicates that the user may select more than one item from the current selectable descendants. */
+        'aria-multiselectable'?: boolean | 'false' | 'true';
+        /** Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. */
+        'aria-orientation'?: 'horizontal' | 'vertical';
+        /**
+         * Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
+         * between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
+         * @see aria-controls.
+         */
+        'aria-owns'?: string;
+        /**
+         * Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
+         * A hint could be a sample value or a brief description of the expected format.
+         */
+        'aria-placeholder'?: string;
+        /**
+         * Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
+         * @see aria-setsize.
+         */
+        'aria-posinset'?: number;
+        /**
+         * Indicates the current "pressed" state of toggle buttons.
+         * @see aria-checked @see aria-selected.
+         */
+        'aria-pressed'?: boolean | 'false' | 'mixed' | 'true';
+        /**
+         * Indicates that the element is not editable, but is otherwise operable.
+         * @see aria-disabled.
+         */
+        'aria-readonly'?: boolean | 'false' | 'true';
+        /**
+         * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
+         * @see aria-atomic.
+         */
+        'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text';
+        /** Indicates that user input is required on the element before a form may be submitted. */
+        'aria-required'?: boolean | 'false' | 'true';
+        /** Defines a human-readable, author-localized description for the role of an element. */
+        'aria-roledescription'?: string;
+        /**
+         * Defines the total number of rows in a table, grid, or treegrid.
+         * @see aria-rowindex.
+         */
+        'aria-rowcount'?: number;
+        /**
+         * Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
+         * @see aria-rowcount @see aria-rowspan.
+         */
+        'aria-rowindex'?: number;
+        /**
+         * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
+         * @see aria-rowindex @see aria-colspan.
+         */
+        'aria-rowspan'?: number;
+        /**
+         * Indicates the current "selected" state of various widgets.
+         * @see aria-checked @see aria-pressed.
+         */
+        'aria-selected'?: boolean | 'false' | 'true';
+        /**
+         * Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
+         * @see aria-posinset.
+         */
+        'aria-setsize'?: number;
+        /** Indicates if items in a table or grid are sorted in ascending or descending order. */
+        'aria-sort'?: 'none' | 'ascending' | 'descending' | 'other';
+        /** Defines the maximum allowed value for a range widget. */
+        'aria-valuemax'?: number;
+        /** Defines the minimum allowed value for a range widget. */
+        'aria-valuemin'?: number;
+        /**
+         * Defines the current value for a range widget.
+         * @see aria-valuetext.
+         */
+        'aria-valuenow'?: number;
+        /** Defines the human readable text alternative of aria-valuenow for a range widget. */
+        'aria-valuetext'?: string;
+    }
+
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
         // Standard HTML Attributes
         accept?: string;
@@ -2468,6 +2689,7 @@ declare namespace React {
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         alt?: string;
+        as?: string;
         async?: boolean;
         autoComplete?: string;
         autoFocus?: boolean;
@@ -2576,6 +2798,8 @@ declare namespace React {
         media?: string;
         rel?: string;
         target?: string;
+        type?: string;
+        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -2623,6 +2847,7 @@ declare namespace React {
 
     interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+        width?: number | string;
     }
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2636,6 +2861,10 @@ declare namespace React {
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
         cite?: string;
         dateTime?: string;
+    }
+
+    interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        open?: boolean;
     }
 
     interface EmbedHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2684,6 +2913,7 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
         height?: number | string;
         sizes?: string;
         src?: string;
@@ -2754,6 +2984,8 @@ declare namespace React {
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
+        crossOrigin?: string;
         href?: string;
         hrefLang?: string;
         integrity?: string;
@@ -2774,10 +3006,12 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean;
         controls?: boolean;
+        controlsList?: string;
         crossOrigin?: string;
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
+        playsinline?: boolean;
         preload?: string;
         src?: string;
     }
@@ -3155,7 +3389,7 @@ declare namespace React {
         strokeDashoffset?: string | number;
         strokeLinecap?: "butt" | "round" | "square" | "inherit";
         strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
-        strokeMiterlimit?: string;
+        strokeMiterlimit?: number | string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         surfaceScale?: number | string;
@@ -3218,6 +3452,26 @@ declare namespace React {
         zoomAndPan?: string;
     }
 
+    interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
+        allowFullScreen?: boolean;
+        allowpopups?: boolean;
+        autoFocus?: boolean;
+        autosize?: boolean;
+        blinkfeatures?: string;
+        disableblinkfeatures?: string;
+        disableguestresize?: boolean;
+        disablewebsecurity?: boolean;
+        guestinstance?: string;
+        httpreferrer?: string;
+        nodeintegration?: boolean;
+        partition?: string;
+        plugins?: boolean;
+        preload?: string;
+        src?: string;
+        useragent?: string;
+        webpreferences?: string;
+    }
+
     //
     // React.DOM
     // ----------------------------------------------------------------------
@@ -3251,7 +3505,7 @@ declare namespace React {
         del: DetailedHTMLFactory<DelHTMLAttributes<HTMLElement>, HTMLElement>;
         details: DetailedHTMLFactory<DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
         dfn: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        dialog: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dialog: DetailedHTMLFactory<DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
         div: DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
         dl: DetailedHTMLFactory<HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
         dt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3336,19 +3590,50 @@ declare namespace React {
         "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
         wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
     }
 
     interface ReactSVG {
-        svg: SVGFactory;
         animate: SVGFactory;
         circle: SVGFactory;
+        clipPath: SVGFactory;
         defs: SVGFactory;
+        desc: SVGFactory;
         ellipse: SVGFactory;
+        feBlend: SVGFactory;
+        feColorMatrix: SVGFactory;
+        feComponentTransfer: SVGFactory;
+        feComposite: SVGFactory;
+        feConvolveMatrix: SVGFactory;
+        feDiffuseLighting: SVGFactory;
+        feDisplacementMap: SVGFactory;
+        feDistantLight: SVGFactory;
+        feDropShadow: SVGFactory;
+        feFlood: SVGFactory;
+        feFuncA: SVGFactory;
+        feFuncB: SVGFactory;
+        feFuncG: SVGFactory;
+        feFuncR: SVGFactory;
+        feGaussianBlur: SVGFactory;
+        feImage: SVGFactory;
+        feMerge: SVGFactory;
+        feMergeNode: SVGFactory;
+        feMorphology: SVGFactory;
+        feOffset: SVGFactory;
+        fePointLight: SVGFactory;
+        feSpecularLighting: SVGFactory;
+        feSpotLight: SVGFactory;
+        feTile: SVGFactory;
+        feTurbulence: SVGFactory;
+        filter: SVGFactory;
+        foreignObject: SVGFactory;
         g: SVGFactory;
         image: SVGFactory;
         line: SVGFactory;
         linearGradient: SVGFactory;
+        marker: SVGFactory;
         mask: SVGFactory;
+        metadata: SVGFactory;
         path: SVGFactory;
         pattern: SVGFactory;
         polygon: SVGFactory;
@@ -3356,10 +3641,14 @@ declare namespace React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        svg: SVGFactory;
+        switch: SVGFactory;
         symbol: SVGFactory;
         text: SVGFactory;
+        textPath: SVGFactory;
         tspan: SVGFactory;
         use: SVGFactory;
+        view: SVGFactory;
     }
 
     interface ReactDOM extends ReactHTML, ReactSVG { }
@@ -3368,7 +3657,7 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
+    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
 
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
@@ -3400,7 +3689,7 @@ declare namespace React {
 
     interface ReactChildren {
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
-        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
+        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => void): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactElement<any>;
         toArray(children: ReactNode): ReactChild[];
@@ -3439,7 +3728,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
     interface ErrorInfo {
         /**
-         * Captures which component contained the exception, and it's ancestors.
+         * Captures which component contained the exception, and its ancestors.
          */
         componentStack: string;
     }
@@ -3447,17 +3736,18 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        // tslint:disable:no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): Element | null | false;
+            render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
+        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
-        // tslint:enable:no-empty-interface
 
         interface IntrinsicElements {
             // HTML
@@ -3489,7 +3779,7 @@ declare global {
             del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;
             details: React.DetailedHTMLProps<React.DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
             dfn: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            dialog: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dialog: React.DetailedHTMLProps<React.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
             div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
             dl: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
             dt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3575,6 +3865,7 @@ declare global {
             "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
             wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
 
             // SVG
             svg: React.SVGProps<SVGSVGElement>;

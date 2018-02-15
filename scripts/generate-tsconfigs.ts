@@ -5,7 +5,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const home = path.join(__dirname, '..');
+const home = path.join(__dirname, "..", "types");
 
 for (const dirName of fs.readdirSync(home)) {
 	if (dirName.startsWith(".") || dirName === "node_modules" || dirName === "scripts") {

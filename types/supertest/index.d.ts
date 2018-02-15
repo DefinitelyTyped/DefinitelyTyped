@@ -32,7 +32,10 @@ declare namespace supertest {
       end(callback?: CallbackHandler): this;
     }
 
-    function agent(app?: any): SuperTest<Test>;
+    interface AgentOptions {
+      ca?: any;
+    }
+    function agent(app?: any, options?: AgentOptions): SuperTest<Test>;
 
     interface SuperTest<T extends superagent.SuperAgentRequest> extends superagent.SuperAgent<T> {
     }

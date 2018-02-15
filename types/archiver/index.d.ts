@@ -1,8 +1,9 @@
-// Type definitions for archiver 2.0
+// Type definitions for archiver 2.1
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>, Crevil <https://github.com/crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as fs from 'fs';
 import * as stream from 'stream';
 import * as glob from 'glob';
 import { ZlibOptions } from 'zlib';
@@ -18,15 +19,20 @@ declare namespace archiver {
     interface EntryData {
         name?: string;
         prefix?: string;
-        stats?: string;
+        stats?: fs.Stats;
+        date?: Date | string;
+        mode?: number;
     }
+
+    /** A function that lets you either opt out of including an entry (by returning false), or modify the contents of an entry as it is added (by returning an EntryData) */
+    type EntryDataFunction = (entry: EntryData) => false | EntryData;
 
     interface Archiver extends stream.Transform {
         abort(): this;
         append(source: stream.Readable | Buffer | string, name?: EntryData): this;
 
-        directory(dirpath: string, options: EntryData | string, data?: EntryData): this;
-
+        /** if false is passed for destpath, the path of a chunk of data in the archive is set to the root */
+        directory(dirpath: string, destpath: false | string, data?: EntryData | EntryDataFunction): this;
         file(filename: string, data: EntryData): this;
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
         finalize(): Promise<void>;

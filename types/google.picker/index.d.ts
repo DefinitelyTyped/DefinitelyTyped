@@ -122,6 +122,9 @@ declare namespace google {
 
             // Filters the documents based on whether they are starred by the user.
             setStarred(starred:boolean):DocsView;
+
+            // Allows the user to select folders from Team Drives.
+            setEnableTeamDrives(enabled:boolean):DocsView;
         }
 
         /**
@@ -146,6 +149,9 @@ declare namespace google {
 
             // For photo uploads, controls whether per-photo selection (as opposed to per-album) selection is enabled.
             SIMPLE_UPLOAD_ENABLED: string;
+
+            // Whether Team Drive items should be included in results.
+            SUPPORT_TEAM_DRIVES: string;
         };
 
         export var ViewId:{

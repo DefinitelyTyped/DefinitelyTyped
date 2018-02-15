@@ -1,3 +1,3 @@
-import locationHelperBuilder from "redux-auth-wrapper/history3/locationHelper";
-export { LocationHelper, LocationHelperConfig } from "redux-auth-wrapper/history3/locationHelper";
+import locationHelperBuilder from "../history3/locationHelper";
+export { LocationHelper, LocationHelperConfig } from "../history3/locationHelper";
 export default locationHelperBuilder;

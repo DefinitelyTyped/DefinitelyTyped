@@ -133,7 +133,7 @@ export interface AbstractMeta extends UniqueId {
     _self: string;
 
     /** The time the object was created. */
-    _ts: string;
+    _ts: number;
 
     _rid?: string;
     _etag?: string;
@@ -553,6 +553,7 @@ export class HashPartitionResolver implements PartitionResolver {
  *
  * @deprecated
  */
+// tslint:disable-next-line no-unnecessary-class
 export class Range {
     /**
      * DEPRECATED
@@ -619,7 +620,8 @@ export class DocumentClient {
      */
     constructor(urlConnection: string, auth: AuthOptions, connectionPolicy?: ConnectionPolicy, consistencyLevel?: ConsistencyLevel);
 
-    /** Create an attachment for the document object.
+    /**
+     * Create an attachment for the document object.
      * <p>
      *  Each document may contain zero or more attachments. Attachments can be of any MIME type - text, image, binary data. <br>
      *  These are stored externally in Azure Blob storage. Attachments are automatically deleted when the parent document is deleted.
@@ -642,7 +644,8 @@ export class DocumentClient {
     createAttachmentAndUploadMedia(documentLink: string, readableStream: NodeJS.ReadableStream, options: MediaOptions, callback: RequestCallback<AttachmentMeta>): void;
     createAttachmentAndUploadMedia(documentLink: string, readableStream: NodeJS.ReadableStream, callback: RequestCallback<AttachmentMeta>): void;
 
-    /** Send a request for creating a database.
+    /**
+     * Send a request for creating a database.
      *  A database manages users, permissions and a set of collections.
      *  Each Azure DocumentDB Database Account is able to support multiple independent named databases, with the database being the logical container for data.
      *  Each Database consists of one or more collections, each of which in turn contain one or more documents. Since databases are an an administrative
@@ -757,7 +760,8 @@ export class DocumentClient {
     executeStoredProcedure<TResult>(procedureLink: string, params: any[], options: RequestOptions, callback: RequestCallback<TResult>): void;
     executeStoredProcedure<TResult>(procedureLink: string, paramsOrOptions: any[] | RequestOptions, callback: RequestCallback<TResult>): void;
 
-    /** Lists all databases that satisfy a query.
+    /**
+     * Lists all databases that satisfy a query.
      * @param query     - A SQL query string.
      * @param [options] - The feed options.
      * @returns         - An instance of QueryIterator to handle reading feed.
@@ -802,10 +806,10 @@ export class DocumentClient {
 
     /**
      * Query the triggers for the collection.
-     * @param {string} collectionLink         - The self-link of the collection.
-     * @param {SqlQuerySpec | string} query   - A SQL query.
-     * @param {FeedOptions} [options]         - Represents the feed options.
-     * @returns {QueryIterator}               - An instance of queryIterator to handle reading feed.
+     * @param collectionLink         - The self-link of the collection.
+     * @param query   - A SQL query.
+     * @param [options]         - Represents the feed options.
+     * @returns               - An instance of queryIterator to handle reading feed.
      */
     queryTriggers(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<TriggerMeta>;
 
@@ -940,10 +944,10 @@ export class DocumentClient {
 
     /**
      * Replace the document object.
-     * @param {string} documentLink      - The self-link of the document.
-     * @param {object} document          - Represent the new document body.
-     * @param {RequestOptions} [options] - The request options.
-     * @param {RequestCallback} callback - The callback for the request.
+     * @param documentLink      - The self-link of the document.
+     * @param document          - Represent the new document body.
+     * @param [options] - The request options.
+     * @param callback - The callback for the request.
      */
     replaceDocument<TDocument>(documentLink: string, document: NewDocument, options: RequestOptions, callback: RequestCallback<RetrievedDocument>): void;
     replaceDocument<TDocument>(documentLink: string, document: NewDocument, callback: RequestCallback<RetrievedDocument>): void;
@@ -1340,107 +1344,107 @@ export class DocumentClient {
     getWriteEndpoint(callback: RequestCallback<string>): void;
 }
 
-export class UriFactory {
+export namespace UriFactory {
     /**
      * Given a database id, this creates a database link.
-     * @param {string} databaseId -The database id
-     * @returns {string}          -A database link in the format of dbs/{0} with {0} being a Uri escaped version of the databaseId
+     * @param databaseId -The database id
+     * @returns          -A database link in the format of dbs/{0} with {0} being a Uri escaped version of the databaseId
      * @description Would be used when creating or deleting a DocumentCollection or a User in Azure DocumentDB database service
      */
-    static createDatabaseUri(databaseId: string): string;
+    function createDatabaseUri(databaseId: string): string;
     /**
      * Given a database and collection id, this creates a collection link.
-     * @param {string} databaseId        -The database id
-     * @param {string} collectionId      -The collection id
-     * @returns {string}                 A collection link in the format of dbs/{0}/colls/{1} with {0} being a Uri escaped version of the databaseId and {1} being collectionId
+     * @param databaseId        -The database id
+     * @param collectionId      -The collection id
+     * @returns                 A collection link in the format of dbs/{0}/colls/{1} with {0} being a Uri escaped version of the databaseId and {1} being collectionId
      * @description Would be used when updating or deleting a DocumentCollection, creating a Document, a StoredProcedure, a
      *              Trigger, a UserDefinedFunction, or when executing a query with CreateDocumentQuery in Azure DocumentDB database service.
      */
-    static createDocumentCollectionUri(databaseId: string, collectionId: string): string;
+    function createDocumentCollectionUri(databaseId: string, collectionId: string): string;
     /**
      * Given a database and collection id, this creates a collection link.
-     * @param {string} databaseId        -The database id
-     * @param {string} collectionId      -The collection id
-     * @param {string} documentId        -The document id
-     * @returns {string}                 -A document link in the format of dbs/{0}/colls/{1}/docs/{2} with {0}
+     * @param databaseId        -The database id
+     * @param collectionId      -The collection id
+     * @param documentId        -The document id
+     * @returns                 -A document link in the format of dbs/{0}/colls/{1}/docs/{2} with {0}
      *                                    being a Uri escaped version of the databaseId, {1} being collectionId and {2} being the documentId
      * @description Would be used when creating an Attachment, or when replacing or deleting a Document in Azure DocumentDB database service
      */
-    static createDocumentUri(databaseId: string, collectionId: string, documentId: string): string;
+    function createDocumentUri(databaseId: string, collectionId: string, documentId: string): string;
     /**
      * Given a database, collection and document id, this creates a document link.
-     * @param {string} databaseId    -The database Id
-     * @param {string} userId        -The user Id
-     * @param {string} permissionId  - The permissionId
-     * @returns {string} A permission link in the format of dbs/{0}/users/{1}/permissions/{2} with {0} being a Uri escaped version of the databaseId, {1} being userId and {2} being permissionId
+     * @param databaseId    -The database Id
+     * @param userId        -The user Id
+     * @param permissionId  - The permissionId
+     * @returns A permission link in the format of dbs/{0}/users/{1}/permissions/{2} with {0} being a Uri escaped version of the databaseId, {1} being userId and {2} being permissionId
      * @description Would be used when replacing or deleting a Permission in Azure DocumentDB database service.
      */
-    static createPermissionUri(databaseId: string, userId: string, permissionId: string): string;
+    function createPermissionUri(databaseId: string, userId: string, permissionId: string): string;
 
     /**
      * Given a database, collection and stored proc id, this creates a stored proc link.
-     * @param {string} databaseId        -The database Id
-     * @param {string} collectionId      -The collection Id
-     * @param {string} storedProcedureId -The stored procedure Id
-     * @returns {string}                 -A stored procedure link in the format of dbs/{0}/colls/{1}/sprocs/{2}
+     * @param databaseId        -The database Id
+     * @param collectionId      -The collection Id
+     * @param storedProcedureId -The stored procedure Id
+     * @returns                 -A stored procedure link in the format of dbs/{0}/colls/{1}/sprocs/{2}
      *                                    with {0} being a Uri escaped version of the databaseId,
      *                                    {1} being collectionId and {2} being the storedProcedureId
      * @description Would be used when replacing, executing, or deleting a StoredProcedure in Azure DocumentDB database service.
      */
-    static createStoredProcedureUri(databaseId: string, collectionId: string, storedProcedureId: string): string;
+    function createStoredProcedureUri(databaseId: string, collectionId: string, storedProcedureId: string): string;
 
     /**
      * @summary Given a database, collection and trigger id, this creates a trigger link.
-     * @param {string} databaseId        -The database Id
-     * @param {string} collectionId      -The collection Id
-     * @param {string} triggerId         -The trigger Id
-     * @returns {string}                 -A trigger link in the format of dbs/{0}/colls/{1}/triggers/{2}
+     * @param databaseId        -The database Id
+     * @param collectionId      -The collection Id
+     * @param triggerId         -The trigger Id
+     * @returns                 -A trigger link in the format of dbs/{0}/colls/{1}/triggers/{2}
      *                                    with {0} being a Uri escaped version of the databaseId,
      *                                    {1} being collectionId and {2} being the triggerId
      * @description Would be used when replacing, executing, or deleting a Trigger in Azure DocumentDB database service
      */
-    static createTriggerUri(databaseId: string, collectionId: string, triggerId: string): string;
+    function createTriggerUri(databaseId: string, collectionId: string, triggerId: string): string;
 
     /**
      * @summary Given a database, collection and udf id, this creates a udf link.
-     * @param {string} databaseId        -The database Id
-     * @param {string} collectionId      -The collection Id
-     * @param {string} udfId             -The User Defined Function Id
-     * @returns {string}                 -A udf link in the format of dbs/{0}/colls/{1}/udfs/{2} with {0} being a Uri escaped version of the databaseId, {1} being collectionId and {2} being the udfId
+     * @param databaseId        -The database Id
+     * @param collectionId      -The collection Id
+     * @param udfId             -The User Defined Function Id
+     * @returns                 -A udf link in the format of dbs/{0}/colls/{1}/udfs/{2} with {0} being a Uri escaped version of the databaseId, {1} being collectionId and {2} being the udfId
      * @description Would be used when replacing, executing, or deleting a UserDefinedFunction in Azure DocumentDB database service
      */
-    static createUserDefinedFunctionUri(databaseId: string, collectionId: string, udfId: string): string;
+    function createUserDefinedFunctionUri(databaseId: string, collectionId: string, udfId: string): string;
 
     /**
      * @summary
-     * @param {string} databaseId        -The database Id
-     * @param {string} collectionId      -The collection Id
-     * @param {string} conflictId        -The conflict Id
-     * @returns {string}                 -A conflict link in the format of dbs/{0}/colls/{1}/conflicts/{2}
+     * @param databaseId        -The database Id
+     * @param collectionId      -The collection Id
+     * @param conflictId        -The conflict Id
+     * @returns                 -A conflict link in the format of dbs/{0}/colls/{1}/conflicts/{2}
      *                                    with {0} being a Uri escaped version of the databaseId, {1} being collectionId and {2} being the conflictId
      * @description Would be used when creating a Conflict in Azure DocumentDB database service.
      */
-    static createConflictUri(databaseId: string, collectionId: string, conflictId: string): string;
+    function createConflictUri(databaseId: string, collectionId: string, conflictId: string): string;
 
     /**
      * @summary Given a database, collection and conflict id, this creates a conflict link.
-     * @param {string} databaseId        -The database Id
-     * @param {string} collectionId      -The collection Id
-     * @param {string} documentId        -The document Id\
-     * @param {string} attachmentId      -The attachment Id
-     * @returns {string}                 -A conflict link in the format of dbs/{0}/colls/{1}/conflicts/{2} with {0} being a Uri escaped version of the databaseId,
+     * @param databaseId        -The database Id
+     * @param collectionId      -The collection Id
+     * @param documentId        -The document Id\
+     * @param attachmentId      -The attachment Id
+     * @returns                 -A conflict link in the format of dbs/{0}/colls/{1}/conflicts/{2} with {0} being a Uri escaped version of the databaseId,
      *                                    {1} being collectionId and {2} being the conflictId
      * @description Would be used when creating a Conflict in Azure DocumentDB database service.
      */
-    static createAttachmentUri(databaseId: string, collectionId: string, documentId: string, attachmentId: string): string;
+    function createAttachmentUri(databaseId: string, collectionId: string, documentId: string, attachmentId: string): string;
 
     /**
      * @summary Given a database and collection, this creates a partition key ranges link in the Azure DocumentDB database service.
-     * @param {string} databaseId        -The database Id
-     * @param {string} collectionId      -The collection Id
-     * @returns {string}                 -A partition key ranges link in the format of dbs/{0}/colls/{1}/pkranges with {0} being a Uri escaped version of the databaseId and {1} being collectionId
+     * @param databaseId        -The database Id
+     * @param collectionId      -The collection Id
+     * @returns                 -A partition key ranges link in the format of dbs/{0}/colls/{1}/pkranges with {0} being a Uri escaped version of the databaseId and {1} being collectionId
      */
-    static createPartitionKeyRangesUri(databaseId: string, collectionId: string): string;
+    function createPartitionKeyRangesUri(databaseId: string, collectionId: string): string;
 }
 
 export type MediaReadMode = 'Buffered' | 'Streamed';

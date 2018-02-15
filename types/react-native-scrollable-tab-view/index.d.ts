@@ -2,7 +2,7 @@
 // Project: https://github.com/brentvatne/react-native-scrollable-tab-view#readme
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import {

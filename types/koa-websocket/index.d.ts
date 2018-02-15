@@ -2,9 +2,9 @@
 // Project: https://github.com/kudos/koa-websocket
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-import * as Koa from 'koa';
+import Koa = require('koa');
 import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
@@ -30,7 +30,5 @@ interface KoaWebsocketApp extends Koa {
     ws: KoaWebsocketServer;
 }
 
-type KoaWebsockets = (app: Koa) => KoaWebsocketApp;
-
-declare const websockets: KoaWebsockets;
+declare function websockets(app: Koa): KoaWebsocketApp;
 export = websockets;

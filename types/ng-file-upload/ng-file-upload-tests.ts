@@ -7,7 +7,7 @@ let controllerId = "upload";
 class UploadController {
 	static $inject = ["Upload"];
 
-	constructor(private Upload: angular.angularFileUpload.IUploadService) {
+	constructor(private readonly Upload: angular.angularFileUpload.IUploadService) {
 		this.Upload.setDefaults({
 			ngfAccept: "image/*",
 			ngfAllowDir: true,

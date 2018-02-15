@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ColorPickerProps, Color } from "react-color";
+import { ColorPickerProps, Color } from "../../..";
 
 export interface GithubPickerProps extends ColorPickerProps<GithubPicker> {
     colors?: string[];

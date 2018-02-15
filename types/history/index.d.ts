@@ -18,7 +18,7 @@ export interface History {
     go(n: number): void;
     goBack(): void;
     goForward(): void;
-    block(prompt?: boolean): UnregisterCallback;
+    block(prompt?: boolean | string | TransitionPromptHook): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
     createHref(location: LocationDescriptorObject): Href;
 }
@@ -28,7 +28,7 @@ export interface Location {
     search: Search;
     state: LocationState;
     hash: Hash;
-    key: LocationKey;
+    key?: LocationKey;
 }
 
 export interface LocationDescriptorObject {
@@ -48,6 +48,7 @@ export namespace History {
     export type Pathname = string;
     export type Search = string;
     export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
+    export type TransitionPromptHook = (location: Location, action: Action) => string | false | void;
     export type Hash = string;
     export type Href = string;
 }
@@ -60,6 +61,7 @@ export type Path = History.Path;
 export type Pathname = History.Pathname;
 export type Search = History.Search;
 export type TransitionHook = History.TransitionHook;
+export type TransitionPromptHook = History.TransitionPromptHook;
 export type Hash = History.Hash;
 export type Href = History.Href;
 

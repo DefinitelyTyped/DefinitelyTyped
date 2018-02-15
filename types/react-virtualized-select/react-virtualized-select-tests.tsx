@@ -1,5 +1,5 @@
 import * as React from "react";
-import Select = require("react-select");
+import Select from "react-select";
 import VirtualizedSelect from "react-virtualized-select";
 
 <VirtualizedSelect

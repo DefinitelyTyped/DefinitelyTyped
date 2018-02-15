@@ -1,6 +1,7 @@
-// Type definitions for moo 0.3
+// Type definitions for moo 0.4
 // Project: https://github.com/tjvr/moo#readme
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
+//                 Jörg Vehlow <https://github.com/MofX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace moo;
@@ -14,32 +15,42 @@ export function compile(rules: Rules): Lexer;
 
 export function states(states: {[x: string]: Rules}, start?: string): Lexer;
 
-export interface Rules {
-    [x: string]: RegExp | string | string[] | {
-        match: RegExp | string | string[],
-        /**
-         * Moo tracks detailed information about the input for you.
-         * It will track line numbers, as long as you apply the `lineBreaks: true`
-         * option to any tokens which might contain newlines. Moo will try to warn you if you forget to do this.
-         */
-        lineBreaks?: boolean,
-        /**
-         * Moves the lexer to a new state, and pushes the old state onto the stack.
-         */
-        push?: string,
-        /**
-         * Returns to a previous state, by removing one or more states from the stack.
-         */
-        pop?: number,
-        /**
-         * Moves to a new state, but does not affect the stack.
-         */
-        next?: string,
-        /**
-         * You can have a token type that both matches tokens and contains error values.
-         */
-        error?: true
+export interface Rule {
+    match?: RegExp | string | string[];
+    /**
+     * Moo tracks detailed information about the input for you.
+     * It will track line numbers, as long as you apply the `lineBreaks: true`
+     * option to any tokens which might contain newlines. Moo will try to warn you if you forget to do this.
+     */
+    lineBreaks?: boolean;
+    /**
+     * Moves the lexer to a new state, and pushes the old state onto the stack.
+     */
+    push?: string;
+    /**
+     * Returns to a previous state, by removing one or more states from the stack.
+     */
+    pop?: number;
+    /**
+     * Moves to a new state, but does not affect the stack.
+     */
+    next?: string;
+    /**
+     * You can have a token type that both matches tokens and contains error values.
+     */
+    error?: true;
+    /**
+     * Moo doesn't allow capturing groups, but you can supply a transform function, value(),
+     * which will be called on the value before storing it in the Token object.
+     */
+    value?: (x: string) => string;
+
+    keywords?: {
+        [x: string]: string | string[]
     };
+}
+export interface Rules {
+    [x: string]: RegExp | string | string[] | Rule;
 }
 
 export interface Lexer {
@@ -59,12 +70,14 @@ export interface Lexer {
     /**
      * Empty the internal buffer of the lexer, and set the line, column, and offset counts back to their initial value.
      */
-    reset(chunk: string, state?: LexerState): void;
+    reset(chunk?: string, state?: LexerState): void;
     /**
      * Returns current state, which you can later pass it as the second argument
      * to reset() to explicitly control the internal state of the lexer.
      */
     save(): LexerState;
+
+    [Symbol.iterator](): Iterator<Token>;
 }
 
 export interface Token {
@@ -77,7 +90,7 @@ export interface Token {
      */
     type?: string;
     /**
-     * The contents of the capturing group (or the whole match, if the token RegExp doesn't define a capture).
+     * The match contents.
      */
     value: string;
     /**
@@ -85,9 +98,9 @@ export interface Token {
      */
     offset: number;
     /**
-     * The total length of the match (value may be shorter if you have capturing groups).
+     * The complete match.
      */
-    size: number;
+    text: string;
     /**
      * The number of line breaks found in the match. (Always zero if this rule has lineBreaks: false.)
      */

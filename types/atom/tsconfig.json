@@ -7,21 +7,22 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "q": [ "q/v0" ]
-        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "api-docs.d.ts",
-        "atom-tests.ts"
+        "atom-tests.ts",
+        "autocomplete-plus/index.d.ts",
+        "linter/index.d.ts",
+        "status-bar/index.d.ts"
     ]
 }

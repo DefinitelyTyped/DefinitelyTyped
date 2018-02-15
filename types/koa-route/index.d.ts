@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/route#readme
 // Definitions by: Mike Cook <https://github.com/migstopheles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as Koa from 'koa';
 import * as pathToRegexp from 'path-to-regexp';

@@ -52,7 +52,7 @@ declare namespace GoogleAppsScript {
       appendParagraph(paragraph: Paragraph): Paragraph;
       appendParagraph(text: string): Paragraph;
       appendTable(): Table;
-      appendTable(cells: String[][]): Table;
+      appendTable(cells: string[][]): Table;
       appendTable(table: Table): Table;
       clear(): Body;
       copy(): Body;
@@ -90,7 +90,7 @@ declare namespace GoogleAppsScript {
       insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
       insertParagraph(childIndex: Integer, text: string): Paragraph;
       insertTable(childIndex: Integer): Table;
-      insertTable(childIndex: Integer, cells: String[][]): Table;
+      insertTable(childIndex: Integer, cells: string[][]): Table;
       insertTable(childIndex: Integer, table: Table): Table;
       removeChild(child: Element): Body;
       replaceText(searchPattern: string, replacement: string): Element;
@@ -185,13 +185,13 @@ declare namespace GoogleAppsScript {
       addBookmark(position: Position): Bookmark;
       addEditor(emailAddress: string): Document;
       addEditor(user: Base.User): Document;
-      addEditors(emailAddresses: String[]): Document;
+      addEditors(emailAddresses: string[]): Document;
       addFooter(): FooterSection;
       addHeader(): HeaderSection;
       addNamedRange(name: string, range: Range): NamedRange;
       addViewer(emailAddress: string): Document;
       addViewer(user: Base.User): Document;
-      addViewers(emailAddresses: String[]): Document;
+      addViewers(emailAddresses: string[]): Document;
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getBody(): Body;
@@ -459,7 +459,7 @@ declare namespace GoogleAppsScript {
 
     /**
      *
-     * Deprecated. The methods getFontFamily() and setFontFamily(String) now use string
+     * Deprecated. The methods getFontFamily() and setFontFamily(string) now use string
      *      names for fonts instead of this enum. Although this enum is deprecated, it will remain
      *      available for compatibility with older scripts.
      * An enumeration of the supported fonts.
@@ -502,7 +502,7 @@ declare namespace GoogleAppsScript {
       appendParagraph(paragraph: Paragraph): Paragraph;
       appendParagraph(text: string): Paragraph;
       appendTable(): Table;
-      appendTable(cells: String[][]): Table;
+      appendTable(cells: string[][]): Table;
       appendTable(table: Table): Table;
       clear(): FooterSection;
       copy(): FooterSection;
@@ -531,7 +531,7 @@ declare namespace GoogleAppsScript {
       insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
       insertParagraph(childIndex: Integer, text: string): Paragraph;
       insertTable(childIndex: Integer): Table;
-      insertTable(childIndex: Integer, cells: String[][]): Table;
+      insertTable(childIndex: Integer, cells: string[][]): Table;
       insertTable(childIndex: Integer, table: Table): Table;
       removeChild(child: Element): FooterSection;
       removeFromParent(): FooterSection;
@@ -643,7 +643,7 @@ declare namespace GoogleAppsScript {
       appendParagraph(paragraph: Paragraph): Paragraph;
       appendParagraph(text: string): Paragraph;
       appendTable(): Table;
-      appendTable(cells: String[][]): Table;
+      appendTable(cells: string[][]): Table;
       appendTable(table: Table): Table;
       clear(): HeaderSection;
       copy(): HeaderSection;
@@ -672,7 +672,7 @@ declare namespace GoogleAppsScript {
       insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
       insertParagraph(childIndex: Integer, text: string): Paragraph;
       insertTable(childIndex: Integer): Table;
-      insertTable(childIndex: Integer, cells: String[][]): Table;
+      insertTable(childIndex: Integer, cells: string[][]): Table;
       insertTable(childIndex: Integer, table: Table): Table;
       removeChild(child: Element): HeaderSection;
       removeFromParent(): HeaderSection;
@@ -1269,7 +1269,7 @@ declare namespace GoogleAppsScript {
       appendParagraph(paragraph: Paragraph): Paragraph;
       appendParagraph(text: string): Paragraph;
       appendTable(): Table;
-      appendTable(cells: String[][]): Table;
+      appendTable(cells: string[][]): Table;
       appendTable(table: Table): Table;
       clear(): TableCell;
       copy(): TableCell;
@@ -1308,7 +1308,7 @@ declare namespace GoogleAppsScript {
       insertParagraph(childIndex: Integer, paragraph: Paragraph): Paragraph;
       insertParagraph(childIndex: Integer, text: string): Paragraph;
       insertTable(childIndex: Integer): Table;
-      insertTable(childIndex: Integer, cells: String[][]): Table;
+      insertTable(childIndex: Integer, cells: string[][]): Table;
       insertTable(childIndex: Integer, table: Table): Table;
       isAtDocumentEnd(): boolean;
       merge(): TableCell;

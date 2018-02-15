@@ -16,10 +16,10 @@ connect("mongodb://user:password@localhost:27017/database?authSource=admin").the
 	}
 
 	class User extends CamoDocument<UserSchema> {
-		private name: SchemaTypeExtended = String;
-		private password: SchemaTypeExtended = String;
-		private friends: SchemaTypeExtended = [String];
-		private dateCreated: SchemaTypeExtended = {
+		private readonly name: SchemaTypeExtended = String;
+		private readonly password: SchemaTypeExtended = String;
+		private readonly friends: SchemaTypeExtended = [String];
+		private readonly dateCreated: SchemaTypeExtended = {
 			type: Date,
 			default: Date.now
 		};
