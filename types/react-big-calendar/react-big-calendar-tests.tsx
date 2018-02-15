@@ -13,13 +13,13 @@ BigCalendar.momentLocalizer(moment);
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html
 
 class CalendarEvent {
-    public title: string;
-    public allDay: boolean;
-    public start: Date;
-    public end: Date;
-    public desc: string;
+    title: string;
+    allDay: boolean;
+    start: Date;
+    end: Date;
+    desc: string;
 
-    public constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string) {
+    constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string) {
         this.title = _title;
         this.allDay = _allDay || false;
         this.start = _start;
@@ -106,7 +106,7 @@ console.log('Test Results -> FullAPIExample', fullApiExampleHtml);
 
 // Test fixtures
 function getEvents(): CalendarEvent[] {
-    var events: CalendarEvent[] = [
+    const events: CalendarEvent[] = [
         new CalendarEvent('All Day Event', new Date(2015, 3, 0), new Date(2015, 3, 0), true),
         new CalendarEvent('Long Event', new Date(2015, 3, 7), new Date(2015, 3, 10)),
         new CalendarEvent('DTS STARTS', new Date(2016, 2, 13, 0, 0, 0), new Date(2016, 2, 20, 0, 0, 0)),
@@ -121,7 +121,7 @@ function getEvents(): CalendarEvent[] {
         new CalendarEvent('Birthday Party', new Date(2015, 3, 13, 7, 0, 0), new Date(2015, 3, 13, 10, 30, 0)),
     ];
     return events;
-};
+}
 
 class EventAgenda extends React.Component<any, any> {
     render() {
@@ -141,17 +141,17 @@ const customDayPropGetter = (date: Date) => {
             style: {
                 border: 'solid 3px ' + (date.getDate() === 7 ? '#faa' : '#afa'),
             },
-        }
-    else return {}
-}
+        };
+    else return {};
+};
 
 const customSlotPropGetter = (date: Date) => {
     if (date.getDate() === 7 || date.getDate() === 15)
         return {
             className: 'special-day',
-        }
-    else return {}
-}
+        };
+    else return {};
+};
 
 function Event(event: any) {
     return (
@@ -159,5 +159,5 @@ function Event(event: any) {
             <strong>{event.title}</strong>
             {event.desc && ':  ' + event.desc}
         </span>
-    )
+    );
 }
