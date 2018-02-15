@@ -14,6 +14,6 @@ import { GraphQLSchema } from '../type/schema';
  * producing the copy. The original schema remains unaltered.
  */
 export function extendSchema(
-    schema: GraphQLSchema,
-    documentAST: DocumentNode
+  schema: GraphQLSchema,
+  documentAST: DocumentNode,
 ): GraphQLSchema;

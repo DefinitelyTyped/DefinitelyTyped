@@ -265,6 +265,13 @@ const Test = reduxForm<TestFormData>({
                                 component="select"
                             />
 
+                            <Field
+                                name="field4"
+                                component="input"
+                                onChange={(event, newValue, previousValue) => {}}
+                                onBlur={(event, newValue, previousValue) => {}}
+                            />
+
                             <ImmutableField
                                 name="field3im"
                                 component="select"
@@ -374,5 +381,20 @@ try {
 } catch (error) {
     if (!(error instanceof LibSubmissionError)) {
         throw new Error("SubmissionError from lib not imported correctly");
+    }
+}
+
+/* Test handleSubmit prop using as onSubmit handler */
+type HandleSubmitTestProps = {} & InjectedFormProps<TestFormData>;
+const HandleSubmitTestForm = reduxForm<TestFormData>({
+    form : "test"
+})(
+    (props: HandleSubmitTestProps) => <form onSubmit={ props.handleSubmit } />
+);
+
+class HandleSubmitTest extends React.Component {
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    render() {
+        return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
     }
 }

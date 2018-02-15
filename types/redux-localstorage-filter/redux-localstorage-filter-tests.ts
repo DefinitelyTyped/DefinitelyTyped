@@ -2,7 +2,7 @@ import { compose } from "redux";
 import {
     default as persistState
 } from "redux-localstorage";
-import * as adapter from "redux-localstorage/lib/adapters/localStorage";
+import adapter = require("redux-localstorage/lib/adapters/localStorage");
 import { default as filter } from "redux-localstorage-filter";
 
 const storageSingle = compose(

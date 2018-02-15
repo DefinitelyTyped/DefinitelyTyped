@@ -197,6 +197,8 @@ declare namespace Server {
     autoRewrite?: boolean;
     /** Rewrites the location protocol on (301 / 302 / 307 / 308) redirects to 'http' or 'https'.Default: null. */
     protocolRewrite?: string;
+    /** Timeout (in milliseconds) when proxy receives no response from target. Default: 120000 (2 minutes) */
+    proxyTimeout?: number;
   }
 }
 

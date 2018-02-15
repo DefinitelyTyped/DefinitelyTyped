@@ -90,7 +90,7 @@ function test_computed() {
 }
 
 class GetterViewModel {
-    private _selectedRange: KnockoutObservable<any>;
+    private readonly _selectedRange: KnockoutObservable<any>;
 
     constructor() {
         this._selectedRange = ko.observable();

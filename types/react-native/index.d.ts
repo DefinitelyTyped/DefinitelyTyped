@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.51
+// Type definitions for react-native 0.52
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -7,7 +7,7 @@
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -548,7 +548,7 @@ export interface FlexStyle {
     flexShrink?: number;
     flexWrap?: "wrap" | "nowrap";
     height?: number | string;
-    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
     left?: number | string;
     margin?: number | string;
     marginBottom?: number | string;
@@ -758,11 +758,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
     letterSpacing?: number;
     lineHeight?: number;
-    /**
-     * Specifies text alignment.
-     * The value 'justify' is only supported on iOS.
-     */
-    textAlign?: "auto" | "left" | "right" | "center";
+    textAlign?: "auto" | "left" | "right" | "center" | "justify";
     textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through";
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
     textDecorationColor?: string;
@@ -1945,6 +1941,15 @@ export interface WebViewPropertiesAndroid {
      * Sets the user-agent for the WebView.
      */
     userAgent?: string;
+
+    /**
+    * Specifies the mixed content mode. i.e WebView will allow a secure origin to load content from any other origin.
+Possible values for mixedContentMode are:
+'never' (default) - WebView will not allow a secure origin to load content from an insecure origin.
+'always' - WebView will allow a secure origin to load content from any other origin, even if that origin is insecure.
+'compatibility' - WebView will attempt to be compatible with the approach of a modern web browser with regard to mixed content.
+    */
+    mixedContentMode?: "never" | "always" | "compatibility";
 }
 
 export interface WebViewIOSLoadRequestEvent {
@@ -2462,6 +2467,11 @@ export interface DatePickerIOSProperties extends ViewProperties {
     date: Date;
 
     /**
+     * The date picker locale.
+     */
+    locale?: string;
+
+    /**
      * Maximum date.
      * Restricts the range of possible date/time values.
      */
@@ -2477,7 +2487,7 @@ export interface DatePickerIOSProperties extends ViewProperties {
      *  enum(1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30)
      *  The interval at which minutes can be selected.
      */
-    minuteInterval?: number;
+    minuteInterval?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30;
 
     /**
      *  enum('date', 'time', 'datetime')
@@ -3633,11 +3643,11 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     scrollToEnd: (params?: { animated?: boolean }) => void;
 
     /**
-     * Scrolls to the item at a the specified index such that it is positioned in the viewable area
-     * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
-     * May be janky without `getItemLayout` prop.
+     * Scrolls to the item at the specified index such that it is positioned in the viewable area
+     * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
+     * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean; index: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
@@ -4363,7 +4373,7 @@ export interface ModalProperties {
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
      * @platform ios
      */
-    onOrientationChange?: () => void;
+    onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
      /**
      * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
      * @platform ios
@@ -5189,7 +5199,7 @@ export type PlatformOSType = "ios" | "android" | "macos" | "windows" | "web";
 
 interface PlatformStatic {
     OS: PlatformOSType;
-    Version: number;
+    Version: number | string;
 
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
@@ -6201,7 +6211,16 @@ export interface ShareStatic {
     dismissedAction: string;
 }
 
-type AccessibilityChangeEventName = "change" | "announcementFinished";
+type AccessibilityEventName = "change" | "announcementFinished";
+
+type AccessibilityChangeEvent = boolean;
+
+type AccessibilityAnnoucementFinishedEvent = {
+    announcement: string;
+    success: boolean
+};
+
+type AccessibilityEvent = AccessibilityChangeEvent | AccessibilityAnnoucementFinishedEvent;
 
 /**
  * @see https://facebook.github.io/react-native/docs/accessibilityinfo.html
@@ -6224,12 +6243,12 @@ export interface AccessibilityInfoStatic {
      *                          - announcement: The string announced by the screen reader.
      *                          - success: A boolean indicating whether the announcement was successfully made.
      */
-    addEventListener: (eventName: AccessibilityChangeEventName, handler: () => void) => void;
+    addEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
 
     /**
      * Remove an event handler.
      */
-    removeEventListener: (eventName: AccessibilityChangeEventName, handler: () => void) => void;
+    removeEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
 
     /**
      * Set acessibility focus to a react component.
@@ -6405,7 +6424,7 @@ export type AppStateEvent = "change" | "memoryWarning";
 export type AppStateStatus = "active" | "background" | "inactive";
 
 export interface AppStateStatic {
-    currentState: string;
+    currentState: AppStateStatus;
 
     /**
      * Add a handler to AppState changes by listening to the change event
@@ -7716,8 +7735,7 @@ export interface EasingStatic {
 }
 
 export namespace Animated {
-    // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
-    type AnimatedValue = Animated;
+    type AnimatedValue = Value;
     type AnimatedValueXY = ValueXY;
 
     type Base = Animated;
@@ -7901,6 +7919,9 @@ export namespace Animated {
         speed?: number;
         tension?: number;
         friction?: number;
+        stiffness?: number;
+        mass?: number;
+        damping?: number;
     }
 
     interface LoopAnimationConfig {
@@ -8290,8 +8311,8 @@ export type ListView = ListViewStatic;
 export var MapView: MapViewStatic;
 export type MapView = MapViewStatic;
 
-export var MaskedView: MaskedViewStatic;
-export type MaskedView = MaskedViewStatic;
+export var MaskedViewIOS: MaskedViewStatic;
+export type MaskedViewIOS = MaskedViewStatic;
 
 export var Modal: ModalStatic;
 export type Modal = ModalStatic;
@@ -8613,6 +8634,7 @@ export namespace addons {
 export var ColorPropType: React.Requireable<any>;
 export var EdgeInsetsPropType: React.Requireable<any>;
 export var PointPropType: React.Requireable<any>;
+export var ViewPropTypes: React.Requireable<any>;
 
 declare global {
     function require(name: string): any;

@@ -4,10 +4,8 @@
 //                 Connor Schlesiger <https://github.com/schlesiger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* tslint:disable:max-line-length */
-
-export interface NightWatchCustomPageObjects {
-    page: {[name: string]: () => NightWatchBrowser};
+export interface NightwatchCustomPageObjects {
+    page: {[name: string]: () => NightwatchBrowser};
 }
 
 export interface NightwatchDesiredCapabilities {

@@ -288,7 +288,7 @@ describe('missing tests', () => {
        class Closure<T> {
            private arg: T;
 
-           constructor(private fn: (arg: T) => void) {
+           constructor(private readonly fn: (arg: T) => void) {
                this.fn = fn;
            }
 
@@ -522,7 +522,7 @@ describe('beforeEach with timeout', () => {
 class TestApi {
     constructor() { }
     testProp: boolean;
-    private anotherProp: string;
+    private readonly anotherProp: string;
     testMethod(a: number): string { return ""; }
 }
 

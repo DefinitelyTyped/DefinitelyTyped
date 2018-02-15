@@ -1,5 +1,5 @@
-import * as loopback from 'loopback';
-import * as cookieParser from 'cookie-parser';
+import loopback = require('loopback');
+import cookieParser = require('cookie-parser');
 
 class TestModel {
     id: number;

@@ -17,18 +17,22 @@ export type Parser = (value: any, name: string) => any;
 export type Validator = (value: any, allValues?: any, props?: any) => any;
 
 export type EventHandler<Event> = (event: Event) => void;
+export type EventWithDataHandler<Event> = (event?: Event, newValue?: any, previousValue?: any) => void;
 
 export interface EventOrValueHandler<Event> extends EventHandler<Event> {
     (value: any): void;
 }
 
-export interface CommonFieldProps {
+export interface CommonFieldInputProps {
     name: string;
-    onBlur: EventOrValueHandler<FocusEvent<any>>;
-    onChange: EventOrValueHandler<ChangeEvent<any>>;
     onDragStart: EventHandler<DragEvent<any>>;
     onDrop: EventHandler<DragEvent<any>>;
     onFocus: EventHandler<FocusEvent<any>>;
+}
+
+export interface CommonFieldProps extends CommonFieldInputProps {
+    onBlur: EventWithDataHandler<FocusEvent<any>>;
+    onChange: EventWithDataHandler<ChangeEvent<any>>;
 }
 
 export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
@@ -57,7 +61,7 @@ export type GenericFieldHTMLAttributes =
     SelectHTMLAttributes<HTMLSelectElement> |
     TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldProps<P> & P> implements GenericField<P> {
+export class Field<P = GenericFieldHTMLAttributes | BaseFieldProps> extends Component<BaseFieldProps<P> & P> {
     dirty: boolean;
     name: string;
     pristine: boolean;
@@ -70,9 +74,11 @@ export interface WrappedFieldProps {
     meta: WrappedFieldMetaProps;
 }
 
-export interface WrappedFieldInputProps extends CommonFieldProps {
+export interface WrappedFieldInputProps extends CommonFieldInputProps {
     checked?: boolean;
     value: any;
+    onBlur: EventOrValueHandler<FocusEvent<any>>;
+    onChange: EventOrValueHandler<ChangeEvent<any>>;
 }
 
 export interface WrappedFieldMetaProps {

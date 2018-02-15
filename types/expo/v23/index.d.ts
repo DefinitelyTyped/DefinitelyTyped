@@ -2,7 +2,7 @@
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { EventSubscription } from 'fbemitter';
 import { Component, Ref } from 'react';
@@ -726,13 +726,11 @@ export namespace Facebook {
         permissions?: string[];
         behavior?: 'web' | 'native' | 'browser' | 'system';
     }
-    type Response = {
-        type: 'success';
-        token: string;
-        expires: number;
-    } | {
-        type: 'cancel';
-    };
+    interface Response {
+        type: 'cancel' | 'success';
+        token?: string;
+        expires?: number;
+    }
     function logInWithReadPermissionsAsync(appId: string, options?: Options): Promise<Response>;
 }
 

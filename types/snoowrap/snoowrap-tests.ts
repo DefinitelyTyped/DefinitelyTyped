@@ -1,4 +1,4 @@
-import * as Snoowrap from 'snoowrap';
+import Snoowrap = require('snoowrap');
 import {
   Comment,
   Listing,

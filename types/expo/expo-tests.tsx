@@ -73,6 +73,10 @@ AuthSession.startAsync({
             break;
     }
 });
+AuthSession.startAsync({
+    authUrl: 'url1',
+    returnUrl: undefined
+});
 
 Audio.setAudioModeAsync({
     shouldDuckAndroid: false,
@@ -162,12 +166,7 @@ async () => {
 };
 
 async () => {
-    const result = await Facebook.logInWithReadPermissionsAsync('appId');
-
-    if (result.type === 'success') {
-        result.expires;
-        result.token;
-    }
+    const { type, expires, token } = await Facebook.logInWithReadPermissionsAsync("appId");
 };
 
 () => (

@@ -1,5 +1,5 @@
-import * as webpack from 'webpack';
-import * as WebpackDevServer from 'webpack-dev-server';
+import webpack = require('webpack');
+import WebpackDevServer = require('webpack-dev-server');
 import * as core from 'express-serve-static-core';
 const compiler = webpack({});
 const multipleCompiler = webpack([]);

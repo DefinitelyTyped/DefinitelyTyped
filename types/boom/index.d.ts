@@ -86,7 +86,7 @@ declare namespace Boom {
      * Identifies whether an error is a Boom object. Same as calling instanceof Boom.
      * @param error the error object to identify.
      */
-    export function isBoom(error: Error): boolean
+    export function isBoom(error: Error): error is Boom
 
     // 4xx
     /**

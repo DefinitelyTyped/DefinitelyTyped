@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as BraftEditor from "braft-editor";
+import BraftEditor = require("braft-editor");
 import {
 	RawDraftContentState,
 } from 'draft-js';
@@ -22,10 +22,10 @@ class BraftEditorTest extends React.Component<BraftEditor.editorProps> {
             </div>
           );
     }
-    private handleChange = (content: RawDraftContentState) => {
+    private readonly handleChange = (content: RawDraftContentState) => {
         console.log(content);
     }
-    private handleHTMLChange = (html: string) => {
+    private readonly handleHTMLChange = (html: string) => {
         console.log(html);
     }
 }

@@ -122,7 +122,7 @@ interface CredentialData {
     id: string;
 }
 
-type Credential = PasswordCredential|FederatedCredential;
+type Credential = PasswordCredential|FederatedCredential|PublicKeyCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -309,6 +309,11 @@ interface CredentialRequestOptions {
      * request.
      */
     mediation?: CredentialMediationRequirement;
+
+    /**
+     * This property specifies options for requesting a public-key signature.
+     */
+    publicKey?: PublicKeyCredentialRequestOptions;
 }
 
 /**
@@ -333,6 +338,10 @@ interface CredentialCreationOptions {
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialcreationoptions-federated}
      */
     federated?: FederatedCredentialInit;
+    /**
+     * @see {@link https://w3c.github.io/webauthn/#dictionary-makecredentialoptions}
+     */
+    publicKey?: MakePublicKeyCredentialOptions;
 }
 
 /**
@@ -350,4 +359,111 @@ interface FederatedCredentialRequestOptions {
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-federatedcredentialrequestoptions-protocols}
      */
     protocols?: string[];
+}
+
+// Type definitions for webauthn
+// Spec: https://w3c.github.io/webauthn/
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions}
+ */
+interface PublicKeyCredentialRequestOptions {
+    challenge: BufferSource;
+    timeout: number;
+    rpId: string;
+    allowCredentials: PublicKeyCredentialDescriptor[];
+    userVerification?: 'required' | 'preferred' | 'discouraged';
+    extensions?: any;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
+ */
+interface PublicKeyCredentialRpEntity {
+    id: string;
+    name: string;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialuserentity}
+ */
+interface PublicKeyCredentialUserEntity {
+    id: BufferSource;
+    name: string;
+    displayName: string;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters}
+ */
+interface PublicKeyCredentialParameters {
+    type: 'public-key';
+    alg: number;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor}
+ */
+interface PublicKeyCredentialDescriptor {
+    type: 'public-key';
+    id: BufferSource;
+    transports?: string[];
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
+ */
+interface AuthenticatorSelectionCriteria {
+    authenticatorAttachment?: string;
+    requireResidentKey?: boolean;
+    requireUserVerification?: string;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-makepublickeycredentialoptions}
+ */
+interface MakePublicKeyCredentialOptions {
+    rp: PublicKeyCredentialRpEntity;
+    user: PublicKeyCredentialUserEntity;
+
+    challenge: BufferSource;
+    pubKeyCredParams: PublicKeyCredentialParameters[];
+
+    timeout?: number;
+    excludeCredentials?: PublicKeyCredentialDescriptor[];
+    authenticatorSelection?: AuthenticatorSelectionCriteria;
+    attestation?: 'none' | 'indirect' | 'direct';
+    extensions?: any;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#authenticatorresponse}
+ */
+interface AuthenticatorResponse {
+    readonly clientDataJSON: ArrayBuffer;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#authenticatorattestationresponse}
+ */
+interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
+    readonly attestationObject: ArrayBuffer;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#iface-authenticatorassertionresponse}
+ */
+interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
+    readonly authenticatorData: ArrayBuffer;
+    readonly signature: ArrayBuffer;
+    readonly userHandle: ArrayBuffer;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
+ */
+interface PublicKeyCredential extends CredentialData {
+    readonly type: 'public-key';
+    readonly rawId: ArrayBuffer;
+    readonly response: AuthenticatorAttestationResponse|AuthenticatorAssertionResponse;
 }

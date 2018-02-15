@@ -8,17 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-		"strictFunctionTypes": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-		"zenscroll-tests.ts"
+        "zenscroll-tests.ts"
     ]
 }

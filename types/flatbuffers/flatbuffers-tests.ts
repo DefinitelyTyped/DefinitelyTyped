@@ -14,7 +14,7 @@ enum Any {
 }
 
 class Monster2 {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -89,7 +89,7 @@ class Test {
 }
 
 class TestSimpleTableWithEnum {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -134,7 +134,7 @@ class TestSimpleTableWithEnum {
 }
 
 class Vec3 {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -242,7 +242,7 @@ class Vec3 {
 }
 
 class Stat {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -305,7 +305,7 @@ class Stat {
 }
 
 class Monster {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 

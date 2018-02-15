@@ -20,7 +20,7 @@
 
         scene = new THREE.Scene();
 
-        var light: THREE.DirectionalLight, object: THREE.Mesh | THREE.AxisHelper | THREE.ArrowHelper;
+        var light: THREE.DirectionalLight, object: THREE.Mesh | THREE.AxesHelper | THREE.ArrowHelper;
 
         scene.add(new THREE.AmbientLight(0x404040));
 
@@ -76,11 +76,11 @@
 
         //
 
-        var points: THREE.Vector3[] = [];
+        var points: THREE.Vector2[] = [];
 
         for (var i = 0; i < 50; i++) {
 
-            points.push(new THREE.Vector3(Math.sin(i * 0.2) * Math.sin(i * 0.1) * 15 + 50, 0, (i - 5) * 2));
+            points.push(new THREE.Vector2(Math.sin(i * 0.2) * Math.sin(i * 0.1) * 15 + 50, 0));
 
         }
 
@@ -96,7 +96,7 @@
         object.position.set(0, 0, -200);
         scene.add(object);
 
-        object = new THREE.AxisHelper(50);
+        object = new THREE.AxesHelper(50);
         object.position.set(200, 0, -200);
         scene.add(object);
 
