@@ -3592,8 +3592,7 @@ declare module '@ember/object/internals' {
 
 declare module '@ember/object/mixin' {
     import Ember from 'ember';
-    const Mixin: typeof Ember.Mixin;
-    export default Mixin;
+    export default class Mixin<T, Base = Ember.Object> extends Ember.Mixin<T, Base> {}
 }
 
 declare module '@ember/object/observable' {
