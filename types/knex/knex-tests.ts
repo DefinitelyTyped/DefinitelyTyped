@@ -186,6 +186,10 @@ knex('users').where(() => {
 
 knex('users').where('votes', '>', 100);
 
+// Let null be used in a two or 3 parameter where filter
+knex('users').where('votes', null);
+knex('users').where('votes', 'is not', null);
+
 var subquery = knex('users').where('votes', '>', 100).andWhere('status', 'active').orWhere('name', 'John').select('id');
 knex('accounts').where('id', 'in', subquery);
 

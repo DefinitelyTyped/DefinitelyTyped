@@ -264,8 +264,8 @@ declare namespace Knex {
         (raw: Raw): QueryBuilder;
         (callback: QueryCallback): QueryBuilder;
         (object: Object): QueryBuilder;
-        (columnName: string, value: Value): QueryBuilder;
-        (columnName: string, operator: string, value: Value): QueryBuilder;
+        (columnName: string, value: Value | null): QueryBuilder;
+        (columnName: string, operator: string, value: Value | null): QueryBuilder;
         (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
     }
 
