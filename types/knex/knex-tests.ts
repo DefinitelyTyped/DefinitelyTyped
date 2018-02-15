@@ -1040,6 +1040,10 @@ knex.schema
   .dropTableIfExists('A')
   .createTable('A', table => {
     table.integer('C').unsigned().references('B.id').notNullable();
+    table.integer('D').primary('PK').notNullable();
+    table.string('E').unique('UX').nullable();
+    table.foreign('E', 'FK').references('F.id');
+    table.timestamp('T', false).notNullable();
   });
 
 
