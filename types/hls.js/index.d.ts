@@ -1,4 +1,4 @@
-// Type definitions for hls.js 0.7
+// Type definitions for hls.js 0.8
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -468,18 +468,6 @@ declare namespace Hls {
 
   interface Config {
     /**
-     * (default: true)
-     * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
-     * if set to false, an explicit API call (hls.startLoad(startPosition=-1)) will be needed to start quality level/fragment loading.
-     */
-    autoStartLoad: boolean;
-    /**
-     * (default -1)
-     * if set to -1, playback will start from initialTime=0 for VoD and according to liveSyncDuration/liveSyncDurationCount config params for Live
-     * otherwise, playback will start from predefined value. (unless stated otherwise in autoStartLoad=false mode : in that case startPosition can be overrided using hls.startLoad(startPosition)).
-     */
-    startPosition: number;
-    /**
      * (default: false)
      * if set to true, the adaptive algorithm with limit levels usable in auto-quality by the HTML video element dimensions (width and height)
      * if set to false, levels will not be limited. All available levels could be used in auto-quality mode taking only bandwidth into consideration.
@@ -491,6 +479,18 @@ declare namespace Hls {
      * a logger object could also be provided for custom logging: config.debug = customLogger;
      */
     debug: boolean;
+    /**
+     * (default: true)
+     * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
+     * if set to false, an explicit API call (hls.startLoad(startPosition=-1)) will be needed to start quality level/fragment loading.
+     */
+    autoStartLoad: boolean;
+    /**
+     * (default -1)
+     * if set to -1, playback will start from initialTime=0 for VoD and according to liveSyncDuration/liveSyncDurationCount config params for Live
+     * otherwise, playback will start from predefined value. (unless stated otherwise in autoStartLoad=false mode : in that case startPosition can be overrided using hls.startLoad(startPosition)).
+     */
+    startPosition: number;
     /**
      * (default: undefined)
      * if audio codec is not signaled in variant manifest, or if only a stream manifest is provided, hls.js tries to guess audio codec by parsing audio sampling rate in ADTS header.
@@ -535,6 +535,13 @@ declare namespace Hls {
      */
     maxBufferHole: number;
     /**
+     * (default: 2s)
+     * In case playback is stalled, and a buffered range is available upfront, less than maxSeekHole seconds from current media position,
+     * hls.js will jump over this buffer hole to reach the beginning of this following buffered range.
+     * maxSeekHole allows to configure this jumpable threshold.
+     */
+    maxSeekHole: number;
+    /**
      * (default: 4s)
      *
      * ABR algorithm will always try to choose a quality level that should avoid rebuffering. In case no quality level with this criteria can
@@ -544,12 +551,20 @@ declare namespace Hls {
      */
     maxStarvationDelay: number;
     /**
-     * (default: 2s)
-     * In case playback is stalled, and a buffered range is available upfront, less than maxSeekHole seconds from current media position,
-     * hls.js will jump over this buffer hole to reach the beginning of this following buffered range.
-     * maxSeekHole allows to configure this jumpable threshold.
+     * (default 0.2s)
+     * This tolerance factor is used during fragment lookup.
+     * Instead of checking whether buffered.end is located within [start, end] range, frag lookup will be done by checking within [start-maxFragLookUpTolerance, end-maxFragLookUpTolerance] range.
+     * This tolerance factor is used to cope with situations like:
+     *      buffered.end = 9.991
+     *      frag[0] : [0,10]
+     *      frag[1] : [10,20]
+     *      buffered.end is within frag[0] range, but as we are close to frag[1], frag[1] should be choosen instead
+     * If maxFragLookUpTolerance = 0.2, this lookup will be adjusted to
+     *      frag[0] : [-0.2,9.8]
+     *      frag[1] : [9.8,19.8]
+     *  This time, buffered.end is within frag[1] range, and frag[1] will be the next fragment to be loaded, as expected
      */
-    maxSeekHole: number;
+    maxLoadingDelay: number;
     /**
      * (default: 0.5s)
      * media element is expected to play and if currentTime has not moved for more than lowBufferWatchdogPeriod and if there are less than maxBufferHole seconds buffered upfront,
@@ -575,21 +590,6 @@ declare namespace Hls {
      */
     nudgeMaxRetry: number;
     /**
-     * (default 0.2s)
-     * This tolerance factor is used during fragment lookup.
-     * Instead of checking whether buffered.end is located within [start, end] range, frag lookup will be done by checking within [start-maxFragLookUpTolerance, end-maxFragLookUpTolerance] range.
-     * This tolerance factor is used to cope with situations like:
-     *      buffered.end = 9.991
-     *      frag[0] : [0,10]
-     *      frag[1] : [10,20]
-     *      buffered.end is within frag[0] range, but as we are close to frag[1], frag[1] should be choosen instead
-     * If maxFragLookUpTolerance = 0.2, this lookup will be adjusted to
-     *      frag[0] : [-0.2,9.8]
-     *      frag[1] : [9.8,19.8]
-     *  This time, buffered.end is within frag[1] range, and frag[1] will be the next fragment to be loaded, as expected
-     */
-    maxLoadingDelay: number;
-    /**
      * (default 4s)
      *
      * max video loading delay used in automatic start level selection : in that mode ABR controller will ensure that video loading time (ie
@@ -604,6 +604,13 @@ declare namespace Hls {
      */
     liveSyncDurationCount: number;
     /**
+     * (default: Infinity)
+     * maximum delay allowed from edge of live, expressed in multiple of EXT-X-TARGETDURATION.
+     * If set to 10, the player will seek back to liveSyncDurationCount whenever the next fragment to be loaded is older than N-10, N being the last fragment of the live playlist.
+     * If set, this value must be stricly superior to liveSyncDurationCount a value too close from liveSyncDurationCount is likely to cause playback stalls.
+     */
+    liveMaxLatencyDurationCount: number;
+    /**
      * (default: undefined)
      * Alternative parameter to liveSyncDurationCount, expressed in seconds vs number of segments.
      * If defined in the configuration object, liveSyncDuration will take precedence over the default liveSyncDurationCount.
@@ -611,13 +618,6 @@ declare namespace Hls {
      * A value too low (inferior to ~3 segment durations) is likely to cause playback stalls.
      */
     liveSyncDuration: number;
-    /**
-     * (default: Infinity)
-     * maximum delay allowed from edge of live, expressed in multiple of EXT-X-TARGETDURATION.
-     * If set to 10, the player will seek back to liveSyncDurationCount whenever the next fragment to be loaded is older than N-10, N being the last fragment of the live playlist.
-     * If set, this value must be stricly superior to liveSyncDurationCount a value too close from liveSyncDurationCount is likely to cause playback stalls.
-     */
-    liveMaxLatencyDurationCount: number;
     /**
      * (default: undefined)
      * Alternative parameter to liveMaxLatencyDurationCount, expressed in seconds vs number of segments.
@@ -627,6 +627,13 @@ declare namespace Hls {
      * A value too close from liveSyncDuration is likely to cause playback stalls.
      */
     liveMaxLatencyDuration: number;
+    /**
+     * (default: false)
+     * Override current Media Source duration to Infinity for a live broadcast. Useful, if you are building a player which relies
+     * on native UI capabilities in modern browsers. If you want to have a native Live UI in environments like iOS Safari, Safari,
+     * Android Google Chrome, etc. set this value to true.
+     */
+    liveDurationInfinity: boolean;
     /**
      * (default: true)
      * Enable WebWorker (if available on browser) for TS demuxing/MP4 remuxing, to improve performance and avoid lag/frame drops.
@@ -657,7 +664,8 @@ declare namespace Hls {
     /**
      * (default: 1000 ms)
      * Initial delay between XMLHttpRequest error and first load retry (in ms).
-     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ...
+     * capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     manifestLoadingRetryDelay: number;
@@ -680,7 +688,8 @@ declare namespace Hls {
     /**
      * (default: 1000 ms)
      * Initial delay between XMLHttpRequest error and first load retry (in ms).
-     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ...
+     * capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     levelLoadingRetryDelay: number;
@@ -703,7 +712,8 @@ declare namespace Hls {
     /**
      * (default: 1000 ms)
      * Initial delay between XMLHttpRequest error and first load retry (in ms).
-     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ...
+     * capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     fragLoadingRetryDelay: number;
@@ -774,6 +784,11 @@ declare namespace Hls {
     timelineController: TimelineController;
     /**
      * (default: true)
+     * Whether or not to enable WebVTT captions on HLS
+     */
+    enableWebVTT?: boolean;
+    /**
+     * (default: true)
      * whether or not to enable CEA-708 captions
      */
     enableCEA708Captions: boolean;
@@ -804,10 +819,25 @@ declare namespace Hls {
      */
     stretchShortVideoTrack: boolean;
     /**
+     * (default: 1)
+     * Browsers are really strict about audio frames timings. They usually play audio frames one after the other, regardless of
+     * the timestamps advertised in the fmp4. If audio timestamps are not consistent (consecutive audio frames too close or too far
+     * from each other), audio will easily drift. hls.js is restamping audio frames so that the distance between consecutive audio
+     * frame remains constant. If the distance is larger than the max allowed drift, hls.js will either
+     *     * drop the next audio frame if distance is too small (if next audio frame timestamp is smaller than expected
+     *       timestamp - max allowed drifter)
+     *     * insert silent frames if distance is too big (next audio frame timestamp is bigger than expected
+     *       timestamp + max allowed drift)
+     * Parameter should be an integer representing the max number of audio frames allowed to drifter. Keep in mind that one
+     * audio frame is 1024 audio samples (if using AAC), at 44.1 kHz, it gives 1024/44100 = 23ms.
+     */
+    maxAudioFramesDrift: number;
+    /**
      * (default: true)
      * Whether or not to force having a key frame in the first AVC sample after a discontinuity.
      * If set to true, after a discontinuity, the AVC samples without any key frame will be dropped until finding one that contains a key frame.
-     * If set to false, all AVC samples will be kept, which can help avoid holes in the stream. Setting this parameter to false can also generate decoding weirdness when switching level or seeking.
+     * If set to false, all AVC samples will be kept, which can help avoid holes in the stream.
+     * Setting this parameter to false can also generate decoding weirdness when switching level or seeking.
      */
     forceKeyFrameOnDiscontinuity: boolean;
     /**
@@ -872,18 +902,6 @@ declare namespace Hls {
 
   interface OptionalConfig {
     /**
-     * (default: true)
-     * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
-     * if set to false, an explicit API call (hls.startLoad(startPosition=-1)) will be needed to start quality level/fragment loading.
-     */
-    autoStartLoad?: boolean;
-    /**
-     * (default -1)
-     * if set to -1, playback will start from initialTime=0 for VoD and according to liveSyncDuration/liveSyncDurationCount config params for Live
-     * otherwise, playback will start from predefined value. (unless stated otherwise in autoStartLoad=false mode : in that case startPosition can be overrided using hls.startLoad(startPosition)).
-     */
-    startPosition?: number;
-    /**
      * (default: false)
      * if set to true, the adaptive algorithm with limit levels usable in auto-quality by the HTML video element dimensions (width and height)
      * if set to false, levels will not be limited. All available levels could be used in auto-quality mode taking only bandwidth into consideration.
@@ -895,6 +913,18 @@ declare namespace Hls {
      * a logger object could also be provided for custom logging: config.debug = customLogger;
      */
     debug?: boolean;
+    /**
+     * (default: true)
+     * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
+     * if set to false, an explicit API call (hls.startLoad(startPosition=-1)) will be needed to start quality level/fragment loading.
+     */
+    autoStartLoad?: boolean;
+    /**
+     * (default -1)
+     * if set to -1, playback will start from initialTime=0 for VoD and according to liveSyncDuration/liveSyncDurationCount config params for Live
+     * otherwise, playback will start from predefined value. (unless stated otherwise in autoStartLoad=false mode : in that case startPosition can be overrided using hls.startLoad(startPosition)).
+     */
+    startPosition?: number;
     /**
      * (default: undefined)
      * if audio codec is not signaled in variant manifest, or if only a stream manifest is provided, hls.js tries to guess audio codec by parsing audio sampling rate in ADTS header.
@@ -939,6 +969,13 @@ declare namespace Hls {
      */
     maxBufferHole?: number;
     /**
+     * (default: 2s)
+     * In case playback is stalled, and a buffered range is available upfront, less than maxSeekHole seconds from current media position,
+     * hls.js will jump over this buffer hole to reach the beginning of this following buffered range.
+     * maxSeekHole allows to configure this jumpable threshold.
+     */
+    maxSeekHole?: number;
+    /**
      * (default: 4s)
      *
      * ABR algorithm will always try to choose a quality level that should avoid rebuffering. In case no quality level with this criteria can
@@ -948,12 +985,20 @@ declare namespace Hls {
      */
     maxStarvationDelay?: number;
     /**
-     * (default: 2s)
-     * In case playback is stalled, and a buffered range is available upfront, less than maxSeekHole seconds from current media position,
-     * hls.js will jump over this buffer hole to reach the beginning of this following buffered range.
-     * maxSeekHole allows to configure this jumpable threshold.
+     * (default 0.2s)
+     * This tolerance factor is used during fragment lookup.
+     * Instead of checking whether buffered.end is located within [start, end] range, frag lookup will be done by checking within [start-maxFragLookUpTolerance, end-maxFragLookUpTolerance] range.
+     * This tolerance factor is used to cope with situations like:
+     *      buffered.end = 9.991
+     *      frag[0] : [0,10]
+     *      frag[1] : [10,20]
+     *      buffered.end is within frag[0] range, but as we are close to frag[1], frag[1] should be choosen instead
+     * If maxFragLookUpTolerance = 0.2, this lookup will be adjusted to
+     *      frag[0] : [-0.2,9.8]
+     *      frag[1] : [9.8,19.8]
+     *  This time, buffered.end is within frag[1] range, and frag[1] will be the next fragment to be loaded, as expected
      */
-    maxSeekHole?: number;
+    maxLoadingDelay?: number;
     /**
      * (default: 0.5s)
      * media element is expected to play and if currentTime has not moved for more than lowBufferWatchdogPeriod and if there are less than maxBufferHole seconds buffered upfront,
@@ -979,21 +1024,6 @@ declare namespace Hls {
      */
     nudgeMaxRetry?: number;
     /**
-     * (default 0.2s)
-     * This tolerance factor is used during fragment lookup.
-     * Instead of checking whether buffered.end is located within [start, end] range, frag lookup will be done by checking within [start-maxFragLookUpTolerance, end-maxFragLookUpTolerance] range.
-     * This tolerance factor is used to cope with situations like:
-     *      buffered.end = 9.991
-     *      frag[0] : [0,10]
-     *      frag[1] : [10,20]
-     *      buffered.end is within frag[0] range, but as we are close to frag[1], frag[1] should be choosen instead
-     * If maxFragLookUpTolerance = 0.2, this lookup will be adjusted to
-     *      frag[0] : [-0.2,9.8]
-     *      frag[1] : [9.8,19.8]
-     *  This time, buffered.end is within frag[1] range, and frag[1] will be the next fragment to be loaded, as expected
-     */
-    maxLoadingDelay?: number;
-    /**
      * (default 4s)
      *
      * max video loading delay used in automatic start level selection : in that mode ABR controller will ensure that video loading time (ie
@@ -1008,6 +1038,13 @@ declare namespace Hls {
      */
     liveSyncDurationCount?: number;
     /**
+     * (default: Infinity)
+     * maximum delay allowed from edge of live, expressed in multiple of EXT-X-TARGETDURATION.
+     * If set to 10, the player will seek back to liveSyncDurationCount whenever the next fragment to be loaded is older than N-10, N being the last fragment of the live playlist.
+     * If set, this value must be stricly superior to liveSyncDurationCount a value too close from liveSyncDurationCount is likely to cause playback stalls.
+     */
+    liveMaxLatencyDurationCount?: number;
+    /**
      * (default: undefined)
      * Alternative parameter to liveSyncDurationCount, expressed in seconds vs number of segments.
      * If defined in the configuration object, liveSyncDuration will take precedence over the default liveSyncDurationCount.
@@ -1015,13 +1052,6 @@ declare namespace Hls {
      * A value too low (inferior to ~3 segment durations) is likely to cause playback stalls.
      */
     liveSyncDuration?: number;
-    /**
-     * (default: Infinity)
-     * maximum delay allowed from edge of live, expressed in multiple of EXT-X-TARGETDURATION.
-     * If set to 10, the player will seek back to liveSyncDurationCount whenever the next fragment to be loaded is older than N-10, N being the last fragment of the live playlist.
-     * If set, this value must be stricly superior to liveSyncDurationCount a value too close from liveSyncDurationCount is likely to cause playback stalls.
-     */
-    liveMaxLatencyDurationCount?: number;
     /**
      * (default: undefined)
      * Alternative parameter to liveMaxLatencyDurationCount, expressed in seconds vs number of segments.
@@ -1031,6 +1061,13 @@ declare namespace Hls {
      * A value too close from liveSyncDuration is likely to cause playback stalls.
      */
     liveMaxLatencyDuration?: number;
+    /**
+     * (default: false)
+     * Override current Media Source duration to Infinity for a live broadcast. Useful, if you are building a player which relies
+     * on native UI capabilities in modern browsers. If you want to have a native Live UI in environments like iOS Safari, Safari,
+     * Android Google Chrome, etc. set this value to true.
+     */
+    liveDurationInfinity?: boolean;
     /**
      * (default: true)
      * Enable WebWorker (if available on browser) for TS demuxing/MP4 remuxing, to improve performance and avoid lag/frame drops.
@@ -1061,7 +1098,8 @@ declare namespace Hls {
     /**
      * (default: 1000 ms)
      * Initial delay between XMLHttpRequest error and first load retry (in ms).
-     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ...
+     * capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     manifestLoadingRetryDelay?: number;
@@ -1084,7 +1122,8 @@ declare namespace Hls {
     /**
      * (default: 1000 ms)
      * Initial delay between XMLHttpRequest error and first load retry (in ms).
-     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ...
+     * capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     levelLoadingRetryDelay?: number;
@@ -1107,7 +1146,8 @@ declare namespace Hls {
     /**
      * (default: 1000 ms)
      * Initial delay between XMLHttpRequest error and first load retry (in ms).
-     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ...
+     * capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     fragLoadingRetryDelay?: number;
@@ -1120,7 +1160,7 @@ declare namespace Hls {
      * (default: false)
      * Start prefetching start fragment although media not attached yet. Max number of append retries.
      */
-    startFragPrefech?: boolean;
+    startFragPrefetch?: boolean;
     /**
      * (default: 3)
      * Max number of sourceBuffer.appendBuffer() retry upon error. Such error could happen in loop with UHD streams, when internal buffer is full. (Quota Exceeding Error will be triggered).
@@ -1178,6 +1218,11 @@ declare namespace Hls {
     timelineController?: TimelineController;
     /**
      * (default: true)
+     * Whether or not to enable WebVTT captions on HLS
+     */
+    enableWebVTT?: boolean;
+    /**
+     * (default: true)
      * whether or not to enable CEA-708 captions
      */
     enableCEA708Captions?: boolean;
@@ -1208,10 +1253,25 @@ declare namespace Hls {
      */
     stretchShortVideoTrack?: boolean;
     /**
+     * (default: 1)
+     * Browsers are really strict about audio frames timings. They usually play audio frames one after the other, regardless of
+     * the timestamps advertised in the fmp4. If audio timestamps are not consistent (consecutive audio frames too close or too far
+     * from each other), audio will easily drift. hls.js is restamping audio frames so that the distance between consecutive audio
+     * frame remains constant. If the distance is larger than the max allowed drift, hls.js will either
+     *     * drop the next audio frame if distance is too small (if next audio frame timestamp is smaller than expected
+     *       timestamp - max allowed drifter)
+     *     * insert silent frames if distance is too big (next audio frame timestamp is bigger than expected
+     *       timestamp + max allowed drift)
+     * Parameter should be an integer representing the max number of audio frames allowed to drifter. Keep in mind that one
+     * audio frame is 1024 audio samples (if using AAC), at 44.1 kHz, it gives 1024/44100 = 23ms.
+     */
+    maxAudioFramesDrift?: number;
+    /**
      * (default: true)
      * Whether or not to force having a key frame in the first AVC sample after a discontinuity.
      * If set to true, after a discontinuity, the AVC samples without any key frame will be dropped until finding one that contains a key frame.
-     * If set to false, all AVC samples will be kept, which can help avoid holes in the stream. Setting this parameter to false can also generate decoding weirdness when switching level or seeking.
+     * If set to false, all AVC samples will be kept, which can help avoid holes in the stream.
+     * Setting this parameter to false can also generate decoding weirdness when switching level or seeking.
      */
     forceKeyFrameOnDiscontinuity?: boolean;
     /**
@@ -1430,9 +1490,9 @@ declare namespace Hls {
      */
     levelId?: number;
     /**
-     * ErrorDetails type
+     * ErrorDetails type or Level Details
      */
-    details?: string;
+    details?: string | LevelDetails;
     /**
      * PTS drift observed when parsing last fragment
      */
@@ -1540,7 +1600,7 @@ declare namespace Hls {
    *  Customized text track syncronization controller.
    */
   interface TimelineController {
-    /**d
+    /**
      * clean-up all used resources
      */
     destory(): void;

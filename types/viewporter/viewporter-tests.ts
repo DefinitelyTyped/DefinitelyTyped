@@ -45,12 +45,12 @@ function test_swipey() {
     function rainbow(numOfSteps, step) {
             var r, g, b, h = step / numOfSteps, i = ~~(h * 6), f = h * 6 - i, q = 1 - f;
         switch (i % 6) {
-            case 0: r = 1, g = f, b = 0; break;
-            case 1: r = q, g = 1, b = 0; break;
-            case 2: r = 0, g = 1, b = f; break;
-            case 3: r = 0, g = q, b = 1; break;
-            case 4: r = f, g = 0, b = 1; break;
-            case 5: r = 1, g = 0, b = q; break;
+            case 0: r = 1; g = f; b = 0; break;
+            case 1: r = q; g = 1; b = 0; break;
+            case 2: r = 0; g = 1; b = f; break;
+            case 3: r = 0; g = q; b = 1; break;
+            case 4: r = f; g = 0; b = 1; break;
+            case 5: r = 1; g = 0; b = q; break;
         }
         return [((~ ~(r * 255))), (~ ~(g * 255)), (~ ~(b * 255))];
     }
@@ -109,7 +109,7 @@ function test_swipey() {
         var canvas = <HTMLCanvasElement>$('canvas')[0];
         var context = canvas.getContext('2d');
         var iOS = (/iphone|ipad/i).test(navigator.userAgent);
-        var pointers = {};
+        var pointers = new Map<string, any>();
         // handle resizing / rotating of the viewport
         var width, height;
         $(window).bind(viewporter.ACTIVE ? 'viewportchange' : 'resize', function () {
@@ -123,11 +123,12 @@ function test_swipey() {
             for (var i = 0; i < touches.length; i++) {
                 identifier = touches[i].identifier || 'mouse';
                 // if no pointer has been created for this finger yet, do it
-                if (!pointers[identifier]) {
-                    pointers[identifier] = new drawingPointer(context, rainbow(8, Object.keys(pointers).length));
+                let pointer = pointers.get(identifier);
+                if (!pointer) {
+                    pointers.set(identifier, pointer = new drawingPointer(context, rainbow(8, Object.keys(pointers).length)));
                 }
-                pointers[identifier].start();
-                pointers[identifier].addPoint(touches[i].pageX, touches[i].pageY);
+                pointer.start();
+                pointer.addPoint(touches[i].pageX, touches[i].pageY);
             }
         });
 
@@ -136,8 +137,9 @@ function test_swipey() {
             var identifier;
             for (var i = 0; i < touches.length; i++) {
                 identifier = touches[i].identifier || 'mouse';
-                if (pointers[identifier] && pointers[identifier].painting) {
-                    pointers[identifier].addPoint(touches[i].pageX, touches[i].pageY, true);
+                const pointer = pointers.get(identifier);
+                if (pointer && pointer.painting) {
+                    pointer.addPoint(touches[i].pageX, touches[i].pageY, true);
                 }
             }
         });
@@ -147,11 +149,12 @@ function test_swipey() {
             var identifier;
             for (var i = 0; i < touches.length; i++) {
                 identifier = touches[i].identifier || 'mouse';
-                if (pointers[identifier]) {
-                    pointers[identifier].stop();
+                const pointer = pointers.get(identifier);
+                if (pointer) {
+                    pointer.stop();
                     (function (identifier) {
                         setTimeout(function () {
-                            delete pointers[identifier];
+                            pointers.delete(identifier);
                         }, 300);
                     })(identifier);
                 }
@@ -161,10 +164,10 @@ function test_swipey() {
         window.setInterval(function () {
             context.clearRect(0, 0, width, height);
             var counter = 0, ratio = (<any>window).devicePixelRatio || 1;
-            for (var identifier in pointers) {
-                pointers[identifier].redraw();
+            pointers.forEach(pointer => {
+                pointer.redraw();
                 counter++;
-            }
+            });
             context.font = (10 * ratio) + 'pt Arial';
             context.fillText(counter + ' active pointers', 15 * ratio, 25 * ratio);
 

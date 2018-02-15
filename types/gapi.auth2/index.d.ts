@@ -27,7 +27,7 @@ declare namespace gapi.auth2 {
      * Signs in the user using the specified options.
      * If no option specified here, fallback to the options specified to gapi.auth2.init().
      */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): Promise<GoogleUser>;
 
     /**
      * Signs out all accounts from the application.
@@ -42,11 +42,7 @@ declare namespace gapi.auth2 {
     /**
      * Get permission from the user to access the specified scopes offline.
      */
-    grantOfflineAccess(options?: {
-      scope?: string;
-      prompt?: "select_account" | "consent";
-      app_package_name?: string;
-    }): any;
+    grantOfflineAccess(options?: OfflineAccessOptions): Promise<{code: string}>;
 
     /**
      * Attaches the sign-in flow to the specified container's click handler.
@@ -105,6 +101,17 @@ declare namespace gapi.auth2 {
      * Optional if fetch_basic_profile is not set to false.
      */
     scope?: string;
+  }
+
+  /**
+   * Definitions by: John <https://github.com/jhcao23>
+   * Interface that represents the different configuration parameters for the GoogleAuth.grantOfflineAccess(options) method.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2offlineaccessoptions
+   */
+  interface OfflineAccessOptions {
+    scope?: string;
+    prompt?: "select_account" | "consent";
+    app_package_name?: string;
   }
 
   /**
@@ -201,7 +208,7 @@ declare namespace gapi.auth2 {
     login_hint?: string;
     app_package_name?: string;
     openid_realm?: string;
-    include_granted_scope?: boolean;
+    include_granted_scopes?: boolean;
   }
 
   /**

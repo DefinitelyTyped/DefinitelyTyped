@@ -370,6 +370,168 @@ simNodeNumberAccessor = forcePosY.y();
 forcePosY.initialize(graph.nodes);
 forcePosY(0.1); // alpha
 
+// ForceRadial ==============================================================================
+
+// create ForceRadial force --------------------------------------------------------------
+
+let forceRadial: d3Force.ForceRadial<SimNode>;
+
+// Radius set only
+forceRadial = d3Force.forceRadial<SimNode>(50);
+forceRadial = d3Force.forceRadial<SimNode>((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
+    return 50 * n.group;
+});
+
+// Radius and x-coordinate of center set only
+forceRadial = d3Force.forceRadial<SimNode>(50, 10);
+forceRadial = d3Force.forceRadial<SimNode>(
+    50, // radius
+    (node, index, nodes) => {
+        const n: SimNode = node;
+        const i: number = index;
+        const ns: SimNode[] = nodes;
+        return 10 * n.group;
+    } // center-x
+);
+
+// Radius and center set
+forceRadial = d3Force.forceRadial<SimNode>(50, 10, 10);
+forceRadial = d3Force.forceRadial<SimNode>(
+    50, // radius
+    10, // center-x
+    (node, index, nodes) => {
+        const n: SimNode = node;
+        const i: number = index;
+        const ns: SimNode[] = nodes;
+        return 10 * n.group;
+    } // center-y
+);
+
+forceRadial = d3Force.forceRadial<SimNode>(
+    (node, index, nodes) => {
+        const n: SimNode = node;
+        const i: number = index;
+        const ns: SimNode[] = nodes;
+        return 50 * n.group;
+    }, // radius
+    (node, index, nodes) => {
+        const n: SimNode = node;
+        const i: number = index;
+        const ns: SimNode[] = nodes;
+        return 10 * n.group;
+    }, // center-x
+    (node, index, nodes) => {
+        const n: SimNode = node;
+        const i: number = index;
+        const ns: SimNode[] = nodes;
+        return 10 * n.group;
+    } // center-y
+);
+// Configure ForceRadial force -----------------------------------------------------------
+
+// strength
+
+forceRadial = forceRadial.strength(0.2);
+forceRadial = forceRadial.strength((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
+    return 0.1 * n.group;
+});
+simNodeNumberAccessor = forceRadial.strength();
+
+// radius
+
+forceRadial = forceRadial.radius(100);
+forceRadial = forceRadial.radius((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
+    let target: number;
+    switch (n.group) {
+        case 1:
+            target = 100;
+            break;
+        case 2:
+            target = 200;
+            break;
+        case 3:
+            target = 300;
+            break;
+        default:
+            target = 0;
+            break;
+    }
+
+    return target;
+});
+
+simNodeNumberAccessor = forceRadial.radius();
+
+// x
+
+forceRadial = forceRadial.x(100);
+forceRadial = forceRadial.x((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
+    let target: number;
+    switch (n.group) {
+        case 1:
+            target = 100;
+            break;
+        case 2:
+            target = 200;
+            break;
+        case 3:
+            target = 300;
+            break;
+        default:
+            target = 0;
+            break;
+    }
+
+    return target;
+});
+
+simNodeNumberAccessor = forceRadial.x();
+
+// y
+
+forceRadial = forceRadial.y(100);
+forceRadial = forceRadial.y((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
+    let target: number;
+    switch (n.group) {
+        case 1:
+            target = 100;
+            break;
+        case 2:
+            target = 200;
+            break;
+        case 3:
+            target = 300;
+            break;
+        default:
+            target = 0;
+            break;
+    }
+
+    return target;
+});
+
+simNodeNumberAccessor = forceRadial.y();
+
+// Use ForceRadial force -----------------------------------------------------------------
+
+forceRadial.initialize(graph.nodes);
+forceRadial(0.1); // alpha
+
 // -------------------------------------------------------------------------------------
 // Test Force Simulation
 // -------------------------------------------------------------------------------------

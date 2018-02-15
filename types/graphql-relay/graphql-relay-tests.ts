@@ -122,7 +122,8 @@ const idFetcher = (id: string, context: number, info: GraphQLResolveInfo) => {
     info.fieldName = "f";
 };
 const nodeDef = nodeDefinitions<number>(idFetcher, resolver);
-const fieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodeField;
+const nodeFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodeField;
+const nodesFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodesField;
 const interfaceType: GraphQLInterfaceType = nodeDef.nodeInterface;
 // toGlobalId takes a type name and an ID specific to that type name, and returns a "global ID" that is unique among all types.
 toGlobalId("t", "i").toLowerCase();

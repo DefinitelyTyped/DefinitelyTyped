@@ -2,7 +2,7 @@ import esprima = require('esprima');
 import * as ESTree from 'estree';
 
 let token: esprima.Token;
-let program: ESTree.Program;
+let program: esprima.Program;
 let string: string;
 
 // esprima
@@ -20,6 +20,9 @@ program = esprima.parseScript('"use strict"; with (x) {}', { tolerant: true });
 program = esprima.parseScript('answer = 42', { range: true });
 program = esprima.parseScript('answer = 42', { range: true });
 program = esprima.parseScript('const answer = 42', { tokens: true });
+if (program.tokens) {
+    token = program.tokens[0];
+}
 program = esprima.parseScript('answer = 42 // TODO: why', { comment: true });
 program = esprima.parseScript('answer = 42 // TODO: why', { comment: true, range: true });
 

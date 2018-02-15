@@ -14,7 +14,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   Card,
-  CardBlock,
+  CardBody,
   CardColumns,
   CardDeck,
   CardFooter,
@@ -26,6 +26,11 @@ import {
   CardSubtitle,
   CardText,
   CardTitle,
+  Carousel,
+  CarouselCaption,
+  CarouselControl,
+  CarouselItem,
+  CarouselIndicators,
   Row,
   Col,
   Container,
@@ -38,7 +43,8 @@ import {
   Input,
   InputGroup,
   InputGroupAddon,
-  InputGroupButton,
+  InputGroupButtonDropdown,
+  InputGroupText,
   Pagination,
   Label,
   ListGroup,
@@ -55,24 +61,21 @@ import {
   Navbar,
   NavbarBrand,
   NavbarToggler,
-  NavDropdown,
   NavItem,
   NavLink,
   PaginationItem,
   PaginationLink,
   Popover,
-  PopoverContent,
-  PopoverTitle,
+  PopoverBody,
+  PopoverHeader,
   Progress,
   TabPane,
   UncontrolledButtonDropdown,
   UncontrolledDropdown,
-  UncontrolledNavDropdown,
   UncontrolledTooltip,
   TabContent,
   Table,
   Tag,
-  TetherContent,
   Tooltip
 } from 'reactstrap';
 
@@ -517,12 +520,12 @@ const Example25 = (props: any) => {
     <div>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
     </div>
   );
@@ -532,16 +535,16 @@ const Example26 = (props: any) => {
   return (
     <div>
       <Card>
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
-        </CardBlock>
+        </CardBody>
         <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
           <CardLink href="#">Card Link</CardLink>
           <CardLink href="#">Another Link</CardLink>
-        </CardBlock>
+        </CardBody>
       </Card>
     </div>
   );
@@ -595,21 +598,21 @@ const Example29 = (props: any) => {
     <div>
       <Card>
         <CardHeader>Header</CardHeader>
-        <CardBlock>
+        <CardBody>
           <CardTitle>Special Title Treatment</CardTitle>
           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Go somewhere</Button>
-        </CardBlock>
+        </CardBody>
         <CardFooter>Footer</CardFooter>
       </Card>
 
       <Card>
         <CardHeader tag="h3">Featured</CardHeader>
-        <CardBlock>
+        <CardBody>
           <CardTitle>Special Title Treatment</CardTitle>
           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Go somewhere</Button>
-        </CardBlock>
+        </CardBody>
         <CardFooter className="text-muted">Footer</CardFooter>
       </Card>
     </div>
@@ -621,22 +624,22 @@ const Example30 = (props: any) => {
     <div>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card Title</CardTitle>
           <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
           <CardText>
             <small className="text-muted">Last updated 3 mins ago</small>
           </CardText>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card>
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card Title</CardTitle>
           <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
           <CardText>
             <small className="text-muted">Last updated 3 mins ago</small>
           </CardText>
-        </CardBlock>
+        </CardBody>
         <CardImg bottom width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
       </Card>
     </div>
@@ -739,25 +742,25 @@ const Example34 = (props: any) => {
     <CardGroup>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>This card has supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>
@@ -765,7 +768,7 @@ const Example34 = (props: any) => {
             card has even longer content than the first to show that equal height action.
           </CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
     </CardGroup>
   );
@@ -776,25 +779,25 @@ const Example35 = (props: any) => {
     <CardDeck>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>This card has supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>
@@ -802,7 +805,7 @@ const Example35 = (props: any) => {
               even longer content than the first to show that equal height action.
           </CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
     </CardDeck>
   );
@@ -813,23 +816,23 @@ const Example36 = (props: any) => {
     <CardColumns>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card>
         <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
       </Card>
       <Card>
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>This card has supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card block inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
         <CardTitle>Special Title Treatment</CardTitle>
@@ -840,7 +843,7 @@ const Example36 = (props: any) => {
         <CardImg top width="100%"
                  src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180"
                  alt="Card image cap" />
-        <CardBlock>
+        <CardBody>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>
@@ -848,7 +851,7 @@ const Example36 = (props: any) => {
               has even longer content than the first to show that equal height action.
           </CardText>
           <Button>Button</Button>
-        </CardBlock>
+        </CardBody>
       </Card>
       <Card block inverse color="primary">
         <CardTitle>Special Title Treatment</CardTitle>
@@ -878,12 +881,12 @@ class Example37 extends React.Component<any, any> {
         <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Toggle</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
-            <CardBlock>
+            <CardBody>
               Anim pariatur cliche reprehenderit,
              enim eiusmod high life accusamus terry richardson ad squid. Nihil
              anim keffiyeh helvetica, craft beer labore wes anderson cred
              nesciunt sapiente ea proident.
-            </CardBlock>
+            </CardBody>
           </Card>
         </Collapse>
       </div>
@@ -920,12 +923,12 @@ class Example38 extends React.Component<any, any> {
         <h5>Current state: {this.state.status}</h5>
         <Collapse isOpen={this.state.collapse} onOpened={this.onOpened} onClosed={this.onClosed}>
           <Card>
-            <CardBlock>
+            <CardBody>
               Anim pariatur cliche reprehenderit,
              enim eiusmod high life accusamus terry richardson ad squid. Nihil
              anim keffiyeh helvetica, craft beer labore wes anderson cred
              nesciunt sapiente ea proident.
-            </CardBlock>
+            </CardBody>
           </Card>
         </Collapse>
       </div>
@@ -1376,16 +1379,16 @@ class Example50 extends React.Component {
   render() {
     return (
       <Form>
-        <Input placeholder="lg" size="lg" />
+        <Input placeholder="lg" bsSize="lg" />
         <Input placeholder="default" />
-        <Input placeholder="sm" size="sm" />
-        <Input type="select" size="lg">
+        <Input placeholder="sm" bsSize="sm" />
+        <Input type="select" bsSize="lg">
           <option>Large Select</option>
         </Input>
         <Input type="select">
           <option>Default Select</option>
         </Input>
-        <Input type="select" size="sm">
+        <Input type="select" bsSize="sm">
           <option>Small Select</option>
         </Input>
       </Form>
@@ -1417,12 +1420,12 @@ const Example52 = (props: any) => {
   return (
     <div>
       <InputGroup>
-        <InputGroupAddon>@</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@</InputGroupAddon>
         <Input placeholder="username" />
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupAddon>
+        <InputGroupAddon addonType="prepend">
           <Input addon type="checkbox" aria-label="Checkbox for following text input" />
         </InputGroupAddon>
         <Input placeholder="Check it out" />
@@ -1430,21 +1433,25 @@ const Example52 = (props: any) => {
       <br />
       <InputGroup>
         <Input placeholder="username" />
-        <InputGroupAddon>@example.com</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@example.com</InputGroupAddon>
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupAddon>$</InputGroupAddon>
-        <InputGroupAddon>$</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>$</InputGroupText>
+          <InputGroupText>$</InputGroupText>
+        </InputGroupAddon>
         <Input placeholder="Dolla dolla billz yo!" />
-        <InputGroupAddon>$</InputGroupAddon>
-        <InputGroupAddon>$</InputGroupAddon>
+        <InputGroupAddon addonType="append">
+          <InputGroupText>$</InputGroupText>
+          <InputGroupText>$</InputGroupText>
+        </InputGroupAddon>
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupAddon>$</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
         <Input placeholder="Amount" type="number" step="1" />
-        <InputGroupAddon>.00</InputGroupAddon>
+        <InputGroupAddon addonType="append">.00</InputGroupAddon>
       </InputGroup>
     </div>
   );
@@ -1454,19 +1461,19 @@ const Example53 = (props: any) => {
   return (
     <div>
       <InputGroup>
-        <InputGroupAddon>To the Left!</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">To the Left!</InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup>
         <Input />
-        <InputGroupAddon>To the Right!</InputGroupAddon>
+        <InputGroupAddon addonType="append">To the Right!</InputGroupAddon>
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupAddon>To the Left!</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">To the Left!</InputGroupAddon>
         <Input placeholder="and..." />
-        <InputGroupAddon>To the Right!</InputGroupAddon>
+        <InputGroupAddon addonType="append">To the Right!</InputGroupAddon>
       </InputGroup>
     </div>
   );
@@ -1476,17 +1483,17 @@ const Example54 = (props: any) => {
   return (
     <div>
       <InputGroup size="lg">
-        <InputGroupAddon>@lg</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@lg</InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupAddon>@normal</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@normal</InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup size="sm">
-        <InputGroupAddon>@sm</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@sm</InputGroupAddon>
         <Input />
       </InputGroup>
     </div>
@@ -1497,19 +1504,19 @@ const Example55 = (props: any) => {
   return (
     <div>
       <InputGroup>
-        <InputGroupButton><Button>I'm a button</Button></InputGroupButton>
+        <InputGroupAddon addonType="prepend"><Button>I'm a button</Button></InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup>
         <Input />
-        <InputGroupButton></InputGroupButton>
+        <InputGroupAddon addonType="append"></InputGroupAddon>
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupButton></InputGroupButton>
+        <InputGroupAddon addonType="prepend"></InputGroupAddon>
         <Input placeholder="and..." />
-        <InputGroupButton><Button color="secondary">I'm a button</Button></InputGroupButton>
+        <InputGroupAddon addonType="append"><Button color="secondary">I'm a button</Button></InputGroupAddon>
       </InputGroup>
     </div>
   );
@@ -1519,17 +1526,17 @@ const Example56 = (props: any) => {
   return (
     <div>
       <InputGroup size="lg">
-        <InputGroupAddon>@lg</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@lg</InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupAddon>@normal</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@normal</InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup size="sm">
-        <InputGroupAddon>@sm</InputGroupAddon>
+        <InputGroupAddon addonType="prepend">@sm</InputGroupAddon>
         <Input />
       </InputGroup>
     </div>
@@ -1540,19 +1547,19 @@ const Example57 = (props: any) => {
   return (
     <div>
       <InputGroup>
-        <InputGroupButton><Button>I'm a button</Button></InputGroupButton>
+        <InputGroupAddon addonType="prepend"><Button>I'm a button</Button></InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup>
         <Input />
-        <InputGroupButton></InputGroupButton>
+        <InputGroupAddon addonType="prepend"></InputGroupAddon>
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupButton></InputGroupButton>
+        <InputGroupAddon addonType="prepend"></InputGroupAddon>
         <Input placeholder="and..." />
-        <InputGroupButton><Button color="secondary">I'm a button</Button></InputGroupButton>
+        <InputGroupAddon addonType="append"><Button color="secondary">I'm a button</Button></InputGroupAddon>
       </InputGroup>
     </div>
   );
@@ -1562,19 +1569,19 @@ const Example58 = (props: any) => {
   return (
     <div>
       <InputGroup>
-        <InputGroupButton>To the Left!</InputGroupButton>
+        <InputGroupAddon addonType="prepend">To the Left!</InputGroupAddon>
         <Input />
       </InputGroup>
       <br />
       <InputGroup>
         <Input />
-        <InputGroupButton color="secondary">To the Right!</InputGroupButton>
+        <InputGroupAddon addonType="append" color="secondary">To the Right!</InputGroupAddon>
       </InputGroup>
       <br />
       <InputGroup>
-        <InputGroupButton color="danger">To the Left!</InputGroupButton>
+        <InputGroupAddon addonType="prepend" color="danger">To the Left!</InputGroupAddon>
         <Input placeholder="and..." />
-        <InputGroupButton color="success">To the Right!</InputGroupButton>
+        <InputGroupAddon addonType="append" color="success">To the Right!</InputGroupAddon>
       </InputGroup>
     </div>
   );
@@ -2237,7 +2244,7 @@ class Example79 extends React.Component<any, any> {
           <NavItem>
             <NavLink href="#" active>Link</NavLink>
           </NavItem>
-          <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle nav caret>
               Dropdown
             </DropdownToggle>
@@ -2248,7 +2255,7 @@ class Example79 extends React.Component<any, any> {
               <DropdownItem divider />
               <DropdownItem>Another Action</DropdownItem>
             </DropdownMenu>
-          </NavDropdown>
+          </Dropdown>
           <NavItem>
             <NavLink href="#">Link</NavLink>
           </NavItem>
@@ -2287,7 +2294,7 @@ class Example80 extends React.Component<any, any> {
           <NavItem>
             <NavLink href="#" active>Link</NavLink>
           </NavItem>
-          <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle nav caret>
               Dropdown
             </DropdownToggle>
@@ -2298,7 +2305,7 @@ class Example80 extends React.Component<any, any> {
               <DropdownItem divider />
               <DropdownItem>Another Action</DropdownItem>
             </DropdownMenu>
-          </NavDropdown>
+          </Dropdown>
           <NavItem>
             <NavLink href="#">Link</NavLink>
           </NavItem>
@@ -2478,9 +2485,9 @@ class Example85 extends React.Component<any, any> {
         <Button id="Popover1" onClick={this.toggle}>
           Launch Popover
         </Button>
-        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} onClick={() => {}}>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </div>
     );
@@ -2510,8 +2517,8 @@ class PopoverItem extends React.Component<any, any> {
           {this.props.item.text}
         </Button>
         <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle}>
-          <PopoverTitle>Popover Title</PopoverTitle>
-          <PopoverContent>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverContent>
+          <PopoverHeader>Popover Title</PopoverHeader>
+          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
       </span>
     );
@@ -3242,7 +3249,7 @@ function Example104() {
       </Label>
 
       <Col className="col-12" sm={9}>
-        <Input type="text" size="lg" {...props} />
+        <Input type="text" bsSize="lg" {...props} />
       </Col>
     </FormGroup>
   );
@@ -3301,6 +3308,354 @@ class Example107 extends React.Component {
   private input: HTMLInputElement;
 
   render() {
-    return <Input type="file" getRef={(input) => { this.input = input; }} />;
+    return <Input type="file" innerRef={(input) => { this.input = input; }} />;
   }
 }
+
+class Example108 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" dark toggleable>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example109 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example110 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example111 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand tag="a" href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example112 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand className="logo" href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+const Example113 = (props: any) => {
+    return (
+      <div>
+        <Card>
+          <CardBody>
+            Anim pariatur cliche reprehenderit,
+            enim eiusmod high life accusamus terry richardson ad squid. Nihil
+            anim keffiyeh helvetica, craft beer labore wes anderson cred
+            nesciunt sapiente ea proident.
+          </CardBody>
+        </Card>
+      </div>
+    );
+  };
+
+class Example114 extends React.Component<any, any> {
+private element: HTMLElement;
+
+refFn(r: HTMLElement | null) {
+    if (r) {
+        this.element = r;
+    }
+}
+
+render() {
+    return (
+    <div>
+        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+        Hello world!
+        </Tooltip>
+    </div>
+    );
+}
+}
+
+class Example115 extends React.Component<any, any> {
+    // https://reactstrap.github.io/components/carousel/
+
+    private readonly items = [
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 1',
+          caption: 'Slide 1'
+        },
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 2',
+          caption: 'Slide 2'
+        },
+        {
+          src: 'data:image/svg+xml...',
+          altText: 'Slide 3',
+          caption: 'Slide 3'
+        }
+      ];
+
+    private animating: boolean;
+
+    constructor(props: any) {
+      super(props);
+      this.state = { activeIndex: 0 };
+      this.next = this.next.bind(this);
+      this.previous = this.previous.bind(this);
+      this.goToIndex = this.goToIndex.bind(this);
+      this.onExiting = this.onExiting.bind(this);
+      this.onExited = this.onExited.bind(this);
+    }
+
+    onExiting() {
+      this.animating = true;
+    }
+
+    onExited() {
+      this.animating = false;
+    }
+
+    next() {
+      if (this.animating) return;
+      const nextIndex = this.state.activeIndex === this.items.length - 1 ? 0 : this.state.activeIndex + 1;
+      this.setState({ activeIndex: nextIndex });
+    }
+
+    previous() {
+      if (this.animating) return;
+      const nextIndex = this.state.activeIndex === 0 ? this.items.length - 1 : this.state.activeIndex - 1;
+      this.setState({ activeIndex: nextIndex });
+    }
+
+    goToIndex(newIndex: number) {
+      if (this.animating) return;
+      this.setState({ activeIndex: newIndex });
+    }
+
+    render() {
+      const { activeIndex } = this.state;
+
+      const slides = this.items.map((item) => {
+        return (
+          <CarouselItem
+            onExiting={this.onExiting}
+            onExited={this.onExited}
+            key={item.src}
+          >
+            <img src={item.src} alt={item.altText} />
+            <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+          </CarouselItem>
+        );
+      });
+
+      return (
+        <Carousel
+          activeIndex={activeIndex}
+          next={this.next}
+          previous={this.previous}
+        >
+          <CarouselIndicators items={this.items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+          {slides}
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        </Carousel>
+      );
+    }
+  }
+
+const Example116 = (props: any) => {
+  return(
+    <div>
+      <InputGroup>
+        <InputGroupAddon addonType="prepend"><Button>I'm a button</Button></InputGroupAddon>
+        <Input />
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <Input />
+        <InputGroupButtonDropdown addonType="append" isOpen={false}>
+          <DropdownToggle caret>
+            Button Dropdown
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem header>Header</DropdownItem>
+            <DropdownItem disabled>Action</DropdownItem>
+            <DropdownItem>Another Action</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem>Another Action</DropdownItem>
+          </DropdownMenu>
+        </InputGroupButtonDropdown>
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupButtonDropdown addonType="prepend" isOpen={true}>
+          <Button outline>Split Button</Button>
+          <DropdownToggle split outline />
+          <DropdownMenu>
+            <DropdownItem header>Header</DropdownItem>
+            <DropdownItem disabled>Action</DropdownItem>
+            <DropdownItem>Another Action</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem>Another Action</DropdownItem>
+          </DropdownMenu>
+        </InputGroupButtonDropdown>
+        <Input placeholder="and..." />
+        <InputGroupAddon addonType="append"><Button color="secondary">I'm a button</Button></InputGroupAddon>
+      </InputGroup>
+    </div>
+  );
+};

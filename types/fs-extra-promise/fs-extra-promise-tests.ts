@@ -202,7 +202,7 @@ readStream = fs.createReadStream(path, {
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
 	flags: str,
-	defaultEncoding: str
+	encoding: str
 });
 
 function isDirectoryCallback(err: Error, isDirectory: boolean) {}

@@ -2,6 +2,7 @@
     "compilerOptions": {
         "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "lib": [
             "es6"
         ],
@@ -10,8 +11,11 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "types": [],
-        "typeRoots": ["../"]
+        "typeRoots": [
+            "../"
+        ]
     },
     "files": [
         "index.d.ts",

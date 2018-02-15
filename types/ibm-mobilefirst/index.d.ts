@@ -61,8 +61,8 @@ declare namespace WL {
         getHeader(name: any): string;
     }
     interface Options {
-        onSuccess?: (response: IResponse) => void;
-        onFailure?: (response: IResponse) => void;
+        onSuccess?(response: IResponse): void;
+        onFailure?(response: IResponse): void;
         invocationContext?: any;
     }
     interface ResponseHandler<T> {

@@ -66,8 +66,8 @@ export interface StyleManager {
 
     /**
      * Save a tag style to be later injected into DOM
-     * @param {string} css - css string
-     * @param {string} name - if it's passed the css will be mapped to a tagname
+     * @param css - css string
+     * @param name - if it's passed the css will be mapped to a tagname
      */
     add(css: string, name?: string): void;
 
@@ -109,7 +109,7 @@ export interface DOMUtil {
     /**
      * Check if a DOM node is an svg element
      * @param element - node to check
-     * @returns { boolean } True if element is an svg element
+     * @returns True if element is an svg element
      */
     isSvg(element: Element): element is SVGElement;
 
@@ -715,7 +715,7 @@ export function compile(callback: () => void): void;
  * Compiles the given tag but doesn't execute it, if `skipExecution` parameter is `true`
  * @param tag Tag definition
  * @param skipExecution If `true` tag is not executed after compilation
- * @return {string} Compiled JavaScript as string
+ * @return Compiled JavaScript as string
  */
 export function compile(tag: string, skipExecution?: boolean): string;
 

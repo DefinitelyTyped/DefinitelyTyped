@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-declare class InputGroupButton extends React.Component<InputGroupButtonProps> { }
-declare namespace InputGroupButton { }
-export = InputGroupButton
-
-interface InputGroupButtonProps extends React.HTMLProps<InputGroupButton> { }
+declare namespace InputGroupButton {
+    export type InputGroupButtonProps = React.HTMLProps<InputGroupButton>;
+}
+declare class InputGroupButton extends React.Component<InputGroupButton.InputGroupButtonProps> { }
+export = InputGroupButton;

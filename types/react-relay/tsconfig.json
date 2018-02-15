@@ -7,7 +7,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,10 +16,15 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "react-relay-tests.tsx"
+        "classic.d.ts",
+        "compat.d.ts",
+        "test/react-relay-tests.tsx",
+        "test/react-relay-compat-tests.tsx",
+        "test/react-relay-classic-tests.tsx"
     ]
 }

@@ -145,7 +145,7 @@ declare namespace Q {
 		/**
 		 * A sugar method, equivalent to promise.then(function () { throw reason; }).
 		 */
-		thenReject(reason?: any): Promise<T>;
+		thenReject<U = T>(reason?: any): Promise<U>;
 
 		/**
 		 * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned
@@ -382,7 +382,7 @@ declare namespace Q {
 	/**
 	 * Resets the global "Q" variable to the value it has before Q was loaded.
 	 * This will either be undefined if there was no version or the version of Q which was already loaded before.
-	 * @returns { The last version of Q. }
+	 * @returns The last version of Q.
 	 */
 	export function noConflict(): typeof Q;
 }

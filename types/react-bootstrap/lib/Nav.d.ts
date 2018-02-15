@@ -1,25 +1,24 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
-declare class Nav extends React.Component<NavProps> { }
-declare namespace Nav { }
-export = Nav
-
-// TODO: This one turned into a union of two different types
-interface NavProps extends React.HTMLProps<Nav> {
-  // Optional
-  activeHref?: string;
-  activeKey?: any;
-  bsSize?: Sizes;
-  bsStyle?: string;
-  collapsible?: boolean;
-  eventKey?: any;
-  expanded?: boolean;
-  justified?: boolean;
-  navbar?: boolean;
-  pullRight?: boolean;
-  right?: boolean;
-  stacked?: boolean;
-  ulClassName?: string;
-  ulId?: string;
+declare namespace Nav {
+    export interface NavProps extends React.HTMLProps<Nav> {
+        // Optional
+        activeHref?: string;
+        activeKey?: any;
+        bsSize?: Sizes;
+        bsStyle?: string;
+        collapsible?: boolean;
+        eventKey?: any;
+        expanded?: boolean;
+        justified?: boolean;
+        navbar?: boolean;
+        pullRight?: boolean;
+        right?: boolean;
+        stacked?: boolean;
+        ulClassName?: string;
+        ulId?: string;
+    }
 }
+declare class Nav extends React.Component<Nav.NavProps> { }
+export = Nav;

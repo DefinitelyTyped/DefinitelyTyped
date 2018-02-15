@@ -1,8 +1,9 @@
 // Type definitions for react-sortable-tree 0.1
 // Project: https://fritz-c.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
+//                 Jovica Zoric <https://github.com/jzoric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { ListProps, Index } from 'react-virtualized';
@@ -86,6 +87,14 @@ export interface NodeRendererProps {
     canDrop?: boolean;
 }
 
+export type PlaceholderRenderer = React.ComponentClass<PlaceholderRendererProps>;
+
+export interface PlaceholderRendererProps {
+    isOver: boolean;
+    canDrop: boolean;
+    draggedNode: {[index: string]: any};
+}
+
 type NumberArrayOrStringArray = string[] | number[];
 
 export interface ReactSortableTreeProps {
@@ -111,6 +120,8 @@ export interface ReactSortableTreeProps {
     scaffoldBlockPxWidth?: number;
     isVirtualized?: boolean;
     nodeContentRenderer?: NodeRenderer;
+    dndType?: string;
+    placeholderRenderer?: PlaceholderRenderer;
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;

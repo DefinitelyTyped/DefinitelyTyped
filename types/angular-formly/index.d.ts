@@ -589,7 +589,7 @@ declare namespace AngularFormly {
 		disableWarnings: boolean;
 		extras: IFormlyConfigExtras;
 		setType(typeOptions: ITypeOptions): void;
-		setWrapper(wrapperOptions: IWrapperOptions): void;
+		setWrapper(wrapperOptions: IWrapperOptions | Array<IWrapperOptions>): void;
 		templateManipulators: ITemplateManipulators;
 	}
 

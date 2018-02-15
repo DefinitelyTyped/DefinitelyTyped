@@ -117,64 +117,15 @@ export function write(fd: number, buffer: NodeBuffer, offset: number, length: nu
 export function writeSync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): number;
 export function read(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: NodeBuffer) => void): void;
 export function readSync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): number;
-/**
- * readFile
- * @param filename
- * @param options
- *          string: encoding
- *          OpenOptions: options
- * @param callback
- */
 export function readFile(filename: string, options: OpenOptions | string, callback: (err: Error, data: string) => void): void;
 export function readFile(filename: string, callback: (err: Error, data: NodeBuffer) => void): void;
 export function readFileSync(filename: string): NodeBuffer;
-/**
- * readFileSync
- * @param filename
- * @param options
- *          string: encoding
- *          OpenOptions: options
- */
 export function readFileSync(filename: string, options: OpenOptions | string): string;
-/**
- * writeFile
- * @param filename
- * @param data
- * @param options
- *          string: encoding
- *          OpenOptions: options
- * @param callback
- */
 export function writeFile(filename: string, data: any, callback?: (err: Error) => void): void;
 export function writeFile(filename: string, data: any, options: OpenOptions | string, callback?: (err: Error) => void): void;
-/**
- * writeFileSync
- * @param filename
- * @param data
- * @param option
- *          string: encoding
- *          OpenOptions: options
- */
 export function writeFileSync(filename: string, data: any, option?: OpenOptions | string): void;
-/**
- * appendFile
- * @param filename
- * @param data
- * @param option:
- *          string: encoding
- *          OpenOptions: options
- * @param callback
- */
 export function appendFile(filename: string, data: any, callback?: (err: Error) => void): void;
 export function appendFile(filename: string, data: any, option: OpenOptions | string, callback?: (err: Error) => void): void;
-/**
- * appendFileSync
- * @param filename
- * @param data
- * @param option
- *          string: encoding
- *          OpenOptions: options
- */
 export function appendFileSync(filename: string, data: any, option?: OpenOptions | string): void;
 export function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
 export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
@@ -252,32 +203,9 @@ export function futimesAsync(fd: number, atime: number, mtime: number): Promise<
 export function fsyncAsync(fd: number): Promise<void>;
 export function writeAsync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): Promise<[number, NodeBuffer]>;
 export function readAsync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): Promise<[number, NodeBuffer]>;
-/**
- * readFileAsync
- * @param filename
- * @param options:
- *          string: encoding
- *          OpenOptions: options
- */
 export function readFileAsync(filename: string, options: OpenOptions | string): Promise<string>;
 export function readFileAsync(filename: string): Promise<NodeBuffer>;
-/**
- * writeFileAsync
- * @param filename
- * @param data
- * @param options:
- *          string: encoding
- *          OpenOptions: options
- */
 export function writeFileAsync(filename: string, data: any, options?: OpenOptions | string): Promise<void>;
-/**
- * appendFileAsync
- * @param filename
- * @param data
- * @param option:
- *          string: encoding
- *          OpenOptions: option
- */
 export function appendFileAsync(filename: string, data: any, option?: OpenOptions | string): Promise<void>;
 
 export function existsAsync(path: string): Promise<boolean>;

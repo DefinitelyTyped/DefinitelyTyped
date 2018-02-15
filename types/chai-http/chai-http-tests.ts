@@ -37,9 +37,38 @@ chai.request(app)
 	.get('/protected')
 	.auth('user', 'pass');
 
+// HTTPS request, from: https://github.com/visionmedia/superagent/commit/6158efbf42cb93d77c1a70887284be783dd7dabe
+const ca = fs.readFileSync('ca.cert.pem');
+const key = fs.readFileSync('key.pem');
+const cert = fs.readFileSync('cert.pem');
+const callback = (err: any, res: ChaiHttp.Response) => {};
+
+chai.request(app)
+	.post('/secure')
+	.ca(ca)
+	.key(key)
+	.cert(cert)
+	.end(callback);
+
+const pfx = fs.readFileSync('cert.pfx');
+chai.request(app)
+	.post('/secure')
+	.pfx(pfx)
+	.end(callback);
+
 chai.request(app)
 	.get('/search')
 	.query({ name: 'foo', limit: 10 });
+
+chai.request(app)
+	.get('/download')
+	.buffer()
+	.parse((res, cb) => {
+		let data = '';
+		res.setEncoding('binary');
+		res.on('data', (chunk: any) => { data += chunk; });
+		res.on('end', () => { cb(undefined, new Buffer(data, 'binary')); });
+	});
 
 chai.request(app)
 	.put('/user/me')

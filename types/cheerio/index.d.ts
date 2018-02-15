@@ -1,6 +1,6 @@
 // Type definitions for Cheerio v0.22.0
 // Project: https://github.com/cheeriojs/cheerio
-// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>
+// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Cheerio {
@@ -13,6 +13,7 @@ interface Cheerio {
 
     // Attributes
 
+    attr(): {[attr: string]: string};
     attr(name: string): string;
     attr(name: string, value: any): Cheerio;
 
@@ -171,7 +172,7 @@ interface Cheerio {
 
     empty(): Cheerio;
 
-    html(): string;
+    html(): string | null;
     html(html: string): Cheerio;
 
     text(): string;
@@ -254,6 +255,7 @@ interface CheerioElement {
     children: CheerioElement[];
     childNodes: CheerioElement[];
     lastChild: CheerioElement;
+    firstChild: CheerioElement;
     next: CheerioElement;
     nextSibling: CheerioElement;
     prev: CheerioElement;
@@ -261,12 +263,15 @@ interface CheerioElement {
     parent: CheerioElement;
     parentNode: CheerioElement;
     nodeValue: string;
+    data?: string;
 }
 
 interface CheerioAPI extends CheerioSelector, CheerioStatic {
   load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
   load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }
+
+interface Document { }
 
 declare var cheerio:CheerioAPI;
 

@@ -1,8 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "interface-name": [
-            false
-        ]
+        // TODOs
+        "interface-name": false,
+        "no-any-union": false
     }
 }

@@ -1,13 +1,13 @@
-// Type definitions for rivets
+// Type definitions for rivets 0.9
 // Project: http://rivetsjs.com/
-// Definitions by: Trevor Baron <https://github.com/TrevorDev>
+// Definitions by:  Trevor Baron <https://github.com/TrevorDev>
+//                  Jakub Matjanowski <https://github.com/matjanos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
-declare namespace Rivets {
-
+export namespace Rivets {
     interface View {
         build(): void;
         bind(): void;
@@ -16,22 +16,22 @@ declare namespace Rivets {
 
     interface Rivets {
         // Global binders.
-        binders: Object;
+        binders: object;
 
         // Global components.
-        components: Object;
+        components: object;
 
         // Global formatters.
-        formatters: Object;
+        formatters: object;
 
         // Global sightglass adapters.
-        adapters: Object;
+        adapters: object;
 
         // Default attribute prefix.
         prefix: string;
 
         // Default template delimiters.
-        templateDelimiters: Array<string>;
+        templateDelimiters: string[];
 
         // Default sightglass root interface.
         rootInterface: string;
@@ -42,27 +42,24 @@ declare namespace Rivets {
         handler(context: any, ev: Event, biding: any): void;
 
         configure(options?: {
-
             // Attribute prefix in templates
             prefix?: string;
 
-            //Preload templates with initial data on bind
+            // Preload templates with initial data on bind
             preloadData?: boolean;
 
-            //Root sightglass interface for keypaths
+            // Root sightglass interface for keypaths
             rootInterface?: string;
 
             // Template delimiters for text bindings
-            templateDelimiters?: Array<string>
+            templateDelimiters?: string[]
 
             // Augment the event handler of the on-* binder
-            handler?: Function;
+            handler?(context: any, ev: Event, biding: any): void;
         }): void;
 
-        bind(element: HTMLElement, models: Object, options?: Object): View;
-        bind(element: JQuery, models: Object, options?: Object): View;
-        bind(element: Array<HTMLElement>, models: Object, options?: Object): View;
+        bind(element: HTMLElement | HTMLElement[] | JQuery, models: object, options?: object): View;
     }
 }
 
-declare var rivets: Rivets.Rivets;
+export const Rivets: Rivets.Rivets;

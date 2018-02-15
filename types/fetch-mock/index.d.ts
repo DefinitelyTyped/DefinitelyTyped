@@ -12,8 +12,6 @@ declare namespace fetchMock {
 
     /**
      * Mock matcher function
-     * @param url
-     * @param opts
      */
     type MockMatcherFunction = (url: string, opts: MockRequest) => boolean;
     /**
@@ -77,8 +75,6 @@ declare namespace fetchMock {
                         | MockResponseObject | Promise<MockResponseObject>;
     /**
      * Mock response function
-     * @param url
-     * @param opts
      */
     type MockResponseFunction = (url: string, opts: MockRequest) => MockResponse;
 
@@ -100,6 +96,10 @@ declare namespace fetchMock {
          * http method to match
          */
         method?: string;
+        /**
+         * key/value map of headers to match
+         */
+        headers?: { [key: string]: string };
         /**
          * as specified above
          */

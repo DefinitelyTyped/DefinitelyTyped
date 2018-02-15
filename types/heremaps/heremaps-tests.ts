@@ -173,3 +173,22 @@ clusteringOptions: {
 
 // Create a layer that will consume objects from our clustering provider
 const layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
+
+const pixelProjection = new H.geo.PixelProjection();
+pixelProjection.rescale(12);
+
+const point = pixelProjection.geoToPixel({ lat: 53, lng: 12 });
+pixelProjection.xyToGeo(point.x, point.y);
+
+const engine = map.getEngine();
+engine.getAnimationDuration();
+engine.setAnimationDuration(1000);
+
+engine.getAnimationEase();
+engine.setAnimationEase(H.util.animation.ease.EASE_IN_QUAD);
+
+const engineListener = (e: Event) => {
+    console.log(e);
+};
+engine.addEventListener('tap', engineListener);
+engine.removeEventListener('tap', engineListener);

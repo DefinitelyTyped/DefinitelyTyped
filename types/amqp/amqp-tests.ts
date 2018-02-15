@@ -3,6 +3,7 @@ import * as amqp from 'amqp';
 async function connect() {
   const promise = new Promise<amqp.AMQPClient>((resolve, reject) => {
     const client = amqp.createConnection({
+      clientProperties: { applicationName: 'typing' },
       url: 'amqp://admin:password@localhost:5672'
     });
 

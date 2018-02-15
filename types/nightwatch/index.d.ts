@@ -4,13 +4,11 @@
 //                 Connor Schlesiger <https://github.com/schlesiger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* tslint:disable:max-line-length */
-
-interface NightWatchCustomPageObjects {
-    page: {};
+export interface NightwatchCustomPageObjects {
+    page: {[name: string]: () => NightwatchBrowser};
 }
 
-interface DesiredCapabilities {
+export interface NightwatchDesiredCapabilities {
     /**
      * The name of the browser being used; should be one of {android|chrome|firefox|htmlunit|internet explorer|iPhone|iPad|opera|safari}.
      */
@@ -111,26 +109,26 @@ interface DesiredCapabilities {
     };
 }
 
-interface ScreenshotOptions {
+export interface NightwatchScreenshotOptions {
     enabled?: boolean;
     on_failure?: boolean;
     on_error?: boolean;
     path?: string;
 }
 
-interface NightWatchTestRunner {
+export interface NightwatchTestRunner {
     "type"?: string;
     options?: {
         ui?: string;
     };
 }
 
-interface NightWatchTestWorker {
+export interface NightwatchTestWorker {
     enabled: boolean;
     workers: string;
 }
 
-interface NightWatchOptions {
+export interface NightwatchOptions {
     /**
      * An array of folders (excluding subfolders) where the tests are located.
      */
@@ -165,12 +163,12 @@ interface NightWatchOptions {
     /**
      * An object containing Selenium Server related configuration options. See below for details.
      */
-    selenium?: SeleniumOptions;
+    selenium?: NightwatchSeleniumOptions;
 
     /**
      * This object contains all the test related options. See below for details.
      */
-    test_settings: NightWatchTestSettings;
+    test_settings: NightwatchTestSettings;
 
     /**
      * Whether or not to buffer the output in case of parallel running. See below for details.
@@ -191,16 +189,16 @@ interface NightWatchOptions {
      * Whether or not to run individual test files in parallel. If set to true, runs the tests in parallel and determines the number of workers automatically.
      * If set to an object, can specify specify the number of workers as "auto" or a number. Example: "test_workers" : {"enabled" : true, "workers" : "auto"}
      */
-    test_workers?: boolean | NightWatchTestWorker;
+    test_workers?: boolean | NightwatchTestWorker;
 
     /**
      * Specifies which test runner to use when running the tests. Values can be either default (built in nightwatch runner) or mocha.
      * Example: "test_runner" : {"type" : "mocha", "options" : {"ui" : "tdd"}}
      */
-    test_runner?: string | NightWatchTestRunner;
+    test_runner?: string | NightwatchTestRunner;
 }
 
-interface SeleniumOptions {
+export interface NightwatchSeleniumOptions {
     /**
      * Whether or not to manage the selenium process automatically.
      */
@@ -250,7 +248,7 @@ interface SeleniumOptions {
     cli_args: any;
 }
 
-interface NightWatchTestSettings {
+export interface NightwatchTestSettingGeneric {
     /**
      * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
      */
@@ -282,19 +280,6 @@ interface NightWatchTestSettings {
     disable_colors: boolean;
 
     /**
-     * Selenium generates screenshots when command errors occur. With on_failure set to true, also generates screenshots for failing or erroring tests. These are saved on the disk.
-     * Since v0.7.5 you can disable screenshots for command errors by setting "on_error" to false.
-     * Example:
-     * "screenshots" : {
-     *      "enabled" : true,
-     *      "on_failure" : true,
-     *      "on_error" : false,
-     *      "path" : ""
-     * }
-     */
-    screenshots: ScreenshotOptions;
-
-    /**
      * In case the selenium server requires credentials this username will be used to compute the Authorization header.
      * The value can be also an environment variable, in which case it will look like this: "username" : "${SAUCE_USERNAME}"
      */
@@ -320,7 +305,7 @@ interface NightWatchTestSettings {
      * }
      * You can view the complete list of capabilities https://code.google.com/p/selenium/wiki/DesiredCapabilities.
      */
-    desiredCapabilities: DesiredCapabilities;
+    desiredCapabilities: NightwatchDesiredCapabilities;
 
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
@@ -365,21 +350,41 @@ interface NightWatchTestSettings {
     skip_testcases_on_fail: boolean;
 }
 
-interface TestSuite {
+export interface NightwatchTestSettingScreenshots extends NightwatchTestSettingGeneric {
+    /**
+     * Selenium generates screenshots when command errors occur. With on_failure set to true, also generates screenshots for failing or erroring tests. These are saved on the disk.
+     * Since v0.7.5 you can disable screenshots for command errors by setting "on_error" to false.
+     * Example:
+     * "screenshots" : {
+     *      "enabled" : true,
+     *      "on_failure" : true,
+     *      "on_error" : false,
+     *      "path" : ""
+     * }
+     */
+    screenshots: NightwatchScreenshotOptions;
+}
+
+export interface NightwatchTestOptions extends NightwatchTestSettingGeneric {
+    screenshots: boolean;
+    screenshotsPath: string;
+}
+
+export interface NightwatchTestSuite {
     name: string;
     "module": string;
     group: string;
     results: any;
 }
 
-interface AssertionError {
+export interface NightwatchAssertionsError {
     name: string;
     message: string;
     showDiff: boolean;
     stack: string;
 }
 
-interface LanguageChains {
+export interface NightwatchLanguageChains {
     to: Expect;
     be: Expect;
     been: Expect;
@@ -394,29 +399,29 @@ interface LanguageChains {
     of: Expect;
 }
 
-interface Expect extends LanguageChains, NightWatchBrowser {
+export interface NightwatchTestSettings {
+    [key: string]: NightwatchTestSettingScreenshots;
+}
+
+export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     /**
      * Returns the DOM Element
      * @param property: Css / Id property of the DOM element
-     * @returns {}
      */
-    element(property: string): NightWatchBrowser;
+    element(property: string): this;
 
     /**
      * These methods will perform assertions on the specified target on the current element.
      * The targets can be an attribute value, the element's inner text and a css property.
-     * @param value
-     * @param message
-     * @returns {}
      */
-    equal(value: string): NightWatchBrowser;
-    contain(value: string): NightWatchBrowser;
-    match(value: string): NightWatchBrowser;
+    equal(value: string): this;
+    contain(value: string): this;
+    match(value: string): this;
 
     /**
      * Negates any of assertions following in the chain.
      */
-    not: NightWatchBrowser;
+    not: this;
 
     /**
      * These methods perform the same thing which is essentially retrying the assertion for the given amount of time (in milliseconds).
@@ -424,77 +429,72 @@ interface Expect extends LanguageChains, NightWatchBrowser {
      * a waitForConditionPollInterval property (in milliseconds) as a global property in your nightwatch.json or in
      * your external globals file. Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
      * @param value: Number of milliseconds to wait to perform and operation of check
-     * @returns {}
      */
-    before(value: number): NightWatchBrowser;
-    after(value: number): NightWatchBrowser;
+    before(value: number): this;
+    after(value: number): this;
 
     /**
      * Checks if the type (i.e. tag name) of a specified element is of an expected value.
      * @param value: The expected type
      * @param message: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    a(value: string, message?: string): NightWatchBrowser;
-    an(value: string, message?: string): NightWatchBrowser;
+    a(value: string, message?: string): this;
+    an(value: string, message?: string): this;
 
     /**
      * Checks if a given attribute of an element exists and optionally if it has the expected value.
      * @param attribute: The attribute name
      * @param message: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    attribute(name: string, message?: string): NightWatchBrowser;
+    attribute(name: string, message?: string): this;
 
     /**
      * Checks a given css property of an element exists and optionally if it has the expected value.
      * @param property: The css property name
      * @param message: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    css(property: string, message?: string): NightWatchBrowser;
+    css(property: string, message?: string): this;
 
     /**
      * Property that checks if an element is currently enabled.
      */
-    enabled: NightWatchBrowser;
+    enabled: this;
 
     /**
      * Property that checks if an element is present in the DOM.
      */
-    present: NightWatchBrowser;
+    present: this;
 
     /**
      * Property that checks if an OPTION element, or an INPUT element of type checkbox or radio button is currently selected.
      */
-    selected: NightWatchBrowser;
+    selected: this;
 
     /**
      * Property that retrieves the text contained by an element. Can be chained to check if contains/equals/matches the specified text or regex.
      */
-    text: NightWatchBrowser;
+    text: this;
 
     /**
      * Property that retrieves the value (i.e. the value attributed) of an element. Can be chained to check if contains/equals/matches the specified text or regex.
      */
-    value: NightWatchBrowser;
+    value: this;
 
     /**
      * Property that asserts the visibility of a specified element.
      */
-    visible: NightWatchBrowser;
+    visible: this;
 }
 
-interface Assertion extends NightWatchBrowser {
+export interface NightwatchAssertions extends NightwatchBrowser {
     /**
      * Checks if the given attribute of an element contains the expected value.
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param attribute: The attribute name
      * @param expected: The expected contained value of the attribute to check.
      * @param message: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    attributeContains(selector: string, attribute: string, expected: string, message?: string): NightWatchBrowser;
+    attributeContains(selector: string, attribute: string, expected: string, message?: string): this;
 
     /**
      * Checks if the given attribute of an element has the expected value.
@@ -502,36 +502,32 @@ interface Assertion extends NightWatchBrowser {
      * @param attribute: The attribute name
      * @param expected: The expected value of the attribute to check.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    attributeEquals(cssSelector: string, attribute: string, expected: string, msg?: string): NightWatchBrowser;
+    attributeEquals(cssSelector: string, attribute: string, expected: string, msg?: string): this;
 
     /**
      * Checks if the given element contains the specified text.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param expectedText: The text to look for.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    containsText(cssSelector: string, expectedText: string, msg?: string): NightWatchBrowser;
+    containsText(cssSelector: string, expectedText: string, msg?: string): this;
 
     /**
      * Checks if the given element has the specified CSS class.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param className: The CSS class to look for.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    cssClassPresent(cssSelector: string, className: string, msg?: string): NightWatchBrowser;
+    cssClassPresent(cssSelector: string, className: string, msg?: string): this;
 
     /**
      * Checks if the given element does not have the specified CSS class.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param className: The CSS class to look for.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    cssClassNotPresent(cssSelector: string, className: string, msg?: string): NightWatchBrowser;
+    cssClassNotPresent(cssSelector: string, className: string, msg?: string): this;
 
     /**
      * Checks if the specified css property of a given element has the expected value.
@@ -539,115 +535,107 @@ interface Assertion extends NightWatchBrowser {
      * @param cssProperty: The CSS property.
      * @param expected: The expected value of the css property to check.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    cssProperty(cssSelector: string, cssProperty: string, expected: string | number, msg?: string): NightWatchBrowser;
+    cssProperty(cssSelector: string, cssProperty: string, expected: string | number, msg?: string): this;
 
-    deepEqual(value: any, expected: any, message?: string): NightWatchBrowser;
+    deepEqual(value: any, expected: any, message?: string): this;
 
-    deepStrictEqual(value: any, expected: any, message?: string): NightWatchBrowser;
+    deepStrictEqual(value: any, expected: any, message?: string): this;
 
-    doesNotThrow(value: any, expected: any, message?: string): NightWatchBrowser;
+    doesNotThrow(value: any, expected: any, message?: string): this;
 
     /**
      * Checks if the given element exists in the DOM.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    elementPresent(cssSelector: string, msg?: string): NightWatchBrowser;
+    elementPresent(cssSelector: string, msg?: string): this;
 
     /**
      * Checks if the given element does not exist in the DOM.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    elementNotPresent(cssSelector: string, msg?: string): NightWatchBrowser;
+    elementNotPresent(cssSelector: string, msg?: string): this;
 
-    equal(value: any, expected: any, message?: string): NightWatchBrowser;
+    equal(value: any, expected: any, message?: string): this;
 
-    fail(actual?: any, expected?: any, message?: string, operator?: string): NightWatchBrowser;
+    fail(actual?: any, expected?: any, message?: string, operator?: string): this;
 
     /**
      * Checks if the given element is not visible on the page.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    hidden(cssSelector: string, msg?: string): NightWatchBrowser;
+    hidden(cssSelector: string, msg?: string): this;
 
-    ifError(value: any, message?: string): NightWatchBrowser;
+    ifError(value: any, message?: string): this;
 
-    notDeepEqual(actual: any, expected: any, message?: string): NightWatchBrowser;
+    notDeepEqual(actual: any, expected: any, message?: string): this;
 
-    notDeepStrictEqual(value: any, message?: string): NightWatchBrowser;
+    notDeepStrictEqual(value: any, message?: string): this;
 
-    notEqual(actual: any, expected: any, message?: string): NightWatchBrowser;
+    notEqual(actual: any, expected: any, message?: string): this;
 
-    notStrictEqual(value: any, expected: any, message?: string): NightWatchBrowser;
+    notStrictEqual(value: any, expected: any, message?: string): this;
 
-    ok(actual: boolean, message?: string): NightWatchBrowser;
+    ok(actual: boolean, message?: string): this;
 
-    strictEqual(value: any, expected: any, message?: string): NightWatchBrowser;
+    strictEqual(value: any, expected: any, message?: string): this;
 
-    throws(fn: () => void, msg?: string): NightWatchBrowser;
+    throws(fn: () => void, msg?: string): this;
 
     /**
      * Checks if the current URL contains the given value.
      * @param expectedText: The value expected to exist within the current URL.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    urlContains(expectedText: string, msg?: string): NightWatchBrowser;
+    urlContains(expectedText: string, msg?: string): this;
 
     /**
      * Checks if the current url equals the given value.
      * @param expected: The expected url.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    urlEquals(expected: string, msg?: string): NightWatchBrowser;
+    urlEquals(expected: string, msg?: string): this;
 
     /**
      * Checks if the given form element's value equals the expected value.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param expectedText: The expected text.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    value(cssSelector: string, expectedText: string, msg?: string): NightWatchBrowser;
+    value(cssSelector: string, expectedText: string, msg?: string): this;
 
     /**
      * Checks if the given form element's value contains the expected value.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param expectedText: The expected text.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    valueContains(cssSelector: string, expectedText: string, msg?: string): NightWatchBrowser;
+    valueContains(cssSelector: string, expectedText: string, msg?: string): this;
 
     /**
      * Checks if the given element is visible on the page.
      * @param cssSelector: The CSS selector used to locate the element.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
-     * @returns {}
      */
-    visible(cssSelector: string, msg?: string): NightWatchBrowser;
+    visible(cssSelector: string, msg?: string): this;
 
-    AssertionError: AssertionError;
+    NightwatchAssertionsError: NightwatchAssertionsError;
 }
 
-interface TypedCallbackResult<T> {
+export interface NightwatchTypedCallbackResult<T> {
     status: number;
     value: T;
+    state: Error | string;
 }
 
 // tslint:disable-next-line:no-empty-interface
-interface CallbackResult extends TypedCallbackResult<string | any> {
+export interface NightwatchCallbackResult extends NightwatchTypedCallbackResult<any> {
 }
 
-interface LogEntry {
+export interface NightwatchLogEntry {
     /**
      * The log entry message.
      */
@@ -664,7 +652,7 @@ interface LogEntry {
     level: string;
 }
 
-interface Keys {
+export interface NightwatchKeys {
     /** Releases all held modifier keys. */
     "NULL": string;
     /** OS-specific keystroke sequence that performs a cancel action. */
@@ -787,12 +775,12 @@ interface Keys {
     "COMMAND": string;
 }
 
-interface NightWatchClient {
-    assert: Assertion;
+export interface NightwatchAPI {
+    assert: NightwatchAssertions;
 
     expect: Expect;
 
-    verify: Assertion;
+    verify: NightwatchAssertions;
 
     /**
      * Clear a textarea or a text input element's value. Uses elementIdValue protocol command.
@@ -805,9 +793,8 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    clearValue(selector: string, callback?: () => void): NightWatchBrowser;
+    clearValue(selector: string, callback?: () => void): this;
 
     /**
      * Simulates a click event on the given DOM element. Uses elementIdClick protocol command.
@@ -820,9 +807,8 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    click(selector: string, callback?: () => void): NightWatchBrowser;
+    click(selector: string, callback?: () => void): this;
 
     /**
      * Close the current window. This can be useful when you're working with multiple windows open (e.g. an OAuth login). Uses window protocol command.
@@ -834,9 +820,8 @@ interface NightWatchClient {
      * };
      * ```
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    closeWindow(callback?: () => void): NightWatchBrowser;
+    closeWindow(callback?: () => void): this;
 
     /**
      * Delete the cookie with the given name. This command is a no-op if there is no such cookie visible to the current page.
@@ -851,9 +836,8 @@ interface NightWatchClient {
      * ```
      * @param The: name of the cookie to delete.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    deleteCookie(The: string, callback?: () => void): NightWatchBrowser;
+    deleteCookie(The: string, callback?: () => void): this;
 
     /**
      * Delete all cookies visible to the current page.
@@ -867,9 +851,8 @@ interface NightWatchClient {
      * }
      * ```
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    deleteCookies(callback?: () => void): NightWatchBrowser;
+    deleteCookies(callback?: () => void): this;
 
     /**
      * Ends the session. Uses session protocol command.
@@ -881,9 +864,8 @@ interface NightWatchClient {
      * };
      * ```
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    end(callback?: () => void): NightWatchBrowser;
+    end(callback?: () => void): this;
 
     /**
      * Retrieve the value of an attribute for a given DOM element. Uses elementIdAttribute protocol command.
@@ -901,9 +883,9 @@ interface NightWatchClient {
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param attribute: The attribute name to inspect.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The value of the attribute}
+     * @returns The value of the attribute
      */
-    getAttribute(selector: string, attribute: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getAttribute(selector: string, attribute: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve a single cookie visible to the current page. The cookie is returned as a cookie JSON object, as defined here.
@@ -920,9 +902,9 @@ interface NightWatchClient {
      * ```
      * @param name: The cookie name
      * @param callback: The callback function which will receive the response as an argument.
-     * @returns {The cookie object as a selenium cookie JSON object or null if the cookie wasn't found.}
+     * @returns The cookie object as a selenium cookie JSON object or null if the cookie wasn't found.
      */
-    getCookie(name: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getCookie(name: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve all cookies visible to the current page. The cookies are returned as an array of cookie JSON object,
@@ -938,9 +920,9 @@ interface NightWatchClient {
      * }
      * ```
      * @param callback: The callback function which will receive the response as an argument.
-     * @returns {A list of cookies}
+     * @returns A list of cookies
      */
-    getCookies(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getCookies(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve the value of a css property for a given DOM element. Uses elementIdCssProperty protocol command.
@@ -958,9 +940,9 @@ interface NightWatchClient {
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param cssProperty: The CSS property to inspect.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The value of the css property}
+     * @returns The value of the css property
      */
-    getCssProperty(selector: string, cssProperty: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getCssProperty(selector: string, cssProperty: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's size in pixels. Uses elementIdSize protocol command.
@@ -978,9 +960,9 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The width and height of the element in pixels}
+     * @returns The width and height of the element in pixels
      */
-    getElementSize(selector: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getElementSize(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
@@ -999,9 +981,9 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The X and Y coordinates for the element on the page}
+     * @returns The X and Y coordinates for the element on the page
      */
-    getLocation(selector: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getLocation(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view. Uses elementIdLocationInView protocol command.
@@ -1019,9 +1001,9 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The X and Y coordinates for the element on the page.}
+     * @returns The X and Y coordinates for the element on the page.
      */
-    getLocationInView(selector: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getLocationInView(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Gets a log from selenium
@@ -1039,9 +1021,8 @@ interface NightWatchClient {
      * ```
      * @param typestring: Log type to request
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    getLog(typestring: string, callback?: (log: LogEntry[]) => void): NightWatchBrowser;
+    getLog(typestring: string, callback?: (log: NightwatchLogEntry[]) => void): this;
 
     /**
      * Gets the available log types
@@ -1055,9 +1036,9 @@ interface NightWatchClient {
      * };
      * ```
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {Available log types}
+     * @returns Available log types
      */
-    getLogTypes(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getLogTypes(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Query for an element's tag name. Uses elementIdName protocol command.
@@ -1074,9 +1055,9 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The element's tag name, as a lowercase string.}
+     * @returns The element's tag name, as a lowercase string.
      */
-    getTagName(selector: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getTagName(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Returns the visible text for the element. Uses elementIdText protocol command.
@@ -1093,9 +1074,9 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The element's visible text.}
+     * @returns The element's visible text.
      */
-    getText(selector: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getText(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Returns the title of the current page. Uses title protocol command.
@@ -1105,14 +1086,14 @@ interface NightWatchClient {
      * this.demoTest = function (browser) {
      *  browser.getTitle(function(title) {
      *      this.assert.equal(typeof title, 'string');
-     *      this.assert.equal(title, 'Nightwatch.js');
+     *      this.assert.equal(title, 'nightwatch.js');
      *  });
      * };
      * ```
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The page title.}
+     * @returns The page title.
      */
-    getTitle(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getTitle(callback?: (this: NightwatchAPI, result?: string) => void): this;
 
     /**
      * Returns a form element current value. Uses elementIdValue protocol command.
@@ -1129,9 +1110,9 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The element's value.}
+     * @returns The element's value.
      */
-    getValue(selector: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * This command is an alias to url and also a convenience method when called without any arguments in the sense that it performs a call to .url() with passing the value of launch_url
@@ -1144,9 +1125,8 @@ interface NightWatchClient {
      * };
      * ```
      * @param url: Url to navigate to.
-     * @returns {}
      */
-    init(url?: string): NightWatchBrowser;
+    init(url?: string): this;
 
     /**
      * Utility command to load an external script into the page specified by url.
@@ -1162,9 +1142,9 @@ interface NightWatchClient {
      * @param scriptUrl: The script file url
      * @param id: Dom element id to be set on the script tag.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The newly created script tag.}
+     * @returns The newly created script tag.
      */
-    injectScript(scriptUrl: string, id?: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    injectScript(scriptUrl: string, id?: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Utility command to test if the log type is available
@@ -1179,9 +1159,8 @@ interface NightWatchClient {
      * ```
      * @param typeString: Type of log to test
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    isLogAvailable(typeString: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    isLogAvailable(typeString: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine if an element is currently displayed. Uses elementIdDisplayed protocol command.
@@ -1198,9 +1177,8 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    isVisible(selector: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    isVisible(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * Maximizes the current window.
@@ -1212,9 +1190,8 @@ interface NightWatchClient {
      * };
      * ```
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    maximizeWindow(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    maximizeWindow(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Move the mouse by an offset of the specified element. Uses moveTo protocol command.
@@ -1229,9 +1206,8 @@ interface NightWatchClient {
      * @param xoffset: X offset to move to, relative to the top-left corner of the element.
      * @param yoffset: Y offset to move to, relative to the top-left corner of the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    moveToElement(selector: string, xoffset: number, yoffset: number, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    moveToElement(selector: string, xoffset: number, yoffset: number, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Suspends the test for the given time in milliseconds. If the milliseconds argument is missing it will suspend the test indefinitely
@@ -1246,12 +1222,62 @@ interface NightWatchClient {
      * ```
      * @param ms: The number of milliseconds to wait.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    pause(ms: number, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    pause(ms: number, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * A simple perform command which allows access to the "api" in a callback. Can be useful if you want to read variables set by other commands.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  var elementValue;
+     *  browser
+     *      .getValue('.some-element', function(result) {
+     *          elementValue = result.value;
+     *      })
+     *      // other stuff going on ...
+     *      //
+     *      // asynchronous completion including api (client)
+     *      .perform(function(client, done) {
+     *          console.log('elementValue', elementValue);
+     *          // similar to before, but now with client
+     *          // potentially other async stuff going on
+     *          // on finished, call the done callback
+     *          done();
+     *      });
+     * };
+     * ```
+     *
+     * @param callback: The function to run as part of the queue. Its signature can have up to two parameters. No parameters: callback runs and
+     * perform completes immediately at the end of the execution of the callback. One parameter: allows for asynchronous execution within the
+     * callback providing a done callback function for completion as the first argument. Two parameters: allows for asynchronous execution
+     * with the "api" object passed in as the first argument, followed by the done callback.
+     */
+    perform(callback: (browser: this, done?: () => void) => void): this;
+
+    /**
+     * A simple perform command which allows access to the "api" in a callback. Can be useful if you want to read variables set by other commands.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  var elementValue;
+     *  browser
+     *      .getValue('.some-element', function(result) {
+     *          elementValue = result.value;
+     *      })
+     *      // other stuff going on ...
+     *      //
+     *      // asynchronous completion
+     *      .perform(function(done) {
+     *          console.log('elementValue', elementValue);
+     *          // potentially other async stuff going on
+     *          // on finished, call the done callback
+     *          done();
+     *      })
+     * };
+     * ```
      *
      * Usage:
      * ```
@@ -1270,31 +1296,14 @@ interface NightWatchClient {
      *          // completes immediately (synchronously)
      *      })
      *      //
-     *      // asynchronous completion
-     *      .perform(function(done) {
-     *          console.log('elementValue', elementValue);
-     *          // potentially other async stuff going on
-     *          // on finished, call the done callback
-     *          done();
-     *      })
-     *      //
-     *      // asynchronous completion including api (client)
-     *      .perform(function(client, done) {
-     *          console.log('elementValue', elementValue);
-     *          // similar to before, but now with client
-     *          // potentially other async stuff going on
-     *          // on finished, call the done callback
-     *          done();
-     *      });
      * };
      * ```
      * @param callback: The function to run as part of the queue. Its signature can have up to two parameters. No parameters: callback runs and
      * perform completes immediately at the end of the execution of the callback. One parameter: allows for asynchronous execution within the
      * callback providing a done callback function for completion as the first argument. Two parameters: allows for asynchronous execution
      * with the "api" object passed in as the first argument, followed by the done callback.
-     * @returns {}
      */
-    perform(callback: (browser: NightWatchBrowser, done?: () => void) => void): NightWatchBrowser;
+    perform(callback: (done?: () => void) => void): this; // tslint:disable-line:unified-signatures
 
     /**
      * Resizes the current window.
@@ -1308,9 +1317,8 @@ interface NightWatchClient {
      * @param width: The new window width.
      * @param height: The new window height.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    resizeWindow(width: number, height: number, callback?: () => void): NightWatchBrowser;
+    resizeWindow(width: number, height: number, callback?: () => void): this;
 
     /**
      * Take a screenshot of the current page and saves it as the given filename.
@@ -1323,9 +1331,8 @@ interface NightWatchClient {
      * ```
      * @param fileName: The complete path to the file name where the screenshot should be saved.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    saveScreenshot(fileName: string, callback?: () => void): NightWatchBrowser;
+    saveScreenshot(fileName: string, callback?: () => void): this;
 
     /**
      * SessionId of the session used by the Nightwatch api.
@@ -1335,9 +1342,8 @@ interface NightWatchClient {
     /**
      * Override the sessionId used by Nightwatch client with another session id.
      * @param sessionId: The session Id to set.
-     * @returns {}
      */
-    setSessionId(sessionId: string): NightWatchBrowser;
+    setSessionId(sessionId: string): this;
 
     /**
      * Set a cookie, specified as a cookie JSON object, as defined https://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object.
@@ -1359,9 +1365,8 @@ interface NightWatchClient {
      * ```
      * @param cookie: The cookie object.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    setCookie(cookie: any, callback?: () => void): NightWatchBrowser;
+    setCookie(cookie: any, callback?: () => void): this;
 
     /**
      * Sends some text to an element. Can be used to set the value of a form element or to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
@@ -1384,9 +1389,8 @@ interface NightWatchClient {
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param inputValue: The text to send to the element or key strokes.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    setValue(selector: string, inputValue: string, callback?: () => void): NightWatchBrowser;
+    setValue(selector: string, inputValue: string, callback?: () => void): this;
 
     /**
      * Sets the current window position.
@@ -1400,9 +1404,8 @@ interface NightWatchClient {
      * @param OffsetX: The new window offset x-position.
      * @param OffsetY: The new window offset y-position.
      * @param callback: ptional callback function to be called when the command finishes.
-     * @returns {}
      */
-    setWindowPosition(OffsetX: number, OffsetY: number, callback?: () => void): NightWatchBrowser;
+    setWindowPosition(OffsetX: number, OffsetY: number, callback?: () => void): this;
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element. Uses submit protocol command.
@@ -1415,9 +1418,8 @@ interface NightWatchClient {
      * ```
      * @param selector: The CSS/Xpath selector used to locate the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    submitForm(selector: string, callback?: () => void): NightWatchBrowser;
+    submitForm(selector: string, callback?: () => void): this;
 
     /**
      * Change focus to another window. The window to change focus to may be specified by its server assigned window handle, or by the value of its name attribute.
@@ -1434,9 +1436,8 @@ interface NightWatchClient {
      * ```
      * @param handleOrName: The server assigned window handle or the name attribute.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    switchWindow(handleOrName: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    switchWindow(handleOrName: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Convenience method that adds the specified hash (i.e. url fragment) to the current value of the launch_url as set in nightwatch.json.
@@ -1451,9 +1452,8 @@ interface NightWatchClient {
      * ```
      * @param hash: The hash to add/replace to the current url (i.e. the value set in the launch_url property in nightwatch.json).
      * @param callback:
-     * @returns {}
      */
-    urlHash(hash: string): NightWatchBrowser;
+    urlHash(hash: string): this;
 
     /**
      * Opposite of waitForElementPresent. Waits a given time in milliseconds for an element to be not present (i.e. removed) in the page before performing any other commands
@@ -1470,13 +1470,12 @@ interface NightWatchClient {
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
      * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnAssertionFailure` in your globals.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
      * (e.g. Element %s was not in the page for %d ms).
-     * @returns {}
      */
-    waitForElementNotPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): NightWatchBrowser;
+    waitForElementNotPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
 
     /**
      * Opposite of waitForElementVisible. Waits a given time in milliseconds for an element to be not visible (i.e. hidden but existing) in the page before performing
@@ -1493,13 +1492,12 @@ interface NightWatchClient {
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
      * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnAssertionFailure` in your globals.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
      * (e.g. Element %s was not in the page for %d ms).
-     * @returns {}
      */
-    waitForElementNotVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): NightWatchBrowser;
+    waitForElementNotVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
 
     /**
      * Waits a given time in milliseconds for an element to be present in the page before performing any other commands or assertions.
@@ -1527,13 +1525,12 @@ interface NightWatchClient {
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
      * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnAssertionFailure` in your globals.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
      * (e.g. Element %s was not in the page for %d ms).
-     * @returns {}
      */
-    waitForElementPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): NightWatchBrowser;
+    waitForElementPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
 
     /**
      * Waits a given time in milliseconds for an element to be visible in the page before performing any other commands or assertions.
@@ -1560,64 +1557,58 @@ interface NightWatchClient {
      * ```
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
-     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails. To set this globally you can define a property `abortOnAssertionFailure` in your globals.
+     * @param abortOnFailure: By the default if the element is not found the test will fail.
+     * Set this to false if you wish for the test to continue even if the assertion fails.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time (e.g. Element %s was not in the page for %d ms).
-     * @returns {}
      */
-    waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): NightWatchBrowser;
+    waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
 
     /**
      * Accepts the currently displayed alert dialog. Usually, this is equivalent to clicking on the 'OK' button in the dialog.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    acceptAlert(callback?: () => void): NightWatchBrowser;
+    acceptAlert(callback?: () => void): this;
 
     /**
      * Navigate backwards in the browser history, if possible.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    back(callback?: () => void): NightWatchBrowser;
+    back(callback?: () => void): this;
 
     /**
      * Get a list of the available contexts.
      * Used by Appium when testing hybrid mobile web apps. More info here: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/hybrid.md.
      * @param callback: Callback function to be called when the command finishes.
-     * @returns {an array of strings representing available contexts, e.g 'WEBVIEW', or 'NATIVE'}
+     * @returns an array of strings representing available contexts, e.g 'WEBVIEW', or 'NATIVE'
      */
-    contexts(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    contexts(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve or delete all cookies visible to the current page or set a cookie.
-     * @param method
-     * @param callbackorCookie
-     * @returns {a string representing the current context or `null`, representing "no context"}
+     * @returns a string representing the current context or `null`, representing "no context"
      */
-    cookie(method: string, callbackorCookie?: () => void): NightWatchBrowser;
+    cookie(method: string, callbackorCookie?: () => void): this;
 
     /**
      * Get current context.
      * @param callback: Callback function to be called when the command finishes.
-     * @returns {}
      */
-    currentContext(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    currentContext(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Dismisses the currently displayed alert dialog. For confirm() and prompt() dialogs, this is equivalent to clicking the 'Cancel' button.
      * For alert() dialogs, this is equivalent to clicking the 'OK' button.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    dismissAlert(callback?: () => void): NightWatchBrowser;
+    dismissAlert(callback?: () => void): this;
 
     /**
      * Double-clicks at the current mouse coordinates (set by moveto).
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    doubleClick(callback?: () => void): NightWatchBrowser;
+    doubleClick(callback?: () => void): this;
 
     /**
      * Search for an element on the page, starting from the document root. The located element will be returned as a WebElement JSON object.
@@ -1635,59 +1626,49 @@ interface NightWatchClient {
      * @param using: The locator's strategy to use.
      * @param value: The search target.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    element(using: string, value: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    element(using: string, value: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Get the element on the page that currently has focus.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementActive(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementActive(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Get the value of an element's attribute.
      * @param id: ID of the element to route the command to.
      * @param attributeName: The attribute name
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdAttribute(id: string, attributeName: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdAttribute(id: string, attributeName: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Clear a TEXTAREA or text INPUT element's value.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdClear(id: string, callback?: () => void): NightWatchBrowser;
+    elementIdClear(id: string, callback?: () => void): this;
 
     /**
      * Click on an element.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdClick(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdClick(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Query the value of an element's computed CSS property.
      * The CSS property to query should be specified using the CSS property name, not the JavaScript property name (e.g. background-color instead of backgroundColor).
-     * @param id
-     * @param cssPropertyName
-     * @param callback
-     * @returns {}
      */
-    elementIdCssProperty(id: string, cssPropertyName: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdCssProperty(id: string, cssPropertyName: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine if an element is currently displayed.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdDisplayed(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdDisplayed(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Search for an element on the page, starting from the identified element. The located element will be returned as a WebElement JSON object.
@@ -1695,9 +1676,8 @@ interface NightWatchClient {
      * @param using: The locator strategy to use.
      * @param value: The search target.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdElement(id: string, using: string, value: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdElement(id: string, using: string, value: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Search for multiple elements on the page, starting from the identified element. The located element will be returned as a WebElement JSON objects.
@@ -1705,84 +1685,74 @@ interface NightWatchClient {
      * @param using: The locator strategy to use.
      * @param value: The search target.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdElements(id: string, using: string, value: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdElements(id: string, using: string, value: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine if an element is currently enabled.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdEnabled(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdEnabled(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Test if two element IDs refer to the same DOM element.
      * @param id: ID of the element to route the command to.
      * @param otherId: ID of the element to compare against.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdEquals(id: string, otherId: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdEquals(id: string, otherId: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
      * The element's coordinates are returned as a JSON object with x and y properties.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The X and Y coordinates for the element on the page.}
+     * @returns The X and Y coordinates for the element on the page.
      */
-    elementIdLocation(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdLocation(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdLocationInView(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdLocationInView(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Query for an element's tag name.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdName(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdName(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine if an OPTION element, or an INPUT element of type checkbox or radio button is currently selected.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdSelected(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdSelected(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Determine an element's size in pixels. The size will be returned as a JSON object with width and height properties.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdSize(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdSize(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Returns the visible text for the element.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    elementIdText(id: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdText(id: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Send a sequence of key strokes to an element or returns the current value of the element.
      * @param id: ID of the element to route the command to.
      * @param value: Value to send to element in case of POST
-     * @param callback
-     * @returns {}
      */
-    elementIdValue(id: string, value?: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    elementIdValue(id: string, value?: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Search for multiple elements on the page, starting from the document root. The located elements will be returned as a WebElement JSON objects.
@@ -1790,9 +1760,8 @@ interface NightWatchClient {
      * @param using: The locator strategy to use.
      * @param value: The search target.
      * @param callback: Callback function to be invoked with the result when the command finishes.
-     * @returns {}
      */
-    elements(using: string, value: string, callback: (result: CallbackResult) => void): NightWatchBrowser;
+    elements(using: string, value: string, callback: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be synchronous and
@@ -1814,9 +1783,9 @@ interface NightWatchClient {
      * @param body: The function body to be injected.
      * @param args: An array of arguments which will be passed to the function.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The script result.}
+     * @returns The script result.
      */
-    execute(body: ((...data: any[]) => void) | string, args?: any[], callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    execute(body: ((...data: any[]) => void) | string, args?: any[], callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be asynchronous
@@ -1838,108 +1807,103 @@ interface NightWatchClient {
      * @param script: The function body to be injected.
      * @param args: An array of arguments which will be passed to the function.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The script result.}
+     * @returns The script result.
      */
-    executeAsync(script: ((...data: any[]) => void) | string, args?: any[], callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    executeAsync(script: ((...data: any[]) => void) | string, args?: any[], callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Navigate forwards in the browser history, if possible.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    forward(callback?: () => void): NightWatchBrowser;
+    forward(callback?: () => void): this;
 
     /**
      * Change focus to another frame on the page. If the frame id is missing or null, the server should switch to the page's default content.
      * @param frameId: Identifier for the frame to change focus to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    frame(frameId?: string, callback?: () => void): NightWatchBrowser;
+    frame(frameId?: string, callback?: () => void): this;
 
     /**
      * Change focus to the parent context. If the current context is the top level browsing context, the context remains unchanged.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    frameParent(callback?: () => void): NightWatchBrowser;
+    frameParent(callback?: () => void): this;
 
     /**
      * Gets the text of the currently displayed JavaScript alert(), confirm(), or prompt() dialog.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {The text of the currently displayed alert.}
+     * @returns The text of the currently displayed alert.
      */
-    getAlertText(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getAlertText(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Get the current browser orientation.
      * @param callback: Callback function to be called when the command finishes.
-     * @returns {The current browser orientation: LANDSCAPE|PORTRAIT}
+     * @returns The current browser orientation: LANDSCAPE|PORTRAIT
      */
-    getOrientation(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    getOrientation(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Send a sequence of key strokes to the active element. The sequence is defined in the same format as the sendKeys command.
      * An object map with available keys and their respective UTF-8 characters, as defined on W3C WebDriver draft spec, is loaded onto the main Nightwatch instance as client.Keys.
-     * Rather than the setValue, the modifiers are not released at the end of the call. The state of the modifier keys is kept between calls, so mouse interactions can be performed while modifier keys are depressed.
+     * Rather than the setValue, the modifiers are not released at the end of the call.
+     * The state of the modifier keys is kept between calls, so mouse interactions can be performed while modifier keys are depressed.
      * @param keysToSend: The keys sequence to be sent.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    keys(keysToSend: string[], callback?: () => void): NightWatchBrowser;
+    keys(keysToSend: string[], callback?: () => void): this;
 
     /**
      * Click at the current mouse coordinates (set by moveto).
      * The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button, and if you don't pass in a button but do pass in a callback, it will handle it correctly.
      * @param button: The mouse button
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    mouseButtonClick(button: string, callback?: () => void): NightWatchBrowser;
+    mouseButtonClick(button: string, callback?: () => void): this;
 
     /**
-     * Click and hold the left mouse button (at the coordinates set by the last moveto command). Note that the next mouse-related command that should follow is mouseButtonUp . Any other mouse command (such as click or another call to buttondown) will yield undefined behaviour.
-     * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button, and if you don't pass in a button but do pass in a callback, it will handle it correctly.
+     * Click and hold the left mouse button (at the coordinates set by the last moveto command). Note that the next mouse-related command that should follow is mouseButtonUp .
+     * Any other mouse command (such as click or another call to buttondown) will yield undefined behaviour.
+     * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right').
+     * It defaults to left mouse button, and if you don't pass in a button but do pass in a callback, it will handle it correctly.
      * @param button: The mouse button
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    mouseButtonDown(button: string, callback?: () => void): NightWatchBrowser;
+    mouseButtonDown(button: string, callback?: () => void): this;
 
     /**
      * Releases the mouse button previously held (where the mouse is currently at). Must be called once for every mouseButtonDown command issued.
-     * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button, and if you don't pass in a button but do pass in a callback, it will handle it correctly.
+     * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right').
+     * It defaults to left mouse button, and if you don't pass in a button but do pass in a callback, it will handle it correctly.
      * @param button: The mouse button
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    mouseButtonUp(button: string, callback?: () => void): NightWatchBrowser;
+    mouseButtonUp(button: string, callback?: () => void): this;
 
     /**
-     * Move the mouse by an offset of the specificed element. If no element is specified, the move is relative to the current mouse cursor. If an element is provided but no offset, the mouse will be moved to the center of the element.
+     * Move the mouse by an offset of the specificed element. If no element is specified, the move is relative to the current mouse cursor.
+     * If an element is provided but no offset, the mouse will be moved to the center of the element.
      * If the element is not visible, it will be scrolled into view.
      * @param element: Opaque ID assigned to the element to move to. If not specified or is null, the offset is relative to current position of the mouse.
      * @param xofset: X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
      * @param yoffset: Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    moveTo(element: string, xofset: number, yoffset: number, callback?: () => void): NightWatchBrowser;
+    moveTo(element: string, xofset: number, yoffset: number, callback?: () => void): this;
 
     /**
      * Refresh the current page.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    refresh(callback?: () => void): NightWatchBrowser;
+    refresh(callback?: () => void): this;
 
     /**
      * Take a screenshot of the current page.
      * @param log_screenshot_data: Whether or not the screenshot data should appear in the logs when running with --verbose
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
+     * @param callback: Optional callback function to be called with the resultant value (Base64 PNG) when the command finishes.
      */
-    screenshot(log_screenshot_data: boolean, callback?: () => void): NightWatchBrowser;
+    screenshot(log_screenshot_data: boolean, callback?: (screenshotEncoded: string) => void): this;
 
     /**
      * Get info about, delete or create a new session. Defaults to the current session.
@@ -1963,24 +1927,23 @@ interface NightWatchClient {
      * @param action: The http verb to use, can be "get", "post" or "delete". If only the callback is passed, get is assumed as default.
      * @param sessionId: The id of the session to get info about or delete.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    session(action?: string, sessionId?: string, callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    session(action?: string, sessionId?: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Gets the text of the log type specified
      * @param typeString: Type of log to request
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {Array of the text entries of the log.}
+     * @returns Array of the text entries of the log.
      */
-    sessionLog(typeString: string, callback?: (log: LogEntry[]) => void): NightWatchBrowser;
+    sessionLog(typeString: string, callback?: (log: NightwatchLogEntry[]) => void): this;
 
     /**
      * Gets an array of strings for which log types are available.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {Available log types}
+     * @returns Available log types
      */
-    sessionLogTypes(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    sessionLogTypes(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Returns a list of the currently active sessions.
@@ -1994,89 +1957,80 @@ interface NightWatchClient {
      * };
      * ```
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    sessions(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    sessions(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Sends keystrokes to a JavaScript prompt() dialog.
      * @param value: Keystrokes to send to the prompt() dialog
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    setAlertText(value: string, callback?: () => void): NightWatchBrowser;
+    setAlertText(value: string, callback?: () => void): this;
 
     /**
      * Sets the context
      * @param context: context name to switch to - a string representing an available context.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    setContext(context: string, callback?: () => void): NightWatchBrowser;
+    setContext(context: string, callback?: () => void): this;
 
     /**
      * Sets the browser orientation.
      * @param orientation: The new browser orientation: {LANDSCAPE|PORTRAIT}
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    setOrientation(orientation: string, callback?: () => void): NightWatchBrowser;
+    setOrientation(orientation: string, callback?: () => void): this;
 
     /**
      * Get the current page source.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    source(callback?: () => void): NightWatchBrowser;
+    source(callback?: () => void): this;
 
     /**
      * Query the server's current status.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    status(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    status(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element.
      * @param id: ID of the element to route the command to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    submit(id: string, callback?: () => void): NightWatchBrowser;
+    submit(id: string, callback?: () => void): this;
 
     /**
      * Configure the amount of time that a particular type of operation can execute for before they are aborted and a |Timeout| error is returned to the client.
-     * @param typeOfOperation: The type of operation to set the timeout for. Valid values are: "script" for script timeouts, "implicit" for modifying the implicit wait timeout and "page load" for setting a page load timeout.
+     * @param typeOfOperation: The type of operation to set the timeout for.
+     * Valid values are: "script" for script timeouts, "implicit" for modifying the implicit wait timeout and "page load" for setting a page load timeout.
      * @param ms: The amount of time, in milliseconds, that time-limited commands are permitted to run.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    timeouts(typeOfOperation: string, ms: number, callback?: () => void): NightWatchBrowser;
+    timeouts(typeOfOperation: string, ms: number, callback?: () => void): this;
 
     /**
-     * Set the amount of time, in milliseconds, that asynchronous scripts executed by /session/:sessionId/execute_async are permitted to run before they are aborted and a |Timeout| error is returned to the client.
+     * Set the amount of time, in milliseconds, that asynchronous scripts executed by /session/:sessionId/execute_async are permitted
+     * to run before they are aborted and a |Timeout| error is returned to the client.
      * @param ms: The amount of time, in milliseconds, that time-limited commands are permitted to run.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    timeoutsAsyncScript(ms: number, callback?: () => void): NightWatchBrowser;
+    timeoutsAsyncScript(ms: number, callback?: () => void): this;
 
     /**
      * Set the amount of time the driver should wait when searching for elements. If this command is never sent, the driver will default to an implicit wait of 0ms.
      * @param ms: The amount of time, in milliseconds, that time-limited commands are permitted to run.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    timeoutsImplicitWait(ms: number, callback?: () => void): NightWatchBrowser;
+    timeoutsImplicitWait(ms: number, callback?: () => void): this;
 
     /**
      * Get the current page title.
      * @param expected: The expected page title.
      * @param msg: Optional log message to display in the output. If missing, one is displayed by default.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    title(expected: string, msg?: string, callback?: () => void): NightWatchBrowser;
+    title(expected: string, msg?: string, callback?: () => void): this;
 
     /**
      * Retrieve the URL of the current page or navigate to a new URL.
@@ -2103,57 +2057,51 @@ interface NightWatchClient {
      * ```
      * @param url: If missing, it will return the URL of the current page as an argument to the supplied callback
      * @param callback Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    url(url?: string | ((result: CallbackResult) => void), callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    url(url?: string | ((result: NightwatchCallbackResult) => void), callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Change focus to another window or close the current window.
      * @param method: The HTTP method to use
      * @param handleOrName: The window to change focus to.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    window(method: string, handleOrName: string, callback?: () => void): NightWatchBrowser;
+    window(method: string, handleOrName: string, callback?: () => void): this;
 
     /**
      * Retrieve the current window handle.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    windowHandle(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    windowHandle(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve the list of all window handles available to the session.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    windowHandles(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    windowHandles(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve the list of all window handles available to the session.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    window_handles(callback?: (result: CallbackResult) => void): NightWatchBrowser;
+    window_handles(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Retrieve the current window handle.
      * @param handleOrName: windowHandle URL parameter; if it is "current", the currently active window will be maximized.
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    windowMaximize(handleOrName?: string, callback?: () => void): NightWatchBrowser;
+    windowMaximize(handleOrName?: string, callback?: () => void): this;
 
     /**
-     * Change or get the position of the specified window. If the second argument is a function it will be used as a callback and the call will perform a get request to retrieve the existing window position.
+     * Change or get the position of the specified window. If the second argument is a function it will be used as a callback and the call
+     * will perform a get request to retrieve the existing window position.
      * @param windowHandle:
      * @param: offsetX:
      * @param: offsetY:
      * @param: callback:
-     * @returns {}
      */
-    windowPosition(windowHandle: string, offsetX: number, offsetY: number, callback: (result: CallbackResult) => void): NightWatchBrowser;
+    windowPosition(windowHandle: string, offsetX: number, offsetY: number, callback: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * Change or get the size of the specified window. If the second argument is a function it will be used as a callback and the call will perform a get request to retrieve the existing window size.
@@ -2161,9 +2109,8 @@ interface NightWatchClient {
      * @param width:
      * @param height:
      * @param callback: Optional callback function to be called when the command finishes.
-     * @returns {}
      */
-    windowSize(windowHandle: string, width: number, height: number, callback?: () => void): NightWatchBrowser;
+    windowSize(windowHandle: string, width: number, height: number, callback?: () => void): this;
 
     /**
      * To switch to xpath selectors instead of css as the locate strategy.
@@ -2177,9 +2124,8 @@ interface NightWatchClient {
      *      .click("//tr[@data-recordid]/span[text()='Search Text']");
      * };
      * ```
-     * @returns {}
      */
-    useXpath(): NightWatchBrowser;
+    useXpath(): this;
 
     /**
      * To switch to css selectors instead of xpath as the locate strategy
@@ -2192,25 +2138,79 @@ interface NightWatchClient {
      *      .setValue('input[type=text]', 'nightwatch');
      * };
      * ```
-     * @returns {}
      */
-    useCss(): NightWatchBrowser;
+    useCss(): this;
 
-    Keys: Keys;
+    options: NightwatchTestOptions;
 
-    currentTest: TestSuite;
+    Keys: NightwatchKeys;
+
+    currentTest: NightwatchTestSuite;
 
     globals: any;
 
     launch_url: string;
 }
 
-interface NightWatchBrowser extends NightWatchClient, NightWatchCustomPageObjects { }
+/* tslint:disable-next-line:no-empty-interface */
+export interface NightwatchCustomCommands {}
 
-type NightWatchTest = (arg1: NightWatchBrowser) => void;
+/* tslint:disable-next-line:no-empty-interface */
+export interface NightwatchCustomAssertions {}
 
-interface NightWatchTests {
-    [key: string]: NightWatchTest;
+export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
+
+export type NightwatchTest = (browser: NightwatchBrowser) => void;
+
+export interface NightwatchTestFunctions {
+    [key: string]: NightwatchTest;
 }
 
-/* tslint:enable:max-line-length */
+export type NightwatchTestHook = (browser: NightwatchBrowser, done: () => void) => void;
+
+export interface NightwatchTestHooks {
+    before?: NightwatchTestHook;
+    after?: NightwatchTestHook;
+    beforeEach?: NightwatchTestHook;
+    afterEach?: NightwatchTestHook;
+}
+
+export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
+
+/**
+ * Performs an assertion
+ *
+ */
+export type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: any, message?: string, abortOnFailure?: boolean, originalStackTrace?: string) => void;
+
+/**
+ * Abstract assertion class that will subclass all defined assertions
+ *
+ * All assertions must implement the following api:
+ *
+ * - @param {boolean|function} expected
+ * - @param {string} message
+ * - @param {function} pass
+ * - @param {function} value
+ * - @param {function} command
+ * - @param {function} - Optional failure
+ */
+export interface NightwatchAssertion {
+    expected: (() => void) | boolean;
+    message: string;
+    pass(...args: any[]): any;
+    value(...args: any[]): any;
+    command(...args: any[]): any;
+    failure?(...args: any[]): any;
+    api?: NightwatchAPI;
+}
+
+export interface NightwatchClient {
+    api: NightwatchAPI;
+    assertion: NightwatchAssert;
+}
+
+export interface Nightwatch {
+    api: NightwatchAPI;
+    client: NightwatchClient;
+}

@@ -10,6 +10,7 @@
         "prefer-method-signature": false,
         "prefer-declare-function": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "array-type": [true, "array"]
     }
 }

@@ -13,6 +13,8 @@ _.chop('whitespace', 3);
 
 _.clean(' foo    bar   ');
 
+_.cleanDiacritics('ääkkönen');
+
 _.chars('Hello');
 
 _.swapCase('hELLO');

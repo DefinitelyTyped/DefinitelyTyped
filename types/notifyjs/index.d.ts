@@ -1,4 +1,4 @@
-// Type definitions for notify.js 1.2.8
+// Type definitions for notifyjs 1.2.8
 // Project: https://github.com/alexgibson/notify.js
 // Definitions by: soundTricker <https://github.com/soundTricker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

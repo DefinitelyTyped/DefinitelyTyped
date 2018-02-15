@@ -1,8 +1,8 @@
 // Typescript adaptation of mithril's test suite.
 // Not intended to be run; only to compile & check types.
 
-import * as m from 'mithril';
-import * as stream from 'mithril/stream';
+import m = require('mithril');
+import stream = require('mithril/stream');
 
 const FRAME_BUDGET = 100;
 
@@ -20,7 +20,7 @@ const FRAME_BUDGET = 100;
 {
 	const vnode = m.fragment({key: 123}, [m("div")]);
 	console.assert((vnode.children as Array<m.Vnode<any, any>>).length === 1);
-	console.assert(vnode.children![0].tag === 'div');
+	console.assert((vnode.children as Array<m.Vnode<any, any>>)[0].tag === 'div');
 }
 
 {

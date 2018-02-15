@@ -1,4 +1,4 @@
-import * as Snoowrap from 'snoowrap';
+import * as Snoowrap from '../..';
 
 export default class Listing<T> extends Array<T> {
   constructor(options: any, _r: Snoowrap);

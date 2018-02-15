@@ -1,0 +1,8 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "dt-header": false,
+    "export-just-namespace": false,
+    "no-bad-reference": true
+  }
+}

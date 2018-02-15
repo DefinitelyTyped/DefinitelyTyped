@@ -3,8 +3,10 @@
     "rules": {
         // TODOs
         "await-promise": false,
+        "no-declare-current-package": false,
         "no-single-declare-module": false,
         "unified-signatures": false,
+        "no-unnecessary-class": false,
         "no-unnecessary-generics": false
     }
 }

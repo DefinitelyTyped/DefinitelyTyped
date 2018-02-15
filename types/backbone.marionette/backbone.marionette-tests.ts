@@ -6,12 +6,12 @@ class DestroyWarn extends Marionette.Behavior {
     // just like you can in your Backbone Models
     // they will be overriden if you pass in an option with the same key
     defaults = {
-        "message": "you are destroying!"
+        message: 'you are destroying!'
     };
 
     // behaviors have events that are bound to the views DOM
     events = {
-        "click @ui.destroy": "warnBeforeDestroy"
+        'click @ui.destroy': 'warnBeforeDestroy'
     };
 
     warnBeforeDestroy() {
@@ -22,34 +22,32 @@ class DestroyWarn extends Marionette.Behavior {
     }
 }
 
-
 Marionette.Behaviors.getBehaviorClass = (options, key) => {
-    if (key === "DestroyWarn")
+    if (key === 'DestroyWarn')
         return DestroyWarn;
 
     return undefined;
 };
 
 class MyRouter extends Marionette.AppRouter {
-    // "someMethod" must exist at controller.someMethod
+    // 'someMethod' must exist at controller.someMethod
     appRoutes = {
-        "some/route": "someMethod"
+        'some/route': 'someMethod'
     };
 
     /* standard routes can be mixed with appRoutes/Controllers above */
     routes = {
-        "some/otherRoute": "someOtherMethod"
+        'some/otherRoute': 'someOtherMethod'
     };
 
     someOtherMethod() {
         // do something here.
     }
-
 }
 
 class MyApplication extends Marionette.Application {
     initialize(options?: any) {
-        console.log("initializing application");
+        console.log('initializing application');
         this.layoutView = new AppLayoutView();
     }
 
@@ -60,12 +58,15 @@ class MyApplication extends Marionette.Application {
         this.mainRegion = new Marionette.Region({ el: '#main' });
         this.layoutView.addRegion('main', this.mainRegion);
         this.layoutView.render();
-        this.layoutView.showChildView('main', new MyView(new MyModel));
-        let view: Backbone.View<Backbone.Model> = this.layoutView.getChildView('main');
-        let regions: {[key: string]: Marionette.Region} = this.layoutView.getRegions();
-        let prefix: string = this.layoutView.childViewEventPrefix;
-        let region: Marionette.Region = this.layoutView.removeRegion('main');
-        let layout: Marionette.View<Backbone.Model> = this.layoutView.destroy();
+        this.layoutView.showChildView('main', new MyView(new MyModel()));
+        const view: Backbone.View<Backbone.Model> = this.layoutView.getChildView('main');
+        const regions: {[key: string]: Marionette.Region} = this.layoutView.getRegions();
+        const region: Marionette.Region = this.layoutView.removeRegion('main');
+        const layout: Marionette.View<Backbone.Model> = this.layoutView.destroy();
+
+        if (typeof this.layoutView.childViewEventPrefix === 'string') {
+            this.layoutView.childViewEventPrefix;
+        }
     }
 }
 
@@ -75,16 +76,15 @@ class AppLayoutView extends Marionette.View<Backbone.Model> {
     }
 
     template() {
-        return "<div id='main'></div>";
+        return '<div id="main"></div>';
     }
 
     initialize(options?: any) {
-        console.log("initializing layoutview");
+        console.log('initializing layoutview');
     }
 }
 
 class MyModel extends Backbone.Model {
-
     constructor(options?: any) {
         super(options);
     }
@@ -99,22 +99,20 @@ class MyModel extends Backbone.Model {
 }
 
 class MyBaseView extends Marionette.View<MyModel> {
-
     constructor() {
-    super();
-    this.getOption<string>('foo');
-    this.triggers = {
-        'click .foo': 'bar'
-    };
+        super();
+        this.getOption('foo');
+        this.triggers = {
+            'click .foo': 'bar'
+        };
     }
-
 }
 
 class MyView extends Marionette.View<MyModel> {
     behaviors: any;
 
     constructor(model: MyModel) {
-        super({ model: model });
+        super({ model });
 
         this.ui = {
             destroy: '.destroy'
@@ -128,10 +126,9 @@ class MyView extends Marionette.View<MyModel> {
     }
 
     template() {
-        return '<h1>' + this.model.getName() + '</h1> <button class="destroy">Destroy Me</button>';
+        return `<h1>${this.model.getName()}</h1> <button class="destroy">Destroy Me</button>`;
     }
-};
-
+}
 
 class MainRegion extends Marionette.Region {
     constructor() {
@@ -139,7 +136,6 @@ class MainRegion extends Marionette.Region {
         this.el = '#main';
     }
 }
-
 
 class MyObject extends Marionette.Object {
     name: string;
@@ -153,13 +149,13 @@ class MyObject extends Marionette.Object {
             name: 'Foo'
         };
 
-        this.on("before:destroy", () => {
-            console.log("before:destroy");
+        this.on('before:destroy', () => {
+            console.log('before:destroy');
         });
     }
 
     onBeforeDestroy(arg: any) {
-        console.log("in onBeforeDestroy with arg " + arg);
+        console.log('in onBeforeDestroy with arg ' + arg);
     }
 }
 
@@ -180,7 +176,7 @@ class MyJQueryRegion extends Marionette.Region {
 class MyHtmlElRegion extends Marionette.Region {
     constructor() {
         super();
-        this.el = document.querySelector("body");
+        this.el = document.querySelector('body');
     }
 }
 
@@ -189,77 +185,48 @@ class MyCollectionView extends Marionette.CollectionView<MyModel, MyView> {
         super();
         this.childView = MyView;
         this.childViewEvents = {
-            render: function () {
-                console.log("a childView has been rendered");
+            render() {
+                console.log('a childView has been rendered');
             }
         };
 
-        this.childViewOptions = function (model: any, index: any): any {
+        this.childViewOptions = (model: any, index: any): any => {
             // do some calculations based on the model
             return {
-                foo: "bar",
-                childIndex: index
-            }
+                id: 'bar'
+            };
         };
 
         this.childViewOptions = {
-            foo: "bar"
+            id: 'bar'
         };
 
-        this.childViewEventPrefix = "some:prefix";
+        this.childViewEventPrefix = 'some:prefix';
 
-        this.on('some:prefix:render', function () {
-
+        this.on('some:prefix:render', () => {
         });
-
     }
 }
 
-var app: MyApplication;
+let app: MyApplication;
 
 function ApplicationTests() {
     app = new MyApplication();
 
     app.start();
 
-    var view = new MyView(new MyModel());
+    const view = new MyView(new MyModel());
     app.mainRegion.show(view);
 }
 
 function ObjectTests() {
-    var obj = new MyObject();
+    const obj = new MyObject();
     console.log(obj.getOption('name'));
-    obj.destroy("goodbye");
-}
-
-function RegionManagerTests() {
-    var rm = new Marionette.RegionManager();
-    rm.addRegions({
-        contentRegion: {
-            el: '#content',
-            regionClass: MainRegion
-        },
-
-        navigationRegion: {
-            el: '#navigation',
-            regionClass: MainRegion,
-
-            // Options passed to instance of `MyOtherRegion` for
-            // the `navigationRegion` on `App`
-            navigationOption: 42,
-            anotherNavigationOption: 'foo'
-        },
-
-        footerRegion: {
-            regionClass: MainRegion,
-            someOption: 42,
-            someValue: 'value'
-        }
-    });
+    obj.destroy('goodbye');
 }
 
 function RegionTests() {
-    var myView: Marionette.View<MyModel> = new MyView(new MyModel());
+    let myView: Marionette.View<MyModel> = new MyView(new MyModel());
 
     // render and display the view
     app.mainRegion.show(myView);
@@ -268,28 +235,27 @@ function RegionTests() {
     app.mainRegion.empty();
 
     myView = new MyView(new MyModel());
-    app.mainRegion.show(myView, { preventDestroy: true, forceShow: true, triggerAttach: true, triggerBeforeAttach: false });
+    app.mainRegion.show(myView, { preventDestroy: true });
 
-    var hasView: boolean = app.mainRegion.hasView();
+    const hasView: boolean = app.mainRegion.hasView();
 
     app.mainRegion.reset();
 
-    Marionette.Region.prototype.attachHtml = function (view: any): void {
+    Marionette.Region.prototype.attachHtml = (view: any): void => {
         this.$el.empty().append(view.el);
-    }
+    };
 
     myView = new Marionette.View<MyModel>({
-        el: $("#existing-view-stuff")
+        el: $('#existing-view-stuff')
     });
 
-    app.mainRegion.attachView(myView);
+    app.mainRegion.show(myView);
 
-    app.mainRegion.on("empty", function (view: any, region: any, options: any) {
+    app.mainRegion.on('empty', (view: any, region: any, options: any) => {
         // manipulate the `view` or do something extra
         // with the `region`
         // you also have access to the `options` that were passed to the Region.show call
     });
-
 }
 
 function ViewTests() {
@@ -301,29 +267,27 @@ function ViewTests() {
 }
 
 function CollectionViewTests() {
-    var cv = new MyCollectionView();
+    const cv = new MyCollectionView();
     cv.collection.add(new MyModel());
-    app.mainRegion.attachView(cv);
-    cv.addEmptyView(new MyModel, MyView);
-    cv.proxyChildEvents(new MyView(new MyModel));
-    let children: Backbone.ChildViewContainer<Marionette.View<Backbone.Model>> = cv.destroyChildren();
-    let view: Marionette.CollectionView<Backbone.Model, Marionette.View<Backbone.Model>> = cv.destroy();
+    app.mainRegion.show(cv);
+    cv.emptyView = MyView;
+    const view: Marionette.CollectionView<MyModel, MyView> = cv.destroy();
 }
 
-class MyController extends Marionette.Controller {
+class MyController {
+    doFoo() { }
 
+    doBar() { }
 }
 
 function AppRouterTests() {
-    var myController = new MyController();
-    var router = new MyRouter();
+    const myController = new MyController();
+    const router = new MyRouter();
 
-    router.appRoute("/foo", "fooThat");
+    router.appRoute('/foo', 'fooThat');
 
     router.processAppRoutes(myController, {
-        "foo": "doFoo",
-        "bar/:id": "doBar"
+        foo: 'doFoo',
+        'bar/:id': 'doBar'
     });
-
 }
-

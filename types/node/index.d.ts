@@ -1,9 +1,8 @@
-// Type definitions for Node.js 8.x
+// Type definitions for Node.js 9.4.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
-//                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
@@ -11,23 +10,26 @@
 //                 Flarna <https://github.com/Flarna>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
-//                 Daniel Imms <https://github.com/Tyriar>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
+//                 Alvis HT Tang <https://github.com/alvis>
+//                 Oliver Joseph Ash <https://github.com/OliverJAsh>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
+//                 Alberto Schiabel <https://github.com/jkomyno>
+//                 Klaus Meinhardt <https://github.com/ajafff>
+//                 Huw <https://github.com/hoo29>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
-/************************************************
-*                                               *
-*               Node.js v8.x API                *
-*                                               *
-************************************************/
+/** inspector module types */
+/// <reference path="./inspector.d.ts" />
 
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
     dir(obj: any, options?: NodeJS.InspectOptions): void;
+    debug(message?: any, ...optionalParams: any[]): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -41,8 +43,18 @@ interface Error {
     stack?: string;
 }
 
+// Declare "static" methods in Error
 interface ErrorConstructor {
+    /** Create .stack property on a target object */
     captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+
+    /**
+     * Optional override for formatting stack traces
+     *
+     * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
+     */
+    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+
     stackTraceLimit: number;
 }
 
@@ -65,6 +77,14 @@ interface SymbolConstructor {
 }
 declare var Symbol: SymbolConstructor;
 
+// Node.js ESNEXT support
+interface String {
+    /** Removes whitespace from the left end of a string. */
+    trimLeft(): string;
+    /** Removes whitespace from the right end of a string. */
+    trimRight(): string;
+}
+
 /************************************************
 *                                               *
 *                   GLOBAL                      *
@@ -78,23 +98,43 @@ declare var __filename: string;
 declare var __dirname: string;
 
 declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+declare namespace setTimeout {
+    export function __promisify__(ms: number): Promise<void>;
+    export function __promisify__<T>(ms: number, value: T): Promise<T>;
+}
 declare function clearTimeout(timeoutId: NodeJS.Timer): void;
 declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+declare namespace setImmediate {
+    export function __promisify__(): Promise<void>;
+    export function __promisify__<T>(value: T): Promise<T>;
+}
 declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
-/* tslint:disable:callable-types */
 interface NodeRequireFunction {
+    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
 interface NodeRequire extends NodeRequireFunction {
-    resolve(id: string): string;
+    resolve: RequireResolve;
     cache: any;
-    extensions: any;
+    extensions: NodeExtensions;
     main: NodeModule | undefined;
+}
+
+interface RequireResolve {
+    (id: string, options?: { paths?: string[]; }): string;
+    paths(request: string): string[] | null;
+}
+
+interface NodeExtensions {
+    '.js': (m: NodeModule, filename: string) => any;
+    '.json': (m: NodeModule, filename: string) => any;
+    '.node': (m: NodeModule, filename: string) => any;
+    [ext: string]: (m: NodeModule, filename: string) => any;
 }
 
 declare var require: NodeRequire;
@@ -107,6 +147,7 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    paths: string[];
 }
 
 declare var module: NodeModule;
@@ -176,8 +217,6 @@ declare var Buffer: {
     prototype: Buffer;
     /**
      * Allocates a new Buffer using an {array} of octets.
-     *
-     * @param array
      */
     from(array: any[]): Buffer;
     /**
@@ -187,22 +226,16 @@ declare var Buffer: {
      * within the {arrayBuffer} that will be shared by the Buffer.
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
-     * @param byteOffset
-     * @param length
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Copies the passed {buffer} data onto a new Buffer instance.
-     *
-     * @param buffer
      */
     from(buffer: Buffer): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
-     *
-     * @param str
      */
     from(str: string, encoding?: string): Buffer;
     /**
@@ -222,10 +255,10 @@ declare var Buffer: {
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
      *
-     * @param string string to test.
+     * @param string string to test. (TypedArray is also allowed, but it is only available starting ES2017)
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string, encoding?: string): number;
+    byteLength(string: string | Buffer | DataView | ArrayBuffer, encoding?: string): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -265,6 +298,10 @@ declare var Buffer: {
      * @param size count of octets to allocate
      */
     allocUnsafeSlow(size: number): Buffer;
+    /**
+     * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
+     */
+    poolSize: number;
 };
 
 /************************************************
@@ -288,6 +325,80 @@ declare namespace NodeJS {
         new(stdout: WritableStream, stderr?: WritableStream): Console;
     }
 
+    export interface CallSite {
+        /**
+         * Value of "this"
+         */
+        getThis(): any;
+
+        /**
+         * Type of "this" as a string.
+         * This is the name of the function stored in the constructor field of
+         * "this", if available.  Otherwise the object's [[Class]] internal
+         * property.
+         */
+        getTypeName(): string | null;
+
+        /**
+         * Current function
+         */
+        getFunction(): Function | undefined;
+
+        /**
+         * Name of the current function, typically its name property.
+         * If a name property is not available an attempt will be made to try
+         * to infer a name from the function's context.
+         */
+        getFunctionName(): string | null;
+
+        /**
+         * Name of the property [of "this" or one of its prototypes] that holds
+         * the current function
+         */
+        getMethodName(): string | null;
+
+        /**
+         * Name of the script [if this function was defined in a script]
+         */
+        getFileName(): string | null;
+
+        /**
+         * Current line number [if this function was defined in a script]
+         */
+        getLineNumber(): number | null;
+
+        /**
+         * Current column number [if this function was defined in a script]
+         */
+        getColumnNumber(): number | null;
+
+        /**
+         * A call site object representing the location where eval was called
+         * [if this function was created using a call to eval]
+         */
+        getEvalOrigin(): string | undefined;
+
+        /**
+         * Is this a toplevel invocation, that is, is "this" the global object?
+         */
+        isToplevel(): boolean;
+
+        /**
+         * Does this call take place in code defined by a call to eval?
+         */
+        isEval(): boolean;
+
+        /**
+         * Is this call in native V8 code?
+         */
+        isNative(): boolean;
+
+        /**
+         * Is this a constructor call?
+         */
+        isConstructor(): boolean;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -305,6 +416,7 @@ declare namespace NodeJS {
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
+        rawListeners(event: string | symbol): Function[];
         emit(event: string | symbol, ...args: any[]): boolean;
         listenerCount(type: string | symbol): number;
         // Added in Node 6...
@@ -324,14 +436,14 @@ declare namespace NodeJS {
         unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
-        wrap(oldStream: ReadableStream): ReadableStream;
+        wrap(oldStream: ReadableStream): this;
     }
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -347,7 +459,6 @@ declare namespace NodeJS {
         remove(emitter: Events): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -402,7 +513,7 @@ declare namespace NodeJS {
     type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
-    type SignalsListener = () => void;
+    type SignalsListener = (signal: Signals) => void;
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
 
@@ -415,12 +526,27 @@ declare namespace NodeJS {
     }
 
     export interface WriteStream extends Socket {
+        readonly writableHighWaterMark: number;
+        readonly writableLength: number;
         columns?: number;
         rows?: number;
+        _write(chunk: any, encoding: string, callback: Function): void;
+        _destroy(err: Error, callback: Function): void;
+        _final(callback: Function): void;
+        setDefaultEncoding(encoding: string): this;
+        cork(): void;
+        uncork(): void;
+        destroy(error?: Error): void;
     }
     export interface ReadStream extends Socket {
+        readonly readableHighWaterMark: number;
+        readonly readableLength: number;
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
+        _read(size: number): void;
+        _destroy(err: Error, callback: Function): void;
+        push(chunk: any, encoding?: string): boolean;
+        destroy(error?: Error): void;
     }
 
     export interface Process extends EventEmitter {
@@ -440,11 +566,17 @@ declare namespace NodeJS {
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
-        setgid(id: number): void;
-        setgid(id: string): void;
+        setgid(id: number | string): void;
         getuid(): number;
-        setuid(id: number): void;
-        setuid(id: string): void;
+        setuid(id: number | string): void;
+        geteuid(): number;
+        seteuid(id: number | string): void;
+        getegid(): number;
+        setegid(id: number | string): void;
+        getgroups(): number[];
+        setgroups(groups: Array<string | number>): void;
+        setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
+        hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
         versions: ProcessVersions;
         config: {
@@ -475,6 +607,7 @@ declare namespace NodeJS {
         };
         kill(pid: number, signal?: string | number): void;
         pid: number;
+        ppid: number;
         title: string;
         arch: string;
         platform: Platform;
@@ -661,6 +794,25 @@ declare namespace NodeJS {
         ref(): void;
         unref(): void;
     }
+
+    class Module {
+        static runMain(): void;
+        static wrap(code: string): string;
+        static builtinModules: string[];
+
+        static Module: typeof Module;
+
+        exports: any;
+        require: NodeRequireFunction;
+        id: string;
+        filename: string;
+        loaded: boolean;
+        parent: Module | null;
+        children: Module[];
+        paths: string[];
+
+        constructor(id: string, parent?: Module);
+    }
 }
 
 interface IterableIterator<T> { }
@@ -746,8 +898,10 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
+    interface ParsedUrlQuery { [key: string]: string | string[]; }
+
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): any;
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
@@ -771,6 +925,7 @@ declare module "events" {
             setMaxListeners(n: number): this;
             getMaxListeners(): number;
             listeners(event: string | symbol): Function[];
+            rawListeners(event: string | symbol): Function[];
             emit(event: string | symbol, ...args: any[]): boolean;
             eventNames(): Array<string | symbol>;
             listenerCount(type: string | symbol): number;
@@ -788,7 +943,47 @@ declare module "http" {
 
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
-        [header: string]: string | string[];
+        'accept'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-headers'?: string;
+        'accept-patch'?: string;
+        'accept-ranges'?: string;
+        'age'?: string;
+        'allow'?: string;
+        'alt-svc'?: string;
+        'cache-control'?: string;
+        'connection'?: string;
+        'content-disposition'?: string;
+        'content-encoding'?: string;
+        'content-language'?: string;
+        'content-length'?: string;
+        'content-location'?: string;
+        'content-range'?: string;
+        'content-type'?: string;
+        'date'?: string;
+        'expires'?: string;
+        'host'?: string;
+        'last-modified'?: string;
+        'location'?: string;
+        'pragma'?: string;
+        'proxy-authenticate'?: string;
+        'public-key-pins'?: string;
+        'retry-after'?: string;
+        'set-cookie'?: string[];
+        'strict-transport-security'?: string;
+        'trailer'?: string;
+        'transfer-encoding'?: string;
+        'tk'?: string;
+        'upgrade'?: string;
+        'vary'?: string;
+        'via'?: string;
+        'warning'?: string;
+        'www-authenticate'?: string;
+        [header: string]: string | string[] | undefined;
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
@@ -819,10 +1014,10 @@ declare module "http" {
     export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        setTimeout(callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
-        listening: boolean;
         keepAliveTimeout: number;
     }
     /**
@@ -993,13 +1188,7 @@ declare module "cluster" {
         stdio?: any[];
         uid?: number;
         gid?: number;
-    }
-
-    export interface ClusterSetupMasterSettings {
-        exec?: string;  // default: process.argv[1]
-        args?: string[];  // default: process.argv.slice(2)
-        silent?: boolean;  // default: false
-        stdio?: any[];
+        inspectPort?: number | (() => number);
     }
 
     export interface Address {
@@ -1009,7 +1198,7 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
+        id: number;
         process: child.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
@@ -1086,7 +1275,7 @@ declare module "cluster" {
         isWorker: boolean;
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
-        setupMaster(settings?: ClusterSetupMasterSettings): void;
+        setupMaster(settings?: ClusterSettings): void;
         worker?: Worker;
         workers?: {
             [index: string]: Worker | undefined
@@ -1163,7 +1352,7 @@ declare module "cluster" {
     export var isWorker: boolean;
     // TODO: cluster.schedulingPolicy
     export var settings: ClusterSettings;
-    export function setupMaster(settings?: ClusterSetupMasterSettings): void;
+    export function setupMaster(settings?: ClusterSettings): void;
     export var worker: Worker;
     export var workers: {
         [index: string]: Worker | undefined
@@ -1257,13 +1446,27 @@ declare module "zlib" {
         dictionary?: any; // deflate/inflate only, empty dictionary by default
     }
 
-    export interface Gzip extends stream.Transform { }
-    export interface Gunzip extends stream.Transform { }
-    export interface Deflate extends stream.Transform { }
-    export interface Inflate extends stream.Transform { }
-    export interface DeflateRaw extends stream.Transform { }
-    export interface InflateRaw extends stream.Transform { }
-    export interface Unzip extends stream.Transform { }
+    export interface Zlib {
+        readonly bytesRead: number;
+        close(callback?: () => void): void;
+        flush(kind?: number | (() => void), callback?: () => void): void;
+    }
+
+    export interface ZlibParams {
+        params(level: number, strategy: number, callback: () => void): void;
+    }
+
+    export interface ZlibReset {
+        reset(): void;
+    }
+
+    export interface Gzip extends stream.Transform, Zlib { }
+    export interface Gunzip extends stream.Transform, Zlib { }
+    export interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface Inflate extends stream.Transform, Zlib, ZlibReset { }
+    export interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
+    export interface Unzip extends stream.Transform, Zlib { }
 
     export function createGzip(options?: ZlibOptions): Gzip;
     export function createGunzip(options?: ZlibOptions): Gunzip;
@@ -1273,27 +1476,28 @@ declare module "zlib" {
     export function createInflateRaw(options?: ZlibOptions): InflateRaw;
     export function createUnzip(options?: ZlibOptions): Unzip;
 
-    export function deflate(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function deflateRaw(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gunzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gunzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function gunzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function inflate(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function inflateRaw(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function inflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function unzip(buf: Buffer | string, callback: (error: Error | null, result: Buffer) => void): void;
-    export function unzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    export function unzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    type InputType = string | Buffer | DataView | ArrayBuffer /* | TypedArray */;
+    export function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function deflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function gzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function gunzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gunzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function inflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function inflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function unzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function unzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
 
     export namespace constants {
         // Allowed flush values.
@@ -1532,7 +1736,7 @@ declare module "os" {
     export function arch(): string;
     export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
-    export var EOL: string;
+    export const EOL: string;
     export function endianness(): "BE" | "LE";
 }
 
@@ -1542,59 +1746,40 @@ declare module "https" {
     import * as http from "http";
     import { URL } from "url";
 
-    export interface ServerOptions {
-        pfx?: any;
-        key?: any;
+    export type ServerOptions = tls.SecureContextOptions & tls.TlsOptions;
+
+    export type RequestOptions = http.RequestOptions & {
+        rejectUnauthorized?: boolean; // Defaults to true
+        servername?: string; // SNI TLS Extension
+        pfx?: string | Buffer | Array<string | Buffer | Object>;
+        key?: string | Buffer | Array<Buffer | Object>;
         passphrase?: string;
-        cert?: any;
-        ca?: any;
-        crl?: any;
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
         ciphers?: string;
-        honorCipherOrder?: boolean;
-        requestCert?: boolean;
+        clientCertEngine?: string;
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+    };
+
+    export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
-        NPNProtocols?: any;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: tls.SecureContext) => any) => any;
-    }
-
-    export interface RequestOptions extends http.RequestOptions {
-        pfx?: any;
-        key?: any;
-        passphrase?: string;
-        cert?: any;
-        ca?: any;
-        ciphers?: string;
-        rejectUnauthorized?: boolean;
-        secureProtocol?: string;
-    }
-
-    export interface ClientRequest extends http.ClientRequest { }
-
-    export interface IncomingMessage extends http.IncomingMessage { }
-
-    export interface ServerResponse extends http.ServerResponse { }
-
-    export interface Agent extends http.Agent { }
-
-    export interface AgentOptions extends http.AgentOptions {
-        pfx?: any;
-        key?: any;
-        passphrase?: string;
-        cert?: any;
-        ca?: any;
-        ciphers?: string;
-        rejectUnauthorized?: boolean;
-        secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
-    export var Agent: {
-        new(options?: AgentOptions): Agent;
-    };
-    export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
-    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export class Agent extends http.Agent {
+        constructor(options?: AgentOptions);
+    }
+
+    export class Server extends tls.Server {
+        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, callback?: () => void): this;
+        timeout: number;
+        keepAliveTimeout: number;
+    }
+
+    export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
+    export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1632,6 +1817,9 @@ declare module "repl" {
 
     export interface REPLServer extends readline.ReadLine {
         context: any;
+        inputStream: NodeJS.ReadableStream;
+        outputStream: NodeJS.WritableStream;
+
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
@@ -1667,6 +1855,12 @@ declare module "repl" {
     }
 
     export function start(options?: string | ReplOptions): REPLServer;
+
+    export class Recoverable extends SyntaxError {
+        err: Error;
+
+        constructor(err: Error);
+    }
 }
 
 declare module "readline" {
@@ -1773,6 +1967,7 @@ declare module "readline" {
     export function createInterface(options: ReadLineOptions): ReadLine;
 
     export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
+    export function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: ReadLine): void;
     export function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
     export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
     export function clearScreenDown(stream: NodeJS.WritableStream): void;
@@ -1895,6 +2090,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
 
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
@@ -1954,12 +2150,16 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
     }
     export interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
-        encoding: string | null; // specify `null`.
+        encoding: 'buffer' | null;
+    }
+    export interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
+        encoding: string;
     }
 
     export function execFile(file: string): ChildProcess;
@@ -1969,19 +2169,20 @@ declare module "child_process" {
 
     // no `options` definitely means stdout/stderr are `string`.
     export function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    export function execFile(file: string, options: { encoding: "buffer" | null } & ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: "buffer" | null } & ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    export function execFile(file: string, options: { encoding: BufferEncoding } & ExecFileOptions, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: BufferEncoding } & ExecFileOptions, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
-    export function execFile(file: string, options: { encoding: string } & ExecFileOptions, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: string } & ExecFileOptions, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
     export function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
@@ -1994,12 +2195,13 @@ declare module "child_process" {
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace execFile {
         export function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, options: { encoding: "buffer" | null } & ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: "buffer" | null } & ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, options: { encoding: BufferEncoding } & ExecFileOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: BufferEncoding } & ExecFileOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        export function __promisify__(file: string, options: { encoding: string } & ExecFileOptions): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: string } & ExecFileOptions): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
         export function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
         export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
         export function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
@@ -2015,6 +2217,7 @@ declare module "child_process" {
         stdio?: any[];
         uid?: number;
         gid?: number;
+        windowsVerbatimArguments?: boolean;
     }
     export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
 
@@ -2030,6 +2233,7 @@ declare module "child_process" {
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
+        windowsVerbatimArguments?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -2106,37 +2310,48 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
+    import { ParsedUrlQuery } from 'querystring';
+
+    export interface UrlObjectCommon {
+        auth?: string;
+        hash?: string;
+        host?: string;
+        hostname?: string;
         href?: string;
-        protocol?: string;
-        auth?: string;
-        hostname?: string;
-        port?: string;
-        host?: string;
-        pathname?: string;
-        search?: string;
-        query?: string | any;
-        slashes?: boolean;
-        hash?: string;
         path?: string;
-    }
-
-    export interface UrlObject {
-        protocol?: string;
-        slashes?: boolean;
-        auth?: string;
-        host?: string;
-        hostname?: string;
-        port?: string | number;
         pathname?: string;
+        protocol?: string;
         search?: string;
-        query?: { [key: string]: any; };
-        hash?: string;
+        slashes?: boolean;
     }
 
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
+    // Input to `url.format`
+    export interface UrlObject extends UrlObjectCommon {
+        port?: string | number;
+        query?: string | null | { [key: string]: any };
+    }
+
+    // Output of `url.parse`
+    export interface Url extends UrlObjectCommon {
+        port?: string;
+        query?: string | null | ParsedUrlQuery;
+    }
+
+    export interface UrlWithParsedQuery extends Url {
+        query: ParsedUrlQuery;
+    }
+
+    export interface UrlWithStringQuery extends Url {
+        query: string | null;
+    }
+
+    export function parse(urlStr: string): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    export function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+
     export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: UrlObject): string;
+    export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
     export interface URLFormatOptions {
@@ -2146,21 +2361,21 @@ declare module "url" {
         unicode?: boolean;
     }
 
-    export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<string[]>);
+    export class URLSearchParams implements Iterable<[string, string]> {
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
-        entries(): Iterator<string[]>;
+        entries(): IterableIterator<[string, string]>;
         forEach(callback: (value: string, name: string) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
-        keys(): Iterator<string>;
+        keys(): IterableIterator<string>;
         set(name: string, value: string): void;
         sort(): void;
         toString(): string;
-        values(): Iterator<string>;
-        [Symbol.iterator](): Iterator<string[]>;
+        values(): IterableIterator<string>;
+        [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 
     export class URL {
@@ -2351,8 +2566,36 @@ declare module "dns" {
 declare module "net" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as dns from "dns";
 
-    export interface Socket extends stream.Duplex {
+    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+
+    export interface SocketConstructorOpts {
+        fd?: number;
+        allowHalfOpen?: boolean;
+        readable?: boolean;
+        writable?: boolean;
+    }
+
+    export interface TcpSocketConnectOpts {
+        port: number;
+        host?: string;
+        localAddress?: string;
+        localPort?: number;
+        hints?: number;
+        family?: number;
+        lookup?: LookupFunction;
+    }
+
+    export interface IpcSocketConnectOpts {
+        path: string;
+    }
+
+    export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+
+    export class Socket extends stream.Duplex {
+        constructor(options?: SocketConstructorOpts);
+
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -2361,16 +2604,19 @@ declare module "net" {
         write(str: string, encoding?: string, fd?: string): boolean;
         write(data: any, encoding?: string, callback?: Function): void;
 
-        connect(port: number, host?: string, connectionListener?: Function): void;
-        connect(path: string, connectionListener?: Function): void;
+        connect(options: SocketConnectOpts, connectionListener?: Function): this;
+        connect(port: number, host: string, connectionListener?: Function): this;
+        connect(port: number, connectionListener?: Function): this;
+        connect(path: string, connectionListener?: Function): this;
+
         bufferSize: number;
         setEncoding(encoding?: string): this;
         destroy(err?: any): void;
         pause(): this;
         resume(): this;
-        setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: boolean): void;
-        setKeepAlive(enable?: boolean, initialDelay?: number): void;
+        setTimeout(timeout: number, callback?: Function): this;
+        setNoDelay(noDelay?: boolean): this;
+        setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): { port: number; family: string; address: string; };
         unref(): void;
         ref(): void;
@@ -2464,10 +2710,6 @@ declare module "net" {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
-    export var Socket: {
-        new(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
-    };
-
     export interface ListenOptions {
         port?: number;
         host?: string;
@@ -2481,20 +2723,20 @@ declare module "net" {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, hostname?: string, listeningListener?: Function): Server;
-        listen(port?: number, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, listeningListener?: Function): Server;
-        listen(path: string, backlog?: number, listeningListener?: Function): Server;
-        listen(path: string, listeningListener?: Function): Server;
-        listen(options: ListenOptions, listeningListener?: Function): Server;
-        listen(handle: any, backlog?: number, listeningListener?: Function): Server;
-        listen(handle: any, listeningListener?: Function): Server;
-        close(callback?: Function): Server;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, hostname?: string, listeningListener?: Function): this;
+        listen(port?: number, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, listeningListener?: Function): this;
+        listen(path: string, backlog?: number, listeningListener?: Function): this;
+        listen(path: string, listeningListener?: Function): this;
+        listen(options: ListenOptions, listeningListener?: Function): this;
+        listen(handle: any, backlog?: number, listeningListener?: Function): this;
+        listen(handle: any, listeningListener?: Function): this;
+        close(callback?: Function): this;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error | null, count: number) => void): void;
-        ref(): Server;
-        unref(): Server;
+        ref(): this;
+        unref(): this;
         maxConnections: number;
         connections: number;
         listening: boolean;
@@ -2542,12 +2784,23 @@ declare module "net" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
     }
+
+    export interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number;
+    }
+
+    export interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number;
+    }
+
+    export type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
+
     export function createServer(connectionListener?: (socket: Socket) => void): Server;
     export function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
-    export function connect(options: { port: number, host?: string, localAddress?: string, localPort?: number, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: NetConnectOpts, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: { port: number, host?: string, localAddress?: string, localPort?: string, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(options: NetConnectOpts, connectionListener?: Function): Socket;
     export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
@@ -2557,6 +2810,7 @@ declare module "net" {
 
 declare module "dgram" {
     import * as events from "events";
+    import * as dns from "dns";
 
     interface RemoteInfo {
         address: string;
@@ -2581,12 +2835,15 @@ declare module "dgram" {
     interface SocketOptions {
         type: SocketType;
         reuseAddr?: boolean;
+        recvBufferSize?: number;
+        sendBufferSize?: number;
+        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
     export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    export interface Socket extends events.EventEmitter {
+    export class Socket extends events.EventEmitter {
         send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
@@ -2598,11 +2855,16 @@ declare module "dgram" {
         setBroadcast(flag: boolean): void;
         setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
+        setMulticastInterface(multicastInterface: string): void;
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
         ref(): this;
         unref(): this;
+        setRecvBufferSize(size: number): void;
+        setSendBufferSize(size: number): void;
+        getRecvBufferSize(): number;
+        getSendBufferSize(): number;
 
         /**
          * events.EventEmitter
@@ -2659,7 +2921,7 @@ declare module "fs" {
      */
     export type PathLike = string | Buffer | URL;
 
-    export interface Stats {
+    export class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -2716,7 +2978,7 @@ declare module "fs" {
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
 
-    export interface ReadStream extends stream.Readable {
+    export class ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
         bytesRead: number;
@@ -2748,7 +3010,7 @@ declare module "fs" {
         prependOnceListener(event: "close", listener: () => void): this;
     }
 
-    export interface WriteStream extends stream.Writable {
+    export class WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
@@ -3250,6 +3512,11 @@ declare module "fs" {
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
         export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+
+        export function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
+        export function native(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
+        export function native(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
     }
 
     /**
@@ -3272,6 +3539,12 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+
+    export namespace realpathSync {
+        export function native(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+        export function native(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+    }
 
     /**
      * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
@@ -3436,7 +3709,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: Array<string | Buffer>) => void): void;
+    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -3465,7 +3738,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<Array<string | Buffer>>;
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
     }
 
     /**
@@ -3487,7 +3760,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): Array<string | Buffer>;
+    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
@@ -4081,6 +4354,9 @@ declare module "fs" {
         /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O. */
         export const O_SYNC: number;
 
+        /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O with write operations waiting for data integrity. */
+        export const O_DSYNC: number;
+
         /** Constant for fs.open(). Flag indicating to open the symbolic link itself rather than the resource it is pointing to. */
         export const O_SYMLINK: number;
 
@@ -4153,6 +4429,9 @@ declare module "fs" {
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
         export const S_IXOTH: number;
+
+        /** Constant for fs.copyFile. Flag indicating the destination file should not be overwritten if it already exists. */
+        export const COPYFILE_EXCL: number;
     }
 
     /**
@@ -4199,6 +4478,7 @@ declare module "fs" {
         autoClose?: boolean;
         start?: number;
         end?: number;
+        highWaterMark?: number;
     }): ReadStream;
 
     /**
@@ -4208,7 +4488,7 @@ declare module "fs" {
      */
     export function createWriteStream(path: PathLike, options?: string | {
         flags?: string;
-        defaultEncoding?: string;
+        encoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
@@ -4235,6 +4515,54 @@ declare module "fs" {
      * @param fd A file descriptor.
      */
     export function fdatasyncSync(fd: number): void;
+
+    /**
+     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * No arguments other than a possible exception are given to the callback function.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     */
+    export function copyFile(src: PathLike, dest: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    /**
+     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * No arguments other than a possible exception are given to the callback function.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     * @param flags An integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     */
+    export function copyFile(src: PathLike, dest: PathLike, flags: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace copyFile {
+        /**
+         * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+         * No arguments other than a possible exception are given to the callback function.
+         * Node.js makes no guarantees about the atomicity of the copy operation.
+         * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+         * to remove the destination.
+         * @param src A path to the source file.
+         * @param dest A path to the destination file.
+         * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+         */
+        export function __promisify__(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
+    }
+
+    /**
+     * Synchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     */
+    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
 }
 
 declare module "path" {
@@ -4263,6 +4591,28 @@ declare module "path" {
          */
         name: string;
     }
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
+    }
 
     /**
      * Normalize a string path, reducing '..' and '.' parts.
@@ -4287,7 +4637,7 @@ declare module "path" {
      *
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
-    export function resolve(...pathSegments: any[]): string;
+    export function resolve(...pathSegments: string[]): string;
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
@@ -4297,9 +4647,6 @@ declare module "path" {
     /**
      * Solve the relative path from {from} to {to}.
      * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
-     *
-     * @param from
-     * @param to
      */
     export function relative(from: string, to: string): string;
     /**
@@ -4342,7 +4689,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
         export function normalize(p: string): string;
@@ -4356,7 +4703,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 
     export module win32 {
@@ -4371,7 +4718,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 }
 
@@ -4387,6 +4734,7 @@ declare module "string_decoder" {
 
 declare module "tls" {
     import * as crypto from "crypto";
+    import * as dns from "dns";
     import * as net from "net";
     import * as stream from "stream";
 
@@ -4484,7 +4832,7 @@ declare module "tls" {
              * An array of strings or a Buffer naming possible NPN protocols.
              * (Protocols should be ordered by their priority.)
              */
-            NPNProtocols?: string[] | Buffer,
+            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
             /**
              * An array of strings or a Buffer naming possible ALPN protocols.
              * (Protocols should be ordered by their priority.) When the server
@@ -4492,7 +4840,7 @@ declare module "tls" {
              * precedence over NPN and the server does not send an NPN extension
              * to the client.
              */
-            ALPNProtocols?: string[] | Buffer,
+            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
             /**
              * SNICallback(servername, cb) <Function> A function that will be
              * called if the client supports SNI TLS extension. Two arguments
@@ -4502,7 +4850,7 @@ declare module "tls" {
              * SecureContext.) If SNICallback wasn't provided the default callback
              * with high-level API will be used (see below).
              */
-            SNICallback?: Function,
+            SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void,
             /**
              * An optional Buffer instance containing a TLS session.
              */
@@ -4514,12 +4862,7 @@ declare module "tls" {
              */
             requestOCSP?: boolean
         });
-        /**
-         * Returns the bound address, the address family name and port of the underlying socket as reported by
-         * the operating system.
-         * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
-         */
-        address(): { port: number; family: string; address: string };
+
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
          */
@@ -4536,7 +4879,7 @@ declare module "tls" {
         encrypted: boolean;
         /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
-         * @returns {CipherNameAndProtocol} - Returns an object representing the cipher name
+         * @returns Returns an object representing the cipher name
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher(): CipherNameAndProtocol;
@@ -4546,55 +4889,34 @@ declare module "tls" {
          * If detailed argument is true the full chain with issuer property will be returned,
          * if false only the top certificate without issuer property.
          * If the peer does not provide a certificate, it returns null or an empty object.
-         * @param {boolean} detailed - If true; the full chain with issuer property will be returned.
-         * @returns {PeerCertificate | DetailedPeerCertificate} - An object representing the peer's certificate.
+         * @param detailed - If true; the full chain with issuer property will be returned.
+         * @returns An object representing the peer's certificate.
          */
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
-         * @returns {any} - ASN.1 encoded TLS session or undefined if none was negotiated.
+         * @returns ASN.1 encoded TLS session or undefined if none was negotiated.
          */
         getSession(): any;
         /**
          * NOTE: Works only with client TLS sockets.
          * Useful only for debugging, for session reuse provide session option to tls.connect().
-         * @returns {any} - TLS session ticket or undefined if none was negotiated.
+         * @returns TLS session ticket or undefined if none was negotiated.
          */
         getTLSTicket(): any;
-        /**
-         * The string representation of the local IP address.
-         */
-        localAddress: string;
-        /**
-         * The numeric representation of the local port.
-         */
-        localPort: number;
-        /**
-         * The string representation of the remote IP address.
-         * For example, '74.125.127.100' or '2001:4860:a005::68'.
-         */
-        remoteAddress: string;
-        /**
-         * The string representation of the remote IP family. 'IPv4' or 'IPv6'.
-         */
-        remoteFamily: string;
-        /**
-         * The numeric representation of the remote port. For example, 443.
-         */
-        remotePort: number;
         /**
          * Initiate TLS renegotiation process.
          *
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
-         * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
+         * @param options - The options may contain the following fields: rejectUnauthorized,
          * requestCert (See tls.createServer() for details).
-         * @param {Function} callback - callback(err) will be executed with null as err, once the renegotiation
+         * @param callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options: TlsOptions, callback: (err: Error) => any): any;
+        renegotiate(options: { rejectUnauthorized?: boolean, requestCert?: boolean }, callback: (err: Error | null) => void): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -4602,8 +4924,8 @@ declare module "tls" {
          * large fragments can span multiple roundtrips, and their processing can be delayed due to packet
          * loss or reordering. However, smaller fragments add extra TLS framing bytes and CPU overhead,
          * which may decrease overall server throughput.
-         * @param {number} size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
-         * @returns {boolean} - Returns true on success, false otherwise.
+         * @param size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
+         * @returns Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
 
@@ -4637,62 +4959,40 @@ declare module "tls" {
         prependOnceListener(event: "secureConnect", listener: () => void): this;
     }
 
-    export interface TlsOptions {
-        host?: string;
-        port?: number;
-        pfx?: string | Buffer[];
-        key?: string | string[] | Buffer | any[];
-        passphrase?: string;
-        cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | string[] | Buffer | Buffer[];
-        crl?: string | string[];
-        ciphers?: string;
-        honorCipherOrder?: boolean;
+    export interface TlsOptions extends SecureContextOptions {
+        clientCertEngine?: string;
+        handshakeTimeout?: number;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: string[] | Buffer;
-        SNICallback?: (servername: string, cb: (err: Error, ctx: SecureContext) => any) => any;
-        ecdhCurve?: string;
-        dhparam?: string | Buffer;
-        handshakeTimeout?: number;
-        ALPNProtocols?: string[] | Buffer;
+        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
         sessionTimeout?: number;
-        ticketKeys?: any;
-        sessionIdContext?: string;
-        secureProtocol?: string;
+        ticketKeys?: Buffer;
     }
 
-    export interface ConnectionOptions {
+    export interface ConnectionOptions extends SecureContextOptions {
         host?: string;
         port?: number;
-        socket?: net.Socket;
-        pfx?: string | Buffer;
-        key?: string | string[] | Buffer | Buffer[];
-        passphrase?: string;
-        cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | Buffer | Array<string | Buffer>;
-        rejectUnauthorized?: boolean;
-        NPNProtocols?: Array<string | Buffer>;
-        servername?: string;
-        path?: string;
-        ALPNProtocols?: Array<string | Buffer>;
-        checkServerIdentity?: (servername: string, cert: string | Buffer | Array<string | Buffer>) => any;
-        secureProtocol?: string;
-        secureContext?: Object;
+        path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
+        socket?: net.Socket; // Establish secure connection on a given socket rather than creating a new socket
+        rejectUnauthorized?: boolean; // Defaults to true
+        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        checkServerIdentity?: typeof checkServerIdentity;
+        servername?: string; // SNI TLS Extension
         session?: Buffer;
         minDHSize?: number;
+        secureContext?: SecureContext; // If not provided, the entire ConnectionOptions object will be passed to tls.createSecureContext()
+        lookup?: net.LookupFunction;
     }
 
-    export interface Server extends net.Server {
-        close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
+    export class Server extends net.Server {
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
             ca: string;
         }): void;
-        maxConnections: number;
-        connections: number;
 
         /**
          * events.EventEmitter
@@ -4768,26 +5068,43 @@ declare module "tls" {
     }
 
     export interface SecureContextOptions {
-        pfx?: string | Buffer;
-        key?: string | Buffer;
+        pfx?: string | Buffer | Array<string | Buffer | Object>;
+        key?: string | Buffer | Array<Buffer | Object>;
         passphrase?: string;
-        cert?: string | Buffer;
-        ca?: string | Buffer;
-        crl?: string | string[];
+        cert?: string | Buffer | Array<string | Buffer>;
+        ca?: string | Buffer | Array<string | Buffer>;
         ciphers?: string;
         honorCipherOrder?: boolean;
+        ecdhCurve?: string;
+        clientCertEngine?: string;
+        crl?: string | Buffer | Array<string | Buffer>;
+        dhparam?: string | Buffer;
+        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+        sessionIdContext?: string;
     }
 
     export interface SecureContext {
         context: any;
     }
 
+    /*
+     * Verifies the certificate `cert` is issued to host `host`.
+     * @host The hostname to verify the certificate against
+     * @cert PeerCertificate representing the peer's certificate
+     *
+     * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
+     */
+    export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     export function createSecureContext(details: SecureContextOptions): SecureContext;
+    export function getCiphers(): string[];
+
+    export var DEFAULT_ECDH_CURVE: string;
 }
 
 declare module "crypto" {
@@ -4824,23 +5141,23 @@ declare module "crypto" {
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
     export interface Hash extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hash;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hash;
+        update(data: string | Buffer | DataView): Hash;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hmac;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
+        update(data: string | Buffer | DataView): Hmac;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -4851,9 +5168,9 @@ declare module "crypto" {
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -4863,15 +5180,15 @@ declare module "crypto" {
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
-        update(data: string | Buffer): Signer;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Signer;
+        update(data: string | Buffer | DataView): Signer;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: string | { key: string; passphrase: string }): Buffer;
         sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
-        update(data: string | Buffer): Verify;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
+        update(data: string | Buffer | DataView): Verify;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Verify;
         verify(object: string | Object, signature: Buffer | DataView): boolean;
         verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
@@ -4972,6 +5289,8 @@ declare module "stream" {
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
+            readonly readableHighWaterMark: number;
+            readonly readableLength: number;
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
@@ -4981,8 +5300,9 @@ declare module "stream" {
             isPaused(): boolean;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
-            wrap(oldStream: NodeJS.ReadableStream): Readable;
+            wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
+            _destroy(err: Error, callback: Function): void;
             destroy(error?: Error): void;
 
             /**
@@ -4994,7 +5314,6 @@ declare module "stream" {
              * 4. readable
              * 5. error
              */
-            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
@@ -5052,18 +5371,22 @@ declare module "stream" {
             write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
             writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
             destroy?: (error?: Error) => any;
+            final?: (callback: (error?: Error) => void) => void;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
+            readonly writableHighWaterMark: number;
+            readonly writableLength: number;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
@@ -5146,14 +5469,17 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         export class Duplex extends Readable implements Writable {
             writable: boolean;
+            readonly writableHighWaterMark: number;
+            readonly writableLength: number;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
@@ -5220,17 +5546,34 @@ declare module "util" {
         __promisify__: TCustom;
     }
 
+    export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1>(fn: (arg1: T1) => Promise<void>): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, TResult>(fn: (arg1: T1) => Promise<TResult>): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2>(fn: (arg1: T1, arg2: T2) => Promise<void>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2) => Promise<TResult>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, T6>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1) => Promise<void>;
-    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<TResult>(fn: (callback: (err: Error, result: TResult) => void) => void): () => Promise<TResult>;
+    export function promisify(fn: (callback: (err: Error) => void) => void): () => Promise<void>;
+    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err: Error) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;
@@ -5286,12 +5629,12 @@ declare module "tty" {
     import * as net from "net";
 
     export function isatty(fd: number): boolean;
-    export interface ReadStream extends net.Socket {
+    export class ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
     }
-    export interface WriteStream extends net.Socket {
+    export class WriteStream extends net.Socket {
         columns: number;
         rows: number;
         isTTY: boolean;
@@ -5307,7 +5650,6 @@ declare module "domain" {
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
-        dispose(): void;
         members: any[];
         enter(): void;
         exit(): void;
@@ -5551,6 +5893,7 @@ declare module "constants" {
     export var O_NOATIME: number;
     export var O_NOFOLLOW: number;
     export var O_SYNC: number;
+    export var O_DSYNC: number;
     export var O_SYMLINK: number;
     export var O_DIRECT: number;
     export var O_NONBLOCK: number;
@@ -5592,6 +5935,10 @@ declare module "constants" {
     export var ALPN_ENABLED: number;
 }
 
+declare module "module" {
+    export = NodeJS.Module;
+}
+
 declare module "process" {
     export = process;
 }
@@ -5627,142 +5974,23 @@ declare module "v8" {
 
 declare module "timers" {
     export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export namespace setTimeout {
+        export function __promisify__(ms: number): Promise<void>;
+        export function __promisify__<T>(ms: number, value: T): Promise<T>;
+    }
     export function clearTimeout(timeoutId: NodeJS.Timer): void;
     export function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
     export function clearInterval(intervalId: NodeJS.Timer): void;
     export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    export namespace setImmediate {
+        export function __promisify__(): Promise<void>;
+        export function __promisify__<T>(value: T): Promise<T>;
+    }
     export function clearImmediate(immediateId: any): void;
 }
 
 declare module "console" {
     export = console;
-}
-
-/**
- * _debugger module is not documented.
- * Source code is at https://github.com/nodejs/node/blob/master/lib/_debugger.js
- */
-declare module "_debugger" {
-    export interface Packet {
-        raw: string;
-        headers: string[];
-        body: Message;
-    }
-
-    export interface Message {
-        seq: number;
-        type: string;
-    }
-
-    export interface RequestInfo {
-        command: string;
-        arguments: any;
-    }
-
-    export interface Request extends Message, RequestInfo {
-    }
-
-    export interface Event extends Message {
-        event: string;
-        body?: any;
-    }
-
-    export interface Response extends Message {
-        request_seq: number;
-        success: boolean;
-        /** Contains error message if success === false. */
-        message?: string;
-        /** Contains message body if success === true. */
-        body?: any;
-    }
-
-    export interface BreakpointMessageBody {
-        type: string;
-        target: number;
-        line: number;
-    }
-
-    export class Protocol {
-        res: Packet;
-        state: string;
-        execute(data: string): void;
-        serialize(rq: Request): string;
-        onResponse: (pkt: Packet) => void;
-    }
-
-    export var NO_FRAME: number;
-    export var port: number;
-
-    export interface ScriptDesc {
-        name: string;
-        id: number;
-        isNative?: boolean;
-        handle?: number;
-        type: string;
-        lineOffset?: number;
-        columnOffset?: number;
-        lineCount?: number;
-    }
-
-    export interface Breakpoint {
-        id: number;
-        scriptId: number;
-        script: ScriptDesc;
-        line: number;
-        condition?: string;
-        scriptReq?: string;
-    }
-
-    export interface RequestHandler {
-        (err: boolean, body: Message, res: Packet): void;
-        request_seq?: number;
-    }
-
-    export interface ResponseBodyHandler {
-        (err: boolean, body?: any): void;
-        request_seq?: number;
-    }
-
-    export interface ExceptionInfo {
-        text: string;
-    }
-
-    export interface BreakResponse {
-        script?: ScriptDesc;
-        exception?: ExceptionInfo;
-        sourceLine: number;
-        sourceLineText: string;
-        sourceColumn: number;
-    }
-
-    export function SourceInfo(body: BreakResponse): string;
-
-    export interface ClientInstance extends NodeJS.EventEmitter {
-        protocol: Protocol;
-        scripts: ScriptDesc[];
-        handles: ScriptDesc[];
-        breakpoints: Breakpoint[];
-        currentSourceLine: number;
-        currentSourceColumn: number;
-        currentSourceLineText: string;
-        currentFrame: number;
-        currentScript: string;
-
-        connect(port: number, host: string): void;
-        req(req: any, cb: RequestHandler): void;
-        reqFrameEval(code: string, frame: number, cb: RequestHandler): void;
-        mirrorObject(obj: any, depth: number, cb: ResponseBodyHandler): void;
-        setBreakpoint(rq: BreakpointMessageBody, cb: RequestHandler): void;
-        clearBreakpoint(rq: Request, cb: RequestHandler): void;
-        listbreakpoints(cb: RequestHandler): void;
-        reqSource(from: number, to: number, cb: RequestHandler): void;
-        reqScripts(cb: any): void;
-        reqContinue(cb: RequestHandler): void;
-    }
-
-    export var Client: {
-        new(): ClientInstance
-    };
 }
 
 /**
@@ -5807,6 +6035,13 @@ declare module "async_hooks" {
         after?(asyncId: number): void;
 
         /**
+         * Called when a promise has resolve() called. This may not be in the same execution id
+         * as the promise itself.
+         * @param asyncId the unique id for the promise that was resolve()d.
+         */
+        promiseResolve?(asyncId: number): void;
+
+        /**
          * Called after the resource corresponding to asyncId is destroyed
          * @param asyncId a unique ID for the async resource
          */
@@ -5831,6 +6066,46 @@ declare module "async_hooks" {
      * @return an AsyncHooks instance used for disabling and enabling hooks
      */
     export function createHook(options: HookCallbacks): AsyncHook;
+
+    /**
+     * The class AsyncResource was designed to be extended by the embedder's async resources.
+     * Using this users can easily trigger the lifetime events of their own resources.
+     */
+    export class AsyncResource {
+        /**
+         * AsyncResource() is meant to be extended. Instantiating a
+         * new AsyncResource() also triggers init. If triggerAsyncId is omitted then
+         * async_hook.executionAsyncId() is used.
+         * @param type the name of this async resource type
+         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
+         */
+        constructor(type: string, triggerAsyncId?: number)
+
+        /**
+         * Call AsyncHooks before callbacks.
+         */
+        emitBefore(): void;
+
+        /**
+         * Call AsyncHooks after callbacks
+         */
+        emitAfter(): void;
+
+        /**
+         * Call AsyncHooks destroy callbacks.
+         */
+        emitDestroy(): void;
+
+        /**
+         * @return the unique ID assigned to this AsyncResource instance.
+         */
+        asyncId(): number;
+
+        /**
+         * @return the trigger ID for this AsyncResource instance.
+         */
+        triggerAsyncId(): number;
+    }
 }
 
 declare module "http2" {
@@ -5864,7 +6139,7 @@ declare module "http2" {
 
     export interface ServerStreamResponseOptions {
         endStream?: boolean;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
     }
 
     export interface StatOptions {
@@ -5873,23 +6148,24 @@ declare module "http2" {
     }
 
     export interface ServerStreamFileResponseOptions {
-        statCheck?: (stats: fs.Stats, headers: IncomingHttpHeaders, statOptions: StatOptions) => void;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void | boolean;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
         offset?: number;
         length?: number;
     }
 
+    export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
+        onError?: (err: NodeJS.ErrnoException) => void;
+    }
+
     export interface Http2Stream extends stream.Duplex {
         readonly aborted: boolean;
+        close(code: number, callback?: () => void): void;
+        readonly closed: boolean;
         readonly destroyed: boolean;
+        readonly pending: boolean;
         priority(options: StreamPriorityOptions): void;
         readonly rstCode: number;
-        rstStream(code: number): void;
-        rstWithNoError(): void;
-        rstWithProtocolError(): void;
-        rstWithCancel(): void;
-        rstWithRefuse(): void;
-        rstWithInternalError(): void;
         readonly session: Http2Session;
         setTimeout(msecs: number, callback?: () => void): void;
         readonly state: StreamState;
@@ -6021,11 +6297,11 @@ declare module "http2" {
         additionalHeaders(headers: OutgoingHttpHeaders): void;
         readonly headersSent: boolean;
         readonly pushAllowed: boolean;
-        pushStream(headers: OutgoingHttpHeaders, callback?: (pushStream: ServerHttp2Stream) => void): void;
-        pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (pushStream: ServerHttp2Stream) => void): void;
+        pushStream(headers: OutgoingHttpHeaders, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
+        pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
         respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
         respondWithFD(fd: number, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
-        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
+        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptionsWithError): void;
     }
 
     // Http2Session
@@ -6044,14 +6320,7 @@ declare module "http2" {
         exclusive?: boolean;
         parent?: number;
         weight?: number;
-        getTrailers?: (trailers: IncomingHttpHeaders, flags: number) => void;
-    }
-
-    export interface SessionShutdownOptions {
-        graceful?: boolean;
-        errorCode?: number;
-        lastStreamID?: number;
-        opaqueData?: Buffer | Uint8Array;
+        getTrailers?: (trailers: OutgoingHttpHeaders, flags: number) => void;
     }
 
     export interface SessionState {
@@ -6067,20 +6336,26 @@ declare module "http2" {
     }
 
     export interface Http2Session extends events.EventEmitter {
-        destroy(): void;
+        readonly alpnProtocol?: string;
+        close(callback?: () => void): void;
+        readonly closed: boolean;
+        destroy(error?: Error, code?: number): void;
         readonly destroyed: boolean;
+        readonly encrypted?: boolean;
+        goaway(code?: number, lastStreamID?: number, opaqueData?: Buffer | DataView /*| TypedArray*/): void;
         readonly localSettings: Settings;
+        readonly originSet?: string[];
         readonly pendingSettingsAck: boolean;
+        ref(): void;
         readonly remoteSettings: Settings;
         rstStream(stream: Http2Stream, code?: number): void;
         setTimeout(msecs: number, callback?: () => void): void;
-        shutdown(callback?: () => void): void;
-        shutdown(options: SessionShutdownOptions, callback?: () => void): void;
         readonly socket: net.Socket | tls.TLSSocket;
         readonly state: SessionState;
         priority(stream: Http2Stream, options: StreamPriorityOptions): void;
         settings(settings: Settings): void;
         readonly type: number;
+        unref(): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
@@ -6089,7 +6364,6 @@ declare module "http2" {
         addListener(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
         addListener(event: "localSettings", listener: (settings: Settings) => void): this;
         addListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
-        addListener(event: "socketError", listener: (err: Error) => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
@@ -6099,7 +6373,6 @@ declare module "http2" {
         emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData: Buffer): boolean;
         emit(event: "localSettings", settings: Settings): boolean;
         emit(event: "remoteSettings", settings: Settings): boolean;
-        emit(event: "socketError", err: Error): boolean;
         emit(event: "timeout"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
@@ -6109,7 +6382,6 @@ declare module "http2" {
         on(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
         on(event: "localSettings", listener: (settings: Settings) => void): this;
         on(event: "remoteSettings", listener: (settings: Settings) => void): this;
-        on(event: "socketError", listener: (err: Error) => void): this;
         on(event: "timeout", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
@@ -6119,7 +6391,6 @@ declare module "http2" {
         once(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
         once(event: "localSettings", listener: (settings: Settings) => void): this;
         once(event: "remoteSettings", listener: (settings: Settings) => void): this;
-        once(event: "socketError", listener: (err: Error) => void): this;
         once(event: "timeout", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
@@ -6129,7 +6400,6 @@ declare module "http2" {
         prependListener(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
         prependListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
-        prependListener(event: "socketError", listener: (err: Error) => void): this;
         prependListener(event: "timeout", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
@@ -6139,7 +6409,6 @@ declare module "http2" {
         prependOnceListener(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
         prependOnceListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependOnceListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
-        prependOnceListener(event: "socketError", listener: (err: Error) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
@@ -6147,31 +6416,42 @@ declare module "http2" {
         request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         addListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         addListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(event: "stream", stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         on(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         on(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         once(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         once(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         prependListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         prependListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         prependOnceListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         prependOnceListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
     }
 
+    export interface AlternativeServiceOptions {
+        origin: number | string | url.URL;
+    }
+
     export interface ServerHttp2Session extends Http2Session {
+        altsvc(alt: string, originOrStream: number | string | url.URL | AlternativeServiceOptions): void;
         readonly server: Http2Server | Http2SecureServer;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
@@ -6214,8 +6494,8 @@ declare module "http2" {
     export type ClientSessionOptions = SessionOptions;
     export type ServerSessionOptions = SessionOptions;
 
-    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
-    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions {}
+    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
+    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
     export interface ServerOptions extends ServerSessionOptions {
         allowHTTP1?: boolean;
@@ -6227,93 +6507,93 @@ declare module "http2" {
 
     export interface Http2Server extends net.Server {
         addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "sessionError", listener: (err: Error) => void): this;
-        addListener(event: "socketError", listener: (err: Error) => void): this;
         addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "sessionError", err: Error): boolean;
-        emit(event: "socketError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         on(event: "sessionError", listener: (err: Error) => void): this;
-        on(event: "socketError", listener: (err: Error) => void): this;
         on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         on(event: "timeout", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         once(event: "sessionError", listener: (err: Error) => void): this;
-        once(event: "socketError", listener: (err: Error) => void): this;
         once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         once(event: "timeout", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependListener(event: "socketError", listener: (err: Error) => void): this;
         prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependListener(event: "timeout", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependOnceListener(event: "socketError", listener: (err: Error) => void): this;
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
     export interface Http2SecureServer extends tls.Server {
         addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         addListener(event: "sessionError", listener: (err: Error) => void): this;
-        addListener(event: "socketError", listener: (err: Error) => void): this;
         addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         addListener(event: "timeout", listener: () => void): this;
         addListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "sessionError", err: Error): boolean;
-        emit(event: "socketError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
         emit(event: "unknownProtocol", socket: tls.TLSSocket): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         on(event: "sessionError", listener: (err: Error) => void): this;
-        on(event: "socketError", listener: (err: Error) => void): this;
         on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         on(event: "timeout", listener: () => void): this;
         on(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         once(event: "sessionError", listener: (err: Error) => void): this;
-        once(event: "socketError", listener: (err: Error) => void): this;
         once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         once(event: "timeout", listener: () => void): this;
         once(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependListener(event: "socketError", listener: (err: Error) => void): this;
         prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependListener(event: "timeout", listener: () => void): this;
         prependListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
         prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
-        prependOnceListener(event: "socketError", listener: (err: Error) => void): this;
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
@@ -6375,7 +6655,7 @@ declare module "http2" {
         writeContinue(): void;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
         writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): void;
-        createPushResponse(headers: OutgoingHttpHeaders, callback?: (err: Error) => void): void;
+        createPushResponse(headers: OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
@@ -6422,216 +6702,216 @@ declare module "http2" {
 
     // Public API
 
-    export const constants: {
-        NGHTTP2_SESSION_SERVER: number;
-        NGHTTP2_SESSION_CLIENT: number;
-        NGHTTP2_STREAM_STATE_IDLE: number;
-        NGHTTP2_STREAM_STATE_OPEN: number;
-        NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
-        NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
-        NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
-        NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
-        NGHTTP2_STREAM_STATE_CLOSED: number;
-        NGHTTP2_NO_ERROR: number;
-        NGHTTP2_PROTOCOL_ERROR: number;
-        NGHTTP2_INTERNAL_ERROR: number;
-        NGHTTP2_FLOW_CONTROL_ERROR: number;
-        NGHTTP2_SETTINGS_TIMEOUT: number;
-        NGHTTP2_STREAM_CLOSED: number;
-        NGHTTP2_FRAME_SIZE_ERROR: number;
-        NGHTTP2_REFUSED_STREAM: number;
-        NGHTTP2_CANCEL: number;
-        NGHTTP2_COMPRESSION_ERROR: number;
-        NGHTTP2_CONNECT_ERROR: number;
-        NGHTTP2_ENHANCE_YOUR_CALM: number;
-        NGHTTP2_INADEQUATE_SECURITY: number;
-        NGHTTP2_HTTP_1_1_REQUIRED: number;
-        NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
-        NGHTTP2_FLAG_NONE: number;
-        NGHTTP2_FLAG_END_STREAM: number;
-        NGHTTP2_FLAG_END_HEADERS: number;
-        NGHTTP2_FLAG_ACK: number;
-        NGHTTP2_FLAG_PADDED: number;
-        NGHTTP2_FLAG_PRIORITY: number;
-        DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
-        DEFAULT_SETTINGS_ENABLE_PUSH: number;
-        DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
-        MAX_MAX_FRAME_SIZE: number;
-        MIN_MAX_FRAME_SIZE: number;
-        MAX_INITIAL_WINDOW_SIZE: number;
-        NGHTTP2_DEFAULT_WEIGHT: number;
-        NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
-        NGHTTP2_SETTINGS_ENABLE_PUSH: number;
-        NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
-        NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
-        NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
-        PADDING_STRATEGY_NONE: number;
-        PADDING_STRATEGY_MAX: number;
-        PADDING_STRATEGY_CALLBACK: number;
-        HTTP2_HEADER_STATUS: string;
-        HTTP2_HEADER_METHOD: string;
-        HTTP2_HEADER_AUTHORITY: string;
-        HTTP2_HEADER_SCHEME: string;
-        HTTP2_HEADER_PATH: string;
-        HTTP2_HEADER_ACCEPT_CHARSET: string;
-        HTTP2_HEADER_ACCEPT_ENCODING: string;
-        HTTP2_HEADER_ACCEPT_LANGUAGE: string;
-        HTTP2_HEADER_ACCEPT_RANGES: string;
-        HTTP2_HEADER_ACCEPT: string;
-        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
-        HTTP2_HEADER_AGE: string;
-        HTTP2_HEADER_ALLOW: string;
-        HTTP2_HEADER_AUTHORIZATION: string;
-        HTTP2_HEADER_CACHE_CONTROL: string;
-        HTTP2_HEADER_CONNECTION: string;
-        HTTP2_HEADER_CONTENT_DISPOSITION: string;
-        HTTP2_HEADER_CONTENT_ENCODING: string;
-        HTTP2_HEADER_CONTENT_LANGUAGE: string;
-        HTTP2_HEADER_CONTENT_LENGTH: string;
-        HTTP2_HEADER_CONTENT_LOCATION: string;
-        HTTP2_HEADER_CONTENT_MD5: string;
-        HTTP2_HEADER_CONTENT_RANGE: string;
-        HTTP2_HEADER_CONTENT_TYPE: string;
-        HTTP2_HEADER_COOKIE: string;
-        HTTP2_HEADER_DATE: string;
-        HTTP2_HEADER_ETAG: string;
-        HTTP2_HEADER_EXPECT: string;
-        HTTP2_HEADER_EXPIRES: string;
-        HTTP2_HEADER_FROM: string;
-        HTTP2_HEADER_HOST: string;
-        HTTP2_HEADER_IF_MATCH: string;
-        HTTP2_HEADER_IF_MODIFIED_SINCE: string;
-        HTTP2_HEADER_IF_NONE_MATCH: string;
-        HTTP2_HEADER_IF_RANGE: string;
-        HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
-        HTTP2_HEADER_LAST_MODIFIED: string;
-        HTTP2_HEADER_LINK: string;
-        HTTP2_HEADER_LOCATION: string;
-        HTTP2_HEADER_MAX_FORWARDS: string;
-        HTTP2_HEADER_PREFER: string;
-        HTTP2_HEADER_PROXY_AUTHENTICATE: string;
-        HTTP2_HEADER_PROXY_AUTHORIZATION: string;
-        HTTP2_HEADER_RANGE: string;
-        HTTP2_HEADER_REFERER: string;
-        HTTP2_HEADER_REFRESH: string;
-        HTTP2_HEADER_RETRY_AFTER: string;
-        HTTP2_HEADER_SERVER: string;
-        HTTP2_HEADER_SET_COOKIE: string;
-        HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
-        HTTP2_HEADER_TRANSFER_ENCODING: string;
-        HTTP2_HEADER_TE: string;
-        HTTP2_HEADER_UPGRADE: string;
-        HTTP2_HEADER_USER_AGENT: string;
-        HTTP2_HEADER_VARY: string;
-        HTTP2_HEADER_VIA: string;
-        HTTP2_HEADER_WWW_AUTHENTICATE: string;
-        HTTP2_HEADER_HTTP2_SETTINGS: string;
-        HTTP2_HEADER_KEEP_ALIVE: string;
-        HTTP2_HEADER_PROXY_CONNECTION: string;
-        HTTP2_METHOD_ACL: string;
-        HTTP2_METHOD_BASELINE_CONTROL: string;
-        HTTP2_METHOD_BIND: string;
-        HTTP2_METHOD_CHECKIN: string;
-        HTTP2_METHOD_CHECKOUT: string;
-        HTTP2_METHOD_CONNECT: string;
-        HTTP2_METHOD_COPY: string;
-        HTTP2_METHOD_DELETE: string;
-        HTTP2_METHOD_GET: string;
-        HTTP2_METHOD_HEAD: string;
-        HTTP2_METHOD_LABEL: string;
-        HTTP2_METHOD_LINK: string;
-        HTTP2_METHOD_LOCK: string;
-        HTTP2_METHOD_MERGE: string;
-        HTTP2_METHOD_MKACTIVITY: string;
-        HTTP2_METHOD_MKCALENDAR: string;
-        HTTP2_METHOD_MKCOL: string;
-        HTTP2_METHOD_MKREDIRECTREF: string;
-        HTTP2_METHOD_MKWORKSPACE: string;
-        HTTP2_METHOD_MOVE: string;
-        HTTP2_METHOD_OPTIONS: string;
-        HTTP2_METHOD_ORDERPATCH: string;
-        HTTP2_METHOD_PATCH: string;
-        HTTP2_METHOD_POST: string;
-        HTTP2_METHOD_PRI: string;
-        HTTP2_METHOD_PROPFIND: string;
-        HTTP2_METHOD_PROPPATCH: string;
-        HTTP2_METHOD_PUT: string;
-        HTTP2_METHOD_REBIND: string;
-        HTTP2_METHOD_REPORT: string;
-        HTTP2_METHOD_SEARCH: string;
-        HTTP2_METHOD_TRACE: string;
-        HTTP2_METHOD_UNBIND: string;
-        HTTP2_METHOD_UNCHECKOUT: string;
-        HTTP2_METHOD_UNLINK: string;
-        HTTP2_METHOD_UNLOCK: string;
-        HTTP2_METHOD_UPDATE: string;
-        HTTP2_METHOD_UPDATEREDIRECTREF: string;
-        HTTP2_METHOD_VERSION_CONTROL: string;
-        HTTP_STATUS_CONTINUE: number;
-        HTTP_STATUS_SWITCHING_PROTOCOLS: number;
-        HTTP_STATUS_PROCESSING: number;
-        HTTP_STATUS_OK: number;
-        HTTP_STATUS_CREATED: number;
-        HTTP_STATUS_ACCEPTED: number;
-        HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
-        HTTP_STATUS_NO_CONTENT: number;
-        HTTP_STATUS_RESET_CONTENT: number;
-        HTTP_STATUS_PARTIAL_CONTENT: number;
-        HTTP_STATUS_MULTI_STATUS: number;
-        HTTP_STATUS_ALREADY_REPORTED: number;
-        HTTP_STATUS_IM_USED: number;
-        HTTP_STATUS_MULTIPLE_CHOICES: number;
-        HTTP_STATUS_MOVED_PERMANENTLY: number;
-        HTTP_STATUS_FOUND: number;
-        HTTP_STATUS_SEE_OTHER: number;
-        HTTP_STATUS_NOT_MODIFIED: number;
-        HTTP_STATUS_USE_PROXY: number;
-        HTTP_STATUS_TEMPORARY_REDIRECT: number;
-        HTTP_STATUS_PERMANENT_REDIRECT: number;
-        HTTP_STATUS_BAD_REQUEST: number;
-        HTTP_STATUS_UNAUTHORIZED: number;
-        HTTP_STATUS_PAYMENT_REQUIRED: number;
-        HTTP_STATUS_FORBIDDEN: number;
-        HTTP_STATUS_NOT_FOUND: number;
-        HTTP_STATUS_METHOD_NOT_ALLOWED: number;
-        HTTP_STATUS_NOT_ACCEPTABLE: number;
-        HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
-        HTTP_STATUS_REQUEST_TIMEOUT: number;
-        HTTP_STATUS_CONFLICT: number;
-        HTTP_STATUS_GONE: number;
-        HTTP_STATUS_LENGTH_REQUIRED: number;
-        HTTP_STATUS_PRECONDITION_FAILED: number;
-        HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
-        HTTP_STATUS_URI_TOO_LONG: number;
-        HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
-        HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
-        HTTP_STATUS_EXPECTATION_FAILED: number;
-        HTTP_STATUS_TEAPOT: number;
-        HTTP_STATUS_MISDIRECTED_REQUEST: number;
-        HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
-        HTTP_STATUS_LOCKED: number;
-        HTTP_STATUS_FAILED_DEPENDENCY: number;
-        HTTP_STATUS_UNORDERED_COLLECTION: number;
-        HTTP_STATUS_UPGRADE_REQUIRED: number;
-        HTTP_STATUS_PRECONDITION_REQUIRED: number;
-        HTTP_STATUS_TOO_MANY_REQUESTS: number;
-        HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
-        HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
-        HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
-        HTTP_STATUS_NOT_IMPLEMENTED: number;
-        HTTP_STATUS_BAD_GATEWAY: number;
-        HTTP_STATUS_SERVICE_UNAVAILABLE: number;
-        HTTP_STATUS_GATEWAY_TIMEOUT: number;
-        HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
-        HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
-        HTTP_STATUS_INSUFFICIENT_STORAGE: number;
-        HTTP_STATUS_LOOP_DETECTED: number;
-        HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
-        HTTP_STATUS_NOT_EXTENDED: number;
-        HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
-    };
+    export namespace constants {
+        export const NGHTTP2_SESSION_SERVER: number;
+        export const NGHTTP2_SESSION_CLIENT: number;
+        export const NGHTTP2_STREAM_STATE_IDLE: number;
+        export const NGHTTP2_STREAM_STATE_OPEN: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_CLOSED: number;
+        export const NGHTTP2_NO_ERROR: number;
+        export const NGHTTP2_PROTOCOL_ERROR: number;
+        export const NGHTTP2_INTERNAL_ERROR: number;
+        export const NGHTTP2_FLOW_CONTROL_ERROR: number;
+        export const NGHTTP2_SETTINGS_TIMEOUT: number;
+        export const NGHTTP2_STREAM_CLOSED: number;
+        export const NGHTTP2_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_REFUSED_STREAM: number;
+        export const NGHTTP2_CANCEL: number;
+        export const NGHTTP2_COMPRESSION_ERROR: number;
+        export const NGHTTP2_CONNECT_ERROR: number;
+        export const NGHTTP2_ENHANCE_YOUR_CALM: number;
+        export const NGHTTP2_INADEQUATE_SECURITY: number;
+        export const NGHTTP2_HTTP_1_1_REQUIRED: number;
+        export const NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_FLAG_NONE: number;
+        export const NGHTTP2_FLAG_END_STREAM: number;
+        export const NGHTTP2_FLAG_END_HEADERS: number;
+        export const NGHTTP2_FLAG_ACK: number;
+        export const NGHTTP2_FLAG_PADDED: number;
+        export const NGHTTP2_FLAG_PRIORITY: number;
+        export const DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const DEFAULT_SETTINGS_ENABLE_PUSH: number;
+        export const DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
+        export const MAX_MAX_FRAME_SIZE: number;
+        export const MIN_MAX_FRAME_SIZE: number;
+        export const MAX_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_DEFAULT_WEIGHT: number;
+        export const NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const NGHTTP2_SETTINGS_ENABLE_PUSH: number;
+        export const NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
+        export const NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
+        export const PADDING_STRATEGY_NONE: number;
+        export const PADDING_STRATEGY_MAX: number;
+        export const PADDING_STRATEGY_CALLBACK: number;
+        export const HTTP2_HEADER_STATUS: string;
+        export const HTTP2_HEADER_METHOD: string;
+        export const HTTP2_HEADER_AUTHORITY: string;
+        export const HTTP2_HEADER_SCHEME: string;
+        export const HTTP2_HEADER_PATH: string;
+        export const HTTP2_HEADER_ACCEPT_CHARSET: string;
+        export const HTTP2_HEADER_ACCEPT_ENCODING: string;
+        export const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
+        export const HTTP2_HEADER_ACCEPT_RANGES: string;
+        export const HTTP2_HEADER_ACCEPT: string;
+        export const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
+        export const HTTP2_HEADER_AGE: string;
+        export const HTTP2_HEADER_ALLOW: string;
+        export const HTTP2_HEADER_AUTHORIZATION: string;
+        export const HTTP2_HEADER_CACHE_CONTROL: string;
+        export const HTTP2_HEADER_CONNECTION: string;
+        export const HTTP2_HEADER_CONTENT_DISPOSITION: string;
+        export const HTTP2_HEADER_CONTENT_ENCODING: string;
+        export const HTTP2_HEADER_CONTENT_LANGUAGE: string;
+        export const HTTP2_HEADER_CONTENT_LENGTH: string;
+        export const HTTP2_HEADER_CONTENT_LOCATION: string;
+        export const HTTP2_HEADER_CONTENT_MD5: string;
+        export const HTTP2_HEADER_CONTENT_RANGE: string;
+        export const HTTP2_HEADER_CONTENT_TYPE: string;
+        export const HTTP2_HEADER_COOKIE: string;
+        export const HTTP2_HEADER_DATE: string;
+        export const HTTP2_HEADER_ETAG: string;
+        export const HTTP2_HEADER_EXPECT: string;
+        export const HTTP2_HEADER_EXPIRES: string;
+        export const HTTP2_HEADER_FROM: string;
+        export const HTTP2_HEADER_HOST: string;
+        export const HTTP2_HEADER_IF_MATCH: string;
+        export const HTTP2_HEADER_IF_MODIFIED_SINCE: string;
+        export const HTTP2_HEADER_IF_NONE_MATCH: string;
+        export const HTTP2_HEADER_IF_RANGE: string;
+        export const HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
+        export const HTTP2_HEADER_LAST_MODIFIED: string;
+        export const HTTP2_HEADER_LINK: string;
+        export const HTTP2_HEADER_LOCATION: string;
+        export const HTTP2_HEADER_MAX_FORWARDS: string;
+        export const HTTP2_HEADER_PREFER: string;
+        export const HTTP2_HEADER_PROXY_AUTHENTICATE: string;
+        export const HTTP2_HEADER_PROXY_AUTHORIZATION: string;
+        export const HTTP2_HEADER_RANGE: string;
+        export const HTTP2_HEADER_REFERER: string;
+        export const HTTP2_HEADER_REFRESH: string;
+        export const HTTP2_HEADER_RETRY_AFTER: string;
+        export const HTTP2_HEADER_SERVER: string;
+        export const HTTP2_HEADER_SET_COOKIE: string;
+        export const HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
+        export const HTTP2_HEADER_TRANSFER_ENCODING: string;
+        export const HTTP2_HEADER_TE: string;
+        export const HTTP2_HEADER_UPGRADE: string;
+        export const HTTP2_HEADER_USER_AGENT: string;
+        export const HTTP2_HEADER_VARY: string;
+        export const HTTP2_HEADER_VIA: string;
+        export const HTTP2_HEADER_WWW_AUTHENTICATE: string;
+        export const HTTP2_HEADER_HTTP2_SETTINGS: string;
+        export const HTTP2_HEADER_KEEP_ALIVE: string;
+        export const HTTP2_HEADER_PROXY_CONNECTION: string;
+        export const HTTP2_METHOD_ACL: string;
+        export const HTTP2_METHOD_BASELINE_CONTROL: string;
+        export const HTTP2_METHOD_BIND: string;
+        export const HTTP2_METHOD_CHECKIN: string;
+        export const HTTP2_METHOD_CHECKOUT: string;
+        export const HTTP2_METHOD_CONNECT: string;
+        export const HTTP2_METHOD_COPY: string;
+        export const HTTP2_METHOD_DELETE: string;
+        export const HTTP2_METHOD_GET: string;
+        export const HTTP2_METHOD_HEAD: string;
+        export const HTTP2_METHOD_LABEL: string;
+        export const HTTP2_METHOD_LINK: string;
+        export const HTTP2_METHOD_LOCK: string;
+        export const HTTP2_METHOD_MERGE: string;
+        export const HTTP2_METHOD_MKACTIVITY: string;
+        export const HTTP2_METHOD_MKCALENDAR: string;
+        export const HTTP2_METHOD_MKCOL: string;
+        export const HTTP2_METHOD_MKREDIRECTREF: string;
+        export const HTTP2_METHOD_MKWORKSPACE: string;
+        export const HTTP2_METHOD_MOVE: string;
+        export const HTTP2_METHOD_OPTIONS: string;
+        export const HTTP2_METHOD_ORDERPATCH: string;
+        export const HTTP2_METHOD_PATCH: string;
+        export const HTTP2_METHOD_POST: string;
+        export const HTTP2_METHOD_PRI: string;
+        export const HTTP2_METHOD_PROPFIND: string;
+        export const HTTP2_METHOD_PROPPATCH: string;
+        export const HTTP2_METHOD_PUT: string;
+        export const HTTP2_METHOD_REBIND: string;
+        export const HTTP2_METHOD_REPORT: string;
+        export const HTTP2_METHOD_SEARCH: string;
+        export const HTTP2_METHOD_TRACE: string;
+        export const HTTP2_METHOD_UNBIND: string;
+        export const HTTP2_METHOD_UNCHECKOUT: string;
+        export const HTTP2_METHOD_UNLINK: string;
+        export const HTTP2_METHOD_UNLOCK: string;
+        export const HTTP2_METHOD_UPDATE: string;
+        export const HTTP2_METHOD_UPDATEREDIRECTREF: string;
+        export const HTTP2_METHOD_VERSION_CONTROL: string;
+        export const HTTP_STATUS_CONTINUE: number;
+        export const HTTP_STATUS_SWITCHING_PROTOCOLS: number;
+        export const HTTP_STATUS_PROCESSING: number;
+        export const HTTP_STATUS_OK: number;
+        export const HTTP_STATUS_CREATED: number;
+        export const HTTP_STATUS_ACCEPTED: number;
+        export const HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
+        export const HTTP_STATUS_NO_CONTENT: number;
+        export const HTTP_STATUS_RESET_CONTENT: number;
+        export const HTTP_STATUS_PARTIAL_CONTENT: number;
+        export const HTTP_STATUS_MULTI_STATUS: number;
+        export const HTTP_STATUS_ALREADY_REPORTED: number;
+        export const HTTP_STATUS_IM_USED: number;
+        export const HTTP_STATUS_MULTIPLE_CHOICES: number;
+        export const HTTP_STATUS_MOVED_PERMANENTLY: number;
+        export const HTTP_STATUS_FOUND: number;
+        export const HTTP_STATUS_SEE_OTHER: number;
+        export const HTTP_STATUS_NOT_MODIFIED: number;
+        export const HTTP_STATUS_USE_PROXY: number;
+        export const HTTP_STATUS_TEMPORARY_REDIRECT: number;
+        export const HTTP_STATUS_PERMANENT_REDIRECT: number;
+        export const HTTP_STATUS_BAD_REQUEST: number;
+        export const HTTP_STATUS_UNAUTHORIZED: number;
+        export const HTTP_STATUS_PAYMENT_REQUIRED: number;
+        export const HTTP_STATUS_FORBIDDEN: number;
+        export const HTTP_STATUS_NOT_FOUND: number;
+        export const HTTP_STATUS_METHOD_NOT_ALLOWED: number;
+        export const HTTP_STATUS_NOT_ACCEPTABLE: number;
+        export const HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
+        export const HTTP_STATUS_REQUEST_TIMEOUT: number;
+        export const HTTP_STATUS_CONFLICT: number;
+        export const HTTP_STATUS_GONE: number;
+        export const HTTP_STATUS_LENGTH_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_FAILED: number;
+        export const HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
+        export const HTTP_STATUS_URI_TOO_LONG: number;
+        export const HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
+        export const HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
+        export const HTTP_STATUS_EXPECTATION_FAILED: number;
+        export const HTTP_STATUS_TEAPOT: number;
+        export const HTTP_STATUS_MISDIRECTED_REQUEST: number;
+        export const HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
+        export const HTTP_STATUS_LOCKED: number;
+        export const HTTP_STATUS_FAILED_DEPENDENCY: number;
+        export const HTTP_STATUS_UNORDERED_COLLECTION: number;
+        export const HTTP_STATUS_UPGRADE_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_REQUIRED: number;
+        export const HTTP_STATUS_TOO_MANY_REQUESTS: number;
+        export const HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
+        export const HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
+        export const HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
+        export const HTTP_STATUS_NOT_IMPLEMENTED: number;
+        export const HTTP_STATUS_BAD_GATEWAY: number;
+        export const HTTP_STATUS_SERVICE_UNAVAILABLE: number;
+        export const HTTP_STATUS_GATEWAY_TIMEOUT: number;
+        export const HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
+        export const HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
+        export const HTTP_STATUS_INSUFFICIENT_STORAGE: number;
+        export const HTTP_STATUS_LOOP_DETECTED: number;
+        export const HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
+        export const HTTP_STATUS_NOT_EXTENDED: number;
+        export const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
+    }
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Settings;
@@ -6645,4 +6925,244 @@ declare module "http2" {
 
     export function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
     export function connect(authority: string | url.URL, options?: ClientSessionOptions | SecureClientSessionOptions, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
+}
+
+declare module "perf_hooks" {
+    export interface PerformanceEntry {
+        /**
+         * The total number of milliseconds elapsed for this entry.
+         * This value will not be meaningful for all Performance Entry types.
+         */
+        readonly duration: number;
+
+        /**
+         * The name of the performance entry.
+         */
+        readonly name: string;
+
+        /**
+         * The high resolution millisecond timestamp marking the starting time of the Performance Entry.
+         */
+        readonly startTime: number;
+
+        /**
+         * The type of the performance entry.
+         * Currently it may be one of: 'node', 'mark', 'measure', 'gc', or 'function'.
+         */
+        readonly entryType: string;
+
+        /**
+         * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
+         * the type of garbage collection operation that occurred.
+         * The value may be one of perf_hooks.constants.
+         */
+        readonly kind?: number;
+    }
+
+    export interface PerformanceNodeTiming extends PerformanceEntry {
+        /**
+         * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
+         */
+        readonly bootstrapComplete: number;
+
+        /**
+         * The high resolution millisecond timestamp at which cluster processing ended.
+         */
+        readonly clusterSetupEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which cluster processing started.
+         */
+        readonly clusterSetupStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the Node.js event loop exited.
+         */
+        readonly loopExit: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the Node.js event loop started.
+         */
+        readonly loopStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which main module load ended.
+         */
+        readonly moduleLoadEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which main module load started.
+         */
+        readonly moduleLoadStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the Node.js process was initialized.
+         */
+        readonly nodeStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which preload module load ended.
+         */
+        readonly preloadModuleLoadEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which preload module load started.
+         */
+        readonly preloadModuleLoadStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which third_party_main processing ended.
+         */
+        readonly thirdPartyMainEnd: number;
+
+        /**
+         * The high resolution millisecond timestamp at which third_party_main processing started.
+         */
+        readonly thirdPartyMainStart: number;
+
+        /**
+         * The high resolution millisecond timestamp at which the V8 platform was initialized.
+         */
+        readonly v8Start: number;
+    }
+
+    export interface Performance {
+        /**
+         * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
+         * If name is provided, removes entries with name.
+         * @param name
+         */
+        clearFunctions(name?: string): void;
+
+        /**
+         * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
+         * If name is provided, removes only the named mark.
+         * @param name
+         */
+        clearMarks(name?: string): void;
+
+        /**
+         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
+         * If name is provided, removes only objects whose performanceEntry.name matches name.
+         */
+        clearMeasures(name?: string): void;
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
+         * @return list of all PerformanceEntry objects
+         */
+        getEntries(): PerformanceEntry[];
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
+         * @param name
+         * @param type
+         * @return list of all PerformanceEntry objects
+         */
+        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+
+        /**
+         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.entryType is equal to type.
+         * @param type
+         * @return list of all PerformanceEntry objects
+         */
+        getEntriesByType(type: string): PerformanceEntry[];
+
+        /**
+         * Creates a new PerformanceMark entry in the Performance Timeline.
+         * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
+         * and whose performanceEntry.duration is always 0.
+         * Performance marks are used to mark specific significant moments in the Performance Timeline.
+         * @param name
+         */
+        mark(name?: string): void;
+
+        /**
+         * Creates a new PerformanceMeasure entry in the Performance Timeline.
+         * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
+         * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.
+         *
+         * The startMark argument may identify any existing PerformanceMark in the the Performance Timeline, or may identify
+         * any of the timestamp properties provided by the PerformanceNodeTiming class. If the named startMark does not exist,
+         * then startMark is set to timeOrigin by default.
+         *
+         * The endMark argument must identify any existing PerformanceMark in the the Performance Timeline or any of the timestamp
+         * properties provided by the PerformanceNodeTiming class. If the named endMark does not exist, an error will be thrown.
+         * @param name
+         * @param startMark
+         * @param endMark
+         */
+        measure(name: string, startMark: string, endMark: string): void;
+
+        /**
+         * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
+         */
+        readonly nodeTiming: PerformanceNodeTiming;
+
+        /**
+         * @return the current high resolution millisecond timestamp
+         */
+        now(): number;
+
+        /**
+         * The timeOrigin specifies the high resolution millisecond timestamp from which all performance metric durations are measured.
+         */
+        readonly timeOrigin: number;
+
+        /**
+         * Wraps a function within a new function that measures the running time of the wrapped function.
+         * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
+         * @param fn
+         */
+        timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+    }
+
+    export interface PerformanceObserverEntryList {
+        /**
+         * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
+         */
+        getEntries(): PerformanceEntry[];
+
+        /**
+         * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
+         */
+        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+
+        /**
+         * @return Returns a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
+         * whose performanceEntry.entryType is equal to type.
+         */
+        getEntriesByType(type: string): PerformanceEntry[];
+    }
+
+    export type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
+
+    export class PerformanceObserver {
+        constructor(callback: PerformanceObserverCallback);
+
+        /**
+         * Disconnects the PerformanceObserver instance from all notifications.
+         */
+        disconnect(): void;
+
+        /**
+         * Subscribes the PerformanceObserver instance to notifications of new PerformanceEntry instances identified by options.entryTypes.
+         * When options.buffered is false, the callback will be invoked once for every PerformanceEntry instance.
+         * Property buffered defaults to false.
+         * @param options
+         */
+        observe(options: { entryTypes: string[], buffered?: boolean }): void;
+    }
+
+    export namespace constants {
+        export const NODE_PERFORMANCE_GC_MAJOR: number;
+        export const NODE_PERFORMANCE_GC_MINOR: number;
+        export const NODE_PERFORMANCE_GC_INCREMENTAL: number;
+        export const NODE_PERFORMANCE_GC_WEAKCB: number;
+    }
+
+    const performance: Performance;
 }

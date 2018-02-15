@@ -21,24 +21,35 @@ export interface Spec {
     /**
      * Returns the conformed value to this spec.
      * @param value the value to test for conformance
-     * @returns {symbol.invalid} if the value does not conform to the spec, or the value if it does.
+     * @returns if the value does not conform to the spec, or the value if it does.
      */
     conform(value: any): any;
 
     /**
      * Explain why a value does not conform to this spec.
+     * @param path the path to the value
+     * @param via the containing specs, if any
      * @param value the value to examine
-     * @returns {Problem[]} list of problems or null if none
+     * @returns list of problems or null if none
      */
-    explain(value: any): Problem[];
+    explain(path: string[], via: string[], value: any): Problem[];
+
+    /**
+     * Describe the specification. Used in explain strings and Problems.
+     * @returns the human-readable description of this spec
+     */
+    toString(): string;
 }
 
 /**
- * A Spec with a boolean conform function. Test the value and return true if it conforms.
+ * Predicate function definition to describe a predicate function.
  */
-export interface Predicate extends Spec {
-    (value: any): boolean;
-}
+export type PredFn = (value: any) => boolean;
+
+/**
+ * Defines an input to a js.spec method. Can be a Spec instance or a predicate function.
+ */
+export type SpecInput = PredFn | Spec;
 
 /**
  * An explanation of why a part of a value does not conform to a spec.
@@ -62,54 +73,63 @@ export interface Problem {
     /**
      * A predicate function to test new values for conformance.
      */
-    readonly predicate: Predicate;
+    readonly predicate: PredFn;
 }
 
 /**
  * Given a Spec, tests the value for confomrance. If it passes, then returns true.
- * @param {Spec} spec the spec to test with
+ * @param spec the spec to test with
  * @param value the value to test
- * @returns {boolean} true if valid
+ * @returns true if valid
  */
-export function valid(spec: Spec, value: any): boolean;
+export function valid(spec: SpecInput, value: any): boolean;
 
 /**
  * Returns the conformed value to this spec.
- * @param {Spec} spec the spec to test with
+ * @param spec the spec to test with
  * @param value the value to test
- * @returns {symbol.invalid} if the value does not conform to the spec, or the conformed value if it does.
+ * @returns if the value does not conform to the spec, or the conformed value if it does.
  */
-export function conform(spec: Spec, value: any): any;
+export function conform(spec: SpecInput, value: any): any;
 
 /**
  * Like explain(), but returns Problems array.
- * @param {Spec} spec the spec to test with
+ * @param spec the spec to test with
  * @param value the value to test
- * @returns {Problem[]} list of problems or null if none
+ * @returns list of problems or null if none
  */
-export function explainData(spec: Spec, value: any): Problem[];
+export function explainData(spec: SpecInput, value: any): Problem[];
 
 /**
  * Prints, to the console, reasons why the value did not conform to this spec.
- * @param {Spec} spec the spec to test with
+ * @param spec the spec to test with
  * @param value the value to test
  */
-export function explain(spec: Spec, value: any): void;
+export function explain(spec: SpecInput, value: any): void;
 
 /**
  * Returns a multiline string with reasons why the value did not conform to this spec.
- * @param {Spec} spec the spec to test with
+ * @param spec the spec to test with
  * @param value the value to test
  */
-export function explainStr(spec: Spec, value: any): string;
+export function explainStr(spec: SpecInput, value: any): string;
+
+/**
+ * Returns a string with the problem statement from the given Problem.
+ * @param problem the problem
+ */
+export function problemStr(problem: Problem): string;
 
 /**
  * Tests if a value conforms to a spec, and if not, throws an Error.
- * @param {Spec} spec the spec to test with
+ * @param spec the spec to test with
  * @param value the value to test
  */
-export function assert(spec: Spec, value: any): void;
+export function assert(spec: SpecInput, value: any): void;
 
+/**
+ * Symbols used
+ */
 export namespace symbol {
     /**
      * Returned by conform() to indicate a value does not conform to a spec.
@@ -137,39 +157,32 @@ export namespace symbol {
     const optional: symbol;
 }
 
+/**
+ * Factory methods to create Spec instances. Also provides included predicate functions that can be used in Specs.
+ */
 export namespace spec {
     /**
-     * Predicate function definition to describe non-spec predicate functions.
-     */
-    type PredFn = (value: any) => boolean;
-
-    /**
-     * Defins an input to a spec. Can be a Spec instance or a predicate function.
-     */
-    type SpecInput = PredFn | Spec;
-
-    /**
      * Data must conform to every provided spec.
-     * @param {string} name the name of the spec
-     * @param {spec.SpecInput} specs the array of specs that must all match
-     * @returns {Spec} the constructed Spec
+     * @param name the name of the spec
+     * @param specs the array of specs that must all match
+     * @returns the constructed Spec
      */
     function and(name: string, ...specs: SpecInput[]): Spec;
 
     /**
      * Data must conform to at least one provided spec. The order in which they are validated is not defined.
      * The conform() function returns matched branches along with input data.
-     * @param {string} name the name of the spec
-     * @param {object} alts map of alternative keys with their respective SpecInputs
-     * @returns {Spec} the constructed Spec
+     * @param name the name of the spec
+     * @param alts map of alternative keys with their respective SpecInputs
+     * @returns the constructed Spec
      */
     function or(name: string, alts: {[key: string]: SpecInput}): Spec;
 
     /**
      * By default no spec accepts null or undefined as valid input. Wrap your spec in nilable() to change this.
-     * @param {string} name the name of the spec
-     * @param {spec.SpecInput} spec the spec to apply if a value is non-nil
-     * @returns {Spec} the constructed spec
+     * @param name the name of the spec
+     * @param spec the spec to apply if a value is non-nil
+     * @returns the constructed spec
      */
     function nilable(name: string, spec: SpecInput): Spec;
 
@@ -179,152 +192,159 @@ export namespace spec {
      * Accepts an option map as optional second parameter.
      * NOTE: the keys in this option map are symbols but Typescript will not allow 'symbol' to be specified
      * as a key type but the TS compiler will allow it.
-     * @param {string} name the name of the spec
-     * @param {spec.SpecInput} spec the spec to apply to values in the collection
-     * @param {object} options symbol.count or symbol.minCount / symbol.maxCount
-     * @returns {Spec}
+     * @param name the name of the spec
+     * @param spec the spec to apply to values in the collection
+     * @param options symbol.count or symbol.minCount / symbol.maxCount
      */
     function collection(name: string, spec: SpecInput, options?: {[option: string]: number}): Spec;
 
     /**
      * Used to define collections with items of possibly different types. Works only with arrays as order is important.
-     * @param {string} name the name of the spec
-     * @param {spec.SpecInput} specs the specs to test the value array
-     * @returns {Spec} the constructed spec
+     * @param name the name of the spec
+     * @param specs the specs to test the value array
+     * @returns the constructed spec
      */
     function tuple(name: string, ...specs: SpecInput[]): Spec;
 
     /**
      * Used to define the shape of maps. By default all keys are required. Use {symbol.optional} key to define
      * optional keys. Shape map can contain nested key specs.
-     * @param {string} name the name of the spec
-     * @param {Object} shape the shape map with keys and associated specs
-     * @returns {Spec} the constructed spec
+     * @param name the name of the spec
+     * @param shape the shape map with keys and associated specs
+     * @returns the constructed spec
      */
     function map(name: string, shape: object): Spec;
 
     /**
      * Used to define "one out of these values", like an enum. (It's called oneOf because enum is a reserved word.)
-     * @param {string} name the name of the spec
+     * @param name the name of the spec
      * @param values the emum of values
-     * @returns {Spec} the constructed spec
+     * @returns the constructed spec
      */
     function oneOf(name: string, ...values: any[]): Spec;
+
+    /**
+     * Used to define a predicate function as a Spec.
+     * @param name the name of the spec
+     * @param predicate the predicate function
+     * @returns the constructed spec
+     */
+    function predicate(name: string, predicate: PredFn): Spec;
 
     // Predicates
     /**
      * Returns true if data is an integer.
      */
-    const int: Predicate;
+    const int: PredFn;
 
     /**
      * Returns true if data is an integer.
      */
-    const integer: Predicate;
+    const integer: PredFn;
 
     /**
      * Returns true if data is a finite number.
      */
-    const finite: Predicate;
+    const finite: PredFn;
 
     /**
      * Returns true if data is a number (can be double or integer).
      */
-    const number: Predicate;
+    const number: PredFn;
 
     /**
      * Returns true if data is an odd number.
      */
-    const odd: Predicate;
+    const odd: PredFn;
 
     /**
      * Returns true if data is an even number.
      */
-    const even: Predicate;
+    const even: PredFn;
 
     /**
      * Returns true if data is a number greater than zero.
      */
-    const positive: Predicate;
+    const positive: PredFn;
 
     /**
      * Returns true if data is a number smaller than zero.
      */
-    const negative: Predicate;
+    const negative: PredFn;
 
     /**
      * Returns true if data is the number zero.
      * Why: To easily construct specs for >= 0.
      */
-    const zero: Predicate;
+    const zero: PredFn;
 
     /**
      * Returns true if data is a string.
      */
-    const str: Predicate;
+    const str: PredFn;
 
     /**
      * Returns true if data is a string.
      */
-    const string: Predicate;
+    const string: PredFn;
 
     /**
      * Returns true if data is a function.
      */
-    const fn: Predicate;
+    const fn: PredFn;
 
     /**
      * Returns true if data is a Symbol.
      */
-    const sym: Predicate;
+    const sym: PredFn;
 
     /**
      * Returns true if data is a Symbol.
      */
-    const symbol: Predicate;
+    const symbol: PredFn;
 
     /**
      * Returns true if data is null or undefined.
      */
-    const nil: Predicate;
+    const nil: PredFn;
 
     /**
      * Returns true if data is a boolean.
      */
-    const bool: Predicate;
+    const bool: PredFn;
 
     /**
      * Returns true if data is a boolean.
      */
-    const boolean: Predicate;
+    const boolean: PredFn;
 
     /**
      * Returns true if data is a Date.
      */
-    const date: Predicate;
+    const date: PredFn;
 
     /**
      * Returns true if data is a plain object.
      */
-    const obj: Predicate;
+    const obj: PredFn;
 
     /**
      * Returns true if data is a plain object.
      */
-    const object: Predicate;
+    const object: PredFn;
 
     /**
      * Returns true if data is an Array.
      */
-    const array: Predicate;
+    const array: PredFn;
 
     /**
      * Returns true if data is a Set.
      */
-    const set: Predicate;
+    const set: PredFn;
 
     /**
      * Returns true if data is an Array or Set.
      */
-    const coll: Predicate;
+    const coll: PredFn;
 }

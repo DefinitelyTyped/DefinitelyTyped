@@ -2,6 +2,7 @@
 // Project: https://github.com/s0ph1e/node-website-scraper
 // Definitions by: Christian Rackerseder <https://www.echooff.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as request from 'request';
 

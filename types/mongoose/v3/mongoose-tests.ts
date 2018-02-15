@@ -143,8 +143,8 @@ Model.findOne({ name: 'john' }, (err: any, doc: mongoose.Document) => {
 
   doc.toJSON({ getters: true, virtuals: false });
   var data: any = doc.toObject();
-  delete data['age'];
-  delete data['weight'];
+  delete data['age']; // tslint:disable-line no-dynamic-delete
+  delete data['weight']; // tslint:disable-line no-dynamic-delete
   data['isAwesome'] = true;
 });
 

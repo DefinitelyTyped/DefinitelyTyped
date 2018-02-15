@@ -39,6 +39,10 @@ Mousetrap.unbind('?');
 Mousetrap.trigger('esc');
 Mousetrap.trigger('esc', 'keyup');
 
+// Test that custom keycodes can be added.
+Mousetrap.addKeycodes({ 144: 'numlock' });
+Mousetrap.bind('numlock', function() { console.log('numlock'); });
+
 Mousetrap.reset();
 
 // Test that we can create an instance of mousetrap and attach the

@@ -56,6 +56,7 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	dictRemoveFile: "",
 	dictRemoveFileConfirmation: "",
 	dictMaxFilesExceeded: "",
+	dictFileSizeUnits: { tb: "", gb: "", mb: "", kb: "", b: "" },
 
 	accept: (file: Dropzone.DropzoneFile, done: (error?: string | Error) => void) => {
 		if (file.accepted) {

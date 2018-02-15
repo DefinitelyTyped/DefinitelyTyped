@@ -1,21 +1,21 @@
-let defaultIceServers: RTCIceServer[] = RTCPeerConnection.defaultIceServers;
+let defaultIceServers: RTCIceServer[] = window.RTCPeerConnection.defaultIceServers;
 if (defaultIceServers.length > 0) {
-    let urls = defaultIceServers[0].urls;
+    const urls = defaultIceServers[0].urls;
 }
 
 // Create a peer connection
 let ice1: RTCIceServer = {
-    'urls': 'stun:stun.l.google.com:19302',
-    'username': 'john',
-    'credential': '1234',
-    'credentialType': 'password',
+    urls: 'stun:stun.l.google.com:19302',
+    username: 'john',
+    credential: '1234',
+    credentialType: 'password',
 };
-let ice2: RTCIceServer = {'urls': ['stun:stunserver.org', 'stun:stun.example.com']};
-let pc: RTCPeerConnection = new RTCPeerConnection();
+let ice2: RTCIceServer = { urls: ['stun:stunserver.org', 'stun:stun.example.com'] };
+let pc: RTCPeerConnection = new RTCPeerConnection({});
 let pc2: RTCPeerConnection = new RTCPeerConnection({
     iceServers: [ice1, ice2],
 });
-RTCPeerConnection.generateCertificate("sha-256").then((cert: RTCCertificate) => {
+window.RTCPeerConnection.generateCertificate("sha-256").then((cert: RTCCertificate) => {
     new RTCPeerConnection({
         iceServers: [ice1],
         iceTransportPolicy: 'relay',
@@ -35,15 +35,15 @@ pc.setConfiguration(conf);
 pc2.close();
 
 // Offer/answer flow
-let offer: RTCSessionDescriptionInit;
-let answer: RTCSessionDescriptionInit;
 pc.createOffer({iceRestart: true})
-    .then((_offer: RTCSessionDescriptionInit) => offer = _offer);
-pc.setLocalDescription(offer);
-pc2.setRemoteDescription(offer);
-pc2.createAnswer().then((_answer: RTCSessionDescriptionInit) => answer = _answer);
-pc2.setLocalDescription(answer);
-pc.setRemoteDescription(answer);
+    .then((offer: RTCSessionDescriptionInit) => {
+    pc.setLocalDescription(offer);
+    pc2.setRemoteDescription(offer);
+    pc2.createAnswer().then((answer: RTCSessionDescriptionInit) => {
+        pc2.setLocalDescription(answer);
+        pc.setRemoteDescription(answer);
+    });
+});
 
 // Event handlers
 pc.onnegotiationneeded = ev => console.log(ev.type);

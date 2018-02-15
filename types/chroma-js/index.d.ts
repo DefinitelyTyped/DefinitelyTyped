@@ -34,9 +34,6 @@ declare namespace chroma {
         /**
          * Create a color in the specified color space using a, b and c as values.
          *
-         * @param a
-         * @param b
-         * @param c
          * @param colorSpace The color space to use. Defaults to "rgb".
          * @return the color object.
          */
@@ -109,7 +106,7 @@ declare namespace chroma {
          * Blends two colors using RGB channel-wise blend functions.
          */
         blend(color1: string | Color, color2: string | Color,
-              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dogde'): Color;
+              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge'): Color;
 
         /**
          * Returns a random color.

@@ -2,7 +2,7 @@
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 ///<reference types="react" />
 
@@ -51,6 +51,14 @@ declare module __ReactDnd {
     export function DragDropContext<P>(
         backend: Backend
     ): <P>(componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => ContextComponentClass<P>;
+
+    interface DragDropContextProviderProps {
+        backend: Backend,
+        window?: Window,
+    }
+
+    export class DragDropContextProvider extends React.Component<DragDropContextProviderProps> {
+    }
 
     export function DragLayer<P>(
         collect: DragLayerCollector,

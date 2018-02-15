@@ -67,7 +67,8 @@ declare namespace restangular {
     setUseCannonicalId(useCannonicalId: boolean): IProvider;
     setEncodeIds(encode: boolean): IProvider;
     setSelfLinkAbsoluteUrl(value: boolean): IProvider;
-    setParentless(value: any) : IProvider;
+    setParentless(value: any): IProvider;
+    setPlainByDefault(isPlain: boolean): IProvider;
   }
 
   interface ICustom {

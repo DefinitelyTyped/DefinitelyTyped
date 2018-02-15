@@ -9,25 +9,7 @@ export namespace DiffBinary {
 }
 
 export class DiffBinary {
-    /**
-     *
-     *
-     * @type {DiffBinaryFile}
-     * @memberof DiffBinary
-     */
     oldFile: DiffBinaryFile;
-    /**
-     *
-     *
-     * @type {DiffBinaryFile}
-     * @memberof DiffBinary
-     */
     newFile: DiffBinaryFile;
-    /**
-     *
-     *
-     * @type {DiffBinary.DIFF_BINARY}
-     * @memberof DiffBinary
-     */
     containsData: DiffBinary.DIFF_BINARY;
 }
