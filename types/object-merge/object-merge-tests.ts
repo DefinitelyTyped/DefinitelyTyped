@@ -1,6 +1,6 @@
 import objectMerge from 'object-merge';
 
-let x = {
+const x = {
     a : 'a',
     b : 'b',
     c : {
@@ -8,46 +8,40 @@ let x = {
         e : 'e',
         f : {
             g : 'g'
-
         }
     }
 };
-let y = {
+const y = {
     a : '`a',
     b : '`b',
     c : {
         d : '`d'
     }
 };
-let z = {
+const z = {
     a : {
         b : '``b'
     },
-    fun : function foo () {
+    fun : function foo() {
         return 'foo';
     },
     aps : Array.prototype.slice
 };
+const out = objectMerge(x, y, z);
 
-let out = objectMerge(x, y, z);
-
-
-
-let a = {
-    'a1' : {
-        'a2' : {
-            'a3' : {}
+const a = {
+    a1 : {
+        a2 : {
+            a3 : {}
         }
     }
 };
-let b = {
-    'b1' : {
-        'b2' : {
-            'b3' : {}
+const b = {
+    b1 : {
+        b2 : {
+            b3 : {}
         }
     }
 };
-let opts = objectMerge.createOptions({depth : 2});
-let res = objectMerge(opts, a, b);
-
-objectMerge(a, b);
+const opts = objectMerge.createOptions({depth : 2});
+const res = objectMerge(opts, a, b);
