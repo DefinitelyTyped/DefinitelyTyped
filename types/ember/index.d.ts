@@ -3528,7 +3528,8 @@ declare module '@ember/object' {
 
 declare module '@ember/object/computed' {
     import Ember from 'ember';
-    export default class ComputedProperty<T> extends Ember.ComputedProperty<T> { }
+    type Computed<T> = Ember.ComputedProperty<T>;
+    export default Computed;
     export const alias: typeof Ember.computed.alias;
     export const and: typeof Ember.computed.and;
     export const bool: typeof Ember.computed.bool;
