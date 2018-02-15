@@ -98,22 +98,20 @@ declare namespace IWshRuntimeLibrary {
     }
 
     /** Generic Collection Object */
-    class WshCollection {
-        private 'IWshRuntimeLibrary.WshCollection_typekey': WshCollection;
-        private constructor();
+    interface WshCollection {
         Count(): number;
         Item(Index: any): any;
         readonly length: number;
+        (Index: any): any;
     }
 
     /** Environment Variables Collection Object */
-    class WshEnvironment {
-        private 'IWshRuntimeLibrary.WshEnvironment_typekey': WshEnvironment;
-        private constructor();
+    interface WshEnvironment {
         Count(): number;
         Item(Name: string): string;
         readonly length: number;
         Remove(Name: string): void;
+        (Name: string): string;
     }
 
     /** WSHExec object */
@@ -347,9 +345,4 @@ interface ActiveXObject {
 interface ActiveXObjectNameMap {
     'WScript.Network': IWshRuntimeLibrary.WshNetwork;
     'WScript.Shell': IWshRuntimeLibrary.WshShell;
-}
-
-interface EnumeratorConstructor {
-    new(col: IWshRuntimeLibrary.WshCollection): Enumerator;
-    new(col: IWshRuntimeLibrary.WshEnvironment): Enumerator<string>;
 }
