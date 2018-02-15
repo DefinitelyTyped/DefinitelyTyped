@@ -1,48 +1,48 @@
-// Type definitions for @rgrove/parse-xml 1.1.1
+// Type definitions for @rgrove/parse-xml 1.1
 // Project: https://github.com/rgrove/parse-xml
 // Definitions by: Pete Johanson <https://github.com/petejohanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare function parseXml(name: string, options?: parseXml.ParseOptions): parseXml.IDocument;
+declare function parseXml(name: string, options?: parseXml.ParseOptions): parseXml.Document;
 
 declare namespace parseXml {
-    export interface INode {
-      parent?: INode;
+    interface NodeBase {
+      parent?: NodeBase;
       type: string;
     }
 
-    export interface IDocument extends INode {
+    interface Document extends NodeBase {
         type: "document";
-        children: Node[];
+        children: NodeBase[];
     }
 
-    export interface ICData extends INode {
+    interface CData extends NodeBase {
         type: "cdata";
         text: string;
     }
 
-    export interface IComment extends INode {
+    interface Comment extends NodeBase {
         type: "comment";
         content: string;
     }
 
-    export interface IText extends INode {
+    interface Text extends NodeBase {
         type: "text";
         text: string;
     }
 
-    export interface IElement extends INode {
+    interface Element extends NodeBase {
         type: "element";
         attributes: { [key: string]: string };
-        children: INode[];
+        children: NodeBase[];
         name: string;
         preserveWhitespace?: string;
     }
 
-    export type Node = ICData | IComment | IElement | IText;
+    type Node = CData | Comment | Element | Text;
 
-    export interface ParseOptions {
+    interface ParseOptions {
         ignoreUndefinedEntities?: boolean;
         preserveCdata?: boolean;
         preserveComments?: boolean;
@@ -50,4 +50,4 @@ declare namespace parseXml {
     }
 }
 
-export = parseXml
+export = parseXml;
