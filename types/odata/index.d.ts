@@ -82,16 +82,13 @@ declare module 'odata' {
     }
 
     interface OHandlerStatic {
+        (): OHandlerStatic;
+        (options?: string | Options): OHandler<{}>;
         config: (config: Options) => OHandlerStatic;
         isEndpoint: () => boolean;
     }
 
-    interface OFn<T> extends OHandler<T> {
-        (): OHandlerStatic;
-        (options?: string | Options): OHandler<T>;
-    }
-
-    var o : OFn<{}>;
+    var o : OHandlerStatic;
 
     export = o
 }
