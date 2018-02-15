@@ -138,13 +138,15 @@ passportInstance.use(new TestStrategy());
 const authenticator = new passport.Authenticator();
 authenticator.use(new TestStrategy());
 
-declare namespace Express {
-  interface User {
-    username: string;
-  }
+declare global {
+    namespace Express {
+        interface User {
+            username: string;
+        }
+    }
 }
 
 app.use((req, res, next) => {
-    console.log(req.user.username);
+    req.user.username = "hello user";
     next();
 });
