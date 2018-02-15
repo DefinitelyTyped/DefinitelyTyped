@@ -4,6 +4,7 @@
         "module": "commonjs",
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "baseUrl": "../",
         "jsx": "preserve",
         "typeRoots": [

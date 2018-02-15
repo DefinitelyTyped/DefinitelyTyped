@@ -1,4 +1,4 @@
-import * as _ from "../index";
+import _ = require("../index");
 declare module "../index" {
     type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"]
 

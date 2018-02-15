@@ -11,6 +11,7 @@ namespace dataTests {
         { const a: Buffer = json.encode(1, { replacer: ["a", "b", "c"] }); }
         { const a: Buffer = json.encode(1, { replacer: (k: string, v: any) => null }); }
         { const a: Buffer = json.encode(1, { space: "    " }); }
+        { const a: Buffer = json.encode(1, { newline: true }); }
 
         json.decode("123");
         json.decode(Buffer.from("123"));
@@ -52,6 +53,8 @@ namespace dataTests {
         mpak.decode(new Uint8Array(10));
         mpak.decode(new ArrayBuffer(10));
 
+        mpak.tryDecode(new adone.collection.ByteArray());
+
         new mpak.Encoder([]);
         new mpak.Encoder([{
             type: 10,
@@ -73,6 +76,9 @@ namespace dataTests {
         new mpak.Decoder([]).decode(new ArrayBuffer(10));
         new mpak.Decoder([]).tryDecode(adone.collection.ByteArray.wrap("hello"));
 
+        new mpak.Serializer();
+        new mpak.Serializer(100);
+        mpak.registerCommonTypesFor(new mpak.Serializer());
         { const a: adone.data.mpak.Encoder = new mpak.Serializer().encoder; }
         { const a: adone.data.mpak.Decoder = new mpak.Serializer().decoder; }
         { const a: adone.data.mpak.Serializer = new mpak.Serializer().registerEncoder(10, (x) => true, (x) => new adone.collection.ByteArray(10)); }
@@ -125,6 +131,7 @@ namespace dataTests {
         { const a: string = base64.decode("string", {}); }
         { const a: string = base64.decode("string", { buffer: false }); }
         { const a: Buffer = base64.decode("string", { buffer: true }); }
+        { const a: string = base64.decode("string", { encoding: "utf8" }); }
 
         { const a: string = base64.encodeVLQ(123); }
         { const a: number = base64.decodeVLQ("H"); }

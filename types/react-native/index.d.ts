@@ -7726,8 +7726,7 @@ export interface EasingStatic {
 }
 
 export namespace Animated {
-    // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
-    type AnimatedValue = Animated;
+    type AnimatedValue = Value;
     type AnimatedValueXY = ValueXY;
 
     type Base = Animated;

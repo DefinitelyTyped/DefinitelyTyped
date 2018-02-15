@@ -15,12 +15,18 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
-            "@feathersjs/primus-client": ["feathersjs__primus-client"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/primus-client": [
+                "feathersjs__primus-client"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__primus-client-tests.ts"
+        "index.d.ts",
+        "feathersjs__primus-client-tests.ts"
     ]
 }
