@@ -1,5 +1,5 @@
 import koaCsrf = require("koa-csrf");
-import * as Koa from "koa";
+import Koa = require("koa");
 const app = new Koa();
 
 app.use(new koaCsrf({

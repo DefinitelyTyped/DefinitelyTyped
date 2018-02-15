@@ -3,7 +3,7 @@
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 connectdotz <https://github.com/connectdotz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { GestureResponderEvent, StyleProp, ViewStyle, TextStyle } from 'react-native';

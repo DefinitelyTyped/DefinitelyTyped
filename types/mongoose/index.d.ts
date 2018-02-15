@@ -1,6 +1,6 @@
 // Type definitions for Mongoose 5.0.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>, Alorel <https://github.com/Alorel>
+// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>, Alorel <https://github.com/Alorel>, jendrikw <https://github.com/jendrikw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -722,7 +722,7 @@ declare module "mongoose" {
     /** defaults to null */
     shardKey?: boolean;
     /** defaults to true */
-    strict?: boolean;
+    strict?: boolean | 'throw';
     /** no default */
     toJSON?: DocumentToObjectOptions;
     /** no default */

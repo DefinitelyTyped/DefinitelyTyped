@@ -16,12 +16,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-bootstrap-daterangepicker-tests.ts",
         "react-bootstrap-daterangepicker-tests.tsx"
     ]
 }

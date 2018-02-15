@@ -287,7 +287,7 @@ declare module 'luxon' {
         type Features = {
             intl: boolean;
             intlTokens: boolean;
-            timezones: boolean;
+            zones: boolean;
         };
 
         namespace Info {

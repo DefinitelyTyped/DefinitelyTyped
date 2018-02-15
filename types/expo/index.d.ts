@@ -4,7 +4,7 @@
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref } from 'react';

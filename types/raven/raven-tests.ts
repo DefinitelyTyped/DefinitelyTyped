@@ -9,6 +9,10 @@ Raven.config(dsn, {
     autoBreadcrumbs: false,
 });
 console.log(Raven.version);
+
+Raven.config({
+    release: 'foobar'
+});
 Raven.config(dsn).install({ captureUnhandledRejections: true });
 client.setContext({});
 client.on('logged', () => { });

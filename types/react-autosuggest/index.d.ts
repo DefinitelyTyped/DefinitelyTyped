@@ -7,7 +7,7 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Kevin Ross <https://github.com/rosskevin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
