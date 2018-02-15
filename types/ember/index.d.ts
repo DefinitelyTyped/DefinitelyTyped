@@ -1819,7 +1819,7 @@ declare module 'ember' {
              * The controller instance must already have been created, either through entering the
              * associated route or using `generateController`.
              */
-            controllerFor(name: string): Controller;
+            controllerFor<K extends keyof ControllerRegistry>(name: K): ControllerRegistry[K];
 
             /**
              * Disconnects a view that has been rendered into an outlet.
