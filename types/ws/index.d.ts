@@ -68,7 +68,7 @@ declare class WebSocket extends events.EventEmitter {
 
     // Events
     on(event: 'close', listener: (code: number, reason: string) => void): this;
-    on(event: 'error', listener: (event: {error: any, message: any, type: string, target: WebSocket }) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
     on(event: 'upgrade', listener: (request: http.IncomingMessage) => void): this;
     on(event: 'message', listener: (data: WebSocket.Data) => void): this;
     on(event: 'open' , listener: () => void): this;

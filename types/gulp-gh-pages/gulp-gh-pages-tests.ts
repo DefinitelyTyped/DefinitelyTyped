@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as ghPages from "gulp-gh-pages";
+import ghPages = require("gulp-gh-pages");
 
 gulp.src("test.css")
     .pipe(ghPages());

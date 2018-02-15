@@ -1,5 +1,5 @@
-import * as express from 'express';
-import * as mongoSanitize from 'express-mongo-sanitize';
+import express = require('express');
+import mongoSanitize = require('express-mongo-sanitize');
 
 const app: express.Express = express();
 

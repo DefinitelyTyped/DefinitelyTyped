@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface PopoverBodyProps {
+export interface PopoverBodyProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;

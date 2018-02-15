@@ -2,7 +2,7 @@
 // Project: https://github.com/wix/react-native-navigation
 // Definitions by: Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
@@ -40,10 +40,18 @@ export interface TabBasedApp {
     animationType?: 'none' | 'slide-down' | 'fade';
 }
 
+export interface IconInsets {
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+}
+
 export interface TabScreen {
     label?: string;
     screen: string;
     icon?: any;
+    iconInsets?: IconInsets;
     selectedIcon?: any;
     title?: string;
     navigatorStyle?: NavigatorStyle;
@@ -224,6 +232,7 @@ export interface NavigatorStyle {
 export interface NavigatorButtons {
     leftButtons?: NavigatorButton[];
     rightButtons?: NavigatorButton[];
+    fab?: FABAndroid;
 }
 
 export type IdAndroid = 'back' | 'cancel' | 'accept' | 'sideMenu';

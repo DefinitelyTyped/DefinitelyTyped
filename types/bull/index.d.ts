@@ -135,7 +135,7 @@ declare namespace Bull {
     promote(): Promise<void>;
   }
 
-  type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
+  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -430,6 +430,11 @@ declare namespace Bull {
      * If the specified job cannot be located, the promise callback parameter will be set to null.
      */
     getJob(jobId: JobId): Promise<Job>;
+
+    /**
+     * Returns a promise that will return an array with the waiting jobs between start and end.
+     */
+    getWaiting(start?: number, end?: number): Promise<Job[]>;
 
     /**
      * Returns a promise that will return an array with the active jobs between start and end.

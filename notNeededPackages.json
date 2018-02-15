@@ -559,6 +559,12 @@
             "asOfVersion": "3.8.0"
         },
         {
+            "libraryName": "fuse",
+            "typingsPackageName": "fuse",
+            "sourceRepoURL": "https://github.com/krisk/Fuse",
+            "asOfVersion": "2.6.0"
+        },
+        {
             "libraryName": "gaea-model",
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",

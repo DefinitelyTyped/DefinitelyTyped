@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+import Koa = require("koa");
 import compress = require("koa-compress");
 
 const app = new Koa();

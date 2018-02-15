@@ -10,7 +10,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": false,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "noEmit": true,
         "baseUrl": "../",
         "typeRoots": [

@@ -1,4 +1,4 @@
-import * as WebTorrent from 'webtorrent';
+import WebTorrent = require('webtorrent');
 import * as fs from 'fs';
 
 const client = new WebTorrent();

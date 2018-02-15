@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Loadable from 'react-loadable';
+import Loadable = require('react-loadable');
 
 class LoadingComponent extends React.Component<Loadable.LoadingComponentProps> {
   render() {
