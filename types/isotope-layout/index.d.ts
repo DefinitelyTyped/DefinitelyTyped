@@ -1,6 +1,7 @@
 // Type definitions for isotope 3.0
 // Project: http://isotope.metafizzy.co/
 // Definitions by: Anže Videnič <https://github.com/avidenic>
+//                 Mălin Brândușe <https://github.com/malinushj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -270,12 +271,16 @@ interface Isotope extends IsotopeLibrary.Isotope { }
 
 declare var Isotope: {
     prototype: IsotopeLibrary.Isotope;
-    new (selector: string): IsotopeLibrary.Isotope;
+    new (elementOrSelector: HTMLElement | string, options: IsotopeLibrary.IsotopeOptions): IsotopeLibrary.Isotope;
     /**
      * Get the Isotope instance via its element. Isotope.data() is useful for getting the Isotope instance in JavaScript, after it has been initalized in HTML.
      */
     data(element: HTMLElement | string): IsotopeLibrary.Isotope;
 };
+
+declare module 'isotope-layout' {
+    export default Isotope;
+}
 
 interface JQuery {
     /**
