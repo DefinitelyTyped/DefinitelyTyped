@@ -15,7 +15,9 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
@@ -23,6 +25,7 @@
         "glosses/math/index.d.ts",
         "glosses/math/matrix.d.ts",
         "glosses/math/simd.d.ts",
+        "glosses/meta.d.ts",
         "glosses/std.d.ts",
         "glosses/utils.d.ts",
         "glosses/assertion.d.ts",
@@ -43,9 +46,11 @@
         "adone-tests.ts",
         "test/index.ts",
         "test/index-import.ts",
+        "test/glosses/application.ts",
         "test/glosses/math/index.ts",
         "test/glosses/math/matrix.ts",
         "test/glosses/math/simd.ts",
+        "test/glosses/meta.ts",
         "test/glosses/std.ts",
         "test/glosses/utils.ts",
         "test/glosses/assertion.ts",

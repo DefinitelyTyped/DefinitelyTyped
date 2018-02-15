@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { ReactWidgetsCommonDropdownProps } from './CommonProps';
+import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
+import { KeyboardEvent } from 'react';
 
-interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePickerClass> {
+interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePickerClass>, AutoFocus {
+    /**
+     * Set the culture of the DateTimePicker, passed to the configured localizer.
+     */
+    culture?: string;
     /**
      * Whether to show the date picker button.
      * @default true
@@ -12,6 +17,10 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * @default true
      */
     time?: boolean;
+    /**
+     * A customize the rendering of times but providing a custom component.
+     */
+    timeComponent?: React.ReactType | string;
     /**
      * The minimum Date that can be selected. Min only limits selection, it doesn't constrain
      * the date values that can be typed or pasted into the widget. If you need this behavior
@@ -32,8 +41,12 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * @default Date()
      */
     currentDate?: Date;
+    /**
+     * Enable the calendar component of the picker.
+     */
+    date?: boolean;
     /*
-     * Default value for current date. Useful for suggesting a date when the caldenar opens without keep forcing it once 'value' is set. 
+     * Default value for current date. Useful for suggesting a date when the caldenar opens without keep forcing it once 'value' is set.
      */
     defaultCurrentDate?: Date;
     /**
@@ -91,6 +104,22 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      */
     onChange?: (date?: Date, dateStr?: string) => void;
     /**
+     * The native onBlur event, called when focus leaves the DateTimePicker entirely.
+     */
+    onBlur?: () => void;
+    /**
+     * The native onFocus event, called when focus enters the DateTimePicker.
+     */
+    onFocus?: () => void;
+    /**
+     * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
+     */
+    onKeyDown?: (event: KeyboardEvent<any>) => void;
+    /**
+     * The native onKeyPress event, called preventDefault will stop any custom behavior.
+     */
+    onKeyPress?: (event: KeyboardEvent<any>) => void;
+    /**
      * This handler fires when an item has been selected from the list or calendar. It fires
      * before the onChange handler, and fires regardless of whether the value has actually
      * changed.
@@ -98,10 +127,11 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
     onSelect?: (date?: Date) => void;
     /**
      * Whether or not the DateTimePicker is open. When unset (undefined) the DateTimePicker will
-     * handle the opening and closing internally. 
-     * @enum false "calendar" "time"
+     * handle the opening and closing internally.
+     * @enum false "date" "time"
+     * @default false
      */
-    open?: boolean | "calendar" | "time";
+    open?: boolean | "date" | "time";
     /**
      * The defaultOpen prop can be used to set an
      * initialization value for uncontrolled widgets.
@@ -126,6 +156,20 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
     * Text to display in the input when the value is empty.
     */
     placeholder?: string;
+    /**
+     * An object of props that is passed directly to the underlying input component.
+     */
+    inputProps?: object;
+    /**
+     * The HTML name attribute, passed directly to the input element.
+     */
+    name?: string;
+    /**
+     * A Transition component from react-transition-group v2.
+     * The provided component will be used instead of the default SlideDownTransition for fully customizable animations.
+     * The transition component is also injected with a dropUp prop indicating the direction it should open.
+     */
+    popupTransition?: React.ReactType | string;
 }
 
 interface DateTimePickerMessages {

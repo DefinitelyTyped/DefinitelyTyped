@@ -15,12 +15,18 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
-            "@feathersjs/socketio": ["feathersjs__socketio"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/socketio": [
+                "feathersjs__socketio"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__socketio-tests.ts"
+        "index.d.ts",
+        "feathersjs__socketio-tests.ts"
     ]
 }

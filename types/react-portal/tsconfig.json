@@ -13,6 +13,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "lib": [
             "es6",
             "dom"

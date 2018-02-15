@@ -17,6 +17,7 @@ var colorpicker = $("<input type=\"text\"/>").colorpicker({
     closeOnOutside: true,                // Close the dialog when clicking outside the dialog (not for inline)
     color: '#00FF00',        // Initial color (for inline only)
     colorFormat: 'HEX',                // Format string for output color format
+    disabled: false,
     draggable: true,                // Make popup dialog draggable if header is visible.
     duration: 'fast',
     hsv: true,                // Show HSV controls and modes
@@ -67,6 +68,7 @@ colorpicker.colorpicker("open");
 colorpicker.colorpicker("close");
 colorpicker.colorpicker("destroy");
 colorpicker.colorpicker("setColor", "#deadbeef");
+colorpicker.colorpicker("option", "disabled", true);
 
 // example plugins provided
 
@@ -94,23 +96,23 @@ $.colorpicker.parts["memory"] = function (inst) {
                         break;
                 }
             }).bind('contextmenu', function (e) {
-                    e.preventDefault();
-                });
+                e.preventDefault();
+            });
 
             container.append($node);
         },
         getMemory = function () {
             return (<string>(document.cookie.match(/\bcolorpicker-memory=([^;]*)/) || [0, ''])[1]).split(',');
         },
-    setMemory = function () {
-        var colors = [];
-        $('> *', container).each(function () {
-            colors.push(encodeURIComponent($(this).css('backgroundColor')));
-        });
-        var expdate = new Date();
-        expdate.setDate(expdate.getDate() + (365 * 10));
-        document.cookie = 'colorpicker-memory=' + colors.join() + ";expires=" + expdate.toUTCString();
-    };
+        setMemory = function () {
+            var colors = [];
+            $('> *', container).each(function () {
+                colors.push(encodeURIComponent($(this).css('backgroundColor')));
+            });
+            var expdate = new Date();
+            expdate.setDate(expdate.getDate() + (365 * 10));
+            document.cookie = 'colorpicker-memory=' + colors.join() + ";expires=" + expdate.toUTCString();
+        };
 
     this.init = function () {
         container = $('<div/>')
@@ -195,7 +197,7 @@ $.colorpicker.parsers['CMYK'] = function (color) {
             parseInt(m[2], 10) / 255,
             parseInt(m[3], 10) / 255,
             parseInt(m[4], 10) / 255
-            );
+        );
     }
 };
 
@@ -206,7 +208,7 @@ $.colorpicker.parsers["#HEX8"] = function (color) {
             parseInt(m[2], 16) / 255,
             parseInt(m[3], 16) / 255,
             parseInt(m[4], 16) / 255
-            ).setAlpha(parseInt(m[1], 16) / 255);
+        ).setAlpha(parseInt(m[1], 16) / 255);
     }
 };
 

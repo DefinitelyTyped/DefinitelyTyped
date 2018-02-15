@@ -16,6 +16,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
             "dropzone": [
                 "dropzone/v4"

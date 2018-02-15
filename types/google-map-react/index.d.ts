@@ -84,6 +84,7 @@ export interface Props {
   options?: Options | ((maps: Maps) => Options);
   margin?: any[];
   debounced?: boolean;
+  draggable?: boolean;
   layerTypes?: string[];
   onClick?(value: ClickEventValue): any;
   onChange?(value: ChangeEventValue): any;

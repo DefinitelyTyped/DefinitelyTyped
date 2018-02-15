@@ -30,6 +30,11 @@ rpn('http://google.com').promise().then(console.dir);
 rpn({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => { });
 rpn({ uri: 'http://google.com', simple: false }).catch((reason) => { });
 
+const rp: rpn.RequestPromise = rpn('http://google.com', {transform2xxOnly: true, json: true});
+
+const promiseLike: PromiseLike<any> = rpn('http://google.com');
+const promise: Promise<any> = rpn('http://google.com').promise();
+
 // Defaults tests
 (() => {
   const githubUrl = 'https://github.com';

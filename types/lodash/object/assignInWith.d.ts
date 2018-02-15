@@ -1,4 +1,4 @@
-import * as _ from "../index";
+import _ = require("../index");
 declare module "../index" {
     type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
 

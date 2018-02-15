@@ -7,13 +7,433 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
+import { Writable, Readable } from "stream";
 import * as stream from "stream";
 import * as child_process from "child_process";
 
-export class BlessedProgram {
-    hideCursor: () => void;
-    move: any;
-    showCursor: any;
+export interface IBlessedProgramOptions {
+  input?: Readable;
+  output?: Writable;
+  log?: string;
+  dump?: boolean;
+  zero?: boolean;
+  buffer?: boolean;
+  terminal?: string;
+  term?: string;
+  tput?: string;
+  debug?: boolean;
+  resizeTimeout?: boolean;
+}
+
+export class BlessedProgram extends EventEmitter {
+    type: string;
+    options: IBlessedProgramOptions;
+    input: Readable;
+    output: Writable;
+    zero: boolean;
+    useBuffer: boolean;
+    x: number;
+    y: number;
+    savedX: number;
+    savedY: number;
+    cols: number;
+    rows: number;
+    scrollTop: number;
+    scrollBottom: number;
+    isOSXTerm: boolean;
+    isiTerm2: boolean;
+    isXFCE: boolean;
+    isTerminator: boolean;
+    isLXDE: boolean;
+    isVTE: boolean;
+    isRxvt: boolean;
+    isXterm: boolean;
+    tmux: boolean;
+    tmuxVersion: number;
+
+    constructor(options?: IBlessedProgramOptions);
+
+    log(): boolean;
+    debug(): boolean;
+    setupDump(): void;
+    setupTput(): void;
+    setTerminal(terminal: string): void;
+    has(name: string): boolean;
+    term(is: string): boolean;
+
+    listen(): void;
+    destroy(): void;
+
+    key(key: string|string[], listener: Function): void;
+    onceKey(key: string|string[], listener: Function): void;
+
+    unKey(key: string|string[], listener: Function): void;
+    removeKey(key: string|string[], listener: Function): void;
+
+    bindMouse(): void;
+    enableGpm(): void;
+    disableGpm(): void;
+    bindResponse(): void;
+
+    response(name: string, text: string, callback: Function, noBypass?: boolean): boolean;
+    response(name: string, callback?: Function): boolean;
+
+    write(text: string): boolean;
+    flush(): void;
+    print(text: string, attr?: boolean): boolean;
+    echo(text: string, attr?: boolean): boolean;
+
+    setx(x: number): boolean;
+    sety(y: number): boolean;
+    move(x: number, y: number): boolean;
+    omove(x: number, y: number): void;
+    rsetx(x: number): boolean;
+    rsety(y: number): boolean;
+    rmove(x: number, y: number): void;
+
+    simpleInsert(ch: string, i?: number, attr?: boolean): boolean;
+    repeat(ch: string, i?: number): string;
+    copyToClipboard(text: string): boolean;
+
+    cursorShape(shape: string, blink?: boolean): boolean;
+    cursorColor(color: string): boolean;
+    cursorReset(): boolean;
+    resetCursor(): boolean;
+
+    getTextParams(param: string, callback: Function): boolean;
+    getCursorColor(callback: Function): boolean;
+
+    nul(): boolean;
+
+    bell(): boolean;
+    bel(): boolean;
+
+    vtab(): boolean;
+
+    form(): boolean;
+    ff(): boolean;
+
+    backspace(): boolean;
+    kbs(): boolean;
+
+    tab(): boolean;
+    ht(): boolean;
+
+    shiftOut(): boolean;
+    shiftIn(): boolean;
+
+    return(): boolean;
+    cr(): boolean;
+
+    feed(): boolean;
+    newline(): boolean;
+    nl(): boolean;
+
+    index(): boolean;
+    ind(): boolean;
+
+    reverseIndex(): boolean;
+    reverse(): boolean;
+    ri(): boolean;
+
+    nextLine(): boolean;
+    reset(): boolean;
+    tabSet(): boolean;
+
+    saveCursor(key: string): boolean;
+    sc(key: string): boolean;
+
+    restoreCursor(key?: string, hide?: boolean): boolean;
+    rc(key?: string, hide?: boolean): boolean;
+
+    lsaveCursor(key?: string): void;
+    lrestoreCursor(key?: string, hide?: boolean): void;
+
+    lineHeight(): boolean;
+
+    charset(val?: string, level?: number): boolean;
+
+    enter_alt_charset_mode(): boolean;
+    as(): boolean;
+    smacs(): boolean;
+
+    exit_alt_charset_mode(): boolean;
+    ae(): boolean;
+    rmacs(): boolean;
+
+    setG(val: number): boolean;
+
+    setTitle(title: string): boolean;
+
+    resetColors(param?: string): boolean;
+
+    dynamicColors(param?: string): boolean;
+
+    selData(a: string, b: string): boolean;
+
+    cursorUp(param?: number): boolean;
+    cuu(param?: number): boolean;
+    up(param?: number): boolean;
+
+    cursorDown(param?: number): boolean;
+    cud(param?: number): boolean;
+    down(param?: number): boolean;
+
+    cursorForward(param?: number): boolean;
+    cuf(param?: number): boolean;
+    right(param?: number): boolean;
+    forward(param?: number): boolean;
+
+    cursorBackward(param?: number): boolean;
+    cub(param?: number): boolean;
+    left(param?: number): boolean;
+    back(param?: number): boolean;
+
+    cursorPos(row?: number, col?: number): boolean;
+    cup(row?: number, col?: number): boolean;
+    pos(row?: number, col?: number): boolean;
+
+    eraseInDisplay(param?: string): boolean;
+    ed(param?: string): boolean;
+
+    clear(): boolean;
+
+    eraseInLine(param?: string): boolean;
+    el(param?: string): boolean;
+
+    charAttributes(param: string, val?: boolean): boolean;
+    charAttributes(param: string[], val?: boolean): boolean;
+
+    setForeground(color: string, val?: boolean): boolean;
+    fg(color: string, val?: boolean): boolean;
+
+    setBackground(color: string, val?: boolean): boolean;
+    bg(color: string, val?: boolean): boolean;
+
+    deviceStatuses(param?: string, callback?: Function, dec?: boolean, noBypass?: boolean): boolean;
+    dsr(param?: string, callback?: Function, dec?: boolean, noBypass?: boolean): boolean;
+
+    getCursor(callback: Function): boolean;
+    saveReportedCursor(callback: Function): void;
+
+    restoreReportedCursor: () => boolean;
+
+    insertChars(param?: number): boolean;
+    ich(param?: number): boolean;
+
+    cursorNextLine(param?: number): boolean;
+    cnl(param?: number): boolean;
+
+    cursorPrecedingLine(param?: number): boolean;
+    cpl(param?: number): boolean;
+
+    cursorCharAbsolute(param?: number): boolean;
+    cha(param?: number): boolean;
+
+    insertLines(param?: number): boolean;
+    il(param?: number): boolean;
+
+    deleteLines(param?: number): boolean;
+    dl(param?: number): boolean;
+
+    deleteChars(param?: number): boolean;
+    dch(param?: number): boolean;
+
+    eraseChars(param?: number): boolean;
+    ech(param?: number): boolean;
+
+    charPosAbsolute(param?: number): boolean;
+    hpa(param?: number): boolean;
+
+    HPositionRelative(param?: number): boolean;
+
+    sendDeviceAttributes(param?: number, callback?: Function): boolean;
+    da(param?: number, callback?: Function): boolean;
+
+    linePosAbsolute(param?: number): boolean;
+    vpa(param?: number): boolean;
+
+    VPositionRelative(param?: number): boolean;
+    vpr(param?: number): boolean;
+
+    HVPosition(row?: number, col?: number): boolean;
+    hvp(row?: number, col?: number): boolean;
+
+    setMode(...args: string[]): boolean;
+    sm(...args: string[]): boolean;
+
+    decset(...args: string[]): boolean;
+
+    showCursor(): boolean;
+
+    alternateBuffer(): boolean;
+    smcup(): boolean;
+    alternate(): boolean;
+
+    resetMode(...args: string[]): boolean;
+    rm(...args: string[]): boolean;
+
+    decrst(...args: string[]): boolean;
+
+    hideCursor(): boolean;
+    civis(): boolean;
+    vi(): boolean;
+    cursor_invisible(): boolean;
+    dectcemh(): boolean;
+
+    normalBuffer(): boolean;
+    rmcup(): boolean;
+
+    enableMouse(): void;
+    disableMouse(): void;
+
+    setMouse(opt?: {}, enable?: boolean): void;
+
+    setScrollRegion(top: number, bottom: number): boolean;
+    csr(top: number, bottom: number): boolean;
+    decstbm(top: number, bottom: number): boolean;
+
+    saveCursorA(): boolean;
+    scA(): boolean;
+
+    restoreCursorA(): boolean;
+    rcA(): boolean;
+
+    cursorForwardTab(param?: number): boolean;
+    cht(param?: number): boolean;
+
+    scrollUp(param?: number): boolean;
+    su(param?: number): boolean;
+
+    scrollDown(param?: number): boolean;
+    sd(param?: number): boolean;
+
+    initMouseTracking(...args: string[]): boolean;
+
+    resetTitleModes(...args: string[]): boolean;
+
+    cursorBackwardTab(param?: number): boolean;
+    cbt(param?: number): boolean;
+
+    repeatPrecedingCharacter(param?: number): boolean;
+    rep(param?: number): boolean;
+
+    tabClear(param?: number): boolean;
+    tbc(param?: number): boolean;
+
+    mediaCopy(...args: string[]): boolean;
+    mc(...args: string[]): boolean;
+
+    mc0(): boolean;
+    print_screen(): boolean;
+    ps(): boolean;
+
+    mc5(): boolean;
+    prtr_on(): boolean;
+    po(): boolean;
+
+    mc4(): boolean;
+    prtr_off(): boolean;
+    pf(): boolean;
+
+    mc5p(): boolean;
+    prtr_non(): boolean;
+    p0(): boolean;
+
+    setResources(...args: string[]): boolean;
+
+    disableModifieres(...args: string[]): boolean;
+
+    setPointerMode(...args: string[]): boolean;
+
+    softReset(): boolean;
+    rs2(): boolean;
+    decstr(): boolean;
+
+    requestAnsiMode(param?: number): boolean;
+    decrqm(param?: number): boolean;
+
+    requestPrivateMode(param?: number): boolean;
+    decrqmp(param?: number): boolean;
+
+    setConformanceLevel(...args: string[]): boolean;
+    decscl(...args: string[]): boolean;
+
+    loadLEDs(param?: number): boolean;
+    decll(param?: number): boolean;
+
+    setCursorStyle(param?: string): boolean;
+    decscursr(param?: string): boolean;
+
+    setCharProtectionAttr(param?: number): boolean;
+    decsca(param?: number): boolean;
+
+    restorePrivateValues(...args: string[]): boolean;
+
+    setAttrInRectangle(...args: string[]): boolean;
+    deccara(...args: string[]): boolean;
+
+    savePrivateValues(...args: string[]): boolean;
+
+    manipulateWindow(...args: any[]): boolean;
+
+    getWindowSize(callback?: Function): boolean;
+
+    reverseAttrInRectangle(...args: string[]): boolean;
+    decrara(...args: string[]): boolean;
+
+    setTitleModeFeature(...args: string[]): boolean;
+
+    setWarningBellVolume(param?: number): boolean;
+    decswbv(param?: number): boolean;
+
+    setMarginBellVolume(param?: number): boolean;
+
+    copyRectangle(...args: string[]): boolean;
+    deccra(...args: string[]): boolean;
+
+    enableFilterRectangle(...args: string[]): boolean;
+    decefr(...args: string[]): boolean;
+
+    requestParameters(param?: number): boolean;
+    decreqtparm(param: number): boolean;
+
+    selectChangeExtent(param?: number): boolean;
+    decsace(param?: number): boolean;
+
+    fillRectangle(...args: string[]): boolean;
+    decfra(...args: string[]): boolean;
+
+    enableLocatorReporting(...args: string[]): boolean;
+    decelr(...args: string[]): boolean;
+
+    eraseRectangle(...args: string[]): boolean;
+    decera(...args: string[]): boolean;
+
+    setLocatorEvents(...args: string[]): boolean;
+    decsle(...args: string[]): boolean;
+
+    selectiveEraseRectangle(...args: string[]): boolean;
+    decsera(...args: string[]): boolean;
+
+    requestLocatorPosition(param?: string, callback?: Function): boolean;
+    reqmp(param?: string, callback?: Function): boolean;
+    req_mouse_pos(param?: string, callback?: Function): boolean;
+    decrqlp(param?: string, callback?: Function): boolean;
+
+    insertColumns(...args: string[]): boolean;
+    decic(...args: string[]): boolean;
+
+    deleteColumns(...args: string[]): boolean;
+    decdc(...args: string[]): boolean;
+
+    out(param: string, ...args: any[]): boolean;
+
+    sigtstp(callback?: Function): boolean;
+
+    pause(callback?: Function): Function;
+
+    resume: () => void;
 }
 
 export namespace Widgets {
@@ -3024,6 +3444,7 @@ export function message(options?: Widgets.MessageOptions): Widgets.MessageElemen
 export function loading(options?: Widgets.LoadingOptions): Widgets.LoadingElement;
 export function log(options?: Widgets.LogOptions): Widgets.Log;
 export function progressbar(options?: Widgets.ProgressBarOptions): Widgets.ProgressBarElement;
+export function program(options?: Widgets.IScreenOptions): BlessedProgram;
 export function terminal(options?: Widgets.TerminalOptions): Widgets.TerminalElement;
 export function layout(options?: Widgets.LayoutOptions): Widgets.LayoutElement;
 export function escape(item: any): any;

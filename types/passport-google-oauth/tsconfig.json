@@ -1,16 +1,24 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
-    "files": ["index.d.ts", "passport-google-oauth-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "passport-google-oauth-tests.ts"
+    ]
 }
