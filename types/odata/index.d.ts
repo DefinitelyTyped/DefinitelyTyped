@@ -29,7 +29,6 @@ declare module 'odata' {
         inlinecount: number;        // if inlinecount is set, here the counting is gold
         data: T;                    // holds the data after an callback
         param: {};				    // this object holds all parameter for a route
-        oConfig: Options;		    // the internal config, passed over from the o function
 
         config<T>(options ?: Options) : OHandler<T>
         progress<T>(callback : () => any) : OHandler<T>
