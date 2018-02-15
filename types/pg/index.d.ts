@@ -1,6 +1,7 @@
 // Type definitions for pg 7.4
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
+//                 Arnaud Benhamdine <https://github.com/abenhamdine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -53,11 +54,11 @@ export interface QueryArrayConfig extends QueryConfig {
     rowMode: 'array';
 }
 
-export interface QueryResult {
+export interface QueryResult<T=any> {
     command: string;
     rowCount: number;
     oid: number;
-    rows: any[];
+    rows: T[];
 }
 
 export interface FieldDef {
@@ -70,11 +71,11 @@ export interface FieldDef {
     format: string;
 }
 
-export interface QueryArrayResult {
+export interface QueryArrayResult<T=any> {
     command: string;
     rowCount: number;
     oid: number;
-    rows: any[][];
+    rows: T[][];
     fields: FieldDef[];
 }
 
@@ -84,8 +85,8 @@ export interface Notification {
     payload?: string;
 }
 
-export interface ResultBuilder extends QueryResult {
-    addRow(row: any): void;
+export interface ResultBuilder<T=any> extends QueryResult<T> {
+    addRow(row: T): void;
 }
 
 export class Pool extends events.EventEmitter {
@@ -105,12 +106,12 @@ export class Pool extends events.EventEmitter {
     end(callback: () => void): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
-    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
-    query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query<T=any>(queryConfig: QueryArrayConfig): Promise<QueryArrayResult<T>>;
+    query<T=any>(queryConfig: QueryConfig): Promise<QueryResult<T>>;
+    query<T=any>(queryText: string, values?: any[]): Promise<QueryResult<T>>;
+    query<T=any>(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult<T>) => void): Query;
+    query<T=any>(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult<T>) => void): Query;
+    query<T=any>(queryText: string, values: any[], callback: (err: Error, result: QueryResult<T>) => void): Query;
 
     on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
     on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
@@ -123,12 +124,12 @@ export class ClientBase extends events.EventEmitter {
     connect(callback: (err: Error) => void): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
-    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
-    query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query<T=any>(queryConfig: QueryArrayConfig): Promise<QueryArrayResult<T>>;
+    query<T=any>(queryConfig: QueryConfig): Promise<QueryResult<T>>;
+    query<T=any>(queryText: string, values?: any[]): Promise<QueryResult<T>>;
+    query<T=any>(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult<T>) => void): Query;
+    query<T=any>(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult<T>) => void): Query;
+    query<T=any>(queryText: string, values: any[], callback: (err: Error, result: QueryResult<T>) => void): Query;
 
     copyFrom(queryText: string): stream.Writable;
     copyTo(queryText: string): stream.Readable;
