@@ -37,29 +37,28 @@ export interface CommonProps {
 }
 
 export interface BoxProps
-extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
+    extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
     flex: ResponsiveProp;
     order: ResponsiveProp;
     is: string | ComponentClass<any>;
 }
 
 export interface FlexProps extends BoxProps {
-    wrap: ResponsiveProp | boolean;
-    direction: ResponsiveProp | boolean;
     align: ResponsiveProp | boolean;
     justify: ResponsiveProp | boolean;
-    column: boolean;
+    flexDirection: ResponsiveProp | boolean;
+    wrap: ResponsiveProp | boolean;
 }
 
 export type BoxComponent = StyledComponentClass<
     Partial<CommonProps & BoxProps>,
     any
-    >;
+>;
 
 export type FlexComponent = StyledComponentClass<
     Partial<CommonProps & FlexProps>,
     any
-    >;
+>;
 
 export interface Theme {
     breakpoints: string[];
