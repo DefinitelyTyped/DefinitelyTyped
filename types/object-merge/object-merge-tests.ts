@@ -1,4 +1,4 @@
-import objectMerge from 'object-merge';
+import objectMerge = require('object-merge');
 
 const x = {
     a : 'a',
