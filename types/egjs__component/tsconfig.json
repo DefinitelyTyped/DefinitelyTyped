@@ -15,6 +15,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
             "@egjs/component": [
                 "egjs__component"

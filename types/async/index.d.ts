@@ -169,6 +169,8 @@ export const allLimit: typeof everyLimit;
 
 export function concat<T, R, E>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export function concat<T, R, E>(arr: Dictionary<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function concatLimit<T, R, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function concatLimit<T, R, E>(arr: Dictionary<T>, limit: number,iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export const concatSeries: typeof concat;
 
 // Control Flow

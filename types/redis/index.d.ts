@@ -128,11 +128,14 @@ export interface Commands<R> {
      */
     ping(callback?: Callback<string>): R;
     ping(message: string, callback?: Callback<string>): R;
+    PING(callback?: Callback<string>): R;
+    PING(message: string, callback?: Callback<string>): R;
 
     /**
      * Post a message to a channel.
      */
     publish(channel: string, value: string, cb?: Callback<number>): R;
+    PUBLISH(channel: string, value: string, cb?: Callback<number>): R;
 
     /**
      * Authenticate to the server.

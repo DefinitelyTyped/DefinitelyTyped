@@ -4,6 +4,7 @@
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
 //                  Cedric Kemp <https://github.com/jaeggerr>
 //                  Flavio Negrão <https://github.com/flavionegrao>
+//                  Wes Grimes <https://github.com/wesleygrimes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -644,6 +645,7 @@ declare namespace Parse {
         select(...keys: string[]): Query<T>;
         skip(n: number): Query<T>;
         startsWith(key: string, prefix: string): Query<T>;
+        subscribe(): Events;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
         withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;

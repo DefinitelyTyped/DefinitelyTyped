@@ -20,6 +20,7 @@
         "types": [],
         "noEmit": true,
         "jsx": "react",
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     }
 }

@@ -6050,6 +6050,12 @@ declare namespace chrome.tabs {
          * @since Chrome 39.
          */
         matchAboutBlank?: boolean;
+        /**
+         * Optional. The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
+         * One of: "author", or "user"
+         * @since Chrome 66.
+         */
+        cssOrigin?: string;
     }
 
     export interface CreateProperties {

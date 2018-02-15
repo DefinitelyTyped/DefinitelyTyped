@@ -17,6 +17,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
             "react-data-grid": [
                 "react-data-grid/v1"

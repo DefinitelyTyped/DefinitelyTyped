@@ -1892,6 +1892,12 @@ declare namespace WebdriverIO {
 
 declare var browser: WebdriverIO.Client<void>;
 
+declare function $(selector: string): WebdriverIO.Client<WebdriverIO.RawResult<WebdriverIO.Element>> & WebdriverIO.RawResult<WebdriverIO.Element>;
+declare function $<P>(selector: string): WebdriverIO.Client<P>;
+
+declare function $$(selector: string): Array<WebdriverIO.Client<WebdriverIO.RawResult<WebdriverIO.Element>>> & Array<WebdriverIO.RawResult<WebdriverIO.Element>>;
+declare function $$<P>(selector: string): WebdriverIO.Client<P>;
+
 declare module "webdriverio" {
     export = WebdriverIO;
 }

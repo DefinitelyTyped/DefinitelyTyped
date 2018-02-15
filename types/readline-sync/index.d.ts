@@ -32,6 +32,7 @@ export interface BasicOptions {
     validate?(path: string): boolean | string;
     create?: boolean;
     guide?: boolean;
+    cancel?: any;
 }
 
 // Basic Functions

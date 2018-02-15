@@ -4,6 +4,7 @@
 // 				Martin Duparc <https://github.com/martinduparc>
 // 				Frederik Aalund <https://github.com/frederikaalund>
 // 				taoqf <https://github.com/taoqf>
+// 				Dadstart <https://github.com/Dadstart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -22,40 +23,54 @@ export interface Point {
 	z: number;
 }
 
+export interface PlotScatterDataPoint {
+	pointNumber: number;
+	curveNumber: number;
+	data: ScatterData;
+}
+
+export interface PlotMouseEvent {
+	points: PlotScatterDataPoint[];
+	event: MouseEvent;
+}
+
+export interface PlotCoordinate {
+	x: number;
+	y: number;
+	pointNumber: number;
+}
+
+export interface PlotSelectionEvent {
+	points: PlotCoordinate[];
+}
+
+export type PlotRestyleEvent = [
+	any,  // update object -- attribute updated: new value
+	number[]       // array of traces updated
+];
+
+export interface PlotAxis {
+	range: [number, number];
+	autorange: boolean;
+}
+
+export interface PlotScene {
+	center: Point;
+	eye: Point;
+	up: Point;
+}
+
+export interface PlotRelayoutEvent {
+	xaxis: PlotAxis;
+	yaxis: PlotAxis;
+	scene: PlotScene;
+}
+
 export interface PlotlyHTMLElement extends HTMLElement {
-	on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (data: {
-		points: Array<{
-			pointNumber: number;
-			curveNumber: number;
-			data: ScatterData;
-		}>;
-	}) => void): void;
-	on(event: 'plotly_selecting' | 'plotly_selected', callback: (data: {
-		points: Array<{
-			x: number;
-			y: number;
-			pointNumber: number;
-		}>;
-	}) => void): void;
-	on(event: 'plotly_restyle', callback: (data: [
-		any,  // update object -- attribute updated: new value
-		number[]       // array of traces updated
-	]) => void): void;
-	on(event: 'plotly_relayout', callback: (data: {
-		xaxis: {
-			range: [number, number];
-			autorange: boolean;
-		};
-		yaxis: {
-			range: [number, number];
-			autorange: boolean;
-		};
-		scene: {
-			center: Point;
-			eye: Point;
-			up: Point;
-		};
-	}) => void): void;
+	on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+	on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
+	on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
+	on(event: 'plotly_relayout', callback: (event: PlotRelayoutEvent) => void): void;
 	// on(event: 'plotly_event', callback: (data: any) => void): void;
 	on(event: 'plotly_afterplot' | 'plotly_autosize' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_redraw' | 'plotly_animated', callback: () => void): void;
 }

@@ -8,6 +8,6 @@ import { GraphQLError } from '../error/GraphQLError';
  * Returns a list of GraphQLError instances describing each deprecated use.
  */
 export function findDeprecatedUsages(
-    schema: GraphQLSchema,
-    ast: DocumentNode
+  schema: GraphQLSchema,
+  ast: DocumentNode,
 ): GraphQLError[];

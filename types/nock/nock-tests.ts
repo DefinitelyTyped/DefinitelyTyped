@@ -1,6 +1,4 @@
-
-
-import * as nock from 'nock';
+import nock = require('nock');
 import * as fs from 'fs';
 
 var scope: nock.Scope;
@@ -367,6 +365,12 @@ var scope = nock('http://www.headdy.com')
    .reply(200, 'Hello World!', {
      'X-My-Headers': 'My Header value'
    });
+
+var scope = nock('http://www.headdy.com')
+    .get('/')
+    .reply(200, 'Hello World!', {
+        'X-My-Headers': ['My Header value 1', 'My Header value 2']
+    });
 
 var scope = nock('http://www.headdy.com')
    .get('/')

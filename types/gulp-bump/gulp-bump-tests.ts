@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as GulpBump from 'gulp-bump';
+import GulpBump = require('gulp-bump');
 
 gulp
     .src('package.json')

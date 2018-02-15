@@ -5,15 +5,15 @@
 import passport = require("passport");
 import http = require("passport-http");
 
-interface IUser {
+interface UserInterface {
     username: string;
     password?: string;
 }
 
 class User {
-    public password: string;
+    password: string;
 
-    static findOne(user: IUser, callback: (error: Error, user: User) => void): void {
+    static findOne(user: UserInterface, callback: (error: Error, user: User) => void): void {
         callback(null, new User());
     }
 }
@@ -24,17 +24,19 @@ function validateNonce(nonce: string) {
 function validateParams(nonce: string, cnonce: string, nc: number, opaque: string) {
 }
 
-passport.use(new http.BasicStrategy((username: string, password: string, done: any) => {
+passport.use(new http.BasicStrategy((username, password, done) => {
     User.findOne({
-        username: username,
-        password: password,
+        username,
+        password,
     }, (error, user) => {
         if (error) {
-            return done(error);
+            done(error);
+            return;
         }
 
         if (!user) {
-            return done(null, false);
+            done(null, false);
+            return;
         }
 
         done(null, user);
@@ -44,25 +46,25 @@ passport.use(new http.BasicStrategy((username: string, password: string, done: a
 passport.use(new http.BasicStrategy({
     realm: "User",
     passReqToCallback: true,
-}, (username: string, password: string, done: any) => {
-    User.findOne({
-        username: username,
-        password: password,
-    }, (error, user) => {
-        if (error) {
-            return done(error);
-        }
+}, (req, username, password, done) => {
+    // with req when needed
+}));
 
-        if (!user) {
-            return done(null, false);
-        }
+passport.use(new http.BasicStrategy({
+    realm: "User",
+}, (username, password, done) => {
+    // without req by default
+}));
 
-        done(null, user);
-    });
+passport.use(new http.BasicStrategy({
+    realm: "User",
+    passReqToCallback: false,
+}, (username, password, done) => {
+    // without req
 }));
 
 passport.use(new http.DigestStrategy((username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -76,7 +78,7 @@ passport.use(new http.DigestStrategy((username: string, done: any) => {
 }));
 
 passport.use(new http.DigestStrategy((username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -99,7 +101,7 @@ passport.use(new http.DigestStrategy({
     algorithm: "MD5",
     qop: "auth",
 }, (username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }
@@ -119,7 +121,7 @@ passport.use(new http.DigestStrategy({
     algorithm: "MD5",
     qop: "auth",
 }, (username: string, done: any) => {
-    User.findOne({username: username}, (error, user) => {
+    User.findOne({ username }, (error, user) => {
         if (error) {
             return done(error);
         }

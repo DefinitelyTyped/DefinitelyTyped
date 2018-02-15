@@ -144,6 +144,12 @@ const isBoomError = new Boom.Boom('test')
 
 Boom.isBoom(isBoomError);
 
+const maybeBoom = <any>new Boom.Boom('test');
+if(Boom.isBoom(maybeBoom)) {
+    // isBoom is a type guard that allows accessing these properties:
+    maybeBoom.output.headers;
+}
+
 // constructor
 
 const constructorError: Boom.Boom = new Boom.Boom('test');

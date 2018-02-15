@@ -9,6 +9,7 @@
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 Youngrok Kim <https://github.com/rokoroku>
 //                 Dan Kraus <https://github.com/dankraus>
+//                 Anjun Wang <https://github.com/wanganjun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -185,7 +186,7 @@ export interface ValidationErrorFunction {
     (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
 }
 
-export interface ValidationResult<T> {
+export interface ValidationResult<T> extends Pick<Promise<T>, 'then' | 'catch'> {
     error: ValidationError;
     value: T;
 }

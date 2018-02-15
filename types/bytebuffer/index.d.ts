@@ -308,6 +308,11 @@ declare class ByteBuffer
     readByte( offset?: number ): number;
 
     /**
+     * Reads the specified number of bytes
+     */
+    readBytes( length: number, offset?: number): ByteBuffer;
+
+    /**
      * Reads a NULL-terminated UTF8 encoded string. For this to work the string read must not contain any NULL characters itself.
      */
     readCString( offset?: number ): string;
@@ -507,6 +512,11 @@ declare class ByteBuffer
      * Writes an 8bit signed integer. This is an alias of ByteBuffer#writeInt8.
      */
     writeByte( value: number, offset?: number ): ByteBuffer;
+
+    /**
+     * Writes an array of bytes. This is an alias for append
+     */
+    writeBytes( source: ByteBuffer | ArrayBuffer | Uint8Array | string, encoding?: string | number, offset?: number ): ByteBuffer;
 
     /**
      * Writes a NULL-terminated UTF8 encoded string. For this to work the specified string must not contain any NULL characters itself.

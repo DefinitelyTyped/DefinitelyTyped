@@ -1,6 +1,6 @@
 import { Vnode, Component, Comp, ClassComponent, FactoryComponent, RouteResolver } from 'mithril';
-import * as h from 'mithril/hyperscript';
-import * as route from 'mithril/route';
+import h = require('mithril/hyperscript');
+import route = require('mithril/route');
 
 const component1 = {
 	view() {

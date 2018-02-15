@@ -10,6 +10,14 @@ lock.acquire("key", (done) => {
   done();
 }).then(() => { /* ... */ });
 
+lock.acquire("key", () => "stringValue")
+// Check returned value's type is inherited properly
+    .then((str) => str.replace("s", "S"));
+
+lock.acquire("key", async () => "stringValue")
+// Check returned value's type is inherited properly
+    .then((str) => str.replace("s", "S"));
+
 lock.acquire([ "key1", "key2" ], (done) => {
   done();
 }, (err, ret) => { /* ... */ });
