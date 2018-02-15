@@ -72,7 +72,8 @@ o('http://services.odata.org/V4/OData/OData.svc/Products(2)')
     .get<Product>()
     .then(function(oHandler) {
         console.log(oHandler.data);
-    }).fail(function(ex) {
+    })
+    .fail(function(ex) {
         console.log(ex);
     });
 
@@ -114,12 +115,12 @@ o('http://services.odata.org/V4/OData/OData.svc/Products(1)')
 o('http://services.odata.org/V4/OData/OData.svc/Products')
     .find(2)
     .get<Product>()
-    .then(function(data) {
-        data.value[0].Name="NewName";
-        return(this.save<Product>());
+    .then(function(oHandler) {
+        oHandler.data.Name="NewName";
+        return(oHandler.save<Product>());
     })
-    .then(function(data) {
-        console.log(data.value[0].Name); //NewName
+    .then(function(oHandler) {
+        console.log(oHandler.data.Name); //NewName
     })
     .fail(function(ex) {
         console.log("error");
@@ -139,6 +140,9 @@ o('Products').get<Product>(function(data) {
 const oEequest = o('http://services.odata.org/V4/OData/OData.svc/Products')
     .find(2);
 const queryString = oEequest.query();
+if (queryString !== 'http://services.odata.org/V4/OData/OData.svc/Products(2)') {
+    throw new Error('assert error');
+}
 
 //basic config
 o().config({
