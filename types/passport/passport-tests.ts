@@ -147,6 +147,8 @@ declare global {
 }
 
 app.use((req: express.Request, res: express.Response, next: (err?: any) => void) => {
-    req.user.username = "hello user";
+    if (req.user) {
+        req.user.username = "hello user";
+    }
     next();
 });
