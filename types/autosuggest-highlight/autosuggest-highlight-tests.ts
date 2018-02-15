@@ -1,5 +1,5 @@
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
+import match = require('autosuggest-highlight/match');
+import parse = require('autosuggest-highlight/parse');
 
 function matchTest() {
     let matches = match('some text', 'te'); // $ExpectType number[] | number[][]

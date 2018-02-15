@@ -1,1 +1,3 @@
-export default function match(text: string, query: string): number[] | number[][];
+declare function match(text: string, query: string): number[] | number[][];
+
+export = match;
