@@ -34,6 +34,14 @@ declare module 'ember-data' {
                 inverse?: string | null;
                 polymorphic?: boolean;
             }
+        ): ModelRegistry[K];
+        function belongsTo<K extends keyof ModelRegistry>(
+            modelName: K,
+            options: {
+                async: false;
+                inverse?: string | null;
+                polymorphic?: boolean;
+            }
         ): Ember.ComputedProperty<ModelRegistry[K]>;
         function belongsTo<K extends keyof ModelRegistry>(
             modelName: K,
