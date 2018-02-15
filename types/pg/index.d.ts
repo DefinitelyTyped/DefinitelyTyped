@@ -113,7 +113,7 @@ export class Pool extends events.EventEmitter {
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
     on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
-    on(event: "connect" | "acquire", listener: (client: PoolClient) => void): this;
+    on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
 }
 
 export class ClientBase extends events.EventEmitter {
