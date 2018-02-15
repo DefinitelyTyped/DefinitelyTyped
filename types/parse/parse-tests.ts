@@ -390,6 +390,14 @@ function test_cloud_functions() {
         let user = request.user; // the user
         let isMaster = request.master; // if the query is run with masterKey
         let isCount = request.count; // if the query is a count operation (available on parse-server 2.4.0 or up)
+        let isGet = request.isGet; // if the query is a get operation
+
+        // All possible read preferences
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Primary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.PrimaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Secondary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.SecondaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
     });
 }
 
