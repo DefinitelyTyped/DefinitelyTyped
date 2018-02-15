@@ -1,16 +1,9 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
-// Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
-// Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 /**
  * Provides an easy method for geocoding address and searching for points of interest from JavaScript.
  * @requires The Microsoft.Maps.Search module.
  */
 declare module Microsoft.Maps.Search {
-    /** 
+    /**
      * Defines the match precision of a geocdoed result.
      * @requires The Microsoft.Maps.Search module.
      */
@@ -31,7 +24,7 @@ declare module Microsoft.Maps.Search {
         rooftop
     }
 
-    /** 
+    /**
      * Defines the geocoding level of the location match found by the geocoder.
      * @requires The Microsoft.Maps.Search module.
      */
@@ -52,7 +45,7 @@ declare module Microsoft.Maps.Search {
         modified
     }
 
-    /** 
+    /**
      * Defines the confidence of the location match found by the geocoding service.
      * @requires The Microsoft.Maps.Search module.
      */
@@ -117,16 +110,16 @@ declare module Microsoft.Maps.Search {
 
     /** The options for a geocode request. */
     export interface IGeocodeRequestOptions {
-        /** 
-         * A location rectangle that defines the boundaries of the area in which to search for 
-         * location results. The default is the bounds of the map view associated with this 
+        /**
+         * A location rectangle that defines the boundaries of the area in which to search for
+         * location results. The default is the bounds of the map view associated with this
          * instance of the SearchManager, which is usually the current map view.
          */
         bounds?: LocationRect;
 
         /**
-         * The name of the function to call when a successful result is returned from the 
-         * geocode request. The callback function must accept two parameters: result, which is 
+         * The name of the function to call when a successful result is returned from the
+         * geocode request. The callback function must accept two parameters: result, which is
          * a GeocodeResult type, and a userData object.
          */
         callback: (geocodeResult: IGeocodeResult, userData: any) => void;
@@ -135,7 +128,7 @@ declare module Microsoft.Maps.Search {
         count?: number;
 
         /**
-         * The name of the function to call when the request is returned with an error. The 
+         * The name of the function to call when the request is returned with an error. The
          * error callback function must accept an IGeocodeRequestOptions object.
          */
         errorCallback?: (geocodeRequestOptions: IGeocodeRequestOptions) => void;
@@ -218,15 +211,15 @@ declare module Microsoft.Maps.Search {
         constructor(map: Map);
 
         /**
-         * Matches the address or place query in the specified request 
-         * options to a location and returns the results to the request 
+         * Matches the address or place query in the specified request
+         * options to a location and returns the results to the request
          * options callback function.
          * @param request Options for sending geocode request
          */
         public geocode(request: IGeocodeRequestOptions): void;
 
         /**
-         * Matches the specified location to an address and returns the 
+         * Matches the specified location to an address and returns the
          * address results to the specified request options callback function.
          * @param request Options for sending reverse geocode request
          */

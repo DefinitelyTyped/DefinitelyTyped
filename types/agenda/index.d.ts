@@ -113,8 +113,8 @@ declare class Agenda extends EventEmitter {
      * @param options The options for the job.
      * @param handler The handler to execute.
      */
-    define(name: string, handler: (job?: Agenda.Job, done?: (err?: Error) => void) => void): void;
-    define(name: string, options: Agenda.JobOptions, handler: (job?: Agenda.Job, done?: (err?: Error) => void) => void): void;
+    define(name: string, handler: (job: Agenda.Job, done: (err?: Error) => void) => void): void;
+    define(name: string, options: Agenda.JobOptions, handler: (job: Agenda.Job, done: (err?: Error) => void) => void): void;
 
     /**
      * Runs job name at the given interval. Optionally, data and options can be passed in.

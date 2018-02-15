@@ -1,4 +1,4 @@
-import * as NodeRSA from 'node-rsa';
+import NodeRSA = require('node-rsa');
 
 const key = new NodeRSA({ b: 512 });
 

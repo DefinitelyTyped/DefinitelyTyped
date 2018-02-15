@@ -78,6 +78,8 @@ moment.tz.setDefault('America/Los_Angeles');
 
 moment.tz.guess();
 
+moment.tz.guess(true);
+
 const zoneAbbr: string = moment.tz('America/Los_Angeles').zoneAbbr();
 
 const zoneName: string = moment.tz('America/Los_Angeles').zoneName();

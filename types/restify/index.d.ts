@@ -731,9 +731,6 @@ export interface Response extends http.ServerResponse {
     /** short hand for the header content-type. */
     contentType: string;
 
-    /** response headers. */
-    headers: any;
-
     /** A unique request id (x-request-id). */
     id: string;
 }

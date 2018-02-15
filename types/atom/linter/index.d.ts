@@ -78,5 +78,5 @@ export interface LinterProvider {
     scope: "file"|"project";
     lintsOnChange: boolean;
     grammarScopes: string[];
-    lint(textEditor: TextEditor): Message[]|void|Promise<Message[]|undefined>;
+    lint(textEditor: TextEditor): Message[]|null|Promise<Message[]|null>;
 }

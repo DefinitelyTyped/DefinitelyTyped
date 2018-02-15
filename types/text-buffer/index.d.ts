@@ -2,7 +2,7 @@
 // Project: https://github.com/atom/text-buffer
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Disposable } from "event-kit";
 import { File } from "pathwatcher";
@@ -840,10 +840,7 @@ declare global {
              *  Create a Point from an array containing two numbers representing the
              *  row and column.
              */
-            fromObject(object: [number, number]): Point;
-
-            /** Create a Point from an existing object which implements PointLike. */
-            fromObject(object: PointLike, copy?: boolean): Point;
+            fromObject(object: PointCompatible, copy?: boolean): Point;
 
             /** Construct a Point object */
             new (row?: number, column?: number): Point;

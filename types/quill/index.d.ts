@@ -2,7 +2,10 @@
 // Project: https://github.com/quilljs/quill/
 // Definitions by: Sumit <https://github.com/sumitkm>
 //                 Guillaume <https://github.com/guillaume-ro-fr>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { Blot } from 'parchment/dist/src/blot/abstract/blot';
 
 /**
  * A stricter type definition would be:
@@ -56,7 +59,9 @@ export interface QuillOptionsStatic {
 }
 
 export interface BoundsStatic {
+    bottom: number;
     left: number;
+    right: number;
     top: number;
     height: number;
     width: number;
@@ -79,9 +84,9 @@ export interface DeltaStatic {
     concat(other: DeltaStatic): DeltaStatic;
     diff(other: DeltaStatic, index?: number): DeltaStatic;
     eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string): DeltaStatic;
-    transform(index: number): number;
+    transform(index: number, priority?: boolean): number;
     transform(other: DeltaStatic, priority: boolean): DeltaStatic;
-    transformPosition(index: number): number;
+    transformPosition(index: number, priority?: boolean): number;
 }
 
 export class Delta implements DeltaStatic {
@@ -136,6 +141,7 @@ export class Quill implements EventEmitter {
      */
     root: HTMLDivElement;
     clipboard: ClipboardStatic;
+    scroll: Blot;
     constructor(container: string | Element, options?: QuillOptionsStatic);
     deleteText(index: number, length: number, source?: Sources): DeltaStatic;
     disable(): void;

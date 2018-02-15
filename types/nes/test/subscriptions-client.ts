@@ -3,15 +3,15 @@
 import Nes = require('nes');
 
 var client = new Nes.Client('ws://localhost');
-client.connect(function (err) {
+    client.connect().then(() => {;
 
-    var handler: Nes.Handler = function (update, flags) {
+    var handler: Nes.Handler = (update, flags) => {
 
         // update -> { id: 5, status: 'complete' }
         // Second publish is not received (doesn't match)
     };
 
-    client.subscribe('/item/5', handler, function (err) { });
+    return client.subscribe('/item/5', handler);
 });
 
 // Added in addition to nes doc example code
@@ -19,13 +19,13 @@ client.connect(function (err) {
 import NesClient = require('nes/client');
 
 var client = new NesClient('ws://localhost');
-client.connect(function (err) {
+client.connect().then(() => {
 
-    var handler: NesClient.Handler = function (update, flags) {
+    var handler: NesClient.Handler = (update, flags) => {
 
         // update -> { id: 5, status: 'complete' }
         // Second publish is not received (doesn't match)
     };
 
-    client.subscribe('/item/5', handler, function (err) { });
+    return client.subscribe('/item/5', handler);
 });

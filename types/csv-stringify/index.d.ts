@@ -13,7 +13,7 @@ declare namespace stringify {
          * Order matters, read the transformer documentation for additionnal information,
          * columns are auto discovered when the user write object, see the "header" option on how to print columns names on the first line.
          */
-        columns?: string[];
+        columns?: { [index: string]: string } | string[];
         /**
          * Set the field delimiter, one character only, defaults to a comma.
          */

@@ -501,14 +501,20 @@ declare namespace CodeMirror {
         Note that line handles have a text property containing the line's content (as a string). */
         eachLine(start: number, end: number, f: (line: CodeMirror.LineHandle) => void ): void;
 
-        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again when such an edit is undone again.
-        Useful to track whether the content needs to be saved. */
+        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again 
+        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated 
+        in favor of changeGeneration, which allows multiple subsystems to track different notions of cleanness without interfering.*/
         markClean(): void;
+        
+        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the 
+        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further 
+        changes (rapid typing or deleting events are typically combined).*/
+        changeGeneration(closeEvent?: boolean): number;
 
-        /** Returns whether the document is currently clean (not modified since initialization or the last call to markClean). */
-        isClean(): boolean;
-
-
+        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if 
+        no argument is passed, or since the matching call to changeGeneration if a generation value is given. */
+        isClean(generation?: number): boolean;
+        
 
         /** Get the currently selected code. */
         getSelection(): string;
@@ -781,6 +787,9 @@ declare namespace CodeMirror {
         May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
         gutters?: string[];
+
+        /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
+        foldGutter?: boolean;
 
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */

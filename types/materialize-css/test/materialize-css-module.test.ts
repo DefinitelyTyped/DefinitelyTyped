@@ -140,3 +140,79 @@ tooltip.options;
 tooltip.el;
 // $ExpectType boolean
 tooltip.isOpen;
+
+// FloatingActionButton
+// $ExpectType FloatingActionButton
+new materialize.FloatingActionButton(elem);
+// $ExpectType FloatingActionButton
+const fab = new materialize.FloatingActionButton(elem, {
+    direction: 'left'
+});
+// $ExpectType void
+fab.open();
+// $ExpectType void
+fab.destroy();
+// $ExpectType FloatingActionButtonOptions
+fab.options;
+// $ExpectType Element
+fab.el;
+// $ExpectType boolean
+fab.isOpen;
+
+// Toasts
+// $ExpectType Toast
+const toast = materialize.toast({ html: 'I am a toast!' });
+// $ExpectType ToastOptions
+toast.options;
+// $ExpectType Element
+fab.el;
+// $ExpectType void
+toast.dismiss();
+// $ExpectType void
+materialize.Toast.dismissAll();
+
+// DatePicker
+// $ExpectType DatePicker
+new materialize.DatePicker(elem);
+// $ExpectType DatePicker
+const datePicker = new materialize.DatePicker(elem, {
+    defaultDate: new Date(),
+    onSelect(date) {
+        // $ExpectType DatePicker
+        this;
+        // $ExpectType Date
+        date;
+    }
+});
+// $ExpectType void
+datePicker.open();
+// $ExpectType void
+datePicker.setDate(new Date());
+// $ExpectType void
+datePicker.destroy();
+// $ExpectType DatePickerOptions
+datePicker.options;
+// $ExpectType Element
+datePicker.el;
+// $ExpectType boolean
+datePicker.isOpen;
+
+// TimePicker
+// $ExpectType TimePicker
+new materialize.TimePicker(elem);
+// $ExpectType TimePicker
+const timePicker = new materialize.TimePicker(elem, {
+    defaultTime: "13:14"
+});
+// $ExpectType void
+timePicker.open();
+// $ExpectType void
+timePicker.showView("hours");
+// $ExpectType void
+timePicker.destroy();
+// $ExpectType TimePickerOptions
+timePicker.options;
+// $ExpectType Element
+timePicker.el;
+// $ExpectType boolean
+timePicker.isOpen;

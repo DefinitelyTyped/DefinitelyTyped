@@ -58,6 +58,9 @@ export class Code {
 }
 export class DBRef {
     constructor(namespace: string, oid: ObjectID, db?: string);
+    namespace: string;
+    oid: ObjectID;
+    db?: string;
 }
 export class Double {
     constructor(value: number);

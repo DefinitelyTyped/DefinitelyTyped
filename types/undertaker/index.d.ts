@@ -58,6 +58,14 @@ declare class Undertaker extends EventEmitter {
     task(taskName: string, fn: Undertaker.TaskFunction): void;
 
     /**
+     * Register the task by the taskName.
+     * @param taskName - Task name.
+     * @param dependencies - Task dependencies.
+     * @param fn - Task function.
+     */
+    task(taskName: string, dependencies: string[], fn: Undertaker.TaskFunction): void;
+
+    /**
      * Register the task by the name property of the function.
      * @param fn - Task function.
      */

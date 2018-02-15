@@ -295,7 +295,7 @@ function streamifyWebSocket(url: string, protocol: string) {
 }
 
 class WebSocketSource implements ReadableStreamSource {
-    private _ws: WebSocket;
+    private readonly _ws: WebSocket;
 
     constructor(ws: WebSocket) {
         this._ws = ws;
@@ -316,7 +316,7 @@ class WebSocketSource implements ReadableStreamSource {
 }
 
 class WebSocketSink implements WritableStreamSink {
-    private _ws: WebSocket;
+    private readonly _ws: WebSocket;
 
     constructor(ws: WebSocket) {
         this._ws = ws;

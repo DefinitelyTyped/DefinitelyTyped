@@ -1,10 +1,10 @@
 import { CSSModule } from '../index';
 
-interface Props {
+export interface PopoverBodyProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var PopoverBody: React.StatelessComponent<Props>;
+declare const PopoverBody: React.StatelessComponent<PopoverBodyProps>;
 export default PopoverBody;

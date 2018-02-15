@@ -18,6 +18,8 @@ import {
     createEventHandlerWithConfig,
     componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
+    StateHandler,
+    StateHandlerMap,
 } from "recompose";
 import rxjsconfig from "recompose/rxjsObservableConfig";
 import rxjs4config from "recompose/rxjs4ObservableConfig";
@@ -81,20 +83,20 @@ function testWithPropsOnChange() {
 }
 
 function testWithHandlers() {
+    interface OutterProps {
+        out: number;
+    }
     interface InnerProps {
-        onSubmit: React.MouseEventHandler<HTMLDivElement>;
-        onChange: Function;
         foo: string;
     }
     interface HandlerProps {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
         onChange: Function;
     }
-    interface OutterProps { out: number; }
-    const InnerComponent: React.StatelessComponent<InnerProps> = ({onChange, onSubmit}) =>
-      <div onClick={onSubmit}></div>;
+    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps> = ({onChange, onSubmit, foo}) =>
+      <div onClick={onSubmit}>{foo}</div>;
 
-    const enhancer = withHandlers<OutterProps, HandlerProps>({
+    const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     });
@@ -106,7 +108,7 @@ function testWithHandlers() {
         />
     )
 
-    const enhancer2 = withHandlers<OutterProps, HandlerProps>((props) => ({
+    const enhancer2 = withHandlers<OutterProps & InnerProps, HandlerProps>((props) => ({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     }));
@@ -117,6 +119,11 @@ function testWithHandlers() {
             out={42}
         />
     )
+
+    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({
+      onChange: () => () => {},
+      notAKeyOnHandlerProps: () => () => {},  // $ExpectError
+    });
 }
 
 function testDefaultProps() {
@@ -186,11 +193,14 @@ function testWithState() {
 
 function testWithStateHandlers() {
     interface State { counter: number; }
-    interface Updaters { add: (n: number) => State; }
-    type InnerProps = State & Updaters;
+    interface Updaters extends StateHandlerMap<State> {
+      add: StateHandler<State>;
+    }
     interface OutterProps { initialCounter: number, power: number }
+    type InnerProps = State & Updaters & OutterProps;
     const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
         <div>
+            <div>{`Initial counter: ${props.initialCounter}`}</div>
             <div>{`Counter: ${props.counter}`}</div>
             <div onClick={() => props.add(2)}></div>
         </div>;
@@ -205,7 +215,12 @@ function testWithStateHandlers() {
     const rendered = (
         <Enhanced initialCounter={4} power={2} />
     );
-}
+
+    const updateNameTypecheckProof = withStateHandlers<State, Updaters, OutterProps>(
+        (props: OutterProps) => ({ counter: props.initialCounter }),
+        { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), }, // $ExpectError
+    );
+  }
 
 function testWithReducer() {
     interface State { count: number }

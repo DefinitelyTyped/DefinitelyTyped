@@ -1,9 +1,9 @@
 import { Component, ComponentType } from "react";
-import { Validator } from "redux-form";
+import { Validator } from "../index";
 
 interface BaseFieldArrayProps<P = {}> {
     name: string;
-    component: ComponentType<P>,
+    component: ComponentType<P>;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
     withRef?: boolean;

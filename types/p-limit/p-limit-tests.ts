@@ -1,6 +1,6 @@
 import pLimit = require('p-limit');
 
-const limit = pLimit<string | undefined>(1);
+const limit = pLimit(1);
 
 const input = [
     limit(() => Promise.resolve('foo')),

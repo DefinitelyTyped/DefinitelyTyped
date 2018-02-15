@@ -2,12 +2,13 @@
 // Project: https://github.com/liady/webpack-node-externals
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import webpack = require('webpack');
+import { ExternalsFunctionElement } from 'webpack';
 
 export = webpackNodeExternals;
 
-declare function webpackNodeExternals(options?: webpackNodeExternals.Options): webpack.ExternalsFunctionElement;
+declare function webpackNodeExternals(options?: webpackNodeExternals.Options): ExternalsFunctionElement;
 
 declare namespace webpackNodeExternals {
     type WhitelistOption = string | RegExp;
@@ -22,7 +23,7 @@ declare namespace webpackNodeExternals {
          * they should be bundled.
          * @default []
          */
-        whitelist?: WhitelistOption[];
+        whitelist?: WhitelistOption[] | WhitelistOption;
         /**
          * @default ['.bin']
          */

@@ -1,6 +1,6 @@
-// Type definitions for twitter-text v1.14.7
+// Type definitions for twitter-text v2.0.0
 // Project: https://github.com/twitter/twitter-text
-// Definitions by: rhysd <https://rhysd.github.io>
+// Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -112,3 +112,28 @@ export declare function getUnicodeTextLength(text: string): number;
 export declare function convertUnicodeIndices(text: string, entities: EntityWithIndices[], indicesInUTF16?: boolean): void;
 
 export declare function hitHighlight(text: string, hits?: number[][], options?: { tag: string }): string;
+
+export interface ParseTweetOptions {
+    version?: number;
+    maxWeightedTweetLength?: number;
+    scale?: number;
+    defaultWeight?: number;
+    transformedURLLength?: number;
+    ranges?: Array<{
+        start: number;
+        end: number;
+        weight: number;
+    }>;
+}
+
+export interface ParsedTweet {
+    weightedLength: number;
+    permillage: number;
+    valid: boolean;
+    displayRangeEnd: number;
+    displayRangeStart: number;
+    validRangeEnd: number;
+    validRangeStart: number;
+}
+
+export declare function parseTweet(text: string, options?: ParseTweetOptions): ParsedTweet;

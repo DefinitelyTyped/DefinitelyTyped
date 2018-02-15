@@ -77,7 +77,199 @@ declare global {
             sortFunction: (a: string, b: string, inputText: string) => number;
         }
 
-        class Sidenav extends Component<SidenavOptions> {
+        class DatePicker extends Component<DatePickerOptions> implements Openable {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): DatePicker;
+
+            /**
+             * If the picker is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * The selected Date.
+             */
+            date: Date;
+
+            /**
+             * Open datepicker
+             */
+            open(): void;
+
+            /**
+             * Close datepicker
+             */
+            close(): void;
+
+            /**
+             * Gets a string representation of the selected date
+             */
+            toString(): string;
+
+            /**
+             * Set a date on the datepicker
+             * @param date Date to set on the datepicker.
+             */
+            setDate(date?: Date): void;
+
+            /**
+             * Change date view to a specific date on the datepicker
+             * @param date Date to show on the datepicker.
+             */
+            gotoDate(date: Date): void;
+        }
+
+        interface DatePickerOptions {
+            /**
+             * The date output format for the input field value.
+             * @default 'mmm dd, yyyy'
+             */
+            format: string;
+
+            /**
+             * Used to create date object from current input string.
+             */
+            parse: (value: string, format: string) => Date;
+
+            /**
+             * The initial date to view when first opened.
+             */
+            defaultDate: Date;
+
+            /**
+             * Make the `defaultDate` the initial selected value
+             * @default false
+             */
+            setDefaultDate: boolean;
+
+            /**
+             * Prevent selection of any date on the weekend.
+             * @default false
+             */
+            disableWeekends: boolean;
+
+            /**
+             * Custom function to disable certain days.
+             */
+            disableDayFn: (day: Date) => boolean;
+
+            /**
+             * First day of week (0: Sunday, 1: Monday etc).
+             * @default 0
+             */
+            firstDay: number;
+
+            /**
+             * The earliest date that can be selected.
+             */
+            minDate: Date;
+
+            /**
+             * The latest date that can be selected.
+             */
+            maxDate: Date;
+
+            /**
+             * Number of years either side, or array of upper/lower range.
+             * @default 10
+             */
+            yearRange: number | number[];
+
+            /**
+             * Changes Datepicker to RTL.
+             * @default false
+             */
+            isRTL: boolean;
+
+            /**
+             * Show month after year in Datepicker title.
+             * @default false
+             */
+            showMonthAfterYear: boolean;
+
+            /**
+             * Render days of the calendar grid that fall in the next or previous month.
+             * @default false
+             */
+            showDaysInNextAndPreviousMonths: boolean;
+
+            /**
+             * Specify a selector for a DOM element to render the calendar in, by default it will be placed before the input.
+             */
+            container: string;
+
+            /**
+             * An array of string returned by `Date.toDateString()`, indicating there are events in the specified days.
+             * @default []
+             */
+            events: string[];
+
+            /**
+             * Callback function when date is selected, first parameter is the newly selected date.
+             */
+            onSelect: (this: DatePicker, selectedDate: Date) => void;
+
+            /**
+             * Callback function when Datepicker is opened
+             */
+            onOpen: (this: DatePicker) => void;
+
+            /**
+             * Callback function when Datepicker is closed
+             */
+            onClose: (this: DatePicker) => void;
+
+            /**
+             * Callback function when Datepicker HTML is refreshed
+             */
+            onDraw: (this: DatePicker) => void;
+        }
+
+        class FloatingActionButton extends Component<FloatingActionButtonOptions> implements Openable {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): FloatingActionButton;
+
+            /**
+             * Open FAB
+             */
+            open(): void;
+
+            /**
+             * Close FAB
+             */
+            close(): void;
+
+            /**
+             * Describes open/close state of FAB.
+             */
+            isOpen: boolean;
+        }
+
+        interface FloatingActionButtonOptions {
+            /**
+             * Direction FAB menu opens
+             * @default "top"
+             */
+            direction: "top" | "right" | "buttom" | "left";
+
+            /**
+             * true: FAB menu appears on hover, false: FAB menu appears on click
+             * @default true
+             */
+            hoverEnabled: boolean;
+
+            /**
+             * Enable transit the FAB into a toolbar on click
+             * @default false
+             */
+            toolbarEnabled: boolean;
+        }
+
+        class Sidenav extends Component<SidenavOptions> implements Openable {
             /**
              * Get Instance
              */
@@ -204,7 +396,101 @@ declare global {
             responsiveThreshold: number;
         }
 
-        class Modal extends Component<ModalOptions> {
+        class TimePicker extends Component<TimePickerOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): TimePicker;
+
+            /**
+             * If the picker is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * The selected time.
+             */
+            time: string;
+
+            /**
+             * Open timepicker
+             */
+            open(): void;
+
+            /**
+             * Close timepicker
+             */
+            close(): void;
+
+            /**
+             * Show hours or minutes view on timepicker
+             * @param view The name of the view you want to switch to, 'hours' or 'minutes'.
+             */
+            showView(view: "hours" | "minutes"): void;
+        }
+
+        interface TimePickerOptions {
+            /**
+             * Duration of the transition from/to the hours/minutes view.
+             * @default 350
+             */
+            duration: number;
+
+            /**
+             * Specify a selector for a DOM element to render the calendar in, by default it will be placed before the input.
+             */
+            container: string;
+
+            /**
+             * Default time to set on the timepicker 'now' or '13:14'
+             * @default 'now';
+             */
+            defaultTime: string;
+
+            /**
+             * Millisecond offset from the defaultTime.
+             * @default 0
+             */
+            fromnow: number;
+
+            /**
+             * Done button text.
+             * @default 'Ok'
+             */
+            doneText: string;
+
+            /**
+             * Clear button text.
+             * @default 'Clear'
+             */
+            clearText: string;
+
+            /**
+             * Cancel button text.
+             * @default 'Cancel'
+             */
+            cancelText: string;
+
+            /**
+             * Automatically close picker when minute is selected.
+             * @default false;
+             */
+            autoClose: boolean;
+
+            /**
+             * Use 12 hour AM/PM clock instead of 24 hour clock.
+             * @default true
+             */
+            twelveHour: boolean;
+
+            /**
+             * Vibrate device when dragging clock hand.
+             * @default true
+             */
+            vibrate: boolean;
+        }
+
+        class Modal extends Component<ModalOptions> implements Openable {
             /**
              * Get Instance
              */
@@ -282,7 +568,80 @@ declare global {
             endingTop: string;
         }
 
-        class Tooltip extends Component<TooltipOptions> {
+        class Toast extends ComponentBase<ToastOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Toast;
+
+            /**
+             * Describes the current pan state of the Toast.
+             */
+            panning: boolean;
+
+            /**
+             * The remaining amount of time in ms that the toast will stay before dismissal.
+             */
+            timeRemaining: number;
+
+            /**
+             * remove a specific toast
+             */
+            dismiss(): void;
+
+            /**
+             * dismiss all toasts
+             */
+            static dismissAll(): void;
+        }
+
+        interface ToastOptions {
+            /**
+             * The HTML content of the Toast.
+             */
+            html: string;
+
+            /**
+             * Length in ms the Toast stays before dismissal.
+             * @default 4000
+             */
+            displayLength: number;
+
+            /**
+             * Transition in duration in milliseconds.
+             * @default 300
+             */
+            inDuration: number;
+
+            /**
+             * Transition out duration in milliseconds.
+             * @default 375
+             */
+            outDuration: number;
+
+            /**
+             * Classes to be added to the toast element.
+             */
+            classes: string;
+
+            /**
+             * Callback function called when toast is dismissed.
+             */
+            completeCallback: () => void;
+
+            /**
+             * The percentage of the toast's width it takes for a drag to dismiss a Toast.
+             * @default 0.8
+             */
+            activationPercent: number;
+        }
+
+        /**
+         * Create a toast
+         */
+        function toast(options: Partial<ToastOptions>): Toast;
+
+        class Tooltip extends Component<TooltipOptions> implements Openable {
             /**
              * Get Instance
              */
@@ -368,7 +727,7 @@ declare global {
             static getInstance(elem: Element): CharacterCounter;
         }
 
-        abstract class Component<TOptions> {
+        abstract class Component<TOptions> extends ComponentBase<TOptions> {
             /**
              * Construct component instance and set everything up
              */
@@ -378,6 +737,10 @@ declare global {
              * Destroy plugin instance and teardown
              */
             destroy(): void;
+        }
+
+        abstract class ComponentBase<TOptions> {
+            constructor(options?: Partial<TOptions>);
 
             /**
              * The DOM element the plugin was initialized with
@@ -389,6 +752,12 @@ declare global {
              */
             options: TOptions;
         }
+
+        interface Openable {
+            isOpen: boolean;
+            open(): void;
+            close(): void;
+        }
     }
 
     interface JQuery {
@@ -398,12 +767,26 @@ declare global {
         autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
         autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
 
+        datepicker(method: keyof Pick<M.DatePicker, "open" | "close" | "destroy">): JQuery;
+        datepicker(method: keyof Pick<M.DatePicker, "setDate">, date?: Date): JQuery;
+        datepicker(method: keyof Pick<M.DatePicker, "gotoDate">, date: Date): JQuery;
+        datepicker(options?: Partial<M.DatePickerOptions>): JQuery;
+
+        floatingActionButton(method: keyof Pick<M.FloatingActionButton, "open" | "close" | "destroy">): JQuery;
+        floatingActionButton(options?: Partial<M.FloatingActionButtonOptions>): JQuery;
+
         sidenav(method: keyof Pick<M.Sidenav, "open" | "close" | "destroy">): JQuery;
         sidenav(options?: Partial<M.SidenavOptions>): JQuery;
 
         tabs(method: keyof Pick<M.Tabs, "destroy">): JQuery;
         tabs(method: keyof Pick<M.Tabs, "select">, tabId: string): JQuery;
         tabs(options?: Partial<M.TabsOptions>): JQuery;
+
+        timepicker(method: keyof Pick<M.TimePicker, "open" | "close" | "destroy">): JQuery;
+        timepicker(method: keyof Pick<M.TimePicker, "showView">, view: "hours" | "minutes"): JQuery;
+        timepicker(options?: Partial<M.TimePickerOptions>): JQuery;
+
+        // Toast can not be invoked using jQuery.
 
         tooltip(method: keyof Pick<M.Tooltip, "open" | "close" | "destroy">): JQuery;
         tooltip(options?: Partial<M.TooltipOptions>): JQuery;

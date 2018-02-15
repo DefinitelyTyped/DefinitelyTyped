@@ -6,7 +6,7 @@
 //                 Szőke Szabolcs <https://github.com/szabolcsx>
 //                 Kræn Hansen <https://github.com/kraenhansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 export {
     ArrowKeyStepper,
@@ -99,11 +99,11 @@ export {
     ScrollSyncState
 } from './dist/es/ScrollSync'
 export {
-    defaultTableCellDataGetter,
-    defaultTableCellRenderer,
-    defaultTableHeaderRenderer,
-    defaultTableHeaderRowRenderer,
-    defaultTableRowRenderer,
+    defaultCellDataGetter as defaultTableCellDataGetter,
+    defaultCellRenderer as defaultTableCellRenderer,
+    defaultHeaderRenderer as defaultTableHeaderRenderer,
+    defaultHeaderRowRenderer as defaultTableHeaderRowRenderer,
+    defaultRowRenderer as defaultTableRowRenderer,
     Table,
     Column,
     SortDirection,

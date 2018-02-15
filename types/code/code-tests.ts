@@ -159,3 +159,11 @@ expect<number[]>(foo).to.equal([]);
 const bar = Object.create(null);
 settings.comparePrototypes = false;
 expect(bar).to.equal({});
+
+const rejection = Promise.reject(new Error('Oh no!'));
+/* await */ expect(rejection).to.reject('Oh no!');
+/* await */  expect(rejection).rejects('Oh no!');
+
+const typedRejection = Promise.reject(new CustomError('Oh no!'));
+/* await */  expect(typedRejection).to.reject(CustomError, 'Oh no!');
+/* await */  expect(typedRejection).rejects(CustomError, 'Oh no!');

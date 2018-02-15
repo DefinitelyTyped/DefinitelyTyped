@@ -199,6 +199,24 @@ function toJSONTests() {
     JSON.parse(str, (k, v)  => k === '' ? v : new Big(v)); // Returns an array of three Big numbers.
 }
 
+// test Big.c
+function coefficientTests() {
+    const x = new Big('123');
+    x.c; // [1, 2, 3]
+}
+
+// test Big.e
+function exponentTests() {
+    const x = new Big('123e+20');
+    x.e; // 22
+}
+
+// test Big.s
+function signTests() {
+    const x = new Big('-123');
+    x.s; // -1
+}
+
 // see http://mikemcl.github.io/big.js/#faq
 // "How can I simultaneously use different decimal places and/or rounding mode settings for different Big numbers?"
 function testMultipleConstructors() {

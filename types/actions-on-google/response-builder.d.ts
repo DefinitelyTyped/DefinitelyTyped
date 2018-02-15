@@ -5,6 +5,29 @@
 import { OrderUpdate } from './transactions';
 
 /**
+ * List of possible options to display the image in a BasicCard.
+ * When the aspect ratio of an image is not the same as the surface,
+ * this attribute changes how the image is displayed in the card.
+ */
+export enum ImageDisplays {
+    /**
+     * Pads the gaps between the image and image frame with a blurred copy of the
+     * same image.
+     */
+    DEFAULT,
+    /**
+     * Fill the gap between the image and image container with white bars.
+     */
+    WHITE,
+    /**
+     * Image is scaled such that the image width matches the container width. This may crop the top
+     * and bottom of the image if the scaled image height is greater than the container height. This
+     * is similar to "Zoom Mode" on a widescreen TV when playing a 4:3 video.
+     */
+    CROPPED
+}
+
+/**
  * Simple Response type.
  */
 export interface SimpleResponse {
@@ -74,19 +97,19 @@ export interface StructuredResponse {
     orderUpdate: OrderUpdate;
 }
 
-export interface RichResponseItemBasicCard {
+export interface ItemBasicCard {
     basicCard: BasicCard;
 }
 
-export interface RichResponseItemSimpleResponse {
+export interface ItemSimpleResponse {
     simpleResponse: SimpleResponse;
 }
 
-export interface RichResponseItemStructuredResponse {
+export interface ItemStructuredResponse {
     structuredResponse: StructuredResponse;
 }
 
-export type RichResponseItem = RichResponseItemBasicCard | RichResponseItemSimpleResponse | RichResponseItemStructuredResponse;
+export type RichResponseItem = ItemBasicCard | ItemSimpleResponse | ItemStructuredResponse;
 
 /**
  * Class for initializing and constructing Rich Responses with chainable interface.
@@ -150,7 +173,8 @@ export class RichResponse {
     isValidSuggestionText(suggestionText: string): boolean;
 
     /**
-     * Sets the suggestion link for this rich response.
+     * Sets the suggestion link for this rich response. The destination site must be verified
+     * (https://developers.google.com/actions/console/brand-verification).
      *
      * @param destinationName Name of the link out destination.
      * @param suggestionUrl - String URL to open when suggestion is used.
@@ -239,6 +263,16 @@ export class BasicCard {
      * @return Returns current constructed BasicCard.
      */
     setImage(url: string, accessibilityText: string, width?: number, height?: number): BasicCard;
+
+    /**
+     * Sets the display options for the image in this Basic Card.
+     * Use one of the image display constants. If none is chosen,
+     * ImageDisplays.DEFAULT will be enforced.
+     *
+     * @param option The option for displaying the image.
+     * @return Returns current constructed BasicCard.
+     */
+    setImageDisplay(option: ImageDisplays): BasicCard;
 
     /**
      * Adds a button below card.
@@ -402,3 +436,10 @@ export class OptionItem {
  * @return True if text contains SSML, false otherwise.
  */
 export function isSsml(text: string): boolean;
+
+/**
+ * Check if given text contains SSML, allowing for whitespace padding.
+ * @param text Text to check.
+ * @return True if text contains possibly whitespace padded SSML, false otherwise.
+ */
+export function isPaddedSsml(text: string): boolean;

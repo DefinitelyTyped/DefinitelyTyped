@@ -6,13 +6,13 @@ declare namespace adone {
         /**
          * Checks whether the given object is `null`
          */
-        function _null(obj: any): boolean;
+        function _null(obj: any): obj is null;
         export { _null as null };
 
         /**
          * Checks whether the given object is `undefined`
          */
-        export function undefined(obj: any): boolean;
+        export function undefined(obj: any): obj is undefined;
 
         /**
          * Checks whether the given object is nither `undefined` nor `null`
@@ -22,52 +22,54 @@ declare namespace adone {
         /**
          * Checks whether the given object is either `undefined` or `null`
          */
-        export function nil(obj: any): boolean;
+        export function nil(obj: any): obj is undefined | null;
 
         /**
          * Checks whether the given object is a number
          */
-        export function number(obj: any): boolean;
+        export function number(obj: any): obj is number;
 
         /**
          * Checks whether the given object is a finite number or a string represents a finite number
          */
-        export function numeral(obj: any): boolean;
+        export function numeral(obj: number): obj is number;
+        export function numeral(obj: string): obj is string;
+        export function numeral(obj: any): obj is number | string;
 
         /**
          * Checks whether the given object is either +Infinity or -Inginity
          */
-        export function infinite(obj: any): boolean;
+        export function infinite(obj: any): obj is number;
 
         /**
          * Checks whether the given object is an odd number
          */
-        export function odd(obj: any): boolean;
+        export function odd(obj: any): obj is number;
 
         /**
          * Checks whether the given object is an even number
          */
-        export function even(obj: any): boolean;
+        export function even(obj: any): obj is number;
 
         /**
          * Checks whether the given object is a float
          */
-        export function float(obj: any): boolean;
+        export function float(obj: any): obj is number;
 
         /**
          * Checks whether the given object is -0
          */
-        export function negativeZero(obj: any): boolean;
+        export function negativeZero(obj: any): obj is number;
 
         /**
          * Checks whether the given object is a string
          */
-        export function string(obj: any): boolean;
+        export function string(obj: any): obj is string;
 
         /**
-         * Checks whether the given object is an empty string
+         * Checks whether the given object is an empty string, i.e. a string with only whitespace characters
          */
-        export function emptyString(obj: any): boolean;
+        export function emptyString(obj: any): obj is string;
 
         /**
          * Checks whether the first string is a substring of the second string from the given offset
@@ -87,7 +89,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is a boolean
          */
-        export function boolean(obj: any): boolean;
+        export function boolean(obj: any): obj is boolean;
 
         /**
          * Checks whether the given object is a string with ".json" extension or an object
@@ -97,12 +99,12 @@ declare namespace adone {
         /**
          * Checks whether the given object is not a primitive, i.e. neither `undefined` nor `null` nor number nor string nor boolean nor symbol)
          */
-        export function object(obj: any): boolean;
+        export function object(obj: any): obj is object;
 
         /**
          * Checks whether the given object is a plain object, i.e. created by Object
          */
-        export function plainObject(obj: any): boolean;
+        export function plainObject(obj: any): obj is object;
 
         /**
          * Checks whether the given object is an adone namespace
@@ -118,7 +120,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is empty, i.e. it is an object(not a primitive), and Object.keys returns an empty array
          */
-        export function emptyObject(obj: any): boolean;
+        export function emptyObject(obj: any): obj is object;
 
         /**
          * Checks whether the given object has the given owned property
@@ -138,7 +140,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is like an array, i.e. it is not a primitive, not a function and has length
          */
-        export function arrayLikeObject(obj: any): boolean;
+        export function arrayLikeObject(obj: any): obj is ArrayLike<any>;
 
         /**
          * Checks whether the given array has the given value
@@ -215,7 +217,7 @@ declare namespace adone {
         /**
          * Checks whether the given string is a glob
          */
-        export function glob(str: string): boolean;
+        export function glob(str: any): str is string;
 
         /**
          * Checks whether the given path is not a dot-file path (.secret)
@@ -225,18 +227,18 @@ declare namespace adone {
         /**
          * Checks whether the given object is a function
          */
-        function _function(obj: any): boolean;
+        function _function(obj: any): obj is (...args: any[]) => any;
         export { _function as function };
 
         /**
          * Checks whether the given object is an async function
          */
-        export function asyncFunction(obj: any): boolean;
+        export function asyncFunction(obj: any): obj is (...args: any[]) => Promise<any>;
 
         /**
          * Checks whether the given object is a promise
          */
-        export function promise(obj: any): boolean;
+        export function promise(obj: any): obj is PromiseLike<any>;
 
         /**
          * Checks whether the given string is a valid date-string
@@ -246,7 +248,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is a buffer
          */
-        export function buffer(obj: any): boolean;
+        export function buffer(obj: any): obj is Buffer;
 
         /**
          * Checks whether the given object is a callback function, i.e. it has a common function name
@@ -256,7 +258,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is a generator function
          */
-        export function generator(obj: any): boolean;
+        export function generator(obj: any): obj is GeneratorFunction;
 
         /**
          * Checks whether the given object is NaN
@@ -266,27 +268,27 @@ declare namespace adone {
         /**
          * Checks whether the given object is a finite number
          */
-        export function finite(obj: any): boolean;
+        export function finite(obj: any): obj is number;
 
         /**
          * Checks whether the given object is an integer
          */
-        export function integer(obj: any): boolean;
+        export function integer(obj: any): obj is number;
 
         /**
          * Checks whether the given object is a safe integer
          */
-        export function safeInteger(obj: any): boolean;
+        export function safeInteger(obj: any): obj is number;
 
         /**
          * Checks whether the given object is an array
          */
-        export function array(obj: any): boolean;
+        export function array(obj: any): obj is any[];
 
         /**
          * Checks whether the given object is a Uint8 array
          */
-        export function uint8Array(obj: any): boolean;
+        export function uint8Array(obj: any): obj is Uint8Array;
 
         /**
          * Checks whether the given object is an adone configuration
@@ -296,34 +298,34 @@ declare namespace adone {
         /**
          * Checks whether the given object is an instance of adone.math.Long
          */
-        export function long(obj: any): boolean;
+        export function long(obj: any): obj is adone.math.Long;
 
         /**
          * Checks whether the given object is an instance of adone.math.BigNumber
          */
-        export function bigNumber(obj: any): boolean;
+        export function bigNumber(obj: any): obj is adone.math.BigNumber;
 
         /**
          * Checks whether the given object is an instance of adone.collection.ByteArray
          */
-        export function byteArray(obj: any): boolean;
+        export function byteArray(obj: any): obj is adone.collection.ByteArray;
 
         /**
          * Checks whether the given object is an instance of adone.datetime
          */
-        export function datetime(obj: any): boolean;
+        export function datetime(obj: any): obj is adone.I.datetime.Datetime;
 
         export function transform(obj: any): boolean;
 
         /**
          * Checks whether the given object is an adone subsystem
          */
-        export function subsystem(obj: any): boolean;
+        export function subsystem(obj: any): obj is adone.application.Subsystem;
 
         /**
          * Checks whether the given object is an adone application
          */
-        export function application(obj: any): boolean;
+        export function application(obj: any): obj is adone.application.Application;
 
         /**
          * Checks whether the given object is an adone logger
@@ -333,22 +335,22 @@ declare namespace adone {
         /**
          * Checks whether the given object is a core stream
          */
-        export function coreStream(obj: any): boolean;
+        export function coreStream(obj: any): obj is adone.stream.core.Stream;
 
         /**
          * Checks whether the given object is a fast local map stream
          */
-        export function fastLocalMapStream(obj: any): boolean;
+        export function fastLocalMapStream(obj: any): obj is adone.fast.I.LocalMapStream<any>;
 
         /**
          * Checks whether the given object is a fast local stream
          */
-        export function fastLocalStream(obj: any): boolean;
+        export function fastLocalStream(obj: any): obj is adone.fast.I.LocalStream<any>;
 
         /**
          * Checks whether the given object is a fast stream
          */
-        export function fastStream(obj: any): boolean;
+        export function fastStream(obj: any): obj is adone.fast.I.Stream<any>;
 
         /**
          * Checks whether the given object is a genesis netron
@@ -428,7 +430,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is iterable, has defined Symbol.iterator property
          */
-        export function iterable(obj: any): boolean;
+        export function iterable(obj: any): obj is Iterable<any>;
 
         /**
          * true if the OS is Windows
@@ -498,17 +500,17 @@ declare namespace adone {
         /**
          * Checks whether the given object is an array buffer
          */
-        export function arrayBuffer(obj: any): boolean;
+        export function arrayBuffer(obj: any): obj is ArrayBuffer;
 
         /**
          * Checks whether the given object is an array buffer view
          */
-        export function arrayBufferView(obj: any): boolean;
+        export function arrayBufferView(obj: any): obj is ArrayBufferView;
 
         /**
          * Checks whether the given object is a date
          */
-        export function date(obj: any): boolean;
+        export function date(obj: any): obj is Date;
 
         /**
          * Checks whether the given object is an error, instance of Error
@@ -518,27 +520,22 @@ declare namespace adone {
         /**
          * Checks whether the given object is a map
          */
-        export function map(obj: any): boolean;
+        export function map(obj: any): obj is Map<any, any>;
 
         /**
          * Checks whether the given object is a regexp
          */
-        export function regexp(obj: any): boolean;
+        export function regexp(obj: any): obj is RegExp;
 
         /**
          * Checks whether the given object is a set
          */
-        export function set(obj: any): boolean;
+        export function set(obj: any): obj is Set<any>;
 
         /**
          * Checks whether the given object is a symbol
          */
-        export function symbol(obj: any): boolean;
-
-        /**
-         * Checks whether the given buffer a valid UTF-8 encoded text
-         */
-        export function validUTF8(obj: Buffer): boolean;
+        export function symbol(obj: any): obj is symbol;
 
         /**
          * Checks whether the given object is a vault valuable
@@ -549,5 +546,135 @@ declare namespace adone {
          * Checks whether the given object is an adone task
          */
         export function task(obj: any): boolean;
+
+        namespace I {
+            interface FQDNOptions {
+                /**
+                 * Whether to require top-level domain, default `true`
+                 */
+                requireTld?: boolean;
+
+                /**
+                 * Whether to allow underscores("_"), default `false`
+                 */
+                allowUnderscores?: boolean;
+
+                /**
+                 * Whether to allow trailing dot, default `false`
+                 */
+                allowTrailingDot?: boolean;
+            }
+        }
+
+        /**
+         * Checks whether the given object(string) is a fully qualified domain name (e.g. domain.com).
+         */
+        export function fqdn(obj: any, options?: I.FQDNOptions): obj is string;
+
+        /**
+         * Checks whether the given object(string) is a url
+         */
+        export function url(obj: any, options?: I.FQDNOptions & {
+            /**
+             * List of valid protocols.
+             * Used when requireValidProtocol is `true`.
+             * Default ["http", "https", "ftp"]
+             */
+            protocols?: string[],
+
+            /**
+             * Whether to require protocol, default `true`
+             */
+            requireProtocol?: boolean,
+
+            /**
+             * Whether to require host, default `true`
+             */
+            requireHost?: boolean,
+
+            /**
+             * Whether to require valid protocol defined in `protocols` options, default `true`
+             */
+            requireValidProtocol?: boolean,
+
+            /**
+             * Whether to allow urls like "//example.com", default `false`
+             */
+            allowProtocolRelativeUrls?: boolean
+        }): obj is string;
+
+        /**
+         * Checks whether the given object(string) is a valid email address
+         */
+        export function email(obj: any, options?: {
+            /**
+             * Whether to allow email addresses with display names ("Name <local@domain>"")
+             */
+            allowDisplayName?: boolean,
+
+            /**
+             * Whether to require display name
+             */
+            requireDisplayName?: boolean,
+
+            /**
+             * Whether to allow UTF8 characters in the local part
+             */
+            allowUtf8LocalPart?: boolean,
+
+            /**
+             * Whether to require top-level domain, default `true`
+             */
+            requireTld?: boolean
+        }): obj is string;
+
+        /**
+         * Checks whether the given object is a valid IPv4 address
+         */
+        export function ip(obj: any, version: 4): boolean;
+
+        /**
+         * Checks whether the given object is a valid IPv6 address
+         */
+        export function ip(obj: any, version: 6): boolean;
+
+        /**
+         * Checks whether the given object in a valid IPv4 or IPv6 address
+         */
+        export function ip(obj: any): boolean;
+
+        /**
+         * Checks whether the given object is a valid UUIDv1 identifier
+         */
+        export function uuid(obj: any, version: 1): obj is string;
+
+        /**
+         * Checks whether the given object is a valid UUIDv2 identifier
+         */
+        export function uuid(obj: any, version: 2): obj is string;
+
+        /**
+         * Checks whether the given object is a valid UUIDv3 identifier
+         */
+        export function uuid(obj: any, version: 3): obj is string;
+
+        /**
+         * Checks whether the given object is a valid UUIDv4 identifier
+         */
+        export function uuid(obj: any, version: 4): obj is string;
+
+        /**
+         * Checks whether the given object is a valid UUIDv5 identifier
+         */
+        export function uuid(obj: any, version: 5): obj is string;
+
+        /**
+         * Checks whether the given object is a valid UUID identifier (v1, v2, v3, v4 or v5)
+         */
+        export function uuid(obj: any, version?: "all"): obj is string;
+
+        export function emitter(obj: any): obj is event.Emitter;
+
+        export function asyncEmitter(obj: any): obj is event.AsyncEmitter;
     }
 }

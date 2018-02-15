@@ -30,11 +30,11 @@ class DrawerTest extends React.Component<{}, {open: boolean}> {
         );
     }
 
-    private onOpen = () => {
+    private readonly onOpen = () => {
       this.setState({open: true});
     }
 
-    private onClose = () => {
+    private readonly onClose = () => {
       this.setState({open: false});
     }
 }

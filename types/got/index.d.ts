@@ -69,7 +69,6 @@ declare const got: got.GotFn &
     };
 
 declare namespace got {
-    // tslint:disable unified-signatures
     interface GotFn {
         (url: GotUrl): GotPromise<string>;
         (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
@@ -78,11 +77,10 @@ declare namespace got {
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
     }
-    // tslint:enable unified-signatures
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
-    type GotUrl = string | http.RequestOptions | URL;
+    type GotUrl = string | http.RequestOptions | Url;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;

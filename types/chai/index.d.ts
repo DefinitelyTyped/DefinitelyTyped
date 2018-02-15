@@ -1,4 +1,4 @@
-// Type definitions for chai 4.0
+// Type definitions for chai 4.1
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -8,9 +8,8 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Shaun Luttin <https://github.com/shaunluttin>
 //                 Gintautas Miselis <https://github.com/Naktibalda>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// <reference types="assertion-error"/>
 
 declare namespace Chai {
     interface ChaiStatic {
@@ -26,20 +25,20 @@ declare namespace Chai {
         version: string;
     }
 
-    interface ExpectStatic extends AssertionStatic {
+    export interface ExpectStatic extends AssertionStatic {
         fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
     }
 
-    interface AssertStatic extends Assert {
+    export interface AssertStatic extends Assert {
     }
 
-    interface AssertionStatic {
+    export interface AssertionStatic {
         (target: any, message?: string): Assertion;
     }
 
-    type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
+    export type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
 
-    type OperatorComparable = boolean | null | number | string | undefined | Date;
+    export type OperatorComparable = boolean | null | number | string | undefined | Date;
 
     interface ShouldAssertion {
         equal(value1: any, value2: any, message?: string): void;
@@ -227,7 +226,7 @@ declare namespace Chai {
     }
 
     interface Match {
-        (regexp: RegExp|string, message?: string): Assertion;
+        (regexp: RegExp, message?: string): Assertion;
     }
 
     interface Keys {
@@ -256,7 +255,7 @@ declare namespace Chai {
         (object: Object, property: string, message?: string): Assertion;
     }
 
-    interface Assert {
+    export interface Assert {
         /**
          * @param expression    Expression to test for truthiness.
          * @param message    Message to display on error.
@@ -1585,9 +1584,80 @@ declare namespace Chai {
          * @param message    Message to display on error.
          */
         doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that object has a direct or inherited property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        nestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         * The property cannot exist on the object nor anywhere in its prototype chain.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        notNestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        nestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with a value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        deepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notDeepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
     }
 
-    interface Config {
+    export interface Config {
         /**
          * Default: false
          */
@@ -1604,7 +1674,7 @@ declare namespace Chai {
         truncateThreshold: number;
     }
 
-    class AssertionError {
+    export class AssertionError {
         constructor(message: string, _props?: any, ssf?: Function);
         name: string;
         message: string;
@@ -1615,10 +1685,10 @@ declare namespace Chai {
 
 declare const chai: Chai.ChaiStatic;
 
-export = chai;
+declare module "chai" {
+    export = chai;
+}
 
-declare global {
-    interface Object {
-        should: Chai.Assertion;
-    }
+interface Object {
+    should: Chai.Assertion;
 }

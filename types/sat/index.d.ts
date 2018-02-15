@@ -14,7 +14,7 @@ declare namespace SAT {
 		 * @param {number} x The x-coordinate of the Vector.
 		 * @param {number} y The y-coordinate of the Vector.
 		 */
-		constructor(x: number, y: number);
+		constructor(x?: number, y?: number);
 
 		x: number;
 		y: number;
@@ -27,7 +27,7 @@ declare namespace SAT {
 		normalize(): Vector;
 		add(other: Vector): Vector;
 		sub(other: Vector): Vector;
-		scale(x: number, y: number): Vector;
+		scale(x: number, y?: number): Vector;
 		project(other: Vector): Vector;
 		projectN(other: Vector): Vector;
 		reflect(axis: Vector): Vector;
@@ -40,13 +40,13 @@ declare namespace SAT {
 	 * This is simple circle with a center {pos} position and radius {r}.
 	 */
 	export class Circle {
-		constructor(pos: Vector, r: number);
+		constructor(pos?: Vector, r?: number);
 
 		pos: Vector;
 		r: number;
 	}
 	export class Polygon {
-		constructor(pos: Vector, points: Vector[]);
+		constructor(pos?: Vector, points?: Vector[]);
 
 		pos: Vector;
 		points: Vector[];
@@ -66,7 +66,7 @@ declare namespace SAT {
 
 	}
 	export class Box {
-		constructor(pos: Vector, width: number, height: number);
+		constructor(pos?: Vector, width?: number, height?: number);
 
 		pos: Vector;
 		w: number;

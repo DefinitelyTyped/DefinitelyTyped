@@ -151,13 +151,15 @@ var questions = [
     {
         type: "input",
         name: "first_name",
-        message: "What's your first name"
+        message: "What's your first name",
+        prefix: "1 - ",
     },
     {
         type: "input",
         name: "last_name",
         message: "What's your last name",
-        default: function () { return "Doe"; }
+        default: function () { return "Doe"; },
+        suffix: "!!"
     },
     {
         type: "input",

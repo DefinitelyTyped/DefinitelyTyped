@@ -114,7 +114,7 @@ describe("react-select", () => {
 
     it("Focus method", () => {
         class Component extends React.PureComponent {
-            private selectRef = (component: ReactSelect) => {
+            private readonly selectRef = (component: ReactSelect) => {
                 component.focus();
             }
 
@@ -171,7 +171,7 @@ describe("Focus events", () => {
 describe("Examples", () => {
     it("Simple example", () => {
         class Component extends React.Component {
-            private onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = (option) => {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = (option) => {
                 const optionValue: string = option.value;
             }
 
@@ -187,7 +187,7 @@ describe("Examples", () => {
 
     it("onValueClick", () => {
         class Component extends React.Component {
-            private onValueClick: ReactSelectModule.OnValueClickHandler<number> = (option) => {
+            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<number> = (option) => {
                 const optionValue: number = option.value;
             }
 
@@ -208,7 +208,7 @@ describe("Examples", () => {
 
     it("Custom value onValueClick", () => {
         class Component extends React.Component {
-            private onValueClick: ReactSelectModule.OnValueClickHandler<CustomValueType> = (option) => {
+            private readonly onValueClick: ReactSelectModule.OnValueClickHandler<CustomValueType> = (option) => {
                 const optionValue: CustomValueType = option.value;
             }
 
@@ -224,7 +224,7 @@ describe("Examples", () => {
 
     it("Custom value onChange", () => {
         class Component extends React.Component {
-            private onSelectChange: ReactSelectModule.OnChangeSingleHandler<CustomValueType> = (option) => {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<CustomValueType> = (option) => {
                 const optionValue: CustomValueType = option.value;
             }
 
@@ -240,11 +240,11 @@ describe("Examples", () => {
 
     it("Menu renderer example", () => {
         class Component extends React.Component {
-            private onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
             }
 
-            private menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
+            private readonly menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
                 const options = props.options.map(option => {
                     return <div className="option">{option.label}</div>;
                 });
@@ -265,7 +265,7 @@ describe("Examples", () => {
 
     it("Menu renderer with custom value type example", () => {
         class Component extends React.Component {
-            private menuRenderer: ReactSelectModule.MenuRendererHandler<CustomValueType> = props => {
+            private readonly menuRenderer: ReactSelectModule.MenuRendererHandler<CustomValueType> = props => {
                 const options = props.options.map(option => {
                     return (
                         <div className="option" data-value1={option.value.prop1}
@@ -291,11 +291,11 @@ describe("Examples", () => {
 
     it("Input render example", () => {
         class Component extends React.Component {
-            private onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
+            private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
                 const optionValue: string = option.value;
             }
 
-            private inputRenderer: ReactSelectModule.InputRendererHandler = props => {
+            private readonly inputRenderer: ReactSelectModule.InputRendererHandler = props => {
                 return <input {...props} />;
             }
 
@@ -354,5 +354,25 @@ describe("Examples", () => {
 
     it("No Results renderer with element", () => {
         <ReactSelect noResultsText={<i>no results</i>} />;
+    });
+
+    it("onSelectResetsInput", () => {
+        <ReactSelect onSelectResetsInput />;
+    });
+
+    it("onCloseResetsInput", () => {
+        <ReactSelect onCloseResetsInput />;
+    });
+
+    it("pageSize", () => {
+        <ReactSelect pageSize={5} />;
+    });
+
+    it("removeSelected", () => {
+        <ReactSelect removeSelected />;
+    });
+
+    it("rtl", () => {
+        <ReactSelect rtl />;
     });
 });

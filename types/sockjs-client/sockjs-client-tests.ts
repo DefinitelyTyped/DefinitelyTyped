@@ -43,5 +43,4 @@ sockJs.close(100, 'reason');
 sockJs.close(200);
 sockJs.close();
 
-type MySocket = SockJS.Socket;
 type MessageEvent = SockJS.MessageEvent;

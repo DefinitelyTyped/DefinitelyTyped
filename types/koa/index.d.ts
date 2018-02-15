@@ -21,7 +21,7 @@ import * as accepts from "accepts";
 import * as Cookies from "cookies";
 import { EventEmitter } from "events";
 import { IncomingMessage, ServerResponse, Server } from "http";
-import * as httpAssert from "http-assert";
+import httpAssert = require("http-assert");
 import * as Keygrip from "keygrip";
 import * as compose from "koa-compose";
 import { Socket, ListenOptions } from "net";
@@ -459,7 +459,6 @@ declare class Application extends EventEmitter {
         hostname?: string,
         listeningListener?: () => void,
     ): Server;
-    /* tslint:disable:unified-signatures */
     listen(
         port: number,
         backlog?: number,
@@ -479,7 +478,6 @@ declare class Application extends EventEmitter {
         listeningListener?: () => void,
     ): Server;
     listen(handle: any, listeningListener?: () => void): Server;
-    /* tslint:enable:unified-signatures*/
 
     /**
      * Return JSON representation.

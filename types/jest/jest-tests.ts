@@ -288,7 +288,7 @@ describe('missing tests', () => {
        class Closure<T> {
            private arg: T;
 
-           constructor(private fn: (arg: T) => void) {
+           constructor(private readonly fn: (arg: T) => void) {
                this.fn = fn;
            }
 
@@ -311,7 +311,7 @@ describe('missing tests', () => {
        expect(jest.isMockFunction(spy)).toBeTruthy();
    });
 
-    it('tests all mising Mocks functionality', () => {
+    it('tests all missing Mocks functionality', () => {
        type FruitsGetter = () => string[];
        const mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
        mock.mockImplementationOnce(() => ['Orange', 'Apple', 'Plum']);
@@ -327,6 +327,12 @@ describe('missing tests', () => {
        const thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
        expect(thisMock()).toBe(this);
    });
+
+    it('tests mock name functionality', () => {
+        const mock: jest.Mock = jest.fn();
+        mock.mockName('Carrot');
+        expect(mock.getMockName()).toBe('Carrot');
+    });
 
     it('creates snapshoter', () => {
        jest.disableAutomock().mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });
@@ -516,7 +522,7 @@ describe('beforeEach with timeout', () => {
 class TestApi {
     constructor() { }
     testProp: boolean;
-    private anotherProp: string;
+    private readonly anotherProp: string;
     testMethod(a: number): string { return ""; }
 }
 

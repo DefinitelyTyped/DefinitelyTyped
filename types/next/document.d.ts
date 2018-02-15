@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface DocumentProps {
     __NEXT_DATA__?: any;

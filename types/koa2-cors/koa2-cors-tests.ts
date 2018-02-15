@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import * as cors from 'koa2-cors';
+import Koa = require('koa');
+import cors = require('koa2-cors');
 
 const app = new Koa();
 app.use(cors({
