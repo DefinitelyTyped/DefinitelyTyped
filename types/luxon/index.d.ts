@@ -2,6 +2,7 @@
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
+//                 Jonathan Siebern <https://github.com/jsiebern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -209,7 +210,7 @@ declare module 'luxon' {
             toSQLTime(options?: Object): string;
             toString(): string;
             toUTC(offset?: number, options?: ZoneOptions): DateTime;
-            until(other: DateTime): Duration;
+            until(other: DateTime): Interval;
             valueOf(): number;
         }
 
