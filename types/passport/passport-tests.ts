@@ -137,3 +137,14 @@ passportInstance.use(new TestStrategy());
 
 const authenticator = new passport.Authenticator();
 authenticator.use(new TestStrategy());
+
+declare namespace Express {
+  interface User {
+    username: string;
+  }
+}
+
+app.use((req, res, next) => {
+    console.log(req.user.username);
+    next();
+});
