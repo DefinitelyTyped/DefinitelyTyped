@@ -160,6 +160,7 @@ var knex = Knex({
 
 // Knex Query Builder
 knex.select('title', 'author', 'year').from('books');
+knex.select({ name: 'title', writer: 'author' }).from(knex.raw('books'));
 knex.select().table('books');
 
 knex.avg('sum_column1').from(function() {
