@@ -114,7 +114,6 @@ export interface RequestOptions {
 }
 
 /**
- * @param err Error
  * @param data Outgoing message
  * @param res http response
  */
@@ -131,38 +130,30 @@ export type Callback = (err: Error, data: any, res: http.IncomingMessage) => voi
  * urllib.request('http://httptest.cnodejs.net/test/post', args, function(err, data, res) {});
  *
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see RequestOptions.
  */
 export function request(url: string | url.URL, options?: RequestOptions): Promise<any>;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param callback @see Callback
  */
 export function request(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options @see RequestOptions.
- * @param callback @see Callback
  */
 export function request(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 
 /**
  * Handle request with a callback.
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param callback @see Callback
  */
 export function requestWithCallback(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options @see RequestOptions.
- * @param callback @see Callback
  */
 export function requestWithCallback(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 
 /**
  * yield urllib.requestThunk(url, args)
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options Optional, @see RequestOptions.
  */
 export function requestThunk(url: string | url.URL, options?: RequestOptions): (callback: (...args: any[]) => void) => void;
 
@@ -183,13 +174,10 @@ export function requestThunk(url: string | url.URL, options?: RequestOptions): (
 export function curl(url: string | url.URL, options?: RequestOptions): Promise<any>;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param callback @see Callback
  */
 export function curl(url: string | url.URL, callback: Callback): void;
 /**
  * @param url The URL to request, either a String or a Object that return by url.parse.
- * @param options @see RequestOptions.
- * @param callback @see Callback
  */
 export function curl(url: string | url.URL, options: RequestOptions, callback: Callback): void;
 /**
@@ -243,7 +231,6 @@ export class HttpClient2 extends EventEmitter {
 }
 
 /**
- * Create a HttpClient incetance.
- * @param options @see RequestOptions
+ * Create a HttpClient instance.
  */
 export function create(options?: RequestOptions): HttpClient;
