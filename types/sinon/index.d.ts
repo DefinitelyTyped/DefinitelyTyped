@@ -234,8 +234,8 @@ declare namespace Sinon {
 
     interface SinonFakeTimersStatic {
         (): SinonFakeTimers;
-        (...timers: string[]): SinonFakeTimers;
-        (now: number, ...timers: string[]): SinonFakeTimers;
+        (now?: number | Date): SinonFakeTimers;
+        (config: { now?: number | Date, toFake?: string[], shouldAdvanceTime?: boolean }): SinonFakeTimers;
     }
 
     interface SinonStatic {
