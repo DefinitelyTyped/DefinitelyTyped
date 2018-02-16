@@ -137,29 +137,19 @@ declare namespace Muicss {
     export class Tabs extends React.Component<TabsProps> {}
     export class Textarea extends React.Component<TextareaProps> {}
 
-    export interface ButtonProps extends React.DetailedHTMLFactory<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-        color?: string;
+    export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
         size?: string;
         variant?: string;
-        onMouseDown?: React.MouseEventHandler<{}>;
-        onMouseUp?: React.MouseEventHandler<{}>;
-        onMouseLeave?: React.MouseEventHandler<{}>;
-        onTouchStart?: React.MouseEventHandler<{}>;
-        onTouchEnd?: React.MouseEventHandler<{}>;
     }
 
-    export interface CheckboxProps extends React.DetailedHTMLFactory<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
         label?: React.ReactNode;
         autoFocus?: boolean;
         checked?: boolean;
-        defaultChecked?: boolean;
-        defaultValue?: string | string[];
         disabled?: boolean;
         form?: string;
-        name?: string;
         required?: boolean;
         value?: string | string[] | number;
-        onChange?: React.ChangeEventHandler<HTMLInputElement>;
     }
 
     export interface ColProps extends DivProps {
@@ -179,22 +169,17 @@ declare namespace Muicss {
         fluid?: boolean;
     }
 
-    export interface DivProps extends React.DetailedHTMLFactory<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+    export interface DivProps extends React.HTMLAttributes<HTMLDivElement> {}
     export interface DividerProps extends DivProps {}
 
-    export interface DropdownItemProps extends React.DetailedHTMLFactory<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
+    export interface DropdownItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
         link?: string;
         target?: string;
-        value?: any;
     }
 
-    export interface DropdownProps extends React.DetailedHTMLFactory<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-        onSelect?: React.MouseEventHandler<HTMLDivElement>; // proxy of menu item's onClick
-        onClick?: React.MouseEventHandler<HTMLDivElement>; // click the button to show dropdown
+    export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
         onOutsideClick?: React.MouseEventHandler<HTMLDivElement>;
-        onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
 
-        color?: string;
         variant?: string;
         size?: string;
         label?: React.ReactNode;
@@ -202,22 +187,20 @@ declare namespace Muicss {
         disabled?: boolean;
     }
 
-    export interface FormProps extends React.DetailedHTMLFactory<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
+    export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
         inline?: boolean;
     }
 
-    export interface InputProps extends React.DetailedHTMLFactory<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+    export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
         inputRef?: React.Ref<HTMLInputElement>;
         onLabelClick?: React.MouseEventHandler<HTMLInputElement>;
-        hint?: string; // placeholder
+        hint?: string;
         invalid?: boolean;
         label?: React.ReactNode;
         floatingLabel?: boolean;
     }
 
-    export interface OptionProps extends React.DetailedHTMLFactory<React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement> {
-        label?: string;
-        value?: string | string[] | number;
+    export interface OptionProps extends React.OptionHTMLAttributes<HTMLOptionElement> {
     }
 
     export interface PanelProps extends DivProps {}
@@ -232,12 +215,8 @@ declare namespace Muicss {
 
     export interface SelectProps extends DivProps {
         label?: React.ReactNode;
-        name?: string;
         readOnly?: boolean;
         useDefault?: boolean;
-        onChange?: React.ChangeEventHandler<HTMLDivElement>;
-        onClick?: React.MouseEventHandler<HTMLDivElement>;
-        onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     }
 
     export interface TabProps {
@@ -250,13 +229,12 @@ declare namespace Muicss {
         defaultSelectedIndex?: number;
         selectedIndex?: number;
         justified?: boolean;
-        onChange?: (index: number, value: any, tab: Tab, event: Event) => void;
     }
 
-    export interface TextareaProps extends React.DetailedHTMLFactory<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
+    export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
         inputRef?: React.Ref<HTMLTextAreaElement>;
         onLabelClick?: React.MouseEventHandler<HTMLInputElement>;
-        hint?: string; // placeholder
+        hint?: string;
         invalid?: boolean;
         label?: React.ReactNode;
         floatingLabel?: boolean;
