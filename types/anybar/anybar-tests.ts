@@ -1,4 +1,4 @@
-import * as anybar from 'anybar'
+import anybar from 'anybar'
 
 anybar('red', { port: 123 })
 
