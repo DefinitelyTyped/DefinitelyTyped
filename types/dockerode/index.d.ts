@@ -5,6 +5,7 @@
 //                 ByeongHun Yoo <https://github.com/isac322>
 //                 Ray Fang <https://github.com/lazarusx>
 //                 Marius Meisenzahl <https://github.com/meisenzahl>
+//                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
