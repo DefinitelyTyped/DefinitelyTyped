@@ -415,7 +415,7 @@ R.times(i, 5);
  */
 () => {
     function mergeThree(a: number, b: number, c: number): number[] {
-        return ([]).concat(a, b, c);
+        return (new Array<number>()).concat(a, b, c);
     }
 
     mergeThree(1, 2, 3); // => [1, 2, 3]
@@ -2249,6 +2249,12 @@ class Rectangle {
     defaultTo42(null);  // => 42
     defaultTo42(undefined);  // => 42
     defaultTo42("Ramda");  // => 'Ramda'
+
+    const valueOrUndefined = 2 as number | undefined;
+    defaultTo42(valueOrUndefined) - 2; // => 0
+
+    const valueOrNull = 2 as number | null;
+    defaultTo42(valueOrNull) - 2; // => 0
 };
 
 () => {
@@ -2314,7 +2320,7 @@ class Why {
     const x0: boolean        = R.or(false, true); // => false
     const x1: number | any[] = R.or(0, []); // => []
     const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string         = R.or(null, ""); // => ''
+    const x3: string | null  = R.or(null, ""); // => ''
 
     const why = new Why(true);
     why.or(true);

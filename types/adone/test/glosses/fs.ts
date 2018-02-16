@@ -11,6 +11,15 @@ namespace fsTests {
         fs.readlink("file", null).then((x: Buffer) => x);
         fs.readlink("file", "hex").then((x: string) => x);
         fs.readlink("file").then((x: string) => x);
+        fs.readlinkSync("file");
+        fs.readlinkSync(Buffer.from("file"));
+        fs.readlinkSync(new URL("file://file"));
+        { const a: string = fs.readlinkSync("file", {}); }
+        { const a: string = fs.readlinkSync("file", { encoding: "utf8" }); }
+        { const a: Buffer = fs.readlinkSync("file", { encoding: null }); }
+        { const a: Buffer = fs.readlinkSync("file", null); }
+        { const a: string = fs.readlinkSync("file", "hex"); }
+        { const a: string = fs.readlinkSync("file"); }
     }
 
     namespace unlinkTests {
@@ -20,6 +29,24 @@ namespace fsTests {
         fs.unlinkSync("file");
         fs.unlinkSync(Buffer.from("file"));
         fs.unlinkSync(new URL("file://file"));
+    }
+
+    namespace utimesTests {
+        fs.utimes("hello", 100, 100).then(() => {});
+        fs.utimes(Buffer.from("hello"), 100, 100).then(() => {});
+        fs.utimes(new URL("hello"), 100, 100).then(() => {});
+        fs.utimes("hello", "100", "100").then(() => {});
+        fs.utimes("hello", new Date(100), new Date(100)).then(() => {});
+
+        fs.utimesSync("hello", 100, 100);
+        fs.utimesSync(Buffer.from("hello"), 100, 100);
+        fs.utimesSync(new URL("hello"), 100, 100);
+        fs.utimesSync("hello", "100", "100");
+        fs.utimesSync("hello", new Date(100), new Date(100));
+
+        fs.utimesMillis("hello", 100, 100);
+        fs.utimesMillis(Buffer.from("hello"), 100, 100);
+        fs.utimesMillis(new URL("hello"), 100, 100);
     }
 
     namespace chmodTests {
@@ -58,6 +85,87 @@ namespace fsTests {
         const c: string[] = fs.readdirSync("file", {});
         const d: string[] = fs.readdirSync("file", { encoding: "hex" });
         const e: Buffer[] = fs.readdirSync("file", { encoding: null });
+    }
+
+    namespace readdirpTests {
+        fs.readdirp("hello").forEach((entry) => {
+            { const a: string = entry.fullParentDir; }
+            { const a: string = entry.fullPath; }
+            { const a: string = entry.name; }
+            { const a: string = entry.parentDir; }
+            { const a: string = entry.path; }
+            { const a: adone.fs.I.Stats = entry.stat; }
+        });
+
+        fs.readdirp(Buffer.from("hello"));
+        fs.readdirp(new URL("hello"));
+        fs.readdirp("hello", {});
+        fs.readdirp("hello", { depth: 100 });
+        fs.readdirp("hello", { directories: true });
+        fs.readdirp("hello", { directoryFilter: () => true });
+        fs.readdirp("hello", {
+            directoryFilter: (entry) => {
+                { const a: string = entry.fullParentDir; }
+                { const a: string = entry.fullPath; }
+                { const a: string = entry.name; }
+                { const a: string = entry.parentDir; }
+                { const a: string = entry.path; }
+                { const a: adone.fs.I.Stats = entry.stat; }
+                return true;
+            }
+        });
+        fs.readdirp("hello", {
+            directoryFilter: [(entry) => {
+                { const a: string = entry.fullParentDir; }
+                { const a: string = entry.fullPath; }
+                { const a: string = entry.name; }
+                { const a: string = entry.parentDir; }
+                { const a: string = entry.path; }
+                { const a: adone.fs.I.Stats = entry.stat; }
+                return true;
+            }]
+        });
+        fs.readdirp("hello", {
+            directoryFilter: ["*"]
+        });
+        fs.readdirp("hello", {
+            directoryFilter: "*"
+        });
+        fs.readdirp("hello", { fileFilter: () => true });
+        fs.readdirp("hello", {
+            fileFilter: (entry) => {
+                { const a: string = entry.fullParentDir; }
+                { const a: string = entry.fullPath; }
+                { const a: string = entry.name; }
+                { const a: string = entry.parentDir; }
+                { const a: string = entry.path; }
+                { const a: adone.fs.I.Stats = entry.stat; }
+                return true;
+            }
+        });
+        fs.readdirp("hello", {
+            fileFilter: [(entry) => {
+                { const a: string = entry.fullParentDir; }
+                { const a: string = entry.fullPath; }
+                { const a: string = entry.name; }
+                { const a: string = entry.parentDir; }
+                { const a: string = entry.path; }
+                { const a: adone.fs.I.Stats = entry.stat; }
+                return true;
+            }]
+        });
+        fs.readdirp("hello", {
+            fileFilter: ["*"]
+        });
+        fs.readdirp("hello", {
+            fileFilter: "*"
+        });
+        fs.readdirp("hello", {
+            files: false
+        });
+        fs.readdirp("hello", {
+            lstat: true
+        });
     }
 
     namespace lstatTests {
@@ -119,6 +227,15 @@ namespace fsTests {
         fs.appendFile("file", "hello", { encoding: "utf8" }).then(() => {});
         fs.appendFile("file", "hello", { mode: 0o755 }).then(() => {});
         fs.appendFile("file", "hello", { flag: "w" }).then(() => {});
+
+        fs.appendFileSync("file", "hello");
+        fs.appendFileSync(Buffer.from("file"), "hello");
+        fs.appendFileSync(10, "hello");
+        fs.appendFileSync("file", Buffer.from("hello"));
+        fs.appendFileSync("file", "hello", {});
+        fs.appendFileSync("file", "hello", { encoding: "utf8" });
+        fs.appendFileSync("file", "hello", { mode: 0o755 });
+        fs.appendFileSync("file", "hello", { flag: "w" });
     }
 
     namespace accessTests {
@@ -151,6 +268,12 @@ namespace fsTests {
         fs.rm("file", { maxBusyTries: 3 }).then((x) => {});
         fs.rm("file", { emfileWait: 100 }).then((x) => {});
         fs.rm("file", { cwd: __dirname }).then((x) => {});
+    }
+
+    namespace rmEmptyTests {
+        fs.rmEmpty("file").then(() => {});
+        fs.rmEmpty("file", { cwd: "a" }).then(() => {});
+        fs.rmEmpty("file", { filter: (filename) => filename.charCodeAt(0) === 100 }).then(() => {});
     }
 
     namespace ModeTests {
@@ -513,37 +636,36 @@ namespace fsTests {
     }
 
     namespace fdTests {
-        const { fd } = fs;
-        fd.open("hello", "r+").then((x: number) => {});
-        fd.open(Buffer.from("hello"), "r+").then((x: number) => {});
-        fd.open(new URL("file://hello"), "r+").then((x: number) => {});
-        { const a: number = fd.openSync("hello", "r+"); }
-        { const a: number = fd.openSync(Buffer.from("hello"), "r+"); }
-        { const a: number = fd.openSync(new URL("file://hello"), "r+"); }
-        fd.close(10).then(() => {});
-        fd.closeSync(10);
-        fd.utimes(10, 100500, 100500).then(() => {});
-        fd.utimesSync(10, 100500, 100500);
-        fd.stat(10).then((x: adone.fs.I.Stats) => {});
-        { const a: adone.fs.I.Stats = fd.statSync(10); }
-        fd.truncate(10).then(() => {});
-        fd.truncate(10, 10).then(() => {});
-        fd.truncateSync(10);
-        fd.truncateSync(10, 10);
-        fd.read(10, Buffer.alloc(10), 0, 10, 10).then((x: number) => {});
-        { const a: number = fd.readSync(10, Buffer.alloc(10), 0, 10, 10); }
-        fd.write(10, Buffer.alloc(10), 0, 10, 10).then((x: number) => {});
-        { const a: number = fd.writeSync(10, Buffer.alloc(10), 0, 10, 10); }
-        fd.write(10, "hello", 10, "utf8").then((x: number) => {});
-        { const a: number = fd.writeSync(10, "hello", 10, "utf8"); }
-        fd.sync(10).then(()  => {});
-        fd.syncSync(10);
-        fd.chown(10, 0, 0).then(() => {});
-        fd.chownSync(10, 0, 0);
-        fd.chmod(10, 0o755).then(() => {});
-        fd.chmodSync(10, 0o755);
-        fd.seek(10, 100, 0).then((x: number) => {});
-        fd.lock(10, "sh").then(() => {});
+        fs.open("hello", "r+").then((x: number) => {});
+        fs.open(Buffer.from("hello"), "r+").then((x: number) => {});
+        fs.open(new URL("file://hello"), "r+").then((x: number) => {});
+        { const a: number = fs.openSync("hello", "r+"); }
+        { const a: number = fs.openSync(Buffer.from("hello"), "r+"); }
+        { const a: number = fs.openSync(new URL("file://hello"), "r+"); }
+        fs.close(10).then(() => {});
+        fs.closeSync(10);
+        fs.futimes(10, 100500, 100500).then(() => {});
+        fs.futimesSync(10, 100500, 100500);
+        fs.fstat(10).then((x: adone.fs.I.Stats) => {});
+        { const a: adone.fs.I.Stats = fs.fstatSync(10); }
+        fs.ftruncate(10).then(() => {});
+        fs.ftruncate(10, 10).then(() => {});
+        fs.ftruncateSync(10);
+        fs.ftruncateSync(10, 10);
+        fs.read(10, Buffer.alloc(10), 0, 10, 10).then((x: number) => {});
+        { const a: number = fs.readSync(10, Buffer.alloc(10), 0, 10, 10); }
+        fs.write(10, Buffer.alloc(10), 0, 10, 10).then((x: number) => {});
+        { const a: number = fs.writeSync(10, Buffer.alloc(10), 0, 10, 10); }
+        fs.write(10, "hello", 10, "utf8").then((x: number) => {});
+        { const a: number = fs.writeSync(10, "hello", 10, "utf8"); }
+        fs.fsync(10).then(()  => {});
+        fs.fsyncSync(10);
+        fs.fchown(10, 0, 0).then(() => {});
+        fs.fchownSync(10, 0, 0);
+        fs.fchmod(10, 0o755).then(() => {});
+        fs.fchmodSync(10, 0o755);
+        fs.seek(10, 100, 0).then((x: number) => {});
+        fs.flock(10, "sh").then(() => {});
     }
 
     namespace constantsTests {
@@ -668,13 +790,44 @@ namespace fsTests {
     namespace mkdirTests {
         fs.mkdir("/path/to/some/dir").then(() => {});
         fs.mkdir("/path/to/some/dir", 0o755).then(() => {});
+
+        fs.mkdirSync("/path/to/some/dir").then(() => {});
+        fs.mkdirSync("/path/to/some/dir", 0o755).then(() => {});
+    }
+
+    namespace mkdirTests {
+        fs.mkdirp("/path/to/some/dir").then(() => {});
+        fs.mkdirp("/path/to/some/dir", 0o755).then(() => {});
+
+        fs.mkdirpSync("/path/to/some/dir").then(() => {});
+        fs.mkdirpSync("/path/to/some/dir", 0o755).then(() => {});
     }
 
     namespace copyTests {
         fs.copy("a", "b").then(() => {});
-        fs.copy("a", "b", {}).then(() => {});
-        fs.copy("a", "b", { cwd: "/tmp" }).then(() => {});
-        fs.copy("a", "b", { ignoreExisting: true }).then(() => {});
+        fs.copy("a", "b", {});
+        fs.copy("a", "b", { clobber: true }).then(() => {});
+        fs.copy("a", "b", { overwrite: true }).then(() => {});
+        fs.copy("a", "b", { filter: /asd/ }).then(() => {});
+        fs.copy("a", "b", { filter: () => true }).then(() => {});
+        fs.copy("a", "b", { filter: (a) => a.charCodeAt(0) === 100 }).then(() => {});
+        fs.copy("a", "b", {
+            transform(r, w, file) {
+                file.atime.getDay();
+                file.mtime.getDay();
+                file.mode.toExponential();
+                file.name.charCodeAt(0);
+                file.stats.atimeMs.toExponential();
+                r.pipe(w);
+            }
+        }).then(() => {});
+    }
+
+    namespace copyTests {
+        fs.copyTo("a", "b").then(() => {});
+        fs.copyTo("a", "b", {});
+        fs.copyTo("a", "b", { cwd: "/tmp" }).then(() => {});
+        fs.copyTo("a", "b", { ignoreExisting: true }).then(() => {});
     }
 
     namespace renameTests {
@@ -689,6 +842,7 @@ namespace fsTests {
         fs.tail("file", 10, {}).then((x: Buffer[]) => {});
         fs.tail("file", 10, { separator: "\n" }).then((x: Buffer[]) => {});
         fs.tail("file", 10, { chunkLength: 4096 }).then((x: Buffer[]) => {});
+        fs.tail("file", 10, { pos: 10 }).then((x: Buffer[]) => {});
     }
 
     namespace statVFSTests {

@@ -860,7 +860,7 @@ declare module 'ember-data' {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-        Ember.PromiseProxyMixin<Ember.ArrayProxy<T>> {}
+                Ember.PromiseProxyMixin<Ember.ArrayProxy<T>> {}
         class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -871,7 +871,7 @@ declare module 'ember-data' {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-        Ember.PromiseProxyMixin<T & Ember.ObjectProxy> {}
+                Ember.PromiseProxyMixin<T & Ember.ObjectProxy> {}
         class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
@@ -2098,6 +2098,12 @@ declare module 'ember' {
         interface Registry {
             'store': DS.Store;
         }
+    }
+}
+declare module 'ember-test-helpers' {
+    import DS from 'ember-data';
+    interface TestContext {
+        store: DS.Store;
     }
 }
 declare module 'ember-data/adapter' {

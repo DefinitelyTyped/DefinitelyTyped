@@ -10,6 +10,7 @@
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Carven Zhang <https://github.com/zjy01>
 //                 Nikola Vidic <https://github.com/nidzov>
+//                 Florian Oellerich <https://github.com/Raigen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -19,7 +20,7 @@
 
 
 import * as _ from "lodash";
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
@@ -3363,7 +3364,7 @@ declare namespace sequelize {
          * Apply column on which COUNT() should be applied
          */
         col?: string;
-                     
+
         /**
          * Apply COUNT(DISTINCT(col))
          */
@@ -5313,7 +5314,7 @@ declare namespace sequelize {
         /**
          * Only retry a query if the error matches one of these strings.
          */
-        match?: string[];
+        match?: (string|RegExp|Error)[];
 
         /**
          * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.

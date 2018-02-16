@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 1.0
+// Type definitions for react-datepicker 1.1
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -7,7 +7,7 @@
 //                 Roy Xue <https://github.com/royxue>
 // 				   Koala Human <https://github.com/KoalaHuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import * as React from "react";
 import * as moment from "moment";
@@ -37,6 +37,7 @@ export interface ReactDatePickerProps {
 	highlightDates?: any[];
 	id?: string;
 	includeDates?: any[];
+	includeTimes?: any[];
 	inline?: boolean;
 	isClearable?: boolean;
 	locale?: string;
@@ -58,16 +59,20 @@ export interface ReactDatePickerProps {
 	peekNextMonth?: boolean;
 	placeholderText?: string;
 	popperClassName?: string;
+	popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
 	popperModifiers?: any;
 	popperPlacement?: string;
 	preventOpenOnFocus?: boolean;
 	readOnly?: boolean;
 	required?: boolean;
 	scrollableYearDropdown?: boolean;
+	scrollableMonthYearDropdown?: boolean;
 	selected?: moment.Moment | null;
 	selectsEnd?: boolean;
 	selectsStart?: boolean;
+	showDisabledMonthNavigation?: boolean;
 	showMonthDropdown?: boolean;
+	showMonthYearDropdown?: boolean;
 	showWeekNumbers?: boolean;
 	showYearDropdown?: boolean;
 	startDate?: moment.Moment;

@@ -3,7 +3,7 @@
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { RenderFunction } from '@storybook/react';
@@ -45,6 +45,8 @@ export function select<T extends SelectValue>(name: string, options: T[], value:
 export function date(name: string, value?: Date): Date;
 
 export function array<T>(name: string, value: T[], separator?: string): T[];
+
+export function button(name: string, handler: () => any): void;
 
 export interface WrapStoryProps {
     context?: object;

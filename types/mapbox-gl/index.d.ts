@@ -26,8 +26,12 @@ declare namespace mapboxgl {
         constructor(options?: MapboxOptions);
 
         addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
+        
+        addControl(control: IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
         removeControl(control: Control): this;
+        
+        removeControl(control: IControl): this;
 
         addClass(klass: string, options?: mapboxgl.StyleOptions): this;
 
@@ -1027,7 +1031,7 @@ declare namespace mapboxgl {
         'icon-size'?: number | StyleFunction | Expression;
         'icon-text-fit'?: 'none' | 'both' | 'width' | 'height';
         'icon-text-fit-padding'?: number[] | Expression;
-        'icon-image'?: string | StyleFunction;
+        'icon-image'?: string | StyleFunction | Expression;
         'icon-rotate'?: number | StyleFunction | Expression;
         'icon-padding'?: number | Expression;
         'icon-keep-upright'?: boolean;
