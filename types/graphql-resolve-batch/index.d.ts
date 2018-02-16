@@ -23,4 +23,4 @@ export type BatchResolveFunction<TSource, TArgs, TContext, TReturn> = (
     sources: ReadonlyArray<TSource>,
     args: TArgs,
     context: TContext
-) => TReturn[] | Promise<TReturn>[];
+) => TReturn[] | Array<Promise<TReturn>>;
