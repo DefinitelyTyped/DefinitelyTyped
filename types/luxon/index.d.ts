@@ -287,13 +287,14 @@ declare module 'luxon' {
         type Features = {
             intl: boolean;
             intlTokens: boolean;
-            timezones: boolean;
+            zones: boolean;
         };
 
         namespace Info {
             function eras(length?: EraLength, options?: InfoOptions): string[];
             function features(): Features;
             function hasDST(zone: string | Zone): boolean;
+            function isValidIANAZone(zone: string): boolean;
             function meridiems(options?: InfoOptions): string[];
             function months(length?: UnitLength, options?: UnitOptions): string[];
             function monthsFormat(length?: UnitLength, options?: UnitOptions): string[];

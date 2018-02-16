@@ -2,7 +2,7 @@
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { Dispatch, ActionCreator, Reducer } from 'redux';

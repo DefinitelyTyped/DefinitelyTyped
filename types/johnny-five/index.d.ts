@@ -2,6 +2,7 @@
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
+//                 Simon Colmer <https://github.com/workshop2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
@@ -290,30 +291,6 @@ export declare class IMU {
 }
 
 export declare module IR {
-    export interface MotionOption {
-        pin: number | string;
-    }
-
-    export class Motion {
-        constructor(option: number | MotionOption);
-        on(event: string, cb: () => void): this;
-        on(event: "data", cb: (data: any) => void): this;
-        on(event: "motionstart", cb: () => void): this;
-        on(event: "motionend", cb: () => void): this;
-        on(event: "calibrated", cb: () => void): this;
-    }
-
-    export interface PloximityOption {
-        pin: number | string;
-        controller: string;
-    }
-
-    export class Proximity {
-        constructor(option: number | PloximityOption);
-        on(event: string, cb: () => void): this;
-        on(event: "data", cb: (data: any) => void): this;
-        on(event: "change", cb: () => void): this;
-    }
 
     export interface ArrayOption {
         pins: Array<number> | Array<string>;
@@ -521,6 +498,19 @@ export declare module Led {
     }
 }
 
+export interface MotionOption {
+    pin: number | string;
+}
+
+export class Motion {
+    constructor(option: number | MotionOption);
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "motionstart", cb: () => void): this;
+    on(event: "motionend", cb: () => void): this;
+    on(event: "calibrated", cb: () => void): this;
+}
+
 export interface MotorOption {
     pins: any;
     current?: any;
@@ -627,6 +617,23 @@ export interface PingOption {
 
 export declare class Ping {
     constructor(option: number | PingOption);
+}
+
+export declare interface ProximityOption {
+    pin: number | string;
+    controller: string;
+}   
+
+export declare interface ProximityData {
+    cm: number;
+    in: number;
+}
+
+export declare class Proximity {
+    constructor(option: number | ProximityOption);
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: ProximityData) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface RelayOption {

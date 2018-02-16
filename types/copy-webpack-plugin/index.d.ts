@@ -2,6 +2,7 @@
 // Project: https://github.com/kevlened/copy-webpack-plugin
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { Plugin } from 'webpack'
 import { IOptions } from 'minimatch'
@@ -30,7 +31,7 @@ interface CopyPattern {
 	context?: string
 	/**
 	 * Removes all directory references and only copies file names.
-	 * 
+	 *
 	 * If files have the same name, the result is non-deterministic. (default: `false`)
 	 */
 	flatten?: boolean

@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface ListGroupProps {
+export interface ListGroupProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   flush?: boolean;
   className?: string;

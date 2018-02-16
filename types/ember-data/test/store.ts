@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 declare const store: DS.Store;
 
 class PostComment extends DS.Model {}
 class Post extends DS.Model {
-  title = DS.attr('string');
-  comments = DS.hasMany('comment');
+    title = DS.attr('string');
+    comments = DS.hasMany('comment');
 }
 
 declare module 'ember-data' {
@@ -19,11 +19,11 @@ declare module 'ember-data' {
 
 let post = store.createRecord('post', {
     title: 'Rails is Omakase',
-    body: 'Lorem ipsum'
+    body: 'Lorem ipsum',
 });
 
 post.save(); // => POST to '/posts'
-post.save().then((saved) => {
+post.save().then(saved => {
     assertType<Post>(saved);
 });
 
@@ -70,7 +70,7 @@ if (store.hasRecordForId('post', 1)) {
 }
 
 class Message extends DS.Model {
-  hasBeenSeen = DS.attr('boolean');
+    hasBeenSeen = DS.attr('boolean');
 }
 
 declare module 'ember-data' {
@@ -94,7 +94,19 @@ people.get('isUpdating'); // true
 
 const MyRoute = Ember.Route.extend({
     model(params: any): any {
-        return this.store.findRecord('post', params.post_id, {include: 'comments,comments.author'});
+        return this.store.findRecord('post', params.post_id, {
+            include: 'comments,comments.author',
+        });
+    },
+});
+
+// Store is injectable via `inject` and resolves to `DS.Store`.
+const SomeComponent = Ember.Component.extend({
+    store: Ember.inject.service('store'),
+
+    lookUpUsers() {
+        assertType<User>(this.get('store').findRecord('user', 123));
+        assertType<DS.PromiseArray<User>>(this.get('store').findAll('user'));
     }
 });
 
@@ -127,44 +139,49 @@ class MyRouteAsyncES6 extends Ember.Route {
 }
 
 // GET to /users?filter[email]=tomster@example.com
-const tom = store.query('user', {
-    filter: {
-        email: 'tomster@example.com'
-    }
-}).then(function(users) {
-    return users.get("firstObject");
-});
+const tom = store
+    .query('user', {
+        filter: {
+            email: 'tomster@example.com',
+        },
+    })
+    .then(function(users) {
+        return users.get('firstObject');
+    });
 
 // GET /users?isAdmin=true
 const admins = store.query('user', { isAdmin: true });
 admins.then(function() {
-    console.log(admins.get("length")); // 42
+    console.log(admins.get('length')); // 42
 });
 admins.update().then(function() {
     admins.get('isUpdating'); // false
-    console.log(admins.get("length")); // 123
+    console.log(admins.get('length')); // 123
 });
 
 store.push({
-    data: [{
-        id: 1,
-        type: 'album',
-        attributes: {
-            title: 'Fewer Moving Parts',
-            artist: 'David Bazan',
-            songCount: 10
+    data: [
+        {
+            id: 1,
+            type: 'album',
+            attributes: {
+                title: 'Fewer Moving Parts',
+                artist: 'David Bazan',
+                songCount: 10,
+            },
+            relationships: {},
         },
-        relationships: {}
-    }, {
-        id: 2,
-        type: 'album',
-        attributes: {
-            title: 'Calgary b/w I Can\'t Make You Love Me/Nick Of Time',
-            artist: 'Bon Iver',
-            songCount: 2
+        {
+            id: 2,
+            type: 'album',
+            attributes: {
+                title: "Calgary b/w I Can't Make You Love Me/Nick Of Time",
+                artist: 'Bon Iver',
+                songCount: 2,
+            },
+            relationships: {},
         },
-        relationships: {}
-    }]
+    ],
 });
 
 class UserAdapter extends DS.Adapter {

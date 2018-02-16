@@ -2,12 +2,13 @@
 // Project: https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import webpack = require('webpack');
+import { Plugin } from 'webpack';
 
 export = DuplicatePackageCheckerWebpackPlugin;
 
-declare class DuplicatePackageCheckerWebpackPlugin extends webpack.Plugin {
+declare class DuplicatePackageCheckerWebpackPlugin extends Plugin {
     constructor(options?: DuplicatePackageCheckerWebpackPlugin.Options);
 }
 

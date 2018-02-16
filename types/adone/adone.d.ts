@@ -110,6 +110,8 @@ declare namespace adone {
     export function require(path: string): object;
     export const package: object;
 
+    export function sprintf(format: string, ...args: any[]): string;
+
     namespace I {
         interface Runtime {
             term: object; // TODO
