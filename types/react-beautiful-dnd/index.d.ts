@@ -107,7 +107,7 @@ export interface DraggableProvidedDragHandleProps {
 }
 
 export interface DraggableProvided {
-    draggableProps: DraggableProvidedDraggableProps | null;
+    draggableProps: DraggableProvidedDraggableProps;
     dragHandleProps: DraggableProvidedDragHandleProps | null;
 
     // will be removed after move to react 16
