@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-type InputType =
+export type InputType =
   | 'text'
   | 'email'
   | 'select'
