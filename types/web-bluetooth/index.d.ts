@@ -60,7 +60,7 @@ interface BluetoothRemoteGATTCharacteristic extends EventTarget, CharacteristicE
 	startNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
 	stopNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
 	addEventListener(type: "characteristicvaluechanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+	addEventListener(type: string, listener: EventListener, useCapture?: boolean): void;
 }
 
 interface ServiceEventHandlers {
@@ -80,7 +80,7 @@ interface BluetoothRemoteGATTService extends EventTarget, CharacteristicEventHan
 	addEventListener(type: "serviceadded", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 	addEventListener(type: "servicechanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 	addEventListener(type: "serviceremoved", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+	addEventListener(type: string, listener: EventListener, useCapture?: boolean): void;
 }
 
 interface BluetoothRemoteGATTServer extends EventTarget {
@@ -106,7 +106,7 @@ interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, Cha
 	readonly watchingAdvertisements: boolean;
 	addEventListener(type: "gattserverdisconnected", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 	addEventListener(type: "advertisementreceived", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+	addEventListener(type: string, listener: EventListener, useCapture?: boolean): void;
 }
 
 interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
@@ -115,7 +115,7 @@ interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, Character
 	readonly referringDevice?: BluetoothDevice;
 	requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
 	addEventListener(type: "availabilitychanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+	addEventListener(type: string, listener: EventListener, useCapture?: boolean): void;
 }
 
 interface Navigator {

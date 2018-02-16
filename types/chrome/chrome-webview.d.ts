@@ -104,6 +104,6 @@ declare namespace chrome.webviewTag {
         src: string,
         contentWindow: Window
         addEventListener<K extends keyof WebViewElementEventMap>(type: K, listener: (this: HTMLWebViewElement, ev: WebViewElementEventMap[K]) => any, useCapture?: boolean): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+        addEventListener(type: string, listener: EventListener, useCapture?: boolean): void;
     }
 }
