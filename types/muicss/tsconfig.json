@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "muicss-react-tests.tsx"
+        "muicss-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
