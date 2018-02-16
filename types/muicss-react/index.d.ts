@@ -7,117 +7,117 @@
 /// <reference types="react" />
 
 declare module "muicss/react" {
-    export import Appbar = Muicss.Appbar;
-    export import Button = Muicss.Button;
-    export import Checkbox = Muicss.Checkbox;
-    export import Col = Muicss.Col;
-    export import Container = Muicss.Container;
-    export import Divider = Muicss.Divider;
-    export import Dropdown = Muicss.Dropdown;
-    export import DropdownItem = Muicss.DropdownItem;
-    export import Form = Muicss.Form;
-    export import Input = Muicss.Input;
-    export import Option = Muicss.Option;
-    export import Panel = Muicss.Panel;
-    export import Radio = Muicss.Radio;
-    export import Row = Muicss.Row;
-    export import Select = Muicss.Select;
-    export import Tab = Muicss.Tab;
-    export import Tabs = Muicss.Tabs;
-    export import Textarea = Muicss.Textarea;
+    export import Appbar = MuicssReact.Appbar;
+    export import Button = MuicssReact.Button;
+    export import Checkbox = MuicssReact.Checkbox;
+    export import Col = MuicssReact.Col;
+    export import Container = MuicssReact.Container;
+    export import Divider = MuicssReact.Divider;
+    export import Dropdown = MuicssReact.Dropdown;
+    export import DropdownItem = MuicssReact.DropdownItem;
+    export import Form = MuicssReact.Form;
+    export import Input = MuicssReact.Input;
+    export import Option = MuicssReact.Option;
+    export import Panel = MuicssReact.Panel;
+    export import Radio = MuicssReact.Radio;
+    export import Row = MuicssReact.Row;
+    export import Select = MuicssReact.Select;
+    export import Tab = MuicssReact.Tab;
+    export import Tabs = MuicssReact.Tabs;
+    export import Textarea = MuicssReact.Textarea;
 }
 
 declare module 'muicss/lib/react/appbar' {
-    export import Appbar = Muicss.Appbar;
+    export import Appbar = MuicssReact.Appbar;
     export default Appbar;
 }
 
 declare module 'muicss/lib/react/button' {
-    export import Button = Muicss.Button;
+    export import Button = MuicssReact.Button;
     export default Button;
 }
 
 declare module 'muicss/lib/react/checkbox' {
-    export import Checkbox = Muicss.Checkbox;
+    export import Checkbox = MuicssReact.Checkbox;
     export default Checkbox;
 }
 
 declare module 'muicss/lib/react/col' {
-    export import Col = Muicss.Col;
+    export import Col = MuicssReact.Col;
     export default Col;
 }
 
 declare module 'muicss/lib/react/container' {
-    export import Container = Muicss.Container;
+    export import Container = MuicssReact.Container;
     export default Container;
 }
 
 declare module 'muicss/lib/react/divider' {
-    export import Divider = Muicss.Divider;
+    export import Divider = MuicssReact.Divider;
     export default Divider;
 }
 
 declare module 'muicss/lib/react/dropdown' {
-    export import Dropdown = Muicss.Dropdown;
+    export import Dropdown = MuicssReact.Dropdown;
     export default Dropdown;
 }
 
 declare module 'muicss/lib/react/dropdown-item' {
-    export import DropdownItem = Muicss.DropdownItem;
+    export import DropdownItem = MuicssReact.DropdownItem;
     export default DropdownItem;
 }
 
 declare module 'muicss/lib/react/form' {
-    export import Form = Muicss.Form;
+    export import Form = MuicssReact.Form;
     export default Form;
 }
 
 declare module 'muicss/lib/react/input' {
-    export import Input = Muicss.Input;
+    export import Input = MuicssReact.Input;
     export default Input;
 }
 
 declare module 'muicss/lib/react/option' {
-    export import Option = Muicss.Option;
+    export import Option = MuicssReact.Option;
     export default Option;
 }
 
 declare module 'muicss/lib/react/panel' {
-    export import Panel = Muicss.Panel;
+    export import Panel = MuicssReact.Panel;
     export default Panel;
 }
 
 declare module 'muicss/lib/react/radio' {
-    export import Radio = Muicss.Radio;
+    export import Radio = MuicssReact.Radio;
     export default Radio;
 }
 
 declare module 'muicss/lib/react/row' {
-    export import Row = Muicss.Row;
+    export import Row = MuicssReact.Row;
     export default Row;
 }
 
 declare module 'muicss/lib/react/select' {
-    export import Select = Muicss.Select;
+    export import Select = MuicssReact.Select;
     export default Select;
 }
 
 declare module 'muicss/lib/react/tab' {
-    export import Tab = Muicss.Tab;
+    export import Tab = MuicssReact.Tab;
     export default Tab;
 }
 
 declare module 'muicss/lib/react/tabs' {
-    export import Tabs = Muicss.Tabs;
+    export import Tabs = MuicssReact.Tabs;
     export default Tabs;
 }
 
 declare module 'muicss/lib/react/textarea' {
-    export import Textarea = Muicss.Textarea;
+    export import Textarea = MuicssReact.Textarea;
     export default Textarea;
 }
 
-declare namespace Muicss {
+declare namespace MuicssReact {
     export class Appbar extends React.Component<DivProps> {}
     export class Button extends React.Component<ButtonProps> {}
     export class Checkbox extends React.Component<CheckboxProps> {}
