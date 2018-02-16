@@ -5,7 +5,8 @@ export type WindowScrollerChildProps = {
     width: number,
     isScrolling: boolean,
     scrollTop: number,
-    onChildScroll: () => void
+    onChildScroll: () => void,
+    registerChild: (Element: Element) => void
 };
 
 export type WindowScrollerProps = {
