@@ -2093,6 +2093,7 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsHide?: boolean;
     }
 
     export interface ExecOptionsWithStringEncoding extends ExecOptions {
@@ -2139,6 +2140,7 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
     }
     export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
@@ -2222,6 +2224,7 @@ declare module "child_process" {
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
+        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
@@ -2259,6 +2262,7 @@ declare module "child_process" {
         killSignal?: string;
         maxBuffer?: number;
         encoding?: string;
+        windowsHide?: boolean;
     }
     export interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
@@ -2282,6 +2286,7 @@ declare module "child_process" {
         killSignal?: string;
         maxBuffer?: number;
         encoding?: string;
+        windowsHide?: boolean;
     }
     export interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
         encoding: BufferEncoding;
