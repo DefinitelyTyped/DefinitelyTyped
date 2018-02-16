@@ -25,7 +25,7 @@ const theme = {
 const Example = () =>
     <ThemeProvider uiTheme={theme}>
         <View>
-            <ActionButton />
+            <ActionButton style={{ positionContainer: { marginBottom: 3 }}} />
             <ActionButton icon="done" />
 
             <Avatar text="A" />

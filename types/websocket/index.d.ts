@@ -571,6 +571,12 @@ declare class client extends events.EventEmitter {
     connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
     connect(requestUrl: string, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
 
+    /**
+     * Will cancel an in-progress connection request before either the `connect` event or the `connectFailed` event has been emitted.
+     * If the `connect` or `connectFailed` event has already been emitted, calling `abort()` will do nothing.
+     */
+    abort(): void;
+
     // Events
     on(event: string, listener: () => void): this;
     on(event: 'connect', cb: (connection: connection) => void): this;

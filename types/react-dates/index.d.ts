@@ -2,7 +2,7 @@
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/Artur-A>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 import * as moment from "moment";
@@ -72,8 +72,8 @@ declare namespace ReactDates {
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onClose?: (final: { startDate: momentPropTypes.momentObj, endDate: momentPropTypes.momentObj }) => void,
         transitionDuration?: number,
 
@@ -146,6 +146,9 @@ declare namespace ReactDates {
         customInputIcon?: string | JSX.Element,
         noBorder?: boolean,
         block?: boolean,
+        small?: boolean,
+        regular?: boolean,
+        keepFocusOnInput?: boolean,
 
         // calendar presentation and interaction related props
         renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
@@ -163,12 +166,14 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean,
         daySize?: number,
         isRTL?: boolean,
+        verticalSpacing?: number,        
+        verticalHeight?: number| null,
 
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onClose?: (final: { startDate: momentPropTypes.momentObj, endDate: momentPropTypes.momentObj }) => void,
         transitionDuration?: number,
 
@@ -244,8 +249,8 @@ declare namespace ReactDates {
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
         hideKeyboardShortcutsPanel?: boolean;
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         transitionDuration?: number,
 
         // day presentation and interaction related props

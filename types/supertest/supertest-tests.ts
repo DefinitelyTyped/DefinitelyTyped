@@ -1,6 +1,5 @@
-
-import * as supertest from 'supertest';
-import * as express from 'express';
+import supertest = require('supertest');
+import express = require('express');
 
 const app = express();
 const request: supertest.SuperTest<supertest.Test> = supertest(app);

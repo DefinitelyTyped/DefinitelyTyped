@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { Navigation, NavigationComponentProps, NavigatorStyle, NavigatorButtons } from 'react-native-navigation';
 
-class Screen1 extends React.Component<NavigationComponentProps<{ height: number }>> {
+class Screen1 extends React.Component<NavigationComponentProps & { height: number }> {
     static navigatorButtons: NavigatorButtons = {
         leftButtons: [{
             id: 'sideMenu'

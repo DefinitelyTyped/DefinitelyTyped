@@ -494,5 +494,7 @@ declare module 'angular' {
         interface IProgressCircularProvider {
             configure(options: IProgressCircularConfig): void;
         }
+
+        type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
     }
 }

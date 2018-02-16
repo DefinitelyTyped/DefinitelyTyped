@@ -4,7 +4,7 @@
 //                 J Giancono <https://github.com/jasongi-at-sportsbet>,
 //                 Alex Shakun <https://github.com/sashashakun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { CleaveOptions } from './options';
 
