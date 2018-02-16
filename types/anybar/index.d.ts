@@ -5,6 +5,4 @@
 
 declare namespace anybar { }
 
-declare function anybar(color: string, options?: { port: number }): void
-
-export = anybar
+export default function anybar(color: string, options?: { port: number }): void
