@@ -38,6 +38,7 @@ let booleanFlag: boolean;
 // test keys(...) signatures ------------------------------------------------------
 
 stringArray = d3Collection.keys(keyValueObj);
+stringArray = d3Collection.keys([0, 1, 2]);
 
 stringArray = d3Collection.keys(document); // purely for the fun of it
 
@@ -48,17 +49,21 @@ anyArray = d3Collection.values(keyValueObj);
 
 stringArray = d3Collection.values(keyValueObj2);
 stringArray = d3Collection.values<string>(keyValueObj2);
+// stringArray = d3Collection.values<string>(keyValueObj); // test fails, as values in keyValueObj do not meet generic constraint
+stringArray = d3Collection.values(['1', '2']);
 
 anyArray = d3Collection.values(document); // purely for the fun of it
 
 // test entries(...) signatures ------------------------------------------------------
 
 anyKVArray = d3Collection.entries(keyValueObj);
-// stringKVArray = d3Collection.entres(keyValueObj); // test fails, as values in keyValueObj are not all strings
+// stringKVArray = d3Collection.entries(keyValueObj); // test fails, as values in keyValueObj are not all strings
 
 stringKVArray = d3Collection.entries(keyValueObj2);
 stringKVArray = d3Collection.entries<string>(keyValueObj2);
+// stringKVArray = d3Collection.entries<string>(keyValueObj); // test fails, as values in keyValueObj do not meet generic constraint
 
+stringKVArray = d3Collection.entries(['1', '2']);
 anyKVArray = d3Collection.entries(document); // purely for the fun of it
 
 // ---------------------------------------------------------------------

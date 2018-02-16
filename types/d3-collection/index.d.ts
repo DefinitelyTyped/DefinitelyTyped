@@ -2,6 +2,7 @@
 // Project: https://github.com/d3/d3-collection/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.0.4
 
@@ -16,17 +17,17 @@ export interface Stringifiable {
 // Objects
 // ---------------------------------------------------------------------
 
-export function keys(object: { [key: string]: any }): string[];
-// TODO: When upgrading definitions to use TS 2.2+, use "object" data type in next line
-export function keys(object: any): string[];
+export function keys(obj: { [key: string]: any } | ArrayLike<any>): string[];
+// TODO: When upgrading definitions to use TS 2.2+, use "obj" data type in next line
+export function keys(obj: object): string[];
 
-export function values<T>(object: { [key: string]: T }): T[];
+export function values<T>(obj: { [key: string]: T } | ArrayLike<T>): T[];
 // TODO: When upgrading definitions to use TS 2.2+, use "object" data type in next line
-export function values(object: any): any[];
+export function values(obj: object): any[];
 
-export function entries<T>(object: { [key: string]: T }): Array<{ key: string, value: T }>;
+export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ key: string, value: T }>;
 // TODO: When upgrading definitions to use TS 2.2+, use "object" data type in next line
-export function entries(object: any): Array<{ key: string, value: any }>;
+export function entries(obj: object): Array<{ key: string, value: any }>;
 
 // ---------------------------------------------------------------------
 // map / Map
@@ -48,10 +49,10 @@ export interface Map<T> {
 
 export function map<T>(): Map<T>;
 export function map<T>(d3Map: Map<T>): Map<T>;
-export function map<T>(object: { [key: string]: T }): Map<T>;
-export function map<T>(object: { [key: number]: T }): Map<T>;
+export function map<T>(obj: { [key: string]: T }): Map<T>;
+export function map<T>(obj: { [key: number]: T }): Map<T>;
 export function map<T>(array: T[], key?: (value: T, i?: number, array?: T[]) => string): Map<T>;
-export function map(object: any): Map<any>; // TODO: When upgrading definitions to use TS 2.2+, use "object" data type for argument
+export function map(obj: object): Map<any>; // TODO: When upgrading definitions to use TS 2.2+, use "object" data type for argument
 
 // ---------------------------------------------------------------------
 // set / Set
