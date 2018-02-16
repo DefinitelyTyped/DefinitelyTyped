@@ -70,7 +70,7 @@ interface TestObject {
     val: number;
 }
 
-let testObject: TestObject;
+let testObjectMaybe: TestObject | undefined;
 let testObjArray: TestObject[];
 let testObjKVArray: Array<{ key: string, value: TestObject }>;
 
@@ -107,7 +107,7 @@ booleanFlag = basicMap.has('foo');
 
 // get(...) ------------------------------------------------------------
 
-testObject = testObjMap.get('foo');
+testObjectMaybe = testObjMap.get('foo');
 
 // set(...) ------------------------------------------------------------
 
@@ -304,11 +304,11 @@ let testL1NestedMapRollup: TestL1NestedMapRollup;
 
 testL2NestedMap = nestL2.map(raw);
 
-num = testL2NestedMap.get('1931').get('Manchuria')[0].yield; // access chain to leaf property
+num = testL2NestedMap.get('1931')!.get('Manchuria')![0].yield; // use existence assertion with care for access chain to leaf property
 
 testL1NestedMapRollup = nestL1Rollup.map(raw);
 
-num = testL1NestedMapRollup.get('1931'); // get rollup value
+num = testL1NestedMapRollup.get('1931')!; // get rollup value (use existence assertion with care)
 
 // object(...) --------------------------------------------------------
 
@@ -345,7 +345,7 @@ type TestL2NestedArray = Array<{
 
 type TestL1NestedArrayRollup = Array<{
     key: string;
-    value: number;
+    value?: number; // conservatively allow for value to be undefined
 }>;
 
 let testL2NestedArray: TestL2NestedArray;
@@ -357,4 +357,4 @@ num = testL2NestedArray[0].values[0].values[0].yield; // access chain to leaf pr
 
 testL1NestedArrayRollup = nestL1Rollup.entries(raw);
 
-num = testL1NestedArrayRollup[0].value; // get rollup value
+num = testL1NestedArrayRollup[0].value!; // get rollup value use existence assertion with care
