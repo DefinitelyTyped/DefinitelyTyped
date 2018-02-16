@@ -1,4 +1,4 @@
-// Type definitions for anybar 2.0.1
+// Type definitions for anybar 3.0.0
 // Project: https://github.com/sindresorhus/anybar
 // Definitions by: Chris Khoo <https://github.com/khoomeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
