@@ -166,3 +166,27 @@ pool.end().then(() => console.log('pool has ended'));
   await client.query('SELECT NOW()');
   client.release();
 })();
+
+/* tests of type parameters for QueryResult */
+// this is the interface for row object that we'll pass to pg.query type result
+interface MyRow {
+  x: number;
+  y: string;
+}
+
+// type parameter for callback API
+client.query<MyRow>('SELECT NOW()', (err, res) => {
+  const someRows: MyRow[] = res.rows;
+});
+
+// type parameter for promise api
+client.query<MyRow>('SELECT NOW()').then(res => {
+  const someRows: MyRow[] = res.rows;
+});
+
+// type parameter with async/await
+(async () => {
+  const client = await pool.connect();
+  const result: { rows: MyRow[] } = await client.query<MyRow>('SELECT NOW()');
+  client.release();
+})();
