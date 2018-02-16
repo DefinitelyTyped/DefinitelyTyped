@@ -19,21 +19,21 @@ import {
     Permission
 } from 'react-native';
 
-type Axis = number;
-type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
-type Md5 = string;
-type Orientation = 'portrait' | 'landscape';
-type RequireSource = ImageRequireSource;
-type ResizeModeContain = 'contain';
-type ResizeModeCover = 'cover';
-type ResizeModeStretch = 'stretch';
-type URISource = ImageURISource;
+export type Axis = number;
+export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
+export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
+export type Md5 = string;
+export type Orientation = 'portrait' | 'landscape';
+export type RequireSource = ImageRequireSource;
+export type ResizeModeContain = 'contain';
+export type ResizeModeCover = 'cover';
+export type ResizeModeStretch = 'stretch';
+export type URISource = ImageURISource;
 
-interface HashMap { [key: string]: any; }
+export interface HashMap { [key: string]: any; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
-declare namespace Accelerometer {
+export namespace Accelerometer {
     interface AccelerometerObject {
         x: Axis;
         y: Axis;
@@ -62,7 +62,7 @@ declare namespace Accelerometer {
  *
  * Note: Session tracking may not work correctly when running Experiences in the main Expo app. It will work correctly if you create a standalone app.
  */
-declare namespace Amplitude {
+export namespace Amplitude {
     /** Initializes Amplitude with your Amplitude API key. */
     function initialize(apiKey: string): void;
 
@@ -98,7 +98,7 @@ declare namespace Amplitude {
 
 // #region AppLoading
 /** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
-declare type AppLoadingProps = {
+export type AppLoadingProps = {
     /** A `function` that returns a `Promise`. The `Promise` should resolve when the app is done loading data and assets. */
     startAsync: () => Promise<void>;
 
@@ -118,11 +118,11 @@ declare type AppLoadingProps = {
  *
  * This is incredibly useful to let you download and cache fonts, logo and icon images and other assets that you want to be sure the user has on their device for an optimal experience before rendering they start using the app.
  */
-declare class AppLoading extends Component<AppLoadingProps> { }
+export class AppLoading extends Component<AppLoadingProps> { }
 // #endregion AppLoading
 
 /** This module provides an interface to Expo’s asset system. An asset is any file that lives alongside the source code of your app that the app needs at runtime. Examples include images, fonts and sounds. Expo’s asset system integrates with React Native’s, so that you can refer to files with require('path/to/file'). This is how you refer to static image files in React Native for use in an Image component, for example. */
-declare class Asset {
+export class Asset {
     constructor({ name, type, hash, uri, width, height }: {
         name: string;
         type: string;
@@ -175,7 +175,7 @@ declare class Asset {
  *
  * Note that Expo does not yet support backgrounding, so audio is not available to play in the background of your experience. Audio also automatically stops if headphones / bluetooth audio devices are disconnected.
  */
-declare namespace Audio {
+export namespace Audio {
     enum InterruptionModeIos {
         /** This is the default option. If this option is set, your experience’s audio is mixed with audio playing in background apps. */
         INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
@@ -418,7 +418,7 @@ declare namespace Audio {
 /**
  * AuthSession
  */
-declare namespace AuthSession {
+export namespace AuthSession {
     type StartAsyncResponse = {
         type: 'cancel';
     } | {
@@ -443,7 +443,7 @@ declare namespace AuthSession {
 /**
  * AV
  */
-declare type PlaybackStatus = {
+export type PlaybackStatus = {
     isLoaded: false;
     androidImplementation?: string;
 
@@ -470,7 +470,7 @@ declare type PlaybackStatus = {
     didJustFinish: boolean;
 };
 
-declare interface PlaybackStatusToSet {
+export interface PlaybackStatusToSet {
     androidImplementation?: string;
     progressUpdateIntervalMillis?: number;
     positionMillis?: number;
@@ -482,9 +482,9 @@ declare interface PlaybackStatusToSet {
     isLooping?: boolean;
 }
 
-type PlaybackSource = RequireSource | { uri: string } | Asset;
+export type PlaybackSource = RequireSource | { uri: string } | Asset;
 
-declare class PlaybackObject {
+export class PlaybackObject {
     /**
      * Gets the `PlaybackStatus` of the `playbackObject`.
      *
@@ -625,31 +625,31 @@ declare class PlaybackObject {
 /**
  * BarCodeScanner
  */
-declare interface BarCodeScannerProps extends ViewProperties {
+export interface BarCodeScannerProps extends ViewProperties {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
     onBarCodeRead?: BarCodeReadCallback;
 }
 
-declare class BarCodeScanner extends Component<BarCodeScannerProps> { }
+export class BarCodeScanner extends Component<BarCodeScannerProps> { }
 // #endregion
 
 // #region BlurView
 /**
  * BlurView
  */
-declare interface BlurViewProps extends ViewProperties {
+export interface BlurViewProps extends ViewProperties {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
-declare class BlurView extends Component<BlurViewProps> { }
+export class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
  * Brightness
  */
-declare namespace Brightness {
+export namespace Brightness {
     function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
     function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
     function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
@@ -660,11 +660,11 @@ declare namespace Brightness {
 /**
  * Camera
  */
-declare interface PictureOptions {
+export interface PictureOptions {
     quality?: number;
 }
 
-declare interface PictureResponse {
+export interface PictureResponse {
     uri: string;
     width: number;
     height: number;
@@ -672,20 +672,20 @@ declare interface PictureResponse {
     base64: string;
 }
 
-declare interface RecordingOptions {
+export interface RecordingOptions {
     quality?: string | number;
     maxDuration?: number;
     maxFileSize?: number;
 }
 
-declare class CameraObject {
+export class CameraObject {
     takePictureAsync(options: PictureOptions): Promise<PictureResponse>;
     recordAsync(options: RecordingOptions): Promise<{ uri: string; }>;
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 
-declare interface CameraProps extends ViewProperties {
+export interface CameraProps extends ViewProperties {
     flashMode?: string | number;
     type?: string | number;
     ratio?: string;
@@ -700,7 +700,7 @@ declare interface CameraProps extends ViewProperties {
     ref?: Ref<CameraObject>;
 }
 
-interface CameraConstants {
+export interface CameraConstants {
     readonly Type: string;
     readonly FlashMode: string;
     readonly AutoFocus: string;
@@ -709,7 +709,7 @@ interface CameraConstants {
     readonly BarCodeType: string;
 }
 
-declare class Camera extends Component<CameraProps> {
+export class Camera extends Component<CameraProps> {
     static readonly Constants: CameraConstants;
 }
 // #endregion
@@ -717,7 +717,7 @@ declare class Camera extends Component<CameraProps> {
 /**
  * Constants
  */
-declare namespace Constants {
+export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
     const deviceId: string;
@@ -835,7 +835,7 @@ declare namespace Constants {
 /**
  * Contacts
  */
-declare namespace Contacts {
+export namespace Contacts {
     type PhoneNumbers = 'phoneNumbers';
     type Emails = 'emails';
     type Addresses = 'addresses';
@@ -985,7 +985,7 @@ declare namespace Contacts {
 /**
  * DocumentPicker
  */
-declare namespace DocumentPicker {
+export namespace DocumentPicker {
     interface Options {
         type?: string;
     }
@@ -1005,14 +1005,14 @@ declare namespace DocumentPicker {
 /**
  * ErrorRecovery
  */
-declare namespace ErrorRecovery {
+export namespace ErrorRecovery {
     function setRecoveryProps(props: HashMap): void;
 }
 
 /**
  * Facebook
  */
-declare namespace Facebook {
+export namespace Facebook {
     interface Options {
         permissions?: string[];
         behavior?: 'web' | 'native' | 'browser' | 'system';
@@ -1028,7 +1028,7 @@ declare namespace Facebook {
 /**
  * Facebook Ads
  */
-declare namespace FacebookAds {
+export namespace FacebookAds {
     /**
      * Interstitial Ads
      */
@@ -1088,7 +1088,7 @@ declare namespace FacebookAds {
 /**
  * FaceDetector
  */
-declare namespace FaceDetector {
+export namespace FaceDetector {
     interface Point {
         x: Axis;
         y: Axis;
@@ -1157,7 +1157,7 @@ declare namespace FaceDetector {
 /**
  * FileSystem
  */
-declare namespace FileSystem {
+export namespace FileSystem {
     type FileInfo = {
         exists: true;
         isDirectory: boolean;
@@ -1233,7 +1233,7 @@ declare namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-declare namespace Fingerprint {
+export namespace Fingerprint {
     type FingerprintAuthenticationResult = {
         success: true
     } | {
@@ -1263,7 +1263,7 @@ declare namespace Fingerprint {
 /**
  * Font
  */
-declare namespace Font {
+export namespace Font {
     interface FontMap {
         [name: string]: RequireSource;
     }
@@ -1276,18 +1276,18 @@ declare namespace Font {
 /**
  * GLView
  */
-declare interface GLViewProps extends ViewProperties {
+export interface GLViewProps extends ViewProperties {
     onContextCreate(): void;
     msaaSamples: number;
 }
 
-declare class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
+export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
 // #endregion
 
 /**
  * Google
  */
-declare namespace Google {
+export namespace Google {
     interface LogInConfig {
         androidClientId?: string;
         androidStandaloneAppClientId?: string;
@@ -1320,7 +1320,7 @@ declare namespace Google {
 }
 
 /** Access the device gyroscope sensor to respond to changes in rotation in 3d space. */
-declare namespace Gyroscope {
+export namespace Gyroscope {
     interface GyroscopeObject {
         x: Axis;
         y: Axis;
@@ -1340,7 +1340,7 @@ declare namespace Gyroscope {
 /**
  * ImageManipulator
  */
-declare namespace ImageManipulator {
+export namespace ImageManipulator {
     interface ImageResult {
         uri: string;
         width: number;
@@ -1374,7 +1374,7 @@ declare namespace ImageManipulator {
 /**
  * Image Picker
  */
-declare namespace ImagePicker {
+export namespace ImagePicker {
     interface ImageInfo {
         uri: string;
         width: number;
@@ -1412,7 +1412,7 @@ declare namespace ImagePicker {
 /**
  * IntentLauncherAndroid
  */
-declare namespace IntentLauncherAndroid {
+export namespace IntentLauncherAndroid {
     const ACTION_ACCESSIBILITY_SETTINGS: 'android.settings.ACCESSIBILITY_SETTINGS';
     const ACTION_APP_NOTIFICATION_REDACTION: 'android.settings.ACTION_APP_NOTIFICATION_REDACTION';
     const ACTION_CONDITION_PROVIDER_SETTINGS: 'android.settings.ACTION_CONDITION_PROVIDER_SETTINGS';
@@ -1500,7 +1500,7 @@ declare namespace IntentLauncherAndroid {
 /**
  * KeepAwake
  */
-declare class KeepAwake extends Component {
+export class KeepAwake extends Component {
     static activate(): void;
     static deactivate(): void;
 }
@@ -1509,20 +1509,20 @@ declare class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-declare interface LinearGradientProps {
+export interface LinearGradientProps {
     colors: string[];
     start: [number, number];
     end: [number, number];
     locations: number[];
 }
 
-declare class LinearGradient extends Component<LinearGradientProps> { }
+export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
 
 /**
  * Location
  */
-declare namespace Location {
+export namespace Location {
     interface LocationOptions {
         enableHighAccuracy?: boolean;
         timeInterval?: number;
@@ -1584,7 +1584,7 @@ declare namespace Location {
 /**
  * Magnetometer
  */
-declare namespace Magnetometer {
+export namespace Magnetometer {
     interface MagnetometerObject {
         x: Axis;
         y: Axis;
@@ -1599,7 +1599,7 @@ declare namespace Magnetometer {
 /**
  * Notifications
  */
-declare namespace Notifications {
+export namespace Notifications {
     interface Notification {
         origin: 'selected' | 'received';
         data: any;
@@ -1645,7 +1645,7 @@ declare namespace Notifications {
 /**
  * Pedometer
  */
-declare namespace Pedometer {
+export namespace Pedometer {
     function isAvailableAsync(): Promise<boolean>;
     function getStepCountAsync(start: Date, end: Date): Promise<{ steps: number; }>;
     function watchStepCount(callback: (params: { steps: number; }) => void): EventSubscription;
@@ -1654,7 +1654,7 @@ declare namespace Pedometer {
 /**
  * Permissions
  */
-declare namespace Permissions {
+export namespace Permissions {
     type PermissionType = 'remoteNotifications' | 'location' |
         'camera' | 'contacts' | 'audioRecording';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
@@ -1693,12 +1693,12 @@ declare namespace Permissions {
 /**
  * Register Root Component
  */
-declare function registerRootComponent(component: ComponentType): void;
+export function registerRootComponent(component: ComponentType): void;
 
 /**
  * ScreenOrientation
  */
-declare namespace ScreenOrientation {
+export namespace ScreenOrientation {
     interface Orientations {
         ALL: 'ALL';
         ALL_BUT_UPSIDE_DOWN: 'ALL_BUT_UPSIDE_DOWN';
@@ -1718,7 +1718,7 @@ declare namespace ScreenOrientation {
 /**
  * SecureStore
  */
-declare namespace SecureStore {
+export namespace SecureStore {
     interface SecureStoreOptions {
         keychainService?: string;
         keychainAccessible?: number;
@@ -1732,7 +1732,7 @@ declare namespace SecureStore {
 /**
  * Segment
  */
-declare namespace Segment {
+export namespace Segment {
     function initialize(keys: {
         androidWriteKey: string;
         iosWriteKey: string;
@@ -1750,7 +1750,7 @@ declare namespace Segment {
 /**
  * Speech
  */
-declare namespace Speech {
+export namespace Speech {
     interface SpeechOptions {
         language?: string;
         pitch?: number;
@@ -1769,7 +1769,7 @@ declare namespace Speech {
 /**
  * SQLite
  */
-declare namespace SQLite {
+export namespace SQLite {
     type Error = any;
 
     interface Database {
@@ -1818,7 +1818,7 @@ declare namespace SQLite {
 /**
  * Svg
  */
-declare interface SvgCommonProps {
+export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
     stroke?: string;
@@ -1846,75 +1846,75 @@ declare interface SvgCommonProps {
     delayLongPress?: number;
 }
 
-declare interface SvgRectProps extends SvgCommonProps {
+export interface SvgRectProps extends SvgCommonProps {
     width: number | string;
     height: number | string;
 }
 
-declare interface SvgCircleProps extends SvgCommonProps {
+export interface SvgCircleProps extends SvgCommonProps {
     cx: number | string;
     cy: number | string;
     r: number | string;
 }
 
-declare interface SvgEllipseProps extends SvgCommonProps {
+export interface SvgEllipseProps extends SvgCommonProps {
     cx: number | string;
     cy: number | string;
     rx: number | string;
     ry: number | string;
 }
 
-declare interface SvgLineProps extends SvgCommonProps {
+export interface SvgLineProps extends SvgCommonProps {
     x1: number | string;
     y1: number | string;
     x2: number | string;
     y2: number | string;
 }
 
-declare interface SvgPolyProps extends SvgCommonProps {
+export interface SvgPolyProps extends SvgCommonProps {
     points: string;
 }
 
-declare interface SvgPathProps extends SvgCommonProps {
+export interface SvgPathProps extends SvgCommonProps {
     d: string;
 }
 
-declare interface SvgTextProps extends SvgCommonProps {
+export interface SvgTextProps extends SvgCommonProps {
     textAnchor?: string;
     fontSize?: number | string;
     fontWeight?: string;
 }
 
-declare interface SvgTSpanProps extends SvgTextProps {
+export interface SvgTSpanProps extends SvgTextProps {
     dx?: string;
     dy?: string;
 }
 
-declare interface SvgTextPathProps extends SvgCommonProps {
+export interface SvgTextPathProps extends SvgCommonProps {
     href?: string;
     startOffset?: string;
 }
 
-declare interface SvgUseProps extends SvgCommonProps {
+export interface SvgUseProps extends SvgCommonProps {
     href: string;
     x: number | string;
     y: number | string;
 }
 
-declare interface SvgSymbolProps extends SvgCommonProps {
+export interface SvgSymbolProps extends SvgCommonProps {
     viewBox: string;
     width: number | string;
     height: number | string;
 }
 
-declare interface SvgLinearGradientProps extends SvgCommonProps {
+export interface SvgLinearGradientProps extends SvgCommonProps {
     x1: number | string;
     x2: number | string;
     y1: number | string;
     y2: number | string;
 }
 
-declare interface SvgRadialGradientProps extends SvgCommonProps {
+export interface SvgRadialGradientProps extends SvgCommonProps {
     cx: number | string;
     cy: number | string;
     rx: number | string;
@@ -1924,13 +1924,13 @@ declare interface SvgRadialGradientProps extends SvgCommonProps {
     gradientUnits?: string;
 }
 
-declare interface SvgStopProps extends SvgCommonProps {
+export interface SvgStopProps extends SvgCommonProps {
     offset?: string;
     stopColor?: string;
     stopOpacity?: string;
 }
 
-declare class Svg extends Component<{ width: number, height: number }> {
+export class Svg extends Component<{ width: number, height: number }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -1955,7 +1955,7 @@ declare class Svg extends Component<{ width: number, height: number }> {
 /**
  * Take Snapshot
  */
-declare function takeSnapshotAsync(
+export function takeSnapshotAsync(
     view?: (number | React.ReactElement<any>),
     options?: {
         width?: number,
@@ -1967,7 +1967,7 @@ declare function takeSnapshotAsync(
 ): Promise<string>;
 
 /** Helpful utility functions that don’t fit anywhere else, including some localization and internationalization methods. */
-declare namespace Util {
+export namespace Util {
     /** Returns the current device country code. */
     function getCurrentDeviceCountryAsync(): Promise<string>;
 
@@ -1990,30 +1990,30 @@ declare namespace Util {
 /**
  * Expo Video
  */
-declare interface NaturalSize {
+export interface NaturalSize {
     width: number;
     height: number;
     orientation: Orientation;
 }
 
-declare interface ReadyForDisplayEvent {
+export interface ReadyForDisplayEvent {
     naturalSize: NaturalSize;
     status: PlaybackStatus;
 }
 
-declare enum FullscreenUpdateVariants {
+export enum FullscreenUpdateVariants {
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT = 0,
     IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT = 1,
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS = 2,
     IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3
 }
 
-declare interface FullscreenUpdateEvent {
+export interface FullscreenUpdateEvent {
     fullscreenUpdate: FullscreenUpdateVariants;
     status: PlaybackStatus;
 }
 
-declare interface VideoProps {
+export interface VideoProps {
     source?: PlaybackSource | null;
     posterSource?: URISource | RequireSource;
 
@@ -2047,11 +2047,11 @@ declare interface VideoProps {
     ref?: Ref<PlaybackObject>;
 }
 
-declare interface VideoState {
+export interface VideoState {
     showPoster: boolean;
 }
 
-declare class Video extends Component<VideoProps, VideoState> {
+export class Video extends Component<VideoProps, VideoState> {
     static RESIZE_MODE_CONTAIN: ResizeModeContain;
     static RESIZE_MODE_COVER: ResizeModeCover;
     static RESIZE_MODE_STRETCH: ResizeModeStretch;
@@ -2065,7 +2065,7 @@ declare class Video extends Component<VideoProps, VideoState> {
 /**
  * Web Browser
  */
-declare namespace WebBrowser {
+export namespace WebBrowser {
     function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     function dismissBrowser(): Promise<{ type: 'dismissed' }>;

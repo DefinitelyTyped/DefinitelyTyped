@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "strict-export-declare-modifiers": false,
         "void-return": false,
         "max-line-length": false
     }
