@@ -837,13 +837,13 @@ declare class Dockerode {
   createImage(options: {}): Promise<Dockerode.Image>;
   createImage(auth: any, options: {}): Promise<Dockerode.Image>;
 
-  loadImage(file: string, options: {}, callback: Callback<any>): void;
-  loadImage(file: string, callback: Callback<any>): void;
-  loadImage(file: string, options?: {}): Promise<any>;
+  loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<any>): void;
+  loadImage(file: string | NodeJS.ReadableStream, callback: Callback<any>): void;
+  loadImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<any>;
 
-  importImage(file: string, options: {}, callback: Callback<any>): void;
-  importImage(file: string, callback: Callback<any>): void;
-  importImage(file: string, options?: {}): Promise<any>;
+  importImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<any>): void;
+  importImage(file: string | NodeJS.ReadableStream, callback: Callback<any>): void;
+  importImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<any>;
 
   checkAuth(options: any, callback: Callback<any>): void;
   checkAuth(options: any): Promise<any>;
