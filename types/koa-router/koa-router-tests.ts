@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as Router from "koa-router";
+import Koa = require("koa");
+import Router = require("koa-router");
 
 const app = new Koa();
 

@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/react-file-input
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 ///<reference types="react" />
 

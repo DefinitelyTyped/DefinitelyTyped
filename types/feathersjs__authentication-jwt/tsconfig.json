@@ -16,11 +16,16 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/authentication-jwt": ["feathersjs__authentication-jwt"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/authentication-jwt": [
+                "feathersjs__authentication-jwt"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__authentication-jwt-tests.ts"
+        "index.d.ts",
+        "feathersjs__authentication-jwt-tests.ts"
     ]
 }

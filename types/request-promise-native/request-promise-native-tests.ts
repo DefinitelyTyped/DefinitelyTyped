@@ -1,4 +1,4 @@
-import * as rpn from 'request-promise-native';
+import rpn = require('request-promise-native');
 import * as errors from 'request-promise-native/errors';
 import * as path from 'path';
 

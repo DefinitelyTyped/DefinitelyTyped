@@ -12,7 +12,7 @@
 //                 Dan Jones <https://github.com/dan-j>
 //                 Daisuke Mino <https://github.com/minodisk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -1262,7 +1262,6 @@ declare namespace __MaterialUI {
 
             // Other properties from <Menu/>
             autoWidth?: boolean;
-            children?: React.ReactElement<MenuItemProps> | Array<React.ReactElement<MenuItemProps>>;
             desktop?: boolean;
             disableAutoFocus?: boolean;
             initiallyKeyboardFocused?: boolean;

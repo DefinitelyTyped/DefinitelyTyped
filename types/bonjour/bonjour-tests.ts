@@ -1,4 +1,4 @@
-import * as bonjour from 'bonjour';
+import bonjour = require('bonjour');
 
 let bonjourOptions: bonjour.BonjourOptions;
 let bonjourInstance: bonjour.Bonjour;

@@ -60,6 +60,7 @@ export function BeforeAll(options: HookOptions | string, code: GlobalHookCode): 
 
 export function defineParameterType(transform: Transform): void;
 export function defineStep(pattern: RegExp | string, code: StepDefinitionCode): void;
+export function defineStep(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
 
 export function Given(pattern: RegExp | string, code: StepDefinitionCode): void;
 export function Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;

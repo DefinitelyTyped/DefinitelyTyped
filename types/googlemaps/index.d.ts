@@ -55,6 +55,7 @@ declare namespace google.maps {
         data: Data;
         mapTypes: MapTypeRegistry;
         overlayMapTypes: MVCArray<MapType>;
+        setClickableIcons(clickable: boolean): void;
     }
 
     export interface MapOptions {
@@ -2684,7 +2685,7 @@ declare namespace google.maps {
             constructor(options?: DrawingManagerOptions);
             getDrawingMode(): OverlayType;
             getMap(): Map;
-            setDrawingMode(drawingMode: OverlayType): void;
+            setDrawingMode(drawingMode: OverlayType | null): void;
             setMap(map: Map | null): void;
             setOptions(options: DrawingManagerOptions): void;
         }

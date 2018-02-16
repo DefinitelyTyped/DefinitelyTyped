@@ -8,7 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-		"strictFunctionTypes": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-		"zenscroll-tests.ts"
+        "zenscroll-tests.ts"
     ]
 }

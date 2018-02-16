@@ -117,7 +117,7 @@ export class DefaultNetworkLayer implements RelayNetworkLayer {
 }
 
 export function createContainer<T>(
-    component: React.ComponentClass<T> | React.StatelessComponent<T>,
+    component: React.ComponentType<T>,
     params?: CreateContainerOpts
 ): RelayContainerClass<T>;
 export function injectNetworkLayer(networkLayer: RelayNetworkLayer): any;

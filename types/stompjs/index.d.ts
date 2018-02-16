@@ -1,6 +1,6 @@
 // Type definitions for stompjs 2.3
 // Project: https://github.com/jmesnil/stomp-websocket
-// Definitions by: Jimi Charalampidis <https://github.com/jimic>
+// Definitions by: Jimi Charalampidis <https://github.com/jimic>, Stefan Erichsen <https://github.com/Dr4k4n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -13,7 +13,6 @@ export const VERSIONS: {
 };
 
 export class Client {
-
     connected: boolean;
     counter: number;
     heartbeat: {
@@ -27,6 +26,7 @@ export class Client {
     debug(...args: string[]): any;
 
     connect(headers: { login: string, passcode: string, host?: string }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
+    connect(headers: { }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
     connect(login: string, passcode: string, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any, host?: string): any;
     disconnect(disconnectCallback: () => any, headers?: {}): any;
 
@@ -51,13 +51,18 @@ export interface Message {
     nack(headers?: {}): any;
 }
 
-export class Frame {
+export class Frame implements Message {
+    command: string;
+    headers: {};
+    body: string;
     constructor(command: string, headers?: {}, body?: string);
 
+    ack(headers?: {}): any;
+    nack(headers?: {}): any;
     toString(): string;
-    sizeOfUTF8(s: string): number;
-    unmarshall(datas: any): any;
-    marshall(command: string, headers?: {}, body?: string): any;
+    static sizeOfUTF8(s: string): number;
+    static unmarshall(datas: any): any;
+    static marshall(command: string, headers?: {}, body?: string): any;
 }
 
 export function client(url: string, protocols?: string | Array<string>): Client;

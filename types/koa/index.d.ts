@@ -21,7 +21,7 @@ import * as accepts from "accepts";
 import * as Cookies from "cookies";
 import { EventEmitter } from "events";
 import { IncomingMessage, ServerResponse, Server } from "http";
-import * as httpAssert from "http-assert";
+import httpAssert = require("http-assert");
 import * as Keygrip from "keygrip";
 import * as compose from "koa-compose";
 import { Socket, ListenOptions } from "net";
