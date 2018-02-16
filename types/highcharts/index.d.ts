@@ -6554,6 +6554,13 @@ declare namespace Highcharts {
          */
         definition(def: object): ElementObject;
         /**
+         * Utility to return the baseline offset and total line height from the font size.
+         *
+         * @param fontSize The current font size to inspect. If not given, the font size will be found from the DOM element.
+         * @param elem The element to inspect for a current font size.
+         */
+        fontMetrics(fontSize: string, elem: ElementObject): FontMetrics;
+        /**
          * Add an SVG/VML group.
          * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name.
          * Other Element objects are added to the group by using the group as the first parameter in .add() for the wrappers
@@ -6613,6 +6620,21 @@ declare namespace Highcharts {
          * @since 2.0
          */
         text(str: string, x: number, y: number): ElementObject;
+    }
+
+    interface FontMetrics {
+        /**
+         * The baseline relative to the top of the box.
+         */
+        b: number;
+        /**
+         * The font size.
+         */
+        f: number;
+        /**
+         * The line height.
+         */
+        h: number;
     }
 
     interface Renderer {
