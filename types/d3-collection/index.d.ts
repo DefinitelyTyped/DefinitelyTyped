@@ -2,7 +2,7 @@
 // Project: https://github.com/d3/d3-collection/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 // Last module patch version validated against: 1.0.4
 
@@ -21,35 +21,27 @@ export interface Stringifiable {
  * Returns an array containing the property names of the specified object (an associative array).
  * The order of the returned array is undefined.
  *
- * @param object An object.
+ * @param obj An object.
  */
-// export function keys(object: { [key: string]: any }): string[];
-// TODO: When upgrading definitions to use TS 2.2+, use "object" data type in next line
-/**
- * Returns an array containing the property names of the specified object (an associative array).
- * The order of the returned array is undefined.
- *
- * @param object An object.
- */
-export function keys(object: object): string[];
+export function keys(obj: object): string[];
 
 /**
  * Returns an array containing the property values of the specified object (an associative array).
  * The order of the returned array is undefined.
  *
- * @param object An object.
+ * @param obj An object.
  */
-export function values<T>(object: { [key: string]: T }): T[];
-export function values<T = any>(object: object): T[];
+export function values<T>(obj: { [key: string]: T} | ArrayLike<T>): T[];
+export function values(obj: object): any[];
 
 /**
  * Returns an array containing the property keys and values of the specified object (an associative array).
  * Each entry is an object with a key and value attribute.The order of the returned array is undefined.
  *
- * @param object An object.
+ * @param obj An object.
  */
-export function entries<T>(object: { [key: string]: T }): Array<{ key: string, value: T }>;
-export function entries<T = any>(object: object): Array<{ key: string, value: T }>;
+export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ key: string, value: T }>;
+export function entries(obj: object): Array<{ key: string, value: any }>;
 
 // ---------------------------------------------------------------------
 // map / Map
@@ -137,7 +129,7 @@ export interface Map<T> {
  *
  * The generic refers to the data type of the map entry values.
  */
-export function map<T>(): Map<T>;
+export function map<T = any>(): Map<T>;
 /**
  * Constructs a new map by copying another map.
  *
@@ -151,17 +143,17 @@ export function map<T>(d3Map: Map<T>): Map<T>;
  *
  * The generic refers to the data type of the map entry values.
  *
- * @param object Object to construct the map from.
+ * @param obj Object to construct the map from.
  */
-export function map<T>(object: { [key: string]: T }): Map<T>;
+export function map<T>(obj: { [key: string]: T }): Map<T>;
 /**
  * Constructs a new map by copying all enumerable properties from the specified object into this map.
  *
  * The generic refers to the data type of the map entry values.
  *
- * @param object Object to construct the map from.
+ * @param obj Object to construct the map from.
  */
-export function map<T>(object: { [key: number]: T }): Map<T>;
+export function map<T>(obj: { [key: number]: T }): Map<T>;
 /**
  * Constructs a new map from the elements of an array.
  * An optional key function may be specified to compute the key for each value in the array.
@@ -173,11 +165,15 @@ export function map<T>(object: { [key: number]: T }): Map<T>;
  * the element's value , it's zero-based index in the array, and the array itself. The function must return a unique string
  * to be used as the map entry's key.
  */
-export function map<T>(array: T[], key?: (value: T, i: number, array: T[]) => string): Map<T>;
+export function map<T>(array: ArrayLike<T>, key?: (value: T, i: number, array: T[]) => string): Map<T>;
 /**
  * Constructs a new map by copying all enumerable properties from the specified object into this map.
+ *
+ * The generic refers to the data type of the map entry values.
+ *
+ * @param obj Object to construct the map from.
  */
-export function map<T = any>(object: object): Map<T>;
+export function map<T = any>(obj: object): Map<T>;
 
 // ---------------------------------------------------------------------
 // set / Set
@@ -254,7 +250,7 @@ export function set(d3Set: Set): Set;
  *
  * @param array An array of strings of values which can be implicitly converted to strings.
  */
-export function set(array: Array<string | Stringifiable>): Set;
+export function set(array: ArrayLike<string | Stringifiable>): Set;
 /**
  * Constructs a new set from an array, adds an array of mapped string values to the returned set.
  * The specified accessor function is invoked equivalent to calling array.map(accessor) before constructing the set.
@@ -265,7 +261,7 @@ export function set(array: Array<string | Stringifiable>): Set;
  * @param key An accessor function used to map the original array elements to string elements to be added to the set.
  * The function is invoked for each array element, being passed the element's value, it's zero-based index in the array, and the array itself.
  */
-export function set<T>(array: T[], key: (value: T, index: number, array: T[]) => string): Set;
+export function set<T>(array: ArrayLike<T>, key: (value: T, index: number, array: T[]) => string): Set;
 
 // ---------------------------------------------------------------------
 // nest / Nest

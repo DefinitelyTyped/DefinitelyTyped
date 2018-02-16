@@ -23,6 +23,14 @@ const keyValueObj2 = {
     c: 'type'
 };
 
+class TestClass {
+    a: 'test';
+    b: 123;
+    c: 'type';
+    private readonly d: 'hidden';
+    test() { }
+}
+
 let stringArray: string[];
 let anyArray: any[];
 let stringKVArray: Array<{ key: string, value: string }>;
@@ -38,27 +46,36 @@ let booleanFlag: boolean;
 // test keys(...) signatures ------------------------------------------------------
 
 stringArray = d3Collection.keys(keyValueObj);
+stringArray = d3Collection.keys({ a: null, b: undefined, c: NaN });
 
 stringArray = d3Collection.keys(document); // purely for the fun of it
 
 // test values(...) signatures ------------------------------------------------------
 
+const strNumBoolarrArray: Array<string | number | boolean[]> = d3Collection.values(keyValueObj);
 anyArray = d3Collection.values(keyValueObj);
+anyArray = d3Collection.values(new TestClass());
+
 // stringArray = d3Collection.values(keyValueObj); // test fails, as values in keyValueObj are not all strings
 
 stringArray = d3Collection.values(keyValueObj2);
 stringArray = d3Collection.values<string>(keyValueObj2);
+stringArray = d3Collection.values([ 't0' , 't1', 't2']);
 // stringArray = d3Collection.values<string>(keyValueObj); // test fails, argument not compatible with generic constraint
-
+// stringArray = d3Collection.values<string>([ 0 , 1, 2]); // test fails, argument not compatible with generic constraint
 anyArray = d3Collection.values(document); // purely for the fun of it
 
 // test entries(...) signatures ------------------------------------------------------
 
+let strNumBoolarrEntriesArray: Array<{ key: string, value: string | number | boolean[] }>;
+strNumBoolarrEntriesArray = d3Collection.entries(keyValueObj);
 anyKVArray = d3Collection.entries(keyValueObj);
-// stringKVArray = d3Collection.entres(keyValueObj); // test fails, as values in keyValueObj are not all strings
+// stringKVArray = d3Collection.entries(keyValueObj); // test fails, as values in keyValueObj are not all strings
 
 stringKVArray = d3Collection.entries(keyValueObj2);
-stringKVArray = d3Collection.entries<string>(keyValueObj2);
+stringKVArray = d3Collection.entries([ 't0' , 't1', 't2']);
+// stringKVArray = d3Collection.entries<string>(keyValueObj); // test fails, argument not compatible with generic constraint
+// stringKVArray = d3Collection.entries<string>([ 0 , 1, 2]); // test fails, argument not compatible with generic constraint
 
 anyKVArray = d3Collection.entries(document); // purely for the fun of it
 
