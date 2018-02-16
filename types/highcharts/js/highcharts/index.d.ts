@@ -1,2 +1,2 @@
-import * as Highcharts from '../..';
+import Highcharts = require('../..');
 export = Highcharts;
