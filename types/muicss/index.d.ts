@@ -143,6 +143,7 @@ declare namespace MuicssReact {
     }
 
     export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
+        name?: string;
         label?: React.ReactNode;
         autoFocus?: boolean;
         checked?: boolean;
