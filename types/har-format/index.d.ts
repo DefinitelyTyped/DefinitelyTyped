@@ -728,13 +728,13 @@ export interface Cache {
      *
      * Leave out this field if the information is not available.
      */
-    beforeRequest?: CacheDetails;
+    beforeRequest?: CacheDetails | null;
     /**
      * State of a cache entry after the request.
      *
      * Leave out this field if the information is not available.
      */
-    afterRequest?: CacheDetails;
+    afterRequest?: CacheDetails | null;
     /**  A comment provided by the user or the application */
     comment?: string;
 }
