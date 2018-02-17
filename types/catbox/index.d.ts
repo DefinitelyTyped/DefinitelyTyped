@@ -6,8 +6,8 @@
 
 import * as Boom from 'boom';
 
-export type CallBackNoResult = (err?: Boom.BoomError) => void;
-export type CallBackWithResult<T> = (err: Boom.BoomError | null | undefined, result: T) => void;
+export type CallBackNoResult = (err?: Boom.Boom) => void;
+export type CallBackWithResult<T> = (err: Boom.Boom | null | undefined, result: T) => void;
 
 /**
  * Client
@@ -50,7 +50,7 @@ export class Client implements ClientApi {
     /** isReady() - returns true if cache engine determines itself as ready, false if it is not ready. */
     isReady(): boolean;
     /** validateSegmentName(segment) - returns null if the segment name is valid (see below), otherwise should return an instance of Error with an appropriate message. */
-    validateSegmentName(segment: string): null | Boom.BoomError;
+    validateSegmentName(segment: string): null | Boom.Boom;
 }
 
 export type EnginePrototypeOrObject = EnginePrototype | ClientApi;
@@ -95,7 +95,7 @@ export interface ClientApi {
     /** isReady() - returns true if cache engine determines itself as ready, false if it is not ready. */
     isReady(): boolean;
     /** validateSegmentName(segment) - returns null if the segment name is valid (see below), otherwise should return an instance of Error with an appropriate message. */
-    validateSegmentName(segment: string): null | Boom.BoomError;
+    validateSegmentName(segment: string): null | Boom.Boom;
 }
 
 /**
@@ -211,7 +211,7 @@ export interface PolicyAPI {
  * @param cached - null if a valid item was not found in the cache, or IPolicyGetCallbackCachedOptions
  * @param report - an object with logging information about the generation operation
  */
-export type PolicyGetCallback = (err: null | Boom.BoomError, value: CacheItem, cached: PolicyGetCallbackCachedOptions, report: PolicyGetCallbackReportLog) => void;
+export type PolicyGetCallback = (err: null | Boom.Boom, value: CacheItem, cached: PolicyGetCallbackCachedOptions, report: PolicyGetCallbackReportLog) => void;
 
 export interface PolicyGetCallbackCachedOptions {
     /** item - the cached value. */
@@ -273,7 +273,7 @@ export interface PolicyOptions {
  *      * ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export type GenerateFunc = (id: string, next: ((err: null | Boom.BoomError, value: CacheItem, ttl?: number) => void)) => void;
+export type GenerateFunc = (id: string, next: ((err: null | Boom.Boom, value: CacheItem, ttl?: number) => void)) => void;
 
 /**
  * An object with logging information about the generation operation containing the following keys (as relevant):
@@ -288,7 +288,7 @@ export interface PolicyGetCallbackReportLog {
     /** ttl - the cache ttl value for the record. */
     ttl: number;
     /** error - lookup error. */
-    error?: Boom.BoomError;
+    error?: Boom.Boom;
 }
 
 /**

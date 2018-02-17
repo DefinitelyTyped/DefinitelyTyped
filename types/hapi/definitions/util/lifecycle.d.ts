@@ -36,7 +36,7 @@ export namespace Lifecycle {
     export type ReturnValueTypes =
         (null | string | number | boolean) |
         (Buffer) |
-        (Error | Boom.BoomError) |
+        (Error | Boom.Boom) |
         (stream.Stream) |
         (object | object[]) |
         Object |
