@@ -84,6 +84,8 @@ const testEntry: harFormat.Entry = {
     response: testResponse,
     cache: {},
     timings: testTimings,
+    _gzip_total: null,
+    _server_rtt: null,
     serverIPAddress: "192.30.253.113",
     connection: "26487",
     pageref: "page_1"
