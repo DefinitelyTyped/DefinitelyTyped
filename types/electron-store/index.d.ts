@@ -36,27 +36,30 @@ declare module 'electron-store' {
     /**
      * Sets an item.
      */
+    set<K extends keyof T>(key: K, value: T[K]): void;
     set(key: string, value: any): void;
 
     /**
      * Sets multiple items at once.
      */
-    set(object: {}): void;
+    set<K extends keyof T>(object: Pick<T, K> | T): void;
+    set(object: JSONObject): void
 
     /**
      * Retrieves an item.
      */
+    get<K extends keyof T>(key: K, defaultValue?: JSONValue): T[K];
     get(key: string, defaultValue?: any): any;
 
     /**
      * Checks if an item exists.
      */
-    has(key: string): boolean;
+    has<K extends keyof T>(key: K | string): boolean;
 
     /**
      * Deletes an item.
      */
-    delete(key: string): void;
+    delete<K extends keyof T>(key: K | string): void;
 
     /**
      * Deletes all items.
