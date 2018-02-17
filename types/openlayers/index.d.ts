@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v4.6.0
+// Type definitions for OpenLayers 4.6
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
