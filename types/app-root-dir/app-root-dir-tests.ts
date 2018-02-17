@@ -1,7 +1,6 @@
-import * as rootDir from 'app-root-dir'
+import * as rootDir from 'app-root-dir';
 
-let appRootPath: string
+let appRootPath: string;
 
-rootDir.set(__dirname)
-appRootPath = rootDir.get()
-
+rootDir.set('__dirname');
+appRootPath = rootDir.get();

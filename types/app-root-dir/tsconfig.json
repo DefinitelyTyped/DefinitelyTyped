@@ -12,7 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["node"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
