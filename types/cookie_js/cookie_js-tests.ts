@@ -29,3 +29,23 @@ cookie.removeSpecific(['a', 'b'], {path: '/search'});
 cookie.empty();
 
 cookie.all();
+
+cookie.utils;
+cookie.utils.isArray('a');
+cookie.utils.isArray([]);
+cookie.utils.isObject('a');
+cookie.utils.isObject({});
+cookie.utils.toArray({});
+cookie.utils.toArray([]);
+cookie.utils.getKeys({});
+cookie.utils.encode('a');
+cookie.utils.decode('a');
+cookie.utils.retrieve('a', 'b');
+
+cookie.defaults;
+cookie.defaults.expires = 1;
+cookie.defaults.expires = new Date;
+cookie.defaults.expires = 'Wed, 07 Feb 2018 17:00:26 GMT';
+cookie.defaults.domain = 'example.com';
+cookie.defaults.path = '/foo';
+cookie.defaults.secure = true;
