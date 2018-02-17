@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type VisitorKeys = Readonly<{
-    [type: string]: ReadonlyArray<string> | undefined
-}>;
+export interface VisitorKeys {
+    readonly [type: string]: ReadonlyArray<string> | undefined;
+}
 
 export const KEYS: VisitorKeys;
 export function getKeys(node: {}): ReadonlyArray<string>;
