@@ -1,4 +1,4 @@
-// Type definitions for opentype.js 0.7.3
+// Type definitions for opentype.js 0.7
 // Project: https://github.com/nodebox/opentype.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Edgar Simson <https://github.com/edzis>
@@ -60,15 +60,13 @@ export class Font {
         y: number | undefined,
         fontSize: number | undefined,
         options: RenderOptions | undefined,
-        callback: {
-            (
-                glyph: Glyph,
-                x: number,
-                y: number,
-                fontSize: number,
-                options?: RenderOptions
-            ): void;
-        }
+        callback: (
+            glyph: Glyph,
+            x: number,
+            y: number,
+            fontSize: number,
+            options?: RenderOptions
+        ) => void
     ): number;
     getAdvanceWidth(
         text: string,
@@ -115,7 +113,7 @@ export type FontConstructorOptions = FontConstructorOptionsBase &
         glyphs: Glyph[];
     };
 
-interface FontOptions {
+export interface FontOptions {
     empty?: boolean;
     familyName: string;
     styleName: string;
@@ -140,7 +138,7 @@ interface FontOptions {
     fsSelection?: string;
 }
 
-interface FontConstructorOptionsBase {
+export interface FontConstructorOptionsBase {
     familyName: string;
     styleName: string;
     unitsPerEm: number;
@@ -148,7 +146,7 @@ interface FontConstructorOptionsBase {
     descender: number;
 }
 
-interface FontNames {
+export interface FontNames {
     copyright: LocalizedName;
     description: LocalizedName;
     designer: LocalizedName;
@@ -165,7 +163,7 @@ interface FontNames {
     version: LocalizedName;
 }
 
-interface Table {
+export interface Table {
     [propName: string]: any;
     encode(): number[];
     fields: Field[];
@@ -174,15 +172,15 @@ interface Table {
     tableName: string;
 }
 
-interface KerningPairs {
+export interface KerningPairs {
     [pair: string]: number;
 }
 
-interface LocalizedName {
+export interface LocalizedName {
     [lang: string]: string;
 }
 
-interface Field {
+export interface Field {
     name: string;
     type: string;
     value: any;
@@ -201,7 +199,7 @@ export class Glyph {
     private points;
 
     name: string;
-    path: Path | { (): Path };
+    path: Path | (() => Path);
     unicode: number;
     unicodes: number[];
     advanceWidth: number;
@@ -242,7 +240,7 @@ export class Glyph {
         font?: Font
     ): Path;
 }
-interface GlyphOptions {
+export interface GlyphOptions {
     advanceWidth?: number;
     index?: number;
     font?: Font;
@@ -266,13 +264,13 @@ export class GlyphNames {
 export class GlyphSet {
     private font;
     private glyphs;
-    constructor(font: Font, glyphs: Glyph[] | { (): Glyph }[]);
+    constructor(font: Font, glyphs: Glyph[] | Array<(() => Glyph)>);
     get(index: number): Glyph;
     length: number;
-    push(index: number, loader: { (): Glyph }): void;
+    push(index: number, loader: () => Glyph): void;
 }
 
-interface Post {
+export interface Post {
     glyphNameIndex?: number[];
     isFixedPitch: number;
     italicAngle: number;
@@ -288,7 +286,7 @@ interface Post {
     version: number;
 }
 
-interface RenderOptions {
+export interface RenderOptions {
     script?: string;
     language?: string;
     kerning?: boolean;
@@ -310,7 +308,7 @@ export interface Metrics {
 
 export interface Contour extends Array<Point> {}
 
-interface Point {
+export interface Point {
     lastPointOfContour?: boolean;
 }
 
@@ -355,7 +353,7 @@ export class Path {
     unitsPerEm: number;
 }
 
-interface PathCommand {
+export interface PathCommand {
     type: string;
     x?: number;
     y?: number;
@@ -369,20 +367,17 @@ interface PathCommand {
  * UTIL CLASSES
  ******************************************/
 
-export class BoundingBox {
-    // TODO add methods
-}
+export type BoundingBox = () => any;
+// TODO add methods
 
-export class Encoding {
+export interface Encoding {
     charset: string;
     charToGlyphIndex(c: string): number;
     font: Font;
 }
 
-export class Substitution {
-    constructor(font: Font);
-    // TODO add methods
-}
+export type Substitution = (font: Font) => any;
+// TODO add methods
 
 /******************************************
  * STATIC
@@ -390,7 +385,7 @@ export class Substitution {
 
 export function load(
     url: string,
-    callback: { (error: any, font?: Font): void }
+    callback: (error: any, font?: Font) => void
 ): void;
 
 export function loadSync(url: string): Font;
