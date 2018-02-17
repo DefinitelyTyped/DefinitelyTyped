@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { promisify } from '.';
+import { promisify } from 'es6-promisify';
 
 function callbackFunction(a: string, b: string, callback: (error: any, combined: string) => void): void {
 	callback(undefined, a + b);
