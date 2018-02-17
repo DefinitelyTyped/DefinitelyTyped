@@ -82,6 +82,8 @@ let testObjKVArray: Array<{ key: string, value: TestObject }>;
 // Create Map ========================================================
 
 let basicMap: d3Collection.Map<string>;
+let anyMap: d3Collection.Map<any>;
+anyMap = d3Collection.map(); // empty map
 basicMap = d3Collection.map<string>(); // empty map
 
 // from array with accessor without accessor

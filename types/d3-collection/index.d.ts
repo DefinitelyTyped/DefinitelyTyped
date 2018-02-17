@@ -18,15 +18,12 @@ export interface Stringifiable {
 // ---------------------------------------------------------------------
 
 export function keys(obj: { [key: string]: any } | ArrayLike<any>): string[];
-// TODO: When upgrading definitions to use TS 2.2+, use "obj" data type in next line
 export function keys(obj: object): string[];
 
 export function values<T>(obj: { [key: string]: T } | ArrayLike<T>): T[];
-// TODO: When upgrading definitions to use TS 2.2+, use "object" data type in next line
 export function values(obj: object): any[];
 
 export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ key: string, value: T }>;
-// TODO: When upgrading definitions to use TS 2.2+, use "object" data type in next line
 export function entries(obj: object): Array<{ key: string, value: any }>;
 
 // ---------------------------------------------------------------------
@@ -47,12 +44,12 @@ export interface Map<T> {
     size(): number;
 }
 
-export function map<T>(): Map<T>;
+export function map<T = any>(): Map<T>;
 export function map<T>(d3Map: Map<T>): Map<T>;
 export function map<T>(obj: { [key: string]: T }): Map<T>;
 export function map<T>(obj: { [key: number]: T }): Map<T>;
 export function map<T>(array: T[], key?: (value: T, i?: number, array?: T[]) => string): Map<T>;
-export function map(obj: object): Map<any>; // TODO: When upgrading definitions to use TS 2.2+, use "object" data type for argument
+export function map(obj: object): Map<any>;
 
 // ---------------------------------------------------------------------
 // set / Set
@@ -64,11 +61,6 @@ export interface Set {
     remove(value: string | Stringifiable): boolean;
     clear(): void;
     values(): string[];
-    /**
-     * The first and second parameter of the function are both passed
-     * the 'value' of the set entry for consistency with map.each(...)
-     * signature
-     */
     each(func: (value: string, valueRepeat: string, set: Set) => void): void;
     empty(): boolean;
     size(): number;
@@ -118,5 +110,4 @@ export interface Nest<Datum, RollupType> {
     entries(array: Datum[]): Array<{ key: string; values: any; value: RollupType | undefined }>;  // more specifically it returns NestedArray<Datum, RollupType>
 }
 
-export function nest<Datum>(): Nest<Datum, undefined>;
-export function nest<Datum, RollupType>(): Nest<Datum, RollupType>;
+export function nest<Datum, RollupType = undefined>(): Nest<Datum, RollupType>;
