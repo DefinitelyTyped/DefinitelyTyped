@@ -13,11 +13,11 @@ declare module 'electron-store' {
 
     interface JSONArray extends Array<JSONValue> {}
 
-    interface ElectronStoreOptions {
+    interface ElectronStoreOptions<T = JSONObject> {
     /**
      * Default config.
      */
-    defaults?: {};
+    defaults?: T;
 
     /**
      * Name of the config file (without extension).
@@ -30,8 +30,8 @@ declare module 'electron-store' {
     cwd?: string;
     }
 
-    class ElectronStore implements Iterable<[string, string | number | boolean | symbol | {}]> {
-    constructor(options?: ElectronStoreOptions);
+    class ElectronStore<T> implements Iterable<[keyof T, JSONValue]> {
+    constructor(options?: ElectronStoreOptions<T>);
 
     /**
      * Sets an item.
@@ -83,7 +83,7 @@ declare module 'electron-store' {
      */
     path: string;
 
-    [Symbol.iterator](): Iterator<[string, string | number | boolean | symbol | {}]>;
+    [Symbol.iterator](): Iterator<[keyof T, JSONValue]>;
     }
 
     export = ElectronStore;
