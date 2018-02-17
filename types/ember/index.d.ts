@@ -20,6 +20,7 @@ declare module 'ember' {
 
     import { Registry as ServiceRegistry } from '@ember/service';
     import { Registry as ControllerRegistry } from '@ember/controller';
+    import ModuleComputed from '@ember/object/computed';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -27,7 +28,7 @@ declare module 'ember' {
     /**
      * Deconstructs computed properties into the types which would be returned by `.get()`.
      */
-    type ComputedProperties<T> = { [K in keyof T]: Ember.ComputedProperty<T[K]> | T[K] };
+    type ComputedProperties<T> = { [K in keyof T]: Ember.ComputedProperty<T[K]> | ModuleComputed<T[K]> | T[K] };
 
     /**
      * Check that any arguments to `create()` match the type's properties.
@@ -1523,7 +1524,7 @@ declare module 'ember' {
              * Remove an object at the specified index using the `replace()` primitive
              * method. You can pass either a single index, or a start and a length.
              */
-            removeAt(start: number, len: number): this;
+            removeAt(start: number, len?: number): this;
             /**
              * Push the object onto the end of the array. Works just like `push()` but it
              * is KVO-compliant.
