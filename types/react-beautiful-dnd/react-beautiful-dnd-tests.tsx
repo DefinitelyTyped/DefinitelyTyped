@@ -24,7 +24,7 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-const getItemStyle = (draggableStyle: any, isDragging: any) => ({
+const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   userSelect: 'none',
   background: isDragging ? 'lightgreen' : 'grey',
   ...draggableStyle
@@ -68,21 +68,16 @@ class App extends React.Component<{}, AppState> {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {this.state.items.map(item => (
-                <Draggable key={item.id} draggableId={item.id} disableInteractiveElementBlocking={true}>
+            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+              {this.state.items.map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
                     <div>
                       <div
                         ref={provided.innerRef}
-                        style={getItemStyle(
-                          provided.draggableStyle,
-                          snapshot.isDragging
-                        )}
+                        {...provided.draggableProps}
                         {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         {item.content}
                       </div>
