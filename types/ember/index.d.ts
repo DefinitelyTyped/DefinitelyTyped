@@ -1523,7 +1523,7 @@ declare module 'ember' {
              * Remove an object at the specified index using the `replace()` primitive
              * method. You can pass either a single index, or a start and a length.
              */
-            removeAt(start: number, len: number): this;
+            removeAt(start: number, len?: number): this;
             /**
              * Push the object onto the end of the array. Works just like `push()` but it
              * is KVO-compliant.
