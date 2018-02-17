@@ -3,6 +3,7 @@
         "module": "commonjs",
         "lib": ["es6"],
         "target": "es6",
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
