@@ -89,6 +89,19 @@ const testEntry: harFormat.Entry = {
     pageref: "page_1"
 };
 
+// Examples from http://www.softwareishard.com/blog/har-12-spec/#cache
+const testCacheNoInformation: harFormat.Cache = {
+};
+
+const testNoCacheAfter: harFormat.Cache = {
+  afterRequest: null
+};
+
+const testCacheNotCached: harFormat.Cache = {
+  beforeRequest: null,
+  afterRequest: null
+};
+
 const testLog: harFormat.Log = {
     version: "1.2",
     creator: testCreator,
