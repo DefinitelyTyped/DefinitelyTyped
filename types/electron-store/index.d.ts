@@ -71,6 +71,9 @@ declare module 'electron-store' {
      */
     openInEditor(): void;
 
+    onDidChange<K extends keyof T>(key: K, callback: (newValue: T[K], oldValue: T[K]) => void): void;
+    onDidChange(key: string, callback: (newValue: JSONValue, oldValue: JSONValue) => void): void;
+
     /**
      * Gets the item count.
      */
