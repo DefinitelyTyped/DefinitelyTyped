@@ -17,4 +17,4 @@ filesize(12, {fullform: true, fullforms: ["байтов"]});  // "12 байто�
 filesize(265318, {separator: ","});   // "259,1 KB"
 
 const size = filesize.partial({standard: "iec"});
-size(265318)
+size(265318);
