@@ -1,16 +1,15 @@
-// Type definitions for filesize 3.6.0
+// Type definitions for filesize 3.6
 // Project: https://github.com/avoidwork/filesize.js
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Renaud Chaput <https://github.com/renchap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var fileSize: Filesize.IFilesize;
+declare var fileSize: Filesize.Filesize;
 export = fileSize;
 export as namespace filesize;
 
 declare namespace Filesize {
-
-    export interface SiJedecBits {
+    interface SiJedecBits {
         b?: string;
         Kb?: string;
         Mb?: string;
@@ -22,7 +21,7 @@ declare namespace Filesize {
         Yb?: string;
     }
 
-    export interface SiJedecBytes {
+    interface SiJedecBytes {
         B?: string;
         KB?: string;
         MB?: string;
@@ -36,65 +35,64 @@ declare namespace Filesize {
 
     type SiJedec = SiJedecBits & SiJedecBytes & { [name: string]: string };
 
-    export interface Options {
+    interface Options {
         /**
-        * Number base, default is 2
-        */
+         * Number base, default is 2
+         */
         base?: number;
         /**
-        * Enables bit sizes, default is false
-        */
+         * Enables bit sizes, default is false
+         */
         bits?: boolean;
         /**
-        * Specifies the SI suffix via exponent, e.g. 2 is MB for bytes, default is -1
-        */
+         * Specifies the SI suffix via exponent, e.g. 2 is MB for bytes, default is -1
+         */
         exponent?: number;
         /**
-        * Enables full form of unit of measure, default is false
-        */
+         * Enables full form of unit of measure, default is false
+         */
         fullform?: boolean;
         /**
-        * Array of full form overrides, default is []
-        */
+         * Array of full form overrides, default is []
+         */
         fullforms?: string[];
         /**
-        * Output of function (array, exponent, object, or string), default is string
-        */
+         * Output of function (array, exponent, object, or string), default is string
+         */
         output?: "array" | "exponent" | "object" | "string";
         /**
-        * Decimal place, default is 2
-        */
+         * Decimal place, default is 2
+         */
         round?: number;
         /**
-        * Decimal separator character, default is .
-        */
+         * Decimal separator character, default is `.`
+         */
         separator?: string;
         /**
-        * Character between the result and suffix, default is " "
-        */
+         * Character between the result and suffix, default is ` `
+         */
         spacer?: string;
-        /*
-        * Standard unit of measure, can be iec or jedec, default is jedec; can be overruled by base
-        */
-        standard?: "iec" | "jedec"
         /**
-        * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
-        */
+         * Standard unit of measure, can be iec or jedec, default is jedec; can be overruled by base
+         */
+        standard?: "iec" | "jedec";
+        /**
+         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
+         */
         symbols?: SiJedec;
         /**
-        * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
-        * @deprecated: use 'symbols'
-        */
+         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
+         * @deprecated: use `symbols`
+         */
         suffixes?: SiJedec;
         /**
-        *  Enables unix style human readable output, e.g ls -lh, default is false
-        */
+         *  Enables unix style human readable output, e.g ls -lh, default is false
+         */
         unix?: boolean;
     }
 
-    export interface IFilesize {
-        (bytes: number): string;
-        (bytes: number, options: Options): string;
-        partial: (options: Options) => ((bytes: number) => string)
+    interface Filesize {
+        (bytes: number, options?: Options): string;
+        partial: (options: Options) => ((bytes: number) => string);
     }
 }
