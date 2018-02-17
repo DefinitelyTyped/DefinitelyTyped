@@ -82,7 +82,7 @@ declare module 'electron-store' {
     /**
      * Gets all the config as an object or replace the current config with an object.
      */
-    store: {};
+    store: T;
 
     /**
      * Gets the path to the config file.
