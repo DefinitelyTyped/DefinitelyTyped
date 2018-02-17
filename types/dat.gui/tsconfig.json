@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "dat-gui-tests.ts"
+        "dat.gui-tests.ts"
     ]
 }
