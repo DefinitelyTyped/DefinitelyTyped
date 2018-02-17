@@ -22,6 +22,7 @@
 /// <reference path="./glosses/math/index.d.ts" />
 /// <reference path="./glosses/meta.d.ts" />
 /// <reference path="./glosses/net/index.d.ts" />
+/// <reference path="./glosses/pretty/index.d.ts" />
 /// <reference path="./glosses/promise.d.ts" />
 /// <reference path="./glosses/regex.d.ts" />
 /// <reference path="./glosses/semver.d.ts" />

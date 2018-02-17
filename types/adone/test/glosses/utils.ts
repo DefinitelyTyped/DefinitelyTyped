@@ -195,20 +195,6 @@ namespace utilTests {
         const e: object = util.invertObject({}, { onlyEnumerable: true });
     }
 
-    namespace humanizeTime {
-        const a: string = util.humanizeTime(12345);
-        const b: string = util.humanizeTime(12345, {});
-        const c: string = util.humanizeTime(12345, { compact: true });
-        const d: string = util.humanizeTime(12345, { msDecimalDigits: 2 });
-        const e: string = util.humanizeTime(12345, { secDecimalDigits: 2 });
-        const f: string = util.humanizeTime(12345, { verbose: true });
-    }
-
-    namespace humanizeSize {
-        const a: string = util.humanizeSize(12345);
-        const b: string = util.humanizeSize(12345, "");
-    }
-
     namespace parseSize {
         const a: number | null = util.parseSize(123);
         const b: number | null = util.parseSize("123Kb");
