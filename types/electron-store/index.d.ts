@@ -4,6 +4,8 @@
 //                 Jakub Synowiec <https://github.com/jsynowiec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare module 'electron-store' {
     type JSONValue = string | number | boolean | JSONObject | JSONArray;
 
@@ -28,6 +30,11 @@ declare module 'electron-store' {
        * Storage file location. Don't specify this unless absolutely necessary!
        */
       cwd?: string;
+
+        /**
+         * When specified, the store will be encrypted using the aes-256-cbc encryption algorithm.
+         */
+        encryptionKey?: string | Buffer;
     }
 
     class ElectronStore<T> implements Iterable<[keyof T, JSONValue]> {
