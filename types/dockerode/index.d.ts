@@ -833,10 +833,10 @@ declare class Dockerode {
   createContainer(options: Dockerode.ContainerCreateOptions, callback: Callback<Dockerode.Container>): void;
   createContainer(options: Dockerode.ContainerCreateOptions): Promise<Dockerode.Container>;
 
-  createImage(options: {}, callback: Callback<Dockerode.Image>): void;
-  createImage(auth: any, options: {}, callback: Callback<Dockerode.Image>): void;
-  createImage(options: {}): Promise<Dockerode.Image>;
-  createImage(auth: any, options: {}): Promise<Dockerode.Image>;
+  createImage(options: {}, callback: Callback<any>): void;
+  createImage(auth: any, options: {}, callback: Callback<any>): void;
+  createImage(options: {}): Promise<any>;
+  createImage(auth: any, options: {}): Promise<any>;
 
   loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<any>): void;
   loadImage(file: string | NodeJS.ReadableStream, callback: Callback<any>): void;
