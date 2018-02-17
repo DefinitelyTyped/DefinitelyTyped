@@ -597,7 +597,7 @@ export interface Cookie {
      * (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`,
      * e.g. `2009-07-24T19:20:30.123+02:00`).
      */
-    expires?: string | Date | null;
+    expires?: string;
     /** Set to true if the cookie is HTTP only, false otherwise. */
     httpOnly?: boolean;
     /** True if the cookie was transmitted over ssl, false otherwise. */
