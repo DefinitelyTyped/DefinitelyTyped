@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import Component from '@ember/component';
-import { or } from '@ember/object/computed';
+import Computed, { or, alias } from '@ember/object/computed';
 import { assertType } from './lib/assert';
+import Service from "@ember/service";
 
 const Person = Ember.Object.extend({
     firstName: '',
@@ -160,3 +161,17 @@ const component2 = Component.extend({
 }).create();
 
 assertType<boolean>(component2.get('isAnimal'));
+
+export default class MyService extends Service {
+    bool = false;
+    boolAlias: Computed<boolean> = alias('bool');
+
+    isTrue() {
+        return this.get('boolAlias');
+    }
+}
+
+const myService = MyService.create({ bool: true });
+assertType<boolean>(myService.get('bool'));
+assertType<boolean>(myService.get('boolAlias'));
+assertType<boolean>(myService.isTrue());
