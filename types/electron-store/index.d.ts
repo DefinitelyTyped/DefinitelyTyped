@@ -5,6 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'electron-store' {
+    type JSONValue = string | number | boolean | JSONObject | JSONArray;
+
+    interface JSONObject {
+        [x: string]: JSONValue;
+    }
+
+    interface JSONArray extends Array<JSONValue> {}
+
     interface ElectronStoreOptions {
     /**
      * Default config.
