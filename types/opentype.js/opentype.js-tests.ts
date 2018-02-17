@@ -1,60 +1,60 @@
-var x = 0;
-var y = 0;
-var fontSize = 72;
-var ctx: CanvasRenderingContext2D;
+const x = 0;
+const y = 0;
+const fontSize = 72;
+let ctx: CanvasRenderingContext2D;
 
-opentype.load('fonts/Roboto-Black.ttf', function(err, font) {
+opentype.load('fonts/Roboto-Black.ttf', (err, font) => {
     if (err) {
         alert('Font could not be loaded: ' + err);
     } else {
-        var path = font.getPath('Hello, World!', 0, 150, 72);
+        const path = font.getPath('Hello, World!', 0, 150, 72);
         // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
         path.draw(ctx);
     }
 });
 
-var myBuffer: ArrayBuffer;
-var font = opentype.parse(myBuffer);
+let myBuffer: ArrayBuffer;
+let font = opentype.parse(myBuffer);
 font = opentype.loadSync('fonts/Roboto-Black.ttf');
 
-var notdefGlyph = new opentype.Glyph({
+const notdefGlyph = new opentype.Glyph({
     name: '.notdef',
     unicode: 0,
     advanceWidth: 650,
     path: new opentype.Path()
 });
 
-var aPath = new opentype.Path();
+const aPath = new opentype.Path();
 // more drawing instructions...
-var aGlyph = new opentype.Glyph({
+const aGlyph = new opentype.Glyph({
     name: 'A',
     unicode: 65,
     advanceWidth: 650,
     path: aPath
 });
 
-var glyphs = [notdefGlyph, aGlyph];
-var font = new opentype.Font({
+const glyphs = [notdefGlyph, aGlyph];
+const fontGenerated = new opentype.Font({
     familyName: 'OpenTypeSans',
     styleName: 'Medium',
     unitsPerEm: 1000,
     ascender: 800,
     descender: -200,
 
-    glyphs: glyphs
+    glyphs
 });
 font.download();
 
-var hasChar: boolean = font.hasChar('a');
-var charIndex: number = font.charToGlyphIndex('a');
-var charGlyph: opentype.Glyph = font.charToGlyph('a');
-var charGlyphs: opentype.Glyph[] = font.stringToGlyphs('abc');
-var nameIndex: number = font.nameToGlyphIndex('a');
-var nameGlyph: opentype.Glyph = font.nameToGlyph('a');
-var indexName: string = font.glyphIndexToName(1);
-var kerning: number = font.getKerningValue(notdefGlyph, aGlyph);
+const hasChar: boolean = font.hasChar('a');
+const charIndex: number = font.charToGlyphIndex('a');
+const charGlyph: opentype.Glyph = font.charToGlyph('a');
+const charGlyphs: opentype.Glyph[] = font.stringToGlyphs('abc');
+const nameIndex: number = font.nameToGlyphIndex('a');
+const nameGlyph: opentype.Glyph = font.nameToGlyph('a');
+const indexName: string = font.glyphIndexToName(1);
+const kerning: number = font.getKerningValue(notdefGlyph, aGlyph);
 font.defaultRenderOptions.kerning = false;
-var forEachWidth: number = font.forEachGlyph(
+const forEachWidth: number = font.forEachGlyph(
     'text',
     x,
     y,
@@ -71,32 +71,32 @@ var forEachWidth: number = font.forEachGlyph(
         });
     }
 );
-var fontPath: opentype.Path = font.getPath('text', x, y, fontSize, {});
-var fontPaths: opentype.Path[] = font.getPaths('text', x, y, fontSize, {});
-var fontWidth: number = font.getAdvanceWidth('text', fontSize, { yScale: 0.5 });
+const fontPath: opentype.Path = font.getPath('text', x, y, fontSize, {});
+const fontPaths: opentype.Path[] = font.getPaths('text', x, y, fontSize, {});
+const fontWidth: number = font.getAdvanceWidth('text', fontSize, { yScale: 0.5 });
 font.draw(ctx, 'text');
 font.drawPoints(ctx, 'text', x, y, fontSize, { yScale: 0.5 });
 font.drawMetrics(ctx, 'text', x, y, fontSize, { xScale: 1.1, yScale: 0.5 });
-var engName: string = font.getEnglishName('a');
+const engName: string = font.getEnglishName('a');
 font.validate();
-var tables: opentype.Table = font.toTables();
-var ab: ArrayBuffer = font.toArrayBuffer();
+const tables: opentype.Table = font.toTables();
+const ab: ArrayBuffer = font.toArrayBuffer();
 font.download();
 font.download('fileName.ttf');
 
 aGlyph.bindConstructorValues({ advanceWidth: 1 });
 aGlyph.addUnicode(42);
-var glyphBBox: opentype.BoundingBox = aGlyph.getBoundingBox();
-var glyphPathBasic: opentype.Path = aGlyph.getPath();
-var glyphPathFull: opentype.Path = aGlyph.getPath(
+const glyphBBox: opentype.BoundingBox = aGlyph.getBoundingBox();
+const glyphPathBasic: opentype.Path = aGlyph.getPath();
+const glyphPathFull: opentype.Path = aGlyph.getPath(
     x,
     y,
     fontSize,
     { xScale: 1, yScale: 2 },
     font
 );
-var glyphContours: opentype.Contour = aGlyph.getContours();
-var glyphMetrics: opentype.Metrics = aGlyph.getMetrics();
+const glyphContours: opentype.Contour = aGlyph.getContours();
+const glyphMetrics: opentype.Metrics = aGlyph.getMetrics();
 aGlyph.draw(ctx, x, y, fontSize, {});
 aGlyph.drawPoints(ctx, x, y, fontSize);
 aGlyph.drawMetrics(ctx, x, y, fontSize);
@@ -112,8 +112,8 @@ aPath.closePath();
 aPath.extend(aPath);
 aPath.extend(aPath.commands);
 aPath.extend(aPath.getBoundingBox());
-var pathBBox: opentype.BoundingBox = aPath.getBoundingBox();
+const pathBBox: opentype.BoundingBox = aPath.getBoundingBox();
 aPath.draw(ctx);
-var pathData: string = aPath.toPathData(7);
-var pathSvg: string = aPath.toSVG(7);
-var pathDom: SVGPathElement = aPath.toDOMElement(7);
+const pathData: string = aPath.toPathData(7);
+const pathSvg: string = aPath.toSVG(7);
+const pathDom: SVGPathElement = aPath.toDOMElement(7);
