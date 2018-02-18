@@ -833,25 +833,25 @@ declare class Dockerode {
   createContainer(options: Dockerode.ContainerCreateOptions, callback: Callback<Dockerode.Container>): void;
   createContainer(options: Dockerode.ContainerCreateOptions): Promise<Dockerode.Container>;
 
-  createImage(options: {}, callback: Callback<any>): void;
-  createImage(auth: any, options: {}, callback: Callback<any>): void;
-  createImage(options: {}): Promise<any>;
-  createImage(auth: any, options: {}): Promise<any>;
+  createImage(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  createImage(auth: any, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  createImage(options: {}): Promise<NodeJS.ReadableStream>;
+  createImage(auth: any, options: {}): Promise<NodeJS.ReadableStream>;
 
-  loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<any>): void;
-  loadImage(file: string | NodeJS.ReadableStream, callback: Callback<any>): void;
-  loadImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<any>;
+  loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  loadImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
+  loadImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
 
-  importImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<any>): void;
-  importImage(file: string | NodeJS.ReadableStream, callback: Callback<any>): void;
-  importImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<any>;
+  importImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  importImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
+  importImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
 
   checkAuth(options: any, callback: Callback<any>): void;
   checkAuth(options: any): Promise<any>;
 
-  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options: {}, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options?: {}): Promise<any>;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, callback: Callback<NodeJS.ReadableStream>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options?: {}): Promise<NodeJS.ReadableStream>;
 
   getContainer(id: string): Dockerode.Container;
 
