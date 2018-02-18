@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {
@@ -42,9 +41,7 @@ import Tab2 from 'muicss/lib/react/tab';
 import Tabs2 from 'muicss/lib/react/tabs';
 import Textarea2 from 'muicss/lib/react/textarea';
 
-interface Props {}
-
-class Test extends Component<Props> {
+class Test extends React.Component {
     render() {
         return (
             <div>
@@ -122,7 +119,7 @@ class Test extends Component<Props> {
     }
 }
 
-class Test2 extends Component<Props> {
+class Test2 extends React.Component {
     render() {
         return (
             <div>
