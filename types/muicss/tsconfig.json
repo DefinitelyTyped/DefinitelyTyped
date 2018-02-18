@@ -1,5 +1,6 @@
 {
     "files": [
+        "index.d.ts",
         "react.d.ts",
         "muicss-tests.tsx",
         "lib/react/appbar.d.ts",
