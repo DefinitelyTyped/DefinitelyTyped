@@ -151,6 +151,9 @@ app.use((req: express.Request, res: express.Response, next: (err?: any) => void)
         if (req.user.username) {
             req.user.username = "hello user";
         }
+        if (req.user.id) {
+            req.user.id = "123";
+        }
     }
     next();
 });
