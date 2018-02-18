@@ -1,4 +1,4 @@
-// Type definitions for lokijs v1.5.1
+// Type definitions for lokijs v1.5.3
 // Project: https://github.com/techfort/LokiJS
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 //                 Thomas Conner <https://github.com/thomasconner>
