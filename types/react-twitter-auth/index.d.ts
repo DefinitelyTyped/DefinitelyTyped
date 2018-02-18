@@ -5,19 +5,18 @@
 // TypeScript Version: 2.6
 
 interface TwitterLoginProp {
-    tag?: string;
+    tag?: React.ReactType;
     text?: string;
     loginUrl: string;
     requestTokenUrl: string;
     onFailure: (msg: string) => void;
     onSuccess: (response: string) => void;
     disabled?: boolean;
-    style?: string;
-    className?: string;
+    style?: React.CSSProperties;
     dialogWidth?: number;
     dialogHeight?: number;
     showIcon?: boolean;
-    credentials?: string;
+    credentials?: "omit" | "same-origin" | "include";
 }
 
 declare var TwitterLogin: React.StatelessComponent<TwitterLoginProp>;
