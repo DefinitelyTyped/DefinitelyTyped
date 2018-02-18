@@ -12,12 +12,11 @@ const ReactTwitterAuth: React.StatelessComponent = () => {
                       requestTokenUrl="http://server.url/api/v1/auth/twitter/reverse"
                       dialogWidth={ 1200 }
                       dialogHeight={ 800 }
-                      style={ "font-size: 14px;" }
+                      style={{display: "initial"}}
                       disabled={ false }
                       text={ "test" }
-                      tag={ "test" }
-                      className={ "test" }
-                      credentials={ "same-origin" }
+                      tag="button"
+                      credentials="same-origin"
                       showIcon={true}/>
     );
 };
