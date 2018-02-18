@@ -2,6 +2,7 @@
 // Project: https://github.com/github/hubot
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
