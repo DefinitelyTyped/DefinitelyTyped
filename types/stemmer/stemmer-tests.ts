@@ -1,3 +1,3 @@
-import * as stemmer from 'stemmer';
+import stemmer = require('stemmer');
 
 stemmer('Working');  // $ExpectType string

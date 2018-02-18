@@ -4,7 +4,8 @@ import DS from 'ember-data';
 const JsonApi = DS.JSONAPISerializer.extend({});
 
 const Customized = DS.JSONAPISerializer.extend({
-    serialize(snapshot: DS.Snapshot, options: {}) {
+    serialize(snapshot: DS.Snapshot<'user'>, options: {}) {
+        const lookup = snapshot.belongsTo('username');
         let json: any = this._super(...Array.from(arguments));
 
         json.data.attributes.cost = {

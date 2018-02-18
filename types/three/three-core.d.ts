@@ -457,6 +457,9 @@ export class CubeCamera extends Object3D {
 
     renderTarget: WebGLRenderTargetCube;
 
+    /**
+     * @deprecated Use {@link CubeCamera#update .update()} instead
+     */
     updateCubeMap(renderer: Renderer, scene: Scene): void;
 
     update(renderer: Renderer, scene: Scene): void;
@@ -635,7 +638,7 @@ export class PerspectiveCamera extends Camera {
     toJSON(meta?: any): any;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link PerspectiveCamera#setFocalLength .setFocalLength()} and {@link PerspectiveCamera#filmGauge .filmGauge} instead.
      */
     setLens(focalLength: number, frameHeight?: number): void;
 }
@@ -701,7 +704,7 @@ export class BufferAttribute {
     setXYZ(index: number, x: number, y: number, z: number): BufferAttribute;
     setXYZW(index: number, x: number, y: number, z: number, w: number): BufferAttribute;
     /**
-     * @deprecated Use count instead.
+     * @deprecated Use {@link BufferAttribute#count .count} instead.
      */
     length: number;
 }
@@ -806,7 +809,7 @@ export class Float64BufferAttribute extends BufferAttribute {
 }
 
 /**
- * @deprecated, use new THREE.BufferAttribute().setDynamic( true ).
+ * @deprecated Use {@link BufferAttribute#setDynamic THREE.BufferAttribute().setDynamic( true )} instead.
  */
 export class DynamicBufferAttribute extends BufferAttribute {}
 
@@ -908,14 +911,30 @@ export class BufferGeometry extends EventDispatcher {
     dispose(): void;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link BufferGeometry#groups .groups} instead.
      */
     drawcalls: any;
+
+    /**
+     * @deprecated Use {@link BufferGeometry#groups .groups} instead.
+     */
     offsets: any;
 
+    /**
+     * @deprecated Use {@link BufferGeometry#setIndex .setIndex()} instead.
+     */
     addIndex(index: any): void;
+
+    /**
+     * @deprecated Use {@link BufferGeometry#addGroup .addGroup()} instead.
+     */
     addDrawCall(start: any, count: any, indexOffset?: any): void;
+
+    /**
+     * @deprecated Use {@link BufferGeometry#clearGroups .clearGroups()} instead.
+     */
     clearDrawCalls(): void;
+
     addAttribute(name: any, array: any, itemSize: any): any;
 }
 
@@ -1154,7 +1173,7 @@ export class Face3 {
 }
 
 /**
- * @deprecated Use Face3 instead.
+ * @deprecated Use {@link Face3} instead.
  */
 export class Face4 extends Face3 {}
 
@@ -1409,11 +1428,11 @@ export class Geometry extends EventDispatcher {
  */
 export namespace GeometryUtils {
     /**
-     * @deprecated Use geometry.merge( geometry2, matrix, materialIndexOffset ).
+     * @deprecated Use {@link Geometry#merge geometry.merge( geometry2, matrix, materialIndexOffset )} instead.
      */
     export function merge(geometry1: any, geometry2: any, materialIndexOffset?: any): any;
     /**
-     * @deprecated Use geometry.center().
+     * @deprecated Use {@link Geometry#center geometry.center()} instead.
      */
     export function center(geometry: any): any;
 }
@@ -1498,7 +1517,7 @@ export class InterleavedBufferAttribute {
     setXYZ(index: number, x: number, y: number, z: number): InterleavedBufferAttribute;
     setXYZW(index: number, x: number, y: number, z: number, w: number): InterleavedBufferAttribute;
     /**
-     * @deprecated Use count instead.
+     * @deprecated Use {@link InterleavedBufferAttribute#count .count} instead.
      */
     length: number;
 }
@@ -2056,6 +2075,7 @@ export class SpotLight extends Light {
 }
 
 export class SpotLightShadow extends LightShadow {
+    camera: PerspectiveCamera;
     update(light: Light): void;
 }
 
@@ -2101,6 +2121,9 @@ export class Loader {
      */
     crossOrigin: string;
 
+    /**
+     * @deprecated Use THREE.LoaderUtils.extractUrlBase() instead.
+     */
     extractUrlBase(url: string): string;
     initMaterials(materials: Material[], texturePath: string): Material[];
     createMaterial(m: Material, texturePath: string, crossOrigin?: string): boolean;
@@ -2301,7 +2324,7 @@ export class DataTextureLoader {
 }
 
 /**
- * @deprecated since 0.84.0. Use DataTextureLoader (renamed)
+ * @deprecated since 0.84.0. Use {@link DataTextureLoader} (renamed)
  */
 export class BinaryTextureLoader extends DataTextureLoader {}
 
@@ -2910,7 +2933,7 @@ export class MeshPhongMaterial extends Material {
     morphTargets: boolean;
     morphNormals: boolean;
     /**
-     * @deprecated
+     * @deprecated Use {@link MeshStandardMaterial THREE.MeshStandardMaterial} instead.
      */
     metal: boolean;
 
@@ -2934,6 +2957,9 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
 
 // MultiMaterial does not inherit the Material class in the original code. However, it should treat as Material class.
 // See tests/canvas/canvas_materials.ts.
+/**
+ * @deprecated Use an Array instead.
+ */
 export class MultiMaterial extends Material {
     constructor(materials?: Material[]);
 
@@ -2946,7 +2972,7 @@ export class MultiMaterial extends Material {
 }
 
 /**
- * @deprecated Use MultiMaterial instead.
+ * @deprecated Use {@link MultiMaterial} instead.
  */
 export class MeshFaceMaterial extends MultiMaterial {}
 
@@ -2969,15 +2995,15 @@ export class PointsMaterial extends Material {
 }
 
 /**
- * @deprecated
+ * @deprecated Use {@link PointsMaterial THREE.PointsMaterial} instead
  */
 export class PointCloudMaterial extends PointsMaterial {}
 /**
- * @deprecated
+ * @deprecated Use {@link PointsMaterial THREE.PointsMaterial} instead
  */
 export class ParticleBasicMaterial extends PointsMaterial {}
 /**
- * @deprecated
+ * @deprecated Use {@link PointsMaterial THREE.PointsMaterial} instead
  */
 export class ParticleSystemMaterial extends PointsMaterial {}
 
@@ -3012,7 +3038,7 @@ export class ShaderMaterial extends Material {
     morphTargets: boolean;
     morphNormals: boolean;
     /**
-     * @deprecated Use extensions.derivatives instead.
+     * @deprecated Use {@link ShaderMaterial#extensions.derivatives extensions.derivatives} instead.
      */
     derivatives: any;
     extensions: { derivatives: boolean; fragDepth: boolean; drawBuffers: boolean; shaderTextureLOD: boolean };
@@ -3078,11 +3104,11 @@ export class Box2 {
     translate(offset: Vector2): Box2;
     equals(box: Box2): boolean;
     /**
-     * @deprecated Use isEmpty() instead.
+     * @deprecated Use {@link Box2#isEmpty .isEmpty()} instead.
      */
     empty(): any;
     /**
-     * @deprecated Use intersectsBox() instead.
+     * @deprecated Use {@link Box2#intersectsBox .intersectsBox()} instead.
      */
     isIntersectionBox(b: any): any;
 }
@@ -3123,15 +3149,15 @@ export class Box3 {
     translate(offset: Vector3): Box3;
     equals(box: Box3): boolean;
     /**
-     * @deprecated Use isEmpty() instead.
+     * @deprecated Use {@link Box3#isEmpty .isEmpty()} instead.
      */
     empty(): any;
     /**
-     * @deprecated Use intersectsBox() instead.
+     * @deprecated Use {@link Box3#intersectsBox .intersectsBox()} instead.
      */
     isIntersectionBox(b: any): any;
     /**
-     * @deprecated Use intersectsSphere() instead.
+     * @deprecated Use {@link Box3#intersectsSphere .intersectsSphere()} instead.
      */
     isIntersectionSphere(s: any): any;
 }
@@ -3522,7 +3548,8 @@ export namespace Math {
     /**
      * Random float from 0 to 1 with 16 bits of randomness.
      * Standard Math.random() creates repetitive patterns when applied over larger space.
-     * @deprecated Use Math.random()
+     *
+     * @deprecated Use {@link Math#random Math.random()}
      */
     export function random16(): number;
 
@@ -3547,9 +3574,20 @@ export namespace Math {
 
     export function isPowerOfTwo(value: number): boolean;
 
+    /**
+     * @deprecated Use {@link Math#floorPowerOfTwo .floorPowerOfTwo()}
+     */
     export function nearestPowerOfTwo(value: number): number;
 
+    /**
+     * @deprecated Use {@link Math#ceilPowerOfTwo .ceilPowerOfTwo()}
+     */
     export function nextPowerOfTwo(value: number): number;
+
+    export function floorPowerOfTwo(value: number): number;
+
+    export function ceilPowerOfTwo(value: number): number;
+
 }
 
 /**
@@ -3613,7 +3651,14 @@ export class Matrix3 implements Matrix {
     clone(): this;
     copy(m: this): this;
     setFromMatrix4(m: Matrix4): Matrix3;
+
+    /**
+     * @deprecated Use {@link Matrix3#applyToBufferAttribute matrix3.applyToBufferAttribute( attribute )} instead.
+     */
     applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
+
+    applyToBufferAttribute(attribute: BufferAttribute): BufferAttribute;
+
     multiplyScalar(s: number): Matrix3;
     determinant(): number;
     getInverse(matrix: Matrix3, throwOnDegenerate?: boolean): Matrix3;
@@ -3644,11 +3689,19 @@ export class Matrix3 implements Matrix {
     multiplyMatrices(a: Matrix3, b: Matrix3): Matrix3;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link Vector3.applyMatrix3 vector.applyMatrix3( matrix )} instead.
      */
     multiplyVector3(vector: Vector3): any;
+
+    /**
+     * @deprecated This method has been removed completely.
+     */
     multiplyVector3Array(a: any): any;
     getInverse(matrix: Matrix4, throwOnDegenerate?: boolean): Matrix3;
+
+    /**
+     * @deprecated Use {@link Matrix3#toArray .toArray()} instead.
+     */
     flattenToArrayOffset(array: number[], offset: number): number[];
 }
 
@@ -3719,6 +3772,8 @@ export class Matrix4 implements Matrix {
     /**
      * Sets this matrix to a x b and stores the result into the flat array r.
      * r can be either a regular Array or a TypedArray.
+     *
+     * @deprecated This method has been removed completely.
      */
     multiplyToArray(a: Matrix4, b: Matrix4, r: number[]): Matrix4;
 
@@ -3726,7 +3781,14 @@ export class Matrix4 implements Matrix {
      * Multiplies this matrix by s.
      */
     multiplyScalar(s: number): Matrix4;
+
+    /**
+     * @deprecated Use {@link Matrix4#applyToBufferAttribute matrix4.applyToBufferAttribute( attribute )} instead.
+     */
     applyToBuffer( buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
+
+    applyToBufferAttribute(attribute: BufferAttribute): BufferAttribute;
+
     /**
      * Computes determinant of this matrix.
      * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
@@ -3738,13 +3800,10 @@ export class Matrix4 implements Matrix {
      */
     transpose(): Matrix4;
 
-
-
     /**
      * Sets the position component for this matrix from vector v.
      */
     setPosition(v: Vector3): Matrix4;
-
 
     /**
      * Sets this matrix to the inverse of matrix m.
@@ -3828,15 +3887,43 @@ export class Matrix4 implements Matrix {
     toArray(): number[];
 
     /**
-     * @deprecated
+     * @deprecated Use {@link Matrix4#copyPosition .copyPosition()} instead.
      */
     extractPosition(m: Matrix4): Matrix4;
+
+    /**
+     * @deprecated Use {@link Matrix4#makeRotationFromQuaternion .makeRotationFromQuaternion()} instead.
+     */
     setRotationFromQuaternion(q: Quaternion): Matrix4;
+
+    /**
+     * @deprecated Use {@link Vector3#applyMatrix4 vector.applyMatrix4( matrix )} instead.
+     */
     multiplyVector3(v: any): any;
+
+    /**
+     * @deprecated Use {@link Vector4#applyMatrix4 vector.applyMatrix4( matrix )} instead.
+     */
     multiplyVector4(v: any): any;
+
+    /**
+     * @deprecated This method has been removed completely.
+     */
     multiplyVector3Array(array: number[]): number[];
+
+    /**
+     * @deprecated Use {@link Vector3#transformDirection Vector3.transformDirection( matrix )} instead.
+     */
     rotateAxis(v: any): void;
+
+    /**
+     * @deprecated Use {@link Vector3#applyMatrix4 vector.applyMatrix4( matrix )} instead.
+     */
     crossVector(v: any): void;
+
+    /**
+     * @deprecated Use {@link Matrix4#toArray .toArray()} instead.
+     */
     flattenToArrayOffset(array: number[], offset: number): number[];
 }
 
@@ -3867,7 +3954,7 @@ export class Plane {
     equals(plane: Plane): boolean;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link Plane#intersectsLine .intersectsLine()} instead.
      */
     isIntersectionLine(l: any): any;
 }
@@ -4005,7 +4092,7 @@ export class Quaternion {
     static slerpFlat(dst: number[], dstOffset: number, src0: number[], srcOffset: number, src1: number[], stcOffset1: number, t: number): Quaternion;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link Vector#applyQuaternion vector.applyQuaternion( quaternion )} instead.
      */
     multiplyVector3(v: any): any;
 }
@@ -4038,10 +4125,18 @@ export class Ray {
     equals(ray: Ray): boolean;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link Ray#intersectsBox .intersectsBox()} instead.
      */
     isIntersectionBox(b: any): any;
+
+    /**
+     * @deprecated Use {@link Ray#intersectsPlane .intersectsPlane()} instead.
+     */
     isIntersectionPlane(p: any): any;
+
+    /**
+     * @deprecated Use {@link Ray#intersectsSphere .intersectsSphere()} instead.
+     */
     isIntersectionSphere(s: any): any;
 }
 
@@ -4322,6 +4417,10 @@ export class Vector2 implements Vector {
      * Computes length of this vector.
      */
     length(): number;
+
+    /**
+     * @deprecated Use {@link Vector2#manhattanLength .manhattanLength()} instead.
+     */
     lengthManhattan(): number;
 
     /**
@@ -4343,6 +4442,10 @@ export class Vector2 implements Vector {
      * Computes squared distance of this vector to v.
      */
     distanceToSquared(v: Vector2): number;
+
+    /**
+     * @deprecated Use {@link Vector2#manhattanDistanceTo .manhattanDistanceTo()} instead.
+     */
     distanceToManhattan(v: Vector2): number;
 
     /**
@@ -4366,6 +4469,26 @@ export class Vector2 implements Vector {
     fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector2;
 
     rotateAround( center: Vector2, angle: number ): Vector2;
+
+    /**
+     * Computes the Manhattan length of this vector.
+     *
+     * @return {number}
+     *
+     * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+     */
+    manhattanLength(): number;
+
+    /**
+     * Computes the Manhattan length (distance) from this vector to the given vector v
+     *
+     * @param {Vector2} v
+     *
+     * @return {number}
+     *
+     * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+     */
+    manhattanDistanceTo(v: Vector2): number;
 }
 
 /**
@@ -4502,9 +4625,30 @@ export class Vector3 implements Vector {
     /**
      * Computes Manhattan length of this vector.
      * http://en.wikipedia.org/wiki/Taxicab_geometry
+     *
+     * @deprecated Use {@link Vector3#manhattanLength .manhattanLength()} instead.
      */
     lengthManhattan(): number;
-    manhattanDistanceTo(v:Vector3):number;
+
+    /**
+     * Computes the Manhattan length of this vector.
+     *
+     * @return {number}
+     *
+     * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+     */
+    manhattanLength(): number;
+
+    /**
+     * Computes the Manhattan length (distance) from this vector to the given vector v
+     *
+     * @param {Vector3} v
+     *
+     * @return {number}
+     *
+     * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+     */
+    manhattanDistanceTo(v: Vector3): number;
 
     /**
      * Normalizes this vector.
@@ -4542,6 +4686,10 @@ export class Vector3 implements Vector {
      * Computes squared distance of this vector to v.
      */
     distanceToSquared(v: Vector3): number;
+
+    /**
+     * @deprecated Use {@link Vector3#manhattanDistanceTo .manhattanDistanceTo()} instead.
+     */
     distanceToManhattan(v: Vector3): number;
 
     setFromSpherical(s: Spherical): Vector3;
@@ -4559,15 +4707,23 @@ export class Vector3 implements Vector {
     fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector3;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link Vector3#setFromMatrixPosition .setFromMatrixPosition()} instead.
      */
     getPositionFromMatrix(m: Matrix4): Vector3;
+
+    /**
+     * @deprecated Use {@link Vector3#setFromMatrixScale .setFromMatrixScale()} instead.
+     */
     getScaleFromMatrix(m: Matrix4): Vector3;
+
+    /**
+     * @deprecated Use {@link Vector3#setFromMatrixColumn .setFromMatrixColumn()} instead.
+     */
     getColumnFromMatrix(index: number, matrix: Matrix4): Vector3;
 }
 
 /**
- * @deprecated use THREE.Vector3 instead.
+ * @deprecated use {@link Vector3 THREE.Vector3} instead.
  */
 export class Vertex extends Vector3 {}
 
@@ -4700,7 +4856,20 @@ export class Vector4 implements Vector {
      * Computes length of this vector.
      */
     length(): number;
+
+    /**
+     * @deprecated Use {@link Vector4#manhattanLength .manhattanLength()} instead.
+     */
     lengthManhattan(): number;
+
+    /**
+     * Computes the Manhattan length of this vector.
+     *
+     * @return {number}
+     *
+     * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+     */
+    manhattanLength(): number;
 
     /**
      * Normalizes this vector.
@@ -4789,7 +4958,7 @@ export class LOD extends Object3D {
     toJSON(meta: any): any;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link LOD#levels .levels} instead.
      */
     objects: any[];
 }
@@ -4851,10 +5020,10 @@ export class LineSegments extends Line {
 }
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material []);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material);
 
     geometry: Geometry|BufferGeometry;
-    material: Material | Material[];
+    material: Material;
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -4895,17 +5064,20 @@ export class Points extends Object3D {
 }
 
 /**
- * @deprecated
+ * @deprecated Use {@link Points THREE.Points} instead.
  */
 export class PointCloud extends Points {}
 /**
- * @deprecated
+ * @deprecated Use {@link Points THREE.Points} instead.
  */
 export class ParticleSystem extends Points {}
 
 export class Skeleton {
-    constructor(bones: Bone[], boneInverses?: Matrix4[], useVertexTexture?: boolean);
+    constructor(bones: Bone[], boneInverses?: Matrix4[]);
 
+    /**
+     * @deprecated This property has been removed completely.
+     */
     useVertexTexture: boolean;
     identityMatrix: Matrix4;
     bones: Bone[];
@@ -4951,7 +5123,7 @@ export class Sprite extends Object3D {
 }
 
 /**
- * @deprecated Use Sprite instead.
+ * @deprecated Use {@link Sprite Sprite} instead.
  */
 export class Particle extends Sprite {}
 
@@ -5139,8 +5311,16 @@ export class WebGLRenderer implements Renderer {
     getContextAttributes(): any;
     forceContextLoss(): void;
 
+    /**
+     * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
+     */
     getMaxAnisotropy(): number;
+
+    /**
+     * @deprecated Use {@link WebGLCapabilities#precision .capabilities.precision} instead.
+     */
     getPrecision(): string;
+
     getPixelRatio(): number;
     setPixelRatio(value: number): void;
 
@@ -5195,6 +5375,10 @@ export class WebGLRenderer implements Renderer {
     clearDepth(): void;
     clearStencil(): void;
     clearTarget(renderTarget: WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
+
+    /**
+     * @deprecated Use {@link WebGLState#reset .state.reset()} instead.
+     */
     resetGLState(): void;
     dispose(): void;
 
@@ -5230,7 +5414,7 @@ export class WebGLRenderer implements Renderer {
     setTextureCube(texture: Texture, slot: number): void;
     getRenderTarget(): RenderTarget;
 	/**
-     * @deprecated Use getRenderTarget instead.
+     * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
     getCurrentRenderTarget(): RenderTarget;
     setRenderTarget(renderTarget: RenderTarget): void;
@@ -5240,18 +5424,65 @@ export class WebGLRenderer implements Renderer {
      * @deprecated
      */
     gammaFactor: number;
+
+    /**
+     * @deprecated Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.
+     */
     shadowMapEnabled: boolean;
+
+    /**
+     * @deprecated Use {@link WebGLShadowMap#type .shadowMap.type} instead.
+     */
     shadowMapType: ShadowMapType;
+
+    /**
+     * @deprecated Use {@link WebGLShadowMap#cullFace .shadowMap.cullFace} instead.
+     */
     shadowMapCullFace: CullFace;
 
+    /**
+     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_float' )} instead.
+     */
     supportsFloatTextures(): any;
+
+    /**
+     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_half_float' )} instead.
+     */
     supportsHalfFloatTextures(): any;
+
+    /**
+     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_standard_derivatives' )} instead.
+     */
     supportsStandardDerivatives(): any;
+
+    /**
+     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_s3tc' )} instead.
+     */
     supportsCompressedTextureS3TC(): any;
+
+    /**
+     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_pvrtc' )} instead.
+     */
     supportsCompressedTexturePVRTC(): any;
+
+    /**
+     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'EXT_blend_minmax' )} instead.
+     */
     supportsBlendMinMax(): any;
+
+    /**
+     * @deprecated Use {@link WebGLCapabilities#vertexTextures .capabilities.vertexTextures} instead.
+     */
     supportsVertexTextures(): any;
+
+    /**
+     * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'ANGLE_instanced_arrays' )} instead.
+     */
     supportsInstancedArrays(): any;
+
+    /**
+     * @deprecated Use {@link WebGLRenderer#setScissorTest .setScissorTest()} instead.
+     */
     enableScissorTest(boolean: any): any;
 }
 
@@ -5315,43 +5546,43 @@ export class WebGLRenderTarget extends EventDispatcher {
     stencilBuffer: boolean;
     depthTexture: Texture;
     /**
-     * @deprecated Use texture.wrapS instead.
+     * @deprecated Use {@link Texture#wrapS texture.wrapS} instead.
      */
     wrapS: any;
     /**
-     * @deprecated Use texture.wrapT instead.
+     * @deprecated Use {@link Texture#wrapT texture.wrapT} instead.
      */
     wrapT: any;
     /**
-     * @deprecated Use texture.magFilter instead.
+     * @deprecated Use {@link Texture#magFilter texture.magFilter} instead.
      */
     magFilter: any;
     /**
-     * @deprecated Use texture.minFilter instead.
+     * @deprecated Use {@link Texture#minFilter texture.minFilter} instead.
      */
     minFilter: any;
     /**
-     * @deprecated Use texture.anisotropy instead.
+     * @deprecated Use {@link Texture#anisotropy texture.anisotropy} instead.
      */
     anisotropy: any;
     /**
-     * @deprecated Use texture.offset instead.
+     * @deprecated Use {@link Texture#offset texture.offset} instead.
      */
     offset: any;
     /**
-     * @deprecated Use texture.repeat instead.
+     * @deprecated Use {@link Texture#repeat texture.repeat} instead.
      */
     repeat: any;
     /**
-     * @deprecated Use texture.format instead.
+     * @deprecated Use {@link Texture#format texture.format} instead.
      */
     format: any;
     /**
-     * @deprecated Use texture.type instead.
+     * @deprecated Use {@link Texture#type texture.type} instead.
      */
     type: any;
     /**
-     * @deprecated Use texture.generateMipmaps instead.
+     * @deprecated Use {@link Texture#generateMipmaps texture.generateMipmaps} instead.
      */
     generateMipmaps: any;
 
@@ -5625,17 +5856,23 @@ export namespace UniformsUtils {
 export class Uniform {
     constructor(value: any);
     /**
-     *  @deprecated
+     * @deprecated
      */
     constructor(type: string, value: any);
     /**
-     *  @deprecated
+     * @deprecated
      */
     type: string;
     value: any;
+    /**
+     * @deprecated Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.
+     */
     dynamic: boolean;
     onUpdateCallback: Function;
 
+    /**
+     * @deprecated Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.
+     */
     onUpdate(callback: Function): Uniform;
 }
 
@@ -5729,11 +5966,11 @@ export class WebGLProgram {
     vertexShader: WebGLShader;
     fragmentShader: WebGLShader;
     /**
-     *  @deprecated Use getUniforms() instead.
+     * @deprecated Use {@link WebGLProgram#getUniforms getUniforms()} instead.
      */
     uniforms: any;
     /**
-     *  @deprecated Use getAttributes() instead.
+     * @deprecated Use {@link WebGLProgram#getAttributes getAttributes()} instead.
      */
     attributes: any;
 
@@ -5803,7 +6040,7 @@ export class WebGLShadowMap {
     render(scene: Scene, camera: Camera): void;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link WebGLShadowMap#renderReverseSided .shadowMap.renderReverseSided} instead.
      */
     cullFace: any;
 }
@@ -6129,12 +6366,22 @@ export class VideoTexture extends Texture {
 // Extras /////////////////////////////////////////////////////////////////////
 
 /**
- * @deprecated Use TextureLoader instead.
+ * @deprecated Use {@link TextureLoader} instead.
  */
 export namespace ImageUtils {
+    /**
+     * @deprecated
+     */
     export let crossOrigin: string;
 
+    /**
+     * @deprecated Use {@link TextureLoader THREE.TextureLoader()} instead.
+     */
     export function loadTexture(url: string, mapping?: Mapping, onLoad?: (texture: Texture) => void, onError?: (message: string) => void): Texture;
+
+    /**
+     * @deprecated Use {@link CubeTextureLoader THREE.CubeTextureLoader()} instead.
+     */
     export function loadTextureCube(array: string[], mapping?: Mapping, onLoad?: (texture: Texture) => void , onError?: (message: string) => void ): Texture;
 }
 
@@ -6188,7 +6435,7 @@ export class Audio extends Object3D {
     getVolume(): number;
     setVolume(value: number): Audio;
     /**
-     * @deprecated Use AudioLoader instead.
+     * @deprecated Use {@link AudioLoader} instead.
      */
     load(file: string): Audio;
 }
@@ -6203,7 +6450,7 @@ export class AudioAnalyser {
     getAverageFrequency(): number;
 
     /**
-     * @deprecated
+     * @deprecated Use {@link AudioAnalyser#getFrequencyData .getFrequencyData()} instead.
      */
     getData(file: any): any;
 }
@@ -6335,8 +6582,18 @@ export class CurvePath<T extends Vector> extends Curve<T> {
     getCurveLengths(): number[];
     getSpacedPoints(divisions?: number): T[];
     getPoints(divisions?: number): T[];
+
+    /**
+     * @deprecated Use {@link Geometry#setFromPoints new THREE.Geometry().setFromPoints( points )} instead.
+     */
     createPointsGeometry(divisions: number): Geometry;
+    /**
+     * @deprecated Use {@link Geometry#setFromPoints new THREE.Geometry().setFromPoints( points )} instead.
+     */
     createSpacedPointsGeometry(divisions: number): Geometry;
+    /**
+     * @deprecated Use {@link Geometry#setFromPoints new THREE.Geometry().setFromPoints( points )} instead.
+     */
     createGeometry(points: T[]): Geometry;
 }
 
@@ -6363,7 +6620,11 @@ export class Path extends CurvePath<Vector2> {
 
     currentPoint: Vector2;
 
+    /**
+     * @deprecated Use {@link Path#setFromPoints .setFromPoints()} instead.
+     */
     fromPoints(vectors: Vector2[]): void;
+    setFromPoints(vectors: Vector2[]): void;
     moveTo(x: number, y: number): void;
     lineTo(x: number, y: number): void;
     quadraticCurveTo(aCPx: number, aCPy: number, aX: number, aY: number): void;
@@ -6397,9 +6658,20 @@ export class Shape extends Path {
 
     holes: Path[];
 
+    /**
+     * @deprecated Use {@link ExtrudeGeometry ExtrudeGeometry()} instead.
+     */
     extrude(options?: any): ExtrudeGeometry;
+
+    /**
+     * @deprecated Use {@link ShapeGeometry ShapeGeometry()} instead.
+     */
     makeGeometry(options?: any): ShapeGeometry;
     getPointsHoles(divisions: number): Vector2[][];
+
+    /**
+     * @deprecated Use {@link Shape#extractPoints .extractPoints()} instead.
+     */
     extractAllPoints(divisions: number): {
         shape: Vector2[];
         holes: Vector2[][];
@@ -6539,7 +6811,7 @@ export class BoxGeometry extends Geometry {
 }
 
 /**
- * @deprecated Use BoxGeometry instead.
+ * @deprecated Use {@link BoxGeometry} instead.
  */
 export class CubeGeometry extends BoxGeometry {}
 
@@ -6951,10 +7223,13 @@ export class ArrowHelper extends Object3D {
     setColor(hex: number): void;
 }
 
-export class AxisHelper extends LineSegments {
+export class AxesHelper extends LineSegments {
     constructor(size?: number);
 }
 
+/**
+ * @deprecated Use {@link BoxHelper THREE.BoxHelper} instead.
+ */
 export class BoundingBoxHelper extends Mesh {
     constructor(object?: Object3D, hex?: number);
 
@@ -6989,6 +7264,9 @@ export class DirectionalLightHelper extends Object3D {
     update(): void;
 }
 
+/**
+ * @deprecated Use {@link EdgesGeometry THREE.EdgesGeometry}
+ */
 export class EdgesHelper extends LineSegments {
     constructor(object: Object3D, hex?: number, thresholdAngle?: number);
 }
@@ -7005,7 +7283,7 @@ export class FaceNormalsHelper extends LineSegments {
 export class GridHelper extends LineSegments {
     constructor(size: number, divisions: number, color1?: Color|number, color2?: Color|number);
     /**
-     * @deprecated
+     * @deprecated Colors should be specified in the constructor.
      */
     setColors(color1?: Color|number, color2?: Color|number): void;
 }
@@ -7058,6 +7336,9 @@ export class VertexNormalsHelper extends LineSegments {
     update(object?: Object3D): void;
 }
 
+/**
+ * @deprecated Use {@link WireframeGeometry THREE.WireframeGeometry} instead.
+ */
 export class WireframeHelper extends LineSegments {
     constructor(object: Object3D, hex?: number);
 }

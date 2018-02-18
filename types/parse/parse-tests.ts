@@ -491,3 +491,16 @@ function test_batch_operations() {
     Parse.Object.fetchAllIfNeeded(games, { sessionToken: '' })
 }
 
+function test_query_subscribe() {
+    // create new query from Game object type
+    const query = new Parse.Query(Game);
+
+    // create subscription to Game object
+    const subscription = query.subscribe();
+
+    // listen for new Game objects created on Parse server
+    subscription.on('create', (game: any) => {
+        console.log(game);
+    });
+}
+
