@@ -3,7 +3,7 @@ $(document).ready(() => {
     $('.lazyload').lazyload();
 
     // with options
-    const options: jQueryLazyLoad.Options = {
+    const options: JQueryLazyLoad.Options = {
         threshold: 200,
         event: 'click',
         effect: 'fadeIn',
