@@ -24,6 +24,6 @@ export class SameLoopPromise<T> extends Promise<T> {
     runIfNeeded(): void;
 }
 export default function<TCProps, TLProps>(
-    componentPromise: Promise<React.ComponentType<TCProps>>,
+    componentPromise: Promise<React.ComponentType<TCProps> | any>,
     options?: DynamicOptions<TCProps, TLProps>,
 ): React.ComponentType<TCProps & TLProps>;
