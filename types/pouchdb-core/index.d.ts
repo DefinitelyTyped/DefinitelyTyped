@@ -581,6 +581,9 @@ declare namespace PouchDB {
     }
 
     interface Database<Content extends {} = {}>  {
+        /** The name passed to the PouchDB constructor and unique identifier of the database. */
+        name: string;
+
         /** Fetch all documents matching the given options. */
         allDocs<Model>(options?: Core.AllDocsWithKeyOptions | Core.AllDocsWithKeysOptions | Core.AllDocsWithinRangeOptions | Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content & Model>>;
