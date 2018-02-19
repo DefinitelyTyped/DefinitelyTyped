@@ -1,4 +1,4 @@
-// Type definitions for postgraphile 2.3
+// Type definitions for postgraphile 4.0
 // Project: https://github.com/postgraphql/postgraphql/tree/postgraphile
 // Definitions by: Jonas Bergner <https://github.com/Java-Jonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
