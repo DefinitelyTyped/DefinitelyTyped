@@ -17,4 +17,5 @@ declare global {
 }
 
 declare function chaiSubset(chai: any, utils: any): void;
+declare namespace chaiSubset { }
 export = chaiSubset;
