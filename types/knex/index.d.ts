@@ -164,6 +164,7 @@ declare namespace Knex {
         connection(connection: any): QueryBuilder;
 
         clone(): QueryBuilder;
+        migrate(callback: Function): QueryBuilder;
     }
 
     interface As {
