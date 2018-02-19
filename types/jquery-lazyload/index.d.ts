@@ -1,4 +1,4 @@
-// Type definitions for jQuery Lazy Load 1.9
+// Type definitions for JQuery Lazy Load 1.9
 // Project: https://github.com/tuupola/jquery_lazyload
 // Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 
 /// <reference types="jquery" />
 
-declare namespace jQueryLazyLoad {
+declare namespace JQueryLazyLoad {
     interface Options {
         threshold?: number;
         failure_limit?: number;
@@ -21,6 +21,6 @@ declare namespace jQueryLazyLoad {
     }
 }
 interface JQuery {
-    lazyload(options?: jQueryLazyLoad.Options): JQuery;
-    on(event: 'load', callback: ((options?: jQueryLazyLoad.Options) => void)): JQuery;
+    lazyload(options?: JQueryLazyLoad.Options): JQuery;
+    on(event: 'load', callback: ((options?: JQueryLazyLoad.Options) => void)): JQuery;
 }
