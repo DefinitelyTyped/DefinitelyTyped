@@ -942,26 +942,33 @@ declare module 'ember-data' {
             /**
              * Returns the value of an attribute.
              */
-            attr<L extends keyof ModelRegistry[K]>(keyName: L): {};
+            attr<L extends keyof ModelRegistry[K]>(keyName: L): ModelRegistry[K][L];
             /**
              * Returns all attributes and their corresponding values.
              */
-            attributes(): {};
+            attributes(): { [L in keyof ModelRegistry[K]]: ModelRegistry[K][L] };
             /**
              * Returns all changed attributes and their old and new values.
              */
-            changedAttributes(): {};
+            changedAttributes(): Partial<{ [L in keyof ModelRegistry[K]]: ModelRegistry[K][L] }>;
             /**
              * Returns the current value of a belongsTo relationship.
              */
             belongsTo<L extends keyof ModelRegistry[K]>(
                 keyName: L,
                 options?: {}
-            ): Snapshot<K> | string | null | undefined;
+            ): Snapshot<K>['record'][L] | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
-            hasMany<L extends keyof ModelRegistry[K]>(keyName: L, options?: {}): any[] | undefined;
+            hasMany<L extends keyof ModelRegistry[K]>(
+                keyName: L,
+                options?: { ids: false }
+            ): Array<Snapshot<K>['record'][L]> | undefined;
+            hasMany<L extends keyof ModelRegistry[K]>(
+                keyName: L,
+                options: { ids: true }
+            ): string[] | undefined;
             /**
              * Iterates through all the attributes of the model, calling the passed
              * function on each attribute.
