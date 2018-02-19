@@ -1,6 +1,14 @@
 // Script for converting the lodash types into unctional programming (FP) format.
 // The convertion is done based on this guide: https://github.com/lodash/lodash/wiki/FP-Guide
 
+// Assumptions:
+// - All functions are defined in one of the files in the "common" subfolder
+// - All functions are defined inside of the LoDashStatic interface (although functions like _.partial may refer to another interface in the same file)
+// - Consistent indentation is used for the start and end of the above interface
+// - Consistent spacing is used for interface definitions: interface MyInterface {
+// - Consistent line breaks (\n, \r, or \r\n) are used in all files
+// - All overloads of a given function are defined in the same file
+
 import fs from "fs";
 import _ from "lodash";
 import convert from "lodash/fp/convert";
@@ -29,18 +37,16 @@ interface TypeParam {
     equals?: string;
 }
 
+let lineBreak = "\n";
 async function main() {
-    const common = await readFile(path.join("..", "common", "common.d.ts"));
     const commonTypes: string[] = [];
-    const typeRegExp = /    (?:type|interface) +([A-Za-z0-9]+)/g;
-    let match = typeRegExp.exec(common);
-    while (match) {
-        commonTypes.push(match[1]);
-        match = typeRegExp.exec(common);
-    }
+    const tsconfigPath = path.join("..", "tsconfig.json");
+    const tsconfigFile = await readFile(tsconfigPath);
+    lineBreak = _.find(["\r\n", "\n", "\r"], x => tsconfigFile.includes(x)) || "\n";
 
     // Read each function definition and fp-ify it
-    const subfolders = ["array", "collection", "date", "function", "lang", "math", "number", "object", "seq", "string", "util"];
+    //const subfolders = ["array", "collection", "date", "function", "lang", "math", "number", "object", "seq", "string", "util"];
+    const subfolders = ["common"];
     const promises: Array<Promise<string[]>> = [];
     for (const subfolder of subfolders) {
         promises.push(new Promise<string[]>((resolve, reject) => {
@@ -69,44 +75,42 @@ async function main() {
         return;
     }
     functionNames = _.sortedUniq(_.sortBy(functionNames, _.toLower));
-    const fpFile =
-`// AUTO-GENERATED: do not modify this file directly.
-// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
-// npm run fp
-
-${functionNames.map(f => `import ${f} = require("./fp/${f}");`).join("\n")}
-
-export = _;
-
-declare const _: _.LoDashFp;
-declare namespace _ {
-    interface LoDashFp {
-${functionNames.map(f => `        ${f}: typeof ${f};`).join("\n")}
-    }
-}
-
-// Backward compatibility with --target es5
-declare global {
-    // tslint:disable-next-line:no-empty-interface
-    interface Set<T> { }
-    // tslint:disable-next-line:no-empty-interface
-    interface Map<K, V> { }
-    // tslint:disable-next-line:no-empty-interface
-    interface WeakSet<T> { }
-    // tslint:disable-next-line:no-empty-interface
-    interface WeakMap<K extends object, V> { }
-}
-`;
+    const fpFile = [
+        "// AUTO-GENERATED: do not modify this file directly.",
+        "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
+        "// npm run fp",
+        "",
+        ...functionNames.map(f => `import ${f} = require("./fp/${f}");`),
+        "",
+        "export = _;",
+        "",
+        "declare const _: _.LoDashFp;",
+        "declare namespace _ {",
+        "    interface LoDashFp {",
+        ...functionNames.map(f => `        ${f}: typeof ${f};`),
+        "    }",
+        "}",
+        "",
+        "// Backward compatibility with --target es5",
+        "declare global {",
+        "    // tslint:disable-next-line:no-empty-interface",
+        "    interface Set<T> { }",
+        "    // tslint:disable-next-line:no-empty-interface",
+        "    interface Map<K, V> { }",
+        "    // tslint:disable-next-line:no-empty-interface",
+        "    interface WeakSet<T> { }",
+        "    // tslint:disable-next-line:no-empty-interface",
+        "    interface WeakMap<K extends object, V> { }",
+        "}",
+        "",
+    ].join(lineBreak);
     fs.writeFile(path.join("..", "fp.d.ts"), fpFile, (err) => {
         if (err)
             console.error("Failed to write fp.d.ts: ", err);
     });
 
     // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
-    const tsconfigPath = path.join("..", "tsconfig.json");
-    const tsconfigFile = await readFile(tsconfigPath);
-    const lineBreakType = _.find(["\r\n", "\n", "\r"], x => tsconfigFile.includes(x)) || "\n";
-    const tsconfig = tsconfigFile.split(lineBreakType).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
+    const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
     const newRows = functionNames.map(f => `        "fp/${f}.d.ts",`);
     newRows[newRows.length - 1] = newRows[newRows.length - 1].replace(",", "");
 
@@ -115,7 +119,7 @@ declare global {
         tsconfig[insertIndex - 1] += ",";
     tsconfig.splice(insertIndex, 0, ...newRows);
 
-    fs.writeFile(tsconfigPath, tsconfig.join(lineBreakType), (err) => {
+    fs.writeFile(tsconfigPath, tsconfig.join(lineBreak), (err) => {
         if (err)
             console.error(`Failed to write ${tsconfigPath}: `, err);
     });
@@ -141,43 +145,42 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     const builder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     const unconvertedBuilder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     for (const filePath of filePaths) {
-        const definition = await parseFile(filePath, commonTypes);
-        if (!definition)
-            continue;
+        const definitions = await parseFile(filePath, commonTypes);
+        for (const definition of definitions) {
+            if (definition.overloads.every(o => o.params.length <= 1 && o.returnType === "typeof _")) {
+                // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
+                // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
+                unconvertedBuilder[definition.name] = (...args: number[][]) => {
+                    return () => curryOverloads(definition.overloads, definition.name, args[0] || [], -1, false);
+                };
+            } else {
+                builder[definition.name] = (...args: Array<number | number[]>) => {
+                    // args were originally passed in as [0], [1], [2], [3], [4]. If they changed order, that indicates how the functoin was re-arged
+                    // Return a function because some definitons (like rearg) expect to have a function return value
 
-        if (definition.overloads.every(o => o.params.length <= 1 && o.returnType === "typeof _")) {
-            // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
-            // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
-            unconvertedBuilder[definition.name] = (...args: number[][]) => {
-                return () => curryOverloads(definition.overloads, definition.name, args[0] || [], -1, false);
-            };
-        } else {
-            builder[definition.name] = (...args: Array<number | number[]>) => {
-                // args were originally passed in as [0], [1], [2], [3], [4]. If they changed order, that indicates how the functoin was re-arged
-                // Return a function because some definitons (like rearg) expect to have a function return value
+                    // If any argument is a number instead of an array, then the argument at that index is being spread (e.g. assignAll, invokeArgs, partial, without)
+                    const spreadIndex = args.findIndex(a => typeof a === "number");
+                    let isFixed = true;
+                    if (spreadIndex !== -1) {
+                        // If there's a spread parameter, convert() won't cap the number of arguments, so we need to do it manually
+                        const arity = Math.max(spreadIndex, args[spreadIndex] as number) + 1;
+                        args = args.slice(0, arity);
+                    } else if (args.length > 4 || definition.name === "flow" || definition.name === "flowRight") {
+                        // Arity wasn't fixed by convert()
+                        isFixed = false;
+                    } else {
+                        // For some reason, convert() doesn't seems to tell us which functions have unchanged argument order.
+                        // So we have to hard-code it.
+                        const unchangedOrders = ["add", "assign", "assignIn", "bind", "bindKey", "concat", "difference", "divide", "eq",
+                            "gt", "gte", "isEqual", "lt", "lte", "matchesProperty", "merge", "multiply", "overArgs", "partial", "partialRight",
+                            "propertyOf", "random", "range", "rangeRight", "subtract", "zip", "zipObject", "zipObjectDeep"];
+                        if (unchangedOrders.includes(definition.name))
+                            args = _.sortBy(args as number[][], (a: number[]) => a[0]);
+                    }
 
-                // If any argument is a number instead of an array, then the argument at that index is being spread (e.g. assignAll, invokeArgs, partial, without)
-                const spreadIndex = args.findIndex(a => typeof a === "number");
-                let isFixed = true;
-                if (spreadIndex !== -1) {
-                    // If there's a spread parameter, convert() won't cap the number of arguments, so we need to do it manually
-                    const arity = Math.max(spreadIndex, args[spreadIndex] as number) + 1;
-                    args = args.slice(0, arity);
-                } else if (args.length > 4 || definition.name === "flow" || definition.name === "flowRight") {
-                    // Arity wasn't fixed by convert()
-                    isFixed = false;
-                } else {
-                    // For some reason, convert() doesn't seems to tell us which functions have unchanged argument order.
-                    // So we have to hard-code it.
-                    const unchangedOrders = ["add", "assign", "assignIn", "bind", "bindKey", "concat", "difference", "divide", "eq",
-                        "gt", "gte", "isEqual", "lt", "lte", "matchesProperty", "merge", "multiply", "overArgs", "partial", "partialRight",
-                        "propertyOf", "random", "range", "rangeRight", "subtract", "zip", "zipObject", "zipObjectDeep"];
-                    if (unchangedOrders.includes(definition.name))
-                        args = _.sortBy(args as number[][], (a: number[]) => a[0]);
-                }
-
-                return () => curryOverloads(definition.overloads, definition.name, _.flatten(args), spreadIndex, isFixed);
-            };
+                    return () => curryOverloads(definition.overloads, definition.name, _.flatten(args), spreadIndex, isFixed);
+                };
+            }
         }
     }
 
@@ -194,7 +197,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
         let importCommon = false;
         let output = outputFn([0], [1], [2], [3], [4])
             .map(interfaceToString)
-            .join("\n")
+            .join(lineBreak)
             .replace(commonTypeSearch, match => {
                 importCommon = true;
                 return `_.${match}`;
@@ -203,16 +206,17 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
             importCommon = true;
         const interfaceNameMatch = output.match(/(?:interface|type) ([A-Za-z0-9]+)/);
         const interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || _.upperFirst(functionName);
-        output =
-`// AUTO-GENERATED: do not modify this file directly.
-// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
-// npm run fp
-${importCommon ? '\nimport _ = require("../index");\n' : '' }
-${output}
-
-declare const ${functionName}: ${interfaceName};
-export = ${functionName};
-`;
+        output = [
+            "// AUTO-GENERATED: do not modify this file directly.",
+            "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
+            "// npm run fp",
+            importCommon ? `${lineBreak}import _ = require("../index");${lineBreak}` : '',
+            output,
+            "",
+            `declare const ${functionName}: ${interfaceName};`,
+            `export = ${functionName};`,
+            "",
+        ].join(lineBreak);
         const targetFile = `../fp/${functionName}.d.ts`;
         fs.writeFile(targetFile, output, (err) => {
             if (err)
@@ -222,15 +226,8 @@ export = ${functionName};
     return functionNames;
 }
 
-async function parseFile(filePath: string, commonTypes: string[]): Promise<Definition | undefined> {
-    const name = path.basename(filePath, ".d.ts");
-    const data = await readFile(filePath);
-    return parseDefinition(name, data, filePath, commonTypes);
-}
-
-async function parseDefinition(name: string, definitionString: string, filePath: string, commonTypes: string[]): Promise<Definition | undefined> {
-    if (name === "chain" || name === "mixin" || name.startsWith("prototype."))
-        return undefined;
+async function parseFile(filePath: string, commonTypes: string[]): Promise<Definition[]> {
+    const definitionString = await readFile(filePath);
     const newCommonTypeRegExp = /    (?:type|interface) ([A-Za-z0-9]+)/g;
     let newCommonType = newCommonTypeRegExp.exec(definitionString);
     while (newCommonType) {
@@ -239,93 +236,162 @@ async function parseDefinition(name: string, definitionString: string, filePath:
         newCommonType = newCommonTypeRegExp.exec(definitionString);
     }
 
-    let getNextOverloadIndex = (position?: number) => definitionString.indexOf("    " + name, position);
-    let overloadIndex = getNextOverloadIndex();
-    const jsdocStartIndex = definitionString.lastIndexOf("/**", overloadIndex);
-    const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
-    const definition: Definition = { name, overloads: [], jsdoc: "" };
-    if (jsdocStartIndex !== -1 && jsdocEndIndex !== -1 && jsdocEndIndex < overloadIndex) {
-        definition.jsdoc = definitionString.substring(jsdocStartIndex, jsdocEndIndex + 2).replace(/    /g, "");
-    }
-    const overloadEndIndex = definitionString.indexOf(";", overloadIndex);
-    const firstOverload = definitionString.substring(overloadIndex, overloadEndIndex);
-    if (!firstOverload.includes("(")) {
-        // This overload actually points to an interface. Try to find said interface and get the overloads from there.
-        const interfaceName = firstOverload.split(":")[1].trim();
-        if (interfaceName.startsWith("typeof ") || interfaceName.startsWith("LoDashStatic[")) {
-            // This is an alias (e.g. first: typeof _.head, or first: LoDashStatic['head']).
-            // Ignore it since convert() will create this alias based on the original function.
-            return undefined;
+    const definitons: Definition[] = [];
+    const lodashStaticRegExp = /( *)interface LoDashStatic {/g;
+    let lodashStaticMatch = lodashStaticRegExp.exec(definitionString);
+    while (lodashStaticMatch) {
+        const startIndex = lodashStaticMatch.index;
+        const endIndex = definitionString.indexOf(`${lineBreak}${lodashStaticMatch[1]}}`, startIndex);
+        if (endIndex === -1) {
+            const lineNumber = getLineNumber(definitionString, startIndex);
+            console.warn(`Failed to find end of interface 'LoDashStatic' (starting at ${filePath} line ${lineNumber}).`);
+            break;
         }
-        const interfaceIndex = definitionString.indexOf(`interface ${interfaceName} {`);
-        if (interfaceIndex !== -1) {
-            _.pull(commonTypes, interfaceName);
-            getNextOverloadIndex = (position?: number) => indexOfAny(definitionString, ["    (", "    <"], position);
-            overloadIndex = getNextOverloadIndex(interfaceIndex);
-        } else {
-            console.warn(`Failed to parse function '${name}': interface '${interfaceName}' not found.`);
-            return undefined;
-        }
+        const definitions = parseDefinitions(definitionString, startIndex + lodashStaticMatch[0].length, endIndex, filePath, commonTypes);
+        definitons.push(...definitions);
+        lodashStaticMatch = lodashStaticRegExp.exec(definitionString);
     }
-    let interfaceEndIndex = definitionString.indexOf("    }", overloadIndex);
-    if (interfaceEndIndex === -1)
-        interfaceEndIndex = definitionString.length;
+    return definitons;
+}
 
-    while (overloadIndex !== -1 && overloadIndex < interfaceEndIndex) {
-        let paramStartIndex = definitionString.indexOf("(", overloadIndex);
-        const returnTypeEndIndex = definitionString.indexOf(";", paramStartIndex);
-        if (returnTypeEndIndex !== -1) {
-            if (paramStartIndex !== -1) {
-                const overload: Overload = { typeParams: [], params: [], returnType: "", jsdoc: definition.jsdoc };
+function parseDefinitions(definitionString: string, startIndex: number, endIndex: number, filePath: string, commonTypes: string[], name?: string): Definition[] {
+    const overloadRegExp = name ? /     [<(]/g : /     (\w+)[<(:]/g;
+    overloadRegExp.lastIndex = startIndex;
+    let overloadMatch = overloadRegExp.exec(definitionString);
+    if (!overloadMatch) {
+        const lineNumber = getLineNumber(definitionString, startIndex);
+        console.warn(`No function definitions were found in interface at ${filePath} line ${lineNumber}.`);
+        return [];
+    }
+    const definitons: Definition[] = [];
+    let currentDefinition: Definition | undefined;
+    for (; overloadMatch && overloadMatch.index < endIndex; overloadMatch = overloadRegExp.exec(definitionString)) {
+        name = overloadMatch[1] || name!;
 
-                const previousLine = getPreviousLine(definitionString, overloadIndex).trim();
-                if (previousLine.startsWith("// tslint:disable"))
-                    overload.tslintDisable = previousLine;
-
-                const typeParamStartIndex = definitionString.indexOf("<", overloadIndex);
-                if (typeParamStartIndex !== -1 && typeParamStartIndex < paramStartIndex) {
-                    const typeParamEndIndex = definitionString.indexOf(">(", typeParamStartIndex);
-                    paramStartIndex = typeParamEndIndex + 1;
-                    if (typeParamEndIndex !== -1 && typeParamEndIndex < paramStartIndex) {
-                        overload.typeParams = definitionString
-                            .substring(typeParamStartIndex + 1, typeParamEndIndex)
-                            .split(",")
-                            .map((tpString): TypeParam => {
-                                const typeParam: TypeParam = { name: tpString };
-                                let parts = tpString.split("=");
-                                if (parts[1])
-                                    typeParam.equals = parts[1].trim();
-                                parts = tpString.split("extends");
-                                if (parts[1])
-                                    typeParam.extends = parts[1].trim();
-                                typeParam.name = parts[0].trim();
-                                return typeParam;
-                            });
-                    }
-                }
-                const paramEndIndex = definitionString.indexOf("):", paramStartIndex);
-                if (paramEndIndex !== -1) {
-                    overload.params = definitionString
-                        .substring(paramStartIndex + 1, paramEndIndex)
-                        .split(/,(?=[^,]+:)(?=(?:[^()]*|.*\(.*\).*)$)/m) // split on commas, but ignore Generic<T, U> and (a, b) => c
-                        .map(_.trim)
-                        .map(o => _.trim(o, ","))
-                        .filter(o => !!o);
-                    overload.returnType = definitionString.substring(paramEndIndex + 2, returnTypeEndIndex).trim();
-                    definition.overloads.push(overload);
-                } else {
-                    console.warn(`Failed to find parameter end position in overload for ${name}.`);
-                }
-            } else {
-                console.warn(`Failed to find parameter start position in overload for ${name}.`);
+        let overloadStartIndex = overloadMatch.index;
+        if (!currentDefinition || name !== currentDefinition.name) {
+            if (currentDefinition && !_.isEmpty(currentDefinition.overloads))
+                definitons.push(currentDefinition);
+            currentDefinition = { name, overloads: [], jsdoc: "" };
+            const jsdocStartIndex = definitionString.lastIndexOf("/**", overloadStartIndex);
+            const jsdocEndIndex = definitionString.indexOf("*/", jsdocStartIndex);
+            if (jsdocStartIndex !== -1 && jsdocStartIndex > startIndex && jsdocEndIndex !== -1 && jsdocEndIndex < overloadStartIndex) {
+                // Verify that the comment is for this overload
+                const overloadTestIndex = definitionString.indexOf("     " + name, jsdocEndIndex);
+                if (overloadTestIndex === overloadStartIndex)
+                    currentDefinition.jsdoc = definitionString.substring(jsdocStartIndex, jsdocEndIndex + 2).replace(/    /g, "");
             }
-            overloadIndex = getNextOverloadIndex(returnTypeEndIndex);
+        }
+        let overloadEndIndex = definitionString.indexOf(";", overloadStartIndex);
+        if (overloadEndIndex === -1 || overloadEndIndex > endIndex) {
+            const lineNumber = getLineNumber(definitionString, overloadStartIndex);
+            console.warn(`Overload does not end with semicolon! ${filePath} line ${lineNumber}`);
+            break;
+        }
+        overloadRegExp.lastIndex = overloadEndIndex;
+        if (name === "chain" || name === "mixin" || name.startsWith("prototype."))
+            continue;
+
+        const overloadString = definitionString.substring(overloadStartIndex, overloadEndIndex);
+        let paramStartIndex = overloadString.indexOf("(");
+        if (paramStartIndex !== -1) {
+            const overload: Overload = { typeParams: [], params: [], returnType: "", jsdoc: currentDefinition.jsdoc };
+
+            const previousLine = getPreviousLine(definitionString, overloadStartIndex).trim();
+            if (previousLine.startsWith("// tslint:disable"))
+                overload.tslintDisable = previousLine;
+
+            const typeParamStartIndex = overloadString.indexOf("<");
+            if (typeParamStartIndex !== -1 && typeParamStartIndex < paramStartIndex) {
+                const typeParamEndIndex = overloadString.indexOf(">(", typeParamStartIndex);
+                if (typeParamEndIndex !== -1) {
+                    paramStartIndex = typeParamEndIndex + 1;
+                    overload.typeParams = overloadString
+                        .substring(typeParamStartIndex + 1, typeParamEndIndex)
+                        .split(",")
+                        .map((tpString): TypeParam => {
+                            const typeParam: TypeParam = { name: tpString };
+                            let parts = tpString.split(/=[^>]/);
+                            if (parts[1])
+                                typeParam.equals = parts[1].trim();
+                            parts = tpString.split(" extends ");
+                            if (parts[1])
+                                typeParam.extends = parts[1].trim();
+                            typeParam.name = parts[0].trim();
+                            return typeParam;
+                        });
+                }
+            }
+            const paramEndIndex = overloadString.indexOf("):", paramStartIndex);
+            if (paramEndIndex === -1) {
+                console.warn(`Failed to find parameter end position in overload for '${name}' (${filePath}).`);
+                continue;
+            }
+            overload.params = overloadString
+                .substring(paramStartIndex + 1, paramEndIndex)
+                .split(/,(?=[^,]+:)(?=(?:[^()]*|.*\(.*\).*)$)/m) // split on commas, but ignore Generic<T, U> and (a, b) => c
+                .map(_.trim)
+                .map(o => _.trim(o, ","))
+                .filter(o => !!o);
+            overload.returnType = overloadString.substring(paramEndIndex + 2).trim();
+            currentDefinition.overloads.push(overload);
         } else {
-            console.warn(`Failed to find return type end position (semicolon) in overload for ${name}.`);
-            overloadIndex = getNextOverloadIndex(overloadIndex + 1);
+            // This overload actually points to an interface. Try to find said interface and get the overloads from there.
+            const overloadParts = overloadString.split(":");
+            const interfaceName = overloadParts[1].trim();
+            if (interfaceName.startsWith("typeof ") || interfaceName.startsWith("LoDashStatic[")) {
+                // This is an alias (e.g. first: typeof _.head, or first: LoDashStatic['head']).
+                // Ignore it since convert() will create this alias based on the original function.
+                continue;
+            }
+            let interfaceStartIndex: number;
+            let interfaceEndIndex: number;
+            if (!interfaceName.startsWith("{")) {
+                const ignoreInterfaceNames = ["string", "TemplateSettings", "MapCacheConstructor"];
+                if (ignoreInterfaceNames.includes(interfaceName))
+                    continue;
+                const interfaceRegExp = new RegExp(`( *)interface ${interfaceName} {`);
+                const interfaceMatch = interfaceRegExp.exec(definitionString);
+                if (!interfaceMatch) {
+                    const lineNumber = getLineNumber(definitionString, overloadStartIndex);
+                    console.warn(`Failed to parse function '${name}': interface '${interfaceName}' not found. (${filePath} line ${lineNumber})`);
+                    continue;
+                }
+                interfaceStartIndex = interfaceMatch.index + interfaceMatch[0].length;
+                interfaceEndIndex = definitionString.indexOf(`${lineBreak}${interfaceMatch[1]}}`, interfaceStartIndex);
+                if (interfaceEndIndex === -1) {
+                    const lineNumber = getLineNumber(definitionString, interfaceStartIndex);
+                    console.warn(`Failed to find end of interface '${interfaceName}' (starting at ${filePath} line ${lineNumber}).`);
+                    continue;
+                }
+                _.pull(commonTypes, interfaceName);
+            } else {
+                // This is an inline type definition
+                interfaceStartIndex = definitionString.indexOf("{", overloadStartIndex + overloadParts[0].length) + 1;
+                interfaceEndIndex = definitionString.indexOf("}", interfaceStartIndex);
+                if (interfaceEndIndex === -1 || interfaceEndIndex >= endIndex) {
+                    console.warn(`Failed to find closing '}' character for property '${name}' (${filePath}).`);
+                    continue;
+                }
+                overloadEndIndex = definitionString.indexOf(";", interfaceEndIndex);
+                if (overloadEndIndex === -1 || overloadEndIndex >= endIndex) {
+                    const lineNumber = getLineNumber(definitionString, overloadStartIndex);
+                    console.warn(`Overload does not end with semicolon! ${filePath} line ${lineNumber}`);
+                    continue;
+                }
+                overloadRegExp.lastIndex = overloadEndIndex;
+            }
+            const [definition] = parseDefinitions(definitionString, interfaceStartIndex, interfaceEndIndex, filePath, commonTypes, name);
+            if (definition) {
+                for (const overload of definition.overloads)
+                    overload.jsdoc = currentDefinition.jsdoc;
+                currentDefinition.overloads.push(...definition.overloads);
+            }
         }
     }
-    return definition;
+    if (currentDefinition && !_.isEmpty(currentDefinition.overloads))
+        definitons.push(currentDefinition);
+    return definitons;
 }
 
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, isFixed: boolean): Interface[] {
@@ -717,12 +783,12 @@ function interfaceToString(interfaceDef: Interface): string {
         // Don't create an interface for a single type. Instead use a basic type def.
         let jsdoc = interfaceDef.overloads[0].jsdoc;
         if (jsdoc)
-            jsdoc += "\n";
+            jsdoc += lineBreak;
         interfaceDef.overloads[0].jsdoc = "";
-        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =\n${tab(jsdoc + overloadToString(interfaceDef.overloads[0], true), 1)}`;
+        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =${lineBreak}${tab(jsdoc + overloadToString(interfaceDef.overloads[0], true), 1)}`;
     } else {
-        const overloadStrings = interfaceDef.overloads.map(o => "\n" + tab(overloadToString(o), 1)).join("");
-        return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}\n}`;
+        const overloadStrings = interfaceDef.overloads.map(o => lineBreak + tab(overloadToString(o), 1)).join("");
+        return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}${lineBreak}}`;
     }
 }
 
@@ -730,29 +796,37 @@ function overloadToString(overload: Overload, arrowSyntax = false): string {
     const joinedParams = overload.params.join(", ");
     let jsdoc = overload.jsdoc;
     if (jsdoc)
-        jsdoc += "\n";
+        jsdoc += lineBreak;
     if (overload.tslintDisable)
-        jsdoc += overload.tslintDisable + "\n";
+        jsdoc += overload.tslintDisable + lineBreak;
     return `${jsdoc}${typeParamsToString(overload.typeParams)}(${joinedParams})${arrowSyntax ? " =>" : ":"} ${overload.returnType};`;
 }
 
 function typeParamsToString(typeParams: TypeParam[], includeConstraints = true): string {
-    return typeParams.length > 0 ? `<${typeParams.map(tp => tp.name + (includeConstraints && tp.extends ? " extends " + tp.extends : "")).join(", ")}>` : "";
+    return typeParams.length > 0 ? `<${typeParams.map(tp =>
+        tp.name
+            + (includeConstraints && tp.extends ? " extends " + tp.extends : "")
+            + (includeConstraints && tp.equals ? " = " + tp.equals : "")
+        ).join(", ")}>` : "";
 }
 
 function getPreviousLine(s: string, index: number): string {
-    const eol = s.lastIndexOf("\n", index);
+    const eol = s.lastIndexOf(lineBreak, index);
     if (eol === -1)
         return "";
-    const bol = s.lastIndexOf("\n", eol - 1);
+    const bol = s.lastIndexOf(lineBreak, eol - 1);
     if (bol === -1)
         return "";
     return s.substring(bol + 1, eol);
 }
 
+function getLineNumber(fileContents: string, index: number) {
+    return fileContents.substring(0, index).split(lineBreak).length + 1;
+}
+
 function tab(s: string, count: number) {
     const prepend: string = " ".repeat(count * 4);
-    return prepend + s.replace(/\n(.)/g, `\n${prepend}$1`);
+    return prepend + s.replace(/(?:\r\n|\n|\r)(.)/g, `${lineBreak}${prepend}$1`);
 }
 
 function indexOfAny(source: string, values: string[], position?: number): number {

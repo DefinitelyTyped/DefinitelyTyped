@@ -11,7 +11,7 @@ type Flip =
      * @returns Returns the new function.
      * @example
      *
-     *  var flipped = _.flip(function() {
+     * var flipped = _.flip(function() {
      *   return _.toArray(arguments);
      * });
      *
