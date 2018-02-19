@@ -594,7 +594,7 @@ declare namespace PouchDB {
          */
         bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
                         options: Core.BulkDocsOptions | null,
-                        callback: Core.Callback<Core.Response[]>): void;
+                        callback: Core.Callback<Array<Core.Response | Core.Error>>): void;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -604,7 +604,7 @@ declare namespace PouchDB {
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
         bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
-                        options?: Core.BulkDocsOptions): Promise<Core.Response[]>;
+                        options?: Core.BulkDocsOptions): Promise<Array<Core.Response | Core.Error >>;
 
         /** Compact the database */
         compact(options?: Core.CompactOptions): Promise<Core.Response>;
