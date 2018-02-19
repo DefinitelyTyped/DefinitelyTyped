@@ -19,8 +19,8 @@ let featureStyleFunction: ol.FeatureStyleFunction;
 let featureLoader: ol.FeatureLoader;
 let easingFunction: (t: number) => number;
 let drawGeometryFunction: ol.DrawGeometryFunctionType;
-drawGeometryFunction([0,0], new ol.geom.Point([0,0]));
-drawGeometryFunction([0,0]);
+drawGeometryFunction([0, 0], new ol.geom.Point([0, 0]));
+drawGeometryFunction([0, 0]);
 
 // Type variables for OpenLayers
 let attribution: ol.Attribution;
@@ -418,8 +418,8 @@ view = new ol.View({
 
 voidValue = view.animate();
 voidValue = view.animate({});
-voidValue = view.animate({zoom: view.getZoom() + 1});
-voidValue = view.animate({zoom: 10}, {center: [0, 0]});
+voidValue = view.animate({ zoom: view.getZoom() + 1 });
+voidValue = view.animate({ zoom: 10 }, { center: [0, 0] });
 voidValue = view.animate({
     center: coordinate,
     zoom: numberValue,
@@ -446,8 +446,8 @@ voidValue = view.fit(simpleGeometry);
 voidValue = view.fit(simpleGeometry, {});
 voidValue = view.fit(extent);
 voidValue = view.fit(extent, {});
-voidValue = view.fit(extent, {callback: () => {}});
-voidValue = view.fit(extent, {callback: (animationCompleted: boolean) => {}});
+voidValue = view.fit(extent, { callback: () => { } });
+voidValue = view.fit(extent, { callback: (animationCompleted: boolean) => { } });
 voidValue = view.fit(extent, {
     size: size,
     padding: [numberValue, numberValue, numberValue, numberValue],
@@ -457,7 +457,7 @@ voidValue = view.fit(extent, {
     maxZoom: numberValue,
     duration: numberValue,
     easing: easingFunction,
-    callback: (animationCompleted: boolean) => {}
+    callback: (animationCompleted: boolean) => { }
 });
 booleanValue = view.getAnimating();
 coordinate = view.getCenter();
@@ -536,7 +536,9 @@ let tileLayer: ol.layer.Tile = new ol.layer.Tile({
 //
 // ol.layer.Vector
 //
+let vectorLayerRenderMode: olx.layer.VectorRenderType = 'image';
 let vectorLayer: ol.layer.Vector = new ol.layer.Vector({
+    renderMode: vectorLayerRenderMode,
     source: new ol.source.Vector(),
     zIndex: -1
 });
