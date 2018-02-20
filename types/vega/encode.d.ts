@@ -90,10 +90,12 @@ export interface ThetaProperty {
     theta?: ProductionRule<NumericValueRef>;
 }
 export interface ArcEncodeEntry extends EncodeEntry {
-    innerRadius?: ProductionRule<NumericValueRef>;
-    outerRadius?: ProductionRule<NumericValueRef>;
     startAngle?: ProductionRule<NumericValueRef>;
     endAngle?: ProductionRule<NumericValueRef>;
+    padAngle?: ProductionRule<NumericValueRef>;
+    innerRadius?: ProductionRule<NumericValueRef>;
+    outerRadius?: ProductionRule<NumericValueRef>;
+    cornerRadius?: ProductionRule<NumericValueRef>;
 }
 export declare type Orientation = 'horizontal' | 'vertical';
 export interface AreaEncodeEntry extends LineEncodeEntry {
