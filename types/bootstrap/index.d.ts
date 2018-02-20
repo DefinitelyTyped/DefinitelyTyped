@@ -1,7 +1,7 @@
 // Type definitions for Bootstrap 4.0
 // Project: https://github.com/twbs/bootstrap/
 // Definitions by: denisname <https://github.com/denisname>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`;
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // TODO: collapse, tab (list-group, navs), popovers, scrollspy
