@@ -1,4 +1,4 @@
-// Type definitions for validator.js v9.3
+// Type definitions for validator.js v9.4
 // Project: https://github.com/chriso/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -163,7 +163,7 @@ declare namespace ValidatorJS {
     // 'fi-FI', 'fo-FO', 'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP', 'kk-KZ', 'kl-GL',
     // 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK',
     // 'sr-RS', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']).
-    isMobilePhone(str: string, locale: MobilePhoneLocale): boolean;
+    isMobilePhone(str: string, locale: MobilePhoneLocale, options?: IsMobilePhoneOptions): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
     // (http://docs.mongodb.org/manual/reference/object-id/).
@@ -335,6 +335,11 @@ declare namespace ValidatorJS {
   interface IsLengthOptions {
     min?: number;
     max?: number;
+  }
+
+  // options for isMobilePhone
+  interface IsMobilePhoneOptions {
+    strictMode?: boolean;
   }
 
   // options for isURL
