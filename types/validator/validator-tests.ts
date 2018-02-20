@@ -45,6 +45,7 @@ import isLengthFunc = require('validator/lib/isLength');
 import isLowercaseFunc = require('validator/lib/isLowercase');
 import isMACAddressFunc = require('validator/lib/isMACAddress');
 import isMD5Func = require('validator/lib/isMD5');
+import isMimeTypeFunc = require('validator/lib/isMimeType');
 import isMobilePhoneFunc = require('validator/lib/isMobilePhone');
 import isMongoIdFunc = require('validator/lib/isMongoId');
 import isMultibyteFunc = require('validator/lib/isMultibyte');
@@ -192,6 +193,9 @@ import whitelistFunc = require('validator/lib/whitelist');
   let _isMD5 = validator.isMD5;
   _isMD5 = isMD5Func;
 
+  let _isMimeType = validator.isMimeType;
+  _isMimeType = isMimeTypeFunc;
+
   let _isMobilePhone = validator.isMobilePhone;
   _isMobilePhone = isMobilePhoneFunc;
 
@@ -311,6 +315,7 @@ let any: any;
   result = validator.isAlpha('sample', 'cs-CZ');
   result = validator.isAlpha('sample', 'da-DK');
   result = validator.isAlpha('sample', 'de-DE');
+  result = validator.isAlpha('sample', 'el-GR');
   result = validator.isAlpha('sample', 'en-AU');
   result = validator.isAlpha('sample', 'en-GB');
   result = validator.isAlpha('sample', 'en-HK');
@@ -357,6 +362,7 @@ let any: any;
   result = validator.isAlphanumeric('sample', 'cs-CZ');
   result = validator.isAlphanumeric('sample', 'da-DK');
   result = validator.isAlphanumeric('sample', 'de-DE');
+  result = validator.isAlphanumeric('sample', 'el-GR');
   result = validator.isAlphanumeric('sample', 'en-AU');
   result = validator.isAlphanumeric('sample', 'en-GB');
   result = validator.isAlphanumeric('sample', 'en-HK');
@@ -479,6 +485,8 @@ let any: any;
 
   result = validator.isMD5('sample');
 
+  result = validator.isMimeType('sample');
+
   result = validator.isMobilePhone('sample', 'ar-AE');
   result = validator.isMobilePhone('sample', 'ar-DZ');
   result = validator.isMobilePhone('sample', 'ar-EG');
@@ -498,6 +506,7 @@ let any: any;
   result = validator.isMobilePhone('sample', 'en-NZ');
   result = validator.isMobilePhone('sample', 'en-UG');
   result = validator.isMobilePhone('sample', 'en-RW');
+  result = validator.isMobilePhone('sample', 'en-SG');
   result = validator.isMobilePhone('sample', 'en-TZ');
   result = validator.isMobilePhone('sample', 'en-PK');
   result = validator.isMobilePhone('sample', 'en-US');
