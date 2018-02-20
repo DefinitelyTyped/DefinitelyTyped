@@ -1,5 +1,5 @@
 import csv2json from "csv2json";
-import fs from "fs";
+import fs = require("fs");
 
 fs.createReadStream('data.csv')
   .pipe(csv2json({
