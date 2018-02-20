@@ -23,17 +23,19 @@
  *      failing test demonstrating use if so.
  */
 
-import * as Hapi from 'hapi';
+import { Plugin } from 'hapi';
 import NesClient = require('nes/client');
 
-declare module 'hapi' {
+declare module 'hapi/definitions/server/server' {
     interface Server {
         broadcast(message: any, options?: nes.ServerBroadcastOptions): void;
         subscription(path: string, options?: nes.ServerSubscriptionOptions): void;
         publish(path: string, message: any, options?: nes.ServerPublishOptions): void;
         eachSocket(each: (socket: nes.Socket) => void, options?: nes.ServerEachSocketOptions): void;
     }
+}
 
+declare module 'hapi/definitions/request/request' {
     interface Request {
         socket: nes.Socket;
     }
@@ -129,8 +131,6 @@ interface NesClassExports {
     };
 }
 
-interface NesAllExports extends NesClassExports, Hapi.PluginFunction<{}> {}
-
-declare var nes: NesAllExports;
+declare var nes: NesClassExports & Plugin<{}>;
 
 export = nes;
