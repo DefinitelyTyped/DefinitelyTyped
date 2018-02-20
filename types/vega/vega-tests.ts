@@ -1,5 +1,4 @@
 import { Spec } from 'vega'
-import { Data } from 'vega/data'
 
 // https://vega.github.io/editor/#/examples/vega/bar-chart
 const barChart: Spec ={
@@ -303,3 +302,166 @@ const groupedBarChart: Spec =
     }
   ]
 };
+
+// https://vega.github.io/editor/#/examples/vega/nested-bar-chart
+const nestedBarChart: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 300,
+  "padding": 5,
+  "autosize": "pad",
+
+  "signals": [
+    {
+      "name": "rangeStep", "value": 20,
+      "bind": {"input": "range", "min": 5, "max": 50, "step": 1}
+    },
+    {
+      "name": "innerPadding", "value": 0.1,
+      "bind": {"input": "range", "min": 0, "max": 0.7, "step": 0.01}
+    },
+    {
+      "name": "outerPadding", "value": 0.2,
+      "bind": {"input": "range", "min": 0, "max": 0.4, "step": 0.01}
+    },
+    {
+      "name": "height",
+      "update": "trellisExtent[1]"
+    }
+  ],
+
+  "data": [
+    {
+      "name": "tuples",
+      "values": [
+        {"a": 0, "b": "a", "c": 6.3},
+        {"a": 0, "b": "a", "c": 4.2},
+        {"a": 0, "b": "b", "c": 6.8},
+        {"a": 0, "b": "c", "c": 5.1},
+        {"a": 1, "b": "b", "c": 4.4},
+        {"a": 2, "b": "b", "c": 3.5},
+        {"a": 2, "b": "c", "c": 6.2}
+      ],
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["a", "b"],
+          "fields": ["c"],
+          "ops": ["average"],
+          "as": ["c"]
+        }
+      ]
+    },
+    {
+      "name": "trellis",
+      "source": "tuples",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["a"]
+        },
+        {
+          "type": "formula", "as": "span",
+          "expr": "rangeStep * bandspace(datum.count, innerPadding, outerPadding)"
+        },
+        {
+          "type": "stack",
+          "field": "span"
+        },
+        {
+          "type": "extent",
+          "field": "y1",
+          "signal": "trellisExtent"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "domain": {"data": "tuples", "field": "c"},
+      "nice": true,
+      "zero": true,
+      "round": true,
+      "range": "width"
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": "category",
+      "domain": {"data": "trellis", "field": "a"}
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "domain": true }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+
+      "from": {
+        "data": "trellis",
+        "facet": {
+          "name": "faceted_tuples",
+          "data": "tuples",
+          "groupby": "a"
+        }
+      },
+
+      "encode": {
+        "enter": {
+          "x": {"value": 0},
+          "width": {"signal": "width"}
+        },
+        "update": {
+          "y": {"field": "y0"},
+          "y2": {"field": "y1"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "yscale",
+          "type": "band",
+          "paddingInner": {"signal": "innerPadding"},
+          "paddingOuter": {"signal": "outerPadding"},
+          "round": true,
+          "domain": {"data": "faceted_tuples", "field": "b"},
+          "range": {"step": {"signal": "rangeStep"}}
+        }
+      ],
+
+      "axes": [
+        { "orient": "left", "scale": "yscale",
+          "ticks": false, "domain": false, "labelPadding": 4 }
+      ],
+
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "faceted_tuples"},
+          "encode": {
+            "enter": {
+              "x": {"value": 0},
+              "x2": {"scale": "xscale", "field": "c"},
+              "fill": {"scale": "color", "field": "a"},
+              "strokeWidth": {"value": 2}
+            },
+            "update": {
+              "y": {"scale": "yscale", "field": "b"},
+              "height": {"scale": "yscale", "band": 1},
+              "stroke": {"value": null},
+              // "zindex": {"value": 0} // Doesn't actually seem to be valid?
+            },
+            "hover": {
+              "stroke": {"value": "firebrick"},
+              // "zindex": {"value": 1} // Doesn't actually seem to be valid?
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

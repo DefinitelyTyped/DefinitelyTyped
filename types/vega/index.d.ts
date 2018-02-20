@@ -9,8 +9,8 @@ import { Padding } from './padding';
 import { Scope } from './scope';
 export interface Spec extends Scope {
     '$schema': string;
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
     config?: any;
     description?: string;
     padding?: Padding;
