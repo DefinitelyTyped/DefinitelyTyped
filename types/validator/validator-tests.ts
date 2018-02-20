@@ -28,6 +28,7 @@ import isFQDNFunc = require('validator/lib/isFQDN');
 import isFloatFunc = require('validator/lib/isFloat');
 import isFullWidthFunc = require('validator/lib/isFullWidth');
 import isHalfWidthFunc = require('validator/lib/isHalfWidth');
+import isHashFunc = require('validator/lib/isHash');
 import isHexColorFunc = require('validator/lib/isHexColor');
 import isHexadecimalFunc = require('validator/lib/isHexadecimal');
 import isIPFunc = require('validator/lib/isIP');
@@ -137,6 +138,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isHalfWidth = validator.isHalfWidth;
   _isHalfWidth = isHalfWidthFunc;
+
+  let _isHash = validator.isHash;
+  _isHash = isHashFunc;
 
   let _isHexColor = validator.isHexColor;
   _isHexColor = isHexColorFunc;
@@ -310,6 +314,7 @@ let any: any;
   result = validator.isAlpha('sample', 'es-ES');
   result = validator.isAlpha('sample', 'fr-FR');
   result = validator.isAlpha('sample', 'hu-HU');
+  result = validator.isAlpha('sample', 'it-IT');
   result = validator.isAlpha('sample', 'nb-NO');
   result = validator.isAlpha('sample', 'nl-NL');
   result = validator.isAlpha('sample', 'nn-NO');
@@ -319,6 +324,7 @@ let any: any;
   result = validator.isAlpha('sample', 'ru-RU');
   result = validator.isAlpha('sample', 'sr-RS');
   result = validator.isAlpha('sample', 'sr-RS@latin');
+  result = validator.isAlpha('sample', 'sv-SE');
   result = validator.isAlpha('sample', 'tr-TR');
   result = validator.isAlpha('sample', 'uk-UA');
 
@@ -354,6 +360,7 @@ let any: any;
   result = validator.isAlphanumeric('sample', 'es-ES');
   result = validator.isAlphanumeric('sample', 'fr-FR');
   result = validator.isAlphanumeric('sample', 'hu-HU');
+  result = validator.isAlphanumeric('sample', 'it-IT');
   result = validator.isAlphanumeric('sample', 'nb-NO');
   result = validator.isAlphanumeric('sample', 'nl-NL');
   result = validator.isAlphanumeric('sample', 'nn-NO');
@@ -363,6 +370,7 @@ let any: any;
   result = validator.isAlphanumeric('sample', 'ru-RU');
   result = validator.isAlphanumeric('sample', 'sr-RS');
   result = validator.isAlphanumeric('sample', 'sr-RS@latin');
+  result = validator.isAlphanumeric('sample', 'sv-SE');
   result = validator.isAlphanumeric('sample', 'tr-TR');
   result = validator.isAlphanumeric('sample', 'uk-UA');
 
@@ -408,6 +416,20 @@ let any: any;
 
   result = validator.isHalfWidth('sample');
 
+  result = validator.isHash('sample', 'md4');
+  result = validator.isHash('sample', 'md5');
+  result = validator.isHash('sample', 'sha1');
+  result = validator.isHash('sample', 'sha256');
+  result = validator.isHash('sample', 'sha384');
+  result = validator.isHash('sample', 'sha512');
+  result = validator.isHash('sample', 'ripemd128');
+  result = validator.isHash('sample', 'ripemd160');
+  result = validator.isHash('sample', 'tiger128');
+  result = validator.isHash('sample', 'tiger160');
+  result = validator.isHash('sample', 'tiger192');
+  result = validator.isHash('sample', 'crc32');
+  result = validator.isHash('sample', 'crc32b');
+
   result = validator.isHexColor('sample');
 
   result = validator.isHexadecimal('sample');
@@ -445,7 +467,10 @@ let any: any;
 
   result = validator.isMD5('sample');
 
+  result = validator.isMobilePhone('sample', 'ar-AE');
   result = validator.isMobilePhone('sample', 'ar-DZ');
+  result = validator.isMobilePhone('sample', 'ar-EG');
+  result = validator.isMobilePhone('sample', 'ar-JO');
   result = validator.isMobilePhone('sample', 'ar-SA');
   result = validator.isMobilePhone('sample', 'ar-SY');
   result = validator.isMobilePhone('sample', 'cs-CZ');
@@ -486,6 +511,7 @@ let any: any;
   result = validator.isMobilePhone('sample', 'ro-RO');
   result = validator.isMobilePhone('sample', 'ru-RU');
   result = validator.isMobilePhone('sample', 'sr-RS');
+  result = validator.isMobilePhone('sample', 'sk-SK');
   result = validator.isMobilePhone('sample', 'tr-TR');
   result = validator.isMobilePhone('sample', 'vi-VN');
   result = validator.isMobilePhone('sample', 'zh-CN');

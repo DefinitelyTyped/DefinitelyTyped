@@ -1,4 +1,4 @@
-// Type definitions for validator.js v8.1
+// Type definitions for validator.js v8.2
 // Project: https://github.com/chriso/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -10,10 +10,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
-  type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR" | "uk-UA";
-  type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR" | "uk-UA";
-  type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-KE" | "en-NG" | "en-NZ" | "en-UG" | "en-RW" | "en-TZ" | "en-PK" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fa-IR" | "fi-FI" | "fr-FR" | "he-IL" | "hu-HU" | "id-ID" | "it-IT" | "ja-JP" | "ko-KR" | "lt-LT" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ro-RO" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-HK" | "zh-TW" | "any";
+  type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
+  type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
+  type MobilePhoneLocale = "ar-AE" | "ar-DZ" | "ar-EG" | "ar-JO" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-KE" | "en-NG" | "en-NZ" | "en-UG" | "en-RW" | "en-TZ" | "en-PK" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fa-IR" | "fi-FI" | "fr-FR" | "he-IL" | "hu-HU" | "id-ID" | "it-IT" | "ja-JP" | "ko-KR" | "lt-LT" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ro-RO" | "ru-RU" | "sk-SK" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-HK" | "zh-TW" | "any";
   type PostalCodeLocale = "AT" | "AU" | "BE" | "CA" | "CH" | "CZ" | "DE" | "DK" | "DZ" | "ES" | "FI" | "FR" | "GB" | "GR" | "IL" | "IN" | "IS" | "IT" | "JP" | "KE" | "LI" | "MX" | "NL" | "NO" | "PL" | "PT" | "RO" | "RU" | "SA" | "SE" | "TW" | "US" | "ZA" | "ZM" | "any"
+  type HashAlgorithm = "md4" | "md5" | "sha1" | "sha256" | "sha384" | "sha512" | "ripemd128" | "ripemd160" | "tiger128" | "tiger160" | "tiger192" | "crc32" | "crc32b";
 
   interface ValidatorStatic {
 
@@ -33,13 +34,15 @@ declare namespace ValidatorJS {
     // check if the string contains only letters (a-zA-Z). Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG',
     // 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE',
     // 'cs-CZ', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR',
-    // 'hu-HU', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR' 'uk-UA']) and defaults to en-US
+    // 'hu-HU', 'it-IT' 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'sv-SE',
+    // 'tr-TR', 'uk-UA']) and defaults to en-US
     isAlpha(str: string, locale?: AlphaLocale): boolean;
 
     // check if the string contains only letters and numbers. Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG',
     // 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE',
     // 'cs-CZ', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR',
-    // 'hu-HU', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR', 'uk-UA']) and defaults to en-US
+    // 'hu-HU', 'it-IT', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'sv-SE',
+    // 'tr-TR', 'uk-UA']) and defaults to en-US
     isAlphanumeric(str: string, locale?: AlphanumericLocale): boolean;
 
     // check if the string contains ASCII chars only.
@@ -91,6 +94,11 @@ declare namespace ValidatorJS {
     // check if the string contains any half-width chars.
     isHalfWidth(str: string): boolean;
 
+    // check if the string is a hash of type algorithm.
+    // Algorithm is one of ['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128', 'ripemd160', 'tiger128',
+    // 'tiger160', 'tiger192', 'crc32', 'crc32b']
+    isHash(str: string, algorithm: HashAlgorithm): boolean;
+
     // check if the string is a hexadecimal color.
     isHexColor(str: string): boolean;
 
@@ -140,11 +148,11 @@ declare namespace ValidatorJS {
     isMD5(str: string): boolean;
 
     // check if the string is a mobile phone number, (locale is one of
-    // ['ar-DZ', 'ar-SA', 'ar-SY', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK',
-    // 'en-IN', 'en-KE', 'en-NG', 'en-NZ', 'en-UG', 'en-RW', 'en-TZ', 'en-PK', 'en-US', 'en-CA',
-    // 'en-ZA', 'en-ZM', 'es-ES', 'fa-IR', 'fi-FI', 'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT',
-    // 'ja-JP', 'ko-KR', lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU',
-    // 'sr-RS', 'tr-TR', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']).
+    // ['ar-AE', ar-DZ', 'ar-EG', 'ar-JO', 'ar-SA', 'ar-SY', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR',
+    // 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-KE', 'en-NG', 'en-NZ', 'en-UG', 'en-RW', 'en-TZ',
+    // 'en-PK', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fa-IR', 'fi-FI', 'fr-FR', 'he-IL',
+    // 'hu-HU', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL',
+    // 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sr-RS', 'tr-TR', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']).
     isMobilePhone(str: string, locale: MobilePhoneLocale): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
@@ -267,6 +275,9 @@ declare namespace ValidatorJS {
     allow_negative_sign_placeholder?: boolean;
     thousands_separator?: string;
     decimal_separator?: string;
+    allow_decimal?: boolean;
+    require_decimal?: boolean;
+    digits_after_decimal?: number[];
     allow_space_after_digits?: boolean;
   }
 
@@ -449,6 +460,11 @@ declare module "validator/lib/isFullWidth" {
 declare module "validator/lib/isHalfWidth" {
   const isHalfWidth: typeof validator.isHalfWidth;
   export = isHalfWidth;
+}
+
+declare module "validator/lib/isHash" {
+  const isHash: typeof validator.isHash;
+  export = isHash;
 }
 
 declare module "validator/lib/isHexColor" {
