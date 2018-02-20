@@ -36,6 +36,9 @@ export declare type Data = ({
     values: any[];
 } | {
     url: string;
+} | {
+    // Sometimes all you need is a transform, e.g. density
+    transform: Transform;
 }) & {
     name: string;
     on?: OnTrigger[];
