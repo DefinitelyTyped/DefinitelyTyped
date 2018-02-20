@@ -77,7 +77,9 @@ export interface EncodeEntry {
     strokeOpacity?: ProductionRule<NumericValueRef>;
     strokeDash?: ProductionRule<ScaledValueRef<number[]>>;
     strokeDashOffset?: ProductionRule<NumericValueRef>;
+    zindex?: ProductionRule<NumericValueRef>;
     cursor?: ProductionRule<StringValueRef>;
+    tooltip?: ProductionRule<StringValueRef>;
 }
 export declare type Align = 'left' | 'center' | 'right';
 export interface AlignProperty {

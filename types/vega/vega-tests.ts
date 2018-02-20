@@ -453,11 +453,11 @@ const nestedBarChart: Spec = {
               "y": {"scale": "yscale", "field": "b"},
               "height": {"scale": "yscale", "band": 1},
               "stroke": {"value": null},
-              // "zindex": {"value": 0} // Doesn't actually seem to be valid?
+              "zindex": {"value": 0}
             },
             "hover": {
               "stroke": {"value": "firebrick"},
-              // "zindex": {"value": 1} // Doesn't actually seem to be valid?
+              "zindex": {"value": 1}
             }
           }
         }
@@ -3469,9 +3469,271 @@ const countyUnemployment: Spec = {
       "type": "shape",
       "from": {"data": "counties"},
       "encode": {
-        // "enter": { "tooltip": {"signal": "format(datum.rate, '0.1%')"}}, // This appears to not be supported any more?
+        "enter": { "tooltip": {"signal": "format(datum.rate, '0.1%')"}},
         "update": { "fill": {"scale": "color", "field": "rate"} },
         "hover": { "fill": {"value": "red"} }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/dorling-cartogram
+const dorlingCartogram: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 900,
+  "height": 520,
+  "autosize": "none",
+
+  "config": {
+    "legend": {
+      "gradientWidth": 120,
+      "gradientHeight": 10
+    }
+  },
+
+  "data": [
+    {
+      "name": "states",
+      "url": "data/us-10m.json",
+      "format": {"type": "topojson", "feature": "states"}
+    },
+    {
+      "name": "obesity",
+      "url": "data/obesity.json",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "states", "key": "id",
+          "fields": ["id"], "as": ["geo"]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.geo"
+        },
+        {
+          "type": "formula", "as": "centroid",
+          "expr": "geoCentroid('projection', datum.geo)"
+        }
+      ]
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "type": "albersUsa",
+      "scale": 1100,
+      "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "size",
+      "domain": {"data": "obesity", "field": "rate"},
+      "range": [0, 5000]
+    },
+    {
+      "name": "color",
+      "type": "sequential",
+      // "nice": true, // This seems like it was an error in the example?
+      "domain": {"data": "obesity", "field": "rate"},
+      "range": "ramp"
+    }
+  ],
+
+  "legends": [
+    {
+      "title": "% of Obese Adults",
+      "orient": "bottom-right",
+      "type": "gradient",
+      "fill": "color",
+      "format": ".1%"
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "circles",
+      "type": "symbol",
+      "from": {"data": "obesity"},
+      "encode": {
+        "enter": {
+          "size": {"scale": "size", "field": "rate"},
+          "fill": {"scale": "color", "field": "rate"},
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 1.5},
+          "x": {"field": "centroid[0]"},
+          "y": {"field": "centroid[1]"},
+          "tooltip": {"signal": "'Obesity Rate: ' + format(datum.rate, '.1%')"}
+        }
+      },
+      "transform": [
+        {
+          "type": "force",
+          "static": true,
+          "forces": [
+            {"force": "collide", "radius": {"expr": "1 + sqrt(datum.size) / 2"}},
+            {"force": "x", "x": "datum.centroid[0]"},
+            {"force": "y", "y": "datum.centroid[1]"}
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {"data": "circles"},
+      "encode": {
+        "enter": {
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "fontSize": {"value": 13},
+          "fontWeight": {"value": "bold"},
+          "text": {"field": "datum.state"}
+        },
+        "update": {
+          "x": {"field": "x"},
+          "y": {"field": "y"}
+        }
+      }
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/world-map
+const worldMap: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 900,
+  "height": 500,
+  "autosize": "none",
+
+  "encode": {
+    "update": {
+      "fill": {"signal": "background"}
+    }
+  },
+
+  "signals": [
+    {
+      "name": "type",
+      "value": "mercator",
+      "bind": {
+        "input": "select",
+        "options": [
+          "albers",
+          "albersUsa",
+          "azimuthalEqualArea",
+          "azimuthalEquidistant",
+          "conicConformal",
+          "conicEqualArea",
+          "conicEquidistant",
+          "equirectangular",
+          "gnomonic",
+          "mercator",
+          "orthographic",
+          "stereographic",
+          "transverseMercator"
+        ]
+      }
+    },
+    { "name": "scale", "value": 150,
+      "bind": {"input": "range", "min": 50, "max": 2000, "step": 1} },
+    { "name": "rotate0", "value": 0,
+      "bind": {"input": "range", "min": -180, "max": 180, "step": 1} },
+    { "name": "rotate1", "value": 0,
+      "bind": {"input": "range", "min": -90, "max": 90, "step": 1} },
+    { "name": "rotate2", "value": 0,
+      "bind": {"input": "range", "min": -180, "max": 180, "step": 1} },
+    { "name": "center0", "value": 0,
+      "bind": {"input": "range", "min": -180, "max": 180, "step": 1} },
+    { "name": "center1", "value": 0,
+      "bind": {"input": "range", "min": -90, "max": 90, "step": 1} },
+    { "name": "translate0", "update": "width / 2" },
+    { "name": "translate1", "update": "height / 2" },
+
+    { "name": "graticuleDash", "value": 0,
+      "bind": {"input": "radio", "options": [0, 3, 5, 10]} },
+    { "name": "borderWidth", "value": 1,
+      "bind": {"input": "text"} },
+    { "name": "background", "value": "#ffffff",
+      "bind": {"input": "color"} },
+    { "name": "invert", "value": false,
+      "bind": {"input": "checkbox"} }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "type": {"signal": "type"},
+      "scale": {"signal": "scale"},
+      "rotate": [
+        {"signal": "rotate0"},
+        {"signal": "rotate1"},
+        {"signal": "rotate2"}
+      ],
+      "center": [
+        {"signal": "center0"},
+        {"signal": "center1"}
+      ],
+      "translate": [
+        {"signal": "translate0"},
+        {"signal": "translate1"}
+      ]
+    }
+  ],
+
+  "data": [
+    {
+      "name": "world",
+      "url": "data/world-110m.json",
+      "format": {
+        "type": "topojson",
+        "feature": "countries"
+      }
+    },
+    {
+      "name": "graticule",
+      "transform": [
+        { "type": "graticule" }
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "graticule"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 1},
+          "strokeDash": {"signal": "[+graticuleDash, +graticuleDash]"},
+          "stroke": {"signal": "invert ? '#444' : '#ddd'"},
+          "fill": {"value": null}
+        }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    },
+    {
+      "type": "shape",
+      "from": {"data": "world"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"signal": "+borderWidth"},
+          "stroke": {"signal": "invert ? '#777' : '#bbb'"},
+          "fill": {"signal": "invert ? '#fff' : '#000'"},
+          "zindex": {"value": 0}
+        },
+        "hover": {
+          "strokeWidth": {"signal": "+borderWidth + 1"},
+          "stroke": {"value": "firebrick"},
+          "zindex": {"value": 1}
+        }
       },
       "transform": [
         { "type": "geoshape", "projection": "projection" }
