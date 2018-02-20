@@ -288,7 +288,13 @@ function test_user_acl_roles() {
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
-    game.save({ score: '10' }, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true }).then(function (game) {
+        // Update game then revert it to the last saved state.
+        game.set("score", '20');
+        game.revert();
+    }, function (error) {
+        // The save failed
+    });
 
     const groupACL = new Parse.ACL();
 
