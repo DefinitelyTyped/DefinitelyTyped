@@ -4,6 +4,7 @@
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
+//                 Fernando Helwanger <https://github.com/fhelwanger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1509,11 +1510,11 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps {
+export interface LinearGradientProps extends ViewProperties {
     colors: string[];
-    start: [number, number];
-    end: [number, number];
-    locations: number[];
+    start?: [number, number];
+    end?: [number, number];
+    locations?: number[];
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }
