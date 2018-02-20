@@ -3741,3 +3741,450 @@ const worldMap: Spec = {
     }
   ]
 };
+
+// https://vega.github.io/editor/#/examples/vega/earthquakes
+const earthquakes: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "padding": 10,
+  "width": 450,
+  "height": 450,
+  "autosize": "none",
+
+  "signals": [
+    {
+      "name": "quakeSize", "value": 6,
+      "bind": {"input": "range", "min": 0, "max": 12}
+    },
+    {
+      "name": "rotate0", "value": 90,
+      "bind": {"input": "range", "min": -180, "max": 180}
+    },
+    {
+      "name": "rotate1", "value": -5,
+      "bind": {"input": "range", "min": -180, "max": 180}
+    }
+  ],
+
+  "data": [
+    {
+      "name": "sphere",
+      "values": [
+        {"type": "Sphere"}
+      ]
+    },
+    {
+      "name": "world",
+      "url": "data/world-110m.json",
+      "format": {
+        "type": "topojson",
+        "feature": "countries"
+      }
+    },
+    {
+      "name": "earthquakes",
+      "url": "data/earthquakes.json",
+      "format": {
+        "type": "json",
+        "property": "features"
+      }
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "scale": 225,
+      "type": "orthographic",
+      "translate": {"signal": "[width/2, height/2]"},
+      "rotate": [{"signal": "rotate0"}, {"signal": "rotate1"}, 0]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "size",
+      "type": "sqrt",
+      "domain": [0, 100],
+      "range": [0, {"signal": "quakeSize"}]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "sphere"},
+      "encode": {
+        "update": {
+          "fill": {"value": "aliceblue"},
+          "stroke": {"value": "black"},
+          "strokeWidth": {"value": 1.5}
+        }
+      },
+      "transform": [
+        {
+          "type": "geoshape",
+          "projection": "projection"
+        }
+      ]
+    },
+    {
+      "type": "shape",
+      "from": {"data": "world"},
+      "encode": {
+        "update": {
+          "fill": {"value": "mintcream"},
+          "stroke": {"value": "black"},
+          "strokeWidth": {"value": 0.35}
+        }
+      },
+      "transform": [
+        {
+          "type": "geoshape",
+          "projection": "projection"
+        }
+      ]
+    },
+    {
+      "type": "shape",
+      "from": {"data": "earthquakes"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.25},
+          "fill": {"value": "red"}
+        }
+      },
+      "transform": [
+        {
+          "type": "geoshape",
+          "projection": "projection",
+          "pointRadius": {"expr": "scale('size', exp(datum.properties.mag))"}
+        }
+      ]
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/zoomable-world-map
+const zoomableWorldMap: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 900,
+  "height": 500,
+  "autosize": "none",
+
+  "signals": [
+    { "name": "tx", "update": "width / 2" },
+    { "name": "ty", "update": "height / 2" },
+    {
+      "name": "scale",
+      "value": 150,
+      "on": [{
+        "events": {"type": "wheel", "consume": true},
+        "update": "clamp(scale * pow(1.0005, -event.deltaY * pow(16, event.deltaMode)), 150, 3000)"
+      }]
+    },
+    {
+      "name": "angles",
+      "value": [0, 0],
+      "on": [{
+        "events": "mousedown",
+        "update": "[rotateX, centerY]"
+      }]
+    },
+    {
+      "name": "cloned",
+      "value": null,
+      "on": [{
+        "events": "mousedown",
+        "update": "copy('projection')"
+      }]
+    },
+    {
+      "name": "start",
+      "value": null,
+      "on": [{
+        "events": "mousedown",
+        "update": "invert(cloned, xy())"
+      }]
+    },
+    {
+      "name": "drag", "value": null,
+      "on": [{
+        "events": "[mousedown, window:mouseup] > window:mousemove",
+        "update": "invert(cloned, xy())"
+      }]
+    },
+    {
+      "name": "delta", "value": null,
+      "on": [{
+        "events": {"signal": "drag"},
+        "update": "[drag[0] - start[0], start[1] - drag[1]]"
+      }]
+    },
+    {
+      "name": "rotateX", "value": 0,
+      "on": [{
+        "events": {"signal": "delta"},
+        "update": "angles[0] + delta[0]"
+      }]
+    },
+    {
+      "name": "centerY", "value": 0,
+      "on": [{
+        "events": {"signal": "delta"},
+        "update": "clamp(angles[1] + delta[1], -60, 60)"
+      }]
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection",
+      "type": "mercator",
+      "scale": {"signal": "scale"},
+      "rotate": [{"signal": "rotateX"}, 0, 0],
+      "center": [0, {"signal": "centerY"}],
+      "translate": [{"signal": "tx"}, {"signal": "ty"}]
+    }
+  ],
+
+  "data": [
+    {
+      "name": "world",
+      "url": "data/world-110m.json",
+      "format": {
+        "type": "topojson",
+        "feature": "countries"
+      }
+    },
+    {
+      "name": "graticule",
+      "transform": [
+        { "type": "graticule", "step": [15, 15] }
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "graticule"},
+      "encode": {
+        "enter": {
+          "strokeWidth": {"value": 1},
+          "stroke": {"value": "#ddd"},
+          "fill": {"value": null}
+        }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    },
+    {
+      "type": "shape",
+      "from": {"data": "world"},
+      "encode": {
+        "enter": {
+          "strokeWidth": {"value": 0.5},
+          "stroke": {"value": "#bbb"},
+          "fill": {"value": "#e5e8d3"}
+        }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/distortion-comparison
+const distortionComparison: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 900,
+  "height": 500,
+  "autosize": "none",
+
+  "signals": [
+    {
+      "name": "baseProjection",
+      "value": "azimuthalEqualArea",
+      "bind": {
+        "input": "select",
+        "options": [
+          "albers",
+          "albersUsa",
+          "azimuthalEqualArea",
+          "azimuthalEquidistant",
+          "conicConformal",
+          "conicEqualArea",
+          "conicEquidistant",
+          "equirectangular",
+          "gnomonic",
+          "mercator",
+          "orthographic",
+          "stereographic",
+          "transverseMercator"
+        ]
+      }
+    },
+    {
+      "name": "altProjection",
+      "value": "mercator",
+      "bind": {
+        "input": "select",
+        "options": [
+          "albers",
+          "albersUsa",
+          "azimuthalEqualArea",
+          "azimuthalEquidistant",
+          "conicConformal",
+          "conicEqualArea",
+          "conicEquidistant",
+          "equirectangular",
+          "gnomonic",
+          "mercator",
+          "orthographic",
+          "stereographic",
+          "transverseMercator"
+        ]
+      }
+    },
+    {
+      "name": "baseColor",
+      "value": "#bb8800",
+      "bind": {"input": "color"}
+    },
+    {
+      "name": "altColor",
+      "value": "#0088bb",
+      "bind": {"input": "color"}
+    },
+    {
+      "name": "opacity",
+      "value": 0.15,
+      "bind": {"input": "range", "min": 0, "max": 1, "step": 0.05}
+    },
+    {
+      "name": "scaleFactor",
+      "value": 1,
+      "bind": {"input": "range", "min": 0.05, "max": 2, "step": 0.05}
+    }
+  ],
+
+  "projections": [
+    {
+      "name": "projection1",
+      "type": {"signal": "baseProjection"},
+      "scale": 150,
+      "rotate": [0, 0, 0],
+      "center": [0, 0],
+      "translate": [
+        {"signal": "width / 2"},
+        {"signal": "height / 2"}
+      ]
+    },
+    {
+      "name": "projection2",
+      "type": {"signal": "altProjection"},
+      "scale": 150,
+      "rotate": [0, 0, 0],
+      "center": [0, 0],
+      "translate": [
+        {"signal": "width / 2"},
+        {"signal": "height / 2"}
+      ]
+    }
+  ],
+
+  "data": [
+    {
+      "name": "world",
+      "url": "data/world-110m.json",
+      "format": {
+        "type": "topojson",
+        "feature": "countries"
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "geoCentroid('projection1', datum)",
+          "as": "centroid"
+        },
+        {
+          "type": "formula",
+          "expr": "geoArea('projection1', datum)",
+          "as": "area1"
+        },
+        {
+          "type": "formula",
+          "expr": "geoArea('projection2', datum)",
+          "as": "area2"
+        }
+      ]
+    },
+    {
+      "name": "graticule",
+      "transform": [
+        { "type": "graticule" }
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "graticule"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 1},
+          "stroke": {"value": "#ddd"},
+          "fill": {"value": null}
+        }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection1" }
+      ]
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "world"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 1},
+          "stroke": {"value": "#bbb"},
+          "fill": {"signal": "altColor"},
+          "fillOpacity": {"signal": "opacity"},
+          "zindex": {"value": 0},
+          "x": {"field": "centroid[0]"},
+          "y": {"field": "centroid[1]"},
+          "size": {"field": "area2", "mult": {"signal": "scaleFactor"}}
+        },
+        "hover": {
+          "strokeWidth": {"value": 2},
+          "stroke": {"value": "firebrick"},
+          "zindex": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "world"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 1},
+          "stroke": {"value": "#bbb"},
+          "fill": {"signal": "baseColor"},
+          "fillOpacity": {"signal": "opacity"},
+          "zindex": {"value": 0},
+          "x": {"field": "centroid[0]"},
+          "y": {"field": "centroid[1]"},
+          "size": {"field": "area1", "mult": {"signal": "scaleFactor"}}
+        },
+        "hover": {
+          "strokeWidth": {"value": 2},
+          "stroke": {"value": "firebrick"},
+          "zindex": {"value": 1}
+        }
+      }
+    }
+  ]
+};

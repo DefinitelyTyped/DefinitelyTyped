@@ -24,8 +24,8 @@ export declare type ScaledValueRef<T> = BaseValueRef<T> | (BaseValueRef<T> & {
     band: boolean | number;
 };
 export declare type NumericValueRef = ScaledValueRef<number> & {
-    exponent?: number;
-    mult?: number;
+    exponent?: number | NumericValueRef;
+    mult?: number | NumericValueRef;
     offset?: number | NumericValueRef;
     round?: boolean;
     extra?: boolean;
