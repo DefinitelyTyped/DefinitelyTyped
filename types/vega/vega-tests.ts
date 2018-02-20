@@ -1347,3 +1347,591 @@ const radialPlot: Spec = {
     }
   ]
 };
+
+// https://vega.github.io/editor/#/examples/vega/scatter-plot
+const scatterPlot: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 200,
+  "height": 200,
+  "padding": 5,
+
+  "data": [
+    {
+      "name": "source",
+      "url": "data/cars.json",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum['Horsepower'] != null && datum['Miles_per_Gallon'] != null && datum['Acceleration'] != null"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "source", "field": "Horsepower"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "source", "field": "Miles_per_Gallon"},
+      "range": "height"
+    },
+    {
+      "name": "size",
+      "type": "linear",
+      "round": true,
+      "nice": false,
+      "zero": true,
+      "domain": {"data": "source", "field": "Acceleration"},
+      "range": [4,361]
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 5,
+      "title": "Horsepower"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "titlePadding": 5,
+      "title": "Miles_per_Gallon"
+    }
+  ],
+
+  "legends": [
+    {
+      "size": "size",
+      "title": "Acceleration",
+      "format": "s",
+      "encode": {
+        "symbols": {
+          "update": {
+            "strokeWidth": {"value": 2},
+            "opacity": {"value": 0.5},
+            "stroke": {"value": "#4682b4"},
+            "shape": {"value": "circle"}
+          }
+        }
+      }
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Horsepower"},
+          "y": {"scale": "y", "field": "Miles_per_Gallon"},
+          "size": {"scale": "size", "field": "Acceleration"},
+          "shape": {"value": "circle"},
+          "strokeWidth": {"value": 2},
+          "opacity": {"value": 0.5},
+          "stroke": {"value": "#4682b4"},
+          "fill": {"value": "transparent"}
+        }
+      }
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/scatter-plot-null-values
+const scatterPlotNullValues = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 450,
+  "height": 450,
+  "padding": 5,
+  "autosize": {"type": "fit", "resize": true},
+
+  "signals": [
+    { "name": "yField", "value": "IMDB_Rating",
+      "bind": {"input": "select", "options": ["IMDB_Rating", "Rotten_Tomatoes_Rating", "US_Gross", "Worldwide_Gross"]} },
+    { "name": "xField", "value": "Rotten_Tomatoes_Rating",
+      "bind": {"input": "select", "options": ["IMDB_Rating", "Rotten_Tomatoes_Rating", "US_Gross", "Worldwide_Gross"]} },
+    { "name": "nullSize", "value": 8 },
+    { "name": "nullGap", "update": "nullSize + 10" }
+  ],
+
+  "data": [
+    {
+      "name": "movies",
+      "url": "data/movies.json",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum.Title + ' (' + (year(datum.Release_Date) || '?') + ')'",
+          "as":   "tooltip"
+        }
+      ]
+    },
+    {
+      "name": "valid",
+      "source": "movies",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum[xField] != null && datum[yField] != null"
+        }
+      ]
+    },
+    {
+      "name": "nullXY",
+      "source": "movies",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum[xField] == null && datum[yField] == null"
+        },
+        { "type": "aggregate" }
+      ]
+    },
+    {
+      "name": "nullY",
+      "source": "movies",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum[xField] != null && datum[yField] == null"
+        }
+      ]
+    },
+    {
+      "name": "nullX",
+      "source": "movies",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum[xField] == null && datum[yField] != null"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "linear",
+      "range": [{"signal": "height - nullGap"}, 0],
+      "nice": true,
+      "domain": {"data": "valid", "field": {"signal": "yField"}}
+    },
+    {
+      "name": "xscale",
+      "type": "linear",
+      "range": [{"signal": "nullGap"}, {"signal": "width"}],
+      "nice": true,
+      "domain": {"data": "valid", "field": {"signal": "xField"}}
+    }
+  ],
+
+  "axes": [
+    {
+      "orient": "bottom", "scale": "xscale", "offset": 5, "format": "s",
+      "title": {"signal": "xField"}
+    },
+    {
+      "orient": "left", "scale": "yscale", "offset": 5, "format": "s",
+      "title": {"signal": "yField"}
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "symbol",
+      "from": {"data": "valid"},
+      "encode": {
+        "enter": {
+          "size": {"value": 50},
+          "tooltip": {"field": "tooltip"}
+        },
+        "update": {
+          "x": {"scale": "xscale", "field": {"signal": "xField"}},
+          "y": {"scale": "yscale", "field": {"signal": "yField"}},
+          "fill": {"value": "steelblue"},
+          "fillOpacity": {"value": 0.5},
+          "zindex": {"value": 0}
+        },
+        "hover": {
+          "fill": {"value": "firebrick"},
+          "fillOpacity": {"value": 1},
+          "zindex": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "nullY"},
+      "encode": {
+        "enter": {
+          "size": {"value": 50},
+          "tooltip": {"field": "tooltip"}
+        },
+        "update": {
+          "x": {"scale": "xscale", "field": {"signal": "xField"}},
+          "y": {"signal": "height - nullSize/2"},
+          "fill": {"value": "#aaa"},
+          "fillOpacity": {"value": 0.2}
+        },
+        "hover": {
+          "fill": {"value": "firebrick"},
+          "fillOpacity": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "nullX"},
+      "encode": {
+        "enter": {
+          "size": {"value": 50},
+          "tooltip": {"field": "tooltip"}
+        },
+        "update": {
+          "x": {"signal": "nullSize/2"},
+          "y": {"scale": "yscale", "field": {"signal": "yField"}},
+          "fill": {"value": "#aaa"},
+          "fillOpacity": {"value": 0.2},
+          "zindex": {"value": 0}
+        },
+        "hover": {
+          "fill": {"value": "firebrick"},
+          "fillOpacity": {"value": 1},
+          "zindex": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {"data": "nullXY"},
+      "encode": {
+        "update": {
+          "x": {"signal": "nullSize", "offset": -4},
+          "y": {"signal": "height", "offset": 13},
+          "text": {"signal": "datum.count + ' null'"},
+          "align": {"value": "right"},
+          "baseline": {"value": "top"},
+          "fill": {"value": "#999"},
+          "fontSize": {"value": 9}
+        }
+      }
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/connected-scatter-plot
+const connectedScatterPlot = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 800,
+  "height": 500,
+  "padding": 5,
+
+  "data": [
+    {
+      "name": "drive",
+      "url": "data/driving.json"
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": {"data": "drive", "field": "miles"},
+      "range": "width",
+      "nice": true,
+      "zero": false,
+      "round": true
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {"data": "drive", "field": "gas"},
+      "range": "height",
+      "nice": true,
+      "zero": false,
+      "round": true
+    },
+    {
+      "name": "align",
+      "type": "ordinal",
+      "domain": ["left", "right", "top", "bottom"],
+      "range": ["right", "left", "center", "center"]
+    },
+    {
+      "name": "base",
+      "type": "ordinal",
+      "domain": ["left", "right", "top", "bottom"],
+      "range": ["middle", "middle", "bottom", "top"]
+    },
+    {
+      "name": "dx",
+      "type": "ordinal",
+      "domain": ["left", "right", "top", "bottom"],
+      "range": [-7, 6, 0, 0]
+    },
+    {
+      "name": "dy",
+      "type": "ordinal",
+      "domain": ["left", "right", "top", "bottom"],
+      "range": [1, 1, -5, 6]
+    }
+  ],
+
+  "axes": [
+    {
+      "orient": "top",
+      "scale": "x",
+      "tickCount": 5,
+      "tickSize": 0,
+      "grid": true,
+      "domain": false,
+      "encode": {
+        "domain": {
+          "enter": { "stroke": {"value": "transparent"} }
+        },
+        "labels": {
+          "enter": {
+            "align": {"value": "left"},
+            "baseline": {"value": "top"},
+            "fontSize": {"value": 12},
+            "fontWeight": {"value": "bold"}
+          }
+        }
+      }
+    },
+    {
+      "title": "Miles driven per capita each year",
+      "orient": "bottom", "scale": "x",
+      "domain": false, "ticks": false, "labels": false
+    },
+    {
+      "orient": "left",
+      "scale": "y",
+      "tickCount": 5,
+      "tickSize": 0,
+      "grid": true,
+      "domain": false,
+      "format": "$0.2f",
+      "encode": {
+        "domain": {
+          "enter": {"stroke": {"value": "transparent"}}
+        },
+        "labels": {
+          "enter": {
+            "align": {"value": "left"},
+            "baseline": {"value": "bottom"},
+            "fontSize": {"value": 12},
+            "fontWeight": {"value": "bold"}
+          }
+        }
+      }
+    },
+    {
+      "title": "Price of a gallon of gasoline (adjusted for inflation)",
+      "orient": "right", "scale": "y",
+      "domain": false, "ticks": false, "labels": false
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "line",
+      "from": {"data": "drive"},
+      "encode": {
+        "enter": {
+          "interpolate": {"value": "cardinal"},
+          "x": {"scale": "x", "field": "miles"},
+          "y": {"scale": "y", "field": "gas"},
+          "stroke": {"value": "#000"},
+          "strokeWidth": {"value": 3}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "drive"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "x", "field": "miles"},
+          "y": {"scale": "y", "field": "gas"},
+          "fill": {"value": "#fff"},
+          "stroke": {"value": "#000"},
+          "strokeWidth": {"value": 1},
+          "size": {"value": 49}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "drive"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "x", "field": "miles"},
+          "y": {"scale": "y", "field": "gas"},
+          "dx": {"scale": "dx", "field": "side"},
+          "dy": {"scale": "dy", "field": "side"},
+          "fill": {"value": "#000"},
+          "text": {"field": "year"},
+          "align": {"scale": "align", "field": "side"},
+          "baseline": {"scale": "base", "field": "side"}
+        }
+      }
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/error-bars
+const errorBars: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "height": 160,
+  "padding": 5,
+
+  "config": {
+    "axisBand": {
+      "bandPosition": 1,
+      "tickExtra": true,
+      "tickOffset": 0
+    }
+  },
+
+  "signals": [
+    {
+      "name": "errorMeasure", "value": "95% Confidence Interval",
+      "bind": {"input": "select", "options": [
+        "95% Confidence Interval",
+        "Standard Error",
+        "Standard Deviation",
+        "Interquartile Range"
+      ]}
+    },
+    {
+      "name": "lookup",
+      "value": {
+        "95% Confidence Interval": "ci",
+        "Standard Deviation": "stdev",
+        "Standard Error": "stderr",
+        "Interquartile Range": "iqr"
+      }
+    },
+    {
+      "name": "measure",
+      "update": "lookup[errorMeasure]"
+    }
+  ],
+
+  "data": [
+    {
+      "name": "barley",
+      "url": "data/barley.json"
+    },
+    {
+      "name": "summary",
+      "source": "barley",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["variety"],
+          "fields": ["yield", "yield", "yield", "yield", "yield", "yield", "yield"],
+          "ops": ["mean", "stdev", "stderr", "ci0", "ci1", "q1", "q3"],
+          "as": ["mean", "stdev", "stderr", "ci0", "ci1", "iqr0", "iqr1"]
+        },
+        {
+          "type": "formula", "as": "stdev0",
+          "expr": "datum.mean - datum.stdev"
+        },
+        {
+          "type": "formula", "as": "stdev1",
+          "expr": "datum.mean + datum.stdev"
+        },
+        {
+          "type": "formula", "as": "stderr0",
+          "expr": "datum.mean - datum.stderr"
+        },
+        {
+          "type": "formula", "as": "stderr1",
+          "expr": "datum.mean + datum.stderr"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "range": "height",
+      "domain": {
+        "data": "summary",
+        "field": "variety",
+        "sort": {"op": "max", "field": "mean", "order": "descending"}
+      }
+    },
+    {
+      "name": "xscale",
+      "type": "linear",
+      "range": "width", "round": true,
+      "domain": {"data": "summary", "fields": ["stdev0", "stdev1"]},
+      "zero": false, "nice": true
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "xscale", "zindex": 1, "title": "Barley Yield"},
+    {"orient": "left", "scale": "yscale", "tickCount": 5, "zindex": 1}
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "summary"},
+      "encode": {
+        "enter": {
+          "fill": {"value": "black"},
+          "height": {"value": 1}
+        },
+        "update": {
+          "y": {"scale": "yscale", "field": "variety", "band": 0.5},
+          "x": {"scale": "xscale", "signal": "datum[measure+'0']"},
+          "x2": {"scale": "xscale", "signal": "datum[measure+'1']"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {"data": "summary"},
+      "encode": {
+        "enter": {
+          "fill": {"value": "black"},
+          "size": {"value": 40}
+        },
+        "update": {
+          "x": {"scale": "xscale", "field": "mean"},
+          "y": {"scale": "yscale", "field": "variety", "band": 0.5}
+        }
+      }
+    }
+  ]
+};
