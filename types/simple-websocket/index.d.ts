@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import { Duplex, DuplexOptions } from "stream";
-import WebSocket from "ws";
+import WebSocket = require("ws");
 
 export interface SocketOptions extends DuplexOptions {
   /** websocket server url */

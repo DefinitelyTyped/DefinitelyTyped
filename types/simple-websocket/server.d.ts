@@ -3,7 +3,7 @@
 import { EventEmitter } from "events";
 import * as http from "http";
 import * as net from "net";
-import WebSocket from "ws";
+import WebSocket = require("ws");
 
 import Socket from ".";
 
