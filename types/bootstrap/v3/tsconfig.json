@@ -9,11 +9,16 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "bootstrap": [
+                "bootstrap/v3"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
