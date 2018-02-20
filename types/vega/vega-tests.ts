@@ -3181,3 +3181,139 @@ const binnedScatterPlot: Spec = {
     }
   ]
 };
+
+// https://vega.github.io/editor/#/examples/vega/contour-plot
+const contourPlot: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "height": 400,
+  "padding": 5,
+  "autosize": "pad",
+
+  "signals": [
+    {
+      "name": "count", "value": 10,
+      "bind": {"input": "select", "options": [1, 5, 10, 20]}
+    },
+    {
+      "name": "points", "value": true,
+      "bind": {"input": "checkbox"}
+    }
+  ],
+
+  "data": [
+    {
+      "name": "source",
+      "url": "data/cars.json",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum['Horsepower'] != null && datum['Miles_per_Gallon'] != null"
+        }
+      ]
+    },
+    {
+      "name": "contours",
+      "source": "source",
+      "transform": [
+        {
+          "type": "contour",
+          "x": {"expr": "scale('x', datum.Horsepower)"},
+          "y": {"expr": "scale('y', datum.Miles_per_Gallon)"},
+          "size": [{"signal": "width"}, {"signal": "height"}],
+          "count": {"signal": "count"}
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Horsepower"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": false,
+      "domain": {"data": "source", "field": "Miles_per_Gallon"},
+      "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "sequential",
+      "zero": true,
+      "domain": {"data": "contours", "field": "value"},
+      "range": "heatmap"
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "title": "Horsepower"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "title": "Miles_per_Gallon"
+    }
+  ],
+
+  "legends": [{
+    "fill": "color",
+    "type": "gradient"
+  }],
+
+  "marks": [
+    {
+      "type": "path",
+      "from": {"data": "contours"},
+      "encode": {
+        "enter": {
+          "stroke": {"value": "#888"},
+          "strokeWidth": {"value": 1},
+          "fill": {"scale": "color", "field": "value"},
+          "fillOpacity": {"value": 0.35}
+        }
+      },
+      "transform": [
+        { "type": "geopath", "field": "datum" }
+      ]
+    },
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {"data": "source"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "Horsepower"},
+          "y": {"scale": "y", "field": "Miles_per_Gallon"},
+          "size": {"value": 4},
+          "fill": [
+            {"test": "points", "value": "black"},
+            {"value": "transparent"}
+          ]
+        }
+      }
+    }
+  ],
+
+  "config": {
+    "range": {
+      "heatmap": {"scheme": "greenblue"}
+    }
+  }
+};

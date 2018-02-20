@@ -116,7 +116,7 @@ export interface LineEncodeEntry extends EncodeEntry, DefinedProperty {
     tension?: ProductionRule<NumericValueRef>;
 }
 export interface PathEncodeEntry extends EncodeEntry {
-    path: ProductionRule<StringValueRef>;
+    path?: ProductionRule<StringValueRef>;
 }
 export interface RectEncodeEntry extends EncodeEntry {
     cornerRadius?: ProductionRule<NumericValueRef>;

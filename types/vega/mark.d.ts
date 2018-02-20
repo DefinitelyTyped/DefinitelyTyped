@@ -2,6 +2,7 @@ import * as Encode from './encode';
 import { SortOrder } from './scale';
 import { Scope } from './scope';
 import { SignalRef } from './signal';
+import { Transform } from './transform';
 export declare type Facet = {
     name: string;
     data: string;
@@ -38,6 +39,7 @@ export interface BaseMark {
     sort?: Compare;
     interactive?: boolean;
     from?: From;
+    transform?: Transform[];
 }
 export interface ArcMark extends BaseMark, Encode.Encode<Encode.ArcEncodeEntry> {
     type: 'arc';

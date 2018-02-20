@@ -76,6 +76,7 @@ export interface SequentialScale extends BaseScale {
     type: 'sequential';
     range: RangeScheme;
     clamp?: boolean | SignalRef;
+    zero?: boolean | SignalRef;
 }
 export declare type Nice = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
 export interface TimeScale extends BaseScale {
