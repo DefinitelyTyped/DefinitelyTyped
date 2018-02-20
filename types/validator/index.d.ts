@@ -113,6 +113,9 @@ declare namespace ValidatorJS {
     // check if the string is an ISBN (version 10 or 13).
     isISBN(str: string, version?: number): boolean;
 
+    // check if the string is an ISSN (https://en.wikipedia.org/wiki/International_Standard_Serial_Number).
+    isISSN(str: string, options?: IsISSNOptions): boolean;
+
     // check if the string is an ISIN (https://en.wikipedia.org/wiki/International_Securities_Identification_Number)
     // (stock/security identifier).
     isISIN(str: string): boolean;
@@ -325,6 +328,12 @@ declare namespace ValidatorJS {
     locale?: FloatLocale;
   }
 
+  // options for isISSN
+  interface IsISSNOptions {
+    case_sensitive?: boolean;
+    require_hyphen?: boolean;
+  }
+
   // options for IsInt
   interface IsIntOptions {
     min?: number;
@@ -514,6 +523,11 @@ declare module "validator/lib/isIP" {
 declare module "validator/lib/isISBN" {
   const isISBN: typeof validator.isISBN;
   export = isISBN;
+}
+
+declare module "validator/lib/isISSN" {
+  const isISSN: typeof validator.isISSN;
+  export = isISSN;
 }
 
 declare module "validator/lib/isISIN" {
