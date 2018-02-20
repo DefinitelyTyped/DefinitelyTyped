@@ -1,5 +1,5 @@
 /*
-React projects that don't include the DOM library need these interfaces to compile.
+React projects that don't include the DOM library these interfaces need to compile.
 React Native applications use React, but there is no DOM available. The JavaScript runtime
 is ES6/ES2015 only. These definitions allow such projects to compile with only `--lib ES6`.
 */
@@ -33,6 +33,7 @@ interface HTMLBodyElement extends HTMLElement { }
 interface HTMLBRElement extends HTMLElement { }
 interface HTMLButtonElement extends HTMLElement { }
 interface HTMLCanvasElement extends HTMLElement { }
+interface HTMLDialogElement extends HTMLElement { }
 interface HTMLDivElement extends HTMLElement { }
 interface HTMLDListElement extends HTMLElement { }
 interface HTMLEmbedElement extends HTMLElement { }
@@ -175,3 +176,5 @@ interface SVGTextPathElement extends SVGElement { }
 interface SVGTSpanElement extends SVGElement { }
 interface SVGUseElement extends SVGElement { }
 interface SVGViewElement extends SVGElement { }
+
+interface TouchList { }
