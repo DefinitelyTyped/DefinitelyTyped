@@ -33,6 +33,7 @@ import isHexColorFunc = require('validator/lib/isHexColor');
 import isHexadecimalFunc = require('validator/lib/isHexadecimal');
 import isIPFunc = require('validator/lib/isIP');
 import isISBNFunc = require('validator/lib/isISBN');
+import isISSNFunc = require('validator/lib/isISSN');
 import isISINFunc = require('validator/lib/isISIN');
 import isISO8601Func = require('validator/lib/isISO8601');
 import isISO31661Alpha2Func = require('validator/lib/isISO31661Alpha2');
@@ -156,6 +157,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isISBN = validator.isISBN;
   _isISBN = isISBNFunc;
+
+  let _isISSN = validator.isISSN;
+  _isISSN = isISSNFunc;
 
   let _isISIN = validator.isISIN;
   _isISIN = isISINFunc;
@@ -462,6 +466,10 @@ let any: any;
 
   result = validator.isISBN('sample');
   result = validator.isISBN('sample', 13);
+
+  let isISSNOptions: ValidatorJS.IsISSNOptions;
+  result = validator.isISSN('sample');
+  result = validator.isISSN('sample', isISSNOptions);
 
   result = validator.isISIN('sample');
 
