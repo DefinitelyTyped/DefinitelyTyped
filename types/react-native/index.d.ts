@@ -7780,6 +7780,11 @@ export namespace Animated {
          */
         setValue(value: number): void;
 
+		/**
+		 * Gets the current animated value. Usefule when
+		 */
+		__getValue(): number;
+
         /**
          * Sets an offset that is applied on top of whatever value is set, whether via
          * `setValue`, an animation, or `Animated.event`.  Useful for compensating
