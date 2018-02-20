@@ -487,8 +487,8 @@ geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon
 // projection(...) ------------------------------------------------------
 
 geoPathCanvas = geoPathCanvas.projection(azimuthalEqualArea);
-const geoPathProjectionMinimal: d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
-const geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
+const geoPathProjectionMinimal: d3Geo.GeoStreamWrapper | null = geoPathCanvas.projection();
+const geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper | null = geoPathCanvas.projection();
 const geoPathProjection: d3Geo.GeoProjection = geoPathCanvas.projection<d3Geo.GeoProjection>();
 
 geoPathSVG = geoPathSVG.projection(conicConformal);
@@ -501,7 +501,7 @@ const geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d
 // minimal context interface (mockup)
 geoPathCanvas = geoPathCanvas.context(minimalRenderingContextMockUp);
 
-const geoPathContext: d3Geo.GeoContext = geoPathCanvas.context();
+const geoPathContext: d3Geo.GeoContext | null = geoPathCanvas.context();
 
 // reset
 geoPathCanvas = geoPathCanvas.context(null);
