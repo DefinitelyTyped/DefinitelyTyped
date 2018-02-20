@@ -642,6 +642,22 @@ describe('rejects', () => {
     });
 });
 
+// https://facebook.github.io/jest/docs/en/expect.html#tohavepropertykeypath-value
+describe('toHaveProperty', () => {
+    it('it accepts a keyPath as string', () => {
+        expect({ a: { b: {}}}).toHaveProperty('a');
+    });
+    it('it accepts a keyPath as string with dot notation', () => {
+        expect({ a: { b: {}}}).toHaveProperty('a.b');
+    });
+    it('it accepts a keyPath as an array', () => {
+      expect({ a: { b: {}}}).toHaveProperty(['a', 'b']);
+    });
+    it('it accepts a keyPath as an array containing non-string values', () => {
+      expect({ a: ['b']}).toHaveProperty(['a', 0]);
+    });
+});
+
 class MyTransformer implements jest.Transformer {
     process(text: string, path: string) {
         return `

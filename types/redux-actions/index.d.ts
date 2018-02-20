@@ -163,7 +163,7 @@ export interface ActionMap<Payload, Meta> {
 }
 
 export function createActions<Payload>(
-    actionMap: ActionMap<Payload, any>,
+    actionMapOrIdentityAction: ActionMap<Payload, any> | string,
     ...identityActions: string[]
 ): {
     [actionName: string]: ActionFunctionAny<Action<Payload>>
