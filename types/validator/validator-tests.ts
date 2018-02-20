@@ -38,6 +38,7 @@ import isISRCFunc = require('validator/lib/isISRC');
 import isInFunc = require('validator/lib/isIn');
 import isIntFunc = require('validator/lib/isInt');
 import isJSONFunc = require('validator/lib/isJSON');
+import isLatLongFunc = require('validator/lib/isLatLong');
 import isLengthFunc = require('validator/lib/isLength');
 import isLowercaseFunc = require('validator/lib/isLowercase');
 import isMACAddressFunc = require('validator/lib/isMACAddress');
@@ -166,6 +167,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isJSON = validator.isJSON;
   _isJSON = isJSONFunc;
+
+  let _isLatLong = validator.isLatLong;
+  _isLatLong = isLatLongFunc;
 
   let _isLength = validator.isLength;
   _isLength = isLengthFunc;
@@ -306,7 +310,9 @@ let any: any;
   result = validator.isAlpha('sample', 'es-ES');
   result = validator.isAlpha('sample', 'fr-FR');
   result = validator.isAlpha('sample', 'hu-HU');
+  result = validator.isAlpha('sample', 'nb-NO');
   result = validator.isAlpha('sample', 'nl-NL');
+  result = validator.isAlpha('sample', 'nn-NO');
   result = validator.isAlpha('sample', 'pl-PL');
   result = validator.isAlpha('sample', 'pt-BR');
   result = validator.isAlpha('sample', 'pt-PT');
@@ -348,7 +354,9 @@ let any: any;
   result = validator.isAlphanumeric('sample', 'es-ES');
   result = validator.isAlphanumeric('sample', 'fr-FR');
   result = validator.isAlphanumeric('sample', 'hu-HU');
+  result = validator.isAlphanumeric('sample', 'nb-NO');
   result = validator.isAlphanumeric('sample', 'nl-NL');
+  result = validator.isAlphanumeric('sample', 'nn-NO');
   result = validator.isAlphanumeric('sample', 'pl-PL');
   result = validator.isAlphanumeric('sample', 'pt-BR');
   result = validator.isAlphanumeric('sample', 'pt-PT');
@@ -423,6 +431,8 @@ let any: any;
   result = validator.isInt('sample', isIntOptions);
 
   result = validator.isJSON('sample');
+
+  result = validator.isLatLong('sample');
 
   let isLengthOptions: ValidatorJS.IsLengthOptions;
   result = validator.isLength('sample', isLengthOptions);
