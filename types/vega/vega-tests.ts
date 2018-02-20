@@ -2484,3 +2484,700 @@ const probabilityDensity: Spec = {
     }
   ]
 };
+
+// https://vega.github.io/editor/#/examples/vega/box-plot
+const boxPlot: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "height": 100,
+  "padding": 5,
+
+  "signals": [
+    { "name": "bandwidth", "value": 0,
+      "bind": {"input": "range", "min": 0, "max": 0.1, "step": 0.001} },
+    { "name": "steps", "value": 100,
+      "bind": {"input": "range", "min": 10, "max": 500, "step": 1} },
+    { "name": "method", "value": "pdf",
+      "bind": {"input": "radio", "options": ["pdf", "cdf"]} }
+  ],
+
+  "data": [
+    {
+      "name": "points",
+      "url": "data/normal-2d.json"
+    },
+    {
+      "name": "summary",
+      "source": "points",
+      "transform": [
+        {
+          "type": "aggregate",
+          "fields": ["u", "u"],
+          "ops": ["mean", "stdev"],
+          "as": ["mean", "stdev"]
+        }
+      ]
+    },
+    {
+      "name": "density",
+      "source": "points",
+      "transform": [
+        {
+          "type": "density",
+          "extent": {"signal": "domain('xscale')"},
+          "steps": {"signal": "steps"},
+          "method": {"signal": "method"},
+          "distribution": {
+            "function": "kde",
+            "field": "u",
+            "bandwidth": {"signal": "bandwidth"}
+          }
+        }
+      ]
+    },
+    {
+      "name": "normal",
+      "transform": [
+        {
+          "type": "density",
+          "extent": {"signal": "domain('xscale')"},
+          "steps": {"signal": "steps"},
+          "method": {"signal": "method"},
+          "distribution": {
+            "function": "normal",
+            "mean": {"signal": "data('summary')[0].mean"},
+            "stdev": {"signal": "data('summary')[0].stdev"}
+          }
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "linear",
+      "range": "width",
+      "domain": {"data": "points", "field": "u"},
+      "nice": true
+    },
+    {
+      "name": "yscale",
+      "type": "linear",
+      "range": "height", "round": true,
+      "domain": {
+        "fields": [
+          {"data": "density", "field": "density"},
+          {"data": "normal", "field": "density"}
+        ]
+      }
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["Normal Estimate", "Kernel Density Estimate"],
+      "range": ["#444", "steelblue"]
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "xscale", "zindex": 1}
+  ],
+
+  "legends": [
+    {"orient": "top-left", "fill": "color", "offset": 0, "zindex": 1}
+  ],
+
+  "marks": [
+    {
+      "type": "area",
+      "from": {"data": "density"},
+      "encode": {
+        "update": {
+          "x": {"scale": "xscale", "field": "value"},
+          "y": {"scale": "yscale", "field": "density"},
+          "y2": {"scale": "yscale", "value": 0},
+          "fill": {"signal": "scale('color', 'Kernel Density Estimate')"}
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {"data": "normal"},
+      "encode": {
+        "update": {
+          "x": {"scale": "xscale", "field": "value"},
+          "y": {"scale": "yscale", "field": "density"},
+          "stroke": {"signal": "scale('color', 'Normal Estimate')"},
+          "strokeWidth": {"value": 2}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "points"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "u"},
+          "width": {"value": 1},
+          "y": {"value": 25, "offset": {"signal": "height"}},
+          "height": {"value": 5},
+          "fill": {"value": "steelblue"},
+          "fillOpacity": {"value": 0.4}
+        }
+      }
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/violin-plot
+const violinPlot: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "padding": 5,
+
+  "config": {
+    "axisBand": {
+      "bandPosition": 1,
+      "tickExtra": true,
+      "tickOffset": 0
+    }
+  },
+
+  "signals": [
+    { "name": "fields",
+      "value": ["petalWidth", "petalLength", "sepalWidth", "sepalLength"] },
+    { "name": "plotWidth", "value": 60 },
+    { "name": "height", "update": "(plotWidth + 10) * length(fields)"},
+    { "name": "bandwidth", "value": 0,
+      "bind": {"input": "range", "min": 0, "max": 0.5, "step": 0.005} },
+    { "name": "steps", "value": 100,
+      "bind": {"input": "range", "min": 10, "max": 500, "step": 1} }
+  ],
+
+  "data": [
+    {
+      "name": "iris",
+      "url": "data/iris.json",
+      "transform": [
+        {
+          "type": "fold",
+          "fields": {"signal": "fields"},
+          "as": ["organ", "value"]
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "layout",
+      "type": "band",
+      "range": "height",
+      "domain": {"data": "iris", "field": "organ"}
+    },
+    {
+      "name": "xscale",
+      "type": "linear",
+      "range": "width", "round": true,
+      "domain": {"data": "iris", "field": "value"},
+      "zero": true, "nice": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": "category"
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "xscale", "zindex": 1},
+    {"orient": "left", "scale": "layout", "tickCount": 5, "zindex": 1}
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "data": "iris",
+          "name": "organs",
+          "groupby": "organ"
+        }
+      },
+
+      "encode": {
+        "enter": {
+          "yc": {"scale": "layout", "field": "organ", "band": 0.5},
+          "height": {"signal": "plotWidth"},
+          "width": {"signal": "width"}
+        }
+      },
+
+      "data": [
+        {
+          "name": "density",
+          "transform": [
+            {
+              "type": "density",
+              "steps": {"signal": "steps"},
+              "distribution": {
+                "function": "kde",
+                "from": "organs",
+                "field": "value",
+                "bandwidth": {"signal": "bandwidth"}
+              }
+            },
+            {
+              "type": "stack",
+              "groupby": ["value"],
+              "field": "density",
+              "offset": "center",
+              "as": ["y0", "y1"]
+            }
+          ]
+        },
+        {
+          "name": "summary",
+          "source": "organs",
+          "transform": [
+            {
+              "type": "aggregate",
+              "fields": ["value", "value", "value"],
+              "ops": ["q1", "median", "q3"],
+              "as": ["q1", "median", "q3"]
+            }
+          ]
+        }
+      ],
+
+      "scales": [
+        {
+          "name": "yscale",
+          "type": "linear",
+          "range": [0, {"signal": "plotWidth"}],
+          "domain": {"data": "density", "field": "density"}
+        }
+      ],
+
+      "marks": [
+        {
+          "type": "area",
+          "from": {"data": "density"},
+          "encode": {
+            "enter": {
+              "fill": {"scale": "color", "field": {"parent": "organ"}}
+            },
+            "update": {
+              "x": {"scale": "xscale", "field": "value"},
+              "y": {"scale": "yscale", "field": "y0"},
+              "y2": {"scale": "yscale", "field": "y1"}
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {"data": "summary"},
+          "encode": {
+            "enter": {
+              "fill": {"value": "black"},
+              "height": {"value": 2}
+            },
+            "update": {
+              "yc": {"signal": "plotWidth / 2"},
+              "x": {"scale": "xscale", "field": "q1"},
+              "x2": {"scale": "xscale", "field": "q3"}
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {"data": "summary"},
+          "encode": {
+            "enter": {
+              "fill": {"value": "black"},
+              "width": {"value": 2},
+              "height": {"value": 8}
+            },
+            "update": {
+              "yc": {"signal": "plotWidth / 2"},
+              "x": {"scale": "xscale", "field": "median"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/top-k-plot
+const topKPlot: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "height": 410,
+  "padding": 5,
+  "autosize": "fit",
+
+  "signals": [
+    {
+      "name": "k", "value": 20,
+      "bind": {"input": "range", "min": 10, "max": 30, "step": 1}
+    },
+    {
+      "name": "op", "value": "average",
+      "bind": {"input": "select", "options": ["average", "median", "sum"]}
+    },
+    {
+      "name": "label",
+      "value": {"average": "Average", "median": "Median", "sum": "Total"}
+    }
+  ],
+
+  "title": {
+    "text": {"signal": "'Top Directors by ' + label[op] + ' Worldwide Gross'"},
+    "anchor": "start"
+  },
+
+  "data": [
+    {
+      "name": "directors",
+      "url": "data/movies.json",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.Director != null && datum.Worldwide_Gross != null"
+        },
+        {
+          "type": "aggregate",
+          "groupby": ["Director"],
+          "ops": [{"signal": "op"}],
+          "fields": ["Worldwide_Gross"],
+          "as": ["Gross"]
+        },
+        {
+          "type": "window",
+          "sort": {"field": "Gross", "order": "descending"},
+          "ops": ["row_number"], "as": ["rank"]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.rank <= k"
+        }
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "directors"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "value": 0},
+          "x2": {"scale": "x", "field": "Gross"},
+          "y": {"scale": "y", "field": "Director"},
+          "height": {"scale": "y", "band": 1}
+        }
+      }
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": {"data": "directors", "field": "Gross"},
+      "range": "width",
+      "nice": true
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {
+        "data": "directors", "field": "Director",
+        "sort": {"op": "max", "field": "Gross", "order": "descending"}
+      },
+      "range": "height",
+      "padding": 0.1
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "format": "$,d",
+      "tickCount": 5
+    },
+    {
+      "scale": "y",
+      "orient": "left"
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/top-k-plot-with-others
+const topKPlotWithOthers: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "height": 410,
+  "padding": 5,
+  "autosize": "fit",
+
+  "signals": [
+    {
+      "name": "k", "value": 20,
+      "bind": {"input": "range", "min": 10, "max": 30, "step": 1}
+    },
+    {
+      "name": "op", "value": "average",
+      "bind": {"input": "select", "options": ["average", "median", "sum"]}
+    },
+    {
+      "name": "label",
+      "value": {"average": "Average", "median": "Median", "sum": "Total"}
+    }
+  ],
+
+  "title": {
+    "text": {"signal": "'Top Directors by ' + label[op] + ' Worldwide Gross'"},
+    "anchor": "start"
+  },
+
+  "data": [
+    {
+      "name": "source",
+      "url": "data/movies.json",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.Director != null && datum.Worldwide_Gross != null"
+        }
+      ]
+    },
+    {
+      "name": "ranks",
+      "source": "source",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["Director"],
+          "ops": [{"signal": "op"}],
+          "fields": ["Worldwide_Gross"],
+          "as": ["Gross"]
+        },
+        {
+          "type": "window",
+          "sort": {"field": "Gross", "order": "descending"},
+          "ops": ["row_number"], "as": ["rank"]
+        }
+      ]
+    },
+    {
+      "name": "directors",
+      "source": "source",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "ranks",
+          "key": "Director",
+          "values": ["rank"],
+          "fields": ["Director"]
+        },
+        {
+          "type": "formula",
+          "as": "Category",
+          "expr": "datum.rank < k ? datum.Director : 'All Others'"
+        },
+        {
+          "type": "aggregate",
+          "groupby": ["Category"],
+          "ops": [{"signal": "op"}],
+          "fields": ["Worldwide_Gross"],
+          "as": ["Gross"]
+        }
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "directors"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "value": 0},
+          "x2": {"scale": "x", "field": "Gross"},
+          "y": {"scale": "y", "field": "Category"},
+          "height": {"scale": "y", "band": 1}
+        }
+      }
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": {"data": "directors", "field": "Gross"},
+      "range": "width",
+      "nice": true
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {
+        "data": "directors", "field": "Category",
+        "sort": {"op": "max", "field": "Gross", "order": "descending"}
+      },
+      "range": "height",
+      "padding": 0.1
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "format": "$,d",
+      "tickCount": 5
+    },
+    {
+      "scale": "y",
+      "orient": "left"
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/binned-scatter-plot
+const binnedScatterPlot: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 200,
+  "height": 200,
+  "padding": 5,
+  "autosize": "pad",
+
+  "data": [
+    {
+      "name": "source",
+      "url": "data/cars.json",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum['Horsepower'] != null && datum['Miles_per_Gallon'] != null && datum['Acceleration'] != null"
+        }
+      ]
+    },
+    {
+      "name": "summary",
+      "source": "source",
+      "transform": [
+        {
+          "type": "extent", "field": "Horsepower",
+          "signal": "hp_extent"
+        },
+        {
+          "type": "bin", "field": "Horsepower", "maxbins": 10,
+          "extent": {"signal": "hp_extent"},
+          "as": ["hp0", "hp1"]
+        },
+        {
+          "type": "extent", "field": "Miles_per_Gallon",
+          "signal": "mpg_extent"
+        },
+        {
+          "type": "bin", "field": "Miles_per_Gallon", "maxbins": 10,
+          "extent": {"signal": "mpg_extent"},
+          "as": ["mpg0", "mpg1"]
+        },
+        {
+          "type": "aggregate",
+          "groupby": ["hp0", "hp1", "mpg0", "mpg1"]
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "source", "field": "Horsepower"},
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "source", "field": "Miles_per_Gallon"},
+      "range": "height"
+    },
+    {
+      "name": "size",
+      "type": "linear",
+      "zero": true,
+      "domain": {"data": "summary", "field": "count"},
+      "range": [0,360]
+    }
+  ],
+
+  "axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 5,
+      "title": "Horsepower"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "titlePadding": 5,
+      "title": "Miles_per_Gallon"
+    }
+  ],
+
+  "legends": [
+    {
+      "size": "size",
+      "title": "Count",
+      "format": "s",
+      "encode": {
+        "symbols": {
+          "update": {
+            "strokeWidth": {"value": 2},
+            "stroke": {"value": "#4682b4"},
+            "shape": {"value": "circle"}
+          }
+        }
+      }
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {"data": "summary"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "signal": "(datum.hp0 + datum.hp1) / 2"},
+          "y": {"scale": "y", "signal": "(datum.mpg0 + datum.mpg1) / 2"},
+          "size": {"scale": "size", "field": "count"},
+          "shape": {"value": "circle"},
+          "strokeWidth": {"value": 2},
+          "stroke": {"value": "#4682b4"},
+          "fill": {"value": "transparent"}
+        }
+      }
+    }
+  ]
+};
