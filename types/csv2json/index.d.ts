@@ -2,6 +2,7 @@
 // Project: https://github.com/julien-f/csv2json
 // Definitions by: Piotr Roszatycki <https://github.com/dex4er>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
@@ -12,4 +13,4 @@ export interface CSV2JSONOptions {
   separator?: string;
 }
 
-export default function csv2json (options: CSV2JSONOptions): Writable;
+export default function csv2json(options: CSV2JSONOptions): Writable;
