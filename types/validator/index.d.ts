@@ -175,9 +175,6 @@ declare namespace ValidatorJS {
     // check if the string contains one or more multibyte chars.
     isMultibyte(str: string): boolean;
 
-    // check if the string is null.
-    isNull(str: string): boolean;
-
     // check if the string contains only numbers.
     isNumeric(str: string): boolean;
 
@@ -613,11 +610,6 @@ declare module "validator/lib/isMongoId" {
 declare module "validator/lib/isMultibyte" {
   const isMultibyte: typeof validator.isMultibyte;
   export = isMultibyte;
-}
-
-declare module "validator/lib/isNull" {
-  const isNull: typeof validator.isNull;
-  export = isNull;
 }
 
 declare module "validator/lib/isNumeric" {

@@ -50,7 +50,6 @@ import isMimeTypeFunc = require('validator/lib/isMimeType');
 import isMobilePhoneFunc = require('validator/lib/isMobilePhone');
 import isMongoIdFunc = require('validator/lib/isMongoId');
 import isMultibyteFunc = require('validator/lib/isMultibyte');
-import isNullFunc = require('validator/lib/isNull');
 import isNumericFunc = require('validator/lib/isNumeric');
 import isPortFunc = require('validator/lib/isPort');
 import isPostalCodeFunc = require('validator/lib/isPostalCode');
@@ -208,9 +207,6 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isMultibyte = validator.isMultibyte;
   _isMultibyte = isMultibyteFunc;
-
-  let _isNull = validator.isNull;
-  _isNull = isNullFunc;
 
   let _isNumeric = validator.isNumeric;
   _isNumeric = isNumericFunc;
@@ -567,8 +563,6 @@ let any: any;
   result = validator.isMongoId('sample');
 
   result = validator.isMultibyte('sample');
-
-  result = validator.isNull('sample');
 
   result = validator.isNumeric('sample');
 
