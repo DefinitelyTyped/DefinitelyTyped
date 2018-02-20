@@ -268,6 +268,24 @@ declare namespace Bull {
     /**
      * Defines a processing function for the jobs placed into a given Queue.
      *
+     * The handlerPath defines the path to the job callback.
+     * Using a handlerPath has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
+     *
+     * It is passed an instance of the job as first argument.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     */
+    process(handlerPath: string): void;
+
+    /**
+     * Defines a processing function for the jobs placed into a given Queue.
+     *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
      *
@@ -290,6 +308,26 @@ declare namespace Bull {
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
     process(concurrency: number, callback: (job: Job) => void): Promise<any>;
+
+    /**
+     * Defines a processing function for the jobs placed into a given Queue.
+     *
+     * The handlerPath defines the path to the job callback.
+     * Using a handlerPath has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
+     *
+     * It is passed an instance of the job as first argument.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
+     */
+    process(concurrency: number, handlerPath: string): void;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -336,6 +374,27 @@ declare namespace Bull {
      */
     // tslint:disable-next-line:unified-signatures
     process(name: string, callback: (job: Job, done: DoneCallback) => void): void;
+
+    /**
+     * Defines a processing function for the jobs placed into a given Queue.
+     *
+     * The handlerPath defines the path to the job callback.
+     * Using a handlerPath has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
+     *
+     * It is passed an instance of the job as first argument.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param name Bull will only call the handler if the job name matches
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
+     */
+    process(name: string, concurrency: number, handlerPath: string): void;
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
