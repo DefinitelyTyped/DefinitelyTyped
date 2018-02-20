@@ -2,10 +2,9 @@
 // Project: https://github.com/keype/swe-validation
 // Definitions by: Robert Hjalmers <https://github.com/hjalmers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
 declare module 'swe-validation' {
-    
+
     interface cin {
         isValid:boolean,
         corporation: {

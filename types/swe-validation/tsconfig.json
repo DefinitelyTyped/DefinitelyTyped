@@ -2,12 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es5"
+            "es6"
         ],
-        "noImplicitAny": false,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +16,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "swe-validation-tests.ts"
     ]
 }
