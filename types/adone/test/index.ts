@@ -10,12 +10,12 @@ namespace AdoneRootTests {
     { const a: string = adone.bad; }
     { const a: string[] = adone.exts; }
     adone.log();
-    adone.fatal();
-    adone.error();
-    adone.warn();
-    adone.info();
-    adone.debug();
-    adone.trace();
+    adone.logFatal();
+    adone.logError();
+    adone.logWarn();
+    adone.logInfo();
+    adone.logDebug();
+    adone.logTrace();
     { const a: object = adone.o(); }
     { const a: object = adone.o({}); }
     { const a: typeof Date = adone.Date; }

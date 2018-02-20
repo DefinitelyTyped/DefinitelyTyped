@@ -11,12 +11,12 @@ declare namespace adone {
     export const bad: "BAD";
     export const exts: [".js", ".tjs", ".ajs"];
     export function log(...args: any[]): void;
-    export function fatal(...args: any[]): void;
-    export function error(...args: any[]): void;
-    export function warn(...args: any[]): void;
-    export function info(...args: any[]): void;
-    export function debug(...args: any[]): void;
-    export function trace(...args: any[]): void;
+    export function logFatal(...args: any[]): void;
+    export function logError(...args: any[]): void;
+    export function logWarn(...args: any[]): void;
+    export function logInfo(...args: any[]): void;
+    export function logDebug(...args: any[]): void;
+    export function logTrace(...args: any[]): void;
     export function o(...props: any[]): object;
     export const Date: typeof global.Date;
     export const hrtime: typeof global.process.hrtime;
