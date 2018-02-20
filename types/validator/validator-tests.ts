@@ -343,6 +343,7 @@ let any: any;
   result = validator.isAlpha('sample', 'tr-TR');
   result = validator.isAlpha('sample', 'uk-UA');
 
+  result = validator.isAlphanumeric('sample');
   result = validator.isAlphanumeric('sample', 'ar');
   result = validator.isAlphanumeric('sample', 'ar-AE');
   result = validator.isAlphanumeric('sample', 'ar-BH');
