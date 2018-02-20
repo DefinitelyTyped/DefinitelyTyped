@@ -27,7 +27,7 @@ export declare type FormatTopoJSON = {
 } & ({
     feature: 'string';
 } | {
-    mesh: 'string';
+    mesh?: 'string';
 });
 export declare type Format = FormatJSON | FormatSV | FormatDSV | FormatTopoJSON;
 export declare type Data = ({

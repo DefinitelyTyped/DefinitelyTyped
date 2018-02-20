@@ -123,7 +123,7 @@ export interface RectEncodeEntry extends EncodeEntry {
 }
 export declare type RuleEncodeEntry = EncodeEntry;
 export interface ShapeEncodeEntry extends EncodeEntry {
-    shape: ProductionRule<StringValueRef>;
+    shape?: ProductionRule<StringValueRef>;
 }
 export declare type SymbolShapes = 'circle' | 'square' | 'cross' | 'diamond' | 'triangle-up' | 'triangle-down' | 'triangle-right' | 'triangle-left';
 export interface SymbolEncodeEntry extends EncodeEntry {

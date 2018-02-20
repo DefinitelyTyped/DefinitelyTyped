@@ -130,13 +130,13 @@ export interface SqrtScale extends BaseScale {
 }
 export interface QuantileScale extends BaseScale {
     type?: 'quantile';
-    range?: RangeBand;
+    range?: RangeScheme;
     nice?: boolean | number | SignalRef;
     zero?: boolean | SignalRef;
 }
 export interface QuantizeScale extends BaseScale {
     type?: 'quantize';
-    range?: RangeBand;
+    range?: RangeScheme;
     nice?: boolean | number | SignalRef;
     zero?: boolean | SignalRef;
 }
