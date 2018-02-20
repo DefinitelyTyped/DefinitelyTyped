@@ -49,6 +49,7 @@ import isMongoIdFunc = require('validator/lib/isMongoId');
 import isMultibyteFunc = require('validator/lib/isMultibyte');
 import isNullFunc = require('validator/lib/isNull');
 import isNumericFunc = require('validator/lib/isNumeric');
+import isPortFunc = require('validator/lib/isPort');
 import isPostalCodeFunc = require('validator/lib/isPostalCode');
 import isSurrogatePairFunc = require('validator/lib/isSurrogatePair');
 import isURLFunc = require('validator/lib/isURL');
@@ -201,6 +202,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isNumeric = validator.isNumeric;
   _isNumeric = isNumericFunc;
+
+  let _isPort = validator.isPort;
+  _isPort = isPortFunc;
 
   let _isPostalCode = validator.isPostalCode;
   _isPostalCode = isPostalCodeFunc;
@@ -396,7 +400,9 @@ let any: any;
 
   result = validator.isDataURI('sample');
 
+  let isDecimalOptions: ValidatorJS.IsDecimalOptions;
   result = validator.isDecimal('sample');
+  result = validator.isDecimal('sample', isDecimalOptions);
 
   result = validator.isDivisibleBy('sample', 2);
 
@@ -513,6 +519,7 @@ let any: any;
   result = validator.isMobilePhone('sample', 'sr-RS');
   result = validator.isMobilePhone('sample', 'sk-SK');
   result = validator.isMobilePhone('sample', 'tr-TR');
+  result = validator.isMobilePhone('sample', 'uk-UA');
   result = validator.isMobilePhone('sample', 'vi-VN');
   result = validator.isMobilePhone('sample', 'zh-CN');
   result = validator.isMobilePhone('sample', 'zh-HK');
@@ -526,6 +533,8 @@ let any: any;
   result = validator.isNull('sample');
 
   result = validator.isNumeric('sample');
+
+  result = validator.isPort('sample');
 
   result = validator.isPostalCode('sample', 'AT');
   result = validator.isPostalCode('sample', 'AU');
