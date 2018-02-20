@@ -50,7 +50,7 @@ export interface ImageMark extends BaseMark, Encode.Encode<Encode.ImageEncodeEnt
 }
 export interface GroupMark extends BaseMark, Scope, Encode.Encode<Encode.GroupEncodeEntry> {
     type: 'group';
-    from: FromFacet;
+    from?: FromFacet;
 }
 export interface LineMark extends BaseMark, Encode.Encode<Encode.LineEncodeEntry> {
     type: 'line';
