@@ -1,4 +1,6 @@
 import { OnTrigger } from './on-trigger';
+import { Transform } from './transform';
+
 export declare type FieldParam = {
     field: string;
 };
@@ -38,4 +40,5 @@ export declare type Data = ({
     name: string;
     on?: OnTrigger[];
     format?: Format;
+    transform?: Transform;
 };
