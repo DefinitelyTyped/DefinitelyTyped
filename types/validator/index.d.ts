@@ -367,9 +367,17 @@ declare namespace ValidatorJS {
 
   // options for normalizeEmail
   interface NormalizeEmailOptions {
-    lowercase?: boolean;
-    remove_dots?: boolean;
-    remove_extension?: boolean;
+    all_lowercase?: boolean;
+    gmail_lowercase?: boolean;
+    gmail_remove_dots?: boolean;
+    gmail_remove_subaddress?: boolean;
+    gmail_convert_googlemaildotcom?: boolean;
+    outlookdotcom_lowercase?: boolean;
+    outlookdotcom_remove_subaddress?: boolean;
+    yahoo_lowercase?: boolean;
+    yahoo_remove_subaddress?: boolean;
+    icloud_lowercase?: boolean;
+    icloud_remove_subaddress?: boolean;
   }
 }
 
