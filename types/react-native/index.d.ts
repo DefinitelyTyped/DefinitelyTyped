@@ -3910,6 +3910,17 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
     onRefresh?: (() => void) | null;
 
     /**
+     * Used to handle failures when scrolling to an index that has not been measured yet.
+     * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
+     * as possible and then try again after more items have been rendered.
+     */
+    onScrollToIndexFailed?: (info: {
+        index: number,
+        highestMeasuredFrameIndex: number,
+        averageItemLength: number
+    }) => void;
+
+    /**
      * Called when the viewability of rows changes, as defined by the
      * `viewabilityConfig` prop.
      */
