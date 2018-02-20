@@ -43,3 +43,4 @@ interface Fingerprint2Options {
 }
 
 export = Fingerprint2;
+export as namespace Fingerprint2;
