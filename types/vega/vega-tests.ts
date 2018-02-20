@@ -464,4 +464,352 @@ const nestedBarChart: Spec = {
       ]
     }
   ]
-}
+};
+
+// https://vega.github.io/editor/#/examples/vega/line-chart
+const lineChart: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 300,
+  "padding": 5,
+  "autosize": "pad",
+
+  "signals": [
+    {
+      "name": "rangeStep", "value": 20,
+      "bind": {"input": "range", "min": 5, "max": 50, "step": 1}
+    },
+    {
+      "name": "innerPadding", "value": 0.1,
+      "bind": {"input": "range", "min": 0, "max": 0.7, "step": 0.01}
+    },
+    {
+      "name": "outerPadding", "value": 0.2,
+      "bind": {"input": "range", "min": 0, "max": 0.4, "step": 0.01}
+    },
+    {
+      "name": "height",
+      "update": "trellisExtent[1]"
+    }
+  ],
+
+  "data": [
+    {
+      "name": "tuples",
+      "values": [
+        {"a": 0, "b": "a", "c": 6.3},
+        {"a": 0, "b": "a", "c": 4.2},
+        {"a": 0, "b": "b", "c": 6.8},
+        {"a": 0, "b": "c", "c": 5.1},
+        {"a": 1, "b": "b", "c": 4.4},
+        {"a": 2, "b": "b", "c": 3.5},
+        {"a": 2, "b": "c", "c": 6.2}
+      ],
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["a", "b"],
+          "fields": ["c"],
+          "ops": ["average"],
+          "as": ["c"]
+        }
+      ]
+    },
+    {
+      "name": "trellis",
+      "source": "tuples",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["a"]
+        },
+        {
+          "type": "formula", "as": "span",
+          "expr": "rangeStep * bandspace(datum.count, innerPadding, outerPadding)"
+        },
+        {
+          "type": "stack",
+          "field": "span"
+        },
+        {
+          "type": "extent",
+          "field": "y1",
+          "signal": "trellisExtent"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "domain": {"data": "tuples", "field": "c"},
+      "nice": true,
+      "zero": true,
+      "round": true,
+      "range": "width"
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": "category",
+      "domain": {"data": "trellis", "field": "a"}
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale", "domain": true }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+
+      "from": {
+        "data": "trellis",
+        "facet": {
+          "name": "faceted_tuples",
+          "data": "tuples",
+          "groupby": "a"
+        }
+      },
+
+      "encode": {
+        "enter": {
+          "x": {"value": 0},
+          "width": {"signal": "width"}
+        },
+        "update": {
+          "y": {"field": "y0"},
+          "y2": {"field": "y1"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "yscale",
+          "type": "band",
+          "paddingInner": {"signal": "innerPadding"},
+          "paddingOuter": {"signal": "outerPadding"},
+          "round": true,
+          "domain": {"data": "faceted_tuples", "field": "b"},
+          "range": {"step": {"signal": "rangeStep"}}
+        }
+      ],
+
+      "axes": [
+        { "orient": "left", "scale": "yscale",
+          "ticks": false, "domain": false, "labelPadding": 4 }
+      ],
+
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "faceted_tuples"},
+          "encode": {
+            "enter": {
+              "x": {"value": 0},
+              "x2": {"scale": "xscale", "field": "c"},
+              "fill": {"scale": "color", "field": "a"},
+              "strokeWidth": {"value": 2}
+            },
+            "update": {
+              "y": {"scale": "yscale", "field": "b"},
+              "height": {"scale": "yscale", "band": 1},
+              "stroke": {"value": null}
+            },
+            "hover": {
+              "stroke": {"value": "firebrick"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/area-chart
+const areaChart: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "height": 200,
+  "padding": 5,
+
+  "signals": [
+    {
+      "name": "interpolate",
+      "value": "monotone",
+      "bind": {
+        "input": "select",
+        "options": [
+          "basis",
+          "cardinal",
+          "catmull-rom",
+          "linear",
+          "monotone",
+          "natural",
+          "step",
+          "step-after",
+          "step-before"
+        ]
+      }
+    }
+  ],
+
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {"u": 1,  "v": 28}, {"u": 2,  "v": 55},
+        {"u": 3,  "v": 43}, {"u": 4,  "v": 91},
+        {"u": 5,  "v": 81}, {"u": 6,  "v": 53},
+        {"u": 7,  "v": 19}, {"u": 8,  "v": 87},
+        {"u": 9,  "v": 52}, {"u": 10, "v": 48},
+        {"u": 11, "v": 24}, {"u": 12, "v": 49},
+        {"u": 13, "v": 87}, {"u": 14, "v": 66},
+        {"u": 15, "v": 17}, {"u": 16, "v": 27},
+        {"u": 17, "v": 68}, {"u": 18, "v": 16},
+        {"u": 19, "v": 49}, {"u": 20, "v": 15}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "linear",
+      "range": "width",
+      "zero": false,
+      "domain": {"data": "table", "field": "u"}
+    },
+    {
+      "name": "yscale",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "table", "field": "v"}
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "xscale", "tickCount": 20},
+    {"orient": "left", "scale": "yscale"}
+  ],
+
+  "marks": [
+    {
+      "type": "area",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "u"},
+          "y": {"scale": "yscale", "field": "v"},
+          "y2": {"scale": "yscale", "value": 0},
+          "fill": {"value": "steelblue"}
+        },
+        "update": {
+          "interpolate": {"signal": "interpolate"},
+          "fillOpacity": {"value": 1}
+        },
+        "hover": {
+          "fillOpacity": {"value": 0.5}
+        }
+      }
+    }
+  ]
+};
+
+// https://vega.github.io/editor/#/examples/vega/stacked-area-chart
+const stackedAreaChart: Spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 500,
+  "height": 200,
+  "padding": 5,
+  
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {"x": 0, "y": 28, "c":0}, {"x": 0, "y": 55, "c":1},
+        {"x": 1, "y": 43, "c":0}, {"x": 1, "y": 91, "c":1},
+        {"x": 2, "y": 81, "c":0}, {"x": 2, "y": 53, "c":1},
+        {"x": 3, "y": 19, "c":0}, {"x": 3, "y": 87, "c":1},
+        {"x": 4, "y": 52, "c":0}, {"x": 4, "y": 48, "c":1},
+        {"x": 5, "y": 24, "c":0}, {"x": 5, "y": 49, "c":1},
+        {"x": 6, "y": 87, "c":0}, {"x": 6, "y": 66, "c":1},
+        {"x": 7, "y": 17, "c":0}, {"x": 7, "y": 27, "c":1},
+        {"x": 8, "y": 68, "c":0}, {"x": 8, "y": 16, "c":1},
+        {"x": 9, "y": 49, "c":0}, {"x": 9, "y": 15, "c":1}
+      ],
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["x"],
+          "sort": {"field": "c"},
+          "field": "y"
+        }
+      ]
+    }
+  ],
+  
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "range": "width",
+      "domain": {"data": "table", "field": "x"}
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "nice": true, "zero": true,
+      "domain": {"data": "table", "field": "y1"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": "category",
+      "domain": {"data": "table", "field": "c"}
+    }
+  ],
+  
+  "axes": [
+    {"orient": "bottom", "scale": "x", "zindex": 1},
+    {"orient": "left", "scale": "y", "zindex": 1}
+  ],
+  
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "table",
+          "groupby": "c"
+        }
+      },
+      "marks": [
+        {
+          "type": "area",
+          "from": {"data": "series"},
+          "encode": {
+            "enter": {
+              "interpolate": {"value": "monotone"},
+              "x": {"scale": "x", "field": "x"},
+              "y": {"scale": "y", "field": "y0"},
+              "y2": {"scale": "y", "field": "y1"},
+              "fill": {"scale": "color", "field": "c"}
+            },
+            "update": {
+              "fillOpacity": {"value": 1}
+            },
+            "hover": {
+              "fillOpacity": {"value": 0.5}
+            }
+          }
+        }
+      ]
+    }
+  ]
+};
