@@ -9,17 +9,19 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+       "paths": {
+            "socket.io-parser": [ "socket.io-parser/v2" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "binary.d.ts",
         "socket.io-parser-tests.ts"
     ]
 }

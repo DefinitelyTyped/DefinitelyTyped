@@ -1,10 +1,5 @@
-// Type definitions for socket.io-parser 3.1
-// Project: https://github.com/socketio/socket.io-parser
-// Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import {Packet} from './index';
+import { Packet } from './index';
 
 /**
  * Replaces every Buffer | ArrayBuffer in packet with a numbered placeholder.
@@ -13,7 +8,7 @@ import {Packet} from './index';
  * @param packet Socket.io event packet
  * @return with deconstructed packet and list of buffers
  */
-export function deconstructPacket (packet: Packet): {packet: Packet, buffers: Buffer[] | ArrayBuffer[]};
+export function deconstructPacket(packet: Packet): {packet: Packet, buffers: Buffer[] | ArrayBuffer[]};
 /**
  * Reconstructs a binary packet from its placeholder packet and buffers
  *
