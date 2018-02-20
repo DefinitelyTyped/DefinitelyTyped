@@ -1,4 +1,4 @@
-// Type definitions for validator.js v6.3
+// Type definitions for validator.js v7.0
 // Project: https://github.com/chriso/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -6,6 +6,7 @@
 //                 Louy Alakkad <https://github.com/louy>
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Bonggyun Lee <https://github.com/deptno>
+//                 Naoto Yokoyama <https://github.com/builtinnya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
@@ -65,9 +66,6 @@ declare namespace ValidatorJS {
 
     // check if the string is a data uri format (https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs)
     isDataURI(str: string): boolean;
-
-    // check if the string is a date.
-    isDate(str: string): boolean;
 
     // check if the string represents a decimal number, such as 0.1, .3, 1.1, 1.00003, 4.0, etc.
     isDecimal(str: string): boolean;
@@ -404,11 +402,6 @@ declare module "validator/lib/isCurrency" {
 declare module "validator/lib/isDataURI" {
   const isDataURI: typeof validator.isDataURI;
   export = isDataURI;
-}
-
-declare module "validator/lib/isDate" {
-  const isDate: typeof validator.isDate;
-  export = isDate;
 }
 
 declare module "validator/lib/isDecimal" {

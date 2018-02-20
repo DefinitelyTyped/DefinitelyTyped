@@ -20,7 +20,6 @@ import isByteLengthFunc = require('validator/lib/isByteLength');
 import isCreditCardFunc = require('validator/lib/isCreditCard');
 import isCurrencyFunc = require('validator/lib/isCurrency');
 import isDataURIFunc = require('validator/lib/isDataURI');
-import isDateFunc = require('validator/lib/isDate');
 import isDecimalFunc = require('validator/lib/isDecimal');
 import isDivisibleByFunc = require('validator/lib/isDivisibleBy');
 import isEmailFunc = require('validator/lib/isEmail');
@@ -112,9 +111,6 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isDataURI = validator.isDataURI;
   _isDataURI = isDataURIFunc;
-
-  let _isDate = validator.isDate;
-  _isDate = isDateFunc;
 
   let _isDecimal = validator.isDecimal;
   _isDecimal = isDecimalFunc;
@@ -377,8 +373,6 @@ let any: any;
   result = validator.isCurrency('sample', isCurrencyOptions);
 
   result = validator.isDataURI('sample');
-
-  result = validator.isDate('sample');
 
   result = validator.isDecimal('sample');
 
