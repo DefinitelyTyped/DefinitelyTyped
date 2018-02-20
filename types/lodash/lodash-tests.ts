@@ -3775,7 +3775,7 @@ namespace TestCommit {
 
 // _.prototype.concat
 namespace TestConcat {
-    const numberROA: ReadonlyArray<number> = [0];
+    const numberROA: number[] = [0]; // TODO: Should be ReadonlyArray, but see comment on type Many<T>
 
     _.concat(1); // $ExpectType number[]
     _.concat([1]); // $ExpectType number[]
@@ -3798,7 +3798,7 @@ namespace TestConcat {
     _.chain(numberROA).concat(numberROA); // $ExpectType LoDashExplicitWrapper<number[]>
     _.chain(numberROA).concat(numberROA, numberROA); // $ExpectType LoDashExplicitWrapper<number[]>
 
-    const stringROA: ReadonlyArray<string> = [''];
+    const stringROA: string[] = ['']; // TODO: Should be ReadonlyArray, but see comment on type Many<T>
 
     _.concat('a'); // $ExpectType string[]
     _.concat(['a']); // $ExpectType string[]
@@ -3822,7 +3822,7 @@ namespace TestConcat {
     _.chain(stringROA).concat(stringROA, stringROA); // $ExpectType LoDashExplicitWrapper<string[]>
 
     const abcObject: AbcObject = { a: 1, b: 'foo', c: true };
-    const objectROA: ReadonlyArray<AbcObject> = [{ a: 1, b: 'foo', c: true }];
+    const objectROA: AbcObject[] = [{ a: 1, b: 'foo', c: true }]; // TODO: Should be ReadonlyArray, but see comment on type Many<T>
 
     _.concat(abcObject); // $ExpectType AbcObject[]
     _.concat([abcObject]); // $ExpectType AbcObject[]
@@ -11802,9 +11802,9 @@ namespace TestOmitBy {
 namespace TestPick {
     const obj1: AbcObject | null | undefined = anything;
     const obj2: AbcObject = anything;
-    const readonlyArray: ReadonlyArray<string> = ['a', 'b'];
+    const readonlyArray: string[] = ['a', 'b']; // TODO: Should be ReadonlyArray, but see comment on type Many<T>
     const literalsArray = ['a' as 'a', 'b' as 'b'];
-    const roLiteralsArray: ReadonlyArray<'a' | 'b'> = literalsArray;
+    const roLiteralsArray: Array<'a' | 'b'> = literalsArray; // TODO: Should be ReadonlyArray, but see comment on type Many<T>
 
     _.pick(obj1, 'a'); // $ExpectType PartialDeep<AbcObject>
     _.pick(obj1, 0, 'a'); // $ExpectType PartialDeep<AbcObject>

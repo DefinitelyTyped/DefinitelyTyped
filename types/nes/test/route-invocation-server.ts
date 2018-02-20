@@ -1,9 +1,9 @@
 // from https://github.com/hapijs/nes#route-invocation
 
-import Hapi = require('hapi');
+import { Request, ResponseToolkit, Server } from 'hapi';
 import Nes = require('nes');
 
-var server = new Hapi.Server();
+const server = new Server();
 
 server.register(Nes).then(() => {
 
@@ -12,7 +12,7 @@ server.register(Nes).then(() => {
         path: '/h',
         config: {
             id: 'hello',
-            handler: (request, h) => {
+            handler: (request: Request, h: ResponseToolkit) => {
 
                 return 'world!';
             }

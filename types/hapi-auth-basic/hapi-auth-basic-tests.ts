@@ -2,9 +2,9 @@
 
 import Bcrypt = require('bcrypt');
 import Basic = require('hapi-auth-basic');
-import * as Hapi from 'hapi';
+import { Server } from 'hapi';
 
-const server = new Hapi.Server();
+const server = new Server();
 
 interface User {
     username: string;
