@@ -11,7 +11,6 @@
 ///<reference types="node" />
 
 import Parser = require('socket.io-parser');
-var Emitter = require('events').EventEmitter;
 
 declare module 'socket.io' {
     var server: SocketIOStatic;
@@ -81,12 +80,6 @@ declare namespace SocketIO {
          * Sets a modifier for a subsequent event emission that the event data will only be broadcast to the current node
          */
         local: Server;
-
-        // TODO: Find docstring for parser
-        parser: Parser;
-
-        // TODO: Find docstring for encoder
-        encoder: Parser.Encoder;
 
         /**
          * Server request verification function, that checks for allowed origins
@@ -204,7 +197,7 @@ declare namespace SocketIO {
         /**
          * Closes the server connection
          */
-        close(fn ?: (err?) => void): void;
+        close(fn ?: (err?: any) => void): void;
 
         /**
          * The event fired when we get a new connection
@@ -381,9 +374,9 @@ declare namespace SocketIO {
 
         /**
          * The parser to use.
-         * @default typeof Parser
+         * @default an instance of the `Parser` that ships with socket.io. See [socket.io-parser](https://github.com/socketio/socket.io-parser).
          */
-        parser: Parser
+        parser: any;
     }
 
     /**
@@ -424,11 +417,10 @@ declare namespace SocketIO {
          */
         json: Namespace;
 
-        // TODO: Find typings for rooms
+        /**
+         * A hash of strings identifying the rooms this client is in, indexed by room name.
+         */
         rooms: any[]
-
-        // TODO: Find typings for flags
-        flags: any;
 
         /**
          * Registers a middleware function, which is a function that gets executed
@@ -475,16 +467,11 @@ declare namespace SocketIO {
 
         /**
          * The event fired when we get a new connection
-         * @param event The event being fired: 'connection'
+         * @param event The event being fired
          * @param listener A listener that should take one parameter of type Socket
          * @return This Namespace
          */
-        on(event: 'connection', listener: (socket: Socket) => void): this;
-
-        /**
-         * @see on( 'connection', listener )
-         */
-        on(event: 'connect', listener: (socket: Socket) => void): this;
+        on(event: ('connect'|'connection'), listener: (socket: Socket) => void): this;
 
         /**
          * Base 'on' method to add a listener for an event
@@ -714,7 +701,7 @@ declare namespace SocketIO {
          * @param middleware function (event, next)
          * @return This socket
          */
-        use(fn: (event: any[], next: (err: string) => void) => void): Socket;
+        use(fn: (event: any[], next: (err: any) => void) => void): Socket;
     }
 
     /**
