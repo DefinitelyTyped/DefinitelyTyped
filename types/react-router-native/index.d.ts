@@ -31,7 +31,7 @@ export class AndroidBackButton extends React.Component<AndroidBackButtonProps> {
 export class DeepLinking extends React.Component {}
 
 export interface LinkProps {
-  component?: React.Component;
+  component?: React.Component | React.ComponentClass;
   replace?: boolean;
   style?: any;
   to: H.LocationDescriptor;
@@ -40,6 +40,8 @@ export interface LinkProps {
 export class Link extends React.Component<LinkProps> {}
 
 export interface NativeRouterProps {
+  initialEntries?: string[];
+  initialIndex?: number;
   getUserConfirmation?: Function;
   keyLength?: number;
 }
