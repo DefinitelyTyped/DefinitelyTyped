@@ -112,9 +112,30 @@ export interface LogScale extends BaseScale {
 }
 export interface PowScale extends BaseScale {
     type: 'pow';
+    exponent: number;
     range?: RangeScheme;
     interpolate?: ScaleInterpolate;
     clamp?: boolean | SignalRef;
+    nice?: boolean | number | SignalRef;
+    zero?: boolean | SignalRef;
+}
+export interface SqrtScale extends BaseScale {
+    type: 'sqrt';
+    range?: RangeScheme;
+    interpolate?: ScaleInterpolate;
+    clamp?: boolean | SignalRef;
+    nice?: boolean | number | SignalRef;
+    zero?: boolean | SignalRef;
+}
+export interface QuantileScale extends BaseScale {
+    type?: 'quantile';
+    range?: RangeBand;
+    nice?: boolean | number | SignalRef;
+    zero?: boolean | SignalRef;
+}
+export interface QuantizeScale extends BaseScale {
+    type?: 'quantize';
+    range?: RangeBand;
     nice?: boolean | number | SignalRef;
     zero?: boolean | SignalRef;
 }
@@ -123,4 +144,18 @@ export interface BinLinearScale extends BaseScale {
     range?: RangeScheme;
     interpolate?: ScaleInterpolate;
 }
-export declare type Scale = OrdinalScale | BandScale | PointScale | SequentialScale | TimeScale | IdentityScale | DiscretizingScale | LinearScale | LogScale | PowScale | BinLinearScale;
+export declare type Scale =
+    | OrdinalScale
+    | BandScale
+    | PointScale
+    | SequentialScale
+    | TimeScale
+    | IdentityScale
+    | DiscretizingScale
+    | LinearScale
+    | LogScale
+    | PowScale
+    | SqrtScale
+    | QuantileScale
+    | QuantizeScale
+    | BinLinearScale;

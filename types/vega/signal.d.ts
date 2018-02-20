@@ -10,7 +10,7 @@ export interface BaseSignal {
     on?: OnEvent[];
 }
 export interface PushSignal extends BaseSignal {
-    push: 'outer';
+    push?: 'outer';
 }
 export interface NewSignal extends BaseSignal {
     value?: any;
