@@ -34,6 +34,7 @@ import isIPFunc = require('validator/lib/isIP');
 import isISBNFunc = require('validator/lib/isISBN');
 import isISINFunc = require('validator/lib/isISIN');
 import isISO8601Func = require('validator/lib/isISO8601');
+import isISRCFunc = require('validator/lib/isISRC');
 import isInFunc = require('validator/lib/isIn');
 import isIntFunc = require('validator/lib/isInt');
 import isJSONFunc = require('validator/lib/isJSON');
@@ -153,6 +154,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isISO8601 = validator.isISO8601;
   _isISO8601 = isISO8601Func;
+
+  let _isISRC = validator.isISRC;
+  _isISRC = isISRCFunc;
 
   let _isIn = validator.isIn;
   _isIn = isInFunc;
@@ -408,6 +412,8 @@ let any: any;
 
   result = validator.isISO8601('sample');
 
+  result = validator.isISRC('sample');
+
   result = validator.isIn('sample', []);
 
   let isIntOptions: ValidatorJS.IsIntOptions;
@@ -444,12 +450,15 @@ let any: any;
   result = validator.isMobilePhone('sample', 'en-ZA');
   result = validator.isMobilePhone('sample', 'en-ZM');
   result = validator.isMobilePhone('sample', 'es-ES');
+  result = validator.isMobilePhone('sample', 'fa-IR');
   result = validator.isMobilePhone('sample', 'fi-FI');
   result = validator.isMobilePhone('sample', 'fr-FR');
   result = validator.isMobilePhone('sample', 'hu-HU');
+  result = validator.isMobilePhone('sample', 'id-ID');
   result = validator.isMobilePhone('sample', 'it-IT');
   result = validator.isMobilePhone('sample', 'ja-JP');
   result = validator.isMobilePhone('sample', 'ko-KR');
+  result = validator.isMobilePhone('sample', 'lt-LT');
   result = validator.isMobilePhone('sample', 'ms-MY');
   result = validator.isMobilePhone('sample', 'nb-NO');
   result = validator.isMobilePhone('sample', 'nn-NO');
