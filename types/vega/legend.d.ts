@@ -44,10 +44,10 @@ export interface FillLegend extends BaseLegend {
 export interface StrokeLegend extends BaseLegend {
     stroke: string;
 }
-export interface OpacityLegend extends BaseLegend {
-    opacity: string;
-}
 export interface StrokeDashLegend extends BaseLegend {
     strokeDash: string;
 }
-export declare type Legend = SizeLegend | ShapeLegend | FillLegend | StrokeDashLegend | OpacityLegend;
+export interface OpacityLegend extends BaseLegend {
+    opacity: string;
+}
+export declare type Legend = SizeLegend | ShapeLegend | FillLegend | StrokeLegend | StrokeDashLegend | OpacityLegend;
