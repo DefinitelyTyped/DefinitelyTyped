@@ -2,6 +2,7 @@
 // Project: https://vega.github.io/vega/
 // Definitions by: Tom Crockett <https://github.com/pelotom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // ============================================================================================
 // Spec typings adapted from https://github.com/vega/vega-parser/tree/as/typings
