@@ -491,6 +491,8 @@ let any: any;
 
   result = validator.isMimeType('sample');
 
+  let isMobilePhoneOptions: ValidatorJS.IsMobilePhoneOptions;
+  result = validator.isMobilePhone('sample', 'any', isMobilePhoneOptions);
   result = validator.isMobilePhone('sample', 'ar-AE');
   result = validator.isMobilePhone('sample', 'ar-DZ');
   result = validator.isMobilePhone('sample', 'ar-EG');
