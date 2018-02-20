@@ -304,6 +304,7 @@ declare namespace ValidatorJS {
   // options for isEmail
   interface IsEmailOptions {
     allow_display_name?: boolean;
+    require_display_name?: boolean;
     allow_utf8_local_part?: boolean;
     require_tld?: boolean;
   }
