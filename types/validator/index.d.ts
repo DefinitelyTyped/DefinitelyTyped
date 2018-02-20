@@ -320,6 +320,8 @@ declare namespace ValidatorJS {
   interface IsFloatOptions {
     min?: number;
     max?: number;
+    gt?: number;
+    lt?: number;
     locale?: FloatLocale;
   }
 
