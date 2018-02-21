@@ -2,2300 +2,801 @@
 // Project: https://github.com/postmanlabs/postman-collection
 // Definitions by: Kyle Buzby <https://github.com/kbuzby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+///<reference types="node" />
+            
+export class PropertyBase {
+    constructor(definition: any);
 
-declare module PostmanCollection {
-    export class Certificate {
-        constructor(options: any, ...args: any[]);
-    
-        canApplyTo(url: any): any;
-    
-        toJSON(): any;
-    
-        update(options: any): void;
-    
-        static isCertificate(obj: any): any;
-    
-    }
-    
-    export class CertificateList {
-        constructor(parent: any, list: any);
-    
-        resolveOne(url: any): any;
-    
-        static isCertificateList(obj: any): any;
-    
-    }
-    
-    export class Collection {
-        constructor(definition: any, environments: any);
-    
-        syncVariablesFrom(obj: any, track: any): any;
-    
-        syncVariablesTo(obj: any): any;
-    
-        toJSON(): any;
-    
-        static isCollection(obj: any): any;
-    
-    }
-    
-    export class Cookie {
-        constructor(options: any);
-    
-        update(options: any): void;
-    
-        valueOf(): any;
-    
-        static isCookie(obj: any): any;
-    
-        static parse(str: any): any;
-    
-        static splitParam(param: any): any;
-    
-    }
-    
-    export class Description {
-        constructor(definition: any);
-    
-        toJSON(): any;
-    
-        toString(): any;
-    
-        update(content: any, type: any): void;
-    
-        static isDescription(obj: any): any;
-    
-    }
-    
-    export class Event {
-        constructor(definition: any);
-    
-        update(definition: any): void;
-    
-    }
-    
-    export class EventList {
-        constructor(parent: any, populate: any);
-    
-        listeners(name: any): any;
-    
-        listenersOwn(name: any): any;
-    
-        static isEventList(obj: any): any;
-    
-    }
-    
-    export class FormParam {
-        constructor(options: any, ...args: any[]);
-    
-        toString(): any;
-    
-        valueOf(): any;
-    
-        static parse(): void;
-    
-    }
-    
-    export class Header {
-        constructor(options: any, name: any, ...args: any[]);
-    
-        toString(): any;
-    
-        update(options: any): void;
-    
-        valueOf(): any;
-    
-        static create(...args: any[]): any;
-    
-        static isHeader(obj: any): any;
-    
-        static parse(headerString: any): any;
-    
-        static parseSingle(header: any): any;
-    
-        static unparse(headers: any, separator: any): any;
-    
-        static unparseSingle(header: any): any;
-    
-    }
-    
-    export class HeaderList {
-        constructor(parent: any, headers: any);
-    
-        contentSize(): any;
-    
-        static isHeaderList(obj: any): any;
-    
-    }
-    
-    export class Item {
-        constructor(definition: any, ...args: any[]);
-    
-        authorizeRequestUsing(type: any, options: any): any;
-    
-        getAuth(): any;
-    
-        getEvents(name: any): any;
-    
-        static isItem(obj: any): any;
-    
-    }
-    
-    export class ItemGroup {
-        constructor(definition: any, ...args: any[]);
-    
-        authorizeRequestsUsing(type: any, options: any): void;
-    
-        forEachItem(callback: any): any;
-    
-        forEachItemGroup(callback: any): void;
-    
-        oneDeep(idOrName: any): any;
-    
-        static isItemGroup(obj: any): any;
-    
-    }
-    
-    export class Property {
-        constructor(definition: any, ...args: any[]);
-    
-        describe(content: any, type: any): void;
-    
-        toObjectResolved(scope: any, overrides: any, options: any): any;
-    
-        static replaceSubstitutions(str: any, variables: any, ...args: any[]): any;
-    
-        static replaceSubstitutionsIn(obj: any, variables: any, mutate: any): any;
-    
-    }
-    
-    export class PropertyBase {
-        constructor(definition: any);
-    
-        findInParents(property: any, customizer: any): any;
-    
-        findParentContaining(property: any, customizer: any): any;
-    
-        forEachParent(options: any, iterator: any): void;
-    
-        meta(...args: any[]): any;
-    
-        parent(): any;
-    
-        setParent(parent: any): void;
-    
-        toJSON(): any;
-    
-        static propertyIsMeta(value: any, key: any): any;
-    
-        static propertyUnprefixMeta(value: any, key: any): any;
-    
-        static toJSON(obj: any): any;
-    
-    }
-    
-    export class PropertyList {
-        constructor(type: any, parent: any, populate: any);
-    
-        add(item: any, ...args: any[]): void;
-    
-        all(): any;
-    
-        append(item: any): any;
-    
-        assimilate(source: any, prune: any): void;
-    
-        clear(): void;
-    
-        count(): any;
-    
-        each(iterator: any, context: any): void;
-    
-        eachParent(iterator: any, context: any): void;
-    
-        filter(rule: any, context: any): any;
-    
-        find(rule: any, context: any): any;
-    
-        get(key: any): any;
-    
-        has(item: any, value: any, ...args: any[]): any;
-    
-        idx(index: any): any;
-    
-        indexOf(item: any): any;
-    
-        insert(item: any, before: any): void;
-    
-        insertAfter(item: any, after: any): any;
-    
-        map(iterator: any, context: any): any;
-    
-        one(id: any): any;
-    
-        populate(items: any): void;
-    
-        prepend(item: any): any;
-    
-        remove(predicate: any, context: any, ...args: any[]): any;
-    
-        repopulate(items: any): void;
-    
-        toJSON(): any;
-    
-        toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-    
-        toString(): any;
-    
-        upsert(item: any): any;
-    
-        static isPropertyList(obj: any): any;
-    
-    }
-    
-    export class ProxyConfig {
-        constructor(options: any);
-    
-        getProtocols(): any;
-    
-        getProxyUrl(): any;
-    
-        test(urlStr: any): any;
-    
-        update(options: any): void;
-    
-        updateProtocols(protocols: any): void;
-    
-        static isProxyConfig(obj: any): any;
-    
-    }
-    
-    export class ProxyConfigList {
-        constructor(parent: any, populate: any);
-    
-        resolve(url: any): any;
-    
-        static isProxyConfigList(obj: any): any;
-    
-    }
-    
-    export class QueryParam {
-        constructor(options: any, ...args: any[]);
-    
-        toString(): any;
-    
-        update(param: any): void;
-    
-        valueOf(): any;
-    
-        static parse(query: any): any;
-    
-        static parseSingle(param: any, idx: any, all: any): any;
-    
-        static unparse(params: any, options: any): any;
-    
-        static unparseSingle(obj: any, encode: any): any;
-    
-    }
-    
-    export class Request {
-        constructor(options: any, ...args: any[]);
-    
-        addHeader(header: any): void;
-    
-        addQueryParams(params: any): void;
-    
-        authorize(): void;
-    
-        authorizeUsing(type: any, options: any): void;
-    
-        clone(): any;
-    
-        forEachHeader(callback: any): any;
-    
-        getHeaders(options: any): any;
-    
-        removeHeader(toRemove: any, options: any): any;
-    
-        removeQueryParams(params: any): void;
-    
-        toJSON(): any;
-    
-        update(options: any): void;
-    
-        upsertHeader(header: any): any;
-    
-        static isRequest(obj: any): any;
-    
-    }
-    
-    export class RequestAuth {
-        constructor(options: any, parent: any);
-    
-        clear(type: any): void;
-    
-        current(): any;
-    
-        parameters(): any;
-    
-        update(options: any, type: any): void;
-    
-        use(type: any, options: any): void;
-    
-        static isValidType(type: any): any;
-    
-    }
-    
-    export class RequestBody {
-        constructor(options: any, ...args: any[]);
-    
-        isEmpty(): any;
-    
-        toString(): any;
-    
-        update(options: any): void;
-    
-        static MODES: {
-            file: string;
-            formdata: string;
-            raw: string;
-            urlencoded: string;
-        };
-    
-    }
-    
-    export class Response {
-        constructor(options: any, ...args: any[]);
-    
-        dataURI(): any;
-    
-        details(): any;
-    
-        encoding(): any;
-    
-        json(reviver: any, strict: any): any;
-    
-        mime(contentType: any, contentDisposition: any): any;
-    
-        reason(): any;
-    
-        size(): any;
-    
-        text(): any;
-    
-        toJSON(): any;
-    
-        update(options: any): void;
-    
-        static createFromNode(response: any, cookies: any): any;
-    
-        static isResponse(obj: any): any;
-    
-        static mimeInfo(type: any, disposition: any): any;
-    
-    }
-    
-    export class Script {
-        constructor(options: any, ...args: any[]);
-    
-        toSource(): any;
-    
-        update(options: any): void;
-    
-        static isScript(obj: any): any;
-    
-    }
-    
-    export class Url {
-        constructor(options: any, ...args: any[]);
-    
-        addQueryParams(params: any): void;
-    
-        getHost(): any;
-    
-        getOAuth1BaseUrl(): any;
-    
-        getPath(options: any): any;
-    
-        getPathWithQuery(): any;
-    
-        getQueryString(options: any): any;
-    
-        getRaw(): any;
-    
-        getRemote(options: any): any;
-    
-        removeQueryParams(params: any): any;
-    
-        toString(forceProtocol: any): any;
-    
-        update(url: any): any;
-    
-        static isUrl(obj: any): any;
-    
-        static parse(url: any): any;
-    
-    }
-    
-    export class UrlMatchPattern {
-        constructor(options: any, ...args: any[]);
-    
-        createMatchPattern(): any;
-    
-        getProtocols(): any;
-    
-        globPatternToRegexp(pattern: any): any;
-    
-        matchAbsoluteHostPattern(matchRegexObject: any, remote: any): any;
-    
-        matchAnyHost(matchRegexObject: any): any;
-    
-        matchSuffixHostPattern(matchRegexObject: any, remote: any): any;
-    
-        test(urlStr: any): any;
-    
-        testHost(host: any): any;
-    
-        testPath(path: any): any;
-    
-        testProtocol(protocol: any): any;
-    
-        toJSON(): any;
-    
-        toString(): any;
-    
-        update(options: any): void;
-    
-        static MATCH_ALL_URLS: string;
-    
-        static PROTOCOL_DELIMITER: string;
-    
-    }
-    
-    export class UrlMatchPatternList {
-        constructor(parent: any, list: any);
-    
-        test(urlStr: any): any;
-    
-    }
-    
-    export class Variable {
-        constructor(definition: any, ...args: any[]);
-    
-        cast(value: any): any;
-    
-        castIn(value: any): any;
-    
-        castOut(value: any): any;
-    
-        get(): any;
-    
-        set(value: any): void;
-    
-        toString(): any;
-    
-        update(options: any): void;
-    
-        valueOf(value: any, ...args: any[]): any;
-    
-        valueType(typeName: any, _noCast: any): any;
-    
-        static isVariable(obj: any): any;
-    
-    }
-    
-    export class VariableList {
-        constructor(parent: any, populate: any);
-    
-        replace(str: any, overrides: any): any;
-    
-        substitute(obj: any, overrides: any, mutate: any): any;
-    
-        syncFromObject(obj: any, track: any, prune: any): any;
-    
-        syncToObject(obj: any): any;
-    
-        static isVariableList(obj: any): any;
-    
-    }
-    
-    export class VariableScope {
-        constructor(definition: any, layers: any);
-    
-        addLayer(list: any): void;
-    
-        clear(): void;
-    
-        get(key: any): any;
-    
-        has(variableName: any): any;
-    
-        set(key: any, value: any, type: any): any;
-    
-        syncVariablesFrom(obj: any, track: any): any;
-    
-        syncVariablesTo(obj: any): any;
-    
-        toJSON(): any;
-    
-        toObject(excludeDisabled: any, caseSensitive: any): any;
-    
-        unset(key: any): void;
-    
-        variables(): any;
-    
-        static isVariableScope(obj: any): any;
-    
-    }
-    
-    export class Version {
-        constructor(options: any);
-    
-        set(value: any): void;
-    
-        toString(): any;
-    
-    }
-    
-    export function CookieList(parent: any, cookies: any): void;
-    
-}
+    findInParents(property: string, customizer?: any): any | undefined; // TODO Update customizer function def
 
-export namespace Certificate {
-    namespace isCertificate {
-        const prototype: {
-        };
+    findParentContaining(property: any, customizer: any): any; // TODO Update customizer function def
 
-    }
+    forEachParent(iterator: any): void;                         // TODO Update iterator function def
+    forEachParent(options: any | boolean, iterator: any): void; // TODO Update iterator function def
 
-    namespace prototype {
-        function canApplyTo(url: any): any;
+    meta(): any;
 
-        function describe(content: any, type: any): void;
+    parent(): any | undefined;
 
-        function findInParents(property: any, customizer: any): any;
+    setParent(parent: any): void;
 
-        function findParentContaining(property: any, customizer: any): any;
+    toJSON(): any;
 
-        function forEachParent(options: any, iterator: any): void;
+    static propertyIsMeta(value: any, key: any): any;
 
-        function meta(...args: any[]): any;
+    static propertyUnprefixMeta(value: any, key: any): any;
 
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function update(options: any): void;
-    }
+    static toJSON(obj: any): any;
 
 }
 
-export namespace CertificateList {
-    namespace isCertificateList {
-        const prototype: {
-        };
+export interface PropertyDefinition {
+    id?: string;
+    name?: string;
+    disabled?: boolean;
+}
 
-    }
+export class Property extends PropertyBase implements PropertyDefinition {
+    auth: RequestAuth;
+    disabled: boolean;
+    id: string;
+    name: string;
 
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
+    constructor(definition?: PropertyDefinition);
 
-        function all(): any;
+    describe(content: string, type?: string): void;
 
-        function append(item: any): any;
+    toObjectResolved(scope: any, overrides: any, options: any): any;
 
-        function assimilate(source: any, prune: any): void;
+    static replaceSubstitutions(str: string, variables: VariableList | any | (VariableList | any)[]): string;
 
-        function clear(): void;
-
-        function count(): any;
-
-        function each(iterator: any, context: any): void;
-
-        function eachParent(iterator: any, context: any): void;
-
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function repopulate(items: any): void;
-
-        function resolveOne(url: any): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-
-    }
+    static replaceSubstitutionsIn(obj: any, variables: (VariableList | any)[], mutate: boolean): any;
 
 }
 
-export namespace Collection {
-    namespace isCollection {
-        const prototype: {
-        };
+export interface CertificateDefinition extends PropertyDefinition {
+    name?: string;
+    matches?: any[];
+    key?: any;
+    cert?: any;
+    passphrase?: string;
+}
 
-    }
+export class Certificate extends Property {
+    cert: any;
+    id: string;
+    key: any;
+    matches: any; // TODO update to UrlMatchPatternList?
+    name: string;
+    passphrase: any;
 
-    namespace prototype {
-        function authorizeRequestsUsing(type: any, options: any): void;
+    constructor(options: any);
 
-        function describe(content: any, type: any): void;
+    canApplyTo(url: string | Url): any;
 
-        function findInParents(property: any, customizer: any): any;
+    toJSON(): CertificateDefinition;
 
-        function findParentContaining(property: any, customizer: any): any;
+    update(options: CertificateDefinition): void;
 
-        function forEachItem(callback: any): any;
-
-        function forEachItemGroup(callback: any): void;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function meta(...args: any[]): any;
-
-        function oneDeep(idOrName: any): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function syncVariablesFrom(obj: any, track: any): any;
-
-        function syncVariablesTo(obj: any): any;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-    }
+    static isCertificate(obj: any): boolean;
 
 }
 
-export namespace Cookie {
-    namespace isCookie {
-        const prototype: {
-        };
 
-    }
+export class PropertyList<TElement> {
+    constructor(type: any, parent: any, populate: any);
 
-    namespace parse {
-        const prototype: {
-        };
+    add(item: any | TElement): void;
 
-    }
+    all(): any;
 
-    namespace prototype {
-        function findInParents(property: any, customizer: any): any;
+    append(item: TElement): any;
 
-        function findParentContaining(property: any, customizer: any): any;
+    assimilate(source: PropertyList<TElement> | any[], prune: boolean): void;
 
-        function forEachParent(options: any, iterator: any): void;
+    clear(): void;
 
-        function meta(...args: any[]): any;
+    count(): number;
 
-        function parent(): any;
+    each(iterator: any, context: any): void;
 
-        function setParent(parent: any): void;
+    eachParent(iterator: any, context?: any): void;
 
-        function toJSON(): any;
+    filter(rule: any, context: any): any;
 
-        function update(options: any): void;
+    find(rule: any, context?: any): Item | ItemGroup<TElement>;
 
-        function valueOf(): any;
+    get(key: string | any): TElement;
 
-    }
+    has(item: string | TElement, value?: any): boolean;
 
-    namespace splitParam {
-        const prototype: {
-        };
+    idx(index: number): TElement;
 
-    }
+    indexOf(item: string | any): number;
 
-}
+    insert(item: TElement, before: TElement | string): void;
 
-export namespace CookieList {
-    function isCookieList(obj: any): any;
+    insertAfter(item: TElement, after: TElement | string): any;
 
-    namespace isCookieList {
-        const prototype: {
-        };
+    map(iterator: any, context: any): any;
 
-    }
+    one(id: string): TElement;
 
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
+    populate(items: any | any[]): void;
 
-        function all(): any;
+    prepend(item: TElement): any;
 
-        function append(item: any): any;
+    remove(predicate: any | string | TElement, context: any): any;
 
-        function assimilate(source: any, prune: any): void;
+    repopulate(items: any | any[]): void;
 
-        function clear(): void;
+    toJSON(): any;
 
-        function count(): any;
+    toObject(excludeDisabled?: any | null, caseSensitive?: any | null, multiValue?: any | null, sanitizeKeys?: any): any;
 
-        function each(iterator: any, context: any): void;
+    toString(): string;
 
-        function eachParent(iterator: any, context: any): void;
+    upsert(item: TElement): boolean | null;
 
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function repopulate(items: any): void;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-
-
-    }
+    static isPropertyList(obj: any): any;
 
 }
 
-export namespace Description {
-    namespace format {
-    }
+export class CertificateList extends PropertyList<Certificate> {
+    constructor(parent: any, list: CertificateDefinition[]);
 
-    namespace isDescription {
-        const prototype: {
-        };
+    resolveOne(url: string): CertificateDefinition;
 
-    }
-
-    namespace prototype {
-        function toJSON(): any;
-
-        function toString(): any;
-
-        function update(content: any, type: any): void;
-
-    }
+    static isCertificateList(obj: any): boolean;
 
 }
 
-export namespace Event {
-    namespace prototype {
-        function describe(content: any, type: any): void;
+export interface ItemGroupDefinition extends PropertyDefinition {
+    item?: (ItemDefinition | ItemGroupDefinition)[];
+    auth?: RequestAuthDefinition;
+    event?: EventDefinition[];
+}
+    
+export class ItemGroup<TItem> extends Property {
+    auth: RequestAuth;
+    items: PropertyList<TItem>;
 
-        function findInParents(property: any, customizer: any): any;
+    constructor(definition?: ItemGroupDefinition);
 
-        function findParentContaining(property: any, customizer: any): any;
+    authorizeRequestsUsing(type: any, options: any): void; // TODO add better types for parameters
 
-        function forEachParent(options: any, iterator: any): void;
+    forEachItem(callback: any): any;
 
-        function meta(...args: any[]): any;
+    forEachItemGroup(callback: any): void;
 
-        function parent(): any;
+    oneDeep(idOrName: string): TItem;
 
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function update(definition: any): void;
-    }
+    static isItemGroup(obj: any): boolean;
 
 }
 
-export namespace EventList {
-    namespace isEventList {
-        const prototype: {
-        };
+export interface CollectionDefinition extends ItemGroupDefinition {
+    info?: {
+        id?: string;
+        name?: string;
+        version?: string;
+    };
+    item?: (ItemDefinition | ItemGroupDefinition)[];
+    variable?: VariableDefinition;
+    auth?: RequestAuthDefinition;
+    event?: EventDefinition[];
+    version?: string | Version;
+}
 
-    }
+export class Collection extends ItemGroup<Request> implements CollectionDefinition {
+    events: EventList;
+    variables: VariableList;
+    version: Version;
 
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
+    constructor(definition?: CollectionDefinition, environments?: any[]);
 
-        function all(): any;
+    syncVariablesFrom(obj: any, track?: boolean): any;
 
-        function append(item: any): any;
+    syncVariablesTo(obj?: any): any;
 
-        function assimilate(source: any, prune: any): void;
+    toJSON(): any;
 
-        function clear(): void;
-
-        function count(): any;
-
-        function each(iterator: any, context: any): void;
-
-        function eachParent(iterator: any, context: any): void;
-
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function listeners(name: any): any;
-
-        function listenersOwn(name: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function repopulate(items: any): void;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-    }
+    static isCollection(obj: any): boolean;
 
 }
 
-export namespace FormParam {
-    namespace parse {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function toString(): any;
-
-        function valueOf(): any;
-    }
+export interface CookieDefinition {
+    key?: string;
+    value?: string;
+    expires?: string | Date;
+    maxAge?: number;
+    domain?: string;
+    path?: string;
+    secure?: boolean;
+    httpOnly?: boolean;
+    hostOnly?: boolean;
+    session?: boolean;
+    extensions?: {key: string; value: string}[];
 
 }
 
-export namespace Header {
-    namespace create {
-        const prototype: {
-        };
+export class Cookie extends PropertyBase implements CookieDefinition {
+    domain: string;
+    expires: Date | string;
+    extensions: {key: string; value: string}[];
+    hostOnly: any;
+    httpOnly: any;
+    maxAge: number;
+    name: string;
+    path: string;
+    secure: any;
+    session: any;
+    value: string;
 
-    }
+    constructor(options?: CookieDefinition);
 
-    namespace isHeader {
-        const prototype: {
-        };
+    update(options: any): void;
 
-    }
+    valueOf(): string;
 
-    namespace parse {
-        const prototype: {
-        };
+    static isCookie(obj: any): boolean;
 
-    }
+    static parse(str: string): any;
 
-    namespace parseSingle {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function toString(): any;
-
-        function update(options: any): void;
-
-        function valueOf(): any;
-    }
-
-    namespace unparse {
-        const prototype: {
-        };
-
-    }
-
-    namespace unparseSingle {
-        const prototype: {
-        };
-
-    }
+    static splitParam(param: any): any;
 
 }
 
-export namespace HeaderList {
-    namespace isHeaderList {
-        const prototype: {
-        };
+export class CookieList extends PropertyList<Cookie> {
+    constructor(parent: any, cookies: any[]);
 
-    }
+    static isCookieList(obj: any): boolean;
+}
 
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
+export interface DescriptionDefinition {
+    content: string;
+    format: string;
+}
 
-        function all(): any;
+export class Description implements DescriptionDefinition {
+    format: string; // TODO huh?
+    content: string;
+    type: string;
 
-        function append(item: any): any;
+    constructor(definition?: DescriptionDefinition);
 
-        function assimilate(source: any, prune: any): void;
+    toJSON(): any;
 
-        function clear(): void;
+    toString(): string;
 
-        function contentSize(): any;
+    update(content: string | DescriptionDefinition, type?: string): void;
 
-        function count(): any;
-
-        function each(iterator: any, context: any): void;
-
-        function eachParent(iterator: any, context: any): void;
-
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function repopulate(items: any): void;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-    }
+    static isDescription(obj: any): boolean;
 
 }
 
-export namespace Item {
-    namespace isItem {
-        const prototype: {
-        };
+export interface EventDefinition extends PropertyDefinition {
+    listen: string;
+    script: string | Script;
+}
 
-    }
+export class Event extends Property implements EventDefinition {
+    listen: string;
+    script: string;
 
-    namespace prototype {
-        function authorizeRequestUsing(type: any, options: any): any;
+    constructor(definition: EventDefinition);
 
-        function describe(content: any, type: any): void;
+    update(definition: EventDefinition): void;    
+}
 
-        function findInParents(property: any, customizer: any): any;
+export class EventList extends PropertyList<Event> {
+    constructor(parent: any, populate: any[]);
 
-        function findParentContaining(property: any, customizer: any): any;
+    listeners(name: string): Event[];
 
-        function forEachParent(options: any, iterator: any): void;
+    listenersOwn(name: string): Event[];
 
-        function getAuth(): any;
-
-        function getEvents(name: any): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-    }
+    static isEventList(obj: any): boolean;
 
 }
 
-export namespace ItemGroup {
-    namespace isItemGroup {
-        const prototype: {
-        };
+export interface FormParamDefinition extends PropertyDefinition {
+    key: string;
+    value: string;
+}
 
-    }
+export class FormParam extends Property implements FormParamDefinition{
+    key: string;
+    value: string;
 
-    namespace prototype {
-        function authorizeRequestsUsing(type: any, options: any): void;
+    static _postman_propertyAllowsMultipleValues: boolean;
+    static _postman_propertyIndex: string;
 
-        function describe(content: any, type: any): void;
+    constructor(options: FormParamDefinition);
 
-        function findInParents(property: any, customizer: any): any;
+    toString(): string;
 
-        function findParentContaining(property: any, customizer: any): any;
+    valueOf(): any | string;
 
-        function forEachItem(callback: any): any;
+    // static parse(): void; // TODO not implemented yet
+}
 
-        function forEachItemGroup(callback: any): void;
+export interface HeaderDefinition extends PropertyDefinition {
+    key: string;
+    value: string;
+}
 
-        function forEachParent(options: any, iterator: any): void;
+export class Header extends Property implements HeaderDefinition {
+    key: string;
+    value: string;
 
-        function meta(...args: any[]): any;
+    constructor(options: HeaderDefinition | string, name?: string);
 
-        function oneDeep(idOrName: any): any;
+    toString(): string;
 
-        function parent(): any;
+    update(options: any): void;
 
-        function setParent(parent: any): void;
+    valueOf(): string;
 
-        function toJSON(): any;
+    static create(value?: HeaderDefinition | string, name?: string): Header;
 
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
+    static isHeader(obj: any): boolean;
 
-    }
+    static parse(headerString: string): HeaderDefinition[];
+
+    static parseSingle(header: string): HeaderDefinition;
+
+    static unparse(headers: HeaderList | any[], separator?: string): string;
+
+    static unparseSingle(header: Header): string;    
+}
+
+export class HeaderList extends PropertyList<Header> {
+    constructor(parent: any, headers: Header[]);
+
+    contentSize(): number;
+
+    static isHeaderList(obj: any): boolean;    
+}
+
+export interface ItemDefinition extends PropertyDefinition {
+    request?: RequestDefinition;
+    responses?: ResponseDefinition[];
+    events?: EventDefinition[];
+}
+
+export class Item extends Property implements ItemDefinition {
+    events: EventDefinition[];
+    request: Request;
+    responses: ResponseDefinition[];
+
+    constructor(definition?: ItemDefinition);
+
+    authorizeRequestUsing(type: string | RequestAuthDefinition, options?: VariableList): any;
+
+    getAuth(): RequestAuth;
+
+    getEvents(name: string): Event[];
+
+    static isItem(obj: any): boolean;
 
 }
 
-export namespace Property {
-    namespace prototype {
-        function describe(content: any, type: any): void;
+export interface ProxyConfigDefinition extends PropertyDefinition {
+    match?: string;
+    host?: string;
+    port?: number;
+    tunnel?: boolean;
+    disabled?: boolean;
+}
 
-        function findInParents(property: any, customizer: any): any;
+export class ProxyConfig extends Property implements ProxyConfigDefinition {
+    static host: string;
+    static match: string;
+    static port: number;
+    static tunnel: boolean;
 
-        function findParentContaining(property: any, customizer: any): any;
+    constructor(options?: ProxyConfigDefinition);
 
-        function forEachParent(options: any, iterator: any): void;
+    getProtocols(): string[];
 
-        function meta(...args: any[]): any;
+    getProxyUrl(): string;
 
-        function parent(): any;
+    test(urlStr?: string): any;
 
-        function setParent(parent: any): void;
+    update(options: ProxyConfigDefinition): void;
 
-        function toJSON(): any;
+    updateProtocols(protocols: string[]): void;
 
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-    }
-
-    namespace replaceSubstitutions {
-        const prototype: {
-        };
-
-    }
-
-    namespace replaceSubstitutionsIn {
-        const prototype: {
-        };
-
-    }
+    static isProxyConfig(obj: any): boolean;
 
 }
 
-export namespace PropertyBase {
-    namespace propertyIsMeta {
-        const prototype: {
-        };
+export class ProxyConfigList extends PropertyList<ProxyConfig> {
+    constructor(parent: any, populate: ProxyConfig[]);
 
-    }
+    resolve(url?: Url): ProxyConfigDefinition;
 
-    namespace propertyUnprefixMeta {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-    }
-}
-
-export namespace PropertyList {
-    namespace isPropertyList {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
-
-        function all(): any;
-
-        function append(item: any): any;
-
-        function assimilate(source: any, prune: any): void;
-
-        function clear(): void;
-
-        function count(): any;
-
-        function each(iterator: any, context: any): void;
-
-        function eachParent(iterator: any, context: any): void;
-
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function repopulate(items: any): void;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-    }
-}
-
-export namespace ProxyConfig {
-    namespace isProxyConfig {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function getProtocols(): any;
-
-        function getProxyUrl(): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function test(urlStr: any): any;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function update(options: any): void;
-
-        function updateProtocols(protocols: any): void;
-    }
-}
-
-export namespace ProxyConfigList {
-    namespace isProxyConfigList {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
-
-        function all(): any;
-
-        function append(item: any): any;
-
-        function assimilate(source: any, prune: any): void;
-
-        function clear(): void;
-
-        function count(): any;
-
-        function each(iterator: any, context: any): void;
-
-        function eachParent(iterator: any, context: any): void;
-
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function repopulate(items: any): void;
-
-        function resolve(url: any): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-    }
-}
-
-export namespace QueryParam {
-    namespace parse {
-        const prototype: {
-        };
-
-    }
-
-    namespace parseSingle {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function toString(): any;
-
-        function update(param: any): void;
-
-        function valueOf(): any;
-    }
-
-    namespace unparse {
-        const prototype: {
-        };
-
-    }
-
-    namespace unparseSingle {
-        const prototype: {
-        };
-
-    }
-}
-
-export namespace Request {
-    namespace isRequest {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function addHeader(header: any): void;
-
-        function addQueryParams(params: any): void;
-
-        function authorize(): void;
-
-        function authorizeUsing(type: any, options: any): void;
-
-        function clone(): any;
-
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachHeader(callback: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function getHeaders(options: any): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function removeHeader(toRemove: any, options: any): any;
-
-        function removeQueryParams(params: any): void;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function update(options: any): void;
-
-        function upsertHeader(header: any): any;
-    }
-}
-
-export namespace RequestAuth {
-    namespace isValidType {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function clear(type: any): void;
-
-        function current(): any;
-
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function meta(...args: any[]): any;
-
-        function parameters(): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function update(options: any, type: any): void;
-
-        function use(type: any, options: any): void;
-    }
-}
-
-export namespace RequestBody {
-    namespace prototype {
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function isEmpty(): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toString(): any;
-
-        function update(options: any): void;
-    }
-}
-
-export namespace Response {
-    namespace createFromNode {
-        const prototype: {
-        };
-
-    }
-
-    namespace isResponse {
-        const prototype: {
-        };
-
-    }
-
-    namespace mimeInfo {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function dataURI(): any;
-
-        function describe(content: any, type: any): void;
-
-        function details(): any;
-
-        function encoding(): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function json(reviver: any, strict: any): any;
-
-        function meta(...args: any[]): any;
-
-        function mime(contentType: any, contentDisposition: any): any;
-
-        function parent(): any;
-
-        function reason(): any;
-
-        function setParent(parent: any): void;
-
-        function size(): any;
-
-        function text(): any;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function update(options: any): void;
-    }
-}
-
-export namespace Script {
-    namespace isScript {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function toSource(): any;
-
-        function update(options: any): void;
-    }
-}
-
-export namespace Url {
-    namespace isUrl {
-        const prototype: {
-        };
-
-    }
-
-    namespace parse {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function addQueryParams(params: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function getHost(): any;
-
-        function getOAuth1BaseUrl(): any;
-
-        function getPath(options: any): any;
-
-        function getPathWithQuery(): any;
-
-        function getQueryString(options: any): any;
-
-        function getRaw(): any;
-
-        function getRemote(options: any): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function removeQueryParams(params: any): any;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toString(forceProtocol: any): any;
-
-        function update(url: any): any;
-    }
-}
-
-export namespace UrlMatchPattern {
-    namespace prototype {
-        function createMatchPattern(): any;
-
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function getProtocols(): any;
-
-        function globPatternToRegexp(pattern: any): any;
-
-        function matchAbsoluteHostPattern(matchRegexObject: any, remote: any): any;
-
-        function matchAnyHost(matchRegexObject: any): any;
-
-        function matchSuffixHostPattern(matchRegexObject: any, remote: any): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function setParent(parent: any): void;
-
-        function test(urlStr: any): any;
-
-        function testHost(host: any): any;
-
-        function testPath(path: any): any;
-
-        function testProtocol(protocol: any): any;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function toString(): any;
-
-        function update(options: any): void;
-    }
-}
-
-export namespace UrlMatchPatternList {
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
-
-        function all(): any;
-
-        function append(item: any): any;
-
-        function assimilate(source: any, prune: any): void;
-
-        function clear(): void;
-
-        function count(): any;
-
-        function each(iterator: any, context: any): void;
-
-        function eachParent(iterator: any, context: any): void;
-
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function repopulate(items: any): void;
-
-        function setParent(parent: any): void;
-
-        function test(urlStr: any): any;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-    }
-}
-
-export namespace Variable {
-    namespace isVariable {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function cast(value: any): any;
-
-        function castIn(value: any): any;
-
-        function castOut(value: any): any;
-
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function set(value: any): void;
-
-        function setParent(parent: any): void;
-
-        function toJSON(): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function toString(): any;
-
-        function update(options: any): void;
-
-        function valueOf(value: any, ...args: any[]): any;
-
-        function valueType(typeName: any, _noCast: any): any;
-
-    }
-
-    namespace types {
-        class number {
-            constructor(p0: any);
-
-            // Native method; no parameter or return type inference available
-            toExponential(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            toFixed(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            toLocaleString(): any;
-
-            // Native method; no parameter or return type inference available
-            toPrecision(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            toString(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            valueOf(): any;
-
-            static EPSILON: number;
-
-            static MAX_SAFE_INTEGER: number;
-
-            static MAX_VALUE: number;
-
-            static MIN_SAFE_INTEGER: number;
-
-            static MIN_VALUE: number;
-
-            static NEGATIVE_INFINITY: number;
-
-            static NaN: number;
-
-            static POSITIVE_INFINITY: number;
-
-            static isFinite(p0: any): any;
-
-            static isInteger(p0: any): any;
-
-            static isNaN(p0: any): any;
-
-            static isSafeInteger(p0: any): any;
-
-            static parseFloat(p0: any): any;
-
-            static parseInt(p0: any, p1: any): any;
-
-        }
-
-        class string {
-            constructor(p0: any);
-
-            // Native method; no parameter or return type inference available
-            anchor(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            big(): any;
-
-            // Native method; no parameter or return type inference available
-            blink(): any;
-
-            // Native method; no parameter or return type inference available
-            bold(): any;
-
-            // Native method; no parameter or return type inference available
-            charAt(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            charCodeAt(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            codePointAt(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            concat(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            endsWith(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            fixed(): any;
-
-            // Native method; no parameter or return type inference available
-            fontcolor(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            fontsize(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            includes(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            indexOf(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            italics(): any;
-
-            // Native method; no parameter or return type inference available
-            lastIndexOf(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            link(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            localeCompare(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            match(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            normalize(): any;
-
-            // Native method; no parameter or return type inference available
-            padEnd(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            padStart(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            repeat(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            replace(p0: any, p1: any): any;
-
-            // Native method; no parameter or return type inference available
-            search(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            slice(p0: any, p1: any): any;
-
-            // Native method; no parameter or return type inference available
-            small(): any;
-
-            // Native method; no parameter or return type inference available
-            split(p0: any, p1: any): any;
-
-            // Native method; no parameter or return type inference available
-            startsWith(p0: any): any;
-
-            // Native method; no parameter or return type inference available
-            strike(): any;
-
-            // Native method; no parameter or return type inference available
-            sub(): any;
-
-            // Native method; no parameter or return type inference available
-            substr(p0: any, p1: any): any;
-
-            // Native method; no parameter or return type inference available
-            substring(p0: any, p1: any): any;
-
-            // Native method; no parameter or return type inference available
-            sup(): any;
-
-            // Native method; no parameter or return type inference available
-            toLocaleLowerCase(): any;
-
-            // Native method; no parameter or return type inference available
-            toLocaleUpperCase(): any;
-
-            // Native method; no parameter or return type inference available
-            toLowerCase(): any;
-
-            // Native method; no parameter or return type inference available
-            toString(): any;
-
-            // Native method; no parameter or return type inference available
-            toUpperCase(): any;
-
-            // Native method; no parameter or return type inference available
-            trim(): any;
-
-            // Native method; no parameter or return type inference available
-            trimLeft(): any;
-
-            // Native method; no parameter or return type inference available
-            trimRight(): any;
-
-            // Native method; no parameter or return type inference available
-            valueOf(): any;
-
-            static fromCharCode(p0: any): any;
-
-            static fromCodePoint(p0: any): any;
-
-            static raw(p0: any): any;
-
-        }
-
-        namespace any {
-            function out(val: any): any;
-
-            namespace out {
-                // Too-deep object hierarchy from postman_collection.Variable.types.any.out
-                const prototype: any;
-
-            }
-
-        }
-
-        namespace json {
-            function out(val: any): any;
-
-            namespace out {
-                // Too-deep object hierarchy from postman_collection.Variable.types.json.out
-                const prototype: any;
-
-            }
-
-        }
-    }
+    static isProxyConfigList(obj: any): boolean;
 
 }
 
-export namespace VariableList {
-    namespace isVariableList {
-        const prototype: {
-        };
+export interface QueryParamDefinition extends PropertyDefinition {
+    key: string;
+    value: string;
+}
 
-    }
+export class QueryParam extends Property implements QueryParamDefinition {
+    static _postman_propertyAllowsMultipleValues: boolean;
+    static _postman_propertyIndexKey: string;
 
-    namespace prototype {
-        function add(item: any, ...args: any[]): void;
+    key: string;
+    value: string;
 
-        function all(): any;
+    constructor(options: QueryParamDefinition | string);
 
-        function append(item: any): any;
+    toString(): string;
 
-        function assimilate(source: any, prune: any): void;
+    update(param: string | {key: string, value?: string}): void;
 
-        function clear(): void;
+    valueOf(): any;
 
-        function count(): any;
+    static parse(query: string): any[];
 
-        function each(iterator: any, context: any): void;
+    static parseSingle(param: string, idx: number, all: string[]): any;
 
-        function eachParent(iterator: any, context: any): void;
+    static unparse(params: any | any[], options?: {encode?: boolean | null, ignoreDisabled?: boolean | null}): string;
 
-        function filter(rule: any, context: any): any;
-
-        function find(rule: any, context: any): any;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(item: any, value: any, ...args: any[]): any;
-
-        function idx(index: any): any;
-
-        function indexOf(item: any): any;
-
-        function insert(item: any, before: any): void;
-
-        function insertAfter(item: any, after: any): any;
-
-        function map(iterator: any, context: any): any;
-
-        function meta(...args: any[]): any;
-
-        function one(id: any): any;
-
-        function parent(): any;
-
-        function populate(items: any): void;
-
-        function prepend(item: any): any;
-
-        function remove(predicate: any, context: any, ...args: any[]): any;
-
-        function replace(str: any, overrides: any): any;
-
-        function repopulate(items: any): void;
-
-        function setParent(parent: any): void;
-
-        function substitute(obj: any, overrides: any, mutate: any): any;
-
-        function syncFromObject(obj: any, track: any, prune: any): any;
-
-        function syncToObject(obj: any): any;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any, multiValue: any, sanitizeKeys: any): any;
-
-        function toString(): any;
-
-        function upsert(item: any): any;
-    }
+    static unparseSingle(obj: any, encode: boolean): string;
 
 }
 
-export namespace VariableScope {
-    namespace isVariableScope {
-        const prototype: {
-        };
-
-    }
-
-    namespace prototype {
-        function addLayer(list: any): void;
-
-        function clear(): void;
-
-        function describe(content: any, type: any): void;
-
-        function findInParents(property: any, customizer: any): any;
-
-        function findParentContaining(property: any, customizer: any): any;
-
-        function forEachParent(options: any, iterator: any): void;
-
-        function get(key: any): any;
-
-        function has(variableName: any): any;
-
-        function meta(...args: any[]): any;
-
-        function parent(): any;
-
-        function set(key: any, value: any, type: any): any;
-
-        function setParent(parent: any): void;
-
-        function syncVariablesFrom(obj: any, track: any): any;
-
-        function syncVariablesTo(obj: any): any;
-
-        function toJSON(): any;
-
-        function toObject(excludeDisabled: any, caseSensitive: any): any;
-
-        function toObjectResolved(scope: any, overrides: any, options: any): any;
-
-        function unset(key: any): void;
-
-        function variables(): any;
-    }
+export interface RequestDefinition extends PropertyDefinition {
+    url: string | Url;
+    method: string;
+    header?: HeaderDefinition;
+    body?: RequestBody;
+    auth: RequestAuthDefinition;
+    proxy: ProxyConfigDefinition;
+    certificate?: CertificateDefinition;
 }
 
-export namespace Version {
-    namespace prototype {
-        function findInParents(property: any, customizer: any): any;
+export class Request extends Property implements RequestDefinition {
+    auth: RequestAuth;
+    body?: RequestBody;
+    certificate?: Certificate;
+    headers: HeaderList;
+    method: string;
+    proxy: ProxyConfig;
+    url: Url;
 
-        function findParentContaining(property: any, customizer: any): any;
+    constructor(options: RequestDefinition);
 
-        function forEachParent(options: any, iterator: any): void;
+    addHeader(header: Header | HeaderDefinition): void;
 
-        function meta(...args: any[]): any;
+    addQueryParams(params: string | QueryParam[]): void;
 
-        function parent(): any;
+    authorize(): Request;
 
-        function set(value: any): void;
+    authorizeUsing(type: string | RequestAuthDefinition, options?: VariableList): void;
 
-        function setParent(parent: any): void;
+    clone(): Request;
 
-        function toJSON(): any;
+    forEachHeader(callback: any): void;
 
-        function toString(): any;
-    }
+    getHeaders(options?: {ignoreCase?: boolean, enabled?: boolean}): any;
+
+    removeHeader(toRemove: string | Header, options: {ignoreCase: boolean}): any;
+
+    removeQueryParams(params: string | string[]): void;
+
+    toJSON(): any;
+
+    update(options: RequestDefinition): void;
+
+    upsertHeader(header: any): void;
+
+    static isRequest(obj: any): boolean;
+
 }
 
+export interface RequestAuthDefinition extends PropertyDefinition {
+    type?: string;
+}
+
+export class RequestAuth extends Property implements RequestAuthDefinition {
+    type: string;
+
+    constructor(options: RequestAuthDefinition, parent?: Property | PropertyList<RequestAuth>);
+
+    clear(type: string): void;
+
+    current(): any | undefined;
+
+    parameters(): VariableList;
+
+    update(options: VariableList | any[] | any, type?: string): void;
+
+    use(type: string, options: VariableList): void;
+
+    static isValidType(type: any): boolean;
+
+}
+
+
+export class RequestBody extends PropertyBase {
+    static MODES: {
+        raw: string;
+        formadata: string;
+        urlencoded: string;
+        file: string;
+    };
+
+    file: string;
+    formdata: PropertyList<FormParam>;
+    mode: string;
+    raw: string;
+    urlencoded: PropertyList<QueryParam>;
+
+    constructor(options: any);
+
+    isEmpty(): boolean;
+
+    toString(): string;
+
+    update(options: any): void;    
+}
+
+export interface ResponseDefinition extends PropertyDefinition {
+    code: number;
+    reason?: string;
+    header?: HeaderDefinition[];
+    cookie?: CookieDefinition[];
+    body?: string;
+    stream?: Buffer | Uint8Array;
+    responseTime: number;
+}
+
+export class Response extends Property implements ResponseDefinition {
+    body: string;
+    code: number;
+    cookies: CookieList;
+    headers: HeaderList;
+    originalRequest: Request;
+    responseTime: number;
+    status: string;
+    reason?: string;
+
+    constructor(options: ResponseDefinition);
+
+    dataURI(): string;
+
+    details(): any;
+
+    encoding(): any;
+
+    json(reviver?: any, strict?: boolean): any;
+
+    mime(contentType: any, contentDisposition: any): any; //TODO ??
+
+    size(): number;
+
+    text(): string | undefined;
+
+    toJSON(): any;
+
+    update(options: any): void;
+
+    static createFromNode(response: any, cookies: any): any;
+
+    static isResponse(obj: any): boolean;
+
+    static mimeInfo(type: any, disposition: any): any; // TODO ??
+
+}
+
+export class Script extends Property {
+    exec: string[];
+    src: Url;
+    type: string;
+
+    constructor(options: any);
+
+    toSource(): string;
+
+    update(options?: {type?: string, src?: string, exec?: string | string[]}): void;
+
+    static isScript(obj: any): boolean;    
+}
+
+export class Url extends PropertyBase {
+    auth: string;
+    hash: string;
+    host: string[];
+    path: string[];
+    port: string;
+    protocol: string;
+    query: PropertyList<QueryParam>;
+    variables: VariableList;
+
+    constructor(options: any | string);
+
+    addQueryParams(params: any | string): void;
+
+    getHost(): string;
+
+    getOAuth1BaseUrl(): any;
+
+    getPath(options?: {unresolved: boolean}): string;
+
+    getPathWithQuery(): any | string;
+
+    getQueryString(options?: {encode: boolean | null, ignoredDisabled: boolean | null} | null): string;
+
+    getRaw(): string;
+
+    getRemote(options: {forcePort: boolean}): string;
+
+    removeQueryParams(params: QueryParam[] | string[] | string): void;
+
+    toString(forceProtocol?: boolean): string;
+
+    update(url: string | any): void;
+
+    static isUrl(obj: any): boolean;
+
+    static parse(url: string): any;
+
+}
+
+/* No documentation for this right now?
+export class UrlMatchPattern {
+    constructor(options: any, ...args: any[]);
+
+    createMatchPattern(): any;
+
+    getProtocols(): any;
+
+    globPatternToRegexp(pattern: any): any;
+
+    matchAbsoluteHostPattern(matchRegexObject: any, remote: any): any;
+
+    matchAnyHost(matchRegexObject: any): any;
+
+    matchSuffixHostPattern(matchRegexObject: any, remote: any): any;
+
+    test(urlStr: any): any;
+
+    testHost(host: any): any;
+
+    testPath(path: any): any;
+
+    testProtocol(protocol: any): any;
+
+    toJSON(): any;
+
+    toString(): any;
+
+    update(options: any): void;
+
+    static MATCH_ALL_URLS: string;
+
+    static PROTOCOL_DELIMITER: string;
+
+}
+
+export class UrlMatchPatternList extends PropertyList<UrlMatchPattern> {
+    constructor(parent: any, list: any);
+
+    test(urlStr: any): any;
+
+}*/
+
+export interface VariableDefinition extends PropertyDefinition {
+    value?: any;
+    type?: VariableTypes;
+}
+
+export enum VariableTypes {
+    string = 'string',
+    boolean = 'boolean',
+    number = 'number',
+    json = 'json',
+    any = 'any'
+}
+
+export class Variable extends Property implements VariableDefinition {
+    key: string;
+    type: VariableTypes;
+    value: any;
+
+    constructor(definition?: VariableDefinition);
+
+    cast(value: any): any;
+
+    castIn(value: any): any;
+
+    castOut(value: any): any;
+
+    get(): any;
+
+    set(value: any): void;
+
+    toString(): string;
+
+    update(options: VariableDefinition): void;
+
+    valueOf(value?: any): any;
+
+    valueType(typeName: string, _noCast: boolean): string;
+
+    static isVariable(obj: any): boolean;
+
+}
+
+export class VariableList extends PropertyList<Variable> {
+    constructor(parent: Property, populate: any);
+
+    replace(str: string, overrides?: any): string;
+
+    substitute(obj: any | any[], overrides?: any[] | null, mutate?: boolean): any;
+
+    syncFromObject(obj: any, track?: boolean, prune?: boolean): any;
+
+    syncToObject(obj?: any): any;
+
+    static isVariableList(obj: any): boolean;
+
+}
+
+export interface VariableScopeDefinition extends PropertyDefinition {
+    id?: string;
+    name?: string;
+    values?: VariableDefinition[]
+}
+
+export class VariableScope extends Property implements VariableScopeDefinition {
+    values?: VariableDefinition[];
+
+    constructor(definition: VariableScopeDefinition, layers?: VariableList[]);
+
+    addLayer(list: any): void;
+
+    clear(): void;
+
+    get(key: string): any;
+
+    has(variableName: string): boolean;
+
+    set(key: string, value: any, type: VariableTypes): void;
+
+    syncVariablesFrom(obj: any, track: any): any;
+
+    syncVariablesTo(obj: any): any;
+
+    toJSON(): any;
+
+    toObject(excludeDisabled: boolean, caseSensitive: boolean): any;
+
+    unset(key: string): void;
+
+    variables(): any;
+
+    static isVariableScope(obj: any): boolean;    
+}
+
+export class Version extends PropertyBase {
+    build: string;
+    major: string;
+    minor: string;
+    patch: string;
+    prerelease: string;
+    raw: string;
+    string: string;
+
+    constructor(options: any | string);
+
+    set(value: any | string): void;
+
+    toString(): string;    
+}    
