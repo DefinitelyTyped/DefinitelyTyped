@@ -1,19 +1,19 @@
 import * as ipcheck from "ipcheck";
 
-ipcheck.match(1, 1); // Argument of type '1' is not assignable to parameter of type 'string | IPCheck'
-ipcheck.match("", 1); // Argument of type '1' is not assignable to parameter of type 'string | IPCheck'
-ipcheck.match(1, ""); // Argument of type '1' is not assignable to parameter of type 'string | IPCheck'
+ipcheck.match(1, 1); // $ExpectError
+ipcheck.match("", 1); // $ExpectError
+ipcheck.match(1, ""); // $ExpectError
 
-new ipcheck(1); // Argument of type '1' is not assignable to parameter of type 'string'
+new ipcheck(1); // $ExpectError
 
 const ip = new ipcheck("");
 
-// Operator '===' cannot be applied to types '0 | 4 | 6' and '1'
+// $ExpectError
 if (ip.ipv === 1) {
 }
 
-// Operator '===' cannot be applied to types '0 | 4 | 6' and '1'
+// $ExpectError
 if (ip.ipv === 1) {
 }
 
-ip.match(1); // Argument of type '1' is not assignable to parameter of type 'string | IPCheck'
+ip.match(1); // $ExpectError
