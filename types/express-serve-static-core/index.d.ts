@@ -6,7 +6,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />

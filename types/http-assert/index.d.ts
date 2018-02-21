@@ -2,7 +2,7 @@
 // Project: https://github.com/jshttp/http-assert
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /**
  * @param status the status code

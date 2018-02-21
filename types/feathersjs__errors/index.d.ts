@@ -2,7 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export class FeathersError extends Error {
     constructor(msg: string | Error, name: string, code: number, className: string, data: any)
