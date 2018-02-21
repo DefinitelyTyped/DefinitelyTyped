@@ -6,7 +6,7 @@ export declare type FieldParam = {
 };
 export declare type DataType = 'boolean' | 'number' | 'date' | 'string';
 export declare type Parse = 'auto' | {
-    [f: string]: DataType;
+    [f: string]: DataType | string;
 };
 export interface FormatJSON {
     type: 'json';

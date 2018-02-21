@@ -6261,6 +6261,203 @@ const heatMap: Spec = {
     ],
 };
 
+// https://vega.github.io/editor/#/examples/vega/parallel-coordinates
+const parallelCoordinates: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 700,
+    height: 400,
+    padding: 5,
+
+    config: {
+        axisY: {
+            titleX: -2,
+            titleY: 410,
+            titleAngle: 0,
+            titleAlign: 'right',
+            titleBaseline: 'top',
+        },
+    },
+
+    data: [
+        {
+            name: 'cars',
+            url: 'data/cars.json',
+            format: {
+                type: 'json',
+                parse: { Year: 'date:%Y-%m-%d' },
+            },
+            transform: [
+                {
+                    type: 'filter',
+                    expr: 'datum.Horsepower && datum.Miles_per_Gallon',
+                },
+                {
+                    type: 'formula',
+                    as: 'Year',
+                    expr:
+                        'isNumber(datum.year) ? datum.year : year(datum.Year)',
+                },
+            ],
+        },
+        {
+            name: 'fields',
+            values: [
+                'Cylinders',
+                'Displacement',
+                'Weight_in_lbs',
+                'Horsepower',
+                'Acceleration',
+                'Miles_per_Gallon',
+                'Year',
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'ord',
+            type: 'point',
+            range: 'width',
+            round: true,
+            domain: { data: 'fields', field: 'data' },
+        },
+        {
+            name: 'Cylinders',
+            type: 'linear',
+            range: 'height',
+            zero: false,
+            nice: true,
+            domain: { data: 'cars', field: 'Cylinders' },
+        },
+        {
+            name: 'Displacement',
+            type: 'linear',
+            range: 'height',
+            zero: false,
+            nice: true,
+            domain: { data: 'cars', field: 'Displacement' },
+        },
+        {
+            name: 'Weight_in_lbs',
+            type: 'linear',
+            range: 'height',
+            zero: false,
+            nice: true,
+            domain: { data: 'cars', field: 'Weight_in_lbs' },
+        },
+        {
+            name: 'Horsepower',
+            type: 'linear',
+            range: 'height',
+            zero: false,
+            nice: true,
+            domain: { data: 'cars', field: 'Horsepower' },
+        },
+        {
+            name: 'Acceleration',
+            type: 'linear',
+            range: 'height',
+            zero: false,
+            nice: true,
+            domain: { data: 'cars', field: 'Acceleration' },
+        },
+        {
+            name: 'Miles_per_Gallon',
+            type: 'linear',
+            range: 'height',
+            zero: false,
+            nice: true,
+            domain: { data: 'cars', field: 'Miles_per_Gallon' },
+        },
+        {
+            name: 'Year',
+            type: 'linear',
+            range: 'height',
+            zero: false,
+            nice: true,
+            domain: { data: 'cars', field: 'Year' },
+        },
+    ],
+
+    axes: [
+        {
+            orient: 'left',
+            zindex: 1,
+            scale: 'Cylinders',
+            title: 'Cylinders',
+            offset: { scale: 'ord', value: 'Cylinders', mult: -1 },
+        },
+        {
+            orient: 'left',
+            zindex: 1,
+            scale: 'Displacement',
+            title: 'Displacement',
+            offset: { scale: 'ord', value: 'Displacement', mult: -1 },
+        },
+        {
+            orient: 'left',
+            zindex: 1,
+            scale: 'Weight_in_lbs',
+            title: 'Weight_in_lbs',
+            offset: { scale: 'ord', value: 'Weight_in_lbs', mult: -1 },
+        },
+        {
+            orient: 'left',
+            zindex: 1,
+            scale: 'Horsepower',
+            title: 'Horsepower',
+            offset: { scale: 'ord', value: 'Horsepower', mult: -1 },
+        },
+        {
+            orient: 'left',
+            zindex: 1,
+            scale: 'Acceleration',
+            title: 'Acceleration',
+            offset: { scale: 'ord', value: 'Acceleration', mult: -1 },
+        },
+        {
+            orient: 'left',
+            zindex: 1,
+            scale: 'Miles_per_Gallon',
+            title: 'Miles_per_Gallon',
+            offset: { scale: 'ord', value: 'Miles_per_Gallon', mult: -1 },
+        },
+        {
+            orient: 'left',
+            zindex: 1,
+            scale: 'Year',
+            title: 'Year',
+            format: 'd',
+            offset: { scale: 'ord', value: 'Year', mult: -1 },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'group',
+            from: { data: 'cars' },
+            marks: [
+                {
+                    type: 'line',
+                    from: { data: 'fields' },
+                    encode: {
+                        enter: {
+                            x: { scale: 'ord', field: 'data' },
+                            y: {
+                                scale: { datum: 'data' },
+                                field: { parent: { datum: 'data' } },
+                            },
+                            stroke: { value: 'steelblue' },
+                            strokeWidth: { value: 1.01 },
+                            strokeOpacity: { value: 0.3 },
+                        },
+                    },
+                },
+            ],
+        },
+    ],
+};
+
 // Runtime examples from https://vega.github.io/vega/usage/
 
 function clientSideApi() {
