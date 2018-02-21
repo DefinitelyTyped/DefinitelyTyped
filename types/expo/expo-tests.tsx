@@ -518,9 +518,7 @@ KeepAwake.deactivate();
 () => (
     <LinearGradient
         colors={['#fff']}
-        start={[1, 1]}
-        end={[3, 3]}
-        locations={[1, 2]} />
+        start={[1, 1]} />
 );
 
 Permissions.CAMERA === 'camera';
