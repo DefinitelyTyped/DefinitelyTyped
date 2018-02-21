@@ -1,6 +1,6 @@
 import { SignalRef } from './signal';
 export declare type FieldRef = string | SignalRef | {
-    datum: string;
+    datum: FieldRef;
 } | GroupFieldRef | ParentFieldRef;
 export interface GroupFieldRef {
     group: FieldRef;
