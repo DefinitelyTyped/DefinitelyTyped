@@ -25,6 +25,11 @@ export interface From {
 export declare type FromFacet = From | (From & {
     facet: Facet;
 });
+export declare type Clip = boolean | {
+    path: string | SignalRef
+} | {
+    sphere: string | SignalRef
+}
 export declare type Compare = {
     field: string | SignalRef;
     order?: SortOrder;
@@ -37,7 +42,7 @@ export interface BaseMark {
     name?: string;
     description?: string;
     key?: string;
-    clip?: boolean;
+    clip?: Clip;
     sort?: Compare;
     interactive?: boolean;
     from?: From;

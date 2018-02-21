@@ -4169,6 +4169,189 @@ const earthquakes: Spec = {
     ],
 };
 
+// https://vega.github.io/editor/#/examples/vega/projections
+const projections: Spec = {
+    "$schema": "https://vega.github.io/schema/vega/v3.json",
+    "autosize": "pad",
+  
+    "signals": [
+      { "name": "mapWidth", "value": 300},
+      { "name": "mapHeight", "value": 200},
+      { "name": "projScale", "value": 45},
+      { "name": "projTranslate", "update": "[mapWidth / 2, mapHeight / 2]" }
+    ],
+  
+    "data": [
+      {
+        "name": "projections",
+        "values": [
+          "azimuthalEquidistant",
+          "conicConformal",
+          "gnomonic",
+          "mercator",
+          "stereographic",
+          "airy",
+          "armadillo",
+          "baker",
+          "berghaus",
+          "bottomley",
+          "collignon",
+          "eckert1",
+          "guyou",
+          "hammer",
+          "littrow",
+          "mollweide",
+          "wagner6",
+          "wiechel",
+          "winkel3",
+          "interruptedSinusoidal",
+          "interruptedMollweide",
+          "interruptedMollweideHemispheres",
+          "polyhedralButterfly",
+          "peirceQuincuncial"
+        ]
+      },
+      {
+        "name": "world",
+        "url": "data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      {
+        "name": "graticule",
+        "transform": [
+          { "type": "graticule" }
+        ]
+      },
+      {
+        "name": "sphere",
+        "values": [{"type": "Sphere"}]
+      },
+      {
+        "name": "labelOffsets",
+        "values": [
+          {"dx": -1, "dy": -1},
+          {"dx": -1, "dy": 1},
+          {"dx": 1, "dy": -1},
+          {"dx": 1, "dy": 1}
+        ]
+      }
+    ],
+  
+    "layout": {
+      "columns": 3,
+      "padding": 20
+    },
+  
+    "marks": [
+      {
+        "type": "group",
+        "from": {"data": "projections"},
+  
+        "signals": [
+          {"name": "width", "update": "mapWidth"},
+          {"name": "height", "update": "mapHeight"}
+        ],
+  
+        "encode": {
+          "enter": {
+            "width": {"signal": "mapWidth"},
+            "height": {"signal": "mapHeight"},
+            "clip": {"value": true}
+          }
+        },
+  
+        "projections": [
+          {
+            "name": "projection",
+            "type": {"signal": "parent.data"},
+            "scale": {"signal": "projScale"},
+            "translate": {"signal": "projTranslate"}
+          }
+        ],
+  
+        "marks": [
+          {
+            "type": "shape",
+            "from": {"data": "sphere"},
+            "encode": {
+              "enter": {
+                "fill": {"value": "aliceblue"}
+              }
+            },
+            "transform": [
+              { "type": "geoshape", "projection": "projection" }
+            ]
+          },
+          {
+            "type": "shape",
+            "from": {"data": "graticule"},
+            "clip": {"sphere": "projection"},
+            "interactive": false,
+            "encode": {
+              "enter": {
+                "strokeWidth": {"value": 1},
+                "stroke": {"value": "#ddd"}
+              }
+            },
+            "transform": [
+              { "type": "geoshape", "projection": "projection" }
+            ]
+          },
+          {
+            "type": "shape",
+            "from": {"data": "world"},
+            "clip": {"sphere": "projection"},
+            "encode": {
+              "enter": {
+                "strokeWidth": {"value": 0.25},
+                "stroke": {"value": "#888"},
+                "fill": {"value": "black"}
+              }
+            },
+            "transform": [
+              { "type": "geoshape", "projection": "projection" }
+            ]
+          },
+         {
+            "type": "text",
+            "from": {"data": "labelOffsets"},
+            "encode": {
+              "enter": {
+                "fill": {"value": "white"},
+                "dx": {"field": "dx"},
+                "dy": {"field": "dy"},
+                "x": {"value": 5},
+                "y": {"signal": "mapHeight - 5"},
+                "baseline": {"value": "bottom"},
+                "fontSize": {"value": 14},
+                "fontWeight": {"value": "bold"},
+                "text": {"signal": "parent.data"}
+              }
+            }
+          },
+          {
+            "type": "text",
+            "encode": {
+              "enter": {
+                "fill": {"value": "black"},
+                "x": {"value": 5},
+                "y": {"signal": "mapHeight - 5"},
+                "baseline": {"value": "bottom"},
+                "fontSize": {"value": 14},
+                "fontWeight": {"value": "bold"},
+                "text": {"signal": "parent.data"}
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
+
 // https://vega.github.io/editor/#/examples/vega/zoomable-world-map
 const zoomableWorldMap: Spec = {
     $schema: 'https://vega.github.io/schema/vega/v3.json',
