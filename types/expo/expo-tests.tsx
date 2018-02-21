@@ -210,7 +210,7 @@ const barcodeReadCallback = () => {};
     <BarCodeScanner
         type="front"
         torchMode="off"
-        barCodeTypes={['s']}
+        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
         onBarCodeRead={barcodeReadCallback} />
 );
 
