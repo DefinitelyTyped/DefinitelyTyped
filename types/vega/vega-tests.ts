@@ -1572,7 +1572,7 @@ const scatterPlot: Spec = {
 };
 
 // https://vega.github.io/editor/#/examples/vega/scatter-plot-null-values
-const scatterPlotNullValues = {
+const scatterPlotNullValues: Spec = {
     $schema: 'https://vega.github.io/schema/vega/v3.json',
     width: 450,
     height: 450,
@@ -1785,7 +1785,7 @@ const scatterPlotNullValues = {
 };
 
 // https://vega.github.io/editor/#/examples/vega/connected-scatter-plot
-const connectedScatterPlot = {
+const connectedScatterPlot: Spec = {
     $schema: 'https://vega.github.io/schema/vega/v3.json',
     width: 800,
     height: 500,
