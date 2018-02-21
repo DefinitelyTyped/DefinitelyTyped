@@ -4499,6 +4499,585 @@ const distortionComparison: Spec = {
     ],
 };
 
+// https://vega.github.io/editor/#/examples/vega/tree-layout
+const treeLayout: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 600,
+    height: 1600,
+    padding: 5,
+
+    signals: [
+        {
+            name: 'labels',
+            value: true,
+            bind: { input: 'checkbox' },
+        },
+        {
+            name: 'layout',
+            value: 'tidy',
+            bind: { input: 'radio', options: ['tidy', 'cluster'] },
+        },
+        {
+            name: 'links',
+            value: 'diagonal',
+            bind: {
+                input: 'select',
+                options: ['line', 'curve', 'diagonal', 'orthogonal'],
+            },
+        },
+    ],
+
+    data: [
+        {
+            name: 'tree',
+            url: 'data/flare.json',
+            transform: [
+                {
+                    type: 'stratify',
+                    key: 'id',
+                    parentKey: 'parent',
+                },
+                {
+                    type: 'tree',
+                    method: { signal: 'layout' },
+                    size: [{ signal: 'height' }, { signal: 'width - 100' }],
+                    as: ['y', 'x', 'depth', 'children'],
+                },
+            ],
+        },
+        {
+            name: 'links',
+            source: 'tree',
+            transform: [
+                { type: 'treelinks', key: 'id' },
+                {
+                    type: 'linkpath',
+                    orient: 'horizontal',
+                    shape: { signal: 'links' },
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'color',
+            type: 'sequential',
+            range: { scheme: 'magma' },
+            domain: { data: 'tree', field: 'depth' },
+            zero: true,
+        },
+    ],
+
+    marks: [
+        {
+            type: 'path',
+            from: { data: 'links' },
+            encode: {
+                update: {
+                    path: { field: 'path' },
+                    stroke: { value: '#ccc' },
+                },
+            },
+        },
+        {
+            type: 'symbol',
+            from: { data: 'tree' },
+            encode: {
+                enter: {
+                    size: { value: 100 },
+                    stroke: { value: '#fff' },
+                },
+                update: {
+                    x: { field: 'x' },
+                    y: { field: 'y' },
+                    fill: { scale: 'color', field: 'depth' },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'tree' },
+            encode: {
+                enter: {
+                    text: { field: 'name' },
+                    fontSize: { value: 9 },
+                    baseline: { value: 'middle' },
+                },
+                update: {
+                    x: { field: 'x' },
+                    y: { field: 'y' },
+                    dx: { signal: 'datum.children ? -7 : 7' },
+                    align: { signal: "datum.children ? 'right' : 'left'" },
+                    opacity: { signal: 'labels ? 1 : 0' },
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/radial-tree-layout
+const radialTreeLayout: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 720,
+    height: 720,
+    padding: 5,
+    autosize: 'none',
+
+    signals: [
+        {
+            name: 'labels',
+            value: true,
+            bind: { input: 'checkbox' },
+        },
+        {
+            name: 'radius',
+            value: 280,
+            bind: { input: 'range', min: 20, max: 600 },
+        },
+        {
+            name: 'extent',
+            value: 360,
+            bind: { input: 'range', min: 0, max: 360, step: 1 },
+        },
+        {
+            name: 'rotate',
+            value: 0,
+            bind: { input: 'range', min: 0, max: 360, step: 1 },
+        },
+        {
+            name: 'layout',
+            value: 'tidy',
+            bind: { input: 'radio', options: ['tidy', 'cluster'] },
+        },
+        {
+            name: 'links',
+            value: 'line',
+            bind: {
+                input: 'select',
+                options: ['line', 'curve', 'diagonal', 'orthogonal'],
+            },
+        },
+        { name: 'originX', update: 'width / 2' },
+        { name: 'originY', update: 'height / 2' },
+    ],
+
+    data: [
+        {
+            name: 'tree',
+            url: 'data/flare.json',
+            transform: [
+                {
+                    type: 'stratify',
+                    key: 'id',
+                    parentKey: 'parent',
+                },
+                {
+                    type: 'tree',
+                    method: { signal: 'layout' },
+                    size: [1, { signal: 'radius' }],
+                    as: ['alpha', 'radius', 'depth', 'children'],
+                },
+                {
+                    type: 'formula',
+                    expr: '(rotate + extent * datum.alpha + 270) % 360',
+                    as: 'angle',
+                },
+                {
+                    type: 'formula',
+                    expr: 'PI * datum.angle / 180',
+                    as: 'radians',
+                },
+                {
+                    type: 'formula',
+                    expr: 'inrange(datum.angle, [90, 270])',
+                    as: 'leftside',
+                },
+                {
+                    type: 'formula',
+                    expr: 'originX + datum.radius * cos(datum.radians)',
+                    as: 'x',
+                },
+                {
+                    type: 'formula',
+                    expr: 'originY + datum.radius * sin(datum.radians)',
+                    as: 'y',
+                },
+            ],
+        },
+        {
+            name: 'links',
+            source: 'tree',
+            transform: [
+                { type: 'treelinks', key: 'id' },
+                {
+                    type: 'linkpath',
+                    shape: { signal: 'links' },
+                    orient: 'radial',
+                    sourceX: 'source.radians',
+                    sourceY: 'source.radius',
+                    targetX: 'target.radians',
+                    targetY: 'target.radius',
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'color',
+            type: 'sequential',
+            range: { scheme: 'magma' },
+            domain: { data: 'tree', field: 'depth' },
+            zero: true,
+        },
+    ],
+
+    marks: [
+        {
+            type: 'path',
+            from: { data: 'links' },
+            encode: {
+                update: {
+                    x: { signal: 'originX' },
+                    y: { signal: 'originY' },
+                    path: { field: 'path' },
+                    stroke: { value: '#ccc' },
+                },
+            },
+        },
+        {
+            type: 'symbol',
+            from: { data: 'tree' },
+            encode: {
+                enter: {
+                    size: { value: 100 },
+                    stroke: { value: '#fff' },
+                },
+                update: {
+                    x: { field: 'x' },
+                    y: { field: 'y' },
+                    fill: { scale: 'color', field: 'depth' },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'tree' },
+            encode: {
+                enter: {
+                    text: { field: 'name' },
+                    fontSize: { value: 9 },
+                    baseline: { value: 'middle' },
+                },
+                update: {
+                    x: { field: 'x' },
+                    y: { field: 'y' },
+                    dx: { signal: '(datum.leftside ? -1 : 1) * 6' },
+                    angle: {
+                        signal:
+                            'datum.leftside ? datum.angle - 180 : datum.angle',
+                    },
+                    align: { signal: "datum.leftside ? 'right' : 'left'" },
+                    opacity: { signal: 'labels ? 1 : 0' },
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/treemap
+const treemap: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 960,
+    height: 500,
+    padding: 2.5,
+    autosize: 'none',
+
+    signals: [
+        {
+            name: 'layout',
+            value: 'squarify',
+            bind: {
+                input: 'select',
+                options: ['squarify', 'binary', 'slicedice'],
+            },
+        },
+        {
+            name: 'aspectRatio',
+            value: 1.6,
+            bind: { input: 'range', min: 0.2, max: 5, step: 0.1 },
+        },
+    ],
+
+    data: [
+        {
+            name: 'tree',
+            url: 'data/flare.json',
+            transform: [
+                {
+                    type: 'stratify',
+                    key: 'id',
+                    parentKey: 'parent',
+                },
+                {
+                    type: 'treemap',
+                    field: 'size',
+                    sort: { field: 'value' },
+                    round: true,
+                    method: { signal: 'layout' },
+                    ratio: { signal: 'aspectRatio' },
+                    size: [{ signal: 'width' }, { signal: 'height' }],
+                },
+            ],
+        },
+        {
+            name: 'nodes',
+            source: 'tree',
+            transform: [{ type: 'filter', expr: 'datum.children' }],
+        },
+        {
+            name: 'leaves',
+            source: 'tree',
+            transform: [{ type: 'filter', expr: '!datum.children' }],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'color',
+            type: 'ordinal',
+            range: [
+                '#3182bd',
+                '#6baed6',
+                '#9ecae1',
+                '#c6dbef',
+                '#e6550d',
+                '#fd8d3c',
+                '#fdae6b',
+                '#fdd0a2',
+                '#31a354',
+                '#74c476',
+                '#a1d99b',
+                '#c7e9c0',
+                '#756bb1',
+                '#9e9ac8',
+                '#bcbddc',
+                '#dadaeb',
+                '#636363',
+                '#969696',
+                '#bdbdbd',
+                '#d9d9d9',
+            ],
+        },
+        {
+            name: 'size',
+            type: 'ordinal',
+            domain: [0, 1, 2, 3],
+            range: [256, 28, 20, 14],
+        },
+        {
+            name: 'opacity',
+            type: 'ordinal',
+            domain: [0, 1, 2, 3],
+            range: [0.15, 0.5, 0.8, 1.0],
+        },
+    ],
+
+    marks: [
+        {
+            type: 'rect',
+            from: { data: 'nodes' },
+            interactive: false,
+            encode: {
+                enter: {
+                    fill: { scale: 'color', field: 'name' },
+                },
+                update: {
+                    x: { field: 'x0' },
+                    y: { field: 'y0' },
+                    x2: { field: 'x1' },
+                    y2: { field: 'y1' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'leaves' },
+            encode: {
+                enter: {
+                    stroke: { value: '#fff' },
+                },
+                update: {
+                    x: { field: 'x0' },
+                    y: { field: 'y0' },
+                    x2: { field: 'x1' },
+                    y2: { field: 'y1' },
+                    fill: { value: 'transparent' },
+                },
+                hover: {
+                    fill: { value: 'red' },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'nodes' },
+            interactive: false,
+            encode: {
+                enter: {
+                    font: { value: 'Helvetica Neue, Arial' },
+                    align: { value: 'center' },
+                    baseline: { value: 'middle' },
+                    fill: { value: '#000' },
+                    text: { field: 'name' },
+                    fontSize: { scale: 'size', field: 'depth' },
+                    fillOpacity: { scale: 'opacity', field: 'depth' },
+                },
+                update: {
+                    x: { signal: '0.5 * (datum.x0 + datum.x1)' },
+                    y: { signal: '0.5 * (datum.y0 + datum.y1)' },
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/circle-packing
+const circlePacking: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 600,
+    height: 600,
+    padding: 5,
+    autosize: 'none',
+
+    data: [
+        {
+            name: 'tree',
+            url: 'data/flare.json',
+            transform: [
+                {
+                    type: 'stratify',
+                    key: 'id',
+                    parentKey: 'parent',
+                },
+                {
+                    type: 'pack',
+                    field: 'size',
+                    sort: { field: 'value' },
+                    size: [{ signal: 'width' }, { signal: 'height' }],
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'color',
+            type: 'ordinal',
+            range: { scheme: 'category20' },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'symbol',
+            from: { data: 'tree' },
+            encode: {
+                enter: {
+                    shape: { value: 'circle' as 'circle' },
+                    fill: { scale: 'color', field: 'depth' },
+                    tooltip: {
+                        signal:
+                            "datum.name + (datum.size ? ', ' + datum.size + ' bytes' : '')",
+                    },
+                },
+                update: {
+                    x: { field: 'x' },
+                    y: { field: 'y' },
+                    size: { signal: '4 * datum.r * datum.r' },
+                    stroke: { value: 'white' },
+                    strokeWidth: { value: 0.5 },
+                },
+                hover: {
+                    stroke: { value: 'red' },
+                    strokeWidth: { value: 2 },
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/sunburst
+const sunburst: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 600,
+    height: 600,
+    padding: 5,
+    autosize: 'none',
+
+    data: [
+        {
+            name: 'tree',
+            url: 'data/flare.json',
+            transform: [
+                {
+                    type: 'stratify',
+                    key: 'id',
+                    parentKey: 'parent',
+                },
+                {
+                    type: 'partition',
+                    field: 'size',
+                    sort: { field: 'value' },
+                    size: [{ signal: '2 * PI' }, { signal: 'width / 2' }],
+                    as: ['a0', 'r0', 'a1', 'r1', 'depth', 'children'],
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'color',
+            type: 'ordinal',
+            range: { scheme: 'tableau20' },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'arc',
+            from: { data: 'tree' },
+            encode: {
+                enter: {
+                    x: { signal: 'width / 2' },
+                    y: { signal: 'height / 2' },
+                    fill: { scale: 'color', field: 'depth' },
+                    tooltip: {
+                        signal:
+                            "datum.name + (datum.size ? ', ' + datum.size + ' bytes' : '')",
+                    },
+                },
+                update: {
+                    startAngle: { field: 'a0' },
+                    endAngle: { field: 'a1' },
+                    innerRadius: { field: 'r0' },
+                    outerRadius: { field: 'r1' },
+                    stroke: { value: 'white' },
+                    strokeWidth: { value: 0.5 },
+                    zindex: { value: 0 },
+                },
+                hover: {
+                    stroke: { value: 'red' },
+                    strokeWidth: { value: 2 },
+                    zindex: { value: 1 },
+                },
+            },
+        },
+    ],
+};
+
 // Runtime examples from https://vega.github.io/vega/usage/
 
 function clientSideApi() {
