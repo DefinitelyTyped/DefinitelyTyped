@@ -127,7 +127,7 @@ export declare type RuleEncodeEntry = EncodeEntry;
 export interface ShapeEncodeEntry extends EncodeEntry {
     shape?: ProductionRule<StringValueRef>;
 }
-export declare type SymbolShapes = 'circle' | 'square' | 'cross' | 'diamond' | 'triangle-up' | 'triangle-down' | 'triangle-right' | 'triangle-left';
+export declare type SymbolShapes = 'circle' | 'square' | 'cross' | 'diamond' | 'triangle-up' | 'triangle-down' | 'triangle-right' | 'triangle-left' | string;
 export interface SymbolEncodeEntry extends EncodeEntry {
     size?: ProductionRule<NumericValueRef>;
     shape?: string | ProductionRule<ScaledValueRef<SymbolShapes>>;
