@@ -1,4 +1,4 @@
-// Type definitions for @storybook/addon-links 3.0
+// Type definitions for @storybook/addon-links 3.3
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>,
 //                 Jesse Pinho <https://github.com/jessepinho>
