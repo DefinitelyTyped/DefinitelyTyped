@@ -4,13 +4,13 @@
 //                 Forbes Lindesay <https://github.com/ForbesLindesay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Location {
+export interface SourceLocation {
     start: { line: number; column?: number };
     end?: { line: number; column?: number };
 }
 declare function codeFrameColumns(
     rawLines: string,
-    location: Location,
+    location: SourceLocation,
     options?: BabelCodeFrameOptions
 ): string;
 export { codeFrameColumns };
