@@ -521,6 +521,12 @@ KeepAwake.deactivate();
         start={[1, 1]} />
 );
 
+() => (
+    <LinearGradient
+        colors={['#fff']}
+        style={{ flex: 1 }} />
+);
+
 Permissions.CAMERA === 'camera';
 Permissions.CAMERA_ROLL === 'cameraRoll';
 Permissions.AUDIO_RECORDING === 'audioRecording';
