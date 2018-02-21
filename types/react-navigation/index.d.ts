@@ -12,6 +12,7 @@
 //                 Qibang Sun <https://github.com/bang88>
 //                 Sergei Butko: <https://github.com/svbutko>
 //                 Veit Lehmann: <https://github.com/levito>
+//                 Roberto Huertas: <https://github.com/robertohuertasm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -166,10 +167,9 @@ export interface NavigationScreenConfigProps {
 
 export type NavigationScreenConfig<Options> =
   Options
-  | (NavigationScreenConfigProps &
-    ((navigationOptionsContainer: {
+  | ((navigationOptionsContainer: NavigationScreenConfigProps & {
       navigationOptions: NavigationScreenProp<NavigationRoute>,
-    }) => Options));
+    }) => Options);
 
 export type NavigationComponent =
   NavigationScreenComponent<any, any>
