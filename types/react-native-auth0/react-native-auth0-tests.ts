@@ -57,6 +57,7 @@ auth0.webAuth.authorize({
 });
 
 auth0.webAuth.clearSession({ federated: false });
+auth0.webAuth.clearSession();
 
 auth0.users("token").getUser({ id: "userId" });
 
