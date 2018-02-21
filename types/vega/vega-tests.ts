@@ -7281,6 +7281,503 @@ const wheatAndWages: Spec = {
     ],
 };
 
+// https://vega.github.io/editor/#/examples/vega/falkensee-population
+const falkenseePopulation: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 500,
+    height: 250,
+    padding: 5,
+    config: {
+        title: {
+            fontSize: 16,
+        },
+    },
+
+    title: {
+        text: {
+            signal:
+                "'Population of Falkensee from ' + years[0] + ' to ' + years[1]",
+        },
+    },
+
+    data: [
+        {
+            name: 'table',
+            values: [
+                { year: 1875, population: 1309 },
+                { year: 1890, population: 1558 },
+                { year: 1910, population: 4512 },
+                { year: 1925, population: 8180 },
+                { year: 1933, population: 15915 },
+                { year: 1939, population: 24824 },
+                { year: 1946, population: 28275 },
+                { year: 1950, population: 29189 },
+                { year: 1964, population: 29881 },
+                { year: 1971, population: 26007 },
+                { year: 1981, population: 24029 },
+                { year: 1985, population: 23340 },
+                { year: 1989, population: 22307 },
+                { year: 1990, population: 22087 },
+                { year: 1991, population: 22139 },
+                { year: 1992, population: 22105 },
+                { year: 1993, population: 22242 },
+                { year: 1994, population: 22801 },
+                { year: 1995, population: 24273 },
+                { year: 1996, population: 25640 },
+                { year: 1997, population: 27393 },
+                { year: 1998, population: 29505 },
+                { year: 1999, population: 32124 },
+                { year: 2000, population: 33791 },
+                { year: 2001, population: 35297 },
+                { year: 2002, population: 36179 },
+                { year: 2003, population: 36829 },
+                { year: 2004, population: 37493 },
+                { year: 2005, population: 38376 },
+                { year: 2006, population: 39008 },
+                { year: 2007, population: 39366 },
+                { year: 2008, population: 39821 },
+                { year: 2009, population: 40179 },
+                { year: 2010, population: 40511 },
+                { year: 2011, population: 40465 },
+                { year: 2012, population: 40905 },
+                { year: 2013, population: 41258 },
+                { year: 2014, population: 41777 },
+            ],
+            transform: [
+                {
+                    type: 'extent',
+                    field: 'year',
+                    signal: 'years',
+                },
+            ],
+        },
+        {
+            name: 'annotation',
+            values: [
+                {
+                    start: 1933,
+                    end: 1945,
+                    text: 'Nazi Rule',
+                },
+                {
+                    start: 1948,
+                    end: 1989,
+                    text: 'GDR (East Germany)',
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'x',
+            type: 'linear',
+            range: 'width',
+            zero: false,
+            domain: { data: 'table', field: 'year' },
+        },
+        {
+            name: 'y',
+            type: 'linear',
+            range: 'height',
+            nice: true,
+            zero: true,
+            domain: { data: 'table', field: 'population' },
+        },
+        {
+            name: 'color',
+            type: 'ordinal',
+            domain: { data: 'annotation', field: 'text' },
+            range: ['black', 'red'],
+        },
+    ],
+
+    axes: [
+        {
+            orient: 'left',
+            scale: 'y',
+            title: 'Population',
+            titlePadding: 10,
+            grid: true,
+        },
+        {
+            orient: 'bottom',
+            scale: 'x',
+            format: 'd',
+            title: 'Year',
+            tickCount: 15,
+        },
+    ],
+
+    marks: [
+        {
+            type: 'rect',
+            from: { data: 'annotation' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'start' },
+                    x2: { scale: 'x', field: 'end' },
+                    y: { value: 0 },
+                    y2: { signal: 'height' },
+                    fill: { scale: 'color', field: 'text' },
+                    opacity: { value: 0.2 },
+                },
+            },
+        },
+        {
+            type: 'line',
+            from: { data: 'table' },
+            encode: {
+                enter: {
+                    interpolate: { value: 'monotone' },
+                    x: { scale: 'x', field: 'year' },
+                    y: { scale: 'y', field: 'population' },
+                    stroke: { value: 'steelblue' },
+                    strokeWidth: { value: 3 },
+                },
+            },
+        },
+        {
+            type: 'symbol',
+            from: { data: 'table' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'year' },
+                    y: { scale: 'y', field: 'population' },
+                    stroke: { value: 'steelblue' },
+                    strokeWidth: { value: 1.5 },
+                    fill: { value: 'white' },
+                    size: { value: 30 },
+                },
+            },
+        },
+    ],
+
+    legends: [
+        {
+            fill: 'color',
+            title: 'Period',
+            orient: 'top-left',
+            offset: 8,
+            encode: {
+                symbols: {
+                    update: {
+                        strokeWidth: { value: 0 },
+                        shape: { value: 'square' },
+                        opacity: { value: 0.3 },
+                    },
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/annual-temperature
+const annualTemperature: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 800,
+    padding: 5,
+
+    config: {
+        title: { fontSize: 14 },
+    },
+
+    title: {
+        text: 'Seattle Annual Temperatures',
+        anchor: 'start',
+        offset: 4,
+    },
+
+    signals: [
+        { name: 'rangeStep', value: 25 },
+        { name: 'height', update: 'rangeStep * 24' },
+    ],
+
+    data: [
+        {
+            name: 'temperature',
+            url: 'data/seattle-temps.csv',
+            format: { type: 'csv', parse: { temp: 'number', date: 'date' } },
+            transform: [
+                { type: 'formula', as: 'hour', expr: 'hours(datum.date)' },
+                {
+                    type: 'formula',
+                    as: 'date',
+                    expr:
+                        'datetime(year(datum.date), month(datum.date), date(datum.date))',
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'row',
+            type: 'band',
+            domain: [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+            ],
+            range: { step: { signal: 'rangeStep' } },
+        },
+        {
+            name: 'x',
+            type: 'time',
+            domain: { data: 'temperature', field: 'date' },
+            range: 'width',
+        },
+        {
+            name: 'y',
+            type: 'linear',
+            zero: false,
+            domain: { data: 'temperature', field: 'temp' },
+            range: [{ signal: 'rangeStep' }, 1],
+        },
+    ],
+
+    axes: [
+        {
+            orient: 'bottom',
+            scale: 'x',
+            domain: false,
+            title: 'Month',
+            format: '%b',
+        },
+        {
+            orient: 'left',
+            scale: 'row',
+            domain: false,
+            title: 'Hour',
+            tickSize: 0,
+            encode: {
+                labels: {
+                    update: {
+                        text: {
+                            signal:
+                                "datum.value === 0 ? 'Midnight' : datum.value === 12 ? 'Noon' : datum.value < 12 ? datum.value + ':00 am' : (datum.value - 12) + ':00 pm'",
+                        },
+                    },
+                },
+            },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'group',
+            from: {
+                facet: {
+                    name: 'hour',
+                    data: 'temperature',
+                    groupby: 'hour',
+                },
+            },
+            encode: {
+                enter: {
+                    x: { value: 0 },
+                    y: { scale: 'row', field: 'hour' },
+                    width: { signal: 'width' },
+                    height: { signal: 'rangeStep' },
+                },
+            },
+            marks: [
+                {
+                    type: 'area',
+                    from: { data: 'hour' },
+                    encode: {
+                        enter: {
+                            x: { scale: 'x', field: 'date' },
+                            y: { scale: 'y', field: 'temp' },
+                            y2: { signal: 'rangeStep' },
+                        },
+                    },
+                },
+            ],
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/weekly-temperature
+const weeklyTemperature: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 250,
+    height: 200,
+
+    data: [
+        {
+            name: 'weather',
+            url: 'data/weather.json',
+        },
+        {
+            name: 'actual',
+            source: 'weather',
+            transform: [{ type: 'filter', expr: 'datum.actual' }],
+        },
+        {
+            name: 'forecast',
+            source: 'weather',
+            transform: [{ type: 'filter', expr: 'datum.forecast' }],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'x',
+            type: 'band',
+            range: 'width',
+            padding: 0.1,
+            round: true,
+            domain: { data: 'weather', field: 'id' },
+        },
+        {
+            name: 'y',
+            type: 'linear',
+            range: 'height',
+            nice: true,
+            zero: false,
+            round: true,
+            domain: {
+                data: 'weather',
+                fields: ['record.low', 'record.high'],
+            },
+        },
+    ],
+
+    axes: [
+        {
+            orient: 'right',
+            scale: 'y',
+            tickCount: 3,
+            tickSize: 0,
+            labelPadding: 0,
+            grid: true,
+            domain: false,
+            zindex: 1,
+            encode: {
+                grid: { enter: { stroke: { value: 'white' } } },
+            },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'text',
+            from: { data: 'weather' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'id' },
+                    dx: { scale: 'x', band: 0.5 },
+                    y: { value: 0 },
+                    fill: { value: '#000' },
+                    text: { field: 'day' },
+                    align: { value: 'center' },
+                    baseline: { value: 'bottom' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'weather' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'id' },
+                    width: { scale: 'x', band: 1, offset: -1 },
+                    y: { scale: 'y', field: 'record.low' },
+                    y2: { scale: 'y', field: 'record.high' },
+                    fill: { value: '#ccc' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'weather' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'id' },
+                    width: { scale: 'x', band: 1, offset: -1 },
+                    y: { scale: 'y', field: 'normal.low' },
+                    y2: { scale: 'y', field: 'normal.high' },
+                    fill: { value: '#999' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'actual' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'id', offset: 4 },
+                    width: { scale: 'x', band: 1, offset: -8 },
+                    y: { scale: 'y', field: 'actual.low' },
+                    y2: { scale: 'y', field: 'actual.high' },
+                    fill: { value: '#000' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'forecast' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'id', offset: 9 },
+                    width: { scale: 'x', band: 1, offset: -18 },
+                    y: { scale: 'y', field: 'forecast.low.low' },
+                    y2: { scale: 'y', field: 'forecast.high.high' },
+                    fill: { value: '#000' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'forecast' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'id', offset: 4 },
+                    width: { scale: 'x', band: 1, offset: -8 },
+                    y: { scale: 'y', field: 'forecast.low.low' },
+                    y2: { scale: 'y', field: 'forecast.low.high' },
+                    fill: { value: '#000' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'forecast' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'id', offset: 4 },
+                    width: { scale: 'x', band: 1, offset: -8 },
+                    y: { scale: 'y', field: 'forecast.high.low' },
+                    y2: { scale: 'y', field: 'forecast.high.high' },
+                    fill: { value: '#000' },
+                },
+            },
+        },
+    ],
+};
+
 // Runtime examples from https://vega.github.io/vega/usage/
 
 function clientSideApi() {
