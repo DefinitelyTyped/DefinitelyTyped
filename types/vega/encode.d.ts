@@ -136,7 +136,19 @@ export interface SymbolEncodeEntry extends EncodeEntry {
 }
 export declare type TextBaseline = 'alphabetic' | Baseline;
 export declare type TextDirection = 'ltr' | 'rtl';
-export declare type FontWeight = 'normal' | 'bold';
+export declare type FontWeight =
+    | 'normal'
+    | 'bold'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    ;
 export declare type FontStyle = 'normal' | 'italic';
 export interface TextEncodeEntry extends EncodeEntry, AlignProperty, ThetaProperty {
     text?: ProductionRule<StringValueRef>;

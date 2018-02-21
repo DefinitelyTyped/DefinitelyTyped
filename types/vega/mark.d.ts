@@ -35,6 +35,7 @@ export declare type Compare = {
 export interface BaseMark {
     role?: string;
     name?: string;
+    description?: string;
     key?: string;
     clip?: boolean;
     sort?: Compare;
