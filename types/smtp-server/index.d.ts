@@ -95,6 +95,11 @@ export interface SMTPServerSession {
      * Envelope Object
      */
     envelope: SMTPServerEnvelope;
+    /**
+     *  If true, then the connection is using TLS
+     */
+    secure: boolean;
+
     transmissionType: string;
 
     tlsOptions: tls.TlsOptions;
