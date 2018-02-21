@@ -635,29 +635,11 @@ export interface BarCodeScannerProps extends ViewProperties {
 
 export class BarCodeScanner extends Component<BarCodeScannerProps> {
   static Constants: {
-    BarCodeType: {
-      aztec: string,
-      codabar: string,
-      code39: string,
-      code93: string,
-      code128: string,
-      code138: string,
-      code39mod43: string,
-      datamatrix: string,
-      ean13: string,
-      ean8: string,
-      interleaved2of5: string,
-      itf14: string,
-      maxicode: string,
-      pdf417: string,
-      rss14: string,
-      rssexpanded: string,
-      upc_a: string,
-      upc_e: string,
-      upc_ean: string,
-      qr: string
+    TorchMode: {
+        on: string;
+        off: string;
     }
-  };
+  } & CameraConstants;
 }
 // #endregion
 
@@ -732,7 +714,28 @@ export interface CameraConstants {
     readonly AutoFocus: string;
     readonly WhiteBalance: string;
     readonly VideoQuality: string;
-    readonly BarCodeType: string;
+    readonly BarCodeType: {
+        aztec: string;
+        codabar: string;
+        code39: string;
+        code93: string;
+        code128: string;
+        code138: string;
+        code39mod43: string;
+        datamatrix: string;
+        ean13: string;
+        ean8: string;
+        interleaved2of5: string;
+        itf14: string;
+        maxicode: string;
+        pdf417: string;
+        rss14: string;
+        rssexpanded: string;
+        upc_a: string;
+        upc_e: string;
+        upc_ean: string;
+        qr: string;
+    };
 }
 
 export class Camera extends Component<CameraProps> {
