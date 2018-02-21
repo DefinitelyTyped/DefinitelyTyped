@@ -173,5 +173,8 @@ export interface Encode<T> {
         update?: T;
         exit?: T;
         hover?: T;
+        leave?: T;
+        select?: T;
+        release?: T;
     };
 }
