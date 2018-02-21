@@ -76,6 +76,10 @@ export interface SMTPServerSession {
      */
     remoteAddress: string;
     /**
+     * port number the connected client
+     */
+    remotePort: number;
+    /**
      * reverse resolved hostname for remoteAddress
      */
     clientHostname: string;
