@@ -1,7 +1,7 @@
 import { SignalRef } from './signal';
 export declare type RangeEnum = 'width' | 'height' | 'symbol' | 'category' | 'ordinal' | 'ramp' | 'diverging' | 'heatmap';
 export declare type RangeRaw = (null | boolean | string | number | SignalRef)[];
-export declare type RangeScheme = RangeEnum | RangeRaw | {
+export declare type RangeScheme = RangeEnum | RangeRaw | SignalRef | {
     scheme: string | SignalRef;
     count?: number | SignalRef;
     extent?: (number | SignalRef)[] | SignalRef;

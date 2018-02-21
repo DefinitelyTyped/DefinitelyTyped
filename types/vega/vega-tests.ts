@@ -7778,6 +7778,349 @@ const weeklyTemperature: Spec = {
     ],
 };
 
+// https://vega.github.io/editor/#/examples/vega/u-district-cuisine
+const uDistrictCuisine: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 500,
+    height: 380,
+    padding: 5,
+    autosize: 'pad',
+
+    config: {
+        text: {
+            font: 'Ideal Sans, Avenir Next, Helvetica',
+        },
+        title: {
+            font: 'Ideal Sans, Avenir Next, Helvetica',
+            fontWeight: 500,
+            fontSize: 17,
+            limit: -1,
+        },
+        axis: {
+            labelFont: 'Ideal Sans, Avenir Next, Helvetica',
+            labelFontSize: 12,
+        },
+    },
+
+    signals: [
+        { name: 'size', value: 2.3 },
+        { name: 'domainMax', value: 5000 },
+        { name: 'bandwidth', value: 0.0005 },
+        {
+            name: 'offsets',
+            value: {
+                bubbletea: -1,
+                chinese: -1.5,
+                japanese: -2,
+                korean: -3,
+                mideastern: -2,
+                indian: -1,
+                breakfast: -3.5,
+                latin: 31,
+            },
+        },
+        {
+            name: 'categories',
+            value: [
+                'coffee',
+                'drinks',
+                'bubbletea',
+                'vietnamese',
+                'thai',
+                'chinese',
+                'japanese',
+                'korean',
+                'mideastern',
+                'indian',
+                'burgers',
+                'pizza',
+                'american',
+                'breakfast',
+                'bakeries',
+                'seafood',
+                'hawaiian',
+                'veg',
+                'latin',
+            ],
+        },
+        {
+            name: 'names',
+            value: [
+                'Coffee',
+                'Pubs, Lounges',
+                'Bubble Tea, Juice',
+                'Vietnamese',
+                'Thai',
+                'Chinese',
+                'Japanese',
+                'Korean',
+                'Middle Eastern',
+                'Indian, Pakistani',
+                'Pizza',
+                'Burgers',
+                'American',
+                'Breakfast, Brunch',
+                'Bakeries',
+                'Seafood',
+                'Hawaiian',
+                'Vegetarian, Vegan',
+                'Mexican, Latin American',
+            ],
+        },
+        {
+            name: 'colors',
+            value: [
+                '#7f7f7f',
+                '#7f7f7f',
+                '#7f7f7f',
+                '#1f77b4',
+                '#1f77b4',
+                '#1f77b4',
+                '#1f77b4',
+                '#1f77b4',
+                '#2ca02c',
+                '#2ca02c',
+                '#ff7f0e',
+                '#ff7f0e',
+                '#ff7f0e',
+                '#8c564b',
+                '#8c564b',
+                '#e377c2',
+                '#e377c2',
+                '#bcbd22',
+                '#17becf',
+            ],
+        },
+    ],
+
+    data: [
+        {
+            name: 'source',
+            url: 'data/udistrict.json',
+        },
+        {
+            name: 'annotation',
+            values: [
+                { name: 'Boat St.', align: 'left', lat: 47.6516 },
+                { name: '40th St.', align: 'center', lat: 47.655363 },
+                { name: '42nd St.', align: 'center', lat: 47.6584 },
+                { name: '45th St.', align: 'center', lat: 47.6614 },
+                { name: '50th St.', align: 'center', lat: 47.664924 },
+                { name: '55th St.', align: 'center', lat: 47.668519 },
+            ],
+        },
+    ],
+
+    title: {
+        text: 'A Mile-Long Global Food Market: Mapping Cuisine from “The Ave”',
+        orient: 'top',
+        anchor: 'start',
+        offset: 48,
+        encode: {
+            update: {
+                dx: { value: -1 },
+            },
+        },
+    },
+
+    scales: [
+        {
+            name: 'xscale',
+            type: 'linear',
+            range: 'width',
+            zero: false,
+            domain: { data: 'source', field: 'lat' },
+        },
+        {
+            name: 'yscale',
+            type: 'band',
+            range: 'height',
+            round: true,
+            padding: 0,
+            domain: { signal: 'categories' },
+        },
+        {
+            name: 'color',
+            type: 'ordinal',
+            range: { signal: 'colors' },
+            domain: { signal: 'categories' },
+        },
+        {
+            name: 'names',
+            type: 'ordinal',
+            domain: { signal: 'categories' },
+            range: { signal: 'names' },
+        },
+    ],
+
+    axes: [
+        {
+            orient: 'right',
+            scale: 'yscale',
+            domain: false,
+            ticks: false,
+            encode: {
+                labels: {
+                    update: {
+                        dx: { value: 2 },
+                        dy: { value: 2 },
+                        y: { scale: 'yscale', field: 'value', band: 1 },
+                        text: { scale: 'names', field: 'value' },
+                        baseline: { value: 'bottom' },
+                    },
+                },
+            },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'rule',
+            from: { data: 'annotation' },
+            encode: {
+                update: {
+                    x: { signal: "round(scale('xscale', datum.lat)) + 0.5" },
+                    y: { value: 20 },
+                    x2: { signal: "round(scale('xscale', datum.lat)) + 0.5" },
+                    y2: { signal: 'height', offset: 6 },
+                    stroke: { value: '#ddd' },
+                    strokeDash: { value: [3, 2] },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'annotation' },
+            encode: {
+                update: {
+                    x: { scale: 'xscale', field: 'lat', offset: 0 },
+                    dx: { signal: "datum.align === 'left' ? -1 : 0" },
+                    y: { signal: 'height', offset: 6 },
+                    align: { field: 'align' },
+                    baseline: { value: 'top' },
+                    text: { field: 'name' },
+                    fontStyle: { value: 'italic' },
+                },
+            },
+        },
+        {
+            type: 'group',
+            from: {
+                facet: {
+                    data: 'source',
+                    name: 'category',
+                    groupby: 'key',
+                    aggregate: {
+                        ops: ['min', 'max', 'count'],
+                        fields: ['lat', 'lat', 'lat'],
+                        as: ['min_lat', 'max_lat', 'count'],
+                    },
+                },
+            },
+            encode: {
+                update: {
+                    y: { scale: 'yscale', field: 'key' },
+                    width: { signal: 'width' },
+                    height: { scale: 'yscale', band: 1 },
+                },
+            },
+            sort: {
+                field: 'y',
+                order: 'ascending',
+            },
+            signals: [{ name: 'height', update: "bandwidth('yscale')" }],
+            data: [
+                {
+                    name: 'density',
+                    source: 'category',
+                    transform: [
+                        {
+                            type: 'density',
+                            steps: 200,
+                            extent: { signal: "domain('xscale')" },
+                            distribution: {
+                                function: 'kde',
+                                field: 'lat',
+                                bandwidth: { signal: 'bandwidth' },
+                            },
+                        },
+                    ],
+                },
+            ],
+            scales: [
+                {
+                    name: 'yinner',
+                    type: 'linear',
+                    range: [
+                        { signal: 'height' },
+                        { signal: '0 - size * height' },
+                    ],
+                    domain: [0, { signal: 'domainMax' }],
+                },
+            ],
+            marks: [
+                {
+                    type: 'area',
+                    from: { data: 'density' },
+                    encode: {
+                        enter: {
+                            fill: { scale: 'color', field: { parent: 'key' } },
+                            fillOpacity: { value: 0.7 },
+                            stroke: { value: 'white' },
+                            strokeWidth: { value: 1 },
+                        },
+                        update: {
+                            x: { scale: 'xscale', field: 'value' },
+                            y: {
+                                scale: 'yinner',
+                                signal: 'parent.count * datum.density',
+                            },
+                            y2: { scale: 'yinner', value: 0 },
+                        },
+                    },
+                },
+                {
+                    type: 'rule',
+                    clip: true,
+                    encode: {
+                        update: {
+                            y: { signal: 'height', offset: -0.5 },
+                            x: {
+                                scale: 'xscale',
+                                field: { parent: 'min_lat' },
+                                offset: {
+                                    signal:
+                                        "scale('xscale', 0) - scale('xscale', 2*bandwidth) + (offsets[parent.key] || 1) - 3",
+                                },
+                            },
+                            x2: { signal: 'width' },
+                            stroke: { value: '#aaa' },
+                            strokeWidth: { value: 0.25 },
+                            strokeOpacity: { value: 1 },
+                        },
+                    },
+                },
+                {
+                    type: 'symbol',
+                    from: { data: 'category' },
+                    encode: {
+                        enter: {
+                            fillOpacity: { value: 0 },
+                            size: { value: 50 },
+                            tooltip: { field: 'name' },
+                        },
+                        update: {
+                            x: { scale: 'xscale', field: 'lat' },
+                            y: { scale: 'yscale', band: 0.5 },
+                            fill: { scale: 'color', field: 'key' },
+                        },
+                    },
+                },
+            ],
+        },
+    ],
+};
+
 // Runtime examples from https://vega.github.io/vega/usage/
 
 function clientSideApi() {
