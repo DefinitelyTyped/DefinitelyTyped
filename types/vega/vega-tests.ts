@@ -9665,6 +9665,455 @@ const zoomableScatterPlot: Spec = {
     ],
 };
 
+// https://vega.github.io/editor/#/examples/vega/global-development
+const globalDevelopment: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 800,
+    height: 600,
+    padding: 5,
+
+    data: [
+        {
+            name: 'gapminder',
+            url: 'data/gapminder.json',
+        },
+        {
+            name: 'clusters',
+            values: [
+                { id: 0, name: 'South Asia' },
+                { id: 1, name: 'Europe & Central Asia' },
+                { id: 2, name: 'Sub-Saharan Africa' },
+                { id: 3, name: 'America' },
+                { id: 4, name: 'East Asia & Pacific' },
+                { id: 5, name: 'Middle East & North Africa' },
+            ],
+        },
+        {
+            name: 'country_timeline',
+            source: 'gapminder',
+            transform: [
+                {
+                    type: 'filter',
+                    expr: 'timeline && datum.country == timeline.country',
+                },
+                { type: 'collect', sort: { field: 'year' } },
+            ],
+        },
+        {
+            name: 'thisYear',
+            source: 'gapminder',
+            transform: [{ type: 'filter', expr: 'datum.year == currentYear' }],
+        },
+        {
+            name: 'prevYear',
+            source: 'gapminder',
+            transform: [
+                {
+                    type: 'filter',
+                    expr: 'datum.year == currentYear - stepYear',
+                },
+            ],
+        },
+        {
+            name: 'nextYear',
+            source: 'gapminder',
+            transform: [
+                {
+                    type: 'filter',
+                    expr: 'datum.year == currentYear + stepYear',
+                },
+            ],
+        },
+        {
+            name: 'countries',
+            source: 'gapminder',
+            transform: [{ type: 'aggregate', groupby: ['country'] }],
+        },
+        {
+            name: 'interpolate',
+            source: 'countries',
+            transform: [
+                {
+                    type: 'lookup',
+                    from: 'thisYear',
+                    key: 'country',
+                    fields: ['country'],
+                    as: ['this'],
+                    default: {},
+                },
+                {
+                    type: 'lookup',
+                    from: 'prevYear',
+                    key: 'country',
+                    fields: ['country'],
+                    as: ['prev'],
+                    default: {},
+                },
+                {
+                    type: 'lookup',
+                    from: 'nextYear',
+                    key: 'country',
+                    fields: ['country'],
+                    as: ['next'],
+                    default: {},
+                },
+                {
+                    type: 'formula',
+                    as: 'target_fertility',
+                    expr:
+                        'interYear > currentYear ? datum.next.fertility : (datum.prev.fertility||datum.this.fertility)',
+                },
+                {
+                    type: 'formula',
+                    as: 'target_life_expect',
+                    expr:
+                        'interYear > currentYear ? datum.next.life_expect : (datum.prev.life_expect||datum.this.life_expect)',
+                },
+                {
+                    type: 'formula',
+                    as: 'inter_fertility',
+                    expr:
+                        'interYear==2000 ? datum.this.fertility : datum.this.fertility + (datum.target_fertility-datum.this.fertility) * abs(interYear-datum.this.year)/5',
+                },
+                {
+                    type: 'formula',
+                    as: 'inter_life_expect',
+                    expr:
+                        'interYear==2000 ? datum.this.life_expect : datum.this.life_expect + (datum.target_life_expect-datum.this.life_expect) * abs(interYear-datum.this.year)/5',
+                },
+            ],
+        },
+        {
+            name: 'trackCountries',
+            on: [{ trigger: 'active', toggle: '{country: active.country}' }],
+        },
+    ],
+
+    signals: [
+        { name: 'minYear', value: 1955 },
+        { name: 'maxYear', value: 2005 },
+        { name: 'stepYear', value: 5 },
+        {
+            name: 'active',
+            value: {},
+            on: [
+                {
+                    events: '@point:mousedown, @point:touchstart',
+                    update: 'datum',
+                },
+                { events: 'window:mouseup, window:touchend', update: '{}' },
+            ],
+        },
+        { name: 'isActive', update: 'active.country' },
+        {
+            name: 'timeline',
+            value: {},
+            on: [
+                {
+                    events: '@point:mouseover',
+                    update: 'isActive ? active : datum',
+                },
+                { events: '@point:mouseout', update: 'active' },
+                { events: { signal: 'active' }, update: 'active' },
+            ],
+        },
+        {
+            name: 'tX',
+            on: [
+                {
+                    events: 'mousemove!, touchmove!',
+                    update: "isActive ? scale('x', active.this.fertility) : tX",
+                },
+            ],
+        },
+        {
+            name: 'tY',
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        "isActive ? scale('y', active.this.life_expect) : tY",
+                },
+            ],
+        },
+        {
+            name: 'pX',
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update: "isActive ? scale('x', active.prev.fertility) : pX",
+                },
+            ],
+        },
+        {
+            name: 'pY',
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        "isActive ? scale('y', active.prev.life_expect) : pY",
+                },
+            ],
+        },
+        {
+            name: 'nX',
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update: "isActive ? scale('x', active.next.fertility) : nX",
+                },
+            ],
+        },
+        {
+            name: 'nY',
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        "isActive ? scale('y', active.next.life_expect) : nY",
+                },
+            ],
+        },
+        {
+            name: 'thisDist',
+            value: 0,
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        'isActive ? sqrt(pow(x()-tX, 2) + pow(y()-tY, 2)) : thisDist',
+                },
+            ],
+        },
+        {
+            name: 'prevDist',
+            value: 0,
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        'isActive ? sqrt(pow(x()-pX, 2) + pow(y()-pY, 2)): prevDist',
+                },
+            ],
+        },
+        {
+            name: 'nextDist',
+            value: 0,
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        'isActive ? sqrt(pow(x()-nX, 2) + pow(y()-nY, 2)) : nextDist',
+                },
+            ],
+        },
+        {
+            name: 'prevScore',
+            value: 0,
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        'isActive ? ((pX-tX) * (x()-tX) + (pY-tY) * (y()-tY))/prevDist || -999999 : prevScore',
+                },
+            ],
+        },
+        {
+            name: 'nextScore',
+            value: 0,
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        'isActive ? ((nX-tX) * (x()-tX) + (nY-tY) * (y()-tY))/nextDist || -999999 : nextScore',
+                },
+            ],
+        },
+        {
+            name: 'interYear',
+            value: 1980,
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        'isActive ? (min(maxYear, currentYear+5, max(minYear, currentYear-5, prevScore > nextScore ? (currentYear - 2.5*prevScore/sqrt(pow(pX-tX, 2) + pow(pY-tY, 2))) : (currentYear + 2.5*nextScore/sqrt(pow(nX-tX, 2) + pow(nY-tY, 2)))))) : interYear',
+                },
+            ],
+        },
+        {
+            name: 'currentYear',
+            value: 1980,
+            on: [
+                {
+                    events: 'mousemove, touchmove',
+                    update:
+                        'isActive ? (min(maxYear, max(minYear, prevScore > nextScore ? (thisDist < prevDist ? currentYear : currentYear-5) : (thisDist < nextDist ? currentYear : currentYear+5)))) : currentYear',
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'x',
+            type: 'linear',
+            nice: true,
+            domain: { data: 'gapminder', field: 'fertility' },
+            range: 'width',
+        },
+        {
+            name: 'y',
+            type: 'linear',
+            nice: true,
+            zero: false,
+            domain: { data: 'gapminder', field: 'life_expect' },
+            range: 'height',
+        },
+        {
+            name: 'color',
+            type: 'ordinal',
+            domain: { data: 'gapminder', field: 'cluster' },
+            range: 'category',
+        },
+        {
+            name: 'label',
+            type: 'ordinal',
+            domain: { data: 'clusters', field: 'id' },
+            range: { data: 'clusters', field: 'name' },
+        },
+    ],
+
+    axes: [
+        {
+            title: 'Fertility',
+            orient: 'bottom',
+            scale: 'x',
+            grid: true,
+            tickCount: 5,
+        },
+        {
+            title: 'Life Expectancy',
+            orient: 'left',
+            scale: 'y',
+            grid: true,
+            tickCount: 5,
+        },
+    ],
+
+    legends: [
+        {
+            fill: 'color',
+            title: 'Region',
+            orient: 'right',
+            encode: {
+                symbols: {
+                    enter: {
+                        fillOpacity: { value: 0.5 },
+                    },
+                },
+                labels: {
+                    update: {
+                        text: { scale: 'label', field: 'value' },
+                    },
+                },
+            },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'text',
+            encode: {
+                update: {
+                    text: { signal: 'currentYear' },
+                    x: { value: 300 },
+                    y: { value: 300 },
+                    fill: { value: 'grey' },
+                    fillOpacity: { value: 0.25 },
+                    fontSize: { value: 100 },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'country_timeline' },
+            interactive: false,
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'fertility', offset: 5 },
+                    y: { scale: 'y', field: 'life_expect' },
+                    fill: { value: '#555' },
+                    fillOpacity: { value: 0.6 },
+                    text: { field: 'year' },
+                },
+            },
+        },
+        {
+            type: 'line',
+            from: { data: 'country_timeline' },
+            encode: {
+                update: {
+                    x: { scale: 'x', field: 'fertility' },
+                    y: { scale: 'y', field: 'life_expect' },
+                    stroke: { value: '#bbb' },
+                    strokeWidth: { value: 5 },
+                    strokeOpacity: { value: 0.5 },
+                },
+            },
+        },
+        {
+            name: 'point',
+            type: 'symbol',
+            from: { data: 'interpolate' },
+            encode: {
+                enter: {
+                    fill: { scale: 'color', field: 'this.cluster' },
+                    size: { value: 150 },
+                },
+                update: {
+                    x: { scale: 'x', field: 'inter_fertility' },
+                    y: { scale: 'y', field: 'inter_life_expect' },
+                    fillOpacity: [
+                        {
+                            test:
+                                "datum.country==timeline.country || indata('trackCountries', 'country', datum.country)",
+                            value: 1,
+                        },
+                        { value: 0.5 },
+                    ],
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'interpolate' },
+            interactive: false,
+            encode: {
+                enter: {
+                    fill: { value: '#333' },
+                    fontSize: { value: 14 },
+                    fontWeight: { value: 'bold' },
+                    text: { field: 'country' },
+                    align: { value: 'center' },
+                    baseline: { value: 'bottom' },
+                },
+                update: {
+                    x: { scale: 'x', field: 'inter_fertility' },
+                    y: { scale: 'y', field: 'inter_life_expect', offset: -7 },
+                    fillOpacity: [
+                        {
+                            test:
+                                "datum.country==timeline.country || indata('trackCountries', 'country', datum.country)",
+                            value: 0.8,
+                        },
+                        { value: 0 },
+                    ],
+                },
+            },
+        },
+    ],
+};
+
 // Runtime examples from https://vega.github.io/vega/usage/
 
 function clientSideApi() {
