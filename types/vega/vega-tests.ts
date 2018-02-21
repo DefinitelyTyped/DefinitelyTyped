@@ -6458,27 +6458,6 @@ const parallelCoordinates: Spec = {
     ],
 };
 
-// Runtime examples from https://vega.github.io/vega/usage/
-
-function clientSideApi() {
-    var view;
-
-    vega
-        .loader()
-        .load('https://vega.github.io/vega/examples/bar-chart.vg.json')
-        .then(function(data) {
-            render(JSON.parse(data));
-        });
-
-    function render(spec: Spec) {
-        view = new vega.View(vega.parse(spec))
-            .renderer('canvas') // set renderer (canvas or svg)
-            .initialize('#view') // initialize view within parent DOM container
-            .hover() // enable hover encode set processing
-            .run();
-    }
-}
-
 // https://vega.github.io/editor/#/examples/vega/timelines
 const timelines: Spec = {
     $schema: 'https://vega.github.io/schema/vega/v3.json',
@@ -7301,6 +7280,27 @@ const wheatAndWages: Spec = {
         },
     ],
 };
+
+// Runtime examples from https://vega.github.io/vega/usage/
+
+function clientSideApi() {
+    var view;
+
+    vega
+        .loader()
+        .load('https://vega.github.io/vega/examples/bar-chart.vg.json')
+        .then(function(data) {
+            render(JSON.parse(data));
+        });
+
+    function render(spec: Spec) {
+        view = new vega.View(vega.parse(spec))
+            .renderer('canvas') // set renderer (canvas or svg)
+            .initialize('#view') // initialize view within parent DOM container
+            .hover() // enable hover encode set processing
+            .run();
+    }
+}
 
 function serverSideApi() {
     // create a new view instance for a given Vega JSON spec
