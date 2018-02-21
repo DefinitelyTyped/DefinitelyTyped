@@ -6479,6 +6479,829 @@ function clientSideApi() {
     }
 }
 
+// https://vega.github.io/editor/#/examples/vega/timelines
+const timelines: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 500,
+    height: 80,
+    padding: 5,
+
+    data: [
+        {
+            name: 'people',
+            values: [
+                {
+                    label: 'Washington',
+                    born: -7506057600000,
+                    died: -5366196000000,
+                    enter: -5701424400000,
+                    leave: -5453884800000,
+                },
+                {
+                    label: 'Adams',
+                    born: -7389766800000,
+                    died: -4528285200000,
+                    enter: -5453884800000,
+                    leave: -5327740800000,
+                },
+                {
+                    label: 'Jefferson',
+                    born: -7154586000000,
+                    died: -4528285200000,
+                    enter: -5327740800000,
+                    leave: -5075280000000,
+                },
+                {
+                    label: 'Madison',
+                    born: -6904544400000,
+                    died: -4213184400000,
+                    enter: -5075280000000,
+                    leave: -4822819200000,
+                },
+                {
+                    label: 'Monroe',
+                    born: -6679904400000,
+                    died: -4370518800000,
+                    enter: -4822819200000,
+                    leave: -4570358400000,
+                },
+            ],
+        },
+        {
+            name: 'events',
+            format: { type: 'json', parse: { when: 'date' } },
+            values: [
+                { name: 'Decl. of Independence', when: 'July 4, 1776' },
+                { name: 'U.S. Constitution', when: '3/4/1789' },
+                { name: 'Louisiana Purchase', when: 'April 30, 1803' },
+                { name: 'Monroe Doctrine', when: 'Dec 2, 1823' },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'yscale',
+            type: 'band',
+            range: [0, { signal: 'height' }],
+            domain: { data: 'people', field: 'label' },
+        },
+        {
+            name: 'xscale',
+            type: 'time',
+            range: 'width',
+            round: true,
+            domain: { data: 'people', fields: ['born', 'died'] },
+        },
+    ],
+
+    axes: [{ orient: 'bottom', scale: 'xscale' }],
+
+    marks: [
+        {
+            type: 'text',
+            from: { data: 'events' },
+            encode: {
+                enter: {
+                    x: { scale: 'xscale', field: 'when' },
+                    y: { value: -10 },
+                    angle: { value: -25 },
+                    fill: { value: '#000' },
+                    text: { field: 'name' },
+                    fontSize: { value: 10 },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'events' },
+            encode: {
+                enter: {
+                    x: { scale: 'xscale', field: 'when' },
+                    y: { value: -8 },
+                    width: { value: 1 },
+                    height: { field: { group: 'height' }, offset: 8 },
+                    fill: { value: '#888' },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'people' },
+            encode: {
+                enter: {
+                    x: { scale: 'xscale', field: 'born' },
+                    y: { scale: 'yscale', field: 'label', offset: -3 },
+                    fill: { value: '#000' },
+                    text: { field: 'label' },
+                    fontSize: { value: 10 },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'people' },
+            encode: {
+                enter: {
+                    x: { scale: 'xscale', field: 'born' },
+                    x2: { scale: 'xscale', field: 'died' },
+                    y: { scale: 'yscale', field: 'label' },
+                    height: { value: 2 },
+                    fill: { value: '#557' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'people' },
+            encode: {
+                enter: {
+                    x: { scale: 'xscale', field: 'enter' },
+                    x2: { scale: 'xscale', field: 'leave' },
+                    y: { scale: 'yscale', field: 'label', offset: -1 },
+                    height: { value: 4 },
+                    fill: { value: '#e44' },
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/beeswarm-plot
+const beeswarmPlot: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 800,
+    height: 100,
+    padding: { left: 5, right: 5, top: 0, bottom: 20 },
+    autosize: 'none',
+
+    signals: [
+        { name: 'cx', update: 'width / 2' },
+        { name: 'cy', update: 'height / 2' },
+        {
+            name: 'radius',
+            value: 8,
+            bind: { input: 'range', min: 2, max: 15, step: 1 },
+        },
+        {
+            name: 'collide',
+            value: 1,
+            bind: { input: 'range', min: 1, max: 10, step: 1 },
+        },
+        {
+            name: 'gravityX',
+            value: 0.2,
+            bind: { input: 'range', min: 0, max: 1 },
+        },
+        {
+            name: 'gravityY',
+            value: 0.1,
+            bind: { input: 'range', min: 0, max: 1 },
+        },
+        { name: 'static', value: true, bind: { input: 'checkbox' } },
+    ],
+
+    data: [
+        {
+            name: 'people',
+            url: 'data/miserables.json',
+            format: { type: 'json', property: 'nodes' },
+        },
+    ],
+
+    scales: [
+        {
+            name: 'xscale',
+            type: 'band',
+            domain: {
+                data: 'people',
+                field: 'group',
+                sort: true,
+            },
+            range: 'width',
+        },
+        {
+            name: 'color',
+            type: 'ordinal',
+            range: { scheme: 'category20c' },
+        },
+    ],
+
+    axes: [{ orient: 'bottom', scale: 'xscale' }],
+
+    marks: [
+        {
+            name: 'nodes',
+            type: 'symbol',
+            from: { data: 'people' },
+            encode: {
+                enter: {
+                    fill: { scale: 'color', field: 'group' },
+                    xfocus: { scale: 'xscale', field: 'group', band: 0.5 },
+                    yfocus: { signal: 'cy' },
+                },
+                update: {
+                    size: { signal: 'pow(2 * radius, 2)' },
+                    stroke: { value: 'white' },
+                    strokeWidth: { value: 1 },
+                    zindex: { value: 0 },
+                },
+                hover: {
+                    stroke: { value: 'purple' },
+                    strokeWidth: { value: 3 },
+                    zindex: { value: 1 },
+                },
+            },
+            transform: [
+                {
+                    type: 'force',
+                    iterations: 300,
+                    static: { signal: 'static' },
+                    forces: [
+                        {
+                            force: 'collide',
+                            iterations: { signal: 'collide' },
+                            radius: { signal: 'radius' },
+                        },
+                        {
+                            force: 'x',
+                            x: 'xfocus',
+                            strength: { signal: 'gravityX' },
+                        },
+                        {
+                            force: 'y',
+                            y: 'yfocus',
+                            strength: { signal: 'gravityY' },
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/budget-forecasts
+const budgetForecasts: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 700,
+    height: 400,
+    padding: 5,
+    background: '#edf1f7',
+
+    config: {
+        axisBand: {
+            bandPosition: 0,
+            labelPadding: 5,
+            tickExtra: false,
+        },
+    },
+
+    signals: [
+        {
+            name: 'dragging',
+            value: false,
+            on: [
+                { events: '@handle:mousedown', update: 'true' },
+                { events: 'mouseup', update: 'false' },
+            ],
+        },
+        {
+            name: 'handleYear',
+            value: 2010,
+            on: [
+                {
+                    events:
+                        '[@handle:mousedown, window:mouseup] > window:mousemove!',
+                    update: "invert('x', clamp(x(), 0, width))",
+                },
+            ],
+        },
+        {
+            name: 'currentYear',
+            update: 'clamp(handleYear, 1980, 2010)',
+        },
+        {
+            name: 'tipYear',
+            on: [
+                {
+                    events: 'mousemove',
+                    update: "dragging ? tipYear : invert('x', x())",
+                },
+            ],
+        },
+        {
+            name: 'tipValue',
+            on: [
+                {
+                    events: 'mousemove',
+                    update: "dragging ? tipValue : invert('y', y())",
+                },
+            ],
+        },
+        {
+            name: 'cursor',
+            value: 'default',
+            on: [
+                {
+                    events: { signal: 'dragging' },
+                    update: "dragging ? 'pointer' : 'default'",
+                },
+            ],
+        },
+    ],
+
+    data: [
+        {
+            name: 'budgets',
+            url: 'data/budgets.json',
+            transform: [
+                { type: 'formula', as: 'abs', expr: 'abs(datum.value)' },
+                {
+                    type: 'formula',
+                    as: 'type',
+                    expr: "datum.value < 0 ? 'deficit' : 'surplus'",
+                },
+            ],
+        },
+        {
+            name: 'budgets-current',
+            source: 'budgets',
+            transform: [
+                { type: 'filter', expr: 'datum.budgetYear <= currentYear' },
+            ],
+        },
+        {
+            name: 'budgets-actual',
+            source: 'budgets',
+            transform: [
+                {
+                    type: 'filter',
+                    expr:
+                        'datum.budgetYear <= currentYear && datum.forecastYear == datum.budgetYear - 1',
+                },
+            ],
+        },
+        {
+            name: 'tooltip',
+            source: 'budgets',
+            transform: [
+                {
+                    type: 'filter',
+                    expr:
+                        'datum.budgetYear <= currentYear && datum.forecastYear == tipYear && abs(datum.value - tipValue) <= 0.1',
+                },
+                {
+                    type: 'aggregate',
+                    fields: ['value', 'value'],
+                    ops: ['min', 'argmin'],
+                    as: ['min', 'argmin'],
+                },
+                {
+                    type: 'formula',
+                    as: 'tooltipYear',
+                    expr: 'datum.argmin.budgetYear',
+                },
+            ],
+        },
+        {
+            name: 'tooltip-forecast',
+            source: 'budgets',
+            transform: [
+                {
+                    type: 'lookup',
+                    from: 'tooltip',
+                    key: 'tooltipYear',
+                    fields: ['budgetYear'],
+                    as: ['tooltip'],
+                },
+                { type: 'filter', expr: 'datum.tooltip' },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'x',
+            type: 'band',
+            domain: { data: 'budgets', field: 'forecastYear' },
+            range: 'width',
+        },
+        {
+            name: 'y',
+            type: 'linear',
+            zero: true,
+            domain: { data: 'budgets', field: 'value' },
+            range: 'height',
+        },
+    ],
+
+    axes: [
+        {
+            orient: 'bottom',
+            scale: 'x',
+            grid: true,
+            domain: false,
+            values: [
+                1982,
+                1986,
+                1990,
+                1994,
+                1998,
+                2002,
+                2006,
+                2010,
+                2014,
+                2018,
+            ],
+            tickSize: 0,
+            encode: {
+                grid: {
+                    enter: {
+                        stroke: { value: 'white' },
+                        strokeOpacity: { value: 0.75 },
+                    },
+                },
+                labels: {
+                    update: {
+                        x: { scale: 'x', field: 'value' },
+                    },
+                },
+            },
+        },
+        {
+            orient: 'right',
+            scale: 'y',
+            grid: true,
+            domain: false,
+            values: [0, -0.5, -1, -1.5],
+            tickSize: 0,
+            encode: {
+                grid: {
+                    enter: {
+                        stroke: { value: 'white' },
+                        strokeOpacity: { value: 0.75 },
+                    },
+                },
+                labels: {
+                    enter: {
+                        text: {
+                            signal: "format(datum.value, '$.1f') + ' trillion'",
+                        },
+                    },
+                },
+            },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'group',
+            from: {
+                facet: {
+                    name: 'facet',
+                    data: 'budgets-current',
+                    groupby: 'budgetYear',
+                },
+            },
+
+            marks: [
+                {
+                    type: 'line',
+                    from: { data: 'facet' },
+                    encode: {
+                        update: {
+                            x: { scale: 'x', field: 'forecastYear' },
+                            y: { scale: 'y', field: 'value' },
+                            stroke: { value: 'steelblue' },
+                            strokeWidth: { value: 1 },
+                            strokeOpacity: { value: 0.25 },
+                        },
+                    },
+                },
+            ],
+        },
+        {
+            type: 'line',
+            from: { data: 'budgets-actual' },
+            encode: {
+                update: {
+                    x: { scale: 'x', field: 'forecastYear' },
+                    y: { scale: 'y', field: 'value' },
+                    stroke: { value: 'steelblue' },
+                    strokeWidth: { value: 3 },
+                },
+            },
+        },
+
+        {
+            type: 'line',
+            from: { data: 'tooltip-forecast' },
+            encode: {
+                update: {
+                    x: { scale: 'x', field: 'forecastYear' },
+                    y: { scale: 'y', field: 'value' },
+                    stroke: { value: 'black' },
+                    strokeWidth: { value: 1 },
+                },
+            },
+        },
+        {
+            type: 'symbol',
+            from: { data: 'tooltip' },
+            encode: {
+                update: {
+                    x: { scale: 'x', field: 'argmin.forecastYear' },
+                    y: { scale: 'y', field: 'argmin.value' },
+                    size: { value: 50 },
+                    fill: { value: 'black' },
+                },
+            },
+        },
+
+        {
+            type: 'rule',
+            encode: {
+                enter: {
+                    y: { scale: 'y', value: 0 },
+                    stroke: { value: '#000' },
+                    strokeWidth: { value: 1 },
+                },
+                update: {
+                    x: { value: 0 },
+                    x2: { scale: 'x', signal: 'currentYear' },
+                },
+            },
+        },
+        {
+            name: 'handle',
+            type: 'symbol',
+            encode: {
+                enter: {
+                    y: { scale: 'y', value: 0, offset: 1 },
+                    shape: { value: 'triangle-down' },
+                    size: { value: 400 },
+                    stroke: { value: '#000' },
+                    strokeWidth: { value: 0.5 },
+                },
+                update: {
+                    x: { scale: 'x', signal: 'currentYear' },
+                    fill: { signal: "dragging ? 'lemonchiffon' : '#fff'" },
+                },
+                hover: {
+                    fill: { value: 'lemonchiffon' },
+                    cursor: { value: 'pointer' },
+                },
+            },
+        },
+        {
+            type: 'text',
+            encode: {
+                enter: {
+                    x: { value: 0 },
+                    y: { value: 25 },
+                    fontSize: { value: 32 },
+                    fontWeight: { value: 'bold' },
+                    fill: { value: 'steelblue' },
+                },
+                update: {
+                    text: { signal: 'currentYear' },
+                },
+            },
+        },
+
+        {
+            type: 'group',
+            from: { data: 'tooltip' },
+            interactive: false,
+            encode: {
+                update: {
+                    x: { scale: 'x', field: 'argmin.forecastYear', offset: -5 },
+                    y: { scale: 'y', field: 'argmin.value', offset: 20 },
+                    width: { value: 150 },
+                    height: { value: 35 },
+                    fill: { value: '#fff' },
+                    fillOpacity: { value: 0.85 },
+                    stroke: { value: '#aaa' },
+                    strokeWidth: { value: 0.5 },
+                },
+            },
+            marks: [
+                {
+                    type: 'text',
+                    interactive: false,
+                    encode: {
+                        update: {
+                            x: { value: 6 },
+                            y: { value: 14 },
+                            text: {
+                                signal:
+                                    "'Forecast from early ' + parent.argmin.budgetYear",
+                            },
+                            fill: { value: 'black' },
+                            fontWeight: { value: 'bold' },
+                        },
+                    },
+                },
+                {
+                    type: 'text',
+                    interactive: false,
+                    encode: {
+                        update: {
+                            x: { value: 6 },
+                            y: { value: 29 },
+                            text: {
+                                signal:
+                                    "parent.argmin.forecastYear + ': ' + format(parent.argmin.abs, '$.3f') + ' trillion ' + parent.argmin.type",
+                            },
+                            fill: { value: 'black' },
+                            align: { value: 'left' },
+                        },
+                    },
+                },
+            ],
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/wheat-and-wages
+const wheatAndWages: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 900,
+    height: 465,
+    padding: 5,
+
+    data: [
+        {
+            name: 'wheat',
+            url: 'data/wheat.json',
+        },
+        {
+            name: 'wheat-filtered',
+            source: 'wheat',
+            transform: [{ type: 'filter', expr: '!!datum.wages' }],
+        },
+        {
+            name: 'monarchs',
+            url: 'data/monarchs.json',
+            transform: [
+                {
+                    type: 'formula',
+                    expr:
+                        '((!datum.commonwealth && datum.index % 2) ? -1: 1) * 2 + 95',
+                    as: 'offset',
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'x',
+            type: 'linear',
+            range: 'width',
+            domain: [1565, 1825],
+            zero: false,
+        },
+        {
+            name: 'y',
+            type: 'linear',
+            range: 'height',
+            zero: true,
+            domain: { data: 'wheat', field: 'wheat' },
+        },
+        {
+            name: 'c',
+            type: 'ordinal',
+            range: ['black', 'white'],
+            domain: { data: 'monarchs', field: 'commonwealth' },
+        },
+    ],
+
+    axes: [
+        {
+            orient: 'bottom',
+            scale: 'x',
+            tickCount: 5,
+            format: '04d',
+        },
+        {
+            orient: 'right',
+            scale: 'y',
+            grid: true,
+            domain: false,
+            zindex: 1,
+            tickCount: 5,
+            offset: 5,
+            tickSize: 0,
+            encode: {
+                grid: {
+                    enter: {
+                        stroke: { value: '#fff' },
+                        strokeWidth: { value: 1 },
+                        strokeOpacity: { value: 0.25 },
+                    },
+                },
+                labels: {
+                    enter: {
+                        fontStyle: { value: 'italic' },
+                    },
+                },
+            },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'rect',
+            from: { data: 'wheat' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'year' },
+                    width: { value: 17 },
+                    y: { scale: 'y', field: 'wheat' },
+                    y2: { scale: 'y', value: 0 },
+                    fill: { value: '#aaa' },
+                    stroke: { value: '#5d5d5d' },
+                    strokeWidth: { value: 0.25 },
+                },
+            },
+        },
+        {
+            type: 'area',
+            from: { data: 'wheat-filtered' },
+            encode: {
+                enter: {
+                    interpolate: { value: 'linear' },
+                    x: { scale: 'x', field: 'year' },
+                    y: { scale: 'y', field: 'wages' },
+                    y2: { scale: 'y', value: 0 },
+                    fill: { value: '#B3D9E6' },
+                    fillOpacity: { value: 0.8 },
+                },
+            },
+        },
+        {
+            type: 'line',
+            from: { data: 'wheat-filtered' },
+            encode: {
+                enter: {
+                    interpolate: { value: 'linear' },
+                    x: { scale: 'x', field: 'year' },
+                    y: { scale: 'y', field: 'wages' },
+                    stroke: { value: '#ff7e79' },
+                    strokeWidth: { value: 3 },
+                },
+            },
+        },
+        {
+            type: 'line',
+            from: { data: 'wheat-filtered' },
+            encode: {
+                enter: {
+                    interpolate: { value: 'linear' },
+                    x: { scale: 'x', field: 'year' },
+                    y: { scale: 'y', field: 'wages' },
+                    stroke: { value: '#000' },
+                    strokeWidth: { value: 1 },
+                },
+            },
+        },
+        {
+            name: 'monarch_rects',
+            type: 'rect',
+            from: { data: 'monarchs' },
+            encode: {
+                enter: {
+                    x: { scale: 'x', field: 'start' },
+                    x2: { scale: 'x', field: 'end' },
+                    y: { scale: 'y', value: 95 },
+                    y2: { scale: 'y', field: 'offset' },
+                    fill: { scale: 'c', field: 'commonwealth' },
+                    stroke: { value: '#000' },
+                    strokeWidth: { value: 2 },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'monarch_rects' },
+            encode: {
+                enter: {
+                    x: { field: 'x' },
+                    dx: { field: 'width', mult: 0.5 },
+                    y: { field: 'y2', offset: 14 },
+                    text: { field: 'datum.name' },
+                    align: { value: 'center' },
+                    fill: { value: 'black' },
+                    font: { value: 'Helvetica Neue, Arial' },
+                    fontSize: { value: 10 },
+                    fontStyle: { value: 'italic' },
+                },
+            },
+        },
+    ],
+};
+
 function serverSideApi() {
     // create a new view instance for a given Vega JSON spec
     var view = new vega.View(vega.parse(histogram))

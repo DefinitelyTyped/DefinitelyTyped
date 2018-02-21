@@ -80,6 +80,8 @@ export interface EncodeEntry {
     zindex?: ProductionRule<NumericValueRef>;
     cursor?: ProductionRule<StringValueRef>;
     tooltip?: ProductionRule<StringValueRef>;
+    xfocus?: ProductionRule<NumericValueRef>;
+    yfocus?: ProductionRule<NumericValueRef>;
 }
 export declare type Align = 'left' | 'center' | 'right';
 export interface AlignProperty {
