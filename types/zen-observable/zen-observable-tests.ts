@@ -1,4 +1,4 @@
-import Observable = require('zen-observable');
+import Observable from 'zen-observable';
 
 function assert(val: boolean) {
     if (!val) {

@@ -1,4 +1,4 @@
-// Type definitions for zen-observable 0.5
+// Type definitions for zen-observable 0.8
 // Project: https://github.com/zenparsing/zen-observable
 // Definitions by: Kombu <https://github.com/aicest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -59,4 +59,4 @@ declare class Observable<T> {
 declare namespace Observable {
 }
 
-export = Observable;
+export default Observable;
