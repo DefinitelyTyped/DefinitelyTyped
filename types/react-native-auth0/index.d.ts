@@ -1,4 +1,4 @@
-// Type definitions for react-native 1.2
+// Type definitions for react-native-auth0 1.2
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,7 +14,7 @@ export interface AuthorizationUrlParams {
     state: string;
 }
 
-export interface CreateUserParams<T extends any> {
+export interface CreateUserParams<T> {
     email: string;
     username?: string;
     password: string;
@@ -80,7 +80,7 @@ export interface UserInfo {
 }
 export class Auth {
     authorizationUrl(params: AuthorizationUrlParams): string;
-    createUser(user: CreateUserParams<any>): Promise<CreateUserResponse>;
+    createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<string>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
@@ -121,10 +121,8 @@ export interface PatchUserParams<T> {
 export class Users {
     constructor(options: UsersOptions);
     /* tslint:disable-next-line no-unnecessary-generics */
-    getUser<T extends any>(parameters: GetUserParams): Promise<Auth0User<T>>;
-    patchUser<T extends any>(
-        parameters: PatchUserParams<T>
-    ): Promise<Auth0User<T>>;
+    getUser<T>(parameters: GetUserParams): Promise<Auth0User<T>>;
+    patchUser<T>(parameters: PatchUserParams<T>): Promise<Auth0User<T>>;
 }
 
 export const users: Users;
@@ -145,7 +143,7 @@ export interface ClearSessionParams {
 
 export class WebAuth {
     authorize(parameters: AuthorizeParams): Promise<any>;
-    clearSession(parameters: ClearSessionParams): Promise<any>;
+    clearSession(parameters?: ClearSessionParams): Promise<any>;
 }
 
 export interface UsersOptions {
