@@ -109,7 +109,7 @@ export interface SMTPServerEnvelope {
     /**
      * includes an address object or is set to false
      */
-    mailFrom: SMTPServerAddress;
+    mailFrom: SMTPServerAddress | false;
     /**
      * includes an array of address objects
      */
