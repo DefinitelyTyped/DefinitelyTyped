@@ -1,4 +1,4 @@
-import * as jq from 'jquery';
+import jq = require('jquery');
 
 const $window = jq(window);
 // $ExpectType JQuery<HTMLElement>
