@@ -16,11 +16,16 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/socket-commons": ["feathersjs__socket-commons"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/socket-commons": [
+                "feathersjs__socket-commons"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__socket-commons-tests.ts"
+        "index.d.ts",
+        "feathersjs__socket-commons-tests.ts"
     ]
 }

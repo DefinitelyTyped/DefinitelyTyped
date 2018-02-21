@@ -2,13 +2,14 @@
 // Project: https://msdn.microsoft.com/en-us/library/fp179694.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="activex-office" />
 /// <reference types="activex-vbide" />
 /// <reference types="activex-stdole" />
 
 declare namespace Excel {
+    // tslint:disable-next-line:no-const-enum
     const enum Constants {
         xl3DBar = -4099,
         xl3DEffects1 = 13,
@@ -179,6 +180,7 @@ declare namespace Excel {
         xlWorksheetShort = 5,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAboveBelow {
         xlAboveAverage = 0,
         xlAboveStdDev = 4,
@@ -188,6 +190,7 @@ declare namespace Excel {
         xlEqualBelowAverage = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlActionType {
         xlActionTypeDrillthrough = 256,
         xlActionTypeReport = 128,
@@ -195,21 +198,25 @@ declare namespace Excel {
         xlActionTypeUrl = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAllocation {
         xlAutomaticAllocation = 2,
         xlManualAllocation = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAllocationMethod {
         xlEqualAllocation = 1,
         xlWeightedAllocation = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAllocationValue {
         xlAllocateIncrement = 2,
         xlAllocateValue = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlApplicationInternational {
         xl24HourClock = 33,
         xl4DigitYears = 43,
@@ -258,11 +265,13 @@ declare namespace Excel {
         xlYearCode = 19,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlApplyNamesOrder {
         xlColumnThenRow = 2,
         xlRowThenColumn = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlArabicModes {
         xlArabicBothStrict = 3,
         xlArabicNone = 0,
@@ -270,6 +279,7 @@ declare namespace Excel {
         xlArabicStrictFinalYaa = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlArrangeStyle {
         xlArrangeStyleCascade = 7,
         xlArrangeStyleHorizontal = -4128,
@@ -277,12 +287,14 @@ declare namespace Excel {
         xlArrangeStyleVertical = -4166,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlArrowHeadLength {
         xlArrowHeadLengthLong = 3,
         xlArrowHeadLengthMedium = -4138,
         xlArrowHeadLengthShort = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlArrowHeadStyle {
         xlArrowHeadStyleClosed = 3,
         xlArrowHeadStyleDoubleClosed = 5,
@@ -291,12 +303,14 @@ declare namespace Excel {
         xlArrowHeadStyleOpen = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlArrowHeadWidth {
         xlArrowHeadWidthMedium = -4138,
         xlArrowHeadWidthNarrow = 1,
         xlArrowHeadWidthWide = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAutoFillType {
         xlFillCopy = 1,
         xlFillDays = 5,
@@ -311,6 +325,7 @@ declare namespace Excel {
         xlLinearTrend = 9,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAutoFilterOperator {
         xlAnd = 1,
         xlBottom10Items = 4,
@@ -328,6 +343,7 @@ declare namespace Excel {
         xlTop10Percent = 5,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAxisCrosses {
         xlAxisCrossesAutomatic = -4105,
         xlAxisCrossesCustom = -4114,
@@ -335,23 +351,27 @@ declare namespace Excel {
         xlAxisCrossesMinimum = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAxisGroup {
         xlPrimary = 1,
         xlSecondary = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlAxisType {
         xlCategory = 1,
         xlSeriesAxis = 3,
         xlValue = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlBackground {
         xlBackgroundAutomatic = -4105,
         xlBackgroundOpaque = 3,
         xlBackgroundTransparent = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlBarShape {
         xlBox = 0,
         xlConeToMax = 5,
@@ -361,6 +381,7 @@ declare namespace Excel {
         xlPyramidToPoint = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlBordersIndex {
         xlDiagonalDown = 5,
         xlDiagonalUp = 6,
@@ -372,6 +393,7 @@ declare namespace Excel {
         xlInsideVertical = 11,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlBorderWeight {
         xlHairline = 1,
         xlMedium = -4138,
@@ -379,6 +401,7 @@ declare namespace Excel {
         xlThin = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlBuiltInDialog {
         _xlDialogChartSourceData = 541,
         _xlDialogPhonetic = 538,
@@ -641,53 +664,62 @@ declare namespace Excel {
         xlDialogZoom = 256,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCalcFor {
         xlAllValues = 0,
         xlColGroups = 2,
         xlRowGroups = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCalculatedMemberType {
         xlCalculatedMember = 0,
         xlCalculatedSet = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCalculation {
         xlCalculationAutomatic = -4105,
         xlCalculationManual = -4135,
         xlCalculationSemiautomatic = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCalculationInterruptKey {
         xlAnyKey = 2,
         xlEscKey = 1,
         xlNoKey = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCalculationState {
         xlCalculating = 1,
         xlDone = 0,
         xlPending = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCategoryType {
         xlAutomaticScale = -4105,
         xlCategoryScale = 2,
         xlTimeScale = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCellChangedState {
         xlCellChangeApplied = 3,
         xlCellChanged = 2,
         xlCellNotChanged = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCellInsertionMode {
         xlInsertDeleteCells = 1,
         xlInsertEntireRows = 2,
         xlOverwriteCells = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCellType {
         xlCellTypeAllFormatConditions = -4172,
         xlCellTypeAllValidation = -4174,
@@ -701,17 +733,20 @@ declare namespace Excel {
         xlCellTypeVisible = 12,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartElementPosition {
         xlChartElementPositionAutomatic = -4105,
         xlChartElementPositionCustom = -4114,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartGallery {
         xlAnyGallery = 23,
         xlBuiltIn = 21,
         xlUserDefined = 22,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartItem {
         xlAxis = 21,
         xlAxisTitle = 17,
@@ -747,12 +782,14 @@ declare namespace Excel {
         xlYErrorBars = 11,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartLocation {
         xlLocationAsNewSheet = 1,
         xlLocationAsObject = 2,
         xlLocationAutomatic = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartPicturePlacement {
         xlAllFaces = 7,
         xlEnd = 2,
@@ -763,12 +800,14 @@ declare namespace Excel {
         xlSides = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartPictureType {
         xlStack = 2,
         xlStackScale = 3,
         xlStretch = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartSplitType {
         xlSplitByCustomSplit = 4,
         xlSplitByPercentValue = 3,
@@ -776,6 +815,7 @@ declare namespace Excel {
         xlSplitByValue = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlChartType {
         xl3DArea = -4098,
         xl3DAreaStacked = 78,
@@ -852,12 +892,14 @@ declare namespace Excel {
         xlXYScatterSmoothNoMarkers = 73,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCheckInVersionType {
         xlCheckInMajorVersion = 1,
         xlCheckInMinorVersion = 0,
         xlCheckInOverwriteVersion = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlClipboardFormat {
         xlClipboardFormatBIFF = 8,
         xlClipboardFormatBIFF12 = 63,
@@ -895,6 +937,7 @@ declare namespace Excel {
         xlClipboardFormatWK1 = 10,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCmdType {
         xlCmdCube = 1,
         xlCmdDefault = 4,
@@ -903,11 +946,13 @@ declare namespace Excel {
         xlCmdTable = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlColorIndex {
         xlColorIndexAutomatic = -4105,
         xlColorIndexNone = -4142,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlColumnDataType {
         xlDMYFormat = 4,
         xlDYMFormat = 7,
@@ -921,18 +966,21 @@ declare namespace Excel {
         xlYMDFormat = 5,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCommandUnderlines {
         xlCommandUnderlinesAutomatic = -4105,
         xlCommandUnderlinesOff = -4146,
         xlCommandUnderlinesOn = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCommentDisplayMode {
         xlCommentAndIndicator = 1,
         xlCommentIndicatorOnly = -1,
         xlNoIndicator = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlConditionValueTypes {
         xlConditionValueAutomaticMax = 7,
         xlConditionValueAutomaticMin = 6,
@@ -945,6 +993,7 @@ declare namespace Excel {
         xlConditionValuePercentile = 5,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlConnectionType {
         xlConnectionTypeODBC = 2,
         xlConnectionTypeOLEDB = 1,
@@ -953,6 +1002,7 @@ declare namespace Excel {
         xlConnectionTypeXMLMAP = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlConsolidationFunction {
         xlAverage = -4106,
         xlCount = -4112,
@@ -968,6 +1018,7 @@ declare namespace Excel {
         xlVarP = -4165,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlContainsOperator {
         xlBeginsWith = 2,
         xlContains = 0,
@@ -975,27 +1026,32 @@ declare namespace Excel {
         xlEndsWith = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCopyPictureFormat {
         xlBitmap = 2,
         xlPicture = -4147,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCorruptLoad {
         xlExtractData = 2,
         xlNormalLoad = 0,
         xlRepairFile = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCreator {
         xlCreatorCode = 1480803660,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCredentialsMethod {
         xlCredentialsMethodIntegrated = 0,
         xlCredentialsMethodNone = 1,
         xlCredentialsMethodStored = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCubeFieldSubType {
         xlCubeAttribute = 4,
         xlCubeCalculatedMeasure = 5,
@@ -1009,17 +1065,20 @@ declare namespace Excel {
         xlCubeSet = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCubeFieldType {
         xlHierarchy = 1,
         xlMeasure = 2,
         xlSet = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCutCopyMode {
         xlCopy = 1,
         xlCut = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlCVError {
         xlErrDiv0 = 2007,
         xlErrNA = 2042,
@@ -1030,27 +1089,32 @@ declare namespace Excel {
         xlErrValue = 2015,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataBarAxisPosition {
         xlDataBarAxisAutomatic = 0,
         xlDataBarAxisMidpoint = 1,
         xlDataBarAxisNone = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataBarBorderType {
         xlDataBarBorderNone = 0,
         xlDataBarBorderSolid = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataBarFillType {
         xlDataBarFillGradient = 1,
         xlDataBarFillSolid = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataBarNegativeColorType {
         xlDataBarColor = 0,
         xlDataBarSameAsPositive = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataLabelPosition {
         xlLabelPositionAbove = 0,
         xlLabelPositionBelow = 1,
@@ -1065,10 +1129,12 @@ declare namespace Excel {
         xlLabelPositionRight = -4152,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataLabelSeparator {
         xlDataLabelSeparatorDefault = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataLabelsType {
         xlDataLabelsShowBubbleSizes = 6,
         xlDataLabelsShowLabel = 4,
@@ -1078,6 +1144,7 @@ declare namespace Excel {
         xlDataLabelsShowValue = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataSeriesDate {
         xlDay = 1,
         xlMonth = 3,
@@ -1085,6 +1152,7 @@ declare namespace Excel {
         xlYear = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDataSeriesType {
         xlAutoFill = 4,
         xlChronological = 3,
@@ -1092,11 +1160,13 @@ declare namespace Excel {
         xlGrowth = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDeleteShiftDirection {
         xlShiftToLeft = -4159,
         xlShiftUp = -4162,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDirection {
         xlDown = -4121,
         xlToLeft = -4159,
@@ -1104,18 +1174,21 @@ declare namespace Excel {
         xlUp = -4162,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDisplayBlanksAs {
         xlInterpolated = 3,
         xlNotPlotted = 1,
         xlZero = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDisplayDrawingObjects {
         xlDisplayShapes = -4104,
         xlHide = 3,
         xlPlaceholders = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDisplayUnit {
         xlHundredMillions = -8,
         xlHundreds = -2,
@@ -1128,17 +1201,20 @@ declare namespace Excel {
         xlThousands = -3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDupeUnique {
         xlDuplicate = 1,
         xlUnique = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDVAlertStyle {
         xlValidAlertInformation = 3,
         xlValidAlertStop = 1,
         xlValidAlertWarning = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDVType {
         xlValidateCustom = 7,
         xlValidateDate = 4,
@@ -1150,6 +1226,7 @@ declare namespace Excel {
         xlValidateWholeNumber = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlDynamicFilterCriteria {
         xlFilterAboveAverage = 33,
         xlFilterAllDatesInPeriodApril = 24,
@@ -1187,6 +1264,7 @@ declare namespace Excel {
         xlFilterYesterday = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlEditionFormat {
         xlBIFF = 2,
         xlPICT = 1,
@@ -1194,6 +1272,7 @@ declare namespace Excel {
         xlVALU = 8,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlEditionOptionsOption {
         xlAutomaticUpdate = 4,
         xlCancel = 1,
@@ -1205,33 +1284,39 @@ declare namespace Excel {
         xlUpdateSubscriber = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlEditionType {
         xlPublisher = 1,
         xlSubscriber = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlEnableCancelKey {
         xlDisabled = 0,
         xlErrorHandler = 2,
         xlInterrupt = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlEnableSelection {
         xlNoRestrictions = 0,
         xlNoSelection = -4142,
         xlUnlockedCells = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlEndStyleCap {
         xlCap = 1,
         xlNoCap = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlErrorBarDirection {
         xlX = -4168,
         xlY = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlErrorBarInclude {
         xlErrorBarIncludeBoth = 1,
         xlErrorBarIncludeMinusValues = 3,
@@ -1239,6 +1324,7 @@ declare namespace Excel {
         xlErrorBarIncludePlusValues = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlErrorBarType {
         xlErrorBarTypeCustom = -4114,
         xlErrorBarTypeFixedValue = 1,
@@ -1247,6 +1333,7 @@ declare namespace Excel {
         xlErrorBarTypeStError = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlErrorChecks {
         xlEmptyCellReferences = 7,
         xlEvaluateToError = 1,
@@ -1259,11 +1346,13 @@ declare namespace Excel {
         xlUnlockedFormulaCells = 6,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFileAccess {
         xlReadOnly = 3,
         xlReadWrite = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFileFormat {
         xlAddIn = 18,
         xlAddIn8 = 18,
@@ -1321,23 +1410,27 @@ declare namespace Excel {
         xlXMLSpreadsheet = 46,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFileValidationPivotMode {
         xlFileValidationPivotDefault = 0,
         xlFileValidationPivotRun = 1,
         xlFileValidationPivotSkip = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFillWith {
         xlFillWithAll = -4104,
         xlFillWithContents = 2,
         xlFillWithFormats = -4122,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFilterAction {
         xlFilterCopy = 2,
         xlFilterInPlace = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFilterAllDatesInPeriod {
         xlFilterAllDatesInPeriodDay = 2,
         xlFilterAllDatesInPeriodHour = 3,
@@ -1347,22 +1440,26 @@ declare namespace Excel {
         xlFilterAllDatesInPeriodYear = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFindLookIn {
         xlComments = -4144,
         xlFormulas = -4123,
         xlValues = -4163,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFixedFormatQuality {
         xlQualityMinimum = 1,
         xlQualityStandard = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFixedFormatType {
         xlTypePDF = 0,
         xlTypeXPS = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFormatConditionOperator {
         xlBetween = 1,
         xlEqual = 3,
@@ -1374,6 +1471,7 @@ declare namespace Excel {
         xlNotEqual = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFormatConditionType {
         xlAboveAverageCondition = 12,
         xlBlanksCondition = 10,
@@ -1391,6 +1489,7 @@ declare namespace Excel {
         xlUniqueValues = 8,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFormatFilterTypes {
         xlFilterBottom = 0,
         xlFilterBottomPercent = 2,
@@ -1398,6 +1497,7 @@ declare namespace Excel {
         xlFilterTopPercent = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFormControl {
         xlButtonControl = 0,
         xlCheckBox = 1,
@@ -1411,6 +1511,7 @@ declare namespace Excel {
         xlSpinner = 9,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlFormulaLabel {
         xlColumnLabels = 2,
         xlMixedLabels = 3,
@@ -1418,16 +1519,19 @@ declare namespace Excel {
         xlRowLabels = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlGenerateTableRefs {
         xlGenerateTableRefA1 = 0,
         xlGenerateTableRefStruct = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlGradientFillType {
         xlGradientFillLinear = 0,
         xlGradientFillPath = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlHAlign {
         xlHAlignCenter = -4108,
         xlHAlignCenterAcrossSelection = 7,
@@ -1439,6 +1543,7 @@ declare namespace Excel {
         xlHAlignRight = -4152,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlHebrewModes {
         xlHebrewFullScript = 0,
         xlHebrewMixedAuthorizedScript = 3,
@@ -1446,12 +1551,14 @@ declare namespace Excel {
         xlHebrewPartialScript = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlHighlightChangesTime {
         xlAllChanges = 2,
         xlNotYetReviewed = 3,
         xlSinceMyLastSave = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlHtmlType {
         xlHtmlCalc = 1,
         xlHtmlChart = 3,
@@ -1459,6 +1566,7 @@ declare namespace Excel {
         xlHtmlStatic = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlIcon {
         xlIcon0Bars = 37,
         xlIcon0FilledBoxes = 52,
@@ -1515,6 +1623,7 @@ declare namespace Excel {
         xlIconYellowUpInclineArrow = 25,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlIconSet {
         xl3Arrows = 1,
         xl3ArrowsGray = 2,
@@ -1539,6 +1648,7 @@ declare namespace Excel {
         xlCustomSet = -1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlIMEMode {
         xlIMEModeAlpha = 8,
         xlIMEModeAlphaFull = 7,
@@ -1553,33 +1663,39 @@ declare namespace Excel {
         xlIMEModeOn = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlImportDataAs {
         xlPivotTableReport = 1,
         xlQueryTable = 0,
         xlTable = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlInsertFormatOrigin {
         xlFormatFromLeftOrAbove = 0,
         xlFormatFromRightOrBelow = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlInsertShiftDirection {
         xlShiftDown = -4121,
         xlShiftToRight = -4161,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLayoutFormType {
         xlOutline = 1,
         xlTabular = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLayoutRowType {
         xlCompactRow = 0,
         xlOutlineRow = 2,
         xlTabularRow = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLegendPosition {
         xlLegendPositionBottom = -4107,
         xlLegendPositionCorner = 2,
@@ -1589,6 +1705,7 @@ declare namespace Excel {
         xlLegendPositionTop = -4160,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLineStyle {
         xlContinuous = 1,
         xlDash = -4115,
@@ -1600,6 +1717,7 @@ declare namespace Excel {
         xlSlantDashDot = 13,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLink {
         xlExcelLinks = 1,
         xlOLELinks = 2,
@@ -1607,18 +1725,21 @@ declare namespace Excel {
         xlSubscribers = 6,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLinkInfo {
         xlEditionDate = 2,
         xlLinkInfoStatus = 3,
         xlUpdateState = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLinkInfoType {
         xlLinkInfoOLELinks = 2,
         xlLinkInfoPublishers = 5,
         xlLinkInfoSubscribers = 6,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLinkStatus {
         xlLinkStatusCopiedValues = 10,
         xlLinkStatusIndeterminate = 5,
@@ -1633,11 +1754,13 @@ declare namespace Excel {
         xlLinkStatusSourceOpen = 9,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLinkType {
         xlLinkTypeExcelLinks = 1,
         xlLinkTypeOLELinks = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlListConflict {
         xlListConflictDialog = 0,
         xlListConflictDiscardAllConflicts = 2,
@@ -1645,6 +1768,7 @@ declare namespace Excel {
         xlListConflictRetryAllConflicts = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlListDataType {
         xlListDataTypeCheckbox = 9,
         xlListDataTypeChoice = 6,
@@ -1661,6 +1785,7 @@ declare namespace Excel {
         xlListDataTypeText = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlListObjectSourceType {
         xlSrcExternal = 0,
         xlSrcQuery = 3,
@@ -1668,6 +1793,7 @@ declare namespace Excel {
         xlSrcXml = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLocationInTable {
         xlColumnHeader = -4110,
         xlColumnItem = 5,
@@ -1680,23 +1806,27 @@ declare namespace Excel {
         xlTableBody = 8,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLookAt {
         xlPart = 2,
         xlWhole = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlLookFor {
         xlLookForBlanks = 0,
         xlLookForErrors = 1,
         xlLookForFormulas = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlMailSystem {
         xlMAPI = 1,
         xlNoMailSystem = 0,
         xlPowerTalk = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlMarkerStyle {
         xlMarkerStyleAutomatic = -4105,
         xlMarkerStyleCircle = 8,
@@ -1712,18 +1842,21 @@ declare namespace Excel {
         xlMarkerStyleX = -4168,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlMeasurementUnits {
         xlCentimeters = 1,
         xlInches = 0,
         xlMillimeters = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlMouseButton {
         xlNoButton = 0,
         xlPrimaryButton = 1,
         xlSecondaryButton = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlMousePointer {
         xlDefault = -4143,
         xlIBeam = 3,
@@ -1731,6 +1864,7 @@ declare namespace Excel {
         xlWait = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlMSApplication {
         xlMicrosoftAccess = 4,
         xlMicrosoftFoxPro = 5,
@@ -1741,39 +1875,46 @@ declare namespace Excel {
         xlMicrosoftWord = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlOartHorizontalOverflow {
         xlOartHorizontalOverflowClip = 1,
         xlOartHorizontalOverflowOverflow = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlOartVerticalOverflow {
         xlOartVerticalOverflowClip = 1,
         xlOartVerticalOverflowEllipsis = 2,
         xlOartVerticalOverflowOverflow = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlObjectSize {
         xlFitToPage = 2,
         xlFullPage = 3,
         xlScreenSize = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlOLEType {
         xlOLEControl = 2,
         xlOLEEmbed = 1,
         xlOLELink = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlOLEVerb {
         xlVerbOpen = 2,
         xlVerbPrimary = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlOrder {
         xlDownThenOver = 1,
         xlOverThenDown = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlOrientation {
         xlDownward = -4170,
         xlHorizontal = -4128,
@@ -1781,22 +1922,26 @@ declare namespace Excel {
         xlVertical = -4166,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPageBreak {
         xlPageBreakAutomatic = -4105,
         xlPageBreakManual = -4135,
         xlPageBreakNone = -4142,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPageBreakExtent {
         xlPageBreakFull = 1,
         xlPageBreakPartial = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPageOrientation {
         xlLandscape = 2,
         xlPortrait = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPaperSize {
         xlPaper10x14 = 16,
         xlPaper11x17 = 17,
@@ -1842,6 +1987,7 @@ declare namespace Excel {
         xlPaperUser = 256,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlParameterDataType {
         xlParamTypeBigInt = -5,
         xlParamTypeBinary = -2,
@@ -1866,12 +2012,14 @@ declare namespace Excel {
         xlParamTypeWChar = -8,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlParameterType {
         xlConstant = 1,
         xlPrompt = 0,
         xlRange = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPasteSpecialOperation {
         xlPasteSpecialOperationAdd = 2,
         xlPasteSpecialOperationDivide = 5,
@@ -1880,6 +2028,7 @@ declare namespace Excel {
         xlPasteSpecialOperationSubtract = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPasteType {
         xlPasteAll = -4104,
         xlPasteAllExceptBorders = 7,
@@ -1895,6 +2044,7 @@ declare namespace Excel {
         xlPasteValuesAndNumberFormats = 12,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPattern {
         xlPatternAutomatic = -4105,
         xlPatternChecker = 9,
@@ -1920,6 +2070,7 @@ declare namespace Excel {
         xlPatternVertical = -4166,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPhoneticAlignment {
         xlPhoneticAlignCenter = 2,
         xlPhoneticAlignDistributed = 3,
@@ -1927,6 +2078,7 @@ declare namespace Excel {
         xlPhoneticAlignNoControl = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPhoneticCharacterType {
         xlHiragana = 2,
         xlKatakana = 1,
@@ -1934,11 +2086,13 @@ declare namespace Excel {
         xlNoConversion = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPictureAppearance {
         xlPrinter = 2,
         xlScreen = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPictureConvertorType {
         xlBMP = 1,
         xlCGM = 7,
@@ -1955,6 +2109,7 @@ declare namespace Excel {
         xlWPG = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPieSliceIndex {
         xlCenterPoint = 5,
         xlInnerCenterPoint = 8,
@@ -1967,11 +2122,13 @@ declare namespace Excel {
         xlOuterCounterClockwisePoint = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPieSliceLocation {
         xlHorizontalCoordinate = 1,
         xlVerticalCoordinate = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotCellType {
         xlPivotCellBlankCell = 9,
         xlPivotCellCustomSubtotal = 7,
@@ -1985,12 +2142,14 @@ declare namespace Excel {
         xlPivotCellValue = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotConditionScope {
         xlDataFieldScope = 2,
         xlFieldsScope = 1,
         xlSelectionScope = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotFieldCalculation {
         xlDifferenceFrom = 2,
         xlIndex = 9,
@@ -2009,12 +2168,14 @@ declare namespace Excel {
         xlRunningTotal = 5,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotFieldDataType {
         xlDate = 2,
         xlNumber = -4145,
         xlText = -4158,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotFieldOrientation {
         xlColumnField = 2,
         xlDataField = 4,
@@ -2023,11 +2184,13 @@ declare namespace Excel {
         xlRowField = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotFieldRepeatLabels {
         xlDoNotRepeatLabels = 1,
         xlRepeatLabels = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotFilterType {
         xlAfter = 33,
         xlAfterOrEqualTo = 34,
@@ -2099,6 +2262,7 @@ declare namespace Excel {
         xlYearToDate = 52,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotFormatType {
         xlPTClassic = 20,
         xlPTNone = 21,
@@ -2124,6 +2288,7 @@ declare namespace Excel {
         xlTable9 = 18,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotLineType {
         xlPivotLineBlank = 3,
         xlPivotLineGrandTotal = 2,
@@ -2131,6 +2296,7 @@ declare namespace Excel {
         xlPivotLineSubtotal = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotTableMissingItems {
         xlMissingItemsDefault = -1,
         xlMissingItemsMax = 32500,
@@ -2138,6 +2304,7 @@ declare namespace Excel {
         xlMissingItemsNone = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotTableSourceType {
         xlConsolidation = 3,
         xlDatabase = 1,
@@ -2146,6 +2313,7 @@ declare namespace Excel {
         xlScenario = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPivotTableVersionList {
         xlPivotTableVersion10 = 1,
         xlPivotTableVersion11 = 2,
@@ -2155,24 +2323,28 @@ declare namespace Excel {
         xlPivotTableVersionCurrent = -1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPlacement {
         xlFreeFloating = 3,
         xlMove = 2,
         xlMoveAndSize = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPlatform {
         xlMacintosh = 1,
         xlMSDOS = 3,
         xlWindows = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPortugueseReform {
         xlPortugueseBoth = 3,
         xlPortuguesePostReform = 2,
         xlPortuguesePreReform = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPrintErrors {
         xlPrintErrorsBlank = 1,
         xlPrintErrorsDash = 2,
@@ -2180,36 +2352,42 @@ declare namespace Excel {
         xlPrintErrorsNA = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPrintLocation {
         xlPrintInPlace = 16,
         xlPrintNoComments = -4142,
         xlPrintSheetEnd = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPriority {
         xlPriorityHigh = -4127,
         xlPriorityLow = -4134,
         xlPriorityNormal = -4143,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPropertyDisplayedIn {
         xlDisplayPropertyInPivotTable = 1,
         xlDisplayPropertyInPivotTableAndTooltip = 3,
         xlDisplayPropertyInTooltip = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlProtectedViewCloseReason {
         xlProtectedViewCloseEdit = 1,
         xlProtectedViewCloseForced = 2,
         xlProtectedViewCloseNormal = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlProtectedViewWindowState {
         xlProtectedViewWindowMaximized = 2,
         xlProtectedViewWindowMinimized = 1,
         xlProtectedViewWindowNormal = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlPTSelectionMode {
         xlBlanks = 4,
         xlButton = 15,
@@ -2220,6 +2398,7 @@ declare namespace Excel {
         xlOrigin = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlQueryType {
         xlADORecordset = 7,
         xlDAORecordset = 2,
@@ -2229,6 +2408,7 @@ declare namespace Excel {
         xlWebQuery = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRangeAutoFormat {
         xlRangeAutoFormat3DEffects1 = 13,
         xlRangeAutoFormat3DEffects2 = 14,
@@ -2275,17 +2455,20 @@ declare namespace Excel {
         xlRangeAutoFormatTable9 = 40,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRangeValueDataType {
         xlRangeValueDefault = 10,
         xlRangeValueMSPersistXML = 12,
         xlRangeValueXMLSpreadsheet = 11,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlReferenceStyle {
         xlA1 = 1,
         xlR1C1 = -4150,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlReferenceType {
         xlAbsolute = 1,
         xlAbsRowRelColumn = 2,
@@ -2293,6 +2476,7 @@ declare namespace Excel {
         xlRelRowAbsColumn = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRemoveDocInfoType {
         xlRDIAll = 99,
         xlRDIComments = 1,
@@ -2313,6 +2497,7 @@ declare namespace Excel {
         xlRDISendForReview = 7,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRgbColor {
         rgbAliceBlue = 16775408,
         rgbAntiqueWhite = 14150650,
@@ -2460,28 +2645,33 @@ declare namespace Excel {
         rgbYellowGreen = 3329434,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRobustConnect {
         xlAlways = 1,
         xlAsRequired = 0,
         xlNever = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRoutingSlipDelivery {
         xlAllAtOnce = 2,
         xlOneAfterAnother = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRoutingSlipStatus {
         xlNotYetRouted = 0,
         xlRoutingComplete = 2,
         xlRoutingInProgress = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRowCol {
         xlColumns = 2,
         xlRows = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlRunAutoMacro {
         xlAutoActivate = 3,
         xlAutoClose = 2,
@@ -2489,43 +2679,51 @@ declare namespace Excel {
         xlAutoOpen = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSaveAction {
         xlDoNotSaveChanges = 2,
         xlSaveChanges = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSaveAsAccessMode {
         xlExclusive = 3,
         xlNoChange = 1,
         xlShared = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSaveConflictResolution {
         xlLocalSessionChanges = 2,
         xlOtherSessionChanges = 3,
         xlUserResolution = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlScaleType {
         xlScaleLinear = -4132,
         xlScaleLogarithmic = -4133,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSearchDirection {
         xlNext = 1,
         xlPrevious = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSearchOrder {
         xlByColumns = 2,
         xlByRows = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSearchWithin {
         xlWithinSheet = 1,
         xlWithinWorkbook = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSheetType {
         xlChart = -4109,
         xlDialogSheet = -4116,
@@ -2534,29 +2732,34 @@ declare namespace Excel {
         xlWorksheet = -4167,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSheetVisibility {
         xlSheetHidden = 0,
         xlSheetVeryHidden = 2,
         xlSheetVisible = -1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSizeRepresents {
         xlSizeIsArea = 1,
         xlSizeIsWidth = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSlicerCrossFilterType {
         xlSlicerCrossFilterShowItemsWithDataAtTop = 2,
         xlSlicerCrossFilterShowItemsWithNoData = 3,
         xlSlicerNoCrossFilter = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSlicerSort {
         xlSlicerSortAscending = 2,
         xlSlicerSortDataSourceOrder = 1,
         xlSlicerSortDescending = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSmartTagControlType {
         xlSmartTagControlActiveX = 13,
         xlSmartTagControlButton = 6,
@@ -2574,27 +2777,32 @@ declare namespace Excel {
         xlSmartTagControlTextbox = 10,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSmartTagDisplayMode {
         xlButtonOnly = 2,
         xlDisplayNone = 1,
         xlIndicatorAndButton = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSortDataOption {
         xlSortNormal = 0,
         xlSortTextAsNumbers = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSortMethod {
         xlPinYin = 1,
         xlStroke = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSortMethodOld {
         xlCodePage = 2,
         xlSyllabary = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSortOn {
         xlSortOnCellColor = 1,
         xlSortOnFontColor = 2,
@@ -2602,21 +2810,25 @@ declare namespace Excel {
         xlSortOnValues = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSortOrder {
         xlAscending = 1,
         xlDescending = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSortOrientation {
         xlSortColumns = 1,
         xlSortRows = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSortType {
         xlSortLabels = 2,
         xlSortValues = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSourceType {
         xlSourceAutoFilter = 3,
         xlSourceChart = 5,
@@ -2628,35 +2840,41 @@ declare namespace Excel {
         xlSourceWorkbook = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSpanishModes {
         xlSpanishTuteoAndVoseo = 1,
         xlSpanishTuteoOnly = 0,
         xlSpanishVoseoOnly = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSparklineRowCol {
         xlSparklineColumnsSquare = 2,
         xlSparklineNonSquare = 0,
         xlSparklineRowsSquare = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSparkScale {
         xlSparkScaleCustom = 3,
         xlSparkScaleGroup = 1,
         xlSparkScaleSingle = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSparkType {
         xlSparkColumn = 2,
         xlSparkColumnStacked100 = 3,
         xlSparkLine = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSpeakDirection {
         xlSpeakByColumns = 1,
         xlSpeakByRows = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSpecialCellsValue {
         xlErrors = 16,
         xlLogical = 4,
@@ -2664,6 +2882,7 @@ declare namespace Excel {
         xlTextValues = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlStdColorScale {
         xlColorScaleBlackWhite = 3,
         xlColorScaleGYR = 2,
@@ -2671,31 +2890,37 @@ declare namespace Excel {
         xlColorScaleWhiteBlack = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSubscribeToFormat {
         xlSubscribeToPicture = -4147,
         xlSubscribeToText = -4158,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSubtototalLocationType {
         xlAtBottom = 2,
         xlAtTop = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSummaryColumn {
         xlSummaryOnLeft = -4131,
         xlSummaryOnRight = -4152,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSummaryReportType {
         xlStandardSummary = 1,
         xlSummaryPivotTable = -4148,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlSummaryRow {
         xlSummaryAbove = 0,
         xlSummaryBelow = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTableStyleElementType {
         xlBlankRow = 19,
         xlColumnStripe1 = 7,
@@ -2737,27 +2962,32 @@ declare namespace Excel {
         xlWholeTable = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTabPosition {
         xlTabPositionFirst = 0,
         xlTabPositionLast = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTextParsingType {
         xlDelimited = 1,
         xlFixedWidth = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTextQualifier {
         xlTextQualifierDoubleQuote = 1,
         xlTextQualifierNone = -4142,
         xlTextQualifierSingleQuote = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTextVisualLayoutType {
         xlTextVisualLTR = 1,
         xlTextVisualRTL = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlThemeColor {
         xlThemeColorAccent1 = 5,
         xlThemeColorAccent2 = 6,
@@ -2773,17 +3003,20 @@ declare namespace Excel {
         xlThemeColorLight2 = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlThemeFont {
         xlThemeFontMajor = 1,
         xlThemeFontMinor = 2,
         xlThemeFontNone = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlThreadMode {
         xlThreadModeAutomatic = 0,
         xlThreadModeManual = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTickLabelOrientation {
         xlTickLabelOrientationAutomatic = -4105,
         xlTickLabelOrientationDownward = -4170,
@@ -2792,6 +3025,7 @@ declare namespace Excel {
         xlTickLabelOrientationVertical = -4166,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTickLabelPosition {
         xlTickLabelPositionHigh = -4127,
         xlTickLabelPositionLow = -4134,
@@ -2799,6 +3033,7 @@ declare namespace Excel {
         xlTickLabelPositionNone = -4142,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTickMark {
         xlTickMarkCross = 4,
         xlTickMarkInside = 2,
@@ -2806,6 +3041,7 @@ declare namespace Excel {
         xlTickMarkOutside = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTimePeriods {
         xlLast7Days = 2,
         xlLastMonth = 5,
@@ -2819,12 +3055,14 @@ declare namespace Excel {
         xlYesterday = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTimeUnit {
         xlDays = 0,
         xlMonths = 1,
         xlYears = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlToolbarProtection {
         xlNoButtonChanges = 1,
         xlNoChanges = 4,
@@ -2833,11 +3071,13 @@ declare namespace Excel {
         xlToolbarProtectionNone = -4143,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTopBottom {
         xlTop10Bottom = 0,
         xlTop10Top = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTotalsCalculation {
         xlTotalsCalculationAverage = 2,
         xlTotalsCalculationCount = 3,
@@ -2851,6 +3091,7 @@ declare namespace Excel {
         xlTotalsCalculationVar = 8,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlTrendlineType {
         xlExponential = 5,
         xlLinear = -4132,
@@ -2860,6 +3101,7 @@ declare namespace Excel {
         xlPower = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlUnderlineStyle {
         xlUnderlineStyleDouble = -4119,
         xlUnderlineStyleDoubleAccounting = 5,
@@ -2868,12 +3110,14 @@ declare namespace Excel {
         xlUnderlineStyleSingleAccounting = 4,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlUpdateLinks {
         xlUpdateLinksAlways = 3,
         xlUpdateLinksNever = 2,
         xlUpdateLinksUserSetting = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlVAlign {
         xlVAlignBottom = -4107,
         xlVAlignCenter = -4108,
@@ -2882,6 +3126,7 @@ declare namespace Excel {
         xlVAlignTop = -4160,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlWBATemplate {
         xlWBATChart = -4109,
         xlWBATExcel4IntlMacroSheet = 4,
@@ -2889,24 +3134,28 @@ declare namespace Excel {
         xlWBATWorksheet = -4167,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlWebFormatting {
         xlWebFormattingAll = 1,
         xlWebFormattingNone = 3,
         xlWebFormattingRTF = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlWebSelectionType {
         xlAllTables = 2,
         xlEntirePage = 1,
         xlSpecifiedTables = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlWindowState {
         xlMaximized = -4137,
         xlMinimized = -4140,
         xlNormal = -4143,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlWindowType {
         xlChartAsWindow = 5,
         xlChartInPlace = 4,
@@ -2915,29 +3164,34 @@ declare namespace Excel {
         xlWorkbook = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlWindowView {
         xlNormalView = 1,
         xlPageBreakPreview = 2,
         xlPageLayoutView = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlXLMMacroType {
         xlCommand = 2,
         xlFunction = 1,
         xlNotXLM = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlXmlExportResult {
         xlXmlExportSuccess = 0,
         xlXmlExportValidationFailed = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlXmlImportResult {
         xlXmlImportElementsTruncated = 1,
         xlXmlImportSuccess = 0,
         xlXmlImportValidationFailed = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlXmlLoadOption {
         xlXmlLoadImportToList = 2,
         xlXmlLoadMapXml = 3,
@@ -2945,6 +3199,7 @@ declare namespace Excel {
         xlXmlLoadPromptUser = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum XlYesNoGuess {
         xlGuess = 0,
         xlNo = 2,
@@ -6547,7 +6802,7 @@ declare namespace Excel {
 
         /** @param Excel.XlSearchDirection [SearchDirection=1] */
         Find(What: any, After?: any, LookIn?: XlFindLookIn, LookAt?: XlLookAt, SearchOrder?: XlSearchOrder, SearchDirection?: XlSearchDirection, MatchCase?: boolean,
-                    MatchByte?: boolean, SearchFormat?: any): Range;
+            MatchByte?: boolean, SearchFormat?: any): Range;
         FindNext(After?: any): Range;
         FindPrevious(After?: any): Range;
         readonly Font: Font;
@@ -7049,7 +7304,7 @@ declare namespace Excel {
         AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
         AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddOLEObject(ClassType?: any, Filename?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Left?: any, Top?: any, Width?: any,
-                            Height?: any): Shape;
+            Height?: any): Shape;
         AddPicture(Filename: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width: number, Height: number): Shape;
         AddPolyline(SafeArrayOfPoints: any): Shape;
         AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
@@ -9243,217 +9498,221 @@ declare namespace Excel {
 interface ActiveXObject {
     on(
         obj: Excel.Application, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: Excel.Application, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+            this: Excel.Application, parameter: { readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number }) => void): void;
     on(
         obj: Excel.Application, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: Excel.Application, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Excel.Application, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Application, parameter: {pctinfo: number}) => void): void;
+            this: Excel.Application, parameter: { readonly itinfo: number, readonly lcid: number, pptinfo: undefined }) => void): void;
+    on(obj: Excel.Application, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Application, parameter: { pctinfo: number }) => void): void;
     on(
         obj: Excel.Application, event: 'Invoke', argNames: Excel.EventHelperTypes.Application_Invoke_ArgNames, handler: (
             this: Excel.Application, parameter: Excel.EventHelperTypes.Application_Invoke_Parameter) => void): void;
     on(
         obj: Excel.Application, event: 'NewWorkbook' | 'WorkbookActivate' | 'WorkbookAddinInstall' | 'WorkbookAddinUninstall' | 'WorkbookDeactivate' | 'WorkbookOpen',
-        argNames: ['Wb'], handler: (this: Excel.Application, parameter: {readonly Wb: Excel.Workbook}) => void): void;
+        argNames: ['Wb'], handler: (this: Excel.Application, parameter: { readonly Wb: Excel.Workbook }) => void): void;
     on(
         obj: Excel.Application, event: 'ProtectedViewWindowActivate' | 'ProtectedViewWindowDeactivate' | 'ProtectedViewWindowOpen' | 'ProtectedViewWindowResize',
-        argNames: ['Pvw'], handler: (this: Excel.Application, parameter: {readonly Pvw: Excel.ProtectedViewWindow}) => void): void;
+        argNames: ['Pvw'], handler: (this: Excel.Application, parameter: { readonly Pvw: Excel.ProtectedViewWindow }) => void): void;
     on(
         obj: Excel.Application, event: 'ProtectedViewWindowBeforeClose', argNames: ['Pvw', 'Reason', 'Cancel'], handler: (
-            this: Excel.Application, parameter: {readonly Pvw: Excel.ProtectedViewWindow, readonly Reason: Excel.XlProtectedViewCloseReason, Cancel: boolean}) => void): void;
+            this: Excel.Application, parameter: { readonly Pvw: Excel.ProtectedViewWindow, readonly Reason: Excel.XlProtectedViewCloseReason, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'ProtectedViewWindowBeforeEdit', argNames: ['Pvw', 'Cancel'], handler: (
-            this: Excel.Application, parameter: {readonly Pvw: Excel.ProtectedViewWindow, Cancel: boolean}) => void): void;
-    on(obj: Excel.Application, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Application, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Excel.Application, event: 'SheetActivate' | 'SheetCalculate' | 'SheetDeactivate', argNames: ['Sh'], handler: (this: Excel.Application, parameter: {readonly Sh: any}) => void): void;
+            this: Excel.Application, parameter: { readonly Pvw: Excel.ProtectedViewWindow, Cancel: boolean }) => void): void;
+    on(obj: Excel.Application, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Application, parameter: { readonly riid: stdole.GUID, ppvObj: undefined }) => void): void;
+    on(obj: Excel.Application, event: 'SheetActivate' | 'SheetCalculate' | 'SheetDeactivate', argNames: ['Sh'], handler: (this: Excel.Application, parameter: { readonly Sh: any }) => void): void;
     on(
         obj: Excel.Application, event: 'SheetBeforeDoubleClick' | 'SheetBeforeRightClick', argNames: ['Sh', 'Target', 'Cancel'], handler: (
-            this: Excel.Application, parameter: {readonly Sh: any, readonly Target: Excel.Range, Cancel: boolean}) => void): void;
+            this: Excel.Application, parameter: { readonly Sh: any, readonly Target: Excel.Range, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'SheetChange' | 'SheetSelectionChange', argNames: ['Sh', 'Target'], handler: (
-            this: Excel.Application, parameter: {readonly Sh: any, readonly Target: Excel.Range}) => void): void;
+            this: Excel.Application, parameter: { readonly Sh: any, readonly Target: Excel.Range }) => void): void;
     on(
         obj: Excel.Application, event: 'SheetFollowHyperlink', argNames: ['Sh', 'Target'], handler: (
-            this: Excel.Application, parameter: {readonly Sh: any, readonly Target: Excel.Hyperlink}) => void): void;
+            this: Excel.Application, parameter: { readonly Sh: any, readonly Target: Excel.Hyperlink }) => void): void;
     on(
         obj: Excel.Application, event: 'SheetPivotTableAfterValueChange', argNames: ['Sh', 'TargetPivotTable', 'TargetRange'], handler: (
-            this: Excel.Application, parameter: {readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly TargetRange: Excel.Range}) => void): void;
+            this: Excel.Application, parameter: { readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly TargetRange: Excel.Range }) => void): void;
     on(
         obj: Excel.Application, event: 'SheetPivotTableBeforeAllocateChanges' | 'SheetPivotTableBeforeCommitChanges',
         argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd', 'Cancel'], handler: (
             this: Excel.Application,
-            parameter: {readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number, Cancel: boolean}) => void): void;
+            parameter: { readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'SheetPivotTableBeforeDiscardChanges', argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd'],
         handler: (
-            this: Excel.Application, parameter: {readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number}) => void): void;
+            this: Excel.Application, parameter: { readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number }) => void): void;
     on(
         obj: Excel.Application, event: 'SheetPivotTableUpdate', argNames: ['Sh', 'Target'], handler: (
-            this: Excel.Application, parameter: {readonly Sh: any, readonly Target: Excel.PivotTable}) => void): void;
+            this: Excel.Application, parameter: { readonly Sh: any, readonly Target: Excel.PivotTable }) => void): void;
     on(
         obj: Excel.Application, event: 'WindowActivate' | 'WindowDeactivate' | 'WindowResize', argNames: ['Wb', 'Wn'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Wn: Excel.Window}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Wn: Excel.Window }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookAfterSave', argNames: ['Wb', 'Success'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Success: boolean}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Success: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookAfterXmlExport', argNames: ['Wb', 'Map', 'Url', 'Result'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly Url: string, readonly Result: Excel.XlXmlExportResult}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly Url: string, readonly Result: Excel.XlXmlExportResult }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookAfterXmlImport', argNames: ['Wb', 'Map', 'IsRefresh', 'Result'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly IsRefresh: boolean, readonly Result: Excel.XlXmlImportResult}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly IsRefresh: boolean, readonly Result: Excel.XlXmlImportResult }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookBeforeClose' | 'WorkbookBeforePrint', argNames: ['Wb', 'Cancel'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, Cancel: boolean}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookBeforeSave', argNames: ['Wb', 'SaveAsUI', 'Cancel'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly SaveAsUI: boolean, Cancel: boolean}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly SaveAsUI: boolean, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookBeforeXmlExport', argNames: ['Wb', 'Map', 'Url', 'Cancel'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly Url: string, Cancel: boolean}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly Url: string, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookBeforeXmlImport', argNames: ['Wb', 'Map', 'Url', 'IsRefresh', 'Cancel'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly Url: string, readonly IsRefresh: boolean, Cancel: boolean}) => void): void;
-    on(obj: Excel.Application, event: 'WorkbookNewChart', argNames: ['Wb', 'Ch'], handler: (this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Ch: Excel.Chart}) => void): void;
-    on(obj: Excel.Application, event: 'WorkbookNewSheet', argNames: ['Wb', 'Sh'], handler: (this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Sh: any}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Map: Excel.XmlMap, readonly Url: string, readonly IsRefresh: boolean, Cancel: boolean }) => void): void;
+    on(obj: Excel.Application, event: 'WorkbookNewChart', argNames: ['Wb', 'Ch'], handler: (
+        this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Ch: Excel.Chart }) => void): void;
+    on(obj: Excel.Application, event: 'WorkbookNewSheet', argNames: ['Wb', 'Sh'], handler: (this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Sh: any }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookPivotTableCloseConnection' | 'WorkbookPivotTableOpenConnection', argNames: ['Wb', 'Target'],
-        handler: (this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Target: Excel.PivotTable}) => void): void;
+        handler: (this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Target: Excel.PivotTable }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookRowsetComplete', argNames: ['Wb', 'Description', 'Sheet', 'Success'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly Description: string, readonly Sheet: string, readonly Success: boolean}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly Description: string, readonly Sheet: string, readonly Success: boolean }) => void): void;
     on(
         obj: Excel.Application, event: 'WorkbookSync', argNames: ['Wb', 'SyncEventType'], handler: (
-            this: Excel.Application, parameter: {readonly Wb: Excel.Workbook, readonly SyncEventType: Office.MsoSyncEventType}) => void): void;
+            this: Excel.Application, parameter: { readonly Wb: Excel.Workbook, readonly SyncEventType: Office.MsoSyncEventType }) => void): void;
     on(
         obj: Excel.Chart, event: 'BeforeDoubleClick', argNames: ['ElementID', 'Arg1', 'Arg2', 'Cancel'], handler: (
-            this: Excel.Chart, parameter: {readonly ElementID: number, readonly Arg1: number, readonly Arg2: number, Cancel: boolean}) => void): void;
-    on(obj: Excel.Chart, event: 'BeforeRightClick', argNames: ['Cancel'], handler: (this: Excel.Chart, parameter: {Cancel: boolean}) => void): void;
+            this: Excel.Chart, parameter: { readonly ElementID: number, readonly Arg1: number, readonly Arg2: number, Cancel: boolean }) => void): void;
+    on(obj: Excel.Chart, event: 'BeforeRightClick', argNames: ['Cancel'], handler: (this: Excel.Chart, parameter: { Cancel: boolean }) => void): void;
     on(
         obj: Excel.Chart, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: Excel.Chart, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+            this: Excel.Chart, parameter: { readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number }) => void): void;
     on(
         obj: Excel.Chart, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: Excel.Chart, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Excel.Chart, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Chart, parameter: {pctinfo: number}) => void): void;
+            this: Excel.Chart, parameter: { readonly itinfo: number, readonly lcid: number, pptinfo: undefined }) => void): void;
+    on(obj: Excel.Chart, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Chart, parameter: { pctinfo: number }) => void): void;
     on(obj: Excel.Chart, event: 'Invoke', argNames: Excel.EventHelperTypes.Chart_Invoke_ArgNames, handler: (this: Excel.Chart, parameter: Excel.EventHelperTypes.Chart_Invoke_Parameter) => void): void;
     on(
         obj: Excel.Chart, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'x', 'y'], handler: (
-            this: Excel.Chart, parameter: {readonly Button: number, readonly Shift: number, readonly x: number, readonly y: number}) => void): void;
-    on(obj: Excel.Chart, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Chart, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
+            this: Excel.Chart, parameter: { readonly Button: number, readonly Shift: number, readonly x: number, readonly y: number }) => void): void;
+    on(obj: Excel.Chart, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Chart, parameter: { readonly riid: stdole.GUID, ppvObj: undefined }) => void): void;
     on(
         obj: Excel.Chart, event: 'Select', argNames: ['ElementID', 'Arg1', 'Arg2'], handler: (
-            this: Excel.Chart, parameter: {readonly ElementID: number, readonly Arg1: number, readonly Arg2: number}) => void): void;
+            this: Excel.Chart, parameter: { readonly ElementID: number, readonly Arg1: number, readonly Arg2: number }) => void): void;
     on(
         obj: Excel.Chart, event: 'SeriesChange', argNames: ['SeriesIndex', 'PointIndex'], handler: (
-            this: Excel.Chart, parameter: {readonly SeriesIndex: number, readonly PointIndex: number}) => void): void;
+            this: Excel.Chart, parameter: { readonly SeriesIndex: number, readonly PointIndex: number }) => void): void;
     on(
         obj: Excel.OLEObject, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: Excel.OLEObject, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+            this: Excel.OLEObject, parameter: { readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number }) => void): void;
     on(
         obj: Excel.OLEObject, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: Excel.OLEObject, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Excel.OLEObject, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.OLEObject, parameter: {pctinfo: number}) => void): void;
+            this: Excel.OLEObject, parameter: { readonly itinfo: number, readonly lcid: number, pptinfo: undefined }) => void): void;
+    on(obj: Excel.OLEObject, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.OLEObject, parameter: { pctinfo: number }) => void): void;
     on(
         obj: Excel.OLEObject, event: 'Invoke', argNames: Excel.EventHelperTypes.OLEObject_Invoke_ArgNames, handler: (
             this: Excel.OLEObject, parameter: Excel.EventHelperTypes.OLEObject_Invoke_Parameter) => void): void;
-    on(obj: Excel.OLEObject, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.OLEObject, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Excel.QueryTable, event: 'AfterRefresh', argNames: ['Success'], handler: (this: Excel.QueryTable, parameter: {readonly Success: boolean}) => void): void;
-    on(obj: Excel.QueryTable, event: 'BeforeRefresh', argNames: ['Cancel'], handler: (this: Excel.QueryTable, parameter: {Cancel: boolean}) => void): void;
+    on(obj: Excel.OLEObject, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.OLEObject, parameter: { readonly riid: stdole.GUID, ppvObj: undefined }) => void): void;
+    on(obj: Excel.QueryTable, event: 'AfterRefresh', argNames: ['Success'], handler: (this: Excel.QueryTable, parameter: { readonly Success: boolean }) => void): void;
+    on(obj: Excel.QueryTable, event: 'BeforeRefresh', argNames: ['Cancel'], handler: (this: Excel.QueryTable, parameter: { Cancel: boolean }) => void): void;
     on(
         obj: Excel.QueryTable, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: Excel.QueryTable, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+            this: Excel.QueryTable, parameter: { readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number }) => void): void;
     on(
         obj: Excel.QueryTable, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: Excel.QueryTable, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Excel.QueryTable, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.QueryTable, parameter: {pctinfo: number}) => void): void;
+            this: Excel.QueryTable, parameter: { readonly itinfo: number, readonly lcid: number, pptinfo: undefined }) => void): void;
+    on(obj: Excel.QueryTable, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.QueryTable, parameter: { pctinfo: number }) => void): void;
     on(
         obj: Excel.QueryTable, event: 'Invoke', argNames: Excel.EventHelperTypes.QueryTable_Invoke_ArgNames, handler: (
             this: Excel.QueryTable, parameter: Excel.EventHelperTypes.QueryTable_Invoke_Parameter) => void): void;
-    on(obj: Excel.QueryTable, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.QueryTable, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Excel.Workbook, event: 'AfterSave', argNames: ['Success'], handler: (this: Excel.Workbook, parameter: {readonly Success: boolean}) => void): void;
+    on(obj: Excel.QueryTable, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.QueryTable, parameter: { readonly riid: stdole.GUID, ppvObj: undefined }) => void): void;
+    on(obj: Excel.Workbook, event: 'AfterSave', argNames: ['Success'], handler: (this: Excel.Workbook, parameter: { readonly Success: boolean }) => void): void;
     on(
         obj: Excel.Workbook, event: 'AfterXmlExport', argNames: ['Map', 'Url', 'Result'], handler: (
-            this: Excel.Workbook, parameter: {readonly Map: Excel.XmlMap, readonly Url: string, readonly Result: Excel.XlXmlExportResult}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Map: Excel.XmlMap, readonly Url: string, readonly Result: Excel.XlXmlExportResult }) => void): void;
     on(
         obj: Excel.Workbook, event: 'AfterXmlImport', argNames: ['Map', 'IsRefresh', 'Result'], handler: (
-            this: Excel.Workbook, parameter: {readonly Map: Excel.XmlMap, readonly IsRefresh: boolean, readonly Result: Excel.XlXmlImportResult}) => void): void;
-    on(obj: Excel.Workbook, event: 'BeforeClose' | 'BeforePrint', argNames: ['Cancel'], handler: (this: Excel.Workbook, parameter: {Cancel: boolean}) => void): void;
-    on(obj: Excel.Workbook, event: 'BeforeSave', argNames: ['SaveAsUI', 'Cancel'], handler: (this: Excel.Workbook, parameter: {readonly SaveAsUI: boolean, Cancel: boolean}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Map: Excel.XmlMap, readonly IsRefresh: boolean, readonly Result: Excel.XlXmlImportResult }) => void): void;
+    on(obj: Excel.Workbook, event: 'BeforeClose' | 'BeforePrint', argNames: ['Cancel'], handler: (this: Excel.Workbook, parameter: { Cancel: boolean }) => void): void;
+    on(obj: Excel.Workbook, event: 'BeforeSave', argNames: ['SaveAsUI', 'Cancel'], handler: (this: Excel.Workbook, parameter: { readonly SaveAsUI: boolean, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Workbook, event: 'BeforeXmlExport', argNames: ['Map', 'Url', 'Cancel'], handler: (
-            this: Excel.Workbook, parameter: {readonly Map: Excel.XmlMap, readonly Url: string, Cancel: boolean}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Map: Excel.XmlMap, readonly Url: string, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Workbook, event: 'BeforeXmlImport', argNames: ['Map', 'Url', 'IsRefresh', 'Cancel'], handler: (
-            this: Excel.Workbook, parameter: {readonly Map: Excel.XmlMap, readonly Url: string, readonly IsRefresh: boolean, Cancel: boolean}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Map: Excel.XmlMap, readonly Url: string, readonly IsRefresh: boolean, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Workbook, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: Excel.Workbook, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+            this: Excel.Workbook, parameter: { readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number }) => void): void;
     on(
         obj: Excel.Workbook, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: Excel.Workbook, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Excel.Workbook, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Workbook, parameter: {pctinfo: number}) => void): void;
+            this: Excel.Workbook, parameter: { readonly itinfo: number, readonly lcid: number, pptinfo: undefined }) => void): void;
+    on(obj: Excel.Workbook, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Workbook, parameter: { pctinfo: number }) => void): void;
     on(
         obj: Excel.Workbook, event: 'Invoke', argNames: Excel.EventHelperTypes.Workbook_Invoke_ArgNames, handler: (
             this: Excel.Workbook, parameter: Excel.EventHelperTypes.Workbook_Invoke_Parameter) => void): void;
-    on(obj: Excel.Workbook, event: 'NewChart', argNames: ['Ch'], handler: (this: Excel.Workbook, parameter: {readonly Ch: Excel.Chart}) => void): void;
-    on(obj: Excel.Workbook, event: 'NewSheet' | 'SheetActivate' | 'SheetCalculate' | 'SheetDeactivate', argNames: ['Sh'], handler: (this: Excel.Workbook, parameter: {readonly Sh: any}) => void): void;
+    on(obj: Excel.Workbook, event: 'NewChart', argNames: ['Ch'], handler: (this: Excel.Workbook, parameter: { readonly Ch: Excel.Chart }) => void): void;
+    on(obj: Excel.Workbook, event: 'NewSheet' | 'SheetActivate' | 'SheetCalculate' | 'SheetDeactivate', argNames: ['Sh'], handler: (
+        this: Excel.Workbook, parameter: { readonly Sh: any }) => void): void;
     on(
         obj: Excel.Workbook, event: 'PivotTableCloseConnection' | 'PivotTableOpenConnection', argNames: ['Target'], handler: (
-            this: Excel.Workbook, parameter: {readonly Target: Excel.PivotTable}) => void): void;
-    on(obj: Excel.Workbook, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Workbook, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Target: Excel.PivotTable }) => void): void;
+    on(obj: Excel.Workbook, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Workbook, parameter: { readonly riid: stdole.GUID, ppvObj: undefined }) => void): void;
     on(
         obj: Excel.Workbook, event: 'RowsetComplete', argNames: ['Description', 'Sheet', 'Success'], handler: (
-            this: Excel.Workbook, parameter: {readonly Description: string, readonly Sheet: string, readonly Success: boolean}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Description: string, readonly Sheet: string, readonly Success: boolean }) => void): void;
     on(
         obj: Excel.Workbook, event: 'SheetBeforeDoubleClick' | 'SheetBeforeRightClick', argNames: ['Sh', 'Target', 'Cancel'], handler: (
-            this: Excel.Workbook, parameter: {readonly Sh: any, readonly Target: Excel.Range, Cancel: boolean}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Sh: any, readonly Target: Excel.Range, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Workbook, event: 'SheetChange' | 'SheetSelectionChange', argNames: ['Sh', 'Target'], handler: (
-            this: Excel.Workbook, parameter: {readonly Sh: any, readonly Target: Excel.Range}) => void): void;
-    on(obj: Excel.Workbook, event: 'SheetFollowHyperlink', argNames: ['Sh', 'Target'], handler: (this: Excel.Workbook, parameter: {readonly Sh: any, readonly Target: Excel.Hyperlink}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Sh: any, readonly Target: Excel.Range }) => void): void;
+    on(obj: Excel.Workbook, event: 'SheetFollowHyperlink', argNames: ['Sh', 'Target'], handler: (
+        this: Excel.Workbook, parameter: { readonly Sh: any, readonly Target: Excel.Hyperlink }) => void): void;
     on(
         obj: Excel.Workbook, event: 'SheetPivotTableAfterValueChange', argNames: ['Sh', 'TargetPivotTable', 'TargetRange'], handler: (
-            this: Excel.Workbook, parameter: {readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly TargetRange: Excel.Range}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly TargetRange: Excel.Range }) => void): void;
     on(
         obj: Excel.Workbook, event: 'SheetPivotTableBeforeAllocateChanges' | 'SheetPivotTableBeforeCommitChanges',
         argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd', 'Cancel'], handler: (
             this: Excel.Workbook,
-            parameter: {readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number, Cancel: boolean}) => void): void;
+            parameter: { readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number, Cancel: boolean }) => void): void;
     on(
-        obj: Excel.Workbook, event: 'SheetPivotTableBeforeDiscardChanges', argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd'],
-        handler: (this: Excel.Workbook, parameter: {readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number}) => void): void;
+        obj: Excel.Workbook, event: 'SheetPivotTableBeforeDiscardChanges', argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd'], handler: (
+            this: Excel.Workbook, parameter: { readonly Sh: any, readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number }) => void): void;
     on(
         obj: Excel.Workbook, event: 'SheetPivotTableChangeSync' | 'SheetPivotTableUpdate', argNames: ['Sh', 'Target'], handler: (
-            this: Excel.Workbook, parameter: {readonly Sh: any, readonly Target: Excel.PivotTable}) => void): void;
-    on(obj: Excel.Workbook, event: 'Sync', argNames: ['SyncEventType'], handler: (this: Excel.Workbook, parameter: {readonly SyncEventType: Office.MsoSyncEventType}) => void): void;
-    on(obj: Excel.Workbook, event: 'WindowActivate' | 'WindowDeactivate' | 'WindowResize', argNames: ['Wn'], handler: (this: Excel.Workbook, parameter: {readonly Wn: Excel.Window}) => void): void;
+            this: Excel.Workbook, parameter: { readonly Sh: any, readonly Target: Excel.PivotTable }) => void): void;
+    on(obj: Excel.Workbook, event: 'Sync', argNames: ['SyncEventType'], handler: (this: Excel.Workbook, parameter: { readonly SyncEventType: Office.MsoSyncEventType }) => void): void;
+    on(obj: Excel.Workbook, event: 'WindowActivate' | 'WindowDeactivate' | 'WindowResize', argNames: ['Wn'], handler: (this: Excel.Workbook, parameter: { readonly Wn: Excel.Window }) => void): void;
     on(
         obj: Excel.Worksheet, event: 'BeforeDoubleClick' | 'BeforeRightClick', argNames: ['Target', 'Cancel'], handler: (
-            this: Excel.Worksheet, parameter: {readonly Target: Excel.Range, Cancel: boolean}) => void): void;
-    on(obj: Excel.Worksheet, event: 'Change' | 'SelectionChange', argNames: ['Target'], handler: (this: Excel.Worksheet, parameter: {readonly Target: Excel.Range}) => void): void;
-    on(obj: Excel.Worksheet, event: 'FollowHyperlink', argNames: ['Target'], handler: (this: Excel.Worksheet, parameter: {readonly Target: Excel.Hyperlink}) => void): void;
+            this: Excel.Worksheet, parameter: { readonly Target: Excel.Range, Cancel: boolean }) => void): void;
+    on(obj: Excel.Worksheet, event: 'Change' | 'SelectionChange', argNames: ['Target'], handler: (this: Excel.Worksheet, parameter: { readonly Target: Excel.Range }) => void): void;
+    on(obj: Excel.Worksheet, event: 'FollowHyperlink', argNames: ['Target'], handler: (this: Excel.Worksheet, parameter: { readonly Target: Excel.Hyperlink }) => void): void;
     on(
         obj: Excel.Worksheet, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: Excel.Worksheet, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+            this: Excel.Worksheet, parameter: { readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number }) => void): void;
     on(
         obj: Excel.Worksheet, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: Excel.Worksheet, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Excel.Worksheet, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Worksheet, parameter: {pctinfo: number}) => void): void;
+            this: Excel.Worksheet, parameter: { readonly itinfo: number, readonly lcid: number, pptinfo: undefined }) => void): void;
+    on(obj: Excel.Worksheet, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Excel.Worksheet, parameter: { pctinfo: number }) => void): void;
     on(
         obj: Excel.Worksheet, event: 'Invoke', argNames: Excel.EventHelperTypes.Worksheet_Invoke_ArgNames, handler: (
             this: Excel.Worksheet, parameter: Excel.EventHelperTypes.Worksheet_Invoke_Parameter) => void): void;
     on(
         obj: Excel.Worksheet, event: 'PivotTableAfterValueChange', argNames: ['TargetPivotTable', 'TargetRange'], handler: (
-            this: Excel.Worksheet, parameter: {readonly TargetPivotTable: Excel.PivotTable, readonly TargetRange: Excel.Range}) => void): void;
+            this: Excel.Worksheet, parameter: { readonly TargetPivotTable: Excel.PivotTable, readonly TargetRange: Excel.Range }) => void): void;
     on(
         obj: Excel.Worksheet, event: 'PivotTableBeforeAllocateChanges' | 'PivotTableBeforeCommitChanges',
         argNames: ['TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd', 'Cancel'], handler: (
-            this: Excel.Worksheet, parameter: {readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number, Cancel: boolean}) => void): void;
+            this: Excel.Worksheet, parameter: { readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number, Cancel: boolean }) => void): void;
     on(
         obj: Excel.Worksheet, event: 'PivotTableBeforeDiscardChanges', argNames: ['TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd'],
-        handler: (this: Excel.Worksheet, parameter: {readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number}) => void): void;
-    on(obj: Excel.Worksheet, event: 'PivotTableChangeSync' | 'PivotTableUpdate', argNames: ['Target'], handler: (this: Excel.Worksheet, parameter: {readonly Target: Excel.PivotTable}) => void): void;
-    on(obj: Excel.Worksheet, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Worksheet, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
+        handler: (this: Excel.Worksheet, parameter: { readonly TargetPivotTable: Excel.PivotTable, readonly ValueChangeStart: number, readonly ValueChangeEnd: number }) => void): void;
+    on(obj: Excel.Worksheet, event: 'PivotTableChangeSync' | 'PivotTableUpdate', argNames: ['Target'], handler: (
+        this: Excel.Worksheet, parameter: { readonly Target: Excel.PivotTable }) => void): void;
+    on(obj: Excel.Worksheet, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Excel.Worksheet, parameter: { readonly riid: stdole.GUID, ppvObj: undefined }) => void): void;
     on(obj: Excel.Application, event: 'AddRef' | 'AfterCalculate' | 'Release', handler: (this: Excel.Application, parameter: {}) => void): void;
     on(obj: Excel.Chart, event: 'Activate' | 'AddRef' | 'Calculate' | 'Deactivate' | 'DragOver' | 'DragPlot' | 'Release' | 'Resize', handler: (this: Excel.Chart, parameter: {}) => void): void;
     on(obj: Excel.OLEObject, event: 'AddRef' | 'GotFocus' | 'LostFocus' | 'Release', handler: (this: Excel.OLEObject, parameter: {}) => void): void;
@@ -9464,7 +9723,7 @@ interface ActiveXObject {
     set(obj: Excel.Workbook, propertyName: 'Colors', parameterTypes: [any], newValue: any): void;
     set(obj: Excel.Range, propertyName: 'Value', parameterTypes: [Excel.XlRangeValueDataType], newValue: any): void;
     set(obj: Excel.Range, propertyName: 'Value', newValue: any): void; // because Value is defined on the type as a method, not a property
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
+    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
@@ -9474,26 +9733,8 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: Excel.Actions): Enumerator<Excel.Action>;
-    new(col: Excel.AddIns | Excel.AddIns2): Enumerator<Excel.AddIn>;
-    new(col: Excel.AllowEditRanges): Enumerator<Excel.AllowEditRange>;
-    new(col: Excel.Areas | Excel.Ranges): Enumerator<Excel.Range>;
-    new(col: Excel.Borders): Enumerator<Excel.Border>;
-    new(col: Excel.CalculatedFields): Enumerator<Excel.PivotField>;
-    new(col: Excel.CalculatedItems | Excel.PivotItemList): Enumerator<Excel.PivotItem>;
-    new(col: Excel.CalculatedMembers): Enumerator<Excel.CalculatedMember>;
-    new(col: Excel.Comments): Enumerator<Excel.Comment>;
-    new(col: Excel.Connections): Enumerator<Excel.WorkbookConnection>;
-    new(col: Excel.CubeFields): Enumerator<Excel.CubeField>;
-    new(col: Excel.CustomProperties): Enumerator<Excel.CustomProperty>;
-    new(col: Excel.CustomViews): Enumerator<Excel.CustomView>;
-    new(col: Excel.DiagramNodeChildren | Excel.DiagramNodes): Enumerator<Excel.DiagramNode>;
-    new(col: Excel.Dialogs): Enumerator<Excel.Dialog>;
-    new(col: Excel.FileExportConverters): Enumerator<Excel.FileExportConverter>;
-    new(col: Excel.Filters): Enumerator<Excel.Filter>;
-    new(
-        col: Excel.FormatConditions | Excel.IconSets | Excel.MenuItems | Excel.Modules | Excel.Phonetics | Excel.PivotFields | Excel.Range | Excel.ServerViewableItems |
-            Excel.SheetViews | Excel.UsedObjects): Enumerator<any>; // tslint:disable-line:use-default-type-parameter
+    new(col: Excel.Range): Enumerator;
+
     new(col: Excel.GroupShapes | Excel.ShapeRange | Excel.Shapes): Enumerator<Excel.Shape>;
     new(col: Excel.HPageBreaks): Enumerator<Excel.HPageBreak>;
     new(col: Excel.Hyperlinks): Enumerator<Excel.Hyperlink>;
@@ -9543,8 +9784,4 @@ interface EnumeratorConstructor {
     new(col: Excel.XmlMaps): Enumerator<Excel.XmlMap>;
     new(col: Excel.XmlNamespaces): Enumerator<Excel.XmlNamespace>;
     new(col: Excel.XmlSchemas): Enumerator<Excel.XmlSchema>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }

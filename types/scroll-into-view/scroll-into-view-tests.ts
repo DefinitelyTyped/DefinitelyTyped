@@ -1,4 +1,4 @@
-import * as scrollIntoView from "scroll-into-view"
+import scrollIntoView = require("scroll-into-view");
 
 var someElement: HTMLElement
 scrollIntoView(someElement);

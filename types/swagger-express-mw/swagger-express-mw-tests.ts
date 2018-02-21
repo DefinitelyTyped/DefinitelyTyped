@@ -1,5 +1,5 @@
 import * as SwaggerExpress from "swagger-express-mw";
-import * as express from "express";
+import express = require("express");
 
 const app = express();
 const config: SwaggerExpress.Config = {

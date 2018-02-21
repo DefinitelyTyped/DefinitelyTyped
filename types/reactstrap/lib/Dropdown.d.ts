@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface UncontrolledProps {
+export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
@@ -18,6 +18,7 @@ export interface Props extends UncontrolledProps {
   group?: boolean;
   size?: string;
   tag?: React.ReactType;
+  addonType?: boolean | 'prepend' | 'append';
 }
 export interface DropdownProps extends Props {
   /* intentionally blank */

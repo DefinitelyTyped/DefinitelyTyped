@@ -201,8 +201,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: any): boolean;
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: any) => boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -474,8 +474,8 @@ declare namespace R {
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
          * first (default) argument is returned.
          */
-        defaultTo<T, U>(a: T, b: U): T | U;
-        defaultTo<T>(a: T): <U>(b: U) => T | U;
+        defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
+        defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
         /**
          * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
@@ -1245,10 +1245,10 @@ declare namespace R {
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
-        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): string[][];
-        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T[][];
-        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => string[][];
+        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): [string[], string[]];
+        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): [T[], T[]];
+        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => [T[], T[]];
+        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => [string[], string[]];
 
         /**
          * Retrieve the value at a given path.

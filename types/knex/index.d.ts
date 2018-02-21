@@ -171,11 +171,13 @@ declare namespace Knex {
     }
 
     interface Select extends ColumnNameQueryBuilder {
+        (aliases: { [alias: string]: string }): QueryBuilder;
     }
 
     interface Table {
         (tableName: string): QueryBuilder;
         (callback: Function): QueryBuilder;
+        (raw: Raw): QueryBuilder;
     }
 
     interface Distinct extends ColumnNameQueryBuilder {
@@ -183,12 +185,12 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: TableName, clause: (this: JoinClause, join: JoinClause) => void): QueryBuilder;
-        (tableName: TableName, columns: { [key: string]: string | number | Raw }): QueryBuilder;
-        (tableName: TableName, raw: Raw): QueryBuilder;
-        (tableName: TableName, column1: string, column2: string): QueryBuilder;
-        (tableName: TableName, column1: string, raw: Raw): QueryBuilder;
-        (tableName: TableName, column1: string, operator: string, column2: string): QueryBuilder;
+        (tableName: TableName | QueryCallback, clause: (this: JoinClause, join: JoinClause) => void): QueryBuilder;
+        (tableName: TableName | QueryCallback, columns: { [key: string]: string | number | Raw }): QueryBuilder;
+        (tableName: TableName | QueryCallback, raw: Raw): QueryBuilder;
+        (tableName: TableName | QueryCallback, column1: string, column2: string): QueryBuilder;
+        (tableName: TableName | QueryCallback, column1: string, raw: Raw): QueryBuilder;
+        (tableName: TableName | QueryCallback, column1: string, operator: string, column2: string): QueryBuilder;
     }
 
     interface JoinClause {
@@ -262,8 +264,8 @@ declare namespace Knex {
         (raw: Raw): QueryBuilder;
         (callback: QueryCallback): QueryBuilder;
         (object: Object): QueryBuilder;
-        (columnName: string, value: Value): QueryBuilder;
-        (columnName: string, operator: string, value: Value): QueryBuilder;
+        (columnName: string, value: Value | null): QueryBuilder;
+        (columnName: string, operator: string, value: Value | null): QueryBuilder;
         (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
     }
 
@@ -426,7 +428,7 @@ declare namespace Knex {
         date(columnName: string): ColumnBuilder;
         dateTime(columnName: string): ColumnBuilder;
         time(columnName: string): ColumnBuilder;
-        timestamp(columnName: string): ColumnBuilder;
+        timestamp(columnName: string, standard?: boolean): ColumnBuilder;
         timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
         binary(columnName: string, length?: number): ColumnBuilder;
         enum(columnName: string, values: Value[]): ColumnBuilder;
@@ -439,8 +441,8 @@ declare namespace Knex {
         primary(columnNames: string[]): TableBuilder;
         index(columnNames: (string | Raw)[], indexName?: string, indexType?: string): TableBuilder;
         unique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
-        foreign(column: string): ForeignConstraintBuilder;
-        foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+        foreign(column: string, foreignKeyName?: string): ForeignConstraintBuilder;
+        foreign(columns: string[], foreignKeyName?: string): MultikeyForeignConstraintBuilder;
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
         dropUnique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
@@ -465,8 +467,8 @@ declare namespace Knex {
 
     interface ColumnBuilder {
         index(indexName?: string): ColumnBuilder;
-        primary(): ColumnBuilder;
-        unique(): ColumnBuilder;
+        primary(constraintName?: string): ColumnBuilder;
+        unique(indexName?: string): ColumnBuilder;
         references(columnName: string): ReferencingColumnBuilder;
         onDelete(command: string): ColumnBuilder;
         onUpdate(command: string): ColumnBuilder;

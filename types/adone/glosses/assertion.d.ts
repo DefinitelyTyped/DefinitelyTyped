@@ -38,7 +38,7 @@ declare namespace adone {
                 proxyExcludedKeys: string[];
             }
 
-            type PossibleTypes = util.I.PossibleTypes | "array";
+            type PossibleTypes = meta.I.PossibleTypes | "array";
 
             type UseFunction = (fn: () => void) => assertion;
 
@@ -56,15 +56,7 @@ declare namespace adone {
                 /**
                  * Asserts that value is truthy
                  */
-                isOk(value: any, message?: string): void;
-                /**
-                 * Asserts that value is truthy
-                 */
                 ok(value: any, message?: string): void;
-                /**
-                 * Asserts that value is falsy
-                 */
-                isNotOk(value: any, message?: string): void;
                 /**
                  * Asserts that value is falsy
                  */
@@ -104,51 +96,51 @@ declare namespace adone {
                 /**
                  * Asserts that value > above
                  */
-                isAbove(value: any, above: any, message?: string): void;
+                above(value: any, above: any, message?: string): void;
                 /**
                  * Asserts that value >= atLeast
                  */
-                isAtLeast(value: any, atLeast: any, message?: string): void;
+                atLeast(value: any, atLeast: any, message?: string): void;
                 /**
                  * Asserts that value < below
                  */
-                isBelow(value: any, below: any, message?: string): void;
+                below(value: any, below: any, message?: string): void;
                 /**
                  * Asserts that value <= atMost
                  */
-                isAtMost(value: any, atMost: any, message?: string): void;
+                atMost(value: any, atMost: any, message?: string): void;
                 /**
                  * Asserts that value is true
                  */
-                isTrue(value: any, message?: string): void;
+                true(value: any, message?: string): void;
                 /**
                  * Asserts that value is not true
                  */
-                isNotTrue(value: any, message?: string): void;
+                notTrue(value: any, message?: string): void;
                 /**
                  * Asserts that value is false
                  */
-                isFalse(value: any, message?: string): void;
+                false(value: any, message?: string): void;
                 /**
                  * Asserts that value is not false
                  */
-                isNotFalse(value: any, message?: string): void;
+                notFalse(value: any, message?: string): void;
                 /**
                  * Asserts that value is null
                  */
-                isNull(value: any, message?: string): void;
+                null(value: any, message?: string): void;
                 /**
                  * Asserts that valus is not null
                  */
-                isNotNull(value: any, message?: string): void;
+                notNull(value: any, message?: string): void;
                 /**
                  * Asserts that value is NaN
                  */
-                isNaN(value: any, message?: string): void;
+                NaN(value: any, message?: string): void;
                 /**
                  * Asserts that value is not NaN
                  */
-                isNotNaN(value: any, message?: string): void;
+                NotNaN(value: any, message?: string): void;
                 /**
                  * Asserts that value is neither null nor undefined
                  */
@@ -160,63 +152,63 @@ declare namespace adone {
                 /**
                  * Asserts that value is undefined
                  */
-                isUndefined(value: any, message?: string): void;
+                undefined(value: any, message?: string): void;
                 /**
                  * Asserts that value is not undefined
                  */
-                isDefined(value: any, message?: string): void;
+                defined(value: any, message?: string): void;
                 /**
                  * Asserts that value is a function
                  */
-                isFunction(value: any, message?: string): void;
+                function(value: any, message?: string): void;
                 /**
                  * Asserts that value is not a function
                  */
-                isNotFunction(value: any, message?: string): void;
+                notFunction(value: any, message?: string): void;
                 /**
                  * Asserts that value is an object of type Object
                  */
-                isObject(value: any, message?: string): void;
+                object(value: any, message?: string): void;
                 /**
                  * Asserts that value is not an object of type Object
                  */
-                isNotObject(value: any, message?: string): void;
+                notObject(value: any, message?: string): void;
                 /**
                  * Asserts that value is an array
                  */
-                isArray(value: any, message?: string): void;
+                array(value: any, message?: string): void;
                 /**
                  * Asserts that value is not an array
                  */
-                isNotArray(value: any, message?: string): void;
+                notArray(value: any, message?: string): void;
                 /**
                  * Asserts that value is a string
                  */
-                isString(value: any, message?: string): void;
+                string(value: any, message?: string): void;
                 /**
                  * Asserts that value is not a string
                  */
-                isNotString(value: any, message?: string): void;
+                notString(value: any, message?: string): void;
                 /**
                  * Asserts that value is a number
                  */
-                isNumber(value: any, message?: string): void;
+                number(value: any, message?: string): void;
                 /**
                  * Asserts that value is not a number
                  */
-                isNotNumber(value: any, message?: string): void;
+                notNumber(value: any, message?: string): void;
                 /**
                  * Asserts that value is a finite number
                  */
-                isFinite(value: any, message?: string): void;
+                finite(value: any, message?: string): void;
                 /**
                  * Asserts that value is a boolean
                  */
-                isBoolean(value: any, message?: string): void;
+                boolean(value: any, message?: string): void;
                 /**
                  * Asserts that value is not a boolean
                  */
-                isNotBoolean(value: any, message?: string): void;
+                notBoolean(value: any, message?: string): void;
                 /**
                  * Asserts that value's type is `type`
                  */
@@ -565,15 +557,7 @@ declare namespace adone {
                 /**
                  * Asserts that object is extensible
                  */
-                isExtensible(object: object, message?: string): void;
-                /**
-                 * Asserts that object is extensible
-                 */
                 extensible(object: object, message?: string): void;
-                /**
-                 * Asserts that object is not extensible
-                 */
-                isNotExtensible(object: object, message?: string): void;
                 /**
                  * Asserts that object is not extensible
                  */
@@ -581,15 +565,7 @@ declare namespace adone {
                 /**
                  * Asserts that object is sealed
                  */
-                isSealed(object: object, message?: string): void;
-                /**
-                 * Asserts that object is sealed
-                 */
                 sealed(object: object, message?: string): void;
-                /**
-                 * Asserts that object is not sealed
-                 */
-                isNotSealed(object: object, message?: string): void;
                 /**
                  * Asserts that object is not sealed
                  */
@@ -597,15 +573,7 @@ declare namespace adone {
                 /**
                  * Asserts that object is frozen
                  */
-                isFrozen(object: object, message?: string): void;
-                /**
-                 * Asserts that object is frozen
-                 */
                 frozen(object: object, message?: string): void;
-                /**
-                 * Asserts that object is not frozen
-                 */
-                isNotFrozen(object: object, message?: string): void;
                 /**
                  * Asserts that object is not frozen
                  */
@@ -613,15 +581,7 @@ declare namespace adone {
                 /**
                  * Asserts that value is empty
                  */
-                isEmpty(value: any, message?: string): void;
-                /**
-                 * Asserts that value is empty
-                 */
                 empty(value: any, message?: string): void;
-                /**
-                 * Asserts that value is not empty
-                 */
-                isNotEmpty(value: any, message?: string): void;
                 /**
                  * Asserts that value is not empty
                  */
@@ -710,43 +670,43 @@ declare namespace adone {
                 /**
                  * Asserts that the target is non-strictly equal to true
                  */
-                ok: this;
+                ok(): this;
                 /**
                  * Asserts that the target is true
                  */
-                true: this;
+                true(): this;
                 /**
                  * Asserts that the target is false
                  */
-                false: this;
+                false(): this;
                 /**
                  * Asserts that the target is null
                  */
-                null: this;
+                null(): this;
                 /**
                  * Asserts that the target is undefined
                  */
-                undefined: this;
+                undefined(): this;
                 /**
                  * Asserts that the target is NaN
                  */
-                NaN: this;
+                NaN(): this;
                 /**
                  * Asserts that the target is neither null nor undefined
                  */
-                exist: this;
+                exist(): this;
                 /**
                  * Asserts that the target is empty
                  */
-                empty: this;
+                empty(): this;
                 /**
                  * Asserts that the target is an arguments object
                  */
-                arguments: this;
+                arguments(): this;
                 /**
                  * Asserts that the target is an arguments object
                  */
-                Arguments: this;
+                Arguments(): this;
                 /**
                  * Asserts that the target is strictly equal to value(===)
                  */
@@ -976,26 +936,26 @@ declare namespace adone {
                 /**
                  * Asserts that the target is extensible
                  */
-                extensible: this;
+                extensible(): this;
                 /**
                  * Asserts that the target is sealed
                  */
-                sealed: this;
+                sealed(): this;
                 /**
                  * Asserts that the target is frozen
                  */
-                frozen: this;
+                frozen(): this;
                 /**
                  * Asserts that the target is a finite number
                  */
-                finite: this;
+                finite(): this;
             }
 
             interface MockAssertions extends Assertion {
                 /**
                  * Asserts that the spy has been called
                  */
-                called: this;
+                called(): this;
                 /**
                  * Asserts that the spy has been called n times
                  */
@@ -1003,15 +963,15 @@ declare namespace adone {
                 /**
                  * Asserts that the spy has been called once
                  */
-                calledOnce: this;
+                calledOnce(): this;
                 /**
                  * Asserts that the spy has been called twice
                  */
-                calledTwice: this;
+                calledTwice(): this;
                 /**
                  * Asserts that the spy has been been called with `new`
                  */
-                calledThrice: this;
+                calledThrice(): this;
                 /**
                  * Asserts that the spy has been called before anotherSpy
                  */
@@ -1059,7 +1019,7 @@ declare namespace adone {
             }
         }
 
-        class AssertionError extends x.Exception {
+        class AssertionError extends exception.Exception {
             constructor(message?: string, props?: object, ssf?: object)
         }
 

@@ -130,7 +130,15 @@ export function create(text: string | QRCodeSegment[], options: QRCodeOptions): 
 /**
  * Draws qr code symbol to canvas.
  */
+export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Draws qr code symbol to canvas.
+ */
 export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Draws qr code symbol to canvas.
+ */
+export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
 /**
  * Draws qr code symbol to canvas.
  */
@@ -138,7 +146,15 @@ export function toCanvas(canvasElement: HTMLCanvasElement, text: string | QRCode
 /**
  * Draws qr code symbol to canvas.
  */
+export function toCanvas(text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Draws qr code symbol to canvas.
+ */
 export function toCanvas(text: string | QRCodeSegment[], callback: (error: Error, canvas: HTMLCanvasElement) => void): void;
+/**
+ * Draws qr code symbol to canvas.
+ */
+export function toCanvas(text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
 /**
  * Draws qr code symbol to canvas.
  */
@@ -146,7 +162,15 @@ export function toCanvas(text: string | QRCodeSegment[], options: QRCodeOptions,
 /**
  * Draws qr code symbol to node canvas.
  */
+export function toCanvas(canvas: any, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Draws qr code symbol to node canvas.
+ */
 export function toCanvas(canvas: any, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Draws qr code symbol to node canvas.
+ */
+export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
 /**
  * Draws qr code symbol to node canvas.
  */
@@ -155,7 +179,15 @@ export function toCanvas(canvas: any, text: string | QRCodeSegment[], options: Q
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
+export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
 export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], callback: (error: Error, url: string) => void): void;
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
+export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCodeSegment[], options: QRCodeToDataURLOptions): Promise<any>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -163,7 +195,15 @@ export function toDataURL(canvasElement: HTMLCanvasElement, text: string | QRCod
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
+export function toDataURL(text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
 export function toDataURL(text: string | QRCodeSegment[], callback: (error: Error, url: string) => void): void;
+/**
+ * Returns a Data URI containing a representation of the QR Code image.
+ */
+export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataURLOptions): Promise<any>;
 /**
  * Returns a Data URI containing a representation of the QR Code image.
  */
@@ -173,7 +213,17 @@ export function toDataURL(text: string | QRCodeSegment[], options: QRCodeToDataU
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.
  */
+export function toString(text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Returns a string representation of the QR Code.
+ * If choosen output format is svg it will returns a string containing xml code.
+ */
 export function toString(text: string | QRCodeSegment[], callback: (error: Error, string: string) => void): void;
+/**
+ * Returns a string representation of the QR Code.
+ * If choosen output format is svg it will returns a string containing xml code.
+ */
+export function toString(text: string | QRCodeSegment[], options: QRCodeToStringOptions): Promise<any>;
 /**
  * Returns a string representation of the QR Code.
  * If choosen output format is svg it will returns a string containing xml code.
@@ -185,7 +235,19 @@ export function toString(text: string | QRCodeSegment[], options: QRCodeToString
  * If options.type is not specified, the format will be guessed from file extension.
  * Recognized extensions are png, svg, txt.
  */
+export function toFile(path: string, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Saves QR Code to image file.
+ * If options.type is not specified, the format will be guessed from file extension.
+ * Recognized extensions are png, svg, txt.
+ */
 export function toFile(path: string, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Saves QR Code to image file.
+ * If options.type is not specified, the format will be guessed from file extension.
+ * Recognized extensions are png, svg, txt.
+ */
+export function toFile(path: string, text: string | QRCodeSegment[], options: QRCodeToFileOptions): Promise<any>;
 /**
  * Saves QR Code to image file.
  * If options.type is not specified, the format will be guessed from file extension.
@@ -196,7 +258,15 @@ export function toFile(path: string, text: string | QRCodeSegment[], options: QR
 /**
  * Writes QR Code image to stream. Only works with png format for now.
  */
+export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[]): Promise<any>;
+/**
+ * Writes QR Code image to stream. Only works with png format for now.
+ */
 export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], callback: (error: Error) => void): void;
+/**
+ * Writes QR Code image to stream. Only works with png format for now.
+ */
+export function toFileStream(stream: stream.Writable, text: string | QRCodeSegment[], options: QRCodeOptions): Promise<any>;
 /**
  * Writes QR Code image to stream. Only works with png format for now.
  */

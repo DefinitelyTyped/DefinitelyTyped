@@ -1,5 +1,6 @@
 import * as blessed from "blessed";
 import { readFileSync } from "fs";
+import { inspect } from "util";
 
 let screen: blessed.Widgets.Screen = null;
 
@@ -743,3 +744,71 @@ setTimeout(() => {
   table.setData(data1);
   screen.render();
 }, 3000);
+
+// https://github.com/chjj/blessed/blob/master/test/program-mouse.js
+
+const program = blessed.program({
+  dump: __dirname + '/logs/mouse.log'
+});
+
+// program.setMouse({
+//   allMotion: true,
+//   //utfMouse: true
+//   urxvtMouse: true
+// }, true);
+
+program.alternateBuffer();
+program.enableMouse();
+program.hideCursor();
+
+program.setMouse({ sendFocus: true }, true);
+
+program.on('mouse', function(data) {
+  program.cup(data.y, data.x);
+  program.write(' ');
+  program.cup(0, 0);
+  program.write(inspect(data));
+});
+
+program.on('resize', function(data) {
+  setTimeout(function() {
+    program.clear();
+    program.cup(0, 0);
+    program.write(inspect({ cols: program.cols, rows: program.rows }));
+  }, 200);
+});
+
+process.on('SIGWINCH', function(data) {
+  setTimeout(function() {
+    program.cup(1, 0);
+    program.write(inspect({ winch: true, cols: program.cols, rows: program.rows }));
+  }, 200);
+});
+
+program.on('focus', function(data) {
+  program.clear();
+  program.cup(0, 0);
+  program.write('FOCUSIN');
+});
+
+program.on('blur', function(data) {
+  program.clear();
+  program.cup(0, 0);
+  program.write('FOCUSOUT');
+});
+
+program.key(['q', 'escape', 'C-c'], function() {
+  program.showCursor();
+  program.disableMouse();
+  program.normalBuffer();
+  process.exit(0);
+});
+
+program.on('keypress', function(ch, data) {
+  if (data.name === 'mouse') return;
+  program.clear();
+  program.cup(0, 0);
+  program.write(inspect(data));
+});
+
+program.clear();
