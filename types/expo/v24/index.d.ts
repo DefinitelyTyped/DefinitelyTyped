@@ -1538,11 +1538,11 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps {
+export interface LinearGradientProps extends ViewProperties {
     colors: string[];
-    start: [number, number];
-    end: [number, number];
-    locations: number[];
+    start?: [number, number];
+    end?: [number, number];
+    locations?: number[];
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }
