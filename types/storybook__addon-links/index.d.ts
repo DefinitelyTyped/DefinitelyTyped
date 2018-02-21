@@ -1,6 +1,7 @@
 // Type definitions for @storybook/addon-links 3.0
 // Project: https://github.com/storybooks/storybook
-// Definitions by: Joscha Feth <https://github.com/joscha>
+// Definitions by: Joscha Feth <https://github.com/joscha>,
+//                 Jesse Pinho <https://github.com/jessepinho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
