@@ -3,6 +3,7 @@ import { SortOrder } from './scale';
 import { Scope } from './scope';
 import { SignalRef } from './signal';
 import { Transform } from './transform';
+import { OnMarkTrigger } from './on-trigger';
 export declare type Facet = {
     name: string;
     data: string;
@@ -40,6 +41,8 @@ export interface BaseMark {
     interactive?: boolean;
     from?: From;
     transform?: Transform[];
+    zindex?: number;
+    on?: OnMarkTrigger[];
 }
 export interface ArcMark extends BaseMark, Encode.Encode<Encode.ArcEncodeEntry> {
     type: 'arc';
