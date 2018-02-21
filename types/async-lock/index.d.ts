@@ -1,15 +1,12 @@
-// Type definitions for async-lock 1.1.0
+// Type definitions for async-lock 1.1
 // Project: https://github.com/rain1017/async-lock
-// Definitions by: Elisée MAURER <https://github.com/elisee> 
+// Definitions by: Elisée MAURER <https://github.com/elisee>
 //                 Alejandro <https://github.com/afharo>
 //                 Anatoly <https://github.com/rhymmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-
-interface AsyncLockDoneCallback<T> {
-    (err?: Error, ret?: T): void;
-}
+type AsyncLockDoneCallback<T> = (err?: Error, ret?: T) => void;
 
 interface AsyncLockOptions {
     timeout?: number;

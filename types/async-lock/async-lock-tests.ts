@@ -1,4 +1,3 @@
-
 import * as AsyncLock from "async-lock";
 const lock = new AsyncLock();
 
@@ -23,7 +22,7 @@ lock.acquire([ "key1", "key2" ], (done) => {
 }, (err, ret) => { /* ... */ });
 
 lock.isBusy();
-lock.isBusy('key')
+lock.isBusy('key');
 
 const lock2 = new AsyncLock({ timeout : 5000 });
 const lock3 = new AsyncLock({ maxPending : 5000 });
