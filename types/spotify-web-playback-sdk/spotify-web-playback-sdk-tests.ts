@@ -20,7 +20,7 @@ player.connect().then((success) => {
 
 player.disconnect();
 
-player.on("ready", (data) => {
+player.addListener("ready", (data) => {
     console.log("The Web Playback SDK is ready to play music!");
 });
 
@@ -68,12 +68,12 @@ player.nextTrack().then(() => {
     console.log("Skipped to next track!");
 });
 
-player.on("ready", (data) => {
+player.addListener("ready", (data) => {
     const { device_id } = data;
     console.log("Connected with Device ID", device_id);
 });
 
-player.on("player_state_changed", (playbackState) => {
+player.addListener("player_state_changed", (playbackState) => {
     const { position, duration } = playbackState;
     const { current_track } = playbackState.track_window;
 
@@ -82,7 +82,7 @@ player.on("player_state_changed", (playbackState) => {
     console.log("Duration of Song", duration);
 });
 
-player.on('initialization_error', (e) => {
+player.addListener('initialization_error', (e) => {
     console.error("Failed to initialize", e.message);
 });
 
@@ -94,6 +94,12 @@ player.on('account_error', (e) => {
     console.error("Failed to validate Spotify account", e.message);
 });
 
-player.on('playback_error', (e) => {
+const listener = (e: any) => {
     console.error("Failed to perform playback", e.message);
-});
+};
+player.addListener('playback_error', listener);
+player.addListener('playback_error', () => {});
+player.removeListener('playback_error', () => {});
+
+player.removeListener('playback_error');
+player.removeListener('playback_error', listener);
