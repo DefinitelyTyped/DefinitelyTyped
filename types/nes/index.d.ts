@@ -26,7 +26,7 @@
 import { Plugin } from 'hapi';
 import NesClient = require('nes/client');
 
-declare module 'hapi/definitions/server/server' {
+declare module 'hapi' {
     interface Server {
         broadcast(message: any, options?: nes.ServerBroadcastOptions): void;
         subscription(path: string, options?: nes.ServerSubscriptionOptions): void;
@@ -35,7 +35,7 @@ declare module 'hapi/definitions/server/server' {
     }
 }
 
-declare module 'hapi/definitions/request/request' {
+declare module 'hapi' {
     interface Request {
         socket: nes.Socket;
     }

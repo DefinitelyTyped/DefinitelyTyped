@@ -18,7 +18,7 @@ server.app!.key = 'value2';
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'key: ' + request.server.app!.key;
     }
 };

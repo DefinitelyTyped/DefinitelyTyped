@@ -1,5 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#route-options
 import {
+    Lifecycle,
     Request,
     ResponseToolkit,
     RouteOptions,
@@ -46,7 +47,7 @@ const payloadOptions: RouteOptionsPayload = {
         }
     },
     defaultContentType: 'application/json',
-    failAction: (request: Request, h: ResponseToolkit) => {
+    failAction(request, h) {
         return 'ok: ' + request.path;
     },
     maxBytes: 1048576,
@@ -60,21 +61,21 @@ const payloadOptions: RouteOptionsPayload = {
     uploads: 'dir/'
 };
 
-const pre1 = (request: Request, h: ResponseToolkit) => {
+const pre1: Lifecycle.Method = (request, h) => {
     return 'Hello';
 };
 
-const pre2 = (request: Request, h: ResponseToolkit) => {
+const pre2: Lifecycle.Method = (request, h) => {
     return 'World';
 };
 
-const pre3 = (request: Request, h: ResponseToolkit) => {
+const pre3: Lifecycle.Method = (request, h) => {
     return `request.pre.m1 request.pre.m2`;
 };
 
 const routeOptionsResponse: RouteOptionsResponse = {
     emptyStatusCode: 200,
-    failAction: (request: Request, h: ResponseToolkit) => {
+    failAction(request, h) {
         return 'ok: ' + request.path;
     },
     modify: false,
@@ -91,7 +92,7 @@ const routeOptionsResponse: RouteOptionsResponse = {
 
 const routeOptionsValidate: RouteOptionsValidate = {
     errorFields: {},
-    failAction: (request: Request, h: ResponseToolkit) => {
+    failAction(request, h) {
         return 'ok: ' + request.path;
     },
     headers: false,
@@ -119,7 +120,7 @@ const routeOptions: RouteOptions = {
     description: 'description here',
     ext: undefined,
     files: { relativeTo: '.' },
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'ok: ' + request.path;
     },
     id: 'test',
@@ -145,7 +146,7 @@ const routeOptions: RouteOptions = {
     security: false,
     state: {
         parse: true,
-        failAction: (request: Request, h: ResponseToolkit) => {
+        failAction(request, h) {
             return 'ok: ' + request.path;
         },
     },
