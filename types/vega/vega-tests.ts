@@ -5500,6 +5500,589 @@ const forceDirectedLayout: Spec = {
     ],
 };
 
+// https://vega.github.io/editor/#/examples/vega/reorderable-matrix
+const reorderableMatrix: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 770,
+    height: 770,
+    padding: 2,
+
+    signals: [
+        { name: 'cellSize', value: 10 },
+        { name: 'width', update: "span(range('position'))" },
+        { name: 'height', update: 'width' },
+        {
+            name: 'src',
+            value: {},
+            on: [
+                { events: 'text:mousedown', update: 'datum' },
+                { events: 'window:mouseup', update: '{}' },
+            ],
+        },
+        {
+            name: 'dest',
+            value: {},
+            on: [
+                {
+                    events: '[text:mousedown, window:mouseup] > text:mouseover',
+                    update: 'src.name != null ? datum : dest',
+                },
+                { events: 'text:mouseout', update: '{}' },
+            ],
+        },
+        { name: 'destOrder', update: 'dest.order' },
+        { name: 'dragging', update: 'src.name && dest.name' },
+    ],
+
+    data: [
+        {
+            name: 'nodes',
+            url: 'data/miserables.json',
+            format: { type: 'json', property: 'nodes' },
+            transform: [
+                { type: 'collect', sort: { field: 'group' } },
+                { type: 'window', ops: ['rank'], as: ['order'] },
+                {
+                    type: 'formula',
+                    as: 'order',
+                    expr:
+                        'dragging && datum === dest ? src.order : datum.order',
+                },
+                {
+                    type: 'formula',
+                    as: 'order',
+                    expr: 'dragging && datum === src ? destOrder : datum.order',
+                },
+            ],
+        },
+        {
+            name: 'edges',
+            url: 'data/miserables.json',
+            format: { type: 'json', property: 'links' },
+            transform: [
+                {
+                    type: 'lookup',
+                    from: 'nodes',
+                    key: 'index',
+                    fields: ['source', 'target'],
+                    as: ['sourceNode', 'targetNode'],
+                },
+                {
+                    type: 'formula',
+                    as: 'group',
+                    expr:
+                        'datum.sourceNode.group === datum.targetNode.group ? datum.sourceNode.group : -1',
+                },
+            ],
+        },
+        {
+            name: 'cross',
+            source: 'nodes',
+            transform: [{ type: 'cross' }],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'position',
+            type: 'band',
+            domain: { data: 'nodes', field: 'order', sort: true },
+            range: { step: { signal: 'cellSize' } },
+        },
+        {
+            name: 'color',
+            type: 'ordinal',
+            range: 'category',
+            domain: { data: 'nodes', field: 'group' },
+        },
+        {
+            name: 'labels',
+            type: 'ordinal',
+            domain: { data: 'nodes', field: 'order' },
+            range: { data: 'nodes', field: 'name' },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'rect',
+            from: { data: 'cross' },
+            encode: {
+                update: {
+                    x: { scale: 'position', field: 'a.order' },
+                    y: { scale: 'position', field: 'b.order' },
+                    width: { scale: 'position', band: 1, offset: -1 },
+                    height: { scale: 'position', band: 1, offset: -1 },
+                    fill: [
+                        {
+                            test: 'datum.a === src || datum.b === src',
+                            value: '#ddd',
+                        },
+                        { value: '#f5f5f5' },
+                    ],
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'edges' },
+            encode: {
+                update: {
+                    x: { scale: 'position', field: 'sourceNode.order' },
+                    y: { scale: 'position', field: 'targetNode.order' },
+                    width: { scale: 'position', band: 1, offset: -1 },
+                    height: { scale: 'position', band: 1, offset: -1 },
+                    fill: { scale: 'color', field: 'group' },
+                },
+            },
+        },
+        {
+            type: 'rect',
+            from: { data: 'edges' },
+            encode: {
+                update: {
+                    x: { scale: 'position', field: 'targetNode.order' },
+                    width: { scale: 'position', band: 1, offset: -1 },
+                    y: { scale: 'position', field: 'sourceNode.order' },
+                    height: { scale: 'position', band: 1, offset: -1 },
+                    fill: { scale: 'color', field: 'group' },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'nodes' },
+            encode: {
+                update: {
+                    x: { scale: 'position', field: 'order' },
+                    y: { offset: -2 },
+                    dy: { scale: 'position', band: 0.5 },
+                    text: { field: 'name' },
+                    fontSize: { value: 10 },
+                    angle: { value: -90 },
+                    align: { value: 'left' },
+                    baseline: { value: 'middle' },
+                    fill: [
+                        { test: 'datum === src', value: 'steelblue' },
+                        { value: 'black' },
+                    ],
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'nodes' },
+            encode: {
+                update: {
+                    x: { offset: -2 },
+                    y: { scale: 'position', field: 'order' },
+                    dy: { scale: 'position', band: 0.5 },
+                    text: { field: 'name' },
+                    fontSize: { value: 10 },
+                    align: { value: 'right' },
+                    baseline: { value: 'middle' },
+                    fill: [
+                        { test: 'datum === src', value: 'steelblue' },
+                        { value: 'black' },
+                    ],
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/arc-diagram
+const arcDiagram: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 770,
+    padding: 5,
+
+    data: [
+        {
+            name: 'edges',
+            url: 'data/miserables.json',
+            format: { type: 'json', property: 'links' },
+        },
+        {
+            name: 'sourceDegree',
+            source: 'edges',
+            transform: [{ type: 'aggregate', groupby: ['source'] }],
+        },
+        {
+            name: 'targetDegree',
+            source: 'edges',
+            transform: [{ type: 'aggregate', groupby: ['target'] }],
+        },
+        {
+            name: 'nodes',
+            url: 'data/miserables.json',
+            format: { type: 'json', property: 'nodes' },
+            transform: [
+                { type: 'window', ops: ['rank'], as: ['order'] },
+                {
+                    type: 'lookup',
+                    from: 'sourceDegree',
+                    key: 'source',
+                    fields: ['index'],
+                    as: ['sourceDegree'],
+                    default: { count: 0 },
+                },
+                {
+                    type: 'lookup',
+                    from: 'targetDegree',
+                    key: 'target',
+                    fields: ['index'],
+                    as: ['targetDegree'],
+                    default: { count: 0 },
+                },
+                {
+                    type: 'formula',
+                    as: 'degree',
+                    expr: 'datum.sourceDegree.count + datum.targetDegree.count',
+                },
+            ],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'position',
+            type: 'band',
+            domain: { data: 'nodes', field: 'order', sort: true },
+            range: 'width',
+        },
+        {
+            name: 'color',
+            type: 'ordinal',
+            range: 'category',
+            domain: { data: 'nodes', field: 'group' },
+        },
+    ],
+
+    marks: [
+        {
+            type: 'symbol',
+            name: 'layout',
+            interactive: false,
+            from: { data: 'nodes' },
+            encode: {
+                enter: {
+                    opacity: { value: 0 },
+                },
+                update: {
+                    x: { scale: 'position', field: 'order' },
+                    y: { value: 0 },
+                    size: { field: 'degree', mult: 5, offset: 10 },
+                    fill: { scale: 'color', field: 'group' },
+                },
+            },
+        },
+        {
+            type: 'path',
+            from: { data: 'edges' },
+            encode: {
+                update: {
+                    stroke: { value: '#000' },
+                    strokeOpacity: { value: 0.2 },
+                    strokeWidth: { field: 'value' },
+                },
+            },
+            transform: [
+                {
+                    type: 'lookup',
+                    from: 'layout',
+                    key: 'datum.index',
+                    fields: ['datum.source', 'datum.target'],
+                    as: ['sourceNode', 'targetNode'],
+                },
+                {
+                    type: 'linkpath',
+                    sourceX: {
+                        expr: 'min(datum.sourceNode.x, datum.targetNode.x)',
+                    },
+                    targetX: {
+                        expr: 'max(datum.sourceNode.x, datum.targetNode.x)',
+                    },
+                    sourceY: { expr: '0' },
+                    targetY: { expr: '0' },
+                    shape: 'arc',
+                },
+            ],
+        },
+        {
+            type: 'symbol',
+            from: { data: 'layout' },
+            encode: {
+                update: {
+                    x: { field: 'x' },
+                    y: { field: 'y' },
+                    fill: { field: 'fill' },
+                    size: { field: 'size' },
+                },
+            },
+        },
+        {
+            type: 'text',
+            from: { data: 'nodes' },
+            encode: {
+                update: {
+                    x: { scale: 'position', field: 'order' },
+                    y: { value: 7 },
+                    fontSize: { value: 9 },
+                    align: { value: 'right' },
+                    baseline: { value: 'middle' },
+                    angle: { value: -90 },
+                    text: { field: 'name' },
+                },
+            },
+        },
+    ],
+};
+
+// https://vega.github.io/editor/#/examples/vega/airport-connections
+const airportConnections: Spec = {
+    $schema: 'https://vega.github.io/schema/vega/v3.json',
+    width: 900,
+    height: 560,
+    padding: { top: 25, left: 0, right: 0, bottom: 0 },
+    autosize: 'none',
+
+    signals: [
+        {
+            name: 'scale',
+            value: 1200,
+            bind: { input: 'range', min: 500, max: 3000 },
+        },
+        {
+            name: 'translateX',
+            value: 450,
+            bind: { input: 'range', min: -500, max: 1200 },
+        },
+        {
+            name: 'translateY',
+            value: 260,
+            bind: { input: 'range', min: -300, max: 700 },
+        },
+        {
+            name: 'shape',
+            value: 'line',
+            bind: { input: 'radio', options: ['line', 'curve'] },
+        },
+        {
+            name: 'hover',
+            value: null,
+            on: [
+                { events: '@cell:mouseover', update: 'datum' },
+                { events: '@cell:mouseout', update: 'null' },
+            ],
+        },
+        {
+            name: 'title',
+            value: 'U.S. Airports, 2008',
+            update:
+                "hover ? hover.name + ' (' + hover.iata + ')' : 'U.S. Airports, 2008'",
+        },
+        {
+            name: 'cell_stroke',
+            value: null,
+            on: [
+                { events: 'dblclick', update: "cell_stroke ? null : 'brown'" },
+                { events: 'mousedown!', update: 'cell_stroke' },
+            ],
+        },
+    ],
+
+    data: [
+        {
+            name: 'states',
+            url: 'data/us-10m.json',
+            format: { type: 'topojson', feature: 'states' },
+            transform: [
+                {
+                    type: 'geopath',
+                    projection: 'projection',
+                },
+            ],
+        },
+        {
+            name: 'traffic',
+            url: 'data/flights-airport.csv',
+            format: { type: 'csv', parse: 'auto' },
+            transform: [
+                {
+                    type: 'aggregate',
+                    groupby: ['origin'],
+                    fields: ['count'],
+                    ops: ['sum'],
+                    as: ['flights'],
+                },
+            ],
+        },
+        {
+            name: 'airports',
+            url: 'data/airports.csv',
+            format: {
+                type: 'csv',
+                parse: 'auto',
+            },
+            transform: [
+                {
+                    type: 'lookup',
+                    from: 'traffic',
+                    key: 'origin',
+                    fields: ['iata'],
+                    as: ['traffic'],
+                },
+                {
+                    type: 'filter',
+                    expr: 'datum.traffic != null',
+                },
+                {
+                    type: 'geopoint',
+                    projection: 'projection',
+                    fields: ['longitude', 'latitude'],
+                },
+                {
+                    type: 'filter',
+                    expr: 'datum.x != null && datum.y != null',
+                },
+                {
+                    type: 'voronoi',
+                    x: 'x',
+                    y: 'y',
+                },
+                {
+                    type: 'collect',
+                    sort: {
+                        field: 'traffic.flights',
+                        order: 'descending',
+                    },
+                },
+            ],
+        },
+        {
+            name: 'routes',
+            url: 'data/flights-airport.csv',
+            format: { type: 'csv', parse: 'auto' },
+            transform: [
+                {
+                    type: 'filter',
+                    expr: 'hover && hover.iata == datum.origin',
+                },
+                {
+                    type: 'lookup',
+                    from: 'airports',
+                    key: 'iata',
+                    fields: ['origin', 'destination'],
+                    as: ['source', 'target'],
+                },
+                {
+                    type: 'filter',
+                    expr: 'datum.source && datum.target',
+                },
+                {
+                    type: 'linkpath',
+                    shape: { signal: 'shape' },
+                },
+            ],
+        },
+    ],
+
+    projections: [
+        {
+            name: 'projection',
+            type: 'albersUsa',
+            scale: { signal: 'scale' },
+            translate: [{ signal: 'translateX' }, { signal: 'translateY' }],
+        },
+    ],
+
+    scales: [
+        {
+            name: 'size',
+            type: 'linear',
+            domain: { data: 'traffic', field: 'flights' },
+            range: [16, 1000],
+        },
+    ],
+
+    marks: [
+        {
+            type: 'path',
+            from: { data: 'states' },
+            encode: {
+                enter: {
+                    fill: { value: '#dedede' },
+                    stroke: { value: 'white' },
+                },
+                update: {
+                    path: { field: 'path' },
+                },
+            },
+        },
+        {
+            type: 'symbol',
+            from: { data: 'airports' },
+            encode: {
+                enter: {
+                    size: { scale: 'size', field: 'traffic.flights' },
+                    fill: { value: 'steelblue' },
+                    fillOpacity: { value: 0.8 },
+                    stroke: { value: 'white' },
+                    strokeWidth: { value: 1.5 },
+                },
+                update: {
+                    x: { field: 'x' },
+                    y: { field: 'y' },
+                },
+            },
+        },
+        {
+            type: 'path',
+            name: 'cell',
+            from: { data: 'airports' },
+            encode: {
+                enter: {
+                    fill: { value: 'transparent' },
+                    strokeWidth: { value: 0.35 },
+                },
+                update: {
+                    path: { field: 'path' },
+                    stroke: { signal: 'cell_stroke' },
+                },
+            },
+        },
+        {
+            type: 'path',
+            interactive: false,
+            from: { data: 'routes' },
+            encode: {
+                enter: {
+                    path: { field: 'path' },
+                    stroke: { value: 'black' },
+                    strokeOpacity: { value: 0.35 },
+                },
+            },
+        },
+        {
+            type: 'text',
+            interactive: false,
+            encode: {
+                enter: {
+                    x: { value: 895 },
+                    y: { value: 0 },
+                    fill: { value: 'black' },
+                    fontSize: { value: 20 },
+                    align: { value: 'right' },
+                },
+                update: {
+                    text: { signal: 'title' },
+                },
+            },
+        },
+    ],
+};
+
 // Runtime examples from https://vega.github.io/vega/usage/
 
 function clientSideApi() {

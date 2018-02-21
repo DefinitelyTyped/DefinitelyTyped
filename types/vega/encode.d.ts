@@ -23,7 +23,7 @@ export declare type ScaledValueRef<T> = BaseValueRef<T> | (BaseValueRef<T> & {
     scale: FieldRef;
     band: boolean | number;
 };
-export declare type NumericValueRef = ScaledValueRef<number> & {
+export declare type NumericValueRef = (ScaledValueRef<number> | { offset: number | NumericValueRef }) & {
     exponent?: number | NumericValueRef;
     mult?: number | NumericValueRef;
     offset?: number | NumericValueRef;
