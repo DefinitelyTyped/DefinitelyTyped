@@ -17,3 +17,16 @@ server.route(serverRoute);
 server.start();
 
 server.inject('/').then(res => console.log(res.result));
+
+declare module 'hapi' {
+	interface ServerInjectOptionsApp {
+		one: number;
+	}
+}
+
+server.inject({
+	url: "test",
+	app: {
+		one: 1
+	}
+});

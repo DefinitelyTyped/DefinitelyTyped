@@ -14,7 +14,7 @@ interface Plugin3 {
 }
 
 declare module 'hapi' {
-	interface PluginExposedProperties {
+	interface PluginProperties {
 		example: {
 			other: string;
 			key: string;

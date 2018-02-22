@@ -2,7 +2,7 @@
 import { Plugin, Server, ServerRegisterOptions } from "hapi";
 
 declare module 'hapi' {
-	interface PluginExposedProperties {
+	interface PluginProperties {
 		example1: {
 			util(): void;
 		};
