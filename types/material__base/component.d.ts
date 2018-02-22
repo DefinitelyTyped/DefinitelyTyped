@@ -45,13 +45,13 @@ export class MDCComponent<A, F extends MDCFoundation<A>> {
      * Wrapper method to add an event listener to the component's root element. This is most useful when
      * listening for custom events.
      */
-    listen(evtType: string, handler: EventListenerOrEventListenerObject): void;
+    listen(evtType: string, handler: EventListener): void;
 
     /**
      * Wrapper method to remove an event listener to the component's root element. This is most useful when
      * unlistening for custom events.
      */
-    unlisten(evtType: string, handler: EventListenerOrEventListenerObject): void;
+    unlisten(evtType: string, handler: EventListener): void;
 
     /**
      * Fires a cross-browser-compatible custom event from the component root of the given type,

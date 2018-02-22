@@ -92,9 +92,9 @@ let ndefTag: NdefTag = {
 };
 
 let eventTarget: EventTarget = {
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean) { return; },
+    addEventListener(type: string, listener: EventListener, useCapture?: boolean) { return; },
     dispatchEvent(evt: Event) { return true; },
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean) { return; }
+    removeEventListener(type: string, listener: EventListener, useCapture?: boolean) { return; }
 }
 
 let ndefTagEvent = {

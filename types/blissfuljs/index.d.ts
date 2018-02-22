@@ -377,7 +377,7 @@ declare namespace BlissNS {
         addEventListener(type: "webkitfullscreenchange", listener: (ev: Event) => any, useCapture?: boolean): T;
         addEventListener(type: "webkitfullscreenerror", listener: (ev: Event) => any, useCapture?: boolean): T;
         addEventListener(type: "wheel", listener: (ev: WheelEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): T;
+        addEventListener(type: string, listener: EventListener, useCapture?: boolean): T;
         getAttribute(name?: string): string;
         getAttributeNS(namespaceURI: string, localName: string): string;
         getAttributeNode(name: string): Attr;
@@ -618,7 +618,7 @@ declare namespace BlissNS {
         addEventListener(type: "webkitfullscreenchange", listener: (ev: Event) => any, useCapture?: boolean): T;
         addEventListener(type: "webkitfullscreenerror", listener: (ev: Event) => any, useCapture?: boolean): T;
         addEventListener(type: "wheel", listener: (ev: WheelEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): T;
+        addEventListener(type: string, listener: EventListener, useCapture?: boolean): T;
     }
 
     interface BlissBindedElement<T> extends BlissNativeExtentions<T> {
@@ -669,7 +669,7 @@ declare namespace BlissNS {
         fire(type: string, properties?: {[propertyName: string] : any}): BlissCollectionArray<T>;
         once(handlers: {[eventName:string] : (event: Event) => void} | Element): BlissCollectionArray<T>;
 
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): BlissCollectionArray<T>;
+        addEventListener(type: string, listener: EventListener, useCapture?: boolean): BlissCollectionArray<T>;
 
         remove(): BlissCollectionArray<T>;
     }

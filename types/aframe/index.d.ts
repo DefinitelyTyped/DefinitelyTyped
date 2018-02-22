@@ -192,7 +192,7 @@ declare namespace AFrame {
 
 		// addEventListener specific usages
 		addEventListener<K extends keyof EntityEventMap>(type: K, listener: (event: Event & EntityEventMap[K]) => void, useCapture?: boolean): void;
-		addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+		addEventListener(type: string, listener: EventListener, useCapture?: boolean): void;
 	}
 
 	type DetailEvent<D> = Event & { detail: D };
@@ -264,8 +264,7 @@ declare namespace AFrame {
 		exitVR(): Promise<void> | void;
 		reload(): void;
 
-		addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-		addEventListener(type: SceneEvents, listener: EventListener, useCapture?: boolean): void;
+		addEventListener(type: string | SceneEvents, listener: EventListener, useCapture?: boolean): void;
 	}
 
 	type Schema = SinglePropertySchema<any> | MultiPropertySchema;

@@ -6620,7 +6620,7 @@ declare namespace H {
              * @param opt_capture {boolean=} - if set to true will listen in the capture phase (bubble otherwise)
              * @param opt_scope {Object=} - scope for the handler function
              */
-            addEventListener(type: string, handler: EventListenerOrEventListenerObject, opt_capture?: boolean, opt_scope?: any): void;
+            addEventListener(type: string, handler: EventListener, opt_capture?: boolean, opt_scope?: any): void;
 
             /**
              * This method will removed previously added listener from the event target
@@ -6629,7 +6629,7 @@ declare namespace H {
              * @param opt_capture {boolean=} - if set to true will listen in the capture phase (bubble otherwise)
              * @param opt_scope {Object=} - scope for the handler function
              */
-            removeEventListener(type: string, handler: EventListenerOrEventListenerObject, opt_capture?: boolean, opt_scope?: any): void;
+            removeEventListener(type: string, handler: EventListener, opt_capture?: boolean, opt_scope?: any): void;
 
             /**
              * This method will dispatch event on the event target object
