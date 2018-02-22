@@ -2,7 +2,7 @@
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version:2.3
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
