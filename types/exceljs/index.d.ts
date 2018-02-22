@@ -3,7 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Ali Taheri Moghaddar <https://github.com/alitaheri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -43,51 +43,51 @@ export interface WorksheetViewCommon {
 	/**
 	 * Sets the worksheet view's orientation to right-to-left, `false` by default
 	 */
-	rightToLeft?: boolean;
+	rightToLeft: boolean;
 
 	/**
 	 * The currently selected cell
 	 */
-	activeCell?: string;
+	activeCell: string;
 
 	/**
 	 * Shows or hides the ruler in Page Layout, `true` by default
 	 */
-	showRuler?: boolean;
+	showRuler: boolean;
 
 	/**
 	 * Shows or hides the row and column headers (e.g. A1, B1 at the top and 1,2,3 on the left,
 	 * `true` by default
 	 */
-	showRowColHeaders?: boolean;
+	showRowColHeaders: boolean;
 
 	/**
 	 * Shows or hides the gridlines (shown for cells where borders have not been defined),
 	 * `true` by default
 	 */
-	showGridLines?: boolean;
+	showGridLines: boolean;
 
 	/**
 	 * 	Percentage zoom to use for the view, `100` by default
 	 */
-	zoomScale?: number;
+	zoomScale: number;
 
 	/**
 	 * 	Normal zoom for the view, `100` by default
 	 */
-	zoomScaleNormal?: number;
+	zoomScaleNormal: number;
 }
 
 export interface WorksheetViewNormal {
 	/**
 	 * Controls the view state
 	 */
-	state?: 'normal';
+	state: 'normal';
 
 	/**
 	 * Presentation style
 	 */
-	style?: 'pageBreakPreview' | 'pageLayout';
+	style: 'pageBreakPreview' | 'pageLayout';
 }
 
 export interface WorksheetViewFrozen {
@@ -158,13 +158,13 @@ export type WorksheetView =
 	& (WorksheetViewNormal | WorksheetViewFrozen | WorksheetViewSplit);
 
 export interface WorkbookView {
-	x?: number;
-	y?: number;
-	width?: number;
-	height?: number;
-	firstSheet?: number;
-	activeTab?: number;
-	visibility?: string;
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+	firstSheet: number;
+	activeTab: number;
+	visibility: string;
 }
 
 export type FillPatterns =
@@ -176,13 +176,13 @@ export type FillPatterns =
 export interface FillPattern {
 	type: 'pattern';
 	pattern: FillPatterns;
-	fgColor?: Color;
-	bgColor?: Color;
+	fgColor: Partial<Color>;
+	bgColor?: Partial<Color>;
 }
 
 export interface GradientStop {
 	position: number;
-	color: Color;
+	color: Partial<Color>;
 }
 
 export interface FillGradientAngle {
@@ -224,17 +224,17 @@ export interface FillGradientPath {
 export type Fill = FillPattern | FillGradientAngle | FillGradientPath;
 
 export interface Font {
-	name?: string;
-	size?: number;
-	family?: number;
-	scheme?: 'minor' | 'major' | 'none';
-	charset?: number;
-	color?: Color;
-	bold?: boolean;
-	italic?: boolean;
-	underline?: boolean | 'none' | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
-	strike?: boolean;
-	outline?: boolean;
+	name: string;
+	size: number;
+	family: number;
+	scheme: 'minor' | 'major' | 'none';
+	charset: number;
+	color: Partial<Color>;
+	bold: boolean;
+	italic: boolean;
+	underline: boolean | 'none' | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
+	strike: boolean;
+	outline: boolean;
 }
 
 export type BorderStyle =
@@ -245,39 +245,39 @@ export interface Color {
 	/**
 	 * Hex string for alpha-red-green-blue e.g. FF00FF00
 	 */
-	argb?: string;
+	argb: string;
 
 	/**
 	 * Choose a theme by index
 	 */
-	theme?: number;
+	theme: number;
 }
 
 export interface Border {
-	style?: BorderStyle;
-	color?: Color;
+	style: BorderStyle;
+	color: Partial<Color>;
 }
 
 export interface BorderDiagonal extends Border {
-	up?: boolean;
-	down?: boolean;
+	up: boolean;
+	down: boolean;
 }
 
 export interface Borders {
-	top?: Border;
-	left?: Border;
-	bottom?: Border;
-	right?: Border;
-	diagonal?: BorderDiagonal;
+	top: Partial<Border>;
+	left: Partial<Border>;
+	bottom: Partial<Border>;
+	right: Partial<Border>;
+	diagonal: Partial<BorderDiagonal>;
 }
 
 export interface Margins {
-	top?: number;
-	left?: number;
-	bottom?: number;
-	right?: number;
-	header?: number;
-	footer?: number;
+	top: number;
+	left: number;
+	bottom: number;
+	right: number;
+	header: number;
+	footer: number;
 }
 
 export const enum ReadingOrder {
@@ -286,20 +286,20 @@ export const enum ReadingOrder {
 }
 
 export interface Alignment {
-	horizontal?: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
-	vertical?: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
-	wrapText?: boolean;
-	indent?: number;
-	readingOrder?: 'rtl' | 'ltr';
-	textRotation?: number | 'vertical';
+	horizontal: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
+	vertical: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
+	wrapText: boolean;
+	indent: number;
+	readingOrder: 'rtl' | 'ltr';
+	textRotation: number | 'vertical';
 }
 
 export interface Style {
-	numFmt?: string;
-	font?: Font;
-	alignment?: Alignment;
-	border?: Borders;
-	fill?: Fill;
+	numFmt: string;
+	font: Partial<Font>;
+	alignment: Partial<Alignment>;
+	border: Partial<Borders>;
+	fill: Fill;
 }
 
 export type DataValidationOperator =
@@ -326,7 +326,7 @@ export interface CellErrorValue {
 
 export interface RichText {
 	text: string;
-	font?: Font;
+	font?: Partial<Font>;
 }
 
 export interface CellRichTextValue {
@@ -375,22 +375,51 @@ export type CellValue =
 	| CellRichTextValue | CellHyperlinkValue
 	| CellFormulaValue | CellSharedFormulaValue;
 
-export interface Cell extends Style {
+export interface CellModel {
+	address: Address;
+	style: Style;
+	type: ValueType;
+	text?: string;
+	hyperlink?: string;
+	value?: CellValue;
+	master: Cell;
+	formula?: string;
+	sharedFormula?: string;
+	result?: string | number | any;
+}
+
+export interface Cell extends Style, Address {
+	readonly worksheet: Worksheet;
+	readonly workbook: Workbook;
+
+	readonly effectiveType: ValueType;
+	readonly isMerged: boolean;
+	readonly master: Cell;
+	readonly isHyperlink: boolean;
+	readonly hyperlink: string;	// todo
+	readonly text: string;
+	readonly fullAddress: {
+		sheetName: string;
+		address: Address;
+		row: Row;
+		col: Column;
+	};
+	model: CellModel;
 	/**
 	 * Assign (or get) a name for a cell (will overwrite any other names that cell had)
 	 */
-	name?: string;
+	name: string;
 
 	/**
 	 * Assign (or get) an array of names for a cell (cells can have more than one name)
 	 */
-	names?: string[];
+	names: string[];
 
 	/**
 	 * Cells can define what values are valid or not and provide
 	 * prompting to the user to help guide them.
 	 */
-	dataValidation?: DataValidation;
+	dataValidation: DataValidation;
 
 	/**
 	 * Value of the cell
@@ -418,22 +447,46 @@ export interface Cell extends Style {
 	readonly formulaType: FormulaType;
 
 	/**
-	 * The master cell when the current cell is a merge cell
-	 */
-	master?: Cell;
-
-	/**
 	 * The styles of the cell
 	 */
-	style: Style;
+	style: Partial<Style>;
+
+	addName(name: string): void;
 
 	/**
 	 * Remove a name from a cell
 	 */
 	removeName(name: string): void;
+	removeAllNames(): void;
+
+	destroy(): void;
+	toCsvString(): string;
+	release(): void;
+	addMergeRef(): void;
+	releaseMergeRef(): void;
+	merge(master: Cell): void;
+	unmerge(): void;
+	isMergedTo(master: Cell): boolean;
+	toString(): string;
+}
+
+export interface RowModel {
+	cells: CellModel[];
+	number: number;
+	min: number;
+	max: number;
+	height: number;
+	style: Style;
+	hidden: boolean;
+	outlineLevel: number;
+	collapsed: boolean;
 }
 
 export interface Row extends Style {
+	readonly worksheet: Worksheet;
+	readonly hasValues: boolean;
+	readonly dimensions: number;
+	model: RowModel | null;
 	/**
 	 * Set a specific row height
 	 */
@@ -447,7 +500,8 @@ export interface Row extends Style {
 	/**
 	 * Get a row as a sparse array
 	 */
-	values: any[] | any;
+	// readonly values: CellValue[];
+	values: CellValue[] | { [key: string]: CellValue };
 
 	/**
 	 * Set an outline level for rows
@@ -479,6 +533,10 @@ export interface Row extends Style {
 	 */
 	getCell(indexOrKey: number | string): Cell;
 
+	findCell(colNumber: number): Cell | undefined;
+
+	getCellEx(address: Address): Cell;
+
 	/**
 	 * Iterate over all non-null cells in a row
 	 */
@@ -500,41 +558,43 @@ export interface Row extends Style {
 	 * Commit a completed row to stream
 	 */
 	commit(): void;
+	destroy(): void;
+	addPageBreak(lft?: number, rght?: number): void;
 }
 
 export interface Column {
 	/**
 	 * Can be a string to set one row high header or an array to set multi-row high header
 	 */
-	header?: string | string[];
+	header: string | string[];
 
 	/**
 	 * The name of the properties associated with this column in each row
 	 */
-	key?: string;
+	key: string;
 
 	/**
 	 * The width of the column
 	 */
-	width?: number;
+	width: number;
 
 	/**
 	 * Set an outline level for columns
 	 */
-	outlineLevel?: number;
+	outlineLevel: number;
 
 	/**
 	 * Hides the column
 	 */
-	hidden?: boolean;
+	hidden: boolean;
 
 	/**
 	 * Styles applied to the column
 	 */
-	style?: Style;
+	style: Partial<Style>;
 }
 
-export interface ColumnExtension extends Style {
+export interface ColumnExtension extends Partial<Style> {
 	/**
 	 * indicate the collapsed state based on outlineLevel
 	 */
@@ -555,24 +615,24 @@ export interface PageSetup {
 	/**
 	 * Whitespace on the borders of the page. Units are inches.
 	 */
-	margins?: Margins;
+	margins: Margins;
 
 	/**
 	 * Orientation of the page - i.e. taller (`'portrait'`) or wider (`'landscape'`).
 	 *
 	 * `'portrait'` by default
 	 */
-	orientation?: 'portrait' | 'landscape';
+	orientation: 'portrait' | 'landscape';
 
 	/**
 	 * Horizontal Dots per Inch. Default value is 4294967295
 	 */
-	horizontalDpi?: number;
+	horizontalDpi: number;
 
 	/**
 	 * Vertical Dots per Inch. Default value is 4294967295
 	 */
-	verticalDpi?: number;
+	verticalDpi: number;
 
 	/**
 	 * Whether to use fitToWidth and fitToHeight or scale settings.
@@ -580,63 +640,63 @@ export interface PageSetup {
 	 * Default is based on presence of these settings in the pageSetup object - if both are present,
 	 * scale wins (i.e. default will be false)
 	 */
-	fitToPage?: boolean;
+	fitToPage: boolean;
 
 	/**
 	 * How many pages wide the sheet should print on to. Active when fitToPage is true
 	 *
 	 * Default is 1
 	 */
-	fitToWidth?: number;
+	fitToWidth: number;
 
 	/**
 	 * How many pages high the sheet should print on to. Active when fitToPage is true
 	 *
 	 * Default is 1
 	 */
-	fitToHeight?: number;
+	fitToHeight: number;
 
 	/**
 	 * Percentage value to increase or reduce the size of the print. Active when fitToPage is false
 	 *
 	 * Default is 100
 	 */
-	scale?: number;
+	scale: number;
 
 	/**
 	 * Which order to print the pages.
 	 *
 	 * Default is `downThenOver`
 	 */
-	pageOrder?: 'downThenOver' | 'overThenDown';
+	pageOrder: 'downThenOver' | 'overThenDown';
 
 	/**
 	 * Print without colour
 	 *
 	 * false by default
 	 */
-	blackAndWhite?: boolean;
+	blackAndWhite: boolean;
 
 	/**
 	 * Print with less quality (and ink)
 	 *
 	 * false by default
 	 */
-	draft?: boolean;
+	draft: boolean;
 
 	/**
 	 * Where to place comments
 	 *
 	 * Default is `None`
 	 */
-	cellComments?: 'atEnd' | 'asDisplayed' | 'None';
+	cellComments: 'atEnd' | 'asDisplayed' | 'None';
 
 	/**
 	 * Where to show errors
 	 *
 	 * Default is `displayed`
 	 */
-	errors?: 'dash' | 'blank' | 'NA' | 'displayed';
+	errors: 'dash' | 'blank' | 'NA' | 'displayed';
 
 	/**
 	 * 	What paper size to use (see below)
@@ -657,42 +717,42 @@ export interface PageSetup {
 	 * | Double Japan Postcard Rotated |  `82`       |
 	 * | 16K 197x273 mm                |  `119`      |
 	 */
-	paperSize?: PaperSize;
+	paperSize: PaperSize;
 
 	/**
 	 * Whether to show the row numbers and column letters, `false` by default
 	 */
-	showRowColHeaders?: boolean;
+	showRowColHeaders: boolean;
 
 	/**
 	 * Whether to show grid lines, `false` by default
 	 */
-	showGridLines?: boolean;
+	showGridLines: boolean;
 
 	/**
 	 * Which number to use for the first page
 	 */
-	firstPageNumber?: number;
+	firstPageNumber: number;
 
 	/**
 	 * 	Whether to center the sheet data horizontally, `false` by default
 	 */
-	horizontalCentered?: boolean;
+	horizontalCentered: boolean;
 
 	/**
 	 * 	Whether to center the sheet data vertically, `false` by default
 	 */
-	verticalCentered?: boolean;
+	verticalCentered: boolean;
 
 	/**
 	 * Set Print Area for a sheet, e.g. `'A1:G20'`
 	 */
-	printArea?: string;
+	printArea: string;
 
 	/**
 	 * Repeat specific rows on every printed page, e.g. `'1:3'`
 	 */
-	printTitlesRow?: string;
+	printTitlesRow: string;
 }
 
 export type AutoFilter = string | {
@@ -702,6 +762,7 @@ export type AutoFilter = string | {
 
 export interface Image {
 	extension: 'jpeg' | 'png' | 'gif';
+	base64?: string;
 	filename?: string;
 	buffer?: Buffer;
 }
@@ -711,11 +772,83 @@ export interface ImageRange {
 	br: { col: number; row: number };
 }
 
+export interface Range extends Location {
+	sheetName: string;
+
+	tl: string;
+	$t$l: string;
+
+	br: string;
+	$b$r: string;
+
+	range: string;
+	$range: string;
+
+	shortRange: string;
+	$shortRange: string;
+
+	count: number;
+
+	decode(): void;
+	decode(v: Range): void;
+	decode(v: string): void;
+	decode(v: Location): void;
+	decode(top: number, left: number, bottom: number, right: number, sheetName?: string): void;
+	decode(tl: string, br: string, sheetName?: string): void;
+	decode(v: [string, string]): void;
+	decode(v: [string, string, string]): void;
+	decode(v: [number, number, number, number]): void;
+	decode(v: [number, number, number, number, string]): void;
+
+	expand(top: number, left: number, bottom: number, right: number): void;
+
+	expandRow(row: Row): void;
+
+	expandToAddress(addressStr: string): void;
+
+	toString(): string;
+
+	intersects(other: Range): boolean;
+
+	contains(addressStr: string): boolean;
+
+	containsEx(address: Partial<{
+		sheetName: string;
+		row: number;
+		col: number;
+	}>): boolean;
+}
+
+export interface RowBreak {
+	id: number;
+	max: number;
+	min: number;
+	man: number;
+}
+
+export interface WorksheetModel {
+	id: number;
+	name: string;
+	// dataValidations: this.dataValidations.model,
+	properties: WorksheetProperties;
+	pageSetup: Partial<PageSetup>;
+	rowBreaks: RowBreak[];
+	views: WorksheetView[];
+	autoFilter: AutoFilter;
+	media: Media[];
+}
+
 export interface Worksheet {
+	readonly id: number;
+	readonly name: string;
+	readonly workbook: Workbook;
+	readonly hasMerges: boolean;
+
+	readonly dimensions: Range[];
 	/**
 	 * Contains information related to how a worksheet is printed
 	 */
-	pageSetup: PageSetup;
+	pageSetup: Partial<PageSetup>;
 
 	/**
 	 * Worksheet Properties
@@ -725,25 +858,14 @@ export interface Worksheet {
 	/**
 	 * Open panes representing the sheet
 	 */
-	views: WorksheetView[];
+	views: Array<Partial<WorksheetView>>;
 
 	/**
 	 * Apply an auto filter to your worksheet.
 	 */
 	autoFilter?: AutoFilter;
 
-	/**
-	 * Add column headers and define column keys and widths.
-	 *
-	 * Note: these column structures are a workbook-building convenience only,
-	 * apart from the column width, they will not be fully persisted.
-	 */
-	columns?: Column[];
-
-	/**
-	 * The total row size of the document. Equal to the row number of the last row that has values.
-	 */
-	readonly rowCount: number;
+	destroy(): void;
 
 	/**
 	 * A count of the number of rows that have values. If a mid-document row is empty, it will not be included in the count.
@@ -760,15 +882,18 @@ export interface Worksheet {
 	 */
 	readonly actualColumnCount: number;
 
-	/**
-	 * Get the last editable row in a worksheet (or undefined if there are none)
-	 */
-	readonly lastRow: Row | undefined;
+	getColumnKey(key: string): Partial<Column>;
+
+	setColumnKey(key: string, value: Partial<Column>): void;
+
+	deleteColumnKey(key: string): void;
+
+	eachColumnKey(callback: (col: Partial<Column>, index: number) => void): void;
 
 	/**
 	 * Access an individual columns by key, letter and 1-based column number
 	 */
-	getColumn(indexOrKey: number | string): Column & ColumnExtension;
+	getColumn(indexOrKey: number | string): Partial<Column> & ColumnExtension;
 
 	/**
 	 * Cut one or more columns (columns to the right are shifted left)
@@ -782,6 +907,26 @@ export interface Worksheet {
 	 * the rows will still be shifted as if the values existed
 	 */
 	spliceColumns(start: number, count: number, ...insert: any[][]): void;
+
+	/**
+	 * Add column headers and define column keys and widths.
+	 *
+	 * Note: these column structures are a workbook-building convenience only,
+	 * apart from the column width, they will not be fully persisted.
+	 */
+	columns: Array<Partial<Column>>;
+
+	/**
+	 * The total row size of the document. Equal to the row number of the last row that has values.
+	 */
+	readonly rowCount: number;
+
+	/**
+	 * Get the last editable row in a worksheet (or undefined if there are none)
+	 */
+	readonly lastRow: Row | undefined;
+
+	findRow(row: number): Row | undefined;
 
 	/**
 	 * Cut one or more rows (rows below are shifted up)
@@ -818,9 +963,19 @@ export interface Worksheet {
 	eachRow(opt: { includeEmpty: boolean }, callback: (row: Row, rowNumber: number) => void): void;
 
 	/**
+	 * return all rows as sparse array
+	 */
+	getSheetValues(): Row[];
+
+	/**
+	 * returns the cell at [r,c] or address given by r. If not found, return undefined
+	 */
+	findCell(r: number | string, c: number | string): Cell | undefined;
+
+	/**
 	 * Get or create cell
 	 */
-	getCell(ref: string): Cell;
+	getCell(r: number | string, c?: number | string): Cell;
 
 	/**
 	 * Merge cells, either:
@@ -831,61 +986,89 @@ export interface Worksheet {
 	 *
 	 * t, l, b, r numbers, e.g. `10,11,12,13`
 	 */
-	mergeCells(a: number | string, b?: number | string, c?: number, d?: number): void;
+	mergeCells(): void;
+	mergeCells(v: Range): void;
+	mergeCells(v: string): void;
+	mergeCells(v: Location): void;
+	mergeCells(top: number, left: number, bottom: number, right: number, sheetName?: string): void;
+	mergeCells(tl: string, br: string, sheetName?: string): void;
+	mergeCells(v: [string, string]): void;
+	mergeCells(v: [string, string, string]): void;
+	mergeCells(v: [number, number, number, number]): void;
+	mergeCells(v: [number, number, number, number, string]): void;
 
 	/**
 	 * unmerging the cells breaks the style links
 	 */
-	unMergeCells(cell: string): void;
+	unMergeCells(): void;
+	unMergeCells(v: Range): void;
+	unMergeCells(v: string): void;
+	unMergeCells(v: Location): void;
+	unMergeCells(top: number, left: number, bottom: number, right: number, sheetName?: string): void;
+	unMergeCells(tl: string, br: string, sheetName?: string): void;
+	unMergeCells(v: [string, string]): void;
+	unMergeCells(v: [string, string, string]): void;
+	unMergeCells(v: [number, number, number, number]): void;
+	unMergeCells(v: [number, number, number, number, string]): void;
+
+	fillFormula(range: Range | string | Location, formula: string, results?: ((r: number, c: number) => string | number) | number[] | number[][]): void;
 
 	/**
 	 * Using the image id from `Workbook.addImage`, set the background to the worksheet
 	 */
-	addBackgroundImage(imageId: string): void;
+	addBackgroundImage(imageId: number): void;
+
+	getBackgroundImageId(): string;
 
 	/**
 	 * Using the image id from `Workbook.addImage`,
 	 * embed an image within the worksheet to cover a range
 	 */
-	addImage(imageId: string, range: string | ImageRange): void;
+	addImage(imageId: number, range: string | { editAs?: string; } & ImageRange): void;
 
-	/**
-	 * Commit a completed worksheet to stream
-	 */
+	getImages(): Array<{
+		type: 'image',
+		imageId: string;
+		range: ImageRange;
+	}>;
+
 	commit(): void;
+
+	model: WorksheetModel;
 }
 
 export interface WorksheetProperties {
 	/**
 	 * Color of the tab
 	 */
-	tabColor?: Color;
+	tabColor: Partial<Color>;
 
 	/**
 	 * The worksheet column outline level (default: 0)
 	 */
-	outlineLevelCol?: number;
+	outlineLevelCol: number;
 
 	/**
 	 * The worksheet row outline level (default: 0)
 	 */
-	outlineLevelRow?: number;
+	outlineLevelRow: number;
 
 	/**
 	 * Default row height (default: 15)
 	 */
-	defaultRowHeight?: number;
+	defaultRowHeight: number;
 
 	/**
 	 * default: 55
 	 */
-	dyDescent?: number;
+	dyDescent: number;
+	showGridLines: boolean;
 }
 
 export interface AddWorksheetOptions {
-	properties?: WorksheetProperties;
-	pageSetup?: PageSetup;
-	views?: WorksheetView[];
+	properties: Partial<WorksheetProperties>;
+	pageSetup: Partial<PageSetup>;
+	views: Array<Partial<WorksheetView>>;
 }
 
 export interface WorkbookProperties {
@@ -918,24 +1101,24 @@ export interface Xlsx {
 }
 
 export interface CsvReadOptions {
-	dateFormats?: string[];
-	map?(value: any, index: number): any;
+	dateFormats: string[];
+	map(value: any, index: number): any;
 }
 
 export interface CsvWriteOptions {
-	dateFormat?: string;
+	dateFormat: string;
 }
 
 export interface Csv {
 	/**
 	 * read from a file
 	 */
-	readFile(path: string, options?: CsvReadOptions): Promise<Worksheet>;
+	readFile(path: string, options?: Partial<CsvReadOptions>): Promise<Worksheet>;
 
 	/**
 	 * read from a stream
 	 */
-	read(stream: Stream, options?: CsvReadOptions): Promise<Worksheet>;
+	read(stream: Stream, options?: Partial<CsvReadOptions>): Promise<Worksheet>;
 
 	/**
 	 * Create input stream for reading
@@ -945,12 +1128,104 @@ export interface Csv {
 	/**
 	 * write to a file
 	 */
-	writeFile(path: string, options?: CsvWriteOptions): Promise<void>;
+	writeFile(path: string, options?: Partial<CsvWriteOptions>): Promise<void>;
 
 	/**
 	 * write to a stream
 	 */
-	write(stream: Stream, options?: CsvWriteOptions): Promise<void>;
+	write(stream: Stream, options?: Partial<CsvWriteOptions>): Promise<void>;
+}
+
+export interface Media {
+	type: string;	// image,background
+	name: string;
+	extension: string;
+	buffer: Buffer;
+}
+
+export interface Address {
+	sheetName?: string;
+	address: string;
+	col: string;
+	row: string;
+	$col$row: string;
+}
+
+export interface Location {
+	top: number;
+	left: number;
+	bottom: number;
+	right: number;
+}
+
+export interface CellMatrix {
+	addCell(addressStr: string): void;
+	getCell(addressStr: string): Cell;
+	findCell(addressStr: string): Cell | undefined;
+	findCellAt(sheetName: string, rowNumber: number, colNumber: number): Cell | undefined;
+	addCellEx(address: string | Location): void;
+	getCellEx(address: string | Location): Cell;
+	findCellEx(address: string | Location, create: boolean): Cell | undefined;
+	getCellAt(sheetName: string, rowNumber: number, colNumber: number): Cell;
+	removeCellEx(address: string | Location): void;
+	forEach(callback: (cell: Cell) => void): void;
+	map<T>(callback: (cell: Cell) => T): T[];
+	findSheet(address: string | Location, create: boolean): Cell[] | undefined;
+	findSheetRow(sheet: Cell[][], address: string | Location, create: boolean): Row | undefined;
+	findRowCell(row: any[], address: Address, create: boolean): Cell | undefined;
+}
+
+export interface DefinedNamesRanges {
+	name: string;
+	range: string[];
+}
+
+export type DefinedNamesModel = DefinedNamesRanges[];
+
+export interface DefinedNames {
+	getMatrix(name: string): CellMatrix;
+	// add a name to a cell. locStr in the form SheetName!$col$row or SheetName!$c1$r1:$c2:$r2
+	add(locStr: string, name?: string): void;
+	addEx(location: string | Location, name: string): Cell;
+
+	remove(locStr: string | Location, name: string): void;
+	removeEx(location: string | Location, name: string): void;
+	removeAllNames(location: string | Location): void;
+
+	forEach(callback: (name: string, cell: Cell) => void): void;
+
+	// get all the names of a cell
+	getNames(addressStr: string): string[];
+	getNamesEx(address: string): string[];
+
+	getRanges(name: string, matrix?: CellMatrix): DefinedNamesRanges;
+
+	model: DefinedNamesModel;
+}
+
+export interface WorkbookModel {
+	creator: string;
+	lastModifiedBy: string;
+	lastPrinted: Date;
+	created: Date;
+	modified: Date;
+	properties: WorkbookProperties;
+	worksheets: Worksheet[];
+	sheets: WorksheetModel[];
+	definedNames: DefinedNamesModel;
+	views: WorkbookView[];
+	company: string;
+	manager: string;
+	title: string;
+	subject: string;
+	keywords: string;
+	category: string;
+	description: string;
+	language: string;
+	revision: Date;
+	contentStatus: string;
+	themes: string[];
+	media: Media[];
 }
 
 export class Workbook {
@@ -971,20 +1246,29 @@ export class Workbook {
 	 */
 	readonly csv: Csv;
 
+	readonly nextId: number;
+
+	readonly definedNames: DefinedNames;
+
+	model: WorkbookModel;
+
 	/**
 	 * The Workbook views controls how many separate windows Excel will open when viewing the workbook.
 	 */
 	views: WorkbookView[];
 
 	/**
-	 * The list of worksheets added to this workbook
+	 * return a clone of worksheets in order
 	 */
 	worksheets: Worksheet[];
 
 	/**
 	 * Add a new worksheet and return a reference to it
 	 */
-	addWorksheet(name: string, options?: AddWorksheetOptions): Worksheet;
+	addWorksheet(name?: string, options?: Partial<AddWorksheetOptions>): Worksheet;
+
+	removeWorksheetEx(worksheet: Worksheet): void;
+	removeWorksheet(indexOrName: number | string): void;
 
 	/**
 	 * fetch sheet by name or id
@@ -998,15 +1282,14 @@ export class Workbook {
 	 */
 	eachSheet(callback: (worksheet: Worksheet, id: number) => void): void;
 
+	clearThemes(): void;
+
 	/**
 	 * Add Image to Workbook and return the id
 	 */
-	addImage(img: Image): string;
+	addImage(img: Image): number;
 
-	/**
-	 * Commit a completed workbook to stream and close the stream
-	 */
-	commit(): Promise<void>;
+	getImage(id: number): Image;
 }
 
 export namespace config {
@@ -1019,27 +1302,38 @@ export namespace stream {
 			/**
 			 * Specifies a writable stream to write the XLSX workbook to.
 			 */
-			stream?: Stream;
+			stream: Stream;
 
 			/**
 			 * 	If stream not specified, this field specifies the path to a file to write the XLSX workbook to.
 			 */
-			filename?: string;
+			filename: string;
 
 			/**
 			 * 	Specifies whether to use shared strings in the workbook. Default is false
 			 */
-			useSharedStrings?: boolean;
+			useSharedStrings: boolean;
 
 			/**
 			 * Specifies whether to add style information to the workbook.
 			 * Styles can add some performance overhead. Default is false
 			 */
-			useStyles?: boolean;
+			useStyles: boolean;
 		}
 
 		class WorkbookWriter extends Workbook {
-			constructor(options: WorkbookWriterOptions);
+			constructor(options: Partial<WorkbookWriterOptions>);
+			// commit all worksheets, then add suplimentary files
+			commit(): void;
+			addStyles(): Promise<void>;
+			addThemes(): Promise<void>;
+			addOfficeRels(): Promise<void>;
+			addContentTypes(): Promise<void>;
+			addApp(): Promise<void>;
+			addCore(): Promise<void>;
+			addSharedStrings(): Promise<void>;
+			addWorkbookRels(): Promise<void>;
+			addWorkbook(): Promise<void>;
 		}
 	}
 }
