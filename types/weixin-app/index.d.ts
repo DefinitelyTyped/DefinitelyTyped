@@ -264,7 +264,7 @@ declare namespace wx {
     success?(): void;
   }
   /**
-   * ​ 主动调用停止录音。
+   * 主动调用停止录音。
    */
   function stopRecord(options?: StopRecordOptions): void;
   type EncodeBitRate = 8000 | 11025 | 12000 | 16000 | 22050 | 24000 | 32000 | 44100 | 48000;
