@@ -14,7 +14,7 @@ import { Dispatch } from "redux";
 export type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
 export type Formatter = (value: any, name: string) => any;
 export type Parser = (value: any, name: string) => any;
-export type Validator = (value: any, allValues?: any, props?: any) => any;
+export type Validator = (value: any, allValues?: any, props?: any, name?: any) => any;
 
 export type EventHandler<Event> = (event: Event) => void;
 export type EventWithDataHandler<Event> = (event?: Event, newValue?: any, previousValue?: any) => void;
