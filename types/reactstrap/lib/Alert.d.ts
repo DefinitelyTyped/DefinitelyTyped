@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface UncontrolledProps {
+export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
   color?: string;

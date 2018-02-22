@@ -13,6 +13,7 @@ import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
 export type RechartsFunction = (...args: any[]) => void;
+export type LegendValueFormatter = (value?: LegendPayload['value'], entry?: LegendPayload, i?: number) => any;
 export type TickFormatterFunction = (value: any) => any;
 export type TickGeneratorFunction = (noTicksProps: object) => any[];
 export type LabelFormatter = (label: string | number) => React.ReactNode;
@@ -370,7 +371,7 @@ export interface LegendProps {
     verticalAlign?: 'top' | 'middle' | 'bottom';
     margin?: Partial<Margin>;
     payload?: LegendPayload[];
-    formatter?: RechartsFunction;
+    formatter?: LegendValueFormatter;
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;

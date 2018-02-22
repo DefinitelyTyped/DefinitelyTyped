@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface NavItemProps {
+export interface NavItemProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
