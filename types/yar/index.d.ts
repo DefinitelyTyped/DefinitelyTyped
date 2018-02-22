@@ -161,7 +161,7 @@ declare namespace yar {
 declare const yar: Plugin<yar.YarOptions>;
 export = yar;
 
-declare module 'hapi/definitions/request/request' {
+declare module 'hapi' {
     interface Request {
         yar: yar.Yar;
     }
