@@ -19,14 +19,14 @@ server.start();
 server.inject('/').then(res => console.log(res.result));
 
 declare module 'hapi' {
-	interface ServerInjectOptionsApp {
-		one: number;
+	interface ApplicationState {
+		injectState?: number;
 	}
 }
 
 server.inject({
 	url: "test",
 	app: {
-		one: 1
+		injectState: 1
 	}
 });

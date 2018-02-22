@@ -2547,13 +2547,6 @@ export interface ServerInfo {
 }
 
 /**
- * Empty interface to allow for custom augmentation.
- */
-/* tslint:disable-next-line:no-empty-interface */
-export interface ServerInjectOptionsApp {
-}
-
-/**
  * An object with:
  * * method - (optional) the request HTTP method (e.g. 'POST'). Defaults to 'GET'.
  * * url - (required) the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.
@@ -2592,7 +2585,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app?: ServerInjectOptionsApp;
+    app?: ApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
