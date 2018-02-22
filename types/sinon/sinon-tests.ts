@@ -100,6 +100,9 @@ function testNine() {
     sinon.assert.calledOn(callback.secondCall, "this");
     sinon.assert.threw(callback.thirdCall);
     sinon.assert.threw(callback.thirdCall, "Error");
+    new (callback as any)();
+    sinon.assert.calledWithNew(callback);
+    sinon.assert.calledWithNew(callback.getCall(4));
 }
 
 function testAssert() {
