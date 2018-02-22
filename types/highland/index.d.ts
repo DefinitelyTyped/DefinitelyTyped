@@ -563,7 +563,7 @@ declare namespace Highland {
 		 * @param {Function} f - the function to handle errors and values
 		 * @api public
 		 */
-		consume<U>(f: (err: Error, x: R, push: (err: Error | null, value?: U | Highland.Nil) => void, next: () => void) => void): Stream<U>;
+		consume<U>(f: (err: Error, x: R | Highland.Nil, push: (err: Error | null, value?: U | Highland.Nil) => void, next: () => void) => void): Stream<U>;
 
 		/**
 		 * Holds off pushing data events downstream until there has been no more
