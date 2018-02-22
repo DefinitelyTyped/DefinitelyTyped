@@ -126,6 +126,10 @@ declare class Nightmare {
 declare namespace Nightmare {
     export interface IConstructorOptions {
         timeout?: any;  // number | string;
+        waitTimeout?:number //in ms
+        gotoTimeout?:number
+        pollInterval?:number
+        executionTimeout?:number
         interval?: any; // number | string;
         port?: number;
         weak?: boolean;
