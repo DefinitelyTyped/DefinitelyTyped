@@ -3213,6 +3213,13 @@ export interface HandlerDecorationMethod {
 export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 
 /**
+ * An empty interface to allow typings of custom plugin properties.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface PluginExposedProperties {
+}
+
+/**
  * The server object is the main application container. The server manages all incoming requests along with all
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#server)
@@ -3363,7 +3370,7 @@ export class Server extends Podium {
      * the server.plugins[name] object directly or via the server.expose() method.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins)
      */
-    plugins: any;
+    plugins: PluginExposedProperties;
 
     /**
      * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When
