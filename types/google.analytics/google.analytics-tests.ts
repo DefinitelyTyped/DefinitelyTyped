@@ -34,6 +34,7 @@ describe('UniversalAnalytics', () => {
         ga('trackerName.send', 'event', 'load');
 
         ga('require', 'somePlugin');
+        ga('require', 'somePlugin', 'option');
         ga('require', 'somePlugin', { some: 'options' });
         ga('provide', 'somePlugin', () => {});
         ga('provide', 'somePlugin', tracker => {});
