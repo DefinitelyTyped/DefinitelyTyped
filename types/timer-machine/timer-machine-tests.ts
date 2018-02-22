@@ -1,4 +1,4 @@
-import * as Timer from "timer-machine";
+import Timer = require("timer-machine");
 
 let myTimer = new Timer();
 

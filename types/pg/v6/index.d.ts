@@ -29,10 +29,10 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
-import { TlsServerOptions } from "tls";
+import { TlsOptions } from "tls";
 
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | TlsServerOptions;
+    ssl?: boolean | TlsOptions;
 }
 
 export interface PoolConfig extends ClientConfig {

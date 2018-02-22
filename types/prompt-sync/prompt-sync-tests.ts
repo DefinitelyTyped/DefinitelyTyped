@@ -1,4 +1,4 @@
-import * as promptSync from 'prompt-sync';
+import promptSync = require('prompt-sync');
 
 declare const history: promptSync.History;
 

@@ -34,7 +34,7 @@ export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
     queryDelay?: number;
     minLength?: number;
     highlightMatch?: boolean;
-    onFocus?(): void;
+    onFocus?(value: any): void;
     onBlur?(value: any): void;
     onChange?(value: any): void;
     onKeyDown?(event: any): void;

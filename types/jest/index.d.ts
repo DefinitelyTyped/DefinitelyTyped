@@ -470,7 +470,7 @@ declare namespace jest {
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
-        toHaveProperty(propertyPath: string, value?: any): R;
+        toHaveProperty(propertyPath: string | any[], value?: any): R;
         /**
          * Check that a string matches a regular expression.
          */
