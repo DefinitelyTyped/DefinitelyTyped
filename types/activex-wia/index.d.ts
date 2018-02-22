@@ -6,7 +6,6 @@
 
 declare namespace WIA {
     /** String versions of globally unique identifiers (GUIDs) that identify common Device and Item commands. */
-    // tslint:disable-next-line no-const-enum
     const enum CommandID {
         wiaCommandChangeDocument = '{04E725B0-ACAE-11D2-A093-00C04F72DC3C}',
         wiaCommandDeleteAllItems = '{E208C170-ACAD-11D2-A093-00C04F72DC3C}',
@@ -16,7 +15,6 @@ declare namespace WIA {
     }
 
     /** String versions of globally unique identifiers (GUIDs) that identify DeviceManager events. */
-    // tslint:disable-next-line no-const-enum
     const enum EventID {
         wiaEventDeviceConnected = '{A28BBADE-64B6-11D2-A231-00C04FA31809}',
         wiaEventDeviceDisconnected = '{143E4E83-6497-11D2-A231-00C04FA31809}',
@@ -34,7 +32,6 @@ declare namespace WIA {
     }
 
     /** String versions of globally unique identifiers (GUIDs) that indicate the file format of an image. */
-    // tslint:disable-next-line no-const-enum
     const enum FormatID {
         wiaFormatBMP = '{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}',
         wiaFormatGIF = '{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}',
@@ -44,7 +41,6 @@ declare namespace WIA {
     }
 
     /** Miscellaneous string constants */
-    // tslint:disable-next-line no-const-enum
     const enum Miscellaneous {
         wiaAnyDeviceID = '*',
         wiaIDUnknown = '{00000000-0000-0000-0000-000000000000}',
@@ -54,7 +50,6 @@ declare namespace WIA {
      * The WiaDeviceType enumeration specifies the type of device attached to a user's computer. Use the Type property on the DeviceInfo object or the Device
      * object to obtain these values from the device.
      */
-    // tslint:disable-next-line no-const-enum
     const enum WiaDeviceType {
         CameraDeviceType = 2,
         ScannerDeviceType = 1,
@@ -66,21 +61,18 @@ declare namespace WIA {
      * A DeviceEvent's type is composed of bits from the WiaEventFlags enumeration. You can test a DeviceEvent's type by using the AND operation with
      * DeviceEvent.Type and a member from the WiaEventFlags enumeration.
      */
-    // tslint:disable-next-line no-const-enum
     const enum WiaEventFlag {
         ActionEvent = 2,
         NotificationEvent = 1,
     }
 
     /** The WiaImageBias enumeration helps specify what type of data the image is intended to represent. */
-    // tslint:disable-next-line no-const-enum
     const enum WiaImageBias {
         MaximizeQuality = 131072,
         MinimizeSize = 65536,
     }
 
     /** The WiaImageIntent enumeration helps specify what type of data the image is intended to represent. */
-    // tslint:disable-next-line no-const-enum
     const enum WiaImageIntent {
         ColorIntent = 1,
         GrayscaleIntent = 2,
@@ -92,7 +84,6 @@ declare namespace WIA {
      * The WiaImagePropertyType enumeration specifies the type of the value of an image property. Image properties can be found in the Properties collection
      * of an ImageFile object.
      */
-    // tslint:disable-next-line no-const-enum
     const enum WiaImagePropertyType {
         ByteImagePropertyType = 1001,
         LongImagePropertyType = 1004,
@@ -115,7 +106,6 @@ declare namespace WIA {
      * An Item's type is composed of bits from the WiaItemFlags enumeration. You can test an Item's type by using the AND operation with
      * Item.Properties("Item Flags") and a member from the WiaItemFlags enumeration.
      */
-    // tslint:disable-next-line no-const-enum
     const enum WiaItemFlag {
         AnalyzeItemFlag = 16,
         AudioItemFlag = 32,
@@ -142,7 +132,6 @@ declare namespace WIA {
      * The WiaPropertyType enumeration specifies the type of the value of an item property. Item properties can be found in the Properties collection of a
      * Device or Item object.
      */
-    // tslint:disable-next-line no-const-enum
     const enum WiaPropertyType {
         BooleanPropertyType = 1,
         BytePropertyType = 2,
@@ -187,7 +176,6 @@ declare namespace WIA {
      * The WiaSubType enumeration specifies more detail about the property value. Use the SubType property on the Property object to obtain these values for
      * the property.
      */
-    // tslint:disable-next-line no-const-enum
     const enum WiaSubType {
         FlagSubType = 3,
         ListSubType = 2,
