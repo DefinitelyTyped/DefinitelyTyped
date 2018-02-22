@@ -11,10 +11,8 @@ server.register(Nes).then(() => {
     wsServer.route({
         method: 'GET',
         path: '/test',
-        config: {
-            handler: (request: Request, h: ResponseToolkit) => {
-                return {test: 'passes ' + request.socket.id};
-            }
+        handler: (request: Request, h: ResponseToolkit) => {
+            return {test: 'passes ' + request.socket.id};
         }
     });
     wsServer.start().then(() => {

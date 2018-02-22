@@ -8,7 +8,7 @@ const server = new Server({
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'Success!';
     }
 };

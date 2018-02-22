@@ -5,7 +5,7 @@ const options: ServerOptions = {
     port: 8000,
 };
 
-const handlerFn: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+const handlerFn: Lifecycle.Method = (request, h) => {
     const query = request.query as GetThingQuery;
     // http://localhost:8000/?name=test
     return `You asked for ${query.name}`;
