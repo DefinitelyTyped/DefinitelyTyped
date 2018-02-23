@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Observable } from 'rxjs/Observable';
 
-export function render<P>(
-    element: React.ReactElement<P>,
+export function render(
+    element: React.ReactElement<any>,
     container: Element
 ): Observable<undefined>;

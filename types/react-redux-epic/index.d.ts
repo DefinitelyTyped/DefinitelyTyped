@@ -13,10 +13,10 @@ export interface Action {
 }
 
 export function wrapRootEpic<T extends Action, S, D = any>(
-    epic: Epic<T, S, D>
+    epic: Epic<T, S, D> // tslint:disable-line no-unnecessary-generics
 ): typeof epic;
 
-export function renderToString<P, T extends Action, S, D = any>(
-    element: React.ReactElement<P>,
-    wrappedEpic: Epic<T, S, D>
+export function renderToString<T extends Action, S, D = any>(
+    element: React.ReactElement<any>,
+    wrappedEpic: Epic<T, S, D> // tslint:disable-line no-unnecessary-generics
 ): Observable<{ markup: string }>;
