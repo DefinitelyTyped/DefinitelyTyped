@@ -266,5 +266,15 @@ declare namespace Mithril {
 	}
 }
 
+declare global {
+    namespace JSX {
+        type Element = Mithril.Vnode<any, any>;
+
+        interface IntrinsicElements {
+            [elemName: string]: any;
+        }
+    }
+}
+
 declare const Mithril: Mithril.Static;
 export = Mithril;
