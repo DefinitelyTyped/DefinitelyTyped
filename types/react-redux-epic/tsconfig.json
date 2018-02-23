@@ -6,11 +6,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "jsx": "React",
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "client.d.ts"]
+    "files": ["index.d.ts", "client.d.ts", "react-redux-epic-tests.tsx"]
 }
