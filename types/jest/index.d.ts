@@ -56,7 +56,8 @@ declare namespace jest {
      */
     function autoMockOn(): typeof jest;
     /**
-     * @deprecated use resetAllMocks instead
+     * Clears the mock.calls and mock.instances properties of all mocks.
+     * Equivalent to calling .mockClear() on every mocked function.
      */
     function clearAllMocks(): typeof jest;
     /**
