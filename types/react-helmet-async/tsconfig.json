@@ -6,11 +6,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts"]
+    "files": ["index.d.ts", "react-helmet-async-tests.tsx"]
 }
