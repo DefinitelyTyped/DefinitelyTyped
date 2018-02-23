@@ -369,6 +369,51 @@ declare namespace Bull {
     process(name: string, concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
 
     /**
+     * Defines a separate process processor for the jobs placed into a given Queue.
+     *
+     * The callback is called everytime a job is placed in the queue.
+     * It is passed an instance of the job as first argument.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param processor The path of a separate file with the processor.
+     */
+    process(processor: string): Promise<any>;
+
+    /**
+     * Defines a separate process processor for the jobs placed into a given Queue.
+     *
+     * The callback is called everytime a job is placed in the queue.
+     * It is passed an instance of the job as first argument.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
+     * @param processor The path of a separate file with the processor.
+     */
+    process(concurrency: number, processor: string): Promise<any>;
+
+    /**
+     * Defines a separate process processor for the jobs placed into a given Queue.
+     *
+     * The callback is called everytime a job is placed in the queue.
+     * It is passed an instance of the job as first argument.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param name Bull will only call the handler if the job name matches
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
+     * @param processor The path of a separate file with the processor.
+     */
+    process(name: string, concurrency: number, processor: string): Promise<any>;
+
+    /**
      * Creates a new job and adds it to the queue.
      * If the queue is empty the job will be executed directly,
      * otherwise it will be placed in the queue and executed as soon as possible.
