@@ -122,7 +122,7 @@ declare namespace Stripe {
              * is only false when Stripe is waiting for additional information from the
              * account holder.
              */
-            transfers_enabled: boolean;
+            payouts_enabled: boolean;
 
             /**
              * The state of the account’s information requests, including what
@@ -161,7 +161,7 @@ declare namespace Stripe {
              * established in. For example, if you are in the United States and the
              * business you’re creating an account for is legally represented in Canada,
              * you would use “CA” as the country for the account being created.
-             * 
+             *
              * optional, default is your own country
              */
             country?: string;
@@ -171,7 +171,7 @@ declare namespace Stripe {
              * will email your user with instructions for how to set up their account. For
              * managed accounts, this is only to make the account easier to identify to
              * you: Stripe will never directly reach out to your users.
-             * 
+             *
              * required if type is "standard"
              */
             email?: string;
@@ -316,11 +316,11 @@ declare namespace Stripe {
             };
 
             /**
-             * Details on when this account will make funds from charges available, and
-             * when they will be paid out to the account holder’s bank account. See our
-             * managed account bank transfer guide for more information
+             * Details on when funds from charges are available,
+             * and when they are paid out to an external account.
+             * See our Setting Bank and Debit Card Payouts documentation for details.
              */
-            transfer_schedule?: {
+            payout_schedule?: {
                 /**
                  * The number of days charges for the account will be held before being
                  * paid out. May also be the string “minimum” for the lowest available
@@ -333,7 +333,7 @@ declare namespace Stripe {
                  * How frequently funds will be paid out. One of "manual" (for only
                  * triggered via API call), "daily", "weekly", or "monthly". Default is "daily".
                  */
-                interval?: string;
+                interval?: "manual" | "daily" | "weekly" | "monthly";
 
                 /**
                  * The day of the month funds will be paid out. Required and available
@@ -345,8 +345,14 @@ declare namespace Stripe {
                  * The day of the week funds will be paid out, of the style ‘monday’,
                  * ‘tuesday’, etc. Required and available only if interval is weekly.
                  */
-                weekly_anchor?: string;
+                weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
             }
+
+            /**
+             * The text that appears on the bank account statement for payouts.
+             * If not set, this defaults to the platform’s bank descriptor as set in the Dashboard.
+             */
+            payout_statement_descriptor?: string;
         }
 
         interface IAccountUpdateOptions extends IDataOptions, IAccountShared {
@@ -4277,9 +4283,9 @@ declare namespace Stripe {
             ended_at: number;
 
             metadata: IMetadata;
-            
+
             items: IList<subscriptionItems.ISubscriptionItem>;
-            
+
             /**
              * Hash describing the plan the customer is subscribed to
              */
@@ -4322,8 +4328,8 @@ declare namespace Stripe {
             trial_start: number;
 
             /**
-             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the 
-             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an 
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
+             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an
              * invoice with payment instructions.
              */
             billing: SubscriptionBilling;
@@ -4379,8 +4385,8 @@ declare namespace Stripe {
             items?: ISubscriptionCreationItem[];
 
             /**
-             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
-             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment
              * instructions. Defaults to "charge_automatically".
              */
             billing?: SubscriptionBilling;
@@ -4450,8 +4456,8 @@ declare namespace Stripe {
             trial_end?: number | "now";
 
             /**
-             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
-             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment
              * instructions.
              */
             billing?: SubscriptionBilling;
@@ -4496,7 +4502,7 @@ declare namespace Stripe {
              * Plan ID for this item.
              */
             plan: string;
-            
+
             /**
              * Quantity for this item.
              */
@@ -4510,7 +4516,7 @@ declare namespace Stripe {
             id?: string;
 
             /**
-             * Delete all usage for a given subscription item. Only allowed when deleted is set to true and the current plan’s 
+             * Delete all usage for a given subscription item. Only allowed when deleted is set to true and the current plan’s
              * usage_type is metered.
              */
             clear_usage?: boolean;
@@ -4530,7 +4536,7 @@ declare namespace Stripe {
              * Plan ID for this item.
              */
             plan?: string;
-            
+
             /**
              * Quantity for this item.
              */
@@ -4552,7 +4558,7 @@ declare namespace Stripe {
             created: number;
 
             /**
-             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information 
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information
              * about the object in a structured format.
              */
             metadata: IMetadata;
@@ -4626,7 +4632,7 @@ declare namespace Stripe {
             prorate?: boolean;
 
             /**
-             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same 
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same
              * proration that was previewed with the upcoming invoice endpoint.
              */
             proration_date?: number;
@@ -5961,7 +5967,7 @@ declare namespace Stripe {
              */
             create(data: subscriptionItems.ISubscriptionItemCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
             create(data: subscriptionItems.ISubscriptionItemCreationOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
-            
+
             /**
              * Retrieves the subscription item with the given ID.
              *
@@ -5984,7 +5990,7 @@ declare namespace Stripe {
             /**
              * Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
              *
-             * @returns An subscription item object with a deleted flag upon success. Otherwise, this call throws an error, such as if the 
+             * @returns An subscription item object with a deleted flag upon success. Otherwise, this call throws an error, such as if the
              * subscription item has already been deleted.
              *
              * @param subscriptionItemId The identifier of the subscription item to delete.
