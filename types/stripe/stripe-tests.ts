@@ -3,7 +3,7 @@ import { customers } from 'stripe';
 
 var stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K")
 
-stripe.setApiVersion('2016-03-07');
+stripe.setApiVersion('2017-04-06');
 
 //#region Balance tests
 // ##################################################################################
@@ -650,6 +650,29 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     }
 );
 
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        payout_statement_descriptor: "From Stripe"
+    }).then(
+    function (account) {
+        // asynchronously called
+    }
+);
+
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        payout_schedule: {
+            delay_days: 5,
+            interval: "monthly",
+            monthly_anchor: 4,
+            weekly_anchor: "monday"
+        }
+    }).then(
+    function (account) {
+        // asynchronously called
+    }
+);
+
 stripe.accounts.del("acct_17wV8KBoqMA9o2xk", function (err, confirmation) { });
 stripe.accounts.del("acct_17wV8KBoqMA9o2xk").then(function (confirmation) { });
 
@@ -670,6 +693,11 @@ stripe.accounts.list(
     { limit: 3 }).then(
     function (accounts) {
         // asynchronously called
+    }
+);
+stripe.accounts.retrieve("acct_17wV8KBoqMA9o2xk").then(
+    function (accounts) {
+        var payouts_enabled: boolean = accounts.payouts_enabled;
     }
 );
 //#endregion
