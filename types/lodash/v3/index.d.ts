@@ -14749,7 +14749,7 @@ declare module _ {
          * Splits string by separator.
          *
          * Note: This method is based on String#split.
-         * 
+         *
          * @param separator The separator pattern to split by.
          * @param limit The length to truncate results to.
          * @return Returns the new array with the terms splitted.
@@ -15862,7 +15862,8 @@ declare module _ {
     }
 
     interface NumericDictionaryIterator<T, TResult> {
-        (value: T, key?: number, collection?: Dictionary<T>): TResult;
+        // NOTE: keys of objects at run time are always strings, even when a NumericDictionary is being iterated.
+        (value: T, key?: string, collection?: NumericDictionary<T>): TResult;
     }
 
     interface ObjectIterator<T, TResult> {

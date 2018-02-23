@@ -3190,7 +3190,7 @@ namespace TestAny {
 
     let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => boolean;
     let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => boolean;
-    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => boolean;
+    let numericDictionaryIterator: (value: SampleObject, key: string, collection: _.NumericDictionary<SampleObject>) => boolean;
     let objectIterator: (value: any, key: string, collection: any) => boolean;
 
     {
@@ -3485,7 +3485,7 @@ namespace TestCountBy {
     let stringIterator: (value: string, index: number, collection: string) => any;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any;
-    let numericDictionaryIterator: (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => any;
+    let numericDictionaryIterator: (value: TResult, key: string, collection: _.NumericDictionary<TResult>) => any;
 
     {
         let result: _.Dictionary<number>;
@@ -4519,7 +4519,7 @@ namespace TestIndexBy {
     let stringIterator: (value: string, index: number, collection: string) => any;
     let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => any;
     let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => any;
-    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => any;
+    let numericDictionaryIterator: (value: SampleObject, key: string, collection: _.NumericDictionary<SampleObject>) => any;
 
     {
         let result: _.Dictionary<string>;
@@ -5244,7 +5244,7 @@ namespace TestSome {
 
     let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => boolean;
     let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => boolean;
-    let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => boolean;
+    let numericDictionaryIterator: (value: SampleObject, key: string, collection: _.NumericDictionary<SampleObject>) => boolean;
     let objectIterator: (value: any, key: string, collection: any) => boolean;
 
     {

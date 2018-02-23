@@ -195,7 +195,8 @@ declare module "../index" {
     type DictionaryIteratee<T> = ObjectIteratee<Dictionary<T>>;
     type DictionaryIteratorTypeGuard<T, S extends T> = ObjectIteratorTypeGuard<Dictionary<T>, S>;
 
-    type NumericDictionaryIterator<T, TResult> = (value: T, key: number, collection: NumericDictionary<T>) => TResult;
+    // NOTE: keys of objects at run time are always strings, even when a NumericDictionary is being iterated.
+    type NumericDictionaryIterator<T, TResult> = (value: T, key: string, collection: NumericDictionary<T>) => TResult;
     type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
     type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
 

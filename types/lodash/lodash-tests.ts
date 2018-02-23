@@ -4099,7 +4099,7 @@ namespace TestCountBy {
     let stringIterator: (value: string, index: number, collection: string) => any = (value: string, index: number, collection: string) => 1;
     let listIterator: (value: AbcObject, index: number, collection: _.List<AbcObject>) => any = (value: AbcObject, index: number, collection: _.List<AbcObject>) => 1;
     let dictionaryIterator: (value: AbcObject, key: string, collection: _.Dictionary<AbcObject>) => any = (value: AbcObject, key: string, collection: _.Dictionary<AbcObject>) => 1;
-    let numericDictionaryIterator: (value: AbcObject, key: number, collection: _.NumericDictionary<AbcObject>) => any = (value: AbcObject, key: number, collection: _.NumericDictionary<AbcObject>) => 1;
+    let numericDictionaryIterator: (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => any = (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => 1;
 
     {
         let result: _.Dictionary<number>;
@@ -4427,7 +4427,7 @@ namespace TestEvery {
 
     let listIterator = (value: SampleObject, index: number, collection: _.List<SampleObject>) => true;
     let dictionaryIterator = (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => true;
-    let numericDictionaryIterator = (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => true;
+    let numericDictionaryIterator = (value: SampleObject, key: string, collection: _.NumericDictionary<SampleObject>) => true;
 
     {
         let result: boolean;
@@ -4789,7 +4789,7 @@ namespace TestFlatMap {
 
     let dictionaryIterator: (value: number|number[], key: string, collection: _.Dictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
-    let numericDictionaryIterator: (value: number|number[], key: number, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let numericDictionaryIterator: (value: number|number[], key: string, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
     {
         let result: string[];
@@ -5836,7 +5836,7 @@ namespace TestKeyBy {
     let stringIterator = (value: string, index: number, collection: string) => "a";
     let listIterator = (value: SampleObject, index: number, collection: _.List<SampleObject>) => 1;
     let dictionaryIterator = (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => Symbol.name;
-    let numericDictionaryIterator = (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => "a";
+    let numericDictionaryIterator = (value: SampleObject, key: string, collection: _.NumericDictionary<SampleObject>) => "a";
 
     {
         let result: _.Dictionary<string>;
@@ -6667,7 +6667,7 @@ namespace TestSome {
 
     let listIterator = (value: SampleObject, index: number, collection: _.List<SampleObject>) => true;
     let dictionaryIterator = (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => true;
-    let numericDictionaryIterator = (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => true;
+    let numericDictionaryIterator = (value: SampleObject, key: string, collection: _.NumericDictionary<SampleObject>) => true;
     let objectIterator = (value: any, key: string, collection: any) => true;
 
     {
