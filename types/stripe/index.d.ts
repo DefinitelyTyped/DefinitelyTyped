@@ -7,6 +7,7 @@
 //                 Brannon Jones <https://github.com/brannon>
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
+//                 Thomas Bruun <https://github.com/bruun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -4688,6 +4689,12 @@ declare namespace Stripe {
              * This is the transaction number that appears on email receipts sent for this refund.
              */
             receipt_number: string;
+
+            /**
+             * Status of the refund. For credit card refunds, this can be succeeded or failed.
+             * For other types of refunds, it can be pending, succeeded, failed, or canceled.
+             */
+            status: "pending" | "succeeded" | "failed" | "canceled";
         }
 
         interface IRefundCreationOptions extends IDataOptionsWithMetadata {
