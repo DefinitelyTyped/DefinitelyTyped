@@ -9,7 +9,7 @@ import * as React from 'react';
 import Helmet, { HelmetData } from 'react-helmet';
 export default Helmet;
 
-export interface FilledContext {
+export interface PopulatedContext {
     helmet: HelmetData;
 }
 
