@@ -5,6 +5,7 @@
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
 //                 Gabriel Terwesten <https://github.com/blaugold>
+//                 Marshalys <https://github.com/marshalys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
