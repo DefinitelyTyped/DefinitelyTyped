@@ -182,6 +182,10 @@ export class Point {
     y: number;
 }
 
+export interface Coords extends Point {
+    z: number;
+}
+
 export type PointExpression = Point | PointTuple;
 
 export function point(x: number, y: number, round?: boolean): Point;
@@ -388,6 +392,7 @@ export interface InteractiveLayerOptions extends LayerOptions {
 }
 
 export class Layer extends Evented {
+    _map: Map;
     constructor(options?: LayerOptions);
     addTo(map: Map|LayerGroup): this;
     remove(): this;
@@ -439,6 +444,17 @@ export interface GridLayerOptions {
     keepBuffer?: number;
 }
 
+export interface InternalTiles {
+    [key: string]: {
+        active?: boolean,
+        coords: Coords,
+        current: boolean,
+        el: HTMLElement,
+        loaded?: Date,
+        retain?: boolean,
+    };
+}
+
 export class GridLayer extends Layer {
     constructor(options?: GridLayerOptions);
     bringToFront(): this;
@@ -449,6 +465,11 @@ export class GridLayer extends Layer {
     isLoading(): boolean;
     redraw(): this;
     getTileSize(): Point;
+
+    _tileCoordsToKey(coords: Coords): string;
+
+    _tiles: InternalTiles;
+    _tileZoom?: number;
 }
 
 export function gridLayer(options?: GridLayerOptions): GridLayer;
@@ -468,9 +489,15 @@ export interface TileLayerOptions extends GridLayerOptions {
     [name: string]: any;
 }
 
+export type DoneCallback = (error?: Error, tile?: HTMLElement) => void;
+
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
+    createTile(coords: Coords, done: DoneCallback): HTMLElement;
     setUrl(url: string, noRedraw?: boolean): this;
+
+    _abortLoading(): void;
+    _getZoomForUrl(): number;
 
     options: TileLayerOptions;
 }
