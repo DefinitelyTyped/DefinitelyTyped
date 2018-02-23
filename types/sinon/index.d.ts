@@ -1,4 +1,4 @@
-// Type definitions for Sinon 4.1
+// Type definitions for Sinon 4.3
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
@@ -26,6 +26,8 @@ declare namespace Sinon {
         calledOn(obj: any): boolean;
         calledWith(...args: any[]): boolean;
         calledWithExactly(...args: any[]): boolean;
+        calledOnceWith(...args: any[]): boolean;
+        calledOnceWithExactly(...args: any[]): boolean;
         calledWithMatch(...args: any[]): boolean;
         notCalledWith(...args: any[]): boolean;
         notCalledWithMatch(...args: any[]): boolean;
