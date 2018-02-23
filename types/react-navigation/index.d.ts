@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 1.0
+// Type definitions for react-navigation 1.1
 // Project: https://github.com/react-community/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -11,6 +11,7 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Qibang Sun <https://github.com/bang88>
 //                 Sergei Butko: <https://github.com/svbutko>
+//                 Veit Lehmann: <https://github.com/levito>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -278,6 +279,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
 };
 
 export interface NavigationStackRouterConfig {
+  headerTransitionPreset?: 'fade-in-place' | 'uikit';
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
@@ -608,6 +610,8 @@ export interface TabViewConfig {
 
 // From navigators/TabNavigator.js
 export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig {
+  lazy?: boolean;
+  removeClippedSubviews?: boolean;
   initialLayout?: { height: number, width: number };
 }
 
