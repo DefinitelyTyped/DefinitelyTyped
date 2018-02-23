@@ -13,6 +13,7 @@
 //                 Sergei Butko: <https://github.com/svbutko>
 //                 Veit Lehmann: <https://github.com/levito>
 //                 Roberto Huertas: <https://github.com/robertohuertasm>
+//                 Steven Miller <https://github.com/YourGamesBeOver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
