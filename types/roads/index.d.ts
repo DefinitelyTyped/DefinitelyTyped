@@ -48,7 +48,7 @@ export class Road {
      * @param fn Will be called any time a request is made on the object.
      * @see <a href="https://github.com/dancespiele/roads#roadusefunction-fn" target="_blank">Road.use(Function fn)</a>
      */
-    use(fn: (method: string, url: string, body: any, headers: Headers, next: () => any) => any): any;
+    use(fn: (method: string, url: any, body: any, headers: Headers, next: () => any) => any): any;
 
     /**
      * Locate and execute the resource method associated with the request parameters
