@@ -5,7 +5,7 @@
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
 //                 Gabriel Terwesten <https://github.com/blaugold>
-//                 Marshalys <https://github.com/marshalys>
+//                 Marshalys <https://github.com/blaugold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -381,6 +381,7 @@ declare namespace Bull {
      *
      * @param processor The path of a separate file with the processor.
      */
+    // tslint:disable-next-line:unified-signatures
     process(processor: string): Promise<any>;
 
     /**
@@ -396,6 +397,7 @@ declare namespace Bull {
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      * @param processor The path of a separate file with the processor.
      */
+    // tslint:disable-next-line:unified-signatures
     process(concurrency: number, processor: string): Promise<any>;
 
     /**
@@ -412,6 +414,7 @@ declare namespace Bull {
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      * @param processor The path of a separate file with the processor.
      */
+    // tslint:disable-next-line:unified-signatures
     process(name: string, concurrency: number, processor: string): Promise<any>;
 
     /**
