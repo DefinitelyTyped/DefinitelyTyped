@@ -24,7 +24,7 @@ export namespace ReactStripeElements {
 		error?: { decline_code?: string };
 	};
 
-    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: stripe.Stripe; };
+    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: stripe.Stripe | null; };
 
 	interface InjectOptions {
 		withRef?: boolean;
