@@ -1203,6 +1203,8 @@ export interface Target {
 }
 
 export interface LaunchOptions {
+  /** Whether to open chrome in appMode. Defaults to false. */
+  appMode?: boolean;
   /** Whether to ignore HTTPS errors during navigation. Defaults to false. */
   ignoreHTTPSErrors?: boolean;
   /** Do not use `puppeteer.defaultArgs()` for launching Chromium. Defaults to false. */
