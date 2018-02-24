@@ -16,6 +16,7 @@ import ElementChangeResponse = stripe.elements.ElementChangeResponse;
 import ElementsOptions = stripe.elements.ElementsOptions;
 import ElementsCreateOptions = stripe.elements.ElementsCreateOptions;
 import PatchedTokenResponse = ReactStripeElements.PatchedTokenResponse;
+import StripeProps = ReactStripeElements.StripeProps;
 
 const cardElementProps: ElementsOptions = {
     iconStyle: 'solid',
@@ -111,10 +112,8 @@ class WrappedComponent extends React.Component<
     ComponentProps & InjectedStripeProps
 > {
     onSubmit = () => {
-        const elements = this.props.stripe!.elements();
-        const card = elements.create('card', { hidePostalCode: true });
         this.props.stripe!
-            .createToken(card, {
+            .createToken({
                 name: '',
                 address_line1: '',
                 address_line2: '',
@@ -186,7 +185,7 @@ const ElementsDefaultPropsTest: React.SFC = () => (
 const TestStripeProviderProps1: React.SFC = () => <StripeProvider apiKey="" />;
 
 const TestStripeProviderProps2: React.SFC<{
-    stripe: stripe.Stripe;
+    stripe: StripeProps;
 }> = props => <StripeProvider stripe={props.stripe} />;
 
 /**
@@ -194,5 +193,5 @@ const TestStripeProviderProps2: React.SFC<{
  * See: https://github.com/stripe/react-stripe-elements#props-shape
  */
 const TestStripeProviderProps3: React.SFC<{
-    stripe: stripe.Stripe;
+    stripe: StripeProps;
 }> = props => <StripeProvider stripe={null} />;

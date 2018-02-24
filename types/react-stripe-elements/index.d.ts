@@ -24,14 +24,21 @@ export namespace ReactStripeElements {
 		error?: { decline_code?: string };
 	};
 
-    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: stripe.Stripe | null; };
+    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: StripeProps | null; };
+
+	interface StripeProps {
+		// I'm not sure what the definition for this is
+		createSource(): void;
+
+		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
+	}
 
 	interface InjectOptions {
 		withRef?: boolean;
 	}
 
 	interface InjectedStripeProps {
-		stripe?: stripe.Stripe;
+		stripe?: StripeProps;
 	}
 
 	interface ElementProps extends ElementsOptions {
