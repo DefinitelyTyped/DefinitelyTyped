@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.20.1
+// Type definitions for material-ui 0.21
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 //                 Igor Beagorudsky <https://github.com/theigor>
@@ -519,7 +519,7 @@ declare namespace __MaterialUI {
         >(component: TComponent) => TComponent;
 
         export interface MuiThemeProviderProps {
-            muiTheme?: Styles.MuiTheme;
+            muiTheme?: MuiTheme;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps> {
         }
@@ -1864,8 +1864,7 @@ declare namespace __MaterialUI {
             value?: any;
             disabled?: boolean;
         }
-        export class Tab extends React.Component<
-            TabProps, {}> {
+        export class Tab extends React.Component<TabProps> {
         }
     }
 
