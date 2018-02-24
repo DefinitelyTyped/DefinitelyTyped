@@ -7,15 +7,17 @@
 import * as passport from 'passport';
 import * as express from 'express';
 
-declare class Strategy implements passport.Strategy {
-    constructor(options: Strategy.StrategyOptionsWithRequest, verify: Strategy.VerifyFunctionWithRequest)
-    constructor(options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction);
+declare namespace PassportFacebookToken {
+    interface StrategyStatic {
+        new(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest): StrategyInstance;
+        new(options: StrategyOptions, verify: VerifyFunction): StrategyInstance;
+    }
 
-    name: string;
-    authenticate: (req: express.Request, options?: any) => void;
-}
+    interface StrategyInstance {
+        name: string;
+        authenticate: (req: express.Request, options?: any) => void;
+    }
 
-declare namespace Strategy {
     interface ValueObject {
         value: string;
     }
@@ -55,4 +57,5 @@ declare namespace Strategy {
     type VerifyFunctionWithRequest = (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
 }
 
-export = Strategy;
+declare const PassportFacebookToken: PassportFacebookToken.StrategyStatic;
+export = PassportFacebookToken;

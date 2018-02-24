@@ -605,7 +605,7 @@ it('emptyDir() - callback', callback => {
                 [join(target, 'folder', 'h.txt'), false],
                 [join(target, 'folder', 'i.js'), false],
                 [join(target, 'folder', '.j'), true]
-            ] as Array<[string, boolean]>, data => {
+            ], (data: any) => {
                 return fs.exists(data[0]).then(exist => {
                     exist.should.eql(data[1]);
                 });

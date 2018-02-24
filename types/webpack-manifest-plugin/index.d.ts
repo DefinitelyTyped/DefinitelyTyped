@@ -34,7 +34,7 @@ declare namespace WebpackManifestPlugin {
          * The manifest filename in your output directory.
          * Default: manifest.json
          */
-        filename?: string;
+        fileName?: string;
 
         /**
          * A path prefix for all file references. Useful for including your output path in the manifest.

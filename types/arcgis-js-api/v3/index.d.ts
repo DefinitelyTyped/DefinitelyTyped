@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.22
+// Type definitions for ArcGIS API for JavaScript 3.23
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -110,7 +110,10 @@ declare module "esri" {
     resourceInfo?: any;
     /** When true, the layer's attribution is displayed on the map. */
     showAttribution?: boolean;
-    /** By default, images are exported in MIME format, and the image is streamed to the client. */
+    /**
+     * By default, images are exported in MIME format, and the image is streamed to the client.
+     * @deprecated
+     */
     useMapImage?: boolean;
     /** When true, the layer will update its content based on the map's time extent. */
     useMapTime?: boolean;
@@ -478,6 +481,10 @@ declare module "esri" {
     zoomOptions?: any;
   }
   export interface ColorPickerOptions {
+    /** Indicates whether the widget displays collapsed. */
+    collapsed?: boolean;
+    /** Indicates whether the widget can be collapsed. */
+    collapsible?: boolean;
     /** The selected color. */
     color: Color;
     /** The row size of the palette. */
@@ -1830,8 +1837,10 @@ declare module "esri" {
     whereFields: any;
   }
   export interface QueryTaskOptions {
-    /** Specify the geodatabase version to display. */
+    /** The geodatabase version to display. */
     gdbVersion?: string;
+    /** The dynamic layer or table source. */
+    source?: LayerSource;
   }
   export interface RasterLayerOptions {
     /** Sets the layer's draw mode. */
@@ -2150,9 +2159,15 @@ declare module "esri" {
   export interface SymbolStylerOptions {
     /** Added at v. */
     portal?: string | any;
-    /** Self response of Portal used as symbol provider. */
+    /**
+     * Self response of Portal used as symbol provider.
+     * @deprecated
+     */
     portalSelf?: any;
-    /** URL to Portal used as symbol provider. */
+    /**
+     * URL to Portal used as symbol provider.
+     * @deprecated
+     */
     portalUrl?: string;
   }
   export interface TemplatePickerOptions {
@@ -3852,6 +3867,10 @@ declare module "esri/dijit/ColorPicker" {
 
   /** A widget to assist choosing a color from a color palette. */
   class ColorPicker {
+    /** Indicates whether the widget displays collapsed. */
+    collapsed: boolean;
+    /** Indicates whether the widget is collapsible. */
+    collapsible: boolean;
     /** The selected color. */
     color: Color;
     /** The set of available color options. */
@@ -3921,7 +3940,10 @@ declare module "esri/dijit/Directions" {
      * @param srcNodeRef Reference or id of a HTML element that this dijit is rendered into.
      */
     constructor(options: esri.DirectionsOptions, srcNodeRef: Node | string);
-    /** Deprecated at v3.13. */
+    /**
+     * Deprecated at v3.13.
+     * @deprecated
+     */
     activate(): void;
     /**
      * Add a stop to the directions widget at the specified index location.
@@ -3942,7 +3964,10 @@ declare module "esri/dijit/Directions" {
     centerAtSegmentStart(index: number): void;
     /** Remove the route directions from the directions list. */
     clearDirections(): void;
-    /** Deprecated at v3.13. */
+    /**
+     * Deprecated at v3.13.
+     * @deprecated
+     */
     deactivate(): void;
     /** Destroy the Directions widget. */
     destroy(): void;
@@ -4106,7 +4131,10 @@ declare module "esri/dijit/FeatureTable" {
     featureLayer: FeatureLayer;
     /** An array of objects representing field information. */
     fieldInfos: any[];
-    /** Reference to the dGrid. */
+    /**
+     * Reference to the dGrid.
+     * @deprecated
+     */
     grid: any;
     /** Reference to the 'Options' drop-down menu. */
     gridMenu: any;
@@ -8158,9 +8186,9 @@ declare module "esri/geometry/geometryEngine" {
      */
     nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): any[];
     /**
-     * Creates offset version of the input geometry.
+     * The offset operation creates a geometry that is a constant planar distance from an input polyline or polygon.
      * @param geometry The geometries to offset.
-     * @param offsetDistance The offset distance for the Geometries.
+     * @param offsetDistance The planar distance to offset from the input geometry.
      * @param offsetUnit Measurement unit for the offset.
      * @param joinType The join type.
      * @param bevelRatio Applicable to MITER, bevelRatio is multiplied by the offset distance and the result determines how far a mitered offset intersection can be located before it is beveled.
@@ -8401,9 +8429,9 @@ declare module "esri/geometry/geometryEngineAsync" {
      */
     nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): any;
     /**
-     * Creates offset version of the input geometry.
+     * The offset operation creates a geometry that is a constant planar distance from an input polyline or polygon.
      * @param geometry The geometries to offset.
-     * @param offsetDistance The offset distance for the Geometries.
+     * @param offsetDistance The planar distance to offset from the input geometry.
      * @param offsetUnit Measurement unit for the offset.
      * @param joinType The join type.
      * @param bevelRatio Applicable to MITER, bevelRatio is multiplied by the offset distance and the result determines how far a mitered offset intersection can be located before it is beveled.
@@ -8583,6 +8611,7 @@ declare module "esri/geometry/screenUtils" {
      * @param width The current width of the map in screen units.
      * @param height The current height of the map in screen units.
      * @param screenPoint The screenPoint to convert from screen to map units.
+     * @deprecated
      */
     toMapPoint(extent: Extent, width: number, height: number, screenPoint: ScreenPoint): Point;
     /**
@@ -8599,6 +8628,7 @@ declare module "esri/geometry/screenUtils" {
      * @param width The current width of the map in screen units.
      * @param height The current height of the map in screen units.
      * @param mapPoint The point to convert from map to screen units.
+     * @deprecated
      */
     toScreenPoint(extent: Extent, width: number, height: number, mapPoint: Point): ScreenPoint;
   };
@@ -8691,14 +8721,14 @@ declare module "esri/graphic" {
     clone(): Graphic;
     /** Draws the graphic. */
     draw(): Graphic;
-    /**
-     * Returns the graphics summarized by the given aggregate graphic in a clustering or feature reduction visualization.
-     * @param aggregateGraphic A graphic representing the aggregation (or reduction) of several individual graphics in a layer.
-     */
-    getChildGraphics(aggregateGraphic: Graphic): Graphic[];
+    /** Returns the graphics summarized by an aggregate graphic in a clustering or feature reduction visualization. */
+    getChildGraphics(): Graphic[];
     /** Returns the content string based on attributes and infoTemplate values. */
     getContent(): string;
-    /** Returns the dojo/gfx/shape.Shape of the Esri graphic. */
+    /**
+     * Returns the dojo/gfx/shape.Shape of the Esri graphic.
+     * @deprecated
+     */
     getDojoShape(): any;
     /** Returns the info template associated with the graphic. */
     getInfoTemplate(): InfoTemplate;
@@ -8880,7 +8910,10 @@ declare module "esri/layers/ArcGISDynamicMapServiceLayer" {
     timeInfo: TimeInfo;
     /** Default units of the layer as defined by the service. */
     units: string;
-    /** When true, the image is saved to the server, and a JSON formatted response is sent to the client with the URL location of the image. */
+    /**
+     * When true, the image is saved to the server, and a JSON formatted response is sent to the client with the URL location of the image.
+     * @deprecated
+     */
     useMapImage: boolean;
     /** The version of ArcGIS Server where the map service is published. */
     version: number;
@@ -10836,7 +10869,10 @@ declare module "esri/layers/RasterDataSource" {
 declare module "esri/layers/RasterFunction" {
   /** Specifies the processing to be done to the image service. */
   class RasterFunction {
-    /** Deprecated at v3.10, use functionArguments instead. */
+    /**
+     * Deprecated at v3.10, use functionArguments instead.
+     * @deprecated
+     */
     arguments: any;
     /** The arguments for the raster function. */
     functionArguments: any;
@@ -12326,7 +12362,10 @@ declare module "esri/opsdashboard/ExtensionBase" {
     portalHelperServices: any;
     /** Read-only: The URL to the ArcGIS.com site or in-house portal that you are currently signed in to. */
     portalUrl: string;
-    /** Get the collection of data sources from the host application. */
+    /**
+     * Get the collection of data sources from the host application.
+     * @deprecated
+     */
     getDataSourceProxies(): any;
     /**
      * Get the data source corresponding to the data source id from the host application.
@@ -12954,7 +12993,10 @@ declare module "esri/renderers/ClassBreaksRenderer" {
     attributeField: string;
     /** To symbolize polygon features with graduated symbols, use backgroundFillSymbol to specify a simple fill symbol to represent polygon features, and use marker symbols of varying sizes in class breaks to indicate the quantity. */
     backgroundFillSymbol: FillSymbol;
-    /** Deprecated at v2.0, use infos instead. */
+    /**
+     * Deprecated at v2.0, use infos instead.
+     * @deprecated
+     */
     breaks: any[];
     /** The classification method used to generate class breaks. */
     classificationMethod: string;
@@ -13136,13 +13178,25 @@ declare module "esri/renderers/Renderer" {
 
   /** The base class for the renderers - SimpleRenderer, ClassBreaksRenderer, UniqueValueRenderer, DotDensityRenderer, ScaleDependentRenderer, TemporalRenderer, HeatmapRenderer, and VectorFieldRenderer used with a GraphicsLayer and FeatureLayer. */
   class Renderer {
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     colorInfo: any;
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     opacityInfo: any;
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     rotationInfo: any;
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     sizeInfo: any;
     /** This property allows you to define how to render values in a layer. */
     visualVariables: any[];
@@ -13185,21 +13239,25 @@ declare module "esri/renderers/Renderer" {
     /**
      * Deprecated.
      * @param info An info object that defines the color.
+     * @deprecated
      */
     setColorInfo(info: any): Renderer;
     /**
      * Deprecated.
      * @param info The info parameter is an object with the same properties as opacityInfo.
+     * @deprecated
      */
     setOpacityInfo(info: any): Renderer;
     /**
      * Deprecated.
      * @param info An object with the same properties as rotationInfo.
+     * @deprecated
      */
     setRotationInfo(info: any): Renderer;
     /**
      * Deprecated.
      * @param info An object with the same properties as sizeInfo.
+     * @deprecated
      */
     setSizeInfo(info: any): Renderer;
     /**
@@ -13417,7 +13475,10 @@ declare module "esri/renderers/UniqueValueRenderer" {
     valueExpression: string;
     /** The title identifying and describing the associated Arcade expression as defined in the valueExpression property. */
     valueExpressionTitle: string;
-    /** Deprecated at v2.0, use infos instead. */
+    /**
+     * Deprecated at v2.0, use infos instead.
+     * @deprecated
+     */
     values: string[];
     /**
      * Creates a new UniqueValueRenderer object.
@@ -13588,6 +13649,20 @@ declare module "esri/request" {
   export = request;
 }
 
+declare module "esri/support/expressionUtils" {
+  /** A utility module that allows you to enable geometry operations referenced inside Arcade expressions. */
+  var expressionUtils: {
+    /** Loads all geometry operations for use in any Arcade expression within the given application. */
+    enableGeometryOperations(): any;
+    /**
+     * Indicates if the given Arcade expression contains one or more geometry operations.
+     * @param expression The Arcade expression to evaluate for the presence of one or more geometry operations.
+     */
+    hasGeometryOperations(expression: string): boolean;
+  };
+  export = expressionUtils;
+}
+
 declare module "esri/symbols/CartographicLineSymbol" {
   import SimpleLineSymbol = require("esri/symbols/SimpleLineSymbol");
   import Color = require("esri/Color");
@@ -13718,7 +13793,10 @@ declare module "esri/symbols/Font" {
     size: number;
     /** Text style. */
     style: string;
-    /** Text variant. */
+    /**
+     * Text variant (deprecated).
+     * @deprecated
+     */
     variant: string;
     /** Text weight. */
     weight: string;
@@ -13759,8 +13837,9 @@ declare module "esri/symbols/Font" {
      */
     setStyle(style: string): Font;
     /**
-     * Sets the font variant.
+     * Sets the font variant (deprecated).
      * @param variant Font variant.
+     * @deprecated
      */
     setVariant(variant: string): Font;
     /**
@@ -14018,6 +14097,8 @@ declare module "esri/symbols/SimpleLineSymbol" {
     static STYLE_SHORTDOT: any;
     /** The line is solid. */
     static STYLE_SOLID: any;
+    /** Indicates marker symbols present at the beginning and/or end of a SimpleLineSymbol. */
+    marker: any;
     /** The line style. */
     style: string;
     /** Creates a new empty SimpleLineSymbol object. */
@@ -14034,6 +14115,11 @@ declare module "esri/symbols/SimpleLineSymbol" {
      * @param json JSON object representing the SimpleLineSymbol.
      */
     constructor(json: Object);
+    /**
+     * Sets marker symbols at the beginning and/or end of a SimpleLineSymbol.
+     * @param options The options defining the marker style and placement.
+     */
+    setMarker(options: any): void;
     /**
      * Sets the line symbol style.
      * @param style Line style.
@@ -14143,11 +14229,17 @@ declare module "esri/symbols/TextSymbol" {
     static DECORATION_OVERLINE: any;
     /** Text is underlined. */
     static DECORATION_UNDERLINE: any;
-    /** The text alignment in relation to the point. */
+    /**
+     * The text alignment in relation to the point.
+     * @deprecated
+     */
     align: string;
     /** Text angle. */
     angle: number;
-    /** The decoration on the text. */
+    /**
+     * The decoration on the text.
+     * @deprecated
+     */
     decoration: string;
     /** Font for displaying text. */
     font: Font;
@@ -14189,6 +14281,7 @@ declare module "esri/symbols/TextSymbol" {
     /**
      * Sets the alignment of the text.
      * @param align The text alignment.
+     * @deprecated
      */
     setAlign(align: string): TextSymbol;
     /**
@@ -14199,6 +14292,7 @@ declare module "esri/symbols/TextSymbol" {
     /**
      * Sets the decoration for the text.
      * @param decoration The decoration on the text.
+     * @deprecated
      */
     setDecoration(decoration: string): TextSymbol;
     /**
@@ -15038,7 +15132,7 @@ declare module "esri/tasks/GeometryService" {
      */
     lengths(lengthsParameter: LengthsParameters, callback?: Function, errback?: Function): any;
     /**
-     * Constructs the offset of the input geometries.
+     * Constructs the offset of the input geometries based on a planar distance.
      * @param params Set the geometries to offset, distance and units.
      * @param callback The function to call when the method has completed.
      * @param errback An error object is returned if an error occurs during task execution.
@@ -15150,7 +15244,10 @@ declare module "esri/tasks/Geoprocessor" {
 
   /** Represents a GP Task resource exposed by the ArcGIS Server REST API. */
   class Geoprocessor {
-    /** Deprecated at v2.0, use outSpatialReference instead. */
+    /**
+     * Deprecated at v2.0, use outSpatialReference instead.
+     * @deprecated
+     */
     outputSpatialReference: SpatialReference;
     /** The spatial reference of the output geometries. */
     outSpatialReference: SpatialReference;
@@ -15219,6 +15316,7 @@ declare module "esri/tasks/Geoprocessor" {
     /**
      * Deprecated at v2.0, use setOutSpatialReference instead.
      * @param spatialReference The well-known ID of a spatial reference.
+     * @deprecated
      */
     setOutputSpatialReference(spatialReference: SpatialReference): void;
     /**
@@ -15680,7 +15778,7 @@ declare module "esri/tasks/OffsetParameters" {
     bevelRatio: number;
     /** The array of geometries to be offset. */
     geometries: Geometry[];
-    /** Specifies the distance for constructing an offset based on the input geometries. */
+    /** Specifies the planar distance for constructing an offset based on the input geometries. */
     offsetDistance: number;
     /** Options that determine how the ends intersect. */
     offsetHow: string;
@@ -15806,12 +15904,17 @@ declare module "esri/tasks/ProjectParameters" {
 
 declare module "esri/tasks/QueryTask" {
   import esri = require("esri");
+  import LayerSource = require("esri/layers/LayerSource");
   import Query = require("esri/tasks/query");
   import RelationshipQuery = require("esri/tasks/RelationshipQuery");
   import FeatureSet = require("esri/tasks/FeatureSet");
 
   /** Executes a query operation on a layer resource of a map service exposed by the ArcGIS Server REST API. */
   class QueryTask {
+    /** The geodatabase version to display. */
+    gdbVersion: string;
+    /** The dynamic layer or table source. */
+    source: LayerSource;
     /** URL to the ArcGIS Server REST resource that represents a map service layer. */
     url: string;
     /**

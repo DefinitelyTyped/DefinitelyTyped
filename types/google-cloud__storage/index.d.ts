@@ -153,6 +153,7 @@ declare namespace Storage {
     interface FileMetadata {
         contentType?: string;
         metadata?: CustomFileMetadata;
+        cacheControl?: string;
     }
 
     /**

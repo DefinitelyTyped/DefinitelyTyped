@@ -1,4 +1,4 @@
-// Type definitions for stylelint 7.10
+// Type definitions for stylelint 7.11
 // Project: https://github.com/stylelint/stylelint
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,7 @@ export interface LinterOptions {
     cache?: boolean;
     cacheLocation?: string;
     files?: string | string[];
+    fix?: boolean;
     formatter?: FormatterType;
     ignoreDisables?: boolean;
     reportNeedlessDisables?: boolean;

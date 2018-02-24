@@ -1,8 +1,14 @@
 import * as express from 'express';
 
-import { BasicCard, Carousel, List, OptionItem, RichResponse } from './response-builder';
+import { BasicCard, Carousel, ImageDisplays, List, OptionItem, RichResponse } from './response-builder';
 import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, LineItem,
          Location, Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
+
+//
+// Note: These enums are exported due to limitations with Typescript and this
+// library. If you try to import and access them they'll end up null at runtime.
+// Either access them through an AssistantApp instance or AssistantApp.prototype.
+//
 
 /**
  * List of standard intents that the app provides.
@@ -10,58 +16,36 @@ import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, L
  * @dialogflow
  */
 export enum StandardIntents {
-    /**
-     * App fires MAIN intent for queries like [talk to $app].
-     */
+    /** App fires MAIN intent for queries like [talk to $app]. */
     MAIN,
-    /**
-     * App fires TEXT intent when action issues ask intent.
-     */
+    /** App fires TEXT intent when action issues ask intent. */
     TEXT,
-    /**
-     * App fires PERMISSION intent when action invokes askForPermission.
-     */
+    /** App fires PERMISSION intent when action invokes askForPermission. */
     PERMISSION,
-    /**
-     * App fires OPTION intent when user chooses from options provided.
-     */
+    /** App fires OPTION intent when user chooses from options provided. */
     OPTION,
-    /**
-     * App fires TRANSACTION_REQUIREMENTS_CHECK intent when action sets up transaction.
-     */
+    /** App fires TRANSACTION_REQUIREMENTS_CHECK intent when action sets up transaction. */
     TRANSACTION_REQUIREMENTS_CHECK,
-    /**
-     * App fires DELIVERY_ADDRESS intent when action asks for delivery address.
-     */
+    /** App fires DELIVERY_ADDRESS intent when action asks for delivery address. */
     DELIVERY_ADDRESS,
-    /**
-     * App fires TRANSACTION_DECISION intent when action asks for transaction decision.
-     */
+    /** App fires TRANSACTION_DECISION intent when action asks for transaction decision. */
     TRANSACTION_DECISION,
-    /**
-     * App fires CONFIRMATION intent when requesting affirmation from user.
-     */
+    /** App fires CONFIRMATION intent when requesting affirmation from user. */
     CONFIRMATION,
-    /**
-     * App fires DATETIME intent when requesting date/time from user.
-     */
+    /** App fires DATETIME intent when requesting date/time from user. */
     DATETIME,
-    /**
-     * App fires SIGN_IN intent when requesting sign-in from user.
-     */
+    /** App fires SIGN_IN intent when requesting sign-in from user. */
     SIGN_IN,
-    /**
-     * App fires NO_INPUT intent when user doesn't provide input.
-     */
+    /** App fires NO_INPUT intent when user doesn't provide input. */
     NO_INPUT,
-    /**
-     * App fires CANCEL intent when user exits app mid-dialog.
-     */
+    /** App fires CANCEL intent when user exits app mid-dialog. */
     CANCEL,
-    /**
-     * App fires NEW_SURFACE intent when requesting handoff to a new surface from user.
-     */
+    /** App fires NEW_SURFACE intent when requesting handoff to a new surface from user. */
     NEW_SURFACE,
+    /** App fires REGISTER_UPDATE intent when requesting user to register for proactive updates. */
+    REGISTER_UPDATE,
+    /** App receives CONFIGURE_UPDATES intent to indicate a REGISTER_UPDATE intent should be sent. */
+    CONFIGURE_UPDATES
 }
 
 /**
@@ -85,6 +69,10 @@ export enum SupportedPermissions {
      * {@link https://developers.google.com/actions/reference/conversation#Location|Location object}.
      */
     DEVICE_COARSE_LOCATION,
+    /**
+     * Confirmation to receive proactive content at any time from the app.
+     */
+    UPDATE
 }
 
 /**
@@ -137,6 +125,8 @@ export enum BuiltInArgNames {
      * New surface value argument.
      */
     NEW_SURFACE,
+    /** Update registration value argument. */
+    REGISTER_UPDATE
 }
 
 /**
@@ -144,8 +134,17 @@ export enum BuiltInArgNames {
  * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
  * @actionssdk
  * @dialogflow
+ * @deprecated Use {@link ConversationTypes} instead.
  */
-export enum ConversationStages {
+export type ConversationStages = ConversationTypes;
+
+/**
+ * List of possible conversation types, as defined in the
+ * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
+ * @actionssdk
+ * @dialogflow
+ */
+export enum ConversationTypes {
     /**
      * Unspecified conversation state.
      */
@@ -225,6 +224,13 @@ export enum SignInStatus {
 }
 
 /**
+ * Possible update trigger time context frequencies.
+ */
+export enum TimeContextFrequency {
+    DAILY
+}
+
+/**
  * User provided date/time info.
  */
 export interface DateTime {
@@ -257,8 +263,8 @@ export interface UserName {
  * User's permissioned device location.
  */
 export interface DeviceLocation {
-    /** {latitude, longitude}. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
-    coordinates: object;
+    /** Coordinates: {latitude, longitude}. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
+    coordinates: Coordinates;
     /** Full, formatted street address. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
     address: string;
     /** Zip code. Requested with SupportedPermissions.DEVICE_COARSE_LOCATION. */
@@ -268,15 +274,39 @@ export interface DeviceLocation {
 }
 
 /**
+ * Coordinates containing latitude and longitude
+ */
+export interface Coordinates {
+    /** Latitude coordinate. */
+    latitude: number;
+    /** Longitude coordinate. */
+    longitude: number;
+}
+
+/**
  * User object.
  */
 export interface User {
     /** Random string ID for Google user. */
     userId: string;
-    /** User name information. Null if not requested with {@link AssistantApp#askForPermission|askForPermission(SupportedPermissions.NAME)}. */
+    /**
+     * User name information. Null if not requested with
+     *     {@link AssistantApp#askForPermission|askForPermission(SupportedPermissions.NAME)}.
+     */
     userName: UserName;
     /** Unique Oauth2 token. Only available with account linking. */
     accessToken: string;
+    /**
+     * Timestamp for the last access from the user.
+     * Retrieve using app.getLastSeen() to get a Date object or null if never seen.
+     */
+    lastSeen: string;
+    /**
+     * A string persistent across sessions.
+     * Retrieved and set using app.userStorage which allows you to store it like an JSON object
+     * which is abstracted for convenience by the client library.
+     */
+    userStorage: string;
 }
 
 /**
@@ -292,7 +322,18 @@ export interface Surface {
  */
 export interface Capability {
     /** Name of the capability. */
+    name: SurfaceCapabilities;
+}
+
+/**
+ * Intent Argument. For incoming intents, the argument value can be retrieved
+ * using {@link AssistantApp#getArgument}.
+ */
+export interface IntentArgument {
+    /** Name of the argument. */
     name: string;
+    /** Text value of the argument. */
+    textValue: string;
 }
 
 /**
@@ -312,6 +353,20 @@ export class AssistantApp {
      * The session data in JSON format.
      */
     data: object;
+
+    /**
+     * The data persistent across sessions in JSON format.
+     * It exists in the same context as getUser().userId
+     *
+     * @example
+     * // Actions SDK
+     * const app = new ActionsSdkApp({request: request, response: response});
+     * app.userStorage.someProperty = 'someValue';
+     * // Dialogflow
+     * const app = new DialogflowApp({request: request, response: response});
+     * app.userStorage.someProperty = 'someValue';
+     */
+    userStorage: object;
 
     /**
      * List of standard intents that the app provides.
@@ -339,8 +394,17 @@ export class AssistantApp {
      * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
      * @actionssdk
      * @dialogflow
+     * @deprecated Use {@link ConversationTypes} instead.
      */
-    readonly ConversationStages: typeof ConversationStages;
+    readonly ConversationStages: typeof ConversationTypes;
+
+    /**
+     * List of possible conversation types, as defined in the
+     * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
+     * @actionssdk
+     * @dialogflow
+     */
+    readonly ConversationTypes: typeof ConversationTypes;
 
     /**
      * List of surface capabilities supported by the app.
@@ -364,9 +428,19 @@ export class AssistantApp {
     readonly SignInStatus: typeof SignInStatus;
 
     /**
+     * Values related to supporting {@link ImageDisplays}.
+     */
+    readonly ImageDisplays: typeof ImageDisplays;
+
+    /**
      * Values related to supporting {@link Transactions}.
      */
     readonly Transactions: typeof TransactionValues;
+
+    /**
+     * Possible update trigger time context frequencies.
+     */
+    readonly TimeContextFrequency: typeof TimeContextFrequency;
 
     // ---------------------------------------------------------------------------
     //                   Public APIs
@@ -380,11 +454,17 @@ export class AssistantApp {
      * // Actions SDK
      * const app = new ActionsSdkApp({request: request, response: response});
      *
+     * const noInputs = [
+     *   `I didn't hear a number`,
+     *   `If you're still there, what's the number?`,
+     *   'What is the number?'
+     * ];
+     *
      * function mainIntent (app) {
-     *   const inputPrompt = app.buildInputPrompt(true, '<speak>Hi! <break time="1"/> ' +
-     *         'I can read out an ordinal like ' +
-     *         '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>',
-     *         ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+     *   const ssml = '<speak>Hi! <break time="1"/> ' +
+     *     'I can read out an ordinal like ' +
+     *     '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>';
+     *   const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
      *   app.ask(inputPrompt);
      * }
      *
@@ -392,9 +472,9 @@ export class AssistantApp {
      *   if (app.getRawInput() === 'bye') {
      *     app.tell('Goodbye!');
      *   } else {
-     *     const inputPrompt = app.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
-     *       app.getRawInput() + '</say-as></speak>',
-     *         ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+     *     const ssml = '<speak>You said, <say-as interpret-as="ordinal">' +
+     *       app.getRawInput() + '</say-as></speak>';
+     *     const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
      *     app.ask(inputPrompt);
      *   }
      * }
@@ -428,6 +508,87 @@ export class AssistantApp {
      * @dialogflow
      */
     handleRequest(handler: ((app: AssistantApp) => any) | (Map<string, (app: AssistantApp) => any>)): void;
+
+    /**
+     * Asynchronously handles the incoming Assistant request using a handler or Map of handlers.
+     * Each handler can be a function callback or Promise.
+     *
+     * @example
+     * // Actions SDK
+     * const app = new ActionsSdkApp({request: request, response: response});
+     *
+     * const noInputs = [
+     *   `I didn't hear a number`,
+     *   `If you're still there, what's the number?`,
+     *   'What is the number?'
+     * ];
+     *
+     * function mainIntent (app) {
+     *   const ssml = '<speak>Hi! <break time="1"/> ' +
+     *     'I can read out an ordinal like ' +
+     *     '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>';
+     *   const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
+     *   app.ask(inputPrompt);
+     * }
+     *
+     * function rawInput (app) {
+     *   if (app.getRawInput() === 'bye') {
+     *     app.tell('Goodbye!');
+     *   } else {
+     *     const ssml = '<speak>You said, <say-as interpret-as="ordinal">' +
+     *       app.getRawInput() + '</say-as></speak>';
+     *     const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
+     *     app.ask(inputPrompt);
+     *   }
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(app.StandardIntents.MAIN, mainIntent);
+     * actionMap.set(app.StandardIntents.TEXT, rawInput);
+     *
+     * app.handleRequestAsync(actionMap)
+     * .then(
+     *   (result) => {
+     *     // handle the result
+     *   })
+     * .catch(
+     *   (reason) => {
+     *     // handle an error
+     *   });
+     *
+     * // Dialogflow
+     * const app = new DialogflowApp({request: req, response: res});
+     * const NAME_ACTION = 'make_name';
+     * const COLOR_ARGUMENT = 'color';
+     * const NUMBER_ARGUMENT = 'number';
+     *
+     * function makeName (app) {
+     *   const number = app.getArgument(NUMBER_ARGUMENT);
+     *   const color = app.getArgument(COLOR_ARGUMENT);
+     *   app.tell('Alright, your silly name is ' +
+     *     color + ' ' + number +
+     *     '! I hope you like it. See you next time.');
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(NAME_ACTION, makeName);
+     *
+     * app.handleRequestAsync(actionMap)
+     * .then(
+     *   (result) => {
+     *     // handle the result
+     *   })
+     * .catch(
+     *   (reason) => {
+     *     // handle an error
+     *   });
+     *
+     * @param handler The handler (or Map of handlers) for the request.
+     * @return Promise to resolve the result of the handler that was invoked.
+     * @actionssdk
+     * @dialogflow
+     */
+    handleRequestAsync(handler: ((app: AssistantApp) => any) | (Map<string, (app: AssistantApp) => any>)): Promise<any>;
 
     /**
      * Equivalent to {@link AssistantApp#askForPermission|askForPermission},
@@ -477,13 +638,65 @@ export class AssistantApp {
      * @param permissions Array of permissions App supports, each of
      *     which comes from AssistantApp.SupportedPermissions.
      * @param dialogState JSON object the app uses to hold dialog state that
-     *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return A response is sent to Assistant to ask for the user's permission; for any
-     *     invalid input, we return null.
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
+     * @return A response is sent to Assistant to ask for the user's permission.
+     *     For any invalid input, we return null.
      * @actionssdk
      * @dialogflow
      */
     askForPermissions(context: string, permissions: string[], dialogState?: object): express.Response | null;
+
+    /**
+     * Prompts the user for permission to send proactive updates at any time.
+     *
+     * @example
+     * const app = new DialogflowApp({request, response});
+     * const REQUEST_PERMISSION_ACTION = 'request.permission';
+     * const PERMISSION_REQUESTED = 'permission.requested';
+     * const SHOW_IMAGE = 'show.image';
+     *
+     * function requestPermission (app) {
+     *   app.askForUpdatePermission('show.image', [
+     *     {
+     *       name: 'image_to_show',
+     *       textValue: 'image_type_1'
+     *     }
+     *   ]);
+     * }
+     *
+     * function checkPermission (app) {
+     *   if (app.isPermissionGranted()) {
+     *     app.tell(`Great, I'll send an update whenever I notice a change`);
+     *   } else {
+     *     // Response shows that user did not grant permission
+     *     app.tell('Alright, just let me know whenever you need the weather!');
+     *   }
+     * }
+     *
+     * function showImage (app) {
+     *   showPicture(app.getArgument('image_to_show'));
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(REQUEST_PERMISSION_ACTION, requestPermission);
+     * actionMap.set(PERMISSION_REQUESTED, checkPermission);
+     * actionMap.set(SHOW_IMAGE, showImage);
+     * app.handleRequest(actionMap);
+     *
+     * @param intent If using Dialogflow, the action name of the intent
+     *     to be triggered when the update is received. If using Actions SDK, the
+     *     intent name to be triggered when the update is received.
+     * @param intentArguments The necessary arguments
+     *     to fulfill the intent triggered on update. These can be retrieved using
+     *     {@link AssistantApp#getArgument}.
+     * @param dialogState JSON object the app uses to hold dialog state that
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
+     * @return A response is sent to Assistant to ask for the user's permission.
+     *     For any invalid input, we return null.
+     * @actionssdk
+     * @dialogflow
+     */
+    askForUpdatePermission(intent: string, intentArguments: IntentArgument[], dialogState?: object): express.Response | null;
 
     /**
      * Checks whether user is in transactable state.
@@ -520,7 +733,7 @@ export class AssistantApp {
      *     options and order options. Optional if order has no payment or
      *     delivery.
      * @param dialogState JSON object the app uses to hold dialog state that
-     *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
      * @return HTTP response.
      * @actionssdk
      * @dialogflow
@@ -562,7 +775,7 @@ export class AssistantApp {
      *     transactionConfig Configuration for the transaction. Includes payment
      *     options and order options.
      * @param dialogState JSON object the app uses to hold dialog state that
-     *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
      * @return HTTP response
      * @dialogflow
      */
@@ -577,13 +790,15 @@ export class AssistantApp {
      * I'll just need to get your name from Google, is that OK?'.
      *
      * Once the user accepts or denies the request, the Assistant will fire another intent:
-     * assistant.intent.action.PERMISSION with a boolean argument: AssistantApp.BuiltInArgNames.PERMISSION_GRANTED
+     * app.StandardIntents.PERMISSION with a boolean argument: app.BuiltInArgNames.PERMISSION_GRANTED
      * and, if granted, the information that you requested.
      *
      * Read more:
      *
-     * * {@link https://developers.google.com/actions/reference/conversation#ExpectedIntent|Supported Permissions}
-     * * Check if the permission has been granted with {@link AssistantApp#isPermissionGranted|isPermissionsGranted}
+     * * {@link https://developers.google.com/actions/reference/conversation#ExpectedIntent|
+     *       Supported Permissions}
+     * * Check if the permission has been granted with
+     *       {@link AssistantApp#isPermissionGranted|isPermissionsGranted}
      * * {@link AssistantApp#getDeviceLocation|getDeviceLocation}
      * * {@link AssistantApp#getUserName|getUserName}
      *
@@ -737,7 +952,7 @@ export class AssistantApp {
      *     query for an affirmative or negative response. If undefined or null,
      *     Google will use a generic yes/no prompt.
      * @param dialogState JSON object the app uses to hold dialog state that
-     *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
      * @return HTTP response.
      * @actionssdk
      * @dialogflow
@@ -782,7 +997,7 @@ export class AssistantApp {
      *     time if not provided by user. If undefined or null, Google will use a
      *     generic prompt.
      * @param dialogState JSON object the app uses to hold dialog state that
-     *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
      * @return HTTP response.
      * @actionssdk
      * @dialogflow
@@ -794,11 +1009,7 @@ export class AssistantApp {
      * are set in the {@link https://console.actions.google.com|Actions Console}.
      * Retrieve the access token in subsequent intents using
      * app.getUser().accessToken.
-     *
-     * Note: Currently this API requires enabling the app for Transactions APIs.
-     * To do this, fill out the App Info section of the Actions Console project
-     * and check the box indicating the use of Transactions under "Privacy and
-     * consent".
+     * Works only for en-* locales.
      *
      * @example
      * const app = new DialogflowApp({ request, response });
@@ -824,7 +1035,7 @@ export class AssistantApp {
      * app.handleRequest(actionMap);
      *
      * @param dialogState JSON object the app uses to hold dialog state that
-     *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
      * @return HTTP response.
      * @actionssdk
      * @dialogflow
@@ -833,6 +1044,7 @@ export class AssistantApp {
 
     /**
      * Requests the user to switch to another surface during the conversation.
+     * Works only for en-* locales.
      *
      * @example
      * const app = new DialogflowApp({ request, response });
@@ -872,12 +1084,52 @@ export class AssistantApp {
      * @param capabilities The list of capabilities required in
      *     the surface.
      * @param dialogState JSON object the app uses to hold dialog state that
-     *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
      * @return HTTP response.
      * @dialogflow
      * @actionssdk
      */
     askForNewSurface(context: string, notificationTitle: string, capabilities: SurfaceCapabilities[], dialogState?: object): express.Response | null;
+
+    /**
+     * Requests the user to register for daily updates.
+     *
+     * @example
+     * const app = new DialogflowApp({ request, response });
+     * const WELCOME_INTENT = 'input.welcome';
+     * const SHOW_IMAGE = 'show.image';
+     *
+     * function welcomeIntent (app) {
+     *   app.askToRegisterDailyUpdate('show.image', [
+     *     {
+     *       name: 'image_to_show',
+     *       textValue: 'image_type_1'
+     *     }
+     *   ]);
+     * }
+     *
+     * function showImage (app) {
+     *   showPicture(app.getArgument('image_to_show'));
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(WELCOME_INTENT, welcomeIntent);
+     * actionMap.set(SHOW_IMAGE, showImage);
+     * app.handleRequest(actionMap);
+     *
+     * @param intent If using Dialogflow, the action name of the intent
+     *     to be triggered when the update is received. If using Actions SDK, the
+     *     intent name to be triggered when the update is received.
+     * @param intentArguments The necessary arguments
+     *     to fulfill the intent triggered on update. These can be retrieved using
+     *     {@link AssistantApp#getArgument}.
+     * @param dialogState JSON object the app uses to hold dialog state that
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
+     * @return HTTP response.
+     * @dialogflow
+     * @actionssdk
+     */
+    askToRegisterDailyUpdate(intent: string, intentArguments: IntentArgument[], dialogState?: object): express.Response | null;
 
     /**
      * Gets the {@link User} object.
@@ -946,6 +1198,18 @@ export class AssistantApp {
     getUserLocale(): string;
 
     /**
+     * Get the user's last seen time as a Date object.
+     * Not supported in V1.
+     *
+     * @example
+     * const app = new DialogflowApp({request, response});
+     * const lastSeen = app.getLastSeen();
+     *
+     * @return User's last seen date or null if never seen
+     */
+    getLastSeen(): Date | null;
+
+    /**
      * If granted permission to device's location in previous intent, returns device's
      * location (see {@link AssistantApp#askForPermissions|askForPermissions}).
      * If device info is unavailable, returns null.
@@ -976,41 +1240,6 @@ export class AssistantApp {
      * @actionssdk
      */
     getInputType(): number | string;
-
-    /**
-     * Get the argument value by name from the current intent.
-     * If the argument is included in originalRequest, and is not a text argument,
-     * the entire argument object is returned.
-     *
-     * Note: If incoming request is using an API version under 2 (e.g. 'v1'),
-     * the argument object will be in Proto2 format (snake_case, etc).
-     *
-     * @example
-     * const app = new DialogflowApp({request: request, response: response});
-     * const WELCOME_INTENT = 'input.welcome';
-     * const NUMBER_INTENT = 'input.number';
-     *
-     * function welcomeIntent (app) {
-     *   app.ask('Welcome to action snippets! Say a number.');
-     * }
-     *
-     * function numberIntent (app) {
-     *   const number = app.getArgument(NUMBER_ARGUMENT);
-     *   app.tell('You said ' + number);
-     * }
-     *
-     * const actionMap = new Map();
-     * actionMap.set(WELCOME_INTENT, welcomeIntent);
-     * actionMap.set(NUMBER_INTENT, numberIntent);
-     * app.handleRequest(actionMap);
-     *
-     * @param argName Name of the argument.
-     * @return Argument value matching argName
-     *     or null if no matching argument.
-     * @dialogflow
-     * @actionssdk
-     */
-    getArgumentCommon(argName: string): object;
 
     /**
      * Gets transactability of user. Only use after calling
@@ -1109,7 +1338,7 @@ export class AssistantApp {
      * @dialogflow
      * @actionssdk
      */
-    getSurfaceCapabilities(): string[];
+    getSurfaceCapabilities(): SurfaceCapabilities[];
 
     /**
      * Returns the set of other available surfaces for the user.
@@ -1224,6 +1453,16 @@ export class AssistantApp {
      * @actionssdk
      */
     isFinalReprompt(): boolean;
+
+    /**
+     * Returns true if user accepted update registration request. Used with
+     * {@link AssistantApp#askToRegisterDailyUpdate}
+     *
+     * @return True if user accepted update registration request.
+     * @dialogflow
+     * @actionssdk
+     */
+    isUpdateRegistered(): boolean;
 
     // ---------------------------------------------------------------------------
     //                   Response Builders

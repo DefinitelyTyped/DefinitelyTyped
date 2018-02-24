@@ -41,7 +41,7 @@ export namespace graphlib {
         predecessors(name: string): Node[]|undefined;
         removeNode(name: string): Graph;
         setDefaultNodeLabel(callback: string|((nodeId: string) => string|Label)): Graph;
-        setNode(id: string, node: NodeConfig): Graph;
+        setNode(name: string, label: string|Label): Graph;
         setParent(childName: string, parentName: string): void;
         sinks(): Node[];
         sources(): Node[];

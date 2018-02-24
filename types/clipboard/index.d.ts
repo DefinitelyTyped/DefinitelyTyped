@@ -4,7 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Clipboard {
-    constructor(selector: (string | Element | NodeListOf<Element>), options?: Clipboard.Options);
+    constructor(
+        selector: string | Element | NodeListOf<Element>,
+        options?: Clipboard.Options
+    );
 
     /**
      * Subscribes to events that indicate the result of a copy/cut operation.
@@ -22,7 +25,7 @@ declare class Clipboard {
     /**
      * Checks if clipboard.js is supported
      */
-    isSupported(): boolean;
+    static isSupported(): boolean;
 }
 
 declare namespace Clipboard {

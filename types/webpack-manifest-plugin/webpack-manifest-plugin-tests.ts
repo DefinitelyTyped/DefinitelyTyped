@@ -3,7 +3,7 @@ import path = require('path');
 import WebpackManifestPlugin = require('webpack-manifest-plugin');
 
 const options: WebpackManifestPlugin.Options = {
-    filename: 'manifest.json',
+    fileName: 'manifest.json',
     basePath: '/src/',
     seed: {
         name: 'Hello world',
@@ -28,7 +28,7 @@ const c: Configuration = {
     plugins: [
         new WebpackManifestPlugin(),
         new WebpackManifestPlugin({
-            filename: 'my-manifest.json',
+            fileName: 'my-manifest.json',
             basePath: '/app/',
             seed: {
                 name: 'My Manifest',

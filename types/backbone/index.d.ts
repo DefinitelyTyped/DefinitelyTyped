@@ -392,7 +392,7 @@ declare namespace Backbone {
         decodeFragment(fragment: string): string;
         getSearch(): string;
         stop(): void;
-        route(route: string, callback: Function): number;
+        route(route: string|RegExp, callback: Function): number;
         checkUrl(e?: any): void;
         getPath(): string;
         matchRoot(): boolean;
@@ -460,8 +460,7 @@ declare namespace Backbone {
     }
 
     // SYNC
-    function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
-    function sync(method: string, collection: Collection<Model>, options?: JQueryAjaxSettings): any;
+    function sync(method: string, model: Model | Collection<Model>, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSON: boolean;

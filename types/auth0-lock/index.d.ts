@@ -2,6 +2,7 @@
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 //                 Dan Caddigan <https://github.com/goldcaddy77>
+//                 Larry Faudree <https://github.com/lfaudreejr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="auth0-js" />
@@ -23,15 +24,36 @@ type Auth0LockAdditionalSignUpFieldPrefillCallback =
 type Auth0LockAdditionalSignUpFieldPrefillFunction =
     (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
 
-interface Auth0LockAdditionalSignUpField {
+interface Auth0LockAdditionalTextSignUpField {
+    type?: "text";
     icon?: string;
     name: string;
     options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
-    type?: "select" | "text";
     validator?: (input: string) => { valid: boolean; hint?: string };
 }
+
+interface Auth0LockAdditionalSelectSignUpField {
+    type?: "select";
+    icon?: string;
+    name: string;
+    options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
+    placeholder: string;
+    prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
+    validator?: (input: string) => { valid: boolean; hint?: string };
+}
+
+interface Auth0LockAdditionalCheckboxSignUpField {
+    type?: "checkbox";
+    icon?: string;
+    name: string;
+    placeholder: string;
+    prefill: "true" | "false";
+    validator?: (input: string) => { valid: boolean, hint?: string };
+}
+
+type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField;
 
 type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string) => void;
 type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string) => void;
@@ -154,6 +176,7 @@ interface Auth0LockStatic {
     // deprecated
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
+    checkSession(options: any, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
     resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;

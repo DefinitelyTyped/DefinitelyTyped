@@ -21,6 +21,7 @@
         "no-boolean-literal-compare": false,
         "no-conditional-assignment": false,
         "no-consecutive-blank-lines": false,
+        "no-const-enum": false,
         "no-construct": false,
         "no-declare-current-package": false,
         "no-duplicate-imports": false,

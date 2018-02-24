@@ -118,7 +118,7 @@ declare namespace stripe {
         charge: string;
         message?: string;
         code?: string;
-        declined_code?: string;
+        decline_code?: string;
         param?: string;
     }
 
@@ -185,6 +185,7 @@ declare namespace stripe {
             blur(): void;
             clear(): void;
             unmount(): void;
+            destroy(): void;
             update(options: ElementsOptions): void;
         }
 

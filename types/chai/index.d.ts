@@ -1,4 +1,4 @@
-// Type definitions for chai 4.0.0
+// Type definitions for chai 4.1
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -7,12 +7,11 @@
 //                 Matt Wistrand <https://github.com/mwistrand>,
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Shaun Luttin <https://github.com/shaunluttin>
+//                 Gintautas Miselis <https://github.com/Naktibalda>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference types="assertion-error"/>
-
 declare namespace Chai {
-
     interface ChaiStatic {
         expect: ExpectStatic;
         should(): Should;
@@ -54,8 +53,7 @@ declare namespace Chai {
     }
 
     interface ShouldThrow {
-        (actual: Function): void;
-        (actual: Function, expected: string|RegExp, message?: string): void;
+        (actual: Function, expected?: string|RegExp, message?: string): void;
         (actual: Function, constructor: Error|Function, expected?: string|RegExp, message?: string): void;
     }
 
@@ -218,9 +216,7 @@ declare namespace Chai {
     }
 
     interface Include {
-        (value: Object, message?: string): Assertion;
-        (value: string, message?: string): Assertion;
-        (value: number, message?: string): Assertion;
+        (value: Object | string | number, message?: string): Assertion;
         keys: Keys;
         deep: Deep;
         ordered: Ordered;
@@ -230,23 +226,17 @@ declare namespace Chai {
     }
 
     interface Match {
-        (regexp: RegExp|string, message?: string): Assertion;
+        (regexp: RegExp, message?: string): Assertion;
     }
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: any[]): Assertion;
-        (keys: Object): Assertion;
+        (keys: any[]|Object): Assertion;
     }
 
     interface Throw {
-        (): Assertion;
-        (expected: string, message?: string): Assertion;
-        (expected: RegExp, message?: string): Assertion;
-        (constructor: Error, expected?: string, message?: string): Assertion;
-        (constructor: Error, expected?: RegExp, message?: string): Assertion;
-        (constructor: Function, expected?: string, message?: string): Assertion;
-        (constructor: Function, expected?: RegExp, message?: string): Assertion;
+        (expected?: string|RegExp, message?: string): Assertion;
+        (constructor: Error|Function, expected?: string|RegExp, message?: string): Assertion;
     }
 
     interface RespondTo {
@@ -697,21 +687,134 @@ declare namespace Chai {
         /**
          * Asserts that haystack does not include needle.
          *
+         * @param haystack   Container string or array.
+         * @param needle   Potential expected substring of haystack.
+         * @param message   Message to display on error.
+         */
+        notInclude(haystack: string | any[], needle: any, message?: string): void;
+
+        /**
+         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
+         *
          * @param haystack   Container string.
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notInclude(haystack: string, needle: any, message?: string): void;
+        deepInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack does not include needle.
+         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
          *
-         * @type T   Type of values in haystack.
-         * @param haystack   Container array.
-         * @param needle   Potential value contained in haystack.
+         * @param haystack
+         * @param needle
          * @param message   Message to display on error.
          */
-        notInclude(haystack: any[], needle: any, message?: string): void;
+        deepInclude<T>(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
+         *
+         * @param haystack   Container string or array.
+         * @param needle   Potential expected substring of haystack.
+         * @param message   Message to display on error.
+         */
+        notDeepInclude(haystack: string | any[], needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        nestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ does not include ‘needle’. Can be used to assert the absence of a subset of properties in an object.
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notNestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object while checking for deep equality
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        deepNestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ does not include ‘needle’. Can be used to assert the absence of a subset of properties in an object while checking for deep equality.
+         *
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.Asserts that ‘haystack’ includes ‘needle’.
+         * Can be used to assert the inclusion of a subset of properties in an object.
+         * Enables the use of dot- and bracket-notation for referencing nested properties.
+         * ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notDeepNestedInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object while ignoring inherited properties.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        ownInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the absence of a subset of properties in an object while ignoring inherited properties.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notOwnInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object while ignoring inherited properties and checking for deep
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        deepOwnInclude(haystack: any, needle: any, message?: string): void;
+
+        /**
+         * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the absence of a subset of properties in an object while ignoring inherited properties and checking for deep equality.
+         *
+         * @param haystack
+         * @param needle
+         * @param message   Message to display on error.
+         */
+        notDeepOwnInclude(haystack: any, needle: any, message?: string): void;
 
         /**
          * Asserts that value matches the regular expression regexp.
@@ -881,19 +984,10 @@ declare namespace Chai {
          * Asserts that function will throw an error with message matching regexp.
          *
          * @param fn   Function that may throw.
-         * @param regExp   Potential expected message match.
+         * @param errType  Potential expected message match or error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, regExp: RegExp, message?: string): void;
-
-        /**
-         * Asserts that function will throw an error that is an instance of constructor.
-         *
-         * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
-         * @param message   Message to display on error.
-         */
-        throws(fn: Function, errType: Function, message?: string): void;
+        throws(fn: Function, errType: RegExp|Function, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1156,7 +1250,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be modified.
          * @param message   Message to display on error.
          */
-        changes<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        changes<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not change the value of a property.
@@ -1167,7 +1261,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be modified.
          * @param message   Message to display on error.
          */
-        doesNotChange<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotChange<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function increases an object property.
@@ -1178,7 +1272,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be increased.
          * @param message   Message to display on error.
          */
-        increases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        increases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not increase an object property.
@@ -1189,7 +1283,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be increased.
          * @param message   Message to display on error.
          */
-        doesNotIncrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotIncrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function decreases an object property.
@@ -1200,7 +1294,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be decreased.
          * @param message   Message to display on error.
          */
-        decreases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        decreases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that a function does not decrease an object property.
@@ -1211,7 +1305,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be decreased.
          * @param message   Message to display on error.
          */
-        doesNotDecrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
+        doesNotDecrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts if value is not a false value, and throws if it is a true value.
@@ -1490,6 +1584,77 @@ declare namespace Chai {
          * @param message    Message to display on error.
          */
         doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that object has a direct or inherited property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        nestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         * The property cannot exist on the object nor anywhere in its prototype chain.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        notNestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        nestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with a value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        deepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notDeepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
     }
 
     export interface Config {

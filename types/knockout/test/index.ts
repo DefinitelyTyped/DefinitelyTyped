@@ -1,6 +1,3 @@
-/// <reference types="knockout.postbox" />
-/// <reference types="knockout.mapping" />
-
 declare var $;
 
 function test_creatingVMs() {
@@ -90,7 +87,7 @@ function test_computed() {
 }
 
 class GetterViewModel {
-    private _selectedRange: KnockoutObservable<any>;
+    private readonly _selectedRange: KnockoutObservable<any>;
 
     constructor() {
         this._selectedRange = ko.observable();

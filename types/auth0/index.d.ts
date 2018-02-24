@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.5
+// Type definitions for auth0 2.7
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,11 +14,23 @@ export interface ManagementClientOptions {
   audience?: string;
   scope?: string;
   tokenProvider?: TokenProvider;
+  retry?: RetryOptions;
 }
 
 export interface TokenProvider {
   enableCache: boolean;
   cacheTTLInSeconds?: number;
+}
+
+export interface RetryOptions {
+  /**
+   * Default value is `true`.
+   */
+  enabled?: boolean;
+  /**
+   * Default value is `10`.
+   */
+  maxRetries?: number;
 }
 
 export interface UserMetadata { }
@@ -86,7 +98,6 @@ export interface Rule {
    */
   order?: number;
 }
-
 
 export interface Client {
   /**
@@ -163,6 +174,146 @@ export interface Client {
   token_endpoint_auth_method?: string;
   client_metadata?: any;
   mobile?: any;
+}
+
+export interface ResourceServer {
+  /**
+   * The identifier of the resource server.
+   */
+  identifier?: string;
+  scopes?: { description: string, value: string }[];
+  /**
+   * The algorithm used to sign tokens.
+   */
+  signing_alg?: 'HS256' | 'RS256';
+  /**
+   * The secret used to sign tokens when using symmetric algorithms.
+   */
+  signing_secret?: string;
+  /**
+   * Allows issuance of refresh tokens for this entity.
+   */
+  allow_offline_access?: boolean;
+  /**
+   * Flag this entity as capable of skipping consent.
+   */
+  skip_consent_for_verifiable_first_party_clients?: boolean;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued.
+   */
+  token_lifetime?: number;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued from browser based flows. Value cannot be larger than token_lifetime..
+   */
+  token_lifetime_for_web?: number;
+  /**
+   * The ID of the resource server.
+   */
+  id?: string;
+  /**
+   * A friendly name for the resource server.
+   */
+  name?: string;
+}
+
+export interface CreateResourceServer extends ResourceServer {
+  /**
+   * The identifier of the client.
+   */
+  identifier: string;
+}
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
+}
+
+export type UpdateClientGrant = Pick<Partial<CreateClientGrant>, 'scope'>;
+
+export type ClientGrant = Partial<CreateClientGrant> & {
+  /**
+   * The id of the client grant.
+   */
+  id?: string;
+};
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
+}
+
+export type Strategy = 
+  'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' | 'auth0-oidc' |
+  'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'daccount' | 'dwolla' | 'email' |
+  'evernote-sandbox' | 'evernote' | 'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' |
+  'google-apps' | 'google-oauth2' | 'guardian' | 'instagram' | 'ip' | 'linkedin' | 'miicard' |
+  'oauth1' | 'oauth2' | 'office365' | 'paypal' | 'paypal-sandbox' | 'pingfederate' |
+  'planningcenter' | 'renren' | 'salesforce-community' | 'salesforce-sandbox' | 'salesforce' |
+  'samlp' | 'sharepoint' | 'shopify' | 'sms' | 'soundcloud' | 'thecity-sandbox' | 'thecity' |
+  'thirtysevensignals' | 'twitter' | 'untappd' | 'vkontakte' | 'waad' | 'weibo' | 'windowslive' |
+  'wordpress' | 'yahoo' | 'yammer' | 'yandex';
+
+export interface UpdateConnection {
+  options?: any;
+  /**
+   * The identifiers of the clients for which the connection is to
+   * be enabled. If the array is empty or the property is not
+   * specified, no clients are enabled.
+   */
+  enabled_clients?: string[];
+  /**
+   * Defines the realms for which the connection will be used
+   * (ie: email domains). If the array is empty or the property is
+   * not specified, the connection name will be added as realm.
+   */
+  realms?: string[];
+  metadata?: any;
+  /**
+ * True if the connection is domain level.
+ */
+  is_domain_connection?: boolean;
+}
+
+export interface Connection extends UpdateConnection {
+  /**
+   * The connection's identifier.
+   */
+  id?: string;
+  /**
+   * The name of the connection.
+   */
+  name?: string;
+  /**
+   * The type of the connection, related to the identity provider.
+   */
+  strategy?: Strategy;
+}
+
+export interface CreateConnection extends UpdateConnection {
+  /**
+   * The name of the connection. Must start and end with an
+   * alphanumeric character and can only contain alphanumeric
+   * characters and '-'. Max length 128.
+   */
+  name: string;
+  /**
+   * The identity provider identifier for the connection.
+   */
+  strategy: Strategy;
 }
 
 export interface User {
@@ -337,10 +488,16 @@ export interface UserIdParams {
 }
 
 export interface PasswordChangeTicketParams {
-  result_url: string;
-  user_id: string;
-  email: string;
-  new_password: string;
+  result_url?: string;
+  user_id?: string;
+  new_password?: string;
+  connection_id?: string;
+  email?: string;
+  ttl_sec?: number;
+}
+
+export interface PasswordChangeTicketResponse {
+  ticket: string;
 }
 
 export interface EmailVerificationTicketOptions {
@@ -396,23 +553,20 @@ export class ManagementClient {
   getClientInfo(): ClientInfo;
 
   // Connections
-  getConnections(): Promise<User>;
-  getConnections(cb: (err: Error, data: any) => void): void;
+  getConnections(): Promise<Connection[]>;
+  getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 
-  createConnection(data: ObjectWithId): Promise<User>;
-  createConnection(data: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  createConnection(data: CreateConnection): Promise<Connection>;
+  createConnection(data: CreateConnection, cb: (err: Error, connection: Connection) => void): void;
 
-  getConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  getConnection(params: ObjectWithId): Promise<User>;
+  getConnection(params: ObjectWithId, cb: (err: Error, connection: Connection) => void): void;
+  getConnection(params: ObjectWithId): Promise<Connection>;
 
-  deleteConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  deleteConnection(params: ObjectWithId): Promise<User>;
+  deleteConnection(params: ObjectWithId, cb: (err: Error) => void): void;
+  deleteConnection(params: ObjectWithId): Promise<void>;
 
-  deleteConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  deleteConnection(params: ObjectWithId): Promise<User>;
-
-  updateConnection(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
-  updateConnection(params: ObjectWithId, data: Data): Promise<User>;
+  updateConnection(params: ObjectWithId, data: UpdateConnection, cb: (err: Error, connection: Connection) => void): void;
+  updateConnection(params: ObjectWithId, data: UpdateConnection): Promise<Connection>;
 
 
   // Clients
@@ -433,17 +587,17 @@ export class ManagementClient {
 
                                               
   // Client Grants
-  getClientGrants(): Promise<User>;
-  getClientGrants(cb: (err: Error, data: any) => void): void;
+  getClientGrants(): Promise<ClientGrant[]>;
+  getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
 
-  createClientGrant(data: Data): Promise<User>;
-  createClientGrant(data: Data, cb: (err: Error, data: any) => void): void;
+  createClientGrant(data: CreateClientGrant): Promise<ClientGrant>;
+  createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  updateClientGrant(params: ObjectWithId, data: Data): Promise<User>;
-  updateClientGrant(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant): Promise<ClientGrant>;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  deleteClientGrant(params: ObjectWithId): Promise<User>;
-  deleteClientGrant(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteClientGrant(params: ObjectWithId): Promise<void>;
+  deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Device Keys
@@ -481,6 +635,9 @@ export class ManagementClient {
 
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
+
+  getUsersByEmail(email: string): Promise<User[]>;
+  getUsersByEmail(email: string, cb?: (err: Error, users: User[]) => void): void;
 
   createUser(data: CreateUserData): Promise<User>;
   createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
@@ -560,8 +717,8 @@ export class ManagementClient {
   sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: any) => void): void;
 
   // Tickets
-  createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<any>;
-  createPasswordChangeTicket(params: PasswordChangeTicketParams, cb?: (err: Error, data: any) => void): void;
+  createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
+  createPasswordChangeTicket(params: PasswordChangeTicketParams, cb?: (err: Error, data: PasswordChangeTicketResponse) => void): void;
 
   createEmailVerificationTicket(data: EmailVerificationTicketOptions): Promise<any>;
   createEmailVerificationTicket(data: EmailVerificationTicketOptions, cb?: (err: Error, data: any) => void): void;
@@ -575,22 +732,18 @@ export class ManagementClient {
 
 
   // Resource Server
-  createResourceServer(data: Data): Promise<any>;
-  createResourceServer(data: Data, cb?: (err: Error, data: any) => void): void;
+  createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
+  createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  getResourceServers(): Promise<any>;
-  getResourceServers(cb?: (err: Error, data: any) => void): void;
+  getResourceServers(): Promise<ResourceServer[]>;
+  getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
 
-  getResourceServer(data: ObjectWithId): Promise<any>;
-  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  getResourceServer(data: ObjectWithId): Promise<ResourceServer>;
+  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  deleteResourceServer(params: ObjectWithId): Promise<any>;
-  deleteResourceServer(params: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  deleteResourceServer(params: ObjectWithId): Promise<void>;
+  deleteResourceServer(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateResourceServer(params: ObjectWithId, data: Data): Promise<any>;
-  updateResourceServer(params: ObjectWithId, data: Data, cb?: (err: Error, data: any) => void): void;
-
-
-
-
+  updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
+  updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 }

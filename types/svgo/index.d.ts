@@ -1,179 +1,180 @@
-// Type definitions for svgo 0.7
+// Type definitions for svgo 1.0
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
+//                 Gilad Gray <https://github.com/giladgray>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 interface PluginCleanupAttrs {
-    cleanupAttrs: object;
+    cleanupAttrs: boolean | object;
 }
 
 interface PluginRemoveDoctype {
-    removeDoctype: object;
+    removeDoctype: boolean | object;
 }
 
 interface PluginRemoveXMLProcInst {
-    removeXMLProcInst: object;
+    removeXMLProcInst: boolean | object;
 }
 
 interface PluginRemoveComments {
-    removeComments: object;
+    removeComments: boolean | object;
 }
 
 interface PluginRemoveMetadata {
-    removeMetadata: object;
+    removeMetadata: boolean | object;
 }
 
 interface PluginRemoveTitle {
-    removeTitle: object;
+    removeTitle: boolean | object;
 }
 
 interface PluginRemoveDesc {
-    removeDesc: object;
+    removeDesc: boolean | object;
 }
 
 interface PluginRemoveUselessDefs {
-    removeUselessDefs: object;
+    removeUselessDefs: boolean | object;
 }
 
 interface PluginRemoveXMLNS {
-    removeXMLNS: object;
+    removeXMLNS: boolean | object;
 }
 
 interface PluginRemoveEditorsNSData {
-    removeEditorsNSData: object;
+    removeEditorsNSData: boolean | object;
 }
 
 interface PluginRemoveEmptyAttrs {
-    removeEmptyAttrs: object;
+    removeEmptyAttrs: boolean | object;
 }
 
 interface PluginRemoveHiddenElems {
-    removeHiddenElems: object;
+    removeHiddenElems: boolean | object;
 }
 
 interface PluginRemoveEmptyText {
-    removeEmptyText: object;
+    removeEmptyText: boolean | object;
 }
 
 interface PluginRemoveEmptyContainers {
-    removeEmptyContainers: object;
+    removeEmptyContainers: boolean | object;
 }
 
 interface PluginRemoveViewBox {
-    removeViewBox: object;
+    removeViewBox: boolean | object;
 }
 
 interface PluginCleanupEnableBackground {
-    cleanupEnableBackground: object;
+    cleanupEnableBackground: boolean | object;
 }
 
 interface PluginMinifyStyles {
-    minifyStyles: object;
+    minifyStyles: boolean | object;
 }
 
 interface PluginConvertStyleToAttrs {
-    convertStyleToAttrs: object;
+    convertStyleToAttrs: boolean | object;
 }
 
 interface PluginConvertColors {
-    convertColors: object;
+    convertColors: boolean | object;
 }
 
 interface PluginConvertPathData {
-    convertPathData: object;
+    convertPathData: boolean | object;
 }
 
 interface PluginConvertTransform {
-    convertTransform: object;
+    convertTransform: boolean | object;
 }
 
 interface PluginRemoveUnknownsAndDefaults {
-    removeUnknownsAndDefaults: object;
+    removeUnknownsAndDefaults: boolean | object;
 }
 
 interface PluginRemoveNonInheritableGroupAttrs {
-    removeNonInheritableGroupAttrs: object;
+    removeNonInheritableGroupAttrs: boolean | object;
 }
 
 interface PluginRemoveUselessStrokeAndFill {
-    removeUselessStrokeAndFill: object;
+    removeUselessStrokeAndFill: boolean | object;
 }
 
 interface PluginRemoveUnusedNS {
-    removeUnusedNS: object;
+    removeUnusedNS: boolean | object;
 }
 
 interface PluginCleanupIDs {
-    cleanupIDs: object;
+    cleanupIDs: boolean | object;
 }
 
 interface PluginCleanupNumericValues {
-    cleanupNumericValues: object;
+    cleanupNumericValues: boolean | object;
 }
 
 interface PluginCleanupListOfValues {
-    cleanupListOfValues: object;
+    cleanupListOfValues: boolean | object;
 }
 
 interface PluginMoveElemsAttrsToGroup {
-    moveElemsAttrsToGroup: object;
+    moveElemsAttrsToGroup: boolean | object;
 }
 
 interface PluginMoveGroupAttrsToElems {
-    moveGroupAttrsToElems: object;
+    moveGroupAttrsToElems: boolean | object;
 }
 
 interface PluginCollapseGroups {
-    collapseGroups: object;
+    collapseGroups: boolean | object;
 }
 
 interface PluginRemoveRasterImages {
-    removeRasterImages: object;
+    removeRasterImages: boolean | object;
 }
 
 interface PluginMergePaths {
-    mergePaths: object;
+    mergePaths: boolean | object;
 }
 
 interface PluginConvertShapeToPath {
-    convertShapeToPath: object;
+    convertShapeToPath: boolean | object;
 }
 
 interface PluginSortAttrs {
-    sortAttrs: object;
+    sortAttrs: boolean | object;
 }
 
 interface PluginTransformsWithOnePath {
-    transformsWithOnePath: object;
+    transformsWithOnePath: boolean | object;
 }
 
 interface PluginRemoveDimensions {
-    removeDimensions: object;
+    removeDimensions: boolean | object;
 }
 
 interface PluginRemoveAttrs {
-    removeAttrs: object;
+    removeAttrs: boolean | object;
 }
 
 interface PluginRemoveElementsByAttr {
-    removeElementsByAttr: object;
+    removeElementsByAttr: boolean | object;
 }
 
 interface PluginAddClassesToSVGElement {
-    addClassesToSVGElement: object;
+    addClassesToSVGElement: boolean | object;
 }
 
 interface PluginAddAttributesToSVGElement {
-    addAttributesToSVGElement: object;
+    addAttributesToSVGElement: boolean | object;
 }
 
 interface PluginRemoveStyleElement {
-    removeStyleElement: object;
+    removeStyleElement: boolean | object;
 }
 
 interface PluginRemoveScriptElement {
-    removeScriptElement: object;
+    removeScriptElement: boolean | object;
 }
 
 type PluginConfig =
@@ -221,16 +222,107 @@ type PluginConfig =
     | PluginRemoveStyleElement
     | PluginRemoveScriptElement;
 
+interface Js2SvgOptions {
+    /** @default '<!DOCTYPE' */
+    doctypeStart?: string;
+    /** @default '>' */
+    doctypeEnd?: string;
+    /** @default '<?' */
+    procInstStart?: string;
+    /** @default '?>' */
+    procInstEnd?: string;
+    /** @default '<' */
+    tagOpenStart?: string;
+    /** @default '>' */
+    tagOpenEnd?: string;
+    /** @default '</' */
+    tagCloseStart?: string;
+    /** @default '>' */
+    tagCloseEnd?: string;
+    /** @default '<' */
+    tagShortStart?: string;
+    /** @default '/>' */
+    tagShortEnd?: string;
+    /** @default '="' */
+    attrStart?: string;
+    /** @default '"' */
+    attrEnd?: string;
+    /** @default '<!--' */
+    commentStart?: string;
+    /** @default '-->' */
+    commentEnd?: string;
+    /** @default '<![CDATA[' */
+    cdataStart?: string;
+    /** @default ']]>' */
+    cdataEnd?: string;
+    /** @default '' */
+    textStart?: string;
+    /** @default '' */
+    textEnd?: string;
+    /** @default 4 */
+    indent?: number;
+    /** @default /[&'"<>]/g */
+    regEntities?: RegExp;
+    /** @default /[&"<>]/g */
+    regValEntities?: RegExp;
+    /** @default encodeEntity */
+    encodeEntity?: (char?: string) => string;
+    /** @default false */
+    pretty?: boolean;
+    /** @default true */
+    useShortTags?: boolean;
+}
+
+interface Svg2JsOptions {
+    /** @default true */
+    strict?: boolean;
+    /** @default false */
+    trim?: boolean;
+    /** @default true */
+    normalize?: boolean;
+    /** @default true */
+    lowercase?: boolean;
+    /** @default true */
+    xmlns?: boolean;
+    /** @default true */
+    position?: boolean;
+}
+
 interface Options {
-    datauri?: string;
+    /** Output as Data URI string. */
+    datauri?: "base64" | "enc" | "unenc";
+
+    /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
     floatPrecision?: number;
+
+    /** Use full set of plugins. */
     full?: boolean;
+
+    /** Options for rendering optimized SVG from AST. */
+    js2svg?: Js2SvgOptions;
+
+    /**
+     * Individual plugin configurations.
+     * For specific options, see plugin source in https://github.com/svg/svgo/tree/master/plugins.
+     */
     plugins?: PluginConfig[];
+
+    /** Options for parsing original SVG into AST. */
+    svg2js?: Svg2JsOptions;
+}
+
+interface SvgInfo {
+    path?: string;
+}
+
+interface OptimizedSvg {
+    data: string;
+    info: object;
 }
 
 declare class SVGO {
     constructor(options?: Options);
-    optimize(code: string, callback: (result: any) => void): void;
+    optimize(svgString: string, info?: SvgInfo): Promise<OptimizedSvg>;
 }
 
 export = SVGO;

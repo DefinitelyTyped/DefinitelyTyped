@@ -57,6 +57,12 @@ function test_object() {
     gameScore.set("cheatMode", false);
 
 
+    // Setting attrs using object
+    gameScore.set({
+        level: '10',
+        difficult: 15
+    });
+
     const score = gameScore.get("score");
     const playerName = gameScore.get("playerName");
     const cheatMode = gameScore.get("cheatMode");
@@ -235,7 +241,23 @@ function test_analytics() {
 }
 
 function test_relation() {
+    var game1 = new Game();
+    var game2 = new Game();
+
     new Parse.User().relation("games").query().find().then((g: Game[]) => { });
+    new Parse.User().relation("games").add(game1)
+    new Parse.User().relation("games").add([game1, game2])
+
+    new Parse.User().relation("games").remove(game1)
+    new Parse.User().relation("games").remove([game1, game2])
+}
+
+function test_user() {
+    const user = new Parse.User();
+    user.set("username", "my name");
+    user.set("password", "my pass");
+    user.set("email", "email@example.com");
+    user.signUp(null, { useMasterKey: true });
 }
 
 function test_user_acl_roles() {
@@ -266,6 +288,7 @@ function test_user_acl_roles() {
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true });
 
     const groupACL = new Parse.ACL();
 
@@ -358,7 +381,7 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest,
-                                               response: Parse.Cloud.BeforeDeleteResponse) => {
+        response: Parse.Cloud.BeforeDeleteResponse) => {
         // result
     });
 
@@ -367,6 +390,14 @@ function test_cloud_functions() {
         let user = request.user; // the user
         let isMaster = request.master; // if the query is run with masterKey
         let isCount = request.count; // if the query is a count operation (available on parse-server 2.4.0 or up)
+        let isGet = request.isGet; // if the query is a get operation
+
+        // All possible read preferences
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Primary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.PrimaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Secondary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.SecondaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
     });
 }
 
@@ -466,5 +497,18 @@ function test_batch_operations() {
     Parse.Object.destroyAll(games, { sessionToken: '' })
     Parse.Object.fetchAll(games, { sessionToken: '' })
     Parse.Object.fetchAllIfNeeded(games, { sessionToken: '' })
+}
+
+function test_query_subscribe() {
+    // create new query from Game object type
+    const query = new Parse.Query(Game);
+
+    // create subscription to Game object
+    const subscription = query.subscribe();
+
+    // listen for new Game objects created on Parse server
+    subscription.on('create', (game: any) => {
+        console.log(game);
+    });
 }
 

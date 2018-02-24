@@ -2247,7 +2247,7 @@ function test_AxisOptions() {
             distance: 10,
             enabled: true,
             format: "format",
-            formatter() { return this.value; },
+            formatter() { return String(this.value); },
             maxStaggerLines: 5,
             overflow: false,
             padding: 10,
@@ -2448,6 +2448,9 @@ function test_ChartObject() {
     const firstXAxis = chart.xAxis[0];
     const firstYAxis = chart.yAxis[0];
     const legend = chart.legend;
+    chart.update(<Highcharts.Options> {});
+    chart.update(<Highcharts.Options> {}, true);
+    chart.update(<Highcharts.Options> {}, true, true);
 }
 
 function test_ElementObject() {

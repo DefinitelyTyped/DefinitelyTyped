@@ -36,7 +36,7 @@ const About = () => (
   </div>
 );
 
-const Topics: React.SFC<RouteComponentProps<void>> = ({ match }) => (
+const Topics: React.SFC<RouteComponentProps<{}>> = ({ match }) => (
   <div>
     <h2>Topics</h2>
     <ul>

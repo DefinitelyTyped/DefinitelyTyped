@@ -1,10 +1,3 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
-// Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
-// Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 declare module Microsoft.Maps {
     /** A standard dictionary object (associative array). */
     export interface IDictionary<T> {
@@ -34,15 +27,15 @@ declare module Microsoft.Maps {
         * The opacity of the HeatMapLayer canvas. Value should be a decimal between 0 and 1. Default: 1
         */
         opacity?: number;
-        
+
         /**
         * The radius to draw each data point on the map. Default: 10
         */
         radius?: number;
-        
+
         /**
         * The distance units of the radius. Possible values are:
-        * 
+        *
         * • 'pixels' (defualt)
         * • 'meters'
         *
@@ -73,14 +66,14 @@ declare module Microsoft.Maps {
 
         /** Disposes the heat map layer. */
         public dispose(): void;
-        
+
         /**
          * Gets a boolean indicating if the heat map layer is visible or not.
          * @returns A boolean indicating if the heat map layer is visible or not.
          */
         public getVisible(): boolean;
 
-        /** 
+        /**
         * @deprecated
         * Hides the heat map layer.
         */
@@ -104,10 +97,10 @@ declare module Microsoft.Maps {
         */
         public setVisible(visible: boolean): void;
 
-        /** 
+        /**
         * @deprecated
         * Shows the heat map layer.
         */
-        public show(): void;        
+        public show(): void;
     }
 }

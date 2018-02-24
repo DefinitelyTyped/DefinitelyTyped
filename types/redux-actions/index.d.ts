@@ -22,8 +22,10 @@ export interface ActionMeta<Payload, Meta> extends Action<Payload> {
     meta: Meta;
 }
 
+export type ReducerMapValue<State, Payload> = Reducer<State, Payload> | ReducerNextThrow<State, Payload> | ReducerMap<State, Payload>;
+
 export interface ReducerMap<State, Payload> {
-    [actionType: string]: Reducer<State, Payload> | ReducerNextThrow<State, Payload>;
+    [actionType: string]: ReducerMapValue<State, Payload>;
 }
 
 export interface ReducerMapMeta<State, Payload, Meta> {
@@ -161,7 +163,7 @@ export interface ActionMap<Payload, Meta> {
 }
 
 export function createActions<Payload>(
-    actionMap: ActionMap<Payload, any>,
+    actionMapOrIdentityAction: ActionMap<Payload, any> | string,
     ...identityActions: string[]
 ): {
     [actionName: string]: ActionFunctionAny<Action<Payload>>

@@ -50,11 +50,11 @@ namespace TestApp {
             var horixontalPosition: number = $document.duScrollLeft();
         }
 
-        private invertedEasingFn = (x: number): number => {
+        private readonly invertedEasingFn = (x: number): number => {
             return 1 - x;
         }
 
-        private onScrollCompleted = (): void => {
+        private readonly onScrollCompleted = (): void => {
             console.log('Done scrolling');
         }
     }

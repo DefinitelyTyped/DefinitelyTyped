@@ -4,7 +4,7 @@
 //                 snerks <https://github.com/snerks>
 //                 Krzysztof Cebula <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react"/>
 
@@ -764,6 +764,10 @@ declare module "victory" {
          * @default <GridLine/>
          */
         gridComponent?: React.ReactElement<any>;
+        /**
+         * If true, this value will flip the domain of a given axis.
+         */
+        invertAxis?: boolean;
         /**
          * The label prop defines the label that will appear along the axis. This
          * prop should be given as a value or an entire, HTML-complete label

@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express = require('express');
 
 namespace express_tests {
     const app = express();
@@ -117,6 +117,13 @@ namespace express_tests {
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
         router(req, res, next);
+    });
+
+    // Test append function
+    app.use((req, res, next) => {
+        res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
+        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+        res.append('Warning', '199 Miscellaneous warning');
     });
 
     app.use(router);

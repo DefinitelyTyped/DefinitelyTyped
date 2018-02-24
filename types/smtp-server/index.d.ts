@@ -269,17 +269,15 @@ export class SMTPServer extends EventEmitter {
     constructor(options?: SMTPServerOptions);
 
     /** Start listening on selected port and interface */
-    /* tslint:disable:unified-signatures */
     listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): net.Server;
     listen(port?: number, hostname?: string, listeningListener?: () => void): net.Server;
-    listen(port?: number, backlog?: number, listeningListener?: () => void): net.Server;
+    listen(port?: number, backlog?: number, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
     listen(port?: number, listeningListener?: () => void): net.Server;
     listen(path: string, backlog?: number, listeningListener?: () => void): net.Server;
     listen(path: string, listeningListener?: () => void): void;
     listen(options: net.ListenOptions, listeningListener?: () => void): net.Server;
-    listen(handle: any, backlog?: number, listeningListener?: () => void): net.Server;
-    listen(handle: any, listeningListener?: () => void): net.Server;
-    /* tslint:enable:unified-signatures */
+    listen(handle: any, backlog?: number, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
+    listen(handle: any, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
 
     /** Closes the server */
     close(callback: (err?: Error | null) => void): void;

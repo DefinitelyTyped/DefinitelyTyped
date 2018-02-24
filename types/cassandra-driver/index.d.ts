@@ -513,6 +513,7 @@ export interface Client extends events.EventEmitter {
   batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
 
   connect(callback: Callback): void;
+  connect(): Promise<void>;
   eachRow(query: string, params?: any, options?: QueryOptions, rowCallback?: Callback, callback?: Callback): void;
   execute(query: string, params: any, options: QueryOptions, callback: ResultCallback): void;
   execute(query: string, params: any, callback: ResultCallback): void;
@@ -520,6 +521,7 @@ export interface Client extends events.EventEmitter {
   execute(query: string, params?: any, options?: QueryOptions): Promise<types.ResultSet>;
   getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
   shutdown(callback?: Callback): void;
+  shutdown(): Promise<void>;
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
 

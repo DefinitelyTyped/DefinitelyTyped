@@ -2,6 +2,7 @@
 // Project: http://developer.longtailvideo.com/trac/
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Tomer Kruvi <https://github.com/kutomer>
+//                 Philipp Gürtler <https://github.com/philippguertler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
@@ -224,6 +225,13 @@ interface EventCallback<T extends CallbackParam> {
     (param: T): void;
 }
 
+interface Region {
+    x: 0; // x and y will always be 0 according to https://developer.jwplayer.com/jw-player/docs/javascript-api-reference/#jwplayergetsaferegion
+    y: 0;
+    width: number;
+    height: number;
+}
+
 interface JWPlayer {
 	addButton(icon: string, label: string, handler: () => void, id: string): void;
 	getAudioTracks(): any[];
@@ -243,7 +251,7 @@ interface JWPlayer {
 	getPosition(): number;
 	getQualityLevels(): any[];
 	getRenderingMode(): string;
-	getSafeRegion(): any[];
+	getSafeRegion(): Region;
 	getState(): string;
 	getVolume(): number;
     getEnvironment(): Environment;

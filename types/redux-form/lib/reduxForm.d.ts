@@ -15,13 +15,19 @@ import {
     WarningOther,
     RegisteredFieldState,
     FormStateMap
-} from "redux-form";
+} from "../index";
 
 export type FormSubmitHandler<FormData = {}, P = {}> =
     (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
 
 export interface SubmitHandler<FormData = {}, P = {}> {
-    (handler: FormSubmitHandler<FormData, P>): FormEventHandler<any>;
+    (
+        submit: FormSubmitHandler<FormData, P>,
+        props?: InjectedFormProps<FormData, P>,
+        valid?: boolean,
+        asyncValidate?: any,
+        fields?: string[]
+    ): any;
     (event: SyntheticEvent<any>): void;
 }
 
@@ -64,7 +70,7 @@ export interface RegisteredField {
 export interface InjectedFormProps<FormData = {}, P = {}> {
     anyTouched: boolean;
     array: InjectedArrayProps;
-    asyncValidate: () => void;
+    asyncValidate(): void;
     asyncValidating: string | boolean;
     autofill(field: string, value: any): void;
     blur(field: string, value: any): void;
@@ -88,12 +94,13 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
     untouch(...field: string[]): void;
     valid: boolean;
     warning: any;
-    registeredFields: { [name: string]: RegisteredField }
+    registeredFields: { [name: string]: RegisteredField };
 }
 
 export interface ConfigProps<FormData = {}, P = {}> {
     form: string;
     asyncBlurFields?: string[];
+    asyncChangeFields?: string[];
     asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>, blurredField: string): Promise<any>;
     destroyOnUnmount?: boolean;
     enableReinitialize?: boolean;
@@ -102,8 +109,8 @@ export interface ConfigProps<FormData = {}, P = {}> {
     immutableProps?: string[];
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
-    onChange?: (values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>) => void;
-    onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
+    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
+    onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
     onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<any>, submitError: any, props: P & InjectedFormProps<FormData, P>): void;
     onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     propNamespace?: string;
