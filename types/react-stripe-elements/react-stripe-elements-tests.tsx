@@ -188,3 +188,11 @@ const TestStripeProviderProps1: React.SFC = () => <StripeProvider apiKey="" />;
 const TestStripeProviderProps2: React.SFC<{
     stripe: stripe.Stripe;
 }> = props => <StripeProvider stripe={props.stripe} />;
+
+/**
+ * props.stripe is null until loaded.
+ * See: https://github.com/stripe/react-stripe-elements#props-shape
+ */
+const TestStripeProviderProps3: React.SFC<{
+    stripe: stripe.Stripe;
+}> = props => <StripeProvider stripe={null} />;
