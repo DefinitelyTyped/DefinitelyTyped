@@ -3,6 +3,7 @@
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
 //                 sonnysangha <https://github.com/sonnysangha>
+//                 Andrew Goh Yisheng <https://github.com/9y5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -23,23 +24,14 @@ export namespace ReactStripeElements {
 		error?: { decline_code?: string };
 	};
 
-	interface StripeProviderProps {
-		apiKey: string;
-	}
-
-	interface StripeProps {
-		// I'm not sure what the definition for this is
-		createSource(): void;
-
-		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
-	}
+    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: stripe.Stripe; };
 
 	interface InjectOptions {
 		withRef?: boolean;
 	}
 
 	interface InjectedStripeProps {
-		stripe?: StripeProps;
+		stripe?: stripe.Stripe;
 	}
 
 	interface ElementProps extends ElementsOptions {
