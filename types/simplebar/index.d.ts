@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+export as namespace SimpleBar;
+export = SimpleBar;
+
 declare class SimpleBar {
     static removeObserver(): void;
 
