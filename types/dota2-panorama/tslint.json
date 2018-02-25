@@ -1,0 +1,8 @@
+{
+	"extends": "dtslint/dt.json",
+	"rules": {
+		"no-const-enum": false,
+		"void-return": false,
+		"no-redundant-jsdoc-2": false
+	}
+}
