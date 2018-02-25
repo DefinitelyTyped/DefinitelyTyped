@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { format, parse, PMRMessage } from "parity-pmr";
 
 const buffer = new Buffer("test");
