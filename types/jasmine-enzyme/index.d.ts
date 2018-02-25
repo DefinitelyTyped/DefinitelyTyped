@@ -2,7 +2,7 @@
 // Project: https://github.com/blainekasten/enzyme-matchers/blob/master/packages/jasmine-enzyme/README.md
 // Definitions by: Umar Bolatov <https://github.com/bolatovumar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 /// <reference types="jasmine" />
 /// <reference types="react" />

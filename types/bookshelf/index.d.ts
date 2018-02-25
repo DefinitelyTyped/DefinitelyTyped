@@ -250,7 +250,7 @@ declare namespace Bookshelf {
 		detach(options?: SyncOptions): BlueBird<any>;
 		fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
 		load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
-		orderBy(column: string, order?: SortOrder): T;
+		orderBy(column: string, order?: SortOrder): Collection<T>;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
 		query(): Knex.QueryBuilder;

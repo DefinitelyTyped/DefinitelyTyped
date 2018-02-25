@@ -207,6 +207,25 @@ declare namespace pc {
         loadSceneSettings(url: string, callback: (...args: any[]) => {}): void;
 
         /**
+        * @function
+        * @name pc.Application#loadScene
+        * @description Load a scene file.
+        * @param {String} url The URL of the scene file. Usually this will be "scene_id.json"
+        * @param {Function} callback The function to call after loading, passed (err, entity) where err is null if no errors occurred.
+        * @example
+        *
+        * app.loadScene("1000.json", function (err, entity) {
+        *     if (!err) {
+        *       var e = app.root.find("My New Entity");
+        *     } else {
+        *       // error
+        *     }
+        *   }
+        * });
+        */
+       loadScene(url: string, callback: (...args: any[]) => {}): void;
+
+        /**
          * @function
          * @name pc.Application#start
          * @description Start the Application updating

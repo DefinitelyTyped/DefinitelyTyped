@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface DropdownItemProps {
+export interface DropdownItemProps extends React.HTMLAttributes<HTMLElement> {
   disabled?: boolean;
   divider?: boolean;
   tag?: React.ReactType;

@@ -1,5 +1,5 @@
-import * as Umzug from 'umzug';
-import * as Sequelize from 'sequelize';
+import Umzug = require('umzug');
+import Sequelize = require('sequelize');
 
 let someVar: Umzug.Umzug;
 const umzug = new Umzug({});

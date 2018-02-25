@@ -1,5 +1,5 @@
-import * as SumoLogger from 'sumo-logger';
-import * as expect from 'expect';
+import SumoLogger = require('sumo-logger');
+import expect = require('expect');
 
 const onErrorSpy = expect.createSpy();
 const onSuccessSpy = expect.createSpy();

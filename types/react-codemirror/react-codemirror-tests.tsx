@@ -1,7 +1,7 @@
-import * as CodeMirror from "codemirror";
+import CodeMirror = require("codemirror");
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as Codemirror from "react-codemirror";
+import Codemirror = require("react-codemirror");
 
 class CodemirrorTest extends React.Component<React.Props<{}>> {
     private editorRef: ReactCodeMirror.ReactCodeMirror;

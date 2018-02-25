@@ -2,6 +2,7 @@
 // Project: https://github.com/NMFR/optimize-css-assets-webpack-plugin
 // Definitions by: Armando Meziat <https://github.com/odnamrataizem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { Plugin } from 'webpack';
 
