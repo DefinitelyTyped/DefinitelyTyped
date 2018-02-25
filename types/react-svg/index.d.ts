@@ -2,7 +2,7 @@
 // Project: https://github.com/atomic-app/react-svg
 // Definitions by: Chen Junda <https://github.com/viccrubs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 export interface ReactSVGProps {
