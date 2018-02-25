@@ -38,7 +38,7 @@ declare namespace adone {
                 proxyExcludedKeys: string[];
             }
 
-            type PossibleTypes = util.I.PossibleTypes | "array";
+            type PossibleTypes = meta.I.PossibleTypes | "array";
 
             type UseFunction = (fn: () => void) => assertion;
 
@@ -1019,7 +1019,7 @@ declare namespace adone {
             }
         }
 
-        class AssertionError extends x.Exception {
+        class AssertionError extends exception.Exception {
             constructor(message?: string, props?: object, ssf?: object)
         }
 

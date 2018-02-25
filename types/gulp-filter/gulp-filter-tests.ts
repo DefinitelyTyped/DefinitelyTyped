@@ -1,8 +1,8 @@
 import * as gulp from 'gulp';
-import * as uglify from 'gulp-uglify';
-import * as less from 'gulp-less';
-import * as concat from 'gulp-concat';
-import * as filter from 'gulp-filter';
+import uglify = require('gulp-uglify');
+import less = require('gulp-less');
+import concat = require('gulp-concat');
+import filter = require('gulp-filter');
 
 // Filter only
 gulp.task('default', () => {

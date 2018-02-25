@@ -1,7 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { CartesianGrid, Line, LineChart, PieChart, Pie, Sector, XAxis, YAxis, Tooltip, ReferenceLine, ReferenceArea, ResponsiveContainer } from 'recharts';
+import {
+    CartesianGrid, Line, LineChart, PieChart, Pie,
+    Sector, XAxis, YAxis, Tooltip, ReferenceLine,
+    ReferenceArea, ResponsiveContainer, Label
+} from 'recharts';
 
 interface ComponentState {
     activeIndex: number;
@@ -84,8 +88,12 @@ class Component extends React.Component<{}, ComponentState> {
         return (
             <ResponsiveContainer>
                 <LineChart width={500} height={300} data={data}>
-                    <XAxis dataKey="name" />
-                    <YAxis />
+                    <XAxis dataKey="name">
+                        <Label>X axis - name</Label>
+                    </XAxis>
+                    <YAxis>
+                        <Label>Y axis</Label>
+                    </YAxis>
                     <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                     <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
                     <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
@@ -110,7 +118,9 @@ class Component extends React.Component<{}, ComponentState> {
                         innerRadius={60}
                         outerRadius={80}
                         fill="#8884d8"
-                    />
+                    >
+                        <Label>A Pie Chart</Label>
+                    </Pie>
                 </PieChart>
             </ResponsiveContainer>
         );

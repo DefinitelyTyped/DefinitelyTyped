@@ -5,7 +5,7 @@
 //                 Ian Ker-Seymer <https://github.com/ianks>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/istarkov/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
@@ -84,6 +84,7 @@ export interface Props {
   options?: Options | ((maps: Maps) => Options);
   margin?: any[];
   debounced?: boolean;
+  draggable?: boolean;
   layerTypes?: string[];
   onClick?(value: ClickEventValue): any;
   onChange?(value: ChangeEventValue): any;

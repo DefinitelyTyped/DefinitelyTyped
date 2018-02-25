@@ -3,7 +3,7 @@
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Anton Izmailov <https://github.com/wapgear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="webpack-env" />
 

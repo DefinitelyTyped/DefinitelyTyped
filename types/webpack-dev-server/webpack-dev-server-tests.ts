@@ -1,5 +1,5 @@
-import * as webpack from 'webpack';
-import * as WebpackDevServer from 'webpack-dev-server';
+import webpack = require('webpack');
+import WebpackDevServer = require('webpack-dev-server');
 import * as core from 'express-serve-static-core';
 const compiler = webpack({});
 const multipleCompiler = webpack([]);
@@ -75,7 +75,7 @@ const config: WebpackDevServer.Configuration = {
 
 // API example
 server = new WebpackDevServer(compiler, config);
-server.listen(8080, "localhost", () => {});
+server.listen(8080, "localhost", () => { });
 
 // HTTPS example
 server = new WebpackDevServer(compiler, {
@@ -83,10 +83,25 @@ server = new WebpackDevServer(compiler, {
     https: true
 });
 
-server.listen(8080, "localhost", () => {});
+server.listen(8080, "localhost", () => { });
 
 server.close();
 
-// multiple compilers
+WebpackDevServer.addDevServerEntrypoints(config, {
+    publicPath: "/assets/",
+    https: true
+});
 
+WebpackDevServer.addDevServerEntrypoints(
+    [config],
+    {
+        publicPath: "/assets/",
+        https: true
+    },
+    {
+        address: () => ({ port: 80 })
+    }
+);
+
+// multiple compilers
 server = new WebpackDevServer(multipleCompiler, config);

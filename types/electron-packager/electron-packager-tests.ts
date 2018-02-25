@@ -1,4 +1,4 @@
-import * as packager from "electron-packager";
+import packager = require("electron-packager");
 
 function callback(err: Error, appPaths: string[]) {
 	const msg = err.message;

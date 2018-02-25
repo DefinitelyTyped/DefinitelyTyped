@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import * as zlib from "zlib";

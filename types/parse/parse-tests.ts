@@ -390,6 +390,14 @@ function test_cloud_functions() {
         let user = request.user; // the user
         let isMaster = request.master; // if the query is run with masterKey
         let isCount = request.count; // if the query is a count operation (available on parse-server 2.4.0 or up)
+        let isGet = request.isGet; // if the query is a get operation
+
+        // All possible read preferences
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Primary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.PrimaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Secondary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.SecondaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
     });
 }
 
@@ -489,5 +497,18 @@ function test_batch_operations() {
     Parse.Object.destroyAll(games, { sessionToken: '' })
     Parse.Object.fetchAll(games, { sessionToken: '' })
     Parse.Object.fetchAllIfNeeded(games, { sessionToken: '' })
+}
+
+function test_query_subscribe() {
+    // create new query from Game object type
+    const query = new Parse.Query(Game);
+
+    // create subscription to Game object
+    const subscription = query.subscribe();
+
+    // listen for new Game objects created on Parse server
+    subscription.on('create', (game: any) => {
+        console.log(game);
+    });
 }
 

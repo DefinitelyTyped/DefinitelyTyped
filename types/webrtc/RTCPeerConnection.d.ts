@@ -314,6 +314,7 @@ interface RTCPeerConnection extends EventTarget {
     addIceCandidate(candidate?: RTCIceCandidateInit | RTCIceCandidate): Promise<void>;
 
     readonly signalingState: RTCSignalingState;
+    readonly connectionState: RTCPeerConnectionState;
 
     getConfiguration(): RTCConfiguration;
     setConfiguration(configuration: RTCConfiguration): void;

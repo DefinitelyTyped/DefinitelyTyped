@@ -337,10 +337,6 @@ namespace utilTests {
         const o: string = util.jsesc({ a: 1 }, { __inline2__: true });
     }
 
-    namespace typeOf {
-        const a: string = util.typeOf(1);
-    }
-
     namespace memcpy {
         const a: number = util.memcpy.utou(Buffer.alloc(10), 0, Buffer.alloc(10), 0, 10);
         const b: number = util.memcpy.atoa(new ArrayBuffer(10), 0, new ArrayBuffer(10), 0, 10);
@@ -498,6 +494,33 @@ namespace utilTests {
         const k = util.throttle.create(() => { }, { dropLast: true });
 
         const l: symbol = util.throttle.DROPPED;
+
+        {
+            const t = util.throttle.create();
+            t(() => 2).then((x: number) => {});
+            t(() => Promise.resolve(2)).then((x: number) => {});
+
+            t(() => "2").then((x: string) => {});
+            t(() => Promise.resolve("2")).then((x: string) => {});
+
+            t((a) => a, 2).then((x: number) => {});
+            t((a) => Promise.resolve(a), 2).then((x: number) => {});
+
+            t((a, b) => String(a) + b, 2, "3").then((x: string) => {});
+            t(async (a, b) => String(a) + b, 2, "3").then((x: string) => x);
+
+            t((a, b, c) => String(a) + b + c, 2, "3", "4").then((x: string) => {});
+            t(async (a, b, c) => String(a) + b + c, 2, "3", "4").then((x: string) => x);
+
+            t((a, b, c, d) => String(a) + b + c + String(d), 2, "3", "4", 5).then((x: string) => {});
+            t(async (a, b, c, d) => String(a) + b + c + String(d), 2, "3", "4", 5).then((x: string) => x);
+
+            t((a, b, c, d, e) => String(a) + b + c + String(d) + e.join(","), 2, "3", "4", 5, [1, 2, 3]).then((x: string) => {});
+            t(async (a, b, c, d, e) => String(a) + b + c + String(d) + e.join(","), 2, "3", "4", 5, [1, 2, 3]).then((x: string) => x);
+
+            t((a, b, c, d, e, f) => String(a) + b + c + String(d) + e.join(",") + f, 2, "3", "4", 5, [1, 2, 3], 6).then((x: any) => {});
+            t(async (a, b, c, d, e, f) => String(a) + b + c + String(d) + e.join(",") + f, 2, "3", "4", 5, [1, 2, 3], 6).then((x: any) => x);
+        }
     }
 
     namespace fakeClock {
@@ -1357,5 +1380,23 @@ namespace utilTests {
         match.clearCache();
         match.resizeCache(10050);
         { const a: object = match.getCache(); }
+    }
+
+    namespace iconv {
+        const {
+            iconv
+        } = util;
+
+        let str: string;
+        let buf: Buffer;
+        let bool: boolean;
+
+        str = iconv.decode(Buffer.from("hello"), "CP1251");
+        str = iconv.decode(Buffer.from("hello"), "CP1251", {});
+
+        buf = iconv.encode("привет", "CP1251");
+        buf = iconv.encode("привет", "CP1251", {});
+
+        bool = iconv.encodingExists("cp1251");
     }
 }
