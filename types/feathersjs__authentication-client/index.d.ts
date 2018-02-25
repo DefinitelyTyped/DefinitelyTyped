@@ -3,8 +3,6 @@
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
-import './feathersjs__feathers';
-
 export default function feathersAuthClient(config?: FeathersAuthClientConfig): () => void;
 
 export interface FeathersAuthClientConfig {
@@ -61,4 +59,14 @@ export interface Passport {
     clearCookie(name: string): null;
 
     getStorage(storage: any): any;
+}
+
+declare module '@feathersjs/feathers' {
+    interface Application<ServiceTypes> {
+        authenticate(options?: FeathersAuthCredentials): Promise<any>;
+
+        logout(): Promise<void>;
+
+        passport: Passport;
+    }
 }

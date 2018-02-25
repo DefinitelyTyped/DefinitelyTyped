@@ -4498,6 +4498,20 @@ const IconMenuExampleSimple = () => (
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            {false}
+            {undefined}
+            {null}
+            {true}
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
@@ -4740,7 +4754,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}

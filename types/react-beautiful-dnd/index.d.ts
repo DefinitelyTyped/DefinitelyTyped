@@ -1,19 +1,17 @@
-// Type definitions for react-beautiful-dnd 2.3
+// Type definitions for react-beautiful-dnd 4.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
 export type Id = string;
-
 export type DraggableId = Id;
-
 export type DroppableId = Id;
-
 export type TypeId = Id;
+export type ZIndex = number | string;
 
 export interface DraggableLocation {
     droppableId: DroppableId;
@@ -34,7 +32,7 @@ export interface DropResult {
     draggableId: DraggableId;
     type: TypeId;
     source: DraggableLocation;
-    destination?: DraggableLocation;
+    destination?: DraggableLocation | null;
 }
 
 export interface DragDropContextProps {
@@ -50,7 +48,7 @@ export class DragDropContext extends React.Component<DragDropContextProps> {}
 
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
-    placeholder?: React.ReactElement<any>;
+    placeholder?: React.ReactElement<any> | null;
 }
 
 export interface DroppableStateSnapshot {
@@ -71,9 +69,33 @@ export class Droppable extends React.Component<DroppableProps> {}
  *  Draggable
  */
 
-export type DraggableStyle = any;
+export interface NotDraggingStyle {
+    transform: null | string;
+    transition: null | 'none';
+}
 
-export interface DragHandleProps {
+export interface DraggingStyle {
+    pointerEvents: 'none';
+    position: 'fixed';
+    width: number;
+    height: number;
+    boxSizing: 'border-box';
+    top: number;
+    left: number;
+    margin: 0;
+    transform: null | string;
+    transition: 'none';
+    zIndex: ZIndex;
+}
+
+export interface DraggableProvidedDraggableProps {
+    // inline style
+    style: null | DraggingStyle | NotDraggingStyle;
+    // used for shared global styles
+    'data-react-beautiful-dnd-draggable': string;
+}
+
+export interface DraggableProvidedDragHandleProps {
     onMouseDown: React.MouseEventHandler<any>;
     onKeyDown: React.KeyboardEventHandler<any>;
     onClick: React.MouseEventHandler<any>;
@@ -85,10 +107,12 @@ export interface DragHandleProps {
 }
 
 export interface DraggableProvided {
+    draggableProps: DraggableProvidedDraggableProps;
+    dragHandleProps: DraggableProvidedDragHandleProps | null;
+
+    // will be removed after move to react 16
     innerRef(element?: HTMLElement | null): any;
-    draggableStyle?: DraggableStyle;
-    dragHandleProps?: DragHandleProps;
-    placeholder?: React.ReactElement<any>;
+    placeholder?: React.ReactElement<any> | null;
 }
 
 export interface DraggableStateSnapshot {
@@ -97,7 +121,7 @@ export interface DraggableStateSnapshot {
 
 export interface DraggableProps {
     draggableId: DroppableId;
-    type?: TypeId;
+    index: number;
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;

@@ -3,4 +3,5 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function typeDetect(obj: any): string;
+declare function typeDetect(obj: any): string;
+export = typeDetect;

@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.20.0
+// Type definitions for material-ui 0.21
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 //                 Igor Beagorudsky <https://github.com/theigor>
@@ -12,7 +12,7 @@
 //                 Dan Jones <https://github.com/dan-j>
 //                 Daisuke Mino <https://github.com/minodisk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -519,7 +519,7 @@ declare namespace __MaterialUI {
         >(component: TComponent) => TComponent;
 
         export interface MuiThemeProviderProps {
-            muiTheme?: Styles.MuiTheme;
+            muiTheme?: MuiTheme;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps> {
         }
@@ -1051,6 +1051,8 @@ declare namespace __MaterialUI {
         open: boolean;
         overlayClassName?: string;
         overlayStyle?: React.CSSProperties;
+        paperClassName?: string;
+        paperProps?: any;
         repositionOnUpdate?: boolean;
         style?: React.CSSProperties;
         title?: React.ReactNode;
@@ -1262,7 +1264,6 @@ declare namespace __MaterialUI {
 
             // Other properties from <Menu/>
             autoWidth?: boolean;
-            children?: Array<React.ReactElement<MenuItemProps>>;
             desktop?: boolean;
             disableAutoFocus?: boolean;
             initiallyKeyboardFocused?: boolean;
@@ -1862,8 +1863,7 @@ declare namespace __MaterialUI {
             value?: any;
             disabled?: boolean;
         }
-        export class Tab extends React.Component<
-            TabProps, {}> {
+        export class Tab extends React.Component<TabProps> {
         }
     }
 

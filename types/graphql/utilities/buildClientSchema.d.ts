@@ -11,5 +11,5 @@ import { GraphQLSchema } from '../type/schema';
  * server-internal mechanisms.
  */
 export function buildClientSchema(
-    introspection: IntrospectionQuery
+  introspection: IntrospectionQuery,
 ): GraphQLSchema;

@@ -1,4 +1,12 @@
-import { Environment, Network, RecordSource, Store, ConnectionHandler, ViewerHandler, RecordSourceInspector } from "relay-runtime";
+import {
+    Environment,
+    Network,
+    RecordSource,
+    Store,
+    ConnectionHandler,
+    ViewerHandler,
+    RecordSourceInspector,
+} from "relay-runtime";
 
 const source = new RecordSource();
 const store = new Store(source);

@@ -14,7 +14,9 @@
         ],
         "types": [],
         "paths": {
-            "boom": ["boom/v4"]
+             "boom": [
+                "boom/v4"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

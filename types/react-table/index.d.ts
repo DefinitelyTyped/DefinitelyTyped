@@ -2,7 +2,7 @@
 // Project: https://github.com/react-tools/react-table
 // Definitions by: Roy Xue <https://github.com/royxue>, Pavel Sakalo <https://github.com/psakalo>, Krzysztof Porębski <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 import * as React from 'react';
 
 export type ReactTableFunction = () => void;
@@ -167,7 +167,7 @@ export interface TableProps extends
     PadRowComponent: () => React.ReactNode;
 
     /** Server-side callbacks */
-    onFetchData: () => void;
+    onFetchData: (state: any, instance: any) => void;
 }
 
 export interface ControlledStateOverrideProps {
@@ -176,6 +176,9 @@ export interface ControlledStateOverrideProps {
 
     /** Default: undefined */
     pageSize: number | undefined;
+
+    /** Default: undefined */
+    pages: number | undefined;
 
     /** Default: undefined */
     sorting: number;
@@ -634,4 +637,5 @@ export interface FinalState extends TableProps {
     rowMinWidth: number;
 }
 
+export const ReactTableDefaults: TableProps;
 export default class ReactTable extends React.Component<Partial<TableProps>> { }

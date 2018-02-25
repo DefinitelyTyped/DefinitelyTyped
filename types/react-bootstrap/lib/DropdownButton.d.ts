@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import { Sizes, Omit } from 'react-bootstrap';
 import { DropdownBaseProps } from './Dropdown';
 
 declare namespace DropdownButton {
@@ -13,7 +13,7 @@ declare namespace DropdownButton {
         title: React.ReactNode;
     }
 
-    export type DropdownButtonProps = DropdownButtonBaseProps & React.HTMLProps<DropdownButton>;
+    export type DropdownButtonProps = DropdownButtonBaseProps & Omit<React.HTMLProps<DropdownButton>, 'title'>;
 
 }
 declare class DropdownButton extends React.Component<DropdownButton.DropdownButtonProps> { }

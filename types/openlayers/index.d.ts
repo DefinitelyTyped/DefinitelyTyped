@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v4.3.4
+// Type definitions for OpenLayers 4.6
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
@@ -6,6 +6,8 @@
 //                 Alexandre Melard <https://github.com/mylen>
 //                 Chad Johnston <https://github.com/iamthechad>
 //                 Dan Manastireanu <https://github.com/danmana>
+//                 Yair Tawil <https://github.com/yairtawil>
+//                 Pierre Marchand <https://github.com/pierremarc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -2796,7 +2798,7 @@ declare module ol {
              * @returns {!ol.format.filter.EqualTo} `<PropertyIsEqualTo>` operator.
              * @api
              */
-            function equalTo(propertyName: string, expression: string|number, opt_matchCase?: boolean): ol.format.filter.EqualTo;
+            function equalTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): ol.format.filter.EqualTo;
 
             /**
              * Creates a `<PropertyIsNotEqualTo>` comparison operator.
@@ -2807,7 +2809,7 @@ declare module ol {
              * @returns {!ol.format.filter.NotEqualTo} `<PropertyIsNotEqualTo>` operator.
              * @api
              */
-            function notEqualTo(propertyName: string, expression: string|number, opt_matchCase?: boolean): ol.format.filter.NotEqualTo;
+            function notEqualTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): ol.format.filter.NotEqualTo;
 
             /**
              * Creates a `<PropertyIsLessThan>` comparison operator.
@@ -3027,7 +3029,7 @@ declare module ol {
              * Abstract class; normally only used for creating subclasses and not instantiated in apps.
              * Base class for WFS GetFeature n-ary logical filters.
              */
-            class LogicalNary extends ol.format.filter.Filter {}
+            class LogicalNary extends ol.format.filter.Filter { }
 
             /**
              * @classdesc
@@ -3061,16 +3063,16 @@ declare module ol {
              * @api
              */
             class Or extends ol.format.filter.LogicalNary {
-              /**
-               * @classdesc
-               * Represents a logical <Or> operator between two or more filter conditions.
-               *
-               * @constructor
-               * @param {!ol.format.filter.Filter} conditions Conditions
-               * @extends {ol.format.filter.LogicalNary}
-               * @api
-               */
-              constructor(...conditions: ol.format.filter.Filter[]);
+                /**
+                 * @classdesc
+                 * Represents a logical <Or> operator between two or more filter conditions.
+                 *
+                 * @constructor
+                 * @param {!ol.format.filter.Filter} conditions Conditions
+                 * @extends {ol.format.filter.LogicalNary}
+                 * @api
+                 */
+                constructor(...conditions: ol.format.filter.Filter[]);
             }
 
             /**
@@ -3138,7 +3140,7 @@ declare module ol {
                  * @extends {ol.format.filter.Comparison}
                  * @api
                  */
-                constructor(tagName: string, propertyName: string, expression: string|number, opt_matchCase?: boolean);
+                constructor(tagName: string, propertyName: string, expression: string | number, opt_matchCase?: boolean);
             }
 
             /**
@@ -3164,7 +3166,7 @@ declare module ol {
                  * @extends {ol.format.filter.ComparisonBinary}
                  * @api
                  */
-                constructor(propertyName: string, expression: string|number, opt_matchCase?: boolean);
+                constructor(propertyName: string, expression: string | number, opt_matchCase?: boolean);
             }
 
             /**
@@ -3286,7 +3288,7 @@ declare module ol {
                  * @extends {ol.format.filter.ComparisonBinary}
                  * @api
                  */
-                constructor(propertyName: string, expression: string|number, opt_matchCase?: boolean);
+                constructor(propertyName: string, expression: string | number, opt_matchCase?: boolean);
             }
 
             /**
@@ -7413,7 +7415,7 @@ declare module ol {
         getFeaturesAtPixel(
             pixel: ol.Pixel,
             opt_options?: olx.AtPixelOptions
-        ): (Array<ol.Feature|ol.render.Feature>|null);
+        ): (Array<ol.Feature | ol.render.Feature> | null);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -12344,12 +12346,41 @@ declare module ol {
         constructor(opt_options?: olx.ViewOptions);
 
         /**
+         * Animate the view. The view's center, zoom (or resolution), and
+         * rotation can be animated for smooth transitions between view states.
+         * @param {olx.AnimateOptions} var_args Animation options.
+         * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
+         * @api experimental
+         */
+        animate(...var_args: Array<olx.animation.AnimateOptions | olx.animation.AnimateCallback>): void;
+
+        /**
+         * Determine if the view is being animated.
+         * @return {boolean} The view is being animated.
+         * @api
+         */
+        getAnimating(): boolean;
+
+        /**
+         * Determine if the user is interacting with the view, such as panning or zooming.
+         * @return {boolean} The view is being interacted with.
+         * @api
+         */
+        getInteracting(): boolean;
+
+        /**
+         * Cancel any ongoing animations.
+         * @api
+         */
+        cancelAnimations(): void;
+
+        /**
          * Get the constrained center of this view.
          * @param {ol.Coordinate|undefined} center Center.
          * @return {ol.Coordinate|undefined} Constrained center.
          * @api
          */
-        constrainCenter(center: (ol.Coordinate)): (ol.Coordinate);
+        constrainCenter(center?: ol.Coordinate): ol.Coordinate;
 
         /**
          * Get the constrained resolution of this view.
@@ -12359,7 +12390,7 @@ declare module ol {
          * @return {number|undefined} Constrained resolution.
          * @api
          */
-        constrainResolution(resolution: (number), opt_delta?: number, opt_direction?: number): (number);
+        constrainResolution(resolution?: number, opt_delta?: number, opt_direction?: number): number;
 
         /**
          * Get the constrained rotation of this view.
@@ -12368,7 +12399,7 @@ declare module ol {
          * @return {number|undefined} Constrained rotation.
          * @api
          */
-        constrainRotation(rotation: (number), opt_delta?: number): (number);
+        constrainRotation(rotation?: number, opt_delta?: number): number;
 
         /**
          * Get the view center.
@@ -12376,18 +12407,18 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getCenter(): (ol.Coordinate);
+        getCenter(): ol.Coordinate;
 
         /**
          * Calculate the extent for the current view state and the passed size.
          * The size is the pixel dimensions of the box into which the calculated extent
          * should fit. In most cases you want to get the extent of the entire map,
          * that is `map.getSize()`.
-         * @param {ol.Size} size Box pixel size.
+         * @param {ol.Size=} size Box pixel size.
          * @return {ol.Extent} Extent.
          * @api stable
          */
-        calculateExtent(size: ol.Size): ol.Extent;
+        calculateExtent(size?: ol.Size): ol.Extent;
 
         /**
          * Get the maximum resolution of the view.
@@ -12404,6 +12435,34 @@ declare module ol {
         getMinResolution(): number;
 
         /**
+         * Get the maximum zoom level for the view.
+         * @return {number} The maximum zoom level.
+         * @api
+         */
+        getMaxZoom(): number;
+
+        /**
+         * Set a new maximum zoom level for the view.
+         * @param {number} zoom The maximum zoom level.
+         * @api stable
+         */
+        setMaxZoom(zoom: number): void;
+
+        /**
+         * Get the minimum zoom level for the view.
+         * @return {number} The minimum zoom level.
+         * @api
+         */
+        getMinZoom(): number;
+
+        /**
+         * Set a new minimum zoom level for the view.
+         * @param {number} zoom The minimum zoom level.
+         * @api stable
+         */
+        setMinZoom(zoom: number): void;
+
+        /**
          * Get the view projection.
          * @return {ol.proj.Projection} The projection of the view.
          * @api stable
@@ -12416,7 +12475,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getResolution(): (number);
+        getResolution(): number;
 
         /**
          * Get the resolutions for the view. This returns the array of resolutions
@@ -12424,7 +12483,17 @@ declare module ol {
          * @return {Array.<number>|undefined} The resolutions of the view.
          * @api stable
          */
-        getResolutions(): (number[]);
+        getResolutions(): number[];
+
+        /**
+         * Get the resolution for a provided extent (in map units) and size (in pixels).
+         * @param {ol.Extent} extent Extent.
+         * @param {ol.Size=} opt_size Box pixel size.
+         * @return {number} The resolution at which the provided extent will render at
+         *     the given size.
+         * @api
+         */
+        getResolutionForExtent(extent: ol.Extent, opt_size?: ol.Size): number;
 
         /**
          * Get the view rotation.
@@ -12435,12 +12504,29 @@ declare module ol {
         getRotation(): number;
 
         /**
-         * Get the current zoom level. Return undefined if the current
-         * resolution is undefined or not within the "resolution constraints".
+         * Get the current zoom level.  If you configured your view with a resolutions
+         * array (this is rare), this method may return non-integer zoom levels (so
+         * the zoom level is not safe to use as an index into a resolutions array).
          * @return {number|undefined} Zoom.
-         * @api stable
+         * @api
          */
-        getZoom(): (number);
+        getZoom(): number;
+
+        /**
+         * Get the zoom level for a resolution.
+         * @param {number} resolution The resolution.
+         * @return {number|undefined} The zoom level for the provided resolution.
+         * @api
+         */
+        getZoomForResolution(resolution: number): number;
+
+        /**
+         * Get the resolution for a zoom level.
+         * @param {number} zoom Zoom level.
+         * @return {number} The view resolution for the provided zoom level.
+         * @api
+         */
+        getResolutionForZoom(zoom: number): number;
 
         /**
          * Fit the given geometry or extent based on the given map size and border.
@@ -12451,7 +12537,7 @@ declare module ol {
          * @param {olx.view.FitOptions=} opt_options Options.
          * @api
          */
-        fit(geometry: (ol.geom.SimpleGeometry | ol.Extent), opt_options?: olx.view.FitOptions): void;
+        fit(geometryOrExtent: (ol.geom.SimpleGeometry | ol.Extent), opt_options?: olx.view.FitOptions): void;
 
         /**
          * Center on coordinate and view position.
@@ -12476,7 +12562,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setCenter(center: (ol.Coordinate)): void;
+        setCenter(center: ol.Coordinate): void;
 
         /**
          * Set the resolution for this view.
@@ -12484,7 +12570,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setResolution(resolution: (number)): void;
+        setResolution(resolution?: number): void;
 
         /**
          * Set the rotation for this view.
@@ -12495,34 +12581,11 @@ declare module ol {
         setRotation(rotation: number): void;
 
         /**
-         * Set a new maximum zoom level for the view.
-         * @param {number} zoom The maximum zoom level.
-         * @api stable
-         */
-        setMaxZoom(zoom: number): void;
-
-        /**
-         * Set a new minimum zoom level for the view.
-         * @param {number} zoom The minimum zoom level.
-         * @api stable
-         */
-        setMinZoom(zoom: number): void;
-
-        /**
          * Zoom to a specific zoom level.
          * @param {number} zoom Zoom level.
          * @api stable
          */
         setZoom(zoom: number): void;
-
-        /**
-         * Animate the view. The view's center, zoom (or resolution), and
-         * rotation can be animated for smooth transitions between view states.
-         * @param {olx.AnimateOptions} var_args Animation options.
-         * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
-         * @api experimental
-         */
-        animate(...var_args: Array<olx.animation.AnimateOptions | olx.animation.AnimateCallback>): void;
 
     }
 
@@ -12606,7 +12669,7 @@ declare module olx {
             zoom?: number | undefined;
             resolution?: number | undefined;
             rotation?: number | undefined;
-            anchor?: number | undefined;
+            anchor?: ol.Coordinate | undefined;
             duration?: number | undefined;
             easing?: ((t: number) => number) | undefined;
         }
@@ -13325,7 +13388,8 @@ declare module olx {
          *     multi: (boolean|undefined),
          *     features: (ol.Collection.<ol.Feature>|undefined),
          *     filter: (ol.SelectFilterFunction|undefined),
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     hitTolerance: (number|undefined)}}
          */
         interface SelectOptions {
             addCondition?: ol.EventsConditionType;
@@ -13338,6 +13402,7 @@ declare module olx {
             features?: ol.Collection<ol.Feature>;
             filter?: ol.SelectFilterFunction;
             wrapX?: boolean;
+            hitTolerance?: number;
         }
 
 
@@ -13503,6 +13568,21 @@ declare module olx {
 
 
         /**
+         * @enum {string}
+         * Render mode for vector layers:
+         *  * `'image'`: Vector layers are rendered as images. Great performance, but
+         *    point symbols and texts are always rotated with the view and pixels are
+         *    scaled during zoom animations.
+         *  * `'vector'`: Vector layers are rendered as vectors. Most accurate rendering
+         *    even during animations, but slower performance.
+         * Default is `vector`.
+         * @type {ol.layer.VectorRenderType|string|undefined}
+         * @api
+         */
+        type VectorRenderType = "image" | "vector";
+
+
+        /**
          * @typedef {{renderOrder: (function(ol.Feature, ol.Feature):number|null|undefined),
          *     minResolution: (number|undefined),
          *     maxResolution: (number|undefined),
@@ -13517,6 +13597,7 @@ declare module olx {
          *     zIndex: (number|undefined)}}
          */
         interface VectorOptions {
+            renderMode?: (olx.layer.VectorRenderType | string);
             renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
             map?: ol.Map;
             extent?: ol.Extent;
@@ -13525,6 +13606,7 @@ declare module olx {
             opacity?: number;
             renderBuffer?: number;
             source: ol.source.Vector;
+            declutter?: boolean;
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
@@ -14330,11 +14412,24 @@ declare module olx {
             width?: number;
         }
 
+        /**
+         * Text placement. One of `'point'`, `'line'`. Default is `'point'`. Note that
+         * `'line'` requires the underlying geometry to be a {@link ol.geom.LineString},
+         * {@link ol.geom.Polygon}, {@link ol.geom.MultiLineString} or
+         * {@link ol.geom.MultiPolygon}.
+         * @enum {string}
+         */
+        type TextPlacement = 'point' | 'line';
+
+
 
         /**
          * @typedef {{font: (string|undefined),
+         *     maxAngle: (number|undefined),
          *     offsetX: (number|undefined),
          *     offsetY: (number|undefined),
+         *     overflow: (boolean|undefined),
+         *     placement: (ol.style.TextPlacement|string|undefined),
          *     scale: (number|undefined),
          *     rotateWithView: (boolean|undefined),
          *     rotation: (number|undefined),
@@ -14342,12 +14437,18 @@ declare module olx {
          *     textAlign: (string|undefined),
          *     textBaseline: (string|undefined),
          *     fill: (ol.style.Fill|undefined),
-         *     stroke: (ol.style.Stroke|undefined)}}
+         *     stroke: (ol.style.Stroke|undefined),
+         *     backgroundFill: (ol.style.Fill|undefined),
+         *     backgroundStroke: (ol.style.Stroke|undefined),
+         *     padding: (Array.<number>|undefined)}}
          */
         interface TextOptions {
             font?: string;
+            maxAngle?: boolean;
             offsetX?: number;
             offsetY?: number;
+            overflow?: boolean;
+            placement?: olx.style.TextPlacement,
             scale?: number;
             rotateWithView?: boolean;
             rotation?: number;
@@ -14356,6 +14457,9 @@ declare module olx {
             textBaseline?: string;
             fill?: ol.style.Fill;
             stroke?: ol.style.Stroke;
+            backgroundFill?: ol.style.Fill;
+            backgroundStroke?: ol.style.Stroke;
+            padding?: number[];
         }
 
 
@@ -14615,6 +14719,7 @@ declare module olx {
             maxZoom?: number;
             duration?: number;
             easing?: ((t: number) => number);
+            callback?: olx.animation.AnimateCallback;
         }
     }
 

@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import events2 = require("events");
@@ -233,6 +233,25 @@ namespace fs_tests {
                 errno = err.errno;
             }
         });
+    }
+
+    {
+        let listS: string[];
+        listS = fs.readdirSync('path');
+        listS = fs.readdirSync('path', { encoding: 'utf8' });
+        listS = fs.readdirSync('path', { encoding: null });
+        listS = fs.readdirSync('path', { encoding: undefined });
+        listS = fs.readdirSync('path', 'utf8');
+        listS = fs.readdirSync('path', null);
+        listS = fs.readdirSync('path', undefined);
+
+        let listB: Buffer[];
+        listB = fs.readdirSync('path', { encoding: 'buffer' });
+        listB = fs.readdirSync("path", 'buffer');
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
     }
 
     {

@@ -1,8 +1,10 @@
-// Type definitions for cleave.js 1.0
+// Type definitions for cleave.js 1.1
 // Project: https://github.com/nosir/cleave.js
-// Definitions by: C Lentfort <https://github.com/clentfort>, J Giancono <https://github.com/jasongi-at-sportsbet>
+// Definitions by: C Lentfort <https://github.com/clentfort>,
+//                 J Giancono <https://github.com/jasongi-at-sportsbet>,
+//                 Alex Shakun <https://github.com/sashashakun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { CleaveOptions } from './options';
 
