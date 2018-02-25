@@ -1,4 +1,6 @@
-import SassPlugin, { NODE_ENV } from 'sass-webpack-plugin';
+import SassPlugin = require('sass-webpack-plugin');
+
+type NODE_ENV = SassPlugin.NODE_ENV;
 
 const env = process.env.NODE_ENV as NODE_ENV;
 
