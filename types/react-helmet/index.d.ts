@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-interface HelmetProps {
+export interface HelmetProps {
     base?: any;
     bodyAttributes?: Object;
     defaultTitle?: string;
