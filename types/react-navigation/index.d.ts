@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 1.0
+// Type definitions for react-navigation 1.1
 // Project: https://github.com/react-community/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -11,8 +11,9 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Qibang Sun <https://github.com/bang88>
 //                 Sergei Butko: <https://github.com/svbutko>
+//                 Veit Lehmann: <https://github.com/levito>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /**
  * BEGIN FLOW TYPEDEFINITION.JS PORT
@@ -278,6 +279,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
 };
 
 export interface NavigationStackRouterConfig {
+  headerTransitionPreset?: 'fade-in-place' | 'uikit';
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
@@ -327,7 +329,12 @@ export interface NavigationTabRouterConfig {
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
 }
-
+export interface TabScene {
+    route: NavigationRoute<any>;
+    focused: boolean;
+    index: number;
+    tintColor?: string;
+}
 export interface NavigationTabScreenOptions extends NavigationScreenOptions {
   tabBarIcon?:
     React.ReactElement<any>
@@ -341,6 +348,11 @@ export interface NavigationTabScreenOptions extends NavigationScreenOptions {
       any
     > | string | null));
   tabBarVisible?: boolean;
+  tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string };
+  tabBarOnPress?: (options: {
+    scene: TabScene,
+    jumpToIndex: (index: number) => void
+  }) => void;
 }
 
 export interface NavigationDrawerScreenOptions extends NavigationScreenOptions {
@@ -540,6 +552,7 @@ export const DrawerItems: React.ComponentType;
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
+  drawerBackgroundColor?: string;
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
   contentComponent?: React.ComponentType;
@@ -597,6 +610,8 @@ export interface TabViewConfig {
 
 // From navigators/TabNavigator.js
 export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig {
+  lazy?: boolean;
+  removeClippedSubviews?: boolean;
   initialLayout?: { height: number, width: number };
 }
 

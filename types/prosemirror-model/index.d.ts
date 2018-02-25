@@ -832,7 +832,7 @@ export class ResolvedPos {
    * its parent node or its parent node isn't a textblock (in which
    * case no marks should be preserved).
    */
-  marksAcross(): Mark[] | null | void;
+  marksAcross($end: ResolvedPos): Mark[] | null | void;
   /**
    * The depth up to which this position and the given (non-resolved)
    * position share the same parent nodes.

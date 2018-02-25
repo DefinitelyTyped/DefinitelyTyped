@@ -16,12 +16,16 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/socketio-client": ["feathersjs__socketio-client"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
-
+            "@feathersjs/socketio-client": [
+                "feathersjs__socketio-client"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__socketio-client-tests.ts"
+        "index.d.ts",
+        "feathersjs__socketio-client-tests.ts"
     ]
 }

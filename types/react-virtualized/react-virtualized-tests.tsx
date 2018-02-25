@@ -1546,12 +1546,14 @@ export class TableExample extends PureComponent<{}, any> {
                                     }
                                     dataKey='index'
                                     disableSort={!this._isSortEnabled()}
+                                    defaultSortDirection={SortDirection.DESC}
                                     width={60}
                                 />
                             }
                             <Column
                                 dataKey='name'
                                 disableSort={!this._isSortEnabled()}
+                                defaultSortDirection={SortDirection.ASC}
                                 headerRenderer={this._headerRenderer}
                                 width={90}
                             />

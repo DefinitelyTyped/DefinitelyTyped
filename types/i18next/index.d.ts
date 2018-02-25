@@ -103,6 +103,11 @@ declare namespace i18next {
          * set it to fallback to let passed namespaces to translated hoc act as fallbacks
          */
         nsMode?: string;
+        /**
+         * set it to the default parent element created by the Trans component.
+         * @default div
+         */
+        defaultTransParent?: string;
     }
 
     interface InitOptions {

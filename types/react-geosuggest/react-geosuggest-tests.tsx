@@ -24,6 +24,7 @@ function onKeyPress(event: any) {}
 function onChange(value: string) {}
 function onSuggestSelect(suggest: Suggest) {}
 function onSuggestNoResults(userInput: string) {}
+function onUpdateSuggests(suggests: any, activeSuggest: any) {}
 
 class ReactGeosuggest extends React.Component {
     private geosuggest: any;
@@ -55,8 +56,10 @@ class ReactGeosuggest extends React.Component {
                     onKeyPress={onKeyPress}
                     onSuggestNoResults={onSuggestNoResults}
                     onSuggestSelect={onSuggestSelect}
+                    onUpdateSuggests={onUpdateSuggests}
                     placeholder="Start typing!"
                     queryDelay={250}
+                    minLength={2}
                     radius={20}
                     ref={el => this.geosuggest = el}
                     renderSuggestItem={renderSuggestItem}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Swipeable from 'react-swipeable';
+import Swipeable = require('react-swipeable');
 
 class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
   private readonly handleSwiped: Swipeable.OnSwipedCallback = () => {};

@@ -1,4 +1,4 @@
-import * as msbuild from "gulp-msbuild";
+import msbuild = require("gulp-msbuild");
 
 const stream = msbuild({
     stdout: false,

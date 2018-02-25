@@ -1,23 +1,23 @@
 // The GraphQL query recommended for a full schema introspection.
 export { introspectionQuery } from './introspectionQuery';
 export {
-    IntrospectionQuery,
-    IntrospectionSchema,
-    IntrospectionType,
-    IntrospectionScalarType,
-    IntrospectionObjectType,
-    IntrospectionInterfaceType,
-    IntrospectionUnionType,
-    IntrospectionEnumType,
-    IntrospectionInputObjectType,
-    IntrospectionTypeRef,
-    IntrospectionNamedTypeRef,
-    IntrospectionListTypeRef,
-    IntrospectionNonNullTypeRef,
-    IntrospectionField,
-    IntrospectionInputValue,
-    IntrospectionEnumValue,
-    IntrospectionDirective,
+  IntrospectionQuery,
+  IntrospectionSchema,
+  IntrospectionType,
+  IntrospectionScalarType,
+  IntrospectionObjectType,
+  IntrospectionInterfaceType,
+  IntrospectionUnionType,
+  IntrospectionEnumType,
+  IntrospectionInputObjectType,
+  IntrospectionTypeRef,
+  IntrospectionNamedTypeRef,
+  IntrospectionListTypeRef,
+  IntrospectionNonNullTypeRef,
+  IntrospectionField,
+  IntrospectionInputValue,
+  IntrospectionEnumValue,
+  IntrospectionDirective,
 } from './introspectionQuery';
 
 // Gets the target Operation from a Document
@@ -33,7 +33,11 @@ export { buildASTSchema, buildSchema } from './buildASTSchema';
 export { extendSchema } from './extendSchema';
 
 // Print a GraphQLSchema to GraphQL Schema language.
-export { printSchema, printType, printIntrospectionSchema } from './schemaPrinter';
+export {
+  printSchema,
+  printType,
+  printIntrospectionSchema,
+} from './schemaPrinter';
 
 // Create a GraphQLType from a GraphQL language AST.
 export { typeFromAST } from './typeFromAST';
@@ -62,9 +66,9 @@ export { separateOperations } from './separateOperations';
 
 // Comparators for types
 export {
-    isEqualType,
-    isTypeSubTypeOf,
-    doTypesOverlap
+  isEqualType,
+  isTypeSubTypeOf,
+  doTypesOverlap,
 } from './typeComparators';
 
 // Asserts that a string is a valid GraphQL name

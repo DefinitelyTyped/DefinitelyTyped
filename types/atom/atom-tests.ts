@@ -1459,6 +1459,14 @@ function testPackageManager() {
 
     bool = atom.packages.isPackageDisabled("Test");
 
+    // Activating and deactivating packages
+    atom.packages.activatePackage("Test").then((activePack) => {
+        pack = activePack;
+    });
+    atom.packages.deactivatePackage("Test", true).then(() => {
+        // package is deactivated
+    });
+
     // Accessing active packages
     packs = atom.packages.getActivePackages();
 
@@ -2889,7 +2897,6 @@ function testTextEditor() {
 
     // Grammars
     grammar = editor.getGrammar();
-    editor.setGrammar(grammar);
 
     // Managing Syntax Scopes
     scopeDescriptor = editor.getRootScopeDescriptor();

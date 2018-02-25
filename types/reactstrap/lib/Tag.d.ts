@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface TagProps {
+export interface TagProps extends React.HTMLAttributes<HTMLElement> {
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;

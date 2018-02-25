@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as useref from 'gulp-useref';
+import useref = require('gulp-useref');
 
 // Usage
 gulp.task('default', function () {
@@ -14,7 +14,7 @@ gulp.task('default', function () {
         .pipe(gulp.dest('dist'));
 });
 
-import * as gulpif from 'gulp-if';
+import gulpif = require('gulp-if');
 import uglify = require('gulp-uglify');
 import minifyCss = require('gulp-minify-css');
 
