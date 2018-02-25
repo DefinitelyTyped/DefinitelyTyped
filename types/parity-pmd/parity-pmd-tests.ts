@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { format, parse, PMDMessage } from 'parity-pmd';
 
 // Arrange
