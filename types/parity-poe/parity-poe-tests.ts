@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { formatInbound, parseInbound, formatOutbound, parseOutbound, POEMessage } from "parity-poe";
 
 const buffer = new Buffer("test");
