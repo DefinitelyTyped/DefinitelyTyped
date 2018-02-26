@@ -14,6 +14,9 @@ declare namespace expect {
         toBeTruthy(message?: string): Expectation<T>;
         toNotExist(message?: string): Expectation<T>;
         toBeFalsy(message?: string): Expectation<T>;
+        toBeNull(message?: string): Expectation<T>;
+        toBeDefined(message?: string): Expectation<T>;
+        toBeUndefined(message?: string): Expectation<T>;
 
         toBe(value: T, message?: string): Expectation<T>;
         toNotBe(value: any, message?: string): Expectation<T>;

@@ -462,6 +462,66 @@ describe('toBeFalsy', () => {
   });
 });
 
+describe('toBeDefined', () => {
+  it('does not throw on defined actual values', () => {
+    expect(() => {
+      expect(1).toBeDefined();
+      expect(0).toBeDefined();
+      expect(null).toBeDefined();
+    }).toNotThrow();
+  });
+
+  it('throws on undefined actual values', () => {
+    expect(() => {
+      expect(undefined).toBeDefined();
+    }).toThrow();
+  });
+});
+
+describe('toBeUndefined', () => {
+  it('throws on defined values', () => {
+    expect(() => {
+      expect(42).toBeUndefined();
+    }).toThrow();
+
+    expect(() => {
+      expect(0).toBeUndefined();
+    }).toThrow();
+
+    expect(() => {
+      expect(null).toBeUndefined();
+    }).toThrow();
+  });
+
+  it('does not throw with undefined actual values', () => {
+    expect(() => {
+      expect(undefined).toBeUndefined();
+    }).toNotThrow();
+  });
+});
+
+describe('toBeNull', () => {
+  it('throws on non-null values', () => {
+    expect(() => {
+      expect(42).toBeNull();
+    }).toThrow();
+
+    expect(() => {
+      expect(0).toBeNull();
+    }).toThrow();
+
+    expect(() => {
+      expect(undefined).toBeNull();
+    }).toThrow();
+  });
+
+  it('does not throw with null actual values', () => {
+    expect(() => {
+      expect(null).toBeNull();
+    }).toNotThrow();
+  });
+});
+
 describe('toEqual', () => {
   it('works', () => {
     expect(() => {
