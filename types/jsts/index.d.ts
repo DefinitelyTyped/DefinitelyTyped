@@ -1685,8 +1685,8 @@ declare namespace jsts {
          */
         export class OL3Parser {
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
-            read(geometry: ol.geom.Geometry): jsts.geom.Geometry;
-            write(geometry: jsts.geom.Geometry): ol.geom.Geometry;
+            read(geometry: any /* ol.geom.Geometry */): jsts.geom.Geometry;
+            write(geometry: jsts.geom.Geometry): any /* ol.geom.Geometry */;
         }
 
         export class GeoJSONReader {
