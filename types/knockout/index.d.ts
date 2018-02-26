@@ -409,8 +409,17 @@ interface KnockoutTasks {
 }
 
 /////////////////////////////////
+type KnockoutObservableTypeParameter<T> = {
+    [P in keyof T]: KnockoutObservable<T[P]>|T[P];
+};
 type KnockoutObservableType<T> = {
     [P in keyof T]: KnockoutObservable<T[P]>;
+};
+type KnockoutObservableTypeRecursive<T> = {
+    [P in keyof T]: KnockoutObservable<T[P]>|KnockoutObservableTypeRecursive<T[P]>;
+};
+type KnockoutObservableTypeParameterRecursive<T> = {
+    [P in keyof T]: KnockoutObservable<T[P]>|T[P]|KnockoutObservableTypeRecursive<T[P]>;
 };
 
 interface KnockoutStatic {
@@ -443,11 +452,19 @@ interface KnockoutStatic {
     contextFor(node: any): any;
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
-    toJS<T>(viewModel: KnockoutObservableArray<T>|KnockoutObservableType<T>[]|KnockoutObservableArray<KnockoutObservableType<T>>|T[]): T[];
-    toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableType<T>|KnockoutObservable<KnockoutObservableType<T>>|T): T;
-    isObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
-    isWriteableObservable<T>(instance: KnockoutObservable<T>|T): instance is KnockoutObservable<T>;
-    isComputed<T>(instance: KnockoutObservable<T>|T): instance is KnockoutComputed<T>;
+
+    toJS<T>(viewModel: KnockoutObservableArray<T>|KnockoutObservableTypeParameterRecursive<T>[]|KnockoutObservableArray<KnockoutObservableTypeParameterRecursive<T>>|T[]): T[];
+    toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableTypeParameterRecursive<T>|KnockoutObservable<KnockoutObservableTypeParameterRecursive<T>>): T;
+
+    isObservable(instance: any): instance is KnockoutObservable<any>;
+    isObservable<T>(instance: KnockoutObservable<T>): instance is KnockoutObservable<T>;
+
+    isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
+    isWriteableObservable<T>(instance: KnockoutObservable<T>): instance is KnockoutObservable<T>;
+
+    isComputed(instance: any): instance is KnockoutComputed<any>;
+    isComputed<T>(instance: KnockoutObservable<T> | T): instance is KnockoutComputed<T>;
+
     dataFor(node: any): any;
     removeNode(node: Node): void;
     cleanNode(node: Node): Node;
