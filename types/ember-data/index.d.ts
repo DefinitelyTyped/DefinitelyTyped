@@ -870,7 +870,7 @@ declare module 'ember-data' {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-                Ember.PromiseProxyMixin<PromiseArray<T>> {}
+                Ember.PromiseProxyMixin<Ember.ArrayProxy<T>> {}
         class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -881,7 +881,7 @@ declare module 'ember-data' {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-                Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
+                Ember.PromiseProxyMixin<T & Ember.ObjectProxy> {}
         class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
