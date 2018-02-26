@@ -1,14 +1,30 @@
 /// <reference types="mocha" />
-/// <reference types="should" />
 
 import gulp = require('gulp');
 import util = require('gulp-util');
 import path = require('path');
-import should = require('should');
 import Stream = require('stream');
 import through = require('through2');
 const es = require('event-stream');
-//TODO: import es = require('event-stream');
+
+// TODO: These aren't useful as types tests since they take `any`.
+declare const should: ShouldStatic;
+interface ShouldStatic {
+	exist(obj: any, desc?: string): void;
+	not: this;
+}
+interface Should {
+	// tslint:disable-next-line ban-types
+	be: { instanceof(cls: Function): void; type(name: string): void; false: undefined; true: undefined; };
+	equal(obj: any): void;
+	eql(obj: any): void;
+	not: this;
+}
+declare global {
+	interface Object {
+		should: Should;
+	}
+}
 
 // ReSharper disable WrongExpressionStatement
 describe('File()', () => {

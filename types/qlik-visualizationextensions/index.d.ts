@@ -2565,3 +2565,45 @@ declare module "qvangular" {
     const e: IQVAngular;
     export = e;
 }
+
+/**
+ * This section is added because the Qlik Sense Client after > 3.2 contains a engineapi
+ * an this makes the handling more fluent for users of that files.
+ */
+declare namespace enigmaJS {
+    interface IGeneratedAPI {
+        /**
+         * This property contains the unique identifier for this API.
+         */
+        id: string;
+
+        /**
+         * This property contains the schema class name for this API.
+         */
+        type: string;
+
+        /**
+         * Despite the name, this property corresponds to the qInfo.qType property on your generic object's properties object.
+         */
+        genericType: string;
+
+        /**
+         * This property contains the handle QIX Engine assigned to the API.
+         * Used internally in enigma.js for caches and JSON-RPC
+         */
+        handle: number;
+
+        /**
+         * register a function for events
+         * @param event - function called if this event occures
+         * @param func - function that is called
+         */
+        on(event: "changed" | "closed", func: () => void): void;
+
+        /**
+         * manual emit an events
+         * @param event - event that occures
+         */
+        emit(event: "changed" | "closed"): void;
+    }
+}

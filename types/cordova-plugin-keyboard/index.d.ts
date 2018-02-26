@@ -1,32 +1,9 @@
-// Type definitions for Apache Cordova Keyboard plugin v0.1.2
-// Project: https://github.com/apache/cordova-plugins/tree/master/keyboard
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
+// Type definitions for Apache Cordova Keyboard plugin v1.2.0
+// Project: https://github.com/cjpearson/cordova-plugin-keyboard
+// Definitions by:  Dan Manastireanu <https://github.com/danmana>
+//                  Jochen Becker <https://github.com/jkfb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * The Keyboard object provides some functions to customize the iOS keyboard.
- *
- * <i>Supported Platforms: iOS</i>
- *
- * This plugin has only been tested in Cordova 3.2 or greater,
- * and its use in previous Cordova versions is not recommended
- * (potential conflict with keyboard customization code present in the core in previous Cordova versions).
- *
- * If you do use this plugin in an older Cordova version (again, not recommended),
- * you have to make sure the HideKeyboardFormAccessoryBar and KeyboardShrinksView preference values are always false,
- * and only use the API functions to turn things on/off.
- *
- * This plugin supports the HideKeyboardFormAccessoryBar (boolean)
- * and KeyboardShrinksView (boolean) preferences in config.xml.
- *
- * Permissions in config.xml
- * <code>
- *     <feature name="Keyboard">
- *         <param name="ios-package" value="CDVKeyboard" onload="true" />
- *     </feature>
- * </code>
- *
- */
 interface Keyboard {
 
     // Methods
@@ -39,15 +16,20 @@ interface Keyboard {
      * This applies to apps that position their elements relative to the bottom of the WebView.
      * This is the default behaviour on Android, and makes a lot of sense when building apps as opposed to webpages.
      *
+     * Supported Platforms:
+     *  - iOS
+     *
      * Example:
      * <code>
      * Keyboard.shrinkView(true);
      * Keyboard.shrinkView(false);
+     * Keyboard.shrinkView(null, function (currentValue) { console.log(currentValue); });
      * </code>
      *
      * @param shrink
+     * @param successCallback A success callbackfunction
      */
-    shrinkView(shrink:boolean): void,
+    shrinkView(shrink: boolean, successCallback?: (currentValue: any) => void): void,
 
     /**
      * Hide the keyboard toolbar.
@@ -55,20 +37,28 @@ interface Keyboard {
      * Set to true to hide the additional toolbar that is on top of the keyboard.
      * This toolbar features the Prev, Next, and Done buttons.
      *
+     * Supported Platforms:
+     *  - iOS
+     *
      * Example:
      * <code>
      * Keyboard.hideFormAccessoryBar(true);
      * Keyboard.hideFormAccessoryBar(false);
+     * Keyboard.hideFormAccessoryBar(null, function (currentValue) { console.log(currentValue); });
      * </code>
      *
      * @param hide
+     * @param successCallback A success callbackfunction
      */
-    hideFormAccessoryBar(hide:boolean): void,
+    hideFormAccessoryBar(hide: boolean, successCallback?: (currentValue: any) => void): void,
 
     /**
      * Disable scrolling when the the WebView is shrunk.
      *
      * Set to true to disable scrolling when the WebView is shrunk.
+     *
+     * Supported Platforms:
+     *  - iOS
      *
      * Example:
      * <code>
@@ -77,8 +67,40 @@ interface Keyboard {
      * </code>
      *
      * @param disable
+     * @param successCallback A success callbackfunction
      */
-    disableScrollingInShrinkView(disable:boolean): void,
+    disableScrollingInShrinkView(disable: boolean, successCallback?: (currentValue: any) => void): void,
+
+    /**
+     * Hide the keyboard
+     *
+     * Call this method to hide the keyboard
+     *
+     * Supported Platforms:
+     *  - iOS
+     *  - Android
+     *
+     * Example:
+     * <code>
+     * Keyboard.hide();
+     * </code>
+     */
+    hide(): void,
+
+    /**
+     * Show the keyboard
+     *
+     * Call this method to show the keyboard.
+     *
+     * Supported Platforms:
+     *  - Android
+     *
+     * Example:
+     * <code>
+     * Keyboard.show();
+     * </code>
+     */
+    show(): void,
 
     // Properties
 
@@ -86,6 +108,9 @@ interface Keyboard {
      * Determine if the keyboard is visible.
      *
      * Read this property to determine if the keyboard is visible.
+     *
+     * Supported Platforms:
+     *  - iOS
      *
      * Example:
      * <code>
@@ -102,6 +127,9 @@ interface Keyboard {
      * Set this to true if you need that page scroll to beginning when keyboard is hiding.
      * This is allows to fix issue with elements declared with position: fixed, after keyboard is hiding.
      *
+     * Supported Platforms:
+     *  - iOS
+     *
      * Example:
      * <code>
      *     Keyboard.automaticScrollToTopOnHiding = true;
@@ -110,65 +138,48 @@ interface Keyboard {
      */
     automaticScrollToTopOnHiding: boolean,
 
-    // Events
+    /**
+     * Deprecated Events
+     */
+    onshow(): void,
 
-    /**
-     * If defined, this function is fired when keyboard fully shown.
-     *
-     * Attach handler to this event to be able to receive notification when keyboard is shown.
-     *
-     * Example:
-     * <code>
-     * Keyboard.onshow = function () {
-     *     // Describe your logic which will be run each time keyboard is shown.
-     * }
-     * </code>
-     *
-     */
-    onshow():void,
-    /**
-     * If defined, this function is fired when keyboard fully closed.
-     *
-     * Attach handler to this event to be able to receive notification when keyboard is closed.
-     *
-     * Example:
-     * <code>
-     * Keyboard.onhide = function () {
-     *     // Describe your logic which will be run each time keyboard is closed.
-     * }
-     * </code>
-     *
-     */
-    onhide():void,
-    /**
-     * If defined, this function is fired before keyboard will be shown.
-     *
-     * Attach handler to this event to be able to receive notification when keyboard is about to be shown on the screen.
-     *
-     * Example:
-     * <code>
-     * Keyboard.onshowing = function () {
-     *     // Describe your logic which will be run each time when keyboard is about to be shown.
-     * }
-     * </code>
-     *
-     */
-    onshowing():void,
-    /**
-     * If defined, this function is fired when keyboard is about to be closed.
-     *
-     * Attach handler to this event to be able to receive notification when keyboard is about to be closed.
-     *
-     * Example:
-     * <code>
-     * Keyboard.onhiding = function () {
-     *     // Describe your logic which will be run each time when keyboard is about to be closed.
-     * }
-     * </code>
-     *
-     */
-    onhiding():void,
+    onhide(): void,
 
+    onhiding(): void,
+
+    onshowing(): void
 }
 
-declare var Keyboard:Keyboard;
+interface CordovaKeyboardEvent extends Event {
+    /** The height of the keyboard */
+    keyboardHeight: number;
+}
+
+interface WindowEventMap {
+    /**
+     * This event is fired when keyboard fully shown.
+     */
+    'keyboardDidShow': Event,
+
+    /**
+     * This event is fired when the keyboard is fully closed.
+     */
+    'keyboardDidHide': Event,
+
+    /**
+     * This event fires before keyboard will be shown.
+     */
+    'keyboardWillShow': Event,
+
+    /**
+     * This event is fired when the keyboard is fully closed.
+     */
+    'keyboardWillHide': Event,
+
+    /**
+     * This event is fired when the keyboard is fully closed.
+     */
+    'keyboardHeightWillChange': CordovaKeyboardEvent
+  }
+
+declare var Keyboard: Keyboard;

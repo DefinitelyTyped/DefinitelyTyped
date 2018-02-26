@@ -1,10 +1,3 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
-// Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
-// Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 declare module Microsoft.Maps {
     /** An object that contains the event arguments for when the drawing mode changes in the drawing tools. **/
     export interface IDrawingModeChangedData {
@@ -28,7 +21,7 @@ declare module Microsoft.Maps {
         • @param index The index at which to insert the shape into the layer.
         */
         add(data: IPrimitive | IPrimitive[], index?: number): void;
-   
+
         /**
         * Disposes the drawing manager instance.
         */
@@ -122,7 +115,7 @@ declare module Microsoft.Maps {
 
         /**
         * Creates a drawing manager which allows multi-shape editing and displays the toolbar.
-        * @param callback A callback function that is triggered after the DrawingTools have loaded. 
+        * @param callback A callback function that is triggered after the DrawingTools have loaded.
         */
         public showDrawingManager(callback?: (manager: DrawingManager) => void): void;
     }
@@ -137,7 +130,7 @@ declare module Microsoft.Maps {
         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
         * @param eventName The type of event to attach. Supported Events:
         * drawingChanged, drawingChanging, drawingEnded, drawingModeChanged, drawingStarted
-        * @param handler The callback function to handle the event when triggered. 
+        * @param handler The callback function to handle the event when triggered.
         * @returns The handler id.
         */
         export function addHandler(target: DrawingTools, eventName: string, handler: (eventArg?: IPrimitive | IDrawingModeChangedData) => void): IHandlerId;
@@ -147,7 +140,7 @@ declare module Microsoft.Maps {
         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
         * @param eventName The type of event to attach. Supported Events:
         * disposed, drawingChanged, drawingChanging, drawingEnded, drawingErased, drawingModeChanged, drawingStarted
-        * @param handler The callback function to handle the event when triggered. 
+        * @param handler The callback function to handle the event when triggered.
         * @returns The handler id.
         */
         export function addHandler(target: DrawingManager, eventName: string, handler: (eventArg?: IPrimitive | DrawingTools.DrawingMode) => void): IHandlerId;
@@ -161,7 +154,7 @@ declare module Microsoft.Maps {
         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
         * @param eventName The type of event to attach. Supported Events:
         * drawingChanged, drawingChanging, drawingEnded, drawingModeChanged, drawingStarted
-        * @param handler The callback function to handle the event when triggered. 
+        * @param handler The callback function to handle the event when triggered.
         */
         export function addOne(target: DrawingTools, eventName: string, handler: (eventArg?: IPrimitive | IDrawingModeChangedData) => void): void;
 
@@ -183,7 +176,7 @@ declare module Microsoft.Maps {
         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
         * @param eventName The type of event to attach. Supported Events:
         * drawingChanged, drawingChanging, drawingEnded, drawingModeChanged, drawingStarted
-        * @param handler The callback function to handle the event when triggered. 
+        * @param handler The callback function to handle the event when triggered.
         * @returns The handler id.
         */
         export function addThrottledHandler(target: DrawingTools, eventName: string, handler: (eventArg?: IPrimitive | IDrawingModeChangedData) => void): IHandlerId;

@@ -8,7 +8,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Torgeir Hovden <https://github.com/thovden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="cheerio" />
 import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
@@ -54,22 +54,22 @@ export interface CommonWrapper<P = {}, S = {}> {
     /**
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      */
-    contains(node: ReactElement<any> | string): boolean;
+    contains(node: ReactElement<any> | Array<ReactElement<any>> | string): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
      */
-    containsMatchingElement(node: ReactElement<any>): boolean;
+    containsMatchingElement(node: ReactElement<any> | Array<ReactElement<any>>): boolean;
 
     /**
      * Returns whether or not all the given react elements exists in the shallow render tree
      */
-    containsAllMatchingElements(nodes: Array<ReactElement<any>>): boolean;
+    containsAllMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
 
     /**
      * Returns whether or not one of the given react elements exists in the shallow render tree.
      */
-    containsAnyMatchingElements(nodes: Array<ReactElement<any>>): boolean;
+    containsAnyMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
 
     /**
      * Returns whether or not the current render tree is equal to the given node, based on the expected value.
@@ -356,7 +356,7 @@ export interface CommonWrapper<P = {}, S = {}> {
 // tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ShallowWrapper<P = {}, S = {}> {
-    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);
+    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
     unmount(): this;
 
@@ -373,8 +373,9 @@ export class ShallowWrapper<P = {}, S = {}> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(selector: Partial<P> | string): this;
+    filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ShallowWrapper<P, S>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -441,7 +442,7 @@ export class ShallowWrapper<P = {}, S = {}> {
 // tslint:disable-next-line no-empty-interface
 export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
 export class ReactWrapper<P = {}, S = {}> {
-    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper, options?: MountRendererProps);
+    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
 
     unmount(): this;
     mount(): this;
@@ -492,8 +493,9 @@ export class ReactWrapper<P = {}, S = {}> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P> | string): this;
+    filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ReactWrapper<P, S>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
@@ -551,6 +553,12 @@ export class ReactWrapper<P = {}, S = {}> {
 }
 
 export interface ShallowRendererProps {
+    // See https://github.com/airbnb/enzyme/blob/enzyme@3.1.1/docs/api/shallow.md#arguments
+    /**
+     * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
+     * setProps and setContext. Default to false.
+     */
+    disableLifecycleMethods?: boolean;
     /**
      * Enable experimental support for full react lifecycle methods
      */
@@ -602,4 +610,14 @@ export class EnzymeAdapter {
  * Configure enzyme to use the correct adapter for the react verstion
  * This is enabling the Enzyme configuration with adapters in TS
  */
-export function configure(options: { adapter: EnzymeAdapter }): void;
+export function configure(options: {
+    adapter: EnzymeAdapter,
+    // See https://github.com/airbnb/enzyme/blob/enzyme@3.1.1/docs/guides/migration-from-2-to-3.md#lifecycle-methods
+    // Actually, `{adapter:} & Pick<ShallowRendererProps,"disableLifecycleMethods">` is more precise. However,
+    // in that case jsdoc won't be shown
+    /**
+     * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
+     * setProps and setContext. Default to false.
+     */
+    disableLifecycleMethods?: boolean;
+}): void;

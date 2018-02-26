@@ -13,7 +13,7 @@ declare class Fingerprint2 {
 interface Fingerprint2Options {
     swfContainerId?: string;
     swfPath?: string;
-    userDefinedFonts?: [string];
+    userDefinedFonts?: string[];
     excludeUserAgent?: boolean;
     excludeLanguage?: boolean;
     excludeColorDepth?: boolean;

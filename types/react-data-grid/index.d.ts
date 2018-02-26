@@ -2,7 +2,7 @@
 // Project: https://github.com/adazzle/react-data-grid.git
 // Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 
@@ -219,6 +219,22 @@ declare namespace AdazzleReactDataGrid {
          * @param columnKey the column key that we are looking to pull values from
          */
         getValidFilterValues?: (columnKey: string) => Array<any>
+
+        getCellActions?: (column: Column, row: object) => (ActionButton | ActionMenu)[]
+    }
+
+    type ActionButton = {
+        icon: string;
+	callback: () => void;
+    }
+
+    type ActionMenu = {
+        icon: string;
+        actions: {
+            icon: string;
+            text: string;
+            callback: () => void;
+        }[];
     }
 
     /**

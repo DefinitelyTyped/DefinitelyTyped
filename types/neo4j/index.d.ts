@@ -2,6 +2,7 @@
 // Project: https://github.com/thingdom/node-neo4j
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="request" />
 

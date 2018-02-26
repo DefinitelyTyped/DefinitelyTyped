@@ -9,4 +9,5 @@ export interface FetchOptions {
     downloadTags?: number;
     customHeaders?: Strarray;
     proxyOpts?: any;
+    [key: string]: any;
 }

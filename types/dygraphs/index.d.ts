@@ -527,6 +527,12 @@ declare namespace dygraphs {
         highlightSeriesBackgroundAlpha?: number;
 
         /**
+         * Sets the background color used to fade out the series in conjunction with 'highlightSeriesBackgroundAlpha'.
+         * Default: rgb(255, 255, 255)
+         */
+        highlightSeriesBackgroundColor?: string;
+
+        /**
          * When set, the options from this object are applied to the timeseries closest to the mouse
          * pointer for interactive highlighting. See also 'highlightCallback'. Example:
          * highlightSeriesOpts: { strokeWidth: 3 }.

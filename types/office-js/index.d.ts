@@ -1,6 +1,6 @@
 // Type definitions for Office.js
 // Project: http://dev.office.com
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Kim Brandl <https://github.com/kbrandl>, Ricky Kirkham <https://github.com/Rick-Kirkham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -134,17 +134,14 @@ declare namespace Office {
     export interface Error {
         /**
          * Gets the numeric code of the error.
-         * @since 1.0
          */
         code: number;
         /**
          * Gets the name of the error.
-         * @since 1.0
          */
         message: string;
         /**
          * Gets a detailed description of the error.
-         * @since 1.0
          */
         name: string;
     }
@@ -181,11 +178,16 @@ declare namespace Office {
         messageParent(messageObject: any): void;
         /**
          * Closes the UI container where the JavaScript is executing.
-         * The behavior of this method is specified by the following table.
-         * When called from	            Behavior
-         * A UI-less command button	    No effect. Any dialogs opened by displayDialogAsync will remain open.
-         * A taskpane	                The taskpane will close. Any dialogs opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
-         * A module extension	        No effect.
+         * 
+         * Supported hosts: Outlook - Minimum requirement set: Mailbox 1.5
+         * 
+         * The behavior of this method is specified by the following:
+         * 
+         * Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
+         * 
+         * Called from a taskpane: The taskpane will close. Any dialog opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * 
+         * Called from a module extension: No effect.
          */
         closeContainer(): void;
     }
@@ -239,7 +241,7 @@ declare namespace Office {
         bodyBackgroundColor: string;
         bodyForegroundColor: string;
         controlBackgroundColor: string;
-        controlForgroundColor: string;
+        controlForegroundColor: string;
     }
     /**
      * Dialog object returned as part of the displayDialogAsync callback. The object exposes methods for registering event handlers and closing the dialog

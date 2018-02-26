@@ -2,6 +2,7 @@
 // Project: https://github.com/expressjs/compression
 // Definitions by: Santi Albo <https://github.com/santialbo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as express from 'express';
 

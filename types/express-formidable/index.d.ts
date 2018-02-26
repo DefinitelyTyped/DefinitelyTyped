@@ -1,9 +1,21 @@
-// Type definitions for express-formidable 1.0.0
+// Type definitions for express-formidable 1.0
 // Project: https://github.com/noraesae/express-formidable
-// Definitions by: Torkild Dyvik Olsen <https://github.com/tdolsen>
+// Definitions by: Torkild Dyvik Olsen <https://github.com/tdolsen>, Evan Shortiss <https://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import { RequestHandler } from "express";
+import * as express from "express";
+import { Fields, Files } from "formidable";
+
+// Extend the express request object with attached formidable files and fields
+declare global {
+  namespace Express {
+    interface Request {
+      fields?: Fields;
+      files?: Files;
+    }
+  }
+}
 
 interface ExpressFormidableOptions {
     encoding?: string;
@@ -16,6 +28,8 @@ interface ExpressFormidableOptions {
     multiples?: boolean;
 }
 
-declare function ExpressFormidable(options?: ExpressFormidableOptions): RequestHandler;
+declare function ExpressFormidable(options?: ExpressFormidableOptions): express.RequestHandler;
+
+declare namespace ExpressFormidable {}
 
 export = ExpressFormidable;

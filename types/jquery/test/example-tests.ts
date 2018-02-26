@@ -1,5 +1,3 @@
-/* tslint:disable:no-arg object-literal-shorthand one-variable-per-declaration only-arrow-functions prefer-const prefer-for-of triple-equals no-var */
-
 function examples() {
     function add_0() {
         $('div').css('border', '2px solid red')

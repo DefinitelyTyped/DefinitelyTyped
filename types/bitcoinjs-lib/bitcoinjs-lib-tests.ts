@@ -1,62 +1,43 @@
 import bigi = require('bigi');
 import bitcoin = require('bitcoinjs-lib');
 
-declare const it: any;
-declare const describe: any;
-declare const assert: any;
+// For testing only
+function rng() {
+    return new Buffer('12345678901234567890123456789012');
+}
 
-describe('bitcoinjs-lib (basic)', () => {
-  it('can generate a random bitcoin address', () => {
-    // for testing only
-    function rng() { return new Buffer('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'); }
+// Generate a random bitcoin address
+const keyPair1 = bitcoin.ECPair.makeRandom({rng});
+const address = keyPair1.getAddress();
+keyPair1.toWIF();
 
-    // generate random keyPair
-    const keyPair = bitcoin.ECPair.makeRandom({ rng });
-    const address = keyPair.getAddress();
+// Generate an address from a SHA256 hash
+const hash = bitcoin.crypto.sha256(Buffer.from('correct horse battery staple', 'utf8'));
+const d = bigi.fromBuffer(hash);
+const keyPair2 = new bitcoin.ECPair(d);
 
-    assert.strictEqual(address, '1F5VhMHukdnUES9kfXqzPzMeF1GPHKiF64');
-  });
+// Generate a random keypair for alternative networks
+const keyPair3 = bitcoin.ECPair.makeRandom({network: bitcoin.networks.litecoin, rng});
+keyPair3.toWIF();
+keyPair3.getAddress();
+const network = keyPair3.getNetwork();
 
-  it('can generate an address from a SHA256 hash', () => {
-    const hash = bitcoin.crypto.sha256(Buffer.from('correct horse battery staple', 'utf8'));
-    const d = bigi.fromBuffer(hash);
+// Test TransactionBuilder and Transaction
+const txb = new bitcoin.TransactionBuilder();
+txb.addInput('aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31', 0);
+txb.addOutput(Buffer.from('1Gokm82v6DmtwKEB8AiVhm82hyFSsEvBDK', 'utf8'), 15000);
+txb.sign(0, keyPair1);
+const tx = txb.build();
+tx.toHex();
+tx.hasWitnesses();
+tx.hashForWitnessV0(1, new Buffer('12345678901234567890123456789012'), 2, 3);
 
-    const keyPair = new bitcoin.ECPair(d);
-    const address = keyPair.getAddress();
-
-    assert.strictEqual(address, '1C7zdTfnkzmr13HfA2vNm5SJYRK6nEKyq8');
-  });
-
-  it('can generate a random keypair for alternative networks', () => {
-    // for testing only
-    function rng() { return new Buffer('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'); }
-
-    const litecoin = bitcoin.networks.litecoin;
-
-    const keyPair = bitcoin.ECPair.makeRandom({ network: litecoin, rng });
-    const wif = keyPair.toWIF();
-    const address = keyPair.getAddress();
-
-    assert.strictEqual(address, 'LZJSxZbjqJ2XVEquqfqHg1RQTDdfST5PTn');
-    assert.strictEqual(wif, 'T7A4PUSgTDHecBxW1ZiYFrDNRih2o7M8Gf9xpoCgudPF9gDiNvuS');
-  });
-
-  it('can import an address via WIF', () => {
-    const keyPair = bitcoin.ECPair.fromWIF('Kxr9tQED9H44gCmp6HAdmemAzU3n84H3dGkuWTKvE23JgHMW8gct', bitcoin.networks.testnet);
-    const address = keyPair.getAddress();
-
-    assert.strictEqual(address, '19AAjaTUbRjQCMuVczepkoPswiZRhjtg31');
-  });
-
-  it('can create a Transaction', () => {
-    const keyPair = bitcoin.ECPair.fromWIF('L1uyy5qTuGrVXrmrsvHWHgVzW9kKdrp27wBC7Vs6nZDTF2BRUVwy', bitcoin.networks.testnet);
-    const tx = new bitcoin.TransactionBuilder();
-
-    tx.addInput('aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31', 0);
-    tx.addOutput(Buffer.from('1Gokm82v6DmtwKEB8AiVhm82hyFSsEvBDK', 'utf8'), 15000);
-    tx.sign(0, keyPair);
-
-    // tslint:disable-next-line:max-line-length
-    assert.strictEqual(tx.build().toHex(), '0100000001313eb630b128102b60241ca895f1d0ffca2170d5a0990e094f2182c102ab94aa000000006b483045022100aefbcf847900b01dd3e3debe054d3b6d03d715d50aea8525f5ea3396f168a1fb022013d181d05b15b90111808b22ef4f9ebe701caf2ab48db269691fdf4e9048f4f60121029f50f51d63b345039a290c94bffd3180c99ed659ff6ea6b1242bca47eb93b59fffffffff01983a0000000000001976a914ad618cf4333b3b248f9744e8e81db2964d0ae39788ac00000000');
-  });
-});
+// Test functions in address
+const rsBase58Check = bitcoin.address.fromBase58Check(address);
+const rsBech32 = bitcoin.address.fromBech32(address);
+const rsOutputScript = bitcoin.address.fromOutputScript(new Buffer('12345678901234567890123456789012'));
+const rsOutputScriptWithNetwork = bitcoin.address.fromOutputScript(new Buffer('12345678901234567890123456789012'), network);
+bitcoin.address.toBase58Check(rsBase58Check.hash, rsBase58Check.version);
+bitcoin.address.toBech32(rsBech32.data, rsBech32.version, rsBech32.prefix);
+bitcoin.address.toOutputScript(address);
+bitcoin.address.toOutputScript(address, network);

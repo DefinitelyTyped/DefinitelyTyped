@@ -1235,6 +1235,67 @@ function demos() {
         }
     }
 
+    class TextureRotate {
+        private app: PIXI.Application;
+        private bol: boolean;
+        private texture: PIXI.Texture;
+        private secondTexture: PIXI.Texture;
+        private dude: PIXI.Sprite;
+
+        constructor() {
+            this.app = new PIXI.Application();
+            document.body.appendChild(this.app.view);
+
+            this.bol = false;
+
+            PIXI.loader.add("flowerTop", "required/assets/flowerTop.png");
+            PIXI.loader.load((loader: PIXI.loaders.Loader, resources: any) => {
+                this.texture = resources.flowerTop.texture;
+                this.init();
+            });
+        }
+
+        private init(): void {
+            const textures = [this.texture];
+            const D8 = PIXI.GroupD8;
+            for (let rotate = 1; rotate < 16; rotate++) {
+                const h = D8.isVertical(rotate) ? this.texture.frame.width : this.texture.frame.height;
+                const w = D8.isVertical(rotate) ? this.texture.frame.height : this.texture.frame.width;
+
+                const frame = this.texture.frame;
+                const crop = new PIXI.Rectangle(this.texture.frame.x, this.texture.frame.y, w, h);
+                const trim = crop;
+                let rotatedTexture: PIXI.Texture;
+                if (rotate % 2 === 0) {
+                    rotatedTexture = new PIXI.Texture(this.texture.baseTexture, frame, crop, trim, rotate);
+                } else {
+                    rotatedTexture = new PIXI.Texture(this.texture.baseTexture, frame, crop, trim, rotate - 1);
+                    rotatedTexture.rotate++;
+                }
+                textures.push(rotatedTexture);
+            }
+
+            const offsetX = this.app.renderer.width / 16 | 0;
+            const offsetY = this.app.renderer.height / 8 | 0;
+            const gridW = this.app.renderer.width / 4 | 0;
+            const gridH = this.app.renderer.height / 5 | 0;
+
+            for (let i = 0; i < 16; i++) {
+                const dude = new PIXI.Sprite(textures[i < 8 ? i * 2 : (i - 8) * 2 + 1]);
+                dude.scale.x = 0.5;
+                dude.scale.y = 0.5;
+                dude.x = offsetX + gridW * (i % 4);
+                dude.y = offsetY + gridH * (i / 4 | 0);
+                this.app.stage.addChild(dude);
+
+                const text = new PIXI.Text("rotate = " + dude.texture.rotate, { fontFamily: "Courier New", fontSize: "12px", fill: "white", align: "left" });
+                text.x = dude.x;
+                text.y = dude.y - 20;
+                this.app.stage.addChild(text);
+            }
+        }
+    }
+
     class TextureSwap {
         private app: PIXI.Application;
         private bol: boolean;

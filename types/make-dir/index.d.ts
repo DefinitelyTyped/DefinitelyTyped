@@ -3,6 +3,7 @@
 // Definitions by: Ika <https://github.com/ikatyang>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node"/>
 import * as fs from 'fs';

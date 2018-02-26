@@ -42,7 +42,7 @@ export class Server {
 	finish: (status: number, headers: Headers, req: http.ServerRequest, res: http.ServerResponse, promise: events.EventEmitter, callback: Callback) => void;
 	servePath: (pathname: string, status: number, headers: Headers, req: http.ServerRequest, res: http.ServerResponse, finish: Finish) => events.EventEmitter;
 	resolve: (pathname: string) => string;
-	serve: (req: http.ServerRequest, res: http.ServerResponse, callback: Callback) => events.EventEmitter;
+	serve: (req: http.ServerRequest, res: http.ServerResponse, callback?: Callback) => events.EventEmitter;
 	gzipOk: (req: http.ServerRequest, contentType: string) => boolean;
 	respondGzip: (pathname: string, status: number, contentType: string, _headers: Headers, files: string[], stat: fs.Stats, req: http.ServerRequest, res: http.ServerResponse, finish: Finish) => void;
 	parseByteRange: (req: http.ServerRequest, stat: fs.Stats) => ByteRange;

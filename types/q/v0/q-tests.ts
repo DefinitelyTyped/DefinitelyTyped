@@ -144,7 +144,7 @@ Q.nfbind(nodeStyle)('foo').done((result: string) => {});
 
 
 class Repo {
-    private items: any[] = [
+    private readonly items: any[] = [
         { name: 'Max', cute: false },
         { name: 'Annie', cute: true }
     ];

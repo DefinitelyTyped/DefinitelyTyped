@@ -20,4 +20,5 @@ AppRouter.map(function() {
     });
     this.route('not-found', { path: '/*path' });
     this.mount('my-engine');
+    this.mount('my-engine', { as: 'some-other-engine', path: '/some-other-engine'});
 });

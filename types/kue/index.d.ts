@@ -4,6 +4,7 @@
 //                 Amiram Korach <https://github.com/amiram>
 //                 Christian D. <https://github.com/pc-jedi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 

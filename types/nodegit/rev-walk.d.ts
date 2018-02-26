@@ -38,7 +38,7 @@ export class Revwalk {
     /**
      * Walk the history from the given oid. The callback is invoked for each commit; When the walk is over, the callback is invoked with (null, null).
      */
-    walk(oid: Oid, callback: Function): Commit;
+    walk(oid: Oid, callback?: Function): Commit;
     /**
      * Walk the history grabbing commits until the checkFn called with the current commit returns false.
      */

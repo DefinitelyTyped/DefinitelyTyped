@@ -1,11 +1,13 @@
 import { Component, FormHTMLAttributes, FormEvent, FormEventHandler } from "react";
 import { Dispatch } from "redux";
-import { FormProps, FormErrors, FormSubmitHandler, Omit } from "redux-form";
+import { FormProps, FormErrors, FormSubmitHandler, Omit } from "../index";
 
-interface FormSubmitProp {
-    onSubmit?: FormSubmitHandler;
+interface FormSubmitProp<FormData = {}, P = {}> {
+    onSubmit?: FormSubmitHandler<FormData, P>;
 }
 
-export type FormProps = Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> & FormSubmitProp;
+export type FormProps<FormData, P> = Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> & FormSubmitProp<FormData, P>;
 
-declare class Form extends Component<FormProps> {}
+export class GenericForm<FormData, P> extends Component<FormProps<FormData, P>> {}
+
+export class Form<FormData = {}, P = {}> extends Component<FormProps<FormData, P>> implements GenericForm<FormData, P> {}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import {
     Button, ButtonToolbar, Modal, Well, ButtonGroup,
-    DropdownButton, MenuItem, Panel, ListGroup,
+    DropdownButton, MenuItem, Panel, PanelGroup, ListGroup,
     ListGroupItem, Accordion, Tooltip,
     OverlayTrigger, Popover, ProgressBar,
     Nav, NavItem, Navbar, NavDropdown,
@@ -217,102 +217,253 @@ export class ReactBootstrapTest extends Component {
 
                 <div style={style}>
                     <Panel onClick={this.callback}>
+                      <Panel.Body>
                         Basic panel example
+                      </Panel.Body>
                     </Panel>
                 </div>
 
                 <div style={style}>
                   <div>
-                    <Panel header='Panel heading without title'>
-                      Panel content
+                    <Panel>
+                      <Panel.Heading>
+                        Panel heading without title
+                      </Panel.Heading>
+                      <Panel.Body>
+                        Panel content
+                      </Panel.Body>
                     </Panel>
-                    <Panel header='Header'>
-                      Panel content
+                    <Panel>
+                      <Panel.Heading>
+                        <Panel.Title componentClass="h3">
+                          Panel heading with a title
+                        </Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body>
+                        Panel content
+                      </Panel.Body>
                     </Panel>
                   </div>
                 </div>
 
                 <div style={style}>
-                  <Panel footer='Panel footer'>
-                    Panel content
+                  <Panel>
+                    <Panel.Body>Panel content</Panel.Body>
+                    <Panel.Footer>Panel footer</Panel.Footer>
                   </Panel>
                 </div>
 
                 <div style={style}>
                   <div>
-                    <Panel header='Header'>
-                      Panel content
+                    <Panel bsStyle="primary">
+                      <Panel.Heading>
+                        <Panel.Title componentClass="h3">Panel heading</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body>Panel content</Panel.Body>
                     </Panel>
 
-                    <Panel header='Header' bsStyle='primary'>
-                      Panel content
+                    <Panel bsStyle="success">
+                      <Panel.Heading>
+                        <Panel.Title componentClass="h3">Panel heading</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body>Panel content</Panel.Body>
                     </Panel>
 
-                    <Panel header='Header' bsStyle='success'>
-                      Panel content
+                    <Panel bsStyle="info">
+                      <Panel.Heading>
+                        <Panel.Title componentClass="h3">Panel heading</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body>Panel content</Panel.Body>
                     </Panel>
 
-                    <Panel header='Header' bsStyle='info'>
-                      Panel content
+                    <Panel bsStyle="warning">
+                      <Panel.Heading>
+                        <Panel.Title componentClass="h3">Panel heading</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body>Panel content</Panel.Body>
                     </Panel>
 
-                    <Panel header='Header' bsStyle='warning'>
-                      Panel content
-                    </Panel>
-
-                    <Panel header='Header' bsStyle='danger'>
-                      Panel content
+                    <Panel bsStyle="danger">
+                      <Panel.Heading>
+                        <Panel.Title componentClass="h3">Panel heading</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body>Panel content</Panel.Body>
                     </Panel>
                   </div>
                 </div>
 
                 <div style={style}>
-                  <Panel collapsible defaultExpanded header='Panel heading'>
-                    Some default panel content here.
-                    <ListGroup fill>
+                  <Panel>
+                    <Panel.Heading>Panel heading</Panel.Heading>
+                    <Panel.Body>Some default panel content here.</Panel.Body>
+                    <ListGroup>
                       <ListGroupItem>Item 1</ListGroupItem>
                       <ListGroupItem>Item 2</ListGroupItem>
                       <ListGroupItem>&hellip;</ListGroupItem>
                     </ListGroup>
-                    Some more panel content here.
+                    <Panel.Body>Some more panel content here.</Panel.Body>
                   </Panel>
                 </div>
 
                 <div style={style}>
-                  <Panel collapsible defaultExpanded header='Panel heading'>
-                    Some default panel content here.
-                    <Table fill>
-                      <thead>
-                        <tr>
-                          <th>A</th>
-                          <th>B</th>
-                          <th>C</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Item 1</td>
-                          <td>Item 2</td>
-                          <td>&hellip;</td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                    Some more panel content here.
+                  <Panel id="collapsible-panel-example-1" expanded={true}>
+                    <Panel.Collapse>
+                      <Panel.Body>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life
+                        accusamus terry richardson ad squid. Nihil anim keffiyeh
+                        helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                        ea proident.
+                      </Panel.Body>
+                    </Panel.Collapse>
                   </Panel>
+                  <Panel id="collapsible-panel-example-2" defaultExpanded>
+                    <Panel.Heading>
+                      <Panel.Title toggle>
+                        Title that functions as a collapse toggle
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Collapse>
+                      <Panel.Body>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life
+                        accusamus terry richardson ad squid. Nihil anim keffiyeh
+                        helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                        ea proident.
+                      </Panel.Body>
+                    </Panel.Collapse>
+                  </Panel>
+                  <Panel id="collapsible-panel-example-3" defaultExpanded>
+                    <Panel.Heading>
+                      <Panel.Title>Title that functions as a collapse toggle</Panel.Title>
+                      <Panel.Toggle componentClass="a">My own toggle</Panel.Toggle>
+                    </Panel.Heading>
+                    <Panel.Collapse>
+                      <Panel.Body>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life
+                        accusamus terry richardson ad squid. Nihil anim keffiyeh
+                        helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                        ea proident.
+                      </Panel.Body>
+                    </Panel.Collapse>
+                  </Panel>
+                </div>
+
+                <div style={style}>
+                  <PanelGroup
+                    accordion
+                    id="accordion-controlled-example"
+                    activeKey={0}
+                    onSelect={this.callback}
+                  >
+                    <Panel eventKey="1">
+                      <Panel.Heading>
+                        <Panel.Title toggle>Panel heading 1</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>Panel content 1</Panel.Body>
+                    </Panel>
+                    <Panel eventKey="2">
+                      <Panel.Heading>
+                        <Panel.Title toggle>Panel heading 2</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>Panel content 2</Panel.Body>
+                    </Panel>
+                  </PanelGroup>
                 </div>
 
                 <div style={style}>
                   <Accordion>
-                    <Panel header='Collapsible Group Item #1' eventKey='1'>
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <Panel eventKey='1'>
+                      <Panel.Heading>Collapsible Group Item #1</Panel.Heading>
+                      <Panel.Body>
+                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                      </Panel.Body>
                     </Panel>
-                    <Panel header='Collapsible Group Item #2' eventKey='2'>
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <Panel eventKey='2'>
+                      <Panel.Heading>Collapsible Group Item #2</Panel.Heading>
+                      <Panel.Body>
+                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                      </Panel.Body>
                     </Panel>
-                    <Panel header='Collapsible Group Item #3' eventKey='3'>
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <Panel eventKey='3'>
+                      <Panel.Heading>Collapsible Group Item #3</Panel.Heading>
+                      <Panel.Body>
+                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                       </Panel.Body>
                     </Panel>
                   </Accordion>
+                </div>
+
+                <div>
+                  <PanelGroup
+                    accordion
+                    id="accordion-uncontrolled-example"
+                    defaultActiveKey="2"
+                  >
+                    <Panel eventKey="1">
+                      <Panel.Heading>
+                        <Panel.Title toggle>Panel heading 1</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>Panel content 1</Panel.Body>
+                    </Panel>
+                    <Panel eventKey="2">
+                      <Panel.Heading>
+                        <Panel.Title toggle>Panel heading 2</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>Panel content 2</Panel.Body>
+                    </Panel>
+                  </PanelGroup>
+                </div>
+
+                <div>
+                  <PanelGroup accordion id="accordion-example">
+                    <Panel eventKey="1">
+                      <Panel.Heading>
+                        <Panel.Title toggle>Collapsible Group Item #1</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                        haven't heard of them accusamus labore sustainable VHS.
+                      </Panel.Body>
+                    </Panel>
+                    <Panel eventKey="2">
+                      <Panel.Heading>
+                        <Panel.Title toggle>Collapsible Group Item #2</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                        haven't heard of them accusamus labore sustainable VHS.
+                      </Panel.Body>
+                    </Panel>
+                    <Panel eventKey="3">
+                      <Panel.Heading>
+                        <Panel.Title toggle>Collapsible Group Item #3</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+                        haven't heard of them accusamus labore sustainable VHS.
+                      </Panel.Body>
+                    </Panel>
+                  </PanelGroup>
                 </div>
 
                 <div style={style}>
@@ -663,33 +814,26 @@ export class ReactBootstrapTest extends Component {
 
                 <div style={style}>
                   <div>
-                    <Pagination
-                      bsSize='large'
-                      items={10}
-                      activePage={1}
-                      onSelect={this.callback} />
+                    <Pagination bsSize="large">{null}</Pagination>
                     <br />
-                    <Pagination
-                      bsSize='medium'
-                      items={10}
-                      activePage={1}
-                      onSelect={this.callback} />
-                    <br />
+                    <Pagination>
+                      <Pagination.First />
+                      <Pagination.Prev />
+                      <Pagination.Item>{1}</Pagination.Item>
+                      <Pagination.Ellipsis />
 
-                    <Pagination
-                      bsSize='small'
-                      items={10}
-                      activePage={1}
-                      onSelect={this.callback} />
+                      <Pagination.Item>{10}</Pagination.Item>
+                      <Pagination.Item>{11}</Pagination.Item>
+                      <Pagination.Item active>{12}</Pagination.Item>
+                      <Pagination.Item>{13}</Pagination.Item>
+                      <Pagination.Item disabled>{14}</Pagination.Item>
+
+                      <Pagination.Ellipsis />
+                      <Pagination.Item>{20}</Pagination.Item>
+                      <Pagination.Next />
+                      <Pagination.Last />
+                    </Pagination>
                   </div>
-                </div>
-
-                <div style={style}>
-                    <Pagination
-                      buttonComponentClass={(props: any) =>
-                          <SafeAnchor href="/test" disabled role="role"/>
-                      }
-                      maxButtons={10}/>
                 </div>
 
                 <div style={style}>

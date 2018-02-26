@@ -1,8 +1,8 @@
-// Type definitions for react-dates v12.1.1
+// Type definitions for react-dates v16.0.0
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/Artur-A>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 import * as moment from "moment";
@@ -49,8 +49,11 @@ declare namespace ReactDates {
         customInputIcon?: string | JSX.Element,
         customArrowIcon?: string | JSX.Element,
         customCloseIcon?: string | JSX.Element,
+        noBorder?: boolean,
+        block?: boolean,
 
         // calendar presentation and interaction related props
+        renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         orientation?: OrientationShape,
         anchorDirection?: AnchorDirectionShape,
         horizontalMargin?: number,
@@ -63,17 +66,20 @@ declare namespace ReactDates {
         reopenPickerOnClearDates?: boolean,
         renderCalendarInfo?: () => (string | JSX.Element),
         hideKeyboardShortcutsPanel?: boolean,
+        daySize?: number,
         isRTL?: boolean,
 
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onClose?: (final: { startDate: momentPropTypes.momentObj, endDate: momentPropTypes.momentObj }) => void,
+        transitionDuration?: number,
 
         // day presentation and interaction related props
-        renderDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderCalendarDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderDayContents?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         minimumNights?: number,
         enableOutsideDays?: boolean,
         isDayBlocked?: (day: any) => boolean,
@@ -84,6 +90,7 @@ declare namespace ReactDates {
         // internationalization props
         displayFormat?: (string | (() => string)),
         monthFormat?: string,
+        weekDayFormat?: string,
         phrases?: {
             closeDatePicker: string,
             clearDates: string,
@@ -137,8 +144,14 @@ declare namespace ReactDates {
         customCloseIcon?: string | JSX.Element,
         showDefaultInputIcon?: boolean,
         customInputIcon?: string | JSX.Element,
+        noBorder?: boolean,
+        block?: boolean,
+        small?: boolean,
+        regular?: boolean,
+        keepFocusOnInput?: boolean,
 
         // calendar presentation and interaction related props
+        renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         orientation?: OrientationShape,
         anchorDirection?: AnchorDirectionShape,
         horizontalMargin?: number,
@@ -151,17 +164,22 @@ declare namespace ReactDates {
         reopenPickerOnClearDates?: boolean,
         renderCalendarInfo?: () => (string | JSX.Element),
         hideKeyboardShortcutsPanel?: boolean,
+        daySize?: number,
         isRTL?: boolean,
+        verticalSpacing?: number,        
+        verticalHeight?: number| null,
 
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
         onClose?: (final: { startDate: momentPropTypes.momentObj, endDate: momentPropTypes.momentObj }) => void,
+        transitionDuration?: number,
 
         // day presentation and interaction related props
-        renderDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderCalendarDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderDayContents?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         enableOutsideDays?: boolean,
         isDayBlocked?: (day: any) => boolean,
         isOutsideRange?: (day: any) => boolean,
@@ -224,16 +242,20 @@ declare namespace ReactDates {
         renderCalendarInfo?: () => (string | JSX.Element),
         onOutsideClick?: (e: any) => void,
         keepOpenOnDateSelect?: boolean,
+        noBorder?: boolean,
+        firstDayOfWeek? : 0 | 1 | 2 | 3 | 4 | 5 | 6,
 
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
         hideKeyboardShortcutsPanel?: boolean;
-        onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
-        onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
+        onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void,
+        transitionDuration?: number,
 
         // day presentation and interaction related props
-        renderDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderCalendarDay?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderDayContents?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
         minimumNights?: number,
         isOutsideRange?: (day: any) => boolean,
         isDayBlocked?: (day: any) => boolean,

@@ -1,10 +1,14 @@
-// Type definitions for stripe 4.7
+// Type definitions for stripe 5.0
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Linus Unnebäck <https://github.com/LinusU>
+//                 Brannon Jones <https://github.com/brannon>
+//                 Kyle Kamperschroer <https://github.com/kkamperschroer>
+//                 Kensuke Hoshikawa <https://github.com/starhoshi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -39,6 +43,7 @@ declare class Stripe {
     events: Stripe.resources.Events;
     invoices: Stripe.resources.Invoices;
     invoiceItems: Stripe.resources.InvoiceItems;
+    payouts: Stripe.resources.Payouts;
     plans: Stripe.resources.Plans;
     /**
      * @deprecated
@@ -49,6 +54,7 @@ declare class Stripe {
      */
     recipients: Stripe.resources.Recipients;
     subscriptions: Stripe.resources.Subscriptions;
+    subscriptionItems: Stripe.resources.SubscriptionItems;
     tokens: Stripe.resources.Tokens;
     transfers: Stripe.resources.Transfers;
     applicationFees: Stripe.resources.ApplicationFees;
@@ -60,6 +66,7 @@ declare class Stripe {
     products: Stripe.resources.Products;
     skus: Stripe.resources.SKUs;
     webhooks: Stripe.resources.WebHooks;
+    ephemeralKeys: Stripe.resources.EphemeralKeys;
 
     setHost(host: string): void;
     setHost(host: string, port: string|number): void;
@@ -154,6 +161,8 @@ declare namespace Stripe {
              * established in. For example, if you are in the United States and the
              * business you’re creating an account for is legally represented in Canada,
              * you would use “CA” as the country for the account being created.
+             * 
+             * optional, default is your own country
              */
             country?: string;
 
@@ -162,18 +171,20 @@ declare namespace Stripe {
              * will email your user with instructions for how to set up their account. For
              * managed accounts, this is only to make the account easier to identify to
              * you: Stripe will never directly reach out to your users.
+             * 
+             * required if type is "standard"
              */
-            email: string;
+            email?: string;
 
             /**
-             * Whether you'd like to create a managed or standalone account. Managed
+             * Whether you'd like to create a Custom or Standard account. Custom
              * accounts have extra parameters available to them, and require that you,
              * the platform, handle all communication with the account holder.
-             * Standalone accounts are normal Stripe accounts: Stripe will email the
+             * Standard accounts are normal Stripe accounts: Stripe will email the
              * account holder to setup a username and password, and handle all account
-             * management directly with them.
+             * management directly with them. Possible values are custom and standard.
              */
-            managed?: boolean;
+            type: 'custom' | 'standard';
         }
 
         interface IAccountShared {
@@ -547,7 +558,7 @@ declare namespace Stripe {
 
         interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds { }
 
-        interface IApplicationFeeRefundCreationOptions extends IDataOptions {
+        interface IApplicationFeeRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
              * A positive integer in pence representing how much of this fee to refund.
              * Can only refund up to the unrefunded amount remaining of the fee.
@@ -555,14 +566,6 @@ declare namespace Stripe {
              * default is entire application fee
              */
             amount?: number;
-
-            /**
-             * A set of key/value pairs that you can attach to a refund object. It can be
-             * useful for storing additional information about the refund in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IMetadata;
         }
     }
 
@@ -732,7 +735,7 @@ declare namespace Stripe {
              * The application fee (if any) for the charge. See the Connect documentation
              * for details. [Expandable]
              */
-            application_fee?: string;
+            application_fee?: string | applicationFees.IApplicationFee;
 
             /**
              * ID of the balance transaction that describes the impact of this charge on
@@ -868,7 +871,7 @@ declare namespace Stripe {
             transfer: string | transfers.ITransfer;
         }
 
-        interface IChargeCreationOptions extends IDataOptions {
+        interface IChargeCreationOptions extends IDataOptionsWithMetadata {
             /**
              * A positive integer in the smallest currency unit (e.g 100 cents to charge
              * $1.00, or 1 to charge ¥1, a 0-decimal currency) representing how much to
@@ -921,12 +924,21 @@ declare namespace Stripe {
             destination?: string;
 
             /**
-             * A set of key/value pairs that you can attach to a charge object. It can be
-             * useful for storing additional information about the customer in a
-             * structured format. It's often a good idea to store an email address in
-             * metadata for tracking later.
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
              */
-            metadata?: IMetadata;
+            transfer_group?: string;
+
+            /**
+             * The Stripe account ID that these funds are intended for.
+             * Automatically set if you use the destination parameter.
+             * See the Connect documentation for details.
+             *
+             * Connect only.
+             */
+            on_behalf_of?: string;
 
             /**
              * The email address to send this charge's receipt to. The receipt will not be
@@ -973,6 +985,16 @@ declare namespace Stripe {
              * incorrectly or not at all.
              */
             statement_descriptor?: string;
+        }
+
+        interface IChargeCaptureOptions extends IDataOptions {
+            /**
+             * A positive integer in the smallest currency unit (e.g 100 cents to charge
+             * $1.00, or 1 to charge ¥1, a 0-decimal currency) representing how much to
+             * charge the card. The minimum amount is £0.50 (or equivalent in charge
+             * currency).
+             */
+            amount?: number;
         }
 
         interface IChargeUpdateOptions extends IDataOptionsWithMetadata {
@@ -1308,7 +1330,7 @@ declare namespace Stripe {
              * override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to
              * end the customer's trial immediately. Only applies when the plan parameter is also provided.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
         }
 
         interface ICustomerUpdateOptions extends IDataOptionsWithMetadata {
@@ -2051,6 +2073,14 @@ declare namespace Stripe {
             tax_percent?: number;
         }
 
+        interface IInvoicePayOptions extends IDataOptionsWithMetadata {
+          /**
+             * A payment source to be charged. The source must be the ID of a source
+             * belonging to the customer associated with the invoice being paid.
+             */
+          source?: sources.ISourceCreationOptions;
+        }
+
         interface IInvoiceListOptions extends IListOptions {
             /**
              * The identifier of the customer whose invoices to return. If none is provided, all invoices will be returned.
@@ -2592,6 +2622,164 @@ declare namespace Stripe {
          * Current order status. One of created, paid, canceled, fulfilled, or returned. More detail in the Relay API Overview.
          */
         type OrderStatus = "created" | "paid" | "canceled" | "fulfilled" | "returned";
+    }
+
+    namespace payouts {
+        interface IPayout extends IResourceObject {
+            /**
+             * Value is "payout"
+             */
+            object: "payout";
+
+            /**
+             * Amount (in cents) to be transferred to your bank account or debit card
+             */
+            amount: number;
+
+            /**
+             * Date the payout is expected to arrive in the bank. This factors in delays like weekends or bank holidays
+             */
+            arrival_date: number;
+
+            /**
+             * Balance transaction that describes the impact of this transfer on your account balance. [Expandable]
+             */
+            balance_transaction: string | balance.IBalanceTransaction;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch
+             */
+            created: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             * https://stripe.com/docs/currencies
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users
+             */
+            description: string;
+
+            /**
+             * ID of the bank account or card the payout was sent to. [Expandable]
+             */
+            destination: string | bankAccounts.IBankAccount | cards.ICardHash;
+
+            /**
+             * If the payout failed or was canceled, this will be the ID of the balance
+             * transaction that reversed the initial balance transaction, and puts the
+             * funds from the failed payout back in your balance. [Expandable]
+             */
+            failure_balance_transaction: string | balance.IBalanceTransaction;
+
+            /**
+             * Error code explaining reason for payout failure if available. See Types of payout failures for a
+             * list of failure codes: https://stripe.com/docs/api#payout_failures
+             */
+            failure_code: string;
+
+            /**
+             * Message to user further explaining reason for the payout failure if available
+             */
+            failure_message: string;
+
+            /**
+             * Flag indicating whether the object exists in live mode or test mode
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional
+             * information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * The method used to send this payout, which can be standard or instant. instant is only supported
+             * for payouts to debit cards.
+             */
+            method: PayoutMethods;
+
+            /**
+             * The source balance this payout came from.
+             * One of card, bank_account, bitcoin_receiver, or alipay_account
+             */
+            source_type: "alipay_account" | "bank_account" | "bitcoin_receiver" | "card";
+
+            /**
+             * Extra information about a payout to be displayed on the user's bank statement
+             */
+            statement_descriptor: string;
+
+            /**
+             * Current status of the payout (paid, pending, in_transit, canceled or failed).
+             * A payout will be pending until it is submitted to the bank, at which point it
+             * becomes in_transit. It will then change to paid if the transaction goes through.
+             * If it does not go through successfully, its status will change to failed or canceled.
+             */
+            status: "canceled" | "failed" | "in_transit" | "paid" | "pending";
+
+            /**
+             * Can be bank_account or card.
+             */
+            type: PayoutTypes;
+        }
+
+        interface IPayoutCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * A positive integer in cents representing how much to payout.
+             */
+            amount: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             * https://stripe.com/docs/currencies
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             * This can be unset by updating the value to null and then saving.
+             */
+            description?: string;
+
+            /**
+             * The ID of a bank account or a card to send the payout to. If no destination is supplied,
+             * the default external account for the specified currency will be used.
+             */
+            destination?: string;
+
+            /**
+             * The method used to send this payout, which can be standard or instant.
+             * instant is only supported for payouts to debit cards.
+             */
+            method?: PayoutMethods;
+
+            /**
+             * The source balance to draw this payout from. Balances for different payment sources are
+             * kept separately. You can find the amounts with the balances API.
+             * Valid options are: alipay_account, bank_account, and card.
+             */
+            source_type?: "alipay_account" | "bank_account" | "card";
+
+            /**
+             * A string to be displayed on the recipient’s bank or card statement. This may be at most 22 characters.
+             * Attempting to use a statement_descriptor longer than 22 characters will return an error.
+             * Note: Most banks will truncate this information and/or display it inconsistently. Some may not display it at all.
+             */
+            statement_descriptor?: string;
+        }
+
+        interface IPayoutListOptions extends IListOptionsCreated {
+            arrival_date?: string | IDateFilter;
+            destination?: string;
+            status?: "canceled" | "failed" | "paid" | "pending";
+        }
+
+        type PayoutMethods = "instant" | "standard";
+        type PayoutTypes = "bank_account" | "card";
     }
 
     namespace plans {
@@ -3142,6 +3330,36 @@ declare namespace Stripe {
         }
     }
 
+    namespace ephemeralKeys {
+        interface IStripeVersion {
+            /**
+             * https://stripe.com/docs/upgrades#api-changelog
+             */
+            stripe_version: string;
+        }
+
+        interface ICustomer {
+            /**
+             * customer id
+             */
+            customer: string;
+        }
+
+        interface IEphemeralKey extends IResourceObject {
+            object: "ephemeral_key";
+            associated_objects: Array<IAssociatedObject>
+            created: number;
+            expires: number;
+            livemode: boolean;
+            secret: string;
+        }
+
+        interface IAssociatedObject {
+            id: string;
+            type: string;
+        }
+    }
+
     namespace tokens {
         interface IToken extends ICardToken, IBankAccountToken { }
 
@@ -3364,12 +3582,6 @@ declare namespace Stripe {
             destination: string;
 
             /**
-             * An arbitrary string which you can attach to a transfer object. It is
-             * displayed when in the web interface alongside the transfer.
-             */
-            description?: string
-
-            /**
              * You can use this parameter to transfer funds from a charge (or
              * other transaction) before they are added to your available
              * balance. A pending balance will transfer immediately but the
@@ -3379,21 +3591,10 @@ declare namespace Stripe {
             source_transaction?: string;
 
             /**
-             * A string to be displayed on the recipient's bank or card
-             * statement. This may be at most 22 characters. Attempting to use
-             * a statement_descriptor longer than 22 characters will return
-             * an error. Note: Most banks will truncate this information and/or
-             * display it inconsistently. Some may not display it at all.
+             * A string that identifies this transaction as part of a group.
+             * See the Connect documentation for details.
              */
-            statement_descriptor?: string;
-
-            /**
-             * The source balance to draw this transfer from. Balances for
-             * different payment sources are kept separately. You can find the
-             * amounts with the balances API. Valid options are:
-             * "alipay_account", "bank_account", "bitcoin_receiver", and "card".
-             */
-            source_type?: SourceTypes;
+            transfer_group?: string;
         }
 
         interface ITransferUpdateOptions extends IDataOptionsWithMetadata {
@@ -3816,7 +4017,7 @@ declare namespace Stripe {
              * in the card object if the card belongs to an account or recipient
              * instead.
              */
-            customer?: customers.ICustomer;
+            customer?: string | customers.ICustomer;
 
             /**
              * Only applicable on accounts (not customers or recipients). This
@@ -3850,7 +4051,7 @@ declare namespace Stripe {
             /**
              * The card number
              */
-            number: number;
+            number: string;
 
             /**
              * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
@@ -3949,7 +4150,7 @@ declare namespace Stripe {
 
         interface ISourceCreationOptions {
             /**
-             * he type of payment source. Should be "card".
+             * The type of payment source. Should be "card".
              */
             object: "card";
 
@@ -3966,7 +4167,7 @@ declare namespace Stripe {
             /**
              * The card number, as a string without any separators.
              */
-            number: number;
+            number: string;
 
             /**
              * Card security code. Required unless your account is registered in
@@ -3987,7 +4188,7 @@ declare namespace Stripe {
             address_state?: string;
             address_zip?: string;
 
-            metadata?: IMetadata;
+            metadata?: IOptionsMetadata;
         }
 
         interface ISourceCreationOptionsExtended extends ISourceCreationOptions {
@@ -4015,6 +4216,7 @@ declare namespace Stripe {
 
     namespace subscriptions {
         type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+        type SubscriptionBilling = "charge_automatically" | "send_invoice";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -4057,7 +4259,10 @@ declare namespace Stripe {
              */
             current_period_start: number;
 
-            customer: string;
+            /**
+             * ID of the customer who owns the subscription. [Expandable]
+             */
+            customer: string | customers.ICustomer;
 
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
@@ -4072,7 +4277,9 @@ declare namespace Stripe {
             ended_at: number;
 
             metadata: IMetadata;
-
+            
+            items: IList<subscriptionItems.ISubscriptionItem>;
+            
             /**
              * Hash describing the plan the customer is subscribed to
              */
@@ -4113,13 +4320,20 @@ declare namespace Stripe {
              * If the subscription has a trial, the beginning of that trial.
              */
             trial_start: number;
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the 
+             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an 
+             * invoice with payment instructions.
+             */
+            billing: SubscriptionBilling;
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
             /**
-             * The identifier of the plan to subscribe the customer to.
+             * @deprecated Use items property instead.
              */
-            plan: string;
+            plan?: string;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -4157,7 +4371,19 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            items?: ISubscriptionCreationItem[];
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * instructions. Defaults to "charge_automatically".
+             */
+            billing?: SubscriptionBilling;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4182,7 +4408,7 @@ declare namespace Stripe {
             coupon?: string;
 
             /**
-             * The identifier of the plan to update the subscription to. If omitted, the subscription will not change plans.
+             * @deprecated Use items property instead.
              */
             plan?: string;
 
@@ -4221,7 +4447,19 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
+
+            /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * instructions.
+             */
+            billing?: SubscriptionBilling;
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            items?: ISubscriptionUpdateItem[];
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -4233,9 +4471,9 @@ declare namespace Stripe {
 
         interface ISubscriptionListOptions extends IListOptionsCreated {
             /**
-             * The billing mode of the subscriptions to retrieve.
+             * The billing mode of the subscriptions to retrieve. Either "charge_automatically" or "send_invoice".
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
 
             /**
              * The ID of the customer whose subscriptions will be retrieved
@@ -4251,6 +4489,154 @@ declare namespace Stripe {
              * The status of the subscriptions to retrieve.
              */
             status?: SubscriptionStatus | "all";
+        }
+
+        interface ISubscriptionCreationItem {
+            /**
+             * Plan ID for this item.
+             */
+            plan: string;
+            
+            /**
+             * Quantity for this item.
+             */
+            quantity?: number
+        }
+
+        interface ISubscriptionUpdateItem {
+            /**
+             * SubscriptionItem to update.
+             */
+            id?: string;
+
+            /**
+             * Delete all usage for a given subscription item. Only allowed when deleted is set to true and the current plan’s 
+             * usage_type is metered.
+             */
+            clear_usage?: boolean;
+
+            /**
+             * Delete the specified item if set to true.
+             */
+            deleted?: boolean;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * Plan ID for this item.
+             */
+            plan?: string;
+            
+            /**
+             * Quantity for this item.
+             */
+            quantity?: number
+        }
+    }
+
+    namespace subscriptionItems {
+        /**
+         * Subscription items allow you to create customer subscriptions with more than one plan, making it easy to represent
+         * complex billing relationships.
+         */
+        interface ISubscriptionItem extends IResourceObject {
+            /**
+             * Value is "subscription_item"
+             */
+            object: "subscription_item";
+
+            created: number;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information 
+             * about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * Hash describing the plan the customer is subscribed to
+             */
+            plan: plans.IPlan;
+
+            /**
+             * The quantity of the plan to which the customer should be subscribed.
+             */
+            quantity: number;
+        }
+
+        interface ISubscriptionItemCreationOptions extends IDataOptionsWithMetadata {
+            /**
+             * The identifier of the plan to add to the subscription.
+             */
+            plan: string;
+
+            /**
+             * The identifier of the subscription to modify.
+             */
+            subscription: string;
+
+            /**
+             * The quantity you’d like to apply to the subscription item you’re creating.
+             */
+            quantity?: number;
+
+            /**
+             * Flag indicating whether to prorate switching plans during a billing cycle.
+             */
+            prorate?: boolean;
+
+            /**
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same
+             * proration that was previewed with the upcoming invoice endpoint.
+             */
+            proration_date?: number;
+        }
+
+        interface ISubscriptionItemUpdateOptions extends IDataOptionsWithMetadata {
+            /**
+             * The identifier of the new plan for this subscription item.
+             */
+            plan?: string;
+
+            /**
+             * Flag indicating whether to prorate switching plans during a billing cycle.
+             */
+            prorate?: boolean;
+
+            /**
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same
+             * proration that was previewed with the upcoming invoice endpoint.
+             */
+            proration_date?: number;
+
+            /**
+             * The quantity you’d like to apply to the subscription item you’re creating.
+             */
+            quantity?: number;
+        }
+
+        interface ISubscriptionItemDeleteOptions extends IDataOptions {
+            /**
+             * Flag indicating whether to prorate switching plans during a billing cycle.
+             */
+            prorate?: boolean;
+
+            /**
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same 
+             * proration that was previewed with the upcoming invoice endpoint.
+             */
+            proration_date?: number;
+        }
+
+        interface ISubscriptionItemListOptions extends IListOptionsCreated {
+            /**
+             * The ID of the subscription whose items will be retrieved.
+             */
+            subscription: string;
         }
     }
 
@@ -4304,7 +4690,7 @@ declare namespace Stripe {
             receipt_number: string;
         }
 
-        interface IRefundCreationOptions extends IDataOptions {
+        interface IRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
              * A positive integer in cents/pence representing how much of this charge to
              * refund. Can only refund up to the unrefunded amount remaining of the
@@ -4313,14 +4699,6 @@ declare namespace Stripe {
              * default is entire charge
              */
             amount?: number;
-
-            /**
-             * A set of key/value pairs that you can attach to a refund object. It can be
-             * useful for storing additional information about the refund in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IMetadata;
 
             /**
              * String indicating the reason for the refund. If set, possible values are
@@ -4638,8 +5016,8 @@ declare namespace Stripe {
              *
              * This request only accepts metadata as an argument.
              */
-            updateRefund(feeId: string, refundId: string, data: { metadata?: IMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
-            updateRefund(feeId: string, refundId: string, data: { metadata?: IMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            updateRefund(feeId: string, refundId: string, data: { metadata?: IOptionsMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            updateRefund(feeId: string, refundId: string, data: { metadata?: IOptionsMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
 
             /**
              * You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available
@@ -4683,8 +5061,8 @@ declare namespace Stripe {
              *
              * This request only accepts metadata as an argument.
              */
-            update(refundId: string, data: { metadata?: IMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
-            update(refundId: string, data: { metadata?: IMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            update(refundId: string, data: { metadata?: IOptionsMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            update(refundId: string, data: { metadata?: IOptionsMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
 
             /**
              * You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available
@@ -4785,8 +5163,7 @@ declare namespace Stripe {
              * you created a charge with the capture option set to false. Uncaptured payments expire exactly seven days after they are
              * created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.
              */
-            capture(id: string, options: HeaderOptions, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
-            capture(id: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
+            capture(id: string, data?: charges.IChargeCaptureOptions, options?: HeaderOptions, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
 
             /**
              * Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges
@@ -5574,6 +5951,61 @@ declare namespace Stripe {
             create(data: subscriptions.ISubscriptionCustCreationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
         }
 
+        class SubscriptionItems extends StripeResource {
+            /**
+             * Adds a new item to an existing subscription. No existing items will be changed or replaced.
+             *
+             * @returns The created subscription item object is returned if successful. Otherwise, this call throws an error.
+             *
+             * @param options The options for the new subscription item.
+             */
+            create(data: subscriptionItems.ISubscriptionItemCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            create(data: subscriptionItems.ISubscriptionItemCreationOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            
+            /**
+             * Retrieves the subscription item with the given ID.
+             *
+             * @returns Returns a subscription item if a valid subscription item ID was provided. Throws an error otherwise.
+             *
+             * @param subscriptionItemId The identifier of the subscription item to retrieve.
+             */
+            retrieve(subscriptionItemId: string, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            retrieve(subscriptionItemId: string, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+
+            /**
+             * Updates the plan or quantity of an item on a current subscription.
+             *
+             * @param subscriptionItemId The identifier of the subscription item to modify.
+             * @param data The fields to update
+             */
+            update(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemUpdateOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            update(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemUpdateOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+
+            /**
+             * Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+             *
+             * @returns An subscription item object with a deleted flag upon success. Otherwise, this call throws an error, such as if the 
+             * subscription item has already been deleted.
+             *
+             * @param subscriptionItemId The identifier of the subscription item to delete.
+             * @param data Specify whether to prorate and from when.
+             */
+            del(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemDeleteOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            del(subscriptionItemId: string, data: subscriptionItems.ISubscriptionItemDeleteOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            del(subscriptionItemId: string, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+            del(subscriptionItemId: string, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
+
+            /**
+             * Returns a list of your subscription items for a given subscription.
+             *
+             * @returns Returns a list of your subscription items for a given subscription.
+             *
+             * @param data Filtering options
+             */
+            list(data: subscriptionItems.ISubscriptionItemListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): Promise<IList<subscriptionItems.ISubscriptionItem>>;
+            list(data: subscriptionItems.ISubscriptionItemListOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): Promise<IList<subscriptionItems.ISubscriptionItem>>;
+        }
+
         class Disputes extends StripeResource {
             /**
              * Retrieves the dispute with the given ID.
@@ -5759,6 +6191,9 @@ declare namespace Stripe {
              *
              * @param id The ID of the invoice to pay.
              */
+            pay(id: string, data: invoices.IInvoicePayOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            pay(id: string, data: invoices.IInvoicePayOptions, response: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            pay(id: string, data: invoices.IInvoicePayOptions): Promise<invoices.IInvoice>;
             pay(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             pay(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
 
@@ -5811,6 +6246,47 @@ declare namespace Stripe {
              */
             del(invoiceItemId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
             del(invoiceItemId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+        }
+
+        class Payouts extends StripeResource {
+            /**
+             * To send funds to your own bank account, you create a new payout object. Your Stripe balance must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.
+             *
+             * If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.
+             *
+             * If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from.
+             * The balance object details available and pending amounts by source type.
+             *
+             */
+            create(data: payouts.IPayoutCreationOptions, options: HeaderOptions, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
+            create(data: payouts.IPayoutCreationOptions, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
+
+            /**
+             * Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information.
+             */
+            retrieve(payoutId: string, options: HeaderOptions, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
+            retrieve(payoutId: string, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
+
+            /**
+             * Updates the specified payout by setting the values of the parameters passed. Any parameters not provided will be left unchanged. This request accepts only the metadata as arguments.
+             */
+            update(payoutId: string, data: IDataOptionsWithMetadata, options: HeaderOptions, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
+            update(payoutId: string, data: IDataOptionsWithMetadata, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
+
+            /**
+             * Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.
+             */
+            list(data: payouts.IPayoutListOptions, options: HeaderOptions, response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
+            list(data: payouts.IPayoutListOptions, response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
+            list(response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
+
+            /**
+             * A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance, and the fees you were originally charged on the payout will be refunded.
+             * You may not cancel automatic Stripe payouts.
+             */
+            cancel(payoutId: string, options: HeaderOptions, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
+            cancel(payoutId: string, response?: IResponseFn<payouts.IPayout>): Promise<payouts.IPayout>;
         }
 
         class Plans extends StripeResource {
@@ -6302,6 +6778,10 @@ declare namespace Stripe {
         class WebHooks {
             constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
         }
+
+        class EphemeralKeys {
+            create(customer: ephemeralKeys.ICustomer, stripe_version: ephemeralKeys.IStripeVersion, response?: IResponseFn<ephemeralKeys.IEphemeralKey>): Promise<ephemeralKeys.IEphemeralKey>;
+        }
     }
 
     interface IObject {
@@ -6349,7 +6829,17 @@ declare namespace Stripe {
      * A set of key/value pairs that you can attach to an object. It can be useful for storing
      * additional information about the object in a structured format.
      */
-    interface IMetadata { }
+    interface IOptionsMetadata {
+        [x: string]: string | number;
+    }
+
+    /**
+     * A set of key/value pairs that you can attach to an object. It can be useful for storing
+     * additional information about the object in a structured format.
+     */
+    interface IMetadata {
+        [x: string]: string;
+    }
 
     interface IShippingInformation {
         /**
@@ -6478,7 +6968,7 @@ declare namespace Stripe {
          * format. You can unset an individual key by setting its value to null and
          * then saving. To clear all keys, set metadata to null, then save.
          */
-        metadata?: IMetadata;
+        metadata?: IOptionsMetadata;
     }
 
     interface IHeaderOptions {

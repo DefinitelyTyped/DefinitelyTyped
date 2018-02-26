@@ -8,4 +8,5 @@ export interface PushOptions {
     callbacks?: RemoteCallbacks;
     customHeaders?: Strarray;
     proxyOpts?: ProxyOptions;
+    [key: string]: any;
 }

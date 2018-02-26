@@ -10,6 +10,7 @@
 
 import * as net from 'net';
 import * as http from 'http';
+import * as https from 'https';
 import * as tls from 'tls';
 
 // Thrift re-exports node-int64 and Q
@@ -226,7 +227,7 @@ export interface ServiceMap<TProcessor, THandler> {
 export interface ServiceOptions<TProcessor, THandler> {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
-    processor?: { new (handler: THandler): TProcessor };
+    processor?: { new(handler: THandler): TProcessor };
     handler?: THandler;
 }
 
@@ -249,7 +250,7 @@ export interface ConnectOptions {
     retry_max_delay?: number;
     connect_timeout?: number;
     timeout?: number;
-    nodeOptions?: http.RequestOptions;
+    nodeOptions?: http.RequestOptions | https.RequestOptions;
 }
 
 export interface WSConnectOptions {
@@ -262,12 +263,12 @@ export interface WSConnectOptions {
 }
 
 export type TClientConstructor<TClient> =
-    { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } |
-    { Client: { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } };
+    { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } |
+    { Client: { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } };
 
 export type TProcessorConstructor<TProcessor, THandler> =
-    { new (handler: THandler): TProcessor } |
-    { Processor: { new (handler: THandler): TProcessor }};
+    { new(handler: THandler): TProcessor } |
+    { Processor: { new(handler: THandler): TProcessor } };
 
 export interface WebServerOptions<TProcessor, THandler> {
     services: {
@@ -360,7 +361,7 @@ export class TFramedTransport implements TTransport {
 }
 
 export interface TTransportConstructor {
-  new (buffer?: Buffer, callback?: TTransportCallback): TTransport;
+    new(buffer?: Buffer, callback?: TTransportCallback): TTransport;
 }
 
 export class TBinaryProtocol implements TProtocol {
@@ -508,7 +509,7 @@ export class TCompactProtocol implements TProtocol {
 }
 
 export interface TProtocolConstructor {
-    new (trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
+    new(trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
 }
 
 // thrift.js

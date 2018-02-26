@@ -18,3 +18,10 @@ declare namespace deepmerge {
 
     function all<T>(objects: Array<Partial<T>>, options?: Options): T;
 }
+
+declare global {
+    interface Window {
+        deepmerge<T>(x: Partial<T>, y: Partial<T>, options?: deepmerge.Options): T;
+        deepmerge<T1, T2>(x: T1, y: T2, options?: deepmerge.Options): T1 & T2;
+    }
+}

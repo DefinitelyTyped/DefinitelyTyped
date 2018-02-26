@@ -2,7 +2,7 @@
 // Project: https://github.com/tleunen/react-mdl
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
@@ -418,7 +418,7 @@ declare namespace __ReactMDL {
         hideSpacer?: boolean;
     }
     interface HeaderRowProps extends __MDLOtherProps {
-        title?: string;
+        title?: any; // string | JSX.Element
         hideSpacer?: boolean;
     }
     interface HeaderTabsProps extends __MDLOtherProps, RippleComponent {

@@ -5,7 +5,7 @@
 //                 Zheyang Song <https://github.com/ZheyangSong>,
 //                 Andrew Hathaway <https://github.com/andrewhathaway>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 
@@ -63,6 +63,11 @@ declare namespace ReactGridLayout {
          * Maximum height in grid units.
          */
         maxH?: number;
+
+        /**
+         * set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)
+         */
+        moved?: boolean;
 
         /**
          * If true, equal to `isDraggable: false` and `isResizable: false`.
@@ -135,7 +140,7 @@ declare namespace ReactGridLayout {
         /**
          * Compaction type.
          */
-        compactType?: "vertical" | "horizontal";
+        compactType?: "vertical" | "horizontal" | null;
 
         /**
          * This allows setting the initial width on the server side.
@@ -167,6 +172,16 @@ declare namespace ReactGridLayout {
          * If set to false it will disable resizing on all children.
          */
         isResizable?: boolean;
+
+        /**
+         * Enable or disable grid rearrangement when dragging/resizing an element.
+         */
+        isRearrangeable?: boolean;
+
+        /**
+         * If true, grid items won't change position when being dragged over.
+         */
+        preventCollision?: boolean;
 
         /**
          * Uses CSS3 `translate()` instead of position top/left.

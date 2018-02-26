@@ -13,11 +13,7 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "q": [
-                "q/v0"
-            ]
-        },
+        "paths": {},
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

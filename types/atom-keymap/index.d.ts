@@ -2,17 +2,19 @@
 // Project: https://github.com/atom/atom-keymap
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-/// <reference types="event-kit" />
+import { Disposable } from "event-kit";
 
 declare global {
     namespace AtomKeymap {
-        /** The event objects that are passed into the callbacks which the user provides to
+        /**
+         *  The event objects that are passed into the callbacks which the user provides to
          *  specific API calls.
          */
         namespace Events {
-            /** This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
+            /**
+             *  This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
              *  method, as well as versions of the ::stopPropagation methods that record the
              *  intent to stop propagation so event bubbling can be properly simulated for
              *  detached elements.
@@ -70,12 +72,14 @@ declare global {
             }
 
             interface AddedKeystrokeResolver {
-                /** The currently resolved keystroke string. If your function returns a falsy
+                /**
+                 *  The currently resolved keystroke string. If your function returns a falsy
                  *  value, this is how Atom will resolve your keystroke.
                  */
                 keystroke: string;
 
-                /** The raw DOM 3 `KeyboardEvent` being resolved. See the DOM API documentation
+                /**
+                 *  The raw DOM 3 `KeyboardEvent` being resolved. See the DOM API documentation
                  *  for more details.
                  */
                 event: KeyboardEvent;
@@ -83,7 +87,8 @@ declare global {
                 /** The OS-specific name of the current keyboard layout. */
                 layoutName: string;
 
-                /** An object mapping DOM 3 `KeyboardEvent.code` values to objects with the
+                /**
+                 *  An object mapping DOM 3 `KeyboardEvent.code` values to objects with the
                  *  typed character for that key in each modifier state, based on the current
                  *  operating system layout.
                  */
@@ -91,7 +96,8 @@ declare global {
             }
         }
 
-        /** The option objects that the user is expected to fill out and provide to
+        /**
+         *  The option objects that the user is expected to fill out and provide to
          *  specific API calls.
          */
         namespace Options {
@@ -120,7 +126,8 @@ declare global {
             /** Determines whether the given keystroke matches any contained within this binding. */
             matches(keystroke: string): boolean;
 
-            /** Compare another KeyBinding to this instance.
+            /**
+             *  Compare another KeyBinding to this instance.
              *  Returns <= -1 if the argument is considered lesser or of lower priority.
              *  Returns 0 if this binding is equivalent to the argument.
              *  Returns >= 1 if the argument is considered greater or of higher priority.
@@ -128,7 +135,8 @@ declare global {
             compare(other: KeyBinding): number;
         }
 
-        /** Allows commands to be associated with keystrokes in a context-sensitive way.
+        /**
+         *  Allows commands to be associated with keystrokes in a context-sensitive way.
          *  In Atom, you can access a global instance of this object via `atom.keymaps`.
          */
         interface KeymapManager {
@@ -143,29 +151,30 @@ declare global {
             destroy(): void;
 
             // Event Subscription
-            /** Invoke the given callback when one or more keystrokes completely match a key binding. */
+            /**
+             *  Invoke the given callback when one or more keystrokes completely match a
+             *  key binding.
+             */
             onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void):
-                EventKit.Disposable;
+                Disposable;
 
             /** Invoke the given callback when one or more keystrokes partially match a binding. */
             onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) =>
-                void): EventKit.Disposable;
+                void): Disposable;
 
             /** Invoke the given callback when one or more keystrokes fail to match any bindings. */
             onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) =>
-                void): EventKit.Disposable;
+                void): Disposable;
 
             /** Invoke the given callback when a keymap file is reloaded. */
-            onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void):
-                EventKit.Disposable;
+            onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
             /** Invoke the given callback when a keymap file is unloaded. */
-            onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void):
-                EventKit.Disposable;
+            onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
             /** Invoke the given callback when a keymap file not able to be loaded. */
             onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void):
-                EventKit.Disposable;
+                Disposable;
 
             // Adding and Removing Bindings
             /** Construct KeyBindings from an object grouping them by CSS selector. */
@@ -174,7 +183,7 @@ declare global {
 
             /** Add sets of key bindings grouped by CSS selector. */
             add(source: string, bindings: { [key: string]: { [key: string]: string }},
-                priority?: number): EventKit.Disposable;
+                priority?: number): Disposable;
 
             // Accessing Bindings
             /** Get all current key bindings. */
@@ -192,13 +201,15 @@ declare global {
             loadKeymap(bindingsPath: string, options?: { watch?: boolean, priority?: number }):
                 void;
 
-            /** Cause the keymap to reload the key bindings file at the given path whenever
+            /**
+             *  Cause the keymap to reload the key bindings file at the given path whenever
              *  it changes.
              */
             watchKeymap(filePath: string, options?: { priority: number }): void;
 
             // Managing Keyboard Events
-            /** Dispatch a custom event associated with the matching key binding for the
+            /**
+             *  Dispatch a custom event associated with the matching key binding for the
              *  given `KeyboardEvent` if one can be found.
              */
             handleKeyboardEvent(event: KeyboardEvent): void;
@@ -208,9 +219,10 @@ declare global {
 
             /** Customize translation of raw keyboard events to keystroke strings. */
             addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string):
-                EventKit.Disposable;
+                Disposable;
 
-            /** Get the number of milliseconds allowed before pending states caused by
+            /**
+             *  Get the number of milliseconds allowed before pending states caused by
              *  partial matches of multi-keystroke bindings are terminated.
              */
             getPartialMatchTimeout(): number;

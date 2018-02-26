@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { match } from "react-router";
 import * as React from 'react';
@@ -27,24 +27,24 @@ export {
 
 export interface BrowserRouterProps {
     basename?: string;
-    getUserConfirmation?(): void;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     forceRefresh?: boolean;
     keyLength?: number;
 }
-export class BrowserRouter extends React.Component<BrowserRouterProps> {}
+export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
     basename?: string;
-    getUserConfirmation?(): void;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     hashType?: 'slash' | 'noslash' | 'hashbang';
 }
-export class HashRouter extends React.Component<HashRouterProps> {}
+export class HashRouter extends React.Component<HashRouterProps, any> {}
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
     replace?: boolean;
 }
-export class Link extends React.Component<LinkProps> {}
+export class Link extends React.Component<LinkProps, any> {}
 
 export interface NavLinkProps extends LinkProps {
     activeClassName?: string;
@@ -54,4 +54,4 @@ export interface NavLinkProps extends LinkProps {
     isActive?<P>(match: match<P>, location: H.Location): boolean;
     location?: H.Location;
 }
-export class NavLink extends React.Component<NavLinkProps> {}
+export class NavLink extends React.Component<NavLinkProps, any> {}

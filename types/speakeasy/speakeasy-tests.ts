@@ -38,3 +38,11 @@ speakeasy.otpauthURL({
     secret: 'otpauthURLSecret',
     label: 'otpauthURLLength'
 });
+
+speakeasy.totp.verify({secret: "secret", token: "123456"})
+
+speakeasy.totp.verifyDelta({secret: "secret", token: "123456"})
+
+speakeasy.hotp.verify({secret: "secret", token: "123456", counter: 123})
+
+speakeasy.hotp.verifyDelta({secret: "secret", token: "123456", counter: 123})

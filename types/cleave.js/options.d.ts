@@ -10,6 +10,8 @@ export type CreditCardType =
     | "mastercard"
     | "uatp"
     | "unknown"
+    | "unionPay"
+    | "mir"
     | "visa";
 export type CreditCardTypeChangeHandler = (owner: HTMLInputElement, type: CreditCardType) => void;
 
@@ -33,7 +35,7 @@ export interface CleaveOptions {
 }
 
 // Numeral Options
-export type NumeralThousandsGroupStyleType = "lakh" | "thousand" | "wan";
+export type NumeralThousandsGroupStyleType = "lakh" | "thousand" | "wan" | "none";
 
 export interface CleaveOptions {
     numeral?: boolean;
@@ -55,6 +57,7 @@ export interface CleaveOptions {
     lowercase?: boolean;
     numericOnly?: boolean;
     prefix?: string;
+    noImmediatePrefix?: boolean;
     rawValueTrimPrefix?: boolean;
     uppercase?: boolean;
 }

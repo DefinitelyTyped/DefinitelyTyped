@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLUListElement> {
+export interface NavProps extends React.HTMLProps<HTMLUListElement> {
   inline?: boolean;
   disabled?: boolean;
   tabs?: boolean;
@@ -13,5 +13,5 @@ interface Props extends React.HTMLProps<HTMLUListElement> {
   vertical?: boolean;
 }
 
-declare var Nav: React.StatelessComponent<Props>;
+declare const Nav: React.StatelessComponent<NavProps>;
 export default Nav;

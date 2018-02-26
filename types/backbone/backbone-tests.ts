@@ -159,6 +159,9 @@ function test_collection() {
     var book1: Book = new Book({ title: "Title 1", author: "Mike" });
     books.add(book1);
 
+    // Test adding sort option to add.
+    books.add(new Book(), { sort: true });
+
     // Objects can be added to collection by casting to model type.
     // Compiler will check if object properties are valid for the cast.
     // This gives better type checking than declaring an `any` overload.
@@ -180,6 +183,8 @@ function test_collection() {
 
     var alphabetical = books.sortBy((book: Book): number => null);
 
+    var copy = books.clone();
+
     let one: Book;
     let models: Book[];
     let bool: boolean;
@@ -188,6 +193,7 @@ function test_collection() {
     let modelsDict: _.Dictionary<Book[]>;
     let num: number;
 
+    models = books.slice();
     models = books.slice(1);
     models = books.slice(1, 3);
 
@@ -403,6 +409,12 @@ namespace v1Changes {
                 validate: false
             });
         }
+
+        function test_set() {
+            var collection = new EmployeeCollection();
+            var model = new Employee();
+            collection.set([model], { add: false, remove: true, merge: false });
+        }
     }
 
     namespace Router {
@@ -412,5 +424,11 @@ namespace v1Changes {
             router.navigate('/employees', { trigger: true });
             router.navigate('/employees', true);
         }
+    }
+
+    namespace Sync {
+        // Test for Backbone.sync override.
+        Backbone.sync('create', new Employee());
+        Backbone.sync('read', new EmployeeCollection());
     }
 }

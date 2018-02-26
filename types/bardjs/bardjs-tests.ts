@@ -5,7 +5,7 @@ var expect = chai.expect,
     assert = chai.assert;
 
 class MyService {
-    constructor(private $q: angular.IQService) {}
+    constructor(private readonly $q: angular.IQService) {}
 
     remoteCall(): angular.IPromise<string[]> {
         return new this.$q((resolve, reject) => {

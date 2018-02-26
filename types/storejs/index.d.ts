@@ -8,7 +8,7 @@
 
 interface StoreJsAPI {
     readonly version: string;
-    readonly enabled: string;
+    readonly enabled: boolean;
     get(key: string, optionalDefaultValue?: any): any;
     set(key: string, value: any): any;
     remove(key: string): void;

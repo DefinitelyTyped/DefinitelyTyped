@@ -2,6 +2,7 @@
 // Project: https://github.com/restify/plugins
 // Definitions by: Костя Третяк <https://github.com/KostyaTretyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { RequestHandler, Server, Request, Response, Route } from 'restify';
 import Logger = require('bunyan');

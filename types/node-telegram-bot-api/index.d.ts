@@ -4,7 +4,8 @@
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
+
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
