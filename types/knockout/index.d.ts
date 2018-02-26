@@ -409,19 +409,6 @@ interface KnockoutTasks {
 }
 
 /////////////////////////////////
-type KnockoutObservableTypeParameter<T> = {
-    [P in keyof T]: KnockoutObservable<T[P]>|T[P];
-};
-type KnockoutObservableType<T> = {
-    [P in keyof T]: KnockoutObservable<T[P]>;
-};
-type KnockoutObservableTypeRecursive<T> = {
-    [P in keyof T]: KnockoutObservable<KnockoutObservableSubTypeRecursive<T[P]>|T[P]>;
-};
-type KnockoutObservableSubTypeRecursive<T> = {
-    [P in keyof T]: KnockoutObservable<T[P]>;
-};
-
 interface KnockoutStatic {
     utils: KnockoutUtils;
     memoization: KnockoutMemoization;
