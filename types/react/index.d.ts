@@ -2462,7 +2462,7 @@ declare namespace React {
         slot?: string;
         spellCheck?: boolean;
         style?: CSSProperties;
-        tabIndex?: number;
+        tabIndex?: string | number;
         title?: string;
 
         // Unknown
@@ -3207,7 +3207,7 @@ declare namespace React {
 
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
-        tabIndex?: number;
+        tabIndex?: string | number;
 
         // SVG Specific attributes
         accentHeight?: number | string;
