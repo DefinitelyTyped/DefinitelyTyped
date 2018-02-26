@@ -42,7 +42,7 @@ export interface Paginated<T> {
     data: T[];
 }
 
-export type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | undefined);
+export type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | void);
 
 export interface HookContext<T> {
     app?: Application;
