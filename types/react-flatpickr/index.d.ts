@@ -7,12 +7,11 @@
 import { Component } from 'react';
 import { Options } from 'flatpickr';
 
-export interface DateTimePickerProps {
+export interface DateTimePickerProps extends HTMLElement {
     defaultValue?: string;
     options?: Options.Options;
     onChange?: Options.Hook;
     value?: string;
-    className?: string;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}
