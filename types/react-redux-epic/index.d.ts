@@ -12,11 +12,9 @@ export interface Action {
     type: string;
 }
 
-export function wrapRootEpic<T extends Action>(
-    epic: Epic<T, any, any>
-): typeof epic;
+export function wrapRootEpic(epic: Epic<any, any>): typeof epic;
 
-export function renderToString<T extends Action>(
+export function renderToString(
     element: React.ReactElement<any>,
-    wrappedEpic: Epic<T, any, any>
+    wrappedEpic: Epic<any, any>
 ): Observable<{ markup: string }>;
