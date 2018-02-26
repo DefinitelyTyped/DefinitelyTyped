@@ -1,4 +1,3 @@
-// @ts-check
 /// <reference types="node"/>
 
 import singleLineLog = require('single-line-log');
