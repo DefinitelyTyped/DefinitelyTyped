@@ -535,7 +535,14 @@ export type NavigatorType =
 | 'react-navigation/DRAWER';
 
 export function addNavigationHelpers<S = {}>(
-    navigation: NavigationProp<S>
+  navigation: {
+    state: S;
+    dispatch: (action: NavigationAction) => any;
+    addListener?: (
+      eventName: string,
+      callback: NavigationEventCallback
+    ) => NavigationEventSubscription;
+  }
 ): NavigationScreenProp<S>;
 
 export interface NavigationContainerProps {
