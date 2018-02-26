@@ -334,6 +334,10 @@ export interface RequestLog {
     channel: string;
 }
 
+export interface RequestQuery {
+    [key: string]: string | string[];
+}
+
 /**
  * The request object is created internally for each incoming request. It is not the same object received from the node
  * HTTP server callback (which is available via [request.raw.req](https://github.com/hapijs/hapi/blob/master/API.md#request.raw)). The request properties change throughout
@@ -464,7 +468,7 @@ export interface Request extends Podium {
      * By default the object outputted from node's URL parse() method. Might also be set indirectly via request.setUrl in which case it may be a string (if url is set to an object with the query
      * attribute as an unparsed string).
      */
-    readonly query: any;
+    readonly query: RequestQuery | string;
 
     /**
      * An object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.
@@ -1630,6 +1634,13 @@ export interface RouteOptionsValidate {
 export type RouteCompressionEncoderSettings = object;
 
 /**
+ * Empty interface to allow for user-defined augmentations.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface RouteOptionsApp {
+}
+
+/**
  * Each route can be customized to change the default behavior of the request lifecycle.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
  */
@@ -1638,7 +1649,7 @@ export interface RouteOptions {
      * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
      */
-    app?: any;
+    app?: RouteOptionsApp;
 
     /**
      * Route authentication configuration. Value can be:
@@ -2574,7 +2585,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app?: any;
+    app?: ApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
@@ -2656,7 +2667,7 @@ export interface ServerMethodOptions {
      * unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which
      * takes the same arguments as the function and returns a unique string (or null if no key can be generated).
      */
-    generateKey?: (...args: any[]) => any;
+    generateKey?: (...args: any[]) => string | null;
 }
 
 /**
@@ -2711,6 +2722,13 @@ export interface ServerOptionsCompression {
 }
 
 /**
+ * Empty interface to allow for custom augmentation.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface ServerOptionsApp {
+}
+
+/**
  * The server options control the behavior of the server object. Note that the options object is deeply cloned
  * (with the exception of listener which is shallowly copied) and should not contain any values that are unsafe to perform deep copy on.
  * All options are optionals.
@@ -2732,7 +2750,7 @@ export interface ServerOptions {
      * state.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionsapp)
      */
-    app?: any;
+    app?: ServerOptionsApp;
 
     /**
      * Default value: true.
@@ -3213,6 +3231,13 @@ export interface HandlerDecorationMethod {
 export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 
 /**
+ * An empty interface to allow typings of custom plugin properties.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface PluginProperties {
+}
+
+/**
  * The server object is the main application container. The server manages all incoming requests along with all
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#server)
@@ -3363,7 +3388,7 @@ export class Server extends Podium {
      * the server.plugins[name] object directly or via the server.expose() method.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins)
      */
-    plugins: any;
+    plugins: PluginProperties;
 
     /**
      * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When

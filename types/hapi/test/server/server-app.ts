@@ -8,7 +8,7 @@ const options: ServerOptions = {
 declare module "hapi" {
 	// Demonstrate augmenting the application state.
 	interface ApplicationState {
-		key: string;
+		key?: string;
 	}
 }
 
