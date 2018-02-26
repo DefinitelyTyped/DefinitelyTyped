@@ -88,6 +88,11 @@ describe('A spy', () => {
     expect(spy).toHaveBeenCalledWith(1, 2, 3);
   });
 
+  it('accepts to have been called with any object', () => {
+    spy({});
+    expect(spy).toHaveBeenCalledWith(expect.any(Object));
+  });
+
   describe('that calls some other function', () => {
     let otherContext: any;
     let otherArguments: any;

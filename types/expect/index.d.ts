@@ -60,7 +60,7 @@ declare namespace expect {
         toHaveBeenCalledWith(...args: any[]): Expectation<T>;
 
         not: Expectation<T>;
-        
+
         // deprecated
         withContext(context: any): Expectation<T>;
         withArgs(...args: any[]): Expectation<T>;
@@ -95,6 +95,7 @@ declare namespace expect {
     function restoreSpies(): void;
     function assert(condition: boolean, messageFormat: string, ...extraArgs: any[]): void;
     function extend(extension: Extension): void;
+    function any<T>(ctor: { new (): T }): T;
 }
 
 declare function expect<T>(actual: T): expect.Expectation<T>;
