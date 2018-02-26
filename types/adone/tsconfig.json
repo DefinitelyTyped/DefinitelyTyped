@@ -87,6 +87,7 @@
         "glosses/text/table.d.ts",
         "glosses/text/unicode.d.ts",
         "glosses/utils.d.ts",
+        "glosses/vault.d.ts",
         "index.d.ts",
         "test/glosses/application.ts",
         "test/glosses/archives.ts",
@@ -148,6 +149,7 @@
         "test/glosses/text/table.ts",
         "test/glosses/text/unicode.ts",
         "test/glosses/utils.ts",
+        "test/glosses/vault.ts",
         "test/index-import.ts",
         "test/index.ts"
     ]

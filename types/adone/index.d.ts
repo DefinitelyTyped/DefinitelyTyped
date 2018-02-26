@@ -34,6 +34,7 @@
 /// <reference path="./glosses/templating/index.d.ts" />
 /// <reference path="./glosses/text/index.d.ts" />
 /// <reference path="./glosses/utils.d.ts" />
+/// <reference path="./glosses/vault.d.ts" />
 
 declare const _adone: typeof adone;
 
