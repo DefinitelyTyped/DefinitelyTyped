@@ -3,7 +3,7 @@
 // Definitions by: Jan Lohage <https://github.com/j2L4e>, Abraao Alves <https://github.com/AbraaoAlves>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -30,7 +30,7 @@ export type ServerSideParams = Params;
 
 export interface Params {
     query?: Query;
-    paginate: false | Pick<PaginationOptions, 'max'>;
+    paginate?: false | Pick<PaginationOptions, 'max'>;
 
     [key: string]: any; // (JL) not sure if we want this
 }
@@ -42,10 +42,11 @@ export interface Paginated<T> {
     data: T[];
 }
 
-export type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | undefined);
+// tslint:disable-next-line void-return
+export type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | void);
 
 export interface HookContext<T> {
-    app?: Application<any>;
+    app?: Application;
     data?: T;
     error?: any;
     id?: string | number;
@@ -89,7 +90,7 @@ export interface ServiceMethods<T> {
 }
 
 export interface SetupMethod {
-    setup(app: Application<any>, path: string): void;
+    setup(app: Application, path: string): void;
 }
 
 export interface ServiceOverloads<T> {
@@ -106,7 +107,7 @@ export interface ServiceAddons<T> extends EventEmitter {
 
 export type Service<T> = ServiceOverloads<T> & ServiceAddons<T> & ServiceMethods<T>;
 
-export interface Application<ServiceTypes> extends EventEmitter {
+export interface Application<ServiceTypes = any> extends EventEmitter {
     get(name: string): any;
 
     set(name: string, value: any): this;
@@ -129,7 +130,7 @@ export interface Application<ServiceTypes> extends EventEmitter {
 
     service(location: string): Service<any>;
 
-    use(path: string, service: Partial<ServiceMethods<any> & SetupMethod> | Application<any>, options?: any): this;
+    use(path: string, service: Partial<ServiceMethods<any> & SetupMethod> | Application, options?: any): this;
 
     version: string;
 }
