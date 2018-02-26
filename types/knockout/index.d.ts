@@ -439,7 +439,7 @@ interface KnockoutStatic {
     contextFor(node: any): any;
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
-
+  
     toJS(viewModel: any): any;
 
     isObservable(instance: any): instance is KnockoutObservable<any>;
@@ -450,7 +450,7 @@ interface KnockoutStatic {
 
     isComputed(instance: any): instance is KnockoutComputed<any>;
     isComputed<T>(instance: KnockoutObservable<T> | T): instance is KnockoutComputed<T>;
-
+  
     dataFor(node: any): any;
     removeNode(node: Node): void;
     cleanNode(node: Node): Node;
