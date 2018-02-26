@@ -1,4 +1,4 @@
-// Type definitions for WebdriverIO 4.10.2
+// Type definitions for WebdriverIO 4.10
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
