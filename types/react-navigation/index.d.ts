@@ -109,7 +109,7 @@ export interface NavigationRouter<State, Action, Options> {
    * an optional previous state. When the action is considered handled but the
    * state is unchanged, the output state is null.
    */
-  getStateForAction: (action: Action, lastState: (State | null)) => (State | null);
+  getStateForAction: (action: Action, lastState?: State) => (State | null);
 
   /**
    * Maps a URI-like string to an action. This can be mapped to a state
