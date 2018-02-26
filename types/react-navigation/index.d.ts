@@ -269,7 +269,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
   headerPressColorAndroid?: string;
   headerRight?: React.ReactElement<any>;
   headerStyle?: StyleProp<ViewStyle>;
-  headerBackground?: React.ReactNode | React.ComponentType;
+  headerBackground?: React.ReactNode | React.ReactType;
   gesturesEnabled?: boolean;
   gestureResponseDistance?: { vertical?: number; horizontal?: number };
 };
@@ -580,7 +580,7 @@ export function StackNavigator(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: React.ComponentType;
+export const DrawerItems: React.ReactType;
 
 /**
  * Drawer Navigator
@@ -589,7 +589,7 @@ export interface DrawerViewConfig {
   drawerBackgroundColor?: string;
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
-  contentComponent?: React.ComponentType;
+  contentComponent?: React.ReactType;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }
@@ -616,7 +616,7 @@ export function DrawerNavigator(
 
 // From views/TabView/TabView.js
 export interface TabViewConfig {
-  tabBarComponent?: React.ComponentType;
+  tabBarComponent?: React.ReactType;
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,
