@@ -1601,6 +1601,10 @@ declare namespace R {
          * Returns a new list with the same elements as the original list, just in the reverse order.
          */
         reverse<T>(list: ReadonlyArray<T>): T[];
+        /**
+         * Returns a new string with the characters in reverse order.
+         */
+        reverse(str: string): string;
 
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
