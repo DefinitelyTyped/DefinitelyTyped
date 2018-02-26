@@ -56,11 +56,11 @@ const pipesConfigFullEmpty: Bagpipes.Config = {
   userViewsDirs: []
 };
 
-let pipesA = Bagpipes.create(perDefsMixed, {
+const pipesA = Bagpipes.create(perDefsMixed, {
   connectMiddlewareDirs: ['some_dir', 'ssssss'],
   swaggerNodeRunner: {}
 });
-let pipeA = pipesA.getPipe('HelloWorld');
+const pipeA = pipesA.getPipe('HelloWorld');
 
 // log the output to standard out
 pipeA.fit((context, cb) => {
@@ -81,7 +81,7 @@ const pipeErrTest = pipesEnty.pipes['any'].fit((context, cb) => {
 pipesEnty.play(pipeErrTest, {});
 
 const fittingsC = ["xxxx", "aaa"].map((name) => {
-  let fittingDef = {} as Bagpipes.PipeDefMap;
+  const fittingDef = {} as Bagpipes.PipeDefMap;
   fittingDef[name] = 'nothing';
   return fittingDef;
 });
@@ -95,6 +95,6 @@ bagpipesD.play(bagpipesD.getPipe('objPipe'), {});
 // Test full create
 const userFittingsDirs = ['./fixtures/fittings'];
 const pipeWithString = ['emit'];
-let contextPlain = {};
+const contextPlain = {};
 const bagpipesWithPipeAndFittings = Bagpipes.create({ myCustomPipe: pipeWithString }, { userFittingsDirs });
 bagpipesWithPipeAndFittings.play(bagpipesWithPipeAndFittings.getPipe('myCustomPipe'), contextPlain);

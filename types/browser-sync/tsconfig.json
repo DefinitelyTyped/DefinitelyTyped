@@ -7,7 +7,13 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
+        "paths": {
+            "micromatch": [
+                "micromatch/v2"
+            ]
+        },
         "typeRoots": [
             "../"
         ],

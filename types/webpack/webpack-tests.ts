@@ -1,4 +1,5 @@
-import * as webpack from 'webpack';
+import webpack = require('webpack');
+import { RawSourceMap } from 'source-map';
 
 const {
     optimize,
@@ -77,6 +78,26 @@ configuration = {
 };
 
 //
+// https://webpack.js.org/configuration/entry-context/#dynamic-entry
+//
+
+configuration = {
+    entry: () => './demo'
+};
+
+configuration = {
+    entry: () => ['./demo', './demo2']
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve('./demo'))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+//
 // https://webpack.github.io/docs/code-splitting.html
 //
 
@@ -96,10 +117,10 @@ configuration = {
     ]
 };
 
-configuration =  {
+configuration = {
     entry: { a: "./a", b: "./b" },
     output: { filename: "[name].js" },
-    plugins: [ new webpack.optimize.CommonsChunkPlugin("init.js") ]
+    plugins: [new webpack.optimize.CommonsChunkPlugin({ name: "init.js" })]
 };
 
 //
@@ -141,7 +162,7 @@ configuration = {
         filename: "[name].entry.chunk.js"
     },
     plugins: [
-        new CommonsChunkPlugin("commons.chunk.js")
+        new CommonsChunkPlugin({ name: "commons.chunk.js" })
     ]
 };
 
@@ -214,7 +235,7 @@ configuration = {
 
 configuration = {
     resolve: {
-        root: __dirname
+        modules: [__dirname]
     }
 };
 
@@ -324,6 +345,15 @@ plugin = new webpack.optimize.OccurrenceOrderPlugin(preferEntry);
 plugin = new webpack.optimize.UglifyJsPlugin(options);
 plugin = new webpack.optimize.UglifyJsPlugin();
 plugin = new webpack.optimize.UglifyJsPlugin({
+    parallel: true
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
+    parallel: {
+        cache: true,
+        workers: 2
+    }
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
         warnings: false
     }
@@ -422,8 +452,15 @@ plugin = new webpack.LoaderOptionsPlugin({
     debug: true
 });
 plugin = new webpack.EnvironmentPlugin(['a', 'b']);
-plugin = new webpack.EnvironmentPlugin({a: true, b: 'c'});
-plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
+plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
+plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
+plugin = new webpack.ProgressPlugin((percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => { });
+plugin = new webpack.HashedModuleIdsPlugin();
+plugin = new webpack.HashedModuleIdsPlugin({
+    hashFunction: 'sha256',
+    hashDigest: 'hex',
+    hashDigestLength: 20
+});
 
 //
 // http://webpack.github.io/docs/node.js-api.html
@@ -473,8 +510,10 @@ declare function successfullyCompiled(): void;
 webpack({
     // configuration
 }, (err, stats) => {
-    if (err)
-        return handleFatalError(err);
+    if (err) {
+        handleFatalError(err);
+        return;
+    }
     const jsonStats = stats.toJson();
     const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
@@ -496,18 +535,24 @@ webpack({
         source: true,
         timings: true,
         version: true,
-        warnings: true
+        warnings: true,
+        warningsFilter: ["filter", /filter/],
+        excludeAssets: ["filter", "excluded"]
     });
-    if (jsonStats.errors.length > 0)
-        return handleSoftErrors(jsonStats.errors);
-    if (jsonStats.warnings.length > 0)
+
+    if (jsonStats.errors.length > 0) {
+        handleSoftErrors(jsonStats.errors);
+        return;
+    }
+    if (jsonStats.warnings.length > 0) {
         handleWarnings(jsonStats.warnings);
+    }
     successfullyCompiled();
 });
 
 declare const fs: any;
 
-compiler = webpack({ });
+compiler = webpack({});
 compiler.outputFileSystem = fs;
 compiler.run((err, stats) => {
     // ...
@@ -532,47 +577,49 @@ rule = {
 configuration = {
     module: {
         rules: [
-            { oneOf: [
-                {
-                    test: {
-                        and: [
-                            /a.\.js$/,
-                            /b\.js$/
-                        ]
-                    },
-                    loader: "./loader?first"
-                },
-                {
-                    test: [
-                        require.resolve("./a"),
-                        require.resolve("./c"),
-                    ],
-                    issuer: require.resolve("./b"),
-                    use: [
-                        "./loader?second-1",
-                        {
-                            loader: "./loader",
-                            options: "second-2"
+            {
+                oneOf: [
+                    {
+                        test: {
+                            and: [
+                                /a.\.js$/,
+                                /b\.js$/
+                            ]
                         },
-                        {
-                            loader: "./loader",
-                            options: {
-                                get: () => "second-3"
-                            }
-                        }
-                    ]
-                },
-                {
-                    test: {
-                        or: [
+                        loader: "./loader?first"
+                    },
+                    {
+                        test: [
                             require.resolve("./a"),
                             require.resolve("./c"),
+                        ],
+                        issuer: require.resolve("./b"),
+                        use: [
+                            "./loader?second-1",
+                            {
+                                loader: "./loader",
+                                options: "second-2"
+                            },
+                            {
+                                loader: "./loader",
+                                options: {
+                                    get: () => "second-3"
+                                }
+                            }
                         ]
                     },
-                    loader: "./loader",
-                    options: "third"
-                }
-            ]}
+                    {
+                        test: {
+                            or: [
+                                require.resolve("./a"),
+                                require.resolve("./c"),
+                            ]
+                        },
+                        loader: "./loader",
+                        options: "third"
+                    }
+                ]
+            }
         ]
     }
 };
@@ -585,14 +632,6 @@ class TestResolvePlugin implements webpack.ResolvePlugin {
     }
 }
 
-const resolve: webpack.Resolve = {
-    plugins: [
-        new TestResolvePlugin()
-    ],
-    symlinks: false,
-    cachePredicate: 'boo' // why does this test _not_ fail!?
-};
-
 const performance: webpack.Options.Performance = {
     hints: 'error',
     maxEntrypointSize: 400000,
@@ -604,21 +643,25 @@ configuration = {
     performance,
 };
 
-function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: string): void {
+function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap?: RawSourceMap): void {
     this.cacheable();
 
     this.async();
 
     this.addDependency('');
 
-    this.resolve('context', 'request', ( err: Error, result: string) => {});
+    this.resolve('context', 'request', (err: Error, result: string) => { });
 
-    this.emitError('wraning');
+    this.emitWarning('warning message');
+    this.emitWarning(new Error('warning message'));
+
+    this.emitError('error message');
+    this.emitError(new Error('error message'));
 
     this.callback(null, source);
 }
 
 (loader as webpack.loader.Loader).raw = true;
-(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
+(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => { };
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);

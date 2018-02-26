@@ -1,6 +1,6 @@
 // Type definitions for wordcloud
 // Project: https://github.com/timdream/wordcloud2.js
-// Definitions by: Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function WordCloud(elements: HTMLElement | HTMLElement[], options: WordCloud.Options): void;

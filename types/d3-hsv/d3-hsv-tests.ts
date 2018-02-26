@@ -6,13 +6,13 @@
  * are not intended as functional tests.
  */
 
-import {hsv, HSVColor} from 'd3-hsv';
-import {rgb, RGBColor} from 'd3-color';
+import { hsv, HSVColor } from 'd3-hsv';
+import { rgb, RGBColor } from 'd3-color';
 
-let c: RGBColor,
-    cHSV: HSVColor,
-    displayable: boolean,
-    cString: string;
+let c: RGBColor;
+let cHSV: HSVColor;
+let displayable: boolean;
+let cString: string;
 
 // hsv signature
 cHSV = hsv(120, 0.4, 0.5);

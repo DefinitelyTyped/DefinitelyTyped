@@ -1,7 +1,14 @@
-let featureCollection: GeoJSON.FeatureCollection<any> =  {
+import {
+    BBox,
+    Feature, FeatureCollection, GeometryCollection, LineString,
+    MultiLineString, MultiPoint, MultiPolygon, Point, Polygon, GeometryObject
+} from "geojson";
+
+let featureCollection: FeatureCollection<Point | LineString | Polygon | MultiPoint | MultiLineString | MultiPolygon | GeometryCollection> = {
     type: "FeatureCollection",
     features: [
         {
+            id: 1234,
             type: "Feature",
             geometry: {
                 type: "Point",
@@ -12,6 +19,7 @@ let featureCollection: GeoJSON.FeatureCollection<any> =  {
             }
         },
         {
+            id: "stringid",
             type: "Feature",
             geometry: {
                 type: "LineString",
@@ -32,7 +40,7 @@ let featureCollection: GeoJSON.FeatureCollection<any> =  {
             geometry: {
                 type: "Polygon",
                 coordinates: [
-                    [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
+                    [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
                 ]
             },
             properties: {
@@ -42,17 +50,10 @@ let featureCollection: GeoJSON.FeatureCollection<any> =  {
                 }
             }
         }
-    ],
-    crs: {
-        type: "link",
-        properties: {
-            href: "http://example.com/crs/42",
-            type: "proj4"
-        }
-    }
+    ]
 };
 
-let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
+const featureWithPolygon: Feature<Polygon> = {
     type: "Feature",
     bbox: [-180.0, -90.0, 180.0, 90.0],
     geometry: {
@@ -64,57 +65,57 @@ let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
     properties: null
 };
 
-let point: GeoJSON.Point = {
-	type: "Point",
-	coordinates: [100.0, 0.0]
+const point: Point = {
+    type: "Point",
+    coordinates: [100.0, 0.0]
 };
 
 // This type is commonly used in the turf package
-let pointCoordinates: number[] = point.coordinates;
+const pointCoordinates: number[] = point.coordinates;
 
-let lineString: GeoJSON.LineString = {
-	type: "LineString",
-	coordinates: [ [100.0, 0.0], [101.0, 1.0] ]
+const lineString: LineString = {
+    type: "LineString",
+    coordinates: [[100.0, 0.0], [101.0, 1.0]]
 };
 
-let polygon: GeoJSON.Polygon = {
+const polygon: Polygon = {
     type: "Polygon",
     coordinates: [
-        [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
+        [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]
     ]
 };
 
-let polygonWithHole: GeoJSON.Polygon = {
+const polygonWithHole: Polygon = {
     type: "Polygon",
     coordinates: [
-        [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
-        [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
+        [[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
+        [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]
     ]
 };
 
-let multiPoint: GeoJSON.MultiPoint = {
+const multiPoint: MultiPoint = {
     type: "MultiPoint",
-    coordinates: [ [100.0, 0.0], [101.0, 1.0] ]
+    coordinates: [[100.0, 0.0], [101.0, 1.0]]
 };
 
-let multiLineString: GeoJSON.MultiLineString = {
+const multiLineString: MultiLineString = {
     type: "MultiLineString",
     coordinates: [
-        [ [100.0, 0.0], [101.0, 1.0] ],
-        [ [102.0, 2.0], [103.0, 3.0] ]
+        [[100.0, 0.0], [101.0, 1.0]],
+        [[102.0, 2.0], [103.0, 3.0]]
     ]
 };
 
-let multiPolygon: GeoJSON.MultiPolygon = {
+const multiPolygon: MultiPolygon = {
     type: "MultiPolygon",
     coordinates: [
         [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
         [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
-         [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]]
+        [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]]
     ]
 };
 
-let geometryCollection: GeoJSON.GeometryCollection = {
+const geometryCollection: GeometryCollection = {
     type: "GeometryCollection",
     geometries: [
         {
@@ -123,16 +124,17 @@ let geometryCollection: GeoJSON.GeometryCollection = {
         },
         {
             type: "LineString",
-            coordinates: [ [101.0, 0.0], [102.0, 1.0] ]
+            coordinates: [[101.0, 0.0], [102.0, 1.0]]
         }
     ]
 };
 
-let feature: GeoJSON.Feature<GeoJSON.GeometryObject> = {
+let feature: Feature<GeometryObject> = {
     type: "Feature",
     geometry: lineString,
     properties: null
 };
+
 feature = {
     type: "Feature",
     geometry: polygon,
@@ -170,38 +172,79 @@ featureCollection = {
         {
             type: "Feature",
             geometry: lineString,
-            properties: {test: 'OK'}
+            properties: { test: "OK" }
         }, {
             type: "Feature",
             geometry: polygon,
-            properties: {test: 'OK'}
+            properties: { test: "OK" }
         }, {
             type: "Feature",
             geometry: polygonWithHole,
-            properties: {test: 'OK'}
+            properties: { test: "OK" }
         }, {
             type: "Feature",
             geometry: multiPoint,
-            properties: {test: 'OK'}
+            properties: { test: "OK" }
         }, {
             type: "Feature",
             geometry: multiLineString,
-            properties: {test: 'OK'}
+            properties: { test: "OK" }
         }, {
             type: "Feature",
             geometry: multiPolygon,
-            properties: {test: 'OK'}
+            properties: { test: "OK" }
         }, {
             type: "Feature",
             geometry: geometryCollection,
-            properties: {test: 'OK'}
+            properties: { test: "OK" }
         }
-    ],
-    crs: {
-        type: "link",
-        properties: {
-            href: "http://example.com/crs/42",
-            type: "proj4"
-        }
+    ]
+};
+
+// Allow access to custom properties
+const pt: Feature<Point> = {
+    type: "Feature",
+    properties: {
+        foo: "bar",
+        hello: "world",
+        1: 2
+    },
+    geometry: {
+        type: "Point",
+        coordinates: [0, 0]
     }
+};
+
+if (pt.properties) {
+    if (pt.properties.foo == null || pt.properties.hello == null || pt.properties[1] == null) {
+        throw TypeError("Properties should not be null or undefined.");
+    }
+} else {
+    throw TypeError("Feature should have a 'properties' property.");
+}
+
+// Optional generic for properties
+
+interface TestProperty {
+    foo: "bar" | "baz";
+    hello: string;
+}
+
+const testProps: TestProperty = {
+    foo: "bar",
+    hello: "world"
+};
+
+const typedPropertiesFeature: Feature<Point> = {
+    type: "Feature",
+    properties: testProps,
+    geometry: {
+        type: "Point",
+        coordinates: [0, 0]
+    }
+};
+
+const typedPropertiesFeatureCollection: FeatureCollection<Point> = {
+    type: "FeatureCollection",
+    features: [typedPropertiesFeature]
 };

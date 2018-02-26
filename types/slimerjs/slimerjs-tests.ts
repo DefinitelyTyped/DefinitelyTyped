@@ -48,8 +48,8 @@ page.onLoadFinished = (vStatus) => {
 page.onInitialized = () => {
 };
 
+declare const oCookie: Cookie;
 page.onPageCreated = (oPage) => {
-  let oCookie: Cookie;
   oPage.addCookie(oCookie);
 };
 
@@ -57,7 +57,7 @@ page.open(vUrl) // loads a page
   .then(() => { // executed after loading
     page.viewportSize = { width: 414, height: 736 };
 
-    let vFilename = `../data/page01.png`;
+    const vFilename = `../data/page01.png`;
     page.render(vFilename, {onlyViewport: true});
 
     // then open a second page

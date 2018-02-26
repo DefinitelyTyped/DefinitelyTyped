@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module URL_Fetch {
@@ -25,28 +25,58 @@ declare namespace GoogleAppsScript {
       getResponseCode(): Integer;
     }
 
-    /**
-     *
-     * Deprecated. This class is deprecated and should not be used in new scripts.
-     * Represents configuration settings for an OAuth-enabled remote service.
-     * See also
-     *
-     * UrlFetchApp
-     */
-    export interface OAuthConfig {
-      getAccessTokenUrl(): string;
-      getAuthorizationUrl(): string;
-      getMethod(): string;
-      getParamLocation(): string;
-      getRequestTokenUrl(): string;
-      getServiceName(): string;
-      setAccessTokenUrl(url: string): void;
-      setAuthorizationUrl(url: string): void;
-      setConsumerKey(consumerKey: string): void;
-      setConsumerSecret(consumerSecret: string): void;
-      setMethod(method: string): void;
-      setParamLocation(location: string): void;
-      setRequestTokenUrl(url: string): void;
+    export interface URLFetchRequestOptions {
+        /**
+         * the content type (defaults to 'application/x-www-form-urlencoded'). Another example of content
+         * type is 'application/xml; charset=utf-8'.
+         */
+        contentType?: string;
+
+        /**
+         * a JavaScript key/value map of HTTP headers for the request
+         */
+        headers?: Object;
+
+        /**
+         * the HTTP method for the request: get, delete, patch, post, or put. The default is get.
+         */
+        method?: 'get' | 'delete' | 'patch' | 'post' | 'put';
+
+        /**
+         * the payload (e.g. POST body) for the request. Certain HTTP methods (e.g. GET) do not accept a
+         * payload. It can be a string, a byte array, or a JavaScript object. A JavaScript object will be
+         * interpretted as a map of form field names to values, where the values can be either strings or blobs.
+         */
+        payload?: string;
+
+        /**
+         * Deprecated. This instructs fetch to resolve the specified URL within the intranet linked to your
+         * domain through (deprecated) SDC
+         */
+        useIntranet?: boolean;
+
+        /**
+         * if this is set to false, the fetch will ignore any invalid certificates for HTTPS requests.
+         * The default is true.
+         */
+        validateHttpsCertificates?: boolean;
+
+        /**
+         * if this is set to false, the fetch not automatically follow HTTP redirects; it will return
+         * the original HTTP response. The default is true.
+         */
+        followRedirects?: boolean;
+
+        /**
+         * if this is set to true, the fetch will not throw an exception if the response code indicates
+         * failure, and will instead return the HTTPResponse (default: false)
+         */
+        muteHttpExceptions?: boolean;
+
+        /**
+         * if this is set to false, reserved characters in the URL will not be escaped (default: true)
+         */
+        escaping?: boolean;
     }
 
     /**
@@ -58,17 +88,11 @@ declare namespace GoogleAppsScript {
      *  and scaling purposes.
      * See also
      *
-     * OAuthConfig
-     *
      * HTTPResponse
      */
     export interface UrlFetchApp {
-      fetch(url: string): HTTPResponse;
-      fetch(url: string, params: Object): HTTPResponse;
-      getRequest(url: string): Object;
-      getRequest(url: string, params: Object): Object;
-      addOAuthService(serviceName: string): OAuthConfig;
-      removeOAuthService(serviceName: string): void;
+      fetch(url: string, params?: URLFetchRequestOptions): HTTPResponse;
+      getRequest(url: string, params?: URLFetchRequestOptions): Object;
     }
 
   }

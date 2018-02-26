@@ -1,4 +1,4 @@
-import * as sharp from "sharp";
+import sharp = require("sharp");
 import { createReadStream, createWriteStream } from "fs";
 
 // Test samples taken from the official documentation
@@ -58,7 +58,7 @@ console.log(sharp.format);
 console.log(sharp.versions);
 
 sharp.queue.on('change', (queueLength: number) => {
-    console.log('Queue contains ' + queueLength + ' task(s)');
+    console.log(`Queue contains ${queueLength} task(s)`);
 });
 
 let pipeline: sharp.SharpInstance = sharp().rotate();
@@ -200,3 +200,9 @@ let simd: boolean = sharp.simd();
 
 simd = sharp.simd(true);
 // attempts to enable the use of SIMD, returning true if available
+
+const vipsVersion: string = sharp.versions.vips;
+
+if (sharp.versions.cairo) {
+    const cairoVersion: string = sharp.versions.cairo;
+}

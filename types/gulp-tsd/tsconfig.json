@@ -7,16 +7,11 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "q": [ "q/v0" ]
-        },
-        "paths": {
-            "q": [ "q/v0" ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

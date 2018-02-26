@@ -1,5 +1,10 @@
 import * as angular from 'angular';
 
+
+interface TestScope extends angular.IScope {
+    [index: string]: any;
+}
+
 angular
     .module('angular-locker-tests', ['angular-locker'])
 .config(['lockerProvider', function config(lockerProvider: angular.locker.ILockerProvider) {
@@ -13,7 +18,7 @@ angular
 
     lockerProvider.defaults(lockerSettings);
 }])
-.controller('LockerController', ['$scope', 'locker', function ($scope: angular.IScope, locker: angular.locker.ILockerService) {
+.controller('LockerController', ['$scope', 'locker', function ($scope: TestScope, locker: angular.locker.ILockerService) {
     locker.put('someKey', 'someVal');
 
     // put an item into session storage
@@ -126,7 +131,7 @@ angular
     $scope['foo']; // = undefined
     locker.get('foo'); // = undefined
 
-    if (! locker.supported()) {
+    if (! locker.supported('session')) {
         // load a polyfill?
     }
 }]);

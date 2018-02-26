@@ -1,11 +1,11 @@
-
-import * as supertest from 'supertest';
-import * as express from 'express';
+import supertest = require('supertest');
+import express = require('express');
 
 const app = express();
+const request: supertest.SuperTest<supertest.Test> = supertest(app);
 
-supertest(app)
-  .get('/user')
+(request
+  .get('/user') as supertest.Test)
   .expect('Content-Type', /json/)
   .expect('Content-Length', '20')
   .expect(201)
@@ -14,7 +14,6 @@ supertest(app)
   });
 
 // cookie scenario
-const request = supertest(app);
 const agent = supertest.agent();
 request
   .post('/login')
@@ -22,7 +21,7 @@ request
     if (err) throw err;
     agent.saveCookies(res);
 
-    const req = request.get('/admin');
+    const req = request.get('/admin') as supertest.Test;
     agent.attachCookies(req);
     req.expect(200, (err: any, res: supertest.Response) => {
       if (err) throw err;
@@ -36,15 +35,20 @@ client
   .end((err: any, res: supertest.Response) => {
     if (err) throw err;
 
-    client.get('/admin')
+    (client.get('/admin') as supertest.Test)
       .expect(200, (err: any, res: supertest.Response) => {
         if (err) throw err;
       });
   });
 
+// allow passing trusted CA as option to TestAgent
+supertest.agent(app, {
+  ca: 'test ca',
+});
+
 // functional expect
-supertest(app)
-  .get('/')
+(request
+  .get('/') as supertest.Test)
   .expect(hasPreviousAndNextKeys)
   .end((err: any, res: supertest.Response) => {
     if (err) throw err;
@@ -56,8 +60,8 @@ function hasPreviousAndNextKeys(res: supertest.Response) {
 }
 
 // object expect
-supertest(app)
-  .get('/')
+(request
+  .get('/') as supertest.Test)
   .expect(200, { foo: 'bar' })
   .end((err: any, res: supertest.Response) => {
     if (err) throw err;

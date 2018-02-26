@@ -3,6 +3,12 @@
 // Definitions by: David Pires <https://github.com/Davidblkx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare const ScrollReveal: scrollReveal.ScrollRevealObject;
+
+declare module 'ScrollReveal' {
+    export = ScrollReveal;
+}
+
 declare namespace scrollReveal {
     interface ScrollRevealRotateObject {
         x?: number;
@@ -64,5 +70,3 @@ declare namespace scrollReveal {
         sync(): void;
     }
 }
-
-declare var ScrollReveal: scrollReveal.ScrollRevealObject;

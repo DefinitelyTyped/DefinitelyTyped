@@ -26,7 +26,70 @@ declare namespace libphonenumber {
         UNKNOWN = -1
     }
 
-    interface PhoneNumber {
+    export module PhoneNumber {
+        export enum CountryCodeSource {
+            FROM_NUMBER_WITH_PLUS_SIGN = 1,
+            FROM_NUMBER_WITH_IDD = 5,
+            FROM_NUMBER_WITHOUT_PLUS_SIGN = 10,
+            FROM_DEFAULT_COUNTRY = 20,
+        }
+    }
+
+    export class PhoneNumber {
+        getCountryCode(): number | undefined;
+        getCountryCodeOrDefault(): number;
+        setCountryCode(value: number): void;
+        hasCountryCode(): boolean;
+        countryCodeCount(): number;
+        clearCountryCode(): void;
+        getNationalNumber(): number | undefined;
+        getNationalNumberOrDefault(): number;
+        setNationalNumber(value: number): number;
+        hasNationalNumber(): boolean;
+        nationalNumberCount(): number;
+        clearNationalNumber(): void;
+
+        getExtension(): string | undefined;
+        getExtensionOrDefault(): string;
+        setExtension(value: string): void;
+        hasExtension(): boolean;
+        extensionCount(): number;
+        clearExtension(): void;
+
+        getItalianLeadingZero(): boolean | undefined;
+        getItalianLeadingZeroOrDefault(): boolean;
+        setItalianLeadingZero(value: boolean): void;
+        hasItalianLeadingZero(): boolean;
+        italianLeadingZeroCount(): number;
+        clearItalianLeadingZero(): void;
+
+        getNumberOfLeadingZeros(): number | undefined;
+        getNumberOfLeadingZerosOrDefault(): number;
+        setNumberOfLeadingZeros(value: number): void;
+        hasNumberOfLeadingZeros(): boolean;
+        numberOfLeadingZerosCount(): number;
+        clearNumberOfLeadingZeros(): void;
+
+        getRawInput(): string | undefined;
+        getRawInputOrDefault(): string;
+        setRawInput(value: string): void;
+        hasRawInput(): boolean;
+        rawInputCount(): number;
+        clearRawInput(): void;
+
+        getCountryCodeSource(): PhoneNumber.CountryCodeSource | undefined;
+        getCountryCodeSourceOrDefault(): PhoneNumber.CountryCodeSource;
+        setCountryCodeSource(value: PhoneNumber.CountryCodeSource): void;
+        hasCountryCodeSource(): boolean;
+        countryCodeSourceCount(): number;
+        clearCountryCodeSource(): void;
+
+        getPreferredDomesticCarrierCode(): string | undefined;
+        getPreferredDomesticCarrierCodeOrDefault(): string;
+        setPreferredDomesticCarrierCode(value: string): void;
+        hasPreferredDomesticCarrierCode(): boolean;
+        preferredDomesticCarrierCodeCount(): number;
+        clearPreferredDomesticCarrierCode(): void;
     }
 
     export module PhoneNumberUtil {
@@ -36,20 +99,41 @@ declare namespace libphonenumber {
             TOO_SHORT,
             TOO_LONG
         }
+
+        export enum MatchType {
+            EXACT_MATCH,
+            NO_MATCH,
+            NOT_A_NUMBER,
+            NSN_MATCH,
+            SHORT_NSN_MATCH
+        }
     }
 
     export class PhoneNumberUtil {
         static getInstance(): PhoneNumberUtil
-        parse(number: string, region: string): PhoneNumber;
-        isValidNumber(phoneNumber: PhoneNumber): boolean;
-        isPossibleNumber(phoneNumber: PhoneNumber): boolean;
-        isPossibleNumberWithReason(phoneNumber: PhoneNumber): PhoneNumberUtil.ValidationResult;
-        isValidNumberForRegion(phoneNumber: PhoneNumber, region: string): boolean;
-        getNumberType(phoneNumber: PhoneNumber): PhoneNumberType; 
-        getRegionCodeForNumber(phoneNumber: PhoneNumber): string;
-        isNANPACountry(regionCode: string): boolean;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
-        parseAndKeepRawInput(number: string, regionCode: string): PhoneNumber;
+        getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
+        getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
+        getCountryCodeForRegion(supportedRegion:string):string;
+        getRegionCodeForCountryCode(countryCallingCode: number): string;
+        getRegionCodeForNumber(phoneNumber: PhoneNumber): string | undefined;
+        getSupportedRegions():string [];
+        isAlphaNumber(number: string): boolean;
+        isLeadingZeroPossible(countryCallingCode: number): boolean;
+        isNANPACountry(regionCode?: string): boolean;
+        isPossibleNumber(number: PhoneNumber): boolean;
+        isPossibleNumber(phoneNumber: PhoneNumber): boolean;
+        isPossibleNumberForType(number: PhoneNumber, type: PhoneNumberType): boolean;
+        isPossibleNumberForTypeWithReason(number: PhoneNumber, type: PhoneNumberType): PhoneNumberUtil.ValidationResult;
+        isPossibleNumberString(number: string, regionDialingFrom: string): boolean;
+        isPossibleNumberWithReason(number: PhoneNumber): PhoneNumberUtil.ValidationResult;
+        isPossibleNumberWithReason(phoneNumber: PhoneNumber): PhoneNumberUtil.ValidationResult;
+        isValidNumber(phoneNumber: PhoneNumber): boolean;
+        isValidNumberForRegion(phoneNumber: PhoneNumber, region?: string): boolean;
+        parse(number?: string, region?: string): PhoneNumber;
+        parseAndKeepRawInput(number: string, regionCode?: string): PhoneNumber;
+        truncateTooLongNumber(number: PhoneNumber): boolean;
+        isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
     }
 
     export class AsYouTypeFormatter {

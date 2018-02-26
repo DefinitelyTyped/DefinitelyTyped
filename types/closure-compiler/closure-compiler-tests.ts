@@ -1,4 +1,4 @@
-import {compile} from 'closure-compiler';
+import { compile } from 'closure-compiler';
 
 compile('some.source()', {'check-only': null},
         (err: Error, stdout: string, stderr: string): void => {

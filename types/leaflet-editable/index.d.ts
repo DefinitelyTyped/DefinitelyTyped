@@ -2,38 +2,39 @@
 // Project: https://github.com/yohanboniface/Leaflet.Editable
 // Definitions by: Dominic Alie <https://github.com/dalie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as Leaflet from "leaflet";
+import * as Leaflet from 'leaflet';
 
-declare global { namespace L {
+declare module 'leaflet' {
     /**
      * Make geometries editable in Leaflet.
      *
      * This is not a plug and play UI, and will not. This is a minimal, lightweight, and fully extendable API to
      * control editing of geometries. So you can easily build your own UI with your own needs and choices.
      */
-    export interface EditableStatic {
+    interface EditableStatic {
         new (map: Map, options: EditOptions): Editable;
     }
 
     /**
      * Options to pass to L.Editable when instanciating.
      */
-    export interface EditOptions {
+    interface EditOptions {
         /**
          * Class to be used when creating a new Polyline.
          */
-        polylineClass?: Object;
+        polylineClass?: object;
 
         /**
          * Class to be used when creating a new Polygon.
          */
-        polygonClass?: Object;
+        polygonClass?: object;
 
         /**
          * Class to be used when creating a new Marker.
          */
-        markerClass?: Object;
+        markerClass?: object;
 
         /**
          * CSS class to be added to the map container while drawing.
@@ -43,42 +44,42 @@ declare global { namespace L {
         /**
          * Layer used to store edit tools (vertex, line guide…).
          */
-        editLayer?: Leaflet.LayerGroup<Leaflet.ILayer>;
+        editLayer?: LayerGroup<ILayer>;
 
         /**
          * Default layer used to store drawn features (marker, polyline…).
          */
-        featuresLayer?: Leaflet.LayerGroup<L.Polyline|L.Polygon|L.Marker>;
+        featuresLayer?: LayerGroup<Polyline|Polygon|Marker>;
 
         /**
          * Class to be used as vertex, for path editing.
          */
-        vertexMarkerClass?: Object;
+        vertexMarkerClass?: object;
 
         /**
          * Class to be used as middle vertex, pulled by the user to create a new point in the middle of a path.
          */
-        middleMarkerClass?: Object;
+        middleMarkerClass?: object;
 
         /**
          * Class to be used as Polyline editor.
          */
-        polylineEditorClass?: Object;
+        polylineEditorClass?: object;
 
         /**
          * Class to be used as Polygon editor.
          */
-        polygonEditorClass?: Object;
+        polygonEditorClass?: object;
 
         /**
          * Class to be used as Marker editor.
          */
-        markerEditorClass?: Object;
+        markerEditorClass?: object;
 
         /**
          * Options to be passed to the line guides.
          */
-        lineGuideOptions?: Object;
+        lineGuideOptions?: object;
 
         /**
          * Set this to true if you don't want middle markers.
@@ -92,7 +93,7 @@ declare global { namespace L {
      * This is not a plug and play UI, and will not. This is a minimal, lightweight, and fully extendable API to
      * control editing of geometries. So you can easily build your own UI with your own needs and choices.
      */
-    export interface Editable extends Mixin.LeafletMixinEvents {
+    interface Editable extends Mixin.LeafletMixinEvents {
         /**
          * Options to pass to L.Editable when instanciating.
          */
@@ -104,20 +105,20 @@ declare global { namespace L {
          * Start drawing a polyline. If latlng is given, a first point will be added. In any case, continuing on user
          * click. If options is given, it will be passed to the polyline class constructor.
          */
-        startPolyline(latLng?: LatLng, options?: Leaflet.PolylineOptions): L.Polyline;
+        startPolyline(latLng?: LatLng, options?: PolylineOptions): Polyline;
 
         /**
          * Start drawing a polygon. If latlng is given, a first point will be added. In any case, continuing on user
          * click. If options is given, it will be passed to the polygon class constructor.
          */
-        startPolygon(latLng?: LatLng, options?: Leaflet.PolylineOptions): L.Polygon;
+        startPolygon(latLng?: LatLng, options?: PolylineOptions): Polygon;
 
         /**
          * Start adding a marker. If latlng is given, the marker will be shown first at this point. In any case, it
          * will follow the user mouse, and will have a final latlng on next click (or touch). If options is given,
          * it will be passed to the marker class constructor.
          */
-        startMarker(latLng?: LatLng, options?: Leaflet.MarkerOptions): L.Marker;
+        startMarker(latLng?: LatLng, options?: MarkerOptions): Marker;
 
         /**
          * When you need to stop any ongoing drawing, without needing to know which editor is active.
@@ -125,14 +126,14 @@ declare global { namespace L {
         stopDrawing(): void;
     }
 
-    export var Editable: EditableStatic;
+    let Editable: EditableStatic;
 
     /**
      * EditableMixin is included to L.Polyline, L.Polygon and L.Marker. It adds the following methods to them.
      *
      * When editing is enabled, the editor is accessible on the instance with the editor property.
      */
-    export interface EditableMixin {
+    interface EditableMixin {
         /**
          * Enable editing, by creating an editor if not existing, and then calling enable on it.
          */
@@ -154,7 +155,7 @@ declare global { namespace L {
         editEnabled(): boolean;
     }
 
-    export interface Map {
+    interface Map {
         /**
          * Whether to create a L.Editable instance at map init or not.
          */
@@ -171,11 +172,11 @@ declare global { namespace L {
         editTools: Editable;
     }
 
-    export interface Polyline extends EditableMixin {
-    }
+    // tslint:disable-next-line:no-empty-interface
+    interface Polyline extends EditableMixin {}
 
     namespace Map {
-        export interface MapOptions {
+        interface MapOptions {
             /**
              * Whether to create a L.Editable instance at map init or not.
              */
@@ -192,7 +193,7 @@ declare global { namespace L {
      * When editing a feature (marker, polyline…), an editor is attached to it. This editor basically knows
      * how to handle the edition.
      */
-    export interface BaseEditor {
+    interface BaseEditor {
         /**
          * Set up the drawing tools for the feature to be editable.
          */
@@ -208,7 +209,7 @@ declare global { namespace L {
      * Inherit from L.Editable.BaseEditor.
      * Inherited by L.Editable.PolylineEditor and L.Editable.PolygonEditor.
      */
-    export interface PathEditor extends BaseEditor {
+    interface PathEditor extends BaseEditor {
         /**
          * Rebuild edit elements (vertex, middlemarker, etc.).
          */
@@ -218,7 +219,7 @@ declare global { namespace L {
     /**
      * Inherit from L.Editable.PathEditor.
      */
-    export interface PolylineEditor extends PathEditor {
+    interface PolylineEditor extends PathEditor {
         /**
          * Set up drawing tools to continue the line forward.
          */
@@ -233,7 +234,7 @@ declare global { namespace L {
     /**
      * Inherit from L.Editable.PathEditor.
      */
-    export interface PolygonEditor extends PathEditor {
+    interface PolygonEditor extends PathEditor {
         /**
          * Set up drawing tools for creating a new hole on the polygon. If the latlng param is given, a first
          * point is created.
@@ -244,15 +245,12 @@ declare global { namespace L {
     /**
      * Inherit from L.Editable.BaseEditor.
      */
-    export interface MarkerEditor extends BaseEditor {
-    }
+    // tslint:disable-next-line:no-empty-interface
+    interface MarkerEditor extends BaseEditor {}
 
-    export interface Marker extends EditableMixin, MarkerEditor {
-    }
+    interface Marker extends EditableMixin, MarkerEditor {}
 
-    export interface Polyline extends EditableMixin, PolylineEditor {
-    }
+    interface Polyline extends EditableMixin, PolylineEditor {}
 
-    export interface Polygon extends EditableMixin, PolygonEditor {
-    }
-} }
+    interface Polygon extends EditableMixin, PolygonEditor {}
+}

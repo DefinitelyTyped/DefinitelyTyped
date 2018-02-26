@@ -2,6 +2,7 @@
 // Project: https://github.com/markitup/1.x
 // Definitions by: drillbits <https://github.com/drillbits>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -219,6 +220,9 @@ declare namespace MarkItUp {
          * Returns true if the Alt key is pressed when the callback is fired.
          */
         altKey?: boolean;
+
+        /** Not documented on the markitup site, but present in the tests */
+        separator?: string;
     }
 
     interface Static {

@@ -107,60 +107,48 @@ namespace Paging {
 
   testCollection.getFirstPage(options);
 
-  // 'silent's type is boolean. (structural subtyping)
-  testCollection.getFirstPage({silent: 'aa'});
-  // 'url's type is string. (structural subtyping)
-  testCollection.getFirstPage({url: true});
+  testCollection.getFirstPage({silent: false});
+  testCollection.getFirstPage({url: 'zombocom'});
 
 
   result = testCollection.getLastPage();
 
   testCollection.getLastPage(options);
 
-  // 'silent's type is boolean. (structural subtyping)
-  testCollection.getLastPage({silent: 'aa'});
-  // 'url's type is string. (structural subtyping)
-  testCollection.getLastPage({url: true});
+  testCollection.getLastPage({silent: true});
+  testCollection.getLastPage({url: 'chickensnack'});
 
 
   result = testCollection.getNextPage();
 
   testCollection.getNextPage(options);
 
-  // 'silent's type is boolean. (structural subtyping)
-  testCollection.getNextPage({silent: 'aa'});
-  // 'url's type is string. (structural subtyping)
-  testCollection.getNextPage({url: true});
+  testCollection.getNextPage({silent: false});
+  testCollection.getNextPage({url: 'hampsterdance'});
 
 
   result = testCollection.getPage(1);
 
   testCollection.getPage("1", options);
 
-  // 'silent's type is boolean. (structural subtyping)
-  testCollection.getPage(1, {silent: 'aa'});
-  // 'url's type is string. (structural subtyping)
-  testCollection.getPage(1, {url: true});
+  testCollection.getPage(1, {silent: true});
+  testCollection.getPage(1, {url: 'badcandy'});
 
 
   result = testCollection.getPageByOffset(1);
 
   testCollection.getPageByOffset(1, options);
 
-  // 'silent's type is boolean. (structural subtyping)
-  testCollection.getPageByOffset(1, {silent: 'aa'});
-  // 'url's type is string. (structural subtyping)
-  testCollection.getPageByOffset(1, {url: true});
+  testCollection.getPageByOffset(1, {silent: false});
+  testCollection.getPageByOffset(1, {url: 'oldmanmurray'});
 
 
   result = testCollection.getPreviousPage();
 
   testCollection.getPreviousPage(options);
 
-  // 'silent's type is boolean. (structural subtyping)
-  testCollection.getPreviousPage({silent: 'aa'});
-  // 'url's type is string. (structural subtyping)
-  testCollection.getPreviousPage({url: true});
+  testCollection.getPreviousPage({silent: false});
+  testCollection.getPreviousPage({url: 'uncyclopedia'});
 
 
   var hasPage:boolean = testCollection.hasNextPage();
@@ -231,7 +219,7 @@ namespace Setting {
 
 
   var result2:TestCollection
-    = testCollection.setSorting('id', 1, options);
+    = testCollection.setSorting('id', 1, { full: true});
 
   result1 = testCollection.switchMode(
   'server',

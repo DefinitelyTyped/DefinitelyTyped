@@ -1,4 +1,5 @@
-/// <reference types="node" />
+declare var console: { log(...args: any[]): void };
+declare var setTimeout: (cb: () => void, timeout: number) => void;
 
 import steed = require('steed');
 

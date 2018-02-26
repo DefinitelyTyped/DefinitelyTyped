@@ -1,18 +1,18 @@
-import * as Agenda from "agenda";
+import Agenda = require("agenda");
 
 var mongoConnectionString = "mongodb://127.0.0.1/agenda";
 
 var agenda = new Agenda({ db: { address: mongoConnectionString } });
- 
- 
+
+
 agenda.define('delete old users', (job, done) => {
 
 });
 
 agenda.on('ready', () => {
     agenda.every('3 minutes', 'delete old users');
- 
-    // Alternatively, you could also do: 
+
+    // Alternatively, you could also do:
     agenda.every('*/3 * * * *', 'delete old users');
 
     agenda.start();
@@ -80,6 +80,8 @@ agenda.purge(function(err, numRemoved) {
 agenda.stop(function() {
     process.exit(0);
 });
+
+job.agenda.now('do the hokey pokey');
 
 job.repeatEvery('10 minutes');
 

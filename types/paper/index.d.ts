@@ -1,9 +1,14 @@
-// Type definitions for Paper.js v0.9.22
+// Type definitions for Paper.js v0.9.24
 // Project: http://paperjs.org/
-// Definitions by: Clark Stevenson <http://github.com/clark-stevenson>
+// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Jon Lucas <https://github.com/Xakaloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'paper' {
+type NativeMouseEvent = MouseEvent;
+
+/**
+ * @namespace paper
+ */
+declare module paper {
 
     /**
      * The version of Paper.js, as a string.
@@ -468,7 +473,7 @@ declare module 'paper' {
          * @param angle - the rotation angle
          * @param center - the center point of the rotation
          */
-        rotate(angle: number, center: Point): Point;
+        rotate(angle: number, center?: Point): Point;
 
         /**
          * Transforms the point by the matrix as a new point. The object itself is not modified!
@@ -549,6 +554,36 @@ declare module 'paper' {
          * Returns a new point with the absolute values of the specified x and y values. The object itself is not modified!
          */
         abs(): Point;
+
+        /*
+         * Returns a new point
+         * @param point - The point you want to add with
+         */
+        add(point: Point): Point;
+        add(point: number[]): Point;
+
+        /*
+         * Returns a new point
+         * @param point - The point you want to subtract with
+         */
+        subtract(point: Point): Point;
+        subtract(point: number[]): Point;
+
+        /*
+         * Returns the new multiplied point
+         * @param point - The point you want to multiply with
+         */
+        multiply(point: Point): Point;
+        multiply(point: number[]): Point;
+        multiply(point: number): Point;
+
+        /*
+         * Returns the new divided point
+         * @param point - The point you want to divide with
+         */
+        divide(point: Point): Point;
+        divide(point: number[]): Point;
+        divide(point: number): Point;
 
     }
     /**
@@ -755,33 +790,33 @@ declare module 'paper' {
          * The rectangle.contains(point) method does not return true for points on the right or bottom edges of a rectangle. Therefore, if the added point falls on the left or bottom edge of the enlarged rectangle, rectangle.contains(point) returns false for that point.
          * @param point - the point to add to the rectangle
          */
-        include(point: Point): Point;
+        include(point: Point): Rectangle;
 
         /**
          * Expands the rectangle by the specified amount in horizontal and vertical directions.
          * @param amount - the amount to expand the rectangle in both directions
          */
-        expand(amount: number | Size | Point): void;
+        expand(amount: number | Size | Point): Rectangle;
 
         /**
          * Expands the rectangle by the specified amounts in horizontal and vertical directions.
          * @param hor - the amount to expand the rectangle in horizontal direction
          * @param ver - the amount to expand the rectangle in vertical direction
          */
-        expand(hor: number, ver: number): void;
+        expand(hor: number, ver: number): Rectangle;
 
         /**
          * Scales the rectangle by the specified amount from its center.
          * @param amount - the amount to scale by
          */
-        scale(amount: number): void;
+        scale(amount: number): Rectangle;
 
         /**
          * Scales the rectangle in horizontal direction by the specified hor amount and in vertical direction by the specified ver amount from its center.
          * @param hor - the amount to scale the rectangle in horizontal direction
          * @param ver - the amount to scale the rectangle in vertical direction
          */
-        scale(hor: number, ver: number): void;
+        scale(hor: number, ver: number): Rectangle;
 
     }
     /**
@@ -893,6 +928,36 @@ declare module 'paper' {
          * Returns a new size with the absolute values of the specified width and height values. The object itself is not modified!
          */
         abs(): Size;
+
+        /*
+         * Returns a new size
+         * @param size - The size you want to add with
+         */
+        add(size: Size): Size;
+        add(size: number[]): Size;
+
+        /*
+         * Returns a new size
+         * @param size - The size you want to subtract with
+         */
+        subtract(size: Size): Size;
+        subtract(size: number[]): Size;
+
+        /*
+         * Returns the new multiplied size
+         * @param size - The size you want to multiply with
+         */
+        multiply(size: Size): Size;
+        multiply(size: number[]): Size;
+        multiply(size: number): Size;
+
+        /*
+         * Returns the new divided size
+         * @param size - The size you want to divide with
+         */
+        divide(size: Size): Size;
+        divide(size: number[]): Size;
+        divide(size: number): Size;
 
     }
     export interface IFrameEvent {
@@ -1224,6 +1289,11 @@ declare module 'paper' {
         fillColor: Color | string;
 
         /**
+         * The fill rule.
+         */
+        fillRule: string;
+
+        /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
          */
         selectedColor: Color | string;
@@ -1238,6 +1308,11 @@ declare module 'paper' {
          * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
          */
         onMouseDown: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
 
         /**
          * The function to be called when the mouse button is released over the item.
@@ -1278,9 +1353,11 @@ declare module 'paper' {
 
         /**
          * Clones the item within the same project and places the copy above the item.
-         * @param insert [optional] - specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options [optional] - object with 2 parameters
+         * insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * deep: specifies whether the item’s children should also be cloned — default: true
          */
-        clone(insert?: boolean): Item;
+        clone(options?: { insert?: boolean, deep?: boolean }): Item;
 
         /**
          * When passed a project, copies the item to the project, or duplicates it within the same project. When passed an item, copies the item into the specified item.
@@ -1329,7 +1406,7 @@ declare module 'paper' {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; match?: (hit: HitResult) => boolean; }): HitResult;
 
         /**
          * Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through matches(name, compare).
@@ -1431,6 +1508,20 @@ declare module 'paper' {
          * @param item - the item below which it should be inserted
          */
         insertBelow(item: Item): Item;
+
+        /**
+         * Moves this item above the specified item. Returns true if the item
+         * was moved.
+         * @param item - the item above which it should be moved
+         */
+        moveAbove(item: Item): boolean;
+
+        /**
+         * Moves this item below the specified item. Returns true if the item
+         * was moved.
+         * @param item - the item below which it should be moved
+         */
+        moveBelow(item: Item): boolean;
 
         /**
          * Sends this item to the back of all other items within the same parent.
@@ -1551,7 +1642,7 @@ declare module 'paper' {
          * Translates (moves) the item by the given offset point.
          * @param delta - the offset to translate the item by
          */
-        translate(delta: number): Point;
+        translate(delta: Point): Point;
 
         /**
          * Rotates the item by a given angle around the given point.
@@ -1560,6 +1651,11 @@ declare module 'paper' {
          * @param center [optional] - default: item.position
          */
         rotate(angle: number, center?: Point): void;
+
+        /**
+         * Gets the current rotation of the item.
+         */
+        getRotation(): number;
 
         /**
          * Scales the item by the given value from its center point, or optionally from a supplied point.
@@ -1883,6 +1979,7 @@ declare module 'paper' {
          * @param position [optional] - the center position at which the raster item is placed
          */
         constructor(source?: HTMLImageElement | HTMLCanvasElement | string, position?: Point);
+        constructor(config: any);
 
         /**
          * The size of the raster in pixels.
@@ -2001,8 +2098,7 @@ declare module 'paper' {
          * @param data
          * @param point
          */
-        getImageData(data: ImageData, point: Point): void;
-
+        setImageData(data: ImageData, point: Point): void;
     }
     /**
      * A PlacedSymbol represents an instance of a symbol which has been placed in a Paper.js project.
@@ -2105,7 +2201,7 @@ declare module 'paper' {
          * @param handle2 - The second control point handle for the curve
          * @param to - The end control point of the curve
          */
-        cublicCurveTo(handle1: Point, handle2: Point, to: Point): void;
+        cubicCurveTo(handle1: Point, handle2: Point, to: Point): void;
 
         /**
          * Adds a quadratic bezier curve to the path, defined by a handle and a to point.
@@ -2168,7 +2264,7 @@ declare module 'paper' {
          * @param handle2 -
          * @param to -
          */
-        cublicCurveBy(handle1: Point, handle2: Point, to: Point): void;
+        cubicCurveBy(handle1: Point, handle2: Point, to: Point): void;
 
         /**
          *
@@ -2228,117 +2324,10 @@ declare module 'paper' {
     export class Path extends PathItem {
 
         /**
-         * Creates a linear path item from two points describing a line.
-         * @param from - the line's starting point
-         * @param to - the line's ending point
-         */
-        static Line(from: Point, to: Point): Path;
-
-        /**
-         * Creates a linear path item from the properties described by an object literal.
-         * @param object - an object literal containing properties describing the path's attributes
-         */
-        static Line(object: any): Path;
-
-        /**
-         * Creates a circular path item.
-         * @param center - the center point of the circle
-         * @param radius - the radius of the circle
-         */
-        static Circle(center: Point, radius: number): Path;
-
-        /**
-         * Creates a circular path item from the properties described by an object literal.
-         * @param object - an object literal containing properties describing the path's attributes
-         */
-        static Circle(object: any): Path;
-
-        /**
-         * Creates a rectangular path item, with optionally rounded corners.
-         * @param rectangle - the rectangle object describing the geometry of the rectangular path to be created.
-         * @param radius [optional] - the size of the rounded corners default: null
-         */
-        static Rectangle(rectangle: Rectangle, radius?: number): Path;
-
-        /**
-         * Creates a rectangular path item from a point and a size object.
-         * @param point - the rectangle's top-left corner.
-         * @param size - the rectangle's size.
-         */
-        static Rectangle(point: Point, size: Size): Path;
-
-        /**
-         * Creates a rectangular path item from the passed points. These do not necessarily need to be the top left and bottom right corners, the constructor figures out how to fit a rectangle between them.
-         * @param from - the first point defining the rectangle
-         * @param to - the second point defining the rectangle
-         */
-        static Rectangle(from: Point, to: Point): Path;
-
-        /**
-         * Creates a rectangular path item from the properties described by an object literal.
-         * @param object - an object literal containing properties describing the path's attributes
-         */
-        static Rectangle(object: any): Path;
-
-        /**
-         * Creates an elliptical path item.
-         * @param rectangle - the rectangle circumscribing the ellipse
-         */
-        static Ellipse(rectangle: Rectangle): Path;
-
-        /**
-         * Creates an elliptical path item from the properties described by an object literal.
-         * @param object - an object literal containing properties describing the path's attributes
-         */
-        static Ellipse(object: any): Path;
-        /**
-         * Creates a circular arc path item
-         * @param from - the starting point of the circular arc
-         * @param through - the point the arc passes through
-         * @param to - the end point of the arc
-         */
-        static Arc(from: Point, through: Point, to: Point): Path;
-
-        /**
-         * Creates an circular arc path item from the properties described by an object literal.
-         * @param object - an object literal containing properties describing the path's attributes
-         */
-        static Arc(object: any): Path;
-
-        /**
-         * Creates a regular polygon shaped path item.
-         * @param center - the center point of the polygon
-         * @param sides - the number of sides of the polygon
-         * @param radius - the radius of the polygon
-         */
-        static RegularPolygon(center: Point, sides: number, radius: number): Path;
-
-        /**
-         * Creates a regular polygon shaped path item from the properties described by an object literal.
-         * @param object - an object literal containing properties describing the path's attributes
-         */
-        static RegularPolygon(object: any): Path;
-
-        /**
-         * Creates a star shaped path item. The largest of radius1 and radius2 will be the outer radius of the star. The smallest of radius1 and radius2 will be the inner radius.
-         * @param center - the center point of the star
-         * @param points - the number of points of the star
-         * @param radius1
-         * @param radius2
-         */
-        static Star(center: Point, points: number, radius1: number, radius2: number): Path;
-
-        /**
-         * Creates a star shaped path item from the properties described by an object literal.
-         * @param object - an object literal containing properties describing the path's attributes
-         */
-        static Star(object: any): Path;
-
-        /**
          * Creates a new path item and places it at the top of the active layer.
          * @param segments [optional] - An array of segments (or points to be converted to segments) that will be added to the path
          */
-        constructor(segments?: Segment[]| Point[]);
+        constructor(segments?: Segment[] | Point[]);
 
         /**
          * Creates a new path item from an object description and places it at the top of the active layer.
@@ -2574,6 +2563,130 @@ declare module 'paper' {
 
 
     }
+    module Path {
+        export class Line extends Path {
+            /**
+             * Creates a linear path item from two points describing a line.
+             * @param from - the line's starting point
+             * @param to - the line's ending point
+             */
+            constructor(from: Point, to: Point);
+
+            /**
+             * Creates a linear path item from the properties described by an object literal.
+             * @param object - an object literal containing properties describing the path's attributes
+             */
+            constructor(object: any);
+        }
+
+        export class Circle extends Path {
+            /**
+             * Creates a circular path item.
+             * @param center - the center point of the circle
+             * @param radius - the radius of the circle
+             */
+            constructor(center: Point, radius: number);
+
+            /**
+             * Creates a circular path item from the properties described by an object literal.
+             * @param object - an object literal containing properties describing the path's attributes
+             */
+            constructor(object: any);
+        }
+
+        export class Rectangle extends Path {
+            /**
+             * Creates a rectangular path item, with optionally rounded corners.
+             * @param rectangle - the rectangle object describing the geometry of the rectangular path to be created.
+             * @param radius [optional] - the size of the rounded corners default: null
+             */
+            constructor(rectangle: Rectangle, radius?: number);
+
+            /**
+             * Creates a rectangular path item from a point and a size object.
+             * @param point - the rectangle's top-left corner.
+             * @param size - the rectangle's size.
+             */
+            constructor(point: Point, size: Size);
+
+            /**
+             * Creates a rectangular path item from the passed points. These do not necessarily need to be the top left and bottom right corners, the constructor figures out how to fit a rectangle between them.
+             * @param from - the first point defining the rectangle
+             * @param to - the second point defining the rectangle
+             */
+            constructor(from: Point, to: Point);
+
+            /**
+             * Creates a rectangular path item from the properties described by an object literal.
+             * @param object - an object literal containing properties describing the path's attributes
+             */
+            constructor(object: any);
+        }
+
+        export class Ellipse extends Path {
+            /**
+             * Creates an elliptical path item.
+             * @param rectangle - the rectangle circumscribing the ellipse
+             */
+            constructor(rectangle: Rectangle);
+
+            /**
+             * Creates an elliptical path item from the properties described by an object literal.
+             * @param object - an object literal containing properties describing the path's attributes
+             */
+            constructor(object: any);
+        }
+
+        export class Arc extends Path {
+            /**
+             * Creates a circular arc path item
+             * @param from - the starting point of the circular arc
+             * @param through - the point the arc passes through
+             * @param to - the end point of the arc
+             */
+            constructor(from: Point, through: Point, to: Point);
+
+            /**
+             * Creates an circular arc path item from the properties described by an object literal.
+             * @param object - an object literal containing properties describing the path's attributes
+             */
+            constructor(object: any);
+        }
+
+        export class RegularPolygon extends Path {
+            /**
+             * Creates a regular polygon shaped path item.
+             * @param center - the center point of the polygon
+             * @param sides - the number of sides of the polygon
+             * @param radius - the radius of the polygon
+             */
+            constructor(center: Point, sides: number, radius: number);
+
+            /**
+             * Creates a regular polygon shaped path item from the properties described by an object literal.
+             * @param object - an object literal containing properties describing the path's attributes
+             */
+            constructor(object: any);
+        }
+
+        export class Star extends Path {
+            /**
+             * Creates a star shaped path item. The largest of radius1 and radius2 will be the outer radius of the star. The smallest of radius1 and radius2 will be the inner radius.
+             * @param center - the center point of the star
+             * @param points - the number of points of the star
+             * @param radius1
+             * @param radius2
+             */
+            constructor(center: Point, points: number, radius1: number, radius2: number);
+
+            /**
+             * Creates a star shaped path item from the properties described by an object literal.
+             * @param object - an object literal containing properties describing the path's attributes
+             */
+            constructor(object: any);
+        }
+    }
+
     /**
      * A compound path contains two or more paths, holes are drawn where the paths overlap. All the paths in a compound path take on the style of the backmost path and can be accessed through its item.children list.
      */
@@ -2919,7 +3032,7 @@ declare module 'paper' {
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
          * @param isParameter [optional] - pass true if offset is a curve time parameter.  default: false
          */
-        getLocationAt(offset: Point, isParameter?: boolean): CurveLocation;
+        getLocationAt(offset: number, isParameter?: boolean): CurveLocation;
 
         /**
          * Returns the curve location of the specified point if it lies on the curve, null otherwise.
@@ -3124,6 +3237,16 @@ declare module 'paper' {
          * Deselects all selected items in the project.
          */
         deselectAll(): void;
+         
+        /**
+         * Adds the specified layer at the end of the this project’s layers list.
+         */
+        addLayer(layer: Layer): Layer;
+
+        /**
+         * Inserts the specified layer at the specified index in this project’s layers list.
+         */
+        insertLayer(index: number, layer: Layer): Layer;
 
         /**
          * Perform a hit-test on the items contained within the project at the location of the specified point.
@@ -3426,6 +3549,12 @@ declare module 'paper' {
         constructor(color: Gradient, origin: Point, destination: Point, highlight?: Point);
 
         /**
+         * Creates a RGB Color object.
+         * @param hex - the RGB color in hex, i.e. #000000
+         */
+        constructor(hex: string);
+
+        /**
          * The type of the color as a string.
          * String('rgb', 'gray', 'hsb', 'hsl')
          */
@@ -3651,6 +3780,48 @@ declare module 'paper' {
          * Handler function that is called whenever a view is resized.
          */
         onResize: (event: Event) => void;
+
+        /**
+         * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDown: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse button is released over the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseUp: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onDoubleClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called repeatedly when the mouse moves on top of the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseMove: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves over the item. This function will only be called again, once the mouse moved outside of the item first. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseEnter: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves out of the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseLeave: (event: MouseEvent) => void;
 
         /**
          * Removes this view from the project and frees the associated element.
@@ -4005,4 +4176,84 @@ declare module 'paper' {
 
     }
 
+    /**
+     * A Javascript MouseEvent wrapper
+     */
+    export class MouseEvent extends Event {
+        constructor(type: string, event: NativeMouseEvent, point: Point, target: Item, delta: Point)
+
+        /**
+         * The JavaScript mouse event
+         */
+        event: NativeMouseEvent;
+
+        /**
+         * The position of the mouse in project coordinates when the event was
+         * fired.
+         */
+        point: Point;
+
+        /**
+         * The last event's position of the mouse in project coordinates when
+         * the event was fired.
+         */
+        lastPoint: Point;
+
+        /**
+         *
+         */
+        delta: Point;
+
+        /**
+         * The item that dispatched the event. It is different from
+         * currentTarget when the event handler is called during the bubbling
+         * phase of the event.
+         */
+        target: Item;
+
+        /**
+         * The current target for the event, as the event traverses the scene
+         * graph. It always refers to the element the event handler has been
+         * attached to as opposed to target which identifies the element on
+         * which the event occurred.
+         */
+        currentTarget: Item;
+
+        /**
+         * Type of mouse event
+         */
+        type: 'mousedown' | 'mouseup' | 'mousedrag' | 'click' | 'doubleclick' | 'mousemove' | 'mouseenter' | 'mouseleave';
+
+        /**
+         * The time at which the event was created, in milliseconds since the
+         * epoch.
+         */
+        timeStamp(): number;
+
+        /**
+         * Cancels the event if it is cancelable, without stopping further
+         * propagation of the event.
+         */
+        preventDefault(): void;
+
+        /**
+         * Prevents further propagation of the current event.
+         */
+        stopPropagation(): void;
+
+        /**
+         * Cancels the event if it is cancelable, and stops stopping further
+         * propagation of the event. This is has the same effect as calling
+         * both stopPropagation() and preventDefault().
+         *
+         * Any handler can also return false to indicate that stop() should be
+         * called right after.
+         */
+        stop(): void;
+    }
+}
+
+declare module 'paper'
+{
+    export = paper;
 }

@@ -1,6 +1,6 @@
 // Type definitions for the Facebook Javascript SDK 2.8
 // Project: https://developers.facebook.com/docs/javascript
-// Definitions by: Amrit Kahlon <https://github.com/amritk/>
+// Definitions by: Amrit Kahlon <https://github.com/amritk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import fb = facebook;
@@ -113,6 +113,7 @@ declare namespace facebook {
     interface ShareDialogParams extends DialogParams {
         method: 'share';
         href: string;
+        picture?: string;
         hashtag?: string;
         quote?: string;
         mobile_iframe?: boolean;

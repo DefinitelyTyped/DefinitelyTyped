@@ -1,86 +1,65 @@
-// Type definitions for i18next-browser-languagedetector 0.0.14
+// Type definitions for i18next-browser-languagedetector 2.0
 // Project: http://i18next.com/
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="i18next"/>
-/// <reference types="express" />
-
-declare namespace I18next {
-    interface I18nextStatic extends i18nextBrowserLanguageDetector.I18nextStatic { }
-    interface I18nextOptions extends i18nextBrowserLanguageDetector.I18nextOptions { }
-}
+// TypeScript Version: 2.3
 
 declare namespace i18nextBrowserLanguageDetector {
-    /**
-     * @summary Interface for Language detector options.
-     * @interface
-     */
-    interface LanguageDetectorOptions {
-        caches?: Array<string>|boolean;
-        cookieDomain?: string;
-        cookieExpirationDate?: Date;
-        lookupCookie?: string;
-        lookupFromPathIndex?: number;
+    interface DetectorOptions {
+        /**
+         * order and from where user language should be detected
+         */
+        order?: Array<"querystring" | "cookie" | "localStorage" | "navigator" | "htmlTag" | string>;
+
+        /**
+         * keys or params to lookup language from
+         */
         lookupQuerystring?: string;
-        lookupSession?: string;
-        order?: Array<string>;
+        lookupCookie?: string;
+        lookupLocalStorage?: string;
+
+        /**
+         * cache user language on
+         */
+        caches?: string[];
+
+        /**
+         * languages to not persist (cookie, localStorage)
+         */
+        excludeCacheFor?: string[];
+
+        /**
+         * optional expire and domain for set cookie
+         * @default 10
+         */
+        cookieMinutes?: number;
+        cookieDomain?: string;
+
+        /**
+         * optional htmlTag with lang attribute
+         * @default document.documentElement
+         */
+        htmlTag?: HTMLElement;
     }
 
-    /**
-     * @summary Interface for custom detector.
-     * @interface
-     */
     interface CustomDetector {
         name: string;
-
-        //todo: Checks paramters type.
-        cacheUserLanguage: (lng: string, options: Object) => void;
-        lookup: (options: Object) => string;
-    }
-
-    /**
-     * @summary i18next options.
-     * @interface
-     */
-    interface I18nextOptions {
-        detection?: LanguageDetectorOptions;
-    }
-
-    /**
-     * @summary i18next interface.
-     * @interface
-     */
-    interface I18nextStatic {
-        use(module: LngDetector): I18nextStatic;
-    }
-
-    /**
-     * @summary i18next language detection.
-     * @class
-     */
-    class LngDetector {
-        /**
-         * @summary Constructor.
-         * @constructor
-         */
-        constructor(services?: any, options?: LanguageDetectorOptions);
-
-        /**
-         * @summary Adds detector.
-         * @param {CustomDetector} detector The custom detector.
-         */
-        addDetector(detector: CustomDetector): LngDetector;
-
-        /**
-         * @summary Initializes detector.
-         * @param {LanguageDetectorOptions} options The options.
-         */
-        init(options?: LanguageDetectorOptions): void;
+        cacheUserLanguage?(lng: string, options: DetectorOptions): void;
+        lookup(options: DetectorOptions): string | undefined;
     }
 }
 
-declare module "i18next-browser-languagedetector" {
+declare class i18nextBrowserLanguageDetector {
+    constructor(services?: any, options?: i18nextBrowserLanguageDetector.DetectorOptions);
+    /**
+     * Adds detector.
+     */
+    addDetector(detector: i18nextBrowserLanguageDetector.CustomDetector): i18nextBrowserLanguageDetector;
 
-    export default i18nextBrowserLanguageDetector.LngDetector;
+    /**
+     * Initializes detector.
+     */
+    init(options?: i18nextBrowserLanguageDetector.DetectorOptions): void;
 }
+
+export = i18nextBrowserLanguageDetector;

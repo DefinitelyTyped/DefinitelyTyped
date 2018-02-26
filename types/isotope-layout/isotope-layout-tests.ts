@@ -101,7 +101,7 @@ let iso: Isotope = $grid.data('isotope');
 iso = new Isotope('.grid');
 iso.addItems($('.items'));
 iso.appended(new HTMLElement());
-iso.arrange(new HTMLElement());
+iso.arrange({ cellsByColumn: { columnWidth: 101, rowHeight: 12 } });
 iso.destroy();
 elements = iso.getFilteredItemElements();
 elements = iso.getItemElements();

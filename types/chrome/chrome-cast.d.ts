@@ -12,7 +12,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.AutoJoinPolicy
      */
-    interface AutoJoinPolicy {
+    export interface AutoJoinPolicy {
         TAB_AND_ORIGIN_SCOPED: string;
         ORIGIN_SCOPED: string;
         PAGE_SCOPED: string;
@@ -22,7 +22,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.DefaultActionPolicy
      */
-    interface DefaultActionPolicy {
+    export interface DefaultActionPolicy {
         CREATE_SESSION: string;
         CAST_THIS_TAB: string;
     }
@@ -31,7 +31,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Capability
      */
-    interface Capability {
+    export interface Capability {
         VIDEO_OUT: string;
         AUDIO_OUT: string;
         VIDEO_IN: string;
@@ -42,7 +42,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ErrorCode
      */
-    interface ErrorCode {
+    export interface ErrorCode {
         CANCEL: string;
         TIMEOUT: string;
         API_NOT_INITIALIZED: string;
@@ -59,7 +59,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverAvailability
      */
-    interface ReceiverAvailability {
+    export interface ReceiverAvailability {
         AVAILABLE: string;
         UNAVAILABLE: string;
     }
@@ -68,7 +68,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SenderPlatform
      */
-    interface SenderPlatform {
+    export interface SenderPlatform {
         CHROME: string;
         IOS: string;
         ANDROID: string;
@@ -78,7 +78,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverType
      */
-    interface ReceiverType {
+    export interface ReceiverType {
         CAST: string;
         HANGOUT: string;
         CUSTOM: string;
@@ -88,7 +88,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverAction
      */
-    interface ReceiverAction {
+    export interface ReceiverAction {
         CAST: string;
         STOP: string;
     }
@@ -99,7 +99,7 @@ declare namespace chrome.cast {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SessionStatus
      */
-    interface SessionStatus {
+    export interface SessionStatus {
         CONNECTED: string;
         DISCONNECTED: string;
         STOPPED: string;
@@ -109,13 +109,13 @@ declare namespace chrome.cast {
      * @const {!Array<number>}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.VERSION
      */
-    var VERSION: Array<number>;
+    export var VERSION: Array<number>;
 
     /**
      * @type {boolean}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.isAvailable
      */
-    var isAvailable: boolean;
+    export var isAvailable: boolean;
 
     /**
      * @param {!chrome.cast.ApiConfig} apiConfig
@@ -191,7 +191,7 @@ declare namespace chrome.cast {
         errorCallback: (error: chrome.cast.Error) => void
     ): void
 
-    interface ApiConfig {
+    export interface ApiConfig {
         /**
          * @param {!chrome.cast.SessionRequest} sessionRequest
          * @param {function(!chrome.cast.Session)} sessionListener
@@ -217,7 +217,7 @@ declare namespace chrome.cast {
         defaultActionPolicy: chrome.cast.DefaultActionPolicy;
     }
 
-    interface Error {
+    export interface Error {
         /**
          * @param {!chrome.cast.ErrorCode} code
          * @param {string=} opt_description
@@ -237,7 +237,7 @@ declare namespace chrome.cast {
 
     }
 
-    interface Image {
+    export interface Image {
         /**
          * @param {string} url
          * @constructor
@@ -252,7 +252,7 @@ declare namespace chrome.cast {
         width?: number;
     }
 
-    interface SenderApplication {
+    export interface SenderApplication {
         /**
          * @param {!chrome.cast.SenderPlatform} platform
          * @constructor
@@ -267,7 +267,7 @@ declare namespace chrome.cast {
         packageId?: string;
     }
 
-    interface SessionRequest {
+    export interface SessionRequest {
         /**
          * @param {string} appId
          * @param {!Array<chrome.cast.Capability>=} opt_capabilities
@@ -287,7 +287,7 @@ declare namespace chrome.cast {
         language?: string;
     }
 
-    interface Session {
+    export interface Session {
         /**
          * @param {string} sessionId
          * @param {string} appId
@@ -437,7 +437,7 @@ declare namespace chrome.cast {
         ):void
     }
 
-    interface Receiver {
+    export interface Receiver {
         /**
          * @param {string} label
          * @param {string} friendlyName
@@ -461,7 +461,7 @@ declare namespace chrome.cast {
         displayStatus: chrome.cast.ReceiverDisplayStatus;
     }
 
-    interface ReceiverDisplayStatus {
+    export interface ReceiverDisplayStatus {
         /**
          * @param {string} statusText
          * @param {!Array<chrome.cast.Image>} appImages
@@ -477,7 +477,7 @@ declare namespace chrome.cast {
         appImages: Array<chrome.cast.Image>;
     }
 
-    interface Volume {
+    export interface Volume {
         /**
          * @param {?number=} opt_level
          * @param {?boolean=} opt_muted
@@ -496,13 +496,13 @@ declare namespace chrome.cast {
 
 declare namespace chrome.cast.media {
 
-    var DEFAULT_MEDIA_RECEIVER_APP_ID: string;
+    export var DEFAULT_MEDIA_RECEIVER_APP_ID: string;
 
     /**
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MediaCommand
      */
-    interface MediaCommand {
+    export interface MediaCommand {
         PAUSE: string;
         SEEK: string;
         STREAM_VOLUME: string;
@@ -513,7 +513,7 @@ declare namespace chrome.cast.media {
      * @enum {number}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MetadataType
      */
-    interface MetadataType {
+    export interface MetadataType {
         GENERIC: number;
         TV_SHOW: number;
         MOVIE: number;
@@ -525,7 +525,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PlayerState
      */
-    interface PlayerState {
+    export interface PlayerState {
         IDLE: string;
         PLAYING: string;
         PAUSED: string;
@@ -536,7 +536,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.ResumeState
      */
-    interface ResumeState {
+    export interface ResumeState {
         PLAYBACK_START: string;
         PLAYBACK_PAUSE: string;
     }
@@ -545,7 +545,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.StreamType
      */
-    interface StreamType {
+    export interface StreamType {
         BUFFERED: string;
         LIVE: string;
         OTHER: string;
@@ -555,7 +555,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.IdleReason
      */
-    interface IdleReason {
+    export interface IdleReason {
         CANCELLED: string;
         INTERRUPTED: string;
         FINISHED: string;
@@ -566,14 +566,14 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.RepeatMode
      */
-    interface RepeatMode {
+    export interface RepeatMode {
         OFF:string;
         ALL:string;
         SINGLE:string;
         ALL_AND_SHUFFLE:string;
     }
 
-    interface QueueItem {
+    export interface QueueItem {
         /**
          * @param {!chrome.cast.media.MediaInfo} mediaInfo
          * @constructor
@@ -592,7 +592,7 @@ declare namespace chrome.cast.media {
         startTime: number;
     }
 
-    interface QueueLoadRequest {
+    export interface QueueLoadRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>} items
          * @constructor
@@ -608,7 +608,7 @@ declare namespace chrome.cast.media {
         startIndex: number;
     }
 
-    interface QueueInsertItemsRequest {
+    export interface QueueInsertItemsRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>}
          * @constructor
@@ -623,7 +623,7 @@ declare namespace chrome.cast.media {
         items: Array<chrome.cast.media.QueueItem>;
     }
 
-    interface QueueRemoveItemsRequest {
+    export interface QueueRemoveItemsRequest {
         /**
          * @param {!Array<number>}
          * @constructor
@@ -637,7 +637,7 @@ declare namespace chrome.cast.media {
         itemIds: Array<number>;
     }
 
-    interface QueueReorderItemsRequest {
+    export interface QueueReorderItemsRequest {
         /**
          * @param {!Array<number>}
          * @constructor
@@ -652,7 +652,7 @@ declare namespace chrome.cast.media {
         itemIds: Array<number>;
     }
 
-    interface QueueUpdateItemsRequest {
+    export interface QueueUpdateItemsRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>}
          * @constructor
@@ -670,7 +670,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TrackType
      */
-    interface TrackType {
+    export interface TrackType {
         TEXT: string;
         AUDIO: string;
         VIDEO: string;
@@ -680,7 +680,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackType
      */
-    interface TextTrackType {
+    export interface TextTrackType {
         SUBTITLES: string;
         CAPTIONS: string;
         DESCRIPTIONS: string;
@@ -692,7 +692,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackEdgeType
      */
-    interface TextTrackEdgeType {
+    export interface TextTrackEdgeType {
         NONE: string;
         OUTLINE: string;
         DROP_SHADOW: string;
@@ -704,7 +704,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackWindowType
      */
-    interface TextTrackWindowType {
+    export interface TextTrackWindowType {
         NONE: string;
         NORMAL: string;
         ROUNDED_CORNERS: string;
@@ -714,7 +714,7 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackFontGenericFamily
      */
-    interface TextTrackFontGenericFamily {
+    export interface TextTrackFontGenericFamily {
         SANS_SERIF: string;
         MONOSPACED_SANS_SERIF: string;
         SERIF: string;
@@ -728,14 +728,14 @@ declare namespace chrome.cast.media {
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackFontStyle
      */
-    interface TextTrackFontStyle {
+    export interface TextTrackFontStyle {
         NORMAL: string;
         BOLD: string;
         BOLD_ITALIC: string;
         ITALIC: string;
     }
 
-    interface GetStatusRequest {
+    export interface GetStatusRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.GetStatusRequest
@@ -745,7 +745,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface PauseRequest {
+    export interface PauseRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PauseRequest
@@ -755,7 +755,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface PlayRequest {
+    export interface PlayRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PlayRequest
@@ -765,7 +765,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface SeekRequest {
+    export interface SeekRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.SeekRequest
@@ -777,7 +777,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface StopRequest {
+    export interface StopRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.StopRequest
@@ -787,7 +787,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface VolumeRequest {
+    export interface VolumeRequest {
         /**
          * @param {!chrome.cast.Volume} volume
          * @constructor
@@ -801,7 +801,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface LoadRequest {
+    export interface LoadRequest {
         /**
          * @param {!chrome.cast.media.MediaInfo} mediaInfo
          * @constructor
@@ -818,7 +818,7 @@ declare namespace chrome.cast.media {
         media: chrome.cast.media.MediaInfo;
     }
 
-    interface EditTracksInfoRequest {
+    export interface EditTracksInfoRequest {
         /**
          * @param {Array<number>=} opt_activeTrackIds
          * @param {chrome.cast.media.TextTrackStyle=} opt_textTrackStyle
@@ -834,7 +834,7 @@ declare namespace chrome.cast.media {
         textTrackStyle: chrome.cast.media.TextTrackStyle;
     }
 
-    interface GenericMediaMetadata {
+    export interface GenericMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.GenericMediaMetadata
@@ -852,7 +852,7 @@ declare namespace chrome.cast.media {
         type: chrome.cast.media.MetadataType;
     }
 
-    interface MovieMediaMetadata {
+    export interface MovieMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MovieMediaMetadata
@@ -871,7 +871,7 @@ declare namespace chrome.cast.media {
         type: chrome.cast.media.MetadataType;
     }
 
-    interface TvShowMediaMetadata {
+    export interface TvShowMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TvShowMediaMetadata
@@ -898,7 +898,7 @@ declare namespace chrome.cast.media {
         releaseYear: number;
     }
 
-    interface MusicTrackMediaMetadata  {
+    export interface MusicTrackMediaMetadata  {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MusicTrackMediaMetadata
@@ -925,7 +925,7 @@ declare namespace chrome.cast.media {
         releaseYear: number;
     }
 
-    interface PhotoMediaMetadata {
+    export interface PhotoMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PhotoMediaMetadata
@@ -947,7 +947,7 @@ declare namespace chrome.cast.media {
         type: chrome.cast.media.MetadataType;
     }
 
-    interface MediaInfo {
+    export interface MediaInfo {
         /**
          * @param {string} contentId
          * @param {string} contentType
@@ -969,7 +969,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface Media {
+    export interface Media {
         /**
          * @param {string} sessionId
          * @param {number} mediaSessionId
@@ -1215,7 +1215,7 @@ declare namespace chrome.cast.media {
 
     }
 
-    interface Track {
+    export interface Track {
         /**
          * @param {number} trackId
          * @param {!chrome.cast.media.TrackType} trackType
@@ -1237,7 +1237,7 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    interface TextTrackStyle {
+    export interface TextTrackStyle {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackStyle
@@ -1264,17 +1264,17 @@ declare namespace chrome.cast.media {
  * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.timeout
  */
 declare namespace chrome.cast.media.timeout {
-    var load: number;
-    var getStatus: number;
-    var play: number;
-    var pause: number;
-    var seek: number;
-    var stop: number;
-    var setVolume: number;
-    var editTracksInfo: number;
-    var queueInsert: number;
-    var queueLoad: number;
-    var queueRemove: number;
-    var queueReorder: number;
-    var queueUpdate: number;
+    export var load: number;
+    export var getStatus: number;
+    export var play: number;
+    export var pause: number;
+    export var seek: number;
+    export var stop: number;
+    export var setVolume: number;
+    export var editTracksInfo: number;
+    export var queueInsert: number;
+    export var queueLoad: number;
+    export var queueRemove: number;
+    export var queueReorder: number;
+    export var queueUpdate: number;
 }

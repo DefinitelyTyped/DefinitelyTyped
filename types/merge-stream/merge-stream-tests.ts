@@ -16,3 +16,8 @@ var stream5 = new Stream();
 merged.add([stream4, stream5]);
 
 merged.isEmpty();
+
+var stream6 = new Stream();
+var stream7 = new Stream();
+var streamArray = [stream6, stream7];
+var merged2 = merge(streamArray);

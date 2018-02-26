@@ -1,6 +1,7 @@
 // Type definitions for vinyl-fs 2.4
 // Project: https://github.com/wearefractal/vinyl-fs
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
+//                 remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -92,6 +93,54 @@ export interface SrcOptions extends globStream.Options {
     * Default: false
     */
    sourcemaps?: boolean;
+
+   /**
+    * Whether or not to recursively resolve symlinks to their targets. Setting to false to
+    * preserve them as symlinks and make file.symlink equal the original symlink's target path.
+    * Default: false
+    */
+   resolveSymlinks?: boolean;
+   /**
+    * Causes the BOM to be removed on UTF-8 encoded files. Set to false if you need the BOM for some reason.
+    * Default: true
+    */
+   removeBOM?: boolean;
+}
+
+export interface DestOptions {
+   /**
+    * Specify the working directory the folder is relative to
+    * Default is process.cwd()
+    */
+   cwd?: string;
+
+   /**
+    * Specify the mode the files should be created with
+    * Default is the mode of the input file (file.stat.mode)
+    * or the process mode if the input file has no mode property
+    */
+   mode?: number|string;
+
+   /** Specify the mode the directory should be created with. Default is the process mode */
+   dirMode?: number|string;
+
+   /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
+   overwrite?: boolean;
+
+   /**
+    * Enables sourcemap support on files passed through the stream. Will write inline soucemaps if
+    * specified as true. Specifying a string path will write external sourcemaps at the given path.
+    */
+   sourcemaps?: true | string;
+
+   /**
+    * When creating a symlink, whether or not the created symlink should be relative. If false,
+    * the symlink will be absolute. Note: This option will be ignored if a junction is being created.
+    */
+   relativeSymlinks?: boolean;
+
+   /* When creating a symlink, whether or not a directory symlink should be created as a junction. */
+   useJunctions?: boolean;
 }
 
 /**
@@ -138,24 +187,7 @@ export function watch(
  * contents will have it's position reset to the beginning if it is a stream
  * @param folder destination folder
  */
-export function dest(folder: string, opt?: {
-   /** Specify the working directory the folder is relative to
-    * Default is process.cwd()
-    */
-   cwd?: string;
-
-   /** Specify the mode the files should be created with
-    * Default is the mode of the input file (file.stat.mode)
-    * or the process mode if the input file has no mode property
-    */
-   mode?: number|string;
-
-   /** Specify the mode the directory should be created with. Default is the process mode */
-   dirMode?: number|string;
-
-   /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
-   overwrite?: boolean;
-}): NodeJS.ReadWriteStream;
+export function dest(folder: string, opt?: DestOptions): NodeJS.ReadWriteStream;
 
 /**
  * On write the stream will save the vinyl File to disk at the folder/cwd specified.

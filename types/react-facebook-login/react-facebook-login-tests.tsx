@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import FacebookLogin from 'react-facebook-login';
-import { ReactFacebookLoginInfo } from 'react-facebook-login';
+import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 
 const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);
@@ -58,7 +57,7 @@ ReactDOM.render(
     document.getElementById('demo')
 );
 
-class MyComponent extends React.Component<any, any> {
+class MyComponent extends React.Component {
     private responseFacebook(response: ReactFacebookLoginInfo) {
         console.log(response);
     }
@@ -76,7 +75,7 @@ class MyComponent extends React.Component<any, any> {
     }
 }
 
-class MyComponent2 extends React.Component<any, any> {
+class MyComponent2 extends React.Component {
     private responseFacebook(response: ReactFacebookLoginInfo) {
         console.log(response);
     }

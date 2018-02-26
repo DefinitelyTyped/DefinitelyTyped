@@ -1,7 +1,6 @@
 import { IntrospectionQuery } from './introspectionQuery';
 import { GraphQLSchema } from '../type/schema';
 
-
 /**
  * Build a GraphQLSchema for use by client tools.
  *
@@ -12,5 +11,5 @@ import { GraphQLSchema } from '../type/schema';
  * server-internal mechanisms.
  */
 export function buildClientSchema(
-    introspection: IntrospectionQuery
+  introspection: IntrospectionQuery,
 ): GraphQLSchema;

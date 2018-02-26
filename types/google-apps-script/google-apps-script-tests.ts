@@ -25,3 +25,9 @@ function createAndSendDocument() {
   // Send yourself an email with a link to the document.
   GmailApp.sendEmail(email, subject, body);
 }
+
+// Regression
+
+ScriptApp.getService().getUrl();
+
+CalendarApp.GuestStatus.NO;

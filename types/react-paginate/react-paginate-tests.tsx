@@ -1,7 +1,7 @@
 import * as React from "react";
 import ReactPaginate = require("react-paginate");
 
-class Test extends React.Component<{}, {}> {
+class Test extends React.Component {
     render() {
         return (
             <ReactPaginate
@@ -26,6 +26,7 @@ class Test extends React.Component<{}, {}> {
                 nextLinkClassName={'next-a'}
                 disabledClassName={'disabled'}
                 hrefBuilder={(pageIndex: number) => null}
+                extraAriaContext={'aria'}
             />
         );
     }

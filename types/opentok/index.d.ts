@@ -1,6 +1,7 @@
 // Type definitions for opentok v2.3.2
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'opentok' {
@@ -32,6 +33,18 @@ declare module 'opentok' {
       hasAudio?: boolean;
       hasVideo?: boolean;
       outputMode?: OutputMode;
+      layout?: ArchiveLayoutOptions;
+    }
+
+    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
+
+    export interface PredefinedArchiveLayoutOptions {
+      type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation';
+    }
+
+    export interface CustomArchiveLayoutOptions {
+      type: 'custom';
+      stylesheet: string;
     }
 
     export type MediaMode = 'relayed' | 'routed';
@@ -61,6 +74,7 @@ declare module 'opentok' {
     export interface ListArchivesOptions {
       count?: number;
       offset?: number;
+      sessionId?: string;
     }
   }
 

@@ -1,4 +1,4 @@
-// Type definitions for node-progress v1.1.8
+// Type definitions for node-progress v2.0.0
 // Project: https://github.com/tj/node-progress
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,11 +15,26 @@ interface ProgressBarOptions {
      * Total number of ticks to complete.
      */
     total: number;
-
+    
+    /**
+     * current completed index
+     */
+    curr?: number;    
+    
+    /**
+     * head character defaulting to complete character
+     */
+    head?: string;    
+    
     /**
      * The displayed width of the progress bar defaulting to total.
      */
     width?: number;
+
+    /**
+     * minimum time between updates in milliseconds defaulting to 16
+     */
+    renderThrottle?: number;
 
     /**
      * The output stream defaulting to stderr.
@@ -105,13 +120,16 @@ declare class ProgressBar {
      *   overall completion to.
      */
     update(ratio: number, tokens?: any): void;
-
+    
+    /**
+     * "interrupt" the progress bar and write a message above it.
+     */
+    interrupt(message: string): void;
 
     /**
      * Terminates a progress bar.
-     */
+     */ 
     terminate(): void;
-
 
     /**
      * Completed status of progress (Boolean)

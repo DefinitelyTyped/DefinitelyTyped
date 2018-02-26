@@ -1,11 +1,11 @@
 import * as React from "react";
-import * as withSideEffect from "react-side-effect";
+import withSideEffect = require("react-side-effect");
 
 interface DocumentTitleProps {
     title: string
 }
 
-class DocumentTitle extends React.Component<DocumentTitleProps, any> {
+class DocumentTitle extends React.Component<DocumentTitleProps> {
   public render() {
     if (this.props.children) {
       return React.Children.only(this.props.children);

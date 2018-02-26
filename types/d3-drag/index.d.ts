@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-drag module 1.0
+// Type definitions for D3JS d3-drag module 1.2
 // Project: https://github.com/d3/d3-drag/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.2
+// Last module patch version validated against: 1.2.1
 
 import { ArrayLike, Selection, ValueFn } from 'd3-selection';
 
@@ -127,6 +127,34 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     filter(filterFn: ValueFn<GElement, Datum, boolean>): this;
 
     /**
+     * Returns the current touch support detector, which defaults to a function returning true,
+     * if the "ontouchstart" event is supported on the current element.
+     */
+    touchable(): ValueFn<GElement, Datum, boolean>;
+    /**
+     * Sets the touch support detector to the specified boolean value and returns the drag behavior.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the drag behavior is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A boolean value. true when touch event listeners should be applied to the corresponding element, otherwise false.
+     */
+    touchable(touchable: boolean): this;
+    /**
+     * Sets the touch support detector to the specified function and returns the drag behavior.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the drag behavior is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A touch support detector function, which returns true when touch event listeners should be applied to the corresponding element.
+     * The function is evaluated for each selected element to which the drag behavior was applied, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element. The function returns a boolean value.
+     */
+    touchable(touchable: ValueFn<GElement, Datum, boolean>): this;
+
+    /**
      *  Returns the current subject accessor functions.
      */
     subject(): ValueFn<GElement, Datum, Subject>;
@@ -163,6 +191,20 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * however, other starting touches may yet start drag gestures.
      */
     subject(accessor: ValueFn<GElement, Datum, Subject>): this;
+
+    /**
+     * Return the current click distance threshold, which defaults to zero.
+     */
+    clickDistance(): number;
+    /**
+     * Set the maximum distance that the mouse can move between mousedown and mouseup that will trigger
+     * a subsequent click event. If at any point between mousedown and mouseup the mouse is greater than or equal to
+     * distance from its position on mousedown, the click event follwing mouseup will be suppressed.
+     *
+     * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
+     * The default is zero.
+     */
+    clickDistance(distance: number): this;
 
     /**
      * Return the first currently-assigned listener matching the specified typenames, if any.

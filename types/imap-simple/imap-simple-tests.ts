@@ -81,3 +81,21 @@ imaps.connect(config).then(function (connection) {
         //      { filename: "pay-stub.pdf", data: Buffer() } ]
     });
 });
+
+imaps.connect({
+    imap: config.imap,
+    onmail: function (numNewMail) {
+      //...
+    },
+    onexpunge: function (seqno) {
+        //...
+    },
+    onupdate: function (seqno, info) {
+        //...
+    }
+}).then(function (connection) {
+    connection.on("error", err => {
+        console.error("imap socket error", err);
+    })
+});
+

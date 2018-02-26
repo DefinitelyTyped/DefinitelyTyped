@@ -45,7 +45,7 @@ function test_application() {
 	application.getGroups(allGroups => {
 		console.log("There are a total of " + allGroups.length + " groups.");
 
-		var groupCounter = 1;
+		let groupCounter = 1;
 		allGroups.forEach(windowGroup => {
 			console.log("Group " + groupCounter + " contains " +
 				windowGroup.length + " windows.");
@@ -537,7 +537,7 @@ function test_window() {
 		resizable: false,
 		state: "normal"
 	}, () => {
-		var _win = finWindow.getNativeWindow();
+		const _win = finWindow.getNativeWindow();
 		_win.addEventListener("DOMContentLoaded", () => { finWindow.show(); });
 	}, error => {
 		console.log("Error creating window:", error);

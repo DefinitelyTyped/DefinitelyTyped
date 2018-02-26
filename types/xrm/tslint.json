@@ -8,10 +8,18 @@
             true,
             "spaces"
         ],
+        "max-line-length": [
+            true,
+            250
+        ],
+        "no-const-enum": false,
+        "no-unnecessary-type-assertion": false,
         "quotemark": [
             true,
             "double"
         ],
-        "jsdoc-format": true
+        "jsdoc-format": true,
+        "no-unnecessary-generics": false,
+        "no-empty-interface": false
     }
 }

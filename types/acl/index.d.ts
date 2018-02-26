@@ -2,6 +2,7 @@
 // Project: https://github.com/optimalbits/node_acl
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="bluebird" />
 /// <reference types="node"/>
@@ -49,7 +50,10 @@ interface Acl {
     allowedPermissions: (userId: Value, resources: strings, cb?: AnyCallback) => Promise<void>;
     isAllowed: (userId: Value, resources: strings, permissions: strings, cb?: AllowedCallback) => Promise<boolean>;
     areAnyRolesAllowed: (roles: strings, resource: strings, permissions: strings, cb?: AllowedCallback) => Promise<any>;
-    whatResources: (roles: strings, permissions: strings, cb?: AnyCallback) => Promise<any>;
+    whatResources: {
+        (roles: strings, cb?: AnyCallback): Promise<any>;
+        (roles: strings, permissions: strings, cb?: AnyCallback): Promise<any>;
+    }
     permittedResources: (roles: strings, permissions: strings, cb?: Function) => Promise<void>;
     middleware: (numPathComponents?: number, userId?: Value | GetUserId, actions?: strings) => express.RequestHandler;
 }

@@ -2,10 +2,20 @@
 // Project: https://github.com/Foxandxss/angular-toastr
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>, Troy McKinnon <https://github.com/trodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
 import * as angular from 'angular';
+
+export type IToastBaseConfig = angular.toastr.IToastBaseConfig;
+export type IToastContainerConfig = angular.toastr.IToastContainerConfig;
+export type IToastConfig = angular.toastr.IToastConfig;
+export type IToastrConfig = angular.toastr.IToastrConfig;
+export type IToastScope = angular.toastr.IToastScope;
+export type IToast = angular.toastr.IToast;
+export type IToastOptions = angular.toastr.IToastOptions;
+export type IToastrService = angular.toastr.IToastrService;
 
 declare module 'angular' {
     export namespace toastr {

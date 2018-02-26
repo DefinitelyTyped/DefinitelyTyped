@@ -1,7 +1,8 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // These are very definitely preliminary. Please feel free to improve.
 
@@ -3799,7 +3800,7 @@ declare namespace uiGrid {
          * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
-        sortDirectionCycle?: Array<IUiGridConstants>;
+        sortDirectionCycle?: Array<null | string>;
         /**
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'

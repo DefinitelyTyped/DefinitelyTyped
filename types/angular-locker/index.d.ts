@@ -2,6 +2,7 @@
 // Project: https://github.com/tymondesigns/angular-locker
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
@@ -139,7 +140,7 @@ declare module 'angular' {
             *
             * @param  {String}  driver  The driver to check support with
             */
-            supported(): boolean;
+            supported(driver: string): boolean;
             /**
             * Unbind a storage key from a $scope property
             *

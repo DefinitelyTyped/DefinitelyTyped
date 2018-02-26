@@ -1,12 +1,13 @@
-// Type definitions for D3JS d3-voronoi module v1.1.0
+// Type definitions for D3JS d3-voronoi module 1.1
 // Project: https://github.com/d3/d3-voronoi/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Last module patch version validated against: 1.1.0
+
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
 // --------------------------------------------------------------------------
-
 
 /**
  * The VoronoiPoint interface is defined as a cue that the array is strictly of type [number, number] with two elements
@@ -68,7 +69,7 @@ export interface VoronoiSite<T> extends VoronoiPoint {
 
 /**
  * A Voronoi Cell in the diagram is an object with the following properties:
- * site and halfEdges
+ * site and halfedges
  *
  * The generic refers to the type of the data for the corresponding element.
  */
@@ -80,9 +81,8 @@ export interface VoronoiCell<T> {
     /**
      * An array of indexes into diagram.edges representing the cell’s polygon.
      */
-    halfEdges: Array<number>;
+    halfedges: number[];
 }
-
 
 /**
  * Voronoi Edge in the diagram is an array [[x0, y0], [x1, y1]] with two additional properties:
@@ -128,7 +128,7 @@ export interface VoronoiLayout<T> {
      * Computes the Voronoi diagram for the specified data points.
      * @param data Array of data elements
      */
-    (data: Array<T>): VoronoiDiagram<T>;
+    (data: T[]): VoronoiDiagram<T>;
 
     /**
      * Return the current x-coordinate accessor,
@@ -206,23 +206,22 @@ export interface VoronoiLayout<T> {
      *
      * @param data Array of data points.
      */
-    polygons(data: Array<T>): Array<VoronoiPolygon<T>>;
+    polygons(data: T[]): Array<VoronoiPolygon<T>>;
     /**
      * Return the Delaunay triangulation of the specified data array as an array of triangles.
      * Each triangle is a three-element array of elements from data.
      *
      * @param data Array of data points.
      */
-    triangles(data: Array<T>): Array<VoronoiTriangle<T>>;
+    triangles(data: T[]): Array<VoronoiTriangle<T>>;
     /**
      * Return the Delaunay triangulation of the specified data array as an array of links.
      * Each link has source and target attributes referring to elements in data.
      *
      * @param data Array of data points.
      */
-    links(data: Array<T>): Array<VoronoiLink<T>>;
+    links(data: T[]): Array<VoronoiLink<T>>;
 }
-
 
 /**
  * Computed Voronoi diagram
@@ -276,7 +275,7 @@ export interface VoronoiDiagram<T> {
      * @param y y-coordinate
      * @param radius Optional parameter for search radius around [x, y]
      */
-    find(x: number, y:number, radius?:number): VoronoiSite<T> | null;
+    find(x: number, y: number, radius?: number): VoronoiSite<T> | null;
 }
 
 // --------------------------------------------------------------------------

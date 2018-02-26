@@ -28,14 +28,18 @@ tester = tinycolor({ h: 0, s: 0, v: 0, a: 0 });
 
 //tinycolor static methods
 tester = tinycolor.mix(tester, tester);
+tester = tinycolor.mix("#ff0000", "#00ff00");
 tester = tinycolor.mix(tester, tester, 50);
 tester = tinycolor.random();
+var isEqual = tinycolor.equals(tester, tester);
 
 /*Tinycolor object properties*/
 
 var readable: Readable.Readable = tinycolor.readability(tester, tester);
 var isReadable: boolean = tinycolor.isReadable(tester, tester);
+var isReadable: boolean = tinycolor.isReadable(tester, tester, {size: "small"});
 tester = tinycolor.mostReadable(tester, [tester, tester, tester]);
+tester = tinycolor.mostReadable(tester, [tester, tester, tester], {size: "large", level:"AA"});
 
 var hexNames: { [key: string]: string } = tinycolor.hexNames;
 var names: { [key: string]: string } = tinycolor.names;

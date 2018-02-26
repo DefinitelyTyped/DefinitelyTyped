@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-quadtree module v1.0.1
+// Type definitions for D3JS d3-quadtree module 1.0
 // Project: https://github.com/d3/d3-quadtree/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.1
 
 /**
  * Leaf node of the quadtree.
@@ -31,20 +33,21 @@ export interface Quadtree<T> {
     extent(extend: [[number, number], [number, number]]): this;
     cover(x: number, y: number): this;
     add(datum: T): this;
-    addAll(data: Array<T>): this;
+    addAll(data: T[]): this;
     remove(datum: T): this;
-    removeAll(data: Array<T>): this;
+    removeAll(data: T[]): this;
     copy(): Quadtree<T>;
     root(): QuadtreeInternalNode<T> | QuadtreeLeaf<T>;
-    data(): Array<T>;
+    data(): T[];
     size(): number;
     find(x: number, y: number, radius?: number): T | undefined;
+    // TODO: Review below, when validating to strictNullChecks.
+    // tslint:disable-next-line:void-return
     visit(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => (void | boolean)): this;
     visitAfter(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => void): this;
 }
 
-
 export function quadtree(): Quadtree<[number, number]>;
 export function quadtree(data: Array<[number, number]>): Quadtree<[number, number]>;
 export function quadtree<T>(): Quadtree<T>;
-export function quadtree<T>(data: Array<T>, x?: (d: T) => number, y?: (d: T) => number): Quadtree<T>;
+export function quadtree<T>(data: T[], x?: (d: T) => number, y?: (d: T) => number): Quadtree<T>;

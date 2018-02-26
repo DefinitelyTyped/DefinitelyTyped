@@ -345,17 +345,46 @@ declare namespace AceAjax {
         insert(position: Position, text: string): any;
 
         /**
-         * Inserts the elements in `lines` into the document, starting at the row index given by `row`. This method also triggers the `'change'` event.
-         * @param row The index of the row to insert at
-         * @param lines An array of strings
-        **/
+         * @deprecated Use the insertFullLines method instead.
+         */
         insertLines(row: number, lines: string[]): any;
 
         /**
-         * Inserts a new line into the document at the current row's `position`. This method also triggers the `'change'` event.
-         * @param position The position to insert at
-        **/
+         * Inserts the elements in `lines` into the document as full lines (does not merge with existing line), starting at the row index given by `row`. This method also triggers the `"change"` event.
+         * @param {Number} row The index of the row to insert at
+         * @param {Array} lines An array of strings
+         * @returns {Object} Contains the final row and column, like this:
+         *   ```
+         *   {row: endRow, column: 0}
+         *   ```
+         *   If `lines` is empty, this function returns an object containing the current row, and column, like this:
+         *   ```
+         *   {row: row, column: 0}
+         *   ```
+         *
+         **/
+        insertFullLines(row: number, lines: string[]): any;
+
+        /**
+         * @deprecated Use insertMergedLines(position, ['', '']) instead.
+         */
         insertNewLine(position: Position): any;
+
+        /**
+         * Inserts the elements in `lines` into the document, starting at the position index given by `row`. This method also triggers the `"change"` event.
+         * @param {Number} row The index of the row to insert at
+         * @param {Array} lines An array of strings
+         * @returns {Object} Contains the final row and column, like this:
+         *   ```
+         *   {row: endRow, column: 0}
+         *   ```
+         *   If `lines` is empty, this function returns an object containing the current row, and column, like this:
+         *   ```
+         *   {row: row, column: 0}
+         *   ```
+         *
+         **/
+        insertMergedLines(row: number, lines: string[]): any;
 
         /**
          * Inserts `text` into the `position` at the current row. This method also triggers the `'change'` event.
@@ -379,11 +408,18 @@ declare namespace AceAjax {
         removeInLine(row: number, startColumn: number, endColumn: number): any;
 
         /**
-         * Removes a range of full lines. This method also triggers the `'change'` event.
-         * @param firstRow The first row to be removed
-         * @param lastRow The last row to be removed
-        **/
+         * @deprecated Use the removeFullLines method instead.
+         */
         removeLines(firstRow: number, lastRow: number): string[];
+
+        /**
+         * Removes a range of full lines. This method also triggers the `"change"` event.
+         * @param {Number} firstRow The first row to be removed
+         * @param {Number} lastRow The last row to be removed
+         * @returns {[String]} Returns all the removed lines.
+         *
+         **/
+        removeFullLines(firstRow: number, lastRow: number): string[];
 
         /**
          * Removes the new line between `row` and the row immediately following it. This method also triggers the `'change'` event.
@@ -474,6 +510,8 @@ declare namespace AceAjax {
         removeFold(arg: any): void;
 
         expandFold(arg: any): void;
+
+        foldAll(startRow?: number, endRow?: number, depth?: number): void
 
         unfold(arg1: any, arg2: boolean): void;
 
@@ -1038,6 +1076,12 @@ declare namespace AceAjax {
 
         addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any): void;
         addEventListener(ev: string, callback: Function): void;
+
+        off(ev: string, callback: Function): void;
+
+        removeListener(ev: string, callback: Function): void;
+
+        removeEventListener(ev: string, callback: Function): void;
 
         inMultiSelectMode: boolean;
 
@@ -2164,7 +2208,15 @@ declare namespace AceAjax {
     **/
     export interface Selection {
 
+        on(ev: string, callback: Function): void;
+
         addEventListener(ev: string, callback: Function): void;
+
+        off(ev: string, callback: Function): void;
+
+        removeListener(ev: string, callback: Function): void;
+
+        removeEventListener(ev: string, callback: Function): void;
 
         moveCursorWordLeft(): void;
 
@@ -2643,6 +2695,8 @@ declare namespace AceAjax {
         characterWidth: number;
 
         lineHeight: number;
+
+        setScrollMargin(top:number, bottom:number, left: number, right: number): void;
 
         screenToTextCoordinates(left: number, top: number): void;
 

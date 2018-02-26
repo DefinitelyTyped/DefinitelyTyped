@@ -1,7 +1,8 @@
 // Type definitions for Mapbox 1.6
 // Project: https://www.mapbox.com/mapbox.js/
-// Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
+// Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Leaflet from "leaflet";
 
@@ -19,7 +20,7 @@ declare global {
 		/**
 		 * Create and automatically configure a map with layers, markers, and interactivity.
 		 */
-		function map(element: string|Element, idOrTileJson: any, options?: MapOptions): L.mapbox.Map;
+		function map(element: string|Element, idOrTileJson: any, options?: MapOptions): Map;
 
 		interface MapOptions extends Leaflet.Map.MapOptions {
 			featureLayer?: FeatureLayerOptions;
@@ -33,14 +34,14 @@ declare global {
 		type FilterFunction = (feature: any) => boolean;
 
 		interface Map extends Leaflet.Map {
-			tileLayer: L.mapbox.TileLayer;
-			gridLayer: L.mapbox.GridLayer;
-			featureLayer: L.mapbox.FeatureLayer;
+			tileLayer: TileLayer;
+			gridLayer: GridLayer;
+			featureLayer: FeatureLayer;
 
-			gridControl: L.mapbox.GridControl;
-			infoControl: L.mapbox.InfoControl;
-			legendControl: L.mapbox.LegendControl;
-			shareControl: L.mapbox.ShareControl;
+			gridControl: GridControl;
+			infoControl: InfoControl;
+			legendControl: LegendControl;
+			shareControl: ShareControl;
 
 			getTileJSON(): any;
 		}
@@ -55,7 +56,7 @@ declare global {
 		/**
 		 * You can add a tiled layer to your map with L.mapbox.tileLayer(), a simple interface to layers from Mapbox and elsewhere.
 		 */
-		function tileLayer(idOrTileJson: string, options?: TileLayerOptions): L.mapbox.TileLayer;
+		function tileLayer(idOrTileJson: string, options?: TileLayerOptions): TileLayer;
 
 		interface TileLayerOptions extends Leaflet.TileLayerOptions {
 			retinaVersion?: string;
@@ -79,12 +80,12 @@ declare global {
 		/**
 		 * An L.mapbox.gridLayer loads UTFGrid tiles of interactivity into your map, which you can easily access with L.mapbox.gridControl.
 		 */
-		function gridLayer(idOrTileJson: any): L.mapbox.GridLayer;
+		function gridLayer(idOrTileJson: any): GridLayer;
 
 		interface GridLayer {
 			active(): boolean;
-			addTo(map: L.mapbox.Map): any;
-			onAdd(map: L.mapbox.Map): any;
+			addTo(map: Map): any;
+			onAdd(map: Map): any;
 			onRemove(): any;
 
 			/**
@@ -100,7 +101,7 @@ declare global {
 			/**
 			 * Load data for a given latitude, longitude point on the map, and call the callback function with that data, if any.
 			 */
-			getData(latlng: Leaflet.LatLng, callback: Function): any;
+			getData(latlng: LatLng, callback: Function): any;
 		}
 
 		// FeatureLayer
@@ -109,14 +110,14 @@ declare global {
 		/**
 		 * L.mapbox.featureLayer provides an easy way to integrate GeoJSON from Mapbox and elsewhere into your map.
 		 */
-		function featureLayer(idOrGeoJson?: any, options?: FeatureLayerOptions): L.mapbox.FeatureLayer;
+		function featureLayer(idOrGeoJson?: any, options?: FeatureLayerOptions): FeatureLayer;
 
 		interface FeatureLayerOptions {
 			filter?: FilterFunction;
 			sanitizer?(template: string): string;
 		}
 
-		interface FeatureLayer extends Leaflet.FeatureGroup<Leaflet.ILayer> {
+		interface FeatureLayer extends FeatureGroup<ILayer> {
 			/**
 			 * Load GeoJSON data for this layer from the URL given by url.
 			 */
@@ -144,7 +145,7 @@ declare global {
 			 * replaced with the new features. An empty array will clear the
 			 * layer of all features.
 			 */
-			setGeoJSON(geojson: any): L.mapbox.FeatureLayer;
+			setGeoJSON(geojson: any): FeatureLayer;
 
 			/**
 			 * Get the contents of this layer as GeoJSON data.
@@ -162,7 +163,7 @@ declare global {
 		/**
 		 * A low-level interface to geocoding, useful for more complex uses and reverse-geocoding.
 		 */
-		function geocoder(id: string): L.mapbox.Geocoder;
+		function geocoder(id: string): Geocoder;
 
 		interface Geocoder {
 			getURL(): string;
@@ -198,9 +199,9 @@ declare global {
 		 */
 		function infoControl(options?: ControlOptions): InfoControl;
 
-		interface InfoControl extends Leaflet.Control {
-			onAdd(map: L.mapbox.Map): any;
-			onRemove(map: L.mapbox.Map): any;
+		interface InfoControl extends Control {
+			onAdd(map: Map): any;
+			onRemove(map: Map): any;
 
 			/**
 			 * Adds an info string to infoControl.
@@ -222,8 +223,8 @@ declare global {
 		 */
 		function legendControl(options?: ControlOptions): LegendControl;
 
-		interface LegendControl extends Leaflet.Control {
-			onAdd(map: L.mapbox.Map): any;
+		interface LegendControl extends Control {
+			onAdd(map: Map): any;
 
 			/**
 			 * Adds a legend to the legendControl.
@@ -253,9 +254,9 @@ declare global {
 			location?: boolean;
 		}
 
-		interface GridControl extends Leaflet.Control {
-			onAdd(map: L.mapbox.Map): any;
-			onRemove(map: L.mapbox.Map): any;
+		interface GridControl extends Control {
+			onAdd(map: Map): any;
+			onRemove(map: Map): any;
 
 			/**
 			 * If a tooltip is currently shown by the gridControl, hide and close it.
@@ -282,7 +283,7 @@ declare global {
 
 		interface GeocoderControl {
 			getURL(): string;
-			onAdd(map: L.mapbox.Map): any;
+			onAdd(map: Map): any;
 
 			/**
 			 * Set the url used for geocoding.
@@ -313,12 +314,12 @@ declare global {
 		 */
 		function shareControl(id: string, options?: ShareControlOptions): ShareControl;
 
-		interface ShareControlOptions extends Leaflet.ControlOptions {
+		interface ShareControlOptions extends ControlOptions {
 			url?: string;
 		}
 
-		interface ShareControl extends Leaflet.Control {
-			onAdd(map: L.mapbox.Map): any;
+		interface ShareControl extends Control {
+			onAdd(map: Map): any;
 		}
 
 		//////////////////////////////////////////////////////////////////////
@@ -329,12 +330,12 @@ declare global {
 			/**
 			 * A core icon generator used in L.mapbox.marker.style
 			 */
-			function icon(feature: any): Leaflet.Icon;
+			function icon(feature: any): Icon;
 
 			/**
 			 * An icon generator for use in conjunction with pointToLayer to generate markers from the Mapbox Markers API and support the simplestyle-spec for features.
 			 */
-			function style(feature: any, latlng: any): Leaflet.Marker;
+			function style(feature: any, latlng: any): Marker;
 		}
 
 		//////////////////////////////////////////////////////////////////////
@@ -345,7 +346,7 @@ declare global {
 			/**
 			 * Given a GeoJSON Feature with optional simplestyle-spec properties, return an options object formatted to be used as Leaflet Path options.
 			 */
-			function style(feature: any): Leaflet.PathOptions;
+			function style(feature: any): PathOptions;
 		}
 
 		//////////////////////////////////////////////////////////////////////
@@ -366,12 +367,12 @@ declare global {
 		///////////////////////////// CONFIGURATION //////////////////////////
 		//////////////////////////////////////////////////////////////////////
 
-		class config {
-			static FORCE_HTTPS: boolean;
+		namespace config {
+			const FORCE_HTTPS: boolean;
 
-			static HTTP_URLS: string[];
+			const HTTP_URLS: string[];
 
-			static HTTPS_URLS: string[];
+			const HTTPS_URLS: string[];
 		}
 	}
 }

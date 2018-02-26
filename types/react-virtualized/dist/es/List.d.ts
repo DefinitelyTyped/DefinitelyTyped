@@ -1,5 +1,5 @@
 import { PureComponent, Validator, Requireable } from 'react'
-import { Grid, GridCoreProps, GridCellProps } from './Grid'
+import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid'
 import { Index, IndexRange, Alignment } from '../../index'
 import { CellMeasurerCache } from './CellMeasurer'
 
@@ -8,22 +8,60 @@ export type ListRowProps = GridCellProps & { index: number, style: React.CSSProp
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
 export type ListProps = GridCoreProps & {
     deferredMeasurementCache?: CellMeasurerCache;
-    className?: string;
+    /**
+     * Removes fixed height from the scrollingContainer so that the total height
+     * of rows can stretch the window. Intended for use with WindowScroller
+     */
     autoHeight?: boolean;
+    /** Optional CSS class name */
+    className?: string;
+    /**
+     * Used to estimate the total height of a List before all of its rows have actually been measured.
+     * The estimated total height is adjusted as rows are rendered.
+     */
     estimatedRowSize?: number;
+    /** Height constraint for list (determines how many actual rows are rendered) */
     height: number;
+    /** Optional renderer to be used in place of rows when rowCount is 0 */
     noRowsRenderer?: () => JSX.Element;
+    /**
+     * Callback invoked with information about the slice of rows that were just rendered.
+     * ({ startIndex, stopIndex }): void
+     */
     onRowsRendered?: (info: { overscanStartIndex: number, overscanStopIndex: number, startIndex: number, stopIndex: number }) => void;
-    onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
+    /**
+     * Number of rows to render above/below the visible bounds of the list.
+     * These rows can help for smoother scrolling on touch devices.
+     */
     overscanRowCount?: number;
+    /**
+     * Callback invoked whenever the scroll offset changes within the inner scrollable region.
+     * This callback can be used to sync scrolling between lists, tables, or grids.
+     * ({ clientHeight, scrollHeight, scrollTop }): void
+     */
+    onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
+    /** See Grid#overscanIndicesGetter */
+    overscanIndicesGetter?: OverscanIndicesGetter,
+    /**
+     * Either a fixed row height (number) or a function that returns the height of a row given its index.
+     * ({ index: number }): number
+     */
     rowHeight: number | ((info: Index) => number);
+    /** Responsible for rendering a row given an index; ({ index: number }): node */
     rowRenderer: ListRowRenderer;
+    /** Number of rows in list. */
     rowCount: number;
+    /** See Grid#scrollToAlignment */
     scrollToAlignment?: string;
+    /** Row index to ensure visible (by forcefully scrolling if necessary) */
     scrollToIndex?: number;
+    /** Vertical offset. */
     scrollTop?: number;
+    /** Optional inline style */
     style?: React.CSSProperties;
+    /** Tab index for focus */
     tabIndex?: number;
+    /** Width of list */
     width: number;
 }
 /**
@@ -34,78 +72,26 @@ export type ListProps = GridCoreProps & {
  *
  * This component renders a virtualized list of elements with either fixed or dynamic heights.
  */
-export class List extends PureComponent<ListProps, {}> {
+export class List extends PureComponent<ListProps> {
     static propTypes: {
         'aria-label': Requireable<string>,
-
-        /**
-         * Removes fixed height from the scrollingContainer so that the total height
-         * of rows can stretch the window. Intended for use with WindowScroller
-         */
         autoHeight: Requireable<boolean>,
-
-        /** Optional CSS class name */
         className: Requireable<string>,
-
-        /**
-         * Used to estimate the total height of a List before all of its rows have actually been measured.
-         * The estimated total height is adjusted as rows are rendered.
-         */
         estimatedRowSize: Validator<number>,
-
-        /** Height constraint for list (determines how many actual rows are rendered) */
         height: Validator<number>,
-
-        /** Optional renderer to be used in place of rows when rowCount is 0 */
         noRowsRenderer: Validator<() => JSX.Element>,
-
-        /**
-         * Callback invoked with information about the slice of rows that were just rendered.
-         * ({ startIndex, stopIndex }): void
-         */
         onRowsRendered: Validator<(params: IndexRange) => void>,
-
-        /**
-         * Number of rows to render above/below the visible bounds of the list.
-         * These rows can help for smoother scrolling on touch devices.
-         */
         overscanRowCount: Validator<number>,
-
-        /**
-         * Callback invoked whenever the scroll offset changes within the inner scrollable region.
-         * This callback can be used to sync scrolling between lists, tables, or grids.
-         * ({ clientHeight, scrollHeight, scrollTop }): void
-         */
         onScroll: Validator<(params: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void>,
-
-        /**
-         * Either a fixed row height (number) or a function that returns the height of a row given its index.
-         * ({ index: number }): number
-         */
+        overscanIndicesGetter: Validator<OverscanIndicesGetter>,
         rowHeight: Validator<number | ((params: Index) => number)>,
-
-        /** Responsible for rendering a row given an index; ({ index: number }): node */
         rowRenderer: Validator<ListRowRenderer>,
-
-        /** Number of rows in list. */
         rowCount: Validator<number>,
-
-        /** See Grid#scrollToAlignment */
         scrollToAlignment: Validator<Alignment>,
-
-        /** Row index to ensure visible (by forcefully scrolling if necessary) */
         scrollToIndex: Validator<number>,
-
-        /** Vertical offset. */
         scrollTop: Requireable<number>,
-
-        /** Optional inline style */
         style: Validator<React.CSSProperties>,
-
-        /** Tab index for focus */
         tabIndex: Requireable<number>,
-
-        /** Width of list */
         width: Validator<number>
     };
 
@@ -129,6 +115,15 @@ export class List extends PureComponent<ListProps, {}> {
 
     /** See Grid#recomputeGridSize */
     recomputeRowHeights(index?: number): void;
+
+    /** See Grid#getOffsetForCell */
+    getOffsetForRow(params: {
+        alignment?: Alignment,
+        index?: number
+    }): number;
+
+    /** See Grid#scrollToPosition */
+    scrollToPosition(scrollTop?: number): void;
 
     /** See Grid#scrollToCell */
     scrollToRow(index?: number): void;

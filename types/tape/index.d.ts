@@ -1,8 +1,9 @@
-// Type definitions for tape v4.2.29
+// Type definitions for tape v4.2.30
 // Project: https://github.com/substack/tape
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Haoqun Jiang <https://github.com/sodatea>
 //                 Dennis Schwartz <https://github.com/DennisSchwartz>
+//                 Michael Henretty <https://github.com/mikehenrty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -73,6 +74,7 @@ declare namespace tape {
          * Additional tests queued up after t will not be run until all subtests finish.
          */
         test(name: string, cb: tape.TestCase): void;
+        test(name: string, opts: TestOptions, cb: tape.TestCase): void;
 
         /**
          * Declare that n assertions should be run. end() will be called automatically after the nth assertion.

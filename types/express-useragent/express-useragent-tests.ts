@@ -18,7 +18,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/parse", function(req, res) {
-    var source = req.headers['user-agent'],
+    var source = req.headers['user-agent'] as string,
     ua = useragent.parse(source);
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end(JSON.stringify(ua));

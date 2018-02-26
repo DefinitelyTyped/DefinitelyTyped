@@ -9,7 +9,8 @@ export type ColumnProps
     offset?: string | number
   };
 
-interface Props {
+export interface ColProps extends React.HTMLProps<HTMLDivElement> {
+  tag?: React.ReactType;
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;
@@ -20,5 +21,5 @@ interface Props {
   widths?: string[];
 }
 
-declare var Col: React.StatelessComponent<Props>;
+declare const Col: React.StatelessComponent<ColProps>;
 export default Col;

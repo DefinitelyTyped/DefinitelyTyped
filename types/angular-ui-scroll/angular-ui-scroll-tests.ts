@@ -23,8 +23,12 @@ namespace application {
 
     myApp.factory('DatasourceTest', factory);
 
+    interface TestScope extends ng.IScope {
+        [index: string]: any;
+    }
+
     // demo/examples/adapter
-    myApp.controller('mainController', ['$scope', 'DatasourceTest', function($scope: ng.IScope, datasource: DatasourceTest) {
+    myApp.controller('mainController', ['$scope', 'DatasourceTest', function($scope: TestScope, datasource: DatasourceTest) {
         var firstListAdapter: ng.ui.IScrollAdapter, secondListAdapter: ng.ui.IScrollAdapter;
         $scope['datasource'] = datasource;
 

@@ -1,6 +1,6 @@
-// Type definitions for vinyl 2.0.0
+// Type definitions for vinyl 2.0
 // Project: https://github.com/gulpjs/vinyl
-// Definitions by: vvakame <https://github.com/vvakame/>, jedmao <https://github.com/jedmao>, Georgii Dolzhykov <https://github.com/thorn0>
+// Definitions by: vvakame <https://github.com/vvakame>, jedmao <https://github.com/jedmao>, Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,8 +9,8 @@ import * as fs from 'fs';
 
 interface ConstructorOptions {
     /**
-    * The current working directory of the file. Default: process.cwd()
-    */
+     * The current working directory of the file. Default: process.cwd()
+     */
     cwd?: string;
 
     /**

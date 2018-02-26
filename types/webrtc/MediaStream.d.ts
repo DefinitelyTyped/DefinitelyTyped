@@ -101,11 +101,6 @@ interface MediaStreamTrackEvent extends Event {
     //track: MediaStreamTrack;
 }
 
-declare enum MediaStreamTrackState {
-	"live",
-    "ended"
-}
-
 interface MediaStreamTrack extends EventTarget {
     //id: string;
     //kind: string;

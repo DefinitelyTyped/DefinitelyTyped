@@ -1,7 +1,7 @@
 import { Eureka } from 'eureka-js-client';
 
 // example configuration
-let client = new Eureka({
+const client = new Eureka({
   // application instance information
   instance: {
     app: 'jqservice',

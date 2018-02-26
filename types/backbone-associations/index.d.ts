@@ -1,7 +1,8 @@
 // Type definitions for Backbone-associations 0.6.4
 // Project: https://github.com/dhruvaray/backbone-associations/
-// Definitions by: Craig Brett <https://github.com/craigbrett17/>
+// Definitions by: Craig Brett <https://github.com/craigbrett17>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Backbone from 'backbone';
 
@@ -24,14 +25,14 @@ declare module 'backbone' {
 
         interface IRelation {
             /** The type of model for this relationship */
-            relatedModel: string|typeof Backbone.Associations.AssociatedModel;
+            relatedModel: string | (new() => AssociatedModel);
             /** The key for this relationship on this model */
             key: string;
             // meh, no string enums in TS. Just have to trust the user not to be a fool
             /** The cardinality of this relationship. */
             type: string;
             /** Determines the type of collection used. If used, the relatedModel property is ignored */
-            collectionType?: typeof Backbone.Collection|string;
+            collectionType?: string | (new() => Backbone.Collection<any>);
             /** If set to true, then the attribute will not be serialized in toJSON() calls. Defaults to false */
             isTransient?: boolean;
             /** Specify remoteKey to serialize the key to a different key name in toJSON() calls. Useful in ROR nested-attributes like scenarios. */

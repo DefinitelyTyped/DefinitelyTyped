@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
@@ -19,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-bootstrap-daterangepicker-tests.ts",
         "react-bootstrap-daterangepicker-tests.tsx"
     ]
 }

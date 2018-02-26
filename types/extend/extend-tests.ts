@@ -1,40 +1,41 @@
-/// <reference types="node" />
-
-import assert = require('assert');
 import extend = require('extend');
 
-var objectBase = {
+const objectBase = {
     test: 'base'
 };
 
-var objectOne = {
+const objectOne = {
     test: 'one',
     iamone: true
 };
 
-var objectTwo = {
+const objectTwo = {
     test: 2,
     iamtwo: true
 };
 
-var objectThree = {
+const objectThree = {
     iamthree: true,
     depth: {
         innerType: 'deep'
     }
 };
 
-var extended = extend(objectBase, objectOne);
-assert(extended.test === 'one');
-assert(extended.iamone === true);
+type ExtendedType = typeof objectBase & typeof objectOne;
+const extended: ExtendedType = extend(objectBase, objectOne);
+extended.test === 'one';
+extended.iamone;
 
-var moreExtended = extend(objectBase, objectOne, objectTwo);
-assert(moreExtended.test === 2);
-assert(moreExtended.iamone === true);
-assert(moreExtended.iamtwo === true);
+type MoreExtendedType = typeof objectBase & typeof objectOne & typeof objectTwo;
+const moreExtended: MoreExtendedType = extend(objectBase, objectOne, objectTwo);
+moreExtended.test === 2;
+moreExtended.iamone;
+moreExtended.iamtwo;
 
-var deepExtended = extend(true, objectBase, objectOne, objectTwo, objectThree);
-assert(deepExtended.iamone === true);
-assert(moreExtended.iamtwo === true);
-assert(deepExtended.iamthree === true);
-assert(deepExtended.depth.innerType === 'one');
+type DeepExtendedType = typeof objectBase & typeof objectOne &
+  typeof objectTwo & typeof objectThree;
+const deepExtended = extend(true, objectBase, objectOne, objectTwo, objectThree);
+deepExtended.iamone;
+deepExtended.iamtwo;
+deepExtended.iamthree;
+deepExtended.depth.innerType === 'deep';

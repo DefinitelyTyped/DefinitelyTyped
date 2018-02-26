@@ -8,7 +8,9 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -18,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-dnd-tests.ts"
+        "react-dnd-tests.tsx"
     ]
 }

@@ -1,16 +1,76 @@
-// Type definitions for undertaker 0.12.0
+// Type definitions for undertaker 1.1
 // Project: https://github.com/phated/undertaker
-// Definitions by: Qubo <https://github.com/tkqubo>
+// Definitions by: Qubo <https://github.com/tkqubo>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as Registry from "undertaker-registry";
+import { Duplex } from "stream";
+import { EventEmitter } from "events";
 
+declare namespace Undertaker {
+    interface TaskFunctionParams {
+        name?: string;
+        displayName?: string;
+        description?: string;
+    }
 
-export interface UndertakerStatic {
-    new (registry?: Registry): Undertaker;
+    interface TaskFunction extends TaskFunctionParams {
+        (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+    }
+
+    type Task = string | TaskFunction;
+
+    interface TreeOptions {
+        /**
+         * Whether or not the whole tree should be returned.
+         * Default: false
+         */
+        deep?: boolean;
+    }
+
+    interface TreeResult {
+        label: "Tasks";
+        nodes: Node[];
+    }
+
+    interface Node {
+        label: string;
+        nodes: Node[];
+        type?: string;
+        branch?: boolean;
+    }
 }
 
-export interface Undertaker {
-    task: TaskMethod;
+declare class Undertaker extends EventEmitter {
+    constructor(registry?: Registry);
+
+    /**
+     * Returns the registered function.
+     * @param taskName - Task name.
+     */
+    task(taskName: string): Undertaker.TaskFunction;
+
+    /**
+     * Register the task by the taskName.
+     * @param taskName - Task name.
+     * @param fn - Task function.
+     */
+    task(taskName: string, fn: Undertaker.TaskFunction): void;
+
+    /**
+     * Register the task by the taskName.
+     * @param taskName - Task name.
+     * @param dependencies - Task dependencies.
+     * @param fn - Task function.
+     */
+    task(taskName: string, dependencies: string[], fn: Undertaker.TaskFunction): void;
+
+    /**
+     * Register the task by the name property of the function.
+     * @param fn - Task function.
+     */
+    task(fn: Undertaker.TaskFunction): void;
+
     /**
      * Takes a variable amount of strings (taskName) and/or functions (fn)
      * and returns a function of the composed tasks or functions.
@@ -18,9 +78,21 @@ export interface Undertaker {
      *
      * When the returned function is executed, the tasks or functions will be executed in series,
      * each waiting for the prior to finish. If an error occurs, execution will stop.
-     * @param task
+     * @param tasks - List of tasks.
      */
-    series(...tasks: (string | Task)[]): Task;
+    series(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
+
+    /**
+     * Takes a variable amount of strings (taskName) and/or functions (fn)
+     * and returns a function of the composed tasks or functions.
+     * Any taskNames are retrieved from the registry using the get method.
+     *
+     * When the returned function is executed, the tasks or functions will be executed in series,
+     * each waiting for the prior to finish. If an error occurs, execution will stop.
+     * @param tasks - List of tasks.
+     */
+    series(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
+
     /**
      * Takes a variable amount of strings (taskName) and/or functions (fn)
      * and returns a function of the composed tasks or functions.
@@ -28,88 +100,46 @@ export interface Undertaker {
      *
      * When the returned function is executed, the tasks or functions will be executed in parallel,
      * all being executed at the same time. If an error occurs, all execution will complete.
-     * @param tasks
+     * @param tasks - list of tasks.
      */
-    parallel(...tasks: (string | Task)[]): Task;
+    parallel(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
+
+    /**
+     * Takes a variable amount of strings (taskName) and/or functions (fn)
+     * and returns a function of the composed tasks or functions.
+     * Any taskNames are retrieved from the registry using the get method.
+     *
+     * When the returned function is executed, the tasks or functions will be executed in parallel,
+     * all being executed at the same time. If an error occurs, all execution will complete.
+     * @param tasks - list of tasks.
+     */
+    parallel(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
+
     /**
      * Returns the current registry object.
      */
     registry(): Registry;
+
     /**
      * The tasks from the current registry will be transferred to it
      * and the current registry will be replaced with the new registry.
-     * @param registry
+     * @param registry - Instance of registry.
      */
     registry(registry: Registry): void;
+
     /**
      * Optionally takes an object (options) and returns an object representing the tree of registered tasks.
-     * @param options
+     * @param options - Tree options.
      */
-    tree(options?: { deep?: boolean }): Node[] | string[];
+    tree(options?: Undertaker.TreeOptions): Undertaker.TreeResult;
+
     /**
      * Takes a string or function (task) and returns a timestamp of the last time the task was run successfully.
      * The time will be the time the task started.  Returns undefined if the task has not been run.
-     * @param task
-     * @param timeResolution
+     * @param task - Task.
+     * @param [timeResolution] - Time resolution.
      */
-    lastRun(task: string, timeResolution?: number): number;
+    lastRun(task: Undertaker.Task, timeResolution?: number): number;
 }
 
-export interface Task {
-    (cb?: Function): any;
-}
-
-export interface TaskMethod {
-    /**
-     * Returns the registered function.
-     * @param taskName
-     */
-    (taskName: string): Task;
-    /**
-     * Register the task by the taskName.
-     * @param taskName
-     * @param fn
-     */
-    (taskName: string, fn: Task): void;
-    /**
-     * Register the task by the name property of the function.
-     * @param fn
-     */
-    (fn: Task): void;
-    /**
-     * Register the task by the displayName property of the function.
-     * @param fn
-     */
-    (fn: Task & { displayName: string }): void;
-}
-
-export interface Registry {
-    /**
-     * receives the undertaker instance to set pre-defined tasks using the task(taskName, fn) method.
-     * @param taker
-     */
-    init(taker: Undertaker): void;
-    /**
-     * returns the task with that name or undefined if no task is registered with that name.
-     * @param taskName
-     */
-    get(taskName: string): Task;
-    /**
-     * add task to the registry. If set modifies a task, it should return the new task.
-     * @param taskName
-     * @param fn
-     */
-    set(taskName: string, fn: Task): void;
-    /**
-     * returns an object listing all tasks in the registry.
-     */
-    tasks(): { [taskName: string]: Task };
-}
-
-export interface Node {
-    label: string;
-    type: string;
-    nodes: Node[];
-}
-
-export default UndertakerStatic;
+export = Undertaker;

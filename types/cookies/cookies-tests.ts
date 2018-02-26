@@ -1,26 +1,39 @@
-import * as Cookies from 'cookies';
+import Cookies = require('cookies');
 import * as http from 'http';
+import Keygrip = require('keygrip');
+import express = require('express');
+import connect = require('connect');
 
 const server = http.createServer((req, res) => {
     const cookies = new Cookies(req, res);
+    new Cookies(req, res, {keys: []});
+    new Cookies(req, res, {keys: new Keygrip([])});
+    new Cookies(req, res, {secure: true});
+
     let unsigned: string;
     let signed: string;
     let tampered: string;
 
     if (req.url === "/set") {
         cookies
-        // set a regular cookie
+            // set a regular cookie
             .set("unsigned", "foo", { httpOnly: false })
 
-        // set a signed cookie
+            // set a signed cookie
             .set("signed", "bar", { signed: true })
 
-        // mimic a signed cookie, but with a bogus signature
+            // mimic a signed cookie, but with a bogus signature
             .set("tampered", "baz")
-            .set("tampered.sig", "bogus");
+            .set("tampered.sig", "bogus")
+
+            // sameSite option
+            .set("samesite", "same", {sameSite: 'lax'})
+            .set("samesite", "same", {sameSite: 'strict'})
+            .set("samesite", "same", {sameSite: false});
 
         res.writeHead(302, { Location: "/" });
-        return res.end("Now let's check.");
+        res.end("Now let's check.");
+        return;
     }
 
     unsigned = cookies.get("unsigned");
@@ -29,11 +42,23 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end(
-        "unsigned expected: foo\n\n" +
-        "unsigned actual: " + unsigned + "\n\n" +
-        "signed expected: bar\n\n" +
-        "signed actual: " + signed + "\n\n" +
-        "tampered expected: undefined\n\n" +
-        "tampered: " + tampered + "\n\n"
-    );
+        `unsigned expected: foo
+
+unsigned actual: ${unsigned}
+
+signed expected: bar
+
+signed actual: ${signed}
+
+tampered expected: undefined
+
+tampered: ${tampered}
+
+`);
 });
+
+const eApp = express();
+eApp.use(Cookies.express([]));
+
+const cApp = connect();
+cApp.use(Cookies.connect([]));

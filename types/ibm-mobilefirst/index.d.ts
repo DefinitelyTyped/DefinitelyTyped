@@ -2,6 +2,7 @@
 // Project: http://www.ibm.com/software/products/en/mobilefirstfoundation
 // Definitions by: Guillermo Ignacio Enriquez Gutierrez <https://github.com/nacho4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -60,8 +61,8 @@ declare namespace WL {
         getHeader(name: any): string;
     }
     interface Options {
-        onSuccess?: (response: IResponse) => void;
-        onFailure?: (response: IResponse) => void;
+        onSuccess?(response: IResponse): void;
+        onFailure?(response: IResponse): void;
         invocationContext?: any;
     }
     interface ResponseHandler<T> {

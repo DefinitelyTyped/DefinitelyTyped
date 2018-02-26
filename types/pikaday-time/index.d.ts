@@ -2,6 +2,7 @@
 // Project: https://github.com/owenmead/Pikaday
 // Definitions by: Sayan Pal <https://github.com/Sayan751>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as moment from 'moment';
 
@@ -18,7 +19,7 @@ declare class Pikaday {
      * Extends the existing configuration options for Pikaday object with the options provided.
      * Can be used to change/extend the configurations on runtime.
      * @param options full/partial configuration options.
-     * @returns {} extended configurations.
+     * @returns extended configurations.
      */
     config(options: Pikaday.PikadayOptions): Pikaday.PikadayOptions;
 

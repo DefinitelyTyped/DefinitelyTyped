@@ -31,10 +31,10 @@ export interface Channel extends events.EventEmitter {
     publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
     sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-    consume(queue: string, onMessage: (msg: Message) => any, options?: Options.Consume, callback?: (err: any, ok: Replies.Consume) => void): void;
+    consume(queue: string, onMessage: (msg: Message | null) => any, options?: Options.Consume, callback?: (err: any, ok: Replies.Consume) => void): void;
 
     cancel(consumerTag: string, callback?: (err: any, ok: Replies.Empty) => void): void;
-    get(queue: string, options?: Options.Get, callback?: (err: any, ok: Message | boolean) => void): void;
+    get(queue: string, options?: Options.Get, callback?: (err: any, ok: Message | false) => void): void;
 
     ack(message: Message, allUpTo?: boolean): void;
     ackAll(): void;
@@ -53,6 +53,19 @@ export interface ConfirmChannel extends Channel {
 
     waitForConfirms(callback?: (err: any) => void): void;
 }
+
+export const credentials: {
+    external(): {
+      mechanism: string;
+      response(): Buffer;
+    };
+    plain(username: string, password: string): {
+      mechanism: string;
+      response(): Buffer;
+      username: string;
+      password: string;
+    };
+};
 
 export function connect(callback: (err: any, connection: Connection) => void): void;
 export function connect(url: string, callback: (err: any, connection: Connection) => void): void;

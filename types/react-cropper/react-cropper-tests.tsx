@@ -3,7 +3,7 @@ import Cropper from 'react-cropper';
 // If you choose not to use import, you need to assign Cropper to default
 // var Cropper = require('react-cropper').default
 
-class Demo extends React.Component<{}, {}> {
+class Demo extends React.Component {
     crop() {
         // image in dataUrl
         console.log((this.refs['cropper'] as any).getCroppedCanvas().toDataURL());

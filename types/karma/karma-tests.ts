@@ -1,6 +1,3 @@
-
-
-
 import gulp = require('gulp');
 import karma = require('karma');
 
@@ -13,7 +10,7 @@ function runKarma(singleRun: boolean): void {
     });
 }
 
-gulp.task('test:unit:karma', ['build:test:unit'], () => runKarma(true));
+gulp.task('test:unit:karma', gulp.parallel('build:test:unit', () => runKarma(true)));
 
 
 
@@ -54,7 +51,7 @@ server.on('run_complete', (browsers, results) => {
    results.error = false;
    results.exitCode = 0;
    results.failed = 9;
-   results.success = 10; 
+   results.success = 10;
 });
 
 //var runner = require('karma').runner; => cannot use this syntax otherwise runner is of type any
@@ -91,6 +88,10 @@ module.exports = function(config: karma.Config) {
       'coverage'
     ],
 
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
+
     preprocessors: {
       'app.js': ['coverage']
     },
@@ -105,5 +106,17 @@ module.exports = function(config: karma.Config) {
     ],
 
     singleRun: true
+  });
+};
+
+const foo = (config: karma.Config) => {
+  config.set({
+    client: {
+      args: ['a', 'b'],
+      useIframe: true,
+      runInParent: true,
+      captureConsole: true,
+      clearContext: true
+    }
   });
 };

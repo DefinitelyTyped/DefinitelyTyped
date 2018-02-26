@@ -20,7 +20,11 @@
         snapBackSpeed: 200,
         ease: 'ease',
         rewind: true,
-        infinite: false
+        infinite: false,
+        classNameFrame: 'js_frame',
+        classNameSlideContainer: 'js_slides',
+        classNamePrevCtrl: 'js_prev',
+        classNameNextCtrl: 'js_next'
     });
 
     // with callbacks
@@ -57,6 +61,8 @@
     lory.setup();
     lory.prev();
     lory.next();
+    lory.returnIndex();
     lory.reset();
     lory.slideTo(1);
+    lory.destroy();
 }());

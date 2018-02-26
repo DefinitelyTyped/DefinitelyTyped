@@ -1,7 +1,9 @@
-// Type definitions for koa-static v2.x
+// Type definitions for koa-static 4.0
 // Project: https://github.com/koajs/static
-// Definitions by: Jerry Chin <https://github.com/hellopao/>
-// Definitions: https://github.com/hellopao/DefinitelyTyped
+// Definitions by: Jerry Chin <https://github.com/hellopao>
+//                 Tomek Łaziuk <https://github.com/tlaziuk>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -13,35 +15,17 @@
 
  =============================================== */
 
+import { Middleware } from "koa";
 
-import * as Koa from "koa";
+import { SendOptions } from "koa-send";
 
-declare function serve(root: string, opts?: {
+declare function serve(root: string, opts?: serve.Options): Middleware;
 
-    /**
-     * Default file name, defaults to 'index.html'
-     */
-    index?: boolean | string;
+declare namespace serve {
+    interface Options extends SendOptions {
+        /** If true, serves after return next(), allowing any downstream middleware to respond first. */
+        defer?: boolean;
+    }
+}
 
-    /**
-     * If true, serves after return next(),allowing any downstream middleware to respond first.
-     */
-    defer?: boolean;
-
-    /**
-     * Browser cache max-age in milliseconds. defaults to 0
-     */
-    maxage?: number;
-
-    /**
-     * Allow transfer of hidden files. defaults to false
-     */
-    hidden?: boolean;
-
-    /**
-     * Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with .gz extension exists. defaults to true.
-     */
-    gzip?: boolean;
-}): Koa.Middleware;
-declare namespace serve{}
 export = serve;
