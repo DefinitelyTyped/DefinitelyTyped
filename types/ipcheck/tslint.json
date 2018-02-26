@@ -1,4 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "interface-name": false
-}
+{ "extends": "dtslint/dt.json" }

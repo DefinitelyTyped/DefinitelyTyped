@@ -1,6 +1,6 @@
-// Type definitions for ipcheck
+// Type definitions for ipcheck 0.1
 // Project: https://github.com/gosquared/ipcheck
-// Definitions by: Ben Grynhaus <https://github.com/bengry/>
+// Definitions by: Ben Grynhaus <https://github.com/bengry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,6 +9,7 @@ export = ipcheck;
 export as namespace ipcheck;
 
 declare namespace ipcheck {
+    // tslint:disable-next-line:interface-name
     interface IPCheck {
         address: number[];
         input: string;
@@ -19,10 +20,12 @@ declare namespace ipcheck {
         match(cidr: IPCheck | string): boolean;
     }
 
+    // tslint:disable-next-line:interface-name
     interface IPCheckConstructor {
         new (input: string): IPCheck;
     }
 
+    // tslint:disable-next-line:interface-name
     interface IPCheckStatic extends IPCheckConstructor {
         match(ip: IPCheck | string, cidr: IPCheck | string): boolean;
     }
