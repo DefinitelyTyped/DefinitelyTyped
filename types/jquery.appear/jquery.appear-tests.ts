@@ -5,13 +5,13 @@ $(document).ready(() => {
     });
 
     // with options
-    const options: JQueryAppear.Options = {
+    const options: JQueryAppear.Options<string> = {
         data: 'test',
         one: false,
         accX: 50,
         accY: 100
     };
-    $('#foo').appear((element?: HTMLElement, data?: any) => {
+    $('#foo').appear<string>((element: HTMLElement, data: string) => {
         $(element).text(data);
     }, options);
 });

@@ -7,11 +7,11 @@
 /// <reference types="jquery" />
 
 declare namespace JQueryAppear {
-    interface Options {
+    interface Options<T> {
         /**
          * Data to pass into callback
          */
-        data?: any;
+        data?: T;
 
         /**
          * Callback is called only in first appear
@@ -33,5 +33,5 @@ interface JQuery {
     /**
      * Initialize appear plugin
      */
-    appear(callback: ((element?: HTMLElement, data?: any) => void), options?: JQueryAppear.Options): JQuery;
+    appear<T>(callback: ((element: HTMLElement, data: T) => void), options?: JQueryAppear.Options<T>): JQuery;
 }
