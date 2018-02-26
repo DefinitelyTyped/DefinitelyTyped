@@ -88,6 +88,12 @@ describe('A spy', () => {
     expect(spy).toHaveBeenCalledWith(1, 2, 3);
   });
 
+  it('knows the arguments it was last called with', () => {
+    spy(0, 1, 2);
+    spy(1, 2, 3);
+    expect(spy).toHaveBeenLastCalledWith(1, 2, 3);
+  });
+
   it('accepts to have been called with any object', () => {
     spy({});
     expect(spy).toHaveBeenCalledWith(expect.any(Object));

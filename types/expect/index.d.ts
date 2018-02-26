@@ -59,6 +59,7 @@ declare namespace expect {
         toHaveBeenCalled(message?: string): Expectation<T>;
         toNotHaveBeenCalled(message?: string): Expectation<T>;
         toHaveBeenCalledWith(...args: any[]): Expectation<T>;
+        toHaveBeenLastCalledWith(...args: any[]): Expectation<T>;
 
         not: Expectation<T>;
 
