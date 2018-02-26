@@ -1160,3 +1160,17 @@ describe('withContext', () => {
     }).toThrow(/must be a function/);
   });
 });
+
+describe('not', () => {
+  it('does not throw on different values', () => {
+    expect(() => {
+      expect(1).not.toEqual(2);
+    }).toNotThrow();
+  });
+
+  it('throws on equal values', () => {
+    expect(() => {
+      expect(1).not.toEqual(1);
+    }).toThrow();
+  });
+});

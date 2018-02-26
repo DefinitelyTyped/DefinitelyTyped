@@ -59,6 +59,8 @@ declare namespace expect {
         toNotHaveBeenCalled(message?: string): Expectation<T>;
         toHaveBeenCalledWith(...args: any[]): Expectation<T>;
 
+        not: Expectation<T>;
+        
         // deprecated
         withContext(context: any): Expectation<T>;
         withArgs(...args: any[]): Expectation<T>;
