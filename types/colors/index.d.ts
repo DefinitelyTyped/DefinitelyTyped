@@ -95,7 +95,7 @@ declare global {
         stripColors: string;
 
         black: string;
-        red: string;
+        red: () => string;
         green: string;
         yellow: string;
         blue: string;
