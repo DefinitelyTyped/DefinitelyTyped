@@ -40,6 +40,9 @@ declare module "rethinkdb" {
     export function asc(property: string): Sort;
     export function desc(property: string): Sort;
 
+    export function point(lng: number, lat: number): Point;
+    export function polygon(...point: Point[]): Polygon;
+
     export var count: Aggregator;
     export function sum(prop: string): Aggregator;
     export function avg(prop: string): Aggregator;
@@ -233,7 +236,13 @@ declare module "rethinkdb" {
          * See: https://rethinkdb.com/api/javascript/has_fields/
          */
         hasFields(...fields: string[]): T;
-    }
+    } 
+
+    interface Geometry { }
+
+    interface Point { }
+
+    interface Polygon extends Geometry { }
 
     interface Table extends Sequence, HasFields<Sequence> {
         indexCreate(name: string, index?: ExpressionFunction<any>): Operation<CreateResult>;
