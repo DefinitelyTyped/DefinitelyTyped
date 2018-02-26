@@ -2,9 +2,7 @@
 // Project: http://i18next.com/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="i18next" />
-/// <reference types="express" />
+// TypeScript Version: 2.3
 
 declare namespace I18next {
     interface I18nextOptions extends i18nextExpressMiddleware.I18nextOptions { }
@@ -97,8 +95,8 @@ declare module "i18next-express-middleware" {
         init(services: any, options?: Object, allOptions?: Object): void;
     }
 
-    export function getResourcesHandler(i18next: i18next.I18n, options: Object): express.Handler;
-    export function handle(i18next: i18next.I18n, options?: Object): express.Handler;
+    export function getResourcesHandler(i18next: i18next.i18n, options: Object): express.Handler;
+    export function handle(i18next: i18next.i18n, options?: Object): express.Handler;
 
     /**
      * @summary Gets handler for missing key.
@@ -106,5 +104,5 @@ declare module "i18next-express-middleware" {
      * @param {Object}          options The options.
      * @return {express.Handler} The express handler.
      */
-    export function missingKeyHandler(i18next: i18next.I18n, options: Object): express.Handler;
+    export function missingKeyHandler(i18next: i18next.i18n, options: Object): express.Handler;
 }

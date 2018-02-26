@@ -1,10 +1,7 @@
-import { optimize, Configuration, Plugin } from 'webpack'
+import webpack = require('webpack');
+import ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
-
-
-let configuration: Configuration
-
+let configuration: webpack.Configuration;
 
 configuration = {
     // The standard entry point and output config
@@ -58,7 +55,7 @@ configuration = {
 configuration = {
     // ...
     plugins: [
-        new optimize.CommonsChunkPlugin({
+        new webpack.optimize.CommonsChunkPlugin({
             name: "commons",
             filename: "commons.js",
         }),
@@ -85,15 +82,15 @@ configuration = {
 };
 
 // multiple extract instances
-let extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
-let extractLESS = new ExtractTextPlugin('stylesheets/[name].less');
+const extractCSS: ExtractTextPlugin = new ExtractTextPlugin('stylesheets/[name].css');
+const extractLESS: ExtractTextPlugin = new ExtractTextPlugin('stylesheets/[name].less');
 
 configuration = {
     // ...
     module: {
         rules: [
-            { test: /\.scss$/i, use: extractCSS.extract(['css','sass']) },
-            { test: /\.less$/i, use: extractLESS.extract(['css','less']) },
+            { test: /\.scss$/i, use: extractCSS.extract(['css', 'sass']) },
+            { test: /\.less$/i, use: extractLESS.extract(['css', 'less']) },
         ]
     },
     plugins: [

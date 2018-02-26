@@ -1,9 +1,9 @@
 /// <reference types="mocha" />
 
-import {Buffer} from 'buffer';
-import * as assert from 'assert';
+import { Buffer } from 'buffer';
+import assert = require('assert');
 import * as async from 'async';
-import * as PQ from 'libpq';
+import PQ = require('libpq');
 
 declare const _: { times<T>(n: number, f: () => T): T[] };
 

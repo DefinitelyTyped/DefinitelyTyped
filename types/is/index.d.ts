@@ -1321,3 +1321,7 @@ declare var is: Is;
 declare module 'is' {
     export = is;
 }
+
+declare module 'is_js' {
+    export = is;
+}

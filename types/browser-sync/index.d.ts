@@ -1,6 +1,7 @@
 // Type definitions for browser-sync
 // Project: http://www.browsersync.io/
-// Definitions by: Asana <https://asana.com>, Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Asana <https://asana.com>, Joe Skeen <https://github.com/joeskeen>
+//                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="chokidar"/>
@@ -47,6 +48,7 @@ declare namespace browserSync {
          * middleware - Default: undefined
          * reqHeaders - Default: undefined
          * proxyRes - Default: undefined
+         * proxyReq - Default: undefined
          */
         proxy?: string | boolean | ProxyOptions;
         /**
@@ -134,6 +136,12 @@ declare namespace browserSync {
          * Default: default
          */
         browser?: string | string[];
+        /**
+         * Add HTTP access control (CORS) headers to assets served by Browsersync.
+         * Default: false
+         * Note: requires at least version 2.16.0
+         */
+        cors?: boolean;
         /**
          * Requires an internet connection - useful for services such as Typekit as it allows you to configure
          * domains such as *.xip.io in your kit settings
@@ -284,9 +292,10 @@ declare namespace browserSync {
     interface ProxyOptions {
         target?: string;
         middleware?: MiddlewareHandler;
-        ws: boolean;
-        reqHeaders: (config: any) => Hash<any>;
-        proxyRes: (res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any;
+        ws?: boolean;
+        reqHeaders?: (config: any) => Hash<any>;
+        proxyRes?: ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any)[] | ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any);
+        proxyReq?: ((res: http.ServerRequest) => any)[] | ((res: http.ServerRequest) => any);
     }
 
     interface MiddlewareHandler {

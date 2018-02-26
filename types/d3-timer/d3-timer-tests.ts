@@ -9,7 +9,7 @@
 import * as d3Timer from 'd3-timer';
 
 // Test now definition
-let now: number = d3Timer.now();
+const now: number = d3Timer.now();
 
 // Test timer and timerFlush definitions ------------
 

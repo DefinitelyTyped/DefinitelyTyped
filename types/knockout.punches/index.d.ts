@@ -2,6 +2,7 @@
 // Project: https://github.com/mbest/knockout.punches
 // Definitions by: Stephen Lautier <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="knockout" />
 

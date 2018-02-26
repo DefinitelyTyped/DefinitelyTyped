@@ -1,6 +1,8 @@
-// Type definitions for geodesy 1.1
+// Type definitions for geodesy 1.2
 // Project: https://github.com/chrisveness/geodesy
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+// 		   Gilbert Handy <https://github.com/HandyG52>
+//         Harry Nicholls <https://github.com/excelulous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type format = 'd' | 'dm' | 'dms';
@@ -93,15 +95,12 @@ export class Utm {
 
 export namespace Dms {
     let separator: string;
-}
-
-export class Dms {
-    static parseDMS(dmsStr: string): number;
-    static toDMS(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static toLat(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static toLon(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static toBrng(deg: number, format?: format, dp?: 0 | 2 | 4): string;
-    static compassPoint(bearing: number, precision?: 1 | 2 | 3): string;
+    function parseDMS(dmsStr: string): number;
+    function toDMS(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function toLat(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function toLon(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function toBrng(deg: number, format?: format, dp?: 0 | 2 | 4): string;
+    function compassPoint(bearing: number, precision?: 1 | 2 | 3): string;
 }
 
 export class Vector3d {
@@ -147,3 +146,50 @@ export class LatLonEllipsoidal {
     static datum: Datums;
     static ellipsoid: Ellipsoids;
 }
+
+export class LatLonSpherical {
+    lat: number;
+    lon: number;
+    constructor(lat: number, lon: number)
+    distanceTo(point: LatLonSpherical, radius?: number): number;
+    bearingTo(point: LatLonSpherical): number;
+    finalBearingTo(point: LatLonSpherical): number;
+    midpointTo(point: LatLonSpherical): number;
+    intermediatePointTo(point: LatLonSpherical, fraction: number): LatLonSpherical;
+    destinationPoint(distance: number, bearing: number, radius?: number): LatLonSpherical;
+    static intersection(point1: LatLonSpherical, bearing1: number, point2: LatLonSpherical, bearing2: number): LatLonSpherical;
+    crossTrackDistanceTo(pathStart: LatLonSpherical, pathEnd: LatLonSpherical, radius?: number): number;
+    maxLatitude(bearing: number): number;
+    static crossingParallels(point1: LatLonSpherical, point2: LatLonSpherical, latitude: number): any;
+    rhumbDistanceTo(point: LatLonSpherical, radius?: number): number;
+    rhumbBearingTo(point: LatLonSpherical): number;
+    rhumbDestinationPoint(distance: number, bearing: number, radius?: number): LatLonSpherical;
+    rhumbMidpointTo(point: LatLonSpherical): LatLonSpherical;
+    equals(point: LatLonSpherical): boolean;
+    static areaOf(polygon: LatLonSpherical[], radius?: number): number;
+    toString(format?: string, dp?: number): string;
+}
+
+export class LatLonVectors {
+    lat: number;
+    lon: number;
+    constructor(lat: number, lon: number);
+    toVector(): Vector3d;
+    greatCircle(bearing: number): Vector3d;
+    distanceTo(point: LatLonVectors, radius?: number): number;
+    bearingTo(point: LatLonVectors): number;
+    midpointTo(point: LatLonVectors): number;
+    intermediatePointTo(point: LatLonVectors, fraction: number): LatLonVectors;
+    intermediatePointOnChordTo(point: LatLonVectors, fraction: number): LatLonVectors;
+    destinationPoint(distance: number, bearing: number, radius?: number): LatLonVectors;
+    static intersection(path1start: LatLonVectors, path1brngEnd: LatLonVectors | number, path2start: LatLonVectors, path2brngEnd: LatLonVectors | number): LatLonVectors;
+    crossTrackDistanceTo(pathStart: LatLonVectors, pathBrngEnd: LatLonVectors | number, radius?: number): number;
+    alongTrackDistanceTo(pathStart: LatLonVectors, pathBrngEnd: LatLonVectors | number, radius?: number): number;
+    nearestPointOnSegment(point1: LatLonVectors, point2: LatLonVectors): LatLonVectors;
+    isBetween(point1: LatLonVectors, point2: LatLonVectors): boolean;
+    enclosedBy(polygon: LatLonVectors[]): boolean;
+    static areaOf(polygon: LatLonVectors[], radius?: number): number;
+    static meanOf(points: ReadonlyArray<LatLonVectors>): LatLonVectors;
+    equals(point: LatLonVectors): boolean;
+    toString(format?: string, dp?: number): string;
+  }

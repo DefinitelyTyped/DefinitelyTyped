@@ -3,6 +3,7 @@
 // Definitions by: John Reilly <https://github.com/johnnyreilly>,
 //   Eduardo Garcia <https://github.com/thewarpaint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 import * as angular from 'angular';
@@ -252,6 +253,10 @@ declare module 'angular' {
              * @type {string}
              */
             url: string;
+            /**
+             * Add which HTTP method to use: 'POST' or 'PUT' (html5)
+             */
+            method: string;
             /**
              * This is to accommodate server implementations expecting nested data object keys in .key or [key] format.
              * Example: data: {rec: {name: 'N', pic: file}} sent as: rec[name] -> N, rec[pic] -> file

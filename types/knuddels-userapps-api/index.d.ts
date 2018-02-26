@@ -1,6 +1,6 @@
 // Type definitions for Knuddels UserApps API 1.0
 // Project: https://developer.knuddels.de
-// Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels/>
+// Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // JSON definition
@@ -537,6 +537,10 @@ declare class BotUser extends User {
 	 * Hat ein Channelbesitzer eine gewisse Menge Schulden angesammelt, so schalten wir alle Apps in diesem Channel ab.
 	 * <br />Es können nur Knuddel transferiert werden zu Nutzern mit <code>UserType.Human</code>.
 	 */
+	transferKnuddel(
+		receivingUserOrAccount: User | KnuddelAccount,
+		knuddelAmount: KnuddelAmount,
+		displayReasonText: string): void;
 	transferKnuddel(
 		receivingUserOrAccount: User | KnuddelAccount,
 		knuddelAmount: KnuddelAmount,

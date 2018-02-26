@@ -1,3 +1,5 @@
+import $ = require('jquery');
+
 var options: JoyrideOptions;
 options.autoStart = true;
 options.postStepCallback = (index, tip)=> {

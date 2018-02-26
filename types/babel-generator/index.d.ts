@@ -1,12 +1,11 @@
-// Type definitions for babel-generator v6.7
+// Type definitions for babel-generator 6.25
 // Project: https://github.com/babel/babel/tree/master/packages/babel-generator
 // Definitions by: Troy Gerwien <https://github.com/yortus>
+//                 Johnny Estilles <https://github.com/johnnyestilles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="babel-types" />
+// TypeScript Version: 2.3
 
 import * as t from 'babel-types';
-type Node = t.Node;
 
 /**
  * Turns an AST into code, maintaining sourcemaps, user preferences, and valid output.
@@ -15,18 +14,17 @@ type Node = t.Node;
  * @param code - the original source code, used for source maps.
  * @returns - an object containing the output code and source map.
  */
-export default function generate(ast: Node, opts?: GeneratorOptions, code?: string | {[filename: string]: string}): GeneratorResult;
+export default function generate(ast: t.Node, opts?: GeneratorOptions, code?: string | {[filename: string]: string}): GeneratorResult;
 
 export interface GeneratorOptions {
-
     /**
      * Optional string to add as a block comment at the start of the output file.
-    */
+     */
     auxiliaryCommentBefore?: string;
 
     /**
      * Optional string to add as a block comment at the end of the output file.
-    */
+     */
     auxiliaryCommentAfter?: string;
 
     /**
@@ -34,7 +32,7 @@ export interface GeneratorOptions {
      * By default, comments are included if `opts.comments` is `true` or if `opts.minifed` is `false` and the comment
      * contains `@preserve` or `@license`.
      */
-    shouldPrintComment?: (comment: string) => boolean;
+    shouldPrintComment?(comment: string): boolean;
 
     /**
      * Attempt to use the same line numbers in the output code as in the source code (helps preserve stack traces).
@@ -60,7 +58,7 @@ export interface GeneratorOptions {
     /**
      * Set to true to reduce whitespace (but not as much as opts.compact). Defaults to `false`.
      */
-    concise?: boolean;        
+    concise?: boolean;
 
     /**
      * The type of quote to use in the output. If omitted, autodetects based on `ast.tokens`.
@@ -70,7 +68,7 @@ export interface GeneratorOptions {
     /**
      * Used in warning messages
      */
-    filename?: string;        
+    filename?: string;
 
     /**
      * Enable generating source maps. Defaults to `false`.
@@ -92,10 +90,14 @@ export interface GeneratorOptions {
      * This will only be used if `code` is a string.
      */
     sourceFileName?: string;
+
+    /**
+     * Set to true to run jsesc with "json": true to print "\u00A9" vs. "©";
+     */
+    jsonCompatibleStrings?: boolean;
 }
 
 export interface GeneratorResult {
-    map: Object;
+    map: {};
     code: string;
 }
-

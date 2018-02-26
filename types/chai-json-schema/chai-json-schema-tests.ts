@@ -1,11 +1,8 @@
-import { expect } from 'chai';
-import { assert } from 'chai';
-
-import chai = require('chai');
+import { assert, expect, use, should, tv4 } from 'chai';
 import ChaiJsonSchema = require('chai-json-schema');
 
-chai.use(ChaiJsonSchema);
-chai.should();
+use(ChaiJsonSchema);
+should();
 
 const goodApple = {
     skin: 'thin',
@@ -63,5 +60,5 @@ const schema = {
 const data1 = [true, false];
 const data2 = [true, 123];
 
-expect(chai.tv4.validate(data1, schema)).to.be.true;
-expect(chai.tv4.validate(data2, schema)).to.be.false;
+expect(tv4.validate(data1, schema)).to.be.true;
+expect(tv4.validate(data2, schema)).to.be.false;

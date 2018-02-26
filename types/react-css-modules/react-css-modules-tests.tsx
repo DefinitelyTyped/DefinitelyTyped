@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as CSSModules from 'react-css-modules';
+import CSSModules= require('react-css-modules');
 
 const styles = {};
 
@@ -7,7 +7,7 @@ interface TableProps extends CSSModules.InjectedCSSModuleProps {
 
 }
 
-class Table extends React.Component<TableProps, {}> {
+class Table extends React.Component<TableProps> {
     render () {
         const { styles } = this.props;
 
@@ -29,7 +29,7 @@ interface TableDecoratedProps extends CSSModules.InjectedCSSModuleProps {
 }
 
 @CSSModules(styles)
-class TableDecorated extends React.Component<TableDecoratedProps, {}> {
+class TableDecorated extends React.Component<TableDecoratedProps> {
     render () {
         const { styles } = this.props;
 
@@ -47,7 +47,7 @@ interface TableProps extends CSSModules.InjectedCSSModuleProps {
 
 }
 
-class Svg extends React.Component<TableProps, {}> {
+class Svg extends React.Component<TableProps> {
     render () {
         const { styles } = this.props;
 

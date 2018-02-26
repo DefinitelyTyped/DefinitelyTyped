@@ -1,6 +1,6 @@
 // Type definitions for observe-js v0.5.5
 // Project: https://github.com/Polymer/observe-js
-// Definitions by: Oliver Herrmann <https://github.com/herrmanno/>
+// Definitions by: Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace observejs {
@@ -102,7 +102,7 @@ declare namespace observejs {
 	}
 
 	interface ArrayObserver_instance extends Observable {
-		open(onChange:(splices:Array<splice>)=>any):void
+		open(onChange: (splices: Array<splice>, oldSplices: Array<splice>) => any): void
 	}
 
 	/**

@@ -1,4 +1,4 @@
-class NgMapTestController {
+class NgMapTestController implements ng.IController {
     constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public NgMap: angular.map.INgMap) {
         this.showMap();
     }
@@ -7,6 +7,8 @@ class NgMapTestController {
     	this.NgMap.getMap().then(function(map) {
 		    console.log(map.getCenter());
 		});
+    }
+    $onInit() {
     }
 }
 

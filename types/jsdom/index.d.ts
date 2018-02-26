@@ -1,198 +1,274 @@
-// Type definitions for jsdom 2.0.0
-// Project: https://github.com/tmpvar/jsdom
-// Definitions by: Asana <https://asana.com>
+// Type definitions for jsdom 11.0
+// Project: https://github.com/tmpvar/jsdom#readme
+// Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="jquery" />
 
+import { EventEmitter } from 'events';
+import { MarkupData } from 'parse5';
+import * as tough from 'tough-cookie';
+import { Script } from 'vm';
 
+export class JSDOM {
+    static fromURL(url: string, options?: FromUrlOptions): Promise<JSDOM>;
 
-import EventEmitter = NodeJS.EventEmitter;
+    static fromFile(url: string, options?: FromFileOptions): Promise<JSDOM>;
 
-/**
- * The do-what-I-mean API.
- *
- * Example:
- * jsdom.env(html, function (errors, window) {
- *  // free memory associated with the window
- *  window.close();
- * });
- *
- * @param urlOrSource may be a URL, file name, or HTML fragment
- * @param scriptUrlsOrSources a string or array of strings, containing file names or URLs that will be inserted as
- * @param config  Configuration object
- * @param callback 
- */
-export declare function env(urlOrHtml: string, scripts: string, config: Config, callback?: Callback): void;
-export declare function env(urlOrHtml: string, scripts: string, callback: Callback): void;
-export declare function env(urlOrHtml: string, scripts: string[], config: Config, callback?: Callback): void;
-export declare function env(urlOrHtml: string, scripts: string[], callback: Callback): void;
-export declare function env(urlOrHtml: string, callback: Callback): void;
-export declare function env(urlOrHtml: string, config: Config, callback?: Callback): void;
-export declare function env(config: Config, callback?: Callback): void;
+    static fragment(html: string): DocumentFragment;
 
-export declare function serializeDocument(doc: Document): string;
+    constructor(html?: string | Buffer | BinaryData, options?: ConstructorOptions);
 
-export interface VirtualConsole extends EventEmitter {
-    sendTo(console: Console): VirtualConsole;
+    readonly window: DOMWindow;
+    readonly virtualConsole: VirtualConsole;
+    readonly cookieJar: CookieJar;
+
+    /**
+     * The serialize() method will return the HTML serialization of the document, including the doctype.
+     */
+    serialize(): string;
+
+    /**
+     * The nodeLocation() method will find where a DOM node is within the source document, returning the parse5 location info for the node.
+     */
+    nodeLocation(node: Node): MarkupData.ElementLocation | null;
+
+    /**
+     * The built-in vm module of Node.js allows you to create Script instances,
+     * which can be compiled ahead of time and then run multiple times on a given "VM context".
+     * Behind the scenes, a jsdom Window is indeed a VM context.
+     * To get access to this ability, use the runVMScript() method.
+     */
+    runVMScript(script: Script): void;
+
+    reconfigure(settings: ReconfigureSettings): void;
 }
 
-export interface VirtualConsoleOptions {
-}
-
-export interface WindowProperties {
-    parsingMode?: string; // html, xml, auto, undefined
-    contentType?: string;
-    parser?: any;
-    url?: string;
+export interface Options {
+    /**
+     * referrer just affects the value read from document.referrer.
+     * It defaults to no referrer (which reflects as the empty string).
+     */
     referrer?: string;
+    /**
+     * userAgent affects the value read from navigator.userAgent, as well as the User-Agent header sent while fetching subresources.
+     * It defaults to `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`.
+     */
+    userAgent?: string;
+    /**
+     * includeNodeLocations preserves the location info produced by the HTML parser,
+     * allowing you to retrieve it with the nodeLocation() method (described below).
+     * It defaults to false to give the best performance,
+     * and cannot be used with an XML content type since our XML parser does not support location info.
+     */
+    includeNodeLocations?: boolean;
+    runScripts?: 'dangerously' | 'outside-only';
+    resources?: 'usable';
+    virtualConsole?: VirtualConsole;
     cookieJar?: CookieJar;
-    cookie?: string;
-    resourceLoader?: any;
-    deferClose?: boolean;
-    concurrentNodeIterators?: number;
-    virtualConsole?: VirtualConsole;
-    created?: (something: any, window: Window) => any;
-    features?: FeatureOptions;
-    top?: Window;
+    beforeParse?(window: DOMWindow): void;
 }
 
-// tough-cookie
-export interface CookieJar {
+export type FromUrlOptions = Options;
 
-}
-
-export declare function createVirtualConsole(options?: VirtualConsoleOptions): VirtualConsole;
-export declare function getVirtualConsole(window: Window): VirtualConsole;
-export declare function createCookieJar(): CookieJar;
-export declare function nodeLocation(node: Node): any;
-export declare function reconfigureWindow(window: Window, newProps: WindowProperties): void;
-export declare function changeURL(window: Window, url: string): void;
-
-export declare function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
-
-export declare var debugMode: boolean;
-
-export interface DocumentWithParentWindow extends Document {
-    parentWindow: Window;
-}
-
-/**
- * The jsdom.jsdom method does less things automatically; it takes in only HTML source, and does not let you to
- * separately supply script that it will inject and execute. It just gives you back a document object,
- * with usable document.parentWindow, and starts asynchronously executing any <script>s included in the HTML source.
- * You can listen for the 'load' event to wait until scripts are done loading and executing, just like you would in a
- * normal HTML page.
- *
- * @param markup	is a HTML document to be parsed. You can also pass undefined to get the basic document,
- *					equivalent to what a browser will give if you open up an empty .html file.
- * @param options	see the explanation of the config object above.
- */
-export declare function jsdom(markup?: string, config?: Config): DocumentWithParentWindow;
-
-/**
- * Before creating any documents, you can modify the defaults for all future documents:
- */
-export declare var availableDocumentFeatures: FeatureOptions;
-export declare var defaultDocumentFeatures: FeatureOptions;
-export declare var applyDocumentFeatures: FeatureOptions;
-
-export interface Callback {
-    (errors: Error[], window: Window): any;
-}
-
-export interface FeatureOptions {
+export type FromFileOptions = Options & {
     /**
-     * Enables/disables fetching files over the file system/HTTP
-     * Allowed: ["script", "img", "css", "frame", "iframe", "link"] or false
-     * Default for jsdom.env: false
-     */
-    FetchExternalResources?: string[] | boolean;
-
-    /**
-     * Enables/disables JavaScript execution
-     * Default: ["script"]
-     * Allowed: ["script"] or false, 
-     * Default for jsdom.env: false
-     */
-    ProcessExternalResources?: string[] | boolean;
-
-    /**
-     * Filters resource downloading and processing to disallow those matching the given regular expression
-     * Default: false (allow all)
-     * Allowed: /url to be skipped/ or false
-     * Example: /http:\/\/example.org/js/bad\.js/
-     */
-    SkipExternalResources?: string | boolean;
-}
-
-export interface EnvDocument {
-    /**
-     * the new document will have this referrer.
-     */
-    referrer?: string;
-    /**
-     * manually set a cookie value, e.g. 'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'.
-     */
-    cookie?: string;
-    /**
-     * a cookie domain for the manually set cookie; defaults to 127.0.0.1.
-     */
-    cookieDomain?: string;
-}
-
-export interface Config {
-    /**
-     * a HTML fragment
-     */
-    html?: string;
-    /**
-     * a file which jsdom will load HTML from; the resulting window's location.href will be a file:// URL.
-     */
-    file?: string;
-    /**
-     * sets the resulting window's location.href; if config.html and config.file are not provided, jsdom will load HTML from this URL
+     * url sets the value returned by window.location, document.URL, and document.documentURI,
+     * and affects things like resolution of relative URLs within the document
+     * and the same-origin restrictions and referrer used while fetching subresources.
+     * It will default to a file URL corresponding to the given filename, instead of to "about:blank".
      */
     url?: string;
     /**
-     * a string or array of strings, containing file names or URLs that will be inserted as <script> tags
+     * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
+     * Values that are not "text/html" or an XML mime type will throw. It will default to "application/xhtml+xml" if
+     * the given filename ends in .xhtml or .xml; otherwise it will continue to default to "text/html".
      */
-    scripts?: string[];
-    /**
-     * an array of JavaScript strings that will be evaluated against the resulting document. Similar to scripts, but it accepts JavaScript instead of paths/URLs.
-     */
-    src?: string[];
-    /**
-     * a custom cookie jar, if desired; see mikeal/request documentation.
-     */
-    jar?: CookieJar;
-    /**
-     *  either "auto", "html", or "xml". The default is "auto", which uses HTML behavior unless config.url responds with an XML Content-Type, or config.file contains a filename ending in .xml or .xhtml. Setting to "xml" will attempt to parse the document as an XHTML document. (jsdom is currently only OK at doing that.)
-     */
-    parsingMode?: string;
-    document?: EnvDocument;
-    /**
-     * Note: the default feature set for jsdom.env does not include fetching remote JavaScript and executing it. This is something that you will need to carefully enable yourself.
-     */
-    features?: FeatureOptions;
+    contentType?: string;
+};
 
-    virtualConsole?: VirtualConsole;
+export type ConstructorOptions = Options & {
+    /**
+     * url sets the value returned by window.location, document.URL, and document.documentURI,
+     * and affects things like resolution of relative URLs within the document
+     * and the same-origin restrictions and referrer used while fetching subresources.
+     * It defaults to "about:blank".
+     */
+    url?: string;
+    /**
+     * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
+     * Values that are not "text/html" or an XML mime type will throw. It defaults to "text/html".
+     */
+    contentType?: string;
+};
 
-    /**
-     * Now that you know about created and loaded, you can see that done is essentially both of them smashed together:
-     * If window creation succeeds and no <script>s cause errors, then errors will be null, and window will be usable.
-     * If window creation succeeds but there are script errors, then errors will be an array containing those errors, but window will still be usable.
-     * If window creation fails, then errors will be an array containing the creation error, and window will not be passed.
-     */
-    done?: Callback;
-    /**
-     * The loaded callback is called along with the window's 'load' event. This means it will only be called if creation succeeds without error. Note that by the time it has called, any external resources will have been downloaded, and any <script>s will have finished executing. If errors is non-null, it will contain an array of all JavaScript errors that occured during script execution. window will still be passed, however.
-     */
-    loaded?: Callback;
+export interface DOMWindow extends Window {
+    eval(script: string): void;
 
-    /**
-     * The created callback is called as soon as the window is created, or if that process fails. You may access all window properties here; however, window.document is not ready for use yet, as the HTML has not been parsed. The primary use-case for created is to modify the window object (e.g. add new functions on built-in prototypes) before any scripts execute. You can also set an event handler for 'load' or other events on the window if you wish. But the loaded callback, below, can be more useful, since it includes script errors. If the error argument is non-null, it will contain whatever loading error caused the window creation to fail; in that case window will not be passed.
-     */
-    created?: (error: Error, window: Window) => void;
+    /* node_modules/jsdom/living/index.js */
+    DOMException: typeof DOMException;
+    Attr: typeof Attr;
+    Node: typeof Node;
+    Element: typeof Element;
+    DocumentFragment: typeof DocumentFragment;
+    Document: typeof Document;
+    HTMLDocument: typeof HTMLDocument;
+    XMLDocument: typeof XMLDocument;
+    CharacterData: typeof CharacterData;
+    Text: typeof Text;
+    CDATASection: typeof CDATASection;
+    ProcessingInstruction: typeof ProcessingInstruction;
+    Comment: typeof Comment;
+    DocumentType: typeof DocumentType;
+    DOMImplementation: typeof DOMImplementation;
+    NodeList: typeof NodeList;
+    HTMLCollection: typeof HTMLCollection;
+    HTMLOptionsCollection: typeof HTMLOptionsCollection;
+    DOMStringMap: typeof DOMStringMap;
+    DOMTokenList: typeof DOMTokenList;
+    Event: typeof Event;
+    CustomEvent: typeof CustomEvent;
+    MessageEvent: typeof MessageEvent;
+    ErrorEvent: typeof ErrorEvent;
+    HashChangeEvent: typeof HashChangeEvent;
+    FocusEvent: typeof FocusEvent;
+    PopStateEvent: typeof PopStateEvent;
+    UIEvent: typeof UIEvent;
+    MouseEvent: typeof MouseEvent;
+    KeyboardEvent: typeof KeyboardEvent;
+    TouchEvent: typeof TouchEvent;
+    ProgressEvent: typeof ProgressEvent;
+    CompositionEvent: typeof CompositionEvent;
+    WheelEvent: typeof WheelEvent;
+    EventTarget: typeof EventTarget;
+    Location: typeof Location;
+    History: typeof History;
+    Blob: typeof Blob;
+    File: typeof File;
+    FileList: typeof FileList;
+    DOMParser: typeof DOMParser;
+    FormData: typeof FormData;
+    XMLHttpRequestEventTarget: XMLHttpRequestEventTarget;
+    XMLHttpRequestUpload: typeof XMLHttpRequestUpload;
+    NodeIterator: typeof NodeIterator;
+    TreeWalker: typeof TreeWalker;
+    NamedNodeMap: typeof NamedNodeMap;
+    URL: typeof URL;
+    URLSearchParams: typeof URLSearchParams;
+
+    /* node_modules/jsdom/living/register-elements.js */
+    HTMLElement: typeof HTMLElement;
+    HTMLAnchorElement: typeof HTMLAnchorElement;
+    HTMLAppletElement: typeof HTMLAppletElement;
+    HTMLAreaElement: typeof HTMLAreaElement;
+    HTMLAudioElement: typeof HTMLAudioElement;
+    HTMLBaseElement: typeof HTMLBaseElement;
+    HTMLBodyElement: typeof HTMLBodyElement;
+    HTMLBRElement: typeof HTMLBRElement;
+    HTMLButtonElement: typeof HTMLButtonElement;
+    HTMLCanvasElement: typeof HTMLCanvasElement;
+    HTMLDataElement: typeof HTMLDataElement;
+    HTMLDataListElement: typeof HTMLDataListElement;
+    // HTMLDetailsElement: typeof HTMLDetailsElement;
+    // HTMLDialogElement: typeof HTMLDialogElement;
+    HTMLDirectoryElement: typeof HTMLDirectoryElement;
+    HTMLDivElement: typeof HTMLDivElement;
+    HTMLDListElement: typeof HTMLDListElement;
+    HTMLEmbedElement: typeof HTMLEmbedElement;
+    HTMLFieldSetElement: typeof HTMLFieldSetElement;
+    HTMLFontElement: typeof HTMLFontElement;
+    HTMLFormElement: typeof HTMLFormElement;
+    HTMLFrameElement: typeof HTMLFrameElement;
+    HTMLFrameSetElement: typeof HTMLFrameSetElement;
+    HTMLHeadingElement: typeof HTMLHeadingElement;
+    HTMLHeadElement: typeof HTMLHeadElement;
+    HTMLHRElement: typeof HTMLHRElement;
+    HTMLHtmlElement: typeof HTMLHtmlElement;
+    HTMLIFrameElement: typeof HTMLIFrameElement;
+    HTMLImageElement: typeof HTMLImageElement;
+    HTMLInputElement: typeof HTMLInputElement;
+    HTMLLabelElement: typeof HTMLLabelElement;
+    HTMLLegendElement: typeof HTMLLegendElement;
+    HTMLLIElement: typeof HTMLLIElement;
+    HTMLLinkElement: typeof HTMLLinkElement;
+    HTMLMapElement: typeof HTMLMapElement;
+    HTMLMarqueeElement: typeof HTMLMarqueeElement;
+    HTMLMediaElement: typeof HTMLMediaElement;
+    HTMLMenuElement: typeof HTMLMenuElement;
+    HTMLMetaElement: typeof HTMLMetaElement;
+    HTMLMeterElement: typeof HTMLMeterElement;
+    HTMLModElement: typeof HTMLModElement;
+    HTMLObjectElement: typeof HTMLObjectElement;
+    HTMLOListElement: typeof HTMLOListElement;
+    HTMLOptGroupElement: typeof HTMLOptGroupElement;
+    HTMLOptionElement: typeof HTMLOptionElement;
+    HTMLOutputElement: typeof HTMLOutputElement;
+    HTMLParagraphElement: typeof HTMLParagraphElement;
+    HTMLParamElement: typeof HTMLParamElement;
+    HTMLPictureElement: typeof HTMLPictureElement;
+    HTMLPreElement: typeof HTMLPreElement;
+    HTMLProgressElement: typeof HTMLProgressElement;
+    HTMLQuoteElement: typeof HTMLQuoteElement;
+    HTMLScriptElement: typeof HTMLScriptElement;
+    HTMLSelectElement: typeof HTMLSelectElement;
+    HTMLSourceElement: typeof HTMLSourceElement;
+    HTMLSpanElement: typeof HTMLSpanElement;
+    HTMLStyleElement: typeof HTMLStyleElement;
+    HTMLTableCaptionElement: typeof HTMLTableCaptionElement;
+    HTMLTableCellElement: typeof HTMLTableCellElement;
+    HTMLTableColElement: typeof HTMLTableColElement;
+    HTMLTableElement: typeof HTMLTableElement;
+    HTMLTimeElement: typeof HTMLTimeElement;
+    HTMLTitleElement: typeof HTMLTitleElement;
+    HTMLTableRowElement: typeof HTMLTableRowElement;
+    HTMLTableSectionElement: typeof HTMLTableSectionElement;
+    HTMLTemplateElement: typeof HTMLTemplateElement;
+    HTMLTextAreaElement: typeof HTMLTextAreaElement;
+    HTMLTrackElement: typeof HTMLTrackElement;
+    HTMLUListElement: typeof HTMLUListElement;
+    HTMLUnknownElement: typeof HTMLUnknownElement;
+    HTMLVideoElement: typeof HTMLVideoElement;
+
+    /* node_modules/jsdom/level2/style.js */
+    StyleSheet: typeof StyleSheet;
+    MediaList: typeof MediaList;
+    CSSStyleSheet: typeof CSSStyleSheet;
+    CSSRule: typeof CSSRule;
+    CSSStyleRule: typeof CSSStyleRule;
+    CSSMediaRule: typeof CSSMediaRule;
+    CSSImportRule: typeof CSSImportRule;
+    CSSStyleDeclaration: typeof CSSStyleDeclaration;
+    StyleSheetList: typeof StyleSheetList;
+
+    /* node_modules/jsdom/level3/xpath.js */
+    // XPathException: typeof XPathException;
+    XPathExpression: typeof XPathExpression;
+    XPathResult: typeof XPathResult;
+    XPathEvaluator: typeof XPathEvaluator;
+
+    /* node_modules/jsdom/living/node-filter.js */
+    NodeFilter: typeof NodeFilter;
+}
+
+export type BinaryData = ArrayBuffer | DataView | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
+export class VirtualConsole extends EventEmitter {
+    on<K extends keyof Console>(method: K, callback: Console[K]): this;
+    on(event: 'jsdomError', callback: (e: Error) => void): this;
+
+    sendTo(console: Console, options?: VirtualConsoleSendToOptions): this;
+}
+
+export interface VirtualConsoleSendToOptions {
+    omitJSDOMErrors: boolean;
+}
+
+export class CookieJar extends tough.CookieJar { }
+
+export const toughCookie: typeof tough;
+
+export interface ReconfigureSettings {
+    windowTop?: DOMWindow;
+    url?: string;
 }

@@ -1,6 +1,6 @@
 // Type definitions for javascript-astar
 // Project: https://github.com/bgrins/javascript-astar
-// Definitions by: brian ridley <https://github.com/ptlis/>
+// Definitions by: brian ridley <https://github.com/ptlis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Graph {

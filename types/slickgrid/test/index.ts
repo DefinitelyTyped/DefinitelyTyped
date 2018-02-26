@@ -62,7 +62,7 @@ $('.newSelection');
 grid.setSelectedRows([0, 1, 2]);
 
 class SingleCellSelectionModel extends Slick.SelectionModel<MyData, Slick.Range[]> {
-	private self: SingleCellSelectionModel = null;
+	private readonly self: SingleCellSelectionModel = null;
 	private _grid: Slick.Grid<MyData>;
 
 	constructor() {
@@ -101,7 +101,7 @@ sortable ? console.log("It's sortable!") : console.log("It's not sortable!");
 
 var data2 = grid.getColumns();
 data2[0].name = "First";
-grid.setColumns(data);
+grid.setColumns(data2);
 
 grid.updateColumnHeader("FirstName", "A First Name");
 
@@ -120,14 +120,14 @@ grid.canCellBeActive(5, 10);
 grid.canCellBeSelected(5, 10);
 
 grid.editActiveCell(new Slick.Editors.Date<MyData>({
-	column: cols,
+	column: cols[0],
 	container: undefined,
 	grid: grid
 }));
 
 grid.setActiveCell(0, 0);
 grid.editActiveCell(new Slick.Editors.Date<MyData>({
-	column: cols,
+	column: cols[0],
 	container: undefined,
 	grid: grid
 }));

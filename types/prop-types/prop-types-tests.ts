@@ -7,12 +7,13 @@ interface Props {
     func: any;
     string: string;
     number: number;
+    symbol: symbol;
     object: {};
     node: any;
     element: any;
 }
 
-let propTypes: PropTypes.ValidationMap<Props> = {
+const propTypes: PropTypes.ValidationMap<Props> = {
     any: PropTypes.any.isRequired,
     array: PropTypes.array.isRequired,
     bool: PropTypes.bool.isRequired,
@@ -20,6 +21,7 @@ let propTypes: PropTypes.ValidationMap<Props> = {
     number: PropTypes.number.isRequired,
     object: PropTypes.object.isRequired,
     string: PropTypes.string.isRequired,
+    symbol: PropTypes.symbol.isRequired,
     node: PropTypes.node.isRequired,
     element: PropTypes.element.isRequired
 };

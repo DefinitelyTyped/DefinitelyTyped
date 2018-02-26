@@ -24,6 +24,7 @@ function TestChromeOptions() {
     options = options.setChromeLogFile('logfile');
     options = options.setLocalState('state');
     options = options.androidActivity('com.example.Activity');
+    options = options.headless();
     options = options.androidDeviceSerial('emulator-5554');
     options = options.androidChrome();
     options = options.androidPackage('com.android.chrome');

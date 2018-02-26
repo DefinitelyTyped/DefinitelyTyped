@@ -1,29 +1,31 @@
-// Type definitions for conf 0.11
+// Type definitions for conf 1.4
 // Project: https://github.com/sindresorhus/conf
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-interface Options {
-	defaults?: any;
+interface Options<T> {
+	defaults?: {[key: string]: T};
 	configName?: string;
 	projectName?: string;
 	cwd?: string;
 }
 
-declare class Conf implements Iterable<[string, string | number | boolean | symbol | {}]> {
-	path: string;
-	store: any;
-
+declare class Conf<T = any> implements Iterable<[string, T]> {
+	store: {[key: string]: T};
+    readonly path: string;
 	readonly size: number;
 
-	constructor(options?: Options);
-	get(key: string): any;
-	set(key: string, val: string | number | boolean | symbol | {}): void;
-	set(object: {}): void;
+	constructor(options?: Options<T>);
+	get(key: string, defaultValue?: T): T;
+	set(key: string, val: T): void;
+	set(object: {[key: string]: T}): void;
 	has(key: string): boolean;
 	delete(key: string): void;
 	clear(): void;
-	[Symbol.iterator](): Iterator<[string, string | number | boolean | symbol | {}]>;
+	onDidChange(key: string, callback: (oldVal: any, newVal: any) => void): void;
+	[Symbol.iterator](): Iterator<[string, T]>;
 }
 
 export = Conf;

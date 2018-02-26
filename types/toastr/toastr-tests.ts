@@ -37,7 +37,7 @@ function test_fromdemo() {
             return msgs[i];
         };
     $('#showtoast').click(function () {
-		var shortCutFunction = $("#toastTypeGroup input:radio:checked").val(),
+		var shortCutFunction = $("#toastTypeGroup input:radio:checked").val() as string,
 			msg = $('#message').val(),
 			title = $('#title').val() || '',
 			$fadeIn = $('#fadeIn'),
@@ -48,20 +48,20 @@ function test_fromdemo() {
 		toastr.options = {
 			debug: $('#debugInfo').prop('checked'),
 			tapToDismiss: $('#tapToDismiss').prop('checked'),
-			positionClass: $('#positionGroup input:radio:checked').val() || 'toast-top-right',
+			positionClass: $('#positionGroup input:radio:checked').val() as string || 'toast-top-right',
 			preventDuplicates: true,
             progressBar: true
 		}
-        if ($fadeIn.val().length) {
+        if ((<string> $fadeIn.val()).length) {
 			toastr.options.showDuration = +$fadeIn.val()
         }
-        if ($fadeOut.val().length) {
+        if ((<string> $fadeOut.val()).length) {
 			toastr.options.hideDuration = +$fadeOut.val()
         }
-        if ($timeOut.val().length) {
+        if ((<string> $timeOut.val()).length) {
             toastr.options.timeOut = +$timeOut.val()
         }
-        if ($extendedTimeOut.val().length) {
+        if ((<string> $extendedTimeOut.val()).length) {
             toastr.options.extendedTimeOut = +$extendedTimeOut.val()
         }
         var $toast = toastr[shortCutFunction](msg, title)

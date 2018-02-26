@@ -156,5 +156,9 @@ tape(name, (test: tape.Test) => {
 		t = st;
 	});
 
+	test.test(name, opts, (st) => {
+		t = st;
+	});
+
 	test.comment(msg);
 });

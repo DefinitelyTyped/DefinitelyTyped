@@ -1,6 +1,6 @@
 // Type definitions for PolymerTS 0.1.25
 // Project: https://github.com/nippur72/PolymerTS
-// Definitions by: Louis Grignon <https://github.com/lgrignon/>
+// Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace polymer {
@@ -105,7 +105,8 @@ declare namespace polymer {
         computed?: string;
         observer?: string;
     }
-    class Base extends polymer.PolymerBase implements polymer.Element {
+    interface Base extends polymer.Element { }
+    class Base extends polymer.PolymerBase {
         static create<T extends polymer.Base>(...args: any[]): T;
         static register(): void;
         is: string;

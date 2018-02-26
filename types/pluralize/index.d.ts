@@ -57,6 +57,20 @@ interface PluralizeStatic {
      * @param word
      */
     addUncountableRule(word: string|RegExp): void;
+
+    /**
+     * Test if provided word is plural.
+     *
+     * @param word
+     */
+    isPlural(word: string): boolean;
+
+    /**
+     * Test if provided word is singular.
+     *
+     * @param word
+     */
+    isSingular(word: string): boolean;
 }
 
 declare module "pluralize" {

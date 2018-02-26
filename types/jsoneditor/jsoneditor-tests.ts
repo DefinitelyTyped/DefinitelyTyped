@@ -1,4 +1,4 @@
-import JSONEditor, {JSONEditorMode, JSONEditorNode, JSONEditorOptions} from 'jsoneditor';
+import JSONEditor, {JSONEditorMode, JSONEditorNode, JSONEditorOptions } from 'jsoneditor';
 
 let options: JSONEditorOptions;
 options = {

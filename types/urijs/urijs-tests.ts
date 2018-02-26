@@ -65,6 +65,44 @@ URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
     })
 );
 
+// Basic URITemplate type usage
+URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
+    URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
+        p: ["foo", "bar.html"],
+        q: {foo: "bar", bar: "baz"},
+        h: "frag"
+    })
+);
+
+// Using a callback for a specific key value.
+URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
+    URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
+        p: (key) => ["foo", "bar.html"],
+        q: {foo: "bar", bar: "baz"},
+        h: "frag"
+    })
+);
+
+// Using a callback for entire data parameter.
+URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
+    URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand((key) => {
+        switch(key) {
+            case 'p': return ["foo", "bar.html"];
+            case '1': return {foo: "bar", bar: "baz"};
+            case 'h': return "frag";
+        }
+    })
+);
+
+// Supports null/undefined values for certain keys
+URI('http://user:pass@example.org:80/foo/bar.html').equals(
+    URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
+        p: ["foo", "bar.html"],
+        q: null,
+        h: undefined
+    })
+);
+
 /*
 Tests for hasSearch(), hasQuery()
 From: http://medialize.github.io/URI.js/docs.html#search-has
@@ -95,3 +133,19 @@ uri.hasQuery(/^li/, "two") === true;
 uri.hasQuery("string", (value : string, name : string, data : string) => {
     return true;
 }) === true;
+
+/*
+Tests for removeSearch()
+From: https://medialize.github.io/URI.js/docs.html#search-remove
+*/
+var uri = new URI("?hello=world&hello=mars&foo=bar");
+uri.removeSearch("hello");
+uri.search(true) === "?foo=bar";
+
+uri.search("?hello=world&hello=mars&foo=bar");
+uri.removeSearch("hello", "world");
+uri.search(true) === "?hello=mars&foo=bar"
+
+uri.search("?hello=world&hello=mars&foo=bar&mine=true");
+uri.removeSearch(["hello", "foo"]);
+uri.search(true) === "?mine=true"

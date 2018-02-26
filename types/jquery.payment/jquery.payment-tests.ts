@@ -35,7 +35,7 @@ $.payment.cardExpiryVal('03 / 2025') === {month: 3, year: 2025}; //=> {month: 3,
 $.payment.cardExpiryVal('05 / 04') === {month: 3, year: 2025}; //=> {month: 5, year: 2004}
 $('input.cc-exp').payment('cardExpiryVal') //=> {month: 4, year: 2020}
 
-var valid = $.payment.validateCardNumber($('input.cc-num').val());
+var valid = $.payment.validateCardNumber($('input.cc-num').val() as string);
 
 if (!valid) {
   alert('Your card is not valid!');

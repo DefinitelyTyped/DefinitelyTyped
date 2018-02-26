@@ -1,3 +1,5 @@
+import { flatbuffers } from "flatbuffers";
+
 enum Color {
   Red= 1,
   Green= 2,
@@ -12,9 +14,9 @@ enum Any {
 }
 
 class Monster2 {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
-  bb_pos: number = 0;
+  bb_pos = 0;
 
   __init(i: number, bb: flatbuffers.ByteBuffer): Monster2 {
     this.bb_pos = i;
@@ -39,7 +41,7 @@ class Monster2 {
 class Test {
   bb: flatbuffers.ByteBuffer = null;
 
-  bb_pos: number = 0;
+  bb_pos = 0;
 
   __init(i: number, bb: flatbuffers.ByteBuffer): Test {
     this.bb_pos = i;
@@ -87,9 +89,9 @@ class Test {
 }
 
 class TestSimpleTableWithEnum {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
-  bb_pos: number = 0;
+  bb_pos = 0;
 
   __init(i: number, bb: flatbuffers.ByteBuffer): TestSimpleTableWithEnum {
     this.bb_pos = i;
@@ -132,9 +134,9 @@ class TestSimpleTableWithEnum {
 }
 
 class Vec3 {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
-  bb_pos: number = 0;
+  bb_pos = 0;
 
   __init(i: number, bb: flatbuffers.ByteBuffer): Vec3 {
     this.bb_pos = i;
@@ -240,9 +242,9 @@ class Vec3 {
 }
 
 class Stat {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
-  bb_pos: number = 0;
+  bb_pos = 0;
 
   __init(i: number, bb: flatbuffers.ByteBuffer): Stat {
     this.bb_pos = i;
@@ -303,9 +305,9 @@ class Stat {
 }
 
 class Monster {
-    bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
-    bb_pos: number = 0;
+  bb_pos = 0;
 
   __init(i: number, bb: flatbuffers.ByteBuffer): Monster {
     this.bb_pos = i;

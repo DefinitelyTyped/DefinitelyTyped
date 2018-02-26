@@ -1,7 +1,8 @@
-// Type definitions for nodejs-driver v0.8.2
+// Type definitions for cassandra-driver v3.2.2
 // Project: https://github.com/datastax/nodejs-driver
-// Definitions by: Marc Fisher <http://github.com/Svjard>
+// Definitions by: Marc Fisher <https://github.com/Svjard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 /// <reference types="long" />
@@ -11,11 +12,12 @@ export type ResultCallback = (err: Error, result: types.ResultSet) => void;
 
 import * as events from "events";
 import * as stream from "stream";
+import * as tls from "tls";
 import _Long = require("long");
 
 export namespace policies {
   namespace addressResolution {
-    var EC2MultiRegionTranslator: EC2MultiRegionTranslatorStatic;
+    let EC2MultiRegionTranslator: EC2MultiRegionTranslatorStatic;
 
     interface AddressTranslator {
       translate(address: string, port: number, callback: Callback): void;
@@ -31,10 +33,10 @@ export namespace policies {
   }
 
   namespace loadBalancing {
-    var DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
-    var RoundRobinPolicy: RoundRobinPolicyStatic;
-    var TokenAwarePolicy: TokenAwarePolicyStatic;
-    var WhiteListPolicy: WhiteListPolicyStatic;
+    let DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
+    let RoundRobinPolicy: RoundRobinPolicyStatic;
+    let TokenAwarePolicy: TokenAwarePolicyStatic;
+    let WhiteListPolicy: WhiteListPolicyStatic;
 
     interface LoadBalancingPolicy {
       init(client: Client, hosts: HostMap, callback: Callback): void;
@@ -71,8 +73,8 @@ export namespace policies {
   }
 
   namespace reconnection {
-    var ConstantReconnectionPolicy: ConstantReconnectionPolicyStatic;
-    var ExponentialReconnectionPolicy: ExponentialReconnectionPolicyStatic;
+    let ConstantReconnectionPolicy: ConstantReconnectionPolicyStatic;
+    let ExponentialReconnectionPolicy: ExponentialReconnectionPolicyStatic;
 
     interface ReconnectionPolicy {
       newSchedule(): { next: Function };
@@ -92,7 +94,7 @@ export namespace policies {
   }
 
   namespace retry {
-    var RetryPolicy: RetryPolicyStatic;
+    let RetryPolicy: RetryPolicyStatic;
 
     interface DecisionInfo {
       decision: number;
@@ -127,18 +129,18 @@ export namespace policies {
 }
 
 export namespace types {
-  var BigDecimal: BigDecimalStatic;
-  var InetAddress: InetAddressStatic;
-  var Integer: IntegerStatic;
-  var LocalDate: LocalDateStatic;
-  var LocalTime: LocalTimeStatic;
-  var Long: _Long;
-  var ResultSet: ResultSetStatic;
-  // var ResultStream: ResultStreamStatic;
-  var Row: RowStatic;
-  var TimeUuid: TimeUuidStatic;
-  var Tuple: TupleStatic;
-  var Uuid: UuidStatic;
+  let BigDecimal: BigDecimalStatic;
+  let InetAddress: InetAddressStatic;
+  let Integer: IntegerStatic;
+  let LocalDate: LocalDateStatic;
+  let LocalTime: LocalTimeStatic;
+  let Long: _Long;
+  let ResultSet: ResultSetStatic;
+  // let ResultStream: ResultStreamStatic;
+  let Row: RowStatic;
+  let TimeUuid: TimeUuidStatic;
+  let Tuple: TupleStatic;
+  let Uuid: UuidStatic;
 
   enum consistencies {
     any = 0,
@@ -378,6 +380,7 @@ export namespace types {
     values(): Array<{ [key: string]: any; }>;
     keys(): Array<string>;
     forEach(callback: Callback): void;
+    [key: string]: any;
   }
 
   interface TimeUuidStatic {
@@ -431,10 +434,10 @@ export namespace types {
   }
 }
 
-export var Client: ClientStatic;
-export var Host: HostStatic;
-export var HostMap: HostMapStatic;
-export var Encoder: EncoderStatic;
+export let Client: ClientStatic;
+export let Host: HostStatic;
+export let HostMap: HostMapStatic;
+export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
   contactPoints: Array<string>,
@@ -466,7 +469,7 @@ export interface ClientOptions {
     coalescingThreshold: number
   },
   authProvider?: auth.AuthProvider,
-  sslOptions?: any,
+  sslOptions?: tls.ConnectionOptions,
   encoding?: {
     map: Function,
     set: Function,
@@ -506,11 +509,19 @@ export interface Client extends events.EventEmitter {
   metadata: metadata.Metadata;
 
   batch(queries: Array<string> | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
+  batch(queries: Array<string> | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
+  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
+
   connect(callback: Callback): void;
+  connect(): Promise<void>;
   eachRow(query: string, params?: any, options?: QueryOptions, rowCallback?: Callback, callback?: Callback): void;
-  execute(query: string, params?: any, options?: QueryOptions, callback?: ResultCallback): void;
+  execute(query: string, params: any, options: QueryOptions, callback: ResultCallback): void;
+  execute(query: string, params: any, callback: ResultCallback): void;
+  execute(query: string, callback: ResultCallback): void;
+  execute(query: string, params?: any, options?: QueryOptions): Promise<types.ResultSet>;
   getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
   shutdown(callback?: Callback): void;
+  shutdown(): Promise<void>;
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
 
@@ -556,8 +567,8 @@ export interface Encoder {
 }
 
 export namespace auth {
-  var Authenticator: AuthenticatorStatic;
-  var PlainTextAuthProvider: PlainTextAuthProviderStatic;
+  let Authenticator: AuthenticatorStatic;
+  let PlainTextAuthProvider: PlainTextAuthProviderStatic;
 
   interface AuthenticatorStatic {
     new (): Authenticator;
@@ -615,12 +626,12 @@ export namespace errors {
 }
 
 export namespace metadata {
-  var Aggregate: AggregateStatic;
-  var Index: IndexStatic;
-  var MaterializedView: MaterializedViewStatic;
-  var Metadata: MetadataStatic;
-  var SchemaFunction: SchemaFunctionStatic;
-  var TableMetadata: TableMetadataStatic;
+  let Aggregate: AggregateStatic;
+  let Index: IndexStatic;
+  let MaterializedView: MaterializedViewStatic;
+  let Metadata: MetadataStatic;
+  let SchemaFunction: SchemaFunctionStatic;
+  let TableMetadata: TableMetadataStatic;
 
   type caching = "all" | "keys_only" | "rows_only" | "none";
 

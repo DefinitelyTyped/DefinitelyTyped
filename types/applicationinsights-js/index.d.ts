@@ -572,6 +572,7 @@ declare module Microsoft.ApplicationInsights {
         isPerfAnalyzerEnabled?: boolean;
         url?: string;
         isStorageUseDisabled?: boolean;
+        isBeaconApiDisabled?: boolean;
     }
 
     /**
@@ -611,6 +612,7 @@ declare module Microsoft.ApplicationInsights {
         tags: {
             [name: string]: any;
         };
+        data: any;
     }
 
     interface ITelemetryContext {
@@ -650,7 +652,7 @@ declare module Microsoft.ApplicationInsights {
          * Adds telemetry initializer to the collection. Telemetry initializers will be called one by one
          * before telemetry item is pushed for sending and in the order they were added.
          */
-        addTelemetryInitializer(telemetryInitializer: (envelope: Microsoft.ApplicationInsights.IEnvelope) => boolean): any;
+        addTelemetryInitializer(telemetryInitializer: (envelope: Microsoft.ApplicationInsights.IEnvelope) => boolean | void): any;
         /**
          * Tracks telemetry object.
          */
@@ -763,7 +765,7 @@ declare module Microsoft.ApplicationInsights {
          * @param    message A message string
          * @param    properties  map[string, string] - additional data used to filter traces in the portal. Defaults to empty.
          */
-        trackTrace(message: string, properties?: { [name: string]: string }): any;
+        trackTrace(message: string, properties?: { [name: string]: string }, severityLevel?: AI.SeverityLevel): any;
         /**
          * Immediately send all queued telemetry.
          */
@@ -775,7 +777,7 @@ declare module Microsoft.ApplicationInsights {
          * @param authenticatedUserId {string} - The authenticated user id. A unique and persistent string that represents each authenticated user in the service.
          * @param accountId {string} - An optional string to represent the account associated with the authenticated user.
          */
-        setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string): any;
+        setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string, storeInCookie?: boolean): any;
         /**
          * Clears the authenticated user id and the account id from the user context.
          */

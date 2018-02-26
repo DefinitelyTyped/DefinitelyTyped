@@ -1,6 +1,6 @@
 // Type definitions for google-protobuf 3.2
 // Project: https://github.com/google/google-protobuf
-// Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir/>
+// Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
@@ -70,12 +70,12 @@ export abstract class Message {
   static computeOneofCase(msg: Message, oneof: number[]): number;
   static getWrapperField<T extends Message>(
     msg: Message,
-    ctor: {new() : T},
+    ctor: { new(): T },
     fieldNumber: number,
     required?: number): T;
   static getRepeatedWrapperField<T extends Message>(
     msg: Message,
-    ctor: {new() : T},
+    ctor: { new(): T },
     fieldNumber: number): T[];
   static setWrapperField<T extends Message>(
     msg: Message,
@@ -94,7 +94,7 @@ export abstract class Message {
     msg: Message,
     fieldNumber: number,
     value: T | undefined,
-    ctor: {new() : T},
+    ctor: { new(): T },
     index?: number): T;
   static toMap(
     field: any[],

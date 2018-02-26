@@ -1,11 +1,8 @@
-/// <reference types="express" />
-
-import * as express from 'express';
-import * as send from 'send';
+import express = require('express');
+import send = require('send');
 
 var app = express();
 
-send.mime.default_type = 'text/plain';
 send.mime.define({
   'application/x-my-type': ['x-mt', 'x-mtt']
 });

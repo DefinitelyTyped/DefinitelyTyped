@@ -1,6 +1,6 @@
 // Type definitions for WebGL Extensions
 // Project: http://webgl.org/
-// Definitions by: Arthur Langereis <https://github.com/zenmumbler/>
+// Definitions by: Arthur Langereis <https://github.com/zenmumbler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/webgl-ext
 
 // These definitions go beyond those already defined in TS 1.6.2 stdlib

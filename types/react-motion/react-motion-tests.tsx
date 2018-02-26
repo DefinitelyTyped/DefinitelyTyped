@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {StaggeredMotion, Motion, spring, TransitionMotion, TransitionPlainStyle, TransitionStyle, Style, PlainStyle} from 'react-motion';
+import { StaggeredMotion, Motion, spring, TransitionMotion, TransitionPlainStyle, TransitionStyle, Style, PlainStyle } from 'react-motion';
 
-class Root extends React.Component<{}, {}> {
+class Root extends React.Component {
     render() {
         return (
             <Motion defaultStyle={{ x: 0 }} style = {{ x: spring(10) }}>
@@ -11,7 +11,7 @@ class Root extends React.Component<{}, {}> {
     }
 }
 
-class TransitionTest extends React.Component<{}, {}> {
+class TransitionTest extends React.Component {
     render() {
         return (
             <TransitionMotion defaultStyles={this.getDefaultStyles() }
@@ -65,7 +65,7 @@ class TransitionTest extends React.Component<{}, {}> {
     }
 }
 
-class StaggeredTest extends React.Component<{}, {}> {
+class StaggeredTest extends React.Component {
     render() {
         return (
             <StaggeredMotion defaultStyles={[{ h: 0 }, { h: 0 }, { h: 0 }]}

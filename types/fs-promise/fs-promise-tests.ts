@@ -1,11 +1,11 @@
 import * as fs from "fs-promise";
 
 let src: string;
-let dst: string;
-let dir: string;
-let path: string;
-let data: any;
-let writeOptions: fs.WriteOptions;
+declare const dst: string;
+declare const dir: string;
+declare const path: string;
+declare const data: any;
+declare const writeOptions: fs.WriteOptions;
 const writeJsonOptions: fs.WriteJsonOptions = {
     spaces: 2,
     replacer(key, value) {
@@ -13,7 +13,7 @@ const writeJsonOptions: fs.WriteJsonOptions = {
         return value;
     }
 };
-let readJsonOptions: fs.ReadJsonOptions;
+declare const readJsonOptions: fs.ReadJsonOptions;
 
 async function test() {
     await fs.copy(src, dst);

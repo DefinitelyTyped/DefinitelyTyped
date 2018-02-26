@@ -1,13 +1,19 @@
-import events = require('events');
 import onFinished = require('on-finished');
+import { createServer } from 'http';
 
-function test_finished() {
+createServer((req, res) => {
+    onFinished(req, (err, req) => {
+        err; // $ExpectType Error | null
+        req; // $ExpectType IncomingMessage
+    });
 
-	var e = new events.EventEmitter();
+    onFinished(res, (err, res) => {
+        err; // $ExpectType Error | null
+        res; // $ExpectType ServerResponse
+    });
 
-	var ret: NodeJS.EventEmitter = onFinished(e, () => {
-		//callback
-		});
-
-	var finished: boolean = onFinished.isFinished(e);
-}
+    // $ExpectType boolean
+    onFinished.isFinished(req);
+    // $ExpectType boolean
+    onFinished.isFinished(res);
+});

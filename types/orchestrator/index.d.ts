@@ -1,107 +1,144 @@
-// Type definitions for Orchestrator
+// Type definitions for Orchestrator 0.3
 // Project: https://github.com/orchestrator/orchestrator
-// Definitions by: Qubo <https://github.com/tkQubo>
+// Definitions by: Qubo <https://github.com/tkQubo>, TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
+/// <reference types="node" />
+
+import * as events from "events";
+import * as stream from "stream";
 import * as Q from "q";
 
-declare type Strings = string|string[];
+/** A module for sequencing and executing tasks and dependencies in maximum concurrency
+ */
+declare class Orchestrator extends events.EventEmitter {
+    doneCallback?: (error?: any) => any;
+    isRunning: boolean;
+    seq: any[];
+    tasks: { [name: string]: Orchestrator.Task };
 
-declare class Orchestrator {
-    add: Orchestrator.AddMethod;
-    /**
-     * Have you defined a task with this name?
+    reset(): Orchestrator;
+
+    /** Define a task
+     * @param name The name of the task.
+     * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
+     *  - Take in a callback
+     *  - Return a stream or a promise
+     */
+    add(name: string, fn?: Orchestrator.TaskFunc): Orchestrator;
+    /** Define a task
+     * @param name The name of the task.
+     * @param deps An array of task names to be executed and completed before your task will run.
+     * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
+     *  - Take in a callback
+     *  - Return a stream or a promise
+     */
+    add(name: string, deps?: string[], fn?: Orchestrator.TaskFunc): Orchestrator;
+
+    task(name: string): Orchestrator.Task;
+    task(name: string, fn: Orchestrator.TaskFunc): void;
+    task(name: string, dep: string[], fn: Orchestrator.TaskFunc): void;
+
+    /** Have you defined a task with this name?
      * @param name The task name to query
      */
     hasTask(name: string): boolean;
-    start: Orchestrator.StartMethod;
-    stop(): void;
 
-    /**
-     * Listen to orchestrator internals
+    start: Orchestrator.StartMethod;
+
+    stop(err?: any, successfulFinish?: boolean): void;
+
+    sequence: Orchestrator.Sequencify;
+
+    allDone(): boolean;
+
+    /** Listen to orchestrator internals
      * @param event Event name to listen to:
-     * <ul>
-     *   <li>start: from start() method, shows you the task sequence
-     *   <li>stop: from stop() method, the queue finished successfully
-     *   <li>err: from stop() method, the queue was aborted due to a task error
-     *   <li>task_start: from _runTask() method, task was started
-     *   <li>task_stop: from _runTask() method, task completed successfully
-     *   <li>task_err: from _runTask() method, task errored
-     *   <li>task_not_found: from start() method, you're trying to start a task that doesn't exist
-     *   <li>task_recursion: from start() method, there are recursive dependencies in your task list
-     * </ul>
+     *  - start: from start() method, shows you the task sequence
+     *  - stop: from stop() method, the queue finished successfully
+     *  - err: from stop() method, the queue was aborted due to a task error
+     *  - task_start: from _runTask() method, task was started
+     *  - task_stop: from _runTask() method, task completed successfully
+     *  - task_err: from _runTask() method, task errored
+     *  - task_not_found: from start() method, you're trying to start a task that doesn't exist
+     *  - task_recursion: from start() method, there are recursive dependencies in your task list
      * @param cb Passes single argument: e: event details
      */
-    on(event: string, cb: (e: Orchestrator.OnCallbackEvent) => any): Orchestrator;
+    on(event: Orchestrator.EventNames, cb: (e: Orchestrator.OnCallbackEvent) => any): this;
 
-    /**
-     * Listen to all orchestrator events from one callback
+    /** Listen to all orchestrator events from one callback
      * @param cb Passes single argument: e: event details
      */
     onAll(cb: (e: Orchestrator.OnAllCallbackEvent) => any): void;
+
+    // probably supposed to be private methods, but still available on Orchestrator prototype
+    _resetTask(task: Orchestrator.Task): void;
+
+    _resetAllTasks(): void;
+
+    _resetSpecificTasks(names: string[]): void;
+
+    _runStep(): void;
+
+    _readyToRunTask(task: Orchestrator.Task): boolean;
+
+    _stopTask(task: Orchestrator.Task, meta: Orchestrator.Meta): void;
+
+    _emitTaskDone(task: Orchestrator.Task, message: string, err?: any): void;
+
+    _runTask(task: Orchestrator.Task): void;
 }
 
 declare namespace Orchestrator {
-    interface AddMethodCallback {
-        /**
-         * Accept a callback
-         * @param callback
-         */
-        (callback?: Function): any;
-        /**
-         * Return a promise
-         */
-        (): Q.Promise<any>;
-        /**
-         * Return a stream: (task is marked complete when stream ends)
-         */
-        (): any; //TODO: stream type should be here e.g. map-stream
-    }
+    type Strings = string | string[];
 
-    /**
-     * Define a task
+    /** The method export generated by orchestrator/lib/runTask.js */
+    type RunTask = (task: Orchestrator.TaskFunc, done: (err: any, meta: Orchestrator.Meta) => void) => void;
+
+    /** The module export of the sequencify package: https://www.npmjs.com/package/sequencify */
+    type Sequencify = (tasks: Array<{ dep: string[]; }>, names: string[]) => {
+        sequence: string[];
+        missingTasks: string[];
+        recursiveDependencies: string[];
+    };
+
+    /** A task, can either call a callback to indicate task completion or return a promise or a stream: (task is marked complete when promise.then() resolves/fails or stream ends)
      */
+    type TaskFunc = (callback: (err?: any) => void) => Q.Promise<any> | stream.Stream | any;
+
     interface AddMethod {
-        /**
-         * Define a task
+        /** Define a task
+         * @param name The name of the task.
+         * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
+         *  - Take in a callback
+         *  - Return a stream or a promise
+         */
+        (name: string, fn?: TaskFunc): Orchestrator;
+        /** Define a task
          * @param name The name of the task.
          * @param deps An array of task names to be executed and completed before your task will run.
          * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
-         * <ul>
-         *     <li>Take in a callback</li>
-         *     <li>Return a stream or a promise</li>
-         * </ul>
+         *  - Take in a callback
+         *  - Return a stream or a promise
          */
-        (name: string, deps?: string[], fn?: AddMethodCallback|Function): Orchestrator;
-        /**
-         * Define a task
-         * @param name The name of the task.
-         * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
-         * <ul>
-         *     <li>Take in a callback</li>
-         *     <li>Return a stream or a promise</li>
-         * </ul>
-         */
-        (name: string, fn?: AddMethodCallback|Function): Orchestrator;
+        (name: string, deps?: string[], fn?: TaskFunc): Orchestrator;
     }
 
-    /**
-     * Start running the tasks
+    /** Start running the tasks
      */
     interface StartMethod {
-        /**
-         * Start running the tasks
+        /** Start running the tasks
          * @param tasks Tasks to be executed. You may pass any number of tasks as individual arguments.
          * @param cb Callback to call after run completed.
          */
         (tasks: Strings, cb?: (error?: any) => any): Orchestrator;
-        /**
-         * Start running the tasks
+        /** Start running the tasks
          * @param tasks Tasks to be executed. You may pass any number of tasks as individual arguments.
          * @param cb Callback to call after run completed.
          */
         (...tasks: Strings[]/*, cb?: (error: any) => any */): Orchestrator;
-        //TODO: TypeScript 1.5.3 cannot express varargs followed by callback as a last argument...
+        // TODO: TypeScript 2.1.5 cannot express varargs followed by callback as a last argument...
         (task1: Strings, task2: Strings, cb?: (error?: any) => any): Orchestrator;
         (task1: Strings, task2: Strings, task3: Strings, cb?: (error?: any) => any): Orchestrator;
         (task1: Strings, task2: Strings, task3: Strings, task4: Strings, cb?: (error?: any) => any): Orchestrator;
@@ -120,6 +157,23 @@ declare namespace Orchestrator {
         src: string;
     }
 
+    interface Task {
+        fn: TaskFunc;
+        dep: string[];
+        name: string;
+        done?: boolean;
+        duration?: number;
+        hrDuration?: [number, number];
+        running?: boolean;
+    }
+
+    interface Meta {
+        duration: number;
+        hrDuration: [number, number];
+        runMethod: ("callback" | "catch" | "promise" | "stream" | "sync");
+    }
+
+    type EventNames = ("start" | "stop" | "err" | "task_start" | "task_stop" | "task_err" | "task_not_found" | "task_recursion");
 }
 
 export = Orchestrator;

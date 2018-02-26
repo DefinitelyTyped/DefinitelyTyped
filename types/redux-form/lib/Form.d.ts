@@ -1,22 +1,13 @@
-import { Component, HTMLProps, FormEvent } from "react";
+import { Component, FormHTMLAttributes, FormEvent, FormEventHandler } from "react";
 import { Dispatch } from "redux";
-import { SubmitHandler, FormProps, FormErrors } from "../index"
+import { FormProps, FormErrors, FormSubmitHandler, Omit } from "../index";
 
-interface FormSubmitHandler {
-    (values: any, dispatch?: Dispatch<any>, props?: FormProps<any, any, any> & { [prop: string]: any }): void | FormErrors<any> | Promise<any>;
-    //(e: FormEvent<HTMLFormElement>): void;
+interface FormSubmitProp<FormData = {}, P = {}> {
+    onSubmit?: FormSubmitHandler<FormData, P>;
 }
 
-export interface FormComponentProps extends HTMLProps<HTMLFormElement> {
-    /**
-     * The function to call when form submission is triggered.
-     */
-    onSubmit: FormSubmitHandler;
-}
+export type FormProps<FormData, P> = Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> & FormSubmitProp<FormData, P>;
 
-/**
- * The Form component is a simple wrapper for the React <form> component that
- * allows the surrounding redux-form-decorated component to trigger its
- * onSubmit function.
- */
-export class Form extends Component<FormComponentProps, any> {}
+export class GenericForm<FormData, P> extends Component<FormProps<FormData, P>> {}
+
+export class Form<FormData = {}, P = {}> extends Component<FormProps<FormData, P>> implements GenericForm<FormData, P> {}

@@ -27,7 +27,7 @@ var options = {
     maxLength: 120
 }
 
-var result = eyes.inspector(testObj)
+var result = eyes.inspector(options)
 
 
 

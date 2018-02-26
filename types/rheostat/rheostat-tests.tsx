@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Rheostat, {Orientation, Algorithm, PublicState} from 'rheostat';
+import Rheostat, { Orientation, Algorithm, PublicState } from 'rheostat';
 
 type Element = React.ReactElement<any>;
 

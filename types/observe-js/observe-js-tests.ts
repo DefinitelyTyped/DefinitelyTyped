@@ -1,4 +1,4 @@
-import {PathObserver, ArrayObserver, ObjectObserver, CompoundObserver, ObserverTransform} from 'observe-js';
+import { PathObserver, ArrayObserver, ObjectObserver, CompoundObserver, ObserverTransform } from 'observe-js';
 
 namespace observejs {
 

@@ -1,45 +1,128 @@
-// Type definitions for Jasmine 2.5.2
+// Type definitions for Jasmine 2.8.0
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>, Boris Breuer <https://github.com/Engineer2B>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
+/**
+ * Create a group of specs (often called a suite).
+ * @param description Textual description of the group
+ * @param specDefinitions Function for Jasmine to invoke that will define inner suites a specs
+ */
 declare function describe(description: string, specDefinitions: () => void): void;
 declare function fdescribe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
+/**
+ * Define a single spec. A spec should contain one or more expectations that test the state of the code.
+ * A spec whose expectations all succeed will be passing and a spec with any failures will fail.
+ * @param expectation Textual description of what this spec is checking
+ * @param assertion Function that contains the code of your test. If not provided the test will be pending.
+ * @param timeout Custom timeout for an async spec.
+ */
 declare function it(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
+
+/**
+ * A focused it
+ * If suites or specs are focused, only those that are focused will be executed.
+ * @param expectation
+ * @param assertion
+ * @param timeout
+ */
 declare function fit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
 declare function xit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
 
-/** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
+/**
+ * Mark a spec as pending, expectation results will be ignored.
+ * If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending.
+ * @param reason
+ * @returns {}
+ */
 declare function pending(reason?: string): void;
 
+/**
+ * Run some shared setup before each of the specs in the describe in which it is called.
+ * @param action Function that contains the code to setup your specs.
+ * @param timeout Custom timeout for an async beforeEach.
+ */
 declare function beforeEach(action: (done: DoneFn) => void, timeout?: number): void;
+
+/**
+ * Run some shared teardown after each of the specs in the describe in which it is called.
+ * @param action Function that contains the code to teardown your specs.
+ * @param timeout Custom timeout for an async afterEach.
+ */
 declare function afterEach(action: (done: DoneFn) => void, timeout?: number): void;
 
+/**
+ * Run some shared setup once before all of the specs in the describe are run.
+ * Note: Be careful, sharing the setup from a beforeAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
+ * @param action Function that contains the code to setup your specs.
+ * @param timeout Custom timeout for an async beforeAll.
+ */
 declare function beforeAll(action: (done: DoneFn) => void, timeout?: number): void;
+
+/**
+ * Run some shared teardown once before all of the specs in the describe are run.
+ * Note: Be careful, sharing the teardown from a afterAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
+ * @param action Function that contains the code to teardown your specs.
+ * @param timeout Custom timeout for an async afterAll
+ */
 declare function afterAll(action: (done: DoneFn) => void, timeout?: number): void;
 
+/**
+ * Create an expectation for a spec.
+ * @param spy
+ */
 declare function expect(spy: Function): jasmine.Matchers<any>;
+
+/**
+ * Create an expectation for a spec.
+ * @param actual
+ */
 declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
+
+/**
+ * Create an expectation for a spec.
+ * @param actual Actual computed value to test expectations against.
+ */
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
 
+/**
+ * Create an expectation for a spec.
+ */
+declare function expect(): jasmine.NothingMatcher;
+
+/**
+ * Explicitly mark a spec as failed.
+ * @param e
+ */
 declare function fail(e?: any): void;
+
 /** Action method that should be called when the async work is complete */
 interface DoneFn extends Function {
     (): void;
 
     /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
-    fail: (message?: Error|string) => void;
+    fail: (message?: Error | string) => void;
 }
 
+/**
+ * Install a spy onto an existing object.
+ * @param object The object upon which to install the Spy
+ * @param method The name of the method to replace with a Spy.
+ */
 declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
 
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType: string): jasmine.Spy;
+/**
+ * Install a spy on a property onto an existing object.
+ * @param object The object upon which to install the Spy
+ * @param property The name of the property to replace with a Spy
+ * @param accessType The access type (get|set) of the property to Spy on.
+ */
+declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: 'get' | 'set'): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
@@ -50,16 +133,23 @@ declare namespace jasmine {
 
     var clock: () => Clock;
 
+    var matchersUtil: MatchersUtil;
+
     function any(aclass: any): Any;
 
     function anything(): Any;
 
-    function arrayContaining(sample: any[]): ArrayContaining;
+    function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
+    function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
-    function createSpy(name: string, originalFn?: Function): Spy;
+    function createSpy(name?: string, originalFn?: Function): Spy;
 
-    function createSpyObj(baseName: string, methodNames: any[]): any;
-    function createSpyObj<T>(baseName: string, methodNames: any[]): T;
+    function createSpyObj(baseName: string, methodNames: any[] | {[methodName: string]: any}): any;
+    function createSpyObj<T>(baseName: string, methodNames: any[] | {[methodName: string]: any}): SpyObj<T>;
+
+    function createSpyObj(baseName: string, methodNames: any): any;
+    function createSpyObj(methodNames: any[]): any;
+    function createSpyObj(methodNames: any): any;
 
     function pp(value: any): string;
 
@@ -75,7 +165,7 @@ declare namespace jasmine {
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any {
-
+        (...params: any[]):any; // jasmine.Any can also be a function
         new (expectedClass: any): any;
 
         jasmineMatches(other: any): boolean;
@@ -88,8 +178,8 @@ declare namespace jasmine {
         [n: number]: T;
     }
 
-    interface ArrayContaining {
-        new (sample: any[]): any;
+    interface ArrayContaining<T> {
+        new (sample: ArrayLike<T>): ArrayLike<T>;
 
         asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
@@ -126,11 +216,11 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
-    type CustomEqualityTester = (first: any, second: any) => boolean;
+    type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
+        compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        compare(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]) => CustomMatcher;
@@ -169,11 +259,11 @@ declare namespace jasmine {
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
-        beforeEach(beforeEachFunction: () => void): void;
-        beforeAll(beforeAllFunction: () => void): void;
+        beforeEach(beforeEachFunction: (done: DoneFn) => void, timeout?: number): void;
+        beforeAll(beforeAllFunction: (done: DoneFn) => void, timeout?: number): void;
         currentRunner(): Runner;
-        afterEach(afterEachFunction: () => void): void;
-        afterAll(afterAllFunction: () => void): void;
+        afterEach(afterEachFunction: (done: DoneFn) => void, timeout?: number): void;
+        afterAll(afterAllFunction: (done: DoneFn) => void, timeout?: number): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
@@ -248,7 +338,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: {random: boolean, seed: string}): any;
+        new (options: { random: boolean, seed: string }): any;
         random: boolean;
         seed: string;
         sort<T>(items: T[]): T[];
@@ -321,7 +411,20 @@ declare namespace jasmine {
         isNot?: boolean;
         message(): any;
 
+        /**
+         *
+         * @param expected the actual value to be === to the expected value.
+         * @param expectationFailOutput
+         * @returns {}
+         */
         toBe(expected: Expected<T>, expectationFailOutput?: any): boolean;
+
+        /**
+         *
+         * @param expected the actual value to be equal to the expected, using deep equality comparison.
+         * @param expectationFailOutput
+         * @returns {}
+         */
         toEqual(expected: Expected<T>, expectationFailOutput?: any): boolean;
         toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
         toBeDefined(expectationFailOutput?: any): boolean;
@@ -331,6 +434,7 @@ declare namespace jasmine {
         toBeTruthy(expectationFailOutput?: any): boolean;
         toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
+        toHaveBeenCalledBefore(expected: Spy): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
@@ -342,16 +446,21 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
+
         not: Matchers<T>;
 
         Any: Any;
     }
 
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
-        toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
-        toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
-        toContain(expected: T, expectationFailOutput?: any): boolean;
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+        toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
         not: ArrayLikeMatchers<T>;
+    }
+
+    interface NothingMatcher {
+        nothing(): void;
     }
 
     interface Reporter {
@@ -470,7 +579,7 @@ declare namespace jasmine {
         addBeforesAndAftersToQueue(): void;
         explodes(): void;
         spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
-        spyOnProperty(object: any, property: string, accessType: string): Spy;
+        spyOnProperty(object: any, property: string, accessType?: 'get' | 'set'): Spy;
         removeAllSpies(): void;
         throwOnExpectationFailure: boolean;
     }
@@ -510,8 +619,12 @@ declare namespace jasmine {
         identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: {args: any[]; };
+        mostRecentCall: { args: any[]; };
         argsForCall: any[];
+    }
+
+    type SpyObj<T> = T & {
+      [k in keyof T]: Spy;
     }
 
     interface SpyAnd {
@@ -594,4 +707,40 @@ declare namespace jasmine {
     export var HtmlSpecFilter: HtmlSpecFilter;
     export var DEFAULT_TIMEOUT_INTERVAL: number;
     export var MAX_PRETTY_PRINT_DEPTH: number;
+}
+
+declare module "jasmine" {
+    class jasmine {
+        constructor(options: any);
+        jasmine: jasmine.Jasmine;
+        addMatchers(matchers: jasmine.CustomMatcherFactories): void;
+        addReporter(reporter: jasmine.Reporter): void;
+        addSpecFile(filePath: string): void;
+        addSpecFiles(files: string[]): void;
+        configureDefaultReporter(options: any, ...args: any[]): void;
+        execute(files?: string[], filterString?: string): any;
+        exitCodeCompletion(passed: any): void;
+        loadConfig(config: any): void;
+        loadConfigFile(configFilePath: any): void;
+        loadHelpers(): void;
+        loadSpecs(): void;
+        onComplete(onCompleteCallback: (passed: boolean) => void): void;
+        provideFallbackReporter(reporter: jasmine.Reporter): void;
+        randomizeTests(value?: any): boolean;
+        seed(value: any): void;
+        showColors(value: any): void;
+        stopSpecOnExpectationFailure(value: any): void;
+        static ConsoleReporter(): any;
+        env: jasmine.Env;
+        reportersCount: number;
+        completionReporter: jasmine.CustomReporter;
+        reporter: jasmine.CustomReporter;
+        coreVersion(): string;
+        showingColors: boolean;
+        projectBaseDir: string;
+        printDeprecation(): void;
+        specFiles: string[];
+        helperFiles: string[];
+    }
+    export = jasmine;
 }

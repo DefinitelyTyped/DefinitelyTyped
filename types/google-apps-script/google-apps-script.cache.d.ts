@@ -1,9 +1,9 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Cache {
@@ -16,7 +16,7 @@ declare namespace GoogleAppsScript {
      *  to speed up access on an average request.
      *
      *      function getRssFeed() {
-     *        var cache = CacheService.getPublicCache();
+     *        var cache = CacheService.getScriptCache();
      *        var cached = cache.get("rss-feed-contents");
      *        if (cached != null) {
      *          return cached;
@@ -29,13 +29,13 @@ declare namespace GoogleAppsScript {
      */
     export interface Cache {
       get(key: string): string;
-      getAll(keys: String[]): Object;
+      getAll(keys: string[]): Object;
       put(key: string, value: string): void;
       put(key: string, value: string, expirationInSeconds: Integer): void;
       putAll(values: Object): void;
       putAll(values: Object, expirationInSeconds: Integer): void;
       remove(key: string): void;
-      removeAll(keys: String[]): void;
+      removeAll(keys: string[]): void;
     }
 
     /**

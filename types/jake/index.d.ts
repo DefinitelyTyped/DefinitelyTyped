@@ -2,6 +2,7 @@
 // Project: https://github.com/mde/jake
 // Definitions by: Kon <http://phyzkit.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -38,7 +39,7 @@ declare function fail(...err:any[]): void;
  * @param action The action to perform for this task
  * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
  */
-declare function file(name:string, prereqs?:string[], action?:()=>void, opts?:jake.FileTaskOptions): jake.FileTask;
+declare function file(name:string, prereqs?:string[], action?:(this: jake.FileTask)=>void, opts?:jake.FileTaskOptions): jake.FileTask;
 
 /**
  * Creates Jake FileTask from regex patterns
@@ -63,9 +64,9 @@ declare function namespace(name:string, scope:()=>void): void;
  * @param action The action to perform for this task
  * @param opts
  */
-declare function task(name:string, prereqs?:string[], action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-declare function task(name:string, action?:(...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:any[])=>any): jake.Task;
+declare function task(name:string, prereqs?:string[], action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
+declare function task(name:string, action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
+declare function task(name:string, opts?:jake.TaskOptions, action?:(this: jake.Task, ...params:any[])=>any): jake.Task;
 
 /**
  * @param name The name of the NpmPublishTask
@@ -214,7 +215,7 @@ declare namespace jake{
 		 * @param action The action to perform for this task
 		 * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 		 */
-		constructor(name:string, prereqs?:string[], action?:()=>void, opts?:TaskOptions);
+		constructor(name:string, prereqs?:string[], action?:(this: Task)=>void, opts?:TaskOptions);
 
 		/**
 		 * Runs prerequisites, then this task. If the task has already been run, will not run the task again.
@@ -236,10 +237,19 @@ declare namespace jake{
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
 		listenerCount(type: string): number;
+		complete(value?: any): void;
 		value: any;
+
+		name?: string;
+		prereqs?: string[];
+		action?: (...params: any[]) => any;
+		taskStatus?: string;
+		async?: boolean;
+		description?: string;
+		fullName: string;
 	}
 
-	export class DirectoryTask{
+	export class DirectoryTask extends FileTask {
 		/**
          * @param name The name of the directory to create.
 		 */
@@ -254,14 +264,14 @@ declare namespace jake{
 		async?: boolean;
 	}
 
-	export class FileTask{
+	export class FileTask extends Task{
 		/**
 		 * @param name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
 		 * @param action The action to perform to create this file
 		 * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
 	     */
-		constructor(name:string, prereqs?:string[], action?:()=>void, opts?:FileTaskOptions);
+		constructor(name:string, prereqs?:string[], action?:(this: FileTask)=>void, opts?:FileTaskOptions);
 	}
 
 	interface FileFilter{

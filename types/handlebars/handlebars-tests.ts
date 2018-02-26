@@ -36,7 +36,7 @@ var post = { url: '/hello-world', body: 'Hello World!' };
 var context2 = { posts: [post] };
 var source2 = '<ul>{{#posts}}<li>{{{link_to this}}}</li>{{/posts}}</ul>';
 
-var template2 = Handlebars.compile(source2);
+var template2: HandlebarsTemplateDelegate<{ posts: { url: string, body: string }[] }> = Handlebars.compile(source2);
 template2(context2);
 
 Handlebars.registerHelper('link_to', (title: string, context: typeof post) => {
@@ -45,14 +45,14 @@ Handlebars.registerHelper('link_to', (title: string, context: typeof post) => {
 
 var context3 = { posts: [{url: '/hello-world', body: 'Hello World!'}] };
 var source3 = '<ul>{{#posts}}<li>{{{link_to "Post" this}}}</li>{{/posts}}</ul>';
-var template3 = Handlebars.compile(source3);
+var template3 = Handlebars.compile<typeof context3>(source3);
 template3(context3);
 
 var source4 = '<ul>{{#people}}<li>{{#link}}{{name}}{{/link}}</li>{{/people}}</ul>';
 Handlebars.registerHelper('link', function(context: any) {
     return '<a href="/people/' + this.id + '">' + context.fn(this) + '</a>';
 });
-var template4 = Handlebars.compile(source4);
+var template4 = Handlebars.compile<{ people: { name: string, id: number }[] }>(source4);
 var data2 = { 'people': [
     { 'name': 'Alan', 'id': 1 },
     { 'name': 'Yehuda', 'id': 2 }

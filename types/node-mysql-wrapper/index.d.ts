@@ -2,12 +2,13 @@
 // Project: https://github.com/nodets/node-mysql-wrapper
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference path="./my-meteor.d.ts" />
 
 import * as Mysql from 'mysql';
 import * as Promise from 'bluebird';
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 declare var EQUAL_TO_PROPERTY_SYMBOL: string;
 declare var TABLE_RULES_PROPERTY: string;
@@ -49,20 +50,20 @@ interface IQueryConstructor<T> {
 
 
 declare class Helper {
-    /** 
+    /**
      * Callback like forEach
      * @name valueCallback
      * @function
-     * @param {T} the value of the object's key 
+     * @param {T} the value of the object's key
      * @returnTye {U}
      * @return {U}
     */
-        
+
     /**
      * CallbaforEach
      * @name keyCallback
      * @function
-     * @param {string} the name of the object's key 
+     * @param {string} the name of the object's key
      * @returnTye {U}
      * @return {U}
     */
@@ -158,7 +159,7 @@ declare class CriteriaParts implements ICriteriaParts {
     noDatabaseProperties: string[];
 
     /**
-     * The converted/exported where clause. 
+     * The converted/exported where clause.
      */
     whereClause: string;
 
@@ -464,7 +465,7 @@ declare class Connection extends EventEmitter {
     /**
      * The real database connection socket.
      */
-    connection: Mysql.IConnection;
+    connection: Mysql.Connection;
 
     /**
      * Collection of the supported event types for the tables.
@@ -472,7 +473,7 @@ declare class Connection extends EventEmitter {
     eventTypes: string[];
 
     /**
-     * Force to fetch ONLY these Database table names {array of string}.  
+     * Force to fetch ONLY these Database table names {array of string}.
      */
     tableNamesToUseOnly: any[];
 
@@ -481,35 +482,35 @@ declare class Connection extends EventEmitter {
      */
     tables: Table<any>[];
 
-    constructor(connection: string | Mysql.IConnection | Mysql.IConnectionConfig);
+    constructor(connection: string | Mysql.Connection | Mysql.ConnectionConfig);
 
     /**
      * Creates the MysqlConnection from the connection url or the real connection object.
-     * @param {string | Mysql.IConnection |  Mysql.IConnectionConfig} connection the connection url or the real connection object.
+     * @param {string | Mysql.Connection |  Mysql.ConnectionConfig} connection the connection url or the real connection object.
      * @returnType {nothing}
      * @return {nothing}
      */
-    create(connection: string | Mysql.IConnection | Mysql.IConnectionConfig): void;
+    create(connection: string | Mysql.Connection | Mysql.ConnectionConfig): void;
 
     /**
      * Attach a real connection.
-     * @param {Mysql.IConnection} connection the real connection object.
+     * @param {Mysql.Connection} connection the real connection object.
      * @returnType {nothing}
-     * @return {nothing} 
+     * @return {nothing}
      */
-    attach(connection: Mysql.IConnection): void;
+    attach(connection: Mysql.Connection): void;
 
     /**
      * Close the entire real connection and remove all event's listeners (if exist).
      * @param {function} callback If error occurs when closing the connection, this callback has the responsibility to catch it.
      * @returnType {nothing}
-     * @return {nothing} 
+     * @return {nothing}
      */
     end(callback?: (error: any) => void): void;
 
     /**
      * Close the entire real connection and remove all event's listeners (if exist).
-     * the difference from the 'end' is that this method doesn't care about errors so no callback passing here. 
+     * the difference from the 'end' is that this method doesn't care about errors so no callback passing here.
      */
     destroy(): void;
 
@@ -545,7 +546,7 @@ declare class Connection extends EventEmitter {
 
     /**
      * Escape the query column's value  and return it.
-     * @param {string} val the value which will be escaped. 
+     * @param {string} val the value which will be escaped.
      * @returnType {string}
      * @return {string}
      */
@@ -565,7 +566,7 @@ declare class Connection extends EventEmitter {
      * Adds an event listener/watcher on a table for a 'database event'.
      * @param {string} tableName the table name which you want to add the event listener.
      * @param {string or string[]} evtType the event(s) type you want to watch, one of these(string) or an array of them(string[]): ["INSERT", "UPDATE", "REMOVE", "SAVE"].
-     * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawRows (results after query executed and before parsed to object(s)). 
+     * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawRows (results after query executed and before parsed to object(s)).
      * @returnType {nothing}
      * @return {nothing}
      */
@@ -573,7 +574,7 @@ declare class Connection extends EventEmitter {
 
     /**
      * Removes an event listener/watcher from a table for a specific event type.
-     * @param {string} tableName the table name which you want to remove the event listener. 
+     * @param {string} tableName the table name which you want to remove the event listener.
      * @param {string} evtType the Event type you want to remove, one of these: "INSERT", "UPDATE", "REMOVE", "SAVE".
      * @param {function} callbackToRemove the callback that you were used for watch this event type.
      * @returnType {nothing}
@@ -587,13 +588,13 @@ declare class Connection extends EventEmitter {
      * @param {function} callback the function will be called and fill the one and only parameter when an errors occurs.
      * @param {any[]} queryArguments (optional) the query arguments you want to pass into query. ['arg1','arg2']...
      * @returnType {nothing}
-     * @return {nothing} 
+     * @return {nothing}
      */
-    query(queryStr: string, callback: (err: Mysql.IError, results: any) => any, queryArguments?: any[]): void;
+    query(queryStr: string, callback: (err: Mysql.MysqlError, results: any) => any, queryArguments?: any[]): void;
 
     /**
      * Returns a MysqlTable object from the database factory. (Note: this method doesn't create anything, just finds and returns the correct table, you don't have to create anything at all. Tables are fetched by the library itself.)
-     * If you are using typescript you can pass a class (generic<T>) in order to use the auto completion assistance on table's results methods(find,findById,findAll,save,remove,safeRemove). 
+     * If you are using typescript you can pass a class (generic<T>) in order to use the auto completion assistance on table's results methods(find,findById,findAll,save,remove,safeRemove).
      * @param {string} tableName the table name which you want to get, on the form of: 'anyDatabaseTable' OR 'any_database_table' (possible your real table name into your database).
      * @returnType {MysqlTable}
      * @return {MysqlTable}
@@ -602,7 +603,7 @@ declare class Connection extends EventEmitter {
 }
 
 declare class Table<T>  {
-    /** Private keywords here are useless but I put them. 
+    /** Private keywords here are useless but I put them.
      * If the developer wants to see the properties of the Table class, he/she just comes here.
     */
 
@@ -630,17 +631,17 @@ declare class Table<T>  {
     primaryKey: string;
 
     /**
-     * The MysqlConnection object which this MysqlTable belongs. 
+     * The MysqlConnection object which this MysqlTable belongs.
      */
     connection: Connection;
 
     /**
-     * The real database name of the table. Autofilled by library. 
+     * The real database name of the table. Autofilled by library.
      */
     name: string;
 
     /**
-     * Set of the query rules that will be applied after the 'where clause' on each select query executed by this table. 
+     * Set of the query rules that will be applied after the 'where clause' on each select query executed by this table.
      * @return {SelectQueryRules}
      */
     rules: SelectQueryRules;
@@ -661,7 +662,7 @@ declare class Table<T>  {
     /**
     * Adds or turn on an event listener/watcher on a table for a 'database event'.
     * @param {string} evtType the event type you want to watch, one of these: ["INSERT", "UPDATE", "REMOVE", "SAVE"].
-    * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawResults (results after query executed and before exports to object(s)). 
+    * @param {function} callback Callback which has one parameter(typeof any[]) which filled by the rawResults (results after query executed and before exports to object(s)).
     * @returnType {nothing}
     * @return {nothing}
     */
@@ -689,7 +690,7 @@ declare class Table<T>  {
      * @param {string} functionName the function name you want to use, this is used when you want to call this function later.
      * @param {function} theFunction the function with any optional parameters you want to pass along.
      * @returnType {nothing}
-     * @return {nothing} 
+     * @return {nothing}
      */
     extend(functionName: string, theFunction: (...args: any[]) => any): void;
 
@@ -726,9 +727,9 @@ declare class Table<T>  {
     getPrimaryKeyValue(jsObject: any): number | string;
 
     /**
-     * 
+     *
      */
-    find(criteriaRawJsObject: any): Promise<T[]>; // only criteria 
+    find(criteriaRawJsObject: any): Promise<T[]>; // only criteria
     find(criteriaRawJsObject: any, callback: ((_results: T[]) => any)): Promise<T[]>; // criteria and callback
     find(criteriaRawJsObject: any, callback?: (_results: T[]) => any): Promise<T[]>;
 
@@ -788,11 +789,11 @@ declare class Database {
     table<T>(tableName: string): Table<T>;
     noticeReady(): void;
     removeReadyListener(callback: () => void): void;
-    query(queryStr: string, callback: (err: Mysql.IError, results: any) => any, queryArguments?: any[]): void;
+    query(queryStr: string, callback: (err: Mysql.MysqlError, results: any) => any, queryArguments?: any[]): void;
 
     /**
     * Close the entire real connection and remove all event's listeners (if exist).
-    * the difference from the 'end' is that this method doesn't care about errors so no callback passing here. 
+    * the difference from the 'end' is that this method doesn't care about errors so no callback passing here.
     */
     destroy(): void;
 
@@ -800,7 +801,7 @@ declare class Database {
    * Close the entire real connection and remove all event's listeners (if exist).
    * @param {function} maybeAcallbackError If error occurs when closing the connection, this callback has the responsibility to catch it.
    * @returnType {nothing}
-   * @return {nothing} 
+   * @return {nothing}
    */
     end(maybeAcallbackError: (err: any) => void): void;
 
@@ -815,11 +816,11 @@ declare class Database {
     meteorTable<T>(tableName: string): MeteorTable<T>;
 }
 
-declare function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): Database;
+declare function wrap(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.Connection | string, ...useTables: any[]): Database;
 
 /** For meteor js only
  * Same as wrap but it's sync mode - autoconnect to the database without need to use database.ready(callback).
  */
-declare function connect(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.IConnection | string, ...useTables: any[]): Database;
+declare function connect(mysqlUrlOrObjectOrMysqlAlreadyConnection: Mysql.Connection | string, ...useTables: any[]): Database;
 
 declare function observable<T>(obj: T): T & ObservableObject;

@@ -1,6 +1,8 @@
 // Type definitions for WebAssembly v1 (MVP)
 // Project: https://github.com/winksaville/test-webassembly-js-ts
-// Definitions by: 01alchemist <https://twitter.com/01alchemist>, Wink Saville <wink@saville.com>
+// Definitions by: 01alchemist <https://twitter.com/01alchemist>
+//                 Wink Saville <wink@saville.com>
+//                 Periklis Tsirakidis <https://github.com/periklis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -9,21 +11,25 @@
  * for more information.
  */
 declare namespace WebAssembly {
+    type Imports =  Array<{
+        name: string;
+        kind: string;
+    }>;
+
+    type Exports = Array<{
+        module: string;
+        name: string;
+        kind: string;
+    }>;
+
     /**
      * WebAssembly.Module
      */
     class Module {
         constructor(bufferSource: ArrayBuffer | Uint8Array);
         static customSections(module: Module, sectionName: string): ArrayBuffer[];
-        static exports(module: Module): Array<{
-            name: string;
-            kind: string;
-        }>;
-        static imports(module: Module): Array<{
-            module: string;
-            name: string;
-            kind: string;
-        }>;
+        static exports(module: Module): Imports;
+        static imports(module: Module): Exports;
     }
 
     /**

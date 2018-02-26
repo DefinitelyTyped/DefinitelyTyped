@@ -1,594 +1,801 @@
-// Type definitions for materialize-css v0.98.0
+// Type definitions for materialize-css 1.0
 // Project: http://materializecss.com/
-// Definitions by: Erik Lieben <https://github.com/eriklieben>, Leon Yu <https://github.com/leonyu>, Sukhdeep Singh <https://github.com/SinghSukhdeep>
+// Definitions by:  胡玮文 <https://github.com/huww98>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="jquery" />
-/// <reference types="pickadate" />
 
-declare namespace Materialize {
+export = M;
 
-    /**
-     * The collapsible options
-     */
-    interface CollapsibleOptions {
+declare global {
+    namespace M {
+        class Autocomplete extends Component<AutocompleteOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Autocomplete;
+
+            /**
+             * Select a specific autocomplete options.
+             * @param el Element of the autocomplete option.
+             */
+            selectOption(el: Element): void;
+
+            /**
+             * Update autocomplete options data.
+             * @param data Autocomplete options data object.
+             */
+            updateData(data: AutocompleteData): void;
+
+            /**
+             * If the autocomplete is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * Number of matching autocomplete options.
+             */
+            count: number;
+
+            /**
+             * Index of the current selected option.
+             */
+            activeIndex: number;
+        }
+
+        interface AutocompleteData {
+            [key: string]: string | null;
+        }
+
+        interface AutocompleteOptions {
+            /**
+             * Data object defining autocomplete options with optional icon strings.
+             */
+            data: AutocompleteData;
+
+            /**
+             * Limit of results the autocomplete shows.
+             * @default infinity
+             */
+            limit: number;
+
+            /**
+             * Callback for when autocompleted.
+             */
+            onAutocomplete: (this: Autocomplete, text: string) => void;
+
+            /**
+             * Minimum number of characters before autocomplete starts.
+             * @default 1
+             */
+            minLength: number;
+
+            /**
+             * Sort function that defines the order of the list of autocomplete options.
+             */
+            sortFunction: (a: string, b: string, inputText: string) => number;
+        }
+
+        class DatePicker extends Component<DatePickerOptions> implements Openable {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): DatePicker;
+
+            /**
+             * If the picker is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * The selected Date.
+             */
+            date: Date;
+
+            /**
+             * Open datepicker
+             */
+            open(): void;
+
+            /**
+             * Close datepicker
+             */
+            close(): void;
+
+            /**
+             * Gets a string representation of the selected date
+             */
+            toString(): string;
+
+            /**
+             * Set a date on the datepicker
+             * @param date Date to set on the datepicker.
+             */
+            setDate(date?: Date): void;
+
+            /**
+             * Change date view to a specific date on the datepicker
+             * @param date Date to show on the datepicker.
+             */
+            gotoDate(date: Date): void;
+        }
+
+        interface DatePickerOptions {
+            /**
+             * The date output format for the input field value.
+             * @default 'mmm dd, yyyy'
+             */
+            format: string;
+
+            /**
+             * Used to create date object from current input string.
+             */
+            parse: (value: string, format: string) => Date;
+
+            /**
+             * The initial date to view when first opened.
+             */
+            defaultDate: Date;
+
+            /**
+             * Make the `defaultDate` the initial selected value
+             * @default false
+             */
+            setDefaultDate: boolean;
+
+            /**
+             * Prevent selection of any date on the weekend.
+             * @default false
+             */
+            disableWeekends: boolean;
+
+            /**
+             * Custom function to disable certain days.
+             */
+            disableDayFn: (day: Date) => boolean;
+
+            /**
+             * First day of week (0: Sunday, 1: Monday etc).
+             * @default 0
+             */
+            firstDay: number;
+
+            /**
+             * The earliest date that can be selected.
+             */
+            minDate: Date;
+
+            /**
+             * The latest date that can be selected.
+             */
+            maxDate: Date;
+
+            /**
+             * Number of years either side, or array of upper/lower range.
+             * @default 10
+             */
+            yearRange: number | number[];
+
+            /**
+             * Changes Datepicker to RTL.
+             * @default false
+             */
+            isRTL: boolean;
+
+            /**
+             * Show month after year in Datepicker title.
+             * @default false
+             */
+            showMonthAfterYear: boolean;
+
+            /**
+             * Render days of the calendar grid that fall in the next or previous month.
+             * @default false
+             */
+            showDaysInNextAndPreviousMonths: boolean;
+
+            /**
+             * Specify a selector for a DOM element to render the calendar in, by default it will be placed before the input.
+             */
+            container: string;
+
+            /**
+             * An array of string returned by `Date.toDateString()`, indicating there are events in the specified days.
+             * @default []
+             */
+            events: string[];
+
+            /**
+             * Callback function when date is selected, first parameter is the newly selected date.
+             */
+            onSelect: (this: DatePicker, selectedDate: Date) => void;
+
+            /**
+             * Callback function when Datepicker is opened
+             */
+            onOpen: (this: DatePicker) => void;
+
+            /**
+             * Callback function when Datepicker is closed
+             */
+            onClose: (this: DatePicker) => void;
+
+            /**
+             * Callback function when Datepicker HTML is refreshed
+             */
+            onDraw: (this: DatePicker) => void;
+        }
+
+        class FloatingActionButton extends Component<FloatingActionButtonOptions> implements Openable {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): FloatingActionButton;
+
+            /**
+             * Open FAB
+             */
+            open(): void;
+
+            /**
+             * Close FAB
+             */
+            close(): void;
+
+            /**
+             * Describes open/close state of FAB.
+             */
+            isOpen: boolean;
+        }
+
+        interface FloatingActionButtonOptions {
+            /**
+             * Direction FAB menu opens
+             * @default "top"
+             */
+            direction: "top" | "right" | "buttom" | "left";
+
+            /**
+             * true: FAB menu appears on hover, false: FAB menu appears on click
+             * @default true
+             */
+            hoverEnabled: boolean;
+
+            /**
+             * Enable transit the FAB into a toolbar on click
+             * @default false
+             */
+            toolbarEnabled: boolean;
+        }
+
+        class Sidenav extends Component<SidenavOptions> implements Openable {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Sidenav;
+
+            /**
+             * Opens Sidenav
+             */
+            open(): void;
+
+            /**
+             * Closes Sidenav
+             */
+            close(): void;
+
+            /**
+             * Describes open/close state of Sidenav
+             */
+            isOpen: boolean;
+
+            /**
+             * Describes if sidenav is fixed
+             */
+            isFixed: boolean;
+
+            /**
+             * Describes if Sidenav is being dragged
+             */
+            isDragged: boolean;
+        }
+
         /**
-        * A setting that changes the collapsible behavior to expandable instead of the default accordion style
-        */
-        accordion?: boolean;
-
-        /**
-         * Callback for Collapsible section close.
-         * Default: function() { alert('Closed'); }
+         * Options for the Sidenav
          */
-        onClose?: Function;
+        interface SidenavOptions {
+            /**
+             * Side of screen on which Sidenav appears
+             * @default 'left'
+             */
+            edge: 'left' | 'right';
+
+            /**
+             * Allow swipe gestures to open/close Sidenav
+             * @default true
+             */
+            draggable: boolean;
+
+            /**
+             * Length in ms of enter transition
+             * @default 250
+             */
+            inDuration: number;
+
+            /**
+             * Length in ms of exit transition
+             * @default 200
+             */
+            outDuration: number;
+
+            /**
+             * Function called when sidenav starts entering
+             */
+            onOpenStart: (this: Sidenav, elem: Element) => void;
+
+            /**
+             * Function called when sidenav finishes entering
+             */
+            onOpenEnd: (this: Sidenav, elem: Element) => void;
+
+            /**
+             * Function called when sidenav starts exiting
+             */
+            onCloseStart: (this: Sidenav, elem: Element) => void;
+
+            /**
+             * Function called when sidenav finishes exiting
+             */
+            onCloseEnd: (this: Sidenav, elem: Element) => void;
+        }
+
+        class Tabs extends Component<TabsOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Tabs;
+
+            /**
+             * Show tab content that corresponds to the tab with the id
+             * @param tabId The id of the tab that you want to switch to
+             */
+            select(tabId: string): void;
+
+            /**
+             * The index of tab that is currently shown
+             */
+            index: number;
+        }
 
         /**
-         * Callback for Collapsible section open.
-         * Default: function() { alert('Opened'); }
+         * Options for the Tabs
          */
-        onOpen?: Function;
+        interface TabsOptions {
+            /**
+             * Transition duration in milliseconds.
+             * @default 300
+             */
+            duration: number;
+
+            /**
+             * Callback for when a new tab content is shown
+             */
+            onShow: (this: Tabs, newContent: Element) => void;
+
+            /**
+             * Set to true to enable swipeable tabs. This also uses the responsiveThreshold option
+             * @default false
+             */
+            swipeable: boolean;
+
+            /**
+             * The maximum width of the screen, in pixels, where the swipeable functionality initializes.
+             * @default infinity
+             */
+            responsiveThreshold: number;
+        }
+
+        class TimePicker extends Component<TimePickerOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): TimePicker;
+
+            /**
+             * If the picker is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * The selected time.
+             */
+            time: string;
+
+            /**
+             * Open timepicker
+             */
+            open(): void;
+
+            /**
+             * Close timepicker
+             */
+            close(): void;
+
+            /**
+             * Show hours or minutes view on timepicker
+             * @param view The name of the view you want to switch to, 'hours' or 'minutes'.
+             */
+            showView(view: "hours" | "minutes"): void;
+        }
+
+        interface TimePickerOptions {
+            /**
+             * Duration of the transition from/to the hours/minutes view.
+             * @default 350
+             */
+            duration: number;
+
+            /**
+             * Specify a selector for a DOM element to render the calendar in, by default it will be placed before the input.
+             */
+            container: string;
+
+            /**
+             * Default time to set on the timepicker 'now' or '13:14'
+             * @default 'now';
+             */
+            defaultTime: string;
+
+            /**
+             * Millisecond offset from the defaultTime.
+             * @default 0
+             */
+            fromnow: number;
+
+            /**
+             * Done button text.
+             * @default 'Ok'
+             */
+            doneText: string;
+
+            /**
+             * Clear button text.
+             * @default 'Clear'
+             */
+            clearText: string;
+
+            /**
+             * Cancel button text.
+             * @default 'Cancel'
+             */
+            cancelText: string;
+
+            /**
+             * Automatically close picker when minute is selected.
+             * @default false;
+             */
+            autoClose: boolean;
+
+            /**
+             * Use 12 hour AM/PM clock instead of 24 hour clock.
+             * @default true
+             */
+            twelveHour: boolean;
+
+            /**
+             * Vibrate device when dragging clock hand.
+             * @default true
+             */
+            vibrate: boolean;
+        }
+
+        class Modal extends Component<ModalOptions> implements Openable {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Modal;
+
+            /**
+             * Open modal
+             */
+            open(): void;
+
+            /**
+             * Close modal
+             */
+            close(): void;
+
+            /**
+             * If the modal is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * ID of the modal element
+             */
+            id: string;
+        }
+
+        /**
+         * Options for the Modal
+         */
+        interface ModalOptions {
+            /**
+             * Opacity of the modal overlay.
+             * @default 0.5
+             */
+            opacity: number;
+
+            /**
+             * Transition in duration in milliseconds.
+             * @default 250
+             */
+            inDuration: number;
+
+            /**
+             * Transition out duration in milliseconds.
+             * @default 250
+             */
+            outDuration: number;
+
+            /**
+             * Callback function called when modal is finished entering.
+             */
+            ready: (this: Modal, elem: Element, openingTrigger: Element) => void;
+
+            /**
+             * Callback function called when modal is finished exiting.
+             */
+            complete: (this: Modal, elem: Element) => void;
+
+            /**
+             * Allow modal to be dismissed by keyboard or overlay click.
+             * @default true
+             */
+            dismissible: boolean;
+
+            /**
+             * Starting top offset
+             * @default '4%'
+             */
+            startingTop: string;
+
+            /**
+             * Ending top offset
+             * @default '10%'
+             */
+            endingTop: string;
+        }
+
+        class Toast extends ComponentBase<ToastOptions> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Toast;
+
+            /**
+             * Describes the current pan state of the Toast.
+             */
+            panning: boolean;
+
+            /**
+             * The remaining amount of time in ms that the toast will stay before dismissal.
+             */
+            timeRemaining: number;
+
+            /**
+             * remove a specific toast
+             */
+            dismiss(): void;
+
+            /**
+             * dismiss all toasts
+             */
+            static dismissAll(): void;
+        }
+
+        interface ToastOptions {
+            /**
+             * The HTML content of the Toast.
+             */
+            html: string;
+
+            /**
+             * Length in ms the Toast stays before dismissal.
+             * @default 4000
+             */
+            displayLength: number;
+
+            /**
+             * Transition in duration in milliseconds.
+             * @default 300
+             */
+            inDuration: number;
+
+            /**
+             * Transition out duration in milliseconds.
+             * @default 375
+             */
+            outDuration: number;
+
+            /**
+             * Classes to be added to the toast element.
+             */
+            classes: string;
+
+            /**
+             * Callback function called when toast is dismissed.
+             */
+            completeCallback: () => void;
+
+            /**
+             * The percentage of the toast's width it takes for a drag to dismiss a Toast.
+             * @default 0.8
+             */
+            activationPercent: number;
+        }
+
+        /**
+         * Create a toast
+         */
+        function toast(options: Partial<ToastOptions>): Toast;
+
+        class Tooltip extends Component<TooltipOptions> implements Openable {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): Tooltip;
+
+            /**
+             * Show tooltip.
+             */
+            open(): void;
+
+            /**
+             * Hide tooltip.
+             */
+            close(): void;
+
+            /**
+             * If tooltip is open.
+             */
+            isOpen: boolean;
+
+            /**
+             * If tooltip is hovered.
+             */
+            isHovered: boolean;
+        }
+
+        interface TooltipOptions {
+            /**
+             * Delay time before tooltip disappears.
+             * @default 0
+             */
+            exitDelay: number;
+
+            /**
+             * Delay time before tooltip appears.
+             * @default 200
+             */
+            enterDelay: number;
+
+            /**
+             * Can take regular text or HTML strings.
+             * @default null
+             */
+            html: string | null;
+
+            /**
+             * Set distance tooltip appears away from its activator excluding transitionMovement.
+             * @default 5
+             */
+            margin: number;
+
+            /**
+             * Enter transition duration.
+             * @default 300
+             */
+            inDuration: number;
+
+            /**
+             * Exit transition duration.
+             * @default 250
+             */
+            outDuration: number;
+
+            /**
+             * Set the direction of the tooltip.
+             * @default 'bottom'
+             */
+            position: 'top' | 'right' | 'bottom' | 'left';
+
+            /**
+             * Amount in px that the tooltip moves during its transition.
+             * @default 10
+             */
+            transitionMovement: number;
+        }
+
+        function updateTextFields(): void;
+
+        class CharacterCounter extends Component<undefined> {
+            /**
+             * Get Instance
+             */
+            static getInstance(elem: Element): CharacterCounter;
+        }
+
+        abstract class Component<TOptions> extends ComponentBase<TOptions> {
+            /**
+             * Construct component instance and set everything up
+             */
+            constructor(elem: Element, options?: Partial<TOptions>);
+
+            /**
+             * Destroy plugin instance and teardown
+             */
+            destroy(): void;
+        }
+
+        abstract class ComponentBase<TOptions> {
+            constructor(options?: Partial<TOptions>);
+
+            /**
+             * The DOM element the plugin was initialized with
+             */
+            el: Element;
+
+            /**
+             * The options the instance was initialized with
+             */
+            options: TOptions;
+        }
+
+        interface Openable {
+            isOpen: boolean;
+            open(): void;
+            close(): void;
+        }
     }
 
-    interface TooltipOptions {
-        /**
-        * The delay before the tooltip shows (in milliseconds)
-        */
-        delay: number;
-        /**
-         * Tooltip text. Can use custom HTML if you set the html option
-         */
-        tooltip?: string;
-        /**
-         * Set the direction of the tooltip. 'top', 'right', 'bottom', 'left'. 
-         * 
-         * (Default: 'bottom')
-         */
-        position?: string;
-        /**
-         * Allow custom html inside the tooltip. 
-         * 
-         * (Default: false)
-         */
-        html?: boolean;
+    interface JQuery {
+        // Pick<T,K> to check methods exist.
+        autocomplete(method: keyof Pick<M.Autocomplete, "destroy">): JQuery;
+        autocomplete(method: keyof Pick<M.Autocomplete, "selectOption">, el: Element): JQuery;
+        autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
+        autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;
+
+        datepicker(method: keyof Pick<M.DatePicker, "open" | "close" | "destroy">): JQuery;
+        datepicker(method: keyof Pick<M.DatePicker, "setDate">, date?: Date): JQuery;
+        datepicker(method: keyof Pick<M.DatePicker, "gotoDate">, date: Date): JQuery;
+        datepicker(options?: Partial<M.DatePickerOptions>): JQuery;
+
+        floatingActionButton(method: keyof Pick<M.FloatingActionButton, "open" | "close" | "destroy">): JQuery;
+        floatingActionButton(options?: Partial<M.FloatingActionButtonOptions>): JQuery;
+
+        sidenav(method: keyof Pick<M.Sidenav, "open" | "close" | "destroy">): JQuery;
+        sidenav(options?: Partial<M.SidenavOptions>): JQuery;
+
+        tabs(method: keyof Pick<M.Tabs, "destroy">): JQuery;
+        tabs(method: keyof Pick<M.Tabs, "select">, tabId: string): JQuery;
+        tabs(options?: Partial<M.TabsOptions>): JQuery;
+
+        timepicker(method: keyof Pick<M.TimePicker, "open" | "close" | "destroy">): JQuery;
+        timepicker(method: keyof Pick<M.TimePicker, "showView">, view: "hours" | "minutes"): JQuery;
+        timepicker(options?: Partial<M.TimePickerOptions>): JQuery;
+
+        // Toast can not be invoked using jQuery.
+
+        tooltip(method: keyof Pick<M.Tooltip, "open" | "close" | "destroy">): JQuery;
+        tooltip(options?: Partial<M.TooltipOptions>): JQuery;
+
+        modal(method: keyof Pick<M.Modal, "open" | "close" | "destroy">): JQuery;
+        modal(options?: Partial<M.ModalOptions>): JQuery;
+
+        // tslint:disable-next-line unified-signatures
+        characterCounter(method: keyof Pick<M.CharacterCounter, "destroy">): JQuery;
+        characterCounter(): JQuery;
     }
-
-    /**
-     * The dropdown options
-     */
-    interface DropDownOptions {
-
-        /**
-         * The duration of the transition enter in milliseconds.
-         * Default: 300
-         */
-        inDuration?: number;
-
-        /**
-         * The duration of the transition out in milliseconds.
-         * Default: 225
-         */
-        outDuration?: number;
-
-
-        /**
-         * If true, constrainWidth to the size of the dropdown activator.
-         * Default: true
-         */
-        constrainWidth?: boolean;
-        /**
-         * If true, the dropdown will open on hover.
-         * Default: false
-         */
-        hover?: boolean;
-
-        /**
-         * This defines the spacing from the aligned edge.
-         * Default: 0
-         */
-        gutter?: number;
-
-        /**
-         * If true, the dropdown will show below the activator.
-         * Default: false
-         */
-        belowOrigin?: boolean;
-
-        /**
-         * Defines the edge the menu is aligned to.
-         * Default: 'left'
-         */
-        alignment?: string;
-        /**
-         * If true, stops the event propagating from the dropdown origin click handler.
-         * 
-         * Default: false
-         */
-        stopPropagation?: boolean
-    }
-
-    /**
-     * The slider options
-     */
-    interface SliderOptions {
-
-        /**
-         * Set to false to hide slide indicators.
-         * Default: true
-         */
-        indicators?: boolean;
-
-        /**
-         * Set height of slider.
-         * Default: 400
-         */
-        height?: number;
-
-        /**
-         * Set the duration of the transition animation in ms.
-         * Default: 500
-         */
-        transition?: number;
-
-        /**
-         * Set the duration between transitions in ms.
-         * Default: 6000
-         */
-        interval?: number;
-    }
-
-    /**
-     * The carousel options
-     */
-    interface CarouselOptions {
-        /**
-         * Transition duration in milliseconds
-         * Default: 200
-         */
-        duration?: number;
-
-        /**
-         * Perspective zoom. If 0, all items are the same size.
-         * Default: -100
-         */
-        dist?: number;
-
-        /**
-         * Set the duration of the transition animation in ms.
-         * Default: 500
-         */
-        shift?: number;
-
-        /**
-         * Set the duration between transitions in ms.
-         * Default: 6000
-         */
-        padding?: number;
-
-        /**
-         * Set the width of the carousel.
-         * Default: false
-         */
-        fullWidth?: boolean;
-        /**
-         * Set to true to show indicators. 
-         * 
-         * Default: false
-         */
-        indicators?: boolean;
-        /**
-         * Don't wrap around and cycle through items.
-         * 
-         * Default: false
-         */
-        noWrap?: boolean;
-    }
-
-    /**
-     * The modal options
-     */
-    interface ModalOptions {
-
-        /**
-         * Modal can be dismissed by clicking outside of the modal.
-         * Default: true
-         */
-        dismissible?: boolean;
-
-        /**
-         * Opacity of modal background.
-         * Default. .5
-         */
-        opacity?: number;
-
-        /**
-         * Transition in duration.
-         * Default: 300
-         */
-        inDuration?: number;
-
-        /**
-         * Transition out duration.
-         * Default: 200
-         */
-        outDuration?: number;
-        /**
-         * Starting top style attribute
-         * Default: `4%`
-         */
-        startingTop?: string;
-        /**
-         * Ending top style attribute
-         * Default : `10%`
-         */
-        endingTop?: string;
-
-        /**
-         * Callback for Modal open.
-         * Default: function() { alert('Ready'); }
-         */
-        ready?: Function;
-
-        /**
-         * Callback for Modal close.
-         * Default: function() { alert('Closed'); }
-         */
-        complete?: Function;
-    }
-
-    /**
-     * The push pin options
-     */
-    interface PushpinOptions {
-
-        /**
-         * The distance in pixels from the top of the page where the element becomes fixed.
-         * Default: 0
-         */
-        top?: number;
-
-        /**
-         * The distance in pixels from the top of the page where the elements stops being fixed.
-         * Default: Infinity
-         */
-        bottom?: number;
-
-        /**
-         * The offset from the top the element will be fixed at.
-         * Default: 0
-         */
-        offset?: number;
-    }
-
-    /**
-     * The scroll spy options
-     */
-    interface ScrollSpyOptions {
-        /**
-         * Offset from top.
-         * Default: 200
-         */
-        scrollOffset?: number;
-    }
-
-    /**
-     * The slideNav options
-     */
-    interface SideNavOptions {
-        /**
-         * Default: 240
-         */
-        menuWidth?: number;
-
-        /**
-         * The horizontal origin
-         * Default: ' left'
-         */
-        edge?: string;
-
-        /**
-         * Closes side-nav on <a> clicks, useful for Angular/Meteor
-         * Default: false
-         */
-        closeOnClick?: boolean;
-
-        /**
-         * Choose whether you can drag to open on touch screens
-         * Default: true
-         */
-        draggable?: boolean;
-    }
-
-    interface ScrollFireOptions {
-
-        /**
-         * The selector for the element that is being tracked.
-         */
-        selector?: string;
-
-        /**
-         * Offset to use when activating the scroll fire event
-         * If this is 0, the callback will be fired when the selector element is at the very bottom of the user's window.
-         */
-        offset?: number;
-
-        /**
-         * The string function call that you want to make when the user scrolls to the threshold.
-         * It will only be called once.
-         * Example: 'console.log("hello, world!")';
-         */
-        callback?: Function;
-    }
-
-    interface TabOptions {
-        /**
-         * Execute a callback function when the tab is changed. 
-         * 
-         * The callback provides a parameter which refers to the current tab being shown.
-         */
-        onShow?: Function;
-
-        /**
-         * Set to true to enable swipeable tabs. This also uses the responsiveThreshold option.
-         * 
-         * Default: false
-         */
-        swipeable?: boolean;
-
-        /**
-         * The maximum width of the screen, in pixels, where the swipeable functionality initializes.
-         * 
-         * Default: Infinity
-         */
-        responsiveThreshold?: number;
-    }
-
-    interface ChipDataObject {
-        tag: string,
-        image?: string,
-        id?: number
-    }
-
-    interface ChipOptions {
-        /**
-         * Set the chip data 
-         */
-        data?: Materialize.ChipDataObject[];
-        /**
-         * Set first placeholder when there are no tags
-         */
-        placeholder?: string;
-        /**
-         * Set second placeholder when adding additional tags.
-         */
-        secondaryPlaceholder?: string;
-        /**
-         * Set autocomplete data.
-         */
-        autocompleteData?: any;
-        /**
-         * Set autocomplete limit.
-         */
-        autocompleteLimit?: number;
-    }
-
-
-    /**
-     * The Materialize object
-     */
-    interface Materialize {
-
-        /**
-         * Displays a toast message on screen
-         *
-         * @name message The message to display on screen
-         * @name displayLength The duration in milliseconds to display the message on screen
-         * @name className The className to use to format the message to display
-         * @name completeCallback Callback function to call when the messages completes/hides.
-         */
-        toast(message: string | JQuery, displayLength: number, className?: string, completeCallback?: Function): void;
-
-        /**
-         * Fires an event when the page is scrolled to a certain area
-         *
-         * @name options optional parameter with scroll fire options
-         */
-        scrollFire(options?: ScrollFireOptions): void;
-
-        /**
-         * A staggered reveal effect for any UL Tag with list items
-         *
-         * @name selector the selector for the list to show in staggered fasion
-         */
-        showStaggeredList(selector: string): void;
-
-        /**
-         * Fade in images. It also animates grayscale and brightness to give it a unique effect.
-         *
-         * @name selector the selector for the image to fade in
-         */
-        fadeInImage(selector: string): void;
-
-        /**
-         * Update all text field to reinitialize all the Materialize labels on the page if dynamically adding inputs
-         */
-        updateTextFields(): void;
-    }
-}
-
-declare var Materialize: Materialize.Materialize;
-
-interface JQuery {
-
-    /**
-     * open Fixed Action Button
-     */
-    openFAB(): void;
-    /**
-     * close Fixed Action Button
-     */
-    closeFAB(): void;
-
-    /**
-     * Select allows user input through specified options.
-     * Initialization
-     */
-    material_select(): void;
-
-    /**
-     * Select allows user input through specified options.
-     * Updating/Destroying Select
-     *
-     * @name method "destroy" destroy the material select
-     */
-    material_select(method: string): void;
-
-    /**
-     * Use a character counter in fields where a character restriction is in place.
-     */
-    characterCounter(): JQuery;
-
-    /**
-     * Collapsibles are accordion elements that expand when clicked on.
-     * They allow you to hide content that is not immediately relevant to the user.
-     *
-     * @name options the collapsible options
-     */
-    collapsible(options?: Materialize.CollapsibleOptions): JQuery;
-
-    /**
-     * Tooltips are small, interactive, textual hints for mainly graphical elements.
-     * When using icons for actions you can use a tooltip to give people clarification on its function.
-     *
-     * @name options the tooltip options or the string "remove" to remove the tooltip function
-     */
-    tooltip(options?: Materialize.TooltipOptions | string): JQuery;
-
-    /**
-     * Add a dropdown list to any button.
-     * Make sure that the data-activates attribute matches the id in the <ul> tag.
-     *
-     * @name options the drop down options
-     */
-    dropdown(options?: Materialize.DropDownOptions): void;
-
-    /**
-     * Material box is a material design implementation of the Lightbox plugin.
-     */
-    materialbox(): JQuery;
-
-    /**
-     * slider is a simple and elegant image carousel.
-     * You can also have captions that will be transitioned on their own depending on their alignment.
-     * You can also have indicators that show up on the bottom of the slider.
-     *
-     * @name options the slider options
-     */
-    slider(options?: Materialize.SliderOptions): JQuery;
-
-    /**
-     * slider is a simple and elegant image carousel.
-     * You can also have captions that will be transitioned on their own depending on their alignment.
-     * You can also have indicators that show up on the bottom of the slider.
-     *
-     * @name method the string "start" to start the animation or "pauze" to pauze the animation
-     */
-    slider(method: string): JQuery;
-
-    /**
-     * Our slider is a simple and elegant image carousel.
-     * You can also have captions that will be transitioned on their own depending on their alignment.
-     * You can also have indicators that show up on the bottom of the slider.
-     *
-     * @name options the slider options or the string "start" to start the animation or "pauze" to pauze the animation
-     */
-    carousel(options?: Materialize.CarouselOptions): JQuery;
-
-    /**
-     * Our slider is a simple and elegant image carousel.
-     * You can also have captions that will be transitioned on their own depending on their alignment.
-     * You can also have indicators that show up on the bottom of the slider.
-     *
-     * @name method the methods to pause, start, move to next and move to previous slide.
-     */
-    carousel(method: string, count?: number): JQuery;
-
-    /**
-     * Modal for dialog boxes, confirmation messages, or other content that can be called up.
-     * 
-     * For Initialization.
-     */
-    modal(): JQuery;
-
-    /**
-     * Modal for dialog boxes, confirmation messages, or other content that can be called up.
-     * 
-     * For opening and closing modals programatically.
-     * 
-     * @name string action action to do (`open` or `close)
-     */
-    modal(action: string): void;
-
-    /**
-     * Modal for dialog boxes, confirmation messages, or other content that can be called up.
-     * 
-     * To customize the behaviour of a modal
-     *
-     * @name options the lean modal options
-     */
-    modal(options: Materialize.ModalOptions): void;
-
-    /**
-     * Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
-     */
-    parallax(): JQuery;
-
-    /**
-     * Pushpin is a fixed positioning plugin.
-     *
-     * @name options the push pin options
-     */
-    pushpin(options?: Materialize.PushpinOptions): JQuery;
-
-    /**
-     * Scrollspy is a jQuery plugin that tracks certain elements and which element the user's screen is currently centered on.
-     *
-     * @name options the scroll spy options
-     */
-    scrollSpy(options?: Materialize.ScrollSpyOptions): JQuery;
-
-    /**
-     * A slide out menu. You can add a dropdown to your sidebar by using our collapsible component.
-     *
-     * @params methodOrOptions the slide navigation options or a string with "show" to reveal or "hide" to hide the menu
-     */
-    sideNav(methodOrOptions?: Materialize.SideNavOptions | string): void;
-
-    /**
-     * Programmatically trigger the tab change event
-     *
-     * @name method, the method to call (always "select_tab") and a param containing the id of the tab to open
-     */
-    tabs(method?: string, tab?: string): JQuery;
-
-    /**
-     * Tab Initialization with options
-     *
-     * @name TabOptions options jQuery plugin options
-     */
-    tabs(options?: Materialize.TabOptions): JQuery;
-
-    /**
-     * Chip Initialization
-     * 
-     * @name ChipOptions options Material chip options
-     */
-    material_chip(options?: Materialize.ChipOptions): JQuery;
-
-    /**
-     * To access chip data
-     * 
-     * @name string method name of the method to invoke
-     */
-    material_chip(method: string): Materialize.ChipDataObject[] | Materialize.ChipDataObject;
 }
