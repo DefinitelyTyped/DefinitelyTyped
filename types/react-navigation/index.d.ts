@@ -16,7 +16,6 @@
 // TypeScript Version: 2.6
 
 /**
- * BEGIN FLOW TYPEDEFINITION.JS PORT
  * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
  *
  * NOTE: Please update the commit/link above when updating to a new Flow
@@ -382,18 +381,18 @@ export type EventType =
 | 'action';
 
 export interface NavigationEventPayload {
-    type: EventType;
-    action: NavigationAction;
-    state: NavigationState;
-    lastState: NavigationState;
+  type: EventType;
+  action: NavigationAction;
+  state: NavigationState;
+  lastState: NavigationState;
 }
 
 export type NavigationEventCallback = (
-    payload: NavigationEventPayload
+  payload: NavigationEventPayload
 ) => void;
 
 export interface NavigationEventSubscription {
-    remove: () => void;
+  remove: () => void;
 }
 
 export interface NavigationScreenProp<S> {
@@ -530,26 +529,15 @@ export interface LayoutEvent {
   };
 }
 
-/**
- * END FLOW TYPEDEFINITION.JS PORT
- */
-
-/**
- * BEGIN MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
- */
-
-// From navigators/NavigatorTypes.js
 export type NavigatorType =
 | 'react-navigation/STACK'
 | 'react-navigation/TABS'
 | 'react-navigation/DRAWER';
 
-// From addNavigatorHelpers.js
 export function addNavigationHelpers<S = {}>(
     navigation: NavigationProp<S>
 ): NavigationScreenProp<S>;
 
-// From createNavigationContainer.js
 export interface NavigationContainerProps {
   uriPrefix?: string | RegExp;
   onNavigationStateChange?: (
@@ -656,57 +644,57 @@ export function TabNavigator(
 ): NavigationContainer;
 
 export interface TabBarTopProps {
-    activeTintColor: string;
-    inactiveTintColor: string;
-    showIcon: boolean;
-    showLabel: boolean;
-    upperCaseLabel: boolean;
-    allowFontScaling: boolean;
-    position: AnimatedValue;
-    tabBarPosition: string;
-    navigation: NavigationScreenProp<NavigationState>;
-    jumpToIndex: (index: number) => void;
-    getLabel: (scene: TabScene) => (React.ReactNode | string);
-    getOnPress: (
-      previousScene: NavigationRoute,
-      scene: TabScene
-    ) => (args: {
-      previousScene: NavigationRoute,
-      scene: TabScene,
-      jumpToIndex: (index: number) => void,
-    }) => void;
-    renderIcon: (scene: TabScene) => React.ReactElement<any>;
-    labelStyle?: TextStyle;
-    iconStyle?: ViewStyle;
+  activeTintColor: string;
+  inactiveTintColor: string;
+  showIcon: boolean;
+  showLabel: boolean;
+  upperCaseLabel: boolean;
+  allowFontScaling: boolean;
+  position: AnimatedValue;
+  tabBarPosition: string;
+  navigation: NavigationScreenProp<NavigationState>;
+  jumpToIndex: (index: number) => void;
+  getLabel: (scene: TabScene) => (React.ReactNode | string);
+  getOnPress: (
+    previousScene: NavigationRoute,
+    scene: TabScene
+  ) => (args: {
+    previousScene: NavigationRoute,
+    scene: TabScene,
+    jumpToIndex: (index: number) => void,
+  }) => void;
+  renderIcon: (scene: TabScene) => React.ReactElement<any>;
+  labelStyle?: TextStyle;
+  iconStyle?: ViewStyle;
 }
 
 export interface TabBarBottomProps {
-    activeTintColor: string;
-    activeBackgroundColor: string;
-    adaptive?: boolean;
-    inactiveTintColor: string;
-    inactiveBackgroundColor: string;
-    showLabel?: boolean;
-    allowFontScaling: boolean;
-    position: AnimatedValue;
-    navigation: NavigationScreenProp<NavigationState>;
-    jumpToIndex: (index: number) => void;
-    getLabel: (scene: TabScene) => (React.ReactNode | string);
-    getOnPress: (
-      previousScene: NavigationRoute,
-      scene: TabScene
-    ) => (args: {
-      previousScene: NavigationRoute,
-      scene: TabScene,
-      jumpToIndex: (index: number) => void,
-    }) => void;
-    getTestIDProps: (scene: TabScene) => (scene: TabScene) => any;
-    renderIcon: (scene: TabScene) => React.ReactNode;
-    style?: ViewStyle;
-    animateStyle?: ViewStyle;
-    labelStyle?: TextStyle;
-    tabStyle?: ViewStyle;
-    showIcon?: boolean;
+  activeTintColor: string;
+  activeBackgroundColor: string;
+  adaptive?: boolean;
+  inactiveTintColor: string;
+  inactiveBackgroundColor: string;
+  showLabel?: boolean;
+  allowFontScaling: boolean;
+  position: AnimatedValue;
+  navigation: NavigationScreenProp<NavigationState>;
+  jumpToIndex: (index: number) => void;
+  getLabel: (scene: TabScene) => (React.ReactNode | string);
+  getOnPress: (
+    previousScene: NavigationRoute,
+    scene: TabScene
+  ) => (args: {
+    previousScene: NavigationRoute,
+    scene: TabScene,
+    jumpToIndex: (index: number) => void,
+  }) => void;
+  getTestIDProps: (scene: TabScene) => (scene: TabScene) => any;
+  renderIcon: (scene: TabScene) => React.ReactNode;
+  style?: ViewStyle;
+  animateStyle?: ViewStyle;
+  labelStyle?: TextStyle;
+  tabStyle?: ViewStyle;
+  showIcon?: boolean;
 }
 
 export const TabBarTop: React.ComponentType<TabBarTopProps>;
@@ -845,13 +833,13 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
 export const Header: React.ComponentClass<HeaderProps>;
 
 export interface NavigationInjectedProps {
-    navigation: NavigationScreenProp<NavigationState>;
+  navigation: NavigationScreenProp<NavigationState>;
 }
 
 export function withNavigation<T = {}>(
-    Component: React.ComponentType<T & NavigationInjectedProps>
+  Component: React.ComponentType<T & NavigationInjectedProps>
 ): React.ComponentType<T>;
 
 export function withNavigationFocus<T = {}>(
-    Component: React.ComponentType<T & NavigationInjectedProps>
+  Component: React.ComponentType<T & NavigationInjectedProps>
 ): React.ComponentType<T>;
