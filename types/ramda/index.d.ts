@@ -1598,9 +1598,12 @@ declare namespace R {
         replace(pattern: RegExp | string): (replacement: string) => (str: string) => string;
 
         /**
-         * Returns a new list or string with the elements or characters in reverse order.
+         * Returns a new list with the same elements as the original list, just in the reverse order.
          */
         reverse<T>(list: ReadonlyArray<T>): T[];
+        /**
+         * Returns a new string with the characters in reverse order.
+         */
         reverse(str: string): string;
 
         /**
