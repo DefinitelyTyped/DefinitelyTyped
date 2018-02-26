@@ -78,6 +78,6 @@ declare class Negotiator {
 
 declare namespace Negotiator {
     interface Headers {
-        [key: string]: string | string[];
+        [key: string]: string | string[] | undefined;
     }
 }

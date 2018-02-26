@@ -1,7 +1,8 @@
-// Type definitions for sip.js 0.7
+// Type definitions for sip.js 0.8
 // Project: http://sipjs.com
 // Definitions by: Kir Dergachev <https://github.com/decyrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace sipjs;
 
@@ -71,6 +72,27 @@ export namespace C {
     }
 }
 
+export type DescriptionModifier = (description: RTCSessionDescription) => Promise<RTCSessionDescription>;
+
+export interface SessionDescriptionHandler {
+    getDescription(options: SessionDescriptionHandlerParameters, modifiers: DescriptionModifier[]): Promise<any>;
+    setDescription(sessionDescription: string, options: SessionDescriptionHandlerParameters, modifiers: DescriptionModifier[]): Promise<any>;
+    hasDescription: (contentType: string) => boolean;
+    close: () => void;
+    holdModifier: (description: RTCSessionDescription) => Promise<RTCSessionDescription>;
+
+    on(name: 'userMediaRequest', callback: (constraints: MediaConstraints) => void): void;
+    on(name: 'userMedia', callback: (stream: MediaStream) => void): void;
+    on(name: 'userMediaFailed', callback: (error: string) => void): void;
+    on(name: 'iceCandidate', callback: (candidate: any) => void): void;
+    on(
+        name: 'iceGathering' | 'iceGatheringComplete' | 'iceConnection' | 'iceConnectionChecking' | 'iceConnectionConnected' | 'iceConnectionCompleted' | 'iceConnectionFailed' |
+            'iceConnectionDisconnected' | 'iceConnectionClosed' | string,
+        callback: () => void): void;
+    on(name: 'dataChannel' | 'getDescription' | 'setDescription', callback: (sdpWrapper: { type: string, sdp: string }) => void): void;
+    on(name: 'addTrack', callback: (track: any) => void): void;
+}
+
 export interface Session {
     startTime?: Date;
     endTime?: Date;
@@ -81,6 +103,7 @@ export interface Session {
     localIdentity?: NameAddrHeader;
     remoteIdentity?: NameAddrHeader;
     data: ClientContext | ServerContext;
+    sessionDescriptionHandler: SessionDescriptionHandler;
 
     dtmf(tone: string | number, options?: Session.DtmfOptions): Session;
     terminate(options?: Session.CommonOptions): Session;
@@ -140,7 +163,7 @@ export namespace Session {
         };
     }
 
-    interface DTMF extends Object {}
+    interface DTMF extends Object { }
 
     interface Muted {
         audio?: boolean;
@@ -189,9 +212,21 @@ export namespace WebRTC {
         on(name: 'iceCandidate', callback: (candidate: any) => void): void;
         on(
             name: 'iceGathering' | 'iceGatheringComplete' | 'iceConnection' | 'iceConnectionChecking' | 'iceConnectionConnected' | 'iceConnectionCompleted' | 'iceConnectionFailed' |
-                  'iceConnectionDisconnected' | 'iceConnectionClosed' | string,
+                'iceConnectionDisconnected' | 'iceConnectionClosed' | string,
             callback: () => void): void;
         on(name: 'dataChannel' | 'getDescription' | 'setDescription', callback: (sdpWrapper: { type: string, sdp: string }) => void): void;
+    }
+
+    class Simple {
+        constructor(options: SimpleConfigurationParameters);
+
+        on(name: 'registered' | 'unregistered', callback: (ua: UA) => void): void;
+        on(name: 'ringing' | 'connecting' | 'connected' | 'ended', callback: (session: Session) => void): void;
+        on(name: 'message', callback: (message: Message) => void): void;
+
+        call(target: string | URI): Session;
+        toggleMute(mute: boolean): void;
+        hangup: () => Session | void;
     }
 }
 
@@ -240,6 +275,39 @@ export interface ConfigurationParameters {
     userAgentString?: string;
     wsServerMaxReconnection?: number;
     wsServerReconnectionTimeout?: number;
+}
+
+export interface SimpleConfigurationParameters {
+    ua: {
+        wsServers?: string | Array<string | { ws_uri: string; weight?: number }>;
+        uri?: string;
+        authorizationUser?: string;
+        password?: string;
+        displayName?: string;
+        traceSip?: boolean;
+        userAgentString?: string;
+    };
+    media?: {
+        remote?: {
+            audio?: Element;
+            video?: Element;
+        };
+        local?: {
+            audio?: Element;
+            video?: Element;
+        };
+    };
+}
+
+export interface SessionDescriptionHandlerParameters {
+    constraints?: any;
+    peerConnectionOptions?: {
+        rtcConfiguration: {
+            iceServers: TurnServer[];
+            iceCheckingTimeout: number;
+        };
+        RTCOfferOptions: {};
+    };
 }
 
 /* Options */
@@ -336,10 +404,10 @@ export interface IncomingMessage extends Request {
 
 /* Header */
 export class NameAddrHeader {
-    uri: string | URI;
+    uri: URI;
     displayName: string;
 
-    constructor(uri: string | sipjs.URI, displayName: string, parameters: Array<{ key: string, value: string }>);
+    constructor(uri: sipjs.URI, displayName: string, parameters: Array<{ key: string, value: string }>);
     static parse(name_addr_header: string): sipjs.NameAddrHeader;
 
     setParam(key: string, value?: string): void;

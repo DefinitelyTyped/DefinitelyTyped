@@ -65,15 +65,11 @@
         "prefer-method-signature": false,
         "prefer-template": false,
         "radix": false,
-        "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false,
         "triple-equals": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "void-return": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

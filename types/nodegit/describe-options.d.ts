@@ -5,4 +5,5 @@ export class DescribeOptions {
     pattern?: string;
     onlyFollowFirstParent?: number;
     showCommitOidAsFallback?: number;
+    [key: string]: any;
 }

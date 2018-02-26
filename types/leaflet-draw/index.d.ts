@@ -67,6 +67,13 @@ declare module 'leaflet' {
 			circle?: DrawOptions.CircleOptions | false;
 
 			/**
+			 * Circle marker draw handler options. Set to false to disable handler.
+			 *
+			 *  Default value: {}
+			 */
+			circlemarker?: DrawOptions.CircleMarkerOptions | false;
+
+			/**
 			 * Marker draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
@@ -201,6 +208,71 @@ declare module 'leaflet' {
 			repeatMode?: boolean;
 		}
 
+		interface CircleMarkerOptions {
+			/**
+			 * Whether to draw stroke around the circle marker.
+			 *
+			 * Default value: true
+			 */
+			stroke?: boolean;
+
+			/**
+			 * The stroke color of the circle marker.
+			 *
+			 * Default value: '#3388ff'
+			 */
+			color?: string;
+
+			/**
+			 * The stroke width in pixels of the circle marker.
+			 *
+			 * Default value: 4
+			 */
+			weight?: number;
+
+			/**
+			 * The stroke opacity of the circle marker.
+			 *
+			 * Default value: 0.5
+			 */
+			opacity?: number;
+
+			/**
+			 * Whether to fill the circle marker with color.
+			 *
+			 * Default value: true
+			 */
+			fill?: boolean;
+
+			/**
+			 * The fill color of the circle marker. Defaults to the value of the color option.
+			 *
+			 * Default value: null
+			 */
+			fillColor?: string;
+
+			/**
+			 * The opacity of the circle marker.
+			 *
+			 * Default value: 0.2
+			 */
+			fillOpacity?: number;
+
+			/**
+			 * Whether you can click the circle marker.
+			 *
+			 * Default value: true
+			 */
+			clickable?: boolean;
+
+			/**
+			 * This should be a high number to ensure that you can draw over all other layers on the map.
+			 *
+			 * Default value: 2000
+			 */
+			zIndexOffset?: number;
+		}
+
 		interface MarkerOptions {
 			/**
 			 * TThe icon displayed when drawing a marker.
@@ -315,7 +387,7 @@ declare module 'leaflet' {
 			/**
 			 * Layer that was just created.
 			 */
-			layer: Layer;
+			layer: Circle | CircleMarker | Marker | Polygon | Polyline | Rectangle;
 
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker.

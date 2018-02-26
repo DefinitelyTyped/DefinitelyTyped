@@ -34,7 +34,16 @@ class MyReactComponent extends React.Component<ChartProps> {
         .append('div')
         .html('Hello World!');
       this.props.animateFauxDOM(800);
+      console.log(this.props.isAnimatingFauxDOM());
     }
+  }
+
+  componentDidUpdate() {
+    this.props.drawFauxDOM();
+  }
+
+  componentWillUnmount() {
+    this.props.stopAnimatingFauxDOM();
   }
 
   render() {

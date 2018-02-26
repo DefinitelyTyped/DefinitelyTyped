@@ -14,5 +14,20 @@ notifier = new UpdateNotifier.UpdateNotifier({
 });
 
 if (notifier.update) {
-    notifier.notify({ message: 'Update available: ' + notifier.update.latest });
+    notifier.notify(); // test no options
+    notifier.notify({}); // test empty object
+
+    // test all options
+    notifier.notify({
+        message: 'Update available: ' + notifier.update.latest,
+        defer: false,
+        isGlobal: true,
+        boxenOpts: {
+            padding: 1,
+            margin: 1,
+            align: 'center',
+            borderColor: 'yellow',
+            borderStyle: 'round',
+        },
+    });
 }

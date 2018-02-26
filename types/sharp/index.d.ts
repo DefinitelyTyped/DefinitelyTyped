@@ -423,6 +423,8 @@ declare namespace sharp {
         density?: number;
         /** describes raw pixel image data. */
         raw?: Raw;
+        /** describes a blank overlay to be created. */
+        create?: Create;
     }
 
     interface CacheOptions {
@@ -443,6 +445,17 @@ declare namespace sharp {
         width: number;
         height: number;
         channels: number;
+    }
+
+    interface Create {
+        /** Number of pixels wide */
+        width: number;
+        /** Number of pixels high */
+        height: number;
+        /** Number of bands e.g. 3 for RGB, 4 for RGBA */
+        channels: number;
+        /** parsed by the [color](https://www.npmjs.org/package/color) module to extract values for red, green, blue and alpha. */
+        background: string | RGBA;
     }
 
     interface Metadata {

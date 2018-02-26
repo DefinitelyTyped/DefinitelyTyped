@@ -1,4 +1,4 @@
-// Type definitions for jsTree v3.3.3
+// Type definitions for jsTree v3.3.4
 // Project: http://www.jstree.com/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,6 +15,11 @@ interface JQueryStatic {
     * @type {JSTreeStatic}
     */
     jstree?: JSTreeStatic;
+
+    /**
+     * helpers
+     */
+    vakata?: VakataStatic;
 }
 
 interface JQuery {
@@ -96,25 +101,25 @@ interface JSTreeStatic {
     core(id: number): void;
 
     /**
-    * get a reference to an existing instance
-    *
-    * __Examples__
-    *
-    *	// provided a container with an ID of "tree", and a nested node with an ID of "branch"
-	*	// all of there will return the same instance
-    * $.jstree.reference('tree');
-    * $.jstree.reference('#tree');
+	 * get a reference to an existing instance
+	 *
+	 * __Examples__
+	 *
+	 *	// provided a container with an ID of "tree", and a nested node with an ID of "branch"
+	 *	// all of there will return the same instance
+	 *	$.jstree.reference('tree');
+	 *	$.jstree.reference('#tree');
 	 *	$.jstree.reference($('#tree'));
 	 *	$.jstree.reference(document.getElementByID('tree'));
-    * $.jstree.reference('branch');
-    * $.jstree.reference('#branch');
-    * $.jstree.reference($('#branch'));
+	 *	$.jstree.reference('branch');
+	 *	$.jstree.reference('#branch');
+	 *	$.jstree.reference($('#branch'));
 	 *	$.jstree.reference(document.getElementByID('branch'));
-    *
+	 *
 	 * @name $.jstree.reference(needle)
 	 * @param {DOMElement|jQuery|String} needle
 	 * @return {jsTree|null} the instance or `null` if not found
-    */
+	 */
     reference(needle: HTMLElement|JQuery|string): JSTree;
 }
 
@@ -282,7 +287,7 @@ interface JSTreeStaticDefaultsCore {
     *	$('#tree').jstree({
     *		'core' : {
     *			'check_callback' : function (operation, node, node_parent, node_position, more) {
-    *				// operation can be 'create_node', 'rename_node', 'delete_node', 'move_node' or 'copy_node'
+    *				// operation can be 'create_node', 'rename_node', 'delete_node', 'move_node', 'copy_node' or 'edit'
     *				// in case of 'rename_node' node_position is filled with the new node name
     *				return operation === 'rename_node' ? true : false;
     *			}
@@ -445,6 +450,20 @@ interface JSTreeStaticDefaultsCheckbox {
     * @plugin checkbox
     */
     tie_selection: boolean;
+
+    /**
+     * This setting controls if cascading down affects disabled checkboxes
+     * @name $.jstree.defaults.checkbox.cascade_to_disabled
+     * @plugin checkbox
+     */
+    cascade_to_disabled : boolean;
+        
+    /**
+     * This setting controls if cascading down affects hidden checkboxes
+     * @name $.jstree.defaults.checkbox.cascade_to_hidden
+     * @plugin checkbox
+     */
+    cascade_to_hidden : boolean;
 }
 
 interface JSTreeStaticDefaultsContextMenu {
@@ -708,6 +727,43 @@ interface JSTreeStaticDefaultsUnique {
     duplicate: (name: string, counter: number) => string;
 }
 
+interface VakataStatic {
+    /**
+     * collect attributes
+     */
+    attributes: (node: any, with_values: any) => any;
+
+    /**
+     * returns array with unique elements
+     */
+    array_unique: (array: Array<any>) => Array<any>;
+
+    /**
+     * remove item from array
+     */
+    array_remove: (array: Array<any>, from: number) => Array<any>;
+    
+    /**
+     * remove item from array
+     */
+    array_remove_item: (array: Array<any>, item: any) => Array<any>;
+
+    /**
+     * filter array
+     */
+    array_filter: (c: any, a: any, b: any, d: Array<any>, e: any) => Array<any>;
+
+    context: any;
+
+    html: any;
+
+    dnd: any;
+
+    search: any;
+
+    storage: any;
+}
+
 interface JSTree extends JQuery {
     /**
     * used to decorate an instance with a plugin. Used internally.
@@ -871,12 +927,12 @@ interface JSTree extends JQuery {
     get_parent: (obj: any) => string;
 
     /**
-    * get a jQuery collection of all the children of a node (node must be rendered)
+    * get a jQuery collection of all the children of a node (node must be rendered), returns false on error
     * @name get_children_dom(obj)
     * @param  {mixed} obj
     * @return {jQuery}
     */
-    get_children_dom: (obj: any) => JQuery;
+    get_children_dom: (obj: any) => JQuery|boolean;
 
     /**
     * checks if a node has children
@@ -1685,6 +1741,21 @@ interface JSTree extends JQuery {
     * @plugin checkbox
     */
     enable_checkbox: (obj: any) => boolean;
+
+    /**
+     * Unchecks a node and all its descendants. This function does NOT affect hidden and disabled nodes (or their descendants).
+     * However if these unaffected nodes are already selected their ids will be included in the returned array.
+     * @param id
+     * @param checkedState
+     * @returns {Array} Array of all node id's (in this tree branch) that are checked.
+     */
+    _cascade_new_checked_state: (id: string, checkedState: string) => string[];
+
+    /**
+     * Gets ids of nodes selected in branch (of tree) specified by id (does not include the node specified by id)
+     * @param id
+     */
+    get_checked_descendants: (id: string) => string[];
 
     /**
     * check a node (only if tie_selection in checkbox settings is false, otherwise select_node will be called internally)

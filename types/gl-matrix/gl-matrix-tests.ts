@@ -338,6 +338,7 @@ outVal = quat.squaredLength(quatA);
 outVal = quat.sqrLen(quatA);
 outQuat = quat.normalize(outQuat, quatA);
 outVal = quat.dot(quatA, quatB);
+outQuat = quat.fromEuler(outQuat, deg90, deg90, deg90);
 outQuat = quat.lerp(outQuat, quatA, quatB, 0.5);
 outQuat = quat.slerp(outQuat, quatA, quatB, 0.5);
 outQuat = quat.invert(outQuat, quatA);

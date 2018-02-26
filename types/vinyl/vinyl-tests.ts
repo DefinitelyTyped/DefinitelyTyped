@@ -2,9 +2,9 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import * as expect from 'expect';
-var miss = require('mississippi');
-var cloneable = require('cloneable-readable');
+import expect = require('expect');
+const miss = require('mississippi');
+const cloneable = require('cloneable-readable');
 
 import File = require('vinyl');
 
@@ -24,56 +24,56 @@ interface TestFile extends File {
 	_base?: string;
 }
 
-var pipe: (streams: [NodeJS.ReadableStream, NodeJS.WritableStream], cb: (err?: Error) => void) => void = miss.pipe;
-var from: (values: any[]) => NodeJS.ReadableStream = miss.from;
-var concat: (fn: (d: Buffer) => void) => NodeJS.WritableStream = miss.concat;
-var isCloneable: (obj: any) => boolean = cloneable.isCloneable;
+const pipe: (streams: [NodeJS.ReadableStream, NodeJS.WritableStream], cb: (err?: Error) => void) => void = miss.pipe;
+const from: (values: any[]) => NodeJS.ReadableStream = miss.from;
+const concat: (fn: (d: Buffer) => void) => NodeJS.WritableStream = miss.concat;
+const isCloneable: (obj: any) => boolean = cloneable.isCloneable;
 
-var isWin = (process.platform === 'win32');
+const isWin = (process.platform === 'win32');
 
-describe('File', function () {
-
-	describe('isVinyl()', function () {
-
-		it('returns true for a Vinyl object', function (done) {
-			var file = new File();
-			var result = File.isVinyl(file);
+describe('File', () => {
+	describe('isVinyl()', () => {
+		it('returns true for a Vinyl object', done => {
+			const file = new File();
+			const result = File.isVinyl(file);
 			expect(result).toEqual(true);
 			done();
 		});
 
-		it('returns false for a normal object', function (done) {
-			var result = File.isVinyl({});
+		it('returns false for a normal object', done => {
+			const result = File.isVinyl({});
 			expect(result).toEqual(false);
 			done();
 		});
 
-		it('returns false for null', function (done) {
-			var result = File.isVinyl(null);
+		it('returns false for null', done => {
+			const result = File.isVinyl(null);
 			expect(result).toEqual(false);
 			done();
 		});
 
-		it('returns false for a string', function (done) {
-			var result = File.isVinyl('foobar');
+		it('returns false for a string', done => {
+			const result = File.isVinyl('foobar');
 			expect(result).toEqual(false);
 			done();
 		});
 
-		it('returns false for a String object', function (done) {
-			var result = File.isVinyl(new String('foobar'));
+		it('returns false for a String object', done => {
+			// tslint:disable-next-line:no-construct
+			const result = File.isVinyl(new String('foobar'));
 			expect(result).toEqual(false);
 			done();
 		});
 
-		it('returns false for a number', function (done) {
-			var result = File.isVinyl(1);
+		it('returns false for a number', done => {
+			const result = File.isVinyl(1);
 			expect(result).toEqual(false);
 			done();
 		});
 
-		it('returns false for a Number object', function (done) {
-			var result = File.isVinyl(new Number(1));
+		it('returns false for a Number object', done => {
+			// tslint:disable-next-line:no-construct
+			const result = File.isVinyl(new Number(1));
 			expect(result).toEqual(false);
 			done();
 		});
@@ -81,198 +81,196 @@ describe('File', function () {
 		// This is based on current implementation
 		// A test was added to document and make aware during internal changes
 		// TODO: decide if this should be leak-able
-		it('returns true for a mocked object', function (done) {
-			var result = File.isVinyl({ _isVinyl: true });
+		it('returns true for a mocked object', done => {
+			const result = File.isVinyl({ _isVinyl: true });
 			expect(result).toEqual(true);
 			done();
 		});
 	});
 
-	describe('defaults', function () {
-
-		it('defaults cwd to process.cwd', function (done) {
-			var file = new File();
+	describe('defaults', () => {
+		it('defaults cwd to process.cwd', done => {
+			const file = new File();
 			expect(file.cwd).toEqual(process.cwd());
 			done();
 		});
 
-		it('defaults base to process.cwd', function (done) {
-			var file = new File();
+		it('defaults base to process.cwd', done => {
+			const file = new File();
 			expect(file.base).toEqual(process.cwd());
 			done();
 		});
 
-		it('defaults base to cwd property', function (done) {
-			var cwd = path.normalize('/');
-			var file = new File({ cwd: cwd });
+		it('defaults base to cwd property', done => {
+			const cwd = path.normalize('/');
+			const file = new File({ cwd });
 			expect(file.base).toEqual(cwd);
 			done();
 		});
 
-		it('defaults path to null', function (done) {
-			var file = new File();
+		it('defaults path to null', done => {
+			const file = new File();
 			expect(file.path).toNotExist();
 			expect(file.path).toEqual(null);
 			done();
 		});
 
-		it('defaults history to an empty array', function (done) {
-			var file = new File();
+		it('defaults history to an empty array', done => {
+			const file = new File();
 			expect(file.history).toEqual([]);
 			done();
 		});
 
-		it('defaults stat to null', function (done) {
-			var file = new File();
+		it('defaults stat to null', done => {
+			const file = new File();
 			expect(file.stat).toNotExist();
 			expect(file.stat).toEqual(null);
 			done();
 		});
 
-		it('defaults contents to null', function (done) {
-			var file = new File();
+		it('defaults contents to null', done => {
+			const file = new File();
 			expect(file.contents).toNotExist();
 			expect(file.contents).toEqual(null);
 			done();
 		});
 	});
 
-	describe('constructor()', function () {
-
-		it('sets base', function (done) {
-			var val = path.normalize('/');
-			var file = new File({ base: val });
+	describe('constructor()', () => {
+		it('sets base', done => {
+			const val = path.normalize('/');
+			const file = new File({ base: val });
 			expect(file.base).toEqual(val);
 			done();
 		});
 
-		it('sets cwd', function (done) {
-			var val = path.normalize('/');
-			var file = new File({ cwd: val });
+		it('sets cwd', done => {
+			const val = path.normalize('/');
+			const file = new File({ cwd: val });
 			expect(file.cwd).toEqual(val);
 			done();
 		});
 
-		it('sets path (and history)', function (done) {
-			var val = path.normalize('/test.coffee');
-			var file = new File({ path: val });
+		it('sets path (and history)', done => {
+			const val = path.normalize('/test.coffee');
+			const file = new File({ path: val });
 			expect(file.path).toEqual(val);
 			expect(file.history).toEqual([val]);
 			done();
 		});
 
-		it('sets history (and path)', function (done) {
-			var val = path.normalize('/test.coffee');
-			var file = new File({ history: [val] });
+		it('sets history (and path)', done => {
+			const val = path.normalize('/test.coffee');
+			const file = new File({ history: [val] });
 			expect(file.path).toEqual(val);
 			expect(file.history).toEqual([val]);
 			done();
 		});
 
-		it('sets stat', function (done) {
-			var val = {};
-			var file = new File({ stat: val as any as fs.Stats });
+		it('sets stat', done => {
+			const val = {};
+			const file = new File({ stat: val as any as fs.Stats });
 			expect(file.stat).toEqual(val);
 			done();
 		});
 
-		it('sets contents', function (done) {
-			var val = new Buffer('test');
-			var file = new File({ contents: val });
+		it('sets contents', done => {
+			const val = new Buffer('test');
+			const file = new File({ contents: val });
 			expect(file.contents).toEqual(val);
 			done();
 		});
 
-		it('sets custom properties', function (done) {
-			var sourceMap = {};
-			var file = new File({ sourceMap: sourceMap }) as TestFile;
+		it('sets custom properties', done => {
+			const sourceMap = {};
+			const file = new File({ sourceMap }) as TestFile;
 			expect(file.sourceMap).toEqual(sourceMap);
 			done();
 		});
 
-		it('normalizes path', function (done) {
-			var val = '/test/foo/../test.coffee';
-			var expected = path.normalize(val);
-			var file = new File({ path: val });
+		it('normalizes path', done => {
+			const val = '/test/foo/../test.coffee';
+			const expected = path.normalize(val);
+			const file = new File({ path: val });
 			expect(file.path).toEqual(expected);
 			expect(file.history).toEqual([expected]);
 			done();
 		});
 
-		it('normalizes and removes trailing separator from path', function (done) {
-			var val = '/test/foo/../foo/';
-			var expected = path.normalize(val.slice(0, -1));
-			var file = new File({ path: val });
+		it('normalizes and removes trailing separator from path', done => {
+			const val = '/test/foo/../foo/';
+			const expected = path.normalize(val.slice(0, -1));
+			const file = new File({ path: val });
 			expect(file.path).toEqual(expected);
 			done();
 		});
 
-		it('normalizes history', function (done) {
-			var val = [
+		it('normalizes history', done => {
+			const val = [
 				'/test/bar/../bar/test.coffee',
 				'/test/foo/../test.coffee',
 			];
-			var expected = val.map(function (p) {
+			const expected = val.map(p => {
 				return path.normalize(p);
 			});
-			var file = new File({ history: val });
+			const file = new File({ history: val });
 			expect(file.path).toEqual(expected[1]);
 			expect(file.history).toEqual(expected);
 			done();
 		});
 
-		it('normalizes and removes trailing separator from history', function (done) {
-			var val = [
+		it('normalizes and removes trailing separator from history', done => {
+			const val = [
 				'/test/foo/../foo/',
 				'/test/bar/../bar/',
 			];
-			var expected = val.map(function (p) {
+			const expected = val.map(p => {
 				return path.normalize(p.slice(0, -1));
 			});
-			var file = new File({ history: val });
+			const file = new File({ history: val });
 			expect(file.history).toEqual(expected);
 			done();
 		});
 
-		it('appends path to history if both exist and different from last', function (done) {
-			var val = path.normalize('/test/baz/test.coffee');
-			var history = [
+		it('appends path to history if both exist and different from last', done => {
+			const val = path.normalize('/test/baz/test.coffee');
+			const history = [
 				path.normalize('/test/bar/test.coffee'),
 				path.normalize('/test/foo/test.coffee'),
 			];
-			var file = new File({ path: val, history: history });
+			const file = new File({ path: val, history });
 
-			var expectedHistory = history.concat(val);
+			const expectedHistory = history.concat(val);
 
 			expect(file.path).toEqual(val);
 			expect(file.history).toEqual(expectedHistory);
 			done();
 		});
 
-		it('does not append path to history if both exist and same as last', function (done) {
-			var val = path.normalize('/test/baz/test.coffee');
-			var history = [
+		it('does not append path to history if both exist and same as last', done => {
+			const val = path.normalize('/test/baz/test.coffee');
+			const history = [
 				path.normalize('/test/bar/test.coffee'),
 				path.normalize('/test/foo/test.coffee'),
 				val,
 			];
-			var file = new File({ path: val, history: history });
+			const file = new File({ path: val, history });
 
 			expect(file.path).toEqual(val);
 			expect(file.history).toEqual(history);
 			done();
 		});
 
-		it('does not mutate history array passed in', function (done) {
-			var val = path.normalize('/test/baz/test.coffee');
-			var history = [
+		it('does not mutate history array passed in', done => {
+			const val = path.normalize('/test/baz/test.coffee');
+			const history = [
 				path.normalize('/test/bar/test.coffee'),
 				path.normalize('/test/foo/test.coffee'),
 			];
-			var historyCopy = Array.prototype.slice.call(history);
-			var file = new File({ path: val, history: history });
+			const historyCopy = Array.prototype.slice.call(history);
+			const file = new File({ path: val, history });
 
-			var expectedHistory = history.concat(val);
+			const expectedHistory = history.concat(val);
 
 			expect(file.path).toEqual(val);
 			expect(file.history).toEqual(expectedHistory);
@@ -281,166 +279,162 @@ describe('File', function () {
 		});
 	});
 
-	describe('isBuffer()', function () {
-
-		it('returns true when the contents are a Buffer', function (done) {
-			var val = new Buffer('test');
-			var file = new File({ contents: val });
+	describe('isBuffer()', () => {
+		it('returns true when the contents are a Buffer', done => {
+			const val = new Buffer('test');
+			const file = new File({ contents: val });
 			expect(file.isBuffer()).toEqual(true);
 			done();
 		});
 
-		it('returns false when the contents are a Stream', function (done) {
-			var val = from([]);
-			var file = new File({ contents: val });
+		it('returns false when the contents are a Stream', done => {
+			const val = from([]);
+			const file = new File({ contents: val });
 			expect(file.isBuffer()).toEqual(false);
 			done();
 		});
 
-		it('returns false when the contents are null', function (done) {
-			var file = new File({ contents: null });
+		it('returns false when the contents are null', done => {
+			const file = new File({ contents: null });
 			expect(file.isBuffer()).toEqual(false);
 			done();
 		});
 	});
 
-	describe('isStream()', function () {
-
-		it('returns false when the contents are a Buffer', function (done) {
-			var val = new Buffer('test');
-			var file = new File({ contents: val });
+	describe('isStream()', () => {
+		it('returns false when the contents are a Buffer', done => {
+			const val = new Buffer('test');
+			const file = new File({ contents: val });
 			expect(file.isStream()).toEqual(false);
 			done();
 		});
 
-		it('returns true when the contents are a Stream', function (done) {
-			var val = from([]);
-			var file = new File({ contents: val });
+		it('returns true when the contents are a Stream', done => {
+			const val = from([]);
+			const file = new File({ contents: val });
 			expect(file.isStream()).toEqual(true);
 			done();
 		});
 
-		it('returns false when the contents are null', function (done) {
-			var file = new File({ contents: null });
+		it('returns false when the contents are null', done => {
+			const file = new File({ contents: null });
 			expect(file.isStream()).toEqual(false);
 			done();
 		});
 	});
 
-	describe('isNull()', function () {
-
-		it('returns false when the contents are a Buffer', function (done) {
-			var val = new Buffer('test');
-			var file = new File({ contents: val });
+	describe('isNull()', () => {
+		it('returns false when the contents are a Buffer', done => {
+			const val = new Buffer('test');
+			const file = new File({ contents: val });
 			expect(file.isNull()).toEqual(false);
 			done();
 		});
 
-		it('returns false when the contents are a Stream', function (done) {
-			var val = from([]);
-			var file = new File({ contents: val });
+		it('returns false when the contents are a Stream', done => {
+			const val = from([]);
+			const file = new File({ contents: val });
 			expect(file.isNull()).toEqual(false);
 			done();
 		});
 
-		it('returns true when the contents are null', function (done) {
-			var file = new File({ contents: null });
+		it('returns true when the contents are null', done => {
+			const file = new File({ contents: null });
 			expect(file.isNull()).toEqual(true);
 			done();
 		});
 	});
 
-	describe('isDirectory()', function () {
-		var fakeStat = {
-			isDirectory: function () {
+	describe('isDirectory()', () => {
+		const fakeStat = {
+			isDirectory() {
 				return true;
 			},
 		} as any as fs.Stats;
 
-		it('returns false when the contents are a Buffer', function (done) {
-			var val = new Buffer('test');
-			var file = new File({ contents: val, stat: fakeStat });
+		it('returns false when the contents are a Buffer', done => {
+			const val = new Buffer('test');
+			const file = new File({ contents: val, stat: fakeStat });
 			expect(file.isDirectory()).toEqual(false);
 			done();
 		});
 
-		it('returns false when the contents are a Stream', function (done) {
-			var val = from([]);
-			var file = new File({ contents: val, stat: fakeStat });
+		it('returns false when the contents are a Stream', done => {
+			const val = from([]);
+			const file = new File({ contents: val, stat: fakeStat });
 			expect(file.isDirectory()).toEqual(false);
 			done();
 		});
 
-		it('returns true when the contents are null & stat.isDirectory is true', function (done) {
-			var file = new File({ contents: null, stat: fakeStat });
+		it('returns true when the contents are null & stat.isDirectory is true', done => {
+			const file = new File({ contents: null, stat: fakeStat });
 			expect(file.isDirectory()).toEqual(true);
 			done();
 		});
 
-		it('returns false when stat exists but does not contain an isDirectory method', function (done) {
-			var file = new File({ contents: null, stat: {} as any as fs.Stats });
+		it('returns false when stat exists but does not contain an isDirectory method', done => {
+			const file = new File({ contents: null, stat: {} as any as fs.Stats });
 			expect(file.isDirectory()).toEqual(false);
 			done();
 		});
 
-		it('returns false when stat does not exist', function (done) {
-			var file = new File({ contents: null });
+		it('returns false when stat does not exist', done => {
+			const file = new File({ contents: null });
 			expect(file.isDirectory()).toEqual(false);
 			done();
 		});
 	});
 
-	describe('isSymbolic()', function () {
-		var fakeStat = {
-			isSymbolicLink: function () {
+	describe('isSymbolic()', () => {
+		const fakeStat = {
+			isSymbolicLink() {
 				return true;
 			},
 		} as any as fs.Stats;
 
-		it('returns false when the contents are a Buffer', function (done) {
-			var val = new Buffer('test');
-			var file = new File({ contents: val, stat: fakeStat });
+		it('returns false when the contents are a Buffer', done => {
+			const val = new Buffer('test');
+			const file = new File({ contents: val, stat: fakeStat });
 			expect(file.isSymbolic()).toEqual(false);
 			done();
 		});
 
-		it('returns false when the contents are a Stream', function (done) {
-			var val = from([]);
-			var file = new File({ contents: val, stat: fakeStat });
+		it('returns false when the contents are a Stream', done => {
+			const val = from([]);
+			const file = new File({ contents: val, stat: fakeStat });
 			expect(file.isSymbolic()).toEqual(false);
 			done();
 		});
 
-		it('returns true when the contents are null & stat.isSymbolicLink is true', function (done) {
-			var file = new File({ contents: null, stat: fakeStat });
+		it('returns true when the contents are null & stat.isSymbolicLink is true', done => {
+			const file = new File({ contents: null, stat: fakeStat });
 			expect(file.isSymbolic()).toEqual(true);
 			done();
 		});
 
-		it('returns false when stat exists but does not contain an isSymbolicLink method', function (done) {
-			var file = new File({ contents: null, stat: {} as any as fs.Stats });
+		it('returns false when stat exists but does not contain an isSymbolicLink method', done => {
+			const file = new File({ contents: null, stat: {} as any as fs.Stats });
 			expect(file.isSymbolic()).toEqual(false);
 			done();
 		});
 
-		it('returns false when stat does not exist', function (done) {
-			var file = new File({ contents: null });
+		it('returns false when stat does not exist', done => {
+			const file = new File({ contents: null });
 			expect(file.isSymbolic()).toEqual(false);
 			done();
 		});
 	});
 
-	describe('clone()', function () {
-
-		it('copies all attributes over with Buffer contents', function (done) {
-			var options = {
+	describe('clone()', () => {
+		it('copies all attributes over with Buffer contents', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
 				contents: new Buffer('test'),
 			};
-			var file = new File(options);
-			var file2 = file.clone();
+			const file = new File(options);
+			const file2 = file.clone();
 
 			expect(file2).toNotBe(file);
 			expect(file2.cwd).toEqual(file.cwd);
@@ -451,36 +445,36 @@ describe('File', function () {
 			done();
 		});
 
-		it('assigns Buffer content reference when contents option is false', function (done) {
-			var options = {
+		it('assigns Buffer content reference when contents option is false', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.js',
 				contents: new Buffer('test'),
 			};
-			var file = new File(options);
+			const file = new File(options);
 
-			var copy1 = file.clone({ contents: false });
+			const copy1 = file.clone({ contents: false });
 			expect(copy1.contents).toBe(file.contents);
 
-			var copy2 = file.clone();
+			const copy2 = file.clone();
 			expect(copy2.contents).toNotBe(file.contents);
 
 			// TypeScript: expected compilation error
-			//var copy3 = file.clone({ contents: 'invalid' });
-			//expect(copy3.contents).toNotBe(file.contents);
-			//done();
+			// var copy3 = file.clone({ contents: 'invalid' });
+			// expect(copy3.contents).toNotBe(file.contents);
+			// done();
 		});
 
-		it('copies all attributes over with Stream contents', function (done) {
-			var options = {
+		it('copies all attributes over with Stream contents', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
 				contents: from(['wa', 'dup']),
 			};
-			var file = new File(options);
-			var file2 = file.clone();
+			const file = new File(options);
+			const file2 = file.clone();
 
 			expect(file2).toNotBe(file);
 			expect(file2.cwd).toEqual(file.cwd);
@@ -488,9 +482,9 @@ describe('File', function () {
 			expect(file2.path).toEqual(file.path);
 			expect(file2.contents).toNotBe(file.contents);
 
-			var ends = 2;
-			var data: Buffer;
-			var data2: Buffer;
+			let ends = 2;
+			let data: Buffer;
+			let data2: Buffer;
 
 			function assert(err: any) {
 				if (err) {
@@ -507,32 +501,32 @@ describe('File', function () {
 
 			pipe([
 				file.contents,
-				concat(function (d) {
+				concat(d => {
 					data = d;
 				}),
 			], assert);
 
 			pipe([
 				file2.contents,
-				concat(function (d) {
+				concat(d => {
 					data2 = d;
 				}),
 			], assert);
 		});
 
-		it('does not start flowing until all clones flows (data)', function (done) {
-			var options = {
+		it('does not start flowing until all clones flows (data)', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
 				contents: from(['wa', 'dup']),
 			};
-			var file = new File(options);
-			var file2 = file.clone();
-			var ends = 2;
+			const file = new File(options);
+			const file2 = file.clone();
+			let ends = 2;
 
-			var data = '';
-			var data2 = '';
+			let data = '';
+			let data2 = '';
 
 			function assert() {
 				if (--ends === 0) {
@@ -542,17 +536,17 @@ describe('File', function () {
 			}
 
 			// Start flowing file2
-			file2.contents.on('data', function (chunk: Buffer) {
+			file2.contents.on('data', (chunk: Buffer) => {
 				data2 += chunk.toString('utf8');
 			});
 
-			process.nextTick(function () {
+			process.nextTick(() => {
 				// Nothing was written yet
 				expect(data).toEqual('');
 				expect(data2).toEqual('');
 
 				// Starts flowing file
-				file.contents.on('data', function (chunk: Buffer) {
+				file.contents.on('data', (chunk: Buffer) => {
 					data += chunk.toString('utf8');
 				});
 			});
@@ -561,26 +555,25 @@ describe('File', function () {
 			file.contents.on('end', assert);
 		});
 
-		it('does not start flowing until all clones flows (readable)', function (done) {
-			var options = {
+		it('does not start flowing until all clones flows (readable)', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
 				contents: from(['wa', 'dup']),
 			};
-			var file = new File(options);
-			var file2 = file.clone();
+			const file = new File(options);
+			const file2 = file.clone();
 
-			var data2 = '';
+			let data2 = '';
 
 			function assert(data: Buffer) {
 				expect(data.toString('utf8')).toEqual(data2);
 			}
 
 			// Start flowing file2
-			file2.contents.on('readable', function (this: NodeJS.ReadableStream) {
-				var chunk: string | Buffer;
-				while ((chunk = this.read()) !== null) {
+			file2.contents.on('readable', function(this: NodeJS.ReadableStream) {
+				for (let chunk: string | Buffer = this.read(); chunk !== null; chunk = this.read()) {
 					data2 += chunk.toString();
 				}
 			});
@@ -591,15 +584,15 @@ describe('File', function () {
 			], done);
 		});
 
-		it('copies all attributes over with null contents', function (done) {
-			var options = {
+		it('copies all attributes over with null contents', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
 				contents: null,
 			};
-			var file = new File(options);
-			var file2 = file.clone();
+			const file = new File(options);
+			const file2 = file.clone();
 
 			expect(file2).toNotBe(file);
 			expect(file2.cwd).toEqual(file.cwd);
@@ -609,8 +602,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('properly clones the `stat` property', function (done) {
-			var options = {
+		it('properly clones the `stat` property', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.js',
@@ -618,8 +611,8 @@ describe('File', function () {
 				stat: fs.statSync(__filename),
 			};
 
-			var file = new File(options);
-			var copy = file.clone();
+			const file = new File(options);
+			const copy = file.clone();
 
 			expect(copy.stat).toExist();
 			if (copy.stat != null) {
@@ -631,16 +624,16 @@ describe('File', function () {
 			done();
 		});
 
-		it('properly clones the `history` property', function (done) {
-			var options = {
+		it('properly clones the `history` property', done => {
+			const options = {
 				cwd: path.normalize('/'),
 				base: path.normalize('/test/'),
 				path: path.normalize('/test/test.js'),
 				contents: new Buffer('test'),
 			};
 
-			var file = new File(options);
-			var copy = file.clone();
+			const file = new File(options);
+			const copy = file.clone();
 
 			expect(copy.history[0]).toEqual(options.path);
 			copy.path = 'lol';
@@ -648,8 +641,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('copies custom properties', function (done) {
-			var options = {
+		it('copies custom properties', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -657,8 +650,8 @@ describe('File', function () {
 				custom: { meta: {} },
 			};
 
-			var file = new File(options) as TestFile;
-			var file2 = file.clone();
+			const file = new File(options) as TestFile;
+			const file2 = file.clone();
 
 			expect(file2).toNotBe(file);
 			expect(file2.cwd).toEqual(file.cwd);
@@ -670,23 +663,23 @@ describe('File', function () {
 			done();
 		});
 
-		it('copies history', function (done) {
-			var options = {
+		it('copies history', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
 				contents: null,
 			};
-			var history = [
+			const history = [
 				path.normalize('/test/test.coffee'),
 				path.normalize('/test/test.js'),
 				path.normalize('/test/test-938di2s.js'),
 			];
 
-			var file = new File(options);
+			const file = new File(options);
 			file.path = history[1];
 			file.path = history[2];
-			var file2 = file.clone();
+			const file2 = file.clone();
 
 			expect(file2.history).toEqual(history);
 			expect(file2.history).toNotBe(file.history);
@@ -694,8 +687,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('supports deep & shallow copy of all attributes', function (done) {
-			var options = {
+		it('supports deep & shallow copy of all attributes', done => {
+			const options = {
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -703,33 +696,33 @@ describe('File', function () {
 				custom: { meta: {} },
 			};
 
-			var file = new File(options) as TestFile;
+			const file = new File(options) as TestFile;
 
-			var file2 = file.clone();
+			const file2 = file.clone();
 			expect(file2.custom).toEqual(file.custom);
 			expect(file2.custom).toNotBe(file.custom);
 			expect(file2.custom.meta).toEqual(file.custom.meta);
 			expect(file2.custom.meta).toNotBe(file.custom.meta);
 
-			var file3 = file.clone(true);
+			const file3 = file.clone(true);
 			expect(file3.custom).toEqual(file.custom);
 			expect(file3.custom).toNotBe(file.custom);
 			expect(file3.custom.meta).toEqual(file.custom.meta);
 			expect(file3.custom.meta).toNotBe(file.custom.meta);
 
-			var file4 = file.clone({ deep: true });
+			const file4 = file.clone({ deep: true });
 			expect(file4.custom).toEqual(file.custom);
 			expect(file4.custom).toNotBe(file.custom);
 			expect(file4.custom.meta).toEqual(file.custom.meta);
 			expect(file4.custom.meta).toNotBe(file.custom.meta);
 
-			var file5 = file.clone(false);
+			const file5 = file.clone(false);
 			expect(file5.custom).toEqual(file.custom);
 			expect(file5.custom).toBe(file.custom);
 			expect(file5.custom.meta).toEqual(file.custom.meta);
 			expect(file5.custom.meta).toBe(file.custom.meta);
 
-			var file6 = file.clone({ deep: false });
+			const file6 = file.clone({ deep: false });
 			expect(file6.custom).toEqual(file.custom);
 			expect(file6.custom).toBe(file.custom);
 			expect(file6.custom.meta).toEqual(file.custom.meta);
@@ -755,24 +748,23 @@ describe('File', function () {
 		// });
 	});
 
-	describe('inspect()', function () {
-
-		it('returns correct format when no contents and no path', function (done) {
-			var file = new File();
+	describe('inspect()', () => {
+		it('returns correct format when no contents and no path', done => {
+			const file = new File();
 			expect(file.inspect()).toEqual('<File >');
 			done();
 		});
 
-		it('returns correct format when Buffer contents and no path', function (done) {
-			var val = new Buffer('test');
-			var file = new File({ contents: val });
+		it('returns correct format when Buffer contents and no path', done => {
+			const val = new Buffer('test');
+			const file = new File({ contents: val });
 			expect(file.inspect()).toEqual('<File <Buffer 74 65 73 74>>');
 			done();
 		});
 
-		it('returns correct format when Buffer contents and relative path', function (done) {
-			var val = new Buffer('test');
-			var file = new File({
+		it('returns correct format when Buffer contents and relative path', done => {
+			const val = new Buffer('test');
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -782,8 +774,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns correct format when Stream contents and relative path', function (done) {
-			var file = new File({
+		it('returns correct format when Stream contents and relative path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -793,8 +785,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns correct format when null contents and relative path', function (done) {
-			var file = new File({
+		it('returns correct format when null contents and relative path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -805,52 +797,51 @@ describe('File', function () {
 		});
 	});
 
-	describe('contents get/set', function () {
-
-		it('returns _contents', function (done) {
-			var val = new Buffer('test');
-			var file = new File() as TestFile;
+	describe('contents get/set', () => {
+		it('returns _contents', done => {
+			const val = new Buffer('test');
+			const file = new File() as TestFile;
 			file._contents = val;
 			expect(file.contents).toEqual(val);
 			done();
 		});
 
-		it('sets _contents', function (done) {
-			var val = new Buffer('test');
-			var file = new File() as TestFile;
+		it('sets _contents', done => {
+			const val = new Buffer('test');
+			const file = new File() as TestFile;
 			file.contents = val;
 			expect(file._contents).toEqual(val);
 			done();
 		});
 
-		it('sets a Buffer', function (done) {
-			var val = new Buffer('test');
-			var file = new File();
+		it('sets a Buffer', done => {
+			const val = new Buffer('test');
+			const file = new File();
 			file.contents = val;
 			expect(file.contents).toEqual(val);
 			done();
 		});
 
-		it('wraps Stream in Cloneable', function (done) {
-			var val = from([]);
-			var file = new File();
+		it('wraps Stream in Cloneable', done => {
+			const val = from([]);
+			const file = new File();
 			file.contents = val;
 			expect(isCloneable(file.contents)).toEqual(true);
 			done();
 		});
 
-		it('does not double wrap a Cloneable', function (done) {
-			var val = from([]);
-			var clone = cloneable(val);
-			var file = new File();
+		it('does not double wrap a Cloneable', done => {
+			const val = from([]);
+			const clone = cloneable(val);
+			const file = new File();
 			file.contents = clone;
 			expect((file.contents as any)._original).toBe(val);
 			done();
 		});
 
-		it('sets null', function (done) {
-			var val = null;
-			var file = new File();
+		it('sets null', done => {
+			const val = null;
+			const file = new File();
 			file.contents = val;
 			expect(file.contents).toEqual(null);
 			done();
@@ -868,35 +859,34 @@ describe('File', function () {
 		// });
 	});
 
-	describe('cwd get/set', function () {
-
-		it('returns _cwd', function (done) {
-			var val = '/test';
-			var file = new File() as TestFile;
+	describe('cwd get/set', () => {
+		it('returns _cwd', done => {
+			const val = '/test';
+			const file = new File() as TestFile;
 			file._cwd = val;
 			expect(file.cwd).toEqual(val);
 			done();
 		});
 
-		it('sets _cwd', function (done) {
-			var val = '/test';
-			var file = new File() as TestFile;
+		it('sets _cwd', done => {
+			const val = '/test';
+			const file = new File() as TestFile;
 			file.cwd = val;
 			expect(file._cwd).toEqual(path.normalize(val));
 			done();
 		});
 
-		it('normalizes and removes trailing separator on set', function (done) {
-			var val = '/test/foo/../foo/';
-			var expected = path.normalize(val.slice(0, -1));
-			var file = new File();
+		it('normalizes and removes trailing separator on set', done => {
+			const val = '/test/foo/../foo/';
+			const expected = path.normalize(val.slice(0, -1));
+			const file = new File();
 
 			file.cwd = val;
 
 			expect(file.cwd).toEqual(expected);
 
-			var val2 = '\\test\\foo\\..\\foo\\';
-			var expected2 = path.normalize(isWin ? val2.slice(0, -1) : val2);
+			const val2 = '\\test\\foo\\..\\foo\\';
+			const expected2 = path.normalize(isWin ? val2.slice(0, -1) : val2);
 
 			file.cwd = val2;
 
@@ -931,23 +921,22 @@ describe('File', function () {
 		// });
 	});
 
-	describe('base get/set', function () {
-
-		it('proxies cwd when omitted', function (done) {
-			var file = new File({ cwd: '/test' });
+	describe('base get/set', () => {
+		it('proxies cwd when omitted', done => {
+			const file = new File({ cwd: '/test' });
 			expect(file.base).toEqual(file.cwd);
 			done();
 		});
 
-		it('proxies cwd when same', function (done) {
-			var file = new File({
+		it('proxies cwd when same', done => {
+			const file = new File({
 				cwd: '/test',
 				base: '/test',
 			});
 			file.cwd = '/foo/';
 			expect(file.base).toEqual(file.cwd);
 
-			var file2 = new File({
+			const file2 = new File({
 				cwd: '/test',
 			});
 			file2.base = '/test/';
@@ -972,33 +961,33 @@ describe('File', function () {
 		// 	done();
 		// });
 
-		it('returns _base', function (done) {
-			var val = '/test/';
-			var file = new File() as TestFile;
+		it('returns _base', done => {
+			const val = '/test/';
+			const file = new File() as TestFile;
 			file._base = val;
 			expect(file.base).toEqual(val);
 			done();
 		});
 
-		it('sets _base', function (done) {
-			var val = '/test/foo';
-			var file = new File() as TestFile;
+		it('sets _base', done => {
+			const val = '/test/foo';
+			const file = new File() as TestFile;
 			file.base = val;
 			expect(file._base).toEqual(path.normalize(val));
 			done();
 		});
 
-		it('normalizes and removes trailing separator on set', function (done) {
-			var val = '/test/foo/../foo/';
-			var expected = path.normalize(val.slice(0, -1));
-			var file = new File();
+		it('normalizes and removes trailing separator on set', done => {
+			const val = '/test/foo/../foo/';
+			const expected = path.normalize(val.slice(0, -1));
+			const file = new File();
 
 			file.base = val;
 
 			expect(file.base).toEqual(expected);
 
-			var val2 = '\\test\\foo\\..\\foo\\';
-			var expected2 = path.normalize(isWin ? val2.slice(0, -1) : val2);
+			const val2 = '\\test\\foo\\..\\foo\\';
+			const expected2 = path.normalize(isWin ? val2.slice(0, -1) : val2);
 
 			file.base = val2;
 
@@ -1032,10 +1021,9 @@ describe('File', function () {
 		// });
 	});
 
-	describe('relative get/set', function () {
-
-		it('throws on set', function (done) {
-			var file = new File();
+	describe('relative get/set', () => {
+		it('throws on set', done => {
+			const file = new File();
 
 			function invalid() {
 				file.relative = 'test';
@@ -1045,8 +1033,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('throws on get with no path', function (done) {
-			var file = new File();
+		it('throws on get with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.relative;
@@ -1056,8 +1044,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns a relative path from base', function (done) {
-			var file = new File({
+		it('returns a relative path from base', done => {
+			const file = new File({
 				base: '/test/',
 				path: '/test/test.coffee',
 			});
@@ -1066,8 +1054,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns a relative path from cwd', function (done) {
-			var file = new File({
+		it('returns a relative path from cwd', done => {
+			const file = new File({
 				cwd: '/',
 				path: '/test/test.coffee',
 			});
@@ -1076,12 +1064,12 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not append separator when directory', function (done) {
-			var file = new File({
+		it('does not append separator when directory', done => {
+			const file = new File({
 				base: '/test',
 				path: '/test/foo/bar',
 				stat: {
-					isDirectory: function () {
+					isDirectory() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1091,12 +1079,12 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not append separator when symlink', function (done) {
-			var file = new File({
+		it('does not append separator when symlink', done => {
+			const file = new File({
 				base: '/test',
 				path: '/test/foo/bar',
 				stat: {
-					isSymbolicLink: function () {
+					isSymbolicLink() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1106,15 +1094,15 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not append separator when directory & symlink', function (done) {
-			var file = new File({
+		it('does not append separator when directory & symlink', done => {
+			const file = new File({
 				base: '/test',
 				path: '/test/foo/bar',
 				stat: {
-					isDirectory: function () {
+					isDirectory() {
 						return true;
 					},
-					isSymbolicLink: function () {
+					isSymbolicLink() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1125,10 +1113,9 @@ describe('File', function () {
 		});
 	});
 
-	describe('dirname get/set', function () {
-
-		it('throws on get with no path', function (done) {
-			var file = new File();
+	describe('dirname get/set', () => {
+		it('throws on get with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.dirname;
@@ -1138,8 +1125,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns the dirname without trailing separator', function (done) {
-			var file = new File({
+		it('returns the dirname without trailing separator', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test',
 				path: '/test/test.coffee',
@@ -1149,8 +1136,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('throws on set with no path', function (done) {
-			var file = new File();
+		it('throws on set with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.dirname = '/test';
@@ -1160,8 +1147,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('replaces the dirname of the path', function (done) {
-			var file = new File({
+		it('replaces the dirname of the path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -1173,10 +1160,9 @@ describe('File', function () {
 		});
 	});
 
-	describe('basename get/set', function () {
-
-		it('throws on get with no path', function (done) {
-			var file = new File();
+	describe('basename get/set', () => {
+		it('throws on get with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				return file.basename;
@@ -1186,8 +1172,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns the basename of the path', function (done) {
-			var file = new File({
+		it('returns the basename of the path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -1197,11 +1183,11 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not append trailing separator when directory', function (done) {
-			var file = new File({
+		it('does not append trailing separator when directory', done => {
+			const file = new File({
 				path: '/test/foo',
 				stat: {
-					isDirectory: function () {
+					isDirectory() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1211,11 +1197,11 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not append trailing separator when symlink', function (done) {
-			var file = new File({
+		it('does not append trailing separator when symlink', done => {
+			const file = new File({
 				path: '/test/foo',
 				stat: {
-					isSymbolicLink: function () {
+					isSymbolicLink() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1225,37 +1211,14 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not append trailing separator when directory & symlink', function (done) {
-			var file = new File({
+		it('does not append trailing separator when directory & symlink', done => {
+			const file = new File({
 				path: '/test/foo',
 				stat: {
-					isDirectory: function () {
+					isDirectory() {
 						return true;
 					},
-					isSymbolicLink: function () {
-						return true;
-					},
-				} as any as fs.Stats,
-			});
-
-			expect(file.basename).toEqual('foo');
-			done();
-		});
-
-		it('removes trailing separator', function (done) {
-			var file = new File({
-				path: '/test/foo/',
-			});
-
-			expect(file.basename).toEqual('foo');
-			done();
-		});
-
-		it('removes trailing separator when directory', function (done) {
-			var file = new File({
-				path: '/test/foo/',
-				stat: {
-					isDirectory: function () {
+					isSymbolicLink() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1265,11 +1228,20 @@ describe('File', function () {
 			done();
 		});
 
-		it('removes trailing separator when symlink', function (done) {
-			var file = new File({
+		it('removes trailing separator', done => {
+			const file = new File({
+				path: '/test/foo/',
+			});
+
+			expect(file.basename).toEqual('foo');
+			done();
+		});
+
+		it('removes trailing separator when directory', done => {
+			const file = new File({
 				path: '/test/foo/',
 				stat: {
-					isSymbolicLink: function () {
+					isDirectory() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1279,14 +1251,11 @@ describe('File', function () {
 			done();
 		});
 
-		it('removes trailing separator when directory & symlink', function (done) {
-			var file = new File({
+		it('removes trailing separator when symlink', done => {
+			const file = new File({
 				path: '/test/foo/',
 				stat: {
-					isDirectory: function () {
-						return true;
-					},
-					isSymbolicLink: function () {
+					isSymbolicLink() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1296,8 +1265,25 @@ describe('File', function () {
 			done();
 		});
 
-		it('throws on set with no path', function (done) {
-			var file = new File();
+		it('removes trailing separator when directory & symlink', done => {
+			const file = new File({
+				path: '/test/foo/',
+				stat: {
+					isDirectory() {
+						return true;
+					},
+					isSymbolicLink() {
+						return true;
+					},
+				} as any as fs.Stats,
+			});
+
+			expect(file.basename).toEqual('foo');
+			done();
+		});
+
+		it('throws on set with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.basename = 'test.coffee';
@@ -1307,8 +1293,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('replaces the basename of the path', function (done) {
-			var file = new File({
+		it('replaces the basename of the path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -1320,10 +1306,9 @@ describe('File', function () {
 		});
 	});
 
-	describe('stem get/set', function () {
-
-		it('throws on get with no path', function (done) {
-			var file = new File();
+	describe('stem get/set', () => {
+		it('throws on get with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.stem;
@@ -1333,8 +1318,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns the stem of the path', function (done) {
-			var file = new File({
+		it('returns the stem of the path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -1344,8 +1329,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('throws on set with no path', function (done) {
-			var file = new File();
+		it('throws on set with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.stem = 'test.coffee';
@@ -1355,8 +1340,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('replaces the stem of the path', function (done) {
-			var file = new File({
+		it('replaces the stem of the path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -1368,10 +1353,9 @@ describe('File', function () {
 		});
 	});
 
-	describe('extname get/set', function () {
-
-		it('throws on get with no path', function (done) {
-			var file = new File();
+	describe('extname get/set', () => {
+		it('throws on get with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.extname;
@@ -1381,8 +1365,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('returns the extname of the path', function (done) {
-			var file = new File({
+		it('returns the extname of the path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -1392,8 +1376,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('throws on set with no path', function (done) {
-			var file = new File();
+		it('throws on set with no path', done => {
+			const file = new File();
 
 			function invalid() {
 				file.extname = '.coffee';
@@ -1403,8 +1387,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('replaces the extname of the path', function (done) {
-			var file = new File({
+		it('replaces the extname of the path', done => {
+			const file = new File({
 				cwd: '/',
 				base: '/test/',
 				path: '/test/test.coffee',
@@ -1416,14 +1400,13 @@ describe('File', function () {
 		});
 	});
 
-	describe('path get/set', function () {
-
-		it('records path in history upon instantiation', function (done) {
-			var file = new File({
+	describe('path get/set', () => {
+		it('records path in history upon instantiation', done => {
+			const file = new File({
 				cwd: '/',
 				path: '/test/test.coffee',
 			});
-			var history = [
+			const history = [
 				path.normalize('/test/test.coffee'),
 			];
 
@@ -1432,13 +1415,13 @@ describe('File', function () {
 			done();
 		});
 
-		it('records path in history when set', function (done) {
-			var val = path.normalize('/test/test.js');
-			var file = new File({
+		it('records path in history when set', done => {
+			const val = path.normalize('/test/test.js');
+			const file = new File({
 				cwd: '/',
 				path: '/test/test.coffee',
 			});
-			var history = [
+			const history = [
 				path.normalize('/test/test.coffee'),
 				val,
 			];
@@ -1447,7 +1430,7 @@ describe('File', function () {
 			expect(file.path).toEqual(val);
 			expect(file.history).toEqual(history);
 
-			var val2 = path.normalize('/test/test.es6');
+			const val2 = path.normalize('/test/test.es6');
 			history.push(val2);
 
 			file.path = val2;
@@ -1456,13 +1439,13 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not record path in history when set to the current path', function (done) {
-			var val = path.normalize('/test/test.coffee');
-			var file = new File({
+		it('does not record path in history when set to the current path', done => {
+			const val = path.normalize('/test/test.coffee');
+			const file = new File({
 				cwd: '/',
 				path: val,
 			});
-			var history = [
+			const history = [
 				val,
 			];
 
@@ -1473,13 +1456,13 @@ describe('File', function () {
 			done();
 		});
 
-		it('does not record path in history when set to empty string', function (done) {
-			var val = path.normalize('/test/test.coffee');
-			var file = new File({
+		it('does not record path in history when set to empty string', done => {
+			const val = path.normalize('/test/test.coffee');
+			const file = new File({
 				cwd: '/',
 				path: val,
 			});
-			var history = [
+			const history = [
 				val,
 			];
 
@@ -1490,7 +1473,7 @@ describe('File', function () {
 		});
 
 		// TypeScript: known issue, see the comment for the `base` property.
-		// it('throws on set with null path', function(done) {
+		// it('throws on set with null path', done => {
 		//   var file = new File();
 
 		//   expect(file.path).toNotExist();
@@ -1504,10 +1487,10 @@ describe('File', function () {
 		//   done();
 		// });
 
-		it('normalizes the path upon set', function (done) {
-			var val = '/test/foo/../test.coffee';
-			var expected = path.normalize(val);
-			var file = new File();
+		it('normalizes the path upon set', done => {
+			const val = '/test/foo/../test.coffee';
+			const expected = path.normalize(val);
+			const file = new File();
 
 			file.path = val;
 
@@ -1516,8 +1499,8 @@ describe('File', function () {
 			done();
 		});
 
-		it('removes the trailing separator upon set', function (done) {
-			var file = new File();
+		it('removes the trailing separator upon set', done => {
+			const file = new File();
 			file.path = '/test/';
 
 			expect(file.path).toEqual(path.normalize('/test'));
@@ -1525,10 +1508,10 @@ describe('File', function () {
 			done();
 		});
 
-		it('removes the trailing separator upon set when directory', function (done) {
-			var file = new File({
+		it('removes the trailing separator upon set when directory', done => {
+			const file = new File({
 				stat: {
-					isDirectory: function () {
+					isDirectory() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1540,10 +1523,10 @@ describe('File', function () {
 			done();
 		});
 
-		it('removes the trailing separator upon set when symlink', function (done) {
-			var file = new File({
+		it('removes the trailing separator upon set when symlink', done => {
+			const file = new File({
 				stat: {
-					isSymbolicLink: function () {
+					isSymbolicLink() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1555,13 +1538,13 @@ describe('File', function () {
 			done();
 		});
 
-		it('removes the trailing separator upon set when directory & symlink', function (done) {
-			var file = new File({
+		it('removes the trailing separator upon set when directory & symlink', done => {
+			const file = new File({
 				stat: {
-					isDirectory: function () {
+					isDirectory() {
 						return true;
 					},
-					isSymbolicLink: function () {
+					isSymbolicLink() {
 						return true;
 					},
 				} as any as fs.Stats,
@@ -1574,26 +1557,25 @@ describe('File', function () {
 		});
 	});
 
-	describe('symlink get/set', function () {
-
-		it('return null on get with no symlink', function (done) {
-			var file = new File();
+	describe('symlink get/set', () => {
+		it('return null on get with no symlink', done => {
+			const file = new File();
 
 			expect(file.symlink).toEqual(null);
 			done();
 		});
 
-		it('returns _symlink', function (done) {
-			var val = '/test/test.coffee';
-			var file = new File() as TestFile;
+		it('returns _symlink', done => {
+			const val = '/test/test.coffee';
+			const file = new File() as TestFile;
 			file._symlink = val;
 
 			expect(file.symlink).toEqual(val);
 			done();
 		});
 
-		it('throws on set with non-string', function (done) {
-			var file = new File();
+		it('throws on set with non-string', done => {
+			const file = new File();
 
 			function invalid() {
 				file.symlink = null;
@@ -1603,29 +1585,29 @@ describe('File', function () {
 			done();
 		});
 
-		it('sets _symlink', function (done) {
-			var val = '/test/test.coffee';
-			var expected = path.normalize(val);
-			var file = new File() as TestFile;
+		it('sets _symlink', done => {
+			const val = '/test/test.coffee';
+			const expected = path.normalize(val);
+			const file = new File() as TestFile;
 			file.symlink = val;
 
 			expect(file._symlink).toEqual(expected);
 			done();
 		});
 
-		it('allows relative symlink', function (done) {
-			var val = 'test.coffee';
-			var file = new File();
+		it('allows relative symlink', done => {
+			const val = 'test.coffee';
+			const file = new File();
 			file.symlink = val;
 
 			expect(file.symlink).toEqual(val);
 			done();
 		});
 
-		it('normalizes and removes trailing separator upon set', function (done) {
-			var val = '/test/foo/../bar/';
-			var expected = path.normalize(val.slice(0, -1));
-			var file = new File();
+		it('normalizes and removes trailing separator upon set', done => {
+			const val = '/test/foo/../bar/';
+			const expected = path.normalize(val.slice(0, -1));
+			const file = new File();
 			file.symlink = val;
 
 			expect(file.symlink).toEqual(expected);

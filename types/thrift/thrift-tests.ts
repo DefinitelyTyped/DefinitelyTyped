@@ -1,4 +1,5 @@
 import * as http from 'http';
+import * as https from 'https';
 
 import {
   createConnection,
@@ -43,18 +44,33 @@ const mockGeneratedService = {
 
 createServer<MockProcessor, MockServiceHandlers>(mockGeneratedService, mockServiceHandlers);
 
-const nodeOptions: http.RequestOptions = {
+const httpOptions: http.RequestOptions = {
     timeout: 10000,
     headers: {
         'Content-Type': 'application/octet-stream'
     }
 };
 
+const httpsOptions: https.RequestOptions = {
+    timeout: 10000,
+    headers: {
+        'Content-Type': 'application/octet-stream'
+    },
+    secureProtocol: 'SSLv3_method'
+};
+
 const clientConnection = createConnection('0.0.0.0', 1234, {
-  transport: TBufferedTransport,
-  protocol: TBinaryProtocol,
-  nodeOptions
+    transport: TBufferedTransport,
+    protocol: TBinaryProtocol,
+    nodeOptions: httpOptions
 });
+
+const secureConnection = createConnection('0.0.0.0', 1234, {
+    transport: TBufferedTransport,
+    protocol: TBinaryProtocol,
+    nodeOptions: httpsOptions
+});
+
 createClient<MockClient>(mockGeneratedService, clientConnection);
 
 const mockBuffer: Buffer = Buffer.alloc(8);

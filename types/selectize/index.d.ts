@@ -2,6 +2,7 @@
 // Project: https://github.com/brianreavis/selectize.js
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md
@@ -10,6 +11,11 @@ declare namespace Selectize {
 
         // General
         // ------------------------------------------------------------------------------------------------------------
+
+        /**
+         * An array of the initial selected values. By default this is populated from the original input element.
+         */
+        items?: T[];
 
         /**
          * The string to separate items by. This option is only used when Selectize is instantiated from a
@@ -95,6 +101,13 @@ declare namespace Selectize {
         hideSelected?: boolean;
 
         /**
+         * If true, the dropdown will be closed after a selection is made.
+         *
+         * Default: false
+         */
+        closeAfterSelect?: boolean;
+
+        /**
          * If true, Selectize will treat any options with a "" value like normal. This defaults to false to
          * accomodate the common <select> practice of having the first empty option act as a placeholder.
          *
@@ -124,7 +137,7 @@ declare namespace Selectize {
          *
          * Default: false
          */
-        preload?: any;
+        preload?: boolean | 'focus';
 
         /**
          * The element the dropdown menu is appended to. This should be "body" or null.
@@ -219,6 +232,13 @@ declare namespace Selectize {
         optgroupField?: string;
 
         /**
+         * The name of the property to disabled option and optgroup.
+         *
+         * Default: 'disabled'
+         */
+        disabledField?: string;
+
+        /**
          * A single field or an array of fields to sort by. Each item in the array should be an object containing at
          * least a "field" property. Optionally, "direction" can be set to "asc" or "desc". The order of the array
          * defines the sort precedence.
@@ -228,14 +248,14 @@ declare namespace Selectize {
          *
          * Default: "$order"
          */
-        sortField?: any;
+        sortField?: string | { field: string, direction?: 'asc' | 'desc' }[];
 
         /**
          * An array of property names to analyze when filtering options.
          *
          * Default: ["text"]
          */
-        searchField?: any;
+        searchField?: string | string[];
 
         /**
          * When searching for multiple terms (separated by a space), this is the operator used. Can be "and" or "or".
@@ -286,6 +306,16 @@ declare namespace Selectize {
          * Invoked once the control is completely initialized.
          */
         onInitialize?(): any;
+
+        /**
+         * Invoked when the control gains focus.
+         */
+        onFocus?(): any;
+
+        /**
+         * Invoked when the control loses focus.
+         */
+        onBlur?(): any;
 
         /**
          * Invoked when the value of the control changes.

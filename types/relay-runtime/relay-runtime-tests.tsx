@@ -1,4 +1,12 @@
-import { Environment, Network, RecordSource, Store, ConnectionHandler, ViewerHandler } from "relay-runtime";
+import {
+    Environment,
+    Network,
+    RecordSource,
+    Store,
+    ConnectionHandler,
+    ViewerHandler,
+    RecordSourceInspector,
+} from "relay-runtime";
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -46,3 +54,9 @@ function handlerProvider(handle: any) {
     }
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// Source
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const inspector = new RecordSourceInspector(source);

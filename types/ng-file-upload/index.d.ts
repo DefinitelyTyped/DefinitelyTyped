@@ -254,6 +254,10 @@ declare module 'angular' {
              */
             url: string;
             /**
+             * Add which HTTP method to use: 'POST' or 'PUT' (html5)
+             */
+            method: string;
+            /**
              * This is to accommodate server implementations expecting nested data object keys in .key or [key] format.
              * Example: data: {rec: {name: 'N', pic: file}} sent as: rec[name] -> N, rec[pic] -> file
              * data: {rec: {name: 'N', pic: file}, objectKey: '.k'} sent as: rec.name -> N, rec.pic -> file

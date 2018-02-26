@@ -1,7 +1,7 @@
 import { Repository } from './repository';
 import { StatusList } from './status-list';
-import { StatusEntry } from './status-entry';
 import { StatusOptions } from './status-options';
+import { StatusEntry } from './status-entry';
 
 export namespace Status {
     const enum STATUS {
@@ -50,7 +50,7 @@ export namespace Status {
 export class Status {
     static byIndex(statuslist: StatusList, idx: number): StatusEntry;
     static file(repo: Repository, path: string): number;
-    static foreach(repo: Repository, callback: Function, payload: any): Promise<number>;
-    static foreachExt(repo: Repository, opts: StatusOptions, callback: Function, payload: any): Promise<number>;
+    static foreach(repo: Repository, callback?: Function): Promise<number>;
+    static foreachExt(repo: Repository, opts?: StatusOptions, callback?: Function): Promise<number>;
     static shouldIgnore(ignored: number, repo: Repository, path: string): number;
 }

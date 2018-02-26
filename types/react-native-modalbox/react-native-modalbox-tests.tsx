@@ -24,7 +24,7 @@ class Example extends React.Component<{}, State> {
   modal6: Modal;
 
   constructor() {
-    super();
+    super({});
 
     this.state = {
       isOpen: false,

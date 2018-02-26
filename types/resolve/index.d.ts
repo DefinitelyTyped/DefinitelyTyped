@@ -1,9 +1,16 @@
 // Type definitions for resolve
 // Project: https://github.com/substack/node-resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
+//                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+interface PackageMeta {
+  name: string;
+  version: string;
+  [key: string]: any;
+}
 
 /**
  * Callback invoked when resolving asynchronously
@@ -11,7 +18,7 @@
  * @param error
  * @param resolved Absolute path to resolved identifier
  */
-type resolveCallback = (err: Error, resolved?: string) => void;
+type resolveCallback = (err: Error | null, resolved?: string, pkg?: PackageMeta) => void;
 
 /**
  * Callback invoked when checking if a file exists
@@ -19,7 +26,7 @@ type resolveCallback = (err: Error, resolved?: string) => void;
  * @param error
  * @param isFile If the given file exists
  */
-type isFileCallback = (err: Error, isFile?: boolean) => void;
+type isFileCallback = (err: Error | null, isFile?: boolean) => void;
 
 /**
  * Callback invoked when reading a file
@@ -27,7 +34,7 @@ type isFileCallback = (err: Error, isFile?: boolean) => void;
  * @param error
  * @param isFile If the given file exists
  */
-type readFileCallback = (err: Error, file?: Buffer) => void;
+type readFileCallback = (err: Error | null, file?: Buffer) => void;
 
 /**
  * Asynchronously resolve the module path string id into cb(err, res [, pkg]), where pkg (if defined) is the data from package.json
@@ -88,7 +95,7 @@ declare namespace resolve {
 
   export interface SyncOpts extends Opts {
     // how to read files synchronously (defaults to fs.readFileSync)
-    readFileSync?: (file: string) => Buffer;
+    readFileSync?: (file: string, charset: string) => string | Buffer;
     // function to synchronously test whether a file exists
     isFile?: (file: string) => boolean;
   }

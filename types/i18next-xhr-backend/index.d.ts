@@ -2,6 +2,7 @@
 // Project: https://github.com/i18next/i18next-xhr-backend
 // Definitions by: Jan Mühlemann <https://github.com/jamuhl>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace I18NextXhrBackend {
     type LoadPathOption = string | ((lngs: string[], namespaces: string[]) => string);

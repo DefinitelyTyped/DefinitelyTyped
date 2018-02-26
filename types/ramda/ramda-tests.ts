@@ -202,8 +202,8 @@ class F2 {
 };
 
 () => {
-    R.invoker("charAt", String.prototype);
-    R.invoker("charAt", String.prototype, 1);
+    R.invoker(1, "slice")(6, "abcdefghijklm");
+    R.invoker(2, "slice")(6)(8, "abcdefghijklm");
 };
 
 (() => {
@@ -266,18 +266,18 @@ R.times(i, 5);
         return a * b;
     }
 
-    const double = R.partial<number>(multiply, 2);
+    const double = R.partial<number>(multiply, [2]);
     double(2); // => 4
 
     function greet(salutation: string, title: string, firstName: string, lastName: string) {
         return `${salutation}, ${title} ${firstName} ${lastName}!`;
     }
 
-    const sayHello     = R.partial(greet, "Hello");
-    const sayHelloToMs = R.partial(sayHello, "Ms.");
+    const sayHello     = R.partial(greet, ["Hello"]);
+    const sayHelloToMs = R.partial(sayHello, ["Ms."]);
     sayHelloToMs("Jane", "Jones"); // => 'Hello, Ms. Jane Jones!'
 
-    const greetMsJaneJones = R.partialRight(greet, "Ms.", "Jane", "Jones");
+    const greetMsJaneJones = R.partialRight(greet, ["Ms.", "Jane", "Jones"]);
     greetMsJaneJones("Hello"); // => 'Hello, Ms. Jane Jones!'
 })();
 
@@ -415,7 +415,7 @@ R.times(i, 5);
  */
 () => {
     function mergeThree(a: number, b: number, c: number): number[] {
-        return ([]).concat(a, b, c);
+        return (new Array<number>()).concat(a, b, c);
     }
 
     mergeThree(1, 2, 3); // => [1, 2, 3]
@@ -584,6 +584,13 @@ R.times(i, 5);
 };
 
 () => {
+    const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
+    const typeIs = R.propEq('type');
+    const isBuy = typeIs('BUY');
+    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
+};
+
+() => {
     const xs: { [key: string]: string } = {a: "1", b: "0"};
     R.propEq("a", "1", xs); // => true
     R.propEq("a", "4", xs); // => false
@@ -658,6 +665,8 @@ interface Obj {
 };
 
 () => {
+    R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
+
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
     // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
 
@@ -678,10 +687,19 @@ interface Obj {
 };
 
 (() => {
-    const list = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
-    const a1 = R.indexBy(R.prop<string>("id"), list);
-    const a2 = R.indexBy(R.prop<string>("id"))(list);
+    interface Book {
+        id: string;
+        title: string;
+    }
+    const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
+    const a1 = R.indexBy(R.prop("id"), list);
+    const a2 = R.indexBy(R.prop("id"))(list);
     const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+
+    const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
+        R.map((x: Book) => x.title),
+        R.indexBy(x => x),
+    )(list);
 });
 
 () => {
@@ -1214,7 +1232,7 @@ type Pair = KeyValuePair<string, number>;
     const o2                                        = {a: 10, b: 20, c: 3, d: 40};
     const a1                                      = R.eqProps("a", o1, o2); // => false
     const a2                                      = R.eqProps("c", o1, o2); // => true
-    const a3: <T, U>(obj1: T, obj2: U) => boolean = R.eqProps("c");
+    const a3: <T extends { c: any }, U extends { c: any }>(obj1: T, obj2: U) => boolean = R.eqProps("c");
     const a4: <U>(obj2: U) => boolean             = R.eqProps("c", o1);
 };
 
@@ -1535,7 +1553,16 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
-    const a       = R.prop("x", {}); // => undefined
+    const obj = {
+        str: 'string',
+        num: 5,
+    };
+
+    const strVal: string = R.prop('str', obj); // => 'string'
+    const numVal: number = R.prop('num', obj); // => 5
+
+    const strValCur: string = R.prop('str')(obj); // => 'string'
+    const numValCur: number = R.prop('num')(obj); // => 5
 };
 
 () => {
@@ -1546,7 +1573,6 @@ class Rectangle {
     const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
-    const s1 = favorite(alice);  // => undefined
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
 };
 
@@ -1558,7 +1584,6 @@ class Rectangle {
 
 () => {
     R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-    R.props(["c", "a", "b"], {b: 2, a: 1}); // => [undefined, 1, 2]
 
     const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
     fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'
@@ -1838,6 +1863,9 @@ class Rectangle {
 
     R.path(testPath, testObj); // => 2
     R.path(testPath)(testObj); // => 2
+
+    R.path(['a', 'b'])({c: {b: 2}}); // => undefined
+    R.path(['a', 'b'], {c: {b: 2}}); // => undefined
 };
 
 () => {
@@ -1859,7 +1887,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose<string, string, string>(R.toLower, R.prop("name")));
+    const sortByNameCaseInsensitive = R.sortBy(R.compose<Record<'name', string>, string, string>(R.toLower, R.prop("name")));
     const alice                     = {
         name: "ALICE",
         age : 101
@@ -1881,6 +1909,14 @@ class Rectangle {
     const b: number[][] = R.splitAt(1)([1, 2, 3]);        // => [[1], [2, 3]]
     const c: string[]   = R.splitAt(5, "hello world");      // => ['hello', ' world']
     const d: string[]   = R.splitAt(-1, "foobar");          // => ['fooba', 'r']
+    const e: string[]   = R.splitAt(-1)("foobar");          // => ['fooba', 'r']
+};
+
+() => {
+    const a: number[][] = R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const b: number[][] = R.splitEvery(3)([1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const c: string[]   = R.splitEvery(3, 'foobarbaz'); // => ['foo', 'bar', 'baz']
+    const d: string[]   = R.splitEvery(3)('foobarbaz'); // => ['foo', 'bar', 'baz']
 };
 
 () => {
@@ -1986,8 +2022,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.max(7, 3); // => 7
-    const y: R.Ord = R.max("a", "z"); // => 'z'
+    const x: number = R.max(7, 3); // => 7
+    const y: string = R.max("a", "z"); // => 'z'
 };
 
 () => {
@@ -2017,8 +2053,8 @@ class Rectangle {
 };
 
 () => {
-    const x: R.Ord = R.min(9, 3); // => 3
-    const y: R.Ord = R.min("a", "z"); // => 'a'
+    const x: number = R.min(9, 3); // => 3
+    const y: string = R.min("a", "z"); // => 'a'
 };
 
 () => {
@@ -2175,6 +2211,8 @@ class Rectangle {
     f(11); // => true
     f(8); // => true
     f(9); // => false
+
+    const f2 = R.anyPass<number>([gt10, even]);
 };
 
 () => {
@@ -2211,6 +2249,12 @@ class Rectangle {
     defaultTo42(null);  // => 42
     defaultTo42(undefined);  // => 42
     defaultTo42("Ramda");  // => 'Ramda'
+
+    const valueOrUndefined = 2 as number | undefined;
+    defaultTo42(valueOrUndefined) - 2; // => 0
+
+    const valueOrNull = 2 as number | null;
+    defaultTo42(valueOrNull) - 2; // => 0
 };
 
 () => {
@@ -2276,7 +2320,7 @@ class Why {
     const x0: boolean        = R.or(false, true); // => false
     const x1: number | any[] = R.or(0, []); // => []
     const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string         = R.or(null, ""); // => ''
+    const x3: string | null  = R.or(null, ""); // => ''
 
     const why = new Why(true);
     why.or(true);

@@ -6,4 +6,5 @@ export interface SubmoduleUpdateOptions {
     checkoutOpts?: CheckoutOptions;
     fetchOpts?: FetchOptions;
     cloneCheckoutStrategy?: number;
+    [key: string]: any;
 }

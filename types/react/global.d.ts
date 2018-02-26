@@ -119,6 +119,7 @@ interface HTMLTableRowElement extends HTMLElement { }
 interface HTMLTrackElement extends HTMLElement { }
 interface HTMLUListElement extends HTMLElement { }
 interface HTMLVideoElement extends HTMLElement { }
+interface HTMLWebViewElement extends HTMLElement { }
 
 interface SVGElement extends Element { }
 interface SVGSVGElement extends SVGElement { }

@@ -2,9 +2,14 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withInfo } from '@storybook/addon-info';
+import { setDefaults, withInfo } from '@storybook/addon-info';
 
 const { Component } = React;
+
+setDefaults({
+    inline: false,
+    propTables: false
+});
 
 storiesOf('Component', module)
   .add('simple info',

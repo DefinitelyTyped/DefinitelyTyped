@@ -32,12 +32,10 @@ declare namespace images {
     }
 }
 
-/* tslint:disable:unified-signatures */
 declare function images(file: string): images.ImagesStatic;
 declare function images(width: number, height: number): images.ImagesStatic;
 declare function images(buffer: Buffer, start?: number, end?: number): images.ImagesStatic;
-declare function images(image: images.ImagesStatic): images.ImagesStatic;
+declare function images(image: images.ImagesStatic): images.ImagesStatic; // tslint:disable-line unified-signatures
 declare function images(image: images.ImagesStatic, x: number, y: number, width: number, height: number): images.ImagesStatic;
-/* tslint:enable:unified-signatures */
 
 export = images;

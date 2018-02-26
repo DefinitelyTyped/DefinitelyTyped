@@ -2,7 +2,7 @@
 // Project: https://github.com/maxs15/react-native-modalbox#readme
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { ViewProperties } from 'react-native';
@@ -134,6 +134,13 @@ export interface ModalProps extends ViewProperties {
    *
    */
   startOpen?: boolean;
+
+  /**
+   * This property prevent the modal to cover the ios status bar when the modal is scrolling up because the keyboard is opening
+   *
+   * Default is ios:22, android:0
+   */
+  keyboardTopOffset?: number;
 
   /**
    * Event fired when the modal is closed and the animation is complete

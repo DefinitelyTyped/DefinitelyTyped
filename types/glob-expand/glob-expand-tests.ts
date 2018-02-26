@@ -1,5 +1,4 @@
-
-import * as expand from "glob-expand";
+import expand = require("glob-expand");
 
 expand({ filter: 'isFile', cwd: '../' }, ['**/*.*', '!exclude/these/**/*.*']);
 // returns all files in cwd ['file1', 'file2',...] but excluding

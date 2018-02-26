@@ -26,4 +26,6 @@ export function mergePersistedState(merge?: <A1, A2>(initialState: A1, persisten
 
 export default function persistState<A>(storage?: StorageAdapter<A>, key?: string, callback?: Function): Redux.GenericStoreEnhancer;
 
+export function transformState<A1, A2>(down: ((state: A1) => A2) | Array<(state: any) => any>, up: ((state: A2) => A1) | Array<(state: any) => any>): (storage: StorageAdapter<A1>) => A2;
+
 export const actionTypes: ActionTypes;

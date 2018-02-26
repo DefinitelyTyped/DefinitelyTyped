@@ -1,6 +1,8 @@
 // Type definitions for DCJS
 // Project: https://github.com/dc-js/dc.js
-// Definitions by: hans windhoff <https://github.com/hansrwindhoff>, matt traynham <https://github.com/mtraynham>
+// Definitions by: hans windhoff <https://github.com/hansrwindhoff>
+//                 matt traynham <https://github.com/mtraynham>
+//                 matthias jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
@@ -49,8 +51,9 @@ declare namespace dc {
         format: Accessor<any, string>;
     }
 
+    // http://dc-js.github.io/dc.js/docs/html/dc.units.html
     export interface UnitFunction {
-        (start: number, end: number, domain?: Array<any>): number|Array<any>;
+        (start: number|Date, end: number|Date, domain?: number|Array<string>): number | Array<number|Date|string>;
     }
 
     export interface FloatPointUnits {
@@ -135,12 +138,13 @@ declare namespace dc {
         minHeight: IGetSet<number, T>;
         dimension: IGetSet<any, T>;
         data: IGetSetComputed<(group: any) => Array<any>, Array<any>, T>;
-        group: IGetSet<any, T>;
+        // http://dc-js.github.io/dc.js/docs/html/dc.baseMixin.html#group__anchor
+        group: IBiGetSet<any, string, T>;
         ordering: IGetSet<Accessor<any, any>, T>;
         filterAll(): void;
-        select(selector: d3.Selection<any>|string): d3.Selection<any>;
-        selectAll(selector: d3.Selection<any>|string): d3.Selection<any>;
-        anchor(anchor: BaseMixin<any>|d3.Selection<any>|string, chartGroup?: string): d3.Selection<any>;
+        select(selector: d3.Selection<any> | string): d3.Selection<any>;
+        selectAll(selector: d3.Selection<any> | string): d3.Selection<any>;
+        anchor(anchor: BaseMixin<any> | d3.Selection<any> | string, chartGroup?: string): d3.Selection<any>;
         anchorName(): string;
         svg: IGetSet<d3.Selection<any>, d3.Selection<any>>;
         resetSvg(): void;
@@ -196,10 +200,11 @@ declare namespace dc {
     }
 
     export interface ColorMixin<T> {
-        colors: IGetSet<Array<string> | Scale<string | d3.Color>, T>;
-        ordinalColors(r: Array<string>): void;
-        linearColors(r: Array<string>): void;
-        colorAccessor: IGetSet<Accessor<any, string>, T>;
+        // http://dc-js.github.io/dc.js/docs/html/dc.colorMixin.html
+        colors: IGetSet<Array<string> | Scale<string | d3.Color> | string, T>;
+        ordinalColors(r: Array<string>): T;
+        linearColors(r: Array<string>): T;
+        colorAccessor: IGetSet<Accessor<any, number>, T>;
         colorDomain: IGetSet<Array<any>, T>;
         calculateColorDomain(): void;
         getColor(datum: any, index?: number): string;
@@ -291,7 +296,7 @@ declare namespace dc {
         dashStyle: IGetSet<Array<number>, LineChart>;
         renderArea: IGetSet<boolean, LineChart>;
         dotRadius: IGetSet<number, LineChart>;
-        renderDataPoints: IGetSet<RenderDataPointOptions|any, LineChart>;
+        renderDataPoints: IGetSet<RenderDataPointOptions | any, LineChart>;
     }
 
     export interface DataCountWidgetHTML {
@@ -307,7 +312,7 @@ declare namespace dc {
     export interface DataTableWidget extends BaseMixin<DataTableWidget> {
         size: IGetSet<number, DataTableWidget>;
         showGroups: IGetSet<boolean, DataTableWidget>;
-        columns: IGetSet<Array<string|Accessor<any, any>|Columns>, DataTableWidget>;
+        columns: IGetSet<Array<string | Accessor<any, any> | Columns>, DataTableWidget>;
         sortBy: IGetSet<Accessor<any, any>, DataTableWidget>;
         order: IGetSet<(a: any, b: any) => number, DataTableWidget>;
     }
@@ -336,7 +341,7 @@ declare namespace dc {
         rightYAxis: IGetSet<d3.svg.Axis, ICompositeChart<T>>;
     }
 
-    export interface CompositeChart extends ICompositeChart<CompositeChart> {}
+    export interface CompositeChart extends ICompositeChart<CompositeChart> { }
 
     export interface SeriesChart extends ICompositeChart<SeriesChart> {
         chart: IGetSet<(c: any) => BaseMixin<any>, SeriesChart>;
@@ -412,6 +417,16 @@ declare namespace dc {
         tickFormat: IGetSet<Accessor<number, string>, BoxPlot>;
     }
 
+    // https://github.com/dc-js/dc.js/blob/master/src/select-menu.js
+    export interface SelectMenu extends BaseMixin<SelectMenu> {
+        order: IGetSet<(a: any, b: any) => number, SelectMenu>;
+        promptText: IGetSet<string, SelectMenu>;
+        filterDisplayed: IGetSet<(a: {value: any, key: any}, index: number) => boolean, SelectMenu>;
+        multiple: IGetSet<boolean, SelectMenu>;
+        promptValue: IGetSet<any, SelectMenu>;
+        numberVisible: IGetSet<number, SelectMenu>;
+    }
+
     export interface ChartRegistry {
         has(chart: BaseMixin<any>): boolean;
         register(chart: BaseMixin<any>, group?: string): void;
@@ -444,11 +459,16 @@ declare namespace dc {
         round: Round;
         utils: Utils;
 
+        // http://dc-js.github.io/dc.js/docs/html/core.js.html, Line 20
+        version: string;
+
         legend(): Legend;
 
         pieChart(parent: string, chartGroup?: string): PieChart;
-        barChart(parent: string, chartGroup?: string): BarChart;
-        lineChart(parent: string, chartGroup?: string): LineChart;
+        // http://dc-js.github.io/dc.js/docs/html/dc.barChart.html
+        barChart(parent: string | CompositeChart, chartGroup?: string): BarChart;
+        // http://dc-js.github.io/dc.js/docs/html/dc.lineChart.html
+        lineChart(parent: string | CompositeChart, chartGroup?: string): LineChart;
         dataCount(parent: string, chartGroup?: string): DataCountWidget;
         dataTable(parent: string, chartGroup?: string): DataTableWidget;
         dataGrid(parent: string, chartGroup?: string): DataGridWidget;
@@ -462,6 +482,6 @@ declare namespace dc {
         numberDisplay(parent: string, chartGroup?: string): NumberDisplayWidget;
         heatMap(parent: string, chartGroup?: string): HeatMap;
         boxPlot(parent: string, chartGroup?: string): BoxPlot;
+        selectMenu(parent: string, chartGroup?: string): SelectMenu;
     }
 }
-

@@ -10,3 +10,5 @@ function task() {
 sem.take(task);
 sem.take(2, task);
 sem.leave(2);
+
+const available: boolean = sem.available(2);
