@@ -31,6 +31,7 @@ import {
     addNavigationHelpers,
     HeaderBackButton,
     Header,
+    NavigationParams,
 } from 'react-navigation';
 
 // Constants
@@ -42,21 +43,17 @@ const viewStyle: ViewStyle = {
 };
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
-interface StartScreenNavigationParams {
-    id: number;
-    s: string;
-}
 
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
+class StartScreen extends React.Component<NavigationScreenProps> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: StartScreenNavigationParams = this.props.navigation.state.params;
-        const id = this.props.navigation.state.params.id;
-        const s = this.props.navigation.state.params.s;
+        const navigationStateParams = this.props.navigation.state.params;
+        const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
+        const s = this.props.navigation.state.params && this.props.navigation.state.params.s;
 
         return (
             <View>
@@ -65,25 +62,22 @@ class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavig
         );
     }
     private readonly navigateToNextScreen = (): void => {
-        const params: NextScreenNavigationParams = {
-            id: this.props.navigation.state.params.id,
-            name: this.props.navigation.state.params.s,
+        const params = {
+            id: this.props.navigation.state.params && this.props.navigation.state.params.id,
+            name: this.props.navigation.state.params && this.props.navigation.state.params.s,
         };
         this.props.navigation.navigate(ROUTE_NAME_NEXT_SCREEN, params);
     }
 }
 
 const ROUTE_NAME_NEXT_SCREEN = "NextScreen";
-interface NextScreenNavigationParams {
-    id: number;
-    name: string;
-}
-class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
+
+class NextScreen extends React.Component<NavigationScreenProps> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: NextScreenNavigationParams = this.props.navigation.state.params;
-        const id = this.props.navigation.state.params.id;
-        const name = this.props.navigation.state.params.name;
+        const navigationStateParams = this.props.navigation.state.params;
+        const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
+        const name = this.props.navigation.state.params && this.props.navigation.state.params.name;
 
         return (
             <View />
@@ -94,7 +88,7 @@ class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigat
 const navigationOptions = {
     headerBackTitle: null,
 };
-const initialRouteParams: StartScreenNavigationParams = {
+const initialRouteParams: NavigationParams = {
     id: 1,
     s: "Start",
 };
@@ -236,7 +230,7 @@ function renderBasicDrawerNavigator(): JSX.Element {
 }
 
 interface CustomTransitionerProps {
-    navigation: NavigationScreenProp<any, NavigationAction>;
+    navigation: NavigationScreenProp<any>;
 }
 /**
  * @desc Custom transitioner component. Follows react-navigation/src/views/CardStackTransitioner.js.
