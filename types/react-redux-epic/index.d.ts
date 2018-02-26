@@ -12,7 +12,9 @@ export interface Action {
     type: string;
 }
 
-export function wrapRootEpic(epic: Epic<any, any>): typeof epic;
+export function wrapRootEpic<T, S, D, O extends T>(
+    epic: Epic<T, S, D, O>
+): Epic<T, S, D, O>;
 
 export function renderToString(
     element: React.ReactElement<any>,
