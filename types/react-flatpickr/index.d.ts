@@ -3,15 +3,15 @@
 // Definitions by: begincalendar <https://github.com/begincalendar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
-
 import { Component } from 'react';
 import { Options } from 'flatpickr';
 
-export interface DateTimePickerProps extends HTMLElement {
+export interface DateTimePickerProps {
     defaultValue?: string;
     options?: Options.Options;
     onChange?: Options.Hook;
     value?: string;
+    className?: string;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}
