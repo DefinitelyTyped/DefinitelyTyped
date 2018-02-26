@@ -2136,6 +2136,14 @@ class Rectangle {
     const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
 };
 
+() => {
+    const eqL = R.eqBy<string, number>(s => s.length);
+    const l1 = ['bb', 'ccc', 'dddd'];
+    const l2 = ['aaa', 'bb', 'c'];
+    R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
+    R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
+};
+
 /*****************************************************************
  * String category
  */
