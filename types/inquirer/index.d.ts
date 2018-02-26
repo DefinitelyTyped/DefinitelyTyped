@@ -4,6 +4,7 @@
 //                 Parvez <https://github.com/ppathan>
 //                 Jouderian <https://github.com/jouderianjr>
 //                 Qibang <https://github.com/bang88>
+//                 Synarque <https://github.com/synarque>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
@@ -89,29 +90,29 @@ declare namespace inquirer {
          * Default value(s) to use if nothing is entered, or a function that returns the default value(s).
          * If defined as a function, the first parameter will be the current inquirer session answers.
          */
-        default?: any | ((answers: T) => any);
+        default?: any | ((answers: T) => any) | ((answers: T) => Promise<any>);
         /**
          * Choices array or a function returning a choices array. If defined as a function,
          * the first parameter will be the current inquirer session answers.
          * Array values can be simple strings, or objects containing a name (to display) and a value properties
          * (to save in the answers hash). Values can also be a Separator.
          */
-        choices?: ChoiceType[] | ((answers: T) => ChoiceType[]);
+        choices?: ChoiceType[] | ((answers: T) => ChoiceType[]) | ((answers: T) => Promise<ChoiceType[]>);
         /**
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
          */
-        validate?(input: string, answers?: T): boolean | string;
+        validate?(input: string, answers?: T): boolean | string | Promise<boolean | string>;
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the Answers hash.
          */
-        filter?(input: string): string;
+        filter?(input: string): string | Promise<string>;
         /**
          * Receive the current user answers hash and should return true or false depending on whether or
          * not this question should be asked. The value can also be a simple boolean.
          */
-        when?: boolean | ((answers: T) => boolean);
+        when?: boolean | ((answers: T) => boolean) | ((answers: T) => Promise<boolean>);
         paginated?: boolean;
         /**
          * Change the number of lines that will be rendered when using list, rawList, expand or checkbox.
