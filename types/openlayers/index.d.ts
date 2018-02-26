@@ -14392,6 +14392,7 @@ declare module olx {
             angle?: number;
             snapToPixel?: boolean;
             stroke?: ol.style.Stroke;
+            rotation?: number;
         }
 
 
