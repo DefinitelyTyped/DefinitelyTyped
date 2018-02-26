@@ -416,10 +416,10 @@ type KnockoutObservableType<T> = {
     [P in keyof T]: KnockoutObservable<T[P]>;
 };
 type KnockoutObservableTypeRecursive<T> = {
-    [P in keyof T]: KnockoutObservable<T[P]>|KnockoutObservableTypeRecursive<T[P]>;
+    [P in keyof T]: KnockoutObservable<KnockoutObservableSubTypeRecursive<T[P]>|T[P]>;
 };
-type KnockoutObservableTypeParameterRecursive<T> = {
-    [P in keyof T]: KnockoutObservable<T[P]>|T[P]|KnockoutObservableTypeRecursive<T[P]>;
+type KnockoutObservableSubTypeRecursive<T> = {
+    [P in keyof T]: KnockoutObservable<T[P]>;
 };
 
 interface KnockoutStatic {
@@ -453,8 +453,7 @@ interface KnockoutStatic {
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
 
-    toJS<T>(viewModel: KnockoutObservableArray<T>|KnockoutObservableTypeParameterRecursive<T>[]|KnockoutObservableArray<KnockoutObservableTypeParameterRecursive<T>>|T[]): T[];
-    toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableTypeParameterRecursive<T>|KnockoutObservable<KnockoutObservableTypeParameterRecursive<T>>): T;
+    toJS(viewModel: any): any;
 
     isObservable(instance: any): instance is KnockoutObservable<any>;
     isObservable<T>(instance: KnockoutObservable<T>): instance is KnockoutObservable<T>;
