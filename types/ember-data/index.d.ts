@@ -491,7 +491,7 @@ declare module 'ember-data' {
             /**
              * Same as `deleteRecord`, but saves the record immediately.
              */
-            destroyRecord(options: {}): RSVP.Promise<any>;
+            destroyRecord(options?: {}): RSVP.Promise<any>;
             /**
              * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
              */
