@@ -1018,6 +1018,36 @@ describe('expect(array).toNotMatch', () => {
   });
 });
 
+describe('expect(object).toMatchObject', () => {
+  it('does not throw when the actual value matches', () => {
+    expect(() => {
+      expect({
+        statusCode: 200,
+        headers: {
+          server: 'express web server'
+        }
+      }).toMatchObject({
+        statusCode: 200,
+        headers: {}
+      });
+    }).toNotThrow();
+  });
+
+  it('throws when the actual value does not match', () => {
+    expect(() => {
+      expect({
+        statusCode: 200,
+        headers: {
+          server: 'nginx web server'
+        }
+      }).toMatchObject({
+        statusCode: 201,
+        headers: {}
+      });
+    }).toThrow(/to match/);
+  });
+});
+
 describe('toNotEqual', () => {
   it('works', () => {
     expect('actual').toNotEqual('expected');

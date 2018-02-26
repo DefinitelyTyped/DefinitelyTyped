@@ -31,6 +31,7 @@ declare namespace expect {
         toNotBeAn(value: string | {}, message?: string): Expectation<T>;
         toMatch(value: string | RegExp | {}, message?: string): Expectation<T>;
         toNotMatch(value: string | RegExp | {}, message?: string): Expectation<T>;
+        toMatchObject(value: {}, message?: string): Expectation<T>;
 
         toBeLessThan(value: number, message?: string): Expectation<T>;
         toBeLessThanOrEqualTo(value: number, messasge?: string): Expectation<T>;
