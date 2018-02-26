@@ -4,6 +4,7 @@
 //                 Tim Brust <https://github.com/timbru31>
 //                 Fredrik Smedberg <https://github.com/fsmedberg-tc>
 //                 Tanvir ul Islam <https://github.com/tanvirislam06>
+//                 Phil Leger <https://github.com/phil-lgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -397,6 +398,7 @@ declare namespace WebdriverIO {
     interface Options {
         baseUrl?: string;
         bail?: number;
+        deprecationWarnings?: boolean;
         coloredLogs?: boolean;
         capabilities?: DesiredCapabilities[];
         connectionRetryTimeout?: number;
