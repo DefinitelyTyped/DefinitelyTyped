@@ -1,4 +1,4 @@
-// Type definitions for Google Publisher Tag v105
+// Type definitions for Google Publisher Tag v111
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
@@ -162,6 +162,8 @@ declare namespace googletag {
             serviceName: string;
             size: number[] | string;
             slot: Slot;
+            sourceAgnosticCreativeId?: number;
+            sourceAgnosticLineItemId?: number;
         }
 
         export interface slotVisibilityChangedEvent {
