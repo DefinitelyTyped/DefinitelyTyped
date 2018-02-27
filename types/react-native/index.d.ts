@@ -8609,6 +8609,8 @@ export function findNodeHandle(
 
 export function processColor(color: any): number;
 
+export const YellowBox: React.Component<any, any> & { ignoreWarnings: (warnings: string[]) => void };
+
 //////////////////////////////////////////////////////////////////////////
 //
 // Additional ( and controversial)
