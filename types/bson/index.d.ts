@@ -136,6 +136,10 @@ export class ObjectID {
     /** The generation time of this ObjectID instance */
     generationTime: number;
     /**
+     * If true cache the hex string representation of ObjectID instance
+     */
+    static cacheHexString?: boolean;
+    /**
      * Creates an ObjectID from a hex string representation of an ObjectID.
      * @param {string} hexString create a ObjectID from a passed in 24 byte hexstring.
      * @return {ObjectID} return the created ObjectID
