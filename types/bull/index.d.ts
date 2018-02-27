@@ -371,6 +371,7 @@ declare namespace Bull {
 
     /**
      * Defines a separate process processor for the jobs placed into a given Queue.
+     * The processor can be defined as the string path to a module exporting the callback function.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
@@ -386,6 +387,7 @@ declare namespace Bull {
 
     /**
      * Defines a separate process processor for the jobs placed into a given Queue.
+     * The processor can be defined as the string path to a module exporting the callback function.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
@@ -402,6 +404,24 @@ declare namespace Bull {
 
     /**
      * Defines a separate process processor for the jobs placed into a given Queue.
+     * The processor can be defined as the string path to a module exporting the callback function.
+     *
+     * The callback is called everytime a job is placed in the queue.
+     * It is passed an instance of the job as first argument.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param name Bull will only call the handler if the job name matches
+     * @param processor The path of a separate file with the processor.
+     */
+    // tslint:disable-next-line:unified-signatures
+    process(name: string, processor: string): Promise<any>;
+
+    /**
+     * Defines a separate process processor for the jobs placed into a given Queue.
+     * The processor can be defined as the string path to a module exporting the callback function.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
