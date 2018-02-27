@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import ReactSVG from 'react-svg';
+import ReactSVG = require("react-svg");
 
 const complete = <ReactSVG
     path={"atomic.svg"}
