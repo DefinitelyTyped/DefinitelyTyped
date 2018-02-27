@@ -1,4 +1,4 @@
-// Type definitions for Google Publisher Tag v111
+// Type definitions for Google Publisher Tag v121
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
@@ -63,7 +63,7 @@ declare namespace googletag {
         defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
         destroySlots(opt_slots?: Slot[]): boolean;
         disablePublisherConsole(): void;
-        display(div?: string): void;
+        display(div?: string | Element): void;
         enableServices(): void;
         getVersion(): string;
         openConsole(opt_div?: string): void;
@@ -115,7 +115,7 @@ declare namespace googletag {
         defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
         definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
         disableInitialLoad(): void;
-        display(adUnitPath: string, size: GeneralSize, opt_div?: string, opt_clickUrl?: string): Slot;
+        display(adUnitPath: string, size: GeneralSize, opt_div?: string | Element, opt_clickUrl?: string): Slot;
         enableAsyncRendering(): boolean;
         enableSingleRequest(): boolean;
         enableSyncRendering(): boolean;
