@@ -5,11 +5,10 @@ interface StoreOptions {
     initialize?(): void;
     storeName: string;
     handlers: { [event: string]: string };
+    [prop: string]: any;
 }
 
-type CreateStoreOption = ThisType<Store> & StoreOptions & { [key: string]: any };
-
-type CreateStore = (options: CreateStoreOption) => StoreClass;
+type CreateStore = <This extends StoreOptions>(options: This & ThisType<This & Store>) => StoreClass;
 
 declare const _: CreateStore;
 export = _;
