@@ -18,8 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "addons/BaseStore.d.ts",
         "addons/createStore.d.ts",
-        "dispatchr-test.ts"
+        "addons/BaseStore.d.ts",
+        "dispatchr-tests.ts"
     ]
-  }
+}
