@@ -1,4 +1,4 @@
-// Type definitions for webpack 3.8
+// Type definitions for webpack 4.0
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -35,6 +35,8 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
+        /** Specify which set of defaults to use. */
+        mode?: "development" | "production";
         /** Name of the configuration. Used when loading multiple configurations. */
         name?: string;
         /**
@@ -105,6 +107,9 @@ declare namespace webpack {
         performance?: Options.Performance;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
+
+        /** Optimization options */
+        optimization?: Options.Optimization;
     }
 
     interface Entry {
@@ -496,6 +501,47 @@ declare namespace webpack {
         }
         type Stats = Stats.ToStringOptions;
         type WatchOptions = ICompiler.WatchOptions;
+
+        interface Optimization {
+            /** Modules are removed from chunks when they are already available in all parent chunk groups.
+             *  This reduces asset size. Smaller assets also result in faster builds since less code generation has to be performed. */
+            removeAvailableModules?: boolean;
+            /** Empty chunks are removed. This reduces load in filesystem and results in faster builds. */
+            removeEmptyChunks?: boolean;
+            /** Equal chunks are merged. This results in less code generation and faster builds. */
+            mergeDuplicateChunks?: boolean;
+            /** Chunks which are subsets of other chunks are determined and flagged in a way that subsets don’t have to be loaded when the bigger chunk has been loaded. */
+            flagIncludedChunks?: boolean;
+            /** Give more often used ids smaller (shorter) values. */
+            occurrenceOrder?: boolean;
+            /** Determine exports for each module when possible. This information is used by other optimizations or code generation. I. e. to generate more efficient code for export * from. */
+            providedExports?: boolean;
+            /** Determine used exports for each module. This depends on optimization.providedExports. This information is used by other optimizations or code generation.
+             *  I. e. exports are not generated for unused exports, export names are mangled to single char identifiers when all usages are compatible. DCE in minimizers will benefit from this and can remove unused exports. */
+            usedExports?: boolean;
+            /** Recognise the sideEffects flag in package.json or rules to eliminate modules. This depends on optimization.providedExports and optimization.usedExports.
+             *  These dependencies have a cost, but eliminating modules has positive impact on performance because of less code generation. It depends on your codebase.
+             *  Try it for possible performance wins. */
+            sideEffects?: boolean;
+            /** Tries to find segments of the module graph which can be safely concatenated into a single module. Depends on optimization.providedExports and optimization.usedExports. */
+            concatenateModules?: boolean;
+            /** Finds modules which are shared between chunk and splits them into separate chunks to reduce duplication or separate vendor modules from application modules. */
+            splitChunks?: boolean;
+            /** Create a separate chunk for the webpack runtime code and chunk manifest. This chunk should be inlined into the HTML */
+            runtimeChunk?: boolean;
+            /** Don’t write output assets when compilation errors. */
+            noEmitOnErrors?: boolean;
+            /** Instead of numeric ids, give modules useful names. */
+            namedModules?: boolean;
+            /** Instead of numeric ids, give chunks useful names. */
+            namedChunks?: boolean;
+            /** Defines the process.env.NODE_ENV constant to a compile-time-constant value. This allows to remove development only code from code. */
+            nodeEnv?: boolean;
+            /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
+            minimize?: boolean;
+            /** Identifiers used in records are relative to context directory. */
+            portableRecords?: boolean;
+        }
     }
 
     // tslint:disable-next-line:interface-name
