@@ -1,7 +1,6 @@
-// TypeScript Version: 2.3
 /// <reference types="node" />
 
-import { Dispatcher, DispatcherInterface, DispatcherContext, Store } from 'dispatchr';
+import { Dispatcher, DispatcherInterface, DispatcherContext, Store } from '../index';
 import { EventEmitter } from 'events';
 
 declare class BaseStore<S = {}> extends EventEmitter implements Store<S> {
