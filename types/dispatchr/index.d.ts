@@ -49,7 +49,7 @@ export interface DispatcherContext {
     dehydrate(): DispatcherState;
     rehydrate(dispatcherState: DispatcherState): void;
 
-    waitFor(stores: Array<string|StoreClass>, callback: () => void): void;
+    waitFor(stores: ReadonlyArray<string|StoreClass>, callback: () => void): void;
     dispatcherInterface: DispatcherInterface;
 }
 
