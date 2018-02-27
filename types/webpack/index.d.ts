@@ -546,6 +546,8 @@ declare namespace webpack {
             nodeEnv?: boolean;
             /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
             minimize?: boolean;
+            /** Configure minimzers and options TODO: add type for this */
+            minimizer?: any;
             /** Identifiers used in records are relative to context directory. */
             portableRecords?: boolean;
         }
