@@ -35,8 +35,8 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
-        /** Specify which set of defaults to use. */
-        mode?: "development" | "production";
+        /** Enable production optimizations or development hints. */
+        mode?: "development" | "production" | "none";
         /** Name of the configuration. Used when loading multiple configurations. */
         name?: string;
         /**
@@ -187,10 +187,10 @@ declare namespace webpack {
         sourcePrefix?: string;
         /** This option enables cross-origin loading of chunks. */
         crossOriginLoading?: string | boolean;
-        /** A Constructor to a custom hash function. You can provide a non-crypto hash function for performance reasons */
-        hashFunction?: (algorithm: string, options?: any) => any;
-        /** Allow to choose the global object reference in runtime exitCode. */
-        globalObject?: any;
+        /** Algorithm used for generation the hash (see node.js crypto package) */
+        hashFunction?: string | ((algorithm: string, options?: any) => any);
+        /** An expression which is used to address the global object/scope in runtime code. */
+        globalObject?: string;
     }
 
     interface Module {
@@ -429,8 +429,8 @@ declare namespace webpack {
         resolve?: Resolve;
         /** Configures the module type. */
         type?: "javascript/auto" | "javascript/esm" | "javascript/dynamic" | "json" | "webassembly/experimental";
-        /** TODO: Update this when the v4 documentation is complete. */
-        sideEffects?: any;
+        /** Flags a module as with or without side effects */
+        sideEffects?: boolean;
     }
     interface BaseDirectRule extends BaseRule {
         /** A condition that must be met */
@@ -506,7 +506,48 @@ declare namespace webpack {
         }
         type Stats = Stats.ToStringOptions;
         type WatchOptions = ICompiler.WatchOptions;
-
+        interface CacheGroupsOptions {
+            /** Assign modules to a cache group */
+            test?: ((...args: any[]) => boolean) | string | RegExp;
+            /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
+            chunks?: "initial" | "async" | "all";
+            /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
+            enforce?: boolean;
+            /** Priority of this cache group */
+            priority?: number;
+            /** Minimal size for the created chunk */
+            minSize?: number;
+            /** Minimum number of times a module has to be duplicated until it's considered for splitting */
+            minChunks?: number;
+            /** Maximum number of requests which are accepted for on-demand loading */
+            maxAsyncRequests?: number;
+            /** Maximum number of initial chunks which are accepted for an entry point */
+            maxInitialRequests?: number;
+            /** Try to reuse existing chunk (with name) when it has matching modules */
+            reuseExistingChunk?: boolean;
+            /** Give chunks created a name (chunks with equal name are merged) */
+            name?: boolean | string | ((...args: any[]) => any);
+        }
+        interface SplitChunksOptions {
+            /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
+            chunks?: "initial" | "async" | "all";
+            /** Minimal size for the created chunk */
+            minSize?: number;
+            /** Minimum number of times a module has to be duplicated until it's considered for splitting */
+            minChunks?: number;
+            /** Maximum number of requests which are accepted for on-demand loading */
+            maxAsyncRequests?: number;
+            /** Maximum number of initial chunks which are accepted for an entry point */
+            maxInitialRequests?: number;
+            /** Give chunks created a name (chunks with equal name are merged) */
+            name?: boolean | string | ((...args: any[]) => any);
+            /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
+            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | CacheGroupsOptions;
+        }
+        interface RuntimeChunkOptions {
+            /** The name or name factory for the runtime chunks. */
+            name?: string | ((...args: any[]) => any);
+        }
         interface Optimization {
             /**
              *  Modules are removed from chunks when they are already available in all parent chunk groups.
@@ -538,22 +579,22 @@ declare namespace webpack {
             /** Tries to find segments of the module graph which can be safely concatenated into a single module. Depends on optimization.providedExports and optimization.usedExports. */
             concatenateModules?: boolean;
             /** Finds modules which are shared between chunk and splits them into separate chunks to reduce duplication or separate vendor modules from application modules. */
-            splitChunks?: boolean;
-            /** Create a separate chunk for the webpack runtime code and chunk manifest. This chunk should be inlined into the HTML */
-            runtimeChunk?: boolean;
-            /** Don’t write output assets when compilation errors. */
+            splitChunks?: SplitChunksOptions | false;
+            /** Create a separate chunk for the webpack runtime code and chunk hash maps. This chunk should be inlined into the HTML */
+            runtimeChunk?: boolean | "single" | "multiple" | RuntimeChunkOptions;
+            /** Avoid emitting assets when errors occur. */
             noEmitOnErrors?: boolean;
-            /** Instead of numeric ids, give modules useful names. */
+            /** Instead of numeric ids, give modules readable names for better debugging. */
             namedModules?: boolean;
-            /** Instead of numeric ids, give chunks useful names. */
+            /** Instead of numeric ids, give chunks readable names for better debugging. */
             namedChunks?: boolean;
             /** Defines the process.env.NODE_ENV constant to a compile-time-constant value. This allows to remove development only code from code. */
-            nodeEnv?: any;
+            nodeEnv?: string | false;
             /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
             minimize?: boolean;
-            /** Configure minimzers and options TODO: add type for this */
-            minimizer?: any;
-            /** Identifiers used in records are relative to context directory. */
+            /** Minimizer(s) to use for minimizing the output */
+            minimizer?: Array<Plugin | Tapable.Plugin>;
+            /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean;
         }
     }
