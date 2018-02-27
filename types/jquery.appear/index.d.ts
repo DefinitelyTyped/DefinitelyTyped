@@ -6,32 +6,32 @@
 
 /// <reference types="jquery" />
 
-declare namespace JQueryAppear {
-    interface Options<T> {
-        /**
-         * Data to pass into callback
-         */
-        data?: T;
-
-        /**
-         * Callback is called only in first appear
-         */
-        one?: boolean;
-
-        /**
-         * X accuracy
-         */
-        accX?: number;
-
-        /**
-         * Y accuracy
-         */
-        accY?: number;
-    }
-}
-interface JQuery {
+export interface Options<T> {
     /**
-     * Initialize appear plugin
+     * Data to pass into callback
      */
-    appear<T>(callback: ((element: HTMLElement, data: T) => void), options?: JQueryAppear.Options<T>): JQuery;
+    data?: T;
+
+    /**
+     * Callback is called only in first appear
+     */
+    one?: boolean;
+
+    /**
+     * X accuracy
+     */
+    accX?: number;
+
+    /**
+     * Y accuracy
+     */
+    accY?: number;
+}
+declare global {
+    interface JQuery {
+        /**
+         * Initialize appear plugin
+         */
+        appear<T>(callback: ((element: HTMLElement, data: T) => void), options?: Options<T>): JQuery;
+    }
 }

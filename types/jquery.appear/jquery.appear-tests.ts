@@ -1,3 +1,5 @@
+import { Options } from "jquery.appear";
+
 $(document).ready(() => {
     // basic usage
     $('#foo').appear(() => {
@@ -5,7 +7,7 @@ $(document).ready(() => {
     });
 
     // with options
-    const options: JQueryAppear.Options<string> = {
+    const options: Options<string> = {
         data: 'test',
         one: false,
         accX: 50,
