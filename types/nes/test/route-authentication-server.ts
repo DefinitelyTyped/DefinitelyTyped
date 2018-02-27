@@ -7,7 +7,7 @@ import Nes = require('nes');
 
 const server = new Server();
 
-declare module 'hapi/definitions/request/request-auth' {
+declare module 'hapi' {
     interface AuthCredentials {
         id: string;
         name: string;
@@ -54,7 +54,7 @@ server.register([Basic, Nes]).then(() => {
     server.route({
         method: 'GET',
         path: '/h',
-        config: {
+        options: {
             id: 'hello',
             handler: function (request: Request, h: ResponseToolkit) {
 

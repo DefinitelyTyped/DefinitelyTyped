@@ -2730,7 +2730,7 @@ declare module "mongoose" {
      * If this is a discriminator model, baseModelName is the
      * name of the base model.
      */
-    baseModelName: String;
+    baseModelName: string | undefined;
 
     /** Collection the model uses. */
     collection: Collection;

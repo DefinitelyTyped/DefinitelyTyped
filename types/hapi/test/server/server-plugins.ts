@@ -13,6 +13,15 @@ interface Plugin3 {
 	three: 3;
 }
 
+declare module 'hapi' {
+	interface PluginProperties {
+		example: {
+			other: string;
+			key: string;
+		};
+	}
+}
+
 const plugin1: Plugin<Plugin1> = {
     name: 'plugin1',
     register: async (server: Server, options: Plugin1) => {

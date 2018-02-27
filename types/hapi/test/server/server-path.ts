@@ -5,6 +5,13 @@ const server = new Server({
     port: 8000,
 });
 
+// Definition for INERT
+declare module 'hapi' {
+    interface HandlerDecorations {
+        file?: string;
+    }
+}
+
 const serverRouteOption: ServerRoute = {
     path: '/file',
     method: 'GET',

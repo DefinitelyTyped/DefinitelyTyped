@@ -576,10 +576,9 @@ declare namespace R {
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
          * codomain; false otherwise.
          */
-        eqBy<T>(fn: (a: T) => T, a: T, b: T): boolean;
-        eqBy<T>(fn: (a: T) => T, a: T): (b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T, b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T) => (b: T) => boolean;
+        eqBy<T, U = T>(fn: (a: T) => U, a: T, b: T): boolean;
+        eqBy<T, U = T>(fn: (a: T) => U, a: T): (b: T) => boolean;
+        eqBy<T, U = T>(fn: (a: T) => U): CurriedFunction2<T, T, boolean>;
 
         /**
          * Reports whether two functions have the same value for the specified property.
@@ -1601,6 +1600,10 @@ declare namespace R {
          * Returns a new list with the same elements as the original list, just in the reverse order.
          */
         reverse<T>(list: ReadonlyArray<T>): T[];
+        /**
+         * Returns a new string with the characters in reverse order.
+         */
+        reverse(str: string): string;
 
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
