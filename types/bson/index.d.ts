@@ -135,7 +135,7 @@ export class ObjectID {
     constructor(id?: string | number | ObjectID);
     /** The generation time of this ObjectID instance */
     generationTime: number;
-    /** If true cache the hex string representation of this ObjectID instance */
+    /** If true cache the hex string representation of ObjectID */
     static cacheHexString?: boolean;
     /**
      * Creates an ObjectID from a hex string representation of an ObjectID.
