@@ -3,6 +3,8 @@
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>, Jorge Rocha Gualtieri <https://github.com/jrocha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="openlayers" />
+
 declare namespace jsts {
     export var version: string;
 
