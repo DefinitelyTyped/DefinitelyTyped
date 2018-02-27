@@ -4,7 +4,7 @@
 //                 Santiago Doldan <https://github.com/santiagodoldan>
 //                 sonnysangha <https://github.com/sonnysangha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="stripe-v3" />
 import * as React from 'react';
@@ -44,8 +44,6 @@ export namespace ReactStripeElements {
 
 	interface ElementProps extends ElementsOptions {
 		className?: string;
-
-		paymentRequest?: object;
 
 		elementRef?(): void;
 

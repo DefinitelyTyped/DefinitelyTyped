@@ -2897,7 +2897,6 @@ function testTextEditor() {
 
     // Grammars
     grammar = editor.getGrammar();
-    editor.setGrammar(grammar);
 
     // Managing Syntax Scopes
     scopeDescriptor = editor.getRootScopeDescriptor();

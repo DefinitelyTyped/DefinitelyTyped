@@ -2,7 +2,7 @@
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 declare module 'react-syntax-highlighter' {
     import SyntaxHighlighter from 'react-syntax-highlighter/dist/light';

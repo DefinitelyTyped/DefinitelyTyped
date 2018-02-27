@@ -56,6 +56,12 @@ pc.onconnectionstatechange = ev => console.log(ev.type);
 pc.ontrack = ev => console.log(ev.receiver);
 pc.ondatachannel = ev => console.log(ev.channel);
 
+// State properties
+console.log(pc.signalingState);
+console.log(pc.iceGatheringState);
+console.log(pc.iceConnectionState);
+console.log(pc.connectionState);
+
 // Legacy interface extensions
 pc.createOffer(
     (sdp: RTCSessionDescription) => console.log(sdp.sdp),

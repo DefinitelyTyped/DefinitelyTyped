@@ -1,6 +1,3 @@
-/// <reference types="knockout.postbox" />
-/// <reference types="knockout.mapping" />
-
 declare var $;
 
 function test_creatingVMs() {
