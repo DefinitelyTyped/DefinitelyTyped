@@ -80,7 +80,7 @@ declare namespace got {
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
-    type GotUrl = string | http.RequestOptions | URL;
+    type GotUrl = string | http.RequestOptions | Url;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;

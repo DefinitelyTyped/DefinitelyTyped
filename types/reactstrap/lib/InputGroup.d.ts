@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface InputGroupProps {
+export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   size?: string;
   className?: string;

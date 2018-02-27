@@ -1,4 +1,5 @@
 import webpack = require('webpack');
+import { RawSourceMap } from 'source-map';
 
 const {
     optimize,
@@ -509,8 +510,10 @@ declare function successfullyCompiled(): void;
 webpack({
     // configuration
 }, (err, stats) => {
-    if (err)
-        return handleFatalError(err);
+    if (err) {
+        handleFatalError(err);
+        return;
+    }
     const jsonStats = stats.toJson();
     const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
@@ -537,10 +540,13 @@ webpack({
         excludeAssets: ["filter", "excluded"]
     });
 
-    if (jsonStats.errors.length > 0)
-        return handleSoftErrors(jsonStats.errors);
-    if (jsonStats.warnings.length > 0)
+    if (jsonStats.errors.length > 0) {
+        handleSoftErrors(jsonStats.errors);
+        return;
+    }
+    if (jsonStats.warnings.length > 0) {
         handleWarnings(jsonStats.warnings);
+    }
     successfullyCompiled();
 });
 
@@ -637,7 +643,7 @@ configuration = {
     performance,
 };
 
-function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap: string | Buffer): void {
+function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap?: RawSourceMap): void {
     this.cacheable();
 
     this.async();

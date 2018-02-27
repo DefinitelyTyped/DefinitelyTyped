@@ -2,6 +2,7 @@
 // Project: https://github.com/survivejs/webpack-merge
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 ///<reference types="webpack" />
 
