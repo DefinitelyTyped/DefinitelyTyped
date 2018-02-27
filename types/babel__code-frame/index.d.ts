@@ -8,12 +8,11 @@ export interface SourceLocation {
     start: { line: number; column?: number };
     end?: { line: number; column?: number };
 }
-declare function codeFrameColumns(
+export function codeFrameColumns(
     rawLines: string,
     location: SourceLocation,
     options?: BabelCodeFrameOptions
 ): string;
-export { codeFrameColumns };
 
 export interface BabelCodeFrameOptions {
     /** Syntax highlight the code as JavaScript for terminals. default: false */
@@ -47,11 +46,9 @@ export interface BabelCodeFrameOptions {
  *
  * @returns Framed code
  */
-declare function codeFrame(
+export default function codeFrame(
     rawLines: string,
     lineNumber: number,
     colNumber: number,
     options?: BabelCodeFrameOptions
 ): string;
-
-export default codeFrame;
