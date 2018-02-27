@@ -13634,7 +13634,7 @@ declare module olx {
         interface VectorTileOptions {
             renderBuffer?: number;
             renderMode?: (ol.layer.VectorTileRenderType | string);
-            renderOrder: (feature1: ol.Feature, feature2: ol.Feature) => number;
+            renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
             map?: ol.Map;
             extent?: ol.Extent;
             minResolution?: number;
