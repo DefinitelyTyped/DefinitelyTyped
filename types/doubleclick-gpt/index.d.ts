@@ -1,6 +1,7 @@
-// Type definitions for Google Publisher Tag v104
+// Type definitions for Google Publisher Tag v105
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
+//                 Steven Joyce <https://github.com/steven-joyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace googletag {
@@ -27,6 +28,7 @@ declare namespace googletag {
           eventType: string,
             listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
         ): void;
+        getSlots(): Slot[];
     }
 
     export interface CompanionAdsService extends Service {

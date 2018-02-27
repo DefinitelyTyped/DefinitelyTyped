@@ -224,6 +224,8 @@ googletag.defineSlot("/1234567/news", [160, 600], "div-2").
 
 googletag.display();
 
+googletag.pubads().getSlots();
+
 googletag.pubads().setTagForChildDirectedTreatment(1);
 
 // Example with a single value for a key.
