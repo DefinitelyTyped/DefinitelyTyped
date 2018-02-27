@@ -12,7 +12,10 @@ const TestStore = createStore({
 
     actionHandler() {
         this.emitChange();
-    }
+        this.additionalMethod();
+    },
+
+    additionalMethod() {}
 });
 
 const dispatcher = createDispatcher({
