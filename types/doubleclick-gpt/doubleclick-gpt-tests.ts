@@ -431,3 +431,7 @@ googletag.display(new HTMLElement());
 
 // pubads.display accepts a div element.
 googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());
+
+// A named size can be a string or an array of strings.
+googletag.pubads().display("/1234567/science/physics", [[300, 250], "fluid"], "div-1");
+googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], "div-1");
