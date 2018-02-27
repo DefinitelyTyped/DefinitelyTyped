@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export interface toCSSOptions {
+export interface ToCssOptions {
 	indent?: number;
 }
 
@@ -66,7 +66,7 @@ export interface StyleSheet<T> {
 	/**
 	 * Convert rules to a CSS string.
 	 */
-	toString(options?: toCSSOptions): string;
+	toString(options?: ToCssOptions): string;
 }
 export type GenerateClassName<T> = (rule: Rule, sheet?: StyleSheet<T>) => string;
 export interface Style {
@@ -107,7 +107,7 @@ export declare class SheetsRegistry {
     add(sheet: StyleSheet<any>): void;
     reset(): void;
     remove(sheet: StyleSheet<any>): void;
-    toString(options?: toCSSOptions): string;
+    toString(options?: ToCssOptions): string;
 }
 declare class JSS {
 	constructor(options?: Partial<JSSOptions>);
