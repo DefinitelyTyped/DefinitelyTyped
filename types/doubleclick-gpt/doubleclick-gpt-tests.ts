@@ -425,3 +425,9 @@ slot.setTargeting("allow_expandable", "true");
 
 // Example with multiple values for a key inside in an array.
 slot.setTargeting("interests", ["sports", "music", "movies"]);
+
+// googletag.display accepts a div element as well as a div ID.
+googletag.display(new HTMLElement());
+
+// pubads.display accepts a div element.
+googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());
