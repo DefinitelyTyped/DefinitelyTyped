@@ -162,6 +162,7 @@ declare namespace Chart {
     interface ChartPoint {
         x?: number | string | Date;
         y?: number;
+        r?: number;
     }
 
     interface ChartConfiguration {
