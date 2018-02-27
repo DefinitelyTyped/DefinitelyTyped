@@ -11,8 +11,7 @@ declare class ReactSVG extends React.Component<ReactSVG.ReactSVGProps> {}
 export = ReactSVG;
 
 declare namespace ReactSVG {
-
-  export interface ReactSVGProps {
+  interface ReactSVGProps {
     /**
      * Path to the SVG.
      */
