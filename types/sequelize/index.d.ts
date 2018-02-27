@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.0
+// Type definitions for Sequelize 4.27.8
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
