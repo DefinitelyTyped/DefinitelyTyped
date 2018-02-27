@@ -385,6 +385,27 @@ function test_cloud_functions() {
         // result
     });
 
+    const CUSTOM_ERROR_INVALID_CONDITION = 1001
+    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
+
+    Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
+        response: Parse.Cloud.BeforeSaveResponse) => {
+            
+            if (request.object.isNew()) {
+                if (!request.object.has('immutable')) return response.error('Field immutable is required')
+            } else {
+                const original = request.original;
+                if (original == null) { // When the object is not new, request.original must be defined
+                    return response.error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
+                }
+
+                if (original.get('immutable') !== request.object.get('immutable')) {
+                    return response.error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
+                }
+            }
+            response.success()
+    });
+
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
         let query = request.query; // the Parse.Query
         let user = request.user; // the user

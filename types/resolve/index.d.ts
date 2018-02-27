@@ -63,40 +63,46 @@ declare function resolveSync(id: string, opts?: resolve.SyncOpts): string;
 
 /**
  * Return whether a package is in core
- *
- * @param id
  */
-declare function resolveIsCore(id: string): boolean;
+declare function resolveIsCore(id: string): boolean | undefined;
 
 declare namespace resolve {
   interface Opts {
-    // directory to begin resolving from (defaults to __dirname)
+    /** directory to begin resolving from (defaults to __dirname) */
     basedir?: string;
-    // package.json data applicable to the module being loaded
+    /** package.json data applicable to the module being loaded */
     package?: any;
-    // array of file extensions to search in order (defaults to ['.js'])
+    /** array of file extensions to search in order (defaults to ['.js']) */
     extensions?: string | string[];
-    // transform the parsed package.json contents before looking at the "main" field
+    /** transform the parsed package.json contents before looking at the "main" field */
     packageFilter?: (pkg: any, pkgfile: string) => any;
-    // transform a path within a package
+    /** transform a path within a package */
     pathFilter?: (pkg: any, path: string, relativePath: string) => string;
-    // require.paths array to use if nothing is found on the normal node_modules recursive walk (probably don't use this)
+    /** require.paths array to use if nothing is found on the normal node_modules recursive walk (probably don't use this) */
     paths?: string | string[];
-    // directory (or directories) in which to recursively look for modules. (default to 'node_modules')
+    /** directory (or directories) in which to recursively look for modules. (default to 'node_modules') */
     moduleDirectory?: string | string[]
+    /**
+     * if true, doesn't resolve `basedir` to real path before resolving.
+     * This is the way Node resolves dependencies when executed with the --preserve-symlinks flag.
+     *
+     * Note: this property is currently true by default but it will be changed to false in the next major version because Node's resolution
+     * algorithm does not preserve symlinks by default.
+    */
+    preserveSymlinks?: boolean;
   }
 
   export interface AsyncOpts extends Opts {
-    // how to read files asynchronously (defaults to fs.readFile)
+    /** how to read files asynchronously (defaults to fs.readFile) */
     readFile?: (file: string, cb: readFileCallback) => void;
-    // function to asynchronously test whether a file exists
+    /** function to asynchronously test whether a file exists */
     isFile?: (file: string, cb: isFileCallback) => void;
   }
 
   export interface SyncOpts extends Opts {
-    // how to read files synchronously (defaults to fs.readFileSync)
+    /** how to read files synchronously (defaults to fs.readFileSync) */
     readFileSync?: (file: string, charset: string) => string | Buffer;
-    // function to synchronously test whether a file exists
+    /** function to synchronously test whether a file exists */
     isFile?: (file: string) => boolean;
   }
 
