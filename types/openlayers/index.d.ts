@@ -12964,10 +12964,14 @@ declare module olx {
 
 
         /**
-         * @typedef {{defaultDataProjection: ol.ProjectionLike}}
+         * @typedef {{defaultDataProjection: ol.ProjectionLike,
+         *     layerName: (string|undefined),
+         *     layers: (Array.<string>|undefined) }}
          */
         interface TopoJSONOptions {
             defaultDataProjection: ol.ProjectionLike;
+            layerName?: string;
+            layers?: Array<string>;        
         }
 
 
