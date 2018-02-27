@@ -269,7 +269,7 @@ declare namespace Bull {
      * Errors will be passed as a second argument to the "failed" event;
      * results, as a second argument to the "completed" event.
      */
-    process(callback: (job: Job, done: DoneCallback) => void | string): void;
+    process(callback: ((job: Job, done: DoneCallback) => void) | string): void;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -316,7 +316,7 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(concurrency: number, callback: (job: Job, done: DoneCallback) => void | string): void;
+    process(concurrency: number, callback: ((job: Job, done: DoneCallback) => void) | string): void;
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
@@ -353,7 +353,7 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      */
     // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: (job: Job, done: DoneCallback) => void | string): void;
+    process(name: string, callback: ((job: Job, done: DoneCallback) => void) | string): void;
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
@@ -390,7 +390,7 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(name: string, concurrency: number, callback: (job: Job, done: DoneCallback) => void | string): void;
+    process(name: string, concurrency: number, callback: ((job: Job, done: DoneCallback) => void) | string): void;
 
     /**
      * Creates a new job and adds it to the queue.
