@@ -1,5 +1,4 @@
-// TypeScript Version: 2.3
-import { StoreClass, Store } from 'dispatchr';
+import { StoreClass, Store } from '../index';
 
 interface StoreOptions {
     initialize?(): void;
