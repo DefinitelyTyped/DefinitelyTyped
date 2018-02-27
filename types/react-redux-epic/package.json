@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "rxjs": "^5.5.5",
+        "redux-observable": "^0.18.0"
+    }
+}

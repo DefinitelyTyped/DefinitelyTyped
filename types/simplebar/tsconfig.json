@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "simplebar-tests.ts"
+        "simplebar-tests.ts",
+        "test/module-tests.ts"
     ]
 }
