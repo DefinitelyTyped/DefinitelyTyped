@@ -89,6 +89,7 @@ sheetsRegistry.registry.length; // $ExpectType number
 sheetsRegistry.remove(secondStyleSheet);
 
 sheetsRegistry.index(); // $ExpectType number
+sheetsRegistry.index; // $ExpectType () => number
 sheetsRegistry.toString(); // $ExpectType string
 // With css options
 sheetsRegistry.toString({indent: 5}); // $ExpectType string
