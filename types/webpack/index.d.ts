@@ -503,8 +503,10 @@ declare namespace webpack {
         type WatchOptions = ICompiler.WatchOptions;
 
         interface Optimization {
-            /** Modules are removed from chunks when they are already available in all parent chunk groups.
-             *  This reduces asset size. Smaller assets also result in faster builds since less code generation has to be performed. */
+            /**
+             *  Modules are removed from chunks when they are already available in all parent chunk groups.
+             *  This reduces asset size. Smaller assets also result in faster builds since less code generation has to be performed.
+             */
             removeAvailableModules?: boolean;
             /** Empty chunks are removed. This reduces load in filesystem and results in faster builds. */
             removeEmptyChunks?: boolean;
@@ -516,12 +518,17 @@ declare namespace webpack {
             occurrenceOrder?: boolean;
             /** Determine exports for each module when possible. This information is used by other optimizations or code generation. I. e. to generate more efficient code for export * from. */
             providedExports?: boolean;
-            /** Determine used exports for each module. This depends on optimization.providedExports. This information is used by other optimizations or code generation.
-             *  I. e. exports are not generated for unused exports, export names are mangled to single char identifiers when all usages are compatible. DCE in minimizers will benefit from this and can remove unused exports. */
+            /**
+             *  Determine used exports for each module. This depends on optimization.providedExports. This information is used by other optimizations or code generation.
+             *  I. e. exports are not generated for unused exports, export names are mangled to single char identifiers when all usages are compatible.
+             *  DCE in minimizers will benefit from this and can remove unused exports.
+             */
             usedExports?: boolean;
-            /** Recognise the sideEffects flag in package.json or rules to eliminate modules. This depends on optimization.providedExports and optimization.usedExports.
+            /**
+             *  Recognise the sideEffects flag in package.json or rules to eliminate modules. This depends on optimization.providedExports and optimization.usedExports.
              *  These dependencies have a cost, but eliminating modules has positive impact on performance because of less code generation. It depends on your codebase.
-             *  Try it for possible performance wins. */
+             *  Try it for possible performance wins.
+             */
             sideEffects?: boolean;
             /** Tries to find segments of the module graph which can be safely concatenated into a single module. Depends on optimization.providedExports and optimization.usedExports. */
             concatenateModules?: boolean;
