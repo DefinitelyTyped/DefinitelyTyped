@@ -1,20 +1,17 @@
-// Type definitions for mongorito v3.0.4
+// Type definitions for mongorito 3.0
 // Project: https://github.com/vadimdemedes/mongorito
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import {Collection, CommonOptions, Db, IndexOptions, Long, MongoClientOptions, ReadPreference} from 'mongodb';
+import { Collection, CommonOptions, Db, IndexOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
 
-declare namespace mongorito {
-}
+export { Timestamp, ObjectId, MinKey, MaxKey, DBRef, Long } from 'mongodb';
 
-export {Timestamp, ObjectId, MinKey, MaxKey, DBRef, Long} from 'mongodb';
-
-type Class<T> = new (...args: any[]) => T;
+export type Class<T> = new (...args: any[]) => T;
 export type ModelClass = Class<Model>;
 
-declare class MQuery {
+export class MQuery {
 }
 
 // "extends MQuery": not actually inheritance, but more easy to implement
@@ -44,7 +41,6 @@ export class Query extends MQuery {
 
 // "extends Query": not actually inheritance, but more easy to implement
 export class Model extends Query {
-
     /**
      * @see Model#database
      * @see Database#connection()
@@ -54,24 +50,24 @@ export class Model extends Query {
     /**
      * @see Db#collection(string)
      */
-    static getCollection<TSchema = any>(): Promise<Collection<TSchema>>;
+    static getCollection(): Promise<Collection<any>>;
 
     static use(plugins?: Plugin | Plugin[]): void;
 
     static modifyReducer(reducerModifier: ReducerModifier): void;
 
-    static query(method: string, query: [string, any][]): Promise<object[]>;
+    static query(method: string, query: Array<[string, any]>): Promise<object[]>;
 
     /**
      * @see mongodb.Collection#listIndexes()
-     * @return {Promise<any[]>} {@link CommandCursor#toArray()}
+     * @see mongodb.CommandCursor#toArray()
      */
     static listIndexes(options?: { batchSize?: number, readPreference?: ReadPreference | string }): Promise<any[]>;
 
     /**
      * @see mongodb.Collection#createIndex()
      */
-    static createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
+    static createIndex(fieldOrSpec: any, options?: IndexOptions): Promise<string>;
 
     /**
      * @see mongodb.Collection#dropIndex()
@@ -86,7 +82,7 @@ export class Model extends Query {
 
     getConnection(): Promise<Db>;
 
-    getCollection<TSchema = any>(): Promise<Collection<TSchema>>;
+    getCollection(): Promise<Collection<any>>;
 
     set(key: string, value: any): void;
     set(value: object): void;
@@ -210,13 +206,13 @@ export interface ListIndexesAction {
 export interface QueryAction {
     type: string; // ActionTypes.QUERY
     method: string;
-    query: { method: string, args: any }[];
+    query: Array<{ method: string, args: any }>;
 }
 
 export interface CallAction {
     type: string; // ActionTypes.CALL
     method: string;
-    args: { method: string, args: any }[];
+    args: Array<{ method: string, args: any }>;
 }
 
 export type Action =
@@ -237,22 +233,22 @@ export type Action =
     | DropIndexAction
     | ListIndexesAction
     | QueryAction
-    | CallAction
+    | CallAction;
 
 export type PluginNext = (action: Action) => void;
 
-interface DefaultState {
-    unset: string[],
-    fields: object
+export interface DefaultState {
+    unset: string[];
+    fields: object;
 }
 
 export type State = DefaultState & any;
 
 export interface PluginStore {
-    dispatch: (arg: any) => any,
-    getState: () => State,
-    modelClass: ModelClass,
-    model?: Model
+    dispatch: (arg: any) => any;
+    getState: () => State;
+    modelClass: ModelClass;
+    model?: Model;
 }
 
 export type Reducer<S = any> = (state: S, action: Action) => Reducer;

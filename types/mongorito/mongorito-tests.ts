@@ -1,8 +1,3 @@
-/**
- * - Compilation type-check: using TS compiler "strict" options, and DefinitelyTyped linter (based on comments)
- * - Dynamic type-check: using `expect(...).toBeInstanceOf(...)` on a simple workflow (require Mongodb instance)
- */
-
 import {
     Collection,
     Db,
@@ -42,8 +37,10 @@ import {
 const URL = `192.168.99.100:27017`;
 
 // "jest" dependency
-declare function describe(description: string, callback: Function): void;
-declare function it(description: string, callback: Function | Promise<Function>): void;
+declare function describe(description: string, callback: () => void): void;
+
+declare function it(description: string, callback: (() => void) | (() => Promise<void>)): void;
+
 declare function expect(obj: any): any;
 
 function expectToBeAModelClass(obj: ModelClass) {
@@ -56,7 +53,7 @@ function expectToBeAPluginStore(obj: PluginStore) {
     expect(obj.dispatch).toBeInstanceOf(Function);
 
     expect(obj.getState).toBeInstanceOf(Function);
-    let storeState: State = obj.getState();
+    const storeState: State = obj.getState();
     expectToBeAState(storeState);
 
     expectToBeAModelClass(obj.modelClass);
@@ -125,7 +122,7 @@ describe('mongorito', () => {
     };
 
     it('Plugin', async () => {
-        let plugin: Plugin = (modelClass: ModelClass) => {
+        const plugin: Plugin = (modelClass: ModelClass) => {
             expectToBeAModelClass(modelClass);
             return (store: PluginStore) => {
                 expectToBeAPluginStore(store);
@@ -134,12 +131,12 @@ describe('mongorito', () => {
                     return (action: Action) => {
                         expectToBeAAction(action);
                         // next(action);
-                    }
-                }
-            }
+                    };
+                };
+            };
         };
 
-        let database = new Database(URL);
+        const database = new Database(URL);
         await database.connect();
 
         class PluggedModel extends Model {
@@ -147,16 +144,16 @@ describe('mongorito', () => {
 
         database.register(PluggedModel);
         PluggedModel.use(plugin);
-        let obj: Model = new PluggedModel({attr: 42});
-        await obj.save()
+        const obj: Model = new PluggedModel({attr: 42});
+        await obj.save();
     });
 
     it('Database', async () => {
         // ----- constructor -----
 
         new Database(URL);
-        let options: MongoClientOptions = {};
-        let database = new Database(URL, options);
+        const options: MongoClientOptions = {};
+        const database = new Database(URL, options);
 
         new Database(URL);
 
@@ -166,80 +163,84 @@ describe('mongorito', () => {
 
         // ----- connect -----
 
-        let connectResultPromise: Promise<Db> = database.connect();
+        const connectResultPromise: Promise<Db> = database.connect();
         expect(connectResultPromise).toBeInstanceOf(Promise);
-        let connectResult: Db = await connectResultPromise;
+        const connectResult: Db = await connectResultPromise;
         expect(connectResult).toBeInstanceOf(Db);
 
         // ----- connection -----
 
-        let connectionResultPromise: Promise<Db> = database.connection();
+        const connectionResultPromise: Promise<Db> = database.connection();
         expect(connectionResultPromise).toBeInstanceOf(Promise);
-        let connectionResult: Db = await connectionResultPromise;
+        const connectionResult: Db = await connectionResultPromise;
         expect(connectionResult).toBeInstanceOf(Db);
 
         // ----- disconnect -----
 
-        let disconnectResultPromise: Promise<void> = database.disconnect();
+        const disconnectResultPromise: Promise<void> = database.disconnect();
         expect(disconnectResultPromise).toBeInstanceOf(Promise);
-        let disconnectResult = await disconnectResultPromise;
-        expect(disconnectResult).toBeUndefined();
+        // expect(await disconnectResultPromise).toBeUndefined();
+        await disconnectResultPromise; // $ExpectType void
 
         // ----- register -----
         class RegisteredModel extends Model {
-            constructor(fields?: Object) {
+            constructor(fields?: object) {
                 super(fields);
             }
         }
 
         class RegisteredModelA extends Model {
-            constructor(fields?: Object) {
+            constructor(fields?: object) {
                 super(fields);
             }
         }
 
         class RegisteredModelB extends Model {
-            constructor(fields?: Object) {
+            constructor(fields?: object) {
                 super(fields);
             }
         }
 
-        expect(database.register(RegisteredModel)).toBeUndefined();
-        expect(database.register([RegisteredModelA, RegisteredModelB])).toBeUndefined();
+        // expect(database.register(RegisteredModel)).toBeUndefined();
+        database.register(RegisteredModel); // $ExpectType void
+        // expect(database.register([RegisteredModelA, RegisteredModelB])).toBeUndefined();
+        database.register([RegisteredModelA, RegisteredModelB]); // $ExpectType void
 
         // ----- use -----
 
-        expect(database.use(plugin1)).toBeUndefined();
-        expect(database.use([plugin2, plugin3])).toBeUndefined();
+        // expect(database.use(plugin1)).toBeUndefined();
+        database.use(plugin1); // $ExpectType void
+        // expect(database.use([plugin2, plugin3])).toBeUndefined();
+        database.use([plugin2, plugin3]); // $ExpectType void
     });
 
     describe('Model', () => {
         it('base static', async () => {
-            let database = new Database(URL);
+            const database = new Database(URL);
             await database.connect();
 
             class Sample extends Model {
-                constructor(fields?: Object) {
+                constructor(fields?: object) {
                     super(fields);
                 }
             }
 
             database.register(Sample);
 
-            const fieldOrSpec: string = 'any';
+            const fieldOrSpec = 'any';
 
             // ----- getConnection -----
 
-            let getConnectionResultPromise: Promise<Db> = Sample.getConnection();
+            const getConnectionResultPromise: Promise<Db> = Sample.getConnection();
             expect(getConnectionResultPromise).toBeInstanceOf(Promise);
-            let getConnectionResult: Db = await getConnectionResultPromise;
+            const getConnectionResult: Db = await getConnectionResultPromise;
             expect(getConnectionResult).toBeInstanceOf(Db);
 
             // ----- getCollection -----
 
-            let getCollectionResultPromise: Promise<Collection<any>> = Sample.getCollection();
+            const getCollectionResultPromise: Promise<Collection<any>> = Sample.getCollection();
             expect(getCollectionResultPromise).toBeInstanceOf(Promise);
-            let getCollectionResult: Collection<any> = await getCollectionResultPromise;
+            const getCollectionResult: Collection<any> = await getCollectionResultPromise;
             expectToBeACollection(getCollectionResult);
 
             // ----- use -----
@@ -249,66 +250,68 @@ describe('mongorito', () => {
 
             // ----- modifyReducer -----
 
-            let reducer: ReducerModifier = (reducerState: ReducerState) => {
+            const reducer: ReducerModifier = (reducerState: ReducerState) => {
                 expect(reducerState.unset).toBeInstanceOf(Function);
                 expect(reducerState.fields).toBeInstanceOf(Function);
-                return reducerState
+                return reducerState;
             };
-            expect(Sample.modifyReducer(reducer)).toBeUndefined();
+            // expect(Sample.modifyReducer(reducer)).toBeUndefined();
+            Sample.modifyReducer(reducer); // $ExpectType void
 
             // ----- query -----
-            await new Sample({'attr': 'first'}).save();
-            await new Sample({'attr': 'second'}).save();
+            await new Sample({attr: 'first'}).save();
+            await new Sample({attr: 'second'}).save();
 
-            let method: string = 'find';
-            let query: [string, any][] = [
-                ['where', {'attr': {$exists: true}}],
+            const method = 'find';
+            const query: Array<[string, any]> = [
+                ['where', {attr: {$exists: true}}],
                 ['limit', 5]
             ];
-            let queryResultPromise: Promise<Object[]> = Sample.query(method, query);
+            const queryResultPromise: Promise<object[]> = Sample.query(method, query);
             expect(queryResultPromise).toBeInstanceOf(Promise);
-            let queryResult: Object[] = await queryResultPromise;
+            const queryResult: object[] = await queryResultPromise;
             expect(Array.isArray(queryResult)).toBe(true);
             expect(queryResult.length).toBeGreaterThan(0);
             queryResult.forEach(x => expect(x).toBeInstanceOf(Object));
 
             // ----- listIndexes -----
 
-            let listIndexesResultPromise: Promise<any[]> = Sample.listIndexes();
+            const listIndexesResultPromise: Promise<any[]> = Sample.listIndexes();
             expect(listIndexesResultPromise).toBeInstanceOf(Promise);
-            let listIndexesResult: any[] = await listIndexesResultPromise;
+            const listIndexesResult: any[] = await listIndexesResultPromise;
             expect(Array.isArray(listIndexesResult)).toBe(true);
             listIndexesResult.forEach(x => expect(x).not.toBeUndefined());
 
             // ----- createIndex -----
 
-            let createIndexResultPromise: Promise<string> = Sample.createIndex(fieldOrSpec);
+            const createIndexResultPromise: Promise<string> = Sample.createIndex(fieldOrSpec);
             expect(createIndexResultPromise).toBeInstanceOf(Promise);
-            let createIndexResult: string = await createIndexResultPromise;
+            const createIndexResult: string = await createIndexResultPromise;
             expect(typeof createIndexResult).toBe('string');
 
             // ----- dropIndex -----
 
-            let dropIndexResultPromise: Promise<object> = Sample.dropIndex(createIndexResult);
+            const dropIndexResultPromise: Promise<object> = Sample.dropIndex(createIndexResult);
             expect(dropIndexResultPromise).toBeInstanceOf(Promise);
-            let dropIndexResult: object = await dropIndexResultPromise;
+            const dropIndexResult: object = await dropIndexResultPromise;
             expect(dropIndexResult).not.toBeUndefined();
 
             // ----- embeds -----
             class EmbeddedModel extends Model {
             }
 
-            let key: string = 'any';
-            let model: ModelClass = EmbeddedModel;
-            expect(Sample.embeds(key, model)).toBeUndefined()
+            const key = 'any';
+            const model: ModelClass = EmbeddedModel;
+            // expect(Sample.embeds(key, model)).toBeUndefined();
+            Sample.embeds(key, model); // $ExpectType void
         });
 
         it('base', async () => {
-            let database = new Database(URL);
+            const database = new Database(URL);
             await database.connect();
 
             class Sample extends Model {
-                constructor(fields?: Object) {
+                constructor(fields?: object) {
                     super(fields);
                 }
             }
@@ -317,198 +320,202 @@ describe('mongorito', () => {
 
             // ----- constructor -----
 
-            let fields: Object = {views: 5, comments: 2};
-            let model = new Sample(fields);
+            const fields: object = {views: 5, comments: 2};
+            const model = new Sample(fields);
 
             new Sample();
 
             // ----- collection -----
 
-            let collectionResult: string = model.collection();
+            const collectionResult: string = model.collection();
             expect(typeof collectionResult).toBe('string');
 
             // ----- getConnection -----
 
-            let getConnectionResultPromise: Promise<Db> = model.getConnection();
+            const getConnectionResultPromise: Promise<Db> = model.getConnection();
             expect(getConnectionResultPromise).toBeInstanceOf(Promise);
-            let getConnectionResult: Db = await getConnectionResultPromise;
+            const getConnectionResult: Db = await getConnectionResultPromise;
             expect(getConnectionResult).toBeInstanceOf(Db);
 
             // ----- getCollection -----
 
-            let getCollectionResultPromise: Promise<Collection<any>> = model.getCollection();
+            const getCollectionResultPromise: Promise<Collection<any>> = model.getCollection();
             expect(getCollectionResultPromise).toBeInstanceOf(Promise);
-            let getCollectionResult: Collection<any> = await getCollectionResultPromise;
+            const getCollectionResult: Collection<any> = await getCollectionResultPromise;
             expectToBeACollection(getCollectionResult);
 
             // ----- set -----
-            let key: string = 'attr';
-            let key2: string = 'attr2';
-            let key3: string = 'attr3';
+            const key = 'attr';
+            const key2 = 'attr2';
+            const key3 = 'attr3';
 
-            expect(model.set(key, 'val')).toBeUndefined();
-            expect(model.set({key2: 'val1', key3: 'val2'})).toBeUndefined();
+            // expect(model.set(key, 'val')).toBeUndefined();
+            model.set(key, 'val'); // $ExpectType void
+            // expect(model.set({key2: 'val1', key3: 'val2'})).toBeUndefined();
+            model.set({key2: 'val1', key3: 'val2'}); // $ExpectType void
 
             // ----- get -----
 
-            let getResult1: any = model.get(key);
+            const getResult1: any = model.get(key);
             expect(getResult1).not.toBeUndefined();
 
-            let getResult2: any = model.get();
+            const getResult2: any = model.get();
             expect(getResult2).not.toBeUndefined();
 
             // ----- unset -----
 
-            expect(model.unset(key)).toBeUndefined();
+            // expect(model.unset(key)).toBeUndefined();
+            model.unset(key); // $ExpectType void
 
-            let keys: string[] = [key2, key3];
-            expect(model.unset(keys)).toBeUndefined();
+            const keys: string[] = [key2, key3];
+            // expect(model.unset(keys)).toBeUndefined();
+            model.unset(keys); // $ExpectType void
 
             // ----- toJSON -----
 
-            let toJSONResult: object = model.toJSON();
+            const toJSONResult: object = model.toJSON();
             expect(toJSONResult).toBeInstanceOf(Object);
 
             // ----- isSaved -----
 
-            let isSavedResult: boolean = model.isSaved();
+            const isSavedResult: boolean = model.isSaved();
             expect(typeof isSavedResult).toBe('boolean');
 
             // ----- save -----
 
-            let save1ResultPromise: Promise<CreatedAction | UpdatedAction> = model.save();
+            const save1ResultPromise: Promise<CreatedAction | UpdatedAction> = model.save();
             expect(save1ResultPromise).toBeInstanceOf(Promise);
-            let save1Result: CreatedAction | UpdatedAction = await save1ResultPromise;
+            const save1Result: CreatedAction | UpdatedAction = await save1ResultPromise;
             expectToBeACreatedAction(save1Result);
 
-            let save2ResultPromise: Promise<CreatedAction | UpdatedAction> = model.save();
+            const save2ResultPromise: Promise<CreatedAction | UpdatedAction> = model.save();
             expect(save2ResultPromise).toBeInstanceOf(Promise);
-            let save2Result: CreatedAction | UpdatedAction = await save2ResultPromise;
+            const save2Result: CreatedAction | UpdatedAction = await save2ResultPromise;
             expectToBeAUpdatedAction(save2Result);
 
             // ----- increment -----
 
-            let incrementResultPromise1: Promise<any> = model.increment('views');
+            const incrementResultPromise1: Promise<any> = model.increment('views');
             expect(incrementResultPromise1).toBeInstanceOf(Promise);
-            let incrementResult1: any = await incrementResultPromise1;
+            const incrementResult1: any = await incrementResultPromise1;
             expectToBeARefreshedAction(incrementResult1);
 
-            let incrementResultPromise2: Promise<any> = model.increment('views', 2);
+            const incrementResultPromise2: Promise<any> = model.increment('views', 2);
             expect(incrementResultPromise2).toBeInstanceOf(Promise);
-            let incrementResult2: any = await incrementResultPromise2;
+            const incrementResult2: any = await incrementResultPromise2;
             expectToBeARefreshedAction(incrementResult2);
 
-            let incrementResultPromise3: Promise<any> = model.increment({views: 10, comments: 3});
+            const incrementResultPromise3: Promise<any> = model.increment({views: 10, comments: 3});
             expect(incrementResultPromise3).toBeInstanceOf(Promise);
-            let incrementResult3: any = await incrementResultPromise3;
+            const incrementResult3: any = await incrementResultPromise3;
             expectToBeARefreshedAction(incrementResult3);
 
             // ----- refresh -----
 
-            let refreshResultPromise: Promise<RefreshedAction> = model.refresh();
+            const refreshResultPromise: Promise<RefreshedAction> = model.refresh();
             expect(refreshResultPromise).toBeInstanceOf(Promise);
-            let refreshResult: RefreshedAction = await refreshResultPromise;
+            const refreshResult: RefreshedAction = await refreshResultPromise;
             expectToBeARefreshedAction(refreshResult);
 
             // ----- remove -----
 
-            let removeResultPromise: Promise<RemovedAction> = model.remove();
+            const removeResultPromise: Promise<RemovedAction> = model.remove();
             expect(removeResultPromise).toBeInstanceOf(Promise);
-            let removeResult: RemovedAction = await removeResultPromise;
+            const removeResult: RemovedAction = await removeResultPromise;
             expectToBeARemovedAction(removeResult);
         });
 
         it('Query', async () => {
-            let database = new Database(URL);
+            const database = new Database(URL);
             await database.connect();
 
             class Sample extends Model {
-                constructor(fields?: Object) {
+                constructor(fields?: object) {
                     super(fields);
                 }
             }
 
             database.register(Sample);
 
-            let cas = new Sample();
+            const cas = new Sample();
             await cas.save();
-            let ID = cas.get('_id');
+            const ID = cas.get('_id');
 
-            let query: object = {_id: ID};
+            const query: object = {_id: ID};
 
             // ----- find -----
 
-            let findResultPromise1: Promise<Sample[]> = Sample.find();
+            const findResultPromise1: Promise<Sample[]> = Sample.find();
             expect(findResultPromise1).toBeInstanceOf(Promise);
-            let findResult1: Sample[] = await findResultPromise1;
+            const findResult1: Sample[] = await findResultPromise1;
             expect(Array.isArray(findResult1)).toBe(true);
             expect(findResult1[0]).toBeInstanceOf(Sample);
 
-            let findResultPromise2: Promise<Sample[]> = Sample.find(query);
+            const findResultPromise2: Promise<Sample[]> = Sample.find(query);
             expect(findResultPromise2).toBeInstanceOf(Promise);
-            let findResult2: Sample[] = await findResultPromise2;
+            const findResult2: Sample[] = await findResultPromise2;
             expect(Array.isArray(findResult2)).toBe(true);
             expect(findResult2[0]).toBeInstanceOf(Sample);
 
             // ----- findOne -----
 
-            let findOneResultPromise1: Promise<Sample | null> = Sample.findOne();
+            const findOneResultPromise1: Promise<Sample | null> = Sample.findOne();
             expect(findOneResultPromise1).toBeInstanceOf(Promise);
-            let findOneResult1: Sample | null = await findOneResultPromise1;
+            const findOneResult1: Sample | null = await findOneResultPromise1;
             expect(findOneResult1).toBeInstanceOf(Sample);
 
-            let findOneResultPromise2: Promise<Sample | null> = Sample.findOne(query);
+            const findOneResultPromise2: Promise<Sample | null> = Sample.findOne(query);
             expect(findOneResultPromise2).toBeInstanceOf(Promise);
-            let findOneResult2: Sample | null = await findOneResultPromise2;
+            const findOneResult2: Sample | null = await findOneResultPromise2;
             expect(findOneResult2).toBeInstanceOf(Sample);
 
             // ----- findById -----
 
-            let findByIdResultPromise: Promise<Sample | null> = Sample.findById(ID);
+            const findByIdResultPromise: Promise<Sample | null> = Sample.findById(ID);
             expect(findByIdResultPromise).toBeInstanceOf(Promise);
-            let findByIdResult: Sample | null = await findByIdResultPromise;
+            const findByIdResult: Sample | null = await findByIdResultPromise;
             expect(findByIdResult).toBeInstanceOf(Sample);
 
             await Sample.findById(ID.toString());
 
             // ----- count -----
 
-            let countResultPromise: Promise<number> = Sample.count();
+            const countResultPromise: Promise<number> = Sample.count();
             expect(countResultPromise).toBeInstanceOf(Promise);
-            let countResult: number = await countResultPromise;
+            const countResult: number = await countResultPromise;
             expect(typeof countResult).toBe('number');
 
             await Sample.count(query);
 
             // ----- sort -----
 
-            let sortResult1: Query = Sample.sort('field-test');
+            const sortResult1: Query = Sample.sort('field-test');
             expectToBeAQuery(sortResult1);
 
-            let sortResult2: Query = Sample.sort({field: 1, test: -1});
+            const sortResult2: Query = Sample.sort({field: 1, test: -1});
             expectToBeAQuery(sortResult2);
 
             // ----- include -----
 
-            let includeResult1: Query = Sample.include('field-test');
+            const includeResult1: Query = Sample.include('field-test');
             expectToBeAQuery(includeResult1);
 
-            let includeResult2: Query = Sample.include({field: 1, test: -1});
+            const includeResult2: Query = Sample.include({field: 1, test: -1});
             expectToBeAQuery(includeResult2);
 
             // ----- exclude -----
 
-            let excludeResult1: Query = Sample.exclude('field-test');
+            const excludeResult1: Query = Sample.exclude('field-test');
             expectToBeAQuery(excludeResult1);
 
-            let excludeResult2: Query = Sample.exclude({field: 1, test: -1});
+            const excludeResult2: Query = Sample.exclude({field: 1, test: -1});
             expectToBeAQuery(excludeResult2);
 
             // ----- remove -----
 
-            let removeResultPromise: Promise<object> = Sample.remove();
+            const removeResultPromise: Promise<object> = Sample.remove();
             expect(removeResultPromise).toBeInstanceOf(Promise);
-            let removeResult: object = await removeResultPromise;
+            const removeResult: object = await removeResultPromise;
             expect(removeResult).toBeInstanceOf(Object);
 
             await Sample.remove(query);
@@ -516,37 +523,37 @@ describe('mongorito', () => {
     });
 
     it('Timestamp', async () => {
-        let obj: Timestamp = new Timestamp(1, 9);
+        const obj: Timestamp = new Timestamp(1, 9);
         expect(obj).toBeInstanceOf(Timestamp);
         expect(obj).toBeInstanceOf(MongodbTimestamp);
     });
 
     it('ObjectId', async () => {
-        let obj: ObjectId = new ObjectId();
+        const obj: ObjectId = new ObjectId();
         expect(obj).toBeInstanceOf(ObjectId);
         expect(obj).toBeInstanceOf(MongodbObjectId);
     });
 
     it('MinKey', async () => {
-        let obj: MinKey = new MinKey();
+        const obj: MinKey = new MinKey();
         expect(obj).toBeInstanceOf(MinKey);
         expect(obj).toBeInstanceOf(MongodbMinKey);
     });
 
     it('MaxKey', async () => {
-        let obj: MaxKey = new MaxKey();
+        const obj: MaxKey = new MaxKey();
         expect(obj).toBeInstanceOf(MaxKey);
         expect(obj).toBeInstanceOf(MongodbMaxKey);
     });
 
     it('DBRef', async () => {
-        let obj: DBRef = new DBRef('namespace', new ObjectId());
+        const obj: DBRef = new DBRef('namespace', new ObjectId());
         expect(obj).toBeInstanceOf(DBRef);
         expect(obj).toBeInstanceOf(MongodbDBRef);
     });
 
     it('Long', async () => {
-        let obj: Long = new Long(1, 9);
+        const obj: Long = new Long(1, 9);
         expect(obj).toBeInstanceOf(Long);
         expect(obj).toBeInstanceOf(MongodbLong);
     });
