@@ -103,7 +103,7 @@ export interface RuleOptions {
 export declare class SheetsRegistry {
     constructor();
     registry: ReadonlyArray<StyleSheet<any>>;
-    index(): number;
+    readonly index: number;
     add(sheet: StyleSheet<any>): void;
     reset(): void;
     remove(sheet: StyleSheet<any>): void;
