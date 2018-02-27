@@ -1,4 +1,4 @@
-// Type definitions for Google Publisher Tag v121
+// Type definitions for Google Publisher Tag v138
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
@@ -44,7 +44,6 @@ declare namespace googletag {
         advertiserId: string;
         campaignId: string;
         creativeId?: number;
-        labelIds: number[];
         lineItemId?: number;
     }
 
@@ -156,6 +155,7 @@ declare namespace googletag {
         }
 
         export interface SlotRenderEndedEvent {
+            advertiserId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;
