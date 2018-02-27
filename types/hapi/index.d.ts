@@ -1381,6 +1381,7 @@ export interface ValidationObject {
 export type RouteOptionsResponseSchema =
     boolean
     | ValidationObject
+    | AnySchema
     | ((value: object | Buffer | string, options: ValidationOptions) => Promise<any>);
 
 /**
