@@ -1,4 +1,4 @@
-// Type definitions for Google Publisher Tag v138
+// Type definitions for Google Publisher Tag v172
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
@@ -7,7 +7,7 @@
 declare namespace googletag {
     export type SingleSizeArray = number[];
 
-    export type NamedSize = string;
+    export type NamedSize = string | string[];
 
     export type SingleSize = SingleSizeArray | NamedSize;
 
