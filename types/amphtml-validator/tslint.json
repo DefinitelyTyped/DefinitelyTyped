@@ -1,9 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "semicolon": [true, "never"],
-        "whitespace": false,
-        "import-spacing": false,
-        "indent": [true, "spaces", 4]
-    }
-}
+{ "extends": "dtslint/dt.json" }
