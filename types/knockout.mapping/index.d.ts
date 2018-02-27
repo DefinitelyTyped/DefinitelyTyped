@@ -13,6 +13,10 @@ declare var self: KnockoutMapping;
 export = self;
 
 declare global {
+    type KnockoutObservableType<T> = {	
+        [P in keyof T]: KnockoutObservable<KnockoutObservableType<T[P]>>|T[P];	
+    };
+    
     interface KnockoutMappingCreateOptions {
         data: any;
         parent: any;
