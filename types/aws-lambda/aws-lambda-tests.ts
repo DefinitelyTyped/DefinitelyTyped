@@ -631,7 +631,15 @@ let apiGtwProxyHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.API
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
 apiGtwProxyHandler = proxyHandler;
 
-let cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => { };
+let cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
+    cb();
+    cb(null);
+    cb(new Error(''));
+    cb(null, { clientIp: str, method: str, uri: str, querystring: str, headers: { } });
+    cb(null, { status: str });
+    // $ExpectError
+    cb(null, { });
+};
 
 let cloudFrontResponseHandler: AWSLambda.CloudFrontResponseHandler = (event: AWSLambda.CloudFrontResponseEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontResponseCallback) => { };
 

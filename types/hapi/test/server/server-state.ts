@@ -8,7 +8,7 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/say-hello',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return h.response('Hello').state('data', { firstVisit: false });
     }
 };
