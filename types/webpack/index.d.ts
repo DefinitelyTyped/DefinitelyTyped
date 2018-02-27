@@ -548,7 +548,7 @@ declare namespace webpack {
             /** Instead of numeric ids, give chunks useful names. */
             namedChunks?: boolean;
             /** Defines the process.env.NODE_ENV constant to a compile-time-constant value. This allows to remove development only code from code. */
-            nodeEnv?: boolean;
+            nodeEnv?: any;
             /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
             minimize?: boolean;
             /** Configure minimzers and options TODO: add type for this */
