@@ -85,6 +85,8 @@ function testNine() {
     callback.alwaysCalledWithMatch({ y: 5 });
     callback.neverCalledWithMatch({ x: 6 });
     callback.notCalledWithMatch({ x: 6 });
+    callback.calledOnceWith({ x: 5, y: 5 });
+    callback.calledOnceWithExactly({ x: 5, y: 5 });
     sinon.assert.calledWithMatch(callback, { x: 5 });
     sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
     sinon.assert.neverCalledWithMatch(callback, { x: 6 });
