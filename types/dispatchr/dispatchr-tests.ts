@@ -1,5 +1,6 @@
 import { createDispatcher, Store } from 'dispatchr';
 import * as createStore from 'dispatchr/addons/createStore';
+import * as BaseStore from 'dispatchr/addons/BaseStore';
 
 const TestStore = createStore({
     storeName: 'TestStore',
@@ -17,6 +18,16 @@ const TestStore = createStore({
 
     additionalMethod() {}
 });
+
+class ExtendedStore extends BaseStore<{}> {
+    static handlers = {
+        ACTION_NAME: 'actionHandler'
+    };
+
+    actionHandler() {
+        this.emitChange();
+    }
+}
 
 const dispatcher = createDispatcher({
     errorHandler(e, context) {
