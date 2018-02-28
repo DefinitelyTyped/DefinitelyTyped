@@ -22,8 +22,6 @@ export const race: typeof RSVP.race;
  * other kinds of errors it might throw, and you can use this
  * convenience function to distinguish cancelation from errors.
  *
- * @param {Error} error
- * @returns {boolean}
  */
 export function didCancel(error?: Error): boolean;
 export function task(generatorFunction: (...args: any[]) => Generator): TaskProperty;

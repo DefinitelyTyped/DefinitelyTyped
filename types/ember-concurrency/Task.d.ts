@@ -124,7 +124,6 @@ export class Task {
      * to a number greater than the task's maxConcurrency, this task instance
      * might be immediately canceled (dropped), or enqueued to run at later
      * time, after the currently running task(s) have finished.
-     * @param arg args to pass to the task function
      */
     perform(...arg: any[]): void;
 }
