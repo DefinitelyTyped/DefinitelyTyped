@@ -9,6 +9,10 @@ const TestStore = createStore({
         ACTION_NAME: 'actionHandler'
     },
 
+    statics: {
+        staticMethod() {}
+    },
+
     initialize() { },
 
     actionHandler() {
