@@ -472,7 +472,7 @@ namespace utilTests {
         const c: (a: number, b: string) => Promise<string> = util.throttle.create((a: number, b: string) => String(a) + b);
         const d = util.throttle.create(() => { }, {});
         const e = util.throttle.create(() => { }, { interval: 1000 });
-        const f = util.throttle.create(() => { }, { max: 10 });
+        const f = util.throttle.create(() => { }, { concurrency: 10 });
         const g = util.throttle.create(() => { }, { ordered: true });
         const h = util.throttle.create(() => { }, { waitForReturn: true });
         const i = util.throttle.create(() => { }, { onDone() {} });

@@ -536,7 +536,7 @@ declare namespace adone {
         namespace throttle {
             namespace I {
                 interface Options {
-                    max?: number;
+                    concurrency?: number;
                     interval?: number;
                     ordered?: boolean;
                     waitForReturn?: boolean;
