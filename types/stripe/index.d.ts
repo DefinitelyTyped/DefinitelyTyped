@@ -4374,6 +4374,11 @@ declare namespace Stripe {
             trial_end?: number | "now";
 
             /**
+             * Integer representing the number of trial period days before the customer is charged for the first time.
+             */
+            trial_period_days?: number;
+
+            /**
              * List of subscription items, each with an attached plan.
              */
             items?: ISubscriptionCreationItem[];
