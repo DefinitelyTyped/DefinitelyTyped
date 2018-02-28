@@ -28,7 +28,7 @@ export interface Store<S = {}> extends EventEmitter {
 }
 
 export interface Dispatcher {
-    createContext(context: {}): DispatcherContext;
+    createContext(context: object): DispatcherContext;
     registerStore(store: StoreClass): void;
     isRegistered(store: StoreClass | string): boolean;
     getStoreName(store: StoreClass | string): string;
