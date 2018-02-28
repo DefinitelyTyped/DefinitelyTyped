@@ -5,6 +5,7 @@
 //                 Dennis Schwartz <https://github.com/DennisSchwartz>
 //                 Michael Henretty <https://github.com/mikehenrty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
