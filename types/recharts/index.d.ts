@@ -219,10 +219,10 @@ export interface BrushProps {
     className?: string;
     fill?: string;
     stroke?: string;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
     travellerWidth?: number;
     padding?: Partial<Margin>;
     dataKey?: DataKey;
