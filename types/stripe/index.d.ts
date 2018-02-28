@@ -4390,6 +4390,12 @@ declare namespace Stripe {
              * Only valid for subscriptions where billing=send_invoice.
              */
             days_until_due?: number;
+
+            /**
+             * A future timestamp to anchor the subscription’s billing cycle. This is used to determine the date of the first full invoice, and, for plans
+             * with month or year intervals, the day of the month for subsequent invoices.
+             */
+            billing_cycle_anchor?: number;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4471,6 +4477,11 @@ declare namespace Stripe {
              * List of subscription items, each with an attached plan.
              */
             items?: ISubscriptionUpdateItem[];
+
+            /**
+             * String, unchanged (default) or now. This allows you to reset the billing cycle of a subscription.
+             */
+            billing_cycle_anchor?: "unchanged" | "now";
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
