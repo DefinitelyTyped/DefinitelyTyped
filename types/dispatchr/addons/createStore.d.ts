@@ -14,7 +14,7 @@ interface StoreOptions {
 }
 
 // see: https://github.com/yahoo/fluxible/blob/dispatchr-v1.2.0/packages/dispatchr/addons/createStore.js#L9
-type StoreThis<T extends StoreOptions> = Omit<T, 'statics'|'storeName'|'handlers'|'mixins'> & Store
+type StoreThis<T extends StoreOptions> = Omit<T, 'statics'|'storeName'|'handlers'|'mixins'> & Store;
 
 declare function createStore<T extends StoreOptions>(options: T & ThisType<StoreThis<T>>): StoreClass;
 export = createStore;
