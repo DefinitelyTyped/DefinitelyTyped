@@ -2,21 +2,21 @@
 // Project: https://github.com/postmanlabs/postman-collection
 // Definitions by: Kyle Buzby <https://github.com/kbuzby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-///<reference types="node" />
-            
+/// <reference types="node" />
+
 export class PropertyBase {
     constructor(definition: any);
 
-    findInParents(property: string, customizer?: any): any | undefined; // TODO Update customizer function def
+    findInParents(property: string, customizer?: any): any ; // TODO Update customizer function def
 
     findParentContaining(property: any, customizer: any): any; // TODO Update customizer function def
 
-    forEachParent(iterator: any): void;                         // TODO Update iterator function def
-    forEachParent(options: any | boolean, iterator: any): void; // TODO Update iterator function def
+    forEachParent(iterator: (item: any) => void): void;
+    forEachParent(options: any /* TODO | boolean*/, iterator: (item: any) => void): void;
 
     meta(): any;
 
-    parent(): any | undefined;
+    parent(): any;
 
     setParent(parent: any): void;
 
@@ -27,7 +27,6 @@ export class PropertyBase {
     static propertyUnprefixMeta(value: any, key: any): any;
 
     static toJSON(obj: any): any;
-
 }
 
 export interface PropertyDefinition {
@@ -48,10 +47,9 @@ export class Property extends PropertyBase implements PropertyDefinition {
 
     toObjectResolved(scope: any, overrides: any, options: any): any;
 
-    static replaceSubstitutions(str: string, variables: VariableList | any | (VariableList | any)[]): string;
+    static replaceSubstitutions(str: string, variables: VariableList | VariableList[]): string;
 
-    static replaceSubstitutionsIn(obj: any, variables: (VariableList | any)[], mutate: boolean): any;
-
+    static replaceSubstitutionsIn(obj: any, variables: VariableList[], mutate: boolean): any;
 }
 
 export interface CertificateDefinition extends PropertyDefinition {
@@ -62,13 +60,13 @@ export interface CertificateDefinition extends PropertyDefinition {
     passphrase?: string;
 }
 
-export class Certificate extends Property {
+export class Certificate extends Property implements CertificateDefinition {
     cert: any;
     id: string;
     key: any;
-    matches: any; // TODO update to UrlMatchPatternList?
+    matches: any[];
     name: string;
-    passphrase: any;
+    passphrase: string;
 
     constructor(options: any);
 
@@ -79,14 +77,12 @@ export class Certificate extends Property {
     update(options: CertificateDefinition): void;
 
     static isCertificate(obj: any): boolean;
-
 }
-
 
 export class PropertyList<TElement> {
     constructor(type: any, parent: any, populate: any);
 
-    add(item: any | TElement): void;
+    add(item: TElement): void;
 
     all(): any;
 
@@ -106,13 +102,13 @@ export class PropertyList<TElement> {
 
     find(rule: any, context?: any): Item | ItemGroup<TElement>;
 
-    get(key: string | any): TElement;
+    get(key: /*TODO string |*/ any): TElement;
 
     has(item: string | TElement, value?: any): boolean;
 
     idx(index: number): TElement;
 
-    indexOf(item: string | any): number;
+    indexOf(item: /*TODO string |*/ any): number;
 
     insert(item: TElement, before: TElement | string): void;
 
@@ -122,24 +118,23 @@ export class PropertyList<TElement> {
 
     one(id: string): TElement;
 
-    populate(items: any | any[]): void;
+    populate(items: any): void;
 
     prepend(item: TElement): any;
 
-    remove(predicate: any | string | TElement, context: any): any;
+    remove(predicate: any /*TODO | string | TElement*/, context: any): any;
 
-    repopulate(items: any | any[]): void;
+    repopulate(items: any): void;
 
     toJSON(): any;
 
-    toObject(excludeDisabled?: any | null, caseSensitive?: any | null, multiValue?: any | null, sanitizeKeys?: any): any;
+    toObject(excludeDisabled?: any, caseSensitive?: any, multiValue?: any, sanitizeKeys?: any): any;
 
     toString(): string;
 
     upsert(item: TElement): boolean | null;
 
     static isPropertyList(obj: any): any;
-
 }
 
 export class CertificateList extends PropertyList<Certificate> {
@@ -148,15 +143,14 @@ export class CertificateList extends PropertyList<Certificate> {
     resolveOne(url: string): CertificateDefinition;
 
     static isCertificateList(obj: any): boolean;
-
 }
 
 export interface ItemGroupDefinition extends PropertyDefinition {
-    item?: (ItemDefinition | ItemGroupDefinition)[];
+    item?: Array<ItemDefinition | ItemGroupDefinition>;
     auth?: RequestAuthDefinition;
     event?: EventDefinition[];
 }
-    
+
 export class ItemGroup<TItem> extends Property {
     auth: RequestAuth;
     items: PropertyList<TItem>;
@@ -172,7 +166,6 @@ export class ItemGroup<TItem> extends Property {
     oneDeep(idOrName: string): TItem;
 
     static isItemGroup(obj: any): boolean;
-
 }
 
 export interface CollectionDefinition extends ItemGroupDefinition {
@@ -181,7 +174,7 @@ export interface CollectionDefinition extends ItemGroupDefinition {
         name?: string;
         version?: string;
     };
-    item?: (ItemDefinition | ItemGroupDefinition)[];
+    item?: Array<ItemDefinition | ItemGroupDefinition>;
     variable?: VariableDefinition;
     auth?: RequestAuthDefinition;
     event?: EventDefinition[];
@@ -202,7 +195,6 @@ export class Collection extends ItemGroup<Request> implements CollectionDefiniti
     toJSON(): any;
 
     static isCollection(obj: any): boolean;
-
 }
 
 export interface CookieDefinition {
@@ -216,14 +208,13 @@ export interface CookieDefinition {
     httpOnly?: boolean;
     hostOnly?: boolean;
     session?: boolean;
-    extensions?: {key: string; value: string}[];
-
+    extensions?: Array<{key: string; value: string}>;
 }
 
 export class Cookie extends PropertyBase implements CookieDefinition {
     domain: string;
     expires: Date | string;
-    extensions: {key: string; value: string}[];
+    extensions: Array<{key: string; value: string}>;
     hostOnly: any;
     httpOnly: any;
     maxAge: number;
@@ -244,7 +235,6 @@ export class Cookie extends PropertyBase implements CookieDefinition {
     static parse(str: string): any;
 
     static splitParam(param: any): any;
-
 }
 
 export class CookieList extends PropertyList<Cookie> {
@@ -272,7 +262,6 @@ export class Description implements DescriptionDefinition {
     update(content: string | DescriptionDefinition, type?: string): void;
 
     static isDescription(obj: any): boolean;
-
 }
 
 export interface EventDefinition extends PropertyDefinition {
@@ -286,7 +275,7 @@ export class Event extends Property implements EventDefinition {
 
     constructor(definition: EventDefinition);
 
-    update(definition: EventDefinition): void;    
+    update(definition: EventDefinition): void;
 }
 
 export class EventList extends PropertyList<Event> {
@@ -297,7 +286,6 @@ export class EventList extends PropertyList<Event> {
     listenersOwn(name: string): Event[];
 
     static isEventList(obj: any): boolean;
-
 }
 
 export interface FormParamDefinition extends PropertyDefinition {
@@ -305,7 +293,7 @@ export interface FormParamDefinition extends PropertyDefinition {
     value: string;
 }
 
-export class FormParam extends Property implements FormParamDefinition{
+export class FormParam extends Property implements FormParamDefinition {
     key: string;
     value: string;
 
@@ -316,7 +304,7 @@ export class FormParam extends Property implements FormParamDefinition{
 
     toString(): string;
 
-    valueOf(): any | string;
+    valueOf(): any;
 
     // static parse(): void; // TODO not implemented yet
 }
@@ -348,7 +336,7 @@ export class Header extends Property implements HeaderDefinition {
 
     static unparse(headers: HeaderList | any[], separator?: string): string;
 
-    static unparseSingle(header: Header): string;    
+    static unparseSingle(header: Header): string;
 }
 
 export class HeaderList extends PropertyList<Header> {
@@ -356,7 +344,7 @@ export class HeaderList extends PropertyList<Header> {
 
     contentSize(): number;
 
-    static isHeaderList(obj: any): boolean;    
+    static isHeaderList(obj: any): boolean;
 }
 
 export interface ItemDefinition extends PropertyDefinition {
@@ -379,7 +367,6 @@ export class Item extends Property implements ItemDefinition {
     getEvents(name: string): Event[];
 
     static isItem(obj: any): boolean;
-
 }
 
 export interface ProxyConfigDefinition extends PropertyDefinition {
@@ -409,7 +396,6 @@ export class ProxyConfig extends Property implements ProxyConfigDefinition {
     updateProtocols(protocols: string[]): void;
 
     static isProxyConfig(obj: any): boolean;
-
 }
 
 export class ProxyConfigList extends PropertyList<ProxyConfig> {
@@ -418,7 +404,6 @@ export class ProxyConfigList extends PropertyList<ProxyConfig> {
     resolve(url?: Url): ProxyConfigDefinition;
 
     static isProxyConfigList(obj: any): boolean;
-
 }
 
 export interface QueryParamDefinition extends PropertyDefinition {
@@ -445,10 +430,9 @@ export class QueryParam extends Property implements QueryParamDefinition {
 
     static parseSingle(param: string, idx: number, all: string[]): any;
 
-    static unparse(params: any | any[], options?: {encode?: boolean | null, ignoreDisabled?: boolean | null}): string;
+    static unparse(params: any, options?: {encode?: boolean | null, ignoreDisabled?: boolean | null}): string;
 
     static unparseSingle(obj: any, encode: boolean): string;
-
 }
 
 export interface RequestDefinition extends PropertyDefinition {
@@ -497,7 +481,6 @@ export class Request extends Property implements RequestDefinition {
     upsertHeader(header: any): void;
 
     static isRequest(obj: any): boolean;
-
 }
 
 export interface RequestAuthDefinition extends PropertyDefinition {
@@ -511,18 +494,16 @@ export class RequestAuth extends Property implements RequestAuthDefinition {
 
     clear(type: string): void;
 
-    current(): any | undefined;
+    current(): any;
 
     parameters(): VariableList;
 
-    update(options: VariableList | any[] | any, type?: string): void;
+    update(options: /*TODO VariableList | any[] |*/ any, type?: string): void;
 
     use(type: string, options: VariableList): void;
 
     static isValidType(type: any): boolean;
-
 }
-
 
 export class RequestBody extends PropertyBase {
     static MODES: {
@@ -544,7 +525,7 @@ export class RequestBody extends PropertyBase {
 
     toString(): string;
 
-    update(options: any): void;    
+    update(options: any): void;
 }
 
 export interface ResponseDefinition extends PropertyDefinition {
@@ -577,7 +558,7 @@ export class Response extends Property implements ResponseDefinition {
 
     json(reviver?: any, strict?: boolean): any;
 
-    mime(contentType: any, contentDisposition: any): any; //TODO ??
+    mime(contentType: any, contentDisposition: any): any; // TODO ??
 
     size(): number;
 
@@ -592,7 +573,6 @@ export class Response extends Property implements ResponseDefinition {
     static isResponse(obj: any): boolean;
 
     static mimeInfo(type: any, disposition: any): any; // TODO ??
-
 }
 
 export class Script extends Property {
@@ -606,7 +586,7 @@ export class Script extends Property {
 
     update(options?: {type?: string, src?: string, exec?: string | string[]}): void;
 
-    static isScript(obj: any): boolean;    
+    static isScript(obj: any): boolean;
 }
 
 export class Url extends PropertyBase {
@@ -619,9 +599,9 @@ export class Url extends PropertyBase {
     query: PropertyList<QueryParam>;
     variables: VariableList;
 
-    constructor(options: any | string);
+    constructor(options: any /*TODO| string*/);
 
-    addQueryParams(params: any | string): void;
+    addQueryParams(params: any /*TODO | string*/): void;
 
     getHost(): string;
 
@@ -629,7 +609,7 @@ export class Url extends PropertyBase {
 
     getPath(options?: {unresolved: boolean}): string;
 
-    getPathWithQuery(): any | string;
+    getPathWithQuery(): any /*TODO | string*/;
 
     getQueryString(options?: {encode: boolean | null, ignoredDisabled: boolean | null} | null): string;
 
@@ -641,12 +621,11 @@ export class Url extends PropertyBase {
 
     toString(forceProtocol?: boolean): string;
 
-    update(url: string | any): void;
+    update(url: /*TODO string |*/ any): void;
 
     static isUrl(obj: any): boolean;
 
     static parse(url: string): any;
-
 }
 
 /* No documentation for this right now?
@@ -731,7 +710,6 @@ export class Variable extends Property implements VariableDefinition {
     valueType(typeName: string, _noCast: boolean): string;
 
     static isVariable(obj: any): boolean;
-
 }
 
 export class VariableList extends PropertyList<Variable> {
@@ -739,20 +717,19 @@ export class VariableList extends PropertyList<Variable> {
 
     replace(str: string, overrides?: any): string;
 
-    substitute(obj: any | any[], overrides?: any[] | null, mutate?: boolean): any;
+    substitute(obj: any, overrides?: any[] | null, mutate?: boolean): any;
 
     syncFromObject(obj: any, track?: boolean, prune?: boolean): any;
 
     syncToObject(obj?: any): any;
 
     static isVariableList(obj: any): boolean;
-
 }
 
 export interface VariableScopeDefinition extends PropertyDefinition {
     id?: string;
     name?: string;
-    values?: VariableDefinition[]
+    values?: VariableDefinition[];
 }
 
 export class VariableScope extends Property implements VariableScopeDefinition {
@@ -782,7 +759,7 @@ export class VariableScope extends Property implements VariableScopeDefinition {
 
     variables(): any;
 
-    static isVariableScope(obj: any): boolean;    
+    static isVariableScope(obj: any): boolean;
 }
 
 export class Version extends PropertyBase {
@@ -794,9 +771,9 @@ export class Version extends PropertyBase {
     raw: string;
     string: string;
 
-    constructor(options: any | string);
+    constructor(options: any /*TODO | string*/);
 
-    set(value: any | string): void;
+    set(value: any /*TODO | string*/): void;
 
-    toString(): string;    
-}    
+    toString(): string;
+}
