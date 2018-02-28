@@ -4062,7 +4062,12 @@ declare namespace sequelize {
         /**
          * A function that gets executed while running the query to log the sql.
          */
-        logging?: boolean | Function;
+        logging?: boolean | Function;            
+
+        /**
+         * An optional transaction to perform this query in
+         */
+        transaction?: Transaction; 
 
     }
 
