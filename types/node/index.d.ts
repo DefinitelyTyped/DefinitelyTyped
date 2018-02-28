@@ -74,6 +74,7 @@ interface Iterator<T> {
 interface IteratorResult<T> { }
 interface SymbolConstructor {
     readonly iterator: symbol;
+    readonly toStringTag: symbol;
 }
 declare var Symbol: SymbolConstructor;
 
