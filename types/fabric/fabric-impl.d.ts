@@ -1074,6 +1074,12 @@ export class StaticCanvas {
 	renderAll(allOnTop?: boolean): this;
 
 	/**
+	 * Append a renderAll request to next animation frame. a boolean flag will avoid appending more.
+	 * @chainable
+	 */
+	requestRenderAll(): this;
+
+	/**
 	 * Method to render only the top canvas.
 	 * Also used to render the group selection box.
 	 * @chainable
@@ -2687,6 +2693,8 @@ export class Path {
 	 * @param [options] Options object
 	 */
 	constructor(path?: string|any[], options?: IPathOptions);
+
+	pathOffset: Point;
 
 	initialize(path?: any[], options?: IPathOptions): Path;
 
@@ -4326,7 +4334,7 @@ interface IUtilMisc {
 	 * @param [context] Context to invoke callback in
 	 * @param [crossOrigin] crossOrigin value to set image element to
 	 */
-	loadImage(url: string, callback: (image: HTMLImageElement) => {}, context?: any, crossOrigin?: boolean): void;
+	loadImage(url: string, callback: (image: HTMLImageElement) => void, context?: any, crossOrigin?: boolean): void;
 
 	/**
 	 * Creates corresponding fabric instances from their object representations
