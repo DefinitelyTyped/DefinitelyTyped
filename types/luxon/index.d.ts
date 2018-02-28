@@ -1,4 +1,4 @@
-// Type definitions for luxon 0.2
+// Type definitions for luxon 0.5
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -166,6 +166,7 @@ declare module 'luxon' {
             offsetNameShort: string;
             ordinal: number;
             outputCalendar: string;
+            quarter: number;
             second: number;
             weekNumber: number;
             weekYear: number;
@@ -252,6 +253,7 @@ declare module 'luxon' {
             minutes: number;
             months: number;
             numberingSystem: string;
+            quarters: number;
             seconds: number;
             weeks: number;
             years: number;
@@ -336,7 +338,7 @@ declare module 'luxon' {
             abutsStart(other: Interval): boolean;
             contains(dateTime: DateTime): boolean;
             count(unit?: string): number;
-            difference(...intervals: Interval[]): Interval;
+            difference(...intervals: Interval[]): Interval[];
             divideEqually(numberOfParts?: number): Interval[];
             engulfs(other: Interval): boolean;
             equals(other: Interval): boolean;
