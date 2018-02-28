@@ -375,7 +375,7 @@ declare module 'luxon' {
             let defaultZoneName: string;
             let throwOnInvalid: boolean;
             let now: () => number;
-            function resetCache(): void;
+            function resetCaches(): void;
         }
 
         type ZoneOffsetOptions = {
