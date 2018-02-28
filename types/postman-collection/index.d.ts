@@ -7,9 +7,9 @@
 export class PropertyBase {
     constructor(definition: any);
 
-    findInParents(property: string, customizer?: any): any ; // TODO Update customizer function def
+    findInParents(property: string, customizer?: (item: any) => boolean): PropertyBase ;
 
-    findParentContaining(property: any, customizer: any): any; // TODO Update customizer function def
+    findParentContaining(property: any, customizer: (item: any) => boolean): PropertyBase;
 
     forEachParent(iterator: (item: any) => void): void;
     forEachParent(options: any /* TODO | boolean*/, iterator: (item: any) => void): void;
