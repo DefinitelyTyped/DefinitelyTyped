@@ -23,7 +23,7 @@ const TestStore = createStore({
     additionalMethod() {}
 });
 
-class ExtendedStore extends BaseStore<{}> {
+class ExtendedStore extends BaseStore {
     static handlers = {
         ACTION_NAME: 'actionHandler'
     };

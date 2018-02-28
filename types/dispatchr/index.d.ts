@@ -2,7 +2,7 @@
 // Project: https://github.com/yahoo/fluxible#readme
 // Definitions by: Ragg <https://github.com/Ragg->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.5
 /// <reference types="node" />
 import { EventEmitter } from 'events';
 
