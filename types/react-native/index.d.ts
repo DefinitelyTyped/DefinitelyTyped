@@ -991,6 +991,12 @@ export interface TextInputIOSProperties {
  */
 export interface TextInputAndroidProperties {
     /**
+     * If true, will increase the height of the textbox if need be.
+     * If false, the textbox will become scrollable once the height is reached. The default value is false.
+     */
+    autoGrow?: boolean;
+
+    /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
      *   the OS may choose to have the user edit the text inside of a full screen text input mode.
      * When true, this feature is disabled and users will always edit the text directly inside of the text input.
@@ -1103,6 +1109,12 @@ export interface TextInputProperties
      * The following values work on Android: - visible-password
      */
     keyboardType?: KeyboardType | KeyboardTypeIOS | KeyboardTypeAndroid;
+
+    /**
+     * if autogrow is true, limits the height that the TextInput box can grow to.
+     * Once it reaches this height, the TextInput becomes scrollable.
+     */
+    maxHeight?: number;
 
     /**
      * Limits the maximum number of characters that can be entered.
