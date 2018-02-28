@@ -257,45 +257,13 @@ declare namespace Bull {
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
-     * The callback can also be defined as the string path to a module
-     * exporting the callback function. Using a path has several advantages:
-     * - The process is sandboxed so if it crashes it does not affect the worker.
-     * - You can run blocking code without affecting the queue (jobs will not stall).
-     * - Much better utilization of multi-core CPUs.
-     * - Less connections to redis.
      *
      * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
      * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
      * Errors will be passed as a second argument to the "failed" event;
      * results, as a second argument to the "completed" event.
      */
-    process(callback: ((job: Job, done: DoneCallback) => void) | string): void;
-
-    /**
-     * Defines a processing function for the jobs placed into a given Queue.
-     *
-     * The callback is called everytime a job is placed in the queue.
-     * It is passed an instance of the job as first argument.
-     *
-     * A promise must be returned to signal job completion.
-     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
-     * If it is resolved, its value will be the "completed" event's second argument.
-     */
-    process(callback: (job: Job) => void): Promise<any>;
-
-    /**
-     * Defines a processing function for the jobs placed into a given Queue.
-     *
-     * The callback is called everytime a job is placed in the queue.
-     * It is passed an instance of the job as first argument.
-     *
-     * A promise must be returned to signal job completion.
-     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
-     * If it is resolved, its value will be the "completed" event's second argument.
-     *
-     * @param concurrency Bull will then call you handler in parallel respecting this max number.
-     */
-    process(concurrency: number, callback: (job: Job) => void): Promise<any>;
+    process(callback: (job: Job, done: DoneCallback) => void): void;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -309,6 +277,38 @@ declare namespace Bull {
      * - Much better utilization of multi-core CPUs.
      * - Less connections to redis.
      *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     */
+    process(callback: ((job: Job) => void) | string): Promise<any>;
+
+    /**
+     * Defines a processing function for the jobs placed into a given Queue.
+     *
+     * The callback is called everytime a job is placed in the queue.
+     * It is passed an instance of the job as first argument.
+     * The callback can also be defined as the string path to a module
+     * exporting the callback function. Using a path has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
+     *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
+     */
+    process(concurrency: number, callback: ((job: Job) => void) | string): Promise<any>;
+
+    /**
+     * Defines a processing function for the jobs placed into a given Queue.
+     *
+     * The callback is called everytime a job is placed in the queue.
+     * It is passed an instance of the job as first argument.
+     *
      * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
      * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
      * Errors will be passed as a second argument to the "failed" event;
@@ -316,13 +316,19 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(concurrency: number, callback: ((job: Job, done: DoneCallback) => void) | string): void;
+    process(concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
+     * The callback can also be defined as the string path to a module
+     * exporting the callback function. Using a path has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
      *
      * A promise must be returned to signal job completion.
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
@@ -331,19 +337,13 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      */
     // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: (job: Job) => void): Promise<any>;
+    process(name: string, callback: ((job: Job) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
-     * The callback can also be defined as the string path to a module
-     * exporting the callback function. Using a path has several advantages:
-     * - The process is sandboxed so if it crashes it does not affect the worker.
-     * - You can run blocking code without affecting the queue (jobs will not stall).
-     * - Much better utilization of multi-core CPUs.
-     * - Less connections to redis.
      *
      * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
      * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
@@ -353,25 +353,10 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      */
     // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: ((job: Job, done: DoneCallback) => void) | string): void;
+    process(name: string, callback: (job: Job, done: DoneCallback) => void): void;
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
-     *
-     * The callback is called everytime a job is placed in the queue.
-     * It is passed an instance of the job as first argument.
-     *
-     * A promise must be returned to signal job completion.
-     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
-     * If it is resolved, its value will be the "completed" event's second argument.
-     *
-     * @param name Bull will only call the handler if the job name matches
-     * @param concurrency Bull will then call you handler in parallel respecting this max number.
-     */
-    process(name: string, concurrency: number, callback: (job: Job) => void): Promise<any>;
-
-    /**
-     * Defines a processing function for the jobs placed into a given Queue.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
@@ -382,6 +367,21 @@ declare namespace Bull {
      * - Much better utilization of multi-core CPUs.
      * - Less connections to redis.
      *
+     * A promise must be returned to signal job completion.
+     * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
+     * If it is resolved, its value will be the "completed" event's second argument.
+     *
+     * @param name Bull will only call the handler if the job name matches
+     * @param concurrency Bull will then call you handler in parallel respecting this max number.
+     */
+    process(name: string, concurrency: number, callback: ((job: Job) => void) | string): Promise<any>;
+
+    /**
+     * Defines a processing function for the jobs placed into a given Queue.
+     *
+     * The callback is called everytime a job is placed in the queue.
+     * It is passed an instance of the job as first argument.
+     *
      * The done callback can be called with an Error instance, to signal that the job did not complete successfully,
      * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
      * Errors will be passed as a second argument to the "failed" event;
@@ -390,7 +390,7 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(name: string, concurrency: number, callback: ((job: Job, done: DoneCallback) => void) | string): void;
+    process(name: string, concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
 
     /**
      * Creates a new job and adds it to the queue.
