@@ -168,6 +168,8 @@ declare namespace Chart {
         type?: ChartType | string;
         data?: ChartData;
         options?: ChartOptions;
+        // Plugins can require any options
+        plugins?: any;
     }
 
     interface ChartData {
@@ -195,8 +197,6 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
-        // Plugins can require any options
-        plugins?: any;
     }
 
     interface ChartFontOptions {
