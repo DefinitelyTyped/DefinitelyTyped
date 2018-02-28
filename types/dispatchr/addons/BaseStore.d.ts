@@ -5,7 +5,7 @@ import { EventEmitter } from 'events';
 
 declare class BaseStore<S = {}> extends EventEmitter implements Store<S> {
     constructor(dispatcher: DispatcherInterface);
-    initialize?: () => void;
+    initialize?(): void;
     getContext(): DispatcherContext;
     addChangeListener(callback: () => void): void;
     removeChangeListener(callback: () => void): void;
