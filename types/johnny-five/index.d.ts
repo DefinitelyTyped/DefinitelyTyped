@@ -510,10 +510,10 @@ export declare module Led {
 
         on(): void;
         off(): void;
-        color(value: string): void; // color method expects string.
+        color(value: string): void;
         toggle(): void;
         strobe(ms: number): void;
-        intensity(value: number): void;  // intensity is the correct method here instead of brightness.        
+        intensity(value: number): void;
         fadeIn(ms: number): void;
         fadeOut(ms: number): void;
         pulse(ms: number): void;
