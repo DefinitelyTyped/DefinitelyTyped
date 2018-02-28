@@ -1,6 +1,6 @@
 import { createDispatcher, Store } from 'dispatchr';
-import * as createStore from 'dispatchr/addons/createStore';
-import * as BaseStore from 'dispatchr/addons/BaseStore';
+import createStore = require('dispatchr/addons/createStore');
+import BaseStore = require('dispatchr/addons/BaseStore');
 
 const TestStore = createStore({
     storeName: 'TestStore',
