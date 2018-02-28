@@ -22311,3 +22311,2662 @@ declare namespace OneNote {
 ////////////////////////////////////////////////////////////////
 /////////////////////// End OneNote APIs ///////////////////////
 ////////////////////////////////////////////////////////////////
+										  
+										  
+////////////////////////////////////////////////////////////////
+/////////////////////// Begin Visio APIs ///////////////////////
+////////////////////////////////////////////////////////////////
+
+										  
+declare namespace Visio {
+    /**
+     *
+     * Provides information about the shape that raised the ShapeMouseEnter event.
+     *
+     * [Api set:  1.1]
+     */
+    interface ShapeMouseEnterEventArgs {
+        /**
+         *
+         * Gets the name of the page which has the shape object that raised the ShapeMouseEnter event.
+         *
+         * [Api set:  1.1]
+         */
+        pageName: string;
+        /**
+         *
+         * Gets the shape object that raised the ShapeMouseEnter event.
+         *
+         * [Api set:  1.1]
+         */
+        shapeName: string;
+    }
+    /**
+     *
+     * Provides information about the shape that raised the ShapeMouseLeave event.
+     *
+     * [Api set:  1.1]
+     */
+    interface ShapeMouseLeaveEventArgs {
+        /**
+         *
+         * Gets the name of the page which has the shape object that raised the ShapeMouseLeave event.
+         *
+         * [Api set:  1.1]
+         */
+        pageName: string;
+        /**
+         *
+         * Gets the shape object that raised the ShapeMouseLeave event.
+         *
+         * [Api set:  1.1]
+         */
+        shapeName: string;
+    }
+    /**
+     *
+     * Provides information about the page that raised the PageLoadComplete event.
+     *
+     * [Api set:  1.1]
+     */
+    interface PageLoadCompleteEventArgs {
+        /**
+         *
+         * Gets the name of the page that raised the PageLoad event.
+         *
+         * [Api set:  1.1]
+         */
+        pageName: string;
+        /**
+         *
+         * Gets the success/failure of the PageLoadComplete event.
+         *
+         * [Api set:  1.1]
+         */
+        success: boolean;
+    }
+    /**
+     *
+     * Provides information about the document that raised the DataRefreshComplete event.
+     *
+     * [Api set:  1.1]
+     */
+    interface DataRefreshCompleteEventArgs {
+        /**
+         *
+         * Gets the document object that raised the DataRefreshComplete event.
+         *
+         * [Api set:  1.1]
+         */
+        document: Visio.Document;
+        /**
+         *
+         * Gets the success/failure of the DataRefreshComplete event.
+         *
+         * [Api set:  1.1]
+         */
+        success: boolean;
+    }
+    /**
+     *
+     * Provides information about the shape collection that raised the SelectionChanged event.
+     *
+     * [Api set:  1.1]
+     */
+    interface SelectionChangedEventArgs {
+        /**
+         *
+         * Gets the name of the page which has the ShapeCollection object that raised the SelectionChanged event.
+         *
+         * [Api set:  1.1]
+         */
+        pageName: string;
+        /**
+         *
+         * Gets the ShapeCollection object that raised the SelectionChanged event.
+         *
+         * [Api set:  1.1]
+         */
+        shapeNames: Array<string>;
+    }
+    /**
+     *
+     * Provides information about the drawing that raised the DiagramLoadComplete event.
+     *
+     * [Api set:  1.1]
+     */
+    interface DocumentLoadCompleteEventArgs {
+        /**
+         *
+         * Gets the success/failure of the DocumentLoadComplete event.
+         *
+         * [Api set:  1.1]
+         */
+        success: boolean;
+    }
+    /**
+     *
+     * Represents the Application.
+     *
+     * [Api set:  1.1]
+     */
+    class Application extends OfficeExtension.ClientObject {
+        private _S;
+        private _Sh;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        readonly _scalarPropertyUpdateable: boolean[];
+        /**
+         *
+         * Show/Hide the application borders.
+         *
+         * [Api set:  1.1]
+         */
+        showBorders: boolean;
+        /**
+         *
+         * Show or Hide the standard toolbars.
+         *
+         * [Api set:  1.1]
+         */
+        showToolbars: boolean;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.ApplicationUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Application): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.ApplicationUpdateData): void;
+        /**
+         *
+         * Show or Hide a particular toolbar.
+         *
+         * [Api set:  1.1]
+         */
+        showToolbar(id: string, show: boolean): void;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.ApplicationLoadOptions): Visio.Application;
+        load(option?: string | string[]): Visio.Application;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.Application;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.ApplicationLoadOptions): OfficeExtension.RetrieveResult<Visio.Application, Visio.Interfaces.ApplicationData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.Application, Visio.Interfaces.ApplicationData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.Application, Visio.Interfaces.ApplicationData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.ApplicationData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.ApplicationData): void;
+    }
+    /**
+     *
+     * Represents the Document class.
+     *
+     * [Api set:  1.1]
+     */
+    class Document extends OfficeExtension.ClientObject {
+        private _A;
+        private _P;
+        private _V;
+        private m_dataRefreshComplete;
+        private m_documentLoadComplete;
+        private m_pageLoadComplete;
+        private m_selectionChanged;
+        private m_shapeMouseEnter;
+        private m_shapeMouseLeave;
+        readonly _className: string;
+        readonly _navigationPropertyNames: string[];
+        /**
+         *
+         * Represents a Visio application instance that contains this document. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly application: Visio.Application;
+        /**
+         *
+         * Represents a collection of pages associated with the document. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly pages: Visio.PageCollection;
+        /**
+         *
+         * Returns the DocumentView object.
+         *
+         * [Api set:  1.1]
+         */
+        readonly view: Visio.DocumentView;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.DocumentUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Document): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.DocumentUpdateData): void;
+        /**
+         *
+         * Returns the Active Page of the document.
+         *
+         * [Api set:  1.1]
+         */
+        getActivePage(): Visio.Page;
+        /**
+         *
+         * Set the Active Page of the document.
+         *
+         * [Api set:  1.1]
+         *
+         * @param PageName Name of the page
+         */
+        setActivePage(PageName: string): void;
+        /**
+         *
+         * Triggers the refresh of the data in the Diagram, for all pages.
+         *
+         * [Api set:  1.1]
+         */
+        startDataRefresh(): void;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.DocumentLoadOptions): Visio.Document;
+        load(option?: string | string[]): Visio.Document;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.Document;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.DocumentLoadOptions): OfficeExtension.RetrieveResult<Visio.Document, Visio.Interfaces.DocumentData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.Document, Visio.Interfaces.DocumentData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.Document, Visio.Interfaces.DocumentData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        /**
+         *
+         * Occurs when the data is refreshed in the diagram.
+         *
+         * [Api set:  1.1]
+         */
+        readonly onDataRefreshComplete: OfficeExtension.EventHandlers<Visio.DataRefreshCompleteEventArgs>;
+        /**
+         *
+         * Occurs when the Document is loaded, refreshed, or changed.
+         *
+         * [Api set:  1.1]
+         */
+        readonly onDocumentLoadComplete: OfficeExtension.EventHandlers<Visio.DocumentLoadCompleteEventArgs>;
+        /**
+         *
+         * Occurs when the page is finished loading.
+         *
+         * [Api set:  1.1]
+         */
+        readonly onPageLoadComplete: OfficeExtension.EventHandlers<Visio.PageLoadCompleteEventArgs>;
+        /**
+         *
+         * Occurs when the current selection of shapes changes.
+         *
+         * [Api set:  1.1]
+         */
+        readonly onSelectionChanged: OfficeExtension.EventHandlers<Visio.SelectionChangedEventArgs>;
+        /**
+         *
+         * Occurs when the user moves the mouse pointer into the bounding box of a shape.
+         *
+         * [Api set:  1.1]
+         */
+        readonly onShapeMouseEnter: OfficeExtension.EventHandlers<Visio.ShapeMouseEnterEventArgs>;
+        /**
+         *
+         * Occurs when the user moves the mouse out of the bounding box of a shape.
+         *
+         * [Api set:  1.1]
+         */
+        readonly onShapeMouseLeave: OfficeExtension.EventHandlers<Visio.ShapeMouseLeaveEventArgs>;
+        toJSON(): Visio.Interfaces.DocumentData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.DocumentData): void;
+    }
+    /**
+     *
+     * Represents the DocumentView class.
+     *
+     * [Api set:  1.1]
+     */
+    class DocumentView extends OfficeExtension.ClientObject {
+        private _D;
+        private _Di;
+        private _Dis;
+        private _H;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        readonly _scalarPropertyUpdateable: boolean[];
+        /**
+         *
+         * Disable Hyperlinks.
+         *
+         * [Api set:  1.1]
+         */
+        disableHyperlinks: boolean;
+        /**
+         *
+         * Disable Pan.
+         *
+         * [Api set:  1.1]
+         */
+        disablePan: boolean;
+        /**
+         *
+         * Disable Zoom.
+         *
+         * [Api set:  1.1]
+         */
+        disableZoom: boolean;
+        /**
+         *
+         * Disable Hyperlinks.
+         *
+         * [Api set:  1.1]
+         */
+        hideDiagramBoundary: boolean;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.DocumentViewUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: DocumentView): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.DocumentViewUpdateData): void;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.DocumentViewLoadOptions): Visio.DocumentView;
+        load(option?: string | string[]): Visio.DocumentView;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.DocumentView;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.DocumentViewLoadOptions): OfficeExtension.RetrieveResult<Visio.DocumentView, Visio.Interfaces.DocumentViewData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.DocumentView, Visio.Interfaces.DocumentViewData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.DocumentView, Visio.Interfaces.DocumentViewData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.DocumentViewData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.DocumentViewData): void;
+    }
+    /**
+     *
+     * Represents the Page class.
+     *
+     * [Api set:  1.1]
+     */
+    class Page extends OfficeExtension.ClientObject {
+        private _A;
+        private _C;
+        private _H;
+        private _I;
+        private _Is;
+        private _N;
+        private _S;
+        private _V;
+        private _W;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        readonly _navigationPropertyNames: string[];
+        /**
+         *
+         * All shapes in the page. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly allShapes: Visio.ShapeCollection;
+        /**
+         *
+         * Returns the Comments Collection
+         *
+         * [Api set:  1.1]
+         */
+        readonly comments: Visio.CommentCollection;
+        /**
+         *
+         * Shapes at root level, in the page. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly shapes: Visio.ShapeCollection;
+        /**
+         *
+         * Returns the view of the page. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly view: Visio.PageView;
+        /**
+         *
+         * Returns the height of the page. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly height: number;
+        /**
+         *
+         * Index of the Page.
+         *
+         * [Api set:  1.1]
+         */
+        readonly index: number;
+        /**
+         *
+         * Whether the page is a background page or not. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly isBackground: boolean;
+        /**
+         *
+         * Page name. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly name: string;
+        /**
+         *
+         * Returns the width of the page. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly width: number;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.PageUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Page): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.PageUpdateData): void;
+        /**
+         *
+         * Set the page as Active Page of the document.
+         *
+         * [Api set:  1.1]
+         */
+        activate(): void;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.PageLoadOptions): Visio.Page;
+        load(option?: string | string[]): Visio.Page;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.Page;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.PageLoadOptions): OfficeExtension.RetrieveResult<Visio.Page, Visio.Interfaces.PageData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.Page, Visio.Interfaces.PageData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.Page, Visio.Interfaces.PageData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.PageData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.PageData): void;
+    }
+    /**
+     *
+     * Represents the PageView class.
+     *
+     * [Api set:  1.1]
+     */
+    class PageView extends OfficeExtension.ClientObject {
+        private _Z;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        readonly _scalarPropertyUpdateable: boolean[];
+        /**
+         *
+         * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+         *
+         * [Api set:  1.1]
+         */
+        zoom: number;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.PageViewUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: PageView): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.PageViewUpdateData): void;
+        /**
+         *
+         * Pans the Visio drawing to place the specified shape in the center of the view.
+         *
+         * [Api set:  1.1]
+         *
+         * @param ShapeId ShapeId to be seen in the center.
+         */
+        centerViewportOnShape(ShapeId: number): void;
+        /**
+         *
+         * Fit Page to current window.
+         *
+         * [Api set:  1.1]
+         */
+        fitToWindow(): void;
+        /**
+         *
+         * Returns the position object that specifies the position of the page in the view.
+         *
+         * [Api set:  1.1]
+         */
+        getPosition(): OfficeExtension.ClientResult<Visio.Position>;
+        /**
+         *
+         * Represents the Selection in the page.
+         *
+         * [Api set:  1.1]
+         */
+        getSelection(): Visio.Selection;
+        /**
+         *
+         * To check if the shape is in view of the page or not.
+         *
+         * [Api set:  1.1]
+         *
+         * @param Shape Shape to be checked.
+         */
+        isShapeInViewport(Shape: Visio.Shape): OfficeExtension.ClientResult<boolean>;
+        /**
+         *
+         * Sets the position of the page in the view.
+         *
+         * [Api set:  1.1]
+         *
+         * @param Position Position object that specifies the new position of the page in the view.
+         */
+        setPosition(Position: Visio.Position): void;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.PageViewLoadOptions): Visio.PageView;
+        load(option?: string | string[]): Visio.PageView;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.PageView;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.PageViewLoadOptions): OfficeExtension.RetrieveResult<Visio.PageView, Visio.Interfaces.PageViewData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.PageView, Visio.Interfaces.PageViewData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.PageView, Visio.Interfaces.PageViewData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.PageViewData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.PageViewData): void;
+    }
+    /**
+     *
+     * Represents a collection of Page objects that are part of the document.
+     *
+     * [Api set:  1.1]
+     */
+    class PageCollection extends OfficeExtension.ClientObject {
+        private m__items;
+        readonly _className: string;
+        readonly _isCollection: boolean;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Visio.Page>;
+        /**
+         *
+         * Gets the number of pages in the collection.
+         *
+         * [Api set:  1.1]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a page using its key (name or Id).
+         *
+         * [Api set:  1.1]
+         *
+         * @param key Key is the name or Id of the page to be retrieved.
+         */
+        getItem(key: number | string): Visio.Page;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.PageCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.PageCollection;
+        load(option?: string | string[]): Visio.PageCollection;
+        load(option?: OfficeExtension.LoadOption): Visio.PageCollection;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.PageCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): OfficeExtension.RetrieveResult<Visio.PageCollection, Visio.Interfaces.PageCollectionData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.PageCollection, Visio.Interfaces.PageCollectionData>;
+        retrieve(option?: OfficeExtension.LoadOption): OfficeExtension.RetrieveResult<Visio.PageCollection, Visio.Interfaces.PageCollectionData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.PageCollectionData;
+    }
+    /**
+     *
+     * Represents the Shape Collection.
+     *
+     * [Api set:  1.1]
+     */
+    class ShapeCollection extends OfficeExtension.ClientObject {
+        private m__items;
+        readonly _className: string;
+        readonly _isCollection: boolean;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Visio.Shape>;
+        /**
+         *
+         * Gets the number of Shapes in the collection.
+         *
+         * [Api set:  1.1]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a Shape using its key (name or Index).
+         *
+         * [Api set:  1.1]
+         *
+         * @param key Key is the Name or Index of the shape to be retrieved.
+         */
+        getItem(key: number | string): Visio.Shape;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.ShapeCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeCollection;
+        load(option?: string | string[]): Visio.ShapeCollection;
+        load(option?: OfficeExtension.LoadOption): Visio.ShapeCollection;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.ShapeCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): OfficeExtension.RetrieveResult<Visio.ShapeCollection, Visio.Interfaces.ShapeCollectionData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.ShapeCollection, Visio.Interfaces.ShapeCollectionData>;
+        retrieve(option?: OfficeExtension.LoadOption): OfficeExtension.RetrieveResult<Visio.ShapeCollection, Visio.Interfaces.ShapeCollectionData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.ShapeCollectionData;
+    }
+    /**
+     *
+     * Represents the Shape class.
+     *
+     * [Api set:  1.1]
+     */
+    class Shape extends OfficeExtension.ClientObject {
+        private _C;
+        private _H;
+        private _I;
+        private _N;
+        private _S;
+        private _Sh;
+        private _Su;
+        private _T;
+        private _V;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        readonly _scalarPropertyUpdateable: boolean[];
+        readonly _navigationPropertyNames: string[];
+        /**
+         *
+         * Returns the Comments Collection
+         *
+         * [Api set:  1.1]
+         */
+        readonly comments: Visio.CommentCollection;
+        /**
+         *
+         * Returns the Hyperlinks collection for a Shape object. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly hyperlinks: Visio.HyperlinkCollection;
+        /**
+         *
+         * Returns the Shape's Data Section. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly shapeDataItems: Visio.ShapeDataItemCollection;
+        /**
+         *
+         * Gets SubShape Collection.
+         *
+         * [Api set:  1.1]
+         */
+        readonly subShapes: Visio.ShapeCollection;
+        /**
+         *
+         * Returns the view of the shape. Read-only.
+         *
+         * [Api set:  1.1]
+         */
+        readonly view: Visio.ShapeView;
+        /**
+         *
+         * Shape's Identifier.
+         *
+         * [Api set:  1.1]
+         */
+        readonly id: number;
+        /**
+         *
+         * Shape's name.
+         *
+         * [Api set:  1.1]
+         */
+        readonly name: string;
+        /**
+         *
+         * Returns true, if shape is selected. User can set true to select the shape explicitly.
+         *
+         * [Api set:  1.1]
+         */
+        select: boolean;
+        /**
+         *
+         * Shape's Text.
+         *
+         * [Api set:  1.1]
+         */
+        readonly text: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.ShapeUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Shape): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.ShapeUpdateData): void;
+        /**
+         *
+         * Returns the BoundingBox object that specifies bounding box of the shape.
+         *
+         * [Api set:  1.1]
+         */
+        getBounds(): OfficeExtension.ClientResult<Visio.BoundingBox>;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.ShapeLoadOptions): Visio.Shape;
+        load(option?: string | string[]): Visio.Shape;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.Shape;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.ShapeLoadOptions): OfficeExtension.RetrieveResult<Visio.Shape, Visio.Interfaces.ShapeData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.Shape, Visio.Interfaces.ShapeData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.Shape, Visio.Interfaces.ShapeData>;
+        /** Handle identity results returned from the document
+         * @private
+         */
+        _handleIdResult(value: any): void;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.ShapeData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.ShapeData): void;
+    }
+    /**
+     *
+     * Represents the ShapeView class.
+     *
+     * [Api set:  1.1]
+     */
+    class ShapeView extends OfficeExtension.ClientObject {
+        private _H;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        readonly _scalarPropertyUpdateable: boolean[];
+        /**
+         *
+         * Represents the highlight around the shape.
+         *
+         * [Api set:  1.1]
+         */
+        highlight: Visio.Highlight;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.ShapeViewUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: ShapeView): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.ShapeViewUpdateData): void;
+        /**
+         *
+         * Adds an overlay on top of the shape.
+         *
+         * [Api set:  1.1]
+         *
+         * @param OverlayType An Overlay Type -Text, Image.
+         * @param Content Content of Overlay.
+         * @param OverlayHorizontalAlignment Horizontal Alignment of Overlay - Left, Center, Right
+         * @param OverlayVerticalAlignment Vertical Alignment of Overlay - Top, Middle, Bottom
+         * @param Width Overlay Width.
+         * @param Height Overlay Height.
+         */
+        addOverlay(OverlayType: string, Content: string, OverlayHorizontalAlignment: string, OverlayVerticalAlignment: string, Width: number, Height: number): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Removes particular overlay or all overlays on the Shape.
+         *
+         * [Api set:  1.1]
+         *
+         * @param OverlayId An Overlay Id. Removes the specific overlay id from the shape.
+         */
+        removeOverlay(OverlayId: number): void;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.ShapeViewLoadOptions): Visio.ShapeView;
+        load(option?: string | string[]): Visio.ShapeView;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.ShapeView;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.ShapeViewLoadOptions): OfficeExtension.RetrieveResult<Visio.ShapeView, Visio.Interfaces.ShapeViewData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.ShapeView, Visio.Interfaces.ShapeViewData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.ShapeView, Visio.Interfaces.ShapeViewData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.ShapeViewData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.ShapeViewData): void;
+    }
+    /**
+     *
+     * Represents the Position of the object in the view.
+     *
+     * [Api set:  1.1]
+     */
+    interface Position {
+        /**
+         *
+         * An integer that specifies the x-coordinate of the object, which is the signed value of the distance in pixels from the viewport's center to the left boundary of the page.
+         *
+         * [Api set:  1.1]
+         */
+        x: number;
+        /**
+         *
+         * An integer that specifies the y-coordinate of the object, which is the signed value of the distance in pixels from the viewport's center to the top boundary of the page.
+         *
+         * [Api set:  1.1]
+         */
+        y: number;
+    }
+    /**
+     *
+     * Represents the BoundingBox of the shape.
+     *
+     * [Api set:  1.1]
+     */
+    interface BoundingBox {
+        /**
+         *
+         * The distance between the top and bottom edges of the bounding box of the shape, excluding any data graphics associated with the shape.
+         *
+         * [Api set:  1.1]
+         */
+        height: number;
+        /**
+         *
+         * The distance between the left and right edges of the bounding box of the shape, excluding any data graphics associated with the shape.
+         *
+         * [Api set:  1.1]
+         */
+        width: number;
+        /**
+         *
+         * An integer that specifies the x-coordinate of the bounding box.
+         *
+         * [Api set:  1.1]
+         */
+        x: number;
+        /**
+         *
+         * An integer that specifies the y-coordinate of the bounding box.
+         *
+         * [Api set:  1.1]
+         */
+        y: number;
+    }
+    /**
+     *
+     * Represents the highlight data added to the shape.
+     *
+     * [Api set:  1.1]
+     */
+    interface Highlight {
+        /**
+         *
+         * A string that specifies the color of the highlight. It must have the form "#RRGGBB", where each letter represents a hexadecimal digit between 0 and F, and where RR is the red value between 0 and 0xFF (255), GG the green value between 0 and 0xFF (255), and BB is the blue value between 0 and 0xFF (255).
+         *
+         * [Api set:  1.1]
+         */
+        color: string;
+        /**
+         *
+         * A positive integer that specifies the width of the highlight's stroke in pixels.
+         *
+         * [Api set:  1.1]
+         */
+        width: number;
+    }
+    /**
+     *
+     * Represents the ShapeDataItemCollection for a given Shape.
+     *
+     * [Api set:  1.1]
+     */
+    class ShapeDataItemCollection extends OfficeExtension.ClientObject {
+        private m__items;
+        readonly _className: string;
+        readonly _isCollection: boolean;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Visio.ShapeDataItem>;
+        /**
+         *
+         * Gets the number of Shape Data Items.
+         *
+         * [Api set:  1.1]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the ShapeDataItem using its name.
+         *
+         * [Api set:  1.1]
+         *
+         * @param key Key is the name of the ShapeDataItem to be retrieved.
+         */
+        getItem(key: string): Visio.ShapeDataItem;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.ShapeDataItemCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeDataItemCollection;
+        load(option?: string | string[]): Visio.ShapeDataItemCollection;
+        load(option?: OfficeExtension.LoadOption): Visio.ShapeDataItemCollection;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.ShapeDataItemCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): OfficeExtension.RetrieveResult<Visio.ShapeDataItemCollection, Visio.Interfaces.ShapeDataItemCollectionData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.ShapeDataItemCollection, Visio.Interfaces.ShapeDataItemCollectionData>;
+        retrieve(option?: OfficeExtension.LoadOption): OfficeExtension.RetrieveResult<Visio.ShapeDataItemCollection, Visio.Interfaces.ShapeDataItemCollectionData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.ShapeDataItemCollectionData;
+    }
+    /**
+     *
+     * Represents the ShapeDataItem.
+     *
+     * [Api set:  1.1]
+     */
+    class ShapeDataItem extends OfficeExtension.ClientObject {
+        private _F;
+        private _Fo;
+        private _L;
+        private _V;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        /**
+         *
+         * A string that specifies the format of the shape data item.
+         *
+         * [Api set:  1.1]
+         */
+        readonly format: string;
+        /**
+         *
+         * A string that specifies the formatted value of the shape data item.
+         *
+         * [Api set:  1.1]
+         */
+        readonly formattedValue: string;
+        /**
+         *
+         * A string that specifies the label of the shape data item.
+         *
+         * [Api set:  1.1]
+         */
+        readonly label: string;
+        /**
+         *
+         * A string that specifies the value of the shape data item.
+         *
+         * [Api set:  1.1]
+         */
+        readonly value: string;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.ShapeDataItemLoadOptions): Visio.ShapeDataItem;
+        load(option?: string | string[]): Visio.ShapeDataItem;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.ShapeDataItem;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.ShapeDataItemLoadOptions): OfficeExtension.RetrieveResult<Visio.ShapeDataItem, Visio.Interfaces.ShapeDataItemData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.ShapeDataItem, Visio.Interfaces.ShapeDataItemData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.ShapeDataItem, Visio.Interfaces.ShapeDataItemData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.ShapeDataItemData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.ShapeDataItemData): void;
+    }
+    /**
+     *
+     * Represents the Hyperlink Collection.
+     *
+     * [Api set:  1.1]
+     */
+    class HyperlinkCollection extends OfficeExtension.ClientObject {
+        private m__items;
+        readonly _className: string;
+        readonly _isCollection: boolean;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Visio.Hyperlink>;
+        /**
+         *
+         * Gets the number of hyperlinks.
+         *
+         * [Api set:  1.1]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a Hyperlink using its key (name or Id).
+         *
+         * [Api set:  1.1]
+         *
+         * @param Key Key is the name or index of the Hyperlink to be retrieved.
+         */
+        getItem(Key: number | string): Visio.Hyperlink;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.HyperlinkCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.HyperlinkCollection;
+        load(option?: string | string[]): Visio.HyperlinkCollection;
+        load(option?: OfficeExtension.LoadOption): Visio.HyperlinkCollection;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.HyperlinkCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): OfficeExtension.RetrieveResult<Visio.HyperlinkCollection, Visio.Interfaces.HyperlinkCollectionData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.HyperlinkCollection, Visio.Interfaces.HyperlinkCollectionData>;
+        retrieve(option?: OfficeExtension.LoadOption): OfficeExtension.RetrieveResult<Visio.HyperlinkCollection, Visio.Interfaces.HyperlinkCollectionData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.HyperlinkCollectionData;
+    }
+    /**
+     *
+     * Represents the Hyperlink.
+     *
+     * [Api set:  1.1]
+     */
+    class Hyperlink extends OfficeExtension.ClientObject {
+        private _A;
+        private _D;
+        private _E;
+        private _S;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        /**
+         *
+         * Gets the address of the Hyperlink object.
+         *
+         * [Api set:  1.1]
+         */
+        readonly address: string;
+        /**
+         *
+         * Gets the description of a hyperlink.
+         *
+         * [Api set:  1.1]
+         */
+        readonly description: string;
+        /**
+         *
+         * Gets the extra info of a hyperlink.
+         *
+         * [Api set:  1.1]
+         */
+        readonly extraInfo: string;
+        /**
+         *
+         * Gets the sub-address of the Hyperlink object.
+         *
+         * [Api set:  1.1]
+         */
+        readonly subAddress: string;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.HyperlinkLoadOptions): Visio.Hyperlink;
+        load(option?: string | string[]): Visio.Hyperlink;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.Hyperlink;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.HyperlinkLoadOptions): OfficeExtension.RetrieveResult<Visio.Hyperlink, Visio.Interfaces.HyperlinkData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.Hyperlink, Visio.Interfaces.HyperlinkData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.Hyperlink, Visio.Interfaces.HyperlinkData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.HyperlinkData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.HyperlinkData): void;
+    }
+    /**
+     *
+     * Represents the CommentCollection for a given Shape.
+     *
+     * [Api set:  1.1]
+     */
+    class CommentCollection extends OfficeExtension.ClientObject {
+        private m__items;
+        readonly _className: string;
+        readonly _isCollection: boolean;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Array<Visio.Comment>;
+        /**
+         *
+         * Gets the number of Shape Data Items.
+         *
+         * [Api set:  1.1]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the Comment using its name.
+         *
+         * [Api set:  1.1]
+         *
+         * @param key Key is the name of the Comment to be retrieved.
+         */
+        getItem(key: string): Visio.Comment;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.CommentCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.CommentCollection;
+        load(option?: string | string[]): Visio.CommentCollection;
+        load(option?: OfficeExtension.LoadOption): Visio.CommentCollection;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.CommentCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): OfficeExtension.RetrieveResult<Visio.CommentCollection, Visio.Interfaces.CommentCollectionData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.CommentCollection, Visio.Interfaces.CommentCollectionData>;
+        retrieve(option?: OfficeExtension.LoadOption): OfficeExtension.RetrieveResult<Visio.CommentCollection, Visio.Interfaces.CommentCollectionData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.CommentCollectionData;
+    }
+    /**
+     *
+     * Represents the Comment.
+     *
+     * [Api set:  1.1]
+     */
+    class Comment extends OfficeExtension.ClientObject {
+        private _A;
+        private _D;
+        private _T;
+        readonly _className: string;
+        readonly _scalarPropertyNames: string[];
+        readonly _scalarPropertyUpdateable: boolean[];
+        /**
+         *
+         * A string that specifies the label of the shape data item.
+         *
+         * [Api set:  1.1]
+         */
+        author: string;
+        /**
+         *
+         * A string that specifies the format of the shape data item.
+         *
+         * [Api set:  1.1]
+         */
+        date: string;
+        /**
+         *
+         * A string that specifies the value of the shape data item.
+         *
+         * [Api set:  1.1]
+         */
+        text: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.CommentUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Comment): void;
+        /** Update multiple properties on the object at the same time, based on JSON input. */
+        update(properties: Interfaces.CommentUpdateData): void;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: Visio.Interfaces.CommentLoadOptions): Visio.Comment;
+        load(option?: string | string[]): Visio.Comment;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.Comment;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: Visio.Interfaces.CommentLoadOptions): OfficeExtension.RetrieveResult<Visio.Comment, Visio.Interfaces.CommentData>;
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.Comment, Visio.Interfaces.CommentData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.Comment, Visio.Interfaces.CommentData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.CommentData;
+        /**
+         * Queues up a command to ensure the object's state is not changed.
+         */
+        ensureUnchanged(data: Visio.Interfaces.CommentData): void;
+    }
+    /**
+     *
+     * Represents the Selection in the page.
+     *
+     * [Api set:  1.1]
+     */
+    class Selection extends OfficeExtension.ClientObject {
+        private _S;
+        readonly _className: string;
+        readonly _navigationPropertyNames: string[];
+        /**
+         *
+         * Gets the Shapes of the Selection
+         *
+         * [Api set:  1.1]
+         */
+        readonly shapes: Visio.ShapeCollection;
+        /** Handle results returned from the document
+         * @private
+         */
+        _handleResult(value: any): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[]): Visio.Selection;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Visio.Selection;
+        /**
+         * Creates a command to retrieve the specified properties of the object. You must call "context.sync()" before reading "result.data".
+         */
+        retrieve(option?: string | string[]): OfficeExtension.RetrieveResult<Visio.Selection, Visio.Interfaces.SelectionData>;
+        retrieve(option?: {
+            select?: string;
+            expand?: string;
+        }): OfficeExtension.RetrieveResult<Visio.Selection, Visio.Interfaces.SelectionData>;
+        /** Handle retrieve results
+         * @private
+         */
+        _handleRetrieveResult(value: any, result: any): void;
+        toJSON(): Visio.Interfaces.SelectionData;
+    }
+    /**
+     *
+     * Represents the Horizontal Alignment of the Overlay relative to the shape.
+     *
+     * [Api set:  1.1]
+     */
+    namespace OverlayHorizontalAlignment {
+        /**
+         *
+         * left
+         *
+         */
+        var left: string;
+        /**
+         *
+         * center
+         *
+         */
+        var center: string;
+        /**
+         *
+         * right
+         *
+         */
+        var right: string;
+    }
+    /**
+     *
+     * Represents the Vertical Alignment of the Overlay relative to the shape.
+     *
+     * [Api set:  1.1]
+     */
+    namespace OverlayVerticalAlignment {
+        /**
+         *
+         * top
+         *
+         */
+        var top: string;
+        /**
+         *
+         * middle
+         *
+         */
+        var middle: string;
+        /**
+         *
+         * bottom
+         *
+         */
+        var bottom: string;
+    }
+    /**
+     *
+     * Represents the type of the overlay.
+     *
+     * [Api set:  1.1]
+     */
+    namespace OverlayType {
+        /**
+         *
+         * text
+         *
+         */
+        var text: string;
+        /**
+         *
+         * image
+         *
+         */
+        var image: string;
+    }
+    /**
+     *
+     * Toolbar IDs of the app
+     *
+     * [Api set:  1.1]
+     */
+    namespace ToolBarType {
+        /**
+         *
+         * CommandBar
+         *
+         */
+        var commandBar: string;
+        /**
+         *
+         * PageNavigationBar
+         *
+         */
+        var pageNavigationBar: string;
+        /**
+         *
+         * StatusBar
+         *
+         */
+        var statusBar: string;
+    }
+    namespace ErrorCodes {
+        var accessDenied: string;
+        var generalException: string;
+        var invalidArgument: string;
+        var itemNotFound: string;
+        var notImplemented: string;
+        var unsupportedOperation: string;
+    }
+    module Interfaces {
+        interface CollectionLoadOptions {
+            $top?: number;
+            $skip?: number;
+        }
+        /** An interface for updating data on the Application object, for use in "application.set({ ... })". */
+        interface ApplicationUpdateData {
+            /**
+             *
+             * Show/Hide the application borders.
+             *
+             * [Api set:  1.1]
+             */
+            showBorders?: boolean;
+            /**
+             *
+             * Show or Hide the standard toolbars.
+             *
+             * [Api set:  1.1]
+             */
+            showToolbars?: boolean;
+        }
+        /** An interface for updating data on the Document object, for use in "document.set({ ... })". */
+        interface DocumentUpdateData {
+            /**
+            *
+            * Represents a Visio application instance that contains this document.
+            *
+            * [Api set:  1.1]
+            */
+            application?: Visio.Interfaces.ApplicationUpdateData;
+            /**
+            *
+            * Returns the DocumentView object.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.DocumentViewUpdateData;
+        }
+        /** An interface for updating data on the DocumentView object, for use in "documentView.set({ ... })". */
+        interface DocumentViewUpdateData {
+            /**
+             *
+             * Disable Hyperlinks.
+             *
+             * [Api set:  1.1]
+             */
+            disableHyperlinks?: boolean;
+            /**
+             *
+             * Disable Pan.
+             *
+             * [Api set:  1.1]
+             */
+            disablePan?: boolean;
+            /**
+             *
+             * Disable Zoom.
+             *
+             * [Api set:  1.1]
+             */
+            disableZoom?: boolean;
+            /**
+             *
+             * Disable Hyperlinks.
+             *
+             * [Api set:  1.1]
+             */
+            hideDiagramBoundary?: boolean;
+        }
+        /** An interface for updating data on the Page object, for use in "page.set({ ... })". */
+        interface PageUpdateData {
+            /**
+            *
+            * Returns the view of the page.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.PageViewUpdateData;
+        }
+        /** An interface for updating data on the PageView object, for use in "pageView.set({ ... })". */
+        interface PageViewUpdateData {
+            /**
+             *
+             * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+             *
+             * [Api set:  1.1]
+             */
+            zoom?: number;
+        }
+        /** An interface for updating data on the PageCollection object, for use in "pageCollection.set({ ... })". */
+        interface PageCollectionUpdateData {
+            items?: Visio.Interfaces.PageData[];
+        }
+        /** An interface for updating data on the ShapeCollection object, for use in "shapeCollection.set({ ... })". */
+        interface ShapeCollectionUpdateData {
+            items?: Visio.Interfaces.ShapeData[];
+        }
+        /** An interface for updating data on the Shape object, for use in "shape.set({ ... })". */
+        interface ShapeUpdateData {
+            /**
+            *
+            * Returns the view of the shape.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.ShapeViewUpdateData;
+            /**
+             *
+             * Returns true, if shape is selected. User can set true to select the shape explicitly.
+             *
+             * [Api set:  1.1]
+             */
+            select?: boolean;
+        }
+        /** An interface for updating data on the ShapeView object, for use in "shapeView.set({ ... })". */
+        interface ShapeViewUpdateData {
+            /**
+             *
+             * Represents the highlight around the shape.
+             *
+             * [Api set:  1.1]
+             */
+            highlight?: Visio.Highlight;
+        }
+        /** An interface for updating data on the ShapeDataItemCollection object, for use in "shapeDataItemCollection.set({ ... })". */
+        interface ShapeDataItemCollectionUpdateData {
+            items?: Visio.Interfaces.ShapeDataItemData[];
+        }
+        /** An interface for updating data on the HyperlinkCollection object, for use in "hyperlinkCollection.set({ ... })". */
+        interface HyperlinkCollectionUpdateData {
+            items?: Visio.Interfaces.HyperlinkData[];
+        }
+        /** An interface for updating data on the CommentCollection object, for use in "commentCollection.set({ ... })". */
+        interface CommentCollectionUpdateData {
+            items?: Visio.Interfaces.CommentData[];
+        }
+        /** An interface for updating data on the Comment object, for use in "comment.set({ ... })". */
+        interface CommentUpdateData {
+            /**
+             *
+             * A string that specifies the label of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            author?: string;
+            /**
+             *
+             * A string that specifies the format of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            date?: string;
+            /**
+             *
+             * A string that specifies the value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            text?: string;
+        }
+        /** An interface describing the data returned by calling "application.toJSON()". */
+        interface ApplicationData {
+            /**
+             *
+             * Show/Hide the application borders.
+             *
+             * [Api set:  1.1]
+             */
+            showBorders?: boolean;
+            /**
+             *
+             * Show or Hide the standard toolbars.
+             *
+             * [Api set:  1.1]
+             */
+            showToolbars?: boolean;
+        }
+        /** An interface describing the data returned by calling "document.toJSON()". */
+        interface DocumentData {
+            /**
+            *
+            * Represents a Visio application instance that contains this document. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            application?: Visio.Interfaces.ApplicationData;
+            /**
+            *
+            * Represents a collection of pages associated with the document. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            pages?: Visio.Interfaces.PageData[];
+            /**
+            *
+            * Returns the DocumentView object.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.DocumentViewData;
+        }
+        /** An interface describing the data returned by calling "documentView.toJSON()". */
+        interface DocumentViewData {
+            /**
+             *
+             * Disable Hyperlinks.
+             *
+             * [Api set:  1.1]
+             */
+            disableHyperlinks?: boolean;
+            /**
+             *
+             * Disable Pan.
+             *
+             * [Api set:  1.1]
+             */
+            disablePan?: boolean;
+            /**
+             *
+             * Disable Zoom.
+             *
+             * [Api set:  1.1]
+             */
+            disableZoom?: boolean;
+            /**
+             *
+             * Disable Hyperlinks.
+             *
+             * [Api set:  1.1]
+             */
+            hideDiagramBoundary?: boolean;
+        }
+        /** An interface describing the data returned by calling "page.toJSON()". */
+        interface PageData {
+            /**
+            *
+            * All shapes in the page. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            allShapes?: Visio.Interfaces.ShapeData[];
+            /**
+            *
+            * Returns the Comments Collection
+            *
+            * [Api set:  1.1]
+            */
+            comments?: Visio.Interfaces.CommentData[];
+            /**
+            *
+            * Shapes at root level, in the page. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            shapes?: Visio.Interfaces.ShapeData[];
+            /**
+            *
+            * Returns the view of the page. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.PageViewData;
+            /**
+             *
+             * Returns the height of the page. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            height?: number;
+            /**
+             *
+             * Index of the Page.
+             *
+             * [Api set:  1.1]
+             */
+            index?: number;
+            /**
+             *
+             * Whether the page is a background page or not. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            isBackground?: boolean;
+            /**
+             *
+             * Page name. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            name?: string;
+            /**
+             *
+             * Returns the width of the page. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            width?: number;
+        }
+        /** An interface describing the data returned by calling "pageView.toJSON()". */
+        interface PageViewData {
+            /**
+             *
+             * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+             *
+             * [Api set:  1.1]
+             */
+            zoom?: number;
+        }
+        /** An interface describing the data returned by calling "pageCollection.toJSON()". */
+        interface PageCollectionData {
+            items?: Visio.Interfaces.PageData[];
+        }
+        /** An interface describing the data returned by calling "shapeCollection.toJSON()". */
+        interface ShapeCollectionData {
+            items?: Visio.Interfaces.ShapeData[];
+        }
+        /** An interface describing the data returned by calling "shape.toJSON()". */
+        interface ShapeData {
+            /**
+            *
+            * Returns the Comments Collection
+            *
+            * [Api set:  1.1]
+            */
+            comments?: Visio.Interfaces.CommentData[];
+            /**
+            *
+            * Returns the Hyperlinks collection for a Shape object. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            hyperlinks?: Visio.Interfaces.HyperlinkData[];
+            /**
+            *
+            * Returns the Shape's Data Section. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            shapeDataItems?: Visio.Interfaces.ShapeDataItemData[];
+            /**
+            *
+            * Gets SubShape Collection.
+            *
+            * [Api set:  1.1]
+            */
+            subShapes?: Visio.Interfaces.ShapeData[];
+            /**
+            *
+            * Returns the view of the shape. Read-only.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.ShapeViewData;
+            /**
+             *
+             * Shape's Identifier.
+             *
+             * [Api set:  1.1]
+             */
+            id?: number;
+            /**
+             *
+             * Shape's name.
+             *
+             * [Api set:  1.1]
+             */
+            name?: string;
+            /**
+             *
+             * Returns true, if shape is selected. User can set true to select the shape explicitly.
+             *
+             * [Api set:  1.1]
+             */
+            select?: boolean;
+            /**
+             *
+             * Shape's Text.
+             *
+             * [Api set:  1.1]
+             */
+            text?: string;
+        }
+        /** An interface describing the data returned by calling "shapeView.toJSON()". */
+        interface ShapeViewData {
+            /**
+             *
+             * Represents the highlight around the shape.
+             *
+             * [Api set:  1.1]
+             */
+            highlight?: Visio.Highlight;
+        }
+        /** An interface describing the data returned by calling "shapeDataItemCollection.toJSON()". */
+        interface ShapeDataItemCollectionData {
+            items?: Visio.Interfaces.ShapeDataItemData[];
+        }
+        /** An interface describing the data returned by calling "shapeDataItem.toJSON()". */
+        interface ShapeDataItemData {
+            /**
+             *
+             * A string that specifies the format of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            format?: string;
+            /**
+             *
+             * A string that specifies the formatted value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            formattedValue?: string;
+            /**
+             *
+             * A string that specifies the label of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            label?: string;
+            /**
+             *
+             * A string that specifies the value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            value?: string;
+        }
+        /** An interface describing the data returned by calling "hyperlinkCollection.toJSON()". */
+        interface HyperlinkCollectionData {
+            items?: Visio.Interfaces.HyperlinkData[];
+        }
+        /** An interface describing the data returned by calling "hyperlink.toJSON()". */
+        interface HyperlinkData {
+            /**
+             *
+             * Gets the address of the Hyperlink object.
+             *
+             * [Api set:  1.1]
+             */
+            address?: string;
+            /**
+             *
+             * Gets the description of a hyperlink.
+             *
+             * [Api set:  1.1]
+             */
+            description?: string;
+            /**
+             *
+             * Gets the extra info of a hyperlink.
+             *
+             * [Api set:  1.1]
+             */
+            extraInfo?: string;
+            /**
+             *
+             * Gets the sub-address of the Hyperlink object.
+             *
+             * [Api set:  1.1]
+             */
+            subAddress?: string;
+        }
+        /** An interface describing the data returned by calling "commentCollection.toJSON()". */
+        interface CommentCollectionData {
+            items?: Visio.Interfaces.CommentData[];
+        }
+        /** An interface describing the data returned by calling "comment.toJSON()". */
+        interface CommentData {
+            /**
+             *
+             * A string that specifies the label of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            author?: string;
+            /**
+             *
+             * A string that specifies the format of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            date?: string;
+            /**
+             *
+             * A string that specifies the value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            text?: string;
+        }
+        /** An interface describing the data returned by calling "selection.toJSON()". */
+        interface SelectionData {
+            /**
+            *
+            * Gets the Shapes of the Selection
+            *
+            * [Api set:  1.1]
+            */
+            shapes?: Visio.Interfaces.ShapeData[];
+        }
+        /**
+         *
+         * Represents the Application.
+         *
+         * [Api set:  1.1]
+         */
+        interface ApplicationLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Show/Hide the application borders.
+             *
+             * [Api set:  1.1]
+             */
+            showBorders?: boolean;
+            /**
+             *
+             * Show or Hide the standard toolbars.
+             *
+             * [Api set:  1.1]
+             */
+            showToolbars?: boolean;
+        }
+        /**
+         *
+         * Represents the Document class.
+         *
+         * [Api set:  1.1]
+         */
+        interface DocumentLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Represents a Visio application instance that contains this document.
+            *
+            * [Api set:  1.1]
+            */
+            application?: Visio.Interfaces.ApplicationLoadOptions;
+            /**
+            *
+            * Returns the DocumentView object.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.DocumentViewLoadOptions;
+        }
+        /**
+         *
+         * Represents the DocumentView class.
+         *
+         * [Api set:  1.1]
+         */
+        interface DocumentViewLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Disable Hyperlinks.
+             *
+             * [Api set:  1.1]
+             */
+            disableHyperlinks?: boolean;
+            /**
+             *
+             * Disable Pan.
+             *
+             * [Api set:  1.1]
+             */
+            disablePan?: boolean;
+            /**
+             *
+             * Disable Zoom.
+             *
+             * [Api set:  1.1]
+             */
+            disableZoom?: boolean;
+            /**
+             *
+             * Disable Hyperlinks.
+             *
+             * [Api set:  1.1]
+             */
+            hideDiagramBoundary?: boolean;
+        }
+        /**
+         *
+         * Represents the Page class.
+         *
+         * [Api set:  1.1]
+         */
+        interface PageLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Returns the view of the page.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.PageViewLoadOptions;
+            /**
+             *
+             * Returns the height of the page. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            height?: boolean;
+            /**
+             *
+             * Index of the Page.
+             *
+             * [Api set:  1.1]
+             */
+            index?: boolean;
+            /**
+             *
+             * Whether the page is a background page or not. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            isBackground?: boolean;
+            /**
+             *
+             * Page name. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            name?: boolean;
+            /**
+             *
+             * Returns the width of the page. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            width?: boolean;
+        }
+        /**
+         *
+         * Represents the PageView class.
+         *
+         * [Api set:  1.1]
+         */
+        interface PageViewLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+             *
+             * [Api set:  1.1]
+             */
+            zoom?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of Page objects that are part of the document.
+         *
+         * [Api set:  1.1]
+         */
+        interface PageCollectionLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns the view of the page.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.PageViewLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the height of the page. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            height?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Index of the Page.
+             *
+             * [Api set:  1.1]
+             */
+            index?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Whether the page is a background page or not. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            isBackground?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Page name. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the width of the page. Read-only.
+             *
+             * [Api set:  1.1]
+             */
+            width?: boolean;
+        }
+        /**
+         *
+         * Represents the Shape Collection.
+         *
+         * [Api set:  1.1]
+         */
+        interface ShapeCollectionLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns the view of the shape.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.ShapeViewLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Shape's Identifier.
+             *
+             * [Api set:  1.1]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Shape's name.
+             *
+             * [Api set:  1.1]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns true, if shape is selected. User can set true to select the shape explicitly.
+             *
+             * [Api set:  1.1]
+             */
+            select?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Shape's Text.
+             *
+             * [Api set:  1.1]
+             */
+            text?: boolean;
+        }
+        /**
+         *
+         * Represents the Shape class.
+         *
+         * [Api set:  1.1]
+         */
+        interface ShapeLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Returns the view of the shape.
+            *
+            * [Api set:  1.1]
+            */
+            view?: Visio.Interfaces.ShapeViewLoadOptions;
+            /**
+             *
+             * Shape's Identifier.
+             *
+             * [Api set:  1.1]
+             */
+            id?: boolean;
+            /**
+             *
+             * Shape's name.
+             *
+             * [Api set:  1.1]
+             */
+            name?: boolean;
+            /**
+             *
+             * Returns true, if shape is selected. User can set true to select the shape explicitly.
+             *
+             * [Api set:  1.1]
+             */
+            select?: boolean;
+            /**
+             *
+             * Shape's Text.
+             *
+             * [Api set:  1.1]
+             */
+            text?: boolean;
+        }
+        /**
+         *
+         * Represents the ShapeView class.
+         *
+         * [Api set:  1.1]
+         */
+        interface ShapeViewLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Represents the highlight around the shape.
+             *
+             * [Api set:  1.1]
+             */
+            highlight?: boolean;
+        }
+        /**
+         *
+         * Represents the ShapeDataItemCollection for a given Shape.
+         *
+         * [Api set:  1.1]
+         */
+        interface ShapeDataItemCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: A string that specifies the format of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            format?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: A string that specifies the formatted value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            formattedValue?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: A string that specifies the label of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            label?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: A string that specifies the value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            value?: boolean;
+        }
+        /**
+         *
+         * Represents the ShapeDataItem.
+         *
+         * [Api set:  1.1]
+         */
+        interface ShapeDataItemLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * A string that specifies the format of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            format?: boolean;
+            /**
+             *
+             * A string that specifies the formatted value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            formattedValue?: boolean;
+            /**
+             *
+             * A string that specifies the label of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            label?: boolean;
+            /**
+             *
+             * A string that specifies the value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            value?: boolean;
+        }
+        /**
+         *
+         * Represents the Hyperlink Collection.
+         *
+         * [Api set:  1.1]
+         */
+        interface HyperlinkCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the address of the Hyperlink object.
+             *
+             * [Api set:  1.1]
+             */
+            address?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the description of a hyperlink.
+             *
+             * [Api set:  1.1]
+             */
+            description?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the extra info of a hyperlink.
+             *
+             * [Api set:  1.1]
+             */
+            extraInfo?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the sub-address of the Hyperlink object.
+             *
+             * [Api set:  1.1]
+             */
+            subAddress?: boolean;
+        }
+        /**
+         *
+         * Represents the Hyperlink.
+         *
+         * [Api set:  1.1]
+         */
+        interface HyperlinkLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Gets the address of the Hyperlink object.
+             *
+             * [Api set:  1.1]
+             */
+            address?: boolean;
+            /**
+             *
+             * Gets the description of a hyperlink.
+             *
+             * [Api set:  1.1]
+             */
+            description?: boolean;
+            /**
+             *
+             * Gets the extra info of a hyperlink.
+             *
+             * [Api set:  1.1]
+             */
+            extraInfo?: boolean;
+            /**
+             *
+             * Gets the sub-address of the Hyperlink object.
+             *
+             * [Api set:  1.1]
+             */
+            subAddress?: boolean;
+        }
+        /**
+         *
+         * Represents the CommentCollection for a given Shape.
+         *
+         * [Api set:  1.1]
+         */
+        interface CommentCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: A string that specifies the label of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            author?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: A string that specifies the format of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            date?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: A string that specifies the value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            text?: boolean;
+        }
+        /**
+         *
+         * Represents the Comment.
+         *
+         * [Api set:  1.1]
+         */
+        interface CommentLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * A string that specifies the label of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            author?: boolean;
+            /**
+             *
+             * A string that specifies the format of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            date?: boolean;
+            /**
+             *
+             * A string that specifies the value of the shape data item.
+             *
+             * [Api set:  1.1]
+             */
+            text?: boolean;
+        }
+    }
+}
+declare module Visio {
+    /**
+     * The RequestContext object facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
+     */
+    class RequestContext extends OfficeExtension.ClientRequestContext {
+        private m_document;
+        constructor(url?: string | OfficeExtension.EmbeddedSession);
+        readonly document: Document;
+    }
+    /**
+     * Executes a batch script that performs actions on the Visio object model, using a new request context. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
+     */
+    function run<T>(batch: (context: Visio.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Visio object model, using the request context of a previously-created API object.
+     * @param object - A previously-created API object. The batch will use the same request context as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     */
+    function run<T>(object: OfficeExtension.ClientObject | OfficeExtension.EmbeddedSession, batch: (context: Visio.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Visio object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param contextObject - A previously-created Visio.RequestContext. This context will get re-used by the batch function (instead of having a new context created). This means that the batch will be able to pick up changes made to existing API objects, if those objects were derived from this same context.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the RequestContext is required to get access to the Visio object model from the add-in.
+     */
+    function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Visio object model, using the request context of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+}									  
+										  
+										  
+////////////////////////////////////////////////////////////////
+/////////////////////// End Visio APIs ///////////////////////
+////////////////////////////////////////////////////////////////
