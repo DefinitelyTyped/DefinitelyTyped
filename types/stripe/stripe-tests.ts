@@ -253,12 +253,13 @@ stripe.customers.create({
 
     customer.subscriptions.create({ items: [{ plan: "gold" }] }).then(function (subscription) { });
     customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: "now" }).then(function (subscription) { });
-    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: 1516881177 }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: 1516881177, billing: "send_invoice", days_until_due: 7 }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], billing: "charge_automatically" }).then(function (subscription) { });
     customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) {
         customer.subscriptions.update("sub_8Eluur5KoIKxuy", { items: [{ id: subscription.items.data[0].id, plan: "silver" }] }).then(function (subscription) { });
      });
     customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: "now" });
-    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177 });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177, billing: "send_invoice", days_until_due: 7 });
     customer.subscriptions.list().then(function (subscriptions) { });
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then(function (confirmation) { });
