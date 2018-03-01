@@ -18,13 +18,11 @@ export interface SortStart {
 
 export type SortEvent = React.MouseEvent<any> | React.TouchEvent<any>;
 
-interface Tag extends React.EventTarget {
+export interface Tag extends React.EventTarget {
     tagName: string;
 }
 
-export interface SortEventWithTag extends SortEvent {
-    target: Tag;
-}
+export type SortEventWithTag = SortEvent & { target: Tag }
 
 export type SortStartHandler = (sort: SortStart, event: SortEvent) => void;
 
