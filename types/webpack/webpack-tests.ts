@@ -578,3 +578,5 @@ configuration = {
         portableRecords: true
     }
 };
+
+plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });
