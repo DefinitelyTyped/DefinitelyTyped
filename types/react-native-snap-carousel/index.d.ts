@@ -172,7 +172,7 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      * Note that it will only be applied to the scale animation since opacity's animation type will always be set
      * to timing (no one wants the opacity to 'bounce' around)
      */
-    activeAnimationType?: string;
+    activeAnimationType?: 'decay' | 'spring' | 'timing';
     /**
      * Determine active slide's alignment relative to the carousel
      */
