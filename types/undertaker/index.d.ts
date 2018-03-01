@@ -1,4 +1,4 @@
-// Type definitions for undertaker 1.1
+// Type definitions for undertaker 1.2
 // Project: https://github.com/phated/undertaker
 // Definitions by: Qubo <https://github.com/tkqubo>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,14 +56,6 @@ declare class Undertaker extends EventEmitter {
      * @param fn - Task function.
      */
     task(taskName: string, fn: Undertaker.TaskFunction): void;
-
-    /**
-     * Register the task by the taskName.
-     * @param taskName - Task name.
-     * @param dependencies - Task dependencies.
-     * @param fn - Task function.
-     */
-    task(taskName: string, dependencies: string[], fn: Undertaker.TaskFunction): void;
 
     /**
      * Register the task by the name property of the function.
