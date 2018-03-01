@@ -763,6 +763,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "js.spec",
+            "typingsPackageName": "js.spec",
+            "sourceRepoURL": "https://github.com/prayerslayer/js.spec",
+            "asOfVersion": "1.0.0-23"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
