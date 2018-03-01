@@ -7,7 +7,7 @@
 /// <reference types='jasmine'/>
 
 // #region Imports
-import { Response } from 'node-fetch'; // Import all definitions from node-fetch.
+export import nodeFetch = require('node-fetch'); // Import all definitions from node-fetch.
 //#endregion
 
 // #region Joi Methods
@@ -38,7 +38,7 @@ export class FrisbySpec {
     inspectStatus(): FrisbySpec;
     patch(url: string, params: {}): FrisbySpec;
     post(url: string, params: {}): FrisbySpec;
-    promise(): Promise<Response>;
+    promise(): Promise<nodeFetch.Response>;
     put(url: string, params: {}): FrisbySpec;
     setup(opts: {}, replace: boolean): FrisbySpec;
     then(onFulfilled: {} | ((...args: any[]) => void), onRejected: (...args: any[]) => void): FrisbySpec;
