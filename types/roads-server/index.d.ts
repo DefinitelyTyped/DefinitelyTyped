@@ -30,7 +30,6 @@ export class Http2Server {
     /**
      *
      * @param Roads The Road that handles all the routes
-     * @param error_handler An overwrite to the standard error handler. Accepts a single parameter (the error) and should return a Roads.Response object
      */
     constructor(Roads: Road);
 
