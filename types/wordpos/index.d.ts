@@ -8,7 +8,6 @@
  * Original wordnet documentation available at: https://wordnet.princeton.edu/wordnet/documentation/
  */
 
-// Retrieved from dataFile.js
 // See: https://wordnet.princeton.edu/wordnet/man/lexnames.5WN.html
 type LEX_NAMES =
     | "adj.all"
