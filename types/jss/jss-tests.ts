@@ -7,13 +7,25 @@ import {
 
 const jss = createJSS().setup({});
 
-const styleSheet = jss.createStyleSheet(
+const styleSheet = jss.createStyleSheet<string>(
 	{
 		ruleWithMockObservable: {
-			subscribe() {}
+			subscribe: observer => {
+				const next = typeof observer === 'function' ? observer : observer.next;
+				next({ background: 'blue', display: 'flex' });
+				next({ invalidKey: 'blueish' }); // $ExpectError
+
+				// only kebab case allowed in observables
+				next({ 'align-items': 'center' });
+				next({ alignItems: 'center' }); // $ExpectError
+				return {
+					unsubscribe() {}
+				};
+			}
 		},
 		container: {
 			display: 'flex',
+			'align-items': 'center',
 			width: 100,
 			opacity: .5,
 		},
@@ -53,10 +65,21 @@ styleSheet.addRules({
 	},
 });
 
+styleSheet.addRule('badProperty', {
+	thisIsNotAValidProperty: 'blah', // $ExpectError
+});
+
+styleSheet.addRule('badValue', { // $ExpectError
+	'align-items': 'thisIsNotAValidValue',
+});
+
 styleSheet.detach();
 
-sharedInstance.createStyleSheet({
+const styleSheet2 = sharedInstance.createStyleSheet({
 	container: {
 		background: '#000099',
 	}
 });
+
+styleSheet2.classes.container; // $ExpectType string
+styleSheet2.classes.notAValidKey; // $ExpectError
