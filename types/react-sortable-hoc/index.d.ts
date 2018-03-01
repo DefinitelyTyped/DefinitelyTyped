@@ -22,7 +22,7 @@ export type SortEventWithTag = SortEvent & {
   target: {
     tagName: string
   }
-}
+};
 
 export type SortStartHandler = (sort: SortStart, event: SortEvent) => void;
 
