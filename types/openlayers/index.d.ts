@@ -14643,6 +14643,7 @@ declare module olx {
         loadTilesWhileAnimating?: boolean;
         loadTilesWhileInteracting?: boolean;
         logo?: (boolean | string | olx.LogoOptions | Element);
+        moveTolerance?: number
         overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]);
         renderer?: (ol.RendererType | (ol.RendererType | string)[] | string);
         target?: (Element | string);
