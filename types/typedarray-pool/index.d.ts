@@ -2,7 +2,6 @@
 // Project: https://github.com/mikolalysenko/typedarray-pool
 // Definitions by: Giff Song <https://github.com/pawsong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 type DataType =
     'uint8' | 'uint16' | 'uint32' | 'int8' | 'int16' | 'int32' |
