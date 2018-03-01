@@ -5,20 +5,21 @@
 // TypeScript Version: 2.4
 
 // Make any object configurable
-export default function(obj: any): Configurable;
+declare function configurable<T extends object>(obj: T): T & Configurable<T>;
+export = configurable;
 
-export class Configurable {
+interface Configurable<T> {
     settings: {
         [key: string]: any;
     };
 
-    set(name: string, val: any): Configurable;
+    set(name: string, val: any): T & Configurable<T>;
 
     get(name: string): any;
 
-    enable(name: string): Configurable;
+    enable(name: string): T & Configurable<T>;
 
-    disable(name: string): Configurable;
+    disable(name: string): T & Configurable<T>;
 
     enabled(name: string): boolean;
 
