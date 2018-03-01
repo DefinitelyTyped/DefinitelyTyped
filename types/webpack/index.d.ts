@@ -967,6 +967,10 @@ declare namespace webpack {
         constructor(definitions: { [key: string]: any });
     }
 
+    class SplitChunksPlugin extends Plugin {
+        constructor(options?: Options.SplitChunksOptions);
+    }
+
     class SourceMapDevToolPlugin extends Plugin {
         constructor(options?: null | false | string | SourceMapDevToolPlugin.Options);
     }
