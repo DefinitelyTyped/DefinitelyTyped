@@ -506,9 +506,9 @@ export interface Collection<TSchema = Default> {
     dropIndexes(callback?: MongoCallback<any>): void;
     dropIndexes(options: {session?: ClientSession, maxTimeMS?: number}, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#find */
-    find<T = TSchema>(query?: Object): Cursor<T>;
+    find<T = TSchema>(query?: FilterQuery<T>): Cursor<T>;
     /** @deprecated */
-    find<T = TSchema>(query: Object, options?: FindOneOptions): Cursor<T>;
+    find<T = TSchema>(query: FilterQuery<T>, options?: FindOneOptions): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#findOne */
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions): Promise<T | null>;
