@@ -14,6 +14,7 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 Guilherme Hübner <https://github.com/guilhermehubner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -479,6 +480,7 @@ declare namespace React {
     interface FocusEvent<T> extends SyntheticEvent<T> {
         nativeEvent: NativeFocusEvent;
         relatedTarget: EventTarget;
+        target: EventTarget & T;
     }
 
     // tslint:disable-next-line:no-empty-interface
