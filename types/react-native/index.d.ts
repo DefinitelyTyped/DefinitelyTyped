@@ -2184,6 +2184,11 @@ export interface WebViewStatic extends React.ClassicComponentClass<WebViewProper
      * Returns the native webview node.
      */
     getWebViewHandle: () => any;
+
+    /**
+     * Inject JavaScript to be executed immediately.
+     */
+    injectJavaScript: (script: string) => void;
 }
 
 /**
@@ -8608,6 +8613,8 @@ export function findNodeHandle(
 ): null | number;
 
 export function processColor(color: any): number;
+
+export const YellowBox: React.Component<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 //////////////////////////////////////////////////////////////////////////
 //

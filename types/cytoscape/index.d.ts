@@ -427,7 +427,7 @@ declare namespace cytoscape {
         /**
          * Get elements in the graph matching the specified selector or filter function.
          */
-        filter(selector: Selector | ((i: number, ele: Singular) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
 
         /**
          * Allow for manipulation of elements without triggering multiple style calculations or multiple redraws.
@@ -2231,7 +2231,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((i: number, ele: CollectionElements) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
         /**
          * Get the nodes that match the specified selector.
          *

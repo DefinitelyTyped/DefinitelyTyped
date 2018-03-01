@@ -27,7 +27,10 @@ import {
     LinearGradient,
     Permissions,
     registerRootComponent,
-    ScreenOrientation
+    ScreenOrientation,
+    SQLite,
+    Calendar,
+    MailComposer
 } from 'expo';
 
 Accelerometer.addListener((obj) => {
@@ -207,7 +210,7 @@ const barcodeReadCallback = () => {};
     <BarCodeScanner
         type="front"
         torchMode="off"
-        barCodeTypes={['s']}
+        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
         onBarCodeRead={barcodeReadCallback} />
 );
 
@@ -515,9 +518,13 @@ KeepAwake.deactivate();
 () => (
     <LinearGradient
         colors={['#fff']}
-        start={[1, 1]}
-        end={[3, 3]}
-        locations={[1, 2]} />
+        start={[1, 1]} />
+);
+
+() => (
+    <LinearGradient
+        colors={['#fff']}
+        style={{ flex: 1 }} />
 );
 
 Permissions.CAMERA === 'camera';
@@ -548,3 +555,124 @@ class __TestEntry__ extends React.Component {
     }
 }
 registerRootComponent(__TestEntry__);
+
+Calendar.EntityTypes.EVENT === 'event';
+Calendar.EntityTypes.REMINDER === 'reminder';
+
+Calendar.CalendarType.LOCAL === 'local';
+Calendar.CalendarType.CALDAV === 'caldav';
+Calendar.CalendarType.EXCHANGE === 'exchange';
+Calendar.CalendarType.SUBSCRIBED === 'subscribed';
+Calendar.CalendarType.BIRTHDAYS === 'birthdays';
+
+async () => {
+    const result = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    result.length;
+
+    const calendar = result[0];
+    calendar.id === '';
+    calendar.title === '';
+    calendar.sourceId === '';
+    calendar.type === Calendar.CalendarType.BIRTHDAYS;
+    calendar.color === '';
+    calendar.entityType === Calendar.EntityTypes.EVENT;
+    calendar.allowsModifications === true;
+    calendar.allowedAvailabilities === [''];
+    calendar.isPrimary === true;
+    calendar.name === '';
+    calendar.ownerAccount === '';
+    calendar.timeZone === '';
+    calendar.allowedReminders === [''];
+    calendar.allowedAttendeeTypes === [''];
+    calendar.isVisible === false;
+    calendar.isSynced === false;
+    calendar.accessLevel === Calendar.CalendarAccessLevel.CONTRIBUTOR;
+
+    if (calendar.source) {
+        calendar.source.id === '';
+        calendar.source.type === '';
+        calendar.source.name === '';
+        calendar.source.isLocalAccount === false;
+    }
+
+    const id1 =  await Calendar.createCalendarAsync({
+        accessLevel: Calendar.CalendarAccessLevel.EDITOR
+    });
+
+    id1 === '';
+
+    const id2 = await Calendar.updateCalendarAsync('1234', {
+        isVisible: false
+    });
+
+    id2 === '';
+
+    const id3 = await Calendar.updateCalendarAsync('1234', null);
+
+    await Calendar.deleteCalendarAsync('1234');
+
+    const events = await Calendar.getEventsAsync(
+        ['123', '124'],
+        new Date(),
+        new Date()
+    );
+
+    const event1 = events[0];
+
+    event1.accessLevel === Calendar.EventAccessLevel.CONFIDENTIAL;
+    event1.alarms === [];
+    event1.allDay === true;
+    event1.availability === Calendar.Availability.FREE;
+    event1.calendarId === '';
+    event1.creationDate === '';
+    event1.endDate === '';
+    event1.endTimeZone === '';
+    event1.guestsCanInviteOthers === true;
+    event1.guestsCanModify === true;
+    event1.guestsCanSeeGuests === false;
+    event1.id === '';
+    event1.instanceId === '';
+    event1.isDetached === false;
+
+    const event2 = await Calendar.getEventAsync('123', {
+        futureEvents: true
+    });
+
+    const eventId1 = await Calendar.createEventAsync('123');
+
+    const eventId2 = await Calendar.updateEventAsync('1234');
+
+    await Calendar.deleteEventAsync('1234');
+
+    const attendees = await Calendar.getAttendeesForEventAsync('123');
+
+    const aId1 = await Calendar.createAttendeeAsync('123');
+
+    const aId2 = await Calendar.updateAttendeeAsync('123');
+
+    await Calendar.deleteAttendeeAsync('123');
+
+    const reminders = await Calendar.getRemindersAsync(['123']);
+
+    const reminder = await Calendar.getReminderAsync('123');
+
+    const remId1 = await Calendar.createReminderAsync('123');
+
+    const remId2 = await Calendar.updateReminderAsync('123');
+
+    await Calendar.deleteReminderAsync('123');
+
+    const sources = await Calendar.getSourcesAsync();
+
+    const source = await Calendar.getSourceAsync('123');
+
+    Calendar.openEventInCalendar('123');
+};
+
+async () => {
+    const result = await MailComposer.composeAsync({
+        subject: 'sss'
+    });
+
+    result.status === 'saved';
+};

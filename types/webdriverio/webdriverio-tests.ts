@@ -26,7 +26,7 @@ describe.only("my webdriverio tests", () => {
     let client: webdriverio.Client<void>;
 
     before(async () => {
-        client = webdriverio.remote({ desiredCapabilities: { browserName: "phantomjs" } });
+        client = webdriverio.remote({ deprecationWarnings: true, desiredCapabilities: { browserName: "phantomjs" } });
         await client.init();
     });
 

@@ -1,9 +1,10 @@
-// Type definitions for WebdriverIO 4.8
+// Type definitions for WebdriverIO 4.10
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
 //                 Fredrik Smedberg <https://github.com/fsmedberg-tc>
 //                 Tanvir ul Islam <https://github.com/tanvirislam06>
+//                 Phil Leger <https://github.com/phil-lgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -333,70 +334,72 @@ declare namespace WebdriverIO {
     }
 
     interface Hooks {
-        onError<T>(error: Error): Promise<T> & undefined;
+        onError?<T>(error: Error): Promise<T> & undefined;
 
-        onPrepare<T>(
+        onPrepare?<T>(
             config: Options,
             capabilities: DesiredCapabilities
         ): Promise<T> & undefined;
 
-        onComplete<T>(exitCode: number): Promise<T> & undefined;
+        onComplete?<T>(exitCode: number): Promise<T> & undefined;
 
-        before<T>(
+        before?<T>(
             capabilities: DesiredCapabilities,
             specs: string[]
         ): Promise<T> & undefined;
 
-        beforeCommand<T>(
+        beforeCommand?<T>(
             commandName: string,
             args: any[]
         ): Promise<T> & undefined;
 
-        beforeFeature<T>(feature: string): Promise<T> & undefined;
-        beforeHook<T>(): Promise<T> & undefined;
-        beforeScenario<T>(scenario: string): Promise<T> & undefined;
+        beforeFeature?<T>(feature: string): Promise<T> & undefined;
+        beforeHook?<T>(): Promise<T> & undefined;
+        beforeScenario?<T>(scenario: string): Promise<T> & undefined;
 
-        beforeSession<T>(
+        beforeSession?<T>(
             config: Options,
             capabilities: DesiredCapabilities,
             specs: string[]
         ): Promise<T> & undefined;
 
-        beforeStep<T>(step: string): Promise<T> & undefined;
-        beforeSuite<T>(suite: Suite): Promise<T> & undefined;
-        beforeTest<T>(test: Test): Promise<T> & undefined;
-        afterHook<T>(): Promise<T> & undefined;
+        beforeStep?<T>(step: string): Promise<T> & undefined;
+        beforeSuite?<T>(suite: Suite): Promise<T> & undefined;
+        beforeTest?<T>(test: Test): Promise<T> & undefined;
+        afterHook?<T>(): Promise<T> & undefined;
 
-        after<T>(
+        after?<T>(
             result: number,
             capabilities: DesiredCapabilities,
             specs: string[]
         ): Promise<T> & undefined;
 
-        afterCommand<T>(
+        afterCommand?<T>(
             commandName: string,
             args: any[],
             result: any,
             error?: Error
         ): Promise<T> & undefined;
 
-        afterScenario<T>(scenario: any): Promise<T> & undefined;
+        afterScenario?<T>(scenario: any): Promise<T> & undefined;
 
-        afterSession<T>(
+        afterSession?<T>(
             config: Options,
             capabilities: DesiredCapabilities,
             specs: string[]
         ): Promise<T> & undefined;
 
-        afterStep<T>(stepResult: any): Promise<T> & undefined;
-        afterSuite<T>(suite: Suite): Promise<T> & undefined;
-        afterTest<T>(test: Test): Promise<T> & undefined;
-        afterFeature<T>(feature: string): Promise<T> & undefined;
+        afterStep?<T>(stepResult: any): Promise<T> & undefined;
+        afterSuite?<T>(suite: Suite): Promise<T> & undefined;
+        afterTest?<T>(test: Test): Promise<T> & undefined;
+        afterFeature?<T>(feature: string): Promise<T> & undefined;
     }
 
     interface Options {
         baseUrl?: string;
         bail?: number;
+        deprecationWarnings?: boolean;
+        browserstackLocal?: boolean;
         coloredLogs?: boolean;
         capabilities?: DesiredCapabilities[];
         connectionRetryTimeout?: number;
@@ -413,7 +416,7 @@ declare namespace WebdriverIO {
         path?: string;
         plugins?: { [name: string]: any; };
         reporters?: string[] | ((...args: any[]) => void);
-        reporterOptions?: { outputDir?: string; };
+        reporterOptions?: { outputDir?: string, [reporterName: string]: any };
         logLevel?: string;
         maxInstances?: number;
         maxInstancesPerCapability?: number;

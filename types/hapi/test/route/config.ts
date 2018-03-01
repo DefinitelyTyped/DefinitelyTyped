@@ -23,14 +23,14 @@ const routeConfigTest2: ServerRoute = {
 const routeConfigTest3: ServerRoute = {
   path: '/signin',
   method: 'PUT',
-  handler: (request: Request, h: ResponseToolkit) => {
+  handler(request, h) {
     return 'ok';
   }
 };
 const routeConfigTest4: ServerRoute = {
   path: '/signin',
   method: 'PUT',
-  handler: (request: Request, h: ResponseToolkit) => {
+  handler(request, h) {
     return 'ok';
   }
 };
@@ -41,7 +41,7 @@ server.route(routeConfig);
 // Handler in config
 const user: RouteOptions = {
     cache: { expiresIn: 5000 },
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return { name: 'John' };
     }
 };

@@ -5,6 +5,7 @@
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -524,6 +525,8 @@ declare namespace Knex {
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        postProcessResponse?: (result: any, queryContext: any) => any;
+        wrapIdentifier?: (value: string, origImpl: (value: string) => string, queryContext: any) => string;
         seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;

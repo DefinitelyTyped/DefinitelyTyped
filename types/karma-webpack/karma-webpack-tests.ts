@@ -8,7 +8,7 @@ export default function(config: karma.Config): void {
         frameworks: ['jasmine'],
         preprocessors: {'src/index.spec.ts': ['webpack', 'sourcemap']},
         webpack: {entry: 'test.js'},
-        webpackMiddlewareOptions: {noInfo: true},
+        webpackMiddleware: {noInfo: true},
         reporters: ['spec']
     });
 }

@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, XAxis, YAxis, Tooltip, ReferenceLine,
-    ReferenceArea, ResponsiveContainer, Label
+    ReferenceArea, ResponsiveContainer, Label, Brush
 } from 'recharts';
 
 interface ComponentState {
@@ -98,6 +98,7 @@ class Component extends React.Component<{}, ComponentState> {
                     <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
                     <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                     <Tooltip />
+                    <Brush dataKey="name" />
                     <ReferenceLine />
                     <ReferenceArea
                         stroke="red"
