@@ -757,7 +757,19 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 //#region Products tests
 // ##################################################################################
 
-
+stripe.products.create({
+    name: "My amazing product",
+    type: "service"
+}, function (err, coupon) {
+    // asynchronously called
+});
+stripe.products.create({
+    name: "My amazing product",
+    type: "service"
+}).then(function (product) {
+    // asynchronously called
+    const prodType: "service" | "good" = product.type;
+});
 
 //#endregion
 
@@ -1069,51 +1081,77 @@ stripe.payouts.cancel(
 //#region Plans tests
 // ##################################################################################
 
+// all product hash options
 stripe.plans.create({
     amount: 2000,
     interval: "month",
-    name: "Amazing Gold Plan",
+    product: {
+        name: "Amazing Gold Plan",
+        statement_descriptor: "Gold Plan",
+        metadata: {
+            plan_id: "goldplan123"
+        }
+    },
+    nickname: "Something to remember me by",
     currency: "usd",
-    id: "gold"
+    id: "gold-plan"
 }, function (err, plan) {
     // asynchronously called
-    });
+});
+
+// minimum options with product hash
 stripe.plans.create({
     amount: 2000,
-    interval: "month",
-    name: "Amazing Gold Plan",
     currency: "usd",
-    id: "gold"
+    interval: "month",
+    product: {
+        name: "Amazing Gold Plan"
+    }
 }).then(function (plan) {
     // asynchronously called
 });
 
+// minimum options with product id
+stripe.plans.create({
+    amount: 2000,
+    currency: "usd",
+    interval: "month",
+    product: "prod_UT1t06yZ3iBEHi"
+}).then(function (plan) {
+    // asynchronously called
+    const productId = plan.product as string;
+});
+
 stripe.plans.retrieve(
-    "platypi-dev",
+    "gold-plan",
+    {
+        expand: ["product"]
+    },
     function (err, plan) {
         // asynchronously called
+        const product = plan.product as Stripe.products.IProduct;
     }
 );
-stripe.plans.retrieve("platypi-dev").then(function (plan) {
+stripe.plans.retrieve("gold-plan").then(function (plan) {
     // asynchronously called
 });
 
-stripe.plans.update("platypi-dev", {
-    name: "New plan name"
+stripe.plans.update("gold-plan", {
+    product: "prod_UT1t06yZ3iBEHi"
 }, function (err, plan) {
     // asynchronously called
 });
-stripe.plans.update("platypi-dev", { name: "New plan name" }).then(function (plan) {
+stripe.plans.update("gold-plan", { nickname: "New gold plan nickname" }).then(function (plan) {
     // asynchronously called
 });
 
 stripe.plans.del(
-    "platypi-dev",
+    "gold-plan",
     function (err, confirmation) {
         // asynchronously called
     }
 );
-stripe.plans.del("platypi-dev").then(function (confirmation) {
+stripe.plans.del("gold-plan").then(function (confirmation) {
     // asynchronously called
 });
 
