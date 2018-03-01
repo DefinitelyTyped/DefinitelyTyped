@@ -1,6 +1,6 @@
 // Type definitions for google-apps-script
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen>
+// Definitions by: motemen <https://github.com/motemen>, grant <https://github.com/grant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

@@ -1273,7 +1273,7 @@
 /types/gm/                                      @ChaosinaCan @maartenvanvliet
 /types/go/                                      @NorthwoodsSoftware
 /types/google-adwords-scripts/                  @jafaircl
-/types/google-apps-script/                      @motemen
+/types/google-apps-script/                      @motemen @grant
 /types/google-apps-script-oauth2/               @dhayab
 /types/google-cloud__datastore/                 @beaulac
 /types/google-cloud__pubsub/                    @pheromonez
