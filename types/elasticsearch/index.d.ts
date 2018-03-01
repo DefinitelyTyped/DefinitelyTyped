@@ -8,6 +8,7 @@
 //                 Ahmad Ferdous Bin Alam <https://github.com/ahmadferdous>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Paul Brabban <https://github.com/brabster>
+//                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -407,6 +408,7 @@ export interface GetResponse<T> {
     _type: string;
     _id: string;
     _version: number;
+    _routing?: string;
     found: boolean;
     _source: T;
 }

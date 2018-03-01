@@ -169,6 +169,15 @@ client.index({
 }, (error, response) => {
 });
 
+client.get({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  routing: '1'
+}, (error, response) => {
+    const routing = response._routing;
+});
+
 client.mget({
   body: {
     docs: [
