@@ -10,7 +10,7 @@ import { Stream } from 'stream';
 import EventEmitter = NodeJS.EventEmitter;
 
 // Exports only from typings
-export type Region = 'us-east-1'|'us-west-1'|'us-west-2'|'eu-west-1'|'eu-central-1'|'ap-southeast-1'|'ap-northeast-1'|'ap-southeast-2'|'sa-east-1'|'cn-north-1';
+export type Region = 'us-east-1'|'us-west-1'|'us-west-2'|'eu-west-1'|'eu-central-1'|'ap-southeast-1'|'ap-northeast-1'|'ap-southeast-2'|'sa-east-1'|'cn-north-1'|string;
 export type PolicyValue = 'none'|'readonly'|'writeonly'|'readwrite';
 export type NoResultCallback = (error: Error|null) => void;
 export type ResultCallback<T> = (error: Error|null, result: T) => void;
@@ -46,8 +46,7 @@ export interface BucketItemStat {
     size: number;
     contentType: string;
     etag: string;
-    // In documentation in this case string. Is it doc error?
-    lastModified: Date|string;
+    lastModified: string;
 }
 
 export interface IncompleteUploadedBucketItem {
@@ -80,14 +79,12 @@ export class Client {
     constructor(options: ClientOptions);
 
     // Bucket operations
-    makeBucket(bucketName: string, callback: NoResultCallback): void;
     makeBucket(bucketName: string, region: Region, callback: NoResultCallback): void;
-    makeBucket(bucketName: string, region?: Region): Promise<void>;
+    makeBucket(bucketName: string, region: Region): Promise<void>;
 
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
     listBuckets(): Promise<BucketItemFromList>;
 
-    // Doc contains error - no boolean value in result
     bucketExists(bucketName: string, callback: NoResultCallback): void;
     bucketExists(bucketName: string): Promise<void>;
 
