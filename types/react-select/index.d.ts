@@ -11,6 +11,7 @@
 //                 Ian Johnson <https://github.com/ninjaferret>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 David Schkalee <https://github.com/misantronic>
+//                 Arthur Udalov <https://github.com/darkartur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -18,11 +19,14 @@ import * as React from 'react';
 
 export default class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>> {
     focus(): void;
+    setValue(value: Option<TValue>): void;
 }
 // Other components
 export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
 export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
 export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>> { }
+
+export type OptionComponentType<TValue = OptionValues> = React.ComponentType<OptionComponentProps<TValue>>;
 
 export type HandlerRendererResult = JSX.Element | null | false;
 
@@ -128,6 +132,16 @@ export interface MenuRendererProps<TValue = OptionValues> {
      * Array of currently selected options.
      */
     valueArray: Options<TValue>;
+
+    /**
+     * Callback to remove selection from option; receives the option as a parameter.
+     */
+    removeValue: SelectValueHandler<TValue>;
+
+    /**
+     * function which returns a custom way to render the options in the menu
+     */
+    optionRenderer: OptionRendererHandler<TValue>;
 }
 
 export interface OptionComponentProps<TValue = OptionValues> {
@@ -196,6 +210,11 @@ export interface ArrowRendererProps {
      * Arrow mouse down event handler.
      */
     onMouseDown: React.MouseEventHandler<any>;
+
+    /**
+     * whether the Select is open or not.
+     */
+    isOpen: boolean;
 }
 
 export interface ReactSelectProps<TValue = OptionValues> extends React.Props<ReactSelectClass<TValue>> {
@@ -449,7 +468,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * option component to render in dropdown
      */
-    optionComponent?: React.ComponentType<OptionComponentProps<TValue>>;
+    optionComponent?: OptionComponentType<TValue>;
     /**
      * function which returns a custom way to render the options in the menu
      */
