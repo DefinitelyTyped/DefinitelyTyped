@@ -670,6 +670,7 @@ type FilterQuery<T> = {
         $bitsAllSet?: Object;
         $bitsAnyClear?: Object;
         $bitsAnySet?: Object;
+        [key: string]: any;
     };
 };
 
