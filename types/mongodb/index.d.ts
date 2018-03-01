@@ -646,6 +646,7 @@ type FilterQuery<T> = {
         $ne?: T[P];
         $nin?: T[P][];
         $and?: (FilterQuery<T[P]> | T[P])[];
+        $or?: (FilterQuery<T[P]> | T[P])[];
         $not?: (FilterQuery<T[P]> | T[P])[] | T[P];
         $expr?: any;
         $jsonSchema?: any;
