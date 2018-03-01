@@ -16,7 +16,7 @@ export class Server {
      * @param Roads The Road that handles all the routes
      * @param error_handler An overwrite to the standard error handler. Accepts a single parameter (the error) and should return a Roads.Response object
      */
-    constructor(Roads: Road, error_handler: (error: any) => any);
+    constructor(Roads: Road, error_handler?: (error: any) => any);
 
     /**
      * Start the http server. Accepts the same parameters as HttpServer.listen
