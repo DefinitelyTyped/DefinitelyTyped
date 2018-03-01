@@ -231,7 +231,7 @@ interface TestProperty {
 }
 
 const testProps: TestProperty = {
-    foo: "bar",
+    foo: "baz",
     hello: "world"
 };
 
