@@ -1,4 +1,4 @@
-// Type definitions for grid-styled 3.2.1
+// Type definitions for grid-styled 3.2
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
