@@ -6,6 +6,8 @@ class A extends Configurable {
     }
 }
 
+const c = configureFunction({});
+
 // Act&Assert
 // $ExpectType Configurable
 configureFunction({});
@@ -18,3 +20,21 @@ const config: Configurable = <Configurable> (new A());
 
 // $ExpectError
 const configTwo: A = configureFunction({});
+
+// $ExpectType Configurable
+c.set('first', 'first as a string');
+
+// $ExpectType any
+c.get('first');
+
+// $ExpectType Configurable
+c.enable('first');
+
+// $ExpectType boolean
+c.enabled('first');
+
+// $ExpectType Configurable
+c.disable('first');
+
+// $ExpectType boolean
+c.disabled('first');
