@@ -269,4 +269,4 @@ declare class WordPOS {
     parse(text: string | string[]): string[];
 }
 
-export = WordPOS;
+export default WordPOS;
