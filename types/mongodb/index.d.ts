@@ -1070,7 +1070,7 @@ export interface FindOneOptions {
 export interface InsertWriteOpResult {
     insertedCount: number;
     ops: Array<any>;
-    insertedIds: Array<ObjectID>;
+    insertedIds: {[key: number]: ObjectID};
     connection: any;
     result: { ok: number, n: number }
 }
