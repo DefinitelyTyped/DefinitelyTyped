@@ -6,6 +6,7 @@
 // TypeScript Version: 2.4
 
 import { Request, ResponseObject, Plugin, ResponseToolkit } from 'hapi';
+import { VerifyOptions } from 'jsonwebtoken';
 
 declare module 'hapi' {
     interface ServerAuth {
@@ -62,27 +63,7 @@ declare namespace hapiAuthJwt2 {
         /**
          * Settings to define how tokens are verified by the jsonwebtoken library
          */
-        verifyOptions?: {
-            /**
-             * Ignore expired tokens
-             */
-            ignoreExpiration?: boolean;
-
-            /**
-             * Do not enforce token audience
-             */
-            audience?: boolean;
-
-            /**
-             * Do not require the issuer to be valid
-             */
-            issuer?: boolean;
-
-            /**
-             * List of allowed algorithms
-             */
-            algorithms?: string[];
-        };
+        verifyOptions?: VerifyOptions;
 
         /**
          * function called to decorate the response with authentication headers

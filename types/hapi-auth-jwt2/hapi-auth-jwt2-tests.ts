@@ -38,7 +38,8 @@ server.register({
             };
         },
         verifyOptions: {
-            algorithms: ['HS256']
+            algorithms: ['HS256'],
+            issuer: 'test',
         }
     };
     server.auth.strategy('jwt', 'jwt', opts);
