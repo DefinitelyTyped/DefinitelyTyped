@@ -2436,7 +2436,7 @@ declare module "mongoose" {
      * @param aggregations pipeline operator(s) or operator array
      */
     aggregate(aggregations?: any[]): Aggregate<any[]>;
-    aggregate(aggregations: any[], cb?: Function): Promise<any[]>;
+    aggregate(aggregations: any[], cb: Function): Promise<any[]>;
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number>;
