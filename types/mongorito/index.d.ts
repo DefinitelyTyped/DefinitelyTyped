@@ -127,90 +127,90 @@ export enum ActionTypes {
 }
 
 export interface GetAction {
-    type: string; // ActionTypes.GET
+    type: ActionTypes.GET;
     key?: string;
 }
 
 export interface SetAction {
-    type: string; // ActionTypes.SET
+    type: ActionTypes.SET;
     fields: object;
 }
 
 export interface UnsetAction {
-    type: string; // ActionTypes.UNSET
+    type: ActionTypes.UNSET;
     keys: string | string[];
 }
 
 export interface RefreshAction {
-    type: string; // ActionTypes.REFRESH
+    type: ActionTypes.REFRESH;
 }
 
 export interface RefreshedAction {
-    type: string; // ActionTypes.REFRESHED
+    type: ActionTypes.REFRESHED;
     fields: object;
 }
 
 export interface SaveAction {
-    type: string; // ActionTypes.SAVE
+    type: ActionTypes.SAVE;
     fields: object;
 }
 
 export interface CreateAction {
-    type: string; // ActionTypes.CREATE
+    type: ActionTypes.CREATE;
     id: object;
 }
 
 export interface CreatedAction {
-    type: string; // ActionTypes.CREATED
+    type: ActionTypes.CREATED;
     id: object;
 }
 
 export interface UpdateAction {
-    type: string; // ActionTypes.UPDATE
+    type: ActionTypes.UPDATE;
     fields: object;
 }
 
 export interface UpdatedAction {
-    type: string; // ActionTypes.UPDATED
+    type: ActionTypes.UPDATED;
     fields: object;
 }
 
 export interface RemoveAction {
-    type: string; // ActionTypes.REMOVE
+    type: ActionTypes.REMOVE;
 }
 
 export interface RemovedAction {
-    type: string; // ActionTypes.REMOVED
+    type: ActionTypes.REMOVED;
 }
 
 export interface IncrementAction {
-    type: string; // ActionTypes.INCREMENT
+    type: ActionTypes.INCREMENT;
     fields: object;
 }
 
 export interface CreateIndexAction {
-    type: string; // ActionTypes.CREATE_INDEX
+    type: ActionTypes.CREATE_INDEX;
     args: any[];
 }
 
 export interface DropIndexAction {
-    type: string; // ActionTypes.DROP_INDEX
+    type: ActionTypes.DROP_INDEX;
     args: any[];
 }
 
 export interface ListIndexesAction {
-    type: string; // ActionTypes.LIST_INDEXES
+    type: ActionTypes.LIST_INDEXES;
     args: any[];
 }
 
 export interface QueryAction {
-    type: string; // ActionTypes.QUERY
+    type: ActionTypes.QUERY;
     method: string;
     query: Array<{ method: string, args: any }>;
 }
 
 export interface CallAction {
-    type: string; // ActionTypes.CALL
+    type: ActionTypes.CALL;
     method: string;
     args: Array<{ method: string, args: any }>;
 }
