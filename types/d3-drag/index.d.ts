@@ -91,7 +91,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element. The function returns the container element.
      */
-    container(accessor: ValueFn<GElement, Datum, DragContainerElement>): this;
+    container(accessor: ValueFn<GElement, Datum, DragContainerElement | null>): this;
     /**
      * Sets the container accessor to the specified object and returns the drag behavior.
      *

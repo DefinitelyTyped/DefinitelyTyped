@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type OrientationType = "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
-type OrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
+type ScreenOrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 
 interface ScreenOrientation extends EventTarget {
     lock(orientation: OrientationLockType): Promise<void>;
     unlock(): void;
-    readonly type: OrientationType;
+    readonly type: ScreenOrientationLockType;
     readonly angle: number;
     addEventListener(type: "change", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 }

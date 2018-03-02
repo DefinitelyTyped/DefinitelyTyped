@@ -288,7 +288,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     // WebGL1:
     bufferData(target: number, size: number, usage: number): void;
     bufferData(target: number, srcData: ArrayBuffer | ArrayBufferView | null, usage: number): void;
-    bufferSubData(target: number, dstByteOffset: number, srcData: ArrayBuffer | ArrayBufferView): void;
+    bufferSubData(target: number, dstByteOffset: number, srcData: ArrayBuffer | ArrayBufferView | null): void;
     // WebGL2:
     bufferData(target: number, srcData: ArrayBufferView, usage: number, srcOffset: number,
         length?: number): void;
@@ -385,10 +385,9 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
         x: number, y: number, width: number, height: number): void;
 
     compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
-        height: number, border: number, imageSize: number, offset: number): void;
-    compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
-        height: number, border: number, srcData: ArrayBufferView,
-        srcOffset?: number, srcLengthOverride?: number): void;
+        height: number, border: number, data: ArrayBufferView | DataView | null): void;
+    compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number,
+        height: number, format: number, data: ArrayBufferView| DataView | null): void;
 
     compressedTexImage3D(target: number, level: number, internalformat: number, width: number,
         height: number, depth: number, border: number, imageSize: number, offset: number): void;
