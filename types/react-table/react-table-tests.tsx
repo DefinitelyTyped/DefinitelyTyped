@@ -149,6 +149,11 @@ const Component = (props: {}) => {
         pageText='Page'
         ofText='of'
         rowsText='rows'
+        onSortedChange={(newSorted, column, additive) => {
+          if (newSorted) {
+            console.log(newSorted);
+          }
+        }}
       />
       <br />
     </div>

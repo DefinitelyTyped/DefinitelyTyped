@@ -18,17 +18,26 @@ export type ComponentPropsGetterR = (finalState: any, rowInfo?: RowInfo, column?
 export type ComponentPropsGetterC = (finalState: any, rowInfo?: undefined, column?: Column, instance?: any) => object | undefined;
 export type ComponentPropsGetterRC = (finalState: any, rowInfo?: RowInfo, column?: Column, instance?: any) => object | undefined;
 
-export type DefaultFilterFunction = (filter: any, row: any, column: any) => boolean;
-export type FilterFunction = (filter: any, rows: any[], column: any) => boolean;
+export type DefaultFilterFunction = (filter: Filter, row: any, column: any) => boolean;
+export type FilterFunction = (filter: Filter, rows: any[], column: any) => boolean;
 export type SubComponentFunction = (rowInfo: RowInfo) => React.ReactNode;
 export type PageChangeFunction = (page: number) => void;
 export type PageSizeChangeFunction = (newPageSize: number, newPage: number) => void;
-export type SortedChangeFunction = (column: any, additive: boolean) => void;
-export type FilteredChangeFunction = (column: any, value: any, pivotColumn: any) => void;
+export type SortedChangeFunction = (newSorted: SortingRule[], column: any, additive: boolean) => void;
+export type FilteredChangeFunction = (newFiltering: Filter, column: any, value: any) => void;
 export type ExpandedChangeFunction = (column: any, event: any, isTouch: boolean) => void;
-export type ResizedChangeFunction = (newResized: any, event: any) => void;
+export type ResizedChangeFunction = (newResized: Resize[], event: any) => void;
 export type SortFunction = (a: any, b: any, desc: any) => -1 | 0 | 1;
 
+export interface Resize {
+    id: string;
+    value: any;
+}
+export interface Filter {
+    id: string;
+    value: any;
+    pivotId?: string;
+}
 /** NOTE: to many configuration ways (only true values are confusing) */
 export interface SortingRule {
     id: string;
@@ -106,7 +115,7 @@ export interface TableProps extends
     showFilters: boolean;
 
     /** Default: [] */
-    defaultFiltering: any[];
+    defaultFiltering: Filter[];
 
     /** Default: ... */
     defaultFilterMethod: DefaultFilterFunction;
@@ -121,19 +130,19 @@ export interface TableProps extends
     filterable: boolean;
 
     /** Default: [] */
-    defaultResizing: any[];
+    defaultResizing: Resize[];
 
     /** Default: false */
     defaultSortDesc: boolean;
 
     /** Default: [] */
-    defaultSorted: any[];
+    defaultSorted: SortingRule[];
 
     /** Default: [] */
-    defaultFiltered: any[];
+    defaultFiltered: Filter[];
 
     /** Default: [] */
-    defaultResized: any[];
+    defaultResized: Resize[];
 
     /** Default: {} */
     defaultExpanded: {};
@@ -184,13 +193,13 @@ export interface ControlledStateOverrideProps {
     sorting: number;
 
     /** Default: [] */
-    sorted: any[];
+    sorted: SortingRule[];
 
     /** Default: [] */
-    filtered: any[];
+    filtered: Filter[];
 
     /** Default: [] */
-    resized: any[];
+    resized: Resize[];
 
     /** Default: {} */
     expanded: {};
@@ -613,6 +622,12 @@ export interface RowInfo {
     /** The index of the row relative to the current page */
     viewIndex: number;
 
+    /** The size of the page */
+    pageSize: number;
+
+    /** The index of page */
+    page: number;
+
     /** The nesting depth (zero-indexed) */
     level: number;
 
@@ -621,6 +636,9 @@ export interface RowInfo {
 
     /** A boolean stating if the row is an aggregation row */
     aggregated: boolean;
+
+    /** A boolean stating if the row is grouped by Pivot */
+    groupedByPivot: boolean;
 
     /** An array of any expandable sub-rows contained in this row */
     subRows: any[];
