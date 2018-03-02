@@ -14,27 +14,6 @@ import {
 declare namespace yar {
     interface YarOptions {
         /**
-         * Tells Hapi that it should not respond with a HTTP 400 error if the session cookie cannot decrypt.
-         * This could happen if the cookie is changed on the client, or more likely, if you change the cookie password in your settings.
-         * If you want to make this condition send an error like it did in prior versions, change this to `false`,
-         * but be aware that if you change your cookie password you will cause 400 errors to be returned to end users.
-         * In that case you should probably change this back to true for a short time to allow session cookies to get reset for the best user experience.
-         * Defaults to true.
-         */
-        ignoreErrors?: boolean;
-
-        /**
-         * Tells Hapi that if a session cookie is invalid for any reason,
-         * to clear it from the browser.
-         * This prevents Hapi from having to reprocess the bad cookie on future requests.
-         * In general you'll probably want this on,
-         * but if you'd prefer that session cookies be dealt with in some
-         * other way you may set this to false.
-         * Defaults to true
-         */
-        clearInvalid?: boolean;
-
-        /**
          * Determines the name of the cookie used to store session information.
          * Defaults to session.
          */
@@ -72,6 +51,26 @@ declare namespace yar {
          * the configuration for cookie-specific features:
          */
         cookieOptions: {
+            /**
+             * Tells Hapi that it should not respond with a HTTP 400 error if the session cookie cannot decrypt.
+             * This could happen if the cookie is changed on the client, or more likely, if you change the cookie password in your settings.
+             * If you want to make this condition send an error like it did in prior versions, change this to `false`,
+             * but be aware that if you change your cookie password you will cause 400 errors to be returned to end users.
+             * In that case you should probably change this back to true for a short time to allow session cookies to get reset for the best user experience.
+             * Defaults to true.
+             */
+            ignoreErrors?: boolean;
+
+            /**
+             * Tells Hapi that if a session cookie is invalid for any reason,
+             * to clear it from the browser.
+             * This prevents Hapi from having to reprocess the bad cookie on future requests.
+             * In general you'll probably want this on,
+             * but if you'd prefer that session cookies be dealt with in some
+             * other way you may set this to false.
+             * Defaults to true
+             */
+            clearInvalid?: boolean;
             /**
              * (Required) used to encrypt and sign the cookie data.
              * Must be at least 32 chars.
