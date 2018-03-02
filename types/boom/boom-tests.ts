@@ -97,6 +97,10 @@ const lockedError = Boom.locked('message', {some: 'data'});
 lockedError.data.some;
 const lockedError2: Boom.Boom = Boom.locked('message');
 
+const failedDependencyError = Boom.failedDependency('message', {some: 'data'});
+failedDependencyError.data.some;
+const failedDependencyError2: Boom.Boom = Boom.failedDependency('message');
+
 const preconditionRequiredError = Boom.preconditionRequired('message', {some: 'data'});
 preconditionRequiredError.data.some;
 const preconditionRequiredError2: Boom.Boom = Boom.preconditionRequired('message');
