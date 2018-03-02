@@ -8,15 +8,15 @@
 import { ChildProcess } from "child_process";
 
 declare namespace recluster {
-  export interface LogOptions {
+  interface LogOptions {
     respawns?: boolean;
   }
 
-  export interface Logger {
+  interface Logger {
     log(message?: any, ...optionalParams: any[]): void;
   }
 
-  export interface BalancerOptions {
+  interface BalancerOptions {
     /** number of active workers */
     workers?: number;
     /** kill timeout for old workers after reload (sec) */
@@ -35,7 +35,7 @@ declare namespace recluster {
     logger?: Logger;
   }
 
-  export class Balancer {
+  class Balancer {
     constructor(file: string, options: BalancerOptions);
     run(): void;
     reload(cb?: () => void): void;
