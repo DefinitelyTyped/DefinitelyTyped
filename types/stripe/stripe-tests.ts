@@ -602,6 +602,15 @@ stripe.customers.deleteSubscriptionDiscount("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLG
 //#region Transfers Reversals tests
 // ##################################################################################
 
+stripe.transfers.createReversal("tr_17F2JBFuhr4V1legrq97JrFE", function (err, reversal) {
+    // asynchronously called
+});
+
+stripe.transfers.createReversal("tr_17F2JBFuhr4V1legrq97JrFE").then(function (reversal) {
+    // asynchronously called
+});
+
+
 //#endregion
 
 //#region Accounts test
