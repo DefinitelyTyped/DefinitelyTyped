@@ -180,12 +180,13 @@ export interface MessagePropertyHeaders {
 
 export interface XDeath {
     count: number;
-    reason: string;
+    reason: "rejected" | "expired" | "maxlen";
     queue: string;
     time: {
         "!": "timestamp";
         value: number;
     };
     exchange: string;
+    "original-expiration"?: any;
     "routing-keys": string[];
 }
