@@ -132,6 +132,40 @@ myApp.config((
             viewA: "AComponent"
         }
     });
+
+    $stateProvider.state("route2", {
+        resolvePolicy: {}
+    });
+
+    $stateProvider.state("route2", {
+        resolvePolicy: {
+            when: "LAZY"
+        }
+    });
+
+    $stateProvider.state("route2", {
+        resolvePolicy: {
+            when: "EAGER"
+        }
+    });
+
+    $stateProvider.state("route2", {
+        resolvePolicy: {
+            async: "WAIT"
+        }
+    });
+
+    $stateProvider.state("route2", {
+        resolvePolicy: {
+            async: "NOWAIT"
+        }
+    });
+
+    $stateProvider.state("route2", {
+        resolvePolicy: {
+            async: "RXWAIT"
+        }
+    });
 });
 
 interface IUrlLocatorTestService {

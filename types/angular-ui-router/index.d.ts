@@ -59,6 +59,10 @@ declare module 'angular' {
              */
             parent?: string | IState;
 
+            resolvePolicy?: {
+                when?: 'LAZY' | 'EAGER',
+                async?: 'WAIT' | 'NOWAIT' | 'RXWAIT'
+            };
 
             resolve?: { [name: string]: any };
             /**
