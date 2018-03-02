@@ -2299,7 +2299,7 @@ declare namespace browser.runtime {
         disconnect: () => void;
         onDisconnect: events.Event;
         onMessage: events.Event;
-        postMessage: () => void;
+        postMessage(message: object): void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
     }
