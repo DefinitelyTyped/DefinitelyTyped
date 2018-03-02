@@ -265,6 +265,14 @@ declare namespace Boom {
     export function locked<Data = null>(message?: string, data?: Data): Boom<Data>;
 
     /**
+     * Returns a 424 Failed Dependency error
+     * @param message optional message.
+     * @param data optional additional error data.
+     * @see {@link https://github.com/hapijs/boom#boomfaileddependencymessage-data}
+     */
+    export function failedDependency<Data = null>(message?: string, data?: Data): Boom<Data>;
+
+    /**
      * Returns a 428 Precondition Required error
      * @param message optional message.
      * @param data optional additional error data.
