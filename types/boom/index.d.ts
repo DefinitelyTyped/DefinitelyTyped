@@ -1,4 +1,4 @@
-// Type definitions for boom 7.1.1
+// Type definitions for boom 7.2.0
 // Project: https://github.com/hapijs/boom
 // Definitions by: Igor Rogatty <https://github.com/rogatty>
 //                 AJP <https://github.com/AJamesPhillips>
