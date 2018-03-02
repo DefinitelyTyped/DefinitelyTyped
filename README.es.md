@@ -1,6 +1,6 @@
 ## FAQ
 
-####¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en NPM?
+#### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en NPM?
 
 La `master` branch es automaticamente publicada en el alcance de los  `@types` en NPM gracias a los [types-publisher](https://github.com/Microsoft/types-publisher).
 
