@@ -72,7 +72,7 @@ declare module 'angular' {
             /**
              * Use the views property to set up multiple views. If you don't need multiple views within a single state this property is not needed. Tip: remember that often nested views are more useful and powerful than multiple sibling views.
              */
-            views?: { [name: string]: IState };
+            views?: { [name: string]: string | IState };
             abstract?: boolean;
             /**
              * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.

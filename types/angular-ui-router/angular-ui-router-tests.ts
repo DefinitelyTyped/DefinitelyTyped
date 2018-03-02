@@ -126,6 +126,12 @@ myApp.config((
         "viewB": { template: "route2.viewB" }
       }
     });
+
+  $stateProvider.state("route2", {
+        views: {
+            viewA: "AComponent"
+        }
+    });
 });
 
 interface IUrlLocatorTestService {
