@@ -2770,12 +2770,10 @@ declare module "../index" {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
-        omit<T>(
-            // TODO: Would be better if we could overload to return NumericDictionary for param of NumericDictionary,
-            //       but TypeScript currently can't pick overloads based purely on string vs number key types in index signatures.
-            object: Dictionary<T> |  NumericDictionary<T>,
+        omit<T extends AnyKindOfDictionary>(
+            object: T | null | undefined,
             ...paths: PropertyPath[]
-        ): Dictionary<T>;
+        ): T;
 
         /**
          * @see _.omit
@@ -2790,12 +2788,10 @@ declare module "../index" {
         /**
          * @see _.omit
          */
-        omit<T>(
-            // TODO: Would be better if we could overload to return NumericDictionary for param of NumericDictionary,
-            //       but TypeScript currently can't pick overloads based purely on string vs number key types in index signatures.
-            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>,
+        omit<T extends AnyKindOfDictionary>(
+            this: LoDashImplicitWrapper<T | null | undefined>,
             ...paths: PropertyPath[]
-        ): LoDashImplicitWrapper<Dictionary<T>>;
+        ): LoDashImplicitWrapper<T>;
 
         /**
          * @see _.omit
@@ -2810,12 +2806,10 @@ declare module "../index" {
         /**
          * @see _.omit
          */
-        omit<T>(
-            // TODO: Would be better if we could overload to return NumericDictionary for param of NumericDictionary,
-            //       but TypeScript currently can't pick overloads based purely on string vs number key types in index signatures.
-            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>,
+        omit<T extends AnyKindOfDictionary>(
+            this: LoDashExplicitWrapper<T | null | undefined>,
             ...paths: PropertyPath[]
-        ): LoDashExplicitWrapper<Dictionary<T>>;
+        ): LoDashExplicitWrapper<T>;
 
         /**
          * @see _.omit

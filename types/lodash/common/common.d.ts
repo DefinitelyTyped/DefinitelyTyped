@@ -200,6 +200,17 @@ declare module "../index" {
     type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
     type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
 
+    // Crazy typedef needed get _.omit to work properly with Dictionary and NumericDictionary
+    type AnyKindOfDictionary =
+        | Dictionary<{}>
+        | Dictionary<{} | null>
+        | Dictionary<{} | undefined>
+        | Dictionary<{} | null | undefined>
+        | NumericDictionary<{}>
+        | NumericDictionary<{} | null>
+        | NumericDictionary<{} | undefined>
+        | NumericDictionary<{} | null | undefined>
+
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
     type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => void;

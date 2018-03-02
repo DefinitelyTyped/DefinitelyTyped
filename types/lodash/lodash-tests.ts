@@ -12035,39 +12035,54 @@ namespace TestMergeWith {
 namespace TestOmit {
     let obj: AbcObject | null | undefined = anything;
     let dictionary:_.Dictionary<AbcObject> = anything;
-    let numericDictionary:_.Dictionary<AbcObject> = anything;
+    let numericDictionary:_.NumericDictionary<AbcObject> = anything;
+    let dictionaryWithNull:_.Dictionary<AbcObject | null> = anything;
+    let numericDictionaryWithNull:_.NumericDictionary<AbcObject | null> = anything;
+    let dictionaryWithUndefined:_.Dictionary<AbcObject | undefined> = anything;
+    let numericDictionaryWithUndefined:_.NumericDictionary<AbcObject | undefined> = anything;
+    let dictionaryWithNullAndUndefined:_.Dictionary<AbcObject | null | undefined> = anything;
+    let numericDictionaryWithNullAndUndefined:_.NumericDictionary<AbcObject | null | undefined> = anything;
 
     {
-        let result: Partial<AbcObject>;
-
-        result = _.omit(obj, 'a');
-        result = _.omit(obj, 0, 'a');
-        result = _.omit(obj, ['b', 1], 0, 'a');
-
+        _.omit(obj, 'a'); // $ExpectType Partial<AbcObject>
+        _.omit(obj, 0, 'a'); // $ExpectType Partial<AbcObject>
+        _.omit(obj, ['b', 1], 0, 'a'); // $ExpectType Partial<AbcObject>
         _.omit(dictionary, 'a'); // $ExpectType Dictionary<AbcObject>
-        _.omit(numericDictionary, 'a');  // $ExpectType Dictionary<AbcObject>
+        _.omit(numericDictionary, 'a');  // $ExpectType NumericDictionary<AbcObject>
+        _.omit(dictionaryWithNull, 'a'); // $ExpectType Dictionary<AbcObject | null>
+        _.omit(numericDictionaryWithNull, 'a');  // $ExpectType NumericDictionary<AbcObject | null>
+        _.omit(dictionaryWithUndefined, 'a'); // $ExpectType Dictionary<AbcObject | undefined>
+        _.omit(numericDictionaryWithUndefined, 'a');  // $ExpectType NumericDictionary<AbcObject | undefined>
+        _.omit(dictionaryWithNullAndUndefined, 'a'); // $ExpectType Dictionary<AbcObject | null | undefined>
+        _.omit(numericDictionaryWithNullAndUndefined, 'a');  // $ExpectType NumericDictionary<AbcObject | null | undefined>
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Partial<AbcObject>>;
-
-        result = _(obj).omit('a');
-        result = _(obj).omit(0, 'a');
-        result = _(obj).omit(['b', 1], 0, 'a');
-
+        _(obj).omit('a'); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
+        _(obj).omit(0, 'a'); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
+        _(obj).omit(['b', 1], 0, 'a'); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
         _(dictionary).omit('a'); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-        _(numericDictionary).omit('a'); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+        _(numericDictionary).omit('a'); // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
+        _(dictionaryWithNull).omit('a'); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject | null>>
+        _(numericDictionaryWithNull).omit('a'); // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject | null>>
+        _(dictionaryWithUndefined).omit('a'); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject | undefined>>
+        _(numericDictionaryWithUndefined).omit('a'); // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject | undefined>>
+        _(dictionaryWithNullAndUndefined).omit('a'); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject | null | undefined>>
+        _(numericDictionaryWithNullAndUndefined).omit('a'); // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject | null | undefined>>
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Partial<AbcObject>>;
-
-        result = _(obj).chain().omit('a');
-        result = _(obj).chain().omit(0, 'a');
-        result = _(obj).chain().omit(['b', 1], 0, 'a');
-
+        _(obj).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
+        _(obj).chain().omit(0, 'a'); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
+        _(obj).chain().omit(['b', 1], 0, 'a'); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
         _(dictionary).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
-        _(numericDictionary).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+        _(numericDictionary).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
+        _(dictionaryWithNull).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject | null>>
+        _(numericDictionaryWithNull).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject | null>>
+        _(dictionaryWithUndefined).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject | undefined>>
+        _(numericDictionaryWithUndefined).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject | undefined>>
+        _(dictionaryWithNullAndUndefined).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject | null | undefined>>
+        _(numericDictionaryWithNullAndUndefined).chain().omit('a'); // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject | null | undefined>>
     }
 }
 
