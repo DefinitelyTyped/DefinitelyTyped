@@ -35,16 +35,10 @@ export interface LinkProps {
   replace?: boolean;
   style?: any;
   to: H.LocationDescriptor;
+  [propName: string]: any;
 }
 
-/**
- * Disable the "no-any-union" rule here as the Link component can accept any property.
- * It will feed them to the given component. However if we just use any we will lose
- * autocomplete on known properties. So it is better to disable this rule in this one
- * instance.
- */
-// tslint:disable-next-line:no-any-union
-export class Link extends React.Component<LinkProps | any> {}
+export class Link extends React.Component<LinkProps> {}
 
 export interface NativeRouterProps {
   initialEntries?: string[];
