@@ -16,7 +16,7 @@ export interface Parameters {
     name?: any;
     method?: any;
     options?: any;
-    data?: any
+    data?: any;
 }
 
 export interface Template {
