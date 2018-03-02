@@ -1,4 +1,3 @@
-// TypeScript Version: 2.3
 // Type definitions for Inquirer.js
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
@@ -7,6 +6,7 @@
 //                 Qibang <https://github.com/bang88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// TypeScript Version: 2.3
 /// <reference types="rx" />
 
 import through = require("through");
