@@ -20,7 +20,7 @@ const users: Users = {
 };
 
 server.register({
-    plugin: hapiAuthJwt2.plugin,
+    plugin: hapiAuthJwt2,
     options: {
         async verify() {
             return {
