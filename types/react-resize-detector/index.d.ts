@@ -21,4 +21,4 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
 
 declare class ReactResizeDetector extends React.PureComponent<ReactResizeDetectorProps> { }
 
-export = ReactResizeDetector;
+export default ReactResizeDetector;

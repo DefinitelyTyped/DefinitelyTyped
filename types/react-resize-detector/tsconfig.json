@@ -2,12 +2,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +19,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-resize-detector-tests.tsx"
     ]
 }
