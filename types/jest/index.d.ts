@@ -780,7 +780,9 @@ declare namespace jest {
 
     type ReporterConfig = [string, object];
 
-    type ConfigGlobals = object;
+    interface ConfigGlobals {
+      [key: string]: any;
+    }
 
     type SnapshotUpdateState = 'all' | 'new' | 'none';
 
