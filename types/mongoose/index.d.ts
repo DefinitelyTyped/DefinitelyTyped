@@ -1,7 +1,6 @@
 // Type definitions for Mongoose 5.0.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>
-//                 horiuchi <https://github.com/horiuchi>
+// Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 Alorel <https://github.com/Alorel>
