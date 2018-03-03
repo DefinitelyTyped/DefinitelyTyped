@@ -14,6 +14,7 @@
 //                 Veit Lehmann: <https://github.com/levito>
 //                 Roberto Huertas: <https://github.com/robertohuertasm>
 //                 Steven Miller <https://github.com/YourGamesBeOver>
+//                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -396,13 +397,13 @@ export interface NavigationEventSubscription {
   remove: () => void;
 }
 
-export interface NavigationScreenProp<S> {
+export interface NavigationScreenProp<S, P = NavigationParams> {
   state: S;
   dispatch: NavigationDispatch;
   goBack: (routeKey?: (string | null)) => boolean;
   navigate: (
     routeName: string,
-    params?: NavigationParams,
+    params?: P,
     action?: NavigationAction
   ) => boolean;
   setParams: (newParams: NavigationParams) => boolean;
