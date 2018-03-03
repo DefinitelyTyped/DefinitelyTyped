@@ -602,7 +602,7 @@ export declare class Pin {
     high(): void;
     low(): void;
     write(value: number): void;
-    read(cb: (value: number) => void): void;
+    read(cb: (error: Error, value: number) => void): void;
     on(event: string, cb: () => void): this;
     on(event: "high", cb: () => void): this;
     on(event: "low", cb: () => void): this;
