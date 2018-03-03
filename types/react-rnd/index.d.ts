@@ -104,4 +104,4 @@ declare namespace Rnd {
 
 declare class Rnd extends React.Component<Partial<Rnd.Options>> {}
 
-export default Rnd;
+export = Rnd;
