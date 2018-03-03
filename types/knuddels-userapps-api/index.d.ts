@@ -971,23 +971,23 @@ declare class ClientType {
 	/**
 	 * Der User ist mit dem Java Applet im Chat.
 	 */
-	static Applet: ClientType;
+	static readonly Applet: ClientType;
 	/**
 	 * Der User ist mit dem Browser im Chat (Mini-Chat, HTML-Chat).
 	 */
-	static Browser: ClientType;
+	static readonly Browser: ClientType;
 	/**
 	 * Der User ist mit der Android-App im Chat.
 	 */
-	static Android: ClientType;
+	static readonly Android: ClientType;
 	/**
 	 * Der User ist mit der iOS-App im Chat.
 	 */
-	static IOS: ClientType;
+	static readonly IOS: ClientType;
 	/**
 	 * Der User ist nicht im Chat.
 	 */
-	static Offline: ClientType;
+	static readonly Offline: ClientType;
 }
 
 /**
