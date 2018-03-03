@@ -168,7 +168,7 @@ declare namespace webpack {
          *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
          *   <li>"amd" - Export to AMD (optionally named)</li>
          *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
-         *   <li>"window" - Assign to widnow</li>
+         *   <li>"window" - Assign to window</li>
          *   <li>"assign" - Assign to a global variable</li>
          *   <li>"jsonp" - Generate Webpack JSONP module<li>
          * </ul>
