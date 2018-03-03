@@ -3547,7 +3547,7 @@ export class File {
 
     // Reading and Writing
     /** Reads the contents of the file. */
-    read(flushCache?: boolean): Promise<string>;
+    read(flushCache?: boolean): Promise<string | null>;
 
     /** Returns a stream to read the content of the file. */
     createReadStream(): ReadStream;
