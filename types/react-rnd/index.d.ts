@@ -18,7 +18,7 @@ declare namespace Rnd {
         | 'topLeft'
         | 'topRight';
 
-    export interface HandleClasses {
+    interface HandleClasses {
         bottom?: string;
         bottomLeft?: string;
         bottomRight?: string;
@@ -29,7 +29,7 @@ declare namespace Rnd {
         topRight?: string;
     }
 
-    export interface HandleStyles {
+    interface HandleStyles {
         bottom?: CSSProperties;
         bottomLeft?: CSSProperties;
         bottomRight?: CSSProperties;
@@ -40,17 +40,17 @@ declare namespace Rnd {
         topRight?: CSSProperties;
     }
 
-    export interface Position {
+    interface Position {
         x: number;
         y: number;
     }
 
-    export interface Size {
+    interface Size {
         width: number;
         height: number;
     }
 
-    export interface DraggableData {
+    interface DraggableData {
         node: HTMLElement;
         x: number;
         y: number;
@@ -60,9 +60,9 @@ declare namespace Rnd {
         lastY: number;
     }
 
-    export type DraggableEventHandler = (e: MouseEvent | TouchEvent, data: DraggableData) => void|false;
+    type DraggableEventHandler = (e: MouseEvent | TouchEvent, data: DraggableData) => void|false;
 
-    export type ResizeHandler = (
+    type ResizeHandler = (
         e: MouseEvent|TouchEvent,
         direction: Direction,
         ref: HTMLDivElement,
@@ -70,7 +70,7 @@ declare namespace Rnd {
         position: Position
     ) => void;
 
-    export interface Options {
+    interface Options {
         default: {
             x?: number;
             y?: number;
