@@ -31,57 +31,57 @@ declare class Agenda extends EventEmitter {
     /**
      * Connect to the specified MongoDB server and database.
      */
-    database(url: string, collection?: string, options?: any, cb?: ResultCallback<Collection>): Agenda;
+    database(url: string, collection?: string, options?: any, cb?: ResultCallback<Collection>): this;
 
     /**
      * Initialize agenda with an existing MongoDB connection.
      */
-    mongo(db: Db, collection?: string, cb?: ResultCallback<Collection>): Agenda;
+    mongo(db: Db, collection?: string, cb?: ResultCallback<Collection>): this;
 
     /**
      * Sets the agenda name.
      */
-    name(value: string): Agenda;
+    name(value: string): this;
 
     /**
      * Sets the interval with which the queue is checked. A number in milliseconds or a frequency string.
      */
-    processEvery(interval: string | number): Agenda;
+    processEvery(interval: string | number): this;
 
     /**
      * Takes a number which specifies the max number of jobs that can be running at any given moment. By default it
      * is 20.
      * @param value The value to set.
      */
-    maxConcurrency(value: number): Agenda;
+    maxConcurrency(value: number): this;
 
     /**
      * Takes a number which specifies the default number of a specific job that can be running at any given moment.
      * By default it is 5.
      * @param value The value to set.
      */
-    defaultConcurrency(value: number): Agenda;
+    defaultConcurrency(value: number): this;
 
     /**
      * Takes a number shich specifies the max number jobs that can be locked at any given moment. By default it is
      * 0 for no max.
      * @param value The value to set.
      */
-    lockLimit(value: number): Agenda;
+    lockLimit(value: number): this;
 
     /**
      * Takes a number which specifies the default number of a specific job that can be locked at any given moment.
      * By default it is 0 for no max.
      * @param value The value to set.
      */
-    defaultLockLimit(value: number): Agenda;
+    defaultLockLimit(value: number): this;
 
     /**
      * Takes a number which specifies the default lock lifetime in milliseconds. By default it is 10 minutes. This
      * can be overridden by specifying the lockLifetime option to a defined job.
      * @param value The value to set.
      */
-    defaultLockLifetime(value: number): Agenda;
+    defaultLockLifetime(value: number): this;
 
     /**
      * Returns an instance of a jobName with data. This does NOT save the job in the database. See below to learn

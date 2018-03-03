@@ -1,7 +1,8 @@
-// Type definitions for react-native-snap-carousel 3.5
+// Type definitions for react-native-snap-carousel 3.6
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 //                 Jacob Froman <https://github.com/j-fro>
+//                 Nikolay Polukhin <https://github.com/gazaret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -114,12 +115,6 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      */
     shouldOptimizeUpdates?: boolean;
     /**
-     * Snapping on android is kinda choppy, especially when swiping quickly so you
-     * can disable it.
-     * Warning: this prop can't be changed dynamically.
-     */
-    snapOnAndroid?: boolean;
-    /**
      * Delta x when swiping to trigger the snap
      */
     swipeThreshold?: number;
@@ -164,22 +159,24 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
     // Style and animation
 
     /**
+     * Custom animation options.
+     * Note that useNativeDriver will be enabled by default and that opacity's easing will always be kept linear.
+     * Setting this prop to something other than null will trigger custom animations and will completely change
+     * the way items are animated: rather than having their opacity and scale interpolated based the scroll value (default behavior),
+     * they will now play the custom animation you provide as soon as they become active.
+     * This means you cannot use props layout, scrollInterpolator or slideInterpolatedStyle in conjunction with activeAnimationOptions
+     */
+    activeAnimationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig;
+    /**
+     * Custom animation type: either 'decay, 'spring' or 'timing'.
+     * Note that it will only be applied to the scale animation since opacity's animation type will always be set
+     * to timing (no one wants the opacity to 'bounce' around)
+     */
+    activeAnimationType?: 'decay' | 'spring' | 'timing';
+    /**
      * Determine active slide's alignment relative to the carousel
      */
     activeSlideAlignment?: 'start' | 'center' | 'end';
-    /**
-     * Animated animation to use. Provide the name of the method
-     */
-    animationFunc?: 'decay' | 'timing' | 'spring';
-    /**
-     * Animation options to be merged with the default ones. Can be used w/ animationFunc
-     */
-    customAnimationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig;
-    /**
-     * Override container's inner padding (needed for slides's centering).
-     * Warning: be aware that overriding the default value can mess with carousel's behavior.
-     */
-    carouselHorizontalPadding?: number;
     /**
      * Optional styles for Scrollview's global wrapper
      */
@@ -202,6 +199,26 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      */
     inactiveSlideShift?: number;
     /**
+     * Define the way items are rendered and animated.
+     * Possible values are 'default', 'stack' and 'tinder'.
+     * See this for more info and visual examples.
+     * WARNING: setting this prop to either 'stack' or 'tinder' will activate useScrollView to prevent rendering bugs with FlatList.
+     * Therefore, those layouts will probably not be suited if you have a large data set.
+     */
+    layout?: 'default' | 'stack' | 'tinder';
+    /**
+     * Use to increase or decrease the default card offset in both 'stack' and 'tinder' layouts.
+     */
+    layoutCardOffset?: number;
+    /**
+     * Used to define custom interpolations
+     */
+    scrollInterpolator?(index: number, carouselProps: CarouselProps<any>): { inputRange: number[], outputRange: number[] };
+    /**
+     * Used to define custom interpolations
+     */
+    slideInterpolatedStyle?(animatedValue: number, carouselProps: CarouselProps<any>): StyleProp<ViewStyle>;
+    /**
      * Optional style for each item's container (the one whose scale and opacity are animated)
      */
     slideStyle?: StyleProp<ViewStyle>;
@@ -218,27 +235,47 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
     onScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
 
     /**
-     * @deprecated: use onScroll instead
-     * Callback fired while scrolling; direct equivalent of ScrollView's onScroll
-     * Since onScroll is overriden by plugin's implementation, you should use prop onScrollViewScroll
-     * if you need a callback while scrolling.
-     */
-    onScrollViewScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
-
-    /**
      * Callback fired when navigating to an item
      */
     onSnapToItem?(slideIndex: number): void;
 }
 
 export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>> {
+    /**
+     * Current active item (int, starts at 0)
+     */
     currentIndex: number;
+    /**
+     * Underlying ScrollView's current content offset
+     * (int, starts at 0 if activeSlideAlignment is set to start, negative value otherwise)
+     */
     currentScrollPosition: number;
+    /**
+     * Start the autoplay manually
+     */
     startAutoplay(instantly?: boolean): void;
+    /**
+     * Stop the autoplay manually
+     */
     stopAutoplay(): void;
+    /**
+     * Snap to an item manually
+     */
     snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean): void;
+    /**
+     * Snap to next item manually
+     */
     snapToNext(animated?: boolean): void;
+    /**
+     * Snap to previous item manually
+     */
     snapToPrev(animated?: boolean): void;
+    /**
+     * Call this when needed to work around a random FlatList bug that keeps content hidden until the carousel is scrolled
+     * (see #238). Note that the offset parameter is not required and will default to either 1 or -1 depending
+     * on the current scroll position
+     */
+    triggerRenderingHack(offset: number): void;
 }
 
 export type CarouselProperties<T> = ScrollViewProperties & CarouselProps<T> & React.Props<CarouselStatic<T>>;
@@ -286,13 +323,48 @@ export interface PaginationProps {
      */
     activeDotIndex: number;
     /**
+     * Opacity of the dot when tapped. The prop has no effect if tappableDots hasn't been set to true
+     */
+    activeOpacity?: number;
+    /**
+     * Reference to the Carousel component to which pagination is linked.
+     * Needed only when setting tappableDots to true
+     */
+    carouselRef?: React.Component<FlatListProperties<any>>;
+    /**
      * Style for dots' container that will be merged with the default one
      */
     containerStyle?: StyleProp<ViewStyle>;
     /**
+     * Background color of the active dot.
+     * Use this if you want to animate the change between active and inactive colors,
+     * and always in conjunction with inactiveDotColor
+     */
+    dotColor?: string;
+    /**
+     * Style of each dot's container.
+     * Use this if you need to specify styles that wouldn't have any effect when defined with dotStyle (such as flex)
+     */
+    dotContainerStyle?: StyleProp<ViewStyle>;
+    /**
+     * Optional custom active dot element that will replace the default one.
+     * The element will receive a prop active set to true as well as a prop index
+     */
+    dotElement?: React.ReactNode;
+    /**
      * Dots' style that will be merged with the default one
      */
     dotStyle?: StyleProp<ViewStyle>;
+    /**
+     * Background color of the inactive dots.
+     * Use this if you want to animate the change between active and inactive colors, and always in conjunction with dotColor
+     */
+    inactiveDotColor?: string;
+    /**
+     * Optional custom inactive dot element that will replace the default one.
+     * The element will receive a prop active set to false as well as a prop index
+     */
+    inactiveDotElement?: React.ReactNode;
     /**
      * Value of the opacity effect applied to inactive dots
      */
@@ -301,6 +373,25 @@ export interface PaginationProps {
      * Value of the 'scale' transform applied to inactive dots
      */
     inactiveDotScale?: number;
+    /**
+     * Dots' style that will be applied to inactive elements
+     */
+    inactiveDotStyle?: StyleProp<ViewStyle>;
+    /**
+     * Function that gives you complete control over pagination's rendering.
+     * It will receive three parameters : (activeIndex, total, context).
+     * This can be especially useful in order to replace dots with numbers
+     */
+    renderDots?(activeIndex: number, total: number, context: any): React.ReactNode;
+    /**
+     * Make default dots tappable, e.g. your carousel will slide to the corresponding item.
+     * Note that carouselRef must be specified for this to work
+     */
+    tappableDots?: boolean;
+    /**
+     * Whether to layout dots vertically or horizontally
+     */
+    vertical?: boolean;
 }
 
 export type PaginationStatic = React.ComponentClass<PaginationProps>;

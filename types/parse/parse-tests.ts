@@ -288,7 +288,13 @@ function test_user_acl_roles() {
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
-    game.save({ score: '10' }, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true }).then(function (game) {
+        // Update game then revert it to the last saved state.
+        game.set("score", '20');
+        game.revert();
+    }, function (error) {
+        // The save failed
+    });
 
     const groupACL = new Parse.ACL();
 
@@ -383,6 +389,27 @@ function test_cloud_functions() {
     Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest,
         response: Parse.Cloud.BeforeDeleteResponse) => {
         // result
+    });
+
+    const CUSTOM_ERROR_INVALID_CONDITION = 1001
+    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
+
+    Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
+        response: Parse.Cloud.BeforeSaveResponse) => {
+            
+            if (request.object.isNew()) {
+                if (!request.object.has('immutable')) return response.error('Field immutable is required')
+            } else {
+                const original = request.original;
+                if (original == null) { // When the object is not new, request.original must be defined
+                    return response.error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
+                }
+
+                if (original.get('immutable') !== request.object.get('immutable')) {
+                    return response.error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
+                }
+            }
+            response.success()
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
