@@ -16,6 +16,7 @@ import ElementChangeResponse = stripe.elements.ElementChangeResponse;
 import ElementsOptions = stripe.elements.ElementsOptions;
 import ElementsCreateOptions = stripe.elements.ElementsCreateOptions;
 import PatchedTokenResponse = ReactStripeElements.PatchedTokenResponse;
+import StripeProps = ReactStripeElements.StripeProps;
 
 const cardElementProps: ElementsOptions = {
     iconStyle: 'solid',
@@ -107,18 +108,24 @@ interface ComponentProps {
     tokenCallback(token: PatchedTokenResponse): void;
 }
 
-class WrappedComponent extends React.Component<ComponentProps & InjectedStripeProps> {
+class WrappedComponent extends React.Component<
+    ComponentProps & InjectedStripeProps
+> {
     onSubmit = () => {
-        this.props.stripe!.createToken({
-            name: '',
-            address_line1: '',
-            address_line2: '',
-            address_city: '',
-            address_state: '',
-            address_zip: '',
-            address_country: '',
-            currency: '',
-        }).then((response: PatchedTokenResponse) => this.props.tokenCallback(response));
+        this.props.stripe!
+            .createToken({
+                name: '',
+                address_line1: '',
+                address_line2: '',
+                address_city: '',
+                address_state: '',
+                address_zip: '',
+                address_country: '',
+                currency: '',
+            })
+            .then((response: PatchedTokenResponse) =>
+                this.props.tokenCallback(response)
+            );
     }
 
     isFormValid = () => {
@@ -170,3 +177,21 @@ const ElementsDefaultPropsTest: React.SFC = () => (
         <PostalCodeElement />
     </div>
 );
+
+/**
+ * StripeProvider should either receive `apiKey` or `stripe`, but not both.
+ * See: https://github.com/stripe/react-stripe-elements/blob/d30b32b6b8df282dd8880a3521667c371e90083f/src/components/Provider.js#L83-L86
+ */
+const TestStripeProviderProps1: React.SFC = () => <StripeProvider apiKey="" />;
+
+const TestStripeProviderProps2: React.SFC<{
+    stripe: StripeProps;
+}> = props => <StripeProvider stripe={props.stripe} />;
+
+/**
+ * props.stripe is null until loaded.
+ * See: https://github.com/stripe/react-stripe-elements#props-shape
+ */
+const TestStripeProviderProps3: React.SFC<{
+    stripe: StripeProps;
+}> = props => <StripeProvider stripe={null} />;

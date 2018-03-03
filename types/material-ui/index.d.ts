@@ -935,6 +935,7 @@ declare namespace __MaterialUI {
         onClick?: React.MouseEventHandler<Chip>;
         onRequestDelete?: React.TouchEventHandler<Chip>;
         style?: React.CSSProperties;
+        deleteIconStyle?: React.CSSProperties;
     }
 
     export class Chip extends React.Component<ChipProps> {

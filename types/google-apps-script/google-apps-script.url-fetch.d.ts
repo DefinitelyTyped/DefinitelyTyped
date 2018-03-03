@@ -1,6 +1,7 @@
 // Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
+//                 ramzallan <https://github.com/ramzallan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -92,6 +93,7 @@ declare namespace GoogleAppsScript {
      */
     export interface UrlFetchApp {
       fetch(url: string, params?: URLFetchRequestOptions): HTTPResponse;
+      fetchAll(requests: Object[]): HTTPResponse[];
       getRequest(url: string, params?: URLFetchRequestOptions): Object;
     }
 

@@ -377,6 +377,7 @@ declare namespace Parse {
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
         remove(attr: string, item: any): any;
+        revert(): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
@@ -891,7 +892,8 @@ declare namespace Parse {
 
         interface FunctionResponse {
             success: (response: any) => void;
-            error: (response: any) => void;
+            error (code: number, response: any): void;
+            error (response: any): void;
         }
 
         interface Cookie {
@@ -912,7 +914,9 @@ declare namespace Parse {
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteResponse extends FunctionResponse { }
-        interface BeforeSaveRequest extends TriggerRequest { }
+        interface BeforeSaveRequest extends TriggerRequest {
+            original?: Parse.Object;
+        }
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
         }

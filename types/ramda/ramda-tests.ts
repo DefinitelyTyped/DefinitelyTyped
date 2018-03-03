@@ -978,6 +978,13 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    R.reverse('abc');      // => 'cba'
+    R.reverse('ab');       // => 'ba'
+    R.reverse('a');        // => 'a'
+    R.reverse('');         // => ''
+};
+
+() => {
     const numbers = [1, 2, 3, 4];
     R.scan(R.multiply, 1, numbers); // => [1, 1, 2, 6, 24]
     R.scan(R.multiply, 1)(numbers); // => [1, 1, 2, 6, 24]
@@ -2127,6 +2134,14 @@ class Rectangle {
     R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
     R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
     const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+};
+
+() => {
+    const eqL = R.eqBy<string, number>(s => s.length);
+    const l1 = ['bb', 'ccc', 'dddd'];
+    const l2 = ['aaa', 'bb', 'c'];
+    R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
+    R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
 };
 
 /*****************************************************************

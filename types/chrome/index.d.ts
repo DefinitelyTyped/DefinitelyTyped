@@ -1740,7 +1740,7 @@ declare namespace chrome.devtools.network {
  * Availability: Since Chrome 18.
  */
 declare namespace chrome.devtools.panels {
-    export interface PanelShownEvent extends chrome.events.Event<(window: chrome.windows.Window) => void> {}
+    export interface PanelShownEvent extends chrome.events.Event<(window: Window) => void> {}
 
     export interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
 
