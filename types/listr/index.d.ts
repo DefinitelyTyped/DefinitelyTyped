@@ -37,9 +37,9 @@ interface ListrTaskWrapper {
 }
 
 declare class Listr {
-    constructor(tasks?: ListrTask[], options?: ListrOptions);
+    constructor(tasks?: ReadonlyArray<ListrTask>, options?: ListrOptions);
     constructor(options?: ListrOptions);
-    add(tasks: ListrTask | ListrTask[]): void;
+    add(tasks: ListrTask | ReadonlyArray<ListrTask>): void;
     run(ctx?: any): Promise<any>;
 }
 
