@@ -21,6 +21,7 @@ export interface IndexRouteProps<Props = any> {
     onEnter?: EnterHook;
     onChange?: ChangeHook;
     onLeave?: LeaveHook;
+    exact?: boolean;
 }
 
 type IndexRoute = ComponentClass<IndexRouteProps>;
