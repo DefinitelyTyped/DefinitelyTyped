@@ -55,11 +55,13 @@ client.query(query, (err, res) => {
     console.error(err.stack);
   } else {
     console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
   }
 });
 client.query(query)
   .then(res => {
     console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
   })
   .catch(e => {
     console.error(e.stack);
