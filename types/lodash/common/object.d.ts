@@ -2273,11 +2273,27 @@ declare module "../index" {
         * @param [iteratee=_.identity]  The function invoked per iteration.
         * @param [thisArg] The `this` binding of `iteratee`.
         * @return Returns the new mapped object.
-        * TODO: This would be better if we had a separate overloads for obj: Dictionary (and NumericDictionary) that
-        *       returned a Dictionary (and NumericDictionary, respectively),
-        *       but TypeScript cannot select overload signatures based on number vs string index key type.
         */
+        mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
+
+        /**
+         * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
+         *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: ObjectIterator<Dictionary<T>, TResult>): Dictionary<TResult>;
+
+        /**
+         * @see _.mapValues
+         */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
+
+        /**
+         * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
+         *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
 
         /**
          * @see _.mapValues
@@ -2293,13 +2309,20 @@ declare module "../index" {
 
         /**
          * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
+         *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: string): Dictionary<T[keyof T]>;
+
+        /**
+         * @see _.mapValues
          */
         mapValues<T extends object>(obj: T | null | undefined, iteratee: string): { [P in keyof T]: any };
 
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
+        mapValues(obj: string | null | undefined): NumericDictionary<string>;
 
         /**
          * @see _.mapValues
@@ -2316,25 +2339,45 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(obj: T | null | undefined): T | {};
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues(obj: string | null | undefined): NumericDictionary<string>;
+        mapValues<T extends object>(obj: T | null | undefined): PartialObject<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.mapValues
-         * TODO: This would be better if we had a separate overloads for obj: Dictionary (and NumericDictionary) that
-         *       returned a Dictionary (and NumericDictionary, respectively),
+         */
+        mapValues<TResult>(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            callback: StringIterator<TResult>
+        ): LoDashImplicitWrapper<NumericDictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T, TResult>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
+            callback: ObjectIterator<Dictionary<T>, TResult>
+        ): LoDashImplicitWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
          */
         mapValues<T extends object, TResult>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             callback: ObjectIterator<T, TResult>
         ): LoDashImplicitWrapper<{ [P in keyof T]: TResult }>;
+
+        /**
+         * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
+         *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
+            iteratee: object
+        ): LoDashImplicitWrapper<Dictionary<boolean>>;
 
         /**
          * @see _.mapValues
@@ -2356,6 +2399,16 @@ declare module "../index" {
 
         /**
          * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
+         *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
+            iteratee: string
+        ): LoDashImplicitWrapper<Dictionary<T[keyof T]>>;
+
+        /**
+         * @see _.mapValues
          */
         mapValues<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
@@ -2365,10 +2418,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            callback: StringIterator<TResult>
-        ): LoDashImplicitWrapper<NumericDictionary<TResult>>;
+        mapValues(this: LoDashImplicitWrapper<string | null | undefined>): LoDashImplicitWrapper<NumericDictionary<string>>;
 
         /**
          * @see _.mapValues
@@ -2385,25 +2435,45 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<T | {}>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues(this: LoDashImplicitWrapper<string | null | undefined>): LoDashImplicitWrapper<NumericDictionary<string>>;
+        mapValues<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<PartialObject<T>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.mapValues
-         * TODO: This would be better if we had a separate overloads for obj: Dictionary (and NumericDictionary) that
-         *       returned a Dictionary (and NumericDictionary, respectively),
+         */
+        mapValues<TResult>(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            callback: StringIterator<TResult>
+        ): LoDashExplicitWrapper<NumericDictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T, TResult>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
+            callback: ObjectIterator<Dictionary<T>, TResult>
+        ): LoDashExplicitWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
          */
         mapValues<T extends object, TResult>(
             this: LoDashExplicitWrapper<T | null | undefined>,
             callback: ObjectIterator<T, TResult>
         ): LoDashExplicitWrapper<{ [P in keyof T]: TResult }>;
+
+        /**
+         * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
+         *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
+            iteratee: object
+        ): LoDashExplicitWrapper<Dictionary<boolean>>;
 
         /**
          * @see _.mapValues
@@ -2425,6 +2495,16 @@ declare module "../index" {
 
         /**
          * @see _.mapValues
+         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
+         *       but TypeScript cannot select overload signatures based on number vs string index key type.
+         */
+        mapValues<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
+            iteratee: string
+        ): LoDashExplicitWrapper<Dictionary<T[keyof T]>>;
+
+        /**
+         * @see _.mapValues
          */
         mapValues<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
@@ -2434,10 +2514,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            callback: StringIterator<TResult>
-        ): LoDashExplicitWrapper<NumericDictionary<TResult>>;
+        mapValues(this: LoDashExplicitWrapper<string | null | undefined>): LoDashExplicitWrapper<NumericDictionary<string>>;
 
         /**
          * @see _.mapValues
@@ -2454,12 +2531,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<T | {}>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues(this: LoDashExplicitWrapper<string | null | undefined>): LoDashExplicitWrapper<NumericDictionary<string>>;
+        mapValues<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<PartialObject<T>>;
     }
 
     // merge

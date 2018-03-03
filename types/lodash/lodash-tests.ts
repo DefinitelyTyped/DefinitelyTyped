@@ -11791,6 +11791,7 @@ namespace TestMapKeys {
     let dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
     let numericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
     let abcObject: AbcObject = anything;
+    let abcObjectOrNull: AbcObject | null = anything;
 
     let dictionaryIterator = (value: AbcObject, key: string, collection: _.Dictionary<AbcObject>) => "";
     let numericDictionaryIterator = (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => "";
@@ -11798,115 +11799,225 @@ namespace TestMapKeys {
 
     {
         {
-            let result: _.Dictionary<string> = anything;
-            _.mapValues(dictionary, dictionaryIterator);
-            _.mapValues(numericDictionary, numericDictionaryIterator);
+            // $ExpectType NumericDictionary<AbcObject>
+            _.mapValues("foo", (char, index, str) => {
+                char; // $ExpectType string
+                index; // $ExpectType number
+                str; // $ExpectType string
+                return abcObject;
+            });
+
+            // $ExpectType Dictionary<string>
+            _.mapValues(dictionary, (value, key, collection) => {
+                value;  // $ExpectType AbcObject
+                key; // $ExpectType string
+                collection; // $ExpectType Dictionary<AbcObject>
+                return "";
+            });
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            // $ExpectType Dictionary<string>
+            _.mapValues(numericDictionary, (value, key, collection) => {
+                value;  // $ExpectType AbcObject
+                key; // $ExpectType string
+                collection; // $ExpectType Dictionary<AbcObject>
+                return "";
+            });
+
+            // $ExpectType { a: string; b: string; c: string; }
+            _.mapValues(abcObject, (value, key, collection) => {
+                value;  // $ExpectType string | number | boolean
+                key; // $ExpectType string
+                collection; // $ExpectType AbcObject
+                return "";
+            });
         }
 
         {
-            let result: Record<keyof AbcObject, string> = anything;
-            result = _.mapValues(abcObject, abcObjectIterator);
+            _.mapValues(dictionary, {}); // $ExpectType Dictionary<boolean>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _.mapValues(numericDictionary, {}); // $ExpectType Dictionary<boolean>
+
+            _.mapValues(abcObject, {}); // $ExpectType { a: boolean; b: boolean; c: boolean; }
         }
 
         {
-            let result: Record<keyof AbcObject, boolean> = anything;
-            result = _.mapValues(abcObject, {});
+            _.mapValues(dictionary, "a"); // $ExpectType Dictionary<number>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _.mapValues(numericDictionary, "a"); // $ExpectType Dictionary<number>
         }
 
         {
-            let result: _.Dictionary<number> = anything;
-            result = _.mapValues(dictionary, "a");
+            const key: string = anything;
+            _.mapValues(abcObject, key); // $ExpectType { a: any; b: any; c: any; }
+            _.mapValues(dictionary, key); // $ExpectType Dictionary<string | number | boolean>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _.mapValues(numericDictionary, key); // $ExpectType Dictionary<string | number | boolean>
         }
 
         {
-            let result: _.Dictionary<AbcObject> = anything;
-            result = _.mapValues(dictionary);
-        }
+            _.mapValues("a"); // $ExpectType NumericDictionary<string>
 
-        {
-            let result: _.NumericDictionary<number> = anything;
-            result = _.mapValues(numericDictionary, "a");
-        }
+            _.mapValues(dictionary); // $ExpectType Dictionary<AbcObject>
 
-        {
-            let result: _.NumericDictionary<AbcObject> = anything;
-            result = _.mapValues(numericDictionary);
-        }
-    }
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _.mapValues(numericDictionary); // $ExpectType Dictionary<AbcObject>
 
-    {
-        {
-            let result: _.LoDashImplicitWrapper<_.Dictionary<string>> = anything;
-            result = _(dictionary).mapValues(dictionaryIterator);
-            result = _(numericDictionary).mapValues(numericDictionaryIterator);
-        }
-
-        {
-            let result: _.LoDashImplicitWrapper<Record<keyof AbcObject, string>> = anything;
-            result = _(abcObject).mapValues(abcObjectIterator);
-        }
-
-        {
-            let result: _.LoDashImplicitWrapper<Record<keyof AbcObject, boolean>> = anything;
-            result = _(abcObject).mapValues({});
-        }
-
-        {
-            let result: _.LoDashImplicitWrapper<_.Dictionary<number>> = anything;
-            result = _(dictionary).mapValues("a");
-        }
-
-        {
-            let result: _.LoDashImplicitWrapper<_.Dictionary<AbcObject>> = anything;
-            result = _(dictionary).mapValues();
-        }
-
-        {
-            let result: _.LoDashImplicitWrapper<_.NumericDictionary<number>> = anything;
-            result = _(numericDictionary).mapValues("a");
-        }
-
-        {
-            let result: _.LoDashImplicitWrapper<_.NumericDictionary<AbcObject>> = anything;
-            result = _(numericDictionary).mapValues();
+            _.mapValues(abcObject); // $ExpectType AbcObject
+            _.mapValues(abcObjectOrNull); // $ExpectType Partial<AbcObject>
         }
     }
 
     {
         {
-            let result: _.LoDashExplicitWrapper<_.Dictionary<string>> = anything;
-            result = _(dictionary).chain().mapValues(dictionaryIterator);
-            result = _(numericDictionary).chain().mapValues(numericDictionaryIterator);
+            // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
+            _("foo").mapValues((char, index, str) => {
+                char; // $ExpectType string
+                index; // $ExpectType number
+                str; // $ExpectType string
+                return abcObject;
+            });
+
+            // $ExpectType LoDashImplicitWrapper<Dictionary<string>>
+            _(dictionary).mapValues((value, key, collection) => {
+                value;  // $ExpectType AbcObject
+                key; // $ExpectType string
+                collection; // $ExpectType Dictionary<AbcObject>
+                return "";
+            });
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            // $ExpectType LoDashImplicitWrapper<Dictionary<string>>
+            _(numericDictionary).mapValues((value, key, collection) => {
+                value;  // $ExpectType AbcObject
+                key; // $ExpectType string
+                collection; // $ExpectType Dictionary<AbcObject>
+                return "";
+            });
+
+            // $ExpectType LoDashImplicitWrapper<{ a: string; b: string; c: string; }>
+            _(abcObject).mapValues((value, key, collection) => {
+                value;  // $ExpectType string | number | boolean
+                key; // $ExpectType string
+                collection; // $ExpectType AbcObject
+                return "";
+            });
         }
 
         {
-            let result: _.LoDashExplicitWrapper<Record<keyof AbcObject, string>> = anything;
-            result = _(abcObject).chain().mapValues(abcObjectIterator);
+            _(dictionary).mapValues({}); // $ExpectType LoDashImplicitWrapper<Dictionary<boolean>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).mapValues({}); // $ExpectType LoDashImplicitWrapper<Dictionary<boolean>>
+
+            _(abcObject).mapValues({}); // $ExpectType LoDashImplicitWrapper<{ a: boolean; b: boolean; c: boolean; }>
         }
 
         {
-            let result: _.LoDashExplicitWrapper<Record<keyof AbcObject, boolean>> = anything;
-            result = _(abcObject).chain().mapValues({});
+            _(dictionary).mapValues("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).mapValues("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
         }
 
         {
-            let result: _.LoDashExplicitWrapper<_.Dictionary<number>> = anything;
-            result = _(dictionary).chain().mapValues("a");
+            const key: string = anything;
+
+            _(abcObject).mapValues(key); // $ExpectType LoDashImplicitWrapper<{ a: any; b: any; c: any; }>
+            _(dictionary).mapValues(key); // $ExpectType LoDashImplicitWrapper<Dictionary<string | number | boolean>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).mapValues(key); // $ExpectType LoDashImplicitWrapper<Dictionary<string | number | boolean>>
         }
 
         {
-            let result: _.LoDashExplicitWrapper<_.Dictionary<AbcObject>> = anything;
-            result = _(dictionary).chain().mapValues();
+            _("a").mapValues(); // $ExpectType LoDashImplicitWrapper<NumericDictionary<string>>
+
+            _(dictionary).mapValues(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).mapValues(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+
+            _(abcObject).mapValues(); // $ExpectType LoDashImplicitWrapper<AbcObject>
+            _(abcObjectOrNull).mapValues(); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
+        }
+    }
+
+    {
+        {
+            // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
+            _("foo").chain().mapValues((char, index, str) => {
+                char; // $ExpectType string
+                index; // $ExpectType number
+                str; // $ExpectType string
+                return abcObject;
+            });
+
+            // $ExpectType LoDashExplicitWrapper<Dictionary<string>>
+            _(dictionary).chain().mapValues((value, key, collection) => {
+                value;  // $ExpectType AbcObject
+                key; // $ExpectType string
+                collection; // $ExpectType Dictionary<AbcObject>
+                return "";
+            });
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            // $ExpectType LoDashExplicitWrapper<Dictionary<string>>
+            _(numericDictionary).chain().mapValues((value, key, collection) => {
+                value;  // $ExpectType AbcObject
+                key; // $ExpectType string
+                collection; // $ExpectType Dictionary<AbcObject>
+                return "";
+            });
+
+            // $ExpectType LoDashExplicitWrapper<{ a: string; b: string; c: string; }>
+            _(abcObject).chain().mapValues((value, key, collection) => {
+                value;  // $ExpectType string | number | boolean
+                key; // $ExpectType string
+                collection; // $ExpectType AbcObject
+                return "";
+            });
         }
 
         {
-            let result: _.LoDashExplicitWrapper<_.NumericDictionary<number>> = anything;
-            result = _(numericDictionary).chain().mapValues("a");
+            _(dictionary).chain().mapValues({}); // $ExpectType LoDashExplicitWrapper<Dictionary<boolean>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).chain().mapValues({}); // $ExpectType LoDashExplicitWrapper<Dictionary<boolean>>
+
+            _(abcObject).chain().mapValues({}); // $ExpectType LoDashExplicitWrapper<{ a: boolean; b: boolean; c: boolean; }>
         }
 
         {
-            let result: _.LoDashExplicitWrapper<_.NumericDictionary<AbcObject>> = anything;
-            result = _(numericDictionary).chain().mapValues();
+            _(dictionary).chain().mapValues("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).chain().mapValues("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+        }
+
+        {
+            const key: string = anything;
+
+            _(abcObject).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<{ a: any; b: any; c: any; }>
+            _(dictionary).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<Dictionary<string | number | boolean>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<Dictionary<string | number | boolean>>
+        }
+
+        {
+            _("a").chain().mapValues(); // $ExpectType LoDashExplicitWrapper<NumericDictionary<string>>
+
+            _(dictionary).chain().mapValues(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+
+            // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
+            _(numericDictionary).chain().mapValues(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+
+            _(abcObject).chain().mapValues(); // $ExpectType LoDashExplicitWrapper<AbcObject>
+            _(abcObjectOrNull).chain().mapValues(); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
         }
     }
 }
