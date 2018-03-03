@@ -16,7 +16,7 @@
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 declare let R: R.Static;
 
