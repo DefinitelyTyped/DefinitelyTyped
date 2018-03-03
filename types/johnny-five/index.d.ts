@@ -597,7 +597,7 @@ export declare class Pin {
     mode: number;
 
     static write(pin: number, value: number): void;
-    static read(pin: number, cb: (data: number) => void): void;
+    static read(pin: number, cb: (error: Error, data: number) => void): void;
     query(cb: (pin: PinState) => void): void;
     high(): void;
     low(): void;
