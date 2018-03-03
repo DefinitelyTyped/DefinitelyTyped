@@ -642,6 +642,9 @@ export interface RowInfo {
 
     /** An array of any expandable sub-rows contained in this row */
     subRows: any[];
+
+    /** Original object passed to row */
+    original: any;
 }
 
 export interface FinalState extends TableProps {
