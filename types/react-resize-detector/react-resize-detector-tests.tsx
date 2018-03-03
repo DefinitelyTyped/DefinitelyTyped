@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import ReactResizeRouter from "./index";
+import ReactResizeRouter from "react-resize-detector";
 
 class App extends React.PureComponent {
     constructor(props: {}) {
