@@ -385,9 +385,10 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
         x: number, y: number, width: number, height: number): void;
 
     compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
-        height: number, border: number, data: ArrayBufferView | null): void;
-    compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number, width: number,
-        height: number, format: number, data: ArrayBufferView | null): void;
+        height: number, border: number, imageSize: number, offset: number): void;
+    compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
+        height: number, border: number, srcData: ArrayBufferView | null,
+        srcOffset?: number, srcLengthOverride?: number): void;
 
     compressedTexImage3D(target: number, level: number, internalformat: number, width: number,
         height: number, depth: number, border: number, imageSize: number, offset: number): void;
@@ -399,7 +400,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
         width: number, height: number, format: number, imageSize: number, offset: number): void;
     compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
         width: number, height: number, format: number,
-        srcData: ArrayBufferView,
+        srcData: ArrayBufferView | null,
         srcOffset?: number,
         srcLengthOverride?: number): void;
 
