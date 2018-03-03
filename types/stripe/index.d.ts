@@ -6648,9 +6648,9 @@ declare namespace Stripe {
              * Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer,
              * or when trying to reverse more money than is left on a transfer.
              */
-            createReverse(transferId: string, data: transferReversals.IReversalCreationOptions, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
-            createReverse(transferId: string, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
-            createReverse(transferId: string, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
+            createReversal(transferId: string, data: transferReversals.IReversalCreationOptions, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
+            createReversal(transferId: string, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
+            createReversal(transferId: string, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
 
             /**
              * By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a
