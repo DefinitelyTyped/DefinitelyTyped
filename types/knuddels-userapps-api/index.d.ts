@@ -967,27 +967,27 @@ declare namespace Client {
  * Eine Instanz von <code>ClientType</code> erhält man über das User-Objekt
  * mit user.getClientType()
  */
-declare namespace  ClientType {
+declare class ClientType {
 	/**
 	 * Der User ist mit dem Java Applet im Chat.
 	 */
-	export const Applet: ClientType;
+	static Applet: ClientType;
 	/**
 	 * Der User ist mit dem Browser im Chat (Mini-Chat, HTML-Chat).
 	 */
-	export const Browser: ClientType;
+	static Browser: ClientType;
 	/**
 	 * Der User ist mit der Android-App im Chat.
 	 */
-	export const Android: ClientType;
+	static Android: ClientType;
 	/**
 	 * Der User ist mit der iOS-App im Chat.
 	 */
-	export const IOS: ClientType;
+	static IOS: ClientType;
 	/**
 	 * Der User ist nicht im Chat.
 	 */
-	export const Offline: ClientType;
+	static Offline: ClientType;
 }
 
 /**

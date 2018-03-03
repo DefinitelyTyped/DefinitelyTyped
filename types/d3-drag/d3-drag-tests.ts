@@ -62,12 +62,13 @@ circleCustomDrag = d3Drag.drag<SVGCircleElement, CircleDatum, CustomSubject | d3
 
 // set and get container element/accessor ----------------------------
 
-let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => d3Drag.DragContainerElement | null;
+let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => d3Drag.DragContainerElement;
 
 containerAccessor = function(d, i, group) {
     console.log('Node Id of circle: ', d.nodeId);
     // console.log(this.a); // fails, a is not a property of SVGCircleElement
-    return this.ownerSVGElement; // this-type is SVGCircleElement
+    /* tslint:disable-next-line:no-unnecessary-type-assertion */
+    return this.ownerSVGElement!; // this-type is SVGCircleElement
 };
 
 // Test chainability
@@ -75,7 +76,8 @@ circleDrag = circleDrag
     .container(function(d, i, group) { // container accessor function setter
         console.log('Node Id of circle: ', d.nodeId); // CircleDatum type
         // console.log(this.a); // fails, a is not a property of SVGCircleElement
-        return this.ownerSVGElement; // this-type is SVGCircleElement
+        /* tslint:disable-next-line:no-unnecessary-type-assertion */
+        return this.ownerSVGElement!; // this-type is SVGCircleElement
     });
 
 // Test chainability

@@ -7,7 +7,7 @@ type OrientationType = "portrait-primary" | "portrait-secondary" | "landscape-pr
 type ScreenOrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 
 interface ScreenOrientation extends EventTarget {
-    lock(orientation: OrientationLockType): Promise<void>;
+    lock(orientation: ScreenOrientationLockType): Promise<void>;
     unlock(): void;
     readonly type: ScreenOrientationLockType;
     readonly angle: number;

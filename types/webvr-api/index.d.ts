@@ -119,6 +119,11 @@ interface VRDisplay extends EventTarget {
     submitFrame(pose?: VRPose): void;
 }
 
+declare var VRDisplay: {
+    prototype: VRDisplay;
+    new(): VRDisplay;
+};
+
 interface VRLayer {
     leftBounds?: number[] | null;
     rightBounds?: number[] | null;

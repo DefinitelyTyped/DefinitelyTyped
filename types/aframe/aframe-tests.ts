@@ -21,9 +21,9 @@ type MyEntity = AFrame.Entity<{
 	material: THREE.Material;
 	sound: { pause(): void };
 }>;
-const camera = document.querySelector<MyEntity>('a-entity[camera]')!.components.camera;
-const material = document.querySelector<MyEntity>('a-entity[material]')!.components.material;
-document.querySelector<MyEntity>('a-entity[sound]')!.components.sound.pause();
+const camera = document.querySelector<MyEntity>('a-entity[camera]').components.camera;
+const material = document.querySelector<MyEntity>('a-entity[material]').components.material;
+document.querySelector<MyEntity>('a-entity[sound]').components.sound.pause();
 
 entity.getDOMAttribute('geometry').primitive;
 
