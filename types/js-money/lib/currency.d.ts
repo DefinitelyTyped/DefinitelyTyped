@@ -138,7 +138,5 @@ declare namespace Currencies {
 	}
 }
 
-
-
 declare var Currencies: Currencies.Currencies;
 export = Currencies;

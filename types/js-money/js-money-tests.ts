@@ -1,5 +1,5 @@
-import * as Money from "js-money";
-import * as CurrencyObjects from "js-money/lib/currency";
+import Money = require('js-money');
+import * as CurrencyObjects from 'js-money/lib/currency';
 
 const money = new Money(1500, 'USD');
 const other = new Money(100, Money.THB);
