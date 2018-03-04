@@ -23,9 +23,9 @@ export interface Options {
     imageCrossfade?: boolean;
 
     /**
-     * Activate spinner icon
+     * Activate spinner icon or url
      */
-    loadingIcon?: boolean;
+    loadingIcon?: boolean | string;
 
     /**
      * Activate easing
@@ -58,7 +58,7 @@ export interface Options {
      * y-axis offset of the zoom window
      */
     zoomWindowOffsetY?: number;
-    zoomWindowPosition?: number|string;
+    zoomWindowPosition?: number | string;
 
     /**
      * Speed of Lens fadeIn
@@ -156,6 +156,53 @@ export interface Options {
      * Type of cursor
      */
     cursor?: 'default' | 'cursor' | 'crosshair';
+    container?: string;
+
+    /**
+     * Attribute to plugin use for zoom
+     */
+    attrImageZoomSrc?: string;
+
+    /**
+     * In pixels the dimensions you want to constrain on
+     */
+    constrainSize?: number | false;
+    constrainType?: 'width' | 'height';
+    debug?: boolean;
+    easingAmount?: number;
+    enabled?: boolean;
+    galleryActiveClass?: string;
+    gallerySelector?: string | false;
+    galleryItem?: string;
+    galleryEvent?: string;
+    mantainZoomAspectRatio?: boolean;
+    maxZoomLevel?: number | false;
+    minZoomLevel?: number;
+    preloading?: 0 | 1;
+    respond?: any[];
+
+    /**
+     * Steps of the scrollzoom
+     */
+    scrollZoomIncrement?: number;
+    touchEnabled?: boolean;
+    zoomActivation?: 'click' | 'hover';
+
+    /**
+     * Zoom container parent selector
+     */
+    zoomContainerAppendTo?: string;
+
+    /**
+     * Identifier for the zoom container
+     */
+    zoomId?: number;
+
+    /**
+     * Zoom level of image
+     */
+    zoomLevel?: number;
+    zIndex?: number;
 }
 declare global {
     interface JQuery {
