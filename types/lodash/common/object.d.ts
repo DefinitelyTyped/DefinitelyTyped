@@ -2312,7 +2312,7 @@ declare module "../index" {
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: string): Dictionary<T[keyof T]>;
+        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: string): Dictionary<any>;
 
         /**
          * @see _.mapValues
@@ -2405,7 +2405,7 @@ declare module "../index" {
         mapValues<T>(
             this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
             iteratee: string
-        ): LoDashImplicitWrapper<Dictionary<T[keyof T]>>;
+        ): LoDashImplicitWrapper<Dictionary<any>>;
 
         /**
          * @see _.mapValues
@@ -2501,7 +2501,7 @@ declare module "../index" {
         mapValues<T>(
             this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
             iteratee: string
-        ): LoDashExplicitWrapper<Dictionary<T[keyof T]>>;
+        ): LoDashExplicitWrapper<Dictionary<any>>;
 
         /**
          * @see _.mapValues

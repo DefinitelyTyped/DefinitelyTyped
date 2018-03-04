@@ -11852,10 +11852,10 @@ namespace TestMapKeys {
         {
             const key: string = anything;
             _.mapValues(abcObject, key); // $ExpectType { a: any; b: any; c: any; }
-            _.mapValues(dictionary, key); // $ExpectType Dictionary<string | number | boolean>
+            _.mapValues(dictionary, key); // $ExpectType Dictionary<any>
 
             // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
-            _.mapValues(numericDictionary, key); // $ExpectType Dictionary<string | number | boolean>
+            _.mapValues(numericDictionary, key); // $ExpectType Dictionary<any>
         }
 
         {
@@ -11927,10 +11927,10 @@ namespace TestMapKeys {
             const key: string = anything;
 
             _(abcObject).mapValues(key); // $ExpectType LoDashImplicitWrapper<{ a: any; b: any; c: any; }>
-            _(dictionary).mapValues(key); // $ExpectType LoDashImplicitWrapper<Dictionary<string | number | boolean>>
+            _(dictionary).mapValues(key); // $ExpectType LoDashImplicitWrapper<Dictionary<any>>
 
             // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
-            _(numericDictionary).mapValues(key); // $ExpectType LoDashImplicitWrapper<Dictionary<string | number | boolean>>
+            _(numericDictionary).mapValues(key); // $ExpectType LoDashImplicitWrapper<Dictionary<any>>
         }
 
         {
@@ -12002,10 +12002,10 @@ namespace TestMapKeys {
             const key: string = anything;
 
             _(abcObject).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<{ a: any; b: any; c: any; }>
-            _(dictionary).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<Dictionary<string | number | boolean>>
+            _(dictionary).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<Dictionary<any>>
 
             // Can't really support NumericDictionary fully, but it at least gets treated like a Dictionary
-            _(numericDictionary).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<Dictionary<string | number | boolean>>
+            _(numericDictionary).chain().mapValues(key); // $ExpectType LoDashExplicitWrapper<Dictionary<any>>
         }
 
         {
