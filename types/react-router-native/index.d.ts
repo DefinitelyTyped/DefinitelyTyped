@@ -43,8 +43,6 @@ export interface LinkProps {
 export class Link extends React.Component<LinkProps> {}
 
 export interface NativeRouterProps {
-  initialEntries?: string[];
-  initialIndex?: number;
   getUserConfirmation?: Function;
   keyLength?: number;
   initialEntries?: string[];
