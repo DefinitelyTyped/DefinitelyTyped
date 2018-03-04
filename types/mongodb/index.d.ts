@@ -672,7 +672,7 @@ type FilterQuery<T> = {
         $bitsAnySet?: Object;
         [key: string]: any;
     };
-};
+} | { [key:string]: any };
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
 export interface CollStats {
