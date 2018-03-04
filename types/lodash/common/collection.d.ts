@@ -1646,7 +1646,7 @@ declare module "../index" {
          */
         map<T>(
             collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            iteratee?: string
+            iteratee?: PropertyPath
         ): any[];
 
         /**
@@ -1699,7 +1699,7 @@ declare module "../index" {
          */
         map<T>(
             this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee?: string
+            iteratee?: PropertyPath
         ): LoDashImplicitWrapper<any[]>;
 
         /**
@@ -1752,7 +1752,7 @@ declare module "../index" {
          */
         map<T>(
             this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee?: string
+            iteratee?: PropertyPath
         ): LoDashExplicitWrapper<any[]>;
 
         /**
