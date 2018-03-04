@@ -224,14 +224,8 @@ declare module "../index" {
 
     // Crazy typedef needed get _.omit to work properly with Dictionary and NumericDictionary
     type AnyKindOfDictionary =
-        | Dictionary<{}>
-        | Dictionary<{} | null>
-        | Dictionary<{} | undefined>
         | Dictionary<{} | null | undefined>
-        | NumericDictionary<{}>
-        | NumericDictionary<{} | null>
-        | NumericDictionary<{} | undefined>
-        | NumericDictionary<{} | null | undefined>
+        | NumericDictionary<{} | null | undefined>;
 
     interface Cancelable {
         cancel(): void;
