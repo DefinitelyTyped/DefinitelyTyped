@@ -6143,6 +6143,7 @@ namespace TestMap {
         _.map(array, {});  // $ExpectType boolean[]
         _.map(list, {});  // $ExpectType boolean[]
         _.map(dictionary, {});  // $ExpectType boolean[]
+        _.map(numericDictionary, {});  // $ExpectType boolean[]
     }
 
     {
@@ -6185,6 +6186,7 @@ namespace TestMap {
         _(array).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
         _(list).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
         _(dictionary).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
+        _(numericDictionary).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
     }
 
     {
@@ -6227,6 +6229,7 @@ namespace TestMap {
         _(array).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
         _(list).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
         _(dictionary).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
+        _(numericDictionary).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
     }
 
     {
