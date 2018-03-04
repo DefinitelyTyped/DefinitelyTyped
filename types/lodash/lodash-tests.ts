@@ -6096,51 +6096,49 @@ namespace TestInvokeMap {
 
 // _.map
 namespace TestMap {
-    let array: number[] | null | undefined = [] as any;
-    let list: _.List<number> | null | undefined = [] as any;
-    let obj: any = {};
-    let dictionary: _.Dictionary<number> | null | undefined = anything;
-    let numericDictionary: _.NumericDictionary<number> | null | undefined = anything;
-
-    let listIterator: (value: number, index: number, collection: _.List<number>) => AbcObject = (value: number, index: number, collection: _.List<number>) => ({ a: 1, b: "", c: true });
-    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => AbcObject = (value: number, key: string, collection: _.Dictionary<number>) => ({ a: 1, b: "", c: true });
-    let numericDictionaryIterator: (value: number, key: string, collection: _.NumericDictionary<number>) => AbcObject = (value: number, key: string, collection: _.NumericDictionary<number>) => ({ a: 1, b: "", c: true });
+    const array: number[] | null | undefined = anything;
+    const list: _.List<number> | null | undefined = anything;
+    const dictionary: _.Dictionary<number> | null | undefined = anything;
+    const numericDictionary: _.NumericDictionary<number> | null | undefined = anything;
+    const abcObject: AbcObject = anything;
 
     {
         _.map(array);  // $ExpectType number[]
-        _.map(array, listIterator);  // $ExpectType AbcObject[]
+        // $ExpectType AbcObject[]
         _.map(array, (value, index, collection) => {
             value; // $ExpectType number
             index; // $ExpectType number
             collection; // $ExpectType number[]
+            return abcObject;
         });
 
         _.map(list);  // $ExpectType number[]
-        _.map(list, listIterator);  // $ExpectType AbcObject[]
+        // $ExpectType AbcObject[]
         _.map(list, (value, index, collection) => {
             value; // $ExpectType number
             index; // $ExpectType number
             collection; // $ExpectType ArrayLike<number>
+            return abcObject;
         });
 
         _.map(dictionary);  // $ExpectType number[]
-        _.map(dictionary, dictionaryIterator);  // $ExpectType AbcObject[]
+        // $ExpectType AbcObject[]
         _.map(dictionary, (value, key, collection) => {
             value; // $ExpectType number
             key; // $ExpectType string
             collection; // $ExpectType Dictionary<number>
+            return abcObject;
         });
 
         _.map(numericDictionary);  // $ExpectType number[]
-        _.map(numericDictionary, numericDictionaryIterator);  // $ExpectType AbcObject[]
+        // $ExpectType AbcObject[]
         _.map(numericDictionary, (value, key, collection) => {
             value; // $ExpectType number
             key; // $ExpectType string
             collection; // $ExpectType NumericDictionary<number>
+            return abcObject;
         });
-    }
 
-    {
         // _.matches iteratee shorthand.
         _.map(array, {});  // $ExpectType boolean[]
         _.map(list, {});  // $ExpectType boolean[]
@@ -6148,85 +6146,87 @@ namespace TestMap {
     }
 
     {
-        _(array).map().value();  // $ExpectType number[]
-        _(array).map(listIterator).value();  // $ExpectType AbcObject[]
+        _(array).map(); // $ExpectType LoDashImplicitWrapper<number[]>
+        // $ExpectType LoDashImplicitWrapper<AbcObject[]>
         _(array).map((value, index, collection) => {
             value; // $ExpectType number
             index; // $ExpectType number
             collection; // $ExpectType number[]
+            return abcObject;
         });
 
-        _(list).map().value();  // $ExpectType number[]
-        _(list).map(listIterator).value();  // $ExpectType AbcObject[]
+        _(list).map(); // $ExpectType LoDashImplicitWrapper<number[]>
+        // $ExpectType LoDashImplicitWrapper<AbcObject[]>
         _(list).map((value, index, collection) => {
             value; // $ExpectType number
             index; // $ExpectType number
             collection; // $ExpectType ArrayLike<number>
+            return abcObject;
         });
 
-        _(dictionary).map().value();  // $ExpectType number[]
-        _(dictionary).map(dictionaryIterator).value();  // $ExpectType AbcObject[]
+        _(dictionary).map();  // $ExpectType LoDashImplicitWrapper<number[]>
+        // $ExpectType LoDashImplicitWrapper<AbcObject[]>
         _(dictionary).map((value, key, collection) => {
             value; // $ExpectType number
             key; // $ExpectType string
             collection; // $ExpectType Dictionary<number>
+            return abcObject;
         });
 
-        _(numericDictionary).map().value();  // $ExpectType number[]
-        _(numericDictionary).map(numericDictionaryIterator).value();  // $ExpectType AbcObject[]
+        _(numericDictionary).map();  // $ExpectType LoDashImplicitWrapper<number[]>
+        // $ExpectType LoDashImplicitWrapper<AbcObject[]>
         _(numericDictionary).map((value, key, collection) => {
             value; // $ExpectType number
             key; // $ExpectType string
             collection; // $ExpectType NumericDictionary<number>
+            return abcObject;
         });
+
+        _(array).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
+        _(list).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
+        _(dictionary).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
     }
 
     {
-        _(array).map({}).value();  // $ExpectType boolean[]
-        _(list).map({}).value();  // $ExpectType boolean[]
-        _(dictionary).map({}).value();  // $ExpectType boolean[]
-    }
-
-    {
-        _(array).chain().map().value();  // $ExpectType number[]
-        _(array).chain().map(listIterator).value();  // $ExpectType AbcObject[]
+        _(array).chain().map();  // $ExpectType LoDashExplicitWrapper<number[]>
+        // $ExpectType LoDashExplicitWrapper<AbcObject[]>
         _(array).chain().map((value, index, collection) => {
             value; // $ExpectType number
             index; // $ExpectType number
             collection; // $ExpectType number[]
+            return abcObject;
         });
 
-        _(list).chain().map().value();  // $ExpectType number[]
-        _(list).chain().map(listIterator).value();  // $ExpectType AbcObject[]
+        _(list).chain().map();  // $ExpectType LoDashExplicitWrapper<number[]>
+        // $ExpectType LoDashExplicitWrapper<AbcObject[]>
         _(list).chain().map((value, index, collection) => {
             value; // $ExpectType number
             index; // $ExpectType number
             collection; // $ExpectType ArrayLike<number>
+            return abcObject;
         });
 
-        _(dictionary).chain().map().value();  // $ExpectType number[]
-        _(dictionary).chain().map(dictionaryIterator).value();  // $ExpectType AbcObject[]
+        _(dictionary).chain().map();  // $ExpectType LoDashExplicitWrapper<number[]>
+        // $ExpectType LoDashExplicitWrapper<AbcObject[]>
         _(dictionary).chain().map((value, key, collection) => {
             value; // $ExpectType number
             key; // $ExpectType string
             collection; // $ExpectType Dictionary<number>
+            return abcObject;
         });
 
-        _(numericDictionary).chain().map().value();  // $ExpectType number[]
-        _(numericDictionary).chain().map(numericDictionaryIterator).value();  // $ExpectType AbcObject[]
+        _(numericDictionary).chain().map();  // $ExpectType LoDashExplicitWrapper<number[]>
+        // $ExpectType LoDashExplicitWrapper<AbcObject[]>
         _(numericDictionary).chain().map((value, key, collection) => {
             value; // $ExpectType number
             key; // $ExpectType string
             collection; // $ExpectType NumericDictionary<number>
+            return abcObject;
         });
-    }
 
-    {
-        let result: _.LoDashExplicitArrayWrapper<boolean>;
-
-        result = _(array).chain().map({});
-        result = _(list).chain().map({});
-        result = _(dictionary).chain().map({});
+        _(array).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
+        _(list).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
+        _(dictionary).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
     }
 
     {
@@ -10570,9 +10570,9 @@ result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep(TestDefaults
 
 // _.entries
 namespace TestEntries {
-    let dictionary: _.Dictionary<number> = {};
-    let numericDictionary: _.NumericDictionary<number> = {};
-    let abcObject: AbcObject = anything;
+    const dictionary: _.Dictionary<number> = anything;
+    const numericDictionary: _.NumericDictionary<number> = anything;
+    const abcObject: AbcObject = anything;
 
     {
         _.entries(dictionary); // $ExpectType [string, number][]
@@ -10595,9 +10595,9 @@ namespace TestEntries {
 
 // _.entriesIn
 namespace TestEntriesIn {
-    let dictionary: _.Dictionary<number> = {};
-    let numericDictionary: _.NumericDictionary<number> = {};
-    let abcObject: AbcObject = anything;
+    const dictionary: _.Dictionary<number> = anything;
+    const numericDictionary: _.NumericDictionary<number> = anything;
+    const abcObject: AbcObject = anything;
 
     {
         _.entriesIn(dictionary); // $ExpectType [string, number][]
