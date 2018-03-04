@@ -6149,11 +6149,6 @@ namespace TestMap {
         _.map(dictionary, 'd.0.b'); // $ExpectType any[]
         _.map(numericDictionary, 'd.0.b'); // $ExpectType any[]
 
-        _.map(array, ['d', 0, 'b']); // $ExpectType any[]
-        _.map(list, ['d', 0, 'b']); // $ExpectType any[]
-        _.map(dictionary, ['d', 0, 'b']); // $ExpectType any[]
-        _.map(numericDictionary, ['d', 0, 'b']); // $ExpectType any[]
-
         // _.matches iteratee shorthand.
         _.map(array, {});  // $ExpectType boolean[]
         _.map(list, {});  // $ExpectType boolean[]
@@ -6208,11 +6203,6 @@ namespace TestMap {
         _(dictionary).map('d.0.b'); // $ExpectType LoDashImplicitWrapper<any[]>
         _(numericDictionary).map('d.0.b'); // $ExpectType LoDashImplicitWrapper<any[]>
 
-        _(array).map(['d', 0, 'b']); // $ExpectType LoDashImplicitWrapper<any[]>
-        _(list).map(['d', 0, 'b']); // $ExpectType LoDashImplicitWrapper<any[]>
-        _(dictionary).map(['d', 0, 'b']); // $ExpectType LoDashImplicitWrapper<any[]>
-        _(numericDictionary).map(['d', 0, 'b']); // $ExpectType LoDashImplicitWrapper<any[]>
-
         _(array).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
         _(list).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
         _(dictionary).map({});  // $ExpectType LoDashImplicitWrapper<boolean[]>
@@ -6265,11 +6255,6 @@ namespace TestMap {
         _(list).chain().map('d.0.b'); // $ExpectType LoDashExplicitWrapper<any[]>
         _(dictionary).chain().map('d.0.b'); // $ExpectType LoDashExplicitWrapper<any[]>
         _(numericDictionary).chain().map('d.0.b'); // $ExpectType LoDashExplicitWrapper<any[]>
-
-        _(array).chain().map(['d', 0, 'b']); // $ExpectType LoDashExplicitWrapper<any[]>
-        _(list).chain().map(['d', 0, 'b']); // $ExpectType LoDashExplicitWrapper<any[]>
-        _(dictionary).chain().map(['d', 0, 'b']); // $ExpectType LoDashExplicitWrapper<any[]>
-        _(numericDictionary).chain().map(['d', 0, 'b']); // $ExpectType LoDashExplicitWrapper<any[]>
 
         _(array).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
         _(list).chain().map({}); // $ExpectType LoDashExplicitWrapper<boolean[]>
