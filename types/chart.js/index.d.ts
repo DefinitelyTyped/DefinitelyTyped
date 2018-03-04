@@ -162,12 +162,15 @@ declare namespace Chart {
     interface ChartPoint {
         x?: number | string | Date;
         y?: number;
+        r?: number;
     }
 
     interface ChartConfiguration {
         type?: ChartType | string;
         data?: ChartData;
         options?: ChartOptions;
+        // Plugins can require any options
+        plugins?: any;
     }
 
     interface ChartData {
@@ -195,8 +198,6 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
-        // Plugins can require any options
-        plugins?: any;
     }
 
     interface ChartFontOptions {

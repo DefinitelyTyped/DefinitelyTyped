@@ -5,7 +5,7 @@ const options: ServerOptions = {
     port: 8000,
 };
 
-const handlerFn: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+const handlerFn: Lifecycle.Method = (request, h) => {
     request.log(['test', 'error'], 'Test event');
     return 'path: ' + request.path;
 };
