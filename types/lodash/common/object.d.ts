@@ -3242,7 +3242,6 @@ declare module "../index" {
     }
 
     interface LoDashImplicitWrapper<TValue> {
-        // NOTE: this overload also works for NumericDictionary and arbitrary object types.
         /**
          * @see _.toPairs
          */
@@ -3255,7 +3254,6 @@ declare module "../index" {
     }
 
     interface LoDashExplicitWrapper<TValue> {
-        // NOTE: this overload also works for NumericDictionary and arbitrary object types.
         /**
          * @see _.toPairs
          */
@@ -3270,7 +3268,6 @@ declare module "../index" {
     // toPairsIn
 
     interface LoDashStatic {
-        // NOTE: this overload also works for NumericDictionary and arbitrary object types.
         /**
          * Creates an array of own and inherited enumerable key-value pairs for object.
          *
