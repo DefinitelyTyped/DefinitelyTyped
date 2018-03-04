@@ -6,7 +6,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -459,13 +459,13 @@ export interface MediaType {
     subtype: string;
 }
 
-export type Send = (body?: any) => Response;
+export type Send<Body = any> = (body?: Body) => Response<Body>;
 
-export interface Response extends http.ServerResponse, Express.Response {
+export interface Response<Body = any> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
-    status(code: number): Response;
+    status(code: number): Response<Body>;
 
     /**
      * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
@@ -478,7 +478,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
      *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
      */
-    sendStatus(code: number): Response;
+    sendStatus(code: number): Response<Body>;
 
     /**
      * Set Link header field with the given `links`.
@@ -490,7 +490,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *      last: 'http://api.example.com/users?page=5'
      *    });
      */
-    links(links: any): Response;
+    links(links: any): Response<Body>;
 
     /**
      * Send a response.
@@ -503,7 +503,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.send(404, 'Sorry, cant find that');
      *     res.send(404);
      */
-    send: Send;
+    send: Send<Body>;
 
     /**
      * Send JSON response.
@@ -515,7 +515,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.json(500, 'oh noes!');
      *     res.json(404, 'I dont have that');
      */
-    json: Send;
+    json: Send<Body>;
 
     /**
      * Send JSON response with JSONP callback support.
@@ -527,7 +527,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.jsonp(500, 'oh noes!');
      *     res.jsonp(404, 'I dont have that');
      */
-    jsonp: Send;
+    jsonp: Send<Body>;
 
     /**
      * Transfer the file at the given `path`.
@@ -618,7 +618,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.type('application/json');
      *     res.type('png');
      */
-    contentType(type: string): Response;
+    contentType(type: string): Response<Body>;
 
     /**
      * Set _Content-Type_ response header with `type` through `mime.lookup()`
@@ -632,7 +632,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.type('application/json');
      *     res.type('png');
      */
-    type(type: string): Response;
+    type(type: string): Response<Body>;
 
     /**
      * Respond to the Acceptable formats using an `obj`
@@ -686,12 +686,12 @@ export interface Response extends http.ServerResponse, Express.Response {
      * a `.default` callback it will be invoked
      * instead.
      */
-    format(obj: any): Response;
+    format(obj: any): Response<Body>;
 
     /**
      * Set _Content-Disposition_ header to _attachment_ with optional `filename`.
      */
-    attachment(filename?: string): Response;
+    attachment(filename?: string): Response<Body>;
 
     /**
      * Set header `field` to `val`, or pass
@@ -705,11 +705,11 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * Aliased as `res.header()`.
      */
-    set(field: any): Response;
-    set(field: string, value?: string): Response;
+    set(field: any): Response<Body>;
+    set(field: string, value?: string): Response<Body>;
 
-    header(field: any): Response;
-    header(field: string, value?: string): Response;
+    header(field: any): Response<Body>;
+    header(field: string, value?: string): Response<Body>;
 
     // Property indicating if HTTP headers has been sent for the response.
     headersSent: boolean;
@@ -718,7 +718,7 @@ export interface Response extends http.ServerResponse, Express.Response {
     get(field: string): string;
 
     /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): Response;
+    clearCookie(name: string, options?: any): Response<Body>;
 
     /**
      * Set cookie `name` to `val`, with the given `options`.
@@ -737,9 +737,9 @@ export interface Response extends http.ServerResponse, Express.Response {
      *    // save as above
      *    res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
      */
-    cookie(name: string, val: string, options: CookieOptions): Response;
-    cookie(name: string, val: any, options: CookieOptions): Response;
-    cookie(name: string, val: any): Response;
+    cookie(name: string, val: string, options: CookieOptions): Response<Body>;
+    cookie(name: string, val: any, options: CookieOptions): Response<Body>;
+    cookie(name: string, val: any): Response<Body>;
 
     /**
      * Set the location header to `url`.
@@ -767,7 +767,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      *      res.location('/login');
      */
-    location(url: string): Response;
+    location(url: string): Response<Body>;
 
     /**
      * Redirect to the given `url` with optional response `status`
@@ -813,7 +813,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.vary('User-Agent').render('docs');
      *
      */
-    vary(field: string): Response;
+    vary(field: string): Response<Body>;
 
     app: Application;
 
@@ -826,7 +826,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      * @since 4.11.0
      */
-    append(field: string, value?: string[]|string): Response;
+    append(field: string, value?: string[]|string): Response<Body>;
 }
 
 export interface Handler extends RequestHandler { }

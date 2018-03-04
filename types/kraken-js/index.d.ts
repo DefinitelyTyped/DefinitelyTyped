@@ -2,7 +2,7 @@
 // Project: http://krakenjs.com
 // Definitions by: Timur Manyanov <https://github.com/darkwebdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Express } from 'express';
 import { EventEmitter } from 'events';

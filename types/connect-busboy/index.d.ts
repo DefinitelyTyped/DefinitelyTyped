@@ -2,7 +2,7 @@
 // Project: https://github.com/mscdex/connect-busboy
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as busboy from 'busboy';
 import { RequestHandler } from 'express';
