@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v4.3.4
+// Type definitions for OpenLayers 4.6
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
@@ -7,6 +7,7 @@
 //                 Chad Johnston <https://github.com/iamthechad>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Yair Tawil <https://github.com/yairtawil>
+//                 Pierre Marchand <https://github.com/pierremarc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -2797,7 +2798,7 @@ declare module ol {
              * @returns {!ol.format.filter.EqualTo} `<PropertyIsEqualTo>` operator.
              * @api
              */
-            function equalTo(propertyName: string, expression: string|number, opt_matchCase?: boolean): ol.format.filter.EqualTo;
+            function equalTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): ol.format.filter.EqualTo;
 
             /**
              * Creates a `<PropertyIsNotEqualTo>` comparison operator.
@@ -2808,7 +2809,7 @@ declare module ol {
              * @returns {!ol.format.filter.NotEqualTo} `<PropertyIsNotEqualTo>` operator.
              * @api
              */
-            function notEqualTo(propertyName: string, expression: string|number, opt_matchCase?: boolean): ol.format.filter.NotEqualTo;
+            function notEqualTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): ol.format.filter.NotEqualTo;
 
             /**
              * Creates a `<PropertyIsLessThan>` comparison operator.
@@ -3028,7 +3029,7 @@ declare module ol {
              * Abstract class; normally only used for creating subclasses and not instantiated in apps.
              * Base class for WFS GetFeature n-ary logical filters.
              */
-            class LogicalNary extends ol.format.filter.Filter {}
+            class LogicalNary extends ol.format.filter.Filter { }
 
             /**
              * @classdesc
@@ -3062,16 +3063,16 @@ declare module ol {
              * @api
              */
             class Or extends ol.format.filter.LogicalNary {
-              /**
-               * @classdesc
-               * Represents a logical <Or> operator between two or more filter conditions.
-               *
-               * @constructor
-               * @param {!ol.format.filter.Filter} conditions Conditions
-               * @extends {ol.format.filter.LogicalNary}
-               * @api
-               */
-              constructor(...conditions: ol.format.filter.Filter[]);
+                /**
+                 * @classdesc
+                 * Represents a logical <Or> operator between two or more filter conditions.
+                 *
+                 * @constructor
+                 * @param {!ol.format.filter.Filter} conditions Conditions
+                 * @extends {ol.format.filter.LogicalNary}
+                 * @api
+                 */
+                constructor(...conditions: ol.format.filter.Filter[]);
             }
 
             /**
@@ -3139,7 +3140,7 @@ declare module ol {
                  * @extends {ol.format.filter.Comparison}
                  * @api
                  */
-                constructor(tagName: string, propertyName: string, expression: string|number, opt_matchCase?: boolean);
+                constructor(tagName: string, propertyName: string, expression: string | number, opt_matchCase?: boolean);
             }
 
             /**
@@ -3165,7 +3166,7 @@ declare module ol {
                  * @extends {ol.format.filter.ComparisonBinary}
                  * @api
                  */
-                constructor(propertyName: string, expression: string|number, opt_matchCase?: boolean);
+                constructor(propertyName: string, expression: string | number, opt_matchCase?: boolean);
             }
 
             /**
@@ -3287,7 +3288,7 @@ declare module ol {
                  * @extends {ol.format.filter.ComparisonBinary}
                  * @api
                  */
-                constructor(propertyName: string, expression: string|number, opt_matchCase?: boolean);
+                constructor(propertyName: string, expression: string | number, opt_matchCase?: boolean);
             }
 
             /**
@@ -7414,7 +7415,7 @@ declare module ol {
         getFeaturesAtPixel(
             pixel: ol.Pixel,
             opt_options?: olx.AtPixelOptions
-        ): (Array<ol.Feature|ol.render.Feature>|null);
+        ): (Array<ol.Feature | ol.render.Feature> | null);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -13567,6 +13568,21 @@ declare module olx {
 
 
         /**
+         * @enum {string}
+         * Render mode for vector layers:
+         *  * `'image'`: Vector layers are rendered as images. Great performance, but
+         *    point symbols and texts are always rotated with the view and pixels are
+         *    scaled during zoom animations.
+         *  * `'vector'`: Vector layers are rendered as vectors. Most accurate rendering
+         *    even during animations, but slower performance.
+         * Default is `vector`.
+         * @type {ol.layer.VectorRenderType|string|undefined}
+         * @api
+         */
+        type VectorRenderType = "image" | "vector";
+
+
+        /**
          * @typedef {{renderOrder: (function(ol.Feature, ol.Feature):number|null|undefined),
          *     minResolution: (number|undefined),
          *     maxResolution: (number|undefined),
@@ -13581,6 +13597,7 @@ declare module olx {
          *     zIndex: (number|undefined)}}
          */
         interface VectorOptions {
+            renderMode?: (olx.layer.VectorRenderType | string);
             renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
             map?: ol.Map;
             extent?: ol.Extent;
@@ -13589,6 +13606,7 @@ declare module olx {
             opacity?: number;
             renderBuffer?: number;
             source: ol.source.Vector;
+            declutter?: boolean;
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
@@ -14374,6 +14392,7 @@ declare module olx {
             angle?: number;
             snapToPixel?: boolean;
             stroke?: ol.style.Stroke;
+            rotation?: number;
         }
 
 
@@ -14394,11 +14413,24 @@ declare module olx {
             width?: number;
         }
 
+        /**
+         * Text placement. One of `'point'`, `'line'`. Default is `'point'`. Note that
+         * `'line'` requires the underlying geometry to be a {@link ol.geom.LineString},
+         * {@link ol.geom.Polygon}, {@link ol.geom.MultiLineString} or
+         * {@link ol.geom.MultiPolygon}.
+         * @enum {string}
+         */
+        type TextPlacement = 'point' | 'line';
+
+
 
         /**
          * @typedef {{font: (string|undefined),
+         *     maxAngle: (number|undefined),
          *     offsetX: (number|undefined),
          *     offsetY: (number|undefined),
+         *     overflow: (boolean|undefined),
+         *     placement: (ol.style.TextPlacement|string|undefined),
          *     scale: (number|undefined),
          *     rotateWithView: (boolean|undefined),
          *     rotation: (number|undefined),
@@ -14406,12 +14438,18 @@ declare module olx {
          *     textAlign: (string|undefined),
          *     textBaseline: (string|undefined),
          *     fill: (ol.style.Fill|undefined),
-         *     stroke: (ol.style.Stroke|undefined)}}
+         *     stroke: (ol.style.Stroke|undefined),
+         *     backgroundFill: (ol.style.Fill|undefined),
+         *     backgroundStroke: (ol.style.Stroke|undefined),
+         *     padding: (Array.<number>|undefined)}}
          */
         interface TextOptions {
             font?: string;
+            maxAngle?: boolean;
             offsetX?: number;
             offsetY?: number;
+            overflow?: boolean;
+            placement?: olx.style.TextPlacement,
             scale?: number;
             rotateWithView?: boolean;
             rotation?: number;
@@ -14420,6 +14458,9 @@ declare module olx {
             textBaseline?: string;
             fill?: ol.style.Fill;
             stroke?: ol.style.Stroke;
+            backgroundFill?: ol.style.Fill;
+            backgroundStroke?: ol.style.Stroke;
+            padding?: number[];
         }
 
 

@@ -271,7 +271,7 @@ export class AnimationClip {
     optimize(): AnimationClip;
 
     static CreateFromMorphTargetSequence( name: string, morphTargetSequence: MorphTarget[], fps: number, noLoop: boolean ): AnimationClip;
-    static findByName( clipArray: AnimationClip, name: string ): AnimationClip;
+    static findByName( clipArray: AnimationClip[], name: string ): AnimationClip;
     static CreateClipsFromMorphTargetSequences( morphTargets: MorphTarget[], fps: number, noLoop: boolean ): AnimationClip[];
     static parse( json: any ): AnimationClip;
     static parseAnimation( animation: any, bones: Bone[], nodeName: string ): AnimationClip;
@@ -286,7 +286,7 @@ export class AnimationMixer extends EventDispatcher {
 
     clipAction(clip: AnimationClip, root?: any): AnimationAction;
     existingAction(clip: AnimationClip, root?: any): AnimationAction;
-    stopAllAction(clip: AnimationClip, root?: any): AnimationMixer;
+    stopAllAction(): AnimationMixer;
     update(deltaTime: number): AnimationMixer;
     getRoot(): any;
     uncacheClip(clip: AnimationClip): void;
