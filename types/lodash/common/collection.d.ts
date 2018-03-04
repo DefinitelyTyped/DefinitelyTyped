@@ -2405,22 +2405,8 @@ declare module "../index" {
          * @return Returns the random element.
          */
         sample<T>(
-            collection: List<T> | Dictionary<T> | NumericDictionary<T>
-        ): T;
-
-        /**
-         * @see _.sample
-         */
-        sample<T>(
             collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined
         ): T | undefined;
-
-        /**
-         * @see _.sample
-         */
-        sample<T extends object>(
-            collection: T
-        ): T[keyof T];
 
         /**
          * @see _.sample
@@ -2435,22 +2421,8 @@ declare module "../index" {
          * @see _.sample
          */
         sample<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T>>
-        ): T;
-
-        /**
-         * @see _.sample
-         */
-        sample<T>(
             this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>
         ): T | undefined;
-
-        /**
-         * @see _.sample
-         */
-        sample<T extends object>(
-            this: LoDashImplicitWrapper<T>,
-        ): T[keyof T];
 
         /**
          * @see _.sample
@@ -2465,22 +2437,8 @@ declare module "../index" {
          * @see _.sample
          */
         sample<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T>>
-        ): LoDashExplicitWrapper<T>;
-
-        /**
-         * @see _.sample
-         */
-        sample<T>(
             this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>
         ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-         * @see _.sample
-         */
-        sample<T extends object>(
-            this: LoDashExplicitWrapper<T>,
-        ): LoDashExplicitWrapper<T[keyof T]>;
 
         /**
          * @see _.sample
