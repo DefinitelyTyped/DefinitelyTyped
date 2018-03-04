@@ -5285,298 +5285,242 @@ namespace TestFlatMapDepth {
 
 // _.forEach
 namespace TestForEach {
-    let array: AbcObject[] = [];
-    let list: _.List<AbcObject> = [];
-    let dictionary: _.Dictionary<AbcObject> = {};
-    let numericDictionary: _.NumericDictionary<AbcObject> = {};
-    let nilArray: AbcObject[] | null | undefined = [] as any;
-    let nilList: _.List<AbcObject> | null | undefined = [] as any;
-    let nilDictionary: _.Dictionary<AbcObject> | null | undefined = anything;
-    let nilNumericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
+    const str: string = anything;
+    const nilStr: string | null | undefined = anything;
+    const array: AbcObject[] = anything;
+    const list: _.List<AbcObject> = anything;
+    const dictionary: _.Dictionary<AbcObject> = anything;
+    const numericDictionary: _.NumericDictionary<AbcObject> = anything;
+    const nilArray: AbcObject[] | null | undefined = anything;
+    const nilList: _.List<AbcObject> | null | undefined = anything;
+    const nilDictionary: _.Dictionary<AbcObject> | null | undefined = anything;
+    const nilNumericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
+    const abcObject: AbcObject = anything;
+    const nilAbcObject: AbcObject | null | undefined = anything;
 
-    let listIterator: (value: AbcObject, index: number, collection: _.List<AbcObject>) => any = (value, index, collection) => 1;
-    let dictionaryIterator: (value: AbcObject, key: string, collection: _.Dictionary<AbcObject>) => any = (value, key, collection) => 1;
-    let numericDictionaryIterator: (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => any = (value, key, collection) => 1;
-    let objectIterator: (value: number | string | boolean, key: string, collection: AbcObject) => any = (value, key, collection) => 1;
+    // $ExpectType string
+    _.forEach(str, (value, index, collection) => {
+        value; // $ExpectType string
+        index; // $ExpectType number
+        collection; // $ExpectType string
+    });
 
-    {
-        let result: string;
+    // $ExpectType string | null | undefined
+    _.forEach(nilStr, (value, index, collection) => {
+        value; // $ExpectType string
+        index; // $ExpectType number
+        collection; // $ExpectType string
+    });
 
-        result = _.forEach('', (value, index, collection) => {
-            value; // $ExpectType string
-            index; // $ExpectType number
-            collection; // $ExpectType string
-        });
-    }
+    // $ExpectType AbcObject[]
+    _.forEach(array, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+    });
 
-    {
-        let result: string | null | undefined;
+    // $ExpectType AbcObject[] | null | undefined
+    _.forEach(nilArray, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+    });
 
-        result = _.forEach('' as (string | null | undefined), (value, index, collection) => {
-            value; // $ExpectType string
-            index; // $ExpectType number
-            collection; // $ExpectType string
-        });
-    }
+    // $ExpectType ArrayLike<AbcObject>
+    _.forEach(list, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType ArrayLike<AbcObject>
+    });
 
-    {
-        let result: AbcObject[];
-        result = _.forEach(array, (value, index, collection: ArrayLike<AbcObject>) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-        });
-        result = _.forEach(array, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType AbcObject[]
-        });
-    }
+    // $ExpectType ArrayLike<AbcObject> | null | undefined
+    _.forEach(nilList, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType ArrayLike<AbcObject>
+    });
 
-    {
-        let result: AbcObject[] | null | undefined;
+    // $ExpectType Dictionary<AbcObject>
+    _.forEach(dictionary, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType Dictionary<AbcObject>
+    });
 
-        result = _.forEach(array, (value, index, collection: ArrayLike<AbcObject>) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-        });
-        result = _.forEach(nilArray, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType AbcObject[]
-        });
-    }
+    // $ExpectType Dictionary<AbcObject> | null | undefined
+    _.forEach(nilDictionary, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType Dictionary<AbcObject>
+    });
 
-    {
-        const result = _.forEach(list, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<AbcObject>
-        });
+    // $ExpectType NumericDictionary<AbcObject>
+    _.forEach(numericDictionary, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType NumericDictionary<AbcObject>
+    });
 
-        result; // $ExpectType ArrayLike<AbcObject>
-    }
+    // $ExpectType NumericDictionary<AbcObject> | null | undefined
+    _.forEach(nilNumericDictionary, (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType NumericDictionary<AbcObject>
+    });
 
-    {
-        const result = _.forEach(nilList, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<AbcObject>
-        });
+    // $ExpectType AbcObject
+    _.forEach(abcObject, (value, index, collection) => {
+        value; // $ExpectType string | number | boolean
+        index; // $ExpectType string
+        collection; // $ExpectType AbcObject
+    });
 
-        result; // $ExpectType ArrayLike<AbcObject> | null | undefined
-    }
+    // $ExpectType AbcObject | null | undefined
+    _.forEach(nilAbcObject, (value, index, collection) => {
+        value; // $ExpectType string | number | boolean
+        index; // $ExpectType string
+        collection; // $ExpectType AbcObject
+    });
 
-    {
-        const result = _.forEach(dictionary, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType Dictionary<AbcObject>
-        });
+    // $ExpectType LoDashImplicitWrapper<string>
+    _(str).forEach((value, index, collection) => {
+        value; // $ExpectType string
+        index; // $ExpectType number
+        collection; // $ExpectType string
+    });
 
-        result; // $ExpectType Dictionary<AbcObject>
-    }
+    // $ExpectType LoDashImplicitWrapper<string | null | undefined>
+    _(nilStr).forEach((value, index, collection) => {
+        value; // $ExpectType string
+        index; // $ExpectType number
+        collection; // $ExpectType string
+    });
 
-    {
-        const result = _.forEach(nilDictionary, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType Dictionary<AbcObject>
-        });
+    // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(array).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+    });
 
-        result; // $ExpectType Dictionary<AbcObject> | null | undefined
-    }
+    // $ExpectType LoDashImplicitWrapper<AbcObject[] | null | undefined>
+    _(nilArray).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+    });
 
-    {
-        const result = _.forEach(numericDictionary, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType NumericDictionary<AbcObject>
-        });
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<AbcObject>>
+    _(list).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType ArrayLike<AbcObject>
+    });
 
-        result; // $ExpectType NumericDictionary<AbcObject>
-    }
+    // $ExpectType LoDashImplicitWrapper<ArrayLike<AbcObject> | null | undefined>
+    _(nilList).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType ArrayLike<AbcObject>
+    });
 
-    {
-        const result = _.forEach(nilNumericDictionary, (value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType NumericDictionary<AbcObject>
-        });
+    // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+    _(dictionary).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType Dictionary<AbcObject>
+    });
 
-        result; // $ExpectType NumericDictionary<AbcObject> | null | undefined
-    }
+    // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject> | null | undefined>
+    _(nilDictionary).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType Dictionary<AbcObject>
+    });
 
-    {
-        let sample1: AbcObject = anything;
-        sample1 = _.forEach(sample1, objectIterator);
+    // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
+    const result = _(numericDictionary).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType NumericDictionary<AbcObject>
+    });
 
-        let sample2: AbcObject | null | undefined = anything;
-        sample2 = _.forEach(sample2, objectIterator);
-    }
+    // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
+    _(nilNumericDictionary).forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType NumericDictionary<AbcObject>
+    });
 
-    {
-        let result: _.LoDashImplicitWrapper<string>;
+    // $ExpectType LoDashExplicitWrapper<string>
+    _(str).chain().forEach((value, index, collection) => {
+        value; // $ExpectType string
+        index; // $ExpectType number
+        collection; // $ExpectType string
+    });
 
-        result = _('').forEach((value, index, collection) => {
-            value; // $ExpectType string
-            index; // $ExpectType number
-            collection; // $ExpectType string
-        });
-    }
+    // $ExpectType LoDashExplicitWrapper<string | null | undefined>
+    _(nilStr).chain().forEach((value, index, collection) => {
+        value; // $ExpectType string
+        index; // $ExpectType number
+        collection; // $ExpectType string
+    });
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<AbcObject>;
+    // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _(array).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+    });
 
-        result = _(array).forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType AbcObject[]
-        });
-    }
+    // $ExpectType LoDashExplicitWrapper<AbcObject[] | null | undefined>
+    _(nilArray).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+    });
 
-    {
-        let result: _.LoDashImplicitNillableArrayWrapper<AbcObject>;
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<AbcObject>>
+    _(list).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType ArrayLike<AbcObject>
+    });
 
-        result = _(nilArray).forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType AbcObject[]
-        });
-    }
+    // $ExpectType LoDashExplicitWrapper<ArrayLike<AbcObject> | null | undefined>
+    _(nilList).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType ArrayLike<AbcObject>
+    });
 
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.List<AbcObject>>;
+    // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+    _(dictionary).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType Dictionary<AbcObject>
+    });
 
-        result = _(list).forEach(listIterator);
-    }
+    // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject> | null | undefined>
+    _(nilDictionary).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType Dictionary<AbcObject>
+    });
 
-    {
-        let result: _.LoDashImplicitNillableObjectWrapper<_.List<AbcObject>>;
+    // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
+    _(numericDictionary).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType NumericDictionary<AbcObject>
+    });
 
-        result = _(nilList).forEach(listIterator);
-    }
-
-    {
-        const result = _(dictionary).forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType Dictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-    }
-
-    {
-        const result = _(nilDictionary).forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType Dictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject> | null | undefined>
-    }
-
-    {
-        const result = _(numericDictionary).forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType NumericDictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
-    }
-
-    {
-        const result = _(nilNumericDictionary).forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType NumericDictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
-    }
-
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('').chain().forEach((value, index, collection) => {
-            value; // $ExpectType string
-            index; // $ExpectType number
-            collection; // $ExpectType string
-        });
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<AbcObject>;
-
-        result = _(array).chain().forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType AbcObject[]
-        });
-    }
-
-    {
-        let result: _.LoDashExplicitNillableArrayWrapper<AbcObject>;
-
-        result = _(nilArray).chain().forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType number
-            collection; // $ExpectType AbcObject[]
-        });
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.List<AbcObject>>;
-
-        result = _(list).chain().forEach(listIterator);
-    }
-
-    {
-        let result: _.LoDashExplicitNillableObjectWrapper<_.List<AbcObject>>;
-
-        result = _(nilList).chain().forEach(listIterator);
-    }
-
-    {
-        const result = _(dictionary).chain().forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType Dictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
-    }
-
-    {
-        const result = _(nilDictionary).chain().forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType Dictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject> | null | undefined>
-    }
-
-    {
-        const result = _(numericDictionary).chain().forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType NumericDictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
-    }
-
-    {
-        const result = _(nilNumericDictionary).chain().forEach((value, index, collection) => {
-            value; // $ExpectType AbcObject
-            index; // $ExpectType string
-            collection; // $ExpectType NumericDictionary<AbcObject>
-        });
-
-        result; // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
-    }
+    // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
+    _(nilNumericDictionary).chain().forEach((value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType string
+        collection; // $ExpectType NumericDictionary<AbcObject>
+    });
 }
 
 // _.forEachRight
@@ -5778,8 +5722,7 @@ namespace TestGroupBy {
 
     let array: SampleType[] | null | undefined = [] as any;
     let list: _.List<SampleType> | null | undefined = [] as any;
-    let obj: any = {};
-    let dictionary: _.Dictionary<SampleType> | null | undefined = obj;
+    let dictionary: _.Dictionary<SampleType> | null | undefined = anything;
 
     let stringIterator = (char: string, index: number, string: string) => 0;
     let listIterator = (value: SampleType, index: number, collection: _.List<SampleType>) => 0;
