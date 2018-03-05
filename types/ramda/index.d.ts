@@ -201,8 +201,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: any): boolean;
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: any) => boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -474,8 +474,8 @@ declare namespace R {
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
          * first (default) argument is returned.
          */
-        defaultTo<T, U>(a: T, b: U): T | U;
-        defaultTo<T>(a: T): <U>(b: U) => T | U;
+        defaultTo<T, U>(a: T, b: U | null | undefined): T | U;
+        defaultTo<T>(a: T): <U>(b: U | null | undefined) => T | U;
 
         /**
          * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
@@ -576,10 +576,9 @@ declare namespace R {
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
          * codomain; false otherwise.
          */
-        eqBy<T>(fn: (a: T) => T, a: T, b: T): boolean;
-        eqBy<T>(fn: (a: T) => T, a: T): (b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T, b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T) => (b: T) => boolean;
+        eqBy<T, U = T>(fn: (a: T) => U, a: T, b: T): boolean;
+        eqBy<T, U = T>(fn: (a: T) => U, a: T): (b: T) => boolean;
+        eqBy<T, U = T>(fn: (a: T) => U): CurriedFunction2<T, T, boolean>;
 
         /**
          * Reports whether two functions have the same value for the specified property.
@@ -1245,16 +1244,16 @@ declare namespace R {
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
-        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): string[][];
-        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T[][];
-        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => string[][];
+        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): [string[], string[]];
+        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): [T[], T[]];
+        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => [T[], T[]];
+        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => [string[], string[]];
 
         /**
          * Retrieve the value at a given path.
          */
-        path<T>(path: Path, obj: any): T;
-        path<T>(path: Path): (obj: any) => T;
+        path<T>(path: Path, obj: any): T | undefined;
+        path<T>(path: Path): (obj: any) => T | undefined;
 
         /**
          * Determines whether a nested path on an object has a specific value,
@@ -1487,14 +1486,12 @@ declare namespace R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
-        // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
-        // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
-        propEq<T>(name: string, val: T, obj: any): boolean;
-        // propEq<T>(name: number, val: T, obj: any): boolean;
-        propEq<T>(name: string, val: T): (obj: any) => boolean;
-        // propEq<T>(name: number, val: T): (obj: any) => boolean;
-        propEq(name: string): <T>(val: T, obj: any) => boolean;
-        // propEq(name: number): <T>(val: T, obj: any) => boolean;
+        propEq<T>(name: string | number, val: T, obj: any): boolean;
+        propEq<T>(name: string | number, val: T): (obj: any) => boolean;
+        propEq(name: string | number): {
+            <T>(val: T, obj: any): boolean;
+            <T>(val: T): (obj: any) => boolean;
+        };
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
@@ -1603,6 +1600,10 @@ declare namespace R {
          * Returns a new list with the same elements as the original list, just in the reverse order.
          */
         reverse<T>(list: ReadonlyArray<T>): T[];
+        /**
+         * Returns a new string with the characters in reverse order.
+         */
+        reverse(str: string): string;
 
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.

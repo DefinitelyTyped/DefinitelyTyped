@@ -4498,6 +4498,20 @@ const IconMenuExampleSimple = () => (
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            {false}
+            {undefined}
+            {null}
+            {true}
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
@@ -4740,7 +4754,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
@@ -5504,6 +5518,31 @@ class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string
       >
         {this.menuItems(persons)}
       </SelectField>
+    );
+  }
+}
+
+class SelectFieldExampleDropDownMenu extends Component<{}, {value?: number}> {
+  constructor(props) {
+    super(props);
+    this.state = {value: null};
+  }
+
+  handleChange = (event, index, value) => this.setState({value});
+
+  render() {
+    return (
+    <SelectField
+      value={this.state.value}
+      onChange={this.handleChange}
+      dropDownMenuProps={{
+        anchorOrigin: { vertical: 'top', horizontal: 'left' },
+      }}
+    >
+      <MenuItem value={1} primaryText="Foo"/>
+      <MenuItem value={2} primaryText="Bar"/>
+      <MenuItem value={3} primaryText="Baz"/>
+    </SelectField>
     );
   }
 }

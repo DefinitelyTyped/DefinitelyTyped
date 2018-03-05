@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleRoot, Style } from "radium";
-import * as Radium from 'radium';
+import Radium = require('radium');
 
 @Radium
 class TestComponent extends React.Component<{ a: number }> {

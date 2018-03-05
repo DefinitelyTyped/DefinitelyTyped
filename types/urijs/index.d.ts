@@ -1,6 +1,6 @@
 // Type definitions for URI.js 1.15.1
 // Project: https://github.com/medialize/URI.js
-// Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>
+// Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>, Pete Johanson <https://github.com/petejohanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -234,6 +234,19 @@ declare namespace uri {
         withinString(source: string, func: (url: string) => string): string;
     }
 
+    type URITemplateValue = string | ReadonlyArray<string> | { [key: string] : string } | undefined | null;
+    type URITemplateCallback = (keyName: string) => URITemplateValue;
+    type URITemplateInput = { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback;
+
+    interface URITemplate {
+      expand(data: URITemplateInput, opts?: Object) : URI;
+    }
+
+    interface URITemplateStatic {
+      (template: string) : URITemplate;
+
+      new (template: string) : URITemplate;
+    }
 }
 
 interface JQuery {
@@ -241,6 +254,7 @@ interface JQuery {
 }
 
 declare var URI: uri.URIStatic;
+declare var URITemplate : uri.URITemplateStatic;
 
 declare module 'URI' {
     export = URI;
@@ -251,5 +265,5 @@ declare module 'urijs' {
 }
 
 declare module 'urijs/src/URITemplate' {
-    export = URI;
+    export = URITemplate;
 }

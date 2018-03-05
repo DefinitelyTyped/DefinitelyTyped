@@ -9,6 +9,7 @@
         "no-any-union": false,
         "no-arg": false,
         "no-boolean-literal-compare": false,
+        "no-const-enum": false,
         "no-declare-current-package": false,
         "no-empty-interface": false,
         "no-misused-new": false,

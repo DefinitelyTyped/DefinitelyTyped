@@ -43,7 +43,7 @@ import {
     RefreshControl,
     TabBarIOS,
     NativeModules,
-    MaskedView,
+    MaskedViewIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -359,9 +359,9 @@ class AlertTest extends React.Component {
 class MaskedViewTest extends React.Component {
     render() {
         return (
-            <MaskedView maskElement={<View />}>
+            <MaskedViewIOS maskElement={<View />}>
                 <View />
-            </MaskedView>
+            </MaskedViewIOS>
         );
     }
 }

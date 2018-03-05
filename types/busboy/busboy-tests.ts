@@ -1,4 +1,4 @@
-import * as Busboy from 'busboy';
+import Busboy = require('busboy');
 import * as http from 'http';
 import * as util from 'util';
 

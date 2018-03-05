@@ -2,7 +2,7 @@
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { TranslationFunction } from "i18next";
 

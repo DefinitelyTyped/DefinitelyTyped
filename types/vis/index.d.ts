@@ -290,7 +290,7 @@ export interface TimelineEventPropertiesResult {
   /**
    * The id of the clicked item.
    */
-  item?: number | null;
+  item?: IdType | null;
 
   /**
    * Absolute horizontal position of the click event.

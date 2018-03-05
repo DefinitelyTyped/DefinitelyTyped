@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment = require('moment');
 import 'moment-business-time';
 
 moment('2015-02-28T10:00:00Z').nextWorkingDay();

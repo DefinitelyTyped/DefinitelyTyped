@@ -3,41 +3,55 @@
 // Definitions by: Maksim Karelov <https://github.com/Ty3uK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export const any: boolean;
-export const phone: boolean;
-export const tablet: boolean;
-export const seven_inch: boolean;
+interface Apple {
+  phone: boolean;
+  ipod: boolean;
+  tablet: boolean;
+  device: boolean;
+}
 
-export const apple: {
-    phone: boolean;
-    ipod: boolean;
-    tablet: boolean;
-    device: boolean;
-};
+interface Android {
+  phone: boolean;
+  tablet: boolean;
+  device: boolean;
+}
 
-export const android: {
-    phone: boolean;
-    tablet: boolean;
-    device: boolean;
-};
+interface Amazon {
+  phone: boolean;
+  tablet: boolean;
+  device: boolean;
+}
 
-export const amazon: {
-    phone: boolean;
-    tablet: boolean;
-    device: boolean;
-};
+interface Windows {
+  phone: boolean;
+  tablet: boolean;
+  device: boolean;
+}
 
-export const windows: {
-    phone: boolean;
-    tablet: boolean;
-    device: boolean;
-};
+interface Other {
+  blackberry_10: boolean;
+  blackberry: boolean;
+  opera: boolean;
+  firefox: boolean;
+  chrome: boolean;
+  device: boolean;
+}
 
-export const other: {
-    blackberry_10: boolean;
-    blackberry: boolean;
-    opera: boolean;
-    firefox: boolean;
-    chrome: boolean;
-    device: boolean;
-};
+interface IsMobile {
+  any: boolean;
+  phone: boolean;
+  tablet: boolean;
+  seven_inch: boolean;
+
+  apple: Apple;
+  android: Android;
+  amazon: Amazon;
+  windows: Windows;
+  other: Other;
+
+  (userAgent?: string): IsMobile;
+}
+
+declare const isMobile: IsMobile;
+
+export = isMobile;

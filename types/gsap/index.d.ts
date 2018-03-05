@@ -1,6 +1,6 @@
 // Type definitions for GSAP 1.19
 // Project: http://greensock.com/
-// Definitions by: VILIC VANE <https://vilic.github.io/>, Robert S <https://github.com/codebelt>, Richard Fox <https://github.com/ProbablePrime>
+// Definitions by: VILIC VANE <https://vilic.github.io/>, Robert S <https://github.com/codebelt>, Richard Fox <https://github.com/ProbablePrime>, Philip Bulley <https://github.com/philipbulley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="Animation.d.ts"/>

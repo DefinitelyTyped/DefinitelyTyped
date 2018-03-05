@@ -145,7 +145,7 @@ declare namespace Q {
 		/**
 		 * A sugar method, equivalent to promise.then(function () { throw reason; }).
 		 */
-		thenReject(reason?: any): Promise<T>;
+		thenReject<U = T>(reason?: any): Promise<U>;
 
 		/**
 		 * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned

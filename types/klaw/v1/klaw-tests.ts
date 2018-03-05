@@ -1,4 +1,4 @@
-import * as klaw from "klaw";
+import klaw = require("klaw");
 import * as  path from "path";
 
 // README.md: Streams 1 (push) example:

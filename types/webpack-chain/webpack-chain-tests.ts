@@ -1,4 +1,4 @@
-import * as Config from 'webpack-chain';
+import Config = require('webpack-chain');
 import * as webpack from 'webpack';
 
 const config = new Config();

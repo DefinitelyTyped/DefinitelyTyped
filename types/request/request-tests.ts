@@ -12,18 +12,18 @@ let str: string;
 let strOrUndef: string | undefined;
 let strOrTrueOrUndef: string | true | undefined;
 const buffer: NodeBuffer = new Buffer('foo');
-const num = 0;
+let num = 0;
 let bool: boolean;
 let date: Date;
 let obj: object;
 const dest = 'foo';
 
 const uri = 'foo-bar';
-const headers: request.Headers = {};
+let headers: request.Headers = {};
 
-let agent: http.Agent;
 let write: stream.Writable = new stream.Writable();
 let req: request.Request = request(uri, function callback() {});
+let res: request.Response;
 let form: FormData;
 
 const bodyArr: request.RequestPart[] = [{
@@ -47,6 +47,8 @@ const bodyArr: request.RequestPart[] = [{
   defaultBodyRequest.get();
   defaultBodyRequest.post();
   defaultBodyRequest.put();
+
+  const defaultJarRequestCustomJar = request.defaults({ jar: request.jar() });
 })();
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
@@ -124,14 +126,14 @@ const opt: request.OptionsWithUri = {
 opt.uri = str;
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
+let strOrFalse: string | false;
+strOrFalse = req.setHeader(str, str);
+strOrFalse = req.setHeader(str, str, bool);
+req.setHeader({str});
+strOrFalse = req.hasHeader(str);
+strOrUndef = req.getHeader(str);
+bool = req.removeHeader(str);
 
-agent = req.getAgent();
-// req.start();
-// req.abort();
-req.pipeDest(dest);
-req = req.setHeader(str, str);
-req = req.setHeader(str, str, bool);
-req = req.setHeaders(headers);
 req = req.qs(obj);
 req = req.qs(obj, bool);
 req = req.form(obj);
@@ -145,6 +147,7 @@ req = req.jar(jar);
 write = req.pipe(write);
 write = req.pipe(write, value);
 req.pipe(req);
+req.pipeDest(dest);
 req.write(value);
 req.end(str);
 req.end(buffer);
@@ -153,6 +156,19 @@ req.resume();
 req.abort();
 req.destroy();
 
+strOrUndef = req.host;
+str = req.method;
+str = req.path;
+str = req.href;
+str = req.uri.href;
+str = req.uri.pathname;
+value = req.body;
+headers = req.headers;
+value = req.headers['foo'];
+
+if (req.response) {
+  res = req.response;
+}
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 req = request(uri);
@@ -225,8 +241,30 @@ r.post(options);
 
 request
 .get('http://example.com/example.png')
-.on('response', (response: any) => {
-	// check response
+.on('response', (response) => {
+  res = response;
+  num = response.statusCode;
+  str = response.statusMessage;
+  req = response.request;
+  value = response.body;
+  strOrUndef = response.caseless.get('foo');
+  strOrFalse = response.caseless.has('content-type');
+
+  if (response.timings) {
+    num = response.timings.socket;
+    num = response.timings.lookup;
+    num = response.timings.connect;
+    num = response.timings.response;
+    num = response.timings.end;
+  }
+  if (response.timingPhases) {
+    num = response.timingPhases.wait;
+    num = response.timingPhases.dns;
+    num = response.timingPhases.tcp;
+    num = response.timingPhases.firstByte;
+    num = response.timingPhases.download;
+    num = response.timingPhases.total;
+  }
 })
 .pipe(request.put('http://another.com/another.png'));
 
@@ -245,7 +283,7 @@ request.get('http://google.com/img.png').pipe(request.put('http://mysite.com/img
 
 request
   .get('http://google.com/img.png')
-  .on('response', (response: any) => {
+  .on('response', (response) => {
     console.log(response.statusCode); // 200
     console.log(response.headers['content-type']); // 'image/png'
   })

@@ -17,8 +17,6 @@ export type RelayConcreteNode = any;
 export type RelayMutationTransaction = any;
 export type RelayMutationRequest = any;
 export type RelayQueryRequest = any;
-export type ConcreteFragment = any;
-export type ConcreteBatch = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
 
@@ -33,6 +31,23 @@ export type ConcreteOperationDefinition = object;
 export type RelayContainer = any;
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// Used in artifacts
+// emitted by
+// relay-compiler
+// ~~~~~~~~~~~~~~~~~~~~~
+
+// File: https://github.com/facebook/relay/blob/fe0e70f10bbcba1fff89911313ea69f24569464b/packages/relay-runtime/util/RelayConcreteNode.js
+export type ConcreteFragment = any;
+export type ConcreteRequest = any;
+export type ConcreteBatchRequest = any;
+
+export type RequestNode = ConcreteRequest | ConcreteBatchRequest;
+
+// Using `enum` here to create a distinct type and `const` to ensure it doesn’t leave any generated code.
+// tslint:disable-next-line:no-const-enum
+export const enum FragmentReference {}
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // RelayQL
 // ~~~~~~~~~~~~~~~~~~~~~
 export type RelayQL = (strings: string[], ...substitutions: any[]) => RelayConcreteNode;
@@ -44,9 +59,9 @@ export interface GeneratedNodeMap {
     [key: string]: GraphQLTaggedNode;
 }
 export type GraphQLTaggedNode =
-    | (() => ConcreteFragment | ConcreteBatch)
+    | (() => ConcreteFragment | RequestNode)
     | {
-          modern(): ConcreteFragment | ConcreteBatch;
+          modern(): ConcreteFragment | RequestNode;
           classic(relayQL: RelayQL): ConcreteFragmentDefinition | ConcreteOperationDefinition;
       };
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -85,7 +100,7 @@ export interface PayloadError {
  * May return an Observable or Promise of a raw server response.
  */
 export function FetchFunction(
-    operation: ConcreteBatch,
+    operation: RequestNode,
     variables: Variables,
     cacheConfig: CacheConfig,
     uploadables?: UploadableMap
@@ -99,7 +114,7 @@ export function FetchFunction(
  * fourth parameter.
  */
 export type SubscribeFunction = (
-    operation: ConcreteBatch,
+    operation: RequestNode,
     variables: Variables,
     cacheConfig: CacheConfig,
     observer: LegacyObserver<QueryPayload>

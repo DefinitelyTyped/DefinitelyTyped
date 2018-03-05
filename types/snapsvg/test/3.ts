@@ -193,8 +193,8 @@ window.onload=()=>{
         var myPathString = "M 60 0 L 120 0 L 180 60 L 180 120 L 120 180 L 60 180 L 0 120 L 0 60 Z";
 
         var p  = s.path( myPathString );
+        s.path([["M", 5, 10], ["l", 15, 2], ["Z"]]);
         var p2 = s.path( myPathString ).transform("t" + myTranslateX + "," + myTranslateY);
-
 
         for( var count = 0; count < 500; count++ ) {
                 x = Math.random() * 800; y = Math.random() * 400;
