@@ -5,6 +5,7 @@
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Rich Baird <https://github.com/richbai90>
+//                 Dan Torberg <https://github.com/caspeco-dan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -719,6 +720,8 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement<any> | ContentRenderer<any>;
     points?: ScatterPoint[];
     hide?: boolean;
+    data?: object[];
+    name?: string | number;
 }
 
 export class Scatter extends React.Component<ScatterProps> { }
