@@ -9,6 +9,9 @@
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Carven Zhang <https://github.com/zjy01>
+//                 Nikola Vidic <https://github.com/nidzov>
+//                 Florian Oellerich <https://github.com/Raigen>
+//                 Todd Bealmear <https://github.com/todd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,7 +21,7 @@
 
 
 import * as _ from "lodash";
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
 
 declare namespace sequelize {
@@ -1332,8 +1335,8 @@ declare namespace sequelize {
          */
         keyType?: DataTypeAbstract;
         /**
-         * A string to represent the name of the field to use as the key for an 1 to many association in the source table. 
-         * 
+         * A string to represent the name of the field to use as the key for an 1 to many association in the source table.
+         *
          * @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#static-method-hasMany
          * @see https://github.com/sequelize/sequelize/blob/b4fd46426db9cdbb97074bea121203d565e4195d/lib/associations/has-many.js#L81
          */
@@ -1829,11 +1832,15 @@ declare namespace sequelize {
 
     }
 
-    interface DataTypeUUID extends DataTypeAbstract { }
+    interface DataTypeAbstractUUID<T> extends DataTypeAbstract {
+        (): T;
+    }
 
-    interface DataTypeUUIDv1 extends DataTypeAbstract { }
+    interface DataTypeUUID extends DataTypeAbstractUUID<DataTypeUUID> { }
 
-    interface DataTypeUUIDv4 extends DataTypeAbstract { }
+    interface DataTypeUUIDv1 extends DataTypeAbstractUUID<DataTypeUUIDv1> { }
+
+    interface DataTypeUUIDv4 extends DataTypeAbstractUUID<DataTypeUUIDv4> { }
 
     interface DataTypeVirtual extends DataTypeAbstract {
 
@@ -3321,7 +3328,6 @@ declare namespace sequelize {
          */
         group?: string | string[] | Object;
 
-
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -3354,6 +3360,11 @@ declare namespace sequelize {
          * Include options. See `find` for details
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+
+        /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
 
         /**
          * Apply COUNT(DISTINCT(col))
@@ -3770,7 +3781,7 @@ declare namespace sequelize {
  * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
  *     model will clear the previous scope.
  */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
 
         /**
          * Search for multiple instances.
@@ -4051,7 +4062,12 @@ declare namespace sequelize {
         /**
          * A function that gets executed while running the query to log the sql.
          */
-        logging?: boolean | Function;
+        logging?: boolean | Function;            
+
+        /**
+         * An optional transaction to perform this query in
+         */
+        transaction?: Transaction; 
 
     }
 
@@ -4192,13 +4208,14 @@ declare namespace sequelize {
         /**
          * Adds a new column to a table
          */
-        addColumn(table: string, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
+        addColumn(tableName: string | { tableName?: string, schema?: string }, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
             options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Removes a column from a table
          */
-        removeColumn(table: string, attribute: string, options?: QueryInterfaceOptions): Promise<void>;
+        removeColumn(tableName: string | { tableName?: string, schema?: string }, attribute: string,
+            options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Changes a column
@@ -5303,7 +5320,7 @@ declare namespace sequelize {
         /**
          * Only retry a query if the error matches one of these strings.
          */
-        match?: string[];
+        match?: (string|RegExp|Error)[];
 
         /**
          * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.

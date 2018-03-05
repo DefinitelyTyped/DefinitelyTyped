@@ -3,7 +3,9 @@
 // Definitions by: Paul Loyd <https://github.com/loyd>,
 //                 Kay Schecker <https://github.com/flynetworks>,
 //                 Zhao Lei <https://github.com/zhaoleimxd>
+//                 Sheng Chen <https://github.com/jdneo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -564,10 +566,16 @@ declare class client extends events.EventEmitter {
      *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
      */
-    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string, origin?: string, headers?: any[], extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+
+    /**
+     * Will cancel an in-progress connection request before either the `connect` event or the `connectFailed` event has been emitted.
+     * If the `connect` or `connectFailed` event has already been emitted, calling `abort()` will do nothing.
+     */
+    abort(): void;
 
     // Events
     on(event: string, listener: () => void): this;

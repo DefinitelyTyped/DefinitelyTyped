@@ -3,8 +3,9 @@
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
 //                 sonnysangha <https://github.com/sonnysangha>
+//                 Andrew Goh Yisheng <https://github.com/9y5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="stripe-v3" />
 import * as React from 'react';
@@ -23,9 +24,7 @@ export namespace ReactStripeElements {
 		error?: { decline_code?: string };
 	};
 
-	interface StripeProviderProps {
-		apiKey: string;
-	}
+    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: StripeProps | null; };
 
 	interface StripeProps {
 		// I'm not sure what the definition for this is
@@ -44,8 +43,6 @@ export namespace ReactStripeElements {
 
 	interface ElementProps extends ElementsOptions {
 		className?: string;
-
-		paymentRequest?: object;
 
 		elementRef?(): void;
 

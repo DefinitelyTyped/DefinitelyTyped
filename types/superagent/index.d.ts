@@ -3,6 +3,7 @@
 // Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
 //                 Michael Ledin <https://github.com/mxl>
 //                 Pap Lőrinc <https://github.com/paplorinc>
+//                 Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -15,6 +16,12 @@ import * as stream from 'stream';
 type CallbackHandler = (err: any, res: request.Response) => void;
 
 type Serializer = (obj: any) => string;
+
+type BrowserParser = (str: string) => any;
+
+type NodeParser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
+
+type Parser = BrowserParser | NodeParser;
 
 type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
 
@@ -37,6 +44,7 @@ declare namespace request {
 
         agent(): SuperAgent<SuperAgentRequest>;
         serialize: { [type: string]: Serializer };
+        parse: { [type: string]: Parser };
     }
 
     interface SuperAgent<Req extends SuperAgentRequest> extends stream.Stream {
@@ -55,7 +63,6 @@ declare namespace request {
         move(url: string, callback?: CallbackHandler): Req;
         notify(url: string, callback?: CallbackHandler): Req;
         options(url: string, callback?: CallbackHandler): Req;
-        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
         patch(url: string, callback?: CallbackHandler): Req;
         post(url: string, callback?: CallbackHandler): Req;
         propfind(url: string, callback?: CallbackHandler): Req;
@@ -122,7 +129,7 @@ declare namespace request {
         on(name: 'error', handler: (err: any) => void): this;
         on(name: 'progress', handler: (event: ProgressEvent) => void): this;
         on(name: string, handler: (event: any) => void): this;
-        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        parse(parser: Parser): this;
         part(): this;
         pfx(cert: Buffer | string): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;

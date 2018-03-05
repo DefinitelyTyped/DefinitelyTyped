@@ -1,8 +1,12 @@
 import { GraphQLSchema } from '../type/schema';
 import { GraphQLType } from '../type/definition';
 
-export function printSchema(schema: GraphQLSchema): string;
+export interface PrinterOptions {
+  commentDescriptions?: boolean;
+}
 
-export function printIntrospectionSchema(schema: GraphQLSchema): string;
+export function printSchema(schema: GraphQLSchema, options?: PrinterOptions): string;
 
-export function printType(type: GraphQLType): string;
+export function printIntrospectionSchema(schema: GraphQLSchema, options?: PrinterOptions): string;
+
+export function printType(type: GraphQLType, options?: PrinterOptions): string;

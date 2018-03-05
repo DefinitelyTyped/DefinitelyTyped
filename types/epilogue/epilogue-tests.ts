@@ -1,6 +1,6 @@
 import * as epilogue from 'epilogue';
-import * as express from 'express';
-import * as Sequelize from 'sequelize';
+import express = require('express');
+import Sequelize = require('sequelize');
 
 const database = new Sequelize({ });
 

@@ -1,5 +1,5 @@
 import * as http from "http";
-import * as HttpProxy from "http-proxy";
+import HttpProxy = require("http-proxy");
 
 const proxy = new HttpProxy({
   changeOrigin: true

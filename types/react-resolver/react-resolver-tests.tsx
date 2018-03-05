@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Resolver, resolve, context } from 'react-resolver';
-import * as expect from 'expect';
 
 interface OwnProps {
   thing: number;
@@ -32,13 +31,13 @@ const ResolvedPageWithPropMap = resolve({
 
 const PageWithContext = context('history')(Page);
 
-expect(<ResolvedPageWithSingleProp />).toExist();
-expect(<ResolvedPageWithPropMap />).toExist();
+<ResolvedPageWithSingleProp />;
+<ResolvedPageWithPropMap />;
 
 // Resolver.render(() => <ResolvedPageWithPropMap />, document.getElementById('app'));
 
 Resolver.resolve(() => {
   return <ResolvedPageWithPropMap />;
 }).then(({ data, Resolved }) => {
-  expect(data).toBe('World');
+  data === 'World';
 });

@@ -415,7 +415,7 @@ R.times(i, 5);
  */
 () => {
     function mergeThree(a: number, b: number, c: number): number[] {
-        return ([]).concat(a, b, c);
+        return (new Array<number>()).concat(a, b, c);
     }
 
     mergeThree(1, 2, 3); // => [1, 2, 3]
@@ -581,6 +581,13 @@ R.times(i, 5);
     const users    = [user1, user2, user3];
     const isFamous = R.pathEq(["address", "zipCode"], 90210);
     R.filter(isFamous, users); // => [ user1 ]
+};
+
+() => {
+    const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
+    const typeIs = R.propEq('type');
+    const isBuy = typeIs('BUY');
+    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
 };
 
 () => {
@@ -968,6 +975,13 @@ type Pair = KeyValuePair<string, number>;
     R.reverse([1, 2]);     // => [2, 1]
     R.reverse([1]);        // => [1]
     R.reverse([]);         // => []
+};
+
+() => {
+    R.reverse('abc');      // => 'cba'
+    R.reverse('ab');       // => 'ba'
+    R.reverse('a');        // => 'a'
+    R.reverse('');         // => ''
 };
 
 () => {
@@ -1856,6 +1870,9 @@ class Rectangle {
 
     R.path(testPath, testObj); // => 2
     R.path(testPath)(testObj); // => 2
+
+    R.path(['a', 'b'])({c: {b: 2}}); // => undefined
+    R.path(['a', 'b'], {c: {b: 2}}); // => undefined
 };
 
 () => {
@@ -2119,6 +2136,14 @@ class Rectangle {
     const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
 };
 
+() => {
+    const eqL = R.eqBy<string, number>(s => s.length);
+    const l1 = ['bb', 'ccc', 'dddd'];
+    const l2 = ['aaa', 'bb', 'c'];
+    R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
+    R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
+};
+
 /*****************************************************************
  * String category
  */
@@ -2239,6 +2264,12 @@ class Rectangle {
     defaultTo42(null);  // => 42
     defaultTo42(undefined);  // => 42
     defaultTo42("Ramda");  // => 'Ramda'
+
+    const valueOrUndefined = 2 as number | undefined;
+    defaultTo42(valueOrUndefined) - 2; // => 0
+
+    const valueOrNull = 2 as number | null;
+    defaultTo42(valueOrNull) - 2; // => 0
 };
 
 () => {
@@ -2304,7 +2335,7 @@ class Why {
     const x0: boolean        = R.or(false, true); // => false
     const x1: number | any[] = R.or(0, []); // => []
     const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string         = R.or(null, ""); // => ''
+    const x3: string | null  = R.or(null, ""); // => ''
 
     const why = new Why(true);
     why.or(true);
