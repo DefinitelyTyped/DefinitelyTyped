@@ -1,4 +1,4 @@
-import csv2json from "csv2json";
+import csv2json = require("csv2json");
 import fs = require("fs");
 
 fs.createReadStream('data.csv')

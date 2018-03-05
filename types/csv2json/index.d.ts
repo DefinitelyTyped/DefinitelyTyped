@@ -7,9 +7,13 @@
 
 import { Writable } from "stream";
 
-export interface CSV2JSONOptions {
-  dynamicTyping?: boolean;
-  separator?: string;
+declare namespace csv2json {
+  interface Options {
+    dynamicTyping?: boolean;
+    separator?: string;
+  }
 }
 
-export default function csv2json(options: CSV2JSONOptions): Writable;
+declare function csv2json(options?: csv2json.Options): Writable;
+
+export = csv2json;
