@@ -16,7 +16,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "paths": {
             "update-notifier": [
                 "update-notifier/v1"

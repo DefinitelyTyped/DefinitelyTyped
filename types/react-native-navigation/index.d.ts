@@ -40,10 +40,18 @@ export interface TabBasedApp {
     animationType?: 'none' | 'slide-down' | 'fade';
 }
 
+export interface IconInsets {
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+}
+
 export interface TabScreen {
     label?: string;
     screen: string;
     icon?: any;
+    iconInsets?: IconInsets;
     selectedIcon?: any;
     title?: string;
     navigatorStyle?: NavigatorStyle;
@@ -102,7 +110,7 @@ export interface LightBox {
     adjustSoftInput?: 'nothing' | 'pan' | 'resize' | 'unspecified';
 }
 
-export interface Navigator {
+export class Navigator {
     push(params: PushedScreen): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
     popToRoot(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
@@ -150,10 +158,9 @@ export interface ListenerParams {
     commandType: string;
 }
 
-export type NavigationComponentProps<P = {}> =
-    P & {
-        navigator: Navigator;
-    };
+export interface NavigationComponentProps {
+    navigator: Navigator;
+}
 
 export interface NavigatorStyle {
     navBarTextColor?: string;
@@ -224,6 +231,7 @@ export interface NavigatorStyle {
 export interface NavigatorButtons {
     leftButtons?: NavigatorButton[];
     rightButtons?: NavigatorButton[];
+    fab?: FABAndroid;
 }
 
 export type IdAndroid = 'back' | 'cancel' | 'accept' | 'sideMenu';

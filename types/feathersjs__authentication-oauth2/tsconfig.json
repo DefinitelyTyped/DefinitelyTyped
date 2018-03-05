@@ -15,7 +15,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "paths": {
             "@feathersjs/authentication-oauth2": [
                 "feathersjs__authentication-oauth2"

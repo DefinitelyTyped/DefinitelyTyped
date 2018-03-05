@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-type InputType =
+export type InputType =
   | 'text'
   | 'email'
   | 'select'
@@ -32,6 +32,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   bsSize?: 'lg' | 'sm';
   state?: string;
   valid?: boolean;
+  invalid?: boolean;
   tag?: React.ReactType;
   innerRef?: string | ((instance: HTMLInputElement) => any);
   plaintext?: boolean;

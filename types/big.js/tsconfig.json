@@ -14,12 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/big.js-module-tests.ts",
-        "test/big.js-global-tests.ts"
+        "test/big.js-global-tests.ts",
+        "test/big.js-import-default-tests.ts"
     ]
 }
