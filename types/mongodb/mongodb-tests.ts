@@ -98,4 +98,19 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
         type payment = typeof payment;
         let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
     }
+
+    // test for new typings
+    {
+        type TestCollection = {
+            stringField: string;
+            numberField: number;
+        };
+        let testCollection = db.collection<TestCollection>('testCollection');
+
+        testCollection.find({
+            numberField: {
+                $and: [{ $gt: 0, $lt: 100 }]
+            }
+        });
+    }
 })
