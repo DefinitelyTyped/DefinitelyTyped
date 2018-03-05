@@ -190,6 +190,7 @@ export interface BarData {
 export interface BarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
+    fill?: string;
     layout?: LayoutType;
     xAxisId?: string | number;
     yAxisId?: string | number;
