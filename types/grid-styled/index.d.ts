@@ -1,4 +1,4 @@
-// Type definitions for grid-styled 3.0
+// Type definitions for grid-styled 3.2
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,29 +37,33 @@ export interface CommonProps {
 }
 
 export interface BoxProps
-extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
+    extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
     flex: ResponsiveProp;
     order: ResponsiveProp;
     is: string | ComponentClass<any>;
 }
 
 export interface FlexProps extends BoxProps {
+    alignItems: ResponsiveProp;
+    justifyContent: ResponsiveProp;
+    flexDirection: ResponsiveProp;
+    flexWrap: ResponsiveProp;
+
+    // legacy aliases https://github.com/jxnblk/styled-system/releases/tag/v2.0.0
+    justify: ResponsiveProp;
+    align: ResponsiveProp;
     wrap: ResponsiveProp | boolean;
-    direction: ResponsiveProp | boolean;
-    align: ResponsiveProp | boolean;
-    justify: ResponsiveProp | boolean;
-    column: boolean;
 }
 
 export type BoxComponent = StyledComponentClass<
     Partial<CommonProps & BoxProps>,
     any
-    >;
+>;
 
 export type FlexComponent = StyledComponentClass<
     Partial<CommonProps & FlexProps>,
     any
-    >;
+>;
 
 export interface Theme {
     breakpoints: string[];

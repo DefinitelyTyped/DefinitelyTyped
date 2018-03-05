@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface DropdownToggleProps {
+export interface DropdownToggleProps extends React.HTMLAttributes<HTMLElement> {
   caret?: boolean;
   className?: string;
   cssModule?: CSSModule;

@@ -32,6 +32,7 @@ declare module "react-custom-scrollbars" {
         renderThumbHorizontal?: React.StatelessComponent<any>;
         renderThumbVertical?: React.StatelessComponent<any>;
 
+        tagName?: string;
         hideTracksWhenNotNeeded?: boolean;
 
         autoHide?: boolean;

@@ -841,6 +841,10 @@ export interface Options<TRow extends object = any> {
 	 */
 	expandRowBgColor?: string;
 	/**
+	 * Expand all rows
+	 */
+	expandAll?: boolean;
+	/**
 	 * Tell react-bootstrap-table how to trigger expanding by clicking on 'row' or 'column' level.
 	 * If the value is 'column', by default all the columns are expandable. If you want to specify some columns as
 	 * unexpandable, check expandable.
@@ -1513,11 +1517,6 @@ export interface Editable<TRow extends object, K extends keyof TRow> {
 	attrs?: EditableAttrs;
 }
 
-export type SetFilterCallback = (targetValue: any) => boolean;
-export interface ApplyFilterParameter {
-	callback: SetFilterCallback;
-}
-
 /**
  * Text filter type.
  */
@@ -1710,9 +1709,24 @@ export interface DateFilter {
 }
 
 /**
+ * Custom Filter Parameters
+ */
+export interface CustomFilterParameters<Params extends object = any> {
+	callback(cell: any, params: Params): boolean;
+	callbackParameters: Params;
+}
+
+/**
+ * Custom filter element type.
+ */
+export class CustomFilterElement extends Component<any> {
+	cleanFiltered: () => void;
+}
+
+/**
  * Custom filter type.
  */
-export interface CustomFilter {
+export interface CustomFilter<FParams extends object = any, FElement extends CustomFilterElement = any> {
 	/**
 	 * Type must be 'CustomFilter'
 	 */
@@ -1721,13 +1735,13 @@ export interface CustomFilter {
 	 * Function to generate the filter component
 	 */
 	getElement(
-		filterHandler: (parameters?: ApplyFilterParameter) => void,
-		customFilterParameters: object
-	): ReactElement<any>;
+		filterHandler: (value?: CustomFilterParameters<FParams>, type?: 'CustomFilter') => void,
+		customFilterParameters: CustomFilterParameters<FParams>
+	): ReactElement<FElement>;
 	/**
 	 * Custom filter parameters to be passed to the generator function
 	 */
-	customFilterParameters: object;
+	customFilterParameters: CustomFilterParameters<FParams>;
 }
 
 /**
@@ -1818,8 +1832,8 @@ export type FilterValue =
 /**
  * Filter object that can be passed to BootstrapTableFilter.handleFilterData function.
  */
-export interface FilterData {
-	[dataField: string]: FilterValue;
+export interface FilterData<CustomFilterValue extends object = any> {
+	[dataField: string]: FilterValue | CustomFilterValue;
 }
 
 /**
@@ -1881,6 +1895,13 @@ export interface ExpandColumnComponentProps {
 }
 
 /**
+ * Input properties for the expandedColumnHeaderComponent function.
+ */
+export interface ExpandedColumnHeaderProps {
+	anyExpand: boolean;
+}
+
+/**
  * Customize the options for expand row feature.
  */
 export interface ExpandColumnOptions {
@@ -1901,6 +1922,10 @@ export interface ExpandColumnOptions {
 	 * should be shown first. Default is true, false will move the expand indicator column after selection column.
 	 */
 	expandColumnBeforeSelectColumn?: boolean;
+	/**
+	 * a callback function to customise the header column
+	 */
+	expandedColumnHeaderComponent?(props: ExpandedColumnHeaderProps): string | ReactElement<any>;
 }
 
 /**

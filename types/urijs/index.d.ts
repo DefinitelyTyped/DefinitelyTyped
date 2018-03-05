@@ -236,9 +236,10 @@ declare namespace uri {
 
     type URITemplateValue = string | ReadonlyArray<string> | { [key: string] : string } | undefined | null;
     type URITemplateCallback = (keyName: string) => URITemplateValue;
+    type URITemplateInput = { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback;
 
     interface URITemplate {
-      expand(data: { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback, opts?: Object) : URI;
+      expand(data: URITemplateInput, opts?: Object) : URI;
     }
 
     interface URITemplateStatic {

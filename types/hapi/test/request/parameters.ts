@@ -7,7 +7,7 @@ const options: ServerOptions = {
 
 // Example 1
 // http://localhost:8000/album-name/song-optional
-const getAlbum: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+const getAlbum: Lifecycle.Method = (request, h) => {
     console.log(request.params);
     return 'ok: ' + request.path;
 };
@@ -19,7 +19,7 @@ const serverRoute1: ServerRoute = {
 
 // Example 2
 // http://localhost:8000/person/rafael/fijalkowski
-const getPerson: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+const getPerson: Lifecycle.Method = (request, h) => {
     const nameParts = request.params.name.split('/');
     return { first: nameParts[0], last: nameParts[1] };
 };
