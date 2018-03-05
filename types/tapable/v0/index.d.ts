@@ -1,4 +1,4 @@
-// Type definitions for tapable v1.0.0
+// Type definitions for tapable v0.2.5
 // Project: https://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,6 @@ declare abstract class Tapable {
     }
 
     /**
-     * @deprecated Tapable.plugin is deprecated. Use new API on `.hooks` instead
      * Register plugin(s)
      * This acts as the same as on() of EventEmitter, for registering a handler/listener to do something when the
      * signal/event happens.
@@ -19,11 +18,9 @@ declare abstract class Tapable {
      */
     plugin(names: string, handler: (this: this, ...args: any[]) => void): void;
 
-    /** @deprecated Tapable.plugin is deprecated. Use new API on `.hooks` instead */
     plugin(names: string[], handler: (this: this, ...args: any[]) => void): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * invoke all plugins with this attached.
      * This method is just to "apply" plugins' definition, so that the real event listeners can be registered into
      * registry. Mostly the `apply` method of a plugin is the main place to place extension logic.
@@ -31,7 +28,6 @@ declare abstract class Tapable {
     apply(...plugins: (((this: this) => any) | Tapable.Plugin)[]): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments.
@@ -48,7 +44,6 @@ declare abstract class Tapable {
     applyPlugins2(name: string, param1: any, param2: any): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with the return value of the previous handler and all the rest arguments.
@@ -60,7 +55,6 @@ declare abstract class Tapable {
     applyPluginsWaterfall(name: string, init: any, ...args: any[]): any;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called ONLY with the return value of the previous handler.
@@ -72,7 +66,6 @@ declare abstract class Tapable {
     applyPluginsWaterfall0(name: string, init: any): any;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments.
@@ -82,7 +75,6 @@ declare abstract class Tapable {
     applyPluginsBailResult(name: string, ...args: any[]): any;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with target param
@@ -96,7 +88,6 @@ declare abstract class Tapable {
     applyPluginsBailResult1(name: string, param: any): any;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * asynchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments
@@ -110,7 +101,6 @@ declare abstract class Tapable {
     applyPluginsAsync(name: string, ...args: any[]): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * same as `applyPluginsAsync`
      * @see applyPluginsAsync
      * @alias Tapable.applyPluginsAsync
@@ -122,7 +112,6 @@ declare abstract class Tapable {
     applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * asynchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments
@@ -138,7 +127,6 @@ declare abstract class Tapable {
     applyPluginsAsyncSeriesBailResult(name: string, ...args: any[]): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * asynchronously applies all registered handlers for target name(event id).
      *
      * @see applyPluginsAsyncSeriesBailResult
@@ -151,7 +139,6 @@ declare abstract class Tapable {
     applyPluginsAsyncSeriesBailResult1(name: string, param: any, callback: Tapable.CallbackFunction): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * Asynchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with the current value and a callback function with the signature (err: Error,
@@ -168,7 +155,6 @@ declare abstract class Tapable {
     applyPluginsAsyncWaterfall(name: string, init: any, callback: Tapable.CallbackFunction): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * applies all registered handlers for target name(event id) in parallel.
      *
      * The handlers are called with all the rest arguments
@@ -182,7 +168,6 @@ declare abstract class Tapable {
     applyPluginsParallel(name: string, ...args: any[]): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * applies all registered handlers for target name(event id) in parallel.
      *
      * The handlers are called with all the rest arguments
@@ -197,7 +182,6 @@ declare abstract class Tapable {
     applyPluginsParallelBailResult(name: string, ...args: any[]): void;
 
     /**
-     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * applies all registered handlers for target name(event id) in parallel.
      *
      * @see applyPluginsParallelBailResult
@@ -223,60 +207,6 @@ declare namespace Tapable {
 
     interface CallbackFunction {
         (err?: Error, result?: any, ...args: any[]): void;
-    }
-
-    type TapType = "sync" | "async" | "promise";
-
-    interface HookCompileOptions {
-        type: TapType;
-    }
-
-    interface Tap {
-        name: string;
-        type: TapType;
-        fn: Function;
-        stage: number;
-        context: boolean;
-    }
-
-    interface Hook<TContext = any> {
-        compile(options: HookCompileOptions) : Function;
-        tap: (name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
-        tapAsync: (name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
-        tapPromise: (name: string | Tap, fn: (context: TContext, ...args: any[]) => Promise<any>) => void;
-        intercept: (interceptor: HookInterceptor) => void;
-    }
-
-    interface SyncHook<TContext = any> extends Hook<TContext> {}
-    interface SyncBailHook <TContext = any>extends Hook<TContext> {}
-    interface SyncLoopHook<TContext = any> extends Hook<TContext> {}
-    interface SyncWaterfallHook<TContext = any> extends Hook<TContext> {}
-
-    interface AsyncParallelHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncParallelBailHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncSeriesHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncSeriesBailHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncSeriesWaterfallHook<TContext = any> extends Hook<TContext> {}
-
-    interface HookInterceptor {
-        call: (...args: any[]) => void;
-        loop: (...args: any[]) => void;
-        tap: (tap: Tap) => void;
-        register: (tap: Tap) => Tap | undefined;
-        context: boolean;
-    }
-
-    interface HookMap<TContext = any> {
-        get: (key: any) => Hook<TContext> | undefined;
-        for: (key: any) => Hook<TContext>;
-        tap: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
-        tapAsync: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
-        tapPromise: (key: any, name: string | Tap, fn: (context: any, ...args: any[]) => Promise<any>) => void;
-        intercept: (interceptor: HookMapInterceptor<TContext>) => TContext;
-    }
-
-    interface HookMapInterceptor<TContext = any> {
-        factory: (key: any, hook: Hook<TContext>) => Hook<TContext>;
     }
 }
 
