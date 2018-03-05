@@ -19,7 +19,6 @@ export import Joi = require("joi");
 // #region Frisby FrisbySpec Methods
 // Reference file: https://github.com/vlucas/frisby/blob/master/src/frisby/spec.js
 
-
 // **************************************CHANGE LOG**************************************
 // C.E.W. This is an attempt to create some sort of changelog for these types.
 // If you make any changes, please try and note those changes in this section.
