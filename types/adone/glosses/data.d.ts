@@ -582,7 +582,7 @@ declare namespace adone {
             /**
              * Represents a YAML exception
              */
-            class Exception extends adone.exception.Exception {
+            class Exception extends adone.error.Exception {
                 reason: string;
                 mark: Mark;
 

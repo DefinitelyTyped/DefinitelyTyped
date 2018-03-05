@@ -20,6 +20,7 @@ declare module 'ember' {
 
     import { Registry as ServiceRegistry } from '@ember/service';
     import { Registry as ControllerRegistry } from '@ember/controller';
+    import ModuleComputed from '@ember/object/computed';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -27,7 +28,7 @@ declare module 'ember' {
     /**
      * Deconstructs computed properties into the types which would be returned by `.get()`.
      */
-    type ComputedProperties<T> = { [K in keyof T]: Ember.ComputedProperty<T[K]> | T[K] };
+    type ComputedProperties<T> = { [K in keyof T]: Ember.ComputedProperty<T[K]> | ModuleComputed<T[K]> | T[K] };
 
     /**
      * Check that any arguments to `create()` match the type's properties.
@@ -1181,7 +1182,7 @@ declare module 'ember' {
              * argument for all items in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isEvery(key: string, value: boolean): boolean;
+            isEvery(key: string, value?: any): boolean;
             /**
              * Returns `true` if the passed function returns true for any item in the
              * enumeration.
@@ -1192,7 +1193,7 @@ declare module 'ember' {
              * argument for any item in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isAny(key: string, value?: boolean): boolean;
+            isAny(key: string, value?: any): boolean;
             /**
              * This will combine the values of the enumerator into a single value. It
              * is a useful way to collect a summary value from an enumeration. This
@@ -1523,7 +1524,7 @@ declare module 'ember' {
              * Remove an object at the specified index using the `replace()` primitive
              * method. You can pass either a single index, or a start and a length.
              */
-            removeAt(start: number, len: number): this;
+            removeAt(start: number, len?: number): this;
             /**
              * Push the object onto the end of the array. Works just like `push()` but it
              * is KVO-compliant.
@@ -1819,7 +1820,7 @@ declare module 'ember' {
              * The controller instance must already have been created, either through entering the
              * associated route or using `generateController`.
              */
-            controllerFor(name: string): Controller;
+            controllerFor<K extends keyof ControllerRegistry>(name: K): ControllerRegistry[K];
 
             /**
              * Disconnects a view that has been rendered into an outlet.
@@ -3592,8 +3593,7 @@ declare module '@ember/object/internals' {
 
 declare module '@ember/object/mixin' {
     import Ember from 'ember';
-    const Mixin: typeof Ember.Mixin;
-    export default Mixin;
+    export default class Mixin<T, Base = Ember.Object> extends Ember.Mixin<T, Base> {}
 }
 
 declare module '@ember/object/observable' {

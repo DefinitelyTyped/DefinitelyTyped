@@ -1,6 +1,3 @@
-/// <reference types="knockout.postbox" />
-/// <reference types="knockout.mapping" />
-
 declare var $;
 
 function test_creatingVMs() {
@@ -97,6 +94,19 @@ class GetterViewModel {
     }
 
     public range: KnockoutObservable<any>;
+}
+
+function testToJs() {
+    var objKo = {
+        prop: ko.observable("prop"),
+        subKo: ko.observable({
+            prop: ko.observable("prop")
+        })
+    };
+
+    var objJs = ko.toJS(objKo);
+    objJs.prop; // $ExpectType any
+    objJs.subKo.prop; // $ExpectType any
 }
 
 function testGetter() {

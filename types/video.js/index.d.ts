@@ -71,5 +71,10 @@ declare namespace videojs {
 		removeRemoteTextTrack(track: HTMLTrackElement): void;
 		poster(val?: string): string | Player;
 		playbackRate(rate?: number): number;
+		controls(bool?: boolean): boolean;
+        muted(muted?: boolean): boolean;
+        preload(value?: boolean): string;
+        autoplay(value?: boolean): string;
+        loop(value?: boolean): string;
 	}
 }

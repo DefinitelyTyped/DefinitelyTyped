@@ -53,13 +53,6 @@ export interface QueryArrayConfig extends QueryConfig {
     rowMode: 'array';
 }
 
-export interface QueryResult {
-    command: string;
-    rowCount: number;
-    oid: number;
-    rows: any[];
-}
-
 export interface FieldDef {
     name: string;
     tableID: number;
@@ -70,12 +63,19 @@ export interface FieldDef {
     format: string;
 }
 
-export interface QueryArrayResult {
+export interface QueryResultBase {
     command: string;
     rowCount: number;
     oid: number;
-    rows: any[][];
     fields: FieldDef[];
+}
+
+export interface QueryResult extends QueryResultBase {
+    rows: any[];
+}
+
+export interface QueryArrayResult extends QueryResultBase {
+    rows: any[][];
 }
 
 export interface Notification {
@@ -113,7 +113,7 @@ export class Pool extends events.EventEmitter {
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
     on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
-    on(event: "connect" | "acquire", listener: (client: PoolClient) => void): this;
+    on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
 }
 
 export class ClientBase extends events.EventEmitter {
