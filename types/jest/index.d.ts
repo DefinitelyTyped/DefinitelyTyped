@@ -359,12 +359,12 @@ declare namespace jest {
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
          */
-        toBe(expected: R): void;
+        toBe(expected: R): R;
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
          */
-        toEqual(expected: R): void;
+        toEqual(expected: R): R;
         /**
          * Ensure that a variable is not undefined.
          */
@@ -377,11 +377,11 @@ declare namespace jest {
          * This is the same as `.toBe(null)` but the error messages are a bit nicer.
          * So use `.toBeNull()` when you want to check that something is null.
          */
-        toBeNull(): void;
+        toBeNull(): R;
         /**
          * Used to check that a variable is undefined.
          */
-        toBeUndefined(): void;
+        toBeUndefined(): R;
     }
 
     interface MatchersBoolean<R> extends MatchersShared<R> {
@@ -403,13 +403,13 @@ declare namespace jest {
          * When you don't care what a value is, you just want to
          * ensure a value is false in a boolean context.
          */
-        toBeFalsy(): void;
+        toBeFalsy(): R;
         /**
          * Use when you don't care what a value is, you just want to ensure a value
          * is true in a boolean context. In JavaScript, there are six falsy values:
          * `false`, `0`, `''`, `null`, `undefined`, and `NaN`. Everything else is truthy.
          */
-        toBeTruthy(): void;
+        toBeTruthy(): R;
     }
 
     interface MatchersNumber<R> extends MatchersShared<R> {
@@ -433,25 +433,25 @@ declare namespace jest {
          * Rounding means that intuitive things fail.
          * The default for numDigits is 2.
          */
-        toBeCloseTo(expected: R, numDigits?: R): void;
+        toBeCloseTo(expected: R, numDigits?: R): R;
 
         /**
          * For comparing floating point numbers.
          */
-        toBeGreaterThan(expected: R): void;
+        toBeGreaterThan(expected: R): R;
         /**
          * For comparing floating point numbers.
          */
-        toBeGreaterThanOrEqual(expected: R): void;
+        toBeGreaterThanOrEqual(expected: R): R;
 
         /**
          * For comparing floating point numbers.
          */
-        toBeLessThan(expected: R): void;
+        toBeLessThan(expected: R): R;
         /**
          * For comparing floating point numbers.
          */
-        toBeLessThanOrEqual(expected: R): void;
+        toBeLessThanOrEqual(expected: R): R;
     }
 
     interface MatchersString<R> extends MatchersShared<R> {
@@ -473,11 +473,11 @@ declare namespace jest {
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
          */
-        toHaveLength(expected: number): void;
+        toHaveLength(expected: number): R;
         /**
          * Check that a string matches a regular expression.
          */
-        toMatch(expected: string | RegExp): void;
+        toMatch(expected: string | RegExp): R;
     }
 
     interface MatchersList<R> extends MatchersShared<R[]> {
@@ -485,12 +485,12 @@ declare namespace jest {
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this uses `===`, a strict equality check.
          */
-        toContain(expected: R): void;
+        toContain(expected: R): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
          */
-        toHaveLength(expected: number): void;
+        toHaveLength(expected: number): R;
     }
     interface Matchers<R> extends MatchersShared<R> {
         /**
