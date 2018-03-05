@@ -13,7 +13,7 @@ export interface VanillaModalConfig {
   class?: string;
   loadClass?: string;
   clickOutside?: boolean;
-  closeKeys?: [number];
+  closeKeys?: number[] | void[] | boolean;
   transitions?: string;
   transitionEnd?(): undefined;
   onBeforeOpen?(): undefined;
