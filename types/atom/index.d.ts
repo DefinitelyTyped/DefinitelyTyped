@@ -654,6 +654,9 @@ export interface DisplayMarker {
  *  This API is experimental and subject to change on any release.
  */
 export interface DisplayMarkerLayer {
+    /** The identifier for the underlying MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Destroy this layer. */
     destroy(): void;
