@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.1
+// Type definitions for Jest 22.2
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -527,16 +527,20 @@ declare namespace jest {
     } & T;
 
     interface MockInstance<T> {
+        getMockName(): string;
         mock: MockContext<T>;
         mockClear(): void;
         mockReset(): void;
         mockImplementation(fn: (...args: any[]) => any): Mock<T>;
         mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        mockName(name: string): Mock<T>;
         mockReturnThis(): Mock<T>;
         mockReturnValue(value: any): Mock<T>;
         mockReturnValueOnce(value: any): Mock<T>;
-        mockName(name: string): Mock<T>;
-        getMockName(): string;
+        mockResolvedValue(value: any): Mock<T>;
+        mockResolvedValueOnce(value: any): Mock<T>;
+        mockRejectedValue(value: any): Mock<T>;
+        mockRejectedValueOnce(value: any): Mock<T>;
     }
 
     interface MockContext<T> {
