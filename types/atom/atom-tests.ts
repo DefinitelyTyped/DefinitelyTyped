@@ -719,6 +719,9 @@ function testDisplayMarker() {
 
 // DisplayMarkerLayer =========================================================
 function testDisplayMarkerLayer() {
+    // Properties
+    str = displayMarkerLayer.id;
+
     // Lifecycle
     displayMarkerLayer.destroy();
     displayMarkerLayer.clear();
@@ -1274,6 +1277,9 @@ function testMarker() {
 
 // MarkerLayer ================================================================
 function testMarkerLayer() {
+    // Properties
+    str = markerLayer.id;
+
     // Lifecycle
     markerLayer = markerLayer.copy();
     bool = markerLayer.destroy();
