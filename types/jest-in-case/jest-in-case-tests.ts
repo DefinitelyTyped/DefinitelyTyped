@@ -41,10 +41,10 @@ test('array', () => {
     expect(global.test).toHaveBeenCalledTimes(3);
     expect(tester).toHaveBeenCalledTimes(3);
 
-    expect(global.describe.mock.calls[0][0]).toBe(title);
-    expect(global.test.mock.calls[0][0]).toBe(testCases[0].name);
-    expect(global.test.mock.calls[1][0]).toBe(testCases[1].name);
-    expect(global.test.mock.calls[2][0]).toBe(testCases[2].name);
+    expect(<string> global.describe.mock.calls[0][0]).toBe(title);
+    expect(<string> global.test.mock.calls[0][0]).toBe(testCases[0].name);
+    expect(<string> global.test.mock.calls[1][0]).toBe(testCases[1].name);
+    expect(<string> global.test.mock.calls[2][0]).toBe(testCases[2].name);
     expect(global.test.mock.calls[0][1]).toHaveLength(0);
     expect(global.test.mock.calls[1][1]).toHaveLength(0);
     expect(global.test.mock.calls[2][1]).toHaveLength(0);
@@ -75,10 +75,10 @@ test('object', () => {
     expect(global.test).toHaveBeenCalledTimes(3);
     expect(tester).toHaveBeenCalledTimes(3);
 
-    expect(global.describe.mock.calls[0][0]).toBe(title);
-    expect(global.test.mock.calls[0][0]).toBe('1 - 1 = 0');
-    expect(global.test.mock.calls[1][0]).toBe('2 - 1 = 1');
-    expect(global.test.mock.calls[2][0]).toBe('3 - 1 = 2');
+    expect(<string> global.describe.mock.calls[0][0]).toBe(title);
+    expect(<string> global.test.mock.calls[0][0]).toBe('1 - 1 = 0');
+    expect(<string> global.test.mock.calls[1][0]).toBe('2 - 1 = 1');
+    expect(<string> global.test.mock.calls[2][0]).toBe('3 - 1 = 2');
     expect(global.test.mock.calls[0][1]).toHaveLength(0);
     expect(global.test.mock.calls[1][1]).toHaveLength(0);
     expect(global.test.mock.calls[2][1]).toHaveLength(0);
@@ -93,8 +93,8 @@ test('no names', () => {
         {},
     ]);
 
-    expect(global.test.mock.calls[0][0]).toBe('case: 1');
-    expect(global.test.mock.calls[1][0]).toBe('case: 2');
+    expect(<string> global.test.mock.calls[0][0]).toBe('case: 1');
+    expect(<string> global.test.mock.calls[1][0]).toBe('case: 2');
 });
 
 test('only', () => {
@@ -103,8 +103,8 @@ test('only', () => {
         { only: true },
     ]);
 
-    expect(global.test.mock.calls[0][0]).toBe('case: 1');
-    expect(global.test.only.mock.calls[0][0]).toBe('case: 2');
+    expect(<string> global.test.mock.calls[0][0]).toBe('case: 1');
+    expect(<string> global.test.only.mock.calls[0][0]).toBe('case: 2');
 });
 
 test('skip', () => {
@@ -113,6 +113,6 @@ test('skip', () => {
         { skip: true },
     ]);
 
-    expect(global.test.mock.calls[0][0]).toBe('case: 1');
-    expect(global.test.skip.mock.calls[0][0]).toBe('case: 2');
+    expect(<string> global.test.mock.calls[0][0]).toBe('case: 1');
+    expect(<string> global.test.skip.mock.calls[0][0]).toBe('case: 2');
 });
