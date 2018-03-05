@@ -13,7 +13,7 @@ export default class Geosuggest extends Component<GeosuggestProps> {
     blur(): void;
     update(value: string): void;
     clear(): void;
-    selectSuggest(): void;
+    selectSuggest(value?: Suggest): void;
 }
 
 export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
