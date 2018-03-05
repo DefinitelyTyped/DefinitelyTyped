@@ -74,7 +74,11 @@ export interface SMTPServerSession {
     /**
      * the IP address for the connected client
      */
-    remoteAddress: SMTPServerAddress;
+    remoteAddress: string;
+    /**
+     * port number the connected client
+     */
+    remotePort: number;
     /**
      * reverse resolved hostname for remoteAddress
      */
@@ -91,6 +95,11 @@ export interface SMTPServerSession {
      * Envelope Object
      */
     envelope: SMTPServerEnvelope;
+    /**
+     *  If true, then the connection is using TLS
+     */
+    secure: boolean;
+
     transmissionType: string;
 
     tlsOptions: tls.TlsOptions;
@@ -100,7 +109,7 @@ export interface SMTPServerEnvelope {
     /**
      * includes an address object or is set to false
      */
-    mailFrom: SMTPServerAddress;
+    mailFrom: SMTPServerAddress | false;
     /**
      * includes an array of address objects
      */

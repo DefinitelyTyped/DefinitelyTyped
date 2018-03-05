@@ -15,6 +15,7 @@
 //                 Palmi Valgeirsson <https://github.com/palmithor>
 //                 Danilo Raisi <https://github.com/daniloraisi>
 //                 Simon Buchan <https://github.com/simonbuchan>
+//                 David Hayden <https://github.com/Haydabase>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -516,7 +517,7 @@ export interface CloudFrontResponseEvent {
     }>;
 }
 
-export type CloudFrontRequestResult = undefined | null | CloudFrontResultResponse;
+export type CloudFrontRequestResult = undefined | null | CloudFrontResultResponse | CloudFrontRequest;
 
 export interface CloudFrontRequestEvent {
     Records: Array<{

@@ -71,6 +71,7 @@ declare module 'angular' {
             isReady(): boolean;
             onReady(): angular.IPromise<void>;
             resolveClientLocale(): string;
+            getAvailableLanguageKeys(): string[];
         }
 
         interface ITranslateProvider extends angular.IServiceProvider {

@@ -2184,6 +2184,11 @@ export interface WebViewStatic extends React.ClassicComponentClass<WebViewProper
      * Returns the native webview node.
      */
     getWebViewHandle: () => any;
+
+    /**
+     * Inject JavaScript to be executed immediately.
+     */
+    injectJavaScript: (script: string) => void;
 }
 
 /**
@@ -3647,7 +3652,7 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
      * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
      * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
@@ -8608,6 +8613,8 @@ export function findNodeHandle(
 ): null | number;
 
 export function processColor(color: any): number;
+
+export const YellowBox: React.Component<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 //////////////////////////////////////////////////////////////////////////
 //
