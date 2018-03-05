@@ -1,4 +1,5 @@
 import webpack = require('webpack');
+import Tapable = require('tapable');
 import { RawSourceMap } from 'source-map';
 
 const {
@@ -580,3 +581,79 @@ configuration = {
 };
 
 plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });
+
+class SingleEntryDependency extends webpack.Dependency {}
+class MultiEntryDependency extends webpack.Dependency {}
+class MultiModuleFactory extends Tapable {}
+class MultiEntryPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "MultiEntryPlugin",
+            (compilation, { normalModuleFactor }) => {
+                compilation.dependencyFactories.set(MultiEntryDependency, new MultiModuleFactory());
+            }
+        );
+        compiler.hooks.make.tapAsync(
+            "MultiEntryPlugin",
+            (compilation, callback) => {
+                const dep = new MultiEntryPlugin();
+                compilation.addEntry("", {}, "", () => {});
+            }
+        );
+    }
+}
+
+class IgnorePlugin extends webpack.Plugin {
+    checkIgnore(result: any) {
+    }
+
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.normalModuleFactory.tap("IgnorePlugin", nmf => {
+            nmf.hooks.beforeResolve.tap("IgnorePlugin", this.checkIgnore);
+        });
+        compiler.hooks.contextModuleFactory.tap("IgnorePlugin", cmf => {
+            cmf.hooks.beforeResolve.tap("IgnorePlugin", this.checkIgnore);
+        });
+    }
+}
+
+class DllEntryDependency extends webpack.Dependency {}
+class DllModuleFactory extends Tapable {}
+class DllEntryPlugin extends webpack.Plugin {
+	apply(compiler: webpack.Compiler) {
+		compiler.hooks.compilation.tap(
+			"DllEntryPlugin",
+			(compilation, { normalModuleFactory }) => {
+				const dllModuleFactory = new DllModuleFactory();
+				compilation.dependencyFactories.set(
+					DllEntryDependency,
+					dllModuleFactory
+				);
+				compilation.dependencyFactories.set(
+					SingleEntryDependency,
+					normalModuleFactory
+				);
+			}
+		);
+		compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
+			compilation.addEntry("", new DllEntryDependency(), "", callback);
+		});
+	}
+}
+
+class BannerPlugin extends webpack.Plugin {
+	apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap("BannerPlugin", compilation  => {
+            compilation.hooks.optimizeChunkAssets.tap("BannerPlugin", chunks => {
+                for (const chunk of chunks) {
+                    if (!chunk.canBeInitial()) {
+                        continue;
+                    }
+                    for (const file of chunk.files) {
+                        compilation.getPath("", {});
+                    }
+                }
+            });
+        });
+    }
+}
