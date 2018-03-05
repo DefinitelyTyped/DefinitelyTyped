@@ -2197,7 +2197,7 @@ class Example78 extends React.Component<any, any> {
     return (
       <div>
         <p>List Based</p>
-        <Nav inline>
+        <Nav vertical>
           <NavItem>
             <NavLink href="#">Link</NavLink>
           </NavItem>
@@ -2213,7 +2213,7 @@ class Example78 extends React.Component<any, any> {
         </Nav>
         <hr />
         <p>Link based</p>
-        <Nav inline>
+        <Nav vertical>
           <NavLink href="#">Link</NavLink> <NavLink href="#">Link</NavLink> <NavLink href="#">Another Link</NavLink> <NavLink disabled href="#">Disabled Link</NavLink>
         </Nav>
       </div>
