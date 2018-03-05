@@ -115,3 +115,4 @@ new Yallist.Node('foo', node, node, myList);
 node.list; // $ExpectType Yallist<string> | undefined
 node.next; // $ExpectType Node<string> | null
 node.prev; // $ExpectType Node<string> | null
+node.value; // $ExpectType string
