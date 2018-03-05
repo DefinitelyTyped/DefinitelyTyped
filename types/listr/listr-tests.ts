@@ -1,4 +1,4 @@
-import * as Listr from "listr";
+import Listr = require("listr");
 import * as fs from "fs";
 
 const tasks = new Listr([

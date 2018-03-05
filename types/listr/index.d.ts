@@ -43,7 +43,4 @@ declare class Listr {
     run(ctx?: any): Promise<any>;
 }
 
-declare namespace Listr {
-}
-
 export = Listr;
