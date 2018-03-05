@@ -8,17 +8,19 @@
 import { Duplex, DuplexOptions } from "stream";
 import WebSocket = require("ws");
 
-export interface SocketOptions extends DuplexOptions {
-  /** websocket server url */
-  url?: string;
-  /** raw websocket instance to wrap */
-  socket?: WebSocket;
+declare namespace Socket {
+  interface Options extends DuplexOptions {
+    /** websocket server url */
+    url?: string;
+    /** raw websocket instance to wrap */
+    socket?: WebSocket;
+  }
 }
 
-export default class Socket extends Duplex {
+declare class Socket extends Duplex {
   static WEBSOCKET_SUPPORT: boolean;
 
-  constructor(options: SocketOptions | string);
+  constructor(options: Socket.Options | string);
 
   /** Send text/binary data to the WebSocket server */
   send(chunk: any): void;
@@ -26,3 +28,5 @@ export default class Socket extends Duplex {
   /** Destroy and cleanup this websocket connection */
   destroy(err?: Error): void;
 }
+
+export = Socket;
