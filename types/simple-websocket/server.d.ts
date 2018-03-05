@@ -5,16 +5,18 @@ import * as http from "http";
 import * as net from "net";
 import WebSocket = require("ws");
 
-import Socket from ".";
+import Socket = require(".");
 
-export type SocketServerOptions = WebSocket.ServerOptions;
+declare namespace SocketServer {
+  type Options = WebSocket.ServerOptions;
+}
 
-export default class SocketServer extends EventEmitter {
-  options: SocketServerOptions;
+declare class SocketServer extends EventEmitter {
+  options: SocketServer.Options;
   path: string;
   clients: Set<WebSocket>;
 
-  constructor(options?: SocketServerOptions, callback?: () => void);
+  constructor(options?: SocketServer.Options, callback?: () => void);
 
   close(cb?: (err?: Error) => void): void;
   handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
@@ -64,3 +66,5 @@ export default class SocketServer extends EventEmitter {
   removeListener(event: "listening", cb: () => void): this;
   removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 }
+
+export = SocketServer;

@@ -1,4 +1,4 @@
-import Socket from "simple-websocket";
+import Socket = require("simple-websocket");
 
 if (Socket.WEBSOCKET_SUPPORT) {
   const socket = new Socket('ws://echo.websocket.org');
@@ -16,7 +16,7 @@ if (Socket.WEBSOCKET_SUPPORT) {
   });
 }
 
-import Server from "simple-websocket/server";
+import Server = require("simple-websocket/server");
 
 const server = new Server({ port: 8080 });
 
