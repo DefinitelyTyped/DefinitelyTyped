@@ -56,7 +56,8 @@ declare namespace jest {
      */
     function autoMockOn(): typeof jest;
     /**
-     * @deprecated use resetAllMocks instead
+     * Clears the mock.calls and mock.instances properties of all mocks.
+     * Equivalent to calling .mockClear() on every mocked function.
      */
     function clearAllMocks(): typeof jest;
     /**
@@ -301,7 +302,12 @@ declare namespace jest {
          *
          * @param actual The value to apply matchers against.
          */
+        (actual: boolean): MatchersBoolean<boolean>;
+        (actual: number): MatchersNumber<number>;
+        (actual: string): MatchersString<string>;
+        <R>(actual: R[]): MatchersList<R>;
         (actual: any): Matchers<void>;
+
         anything(): any;
         /**
          * Matches anything that was created with the given constructor.
@@ -348,7 +354,145 @@ declare namespace jest {
         stringContaining(str: string): any;
     }
 
-    interface Matchers<R> {
+    interface MatchersShared<R> {
+        /**
+         * Checks that a value is what you expect. It uses `===` to check strict equality.
+         * Don't use `toBe` with floating-point numbers.
+         */
+        toBe(expected: R): void;
+        /**
+         * Used when you want to check that two objects have the same value.
+         * This matcher recursively checks the equality of all fields, rather than checking for object identity.
+         */
+        toEqual(expected: R): void;
+        /**
+         * Ensure that a variable is not undefined.
+         */
+        toBeDefined(): R;
+        /**
+         * Used to check that a variable is NaN.
+         */
+        toBeNaN(): R;
+        /**
+         * This is the same as `.toBe(null)` but the error messages are a bit nicer.
+         * So use `.toBeNull()` when you want to check that something is null.
+         */
+        toBeNull(): void;
+        /**
+         * Used to check that a variable is undefined.
+         */
+        toBeUndefined(): void;
+    }
+
+    interface MatchersBoolean<R> extends MatchersShared<R> {
+        /**
+         * If you know how to test something, `.not` lets you test its opposite.
+         */
+        not: MatchersBoolean<R>;
+        /**
+         * Use resolves to unwrap the value of a fulfilled promise so any other
+         * matcher can be chained. If the promise is rejected the assertion fails.
+         */
+        resolves: MatchersBoolean<Promise<R>>;
+        /**
+         * Unwraps the reason of a rejected promise so any other matcher can be chained.
+         * If the promise is fulfilled the assertion fails.
+         */
+        rejects: MatchersBoolean<Promise<R>>;
+        /**
+         * When you don't care what a value is, you just want to
+         * ensure a value is false in a boolean context.
+         */
+        toBeFalsy(): void;
+        /**
+         * Use when you don't care what a value is, you just want to ensure a value
+         * is true in a boolean context. In JavaScript, there are six falsy values:
+         * `false`, `0`, `''`, `null`, `undefined`, and `NaN`. Everything else is truthy.
+         */
+        toBeTruthy(): void;
+    }
+
+    interface MatchersNumber<R> extends MatchersShared<R> {
+        /**
+         * If you know how to test something, `.not` lets you test its opposite.
+         */
+        not: MatchersNumber<R>;
+        /**
+         * Use resolves to unwrap the value of a fulfilled promise so any other
+         * matcher can be chained. If the promise is rejected the assertion fails.
+         */
+        resolves: MatchersNumber<Promise<R>>;
+        /**
+         * Unwraps the reason of a rejected promise so any other matcher can be chained.
+         * If the promise is fulfilled the assertion fails.
+         */
+        rejects: MatchersNumber<Promise<R>>;
+
+        /**
+         * Using exact equality with floating point numbers is a bad idea.
+         * Rounding means that intuitive things fail.
+         * The default for numDigits is 2.
+         */
+        toBeCloseTo(expected: R, numDigits?: R): void;
+
+        /**
+         * For comparing floating point numbers.
+         */
+        toBeGreaterThan(expected: R): void;
+        /**
+         * For comparing floating point numbers.
+         */
+        toBeGreaterThanOrEqual(expected: R): void;
+
+        /**
+         * For comparing floating point numbers.
+         */
+        toBeLessThan(expected: R): void;
+        /**
+         * For comparing floating point numbers.
+         */
+        toBeLessThanOrEqual(expected: R): void;
+    }
+
+    interface MatchersString<R> extends MatchersShared<R> {
+        /**
+         * If you know how to test something, `.not` lets you test its opposite.
+         */
+        not: MatchersString<R>;
+        /**
+         * Use resolves to unwrap the value of a fulfilled promise so any other
+         * matcher can be chained. If the promise is rejected the assertion fails.
+         */
+        resolves: MatchersString<Promise<R>>;
+        /**
+         * Unwraps the reason of a rejected promise so any other matcher can be chained.
+         * If the promise is fulfilled the assertion fails.
+         */
+        rejects: MatchersString<Promise<R>>;
+        /**
+         * Used to check that an object has a `.length` property
+         * and it is set to a certain numeric value.
+         */
+        toHaveLength(expected: number): void;
+        /**
+         * Check that a string matches a regular expression.
+         */
+        toMatch(expected: string | RegExp): void;
+    }
+
+    interface MatchersList<R> extends MatchersShared<R[]> {
+        /**
+         * Used when you want to check that an item is in a list.
+         * For testing the items in the list, this uses `===`, a strict equality check.
+         */
+        toContain(expected: R): void;
+        /**
+         * Used to check that an object has a `.length` property
+         * and it is set to a certain numeric value.
+         */
+        toHaveLength(expected: number): void;
+    }
+    interface Matchers<R> extends MatchersShared<R> {
         /**
          * If you know how to test something, `.not` lets you test its opposite.
          */
@@ -365,11 +509,6 @@ declare namespace jest {
         rejects: Matchers<Promise<R>>;
         lastCalledWith(...args: any[]): R;
         /**
-         * Checks that a value is what you expect. It uses `===` to check strict equality.
-         * Don't use `toBe` with floating-point numbers.
-         */
-        toBe(expected: any): R;
-        /**
          * Ensures that a mock function is called.
          */
         toBeCalled(): R;
@@ -383,10 +522,6 @@ declare namespace jest {
          * The default for numDigits is 2.
          */
         toBeCloseTo(expected: number, numDigits?: number): R;
-        /**
-         * Ensure that a variable is not undefined.
-         */
-        toBeDefined(): R;
         /**
          * When you don't care what a value is, you just want to
          * ensure a value is false in a boolean context.
@@ -414,24 +549,11 @@ declare namespace jest {
          */
         toBeLessThanOrEqual(expected: number): R;
         /**
-         * This is the same as `.toBe(null)` but the error messages are a bit nicer.
-         * So use `.toBeNull()` when you want to check that something is null.
-         */
-        toBeNull(): R;
-        /**
          * Use when you don't care what a value is, you just want to ensure a value
          * is true in a boolean context. In JavaScript, there are six falsy values:
          * `false`, `0`, `''`, `null`, `undefined`, and `NaN`. Everything else is truthy.
          */
         toBeTruthy(): R;
-        /**
-         * Used to check that a variable is undefined.
-         */
-        toBeUndefined(): R;
-        /**
-         * Used to check that a variable is NaN.
-         */
-        toBeNaN(): R;
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this uses `===`, a strict equality check.
