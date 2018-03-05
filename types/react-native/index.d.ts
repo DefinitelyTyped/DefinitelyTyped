@@ -2184,6 +2184,11 @@ export interface WebViewStatic extends React.ClassicComponentClass<WebViewProper
      * Returns the native webview node.
      */
     getWebViewHandle: () => any;
+
+    /**
+     * Inject JavaScript to be executed immediately.
+     */
+    injectJavaScript: (script: string) => void;
 }
 
 /**
@@ -3643,11 +3648,11 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     scrollToEnd: (params?: { animated?: boolean }) => void;
 
     /**
-     * Scrolls to the item at a the specified index such that it is positioned in the viewable area
-     * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
-     * May be janky without `getItemLayout` prop.
+     * Scrolls to the item at the specified index such that it is positioned in the viewable area
+     * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
+     * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean; index: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
@@ -3908,6 +3913,17 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
      * sure to also set the `refreshing` prop correctly.
      */
     onRefresh?: (() => void) | null;
+
+    /**
+     * Used to handle failures when scrolling to an index that has not been measured yet.
+     * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
+     * as possible and then try again after more items have been rendered.
+     */
+    onScrollToIndexFailed?: (info: {
+        index: number,
+        highestMeasuredFrameIndex: number,
+        averageItemLength: number
+    }) => void;
 
     /**
      * Called when the viewability of rows changes, as defined by the
@@ -8598,6 +8614,8 @@ export function findNodeHandle(
 
 export function processColor(color: any): number;
 
+export const YellowBox: React.Component<any, any> & { ignoreWarnings: (warnings: string[]) => void };
+
 //////////////////////////////////////////////////////////////////////////
 //
 // Additional ( and controversial)
@@ -8634,6 +8652,7 @@ export namespace addons {
 export var ColorPropType: React.Requireable<any>;
 export var EdgeInsetsPropType: React.Requireable<any>;
 export var PointPropType: React.Requireable<any>;
+export var ViewPropTypes: React.Requireable<any>;
 
 declare global {
     function require(name: string): any;

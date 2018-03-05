@@ -195,20 +195,6 @@ namespace utilTests {
         const e: object = util.invertObject({}, { onlyEnumerable: true });
     }
 
-    namespace humanizeTime {
-        const a: string = util.humanizeTime(12345);
-        const b: string = util.humanizeTime(12345, {});
-        const c: string = util.humanizeTime(12345, { compact: true });
-        const d: string = util.humanizeTime(12345, { msDecimalDigits: 2 });
-        const e: string = util.humanizeTime(12345, { secDecimalDigits: 2 });
-        const f: string = util.humanizeTime(12345, { verbose: true });
-    }
-
-    namespace humanizeSize {
-        const a: string = util.humanizeSize(12345);
-        const b: string = util.humanizeSize(12345, "");
-    }
-
     namespace parseSize {
         const a: number | null = util.parseSize(123);
         const b: number | null = util.parseSize("123Kb");
@@ -486,7 +472,7 @@ namespace utilTests {
         const c: (a: number, b: string) => Promise<string> = util.throttle.create((a: number, b: string) => String(a) + b);
         const d = util.throttle.create(() => { }, {});
         const e = util.throttle.create(() => { }, { interval: 1000 });
-        const f = util.throttle.create(() => { }, { max: 10 });
+        const f = util.throttle.create(() => { }, { concurrency: 10 });
         const g = util.throttle.create(() => { }, { ordered: true });
         const h = util.throttle.create(() => { }, { waitForReturn: true });
         const i = util.throttle.create(() => { }, { onDone() {} });
@@ -494,6 +480,33 @@ namespace utilTests {
         const k = util.throttle.create(() => { }, { dropLast: true });
 
         const l: symbol = util.throttle.DROPPED;
+
+        {
+            const t = util.throttle.create();
+            t(() => 2).then((x: number) => {});
+            t(() => Promise.resolve(2)).then((x: number) => {});
+
+            t(() => "2").then((x: string) => {});
+            t(() => Promise.resolve("2")).then((x: string) => {});
+
+            t((a) => a, 2).then((x: number) => {});
+            t((a) => Promise.resolve(a), 2).then((x: number) => {});
+
+            t((a, b) => String(a) + b, 2, "3").then((x: string) => {});
+            t(async (a, b) => String(a) + b, 2, "3").then((x: string) => x);
+
+            t((a, b, c) => String(a) + b + c, 2, "3", "4").then((x: string) => {});
+            t(async (a, b, c) => String(a) + b + c, 2, "3", "4").then((x: string) => x);
+
+            t((a, b, c, d) => String(a) + b + c + String(d), 2, "3", "4", 5).then((x: string) => {});
+            t(async (a, b, c, d) => String(a) + b + c + String(d), 2, "3", "4", 5).then((x: string) => x);
+
+            t((a, b, c, d, e) => String(a) + b + c + String(d) + e.join(","), 2, "3", "4", 5, [1, 2, 3]).then((x: string) => {});
+            t(async (a, b, c, d, e) => String(a) + b + c + String(d) + e.join(","), 2, "3", "4", 5, [1, 2, 3]).then((x: string) => x);
+
+            t((a, b, c, d, e, f) => String(a) + b + c + String(d) + e.join(",") + f, 2, "3", "4", 5, [1, 2, 3], 6).then((x: any) => {});
+            t(async (a, b, c, d, e, f) => String(a) + b + c + String(d) + e.join(",") + f, 2, "3", "4", 5, [1, 2, 3], 6).then((x: any) => x);
+        }
     }
 
     namespace fakeClock {
@@ -1353,5 +1366,23 @@ namespace utilTests {
         match.clearCache();
         match.resizeCache(10050);
         { const a: object = match.getCache(); }
+    }
+
+    namespace iconv {
+        const {
+            iconv
+        } = util;
+
+        let str: string;
+        let buf: Buffer;
+        let bool: boolean;
+
+        str = iconv.decode(Buffer.from("hello"), "CP1251");
+        str = iconv.decode(Buffer.from("hello"), "CP1251", {});
+
+        buf = iconv.encode("привет", "CP1251");
+        buf = iconv.encode("привет", "CP1251", {});
+
+        bool = iconv.encodingExists("cp1251");
     }
 }

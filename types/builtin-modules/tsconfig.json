@@ -8,7 +8,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "esModuleInterop": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

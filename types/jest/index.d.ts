@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.1
+// Type definitions for Jest 22.2
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -56,7 +56,8 @@ declare namespace jest {
      */
     function autoMockOn(): typeof jest;
     /**
-     * @deprecated use resetAllMocks instead
+     * Clears the mock.calls and mock.instances properties of all mocks.
+     * Equivalent to calling .mockClear() on every mocked function.
      */
     function clearAllMocks(): typeof jest;
     /**
@@ -470,7 +471,7 @@ declare namespace jest {
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
-        toHaveProperty(propertyPath: string, value?: any): R;
+        toHaveProperty(propertyPath: string | any[], value?: any): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -526,16 +527,20 @@ declare namespace jest {
     } & T;
 
     interface MockInstance<T> {
+        getMockName(): string;
         mock: MockContext<T>;
         mockClear(): void;
         mockReset(): void;
         mockImplementation(fn: (...args: any[]) => any): Mock<T>;
         mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        mockName(name: string): Mock<T>;
         mockReturnThis(): Mock<T>;
         mockReturnValue(value: any): Mock<T>;
         mockReturnValueOnce(value: any): Mock<T>;
-        mockName(name: string): Mock<T>;
-        getMockName(): string;
+        mockResolvedValue(value: any): Mock<T>;
+        mockResolvedValueOnce(value: any): Mock<T>;
+        mockRejectedValue(value: any): Mock<T>;
+        mockRejectedValueOnce(value: any): Mock<T>;
     }
 
     interface MockContext<T> {

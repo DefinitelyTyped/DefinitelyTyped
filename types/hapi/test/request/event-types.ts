@@ -10,12 +10,12 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'ok: ' + request.path;
     }
 };
 
-const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
+const onRequest: Lifecycle.Method = (request, h) => {
     /*
      * Server events
      */
@@ -29,11 +29,11 @@ const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
         console.log('Response sent for request: ' + request.path);
     });
 
-    request.server.events.on('start', (route: RouteOptions) => {
+    request.server.events.on('start', () => {
         console.log('Server started');
     });
 
-    request.server.events.once('stop', (route: RouteOptions) => {
+    request.server.events.once('stop', () => {
         console.log('Server stoped');
     });
 
@@ -42,7 +42,7 @@ const onRequest: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
      */
     const hash = Crypto.createHash('sha1');
 
-    request.events.on("peek", (chunk: any) => {
+    request.events.on("peek", (chunk, encoding) => {
         hash.update(chunk);
     });
 

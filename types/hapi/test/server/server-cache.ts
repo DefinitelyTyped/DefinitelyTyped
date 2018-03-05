@@ -11,9 +11,9 @@ const catboxOptions: ServerOptionsCache = {
     expiresIn: 60 * 60 * 1000
 };
 const cache: catbox.Policy = server.cache(catboxOptions);
-cache.set('norway', 'oslo', 10 * 1000, () => {});
+cache.set('norway', 'oslo', 10 * 1000).then(() => {});
 
-const value = cache.get('norway', () => {});
+const value = cache.get('norway').then(() => {});
 console.log("Value: " + value);
 
 server.start();

@@ -9,10 +9,10 @@
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
-    import { JSONSchema4 } from "json-schema";
+    import { JSONSchema6 } from "json-schema";
 
     export interface FormProps {
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema?: UiSchema;
         formData?: any;
         formContext?: any;
@@ -60,7 +60,7 @@ declare module "react-jsonschema-form" {
 
     export interface WidgetProps extends React.HTMLAttributes<HTMLElement> {
         id: string;
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         value: any;
         required: boolean;
         disabled: boolean;
@@ -74,7 +74,7 @@ declare module "react-jsonschema-form" {
     export type Widget = React.StatelessComponent<WidgetProps> | React.ComponentClass<WidgetProps>;
 
     export interface FieldProps extends React.HTMLAttributes<HTMLElement> {
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
         formData: any;
@@ -114,7 +114,7 @@ declare module "react-jsonschema-form" {
         disabled: boolean;
         displayLabel: boolean;
         fields: Field[];
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         formContext: any;
     }
@@ -142,7 +142,7 @@ declare module "react-jsonschema-form" {
         onAddClick: (event: any) => (event: any) => void;
         readonly: boolean;
         required: boolean;
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         title: string;
         formContext: any;
@@ -161,7 +161,7 @@ declare module "react-jsonschema-form" {
             readonly: boolean;
         }[],
         required: boolean;
-        schema: JSONSchema4;
+        schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
         formData: any;

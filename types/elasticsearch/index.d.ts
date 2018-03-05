@@ -7,6 +7,8 @@
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Ahmad Ferdous Bin Alam <https://github.com/ahmadferdous>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Paul Brabban <https://github.com/brabster>
+//                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -199,6 +201,7 @@ export interface CreateDocumentParams extends GenericParams {
     waitForActiveShards?: string;
     parent?: string;
     refresh?: Refresh;
+    routing?: string;
     timeout?: TimeSpan;
     timestamp?: Date | number;
     ttl?: TimeSpan;
@@ -405,6 +408,7 @@ export interface GetResponse<T> {
     _type: string;
     _id: string;
     _version: number;
+    _routing?: string;
     found: boolean;
     _source: T;
 }
