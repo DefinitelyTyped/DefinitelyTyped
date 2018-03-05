@@ -949,6 +949,9 @@ export interface Marker {
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
+    /** The identifier for this MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Create a copy of this layer with markers in the same state and locations. */
     copy(): MarkerLayer;
