@@ -1,4 +1,4 @@
-import Listr = require("listr");
+import * as Listr from "listr";
 import * as fs from "fs";
 
 const tasks = new Listr([
@@ -55,7 +55,7 @@ const tasks = new Listr([
 tasks.run().catch(err => {
 });
 
-const tasks2 = new Listr([
+const tasks21 = new Listr([
     {
         title: 'Success',
         task: () => 'Foo'
@@ -67,6 +67,20 @@ const tasks2 = new Listr([
         }
     }
 ]);
+
+const taskA: Listr.ListrTask = {
+    title: 'Success',
+    task: () => 'Foo'
+};
+
+const taskB: Listr.ListrTask = {
+    title: 'Failure',
+    task: () => {
+        throw new Error('Bar');
+    }
+};
+
+const tasks22 = new Listr([taskA, taskB]);
 
 const tasks3 = new Listr([
     {
