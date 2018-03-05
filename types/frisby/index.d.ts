@@ -18,6 +18,18 @@ export import Joi = require("joi");
 
 // #region Frisby FrisbySpec Methods
 // Reference file: https://github.com/vlucas/frisby/blob/master/src/frisby/spec.js
+
+
+// **************************************CHANGE LOG**************************************
+// C.E.W. This is an attempt to create some sort of changelog for these types.
+// If you make any changes, please try and note those changes in this section.
+// If this section gets too long we can always trim it.
+// ## 2018-03-05
+// ### Changed
+// - Update _Frisbyspec.get_, _Frisbyspec.post_, _Frisbyspec.put_, _Frisbyspec.del_, _Frisbyspec.patch_,  _Frisbyspec.fetch_ to allow _params_ to be optional.
+// - Update _FrisbySpec.then_ to allow _onRejected_ to be optional.
+// **************************************CHANGE LOG**************************************
+
 export class FrisbySpec {
     constructor(...args: any[]);
     catch(onRejected?: (error: Error) => void): FrisbySpec;
