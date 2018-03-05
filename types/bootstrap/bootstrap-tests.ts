@@ -103,7 +103,7 @@ $("#dropdown").dropdown({
 });
 
 $("#dropdown").dropdown({
-    offset(offsets: BootstrapOffsetsExtend) {
+    offset(offsets: Bootstrap.OffsetsExtend) {
         if (!this.flip)
             return { popper: { left: 100 } };
         return {};

@@ -6,27 +6,29 @@
 
 // TODO: popovers options
 
-/// <reference types="jquery" />
 /// <reference types="popper.js" />
+/// <reference types="jquery"/>
+
+export as namespace Bootstrap;
 
 // --------------------------------------------------------------------------
 // Some Types and Interfaces
 // --------------------------------------------------------------------------
 
-type BootstrapPlacement = "auto" | "top" | "bottom" | "left" | "right";
+export type Placement = "auto" | "top" | "bottom" | "left" | "right";
 
-interface BootstrapDelay {
+export interface Delay {
     show: number;
     hide: number;
 }
 
-interface BootstrapTooltipInstance {
-    config: BootstrapTooltipOption;
+export interface TooltipInstance {
+    config: TooltipOption;
     element: Element;
     tip: HTMLElement;
 }
 
-interface BootstrapOffsetsExtend {
+export interface OffsetsExtend {
     popper?: Partial<Popper.Offset>;
     reference?: Partial<Popper.Offset>;
 }
@@ -35,7 +37,7 @@ interface BootstrapOffsetsExtend {
 // Options Interfaces
 // --------------------------------------------------------------------------------------
 
-interface BootstrapCarouselOption {
+export interface CarouselOption {
     /**
      * The amount of time to delay between automatically cycling an item. If false, carousel will not automatically cycle.
      *
@@ -68,7 +70,7 @@ interface BootstrapCarouselOption {
     wrap?: boolean;
 }
 
-interface BootstrapCollapseOption {
+export interface CollapseOption {
     /**
      * If parent is provided, then all collapsible elements under the specified parent will be closed when
      * this collapsible item is shown. (similar to traditional accordion behavior - this is dependent on the card class).
@@ -86,14 +88,14 @@ interface BootstrapCollapseOption {
     toggle?: boolean;
 }
 
-interface BootstrapDropdownOption {
+export interface DropdownOption {
     /**
      * Offset of the dropdown relative to its target.
      * For more information refer to Popper.js's offset docs.
      *
      * @default 0
      */
-    offset?: number | string | ((this: BootstrapDropdownOption, offset: BootstrapOffsetsExtend) => BootstrapOffsetsExtend);
+    offset?: number | string | ((this: DropdownOption, offset: OffsetsExtend) => OffsetsExtend);
 
     /**
      * Allow Dropdown to flip in case of an overlapping on the reference element.
@@ -113,7 +115,7 @@ interface BootstrapDropdownOption {
     boundary?: Popper.Boundary | HTMLElement;
 }
 
-interface BootstrapModalOption {
+export interface ModalOption {
     /**
      * Includes a modal-backdrop element.
      * Alternatively, specify static for a backdrop which doesn't close the modal on click.
@@ -144,7 +146,7 @@ interface BootstrapModalOption {
     show?: boolean;
 }
 
-interface BootstrapPoppoverOption {
+export interface PoppoverOption {
     /**
      * Apply a CSS fade transition to the popover.
      *
@@ -155,7 +157,7 @@ interface BootstrapPoppoverOption {
     // TODO
 }
 
-interface BootstrapScrollspyOption {
+export interface ScrollspyOption {
     /**
      * Pixels to offset from top when calculating position of scroll.
      *
@@ -164,7 +166,7 @@ interface BootstrapScrollspyOption {
     offset?: number;
 }
 
-interface BootstrapTooltipOption {
+export interface TooltipOption {
     /**
      * Apply a CSS fade transition to the tooltip.
      *
@@ -189,7 +191,7 @@ interface BootstrapTooltipOption {
      *
      * @default 0
      */
-    delay?: number | BootstrapDelay;
+    delay?: number | Delay;
 
     /**
      * Allow HTML in the tooltip.
@@ -210,7 +212,7 @@ interface BootstrapTooltipOption {
      *
      * @default "top"
      */
-    placement?: BootstrapPlacement | ((this: BootstrapTooltipInstance, tooltip: HTMLElement, trigger: Element) => BootstrapPlacement);
+    placement?: Placement | ((this: TooltipInstance, tooltip: HTMLElement, trigger: Element) => Placement);
 
     /**
      * If a selector is provided, tooltip objects will be delegated to the specified targets.
@@ -280,7 +282,7 @@ interface BootstrapTooltipOption {
 // Events
 // --------------------------------------------------------------------------------------
 
-interface BootstrapCarouselEventHandler<TElement> extends JQuery.Event<TElement, undefined> {
+export interface CarouselEventHandler<TElement> extends JQuery.Event<TElement, undefined> {
     /**
      * The direction in which the carousel is sliding.
      */
@@ -297,51 +299,53 @@ interface BootstrapCarouselEventHandler<TElement> extends JQuery.Event<TElement,
     to: number;
 }
 
-type BootstrapAlertEvent = "close.bs.alert" | "closed.bs.alert";
-type BootstrapCarouselEvent = "slide.bs.carousel" | "slid.bs.carousel";
-type BootstrapCollapseEvent = "show.bs.collapse" | "shown.bs.collapse" | "hide.bs.collapse" | "hidden.bs.collapse";
-type BootstrapDropdownEvent = "show.bs.dropdown" | "shown.bs.dropdown" | "hide.bs.dropdown" | "hidden.bs.dropdown";
-type BootstrapModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" |  "hidden.bs.modal";
-type BootstrapPopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
-type BootstrapScrollspyEvent = "activate.bs.scrollspy";
-type BootstrapTapEvent = "show.bs.tab" | "shown.bs.tab" | "hide.bs.tab" | "hidden.bs.tab";
-type BootstrapTooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" |  "hidden.bs.tooltip" | "inserted.bs.tooltip";
+export type AlertEvent = "close.bs.alert" | "closed.bs.alert";
+export type CarouselEvent = "slide.bs.carousel" | "slid.bs.carousel";
+export type CollapseEvent = "show.bs.collapse" | "shown.bs.collapse" | "hide.bs.collapse" | "hidden.bs.collapse";
+export type DropdownEvent = "show.bs.dropdown" | "shown.bs.dropdown" | "hide.bs.dropdown" | "hidden.bs.dropdown";
+export type ModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" |  "hidden.bs.modal";
+export type PopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
+export type ScrollspyEvent = "activate.bs.scrollspy";
+export type TapEvent = "show.bs.tab" | "shown.bs.tab" | "hide.bs.tab" | "hidden.bs.tab";
+export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" |  "hidden.bs.tooltip" | "inserted.bs.tooltip";
 
 // --------------------------------------------------------------------------------------
 // jQuery
 // --------------------------------------------------------------------------------------
 
-interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
-    alert(action?: "close" | "dispose"): this;
+declare global {
+    interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
+        alert(action?: "close" | "dispose"): this;
 
-    button(action: "toggle" | "dispose"): this;
+        button(action: "toggle" | "dispose"): this;
 
-    carousel(action: "cycle" | "pause" | number | "prev" | "next" | "dispose"): this;
-    carousel(options?: BootstrapCarouselOption): this;
+        carousel(action: "cycle" | "pause" | number | "prev" | "next" | "dispose"): this;
+        carousel(options?: CarouselOption): this;
 
-    collapse(action: "toggle" | "show" | "hide" | "dispose"): this;
-    collapse(options?: BootstrapCollapseOption): this;
+        collapse(action: "toggle" | "show" | "hide" | "dispose"): this;
+        collapse(options?: CollapseOption): this;
 
-    dropdown(action: "toggle" | "update" | "dispose"): this;
-    dropdown(options?: BootstrapDropdownOption): this;
+        dropdown(action: "toggle" | "update" | "dispose"): this;
+        dropdown(options?: DropdownOption): this;
 
-    modal(action: "toggle" | "show" | "hide" | "handleUpdate" | "dispose"): this;
-    modal(options?: BootstrapModalOption): this;
+        modal(action: "toggle" | "show" | "hide" | "handleUpdate" | "dispose"): this;
+        modal(options?: ModalOption): this;
 
-    popover(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
-    popover(options?: BootstrapPoppoverOption): this;
+        popover(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
+        popover(options?: PoppoverOption): this;
 
-    scrollspy(action: "refresh" | "dispose"): this;
-    scrollspy(options?: BootstrapScrollspyOption): this;
+        scrollspy(action: "refresh" | "dispose"): this;
+        scrollspy(options?: ScrollspyOption): this;
 
-    tab(action: "show" | "dispose"): this;
+        tab(action: "show" | "dispose"): this;
 
-    tooltip(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
-    tooltip(options?: BootstrapTooltipOption): this;
+        tooltip(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
+        tooltip(options?: TooltipOption): this;
 
-    on(events: BootstrapCarouselEvent, handler: JQuery.EventHandlerBase<TElement, BootstrapCarouselEventHandler<TElement>>): this;
-    on(events:
-        BootstrapAlertEvent | BootstrapCollapseEvent | BootstrapDropdownEvent | BootstrapModalEvent |
-        BootstrapPopoverEvent | BootstrapScrollspyEvent | BootstrapTapEvent | BootstrapTooltipEvent,
-        handler: JQuery.EventHandler<TElement>): this;
+        on(events: CarouselEvent, handler: JQuery.EventHandlerBase<TElement, CarouselEventHandler<TElement>>): this;
+        on(events:
+            AlertEvent | CollapseEvent | DropdownEvent | ModalEvent |
+            PopoverEvent | ScrollspyEvent | TapEvent | TooltipEvent,
+            handler: JQuery.EventHandler<TElement>): this;
+    }
 }
