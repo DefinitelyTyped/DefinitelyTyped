@@ -8,8 +8,8 @@ export type ObservableProperties<P> = {
 }
 
 export type CSSProperties =
-	& ObservableProperties<csstype.Properties>
-	& ObservableProperties<csstype.PropertiesHyphen>;
+	& ObservableProperties<csstype.Properties<string | number>>
+	& ObservableProperties<csstype.PropertiesHyphen<string | number>>;
 
 export interface JssProps {
 	'@global'?: CSSProperties;
@@ -127,4 +127,4 @@ export interface JssExpand {
 export type JssExpandArr = { [k in keyof JssExpand]?: JssExpand[k] | Array<JssExpand[k]> };
 
 export type SimpleStyle = CSSProperties & JssProps & JssExpandArr;
-export type Style = SimpleStyle | Observable<csstype.PropertiesHyphen>;
+export type Style = SimpleStyle | Observable<csstype.PropertiesHyphen<string | number>>;
