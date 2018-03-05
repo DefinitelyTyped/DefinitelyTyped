@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import * as React from "react";
-import { ReactAsyncSelectProps, OptionValues } from "react-select";
+import { ReactSelectProps, LoadOptionsHandler, OptionValues } from "react-select";
 import { ListProps } from "react-virtualized";
 
 export interface VirtualizedOptionRenderOptions<T> {
@@ -26,11 +26,12 @@ export interface VirtualizedOptionRenderOptions<T> {
  * Dummy interface to allow `VirtualizedSelectProps` to have an `optionRenderer` type
  * incompatible with the one in `ReactSelectProps`.
  */
-interface VirtualizedSelectPropsBase<TValue = OptionValues> extends ReactAsyncSelectProps<TValue> {
+interface VirtualizedSelectPropsBase<TValue = OptionValues> extends ReactSelectProps<TValue> {
     optionRenderer?: any;
 }
 export interface VirtualizedSelectProps<TValue = OptionValues> extends VirtualizedSelectPropsBase<TValue> {
     async?: boolean;
+    loadOptions?: LoadOptionsHandler<TValue>;
     maxHeight?: number;
     optionHeight?: number;
     optionRenderer?(options: VirtualizedOptionRenderOptions<any>): JSX.Element;
