@@ -1,4 +1,4 @@
-// Type definitions for pusher-js 4.2.2
+// Type definitions for pusher-js 4.2
 // Project: https://github.com/pusher/pusher-js
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Lance Ivy <https://github.com/cainlevy>
@@ -19,11 +19,11 @@ declare namespace pusher {
         unsubscribe(name: string): void;
         isEncrypted(): boolean;
         key: string;
-        config: Config; //TODO: add GlobalConfig typings
-        channels: any; //TODO: Type this
+        config: Config; // TODO: add GlobalConfig typings
+        channels: any; // TODO: Type this
         global_emitter: EventsDispatcher;
         sessionID: number;
-        timeline: any; //TODO: Type this
+        timeline: any; // TODO: Type this
         connection: ConnectionManager;
     }
 
@@ -122,8 +122,8 @@ declare namespace pusher {
     }
 
     type Authorizer = (channel: Channel, options: Config) => {
-        authorize: (socketId: string, callback: (errored: boolean, authInfo?: AuthInfo) => void) => void
-    }
+        authorize: (socketId: string, callback: (errored: boolean, authInfo?: AuthInfo) => void) => void;
+    };
 
     type EventCallback = (context: any, data: any) => void;
 
@@ -144,20 +144,18 @@ declare namespace pusher {
         subscribed: boolean;
         /**
          * Authenticates the connection as a member of the channel.
-         * @param  {String} socketId
-         * @param  {Function} callback
          */
         authorize(socketId: string, callback: (data: any) => void): void;
     }
 
     interface ConnectionManager extends EventsDispatcher {
         key: string;
-        options: any; //TODO: Timeline.js
+        options: any; // TODO: Timeline.js
         state: string;
         socket_id: string;
-        connection: any; //TODO: Type this
+        connection: any; // TODO: Type this
         encrypted: boolean;
-        timeline: any; //TODO: Type this
+        timeline: any; // TODO: Type this
         connectionCallbacks: {
             message: (message: string) => void;
             ping: () => void;
@@ -176,7 +174,7 @@ declare namespace pusher {
             refused: () => void;
             backoff: () => void;
             retry: () => void;
-            connected: (handshake: any) => void; //TODO: Type this
+            connected: (handshake: any) => void; // TODO: Type this
         };
         /**
          * Establishes a connection to Pusher.
@@ -187,15 +185,10 @@ declare namespace pusher {
         connect(): void;
         /**
          * Sends raw data.
-         * @param {String} data
          */
         send(data: string): boolean;
-        /** Sends an event.
-         *
-         * @param {String} name
-         * @param {String} data
-         * @param {String} [channel]
-         * @returns {Boolean} whether message was sent or not
+        /**
+         * Sends an event.
          */
         send_event(name: string, data: string, channel: string): boolean;
         /** Closes the connection. */
@@ -212,15 +205,10 @@ declare namespace pusher {
          * Returns member's info for given id.
          *
          * Resulting object containts two fields - id and info.
-         *
-         * @param {String} id
-         * @return {Object} member's info or null
          */
         get(id: string): null | T;
         /**
          * Calls back for each member in unspecified order.
-         *
-         * @param  {Function} callback
          */
         each(callback: (member: Member<T>) => void): void;
         members: { [id: string]: Member<T> };
