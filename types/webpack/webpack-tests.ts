@@ -1,5 +1,5 @@
 import webpack = require('webpack');
-import Tapable = require('tapable');
+import { Tapable } from 'tapable';
 import { RawSourceMap } from 'source-map';
 
 const {
