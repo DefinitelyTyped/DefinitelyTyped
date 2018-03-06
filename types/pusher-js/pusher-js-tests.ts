@@ -2,39 +2,50 @@
 import Pusher = require('pusher-js');
 import { PresenceChannel } from "pusher-js";
 
-var API_KEY: string;
+var APP_KEY: string;
 var pusher: Pusher.Pusher;
 
 //
 // Configuration
 //
 
-pusher = new Pusher(API_KEY, {
+pusher = new Pusher(APP_KEY, {
     authEndpoint: "http://example.com/pusher/auth"
 });
 
-pusher = new Pusher(API_KEY, {
+pusher = new Pusher(APP_KEY, {
     auth: {
         params: { foo: "bar" },
         headers: { baz: "boo" }
     }
 });
 
-pusher = new Pusher(API_KEY, {
+pusher = new Pusher(APP_KEY, {
     auth: {
         params: { foo: "bar" },
         headers: { "X-CSRF-Token": "SOME_CSRF_TOKEN" }
     }
 });
 
-pusher = new Pusher(API_KEY, { cluster: "eu" });
+pusher = new Pusher(APP_KEY, {
+    authorizer: function (channel, options) {
+        return {
+        authorize: function (socketId, callback) {
+            // Do some ajax to get the auth information
+            var authInformation = {"auth": "hash"};
+            callback(false, authInformation);
+        }
+        };
+    }
+})
+pusher = new Pusher(APP_KEY, { cluster: "eu" });
 
-pusher = new Pusher(API_KEY, { enabledTransports: ["ws"] });
+pusher = new Pusher(APP_KEY, { enabledTransports: ["ws"] });
 
-pusher = new Pusher(API_KEY, { disabledTransports: ["sockjs"] });
+pusher = new Pusher(APP_KEY, { disabledTransports: ["sockjs"] });
 
 // will only use WebSockets
-pusher = new Pusher(API_KEY, {
+pusher = new Pusher(APP_KEY, {
     enabledTransports: ["ws", "xhr_streaming"],
     disabledTransports: ["xhr_streaming"]
 });
@@ -44,47 +55,68 @@ pusher = new Pusher(API_KEY, {
 //
 
 var socket: Pusher.Pusher;
-var my_channel: Pusher.Channel;
-var channels: Pusher.Channel[];
+var channel: Pusher.Channel;
 
-socket = new Pusher(API_KEY);
+socket = new Pusher(APP_KEY);
+
+socket.disconnect();
+
 
 //
 // Subscribing to channels
 //
 
-my_channel = socket.subscribe('my-channel');
+channel = socket.subscribe('my-channel');
 
-my_channel = socket.subscribe('private-my-channel');
+channel = socket.subscribe('private-my-channel');
 
-channels = socket.allChannels();
-console.group('Pusher - subscribed to:');
-for (var i = 0; i < channels.length; i++) {
-    var channel = channels[i];
-    console.log(channel.name);
-}
-console.groupEnd();
+socket.allChannels().forEach(channel => console.log(channel.name));
 
-my_channel = socket.subscribe('my-channel');
-socket.bind('new-comment',
-    function(data: any) {
-        // add comment into page
-    }
-);
+//
+// Unsubscribing from channels
+//
 
-var channel: Pusher.Channel;
+socket.unsubscribe('my-channel');
 
-var context = { title: 'Pusher' };
-var handler = function(){
-    console.log('My name is ' + this.title);
-};
-channel.bind('new-comment', handler, context);
+socket.unsubscribe('private-my-channel');
 
-channel.unbind('new-comment', handler); // removes just `handler` for the `new-comment` event
-channel.unbind('new-comment'); // removes all handlers for the `new-comment` event
-channel.unbind(null, handler); // removes `handler` for all events
-channel.unbind(null, null, context); // removes all handlers for `context`
-channel.unbind(); // removes all handlers on `channel`
+//
+// Binding to events
+//
+
+channel.bind('new-message', function (data) {
+    console.log(data.message);
+});
+
+channel.bind('my-event', function () {
+    console.log(`hi ${this.name}`);
+}, { name: 'Pusher' });
+
+channel.unbind('new-comment', console.log);
+
+channel.unbind('new-comment');
+
+channel.unbind(null, console.log);
+
+channel.unbind(null, null, context);
+
+channel.unbind();
+
+channel.bind_global(function (event, data) {
+    console.log(`The event ${event} was triggered with data ${data}`);
+});
+
+channel.unbind_global(console.log);
+
+channel.unbind_global();
+
+channel.unbind_all();
+
+//
+// Connection Events
+//
+
+socket.connection.bind('connected', console.log);
 
 
 //
@@ -110,11 +142,11 @@ var options: Pusher.Config;
 var channelName: string;
 var privateChannelName: string;
 var presenceChannelName: string;
-var add_member: Function;
-var remove_member: Function;
-var update_member_count: Function;
+var add_member: (ctx: any, data?: any) => void;
+var remove_member: (ctx: any, data?: any) => void;
+var update_member_count: (ctx: any, data?: any) => void;
 var eventName: string;
-var callback: Function;
+var callback: (ctx: any, data?: any) => void;
 var applicationKey: string;
 var log: Function;
 var $: any;
@@ -209,12 +241,12 @@ var presenceChannel: PresenceChannel<any> = <any>pusher.subscribe(presenceChanne
 
 var count: number = presenceChannel.members.count;
 
-presenceChannel.members.each(function(member: Pusher.UserInfo<any>) {
+presenceChannel.members.each(function(member) {
     var userId = member.id;
     var userInfo = member.info;
 });
 
-var some_user_id: number;
+var some_user_id: string;
 var user = presenceChannel.members.get(some_user_id);
 
 var me = presenceChannel.members.me;
@@ -239,12 +271,12 @@ channel.bind('pusher:subscription_succeeded', function(members: Pusher.Members<a
     });
 });
 
-channel.bind('pusher:member_added', function(member: Pusher.UserInfo<any>) {
+channel.bind('pusher:member_added', function(member: Pusher.Member<any>) {
     // for example:
     add_member(member.id, member.info);
 });
 
-channel.bind('pusher:member_removed', function(member: Pusher.UserInfo<any>) {
+channel.bind('pusher:member_removed', function(member: Pusher.Member<any>) {
     // for example:
     remove_member(member.id, member.info);
 });
