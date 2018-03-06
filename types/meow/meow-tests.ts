@@ -14,6 +14,7 @@ const cli = meow('Help text', {
 });
 
 const input: string = cli.input[0];
+const version: string = cli.pkg.version;
 
 const cli2 = meow('Help text');
 

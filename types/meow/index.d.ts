@@ -31,7 +31,7 @@ declare namespace meow {
     interface Result {
         input: string[];
         flags: { [name: string]: any };
-        pkg: object;
+        pkg: any;
         help: string;
         showHelp(code?: number): void;
         showVersion(): void;
