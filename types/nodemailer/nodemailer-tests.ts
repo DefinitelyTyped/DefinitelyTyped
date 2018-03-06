@@ -791,7 +791,8 @@ function stream_buffer_unix_newlines_test() {
     const transporter = nodemailer.createTransport({
         streamTransport: true,
         newline: 'unix',
-        buffer: true
+        buffer: true,
+        normalizeHeaderKey: (key) => key.toUpperCase()
     });
     transporter.sendMail({
         from: 'sender@example.com',

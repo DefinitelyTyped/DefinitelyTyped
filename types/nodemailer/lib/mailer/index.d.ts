@@ -135,6 +135,8 @@ declare namespace Mail {
         disableFileAccess?: boolean;
         /** is an object with DKIM options */
         dkim?: DKIM.Options;
+        /** method to normalize header keys for custom caseing */
+        normalizeHeaderKey?(key: string): string;
     }
 
     type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;
