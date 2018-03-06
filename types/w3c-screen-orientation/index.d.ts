@@ -9,7 +9,7 @@ type ScreenOrientationLockType = "any" | "natural" | "landscape" | "portrait" | 
 interface ScreenOrientation extends EventTarget {
     lock(orientation: ScreenOrientationLockType): Promise<void>;
     unlock(): void;
-    readonly type: ScreenOrientationLockType;
+    readonly type: OrientationType;
     readonly angle: number;
     addEventListener(type: "change", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 }
