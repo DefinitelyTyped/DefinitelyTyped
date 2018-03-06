@@ -1,5 +1,6 @@
 import {
     BBox,
+    GeoJsonObject, Position,
     Feature, FeatureCollection, GeometryCollection, LineString,
     MultiLineString, MultiPoint, MultiPolygon, Point, Polygon, GeometryObject
 } from "geojson";
@@ -129,7 +130,7 @@ const geometryCollection: GeometryCollection = {
     ]
 };
 
-let feature: Feature<GeometryObject> = {
+let feature: Feature = {
     type: "Feature",
     geometry: lineString,
     properties: null
@@ -244,7 +245,38 @@ const typedPropertiesFeature: Feature<Point> = {
     }
 };
 
+const typedPropertiesFeatureDefault: Feature = {
+    type: "Feature",
+    properties: testProps,
+    geometry: {
+        type: "Polygon",
+        coordinates: [
+            [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]
+        ]
+    }
+};
+
 const typedPropertiesFeatureCollection: FeatureCollection<Point> = {
     type: "FeatureCollection",
     features: [typedPropertiesFeature]
+};
+
+const typedPropertiesFeatureCollectionDefault: FeatureCollection = {
+    type: "FeatureCollection",
+    features: [typedPropertiesFeature, typedPropertiesFeatureDefault]
+};
+
+export const extractCoordsFromGeoJSON = (geojson: GeoJsonObject): Position[][][][] => {
+    switch (geojson.type) {
+        case 'GeometryCollection':
+            return geojson.geometries.map(extractCoordsFromGeoJSON);
+        case 'Feature':
+            return extractCoordsFromGeoJSON(geojson.geometry);
+        case 'FeatureCollection':
+            return geojson.features.map(extractCoordsFromGeoJSON);
+        case 'Polygon':
+            return [[geojson.coordinates.slice(0, 2)]];
+        case 'MultiPolygon':
+            return [geojson.coordinates.slice(0, 2)];
+    }
 };

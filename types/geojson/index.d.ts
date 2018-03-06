@@ -40,14 +40,15 @@ export type BBox = [number, number, number, number] | [number, number, number, n
 export type Position = number[]; // [number, number] | [number, number, number];
 
 /**
- * The base GeoJSON object.
+ * The base GeoJSON interface extended by most of the interfaces
+ * See GeoJsonObject at the end of the file for a stricter type
  * https://tools.ietf.org/html/rfc7946#section-3
  * The GeoJSON specification also allows foreign members
  * (https://tools.ietf.org/html/rfc7946#section-6.1)
  * Developers should use "&" type in TypeScript or extend the interface
  * to add these foreign members.
  */
-export interface GeoJsonObject {
+export interface BaseGeoJsonObject {
     // Don't include foreign members directly into this type def.
     // in order to preserve type safety.
     // [key: string]: any;
@@ -63,10 +64,11 @@ export interface GeoJsonObject {
 }
 
 /**
- * A geometry object.
+ * Base interface for geometry objects.
+ * See also the GeometryObject type below
  * https://tools.ietf.org/html/rfc7946#section-3
  */
-export interface GeometryObject extends GeoJsonObject {
+export interface BaseGeometryObject extends BaseGeoJsonObject {
     type: GeoJsonGeometryTypes;
 }
 
@@ -74,7 +76,7 @@ export interface GeometryObject extends GeoJsonObject {
  * Point geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.2
  */
-export interface Point extends GeometryObject {
+export interface Point extends BaseGeometryObject {
     type: "Point";
     coordinates: Position;
 }
@@ -83,7 +85,7 @@ export interface Point extends GeometryObject {
  * MultiPoint geometry object.
  *  https://tools.ietf.org/html/rfc7946#section-3.1.3
  */
-export interface MultiPoint extends GeometryObject {
+export interface MultiPoint extends BaseGeometryObject {
     type: "MultiPoint";
     coordinates: Position[];
 }
@@ -92,7 +94,7 @@ export interface MultiPoint extends GeometryObject {
  * LineString geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.4
  */
-export interface LineString extends GeometryObject {
+export interface LineString extends BaseGeometryObject {
     type: "LineString";
     coordinates: Position[];
 }
@@ -101,7 +103,7 @@ export interface LineString extends GeometryObject {
  * MultiLineString geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.5
  */
-export interface MultiLineString extends GeometryObject {
+export interface MultiLineString extends BaseGeometryObject {
     type: "MultiLineString";
     coordinates: Position[][];
 }
@@ -110,7 +112,7 @@ export interface MultiLineString extends GeometryObject {
  * Polygon geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.6
  */
-export interface Polygon extends GeometryObject {
+export interface Polygon extends BaseGeometryObject {
     type: "Polygon";
     coordinates: Position[][];
 }
@@ -119,7 +121,7 @@ export interface Polygon extends GeometryObject {
  * MultiPolygon geometry object.
  * https://tools.ietf.org/html/rfc7946#section-3.1.7
  */
-export interface MultiPolygon extends GeometryObject {
+export interface MultiPolygon extends BaseGeometryObject {
     type: "MultiPolygon";
     coordinates: Position[][][];
 }
@@ -128,10 +130,16 @@ export interface MultiPolygon extends GeometryObject {
  * Geometry Collection
  * https://tools.ietf.org/html/rfc7946#section-3.1.8
  */
-export interface GeometryCollection extends GeometryObject {
+export interface GeometryCollection extends BaseGeometryObject {
     type: "GeometryCollection";
     geometries: Array<Point | LineString | Polygon | MultiPoint | MultiLineString | MultiPolygon>;
 }
+
+/**
+ * A geometry object.
+ * https://tools.ietf.org/html/rfc7946#section-3
+ */
+export type GeometryObject = GeometryCollection | LineString | MultiLineString | MultiPoint | MultiPolygon | Point | Polygon;
 
 export type GeoJsonProperties = { [name: string]: any; } | null;
 
@@ -139,7 +147,7 @@ export type GeoJsonProperties = { [name: string]: any; } | null;
  * A feature object which contains a geometry and associated properties.
  * https://tools.ietf.org/html/rfc7946#section-3.2
  */
-export interface Feature<G extends GeometryObject, P = GeoJsonProperties> extends GeoJsonObject {
+export interface Feature<G extends GeometryObject = GeometryObject, P = GeoJsonProperties> extends BaseGeoJsonObject {
     type: "Feature";
     /**
      * The feature's geometry
@@ -160,7 +168,17 @@ export interface Feature<G extends GeometryObject, P = GeoJsonProperties> extend
  * A collection of feature objects.
  *  https://tools.ietf.org/html/rfc7946#section-3.3
  */
-export interface FeatureCollection<G extends GeometryObject, P = GeoJsonProperties> extends GeoJsonObject {
+export interface FeatureCollection<G extends GeometryObject = GeometryObject, P = GeoJsonProperties> extends BaseGeoJsonObject {
     type: "FeatureCollection";
     features: Array<Feature<G, P>>;
 }
+
+/**
+ * GeoJSON object to be used when accepting aribtrary GeoJSON
+ * https://tools.ietf.org/html/rfc7946#section-3
+ * The GeoJSON specification also allows foreign members
+ * (https://tools.ietf.org/html/rfc7946#section-6.1)
+ * Developers should use "&" type in TypeScript or extend the interface
+ * to add these foreign members.
+ */
+export type GeoJsonObject = GeometryObject | Feature | FeatureCollection;

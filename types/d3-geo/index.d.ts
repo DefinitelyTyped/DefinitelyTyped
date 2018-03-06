@@ -47,7 +47,7 @@ export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObje
  * A GeoJSON-style Feature which support features built on GeoJSON GeometryObjects
  * or GeoSphere
  */
-export interface ExtendedFeature<GeometryType extends GeoGeometryObjects, Properties> extends GeoJSON.GeoJsonObject {
+export interface ExtendedFeature<GeometryType extends GeoGeometryObjects, Properties> extends GeoJSON.BaseGeoJsonObject {
     geometry: GeometryType;
     properties: Properties;
     id?: string | number;
@@ -57,7 +57,7 @@ export interface ExtendedFeature<GeometryType extends GeoGeometryObjects, Proper
  * A GeoJSON-style FeatureCollection which supports GeoJSON features
  * and features built on GeoSphere
  */
-export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature<GeoGeometryObjects, any>> extends GeoJSON.GeoJsonObject {
+export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature<GeoGeometryObjects, any>> extends GeoJSON.BaseGeoJsonObject {
     features: FeatureType[];
 }
 
