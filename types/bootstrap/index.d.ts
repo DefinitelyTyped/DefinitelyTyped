@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// TODO: popovers options
-
 /// <reference types="popper.js" />
 /// <reference types="jquery"/>
 
@@ -17,13 +15,17 @@ export as namespace Bootstrap;
 
 export type Placement = "auto" | "top" | "bottom" | "left" | "right";
 
+export type Trigger = "click" | "hover" | "focus" | "manual" |
+    "click hover" | "click focus" | "hover focus" |
+    "click hover focus";
+
 export interface Delay {
     show: number;
     hide: number;
 }
 
-export interface TooltipInstance {
-    config: TooltipOption;
+export interface TooltipInstance<T extends TooltipOption> {
+    config: T;
     element: Element;
     tip: HTMLElement;
 }
@@ -146,15 +148,13 @@ export interface ModalOption {
     show?: boolean;
 }
 
-export interface PoppoverOption {
+export interface PopoverOption extends TooltipOption {
     /**
-     * Apply a CSS fade transition to the popover.
-     *
-     * @default true
+     * Default content value if data-content attribute isn't present.
+     * If a function is given, it will be called with its this reference
+     * set to the element that the popover is attached to.
      */
-    animation: boolean;
-
-    // TODO
+    content?: string | Element | ((this: Element) => string | Element);
 }
 
 export interface ScrollspyOption {
@@ -168,24 +168,24 @@ export interface ScrollspyOption {
 
 export interface TooltipOption {
     /**
-     * Apply a CSS fade transition to the tooltip.
+     * Apply a CSS fade transition to the tooltip or popover.
      *
      * @default true
      */
     animation?: boolean;
 
     /**
-     * Appends the tooltip to a specific element. Example: `container: 'body'`.
-     * This option is particularly useful in that it allows you to position the tooltip
+     * Appends the tooltip or popover to a specific element. Example: `container: 'body'`.
+     * This option is particularly useful in that it allows you to position the tooltip or popover
      * in the flow of the document near the triggering element - which will prevent
-     * the tooltip from floating away from the triggering element during a window resize.
+     * it from floating away from the triggering element during a window resize.
      *
      * @default false
      */
     container?: string | Element | false;
 
     /**
-     * Delay showing and hiding the tooltip (ms) - does not apply to manual trigger type.
+     * Delay showing and hiding the tooltip or popover (ms) - does not apply to manual trigger type.
      * If a number is supplied, delay is applied to both hide/show.
      * Object structure is: `delay: { "show": 500, "hide": 100 }`.
      *
@@ -194,8 +194,8 @@ export interface TooltipOption {
     delay?: number | Delay;
 
     /**
-     * Allow HTML in the tooltip.
-     * If true, HTML tags in the tooltip's title will be rendered in the tooltip.
+     * Allow HTML in the tooltip or popover.
+     * If true, HTML tags will be rendered in the tooltip or popover.
      * If false, jQuery's text method will be used to insert content into the DOM.
      * Use text if you're worried about XSS attacks.
      *
@@ -204,18 +204,18 @@ export interface TooltipOption {
     html?: boolean;
 
     /**
-     * How to position the tooltip - auto | top | bottom | left | right.
-     * When auto is specified, it will dynamically reorient the tooltip.
+     * How to position the tooltip or popover - auto | top | bottom | left | right.
+     * When auto is specified, it will dynamically reorient the tooltip or popover.
      * When a function is used to determine the placement, it is called with
-     * the tooltip DOM node as its first argument and the triggering element DOM node as its second.
-     * The this context is set to the tooltip instance.
+     * the tooltip or popover DOM node as its first argument and the triggering element DOM node as its second.
+     * The this context is set to the tooltip or popover instance.
      *
      * @default "top"
      */
-    placement?: Placement | ((this: TooltipInstance, tooltip: HTMLElement, trigger: Element) => Placement);
+    placement?: Placement | ((this: TooltipInstance<this>, node: HTMLElement, trigger: Element) => Placement);
 
     /**
-     * If a selector is provided, tooltip objects will be delegated to the specified targets.
+     * If a selector is provided, tooltip or popover objects will be delegated to the specified targets.
      * In practice, this is used to enable dynamic HTML content to have popovers added.
      *
      * @default false
@@ -223,41 +223,40 @@ export interface TooltipOption {
     selector?: string | false;
 
     /**
-     * Base HTML to use when creating the tooltip. The tooltip's title will be injected into
-     * the `.tooltip-inner`. The `.arrow` will become the tooltip's arrow.
-     * The outermost wrapper element should have the `.tooltip` class and `role="tooltip"`.
+     * Base HTML to use when creating the tooltip or popover. The tooltip's (resp., popover's) title will be injected into
+     * the `.tooltip-inner` (resp., `.popover-header`). The `.arrow` will become the tooltip's (resp., popover's) arrow.
+     * The outermost wrapper element should have the `.tooltip` (resp., .popover) class and `role="tooltip"`.
      *
      * @default '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+     * @default '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
      */
     template?: string;
 
     /**
      * Default title value if title attribute isn't present.
      * If a function is given, it will be called with its this reference set to the element
-     * that the tooltip is attached to.
+     * that the tooltip or popover is attached to.
      *
      * @default ""
      */
-    title?: string | Element | ((this: Element) => string);
+    title?: string | Element | ((this: Element) => string | Element);
 
     /**
-     * How tooltip is triggered - click | hover | focus | manual. You may pass multiple triggers; separate them with a space.
-     * 'manual' indicates that the tooltip will be triggered programmatically via the .tooltip('show'), .tooltip('hide') and
-     * .tooltip('toggle') methods; this value cannot be combined with any other trigger.
-     * 'hover' on its own will result in tooltips that cannot be triggered via the keyboard, and should only be used if
-     * alternative methods for conveying the same information for keyboard users is present.
+     * How tooltip or popover is triggered - click | hover | focus | manual. You may pass multiple triggers; separate them with a space.
+     * 'manual' indicates that the tooltip will be triggered programmatically; this value cannot be combined with any other trigger.
+     * 'hover' should only be used if alternative methods for conveying the same information for keyboard users is present.
      *
-     * @default "hover focus"
+     * @default tooltip: "hover focus", popover: "click"
      */
-    trigger?: string;
+    trigger?: Trigger;
 
     /**
-     * Offset of the tooltip relative to its target.
+     * Offset of the tooltip or popover relative to its target.
      * For more information refer to Popper.js's offset docs.
      *
      * @default 0
      */
-     offset?: number | string;
+    offset?: number | string;
 
     /**
      * Allow to specify which position Popper will use on fallback.
@@ -268,7 +267,7 @@ export interface TooltipOption {
     fallbackPlacement?: Popper.Behavior | ReadonlyArray<Popper.Behavior>;
 
     /**
-     * Overflow constraint boundary of the tooltip.
+     * Overflow constraint boundary of the tooltip or popover.
      * Accepts the values of 'viewport', 'window', 'scrollParent',
      * or an HTMLElement reference (JavaScript only).
      * For more information refer to Popper.js's preventOverflow docs.
@@ -332,7 +331,7 @@ declare global {
         modal(options?: ModalOption): this;
 
         popover(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
-        popover(options?: PoppoverOption): this;
+        popover(options?: PopoverOption): this;
 
         scrollspy(action: "refresh" | "dispose"): this;
         scrollspy(options?: ScrollspyOption): this;

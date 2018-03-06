@@ -142,14 +142,38 @@ $("#modal").modal({
 // --------------------------------------------------------------------------------------
 
 // $ExpectType JQuery<HTMLElement>
-$("#scrollspy").popover();
+$("#popover").popover();
 
 // $ExpectType JQuery<HTMLElement>
-$("#scrollspy").popover("toggle");
+$("#popover").popover("toggle");
 
-$("#scrollspy").on("activate.bs.scrollspy", () => {});
+$("#popover").on("show.bs.popover", () => {});
 
-// TODO: test popover with options
+$("#popover").popover({});
+
+$("#popover").popover({
+    animation: false,
+    container: "#container",
+    delay: {show: 500, hide: 100},
+    html: true,
+    placement: "auto",
+    selector: "[rel=\"popover\"]",
+    template: '<div class="popover empty" role="popover"></div>',
+    title: "Hello world",
+    trigger: "hover focus",
+    offset: 10,
+    fallbackPlacement: ["flip", "clockwise"],
+    boundary: "scrollParent",
+});
+
+$("#popover").popover({
+    placement(this, popover, trigger) {
+        console.log(this.tip === popover);
+        console.log(this.element === trigger);
+        console.log(this.config.content);
+        return "left";
+    },
+});
 
 // --------------------------------------------------------------------------------------
 // Scrollspy
@@ -233,6 +257,14 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
+    placement(this, tooltip, trigger) {
+        // $ExpectError
+        console.log(this.config.content); // only for PopoverOption, not TooltipOption
+        return "left";
+    },
+});
+
+$("#tooltip").tooltip({
     selector: "[rel=\"tooltip\"]",
 });
 
@@ -259,7 +291,7 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    trigger: "focus hover",
+    trigger: "hover focus",
 });
 
 $("#tooltip").tooltip({
