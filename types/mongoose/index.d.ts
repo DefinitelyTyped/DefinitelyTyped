@@ -1,12 +1,12 @@
 // Type definitions for Mongoose 5.0.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>
-//                 horiuchi <https://github.com/horiuchi>
+// Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 Alorel <https://github.com/Alorel>
 //                 jendrikw <https://github.com/jendrikw>
 //                 Ethan Resnick <https://github.com/ethanresnick>
+//                 vologa <https://github.com/vologab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2626,9 +2626,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<void>;
-    deleteOne(conditions: any, callback?: (err: any) => void): Query<void>;
-    deleteMany(conditions: any, callback?: (err: any) => void): Query<void>;
+    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
+    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
+    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']>;
 
     /**
      * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
