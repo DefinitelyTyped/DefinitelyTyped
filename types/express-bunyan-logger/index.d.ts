@@ -2,6 +2,7 @@
 // Project: https://github.com/villadora/express-bunyan-logger
 // Definitions by: Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import Bunyan = require('bunyan');
 import express = require('express');
