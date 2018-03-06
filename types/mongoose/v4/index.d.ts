@@ -1600,12 +1600,12 @@ declare module "mongoose" {
     findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(update: any,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
-    findOneAndUpdate(query: any | Query<any>, update: any,
+    findOneAndUpdate(query: any, update: any,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
-    findOneAndUpdate(query: any | Query<any>, update: any,
+    findOneAndUpdate(query: any, update: any,
       options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType, res: any) => void): DocumentQuery<DocType, DocType>;
-    findOneAndUpdate(query: any | Query<any>, update: any, options: QueryFindOneAndUpdateOptions,
+    findOneAndUpdate(query: any, update: any, options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
