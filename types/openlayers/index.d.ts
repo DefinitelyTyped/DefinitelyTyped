@@ -13517,7 +13517,8 @@ declare module olx {
          *            tileUrlFunction: (ol.TileUrlFunctionType|undefined),
          *            url: (string|undefined),
          *            urls: (Array.<string>|undefined),
-         *            wrapX: (boolean|undefined)}}
+         *            wrapX: (boolean|undefined),
+         *            transition: (number|undefined)}}
          */
         interface TileImageOptions {
             attributions?: ol.AttributionLike;
@@ -13536,6 +13537,7 @@ declare module olx {
             url?: string;
             urls?: string[];
             wrapX?: boolean;
+            transition?: number;
         }
 
         /**
@@ -13806,8 +13808,9 @@ declare module olx {
          *     reprojectionErrorThreshold: (number|undefined),
          *     tileLoadFunction: (ol.TileLoadFunctionType|undefined),
          *     url: (string|undefined),
-         *     urls: (Array.<string>|undefined),
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     transition: (number|undefined),
+         *     urls: (Array.<string>|undefined)}}
          */
         interface TileArcGISRestOptions {
             attributions?: ol.AttributionLike;
@@ -13821,6 +13824,7 @@ declare module olx {
             tileLoadFunction?: ol.TileLoadFunctionType;
             url?: string;
             wrapX?: boolean;
+            transition?: number;
             urls?: string[];
         }
 
@@ -13832,7 +13836,8 @@ declare module olx {
          *     reprojectionErrorThreshold: (number|undefined),
          *     tileLoadFunction: (ol.TileLoadFunctionType|undefined),
          *     url: string,
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     transition: (number|undefined)}}
          */
         interface TileJSONOptions {
             attributions?: ol.AttributionLike;
@@ -13843,6 +13848,7 @@ declare module olx {
             tileLoadFunction?: ol.TileLoadFunctionType;
             url: string;
             wrapX?: boolean;
+            transition?: number;
         }
 
         /**
@@ -13860,7 +13866,8 @@ declare module olx {
          *     tileLoadFunction: (ol.TileLoadFunctionType|undefined),
          *     url: (string|undefined),
          *     urls: (Array.<string>|undefined),
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     transition: (number|undefined)}}
          */
         interface TileWMSOptions {
             attributions?: ol.AttributionLike;
@@ -13878,6 +13885,7 @@ declare module olx {
             url?: string;
             urls?: string[];
             wrapX?: boolean;
+            transition?: number;
         }
 
         /**
