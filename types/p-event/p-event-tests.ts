@@ -8,14 +8,14 @@ class MyEmitter extends events.EventEmitter {
 }
 
 class MyDomEmitter implements EventTarget {
-    addEventListener(type: 'foo', listener?: EventListenerOrEventListenerObject): void {
+    addEventListener(type: 'foo', listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
     }
 
     dispatchEvent(event: Event): boolean {
         return false;
     }
 
-    removeEventListener(type: 'foo', listener?: EventListenerOrEventListenerObject): void {
+    removeEventListener(type: 'foo', listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
     }
 }
 
