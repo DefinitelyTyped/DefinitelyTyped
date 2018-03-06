@@ -10,6 +10,7 @@ import MailComposer = require('nodemailer/lib/mail-composer');
 import MailMessage = require('nodemailer/lib/mailer/mail-message');
 import mimeFuncs = require('nodemailer/lib/mime-funcs');
 import mimeTypes = require('nodemailer/lib/mime-funcs/mime-types');
+import MimeNode = require('nodemailer/lib/mime-node');
 import qp = require('nodemailer/lib/qp');
 import SendmailTransport = require('nodemailer/lib/sendmail-transport');
 import SESTransport = require('nodemailer/lib/ses-transport');
@@ -1203,6 +1204,50 @@ function mime_funcs_test() {
 
     mimeFuncs.foldLines('Testin command line', 76, true);
     mimeFuncs.foldLines('Testin command line', 76);
+}
+
+// mime-node
+
+function mime_node_test() {
+    const mb = new MimeNode('text/plain', {
+        normalizeHeaderKey: (key) => key.toUpperCase()
+    });
+
+    const child = mb.createChild('multipart/mixed');
+    mb.appendChild(child);
+    child.replace(child);
+
+    mb.setHeader('key', 'value');
+    const value: string = mb.getHeader('key');
+
+    mb.addHeader({
+        key: 'value4',
+        key2: 'value5'
+    });
+
+    mb.setHeader([
+        {
+            key: 'key',
+            value: 'value2'
+        },
+        {
+            key: 'key2',
+            value: 'value3'
+        }
+    ]);
+
+    mb.setHeader('key', ['value1', 'value2', 'value3']);
+
+    mb.setContent('abc');
+
+    mb.build((err, msg) => {
+        const msgAsString: string = msg.toString();
+    });
+
+    mb.processFunc((input) => {
+        const isReadable: boolean = input.readable;
+        return input;
+    });
 }
 
 // mime-types
