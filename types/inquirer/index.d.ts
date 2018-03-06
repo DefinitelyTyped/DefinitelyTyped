@@ -3,7 +3,9 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
 //                 Jouderian <https://github.com/jouderianjr>
+//                 Jason Dreyzehner <https://github.com/bitjson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="rx" />
 
@@ -12,7 +14,10 @@ import through = require('through');
 declare namespace inquirer {
     type Prompts = { [name: string]: PromptModule };
     type ChoiceType = string | objects.ChoiceOption | objects.Separator;
-    type Questions = Question | Question[] | Rx.Observable<Question>;
+    type Questions =
+        | Question
+        | ReadonlyArray<Question>
+        | Rx.Observable<Question>;
 
     interface Inquirer {
         restoreDefaultPrompts(): void;
@@ -39,7 +44,7 @@ declare namespace inquirer {
         ui: {
             BottomBar: ui.BottomBar;
             Prompt: ui.Prompt;
-        }
+        };
     }
 
     interface PromptModule {
@@ -91,7 +96,9 @@ declare namespace inquirer {
          * Array values can be simple strings, or objects containing a name (to display) and a value properties
          * (to save in the answers hash). Values can also be a Separator.
          */
-        choices?: ChoiceType[] | ((answers: Answers) => ChoiceType[]);
+        choices?:
+            | ReadonlyArray<ChoiceType>
+            | ((answers: Answers) => ReadonlyArray<ChoiceType>);
         /**
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
@@ -247,9 +254,12 @@ declare namespace inquirer {
          * @param choices  All `choice` to keep in the collection
          */
         interface Choices {
-            new (choices: (string | Separator | ChoiceOption)[], answers?: Answers): Choices;
-            choices: Choice[];
-            realChoices: Choice[];
+            new (
+                choices: ReadonlyArray<string | Separator | ChoiceOption>,
+                answers?: Answers
+            ): Choices;
+            choices: ReadonlyArray<Choice>;
+            realChoices: ReadonlyArray<Choice>;
             length: number;
             realLength: number;
             /**
