@@ -2,7 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Application as FeathersApplication } from '@feathersjs/feathers';
 import * as express from 'express';

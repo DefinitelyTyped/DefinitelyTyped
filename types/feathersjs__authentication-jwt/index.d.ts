@@ -2,7 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Application } from '@feathersjs/feathers';
 import { Request } from 'express';
@@ -45,7 +45,7 @@ export interface FeathersAuthenticationJWTOptions {
 }
 
 export class JWTVerifier {
-    constructor(app: Application<any>, options: any); // the class constructor
+    constructor(app: Application, options: any); // the class constructor
 
     verify(req: Request, payload: any, done: (error: any, user?: any, info?: any) => void): void;
 }
