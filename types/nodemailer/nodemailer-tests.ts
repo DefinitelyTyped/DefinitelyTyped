@@ -1090,7 +1090,11 @@ function base64_test() {
 // fetch
 
 function fetch_test() {
-    fetch('http://localhost/');
+    const stream = fetch('http://localhost/');
+
+    const statusCode: number = stream.statusCode;
+    const headers = stream.headers;
+    const contentType: string | undefined = headers['content-type'];
 
     fetch('http://localhost:/', {
         allowErrorResponse: true,
