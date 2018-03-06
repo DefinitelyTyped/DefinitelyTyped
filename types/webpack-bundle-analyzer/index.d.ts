@@ -2,7 +2,7 @@
 // Project: https://github.com/th0r/webpack-bundle-analyzer
 // Definitions by: Michael Strobel <https://github.com/kryops>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as webpack from 'webpack';
 

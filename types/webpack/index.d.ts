@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.1.0
+// Type definitions for webpack 4.1
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -12,7 +12,7 @@
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -617,7 +617,7 @@ declare namespace webpack {
         hasRuntime(): boolean;
         canBeInitial(): boolean;
         isOnlyInitial(): boolean;
-        hasEntryModule() : boolean;
+        hasEntryModule(): boolean;
 
         addModule(module: any): boolean;
         removeModule(module: any): boolean;
@@ -646,10 +646,13 @@ declare namespace webpack {
         modulesSize(): number;
         size(options: any): number;
         integratedSize(otherChunk: any, options: any): number;
+        // tslint:disable-next-line:ban-types
         sortModules(sortByFn: Function): void;
         getAllAsyncChunks(): Set<any>;
         getChunkMaps(realHash: any): { hash: any, name: any };
+        // tslint:disable-next-line:ban-types
         getChunkModuleMaps(filterFn: Function): { id: any, hash: any };
+        // tslint:disable-next-line:ban-types
         hasModuleInGraph(filterFn: Function, filterChunkFn: Function): boolean;
         toString(): string;
     }
@@ -658,7 +661,7 @@ declare namespace webpack {
         constructor();
         getResourceIdentifier(): any;
         getReference(): any;
-        getExports() : any;
+        getExports(): any;
         getWarnings(): any;
         getErrors(): any;
         updateHash(hash: any): void;
@@ -810,7 +813,7 @@ declare namespace webpack {
         module: Tapable.SyncWaterfallHook;
         render: Tapable.SyncWaterfallHook;
         package: Tapable.SyncWaterfallHook;
-        hash: Tapable.SyncHook
+        hash: Tapable.SyncHook;
     }
 
     class ModuleTemplate extends Tapable {
@@ -840,27 +843,27 @@ declare namespace webpack {
         };
 
         entries: any[];
-		_preparedEntrypoints: any[];
-		entrypoints: Map<any, any>;
-		chunks: any[];
-		chunkGroups: any[];
-		namedChunkGroups: Map<any, any>;
-		namedChunks: Map<any, any>;
-		modules: any[];
-		_modules: Map<any, any>;
-		cache: any;
-		records: any;
-		nextFreeModuleIndex: any;
-		nextFreeModuleIndex2: any;
-		additionalChunkAssets: any[];
-		assets: any;
-		errors: any[];
-		warnings: any[];
-		children: any[];
-        dependencyFactories : Map<typeof Dependency, Tapable>;
-        dependencyTemplates : Map<typeof Dependency, Tapable>;
+        _preparedEntrypoints: any[];
+        entrypoints: Map<any, any>;
+        chunks: any[];
+        chunkGroups: any[];
+        namedChunkGroups: Map<any, any>;
+        namedChunks: Map<any, any>;
+        modules: any[];
+        _modules: Map<any, any>;
+        cache: any;
+        records: any;
+        nextFreeModuleIndex: any;
+        nextFreeModuleIndex2: any;
+        additionalChunkAssets: any[];
+        assets: any;
+        errors: any[];
+        warnings: any[];
+        children: any[];
+        dependencyFactories: Map<typeof Dependency, Tapable>;
+        dependencyTemplates: Map<typeof Dependency, Tapable>;
         childrenCounters: any;
-		usedChunkIds: any;
+        usedChunkIds: any;
         usedModuleIds: any;
         getStats(): Stats;
         addModule(module: CompilationModule, cacheGroup: any): any;
@@ -870,6 +873,7 @@ declare namespace webpack {
         // buildModule(module, optional, origin, dependencies, thisCallback)
         // processModuleDependencies(module, callback)
         // addModuleDependencies(module, dependencies, bail, cacheGroup, recursive, callback)
+        // tslint:disable-next-line:ban-types
         addEntry(context: any, entry: any, name: any, callback: Function): void;
         // prefetch(context, dependency, callback)
         // rebuildModule(module, thisCallback)
