@@ -12,7 +12,7 @@
         "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "experimentalDecorators": true,
