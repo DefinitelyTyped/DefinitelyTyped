@@ -46,9 +46,10 @@ export interface Contours {
      * This geometry object represents the area where the input values are greater than or equal to the given threshold value;
      * the threshold value for the geometry object is exposed as geometry.value.
      *
-     * @param values  Array of input values. The input values must be an array of length n×m where [n, m] is the contour generator’s size; furthermore, each values[i + jn] must represent the value at the position ⟨i, j⟩.
+     * @param values  Array of input values. The input values must be an array of length n×m where [n, m] is the contour generator’s size;
+     * furthermore, each values[i + jn] must represent the value at the position ⟨i, j⟩.
      * @param threshold Threshold value.
-     * */
+     */
     contour(values: number[], threshold: number): ContourMultiPolygon;
 
     /**
