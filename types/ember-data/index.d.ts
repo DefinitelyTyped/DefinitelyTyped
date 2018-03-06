@@ -13,6 +13,32 @@ declare module 'ember-data' {
     export interface ModelRegistry {}
     export interface AdapterRegistry {}
     export interface SerializerRegistry {}
+    export interface TransformRegistry {
+        'string': string;
+        'boolean': boolean;
+        'number': number;
+        'date': Date;
+    }
+
+    type AttributesFor<Model> = keyof Model; // TODO: filter to attr properties only (TS 2.8)
+    type RelationshipsFor<Model> = keyof Model; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
+
+    interface AttributeMeta<Model extends DS.Model> {
+        type: keyof TransformRegistry;
+        options: object;
+        name: AttributesFor<Model>;
+        parentType: Model;
+        isAttribute: true;
+    }
+    interface RelationshipMeta<Model extends DS.Model> {
+        key: RelationshipsFor<Model>;
+        kind: 'belongsTo' | 'hasMany';
+        type: keyof ModelRegistry;
+        options: object;
+        name: string;
+        parentType: Model;
+        isRelationship: true;
+    }
 
     namespace DS {
         /**
@@ -82,27 +108,11 @@ declare module 'ember-data' {
          * `boolean` and `date`. You can define your own transforms by subclassing
          * [DS.Transform](/api/data/classes/DS.Transform.html).
          */
-        function attr(
-            type: 'string',
-            options?: AttrOptions<string>
-        ): Ember.ComputedProperty<string>;
-        function attr(
-            type: 'boolean',
-            options?: AttrOptions<boolean>
-        ): Ember.ComputedProperty<boolean>;
-        function attr(
-            type: 'number',
-            options?: AttrOptions<number>
-        ): Ember.ComputedProperty<number>;
-        function attr(
-            type: 'date',
-            options?: AttrOptions<Date>
-        ): Ember.ComputedProperty<Date>;
-        function attr<T>(
-            type: string,
-            options?: AttrOptions<T>
-        ): Ember.ComputedProperty<T>;
-        function attr<T>(options?: AttrOptions<T>): Ember.ComputedProperty<T>;
+        function attr<K extends keyof TransformRegistry>(
+            type: K,
+            options?: AttrOptions<TransformRegistry[K]>
+        ): Ember.ComputedProperty<TransformRegistry[K]>;
+        function attr(options?: AttrOptions): Ember.ComputedProperty<any>;
         /**
          * WARNING: This interface is likely to change in order to accomodate https://github.com/emberjs/rfcs/pull/4
          * ## Using BuildURLMixin
@@ -481,7 +491,7 @@ declare module 'ember-data' {
             /**
              * Same as `deleteRecord`, but saves the record immediately.
              */
-            destroyRecord(options: {}): RSVP.Promise<any>;
+            destroyRecord(options?: {}): RSVP.Promise<any>;
             /**
              * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
              */
@@ -860,7 +870,7 @@ declare module 'ember-data' {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-                Ember.PromiseProxyMixin<PromiseArray<T>> {}
+                Ember.PromiseProxyMixin<Ember.ArrayProxy<T>> {}
         class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -871,7 +881,7 @@ declare module 'ember-data' {
          */
         interface PromiseObject<T>
             extends Ember.ObjectProxy,
-                Ember.PromiseProxyMixin<T & PromiseObject<T>> {}
+                Ember.PromiseProxyMixin<T & Ember.ObjectProxy> {}
         class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
@@ -942,7 +952,7 @@ declare module 'ember-data' {
             /**
              * Returns the value of an attribute.
              */
-            attr<L extends keyof ModelRegistry[K]>(keyName: L): ModelRegistry[K][L];
+            attr<L extends AttributesFor<ModelRegistry[K]>>(keyName: L): ModelRegistry[K][L];
             /**
              * Returns all attributes and their corresponding values.
              */
@@ -954,18 +964,18 @@ declare module 'ember-data' {
             /**
              * Returns the current value of a belongsTo relationship.
              */
-            belongsTo<L extends keyof ModelRegistry[K]>(
+            belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
                 keyName: L,
                 options?: {}
             ): Snapshot<K>['record'][L] | string | null | undefined;
             /**
              * Returns the current value of a hasMany relationship.
              */
-            hasMany<L extends keyof ModelRegistry[K]>(
+            hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
                 keyName: L,
                 options?: { ids: false }
             ): Array<Snapshot<K>['record'][L]> | undefined;
-            hasMany<L extends keyof ModelRegistry[K]>(
+            hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
                 keyName: L,
                 options: { ids: true }
             ): string[] | undefined;
@@ -973,12 +983,12 @@ declare module 'ember-data' {
              * Iterates through all the attributes of the model, calling the passed
              * function on each attribute.
              */
-            eachAttribute(callback: Function, binding: {}): any;
+            eachAttribute<M extends ModelRegistry[K]>(callback: (key: keyof M, meta: AttributeMeta<M>) => void, binding?: {}): any;
             /**
              * Iterates through all the relationships of the model, calling the passed
              * function on each relationship.
              */
-            eachRelationship(callback: Function, binding: {}): any;
+            eachRelationship<M extends ModelRegistry[K]>(callback: (key: keyof M, meta: RelationshipMeta<M>) => void, binding?: {}): any;
             /**
              * Serializes the snapshot using the serializer for the model.
              */

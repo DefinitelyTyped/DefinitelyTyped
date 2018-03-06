@@ -953,7 +953,8 @@ function testFile() {
 
     // Reading and Writing
     async function readFile() {
-        str = await file.read();
+        const res = await file.read();
+        if (res !== null) str = res;
     }
 
     const stream = file.createReadStream();

@@ -25,6 +25,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "angular-touchspin",
+            "typingsPackageName": "angular-touchspin",
+            "sourceRepoURL": "https://github.com/nkovacic/angular-touchspin",
+            "asOfVersion": "1.8.2"
+        },
+        {
             "libraryName": "angular-ui-router-default",
             "typingsPackageName": "angular-ui-router-default",
             "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-default",

@@ -61,6 +61,14 @@ client.create({
 }, (err, repsonse, status) => {
 });
 
+client.create({
+  id: '123',
+  index: 'index',
+  type: 'type',
+  routing: 'parent_123',
+}, (err, repsonse, status) => {
+});
+
 client.cluster.getSettings({
   masterTimeout: '100s'
 }, (err, response) => {
@@ -159,6 +167,15 @@ client.index({
     published: true,
   }
 }, (error, response) => {
+});
+
+client.get({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  routing: '1'
+}, (error, response) => {
+    const routing = response._routing;
 });
 
 client.mget({

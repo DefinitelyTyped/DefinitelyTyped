@@ -10,7 +10,7 @@ server.register(Nes).then(() => {
     server.route({
         method: 'GET',
         path: '/h',
-        config: {
+        options: {
             id: 'hello',
             handler: (request: Request, h: ResponseToolkit) => {
 

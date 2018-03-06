@@ -2,7 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import {
     Application,
@@ -60,7 +60,7 @@ export interface FeathersAuthenticationOAuth1Options {
 }
 
 export class OAuth1Verifier {
-    constructor(app: Application<any>, options: any);
+    constructor(app: Application, options: any);
 
     _updateEntity(entity: any, data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // updates an existing entity
     _createEntity(data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // creates an entity if they didn't exist already
