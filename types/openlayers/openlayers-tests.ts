@@ -638,7 +638,8 @@ let tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     params: {},
     projection,
     serverType: stringValue,
-    url: stringValue
+    url: stringValue,
+    transition: 0.5
 });
 
 // test without projection
