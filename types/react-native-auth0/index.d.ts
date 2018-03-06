@@ -80,6 +80,7 @@ export interface UserInfo {
 }
 export class Auth {
     authorizationUrl(params: AuthorizationUrlParams): string;
+    /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<string>;
     logoutUrl(params: LogoutParams): string;
