@@ -1,8 +1,10 @@
-// Type definitions for react-stripe-elements 1.0
+// Type definitions for react-stripe-elements 1.1
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
 //                 sonnysangha <https://github.com/sonnysangha>
+//                 Andrew Goh Yisheng <https://github.com/9y5>
+//                 Thomas Chia <https://github.com/thchia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -23,9 +25,7 @@ export namespace ReactStripeElements {
 		error?: { decline_code?: string };
 	};
 
-	interface StripeProviderProps {
-		apiKey: string;
-	}
+    type StripeProviderProps = { apiKey: string; stripe?: never; } | { apiKey?: never; stripe: StripeProps | null; };
 
 	interface StripeProps {
 		// I'm not sure what the definition for this is
@@ -43,9 +43,9 @@ export namespace ReactStripeElements {
 	}
 
 	interface ElementProps extends ElementsOptions {
-		className?: string;
+		id?: string;
 
-		paymentRequest?: object;
+		className?: string;
 
 		elementRef?(): void;
 

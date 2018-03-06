@@ -295,6 +295,7 @@ export const Big: BigConstructor;
 export type Big_ = Big;
 export type BigConstructor_ = BigConstructor;
 export type BigSource_ = BigSource;
+export default Big;
 
 declare global {
     namespace BigJs {

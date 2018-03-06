@@ -11,6 +11,7 @@
 //                 Carven Zhang <https://github.com/zjy01>
 //                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
+//                 Todd Bealmear <https://github.com/todd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3780,7 +3781,7 @@ declare namespace sequelize {
  * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
  *     model will clear the previous scope.
  */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
 
         /**
          * Search for multiple instances.
@@ -4061,7 +4062,12 @@ declare namespace sequelize {
         /**
          * A function that gets executed while running the query to log the sql.
          */
-        logging?: boolean | Function;
+        logging?: boolean | Function;            
+
+        /**
+         * An optional transaction to perform this query in
+         */
+        transaction?: Transaction; 
 
     }
 

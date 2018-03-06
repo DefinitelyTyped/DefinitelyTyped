@@ -126,6 +126,22 @@ var knex = Knex({
     searchPath: ['public', 'private'],
 });
 
+// postProcessResponse
+var knex = Knex({
+  client: 'pg',
+  postProcessResponse: function(result, queryContext){
+    return result;
+  }
+});
+
+// wrapIdentifier
+var knex = Knex({
+  client: 'pg',
+  wrapIdentifier: function(value, origImpl, queryContext){
+    return origImpl(value + 'foo');
+  }
+});
+
 // useNullAsDefault
 var knex = Knex({
   client: 'sqlite',

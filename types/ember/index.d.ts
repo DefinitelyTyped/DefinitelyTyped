@@ -1182,7 +1182,7 @@ declare module 'ember' {
              * argument for all items in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isEvery(key: string, value: boolean): boolean;
+            isEvery(key: string, value?: any): boolean;
             /**
              * Returns `true` if the passed function returns true for any item in the
              * enumeration.
@@ -1193,7 +1193,7 @@ declare module 'ember' {
              * argument for any item in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isAny(key: string, value?: boolean): boolean;
+            isAny(key: string, value?: any): boolean;
             /**
              * This will combine the values of the enumerator into a single value. It
              * is a useful way to collect a summary value from an enumeration. This

@@ -8,7 +8,7 @@ const options: ServerOptions = {
 declare module "hapi" {
 	// Demonstrate augmenting the application state.
 	interface ApplicationState {
-		key: string;
+		key?: string;
 	}
 }
 
@@ -18,7 +18,7 @@ server.app!.key = 'value2';
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'key: ' + request.server.app!.key;
     }
 };
