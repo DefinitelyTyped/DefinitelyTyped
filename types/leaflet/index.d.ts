@@ -392,7 +392,6 @@ export interface InteractiveLayerOptions extends LayerOptions {
 }
 
 export class Layer extends Evented {
-    _map: Map;
     constructor(options?: LayerOptions);
     addTo(map: Map|LayerGroup): this;
     remove(): this;
@@ -425,6 +424,8 @@ export class Layer extends Evented {
     getEvents?(): {[name: string]: (event: LeafletEvent) => void};
     getAttribution?(): string | null;
     beforeAdd?(map: Map): this;
+
+    protected _map: Map;
 }
 
 export interface GridLayerOptions {
@@ -443,6 +444,8 @@ export interface GridLayerOptions {
     className?: string;
     keepBuffer?: number;
 }
+
+export type DoneCallback = (error?: Error, tile?: HTMLElement) => void;
 
 export interface InternalTiles {
     [key: string]: {
@@ -466,10 +469,11 @@ export class GridLayer extends Layer {
     redraw(): this;
     getTileSize(): Point;
 
-    _tileCoordsToKey(coords: Coords): string;
+    protected createTile(coords: Coords, done: DoneCallback): HTMLElement;
+    protected _tileCoordsToKey(coords: Coords): string;
 
-    _tiles: InternalTiles;
-    _tileZoom?: number;
+    protected _tiles: InternalTiles;
+    protected _tileZoom?: number;
 }
 
 export function gridLayer(options?: GridLayerOptions): GridLayer;
@@ -489,15 +493,12 @@ export interface TileLayerOptions extends GridLayerOptions {
     [name: string]: any;
 }
 
-export type DoneCallback = (error?: Error, tile?: HTMLElement) => void;
-
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
-    createTile(coords: Coords, done: DoneCallback): HTMLElement;
     setUrl(url: string, noRedraw?: boolean): this;
 
-    _abortLoading(): void;
-    _getZoomForUrl(): number;
+    protected _abortLoading(): void;
+    protected _getZoomForUrl(): number;
 
     options: TileLayerOptions;
 }
