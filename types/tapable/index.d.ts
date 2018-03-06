@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare abstract class Tapable {
+export declare abstract class Tapable {
     private _plugins: {
         [propName: string]: Tapable.Handler[]
     }
@@ -225,60 +225,59 @@ declare namespace Tapable {
     interface CallbackFunction {
         (err?: Error, result?: any, ...args: any[]): void;
     }
-
-    type TapType = "sync" | "async" | "promise";
-
-    interface HookCompileOptions {
-        type: TapType;
-    }
-
-    interface Tap {
-        name: string;
-        type: TapType;
-        fn: Function;
-        stage: number;
-        context: boolean;
-    }
-
-    interface Hook<TContext = any> {
-        compile(options: HookCompileOptions) : Function;
-        tap: (name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
-        tapAsync: (name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
-        tapPromise: (name: string | Tap, fn: (context: TContext, ...args: any[]) => Promise<any>) => void;
-        intercept: (interceptor: HookInterceptor) => void;
-    }
-
-    interface SyncHook<TContext = any> extends Hook<TContext> {}
-    interface SyncBailHook <TContext = any>extends Hook<TContext> {}
-    interface SyncLoopHook<TContext = any> extends Hook<TContext> {}
-    interface SyncWaterfallHook<TContext = any> extends Hook<TContext> {}
-
-    interface AsyncParallelHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncParallelBailHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncSeriesHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncSeriesBailHook<TContext = any> extends Hook<TContext> {}
-    interface AsyncSeriesWaterfallHook<TContext = any> extends Hook<TContext> {}
-
-    interface HookInterceptor {
-        call: (...args: any[]) => void;
-        loop: (...args: any[]) => void;
-        tap: (tap: Tap) => void;
-        register: (tap: Tap) => Tap | undefined;
-        context: boolean;
-    }
-
-    interface HookMap<TContext = any> {
-        get: (key: any) => Hook<TContext> | undefined;
-        for: (key: any) => Hook<TContext>;
-        tap: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
-        tapAsync: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
-        tapPromise: (key: any, name: string | Tap, fn: (context: any, ...args: any[]) => Promise<any>) => void;
-        intercept: (interceptor: HookMapInterceptor<TContext>) => TContext;
-    }
-
-    interface HookMapInterceptor<TContext = any> {
-        factory: (key: any, hook: Hook<TContext>) => Hook<TContext>;
-    }
 }
 
-export = Tapable
+type TapType = "sync" | "async" | "promise";
+
+export interface HookCompileOptions {
+    type: TapType;
+}
+
+export interface Tap {
+    name: string;
+    type: TapType;
+    fn: Function;
+    stage: number;
+    context: boolean;
+}
+
+export class Hook<TContext = any> {
+    constructor(...args: any[]);
+    compile(options: HookCompileOptions) : Function;
+    tap: (name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
+    tapAsync: (name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
+    tapPromise: (name: string | Tap, fn: (context: TContext, ...args: any[]) => Promise<any>) => void;
+    intercept: (interceptor: HookInterceptor) => void;
+}
+
+export class SyncHook<TContext = any> extends Hook<TContext> {}
+export class SyncBailHook <TContext = any>extends Hook<TContext> {}
+export class SyncLoopHook<TContext = any> extends Hook<TContext> {}
+export class SyncWaterfallHook<TContext = any> extends Hook<TContext> {}
+
+export class AsyncParallelHook<TContext = any> extends Hook<TContext> {}
+export class AsyncParallelBailHook<TContext = any> extends Hook<TContext> {}
+export class AsyncSeriesHook<TContext = any> extends Hook<TContext> {}
+export class AsyncSeriesBailHook<TContext = any> extends Hook<TContext> {}
+export class AsyncSeriesWaterfallHook<TContext = any> extends Hook<TContext> {}
+
+export class HookInterceptor {
+    call: (...args: any[]) => void;
+    loop: (...args: any[]) => void;
+    tap: (tap: Tap) => void;
+    register: (tap: Tap) => Tap | undefined;
+    context: boolean;
+}
+
+export class HookMap<TContext = any> {
+    get: (key: any) => Hook<TContext> | undefined;
+    for: (key: any) => Hook<TContext>;
+    tap: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
+    tapAsync: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
+    tapPromise: (key: any, name: string | Tap, fn: (context: any, ...args: any[]) => Promise<any>) => void;
+    intercept: (interceptor: HookMapInterceptor<TContext>) => TContext;
+}
+
+export class HookMapInterceptor<TContext = any> {
+    factory: (key: any, hook: Hook<TContext>) => Hook<TContext>;
+}

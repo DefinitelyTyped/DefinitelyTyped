@@ -16,7 +16,9 @@
 
 /// <reference types="node" />
 
-import Tapable = require('tapable');
+import { Tapable, HookMap,
+         SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
+         AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import { RawSourceMap } from 'source-map';
 
@@ -670,16 +672,16 @@ declare namespace webpack {
     }
 
     interface NormalModuleFactoryHooks {
-        resolver: Tapable.SyncWaterfallHook;
-        factory: Tapable.SyncWaterfallHook;
-        beforeResolve: Tapable.AsyncSeriesWaterfallHook;
-        afterResolve: Tapable.AsyncSeriesWaterfallHook;
-        createModule: Tapable.SyncBailHook;
-        module: Tapable.SyncWaterfallHook;
-        createParser: Tapable.HookMap;
-        parser: Tapable.HookMap;
-        createGenerator: Tapable.HookMap;
-        generator: Tapable.HookMap;
+        resolver: SyncWaterfallHook;
+        factory: SyncWaterfallHook;
+        beforeResolve: AsyncSeriesWaterfallHook;
+        afterResolve: AsyncSeriesWaterfallHook;
+        createModule: SyncBailHook;
+        module: SyncWaterfallHook;
+        createParser: HookMap;
+        parser: HookMap;
+        createGenerator: HookMap;
+        generator: HookMap;
     }
 
     class NormalModuleFactory extends Tapable {
@@ -687,10 +689,10 @@ declare namespace webpack {
     }
 
     interface ContextModuleFactoryHooks {
-        beforeResolve: Tapable.AsyncSeriesWaterfallHook;
-        afterResolve: Tapable.AsyncSeriesWaterfallHook;
-        contextModuleFiles: Tapable.SyncWaterfallHook;
-        alternatives: Tapable.AsyncSeriesWaterfallHook;
+        beforeResolve: AsyncSeriesWaterfallHook;
+        afterResolve: AsyncSeriesWaterfallHook;
+        contextModuleFiles: SyncWaterfallHook;
+        alternatives: AsyncSeriesWaterfallHook;
     }
 
     class ContextModuleFactory extends Tapable {
@@ -702,98 +704,98 @@ declare namespace webpack {
     }
 
     interface CompilationHooks {
-        buildModule: Tapable.SyncHook;
-        rebuildModule: Tapable.SyncHook;
-        failedModule: Tapable.SyncHook;
-        succeedModule: Tapable.SyncHook;
+        buildModule: SyncHook;
+        rebuildModule: SyncHook;
+        failedModule: SyncHook;
+        succeedModule: SyncHook;
 
-        finishModules: Tapable.SyncHook;
-        finishRebuildingModule: Tapable.SyncHook;
+        finishModules: SyncHook;
+        finishRebuildingModule: SyncHook;
 
-        unseal: Tapable.SyncHook;
-        seal: Tapable.SyncHook;
+        unseal: SyncHook;
+        seal: SyncHook;
 
-        optimizeDependenciesBasic: Tapable.SyncBailHook;
-        optimizeDependencies: Tapable.SyncBailHook;
-        optimizeDependenciesAdvanced: Tapable.SyncBailHook;
-        afterOptimizeDependencies: Tapable.SyncHook;
+        optimizeDependenciesBasic: SyncBailHook;
+        optimizeDependencies: SyncBailHook;
+        optimizeDependenciesAdvanced: SyncBailHook;
+        afterOptimizeDependencies: SyncHook;
 
-        optimize: Tapable.SyncHook;
+        optimize: SyncHook;
 
-        optimizeModulesBasic: Tapable.SyncBailHook;
-        optimizeModules: Tapable.SyncBailHook;
-        optimizeModulesAdvanced: Tapable.SyncBailHook;
-        afterOptimizeModules: Tapable.SyncHook;
+        optimizeModulesBasic: SyncBailHook;
+        optimizeModules: SyncBailHook;
+        optimizeModulesAdvanced: SyncBailHook;
+        afterOptimizeModules: SyncHook;
 
-        optimizeChunksBasic: Tapable.SyncBailHook;
-        optimizeChunks: Tapable.SyncBailHook;
-        optimizeChunksAdvanced: Tapable.SyncBailHook;
-        afterOptimizeChunks: Tapable.SyncHook;
+        optimizeChunksBasic: SyncBailHook;
+        optimizeChunks: SyncBailHook;
+        optimizeChunksAdvanced: SyncBailHook;
+        afterOptimizeChunks: SyncHook;
 
-        optimizeTree: Tapable.AsyncSeriesHook;
-        afterOptimizeTree: Tapable.SyncHook;
+        optimizeTree: AsyncSeriesHook;
+        afterOptimizeTree: SyncHook;
 
-        optimizeChunkModulesBasic: Tapable.SyncBailHook;
-        optimizeChunkModules: Tapable.SyncBailHook;
-        optimizeChunkModulesAdvanced: Tapable.SyncBailHook;
-        afterOptimizeChunkModules: Tapable.SyncHook;
-        shouldRecord: Tapable.SyncBailHook;
+        optimizeChunkModulesBasic: SyncBailHook;
+        optimizeChunkModules: SyncBailHook;
+        optimizeChunkModulesAdvanced: SyncBailHook;
+        afterOptimizeChunkModules: SyncHook;
+        shouldRecord: SyncBailHook;
 
-        reviveModules: Tapable.SyncHook;
-        optimizeModuleOrder: Tapable.SyncHook;
-        advancedOptimizeModuleOrder: Tapable.SyncHook;
-        beforeModuleIds: Tapable.SyncHook;
-        moduleIds: Tapable.SyncHook;
-        optimizeModuleIds: Tapable.SyncHook;
-        afterOptimizeModuleIds: Tapable.SyncHook;
+        reviveModules: SyncHook;
+        optimizeModuleOrder: SyncHook;
+        advancedOptimizeModuleOrder: SyncHook;
+        beforeModuleIds: SyncHook;
+        moduleIds: SyncHook;
+        optimizeModuleIds: SyncHook;
+        afterOptimizeModuleIds: SyncHook;
 
-        reviveChunks: Tapable.SyncHook;
-        optimizeChunkOrder: Tapable.SyncHook;
-        beforeChunkIds: Tapable.SyncHook;
-        optimizeChunkIds: Tapable.SyncHook;
-        afterOptimizeChunkIds: Tapable.SyncHook;
+        reviveChunks: SyncHook;
+        optimizeChunkOrder: SyncHook;
+        beforeChunkIds: SyncHook;
+        optimizeChunkIds: SyncHook;
+        afterOptimizeChunkIds: SyncHook;
 
-        recordModules: Tapable.SyncHook;
-        recordChunks: Tapable.SyncHook;
+        recordModules: SyncHook;
+        recordChunks: SyncHook;
 
-        beforeHash: Tapable.SyncHook;
-        afterHash: Tapable.SyncHook;
+        beforeHash: SyncHook;
+        afterHash: SyncHook;
 
-        recordHash: Tapable.SyncHook;
+        recordHash: SyncHook;
 
-        record: Tapable.SyncHook;
+        record: SyncHook;
 
-        beforeModuleAssets: Tapable.SyncHook;
-        shouldGenerateChunkAssets: Tapable.SyncBailHook;
-        beforeChunkAssets: Tapable.SyncHook;
-        additionalChunkAssets: Tapable.SyncHook;
+        beforeModuleAssets: SyncHook;
+        shouldGenerateChunkAssets: SyncBailHook;
+        beforeChunkAssets: SyncHook;
+        additionalChunkAssets: SyncHook;
 
-        records: Tapable.SyncHook;
+        records: SyncHook;
 
-        additionalAssets: Tapable.AsyncSeriesHook;
-        optimizeChunkAssets: Tapable.AsyncSeriesHook<Chunk[]>;
-        afterOptimizeChunkAssets: Tapable.SyncHook;
-        optimizeAssets: Tapable.AsyncSeriesHook;
-        afterOptimizeAssets: Tapable.SyncHook;
+        additionalAssets: AsyncSeriesHook;
+        optimizeChunkAssets: AsyncSeriesHook<Chunk[]>;
+        afterOptimizeChunkAssets: SyncHook;
+        optimizeAssets: AsyncSeriesHook;
+        afterOptimizeAssets: SyncHook;
 
-        needAdditionalSeal: Tapable.SyncBailHook;
-        afterSeal: Tapable.AsyncSeriesHook;
+        needAdditionalSeal: SyncBailHook;
+        afterSeal: AsyncSeriesHook;
 
-        chunkHash: Tapable.SyncHook;
-        moduleAsset: Tapable.SyncHook;
-        chunkAsset: Tapable.SyncHook;
+        chunkHash: SyncHook;
+        moduleAsset: SyncHook;
+        chunkAsset: SyncHook;
 
-        assetPath: Tapable.SyncWaterfallHook;
+        assetPath: SyncWaterfallHook;
 
-        needAdditionalPass: Tapable.SyncBailHook;
-        childCompiler: Tapable.SyncHook;
+        needAdditionalPass: SyncBailHook;
+        childCompiler: SyncHook;
 
-        normalModuleLoader: Tapable.SyncHook;
+        normalModuleLoader: SyncHook;
 
-        optimizeExtractedChunksBasic: Tapable.SyncBailHook;
-        optimizeExtractedChunks: Tapable.SyncBailHook;
-        optimizeExtractedChunksAdvanced: Tapable.SyncBailHook;
-        afterOptimizeExtractedChunks: Tapable.SyncHook;
+        optimizeExtractedChunksBasic: SyncBailHook;
+        optimizeExtractedChunks: SyncBailHook;
+        optimizeExtractedChunksAdvanced: SyncBailHook;
+        afterOptimizeExtractedChunks: SyncHook;
     }
 
     interface CompilationModule {
@@ -809,11 +811,11 @@ declare namespace webpack {
     class RuntimeTemplate {}
 
     interface ModuleTemplateHooks {
-        content: Tapable.SyncWaterfallHook;
-        module: Tapable.SyncWaterfallHook;
-        render: Tapable.SyncWaterfallHook;
-        package: Tapable.SyncWaterfallHook;
-        hash: Tapable.SyncHook;
+        content: SyncWaterfallHook;
+        module: SyncWaterfallHook;
+        render: SyncWaterfallHook;
+        package: SyncWaterfallHook;
+        hash: SyncHook;
     }
 
     class ModuleTemplate extends Tapable {
@@ -942,37 +944,37 @@ declare namespace webpack {
     }
 
     interface CompilerHooks {
-        shouldEmit: Tapable.SyncBailHook;
-        done: Tapable.AsyncSeriesHook;
-        additionalPass: Tapable.AsyncSeriesHook;
-        beforeRun: Tapable.AsyncSeriesHook;
-        run: Tapable.AsyncSeriesHook;
-        emit: Tapable.AsyncSeriesHook;
-        afterEmit: Tapable.AsyncSeriesHook;
-        thisCompilation: Tapable.SyncHook;
-        compilation: Tapable.SyncHook<Compilation>;
-        normalModuleFactory: Tapable.SyncHook<NormalModuleFactory>;
-        contextModuleFactory: Tapable.SyncHook<ContextModuleFactory>;
-        beforeCompile: Tapable.AsyncSeriesHook;
-        compile: Tapable.SyncHook;
-        make: Tapable.AsyncParallelHook;
-        afterCompile: Tapable.AsyncSeriesHook;
-        watchRun: Tapable.AsyncSeriesHook;
-        failed: Tapable.SyncHook;
-        invalid: Tapable.SyncHook;
-        watchClose: Tapable.SyncHook;
-        environment: Tapable.SyncHook;
-        afterEnvironment: Tapable.SyncHook;
-        afterPlugins: Tapable.SyncHook;
-        afterResolvers: Tapable.SyncHook;
-        entryOption: Tapable.SyncBailHook;
+        shouldEmit: SyncBailHook;
+        done: AsyncSeriesHook;
+        additionalPass: AsyncSeriesHook;
+        beforeRun: AsyncSeriesHook;
+        run: AsyncSeriesHook;
+        emit: AsyncSeriesHook;
+        afterEmit: AsyncSeriesHook;
+        thisCompilation: SyncHook;
+        compilation: SyncHook<Compilation>;
+        normalModuleFactory: SyncHook<NormalModuleFactory>;
+        contextModuleFactory: SyncHook<ContextModuleFactory>;
+        beforeCompile: AsyncSeriesHook;
+        compile: SyncHook;
+        make: AsyncParallelHook;
+        afterCompile: AsyncSeriesHook;
+        watchRun: AsyncSeriesHook;
+        failed: SyncHook;
+        invalid: SyncHook;
+        watchClose: SyncHook;
+        environment: SyncHook;
+        afterEnvironment: SyncHook;
+        afterPlugins: SyncHook;
+        afterResolvers: SyncHook;
+        entryOption: SyncBailHook;
     }
 
     class Compiler extends Tapable implements ICompiler {
         constructor();
 
         hooks: CompilerHooks;
-        _pluginCompat: Tapable.SyncBailHook<Compilation>;
+        _pluginCompat: SyncBailHook<Compilation>;
 
         name: string;
         options: Configuration;
