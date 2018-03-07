@@ -39,7 +39,7 @@ declare namespace reactInputMask {
         /**
          * Use inputRef instead of ref if you need input node to manage focus, selection, etc.
          */
-        inputRef?: React.Ref<HTMLInputElement>
+        inputRef?: React.Ref<HTMLInputElement>;
     }
     class ReactInputMask extends React.Component<ReactInputMaskProps> {
     }
