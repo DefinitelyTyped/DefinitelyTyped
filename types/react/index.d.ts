@@ -3516,6 +3516,7 @@ declare namespace React {
         fieldset: DetailedHTMLFactory<FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
         figcaption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         figure: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        font: DetailedHTMLFactory<HTMLAttributes<HTMLFontElement>, HTMLFontElement>;
         footer: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         form: DetailedHTMLFactory<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
         h1: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
@@ -3790,6 +3791,7 @@ declare global {
             fieldset: React.DetailedHTMLProps<React.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
             figcaption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             figure: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            font: React.DetailedHTMLProps<React.HTMLAttributes<HTMLFontElement>, HTMLFontElement>;
             footer: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             form: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
             h1: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
