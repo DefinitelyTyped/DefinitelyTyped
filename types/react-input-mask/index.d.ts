@@ -36,6 +36,10 @@ declare namespace reactInputMask {
          * Show mask even in empty input without focus.
          */
         alwaysShowMask?: boolean;
+        /**
+         * Use inputRef instead of ref if you need input node to manage focus, selection, etc.
+         */
+        inputRef?: React.Ref<HTMLInputElement>
     }
     class ReactInputMask extends React.Component<ReactInputMaskProps> {
     }
