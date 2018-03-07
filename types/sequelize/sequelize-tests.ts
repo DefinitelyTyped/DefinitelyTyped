@@ -915,6 +915,8 @@ User.findAll( { where : { intVal : { '!..' : [8, 10] } } } );
 User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] } } } );
 User.findAll( { where : { theDate : { between : ['2013-01-02', '2013-01-11'] }, intVal : 10 } } );
 User.findAll( { where : { theDate : { between : ['2012-12-10', '2013-01-02'] } } } );
+User.findAll( { where : { theDate : { between : [1, 3] } } } );
+User.findAll( { where : { theDate : { between : [new Date(0), new Date(1000)] } } } );
 User.findAll( { where : { theDate : { nbetween : ['2013-01-04', '2013-01-20'] } } } );
 User.findAll( { order : [s.col( 'name' )] } );
 User.findAll( { order : [['theDate', 'DESC']] } );
@@ -948,6 +950,11 @@ User.findAll( { where: s.where(s.fn('lower', s.col('email')), s.fn('lower', 'TES
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
 User.findAll( { rejectOnEmpty: true });
 
+User.findAll( { where: { $and:[ { username: "user" }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $or:[ { username: "user" }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
+User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
+User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
 User.findById( 'a string' );
 

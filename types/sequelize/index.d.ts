@@ -3136,11 +3136,11 @@ declare namespace sequelize {
         $ilike: string | WherePGStatement;
         $notLike: string | WherePGStatement;
         $notILike: string | WherePGStatement;
-        $between: [number, number];
+        $between: [number, number] | [Date, Date];
         "..": [number, number];
         $notBetween: [number, number];
         "!..": [number, number];
-        $overlap: [number, number];
+        $overlap: [number, number] | [string, string];
         "&&": [number, number];
         $contains: any;
         "@>": any;
@@ -3155,7 +3155,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
+        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | WhereNested | Array<string | number> | null;
     };
 
     /**
