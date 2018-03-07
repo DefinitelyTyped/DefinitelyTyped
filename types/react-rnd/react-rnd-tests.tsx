@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Rnd from 'react-rnd';
+import React = require('react');
+import Rnd = require('react-rnd');
 
 const onResize: Rnd.ResizeHandler = (e, direction, ref, delta, position) => {
     direction === 'right';
