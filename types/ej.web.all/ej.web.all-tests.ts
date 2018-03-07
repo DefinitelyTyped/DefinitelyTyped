@@ -18,6 +18,8 @@ module AccordionComponent {
     });
 }
 
+
+
 module AutocompleteComponent {
     var carList = [
         "Audi S6", "Austin-Healey", "Alfa Romeo", "Aston Martin",
@@ -54,6 +56,8 @@ module AutocompleteComponent {
 
 
 
+
+
 module Barcodecomponent {
     $(function () {
         var barcodesample = new ej.datavisualization.Barcode($("#Barcode"), {
@@ -61,6 +65,9 @@ module Barcodecomponent {
         });
     });
 }
+
+
+
 
 
 module Bulletgraphcomponent {
@@ -89,7 +96,7 @@ module Bulletgraphcomponent {
                             bulletTheme = "material";
                             break;
                         default:
-                            bulletTheme = "flatlight";
+                           bulletTheme = "flatlight";
                             break;
                     }
                     sender.model.theme = bulletTheme;
@@ -121,6 +128,9 @@ module Bulletgraphcomponent {
         });
     });
 }
+
+
+
 
 
 module ButtonComponent {
@@ -167,6 +177,9 @@ module ButtonComponent {
         });
     });
 }
+
+
+
 
 module ChartComponent {
     $(function () {
@@ -290,8 +303,13 @@ module ChartComponent {
             size: { height: "600" },
             legend: { visible: true },
         });
+        //    chartsample.model.load="loadTheme";
     });
 }
+
+
+
+
 
 module circulargaugecomponent {
     $(function () {
@@ -344,6 +362,9 @@ module circulargaugecomponent {
     });
 }
 
+
+
+
 module ColorPickerComponent {
     $(function () {
         var colorSample = new ej.ColorPicker($("#colorpick"), {
@@ -351,6 +372,9 @@ module ColorPickerComponent {
         });
     });
 }
+
+
+
 
 module ComboBoxComponent {
     var BikeList = [
@@ -370,6 +394,10 @@ module ComboBoxComponent {
     });
 }
 
+
+
+
+
 module DatePickerComponent {
     $(function () {
         var dateSample = new ej.DatePicker($("#datepick"), {
@@ -377,6 +405,9 @@ module DatePickerComponent {
         });
     });
 }
+
+
+
 
 module DateTimePickerComponent {
     $(function () {
@@ -386,6 +417,8 @@ module DateTimePickerComponent {
     });
 }
 
+
+
 module DateTimePickerComponent {
     $(function () {
         var datetimeSample = new ej.DateTimePicker($("#datetimepick"), {
@@ -393,6 +426,8 @@ module DateTimePickerComponent {
         });
     });
 }
+
+
 
 $(function () {
     var diagram = new ej.datavisualization.Diagram($("#diagram"), {
@@ -463,9 +498,11 @@ function createConnector(option: ej.datavisualization.Diagram.Connector) {
     return option;
 }
 
-function createLabel(options : any) {
+function createLabel(options: any) {
     return options;
 }
+
+
 
 module DialogComponent {
     $(function () {
@@ -473,21 +510,25 @@ module DialogComponent {
             width: 550,
             minWidth: 310,
             minHeight: 215,
-			target:".control",
-            close:()=>{
-			$("#btnOpen").show();}
+            target: ".control",
+            close: () => {
+                $("#btnOpen").show();
+            }
         });
         var btnInstance = new ej.Button($("#btnOpen"), {
             size: "medium",
-            click: ()=>{
-			$("#btnOpen").hide();
-        $("#basicDialog").ejDialog("open");},
+            click: () => {
+                $("#btnOpen").hide();
+                $("#basicDialog").ejDialog("open");
+            },
             type: "button",
             height: 30,
             width: 150
         });
     });
 }
+
+
 
 
 module digitalgaugecomponent {
@@ -514,6 +555,9 @@ module digitalgaugecomponent {
 
 
 
+
+
+
 module DropDownListComponent {
     var BikeList = [
         { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
@@ -522,7 +566,7 @@ module DropDownListComponent {
         { empid: "bk10", text: "Shine" }, { empid: "bk11", text: "R15" }, { empid: "bk12", text: "Unicorn" }
     ];
     $(function () {
-        var sample = new ej.DropDownList($("#bikeList"),{
+        var sample = new ej.DropDownList($("#bikeList"), {
             dataSource: BikeList,
             width: "100%",
             watermarkText: "Select a bike",
@@ -546,6 +590,9 @@ module DropDownListComponent {
 
 
 
+
+
+
 module ExplorerComponent {
     $(function () {
         var file = new ej.FileExplorer($("#fileExplorer"), {
@@ -558,6 +605,9 @@ module ExplorerComponent {
         });
     });
 }
+
+
+
 
 module GanttComponent {
     $(function () {
@@ -608,6 +658,9 @@ module GanttComponent {
         });
     });
 }
+
+
+
 module GridComponent {
     $(function () {
         var gridInstance = new ej.Grid($("#Grid"), {
@@ -642,6 +695,8 @@ module GridComponent {
         });
     });
 }
+
+
 
 var columns = ["Vegie-spread", "Tofuaa", "Alice Mutton", "Konbu", "Fløtemysost"]
 var itemSource: any[] = [];
@@ -688,14 +743,13 @@ $(function () {
     });
 });
 
-declare var window:myWindow;
-export interface myWindow extends Window{
-kanbanData:any;
-}
+
+
+
 module KanbanComponent {
     $(function () {
         var sample = new ej.Kanban($("#Kanban"), {
-            dataSource: new ej.DataManager(<any>window["kanbanData"]).executeLocal(new ej.Query().take(20)),
+            dataSource: new ej.DataManager((<any>window).kanbanData).executeLocal(new ej.Query().take(20)),
             columns: [
                 { headerText: "Backlog", key: "Open" },
                 { headerText: "In Progress", key: "InProgress" },
@@ -713,6 +767,9 @@ module KanbanComponent {
         });
     });
 }
+
+
+
 
 module lineargaugecomponent {
     $(function () {
@@ -754,14 +811,17 @@ module ListBoxComponent {
     });
 }
 
+
+
 module ListviewComponent {
     $(function () {
         var listviewInstance = new ej.ListView($("#defaultlistview"), {
             enableCheckMark: true,
-		    width: 400
+            width: 400
         });
     });
 }
+
 
 var world_map=
     {
@@ -990,9 +1050,13 @@ module mapcomponenet {
 
 
 
+
+
+
+
 module MenuComponent {
     $(function () {
-        var sample = new ej.Menu($("#syncfusionProducts"),{
+        var sample = new ej.Menu($("#syncfusionProducts"), {
             width: "100%",
             animationType: ej.AnimationType.Default,
             cssClass: 'gradient-lime ',
@@ -1017,10 +1081,12 @@ module MenuComponent {
 
 
 
+
+
 module NavigationDrawerComponent {
     $(function () {
         var navigationdrawerInstance = new ej.NavigationDrawer($("#navpane"), {
-           targetId: "butdrawer",
+            targetId: "butdrawer",
             contentId: "content_container",
             type: "overlay",
             direction: "left",
@@ -1031,27 +1097,31 @@ module NavigationDrawerComponent {
             },
             position: "normal"
         });
-		$("#navpane_listview").click(function(e: any) {
-            var text=e.target["text"]||$(e.target).closest("li.e-list").text();
+        $("#navpane_listview").click(function (e: any) {
+            var text = e.target["text"] || $(e.target).closest("li.e-list").text();
             $("#butdrawer").parent().children("h2").text(text);
         });
     });
 }
 
+
+
 module PDFViewerComponent {
     $(function () {
         var pdfviewerControl = new ej.PdfViewer($("#pdfviewer"), {
-            serviceUrl:(<any>window).baseurl+ "api/PdfViewer",
+            serviceUrl: (<any>window).baseurl + "api/PdfViewer",
             isResponsive: true
         });
     });
 }
 
+
+
 module PivotChartOlap {
     $(function () {
         var sample = new ej.PivotChart($("#PivotChart"), {
             dataSource: {
-                data: "http://bi.syncfusion.com/olap/msmdpump.dll",
+                data: "//bi.syncfusion.com/olap/msmdpump.dll",
                 catalog: "Adventure Works DW 2008 SE",
                 cube: "Adventure Works",
                 rows: [
@@ -1083,10 +1153,12 @@ module PivotChartOlap {
             size: { height: "460px", width: "100%" },
             primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
             primaryYAxis: { title: { text: "Internet Sales Amount" } },
-            legend: { visible: true, rowCount: 2 },
+            legend: { visible: true, rowCount: 2 }
+            // load:"loadTheme"
         });
     });
 }
+
 
 
 var pivot_dataset = [
@@ -1156,65 +1228,68 @@ module PivotChartRelational {
             },
             size: { height: "460px", width: "100%" },
             primaryYAxis: { title: { text: "Amount" } },
-            legend: { visible: true },
+            legend: { visible: true }
+            // load:"loadTheme"
         });
     });
 }
 
+
+
 module PivotGaugeOlap {
 
     $(function () {
-        var sample = new ej.PivotGauge($("#PivotGauge"),{
+        var sample = new ej.PivotGauge($("#PivotGauge"), {
             dataSource: {
-				data: "http://bi.syncfusion.com/olap/msmdpump.dll",
-				catalog: "Adventure Works DW 2008 SE",
-				cube: "Adventure Works",
-				rows: [
-					{
-						fieldName: "[Date].[Fiscal]",
-						filterItems: { filterType: "include", values: ["[Date].[Fiscal].[Fiscal Year].&amp;[2004]"] }
-					},
-				],
-				columns: [
-					{
-						fieldName: "[Customer].[Customer Geography]"
-					}
-				],
-				values: [
-					{
-						measures: [
-							{
-								fieldName: "[Measures].[Internet Sales Amount]"
-							},
-							{
-								fieldName: "[Measures].[Internet Revenue Status]"
-							},
-							{
-								fieldName: "[Measures].[Internet Revenue Trend]"
-							},
-							{
-								fieldName: "[Measures].[Internet Revenue Goal]"
-							},
-						],
-						axis: "columns"
-					}
-				],
-				filters:[]
-			},
+                data: "//bi.syncfusion.com/olap/msmdpump.dll",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
+                rows: [
+                    {
+                        fieldName: "[Date].[Fiscal]",
+                        filterItems: { filterType: "include", values: ["[Date].[Fiscal].[Fiscal Year].&amp;[2004]"] }
+                    },
+                ],
+                columns: [
+                    {
+                        fieldName: "[Customer].[Customer Geography]"
+                    }
+                ],
+                values: [
+                    {
+                        measures: [
+                            {
+                                fieldName: "[Measures].[Internet Sales Amount]"
+                            },
+                            {
+                                fieldName: "[Measures].[Internet Revenue Status]"
+                            },
+                            {
+                                fieldName: "[Measures].[Internet Revenue Trend]"
+                            },
+                            {
+                                fieldName: "[Measures].[Internet Revenue Goal]"
+                            },
+                        ],
+                        axis: "columns"
+                    }
+                ],
+                filters: []
+            },
             enableTooltip: true, isResponsive: true,
             labelFormatSettings: { decimalPlaces: 2 },
-			scales: [{
-				showRanges: true,
-				radius: 150, showScaleBar: true, size: 1,
+            scales: [{
+                showRanges: true,
+                radius: 150, showScaleBar: true, size: 1,
                 border: {
-					width: 0.5
-				},
-				showIndicators: true, showLabels: true,
+                    width: 0.5
+                },
+                showIndicators: true, showLabels: true,
                 pointers: [{
-					showBackNeedle: true,
-					backNeedleLength: 20,
-					length: 120,
-					width: 7
+                    showBackNeedle: true,
+                    backNeedleLength: 20,
+                    length: 120,
+                    width: 7
                 },
                     {
                         type: "marker",
@@ -1226,45 +1301,46 @@ module PivotGaugeOlap {
                         width: 15
                     }],
                 ticks: [{
-					type: "major",
+                    type: "major",
                     distanceFromScale: 2,
-					height: 16,
-					width: 1, color: "#8c8c8c"
-				},
-                {
-					type: "minor",
-					height: 6,
-					width: 1,
-					distanceFromScale: 2,
-                    color: "#8c8c8c"
-                }],
+                    height: 16,
+                    width: 1, color: "#8c8c8c"
+                },
+                    {
+                        type: "minor",
+                        height: 6,
+                        width: 1,
+                        distanceFromScale: 2,
+                        color: "#8c8c8c"
+                    }],
                 labels: [{
                     color: "#8c8c8c"
-				}],
-                ranges: [{
-					distanceFromScale: -5,
-                    backgroundColor: "#fc0606",
-					border: { color: "#fc0606" }
-                },
-				{
-					distanceFromScale: -5
                 }],
-				customLabels: [{
-					position: { x: 180, y: 290 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                ranges: [{
+                    distanceFromScale: -5,
+                    backgroundColor: "#fc0606",
+                    border: { color: "#fc0606" }
                 },
-				{
-					position: { x: 180, y: 320 },
-					font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                    {
+                        distanceFromScale: -5
+                    }],
+                customLabels: [{
+                    position: { x: 180, y: 290 },
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
                 },
-				{
-                    position: { x: 180, y: 150 },
-                    font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
-                }]
+                    {
+                        position: { x: 180, y: 320 },
+                        font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                    },
+                    {
+                        position: { x: 180, y: 150 },
+                        font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" }, color: "#666666"
+                    }]
             }]
         });
     });
 }
+
 
 
 var pivot_dataset = [
@@ -1386,12 +1462,14 @@ module PivotGaugeRelational {
     });
 }
 
+
+
 module PivotGridOlap {
 
     $(function () {
         var sample = new ej.PivotGrid($("#PivotGrid"), {
             dataSource: {
-                data: "http://bi.syncfusion.com/olap/msmdpump.dll",
+                data: "//bi.syncfusion.com/olap/msmdpump.dll",
                 catalog: "Adventure Works DW 2008 SE",
                 cube: "Adventure Works",
                 rows: [
@@ -1422,6 +1500,8 @@ module PivotGridOlap {
         $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
 }
+
+
 
 var pivot_dataset = [
     { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
@@ -1491,42 +1571,46 @@ module PivotGridRelational {
     });
 }
 
+
+
 module PivotTreeMap {
     $(function () {
-        var sample = new ej.PivotTreeMap($("#PivotTreeMap"),{
+        var sample = new ej.PivotTreeMap($("#PivotTreeMap"), {
             dataSource: {
-			data: "http://bi.syncfusion.com/olap/msmdpump.dll;Locale Identifier=1033;",
-			catalog: "Adventure Works DW 2008 SE",
-			cube: "Adventure Works",
-			rows: [
-				{
-					fieldName: "[Customer].[Customer Geography]"
-				}
-			],
-			columns: [
-				{
-					fieldName: "[Date].[Fiscal]"
-				}
-			],
-            values: [
-				{
-					measures: [
-						{
-							fieldName: "[Measures].[Customer Count]",
-						}
-					],
-					axis: "columns"
-				}
-			],
-			filters:[]
-		}
+                data: "//bi.syncfusion.com/olap/msmdpump.dll;Locale Identifier=1033;",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
+                rows: [
+                    {
+                        fieldName: "[Customer].[Customer Geography]"
+                    }
+                ],
+                columns: [
+                    {
+                        fieldName: "[Date].[Fiscal]"
+                    }
+                ],
+                values: [
+                    {
+                        measures: [
+                            {
+                                fieldName: "[Measures].[Customer Count]",
+                            }
+                        ],
+                        axis: "columns"
+                    }
+                ],
+                filters: []
+            }
         });
     });
 }
 
+
+
 module ProgressBarComponent {
     $(function () {
-        var sample = new ej.ProgressBar($("#progressBar"),{
+        var sample = new ej.ProgressBar($("#progressBar"), {
             width: 200,
             value: 45,
             height: 20,
@@ -1539,6 +1623,8 @@ module ProgressBarComponent {
     });
 
 }
+
+
 
 
 declare var rteObj: any;
@@ -1554,7 +1640,7 @@ module RadialMenuComponent {
                 backImageClass: "backimageclass",
                 targetElementId: "radialtarget1"
             });
-			$("#radialtarget1").parent().css("position", "relative");
+            $("#radialtarget1").parent().css("position", "relative");
         }
         else {
             $("#contentDiv").html("Radial Menu is only supported from Internet Explorer Versioned 9 and above.").css({ "font-size": "20px", "color": "red" });
@@ -1620,13 +1706,17 @@ function redo(e: any) {
     radialEle.focus();
 }
 
+
+
+
 module RadialSliderComponent {
     $(function () {
         var radialsliderInstance = new ej.RadialSlider($("#radialSlider"), {
-           innerCircleImageUrl: "images/radialslider/chevron-right.png"
+            innerCircleImageUrl: "images/radialslider/chevron-right.png"
         });
     });
 }
+
 
 module rangecomponent {
     $(function () {
@@ -1719,8 +1809,8 @@ var data;
 data = GetData();
 
 function GetData() {
-    var series1:any[]=[];
-    var series2:any[]= [];
+    var series1: any[] = [];
+    var series2: any[] = [];
     var value = 100;
     var value1 = 120;
     for (var i = 1; i < 730; i++) {
@@ -1741,6 +1831,8 @@ function GetData() {
     data = { Open: series1, Close: series2 };
     return data;
 };
+
+
 
 module RatingComponent {
     $(function () {
@@ -1796,17 +1888,21 @@ module RatingComponent {
 
 }
 
+
+
 module ReportViewerComponent {
-	$(function () {
-		var report = new ej.ReportViewer($("#territoryReportViewer"), {
-			reportServiceUrl: (<any>window).baseurl + 'api/ReportViewer',
-			reportServerUrl: 'http://mvc.syncfusion.com/reportserver',
-			processingMode: ej.ReportViewer.ProcessingMode.Remote,
-			reportPath: "/SSRSSamples2/Territory Sales new",
-			isResponsive: true
-		});
-	});
+    $(function () {
+        var report = new ej.ReportViewer($("#territoryReportViewer"), {
+            reportServiceUrl: (<any>window).baseurl + 'api/ReportViewer',
+            reportServerUrl: 'http://104.207.134.201/reportserver',
+            processingMode: ej.ReportViewer.ProcessingMode.Remote,
+            reportPath: "/SSRSSamples2/Territory Sales new",
+            isResponsive: true
+        });
+    });
 }
+
+
 
 var fontfamily = ["Segoe UI", "Arial", "Times New Roman", "Tahoma", "Helvetica"], fontsize = ["1pt", "2pt", "3pt", "4pt", "5pt"], action1 = ["New", "Clear"], action2 = ["Bold", "Italic", "Underline", "strikethrough", "superscript", "subscript", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyFull", "Undo", "Redo"];
 module RibbonComponent {
@@ -2471,7 +2567,7 @@ module RibbonComponent {
                     ]
                 }
             ],
-            create: function createControl(args: any) {
+            create: function createControl(args) {
                 var ribbon = $("#defaultRibbon").data("ejRibbon");
                 $("#fontcolor").ejColorPicker({ value: "#FFFF00", modelType: "palette", cssClass: "e-ribbon", toolIcon: "e-fontcoloricon", select: colorHandler });
                 $("#fillcolor").ejColorPicker({ value: "#FF0000", modelType: "palette", cssClass: "e-ribbon", toolIcon: "e-fillcoloricon", select: colorHandler });
@@ -2499,6 +2595,9 @@ function onClick(args: any) {
 
 
 
+
+
+
 module RotatorComponent {
     $(function () {
         var rotatorInstance = new ej.Rotator($("#sliderContent"), {
@@ -2507,22 +2606,24 @@ module RotatorComponent {
             slideHeight: "auto",
             displayItemsCount: "1",
             navigateSteps: "1",
-            pagerPosition:"outside",
+            pagerPosition: "outside",
             orientation: "horizontal",
             showPager: true,
             enabled: true,
             showCaption: true,
             allowKeyboardNavigation: true,
             showPlayButton: true,
-            isResponsive:true,
+            isResponsive: true,
             animationType: "slide",
         });
     });
 }
 
+
+
 module RTEComponent {
     $(function () {
-        var sample = new ej.RTE($("#rteSample"),{
+        var sample = new ej.RTE($("#rteSample"), {
             width: "100%",
             minWidth: "150px",
             showFooter: true,
@@ -2589,6 +2690,8 @@ module RTEComponent {
     });
 
 }
+
+
 
 module ScheduleComponent {
     $(function () {
@@ -2658,6 +2761,8 @@ module ScheduleComponent {
     });
 }
 
+
+
 module ScrollerComponent {
     $(function () {
         var scrollerSample = new ej.Scroller($("#scrollcontent"), {
@@ -2666,8 +2771,11 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });    });
+        });
+    });
 }
+
+
 
 module SignatureComponent {
     $(function () {
@@ -2678,6 +2786,9 @@ module SignatureComponent {
         });
     });
 }
+
+
+
 
 module SliderComponent {
     $(function () {
@@ -2699,6 +2810,8 @@ module SliderComponent {
 
 
 
+
+
 module linesparkline {
     $(function () {
 
@@ -2706,10 +2819,10 @@ module linesparkline {
             dataSource: [12, 14, 11, 12, 11, 15, 12, 10, 11, 12, 15, 13, 12, 11, 10, 13, 15, 12, 14, 16, 14, 12, 11],
             tooltip: {
                 visible: true,
-                font: { size:"12px" }
+                font: { size: "12px" }
             },
             type: "line",
-            size: { height: "40", width:"170" },
+            size: { height: "40", width: "170" },
         });
     });
 }
@@ -2717,7 +2830,7 @@ module linesparkline {
 module columnsparkline {
     $(function () {
         var sparkcolumnsample = new ej.Sparkline($("#column"), {
-            dataSource: [2, 6, -1, 1, 12, 5, -2, 7, -3, 5, 8, 10,],
+            dataSource: [2, 6, -1, 1, 12, 5, -2, 7, -3, 5, 8, 10, ],
             negativePointColor: "red",
             highPointColor: "blue",
             tooltip: {
@@ -2735,7 +2848,7 @@ module columnsparkline {
 module areasparkline {
     $(function () {
         var sparkareasample = new ej.Sparkline($("#area"), {
-            dataSource: [12, -10, 11, 8, 17, 6, 2, -17, 13, -6, 8, 10,],
+            dataSource: [12, -10, 11, 8, 17, 6, 2, -17, 13, -6, 8, 10, ],
             markerSettings: { visible: true },
             highPointColor: "blue",
             lowPointColor: "orange",
@@ -2755,7 +2868,7 @@ module areasparkline {
 module windlosssparkline {
     $(function () {
         var sparkwinlosssample = new ej.Sparkline($("#winloss"), {
-            dataSource: [12, 15, -11, 13, 17, 0, -12, 17, 13, -15, 8, 10,],
+            dataSource: [12, 15, -11, 13, 17, 0, -12, 17, 13, -15, 8, 10, ],
             type: "winloss",
             size: { height: "100", width: "150" },
         });
@@ -2781,7 +2894,7 @@ module piesparkline1 {
 module piesparkline2 {
     $(function () {
         var sparkpiesample2 = new ej.Sparkline($("#pie2"), {
-            dataSource: [8, 9, 1,],
+            dataSource: [8, 9, 1, ],
             type: "pie",
             tooltip: {
                 visible: true,
@@ -2828,6 +2941,9 @@ module piesparkline4 {
 
 
 
+
+
+
 module SplitterComponent {
     $(function () {
         var splitterInstance = new ej.Splitter($("#outterSpliter"), {
@@ -2835,17 +2951,18 @@ module SplitterComponent {
             width: "50%",
             orientation: ej.Orientation.Vertical,
             properties: [{}, { paneSize: 80 }],
-            isResponsive:true
+            isResponsive: true
         });
         var splitterInstance1 = new ej.Splitter($("#innerSpliter"), {
-            isResponsive:true,
+            isResponsive: true,
         });
     });
 }
 
 
+
 module SpreadsheetComponent {
-$(function () {
+    $(function () {
         var sample = new ej.Spreadsheet($("#basicSpreadsheet"), {
             scrollSettings: {
                 height: 550,
@@ -2872,41 +2989,44 @@ $(function () {
     });
 }
 
+
+
+
 var default_data: Array<Object> = [
-    { Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup:"Executive",                         EmployeesCount : 50 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Marketing",                                                   EmployeesCount : 40 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 55 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 175},
-	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 70 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Management",                                                  EmployeesCount : 40 },
-	{ Category : "Employees", Country : "USA", JobDescription : "Accounts",                                                    EmployeesCount : 60 },
+    { Category: "Employees", Country: "USA", JobDescription: "Sales", JobGroup: "Executive", EmployeesCount: 50 },
+    { Category: "Employees", Country: "USA", JobDescription: "Sales", JobGroup: "Analyst", EmployeesCount: 40 },
+    { Category: "Employees", Country: "USA", JobDescription: "Marketing", EmployeesCount: 40 },
+    { Category: "Employees", Country: "USA", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 55 },
+    { Category: "Employees", Country: "USA", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Windows", EmployeesCount: 175 },
+    { Category: "Employees", Country: "USA", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Web", EmployeesCount: 70 },
+    { Category: "Employees", Country: "USA", JobDescription: "Management", EmployeesCount: 40 },
+    { Category: "Employees", Country: "USA", JobDescription: "Accounts", EmployeesCount: 60 },
 
-	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 43 },
-	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 125},
-	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 60 },
-	{ Category : "Employees", Country : "India",   JobDescription : "HR Executives",                                               EmployeesCount : 70 },
-	{ Category : "Employees", Country : "India",   JobDescription : "Accounts",                                                    EmployeesCount : 45 },
+    { Category: "Employees", Country: "India", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 43 },
+    { Category: "Employees", Country: "India", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Windows", EmployeesCount: 125 },
+    { Category: "Employees", Country: "India", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Web", EmployeesCount: 60 },
+    { Category: "Employees", Country: "India", JobDescription: "HR Executives", EmployeesCount: 70 },
+    { Category: "Employees", Country: "India", JobDescription: "Accounts", EmployeesCount: 45 },
 
-	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Executive",                       EmployeesCount : 30 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Marketing",                                                   EmployeesCount : 50 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Management",                                                  EmployeesCount : 33 },
-	{ Category : "Employees", Country : "Germany", JobDescription : "Accounts",                                                    EmployeesCount : 55 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Sales", JobGroup: "Executive", EmployeesCount: 30 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Sales", JobGroup: "Analyst", EmployeesCount: 40 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Marketing", EmployeesCount: 50 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 40 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Windows", EmployeesCount: 65 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Web", EmployeesCount: 27 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Management", EmployeesCount: 33 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Accounts", EmployeesCount: 55 },
 
-	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 45 },
-	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 96 },
-	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 55 },
-	{ Category : "Employees", Country : "UK",      JobDescription : "HR Executives",                                               EmployeesCount : 60 },
-	{ Category : "Employees", Country : "UK",      JobDescription: "Accounts",                                                     EmployeesCount: 30  },
+    { Category: "Employees", Country: "UK", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 45 },
+    { Category: "Employees", Country: "UK", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Windows", EmployeesCount: 96 },
+    { Category: "Employees", Country: "UK", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Web", EmployeesCount: 55 },
+    { Category: "Employees", Country: "UK", JobDescription: "HR Executives", EmployeesCount: 60 },
+    { Category: "Employees", Country: "UK", JobDescription: "Accounts", EmployeesCount: 30 },
 
-	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
-	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
-	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
-	{ Category : "Employees", Country : "France", JobDescription: "Marketing",                                                     EmployeesCount: 50  }
+    { Category: "Employees", Country: "France", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 40 },
+    { Category: "Employees", Country: "France", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Windows", EmployeesCount: 65 },
+    { Category: "Employees", Country: "France", JobDescription: "Technical", JobGroup: "Developers", JobRole: "Web", EmployeesCount: 27 },
+	{ Category: "Employees", Country: "France", JobDescription: "Marketing", EmployeesCount: 50  }
 ];
 
 module sunburstcomponent {
@@ -2937,14 +3057,18 @@ module sunburstcomponent {
             },
             title: { text: "Employees Count" },
             zoomSettings: { enable: false },
-            legend: { visible: true, position: 'top' },
+            legend: { visible: true, position: 'top' }
+            // load:"loadTheme"
         });
     });
 }
 
+
+
+
 module TabComponent {
     $(function () {
-        var sample = new ej.Tab($("#defaultTab"),{
+        var sample = new ej.Tab($("#defaultTab"), {
             width: "500px",
             collapsible: true,
             events: "click",
@@ -2955,7 +3079,11 @@ module TabComponent {
     });
 }
 
+
+
 module TagCloudComponent {
+
+
     var websiteCollection = [
         { text: "Google", url: "http://www.google.com", frequency: 12 },
         { text: "All Things Digital", url: "http://allthingsd.com/", frequency: 3 },
@@ -2986,8 +3114,11 @@ module TagCloudComponent {
                 text: "text", url: "url", frequency: "frequency"
             }
         });
+
     });
 }
+
+
 
 module EditorComponent {
     $(function () {
@@ -3023,13 +3154,15 @@ module EditorComponent {
 
 
 
+
+
 module TileViewComponent {
     $(function () {
         var tile1 = new ej.Tile($("#tile1"), {
-            imagePosition:"fill",
-			caption:{text:"People"},
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/people_1.png'
+            imagePosition: "fill",
+            caption: { text: "People" },
+            tileSize: "medium",
+            imageUrl: 'content/images/tile/windows/people_1.png'
         });
         var tile2 = new ej.Tile($("#tile2"), {
             imagePosition: "center",
@@ -3068,38 +3201,41 @@ module TileViewComponent {
             imageUrl: 'content/images/tile/windows/sports.png',
             caption: { text: "Sports" }
         });
-		var tile9 = new ej.Tile($("#tile9"), {
-            imagePosition:"fill",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/people_2.png',
-			caption:{text:"People"}
+        var tile9 = new ej.Tile($("#tile9"), {
+            imagePosition: "fill",
+            tileSize: "medium",
+            imageUrl: 'content/images/tile/windows/people_2.png',
+            caption: { text: "People" }
         });
-		var tile10 = new ej.Tile($("#tile10"), {
-            imagePosition:"center",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/pictures.png',
-			caption:{text:"Photo"}
+        var tile10 = new ej.Tile($("#tile10"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: 'content/images/tile/windows/pictures.png',
+            caption: { text: "Photo" }
         });
-		var tile11 = new ej.Tile($("#tile11"), {
-            imagePosition:"center",
-			tileSize:"wide",
-			imageUrl:'content/images/tile/windows/weather.png',
-			caption:{text:"Weather"}
+        var tile11 = new ej.Tile($("#tile11"), {
+            imagePosition: "center",
+            tileSize: "wide",
+            imageUrl: 'content/images/tile/windows/weather.png',
+            caption: { text: "Weather" }
         });
-		var tile12 = new ej.Tile($("#tile12"), {
-            imagePosition:"center",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/music.png',
-			caption:{text:"Music"}
+        var tile12 = new ej.Tile($("#tile12"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: 'content/images/tile/windows/music.png',
+            caption: { text: "Music" }
         });
-		var tile13 = new ej.Tile($("#tile13"), {
-            imagePosition:"center",
-			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/favs.png',
-			caption:{text:"Favorites"}
+        var tile13 = new ej.Tile($("#tile13"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: 'content/images/tile/windows/favs.png',
+            caption: { text: "Favorites" }
         });
     });
 }
+
+
+
 module TimePickerComponent {
     $(function () {
         var timeSample = new ej.TimePicker($("#timepick"), {
@@ -3107,6 +3243,9 @@ module TimePickerComponent {
         });
     });
 }
+
+
+
 
 module ToolbarComponent {
 
@@ -3123,6 +3262,9 @@ module ToolbarComponent {
     });
 
 }
+
+
+
 
 module TooltipComponent {
 
@@ -3179,46 +3321,50 @@ module TooltipComponent {
     });
 }
 
+
+
 module TreeGridComponent {
     $(function () {
         var treegridInstance = new ej.TreeGrid($("#TreeGridContainer"), {
-        dataSource: (<any>window).treeGridData,
-        childMapping: "subtasks",
-        allowSorting: true,
-        allowMultiSorting: true,
-        enableAltRow: true,
-        allowFiltering: true,
-        treeColumnIndex: 1,
-        allowKeyboardNavigation: true,
-        showColumnChooser: true,
-        showColumnOptions: true,
-        contextMenuSettings: {
-            showContextMenu: true,
-            contextMenuItems: ["add", "edit", "delete"]
-        },
-        columnDialogFields: ["field", "headerText", "editType", "width", "visible", "allowSorting", "textAlign", "headerTextAlign"],
-        editSettings: {
-            allowAdding: true,
-            allowEditing: true,
-            allowDeleting: true,
-            editMode: "cellEditing",
-            rowPosition: "belowSelectedRow"
-        },
-        toolbarSettings: {
-            showToolbar: true,
-            toolbarItems: ["add","edit","delete","update","cancel","expandAll","collapseAll"]
-        },
-        columns: [
-            { field: "taskID", headerText: "Task Id", allowFiltering: false, editType: "numericedit", filterEditType: "numericedit" },
-            { field: "taskName", headerText: "Task Name", editType: "stringedit", filterEditType: "stringedit" },
-            { field: "startDate", headerText: "Start Date", editType: "datepicker", filterEditType: "datepicker", format:"{0:MM/dd/yyyy}" },
-            { field: "endDate", headerText: "End Date", editType: "datepicker", filterEditType: "datepicker", format:"{0:MM/dd/yyyy}" },
-            { field: "progress", headerText: "Progress", editType: "numericedit", filterEditType: "numericedit" }
-        ],
-        isResponsive: true,
+            dataSource: (<any>window).treeGridData,
+            childMapping: "subtasks",
+            allowSorting: true,
+            allowMultiSorting: true,
+            enableAltRow: true,
+            allowFiltering: true,
+            treeColumnIndex: 1,
+            allowKeyboardNavigation: true,
+            showColumnChooser: true,
+            showColumnOptions: true,
+            contextMenuSettings: {
+                showContextMenu: true,
+                contextMenuItems: ["add", "edit", "delete"]
+            },
+            columnDialogFields: ["field", "headerText", "editType", "width", "visible", "allowSorting", "textAlign", "headerTextAlign"],
+            editSettings: {
+                allowAdding: true,
+                allowEditing: true,
+                allowDeleting: true,
+                editMode: "cellEditing",
+                rowPosition: "belowSelectedRow"
+            },
+            toolbarSettings: {
+                showToolbar: true,
+                toolbarItems: ["add", "edit", "delete", "update", "cancel", "expandAll", "collapseAll"]
+            },
+            columns: [
+                { field: "taskID", headerText: "Task Id", allowFiltering: false, editType: "numericedit", filterEditType: "numericedit" },
+                { field: "taskName", headerText: "Task Name", editType: "stringedit", filterEditType: "stringedit" },
+                { field: "startDate", headerText: "Start Date", editType: "datepicker", filterEditType: "datepicker", format: "{0:MM/dd/yyyy}" },
+                { field: "endDate", headerText: "End Date", editType: "datepicker", filterEditType: "datepicker", format: "{0:MM/dd/yyyy}" },
+                { field: "progress", headerText: "Progress", editType: "numericedit", filterEditType: "numericedit" }
+            ],
+            isResponsive: true,
+        });
     });
-});
 }
+
+
 
 
 var population_data: Array<Object> = [
@@ -3261,6 +3407,8 @@ module treemapcomponent {
 
 
 
+
+
 module TreeViewComponent {
     $(function () {
         var tree = new ej.TreeView($("#treeView"), {
@@ -3271,6 +3419,9 @@ module TreeViewComponent {
         });
     });
 }
+
+
+
 
 module UploadboxComponent {
 
@@ -3293,14 +3444,17 @@ module UploadboxComponent {
 
 }
 
+
+
+
 module WaitingPopupComponent {
     $(function () {
-        var sample = new ej.WaitingPopup($("#target"),{
+        var sample = new ej.WaitingPopup($("#target"), {
             showOnInit: true,
             showImage: true,
             text: 'waiting&hellip;',
-			target: "#target",
-			appendTo: "#waiting"
+            target: "#target",
+            appendTo: "#waiting"
         });
     });
 

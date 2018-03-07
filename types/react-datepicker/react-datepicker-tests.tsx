@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as moment from 'moment';
+import moment = require('moment');
 import DatePicker from 'react-datepicker';
 
 class ReactDatePicker extends React.Component<{}, { startDate: moment.Moment; displayName: string; }> {

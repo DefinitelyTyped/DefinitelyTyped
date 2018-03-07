@@ -9,7 +9,10 @@ declare namespace pc {
      * @param {pc.Vec3} [normal] Normal of the plane. The constructor takes a reference of this parameter.
      */
     class Plane {
-        constructor(point: pc.Vec3, normal: pc.Vec3)
+        constructor(point?: pc.Vec3, normal?: pc.Vec3)
+
+        point: pc.Vec3;
+        normal: pc.Vec3;
 
         /**
          * @function
@@ -30,6 +33,6 @@ declare namespace pc {
          * @param {pc.Vec3} [point] If there is an intersection, the intersection point will be copied into here
          * @returns {Boolean} True if there is an intersection
          */
-        intersectsRay(ray: pc.Ray, point: pc.Vec3): boolean;
+        intersectsRay(ray: pc.Ray, point?: pc.Vec3): boolean;
     }
 }

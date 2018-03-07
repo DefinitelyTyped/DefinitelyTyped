@@ -2,7 +2,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import * as expect from 'expect';
+import expect = require('expect');
 const miss = require('mississippi');
 const cloneable = require('cloneable-readable');
 

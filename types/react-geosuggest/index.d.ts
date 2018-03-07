@@ -1,8 +1,8 @@
-// Type definitions for react-geosuggest 2.3
+// Type definitions for react-geosuggest 2.7
 // Project: https://github.com/ubilabs/react-geosuggest
 // Definitions by: Brad Menchl <https://github.com/brmenchl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 /// <reference types="googlemaps" />
 
@@ -13,6 +13,7 @@ export default class Geosuggest extends Component<GeosuggestProps> {
     blur(): void;
     update(value: string): void;
     clear(): void;
+    selectSuggest(): void;
 }
 
 export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -32,13 +33,15 @@ export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
     googleMaps?: typeof google.maps;
     ignoreTab?: boolean;
     queryDelay?: number;
+    minLength?: number;
     highlightMatch?: boolean;
-    onFocus?(): void;
+    onFocus?(value: any): void;
     onBlur?(value: any): void;
     onChange?(value: any): void;
     onKeyDown?(event: any): void;
     onKeyPress?(event: any): void;
     onSuggestSelect?(suggest: Suggest): void;
+    onUpdateSuggests?(suggests: any, activeSuggest: any): void;
     onActivateSuggest?(suggest: Suggest): void;
     onSuggestNoResults?(userInput: string): void;
     getSuggestLabel?(googleSuggest: google.maps.places.AutocompletePrediction): string;
@@ -48,8 +51,8 @@ export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     suggestsClassName?: string;
     suggestsHiddenClassName?: string;
-    suggestsItemClassName?: string;
-    suggestsItemActiveClassName?: string;
+    suggestItemClassName?: string;
+    suggestItemActiveClassName?: string;
     autoComplete?: string;
 }
 

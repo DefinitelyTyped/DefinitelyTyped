@@ -74,28 +74,28 @@ interface QElementList {
 // Element positions and sizes are available on all QElement instances.
 interface ElementDescriptor {
     // The top edge of the element
-    top: PositionDescriptor;
+    top?: PositionDescriptor;
     
     // The right edge of the element
-    right: PositionDescriptor;
+    right?: PositionDescriptor;
     
     // The bottom edge of the element
-    bottom: PositionDescriptor;
+    bottom?: PositionDescriptor;
     
     // The left edge of the element
-    left: PositionDescriptor;
+    left?: PositionDescriptor;
     
     // Horizontal center: midway between the right and left edges.
-    center: PositionDescriptor;
+    center?: PositionDescriptor;
     
     // Vertical middle: midway between the top and bottom edges.
-    middle: PositionDescriptor;
+    middle?: PositionDescriptor;
     
     // Width of the element.
-    width: SizeDescriptor;
+    width?: SizeDescriptor;
     
     // Height of the element.
-    height: SizeDescriptor;
+    height?: SizeDescriptor;
 }
 
 // Viewport positions and sizes are available on QFrame.viewport()

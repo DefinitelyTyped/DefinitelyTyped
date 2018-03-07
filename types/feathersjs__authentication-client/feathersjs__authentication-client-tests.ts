@@ -1,4 +1,11 @@
+import feathers from '@feathersjs/feathers';
 import feathersAuthClient from '@feathersjs/authentication-client';
 
-// we can't really do much, because the augmentation of @feathersjs/feathers breaks importing it here.
-const configureFn = feathersAuthClient({});
+const app = feathers();
+app.configure(feathersAuthClient());
+app.authenticate({strategy : 'abcdef'}).then(() => {});
+app.logout().then(() => {});
+
+// check if the non-augmented @feathersjs/feathers typings still work
+app.on('asd', () => {});
+app.service('asd').get(0).then(() => {});
