@@ -1,6 +1,6 @@
 function BootstrapDialogOptionsTests() {
-    const options1: BootstrapDialogOptions = { };
-    const options2: BootstrapDialogOptions = {
+    const options1: BootstrapDialog.DialogOptions = { };
+    const options2: BootstrapDialog.DialogOptions = {
         animate: false,
         buttons: [{id: "btn-1"}],
         callback: (result: boolean) => { },
@@ -12,10 +12,10 @@ function BootstrapDialogOptionsTests() {
         description: "",
         buttonLabel: "",
         message: "",
-        onhide: (dialog: BootstrapDialogContext) => { },
-        onhidden: (dialog: BootstrapDialogContext) => { },
-        onshow: (dialog: BootstrapDialogContext) => { },
-        onshown: (dialog: BootstrapDialogContext) => { },
+        onhide: (dialog: BootstrapDialog.DialogContext) => { },
+        onhidden: (dialog: BootstrapDialog.DialogContext) => { },
+        onshow: (dialog: BootstrapDialog.DialogContext) => { },
+        onshown: (dialog: BootstrapDialog.DialogContext) => { },
         size: BootstrapDialog.SIZE_LARGE,
         title: "",
         type: BootstrapDialog.TYPE_DEFAULT,
@@ -27,14 +27,14 @@ function BootstrapDialogOptionsTests() {
         autodestroy: false,
         nl2br: false,
     };
-    options2.onhide = (dialog: BootstrapDialogContext): void => { };
-    options2.onhide = (dialog: BootstrapDialogContext): boolean => false;
+    options2.onhide = (dialog: BootstrapDialog.DialogContext): void => { };
+    options2.onhide = (dialog: BootstrapDialog.DialogContext): boolean => false;
     options2.message = "";
     options2.message = $("#element");
-    options2.message = (dialog?: BootstrapDialogContext): string => {
+    options2.message = (dialog?: BootstrapDialog.DialogContext): string => {
         return "";
     };
-    options2.message = (dialog?: BootstrapDialogContext): JQuery => {
+    options2.message = (dialog?: BootstrapDialog.DialogContext): JQuery => {
         return $("#element");
     };
     // BootstrapDialog.SIZE_xxx constants.
@@ -58,7 +58,7 @@ function BootstrapDialogStaticTests() {
     BootstrapDialog.alert("", () => { });
     BootstrapDialog.confirm("");
     BootstrapDialog.confirm("", (result: boolean) => { });
-    const instance1: BootstrapDialogInstance = BootstrapDialog.show({});
+    const instance1: BootstrapDialog.DialogInstance = BootstrapDialog.show({});
     // BUTTON_SIZES
     BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL] = '';
     const buttonSize: string = BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL];
@@ -74,7 +74,7 @@ function BootstrapDialogStaticTests() {
 }
 
 function BootstrapDialogContextTests() {
-    const dialog1: BootstrapDialogContext = BootstrapDialog({});
+    const dialog1: BootstrapDialog.DialogContext = BootstrapDialog({});
     dialog1.close();
     dialog1.enableButtons(false);
     const button: JQuery = dialog1.getButton("");
@@ -97,20 +97,20 @@ function BootstrapDialogContextTests() {
 }
 
 function BootstrapDialogInstanceTests() {
-    const instance1: BootstrapDialogInstance = BootstrapDialog.show({});
+    const instance1: BootstrapDialog.DialogInstance = BootstrapDialog.show({});
     const modal: JQuery = instance1.$modal;
     const modalBody: JQuery = instance1.$modalBody;
     const modalContent: JQuery = instance1.$modalContent;
     const modalDialog: JQuery = instance1.$modalDialog;
     const modalHeader: JQuery = instance1.$modalHeader;
     const modalFooter: JQuery = instance1.$modalFooter;
-    const options: BootstrapDialogOptions = instance1.options;
+    const options: BootstrapDialog.DialogOptions = instance1.options;
     const opened: boolean = instance1.opened;
 }
 
 function BootstrapDialogButtonTests() {
-    const button1: BootstrapDialogButton = { };
-    const button2: BootstrapDialogButton = {
+    const button1: BootstrapDialog.DialogButton = { };
+    const button2: BootstrapDialog.DialogButton = {
         id: "",
         label: "",
         hotkey: 0,
@@ -118,6 +118,6 @@ function BootstrapDialogButtonTests() {
         cssClass: "",
         data: {name: "value"},
         autospin: false,
-        action: (dialog: BootstrapDialogContext) => { },
+        action: (dialog: BootstrapDialog.DialogContext) => { },
     };
 }
