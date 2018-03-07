@@ -601,316 +601,358 @@ declare namespace webpack {
             portableRecords?: boolean;
         }
     }
+    namespace compilation {
+        class Asset {
+        }
 
-    class Chunk {
-        constructor(name: string);
-        id: any;
-        ids: any;
-        debugId: number;
-        name: any;
-        entryModule: any;
-        files: any[];
-        rendered: boolean;
-        hash: any;
-        renderedHash: any;
-        chunkReason: any;
-        extraAsync: boolean;
+        class Module {
+        }
 
-        hasRuntime(): boolean;
-        canBeInitial(): boolean;
-        isOnlyInitial(): boolean;
-        hasEntryModule(): boolean;
+        class Record {
+        }
 
-        addModule(module: any): boolean;
-        removeModule(module: any): boolean;
-        setModules(modules: any): void;
-        getNumberOfModules(): number;
-        modulesIterable: any[];
+        class Chunk {
+            constructor(name: string);
+            id: any;
+            ids: any;
+            debugId: number;
+            name: any;
+            entryModule: any;
+            files: any[];
+            rendered: boolean;
+            hash: any;
+            renderedHash: any;
+            chunkReason: any;
+            extraAsync: boolean;
 
-        addGroup(chunkGroup: any): boolean;
-        removeGroup(chunkGroup: any): boolean;
-        isInGroup(chunkGroup: any): boolean;
-        getNumberOfGroups(): number;
-        groupsIterable: any[];
+            hasRuntime(): boolean;
+            canBeInitial(): boolean;
+            isOnlyInitial(): boolean;
+            hasEntryModule(): boolean;
 
-        compareTo(otherChunk: any): -1 | 0 | 1;
-        containsModule(module: any): boolean;
-        getModules(): any[];
-        getModulesIdent(): any[];
-        remove(reason: any): void;
-        moveModule(module: any, otherChunk: any): void;
-        integrate(otherChunk: any, reason: any): boolean;
-        split(newChunk: any): void;
-        isEmpty(): boolean;
-        updateHash(hash: any): void;
-        canBeIntegrated(otherChunk: any): boolean;
-        addMultiplierAndOverhead(size: number, options: any): number;
-        modulesSize(): number;
-        size(options: any): number;
-        integratedSize(otherChunk: any, options: any): number;
-        // tslint:disable-next-line:ban-types
-        sortModules(sortByFn: Function): void;
-        getAllAsyncChunks(): Set<any>;
-        getChunkMaps(realHash: any): { hash: any, name: any };
-        // tslint:disable-next-line:ban-types
-        getChunkModuleMaps(filterFn: Function): { id: any, hash: any };
-        // tslint:disable-next-line:ban-types
-        hasModuleInGraph(filterFn: Function, filterChunkFn: Function): boolean;
-        toString(): string;
+            addModule(module: any): boolean;
+            removeModule(module: any): boolean;
+            setModules(modules: any): void;
+            getNumberOfModules(): number;
+            modulesIterable: any[];
+
+            addGroup(chunkGroup: any): boolean;
+            removeGroup(chunkGroup: any): boolean;
+            isInGroup(chunkGroup: any): boolean;
+            getNumberOfGroups(): number;
+            groupsIterable: any[];
+
+            compareTo(otherChunk: any): -1 | 0 | 1;
+            containsModule(module: any): boolean;
+            getModules(): any[];
+            getModulesIdent(): any[];
+            remove(reason: any): void;
+            moveModule(module: any, otherChunk: any): void;
+            integrate(otherChunk: any, reason: any): boolean;
+            split(newChunk: any): void;
+            isEmpty(): boolean;
+            updateHash(hash: any): void;
+            canBeIntegrated(otherChunk: any): boolean;
+            addMultiplierAndOverhead(size: number, options: any): number;
+            modulesSize(): number;
+            size(options: any): number;
+            integratedSize(otherChunk: any, options: any): number;
+            // tslint:disable-next-line:ban-types
+            sortModules(sortByFn: Function): void;
+            getAllAsyncChunks(): Set<any>;
+            getChunkMaps(realHash: any): { hash: any, name: any };
+            // tslint:disable-next-line:ban-types
+            getChunkModuleMaps(filterFn: Function): { id: any, hash: any };
+            // tslint:disable-next-line:ban-types
+            hasModuleInGraph(filterFn: Function, filterChunkFn: Function): boolean;
+            toString(): string;
+        }
+
+        class ChunkGroup {
+        }
+
+        class ChunkHash {
+        }
+
+        class Dependency {
+            constructor();
+            getResourceIdentifier(): any;
+            getReference(): any;
+            getExports(): any;
+            getWarnings(): any;
+            getErrors(): any;
+            updateHash(hash: any): void;
+            disconnect(): void;
+            static compare(a: any, b: any): any;
+        }
+
+        interface NormalModuleFactoryHooks {
+            resolver: SyncWaterfallHook;
+            factory: SyncWaterfallHook;
+            beforeResolve: AsyncSeriesWaterfallHook;
+            afterResolve: AsyncSeriesWaterfallHook;
+            createModule: SyncBailHook;
+            module: SyncWaterfallHook;
+            createParser: HookMap;
+            parser: HookMap;
+            createGenerator: HookMap;
+            generator: HookMap;
+        }
+
+        class NormalModuleFactory extends Tapable {
+            hooks: NormalModuleFactoryHooks;
+        }
+
+        interface ContextModuleFactoryHooks {
+            beforeResolve: AsyncSeriesWaterfallHook;
+            afterResolve: AsyncSeriesWaterfallHook;
+            contextModuleFiles: SyncWaterfallHook;
+            alternatives: AsyncSeriesWaterfallHook;
+        }
+
+        class ContextModuleFactory extends Tapable {
+            hooks: ContextModuleFactoryHooks;
+        }
+
+        class DllModuleFactory extends Tapable {
+            hooks: {};
+        }
+
+        interface CompilationHooks {
+            buildModule: SyncHook<Module>;
+            rebuildModule: SyncHook<Module>;
+            failedModule: SyncHook<Module, Error>;
+            succeedModule: SyncHook<Module>;
+
+            finishModules: SyncHook<Module[]>;
+            finishRebuildingModule: SyncHook<Module>;
+
+            unseal: SyncHook;
+            seal: SyncHook;
+
+            optimizeDependenciesBasic: SyncBailHook<Module[]>;
+            optimizeDependencies: SyncBailHook<Module[]>;
+            optimizeDependenciesAdvanced: SyncBailHook<Module[]>;
+            afterOptimizeDependencies: SyncHook<Module[]>;
+
+            optimize: SyncHook;
+
+            optimizeModulesBasic: SyncBailHook<Module[]>;
+            optimizeModules: SyncBailHook<Module[]>;
+            optimizeModulesAdvanced: SyncBailHook<Module[]>;
+            afterOptimizeModules: SyncHook<Module[]>;
+
+            optimizeChunksBasic: SyncBailHook<Chunk[], ChunkGroup[]>;
+            optimizeChunks: SyncBailHook<Chunk[], ChunkGroup[]>;
+            optimizeChunksAdvanced: SyncBailHook<Chunk[], ChunkGroup[]>;
+            afterOptimizeChunks: SyncHook<Chunk[], ChunkGroup[]>;
+
+            optimizeTree: AsyncSeriesHook<Chunk[], Module[]>;
+            afterOptimizeTree: SyncHook<Chunk[], Module[]>;
+
+            optimizeChunkModulesBasic: SyncBailHook<Chunk[], Module[]>;
+            optimizeChunkModules: SyncBailHook<Chunk[], Module[]>;
+            optimizeChunkModulesAdvanced: SyncBailHook<Chunk[], Module[]>;
+            afterOptimizeChunkModules: SyncHook<Chunk[], Module[]>;
+            shouldRecord: SyncBailHook;
+
+            reviveModules: SyncHook<Module[], Record[]>;
+            optimizeModuleOrder: SyncHook<Module[]>;
+            advancedOptimizeModuleOrder: SyncHook<Module[]>;
+            beforeModuleIds: SyncHook<Module[]>;
+            moduleIds: SyncHook<Module[]>;
+            optimizeModuleIds: SyncHook<Module[]>;
+            afterOptimizeModuleIds: SyncHook<Module[]>;
+
+            reviveChunks: SyncHook<Chunk[], Record[]>;
+            optimizeChunkOrder: SyncHook<Chunk[]>;
+            beforeChunkIds: SyncHook<Chunk[]>;
+            optimizeChunkIds: SyncHook<Chunk[]>;
+            afterOptimizeChunkIds: SyncHook<Chunk[]>;
+
+            recordModules: SyncHook<Module[], Record[]>;
+            recordChunks: SyncHook<Chunk[], Record[]>;
+
+            beforeHash: SyncHook;
+            afterHash: SyncHook;
+
+            recordHash: SyncHook<Record[]>;
+
+            record: SyncHook<Compilation, Record[]>;
+
+            beforeModuleAssets: SyncHook;
+            shouldGenerateChunkAssets: SyncBailHook;
+            beforeChunkAssets: SyncHook;
+            additionalChunkAssets: SyncHook<Chunk[]>;
+
+            records: SyncHook<Compilation, Record[]>;
+
+            additionalAssets: AsyncSeriesHook;
+            optimizeChunkAssets: AsyncSeriesHook<Chunk[]>;
+            afterOptimizeChunkAssets: SyncHook<Chunk[]>;
+            optimizeAssets: AsyncSeriesHook<Asset[]>;
+            afterOptimizeAssets: SyncHook<Asset[]>;
+
+            needAdditionalSeal: SyncBailHook;
+            afterSeal: AsyncSeriesHook;
+
+            chunkHash: SyncHook<Chunk, ChunkHash>;
+            moduleAsset: SyncHook<Module, string>;
+            chunkAsset: SyncHook<Chunk, string>;
+
+            assetPath: SyncWaterfallHook<string>;
+
+            needAdditionalPass: SyncBailHook;
+            childCompiler: SyncHook;
+
+            normalModuleLoader: SyncHook<any, Module>;
+
+            optimizeExtractedChunksBasic: SyncBailHook<Chunk[]>;
+            optimizeExtractedChunks: SyncBailHook<Chunk[]>;
+            optimizeExtractedChunksAdvanced: SyncBailHook<Chunk[]>;
+            afterOptimizeExtractedChunks: SyncHook<Chunk[]>;
+        }
+
+        interface CompilationModule {
+            module: any;
+            issuer: boolean;
+            build: boolean;
+            dependencies: boolean;
+        }
+
+        class MainTemplate extends Tapable {}
+        class ChunkTemplate extends Tapable {}
+        class HotUpdateChunkTemplate extends Tapable {}
+        class RuntimeTemplate {}
+
+        interface ModuleTemplateHooks {
+            content: SyncWaterfallHook;
+            module: SyncWaterfallHook;
+            render: SyncWaterfallHook;
+            package: SyncWaterfallHook;
+            hash: SyncHook;
+        }
+
+        class ModuleTemplate extends Tapable {
+            hooks: ModuleTemplateHooks;
+        }
+
+        class Compilation extends Tapable {
+            hooks: CompilationHooks;
+            compiler: Compiler;
+
+            resolverFactory: any;
+            inputFileSystem: any;
+            requestShortener: any;
+
+            outputOptions: any;
+            bail: any;
+            profile: any;
+            performance: any;
+
+            mainTemplate: MainTemplate;
+            chunkTemplate: ChunkTemplate;
+            hotUpdateChunkTemplate: HotUpdateChunkTemplate;
+            runtimeTemplate: RuntimeTemplate;
+            moduleTemplates: {
+                javascript: ModuleTemplate;
+                webassembly: ModuleTemplate;
+            };
+
+            entries: any[];
+            _preparedEntrypoints: any[];
+            entrypoints: Map<any, any>;
+            chunks: any[];
+            chunkGroups: any[];
+            namedChunkGroups: Map<any, any>;
+            namedChunks: Map<any, any>;
+            modules: any[];
+            _modules: Map<any, any>;
+            cache: any;
+            records: any;
+            nextFreeModuleIndex: any;
+            nextFreeModuleIndex2: any;
+            additionalChunkAssets: any[];
+            assets: any;
+            errors: any[];
+            warnings: any[];
+            children: any[];
+            dependencyFactories: Map<typeof Dependency, Tapable>;
+            dependencyTemplates: Map<typeof Dependency, Tapable>;
+            childrenCounters: any;
+            usedChunkIds: any;
+            usedModuleIds: any;
+            getStats(): Stats;
+            addModule(module: CompilationModule, cacheGroup: any): any;
+            // getModule(module)
+            // findModule(identifier)
+            // waitForBuildingFinished(module, callback)
+            // buildModule(module, optional, origin, dependencies, thisCallback)
+            // processModuleDependencies(module, callback)
+            // addModuleDependencies(module, dependencies, bail, cacheGroup, recursive, callback)
+            // tslint:disable-next-line:ban-types
+            addEntry(context: any, entry: any, name: any, callback: Function): void;
+            // prefetch(context, dependency, callback)
+            // rebuildModule(module, thisCallback)
+            // finish()
+            // unseal()
+            // seal(callback)
+            // sortModules(modules)
+            // reportDependencyErrorsAndWarnings(module, blocks)
+            // addChunkInGroup(name, module, loc, request)
+            // addChunk(name)
+            // assignIndex(module)
+            // assignDepth(module)
+            // processDependenciesBlocksForChunkGroups(inputChunkGroups)
+            // removeReasonsOfDependencyBlock(module, block)
+            // patchChunksAfterReasonRemoval(module, chunk)
+            // removeChunkFromDependencies(block, chunk)
+            // applyModuleIds()
+            // applyChunkIds()
+            // sortItemsWithModuleIds()
+            // sortItemsWithChunkIds()
+            // summarizeDependencies()
+            // createHash()
+            // modifyHash(update)
+            // createModuleAssets()
+            // createChunkAssets()
+            getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
+            // createChildCompiler(name, outputOptions, plugins)
+            // checkConstraints()
+
+            /**
+             * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
+             */
+            applyPlugins(name: string, ...args: any[]): void;
+        }
+
+        interface CompilerHooks {
+            shouldEmit: SyncBailHook<Compilation>;
+            done: AsyncSeriesHook<Stats>;
+            additionalPass: AsyncSeriesHook;
+            beforeRun: AsyncSeriesHook<Compilation>;
+            run: AsyncSeriesHook<Compilation>;
+            emit: AsyncSeriesHook<Compilation>;
+            afterEmit: AsyncSeriesHook<Compilation>;
+            thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
+            compilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
+            normalModuleFactory: SyncHook<NormalModuleFactory>;
+            contextModuleFactory: SyncHook<ContextModuleFactory>;
+            beforeCompile: AsyncSeriesHook<{}>;
+            compile: SyncHook<{}>;
+            make: AsyncParallelHook<Compilation>;
+            afterCompile: AsyncSeriesHook<Compilation>;
+            watchRun: AsyncSeriesHook<Compiler>;
+            failed: SyncHook<Error>;
+            invalid: SyncHook<string, Date>;
+            watchClose: SyncHook;
+            environment: SyncHook;
+            afterEnvironment: SyncHook;
+            afterPlugins: SyncHook<Compiler>;
+            afterResolvers: SyncHook<Compiler>;
+            entryOption: SyncBailHook;
+        }
     }
-
-    class Dependency {
-        constructor();
-        getResourceIdentifier(): any;
-        getReference(): any;
-        getExports(): any;
-        getWarnings(): any;
-        getErrors(): any;
-        updateHash(hash: any): void;
-        disconnect(): void;
-        static compare(a: any, b: any): any;
-    }
-
-    interface NormalModuleFactoryHooks {
-        resolver: SyncWaterfallHook;
-        factory: SyncWaterfallHook;
-        beforeResolve: AsyncSeriesWaterfallHook;
-        afterResolve: AsyncSeriesWaterfallHook;
-        createModule: SyncBailHook;
-        module: SyncWaterfallHook;
-        createParser: HookMap;
-        parser: HookMap;
-        createGenerator: HookMap;
-        generator: HookMap;
-    }
-
-    class NormalModuleFactory extends Tapable {
-        hooks: NormalModuleFactoryHooks;
-    }
-
-    interface ContextModuleFactoryHooks {
-        beforeResolve: AsyncSeriesWaterfallHook;
-        afterResolve: AsyncSeriesWaterfallHook;
-        contextModuleFiles: SyncWaterfallHook;
-        alternatives: AsyncSeriesWaterfallHook;
-    }
-
-    class ContextModuleFactory extends Tapable {
-        hooks: ContextModuleFactoryHooks;
-    }
-
-    class DllModuleFactory extends Tapable {
-        hooks: {};
-    }
-
-    interface CompilationHooks {
-        buildModule: SyncHook;
-        rebuildModule: SyncHook;
-        failedModule: SyncHook;
-        succeedModule: SyncHook;
-
-        finishModules: SyncHook;
-        finishRebuildingModule: SyncHook;
-
-        unseal: SyncHook;
-        seal: SyncHook;
-
-        optimizeDependenciesBasic: SyncBailHook;
-        optimizeDependencies: SyncBailHook;
-        optimizeDependenciesAdvanced: SyncBailHook;
-        afterOptimizeDependencies: SyncHook;
-
-        optimize: SyncHook;
-
-        optimizeModulesBasic: SyncBailHook;
-        optimizeModules: SyncBailHook;
-        optimizeModulesAdvanced: SyncBailHook;
-        afterOptimizeModules: SyncHook;
-
-        optimizeChunksBasic: SyncBailHook;
-        optimizeChunks: SyncBailHook;
-        optimizeChunksAdvanced: SyncBailHook;
-        afterOptimizeChunks: SyncHook;
-
-        optimizeTree: AsyncSeriesHook;
-        afterOptimizeTree: SyncHook;
-
-        optimizeChunkModulesBasic: SyncBailHook;
-        optimizeChunkModules: SyncBailHook;
-        optimizeChunkModulesAdvanced: SyncBailHook;
-        afterOptimizeChunkModules: SyncHook;
-        shouldRecord: SyncBailHook;
-
-        reviveModules: SyncHook;
-        optimizeModuleOrder: SyncHook;
-        advancedOptimizeModuleOrder: SyncHook;
-        beforeModuleIds: SyncHook;
-        moduleIds: SyncHook;
-        optimizeModuleIds: SyncHook;
-        afterOptimizeModuleIds: SyncHook;
-
-        reviveChunks: SyncHook;
-        optimizeChunkOrder: SyncHook;
-        beforeChunkIds: SyncHook;
-        optimizeChunkIds: SyncHook;
-        afterOptimizeChunkIds: SyncHook;
-
-        recordModules: SyncHook;
-        recordChunks: SyncHook;
-
-        beforeHash: SyncHook;
-        afterHash: SyncHook;
-
-        recordHash: SyncHook;
-
-        record: SyncHook;
-
-        beforeModuleAssets: SyncHook;
-        shouldGenerateChunkAssets: SyncBailHook;
-        beforeChunkAssets: SyncHook;
-        additionalChunkAssets: SyncHook;
-
-        records: SyncHook;
-
-        additionalAssets: AsyncSeriesHook;
-        optimizeChunkAssets: AsyncSeriesHook<Chunk[]>;
-        afterOptimizeChunkAssets: SyncHook;
-        optimizeAssets: AsyncSeriesHook;
-        afterOptimizeAssets: SyncHook;
-
-        needAdditionalSeal: SyncBailHook;
-        afterSeal: AsyncSeriesHook;
-
-        chunkHash: SyncHook;
-        moduleAsset: SyncHook;
-        chunkAsset: SyncHook;
-
-        assetPath: SyncWaterfallHook;
-
-        needAdditionalPass: SyncBailHook;
-        childCompiler: SyncHook;
-
-        normalModuleLoader: SyncHook;
-
-        optimizeExtractedChunksBasic: SyncBailHook;
-        optimizeExtractedChunks: SyncBailHook;
-        optimizeExtractedChunksAdvanced: SyncBailHook;
-        afterOptimizeExtractedChunks: SyncHook;
-    }
-
-    interface CompilationModule {
-        module: any;
-        issuer: boolean;
-        build: boolean;
-        dependencies: boolean;
-    }
-
-    class MainTemplate extends Tapable {}
-    class ChunkTemplate extends Tapable {}
-    class HotUpdateChunkTemplate extends Tapable {}
-    class RuntimeTemplate {}
-
-    interface ModuleTemplateHooks {
-        content: SyncWaterfallHook;
-        module: SyncWaterfallHook;
-        render: SyncWaterfallHook;
-        package: SyncWaterfallHook;
-        hash: SyncHook;
-    }
-
-    class ModuleTemplate extends Tapable {
-        hooks: ModuleTemplateHooks;
-    }
-
-    class Compilation extends Tapable {
-        hooks: CompilationHooks;
-        compiler: Compiler;
-
-        resolverFactory: any;
-		inputFileSystem: any;
-		requestShortener: any;
-
-		outputOptions: any;
-		bail: any;
-		profile: any;
-		performance: any;
-
-		mainTemplate: MainTemplate;
-		chunkTemplate: ChunkTemplate;
-		hotUpdateChunkTemplate: HotUpdateChunkTemplate;
-        runtimeTemplate: RuntimeTemplate;
-		moduleTemplates: {
-			javascript: ModuleTemplate;
-            webassembly: ModuleTemplate;
-        };
-
-        entries: any[];
-        _preparedEntrypoints: any[];
-        entrypoints: Map<any, any>;
-        chunks: any[];
-        chunkGroups: any[];
-        namedChunkGroups: Map<any, any>;
-        namedChunks: Map<any, any>;
-        modules: any[];
-        _modules: Map<any, any>;
-        cache: any;
-        records: any;
-        nextFreeModuleIndex: any;
-        nextFreeModuleIndex2: any;
-        additionalChunkAssets: any[];
-        assets: any;
-        errors: any[];
-        warnings: any[];
-        children: any[];
-        dependencyFactories: Map<typeof Dependency, Tapable>;
-        dependencyTemplates: Map<typeof Dependency, Tapable>;
-        childrenCounters: any;
-        usedChunkIds: any;
-        usedModuleIds: any;
-        getStats(): Stats;
-        addModule(module: CompilationModule, cacheGroup: any): any;
-        // getModule(module)
-        // findModule(identifier)
-        // waitForBuildingFinished(module, callback)
-        // buildModule(module, optional, origin, dependencies, thisCallback)
-        // processModuleDependencies(module, callback)
-        // addModuleDependencies(module, dependencies, bail, cacheGroup, recursive, callback)
-        // tslint:disable-next-line:ban-types
-        addEntry(context: any, entry: any, name: any, callback: Function): void;
-        // prefetch(context, dependency, callback)
-        // rebuildModule(module, thisCallback)
-        // finish()
-        // unseal()
-        // seal(callback)
-        // sortModules(modules)
-        // reportDependencyErrorsAndWarnings(module, blocks)
-        // addChunkInGroup(name, module, loc, request)
-        // addChunk(name)
-        // assignIndex(module)
-        // assignDepth(module)
-        // processDependenciesBlocksForChunkGroups(inputChunkGroups)
-        // removeReasonsOfDependencyBlock(module, block)
-        // patchChunksAfterReasonRemoval(module, chunk)
-        // removeChunkFromDependencies(block, chunk)
-        // applyModuleIds()
-        // applyChunkIds()
-        // sortItemsWithModuleIds()
-        // sortItemsWithChunkIds()
-        // summarizeDependencies()
-        // createHash()
-        // modifyHash(update)
-        // createModuleAssets()
-        // createChunkAssets()
-        getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
-        // createChildCompiler(name, outputOptions, plugins)
-        // checkConstraints()
-
-        /**
-         * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
-         */
-        applyPlugins(name: string, ...args: any[]): void;
-    }
-
     // tslint:disable-next-line:interface-name
     interface ICompiler {
         run(handler: ICompiler.Handler): void;
@@ -943,38 +985,11 @@ declare namespace webpack {
         invalidate(): void;
     }
 
-    interface CompilerHooks {
-        shouldEmit: SyncBailHook;
-        done: AsyncSeriesHook;
-        additionalPass: AsyncSeriesHook;
-        beforeRun: AsyncSeriesHook;
-        run: AsyncSeriesHook;
-        emit: AsyncSeriesHook;
-        afterEmit: AsyncSeriesHook;
-        thisCompilation: SyncHook;
-        compilation: SyncHook<Compilation>;
-        normalModuleFactory: SyncHook<NormalModuleFactory>;
-        contextModuleFactory: SyncHook<ContextModuleFactory>;
-        beforeCompile: AsyncSeriesHook;
-        compile: SyncHook;
-        make: AsyncParallelHook;
-        afterCompile: AsyncSeriesHook;
-        watchRun: AsyncSeriesHook;
-        failed: SyncHook;
-        invalid: SyncHook;
-        watchClose: SyncHook;
-        environment: SyncHook;
-        afterEnvironment: SyncHook;
-        afterPlugins: SyncHook;
-        afterResolvers: SyncHook;
-        entryOption: SyncBailHook;
-    }
-
     class Compiler extends Tapable implements ICompiler {
         constructor();
 
-        hooks: CompilerHooks;
-        _pluginCompat: SyncBailHook<Compilation>;
+        hooks: compilation.CompilerHooks;
+        _pluginCompat: SyncBailHook<compilation.Compilation>;
 
         name: string;
         options: Configuration;
