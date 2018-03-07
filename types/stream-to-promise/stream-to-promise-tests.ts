@@ -1,4 +1,4 @@
-import * as stp from 'stream-to-promise';
+import stp = require('stream-to-promise');
 import * as fs from 'fs';
 
 const read = fs.createReadStream(__filename);
