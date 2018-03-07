@@ -812,6 +812,145 @@ declare namespace H {
          */
         type Longitude = number;
 
+        class LineString {
+            /**
+             * Constructor
+             * @param opt_latLngAlts {number[]=} - An optional array of latitude, longitude and altitude triples to initialize the LineString with.
+             * @param opt_ctx {H.geo.AltitudeContext=} - An optional altitude context for all altitudes contained in this LineString.
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid lat, lng, alt values
+             */
+            constructor(opt_latLngAlts?: number[], opt_ctx?: H.geo.AltitudeContext);
+
+            /**
+             * This method pushes a lat, lng, alt to the end of this LineString.
+             * @param lat {H.geo.Latitude}
+             * @param lng {H.geo.Longitude}
+             * @param alt {H.geo.Altitude}
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid lat, lng, alt value
+             */
+            pushLatLngAlt(lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+
+            /**
+             * This method splices the LineString at the provided index, removing the specified number of items at that index and inserting the lat, lng, alt array.
+             * @param index {number} - The index at which to splice
+             * @param opt_nRemove {number=} - The number of lat, lng, alt values to remove
+             * @param opt_latLngAlts {number[]=} - The lat, lng, alt values to add
+             * @return {number[]} - An array of removed elements
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid opt_latLngAlts argument
+             */
+            spliceLatLngAlts(index: number, opt_nRemove?: number, opt_latLngAlts?: number[]): number[];
+
+            /**
+             * This method inserts one set of lat, lng, alt values into the LineString at the specified index.
+             * @param index {number} - the index at which to add the element
+             * @param lat {H.geo.Latitude} - the latitude to insert
+             * @param lng {H.geo.Longitude} - the longitude to insert
+             * @param alt {H.geo.Altitude} - the altitude to insert
+             */
+            insertLatLngAlt(index: number, lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+
+            /**
+             * This method removes one set of lat, lng, alt values from the LineString at the specified index
+             * @param index {number}
+             */
+            removeLatLngAlt(index: number): void;
+
+            /**
+             * This method pushes the lat, lng, alt values of a {H.geo.Point} to the end of this LineString.
+             * @param geoPoint {H.geo.IPoint}
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid geoPoint argument
+             */
+            pushPoint(geoPoint: H.geo.IPoint): void;
+
+            /**
+             * This method inserts the lat, lng, alt values of a H.geo.Point into the list at the specified index.
+             * @param pointIndex {number}
+             * @param geoPoint {H.geo.IPoint}
+             */
+            insertPoint(pointIndex: number, geoPoint: H.geo.IPoint): void;
+
+            /**
+             * This method removes one set of lat, lng, alt values from this LineString at the virtual point index specified.
+             * @param pointIndex {number} - the virtual point index
+             */
+            removePoint(pointIndex: number): void;
+
+            /**
+             * This method extracts a H.geo.Point from this LineString at the virtual point index.
+             * If the extracted point has an alt value, the LineString's altitude context will be supplied to the point.
+             * @param pointIndex {number} - the virtual point index in the LineString
+             * @param opt_out {H.geo.Point=} - an optional point object to store the lat, lng, alt values
+             * @return {H.geo.Point} - Returns either the 'opt_out' point object or a new point object.
+             */
+            extractPoint(pointIndex: number, opt_out?: H.geo.Point): H.geo.Point;
+
+            /**
+             * A utility method to iterate over the points of a line string.
+             * @param eachFn {function(lat, lng, alt, index)} - The function to invoke for every point. It gets the point's latitude, longitude, altitude and index as arguments.
+             * @param opt_start {number=} - The point's start index (inclusive) to iterate from, defaults to 0.
+             * @param opt_end {number=} - The point's end index (exclusive) to iterate to, defaults to Infinity.
+             */
+            eachLatLngAlt(eachFn: (lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude, index: number) => void, opt_start?: number, opt_end?: number): void;
+
+            /**
+             * To obtain whether a leg (formed by the given two longitudes) crosses the International Date Line.
+             * @param lng1 {H.geo.Longitude} - The start longitude of the leg
+             * @param lng2 {H.geo.Longitude} - The end longitude of the leg
+             * @return {boolean}
+             */
+            static isDBC(lng1: H.geo.Longitude, lng2: H.geo.Longitude): boolean;
+
+            /**
+             * To obtain the number of times that this LineString cross the International Date Line.
+             * @param opt_asClosed {boolean=} - Indicates whether the LineString is treated as closed (the LineString's last and first coordinates form the closing leg of a polygon).
+             * It defaults to false.
+             * @return {number}
+             */
+            getDBCs(opt_asClosed?: boolean): number;
+
+            /**
+             * This method return the number of points stored in this LineString.
+             * @return {number} - The number of points in this LineString
+             */
+            getPointCount(): number;
+
+            /**
+             * Returns the vertices of the line segments as an array of alternating latitude, longitude and altitude coordinates.
+             * The returned array must be treated as read-only to not violate the integrity of the line-string.
+             * @return {number[]} - Returns the raw lat, lng, alt values of this LineString
+             */
+            getLatLngAltArray(): number[];
+
+            /**
+             * This method returns the bounding box of this LineString.
+             * Note: The LineString is treated as an open path. If the bounding rectangle for a closed shape is required, the closing leg must be merged in an extra step.
+             * @return {H.geo.Rect} - This LineString's bounding rectangle
+             */
+            getBounds(): H.geo.Rect;
+
+            /**
+             * This method initializes a new LineString with an array of lat, lng values. Arrays are expected to have an even length with the format [lat, lng, lat, lng, ...].
+             * @param latLngs {number[]} - the array of lat, lng value.
+             * @return {H.geo.LineString} - The LineString containing the lat, lng values
+             * @throws {H.lang.InvalidArgumentError} - throws an error in case the latLngs array has an odd length
+             */
+            static fromLatLngArray(latLngs: number[]): H.geo.LineString;
+
+            /**
+             * Checks whether the geometry is equal to the geometry supplied by the caller.
+             * Two geometries are considered as equal if they represent the same geometry type and have equal coordinate values.
+             * @param other {any} - The geometry to check against
+             * @return {boolean} - true if the two geometries are equal, otherwise false
+             */
+            equals(other: any): boolean;
+
+            /**
+             * To obtain a Well-Known-Text (WKT) representation of the geometry.
+             * @return {string} - the resulting WKT string
+             */
+            toString(): string;
+        }
+
         /**
          * PixelProjection transforms pixel world coordinates at a certain scale (zoom level) to geographical coordinates and vice versa.
          * By default, it uses the Mercator projection to transform geographic points into the 2d plane map points, which are adjusted to the current scale.
