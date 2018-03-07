@@ -582,14 +582,14 @@ configuration = {
 
 plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });
 
-class SingleEntryDependency extends webpack.Dependency {}
-class MultiEntryDependency extends webpack.Dependency {}
+class SingleEntryDependency extends webpack.compilation.Dependency {}
+class MultiEntryDependency extends webpack.compilation.Dependency {}
 class MultiModuleFactory extends Tapable {}
 class MultiEntryPlugin extends webpack.Plugin {
     apply(compiler: webpack.Compiler) {
         compiler.hooks.compilation.tap(
             "MultiEntryPlugin",
-            (compilation, { normalModuleFactor }) => {
+            (compilation, { normalModuleFactory }) => {
                 compilation.dependencyFactories.set(MultiEntryDependency, new MultiModuleFactory());
             }
         );
@@ -617,7 +617,7 @@ class IgnorePlugin extends webpack.Plugin {
     }
 }
 
-class DllEntryDependency extends webpack.Dependency {}
+class DllEntryDependency extends webpack.compilation.Dependency {}
 class DllModuleFactory extends Tapable {}
 class DllEntryPlugin extends webpack.Plugin {
 	apply(compiler: webpack.Compiler) {

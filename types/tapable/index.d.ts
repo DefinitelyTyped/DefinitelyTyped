@@ -241,25 +241,31 @@ export interface Tap {
     context: boolean;
 }
 
-export class Hook<TContext = any> {
+export class Hook<T1 = any, T2 = any, T3 = any> {
     constructor(...args: any[]);
+    taps: any[];
+    interceptors: any[];
+    call: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => any;
+    promise:(arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => Promise<any>;
+    callAsync: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => any;
+
     compile(options: HookCompileOptions) : Function;
-    tap: (name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
-    tapAsync: (name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
-    tapPromise: (name: string | Tap, fn: (context: TContext, ...args: any[]) => Promise<any>) => void;
+    tap: (name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
+    tapAsync: (name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => void) => void;
+    tapPromise: (name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>) => void;
     intercept: (interceptor: HookInterceptor) => void;
 }
 
-export class SyncHook<TContext = any> extends Hook<TContext> {}
-export class SyncBailHook <TContext = any>extends Hook<TContext> {}
-export class SyncLoopHook<TContext = any> extends Hook<TContext> {}
-export class SyncWaterfallHook<TContext = any> extends Hook<TContext> {}
+export class SyncHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class SyncBailHook <T1 = any, T2 = any, T3 = any>extends Hook<T1, T2, T3> {}
+export class SyncLoopHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class SyncWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
 
-export class AsyncParallelHook<TContext = any> extends Hook<TContext> {}
-export class AsyncParallelBailHook<TContext = any> extends Hook<TContext> {}
-export class AsyncSeriesHook<TContext = any> extends Hook<TContext> {}
-export class AsyncSeriesBailHook<TContext = any> extends Hook<TContext> {}
-export class AsyncSeriesWaterfallHook<TContext = any> extends Hook<TContext> {}
+export class AsyncParallelHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncSeriesHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
 
 export class HookInterceptor {
     call: (...args: any[]) => void;
@@ -269,15 +275,15 @@ export class HookInterceptor {
     context: boolean;
 }
 
-export class HookMap<TContext = any> {
-    get: (key: any) => Hook<TContext> | undefined;
-    for: (key: any) => Hook<TContext>;
-    tap: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => any) => void;
-    tapAsync: (key: any, name: string | Tap, fn: (context: TContext, ...args: any[]) => void) => void;
-    tapPromise: (key: any, name: string | Tap, fn: (context: any, ...args: any[]) => Promise<any>) => void;
-    intercept: (interceptor: HookMapInterceptor<TContext>) => TContext;
+export class HookMap<T1 = any, T2 = any, T3 = any> {
+    get: (key: any) => Hook<T1, T2, T3> | undefined;
+    for: (key: any) => Hook<T1, T2, T3>;
+    tap: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
+    tapAsync: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => void) => void;
+    tapPromise: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>) => void;
+    intercept: (interceptor: HookMapInterceptor<T1, T2, T3>) => void;
 }
 
-export class HookMapInterceptor<TContext = any> {
-    factory: (key: any, hook: Hook<TContext>) => Hook<TContext>;
+export class HookMapInterceptor<T1 = any, T2 = any, T3 = any> {
+    factory: (key: any, hook: Hook<T1, T2, T3>) => Hook<T1, T2, T3>;
 }
