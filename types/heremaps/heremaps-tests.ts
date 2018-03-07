@@ -99,6 +99,8 @@ lineString.getPointCount();
 lineString.insertPoint(2, { lat: 53.3477, lng: -6.2597 });
 lineString.removePoint(2);
 
+let polyline2 = new H.map.Polyline(lineString);
+
 let router = platform.getRoutingService();
 let calculateRouteParams = {
     waypoint0: 'geo!52.5,13.4',
