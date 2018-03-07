@@ -1,27 +1,27 @@
 import * as React from "react";
-import { 
-    IViewport,
-    IStaticMapProps,
-    IInteractiveMapProps, 
+import {
+    Viewport,
+    StaticMapProps,
+    InteractiveMapProps,
     InteractiveMap,
     CanvasOverlay,
     SVGOverlay,
     HTMLOverlay,
-    IHTMLOverlayProps,
-    ICanvasRedrawOptions,
-    IHTMLRedrawOptions,
-    ISVGOverlayProps,
-    ISVGRedrawOptions,
+    HTMLOverlayProps,
+    CanvasRedrawOptions,
+    HTMLRedrawOptions,
+    SVGOverlayProps,
+    SVGRedrawOptions,
     StaticMap
 } from 'react-map-gl';
 import * as MapboxGL from "mapbox-gl";
 
 interface MyMapState {
-    viewport: IViewport; 
+    viewport: Viewport;
 }
 
 class MyMap extends React.Component<{}, MyMapState> {
-    public state: MyMapState = {
+    state: MyMapState = {
         viewport: {
             bearing: 0,
             isDragging: false,
@@ -29,9 +29,11 @@ class MyMap extends React.Component<{}, MyMapState> {
             longitude: 0,
             zoom: 3,
         }
-    }
+    };
 
-    public render() {
+    private map: MapboxGL.Map;
+
+    render() {
         return (
             <div>
                 <InteractiveMap
@@ -42,7 +44,7 @@ class MyMap extends React.Component<{}, MyMapState> {
                     ref={this.setRefInteractive}
                 >
                     <CanvasOverlay
-                        redraw={(opts: ICanvasRedrawOptions) => {
+                        redraw={(opts: CanvasRedrawOptions) => {
                             const {
                                 ctx,
                                 height,
@@ -50,12 +52,12 @@ class MyMap extends React.Component<{}, MyMapState> {
                                 unproject,
                                 width,
                             } = opts;
-                            const xy: number[] = unproject(project([20,20]));
+                            const xy: number[] = unproject(project([20, 20]));
                             ctx.clearRect(0, 0, width, height);
                         }}
                     />
                     <CanvasOverlay
-                        redraw={(opts: ICanvasRedrawOptions) => {}}
+                        redraw={(opts: CanvasRedrawOptions) => {}}
                         captureScroll={true}
                         captureDrag={true}
                         captureClick={true}
@@ -65,14 +67,14 @@ class MyMap extends React.Component<{}, MyMapState> {
                         redraw={() => {}}
                     />
                     <SVGOverlay
-                        redraw={(opts: ISVGRedrawOptions) => {
+                        redraw={(opts: SVGRedrawOptions) => {
                             const {
                                 height,
                                 project,
                                 unproject,
                                 width,
                             } = opts;
-                            const xy: number[] = unproject(project([20,20]));
+                            const xy: number[] = unproject(project([20, 20]));
                         }}
                         captureScroll={true}
                         captureDrag={true}
@@ -83,14 +85,14 @@ class MyMap extends React.Component<{}, MyMapState> {
                         redraw={() => {}}
                     />
                     <HTMLOverlay
-                        redraw={(opts: IHTMLRedrawOptions) => {
+                        redraw={(opts: HTMLRedrawOptions) => {
                             const {
                                 height,
                                 project,
                                 unproject,
                                 width,
                             } = opts;
-                            const xy: number[] = unproject(project([20,20]));
+                            const xy: number[] = unproject(project([20, 20]));
                         }}
                         style={{
                             border: "2px solid black"
@@ -109,14 +111,14 @@ class MyMap extends React.Component<{}, MyMapState> {
                     ref={this.setRefStatic}
                 />
             </div>
-        )
+        );
     }
 
-    private setRefInteractive = (el: InteractiveMap) => {
-        const map: MapboxGL.Map = el.getMap();
+    private readonly setRefInteractive = (el: InteractiveMap) => {
+        this.map = el.getMap();
     }
 
-    private setRefStatic = (el: StaticMap) => {
-        const map: MapboxGL.Map = el.getMap();
+    private readonly setRefStatic = (el: StaticMap) => {
+        this.map = el.getMap();
     }
 }

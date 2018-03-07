@@ -2,12 +2,13 @@
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 import * as MapboxGL from "mapbox-gl";
 import * as GeoJSON from "geojson";
 
-export interface IViewport {
+export interface Viewport {
     bearing: number;
     isDragging: boolean;
     latitude: number;
@@ -19,8 +20,9 @@ export interface IViewport {
     zoom: number;
 }
 
-export interface IStaticMapProps {
-    /** Mapbox API access token for MapboxGL.
+export interface StaticMapProps {
+    /**
+     *  Mapbox API access token for MapboxGL.
      *  Required when using Mapbox vector tiles/styles Mapbox WebGL context creation option.
      *  Useful when you want to export the canvas as a PNG
      */
@@ -65,9 +67,14 @@ export interface IStaticMapProps {
     attributionControl?: boolean;
 
     /**
-     * If mapStyle is assigned an Immutable object, when the prop changes, StaticMap can diff between the two values and call the appropriate Mapbox API such as addLayer, removeLayer, setStyle, setData, etc.
+     * If mapStyle is assigned an Immutable object, when the prop changes,
+     * StaticMap can diff between the two values and call the appropriate Mapbox API such as
+     * addLayer, removeLayer, setStyle, setData, etc.
+     *
      * This allows apps to update data sources and layer styles efficiently.
-     * In use cases such as animation or dynamic showing/hiding layers, style diffing prevents the map from reloading and flickering when the map style changes.
+     * In use cases such as animation or dynamic showing/hiding layers, style diffing prevents the map
+     * from reloading and flickering when the map style changes.
+     *
      * There are known issues with style diffing. As stopgap, use this option to prevent style diffing.
      */
     preventStyleDiffing?: boolean;
@@ -91,21 +98,20 @@ export interface IStaticMapProps {
     onError?: () => void;
 }
 
-export class StaticMap extends React.Component<IStaticMapProps, {}> {
+export class StaticMap extends React.Component<StaticMapProps> {
     /**
      * Returns the Mapbox instance if initialized. The Map instance will have full access to MapboxGL's API.
      */
-    public getMap(): MapboxGL.Map;
+    getMap(): MapboxGL.Map;
 
     /**
-     * Use Mapbox's queryRenderedFeatures API to find features at point or in a bounding box. If the parameters argument is not specified, only queries the layers with the interactive property in the layer style.
-     * @param geometry: {[Number, Number| [[Number, Number, [Number, Number``` Point or an array of two points defining the bounding box. Coordinates in pixels.
-     * @param parameters: Query options. For more details, see Mapbox API documentation.
+     * Use Mapbox's queryRenderedFeatures API to find features at point or in a bounding box.
+     * If the parameters argument is not specified, only queries the layers with the interactive property in the layer style.
      */
-    public queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: { layers?: string[], filter?: any[] }): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: { layers?: string[], filter?: any[] }): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
-export interface IInteractiveMapProps extends IStaticMapProps {
+export interface InteractiveMapProps extends StaticMapProps {
     /** Max zoom level */
     maxZoom?: number;
     /** Min zoom level */
@@ -128,24 +134,21 @@ export interface IInteractiveMapProps extends IStaticMapProps {
     /** Enable multitouch rotate. */
     touchRotate?: boolean;
     /** Radius to detect features around a clicked point */
-    clickRadius?: number
+    clickRadius?: number;
 
     /**
-     * Callback that is fired when the user interacted with the map. 
-     * @callback
-     * @param {IViewport} viewport
+     * Callback that is fired when the user interacted with the map.
      * The object passed to the callback contains viewport properties such as longitude, latitude, zoom etc.
-     * 
+     *
      * If the map is intended to be interactive, the app use this prop to listen to map updates and update the props accordingly.
      */
-    onViewportChange?: (viewport: IViewport) => void;
+    onViewportChange?: (viewport: Viewport) => void;
 
     /**
      * Called when the map is hovered over.
-     * @callback
-     * @param {Object} event - The mouse event.
-     * @param {[number, number]} lngLat - The coordinates of the pointer
-     * @param {Array} features - The features under the pointer, using Mapbox's
+     * event - The mouse event.
+     * lngLat - The coordinates of the pointer
+     * features - The features under the pointer, using Mapbox's
      * queryRenderedFeatures API:
      * https://www.mapbox.com/mapbox-gl-js/api/#Map#queryRenderedFeatures
      * To make a layer interactive, set the `interactive` property in the
@@ -156,10 +159,6 @@ export interface IInteractiveMapProps extends IStaticMapProps {
 
     /**
      * Called when the map is clicked.
-     * @callback
-     * @param {Object} event - The mouse event.
-     * @param {[number, number]} lngLat - The coordinates of the pointer
-     * @param {Array} features - The features under the pointer, using Mapbox's
      * queryRenderedFeatures API:
      * https://www.mapbox.com/mapbox-gl-js/api/#Map#queryRenderedFeatures
      * To make a layer interactive, set the `interactive` property in the
@@ -172,20 +171,20 @@ export interface IInteractiveMapProps extends IStaticMapProps {
     getCursor?: () => any;
 }
 
-export class InteractiveMap extends React.Component<IInteractiveMapProps, {}> {
-    public _map: MapboxGL.Map;
+export class InteractiveMap extends React.Component<InteractiveMapProps> {
+    _map: MapboxGL.Map;
 
     /** Returns the Mapbox Map Instance */
-    public getMap(): MapboxGL.Map;
+    getMap(): MapboxGL.Map;
 }
 
 /**
- * 
+ *
  * React Map Overlays
- * 
+ *
  */
 
-export interface IBaseControlProps {
+export interface BaseControlProps {
     /** Event handling */
     captureScroll?: boolean;
     /** Stop map pan & rotate */
@@ -196,14 +195,14 @@ export interface IBaseControlProps {
     captureDoubleClick?: boolean;
 }
 
-export class BaseControl<T extends IBaseControlProps> extends React.Component<T, {}> { }
+export class BaseControl<T extends BaseControlProps> extends React.Component<T> { }
 
 /**
  * Allows applications to overlay data on top of maps using a HTML container.
  */
-export class HTMLOverlay extends BaseControl<IHTMLOverlayProps> { }
+export class HTMLOverlay extends BaseControl<HTMLOverlayProps> { }
 
-export interface IHTMLRedrawOptions {
+export interface HTMLRedrawOptions {
     /** width {Number} - width of the viewport */
     width: number;
     /** height {Number} - height of the viewport */
@@ -214,11 +213,11 @@ export interface IHTMLRedrawOptions {
     unproject: (xy: number[]) => number[];
 }
 
-export interface IHTMLOverlayProps extends IBaseControlProps {
+export interface HTMLOverlayProps extends BaseControlProps {
     /**
      * Called every time the map updates.
      */
-    redraw: (opts: IHTMLRedrawOptions) => void;
+    redraw: (opts: HTMLRedrawOptions) => void;
     /** Additional css styles of the div container. */
     style?: React.CSSProperties;
 }
@@ -226,33 +225,33 @@ export interface IHTMLOverlayProps extends IBaseControlProps {
 /**
  * Allows applications to overlay data on top of maps using a canvas.
  */
-export class CanvasOverlay extends BaseControl<ICanvasOverlayProps> { }
+export class CanvasOverlay extends BaseControl<CanvasOverlayProps> { }
 
-export interface ICanvasRedrawOptions extends IHTMLRedrawOptions {
+export interface CanvasRedrawOptions extends HTMLRedrawOptions {
     /** ctx {CanvasRenderingContext2D} - rendering context of the canvas */
     ctx: CanvasRenderingContext2D;
 }
 
-export interface ICanvasOverlayProps extends IBaseControlProps {
+export interface CanvasOverlayProps extends BaseControlProps {
     /**
      * Called every time the map updates.
      */
-    redraw: (opts: ICanvasRedrawOptions) => void;
+    redraw: (opts: CanvasRedrawOptions) => void;
 }
 
 /**
  * Allows applications to overlay data on top of maps using a SVG container.
  */
-export class SVGOverlay extends BaseControl<ISVGOverlayProps> { }
+export class SVGOverlay extends BaseControl<SVGOverlayProps> { }
 
-export interface ISVGRedrawOptions extends IHTMLRedrawOptions { }
+// tslint:disable-next-line:no-empty-interface
+export interface SVGRedrawOptions extends HTMLRedrawOptions { }
 
-export interface ISVGOverlayProps extends IBaseControlProps {
+export interface SVGOverlayProps extends BaseControlProps {
     /**
      * Called every time the map updates.
      */
-    redraw: (opts: ISVGRedrawOptions) => void;
+    redraw: (opts: SVGRedrawOptions) => void;
     /** Additional css styles of the svg container. */
     style?: React.CSSProperties;
 }
-
