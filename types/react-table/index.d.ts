@@ -19,7 +19,7 @@ export type ComponentPropsGetterC = (finalState: any, rowInfo?: undefined, colum
 export type ComponentPropsGetterRC = (finalState: any, rowInfo?: RowInfo, column?: Column, instance?: any) => object | undefined;
 
 export type DefaultFilterFunction = (filter: any, row: any, column: any) => boolean;
-export type FilterFunction = (filter: any, rows: any[], column: any) => boolean;
+export type FilterFunction = (filter: any, rows: any[], column: any) => boolean | any[];
 export type SubComponentFunction = (rowInfo: RowInfo) => React.ReactNode;
 export type PageChangeFunction = (page: number) => void;
 export type PageSizeChangeFunction = (newPageSize: number, newPage: number) => void;
