@@ -18,6 +18,4 @@ declare function streamToPromise(stream: NodeJS.ReadableStream): Promise<Buffer>
  */
 declare function streamToPromise(stream: NodeJS.WritableStream): Promise<void>;
 
-declare namespace streamToPromise {} // Add a namespace so we can do import * instead of import x = require()
-
 export = streamToPromise;
