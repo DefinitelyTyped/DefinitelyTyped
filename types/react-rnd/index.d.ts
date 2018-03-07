@@ -3,7 +3,7 @@
 // Definitions by: Ragg <https://github.com/Ragg->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
-import * as React from 'react';
+import React = require('react');
 
 type CSSProperties = React.CSSProperties;
 
