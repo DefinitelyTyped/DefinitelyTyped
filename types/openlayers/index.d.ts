@@ -14100,7 +14100,7 @@ declare module olx {
             anchorYUnits?: ol.style.IconAnchorUnits;
             color?: (ol.Color | string);
             crossOrigin?: (string);
-            img?: (any | HTMLCanvasElement);
+            img?: (HTMLImageElement | HTMLCanvasElement);
             offset?: number[];
             offsetOrigin?: ol.style.IconOrigin;
             opacity?: number;
