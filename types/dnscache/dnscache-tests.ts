@@ -4,4 +4,9 @@ const _dnscache = dnscache({
     enable: true
 });
 
-(() => console.log(_dnscache))();
+_dnscache.lookup(
+    "mail.google.com",
+    (err: any, result: string) => {
+        console.log(result);
+    }
+);

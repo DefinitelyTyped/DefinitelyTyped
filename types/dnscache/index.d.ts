@@ -85,19 +85,17 @@ interface DnsCache {
     (dnsCacheOption: DnsCacheOption): DnsCache;
 
     lookup(hostname: string, family: number, callback: (err: ErrnoException, address: string, family: number) => void): void;
+    // This line has to be leave as it is for readability
+    // tslint:disable-next-line: unified-signatures
     lookup(hostname: string, options: LookupOneOptions, callback: (err: ErrnoException, address: string, family: number) => void): void;
     lookup(hostname: string, options: LookupAllOptions, callback: (err: ErrnoException, addresses: LookupAddress[]) => void): void;
     lookup(hostname: string, options: LookupOptions, callback: (err: ErrnoException, address: string | LookupAddress[], family: number) => void): void;
     lookup(hostname: string, callback: (err: ErrnoException, address: string, family: number) => void): void;
 
     resolve(hostname: string, callback: (err: ErrnoException, addresses: string[]) => void): void;
-    resolve(hostname: string, rrtype: "A", callback: (err: ErrnoException, addresses: string[]) => void): void;
-    resolve(hostname: string, rrtype: "AAAA", callback: (err: ErrnoException, addresses: string[]) => void): void;
-    resolve(hostname: string, rrtype: "CNAME", callback: (err: ErrnoException, addresses: string[]) => void): void;
+    resolve(hostname: string, rrtype: "A" | "AAAA" | "CNAME" | "NS" | "PTR", callback: (err: ErrnoException, addresses: string[]) => void): void;
     resolve(hostname: string, rrtype: "MX", callback: (err: ErrnoException, addresses: MxRecord[]) => void): void;
     resolve(hostname: string, rrtype: "NAPTR", callback: (err: ErrnoException, addresses: NaptrRecord[]) => void): void;
-    resolve(hostname: string, rrtype: "NS", callback: (err: ErrnoException, addresses: string[]) => void): void;
-    resolve(hostname: string, rrtype: "PTR", callback: (err: ErrnoException, addresses: string[]) => void): void;
     resolve(hostname: string, rrtype: "SOA", callback: (err: ErrnoException, addresses: SoaRecord) => void): void;
     resolve(hostname: string, rrtype: "SRV", callback: (err: ErrnoException, addresses: SrvRecord[]) => void): void;
     resolve(hostname: string, rrtype: "TXT", callback: (err: ErrnoException, addresses: string[][]) => void): void;
@@ -147,6 +145,4 @@ interface DnsCache {
 
 declare var dnscache: DnsCache;
 
-declare module "dnscache" {
-    export = dnscache;
-}
+export = dnscache;
