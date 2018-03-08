@@ -51,6 +51,7 @@ interface FieldArrayMetaProps {
     form: string;
     invalid: boolean;
     pristine: boolean;
+    submitFailed: boolean;
     submitting: boolean;
     valid: boolean;
     warning?: any;

@@ -654,6 +654,9 @@ export interface DisplayMarker {
  *  This API is experimental and subject to change on any release.
  */
 export interface DisplayMarkerLayer {
+    /** The identifier for the underlying MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Destroy this layer. */
     destroy(): void;
@@ -949,6 +952,9 @@ export interface Marker {
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
+    /** The identifier for this MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Create a copy of this layer with markers in the same state and locations. */
     copy(): MarkerLayer;
@@ -3547,7 +3553,7 @@ export class File {
 
     // Reading and Writing
     /** Reads the contents of the file. */
-    read(flushCache?: boolean): Promise<string>;
+    read(flushCache?: boolean): Promise<string | null>;
 
     /** Returns a stream to read the content of the file. */
     createReadStream(): ReadStream;

@@ -18,14 +18,14 @@ declare type GlobalObject = Object;
  */
 declare module ol {
     /**
-      * Error object thrown when an assertion failed. This is an ECMA-262 Error,
-      * extended with a `code` property.
-      * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error}
-      * @constructor
-      * @extends {Error}
-      * @implements {oli.AssertionError}
-      * @param {number} code Error code.
-      */
+     * Error object thrown when an assertion failed. This is an ECMA-262 Error,
+     * extended with a `code` property.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error}
+     * @constructor
+     * @extends {Error}
+     * @implements {oli.AssertionError}
+     * @param {number} code Error code.
+     */
     class AssertionError extends Error {
         /**
          * Error object thrown when an assertion failed. This is an ECMA-262 Error,
@@ -47,7 +47,6 @@ declare module ol {
          * @api
          */
         code: number;
-
     }
 
     /**
@@ -101,7 +100,6 @@ declare module ol {
          * @api stable
          */
         getHTML(): string;
-
     }
 
     /**
@@ -237,24 +235,22 @@ declare module ol {
          * @api stable
          */
         setAt(index: number, elem: T): void;
-
     }
 
     module Collection {
-
         type EventType = string;
 
         /**
-          * @classdesc
-          * Events emitted by {@link ol.Collection} instances are instances of this
-          * type.
-          *
-          * @constructor
-          * @extends {ol.events.Event}
-          * @implements {oli.Collection.Event}
-          * @param {ol.Collection.EventType} type Type.
-          * @param {*=} opt_element Element.
-          */
+         * @classdesc
+         * Events emitted by {@link ol.Collection} instances are instances of this
+         * type.
+         *
+         * @constructor
+         * @extends {ol.events.Event}
+         * @implements {oli.Collection.Event}
+         * @param {ol.Collection.EventType} type Type.
+         * @param {*=} opt_element Element.
+         */
         class Event extends ol.events.Event {
             /**
              * @classdesc
@@ -275,7 +271,6 @@ declare module ol {
              * @api stable
              */
             element: any;
-
         }
     }
 
@@ -304,7 +299,6 @@ declare module ol {
          * @api
          */
         function asString(color: (ol.Color | string)): string;
-
     }
 
     /**
@@ -319,7 +313,6 @@ declare module ol {
          * @api
          */
         function asColorLike(color: (ol.Color | ol.ColorLike)): ol.ColorLike;
-
     }
 
     /**
@@ -391,7 +384,6 @@ declare module ol {
              * @api stable
              */
             getCollapsed(): boolean;
-
         }
 
         /**
@@ -481,7 +473,6 @@ declare module ol {
              * @api
              */
             setTarget(target: (Element | string)): void;
-
         }
 
         /**
@@ -520,7 +511,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.control.FullScreenOptions);
-
         }
 
         /**
@@ -610,7 +600,6 @@ declare module ol {
              * @api stable
              */
             setProjection(projection: ol.proj.Projection): void;
-
         }
 
         /**
@@ -676,7 +665,6 @@ declare module ol {
              * @api
              */
             getOverviewMap(): ol.Map;
-
         }
 
         /**
@@ -711,7 +699,6 @@ declare module ol {
              * @api
              */
             static render(mapEvent: ol.MapEvent): void;
-
         }
 
         /**
@@ -781,10 +768,10 @@ declare module ol {
             type Property = string;
 
             /**
-            * Units for the scale line. Supported values are `'degrees'`, `'imperial'`,
-            * `'nautical'`, `'metric'`, `'us'`.
-            * @enum {string}
-            */
+             * Units for the scale line. Supported values are `'degrees'`, `'imperial'`,
+             * `'nautical'`, `'metric'`, `'us'`.
+             * @enum {string}
+             */
             type Units = "degrees" | "imperial" | "nautical" | "metric" | "us";
         }
 
@@ -812,7 +799,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.control.ZoomOptions);
-
         }
 
         /**
@@ -851,7 +837,6 @@ declare module ol {
              * @api
              */
             static render(mapEvent: ol.MapEvent): void;
-
         }
 
         /**
@@ -876,9 +861,7 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.control.ZoomToExtentOptions);
-
         }
-
     }
 
     /**
@@ -1020,7 +1003,6 @@ declare module ol {
          * @api stable
          */
         function toStringXY(coordinate?: ol.Coordinate, opt_fractionDigits?: number): string;
-
     }
 
     /**
@@ -1188,7 +1170,6 @@ declare module ol {
          * @api
          */
         setTracking(tracking: boolean): void;
-
     }
 
     /**
@@ -1201,7 +1182,6 @@ declare module ol {
          * @constructor
          */
         constructor();
-
     }
 
     /**
@@ -1250,7 +1230,6 @@ declare module ol {
          * @api
          */
         function upAndDown(t: number): number;
-
     }
 
     /**
@@ -1409,7 +1388,6 @@ declare module ol {
              * @api
              */
             function primaryAction(mapBrowserEvent: ol.MapBrowserEvent): boolean;
-
         }
 
         /**
@@ -1470,7 +1448,6 @@ declare module ol {
              * @api stable
              */
             stopPropagation(): void;
-
         }
 
         /**
@@ -1511,9 +1488,7 @@ declare module ol {
              * @extends {ol.Disposable}
              */
             constructor();
-
         }
-
     }
 
     /**
@@ -1700,7 +1675,6 @@ declare module ol {
          * @api stable
          */
         function applyTransform(extent: ol.Extent, transformFn: ol.TransformFunction, opt_extent?: ol.Extent): ol.Extent;
-
     }
 
     /**
@@ -1890,7 +1864,6 @@ declare module ol {
          * @api stable
          */
         setGeometryName(name: string): void;
-
     }
 
     /**
@@ -1919,14 +1892,12 @@ declare module ol {
          * @api
          */
         function xhr(url: (string | ol.FeatureUrlFunction), format: ol.format.Feature): ol.FeatureLoader;
-
     }
 
     /**
      * @namespace ol.format
      */
     module format {
-
         /**
          * @classdesc
          * Feature format for reading and writing data in the EsriJSON format.
@@ -2055,7 +2026,6 @@ declare module ol {
              * @api
              */
             writeFeaturesObject(features: ol.Feature[], opt_options?: olx.format.WriteOptions): GlobalObject;
-
         }
 
         type EsriJSONGeometry = JSON;
@@ -2086,7 +2056,6 @@ declare module ol {
              * @api stable
              */
             constructor();
-
         }
 
         type GeoJSONFeature = JSON;
@@ -2222,7 +2191,6 @@ declare module ol {
              * @api stable
              */
             writeGeometryObject(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): (GeoJSONGeometry | GeoJSONGeometryCollection);
-
         }
 
         /**
@@ -2273,7 +2241,6 @@ declare module ol {
              * @api
              */
             writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
-
         }
 
         /**
@@ -2298,7 +2265,6 @@ declare module ol {
              * @api
              */
             constructor(opt_options?: olx.format.GMLOptions);
-
         }
 
         /**
@@ -2358,7 +2324,6 @@ declare module ol {
              * @api
              */
             writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
-
         }
 
         /**
@@ -2402,7 +2367,6 @@ declare module ol {
              * @api stable
              */
             readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
-
         }
 
         /**
@@ -2486,7 +2450,6 @@ declare module ol {
              * @api
              */
             writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
-
         }
 
         /**
@@ -2548,7 +2511,6 @@ declare module ol {
              * @api
              */
             readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
-
         }
 
         /**
@@ -2571,7 +2533,6 @@ declare module ol {
              * @extends {ol.format.Feature}
              */
             constructor();
-
         }
 
         /**
@@ -2677,7 +2638,6 @@ declare module ol {
              * @api
              */
             writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
-
         }
 
         /**
@@ -2719,7 +2679,6 @@ declare module ol {
              * @api
              */
             setLayers(layers: string[]): void;
-
         }
 
         module filter {
@@ -3497,7 +3456,6 @@ declare module ol {
              * @api stable
              */
             readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
-
         }
 
         /**
@@ -3633,7 +3591,6 @@ declare module ol {
              * @api stable
              */
             writeGeometry(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): string;
-
         }
 
         /**
@@ -3656,7 +3613,6 @@ declare module ol {
              * @extends {ol.format.Feature}
              */
             constructor();
-
         }
 
         /**
@@ -3699,7 +3655,6 @@ declare module ol {
              * @api stable
              */
             readProjection(object: (Document | Node | GlobalObject | string)): ol.proj.Projection;
-
         }
 
         /**
@@ -3791,7 +3746,6 @@ declare module ol {
              * @api stable
              */
             readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
-
         }
 
         /**
@@ -3881,7 +3835,6 @@ declare module ol {
              * @api stable
              */
             writeGeometry(geometry: ol.geom.Geometry): string;
-
         }
 
         /**
@@ -3912,7 +3865,6 @@ declare module ol {
              * @api
              */
             read(source: (Document | Node | string)): GlobalObject;
-
         }
 
         /**
@@ -3948,7 +3900,6 @@ declare module ol {
              * @api stable
              */
             readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
-
         }
 
         /**
@@ -3979,7 +3930,6 @@ declare module ol {
              * @api
              */
             read(source: (Document | Node | string)): GlobalObject;
-
         }
 
         /**
@@ -3998,7 +3948,6 @@ declare module ol {
              * @struct
              */
             constructor();
-
         }
 
         /**
@@ -4021,9 +3970,7 @@ declare module ol {
              * @extends {ol.format.Feature}
              */
             constructor();
-
         }
-
     }
 
     /**
@@ -4197,7 +4144,6 @@ declare module ol {
          * @api stable
          */
         setTrackingOptions(options: PositionOptions): void;
-
     }
 
     /**
@@ -4285,7 +4231,6 @@ declare module ol {
              * @api
              */
             setRadius(radius: number): void;
-
         }
 
         /**
@@ -4489,7 +4434,6 @@ declare module ol {
              * @api
              */
             translate(deltaX: number, deltaY: number): void;
-
         }
 
         /**
@@ -4551,7 +4495,6 @@ declare module ol {
              * @api stable
              */
             setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
-
         }
 
         /**
@@ -4667,7 +4610,6 @@ declare module ol {
              * @api stable
              */
             setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
-
         }
 
         /**
@@ -4772,7 +4714,6 @@ declare module ol {
              * @api stable
              */
             setCoordinates(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout): void;
-
         }
 
         /**
@@ -4853,7 +4794,6 @@ declare module ol {
              * @api stable
              */
             setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
-
         }
 
         /**
@@ -4956,7 +4896,6 @@ declare module ol {
              * @api stable
              */
             setCoordinates(coordinates: ol.Coordinate[][][], opt_layout?: ol.geom.GeometryLayout): void;
-
         }
 
         /**
@@ -5015,7 +4954,6 @@ declare module ol {
              * @api stable
              */
             setCoordinates(coordinates: ol.Coordinate, opt_layout?: ol.geom.GeometryLayout): void;
-
         }
 
         /**
@@ -5163,7 +5101,6 @@ declare module ol {
              * @api
              */
             static fromCircle(circle: ol.geom.Circle, opt_sides?: number, opt_angle?: number): ol.geom.Polygon;
-
         }
 
         /**
@@ -5219,9 +5156,7 @@ declare module ol {
              * @api stable
              */
             translate(deltaX: number, deltaY: number): void;
-
         }
-
     }
 
     /**
@@ -5267,7 +5202,6 @@ declare module ol {
          * @api
          */
         setMap(map: ol.Map): void;
-
     }
 
     /**
@@ -5324,7 +5258,6 @@ declare module ol {
          * @api stable
          */
         const WEBGL: boolean;
-
     }
 
     /**
@@ -5367,7 +5300,6 @@ declare module ol {
          * @api
          */
         load(): void;
-
     }
 
     /**
@@ -5390,7 +5322,6 @@ declare module ol {
          * @param {Array.<ol.Attribution>} attributions Attributions.
          */
         constructor(extent: ol.Extent, resolution: (number), pixelRatio: number, state: ol.ImageState, attributions: ol.Attribution[]);
-
     }
 
     type ImageState = number;
@@ -5422,7 +5353,6 @@ declare module ol {
          * @api
          */
         getImage(opt_context?: GlobalObject): (HTMLCanvasElement | HTMLImageElement | HTMLVideoElement);
-
     }
 
     /**
@@ -5483,7 +5413,6 @@ declare module ol {
              * @api
              */
             static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
-
         }
 
         /**
@@ -5518,7 +5447,6 @@ declare module ol {
              * @api
              */
             static handleEvent: any;
-
         }
 
         /**
@@ -5574,9 +5502,7 @@ declare module ol {
                  * @api
                  */
                 projection: ol.proj.Projection;
-
             }
-
         }
 
         type DragAndDropEventType = string;
@@ -5624,7 +5550,6 @@ declare module ol {
              * @api stable
              */
             getGeometry(): ol.geom.Polygon;
-
         }
 
         /**
@@ -5672,9 +5597,7 @@ declare module ol {
                  * @api
                  */
                 mapBrowserEvent: ol.MapBrowserEvent;
-
             }
-
         }
 
         type DragBoxEventType = string;
@@ -5699,7 +5622,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.interaction.DragPanOptions);
-
         }
 
         /**
@@ -5730,7 +5652,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.interaction.DragRotateOptions);
-
         }
 
         /**
@@ -5765,7 +5686,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.interaction.DragRotateAndZoomOptions);
-
         }
 
         /**
@@ -5798,7 +5718,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.interaction.DragZoomOptions);
-
         }
 
         /**
@@ -5836,9 +5755,7 @@ declare module ol {
                  * @api stable
                  */
                 feature: ol.Feature;
-
             }
-
         }
 
         type DrawEventType = string;
@@ -5912,7 +5829,6 @@ declare module ol {
              * @api
              */
             static createRegularPolygon(opt_sides?: number, opt_angle?: number): ol.DrawGeometryFunctionType;
-
         }
 
         /**
@@ -5999,7 +5915,6 @@ declare module ol {
              * @api
              */
             setActive(active: boolean): void;
-
         }
 
         /**
@@ -6049,7 +5964,6 @@ declare module ol {
              * @api
              */
             static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
-
         }
 
         /**
@@ -6099,7 +6013,6 @@ declare module ol {
              * @api
              */
             static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
-
         }
 
         /**
@@ -6148,9 +6061,7 @@ declare module ol {
                  * @api
                  */
                 mapBrowserEvent: ol.MapBrowserEvent;
-
             }
-
         }
 
         /**
@@ -6182,7 +6093,6 @@ declare module ol {
              * @api
              */
             removePoint(): boolean;
-
         }
 
         /**
@@ -6223,7 +6133,6 @@ declare module ol {
              * @api
              */
             setMouseAnchor(useAnchor: boolean): void;
-
         }
 
         /**
@@ -6248,7 +6157,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.interaction.PinchRotateOptions);
-
         }
 
         /**
@@ -6273,7 +6181,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.interaction.PinchZoomOptions);
-
         }
 
         /**
@@ -6319,7 +6226,6 @@ declare module ol {
              * @api
              */
             static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
-
         }
 
         /**
@@ -6377,9 +6283,7 @@ declare module ol {
                  * @api
                  */
                 mapBrowserEvent: ol.MapBrowserEvent;
-
             }
-
         }
 
         /**
@@ -6456,7 +6360,6 @@ declare module ol {
              * @api stable
              */
             setMap(map: ol.Map): void;
-
         }
 
         /**
@@ -6523,7 +6426,6 @@ declare module ol {
              * @api
              */
             removeFeature(feature: ol.Feature, opt_unlisten?: boolean): void;
-
         }
 
         /**
@@ -6571,9 +6473,7 @@ declare module ol {
                  * @api
                  */
                 coordinate: ol.Coordinate;
-
             }
-
         }
 
         type TranslateEventType = string;
@@ -6600,9 +6500,7 @@ declare module ol {
              * @api
              */
             constructor(options: olx.interaction.TranslateOptions);
-
         }
-
     }
 
     /**
@@ -6631,7 +6529,6 @@ declare module ol {
          * @api
          */
         constructor(decay: number, minVelocity: number, delay: number);
-
     }
 
     /**
@@ -6766,7 +6663,6 @@ declare module ol {
              * @api
              */
             setZIndex(zindex: number): void;
-
         }
 
         /**
@@ -6813,7 +6709,6 @@ declare module ol {
              * @api stable
              */
             setLayers(layers: ol.Collection<ol.layer.Base>): void;
-
         }
 
         /**
@@ -6892,7 +6787,6 @@ declare module ol {
              * @observable
              */
             setRadius(radius: number): void;
-
         }
 
         /**
@@ -6925,7 +6819,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.layer.ImageOptions);
-
         }
 
         /**
@@ -7002,7 +6895,6 @@ declare module ol {
              * @api stable
              */
             setSource(source: ol.source.Source): void;
-
         }
 
         /**
@@ -7067,7 +6959,6 @@ declare module ol {
              * @api
              */
             setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
-
         }
 
         /**
@@ -7134,7 +7025,6 @@ declare module ol {
              * @api stable
              */
             setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction)): void;
-
         }
 
         /**
@@ -7210,9 +7100,7 @@ declare module ol {
              * @api
              */
             setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
-
         }
-
     }
 
     /**
@@ -7246,7 +7134,6 @@ declare module ol {
          * @api
          */
         function tile(tileGrid: ol.tilegrid.TileGrid): ((extent: ol.Extent, i: number) => ol.Extent[]);
-
     }
 
     /**
@@ -7440,7 +7327,11 @@ declare module ol {
          * @template S,T,U
          * @api stable
          */
-        forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((layer: ol.layer.Layer, color: ol.Color) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel,
+                                     callback: ((layer: ol.layer.Layer, color: ol.Color) => T),
+                                     opt_this?: S,
+                                     opt_layerFilter?: ((layer: ol.layer.Layer) => boolean),
+                                     opt_this2?: U): (T);
 
         /**
          * Detect if features intersect a pixel on the viewport. Layers included in the
@@ -7672,7 +7563,6 @@ declare module ol {
          * @api stable
          */
         updateSize(): void;
-
     }
 
     /**
@@ -7736,7 +7626,6 @@ declare module ol {
          * @api stable
          */
         dragging: boolean;
-
     }
 
     /**
@@ -7749,7 +7638,6 @@ declare module ol {
      * @param {?olx.FrameState=} opt_frameState Frame state.
      */
     class MapBrowserPointerEvent extends ol.MapBrowserEvent {
-
         // /**
         //  * @constructor
         //  * @extends {ol.MapBrowserEvent}
@@ -7808,7 +7696,6 @@ declare module ol {
          * @api
          */
         frameState: olx.FrameState;
-
     }
 
     /**
@@ -7850,7 +7737,6 @@ declare module ol {
          * @api stable
          */
         oldValue: any;
-
     }
 
     /**
@@ -7993,7 +7879,6 @@ declare module ol {
          * @api stable
          */
         unset(key: string, opt_silent?: boolean): void;
-
     }
 
     /**
@@ -8241,11 +8126,9 @@ declare module ol {
          * @api stable
          */
         setPositioning(positioning: ol.OverlayPositioning): void;
-
     }
 
     module pointer {
-
         /**
          * @classdesc
          * A class for pointer events.
@@ -8319,7 +8202,6 @@ declare module ol {
      * @namespace ol.proj
      */
     module proj {
-
         /**
          * Projection units: `'degrees'`, `'ft'`, `'m'`, `'pixels'`, `'tile-pixels'` or
          * `'us-ft'`.
@@ -8487,7 +8369,6 @@ declare module ol {
              * @api
              */
             getPointResolution(resolution: number, point: ol.Coordinate): number;
-
         }
 
         /**
@@ -8541,7 +8422,10 @@ declare module ol {
          *     the transformed {@link ol.Coordinate}.
          * @api stable
          */
-        function addCoordinateTransforms(source: ol.ProjectionLike, destination: ol.ProjectionLike, forward: ((coords: ol.Coordinate) => ol.Coordinate), inverse: ((coords: ol.Coordinate) => ol.Coordinate)): void;
+        function addCoordinateTransforms(source: ol.ProjectionLike,
+                                         destination: ol.ProjectionLike,
+                                         forward: ((coords: ol.Coordinate) => ol.Coordinate),
+                                         inverse: ((coords: ol.Coordinate) => ol.Coordinate)): void;
 
         /**
          * Transforms a coordinate from longitude/latitude to a different projection.
@@ -8730,9 +8614,7 @@ declare module ol {
                  * @api
                  */
                 drawFeature(feature: ol.Feature, style: ol.style.Style): void;
-
             }
-
         }
 
         /**
@@ -8787,7 +8669,6 @@ declare module ol {
              * @api
              */
             glContext: any;
-
         }
 
         type EventType = string;
@@ -8854,7 +8735,6 @@ declare module ol {
              * @api
              */
             getType(): ol.geom.GeometryType;
-
         }
 
         /**
@@ -8873,7 +8753,6 @@ declare module ol {
              * @api
              */
             constructor();
-
         }
 
         /**
@@ -8897,7 +8776,6 @@ declare module ol {
          * @api
          */
         function toContext(context: CanvasRenderingContext2D, opt_options?: olx.render.ToContextOptions): ol.render.canvas.Immediate;
-
     }
 
     /**
@@ -8945,7 +8823,6 @@ declare module ol {
              * @api
              */
             static TOS_ATTRIBUTION: ol.Attribution;
-
         }
 
         /**
@@ -8992,7 +8869,6 @@ declare module ol {
              * @api
              */
             setConfig(config: GlobalObject): void;
-
         }
 
         /**
@@ -9040,7 +8916,6 @@ declare module ol {
              * @api
              */
             setDistance(distance: number): void;
-
         }
 
         /**
@@ -9067,7 +8942,6 @@ declare module ol {
              * @api
              */
             constructor(options: ol.SourceImageOptions);
-
         }
 
         /**
@@ -9101,7 +8975,6 @@ declare module ol {
              * @api
              */
             image: ol.Image;
-
         }
 
         /**
@@ -9179,7 +9052,6 @@ declare module ol {
              * @api stable
              */
             updateParams(params: GlobalObject): void;
-
         }
 
         /**
@@ -9202,7 +9074,6 @@ declare module ol {
              * @api
              */
             constructor(options: olx.source.ImageCanvasOptions);
-
         }
 
         /**
@@ -9256,7 +9127,6 @@ declare module ol {
              * @api
              */
             setImageLoadFunction(imageLoadFunction: ol.ImageLoadFunctionType): void;
-
         }
 
         /**
@@ -9279,7 +9149,6 @@ declare module ol {
              * @api stable
              */
             constructor(options: olx.source.ImageStaticOptions);
-
         }
 
         /**
@@ -9354,7 +9223,6 @@ declare module ol {
              * @api stable
              */
             setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction)): void;
-
         }
 
         /**
@@ -9438,7 +9306,6 @@ declare module ol {
              * @api stable
              */
             updateParams(params: GlobalObject): void;
-
         }
 
         /**
@@ -9470,7 +9337,6 @@ declare module ol {
              * @api
              */
             static ATTRIBUTION: ol.Attribution;
-
         }
 
         /**
@@ -9508,7 +9374,6 @@ declare module ol {
              * @api
              */
             setOperation(operation: ol.RasterOperation, opt_lib?: GlobalObject): void;
-
         }
 
         /**
@@ -9559,7 +9424,6 @@ declare module ol {
              * @api
              */
             data: GlobalObject;
-
         }
 
         /**
@@ -9639,7 +9503,6 @@ declare module ol {
              * @api
              */
             setAttributions(attributions: (ol.AttributionLike)): void;
-
         }
 
         /**
@@ -9662,7 +9525,6 @@ declare module ol {
              * @api stable
              */
             constructor(options: olx.source.StamenOptions);
-
         }
 
         /**
@@ -9696,7 +9558,6 @@ declare module ol {
              * @api stable
              */
             getTileGrid(): ol.tilegrid.TileGrid;
-
         }
 
         /**
@@ -9730,7 +9591,6 @@ declare module ol {
              * @api
              */
             tile: ol.Tile;
-
         }
 
         /**
@@ -9778,7 +9638,6 @@ declare module ol {
              * @api stable
              */
             updateParams(params: GlobalObject): void;
-
         }
 
         /**
@@ -9809,7 +9668,6 @@ declare module ol {
              * @api
              */
             constructor(options: olx.source.TileDebugOptions);
-
         }
 
         /**
@@ -9855,7 +9713,6 @@ declare module ol {
              * @api
              */
             setTileGridForProjection(projection: ol.ProjectionLike, tilegrid: ol.tilegrid.TileGrid): void;
-
         }
 
         /**
@@ -9884,7 +9741,6 @@ declare module ol {
              * @api
              */
             getTileJSON(): TileJSON;
-
         }
 
         /**
@@ -9929,7 +9785,6 @@ declare module ol {
              * @api
              */
             forDataAtCoordinateAndResolution<T>(coordinate: ol.Coordinate, resolution: number, callback: ((d: any) => any), opt_this?: T, opt_request?: boolean): void;
-
         }
 
         /**
@@ -9983,7 +9838,6 @@ declare module ol {
              * @api stable
              */
             updateParams(params: GlobalObject): void;
-
         }
 
         /**
@@ -10058,7 +9912,6 @@ declare module ol {
              * @api stable
              */
             setUrls(urls: string[]): void;
-
         }
 
         /**
@@ -10263,7 +10116,6 @@ declare module ol {
              * @api stable
              */
             removeFeature(feature: ol.Feature): void;
-
         }
 
         /**
@@ -10297,7 +10149,6 @@ declare module ol {
              * @api stable
              */
             feature: ol.Feature;
-
         }
 
         /**
@@ -10334,7 +10185,6 @@ declare module ol {
              * @api
              */
             constructor(options: olx.source.VectorTileOptions);
-
         }
 
         /**
@@ -10348,7 +10198,6 @@ declare module ol {
              * @enum {string}
              */
             type ServerType = "carmentaserver" | "geoserver" | "mapserver" | "qgis";
-
         }
 
         /**
@@ -10460,7 +10309,6 @@ declare module ol {
              * @api
              */
             static optionsFromCapabilities(wmtsCap: GlobalObject, config: GlobalObject): olx.source.WMTSOptions;
-
         }
 
         /**
@@ -10509,7 +10357,6 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.source.XYZOptions);
-
         }
 
         /**
@@ -10532,9 +10379,7 @@ declare module ol {
              * @api stable
              */
             constructor(opt_options?: olx.source.ZoomifyOptions);
-
         }
-
     }
 
     /**
@@ -10542,13 +10387,11 @@ declare module ol {
      * {@link ol.Sphere.getArea} functions.
      */
     interface SphereMetricOptions {
-
         /**
          * Projection of the geometry.  By default, the geometry is assumed to be in
          * EPSG:3857 (Web Mercator).
          */
         projection?: ol.proj.Projection;
-
 
         /**
          * Sphere radius.  By default, the radius of the earth is used (Clarke 1866
@@ -10557,7 +10400,6 @@ declare module ol {
          * @api
          */
         radius?: number;
-
     }
 
     /**
@@ -10724,7 +10566,7 @@ declare module ol {
      *      styles[ol.geom.GeometryType.POLYGON].concat(
      *          styles[ol.geom.GeometryType.POINT]
      *      );
-     *```
+     * ```
      *
      * @namespace ol.style
      */
@@ -10765,7 +10607,6 @@ declare module ol {
              * @param {olx.style.AtlasManagerOptions=} opt_options Options.
              */
             constructor(opt_options?: olx.style.AtlasManagerOptions);
-
         }
 
         /**
@@ -10825,7 +10666,6 @@ declare module ol {
              * @api
              */
             setRadius(radius: number): void;
-
         }
 
         /**
@@ -10861,7 +10701,6 @@ declare module ol {
              * @api
              */
             setColor(color: (ol.Color | ol.ColorLike)): void;
-
         }
 
         /**
@@ -10938,7 +10777,6 @@ declare module ol {
              * @api
              */
             load(): void;
-
         }
 
         /**
@@ -11022,7 +10860,6 @@ declare module ol {
              * @api
              */
             setScale(scale: number): void;
-
         }
 
         /**
@@ -11115,7 +10952,6 @@ declare module ol {
              * @api
              */
             getStroke(): ol.style.Stroke;
-
         }
 
         /**
@@ -11238,7 +11074,6 @@ declare module ol {
              * @api
              */
             setWidth(width: (number)): void;
-
         }
 
         /**
@@ -11370,7 +11205,6 @@ declare module ol {
              * @api
              */
             setZIndex(zIndex: (number)): void;
-
         }
 
         /**
@@ -11548,9 +11382,7 @@ declare module ol {
              * @api
              */
             setTextBaseline(textBaseline: (string)): void;
-
         }
-
     }
 
     /**
@@ -11589,7 +11421,6 @@ declare module ol {
          * @api
          */
         load(): void;
-
     }
 
     module Tile {
@@ -11730,7 +11561,6 @@ declare module ol {
              * @api
              */
             getZForResolution(resolution: number, opt_direction?: number): number;
-
         }
 
         /**
@@ -11773,9 +11603,7 @@ declare module ol {
              * @api
              */
             static createFromCapabilitiesMatrixSet(matrixSet: GlobalObject, opt_extent?: ol.Extent): ol.tilegrid.WMTS;
-
         }
-
     }
 
     /**
@@ -12225,7 +12053,6 @@ declare module ol {
          * @api
          */
         setLoader(loader: ol.FeatureLoader): void;
-
     }
 
     /**
@@ -12586,16 +12413,13 @@ declare module ol {
          * @api stable
          */
         setZoom(zoom: number): void;
-
     }
-
 }
 
 /**
  * @namespace olx
  */
 declare module olx {
-
     /**
      * @namespace olx.animation
      */
@@ -12613,7 +12437,6 @@ declare module olx {
             easing?: ((t: number) => number);
         }
 
-
         /**
          * @typedef {{source: ol.Coordinate,
          *     start: (number|undefined),
@@ -12626,7 +12449,6 @@ declare module olx {
             duration?: number;
             easing?: ((t: number) => number);
         }
-
 
         /**
          * @typedef {{rotation: (number|undefined),
@@ -12642,7 +12464,6 @@ declare module olx {
             duration?: number;
             easing?: ((t: number) => number);
         }
-
 
         /**
          * @typedef {{resolution: number,
@@ -12665,13 +12486,13 @@ declare module olx {
          * whether the animation completed without being cancelled.
          */
         interface AnimateOptions {
-            center?: ol.Coordinate | undefined;
-            zoom?: number | undefined;
-            resolution?: number | undefined;
-            rotation?: number | undefined;
-            anchor?: ol.Coordinate | undefined;
-            duration?: number | undefined;
-            easing?: ((t: number) => number) | undefined;
+            center?: ol.Coordinate;
+            zoom?: number;
+            resolution?: number;
+            rotation?: number;
+            anchor?: ol.Coordinate;
+            duration?: number;
+            easing?: ((t: number) => number);
         }
 
         type AnimateCallback = (completed: boolean) => void;
@@ -12702,7 +12523,6 @@ declare module olx {
             render?: ((event: ol.MapEvent) => any);
         }
 
-
         /**
          * @typedef {{element: (Element|undefined),
          *     render: (function(ol.MapEvent)|undefined),
@@ -12713,7 +12533,6 @@ declare module olx {
             render?: ((event: ol.MapEvent) => any);
             target?: (Element | string);
         }
-
 
         /**
          * @typedef {{attribution: (boolean|undefined),
@@ -12731,7 +12550,6 @@ declare module olx {
             zoom?: boolean;
             zoomOptions?: olx.control.ZoomOptions;
         }
-
 
         /**
          * @typedef {{className: (string|undefined),
@@ -12752,7 +12570,6 @@ declare module olx {
             source?: (Element | string);
         }
 
-
         /**
          * @typedef {{className: (string|undefined),
          *     coordinateFormat: (ol.CoordinateFormatType|undefined),
@@ -12769,7 +12586,6 @@ declare module olx {
             target?: Element;
             undefinedHTML?: string;
         }
-
 
         /**
          * @typedef {{collapsed: (boolean|undefined),
@@ -12794,7 +12610,6 @@ declare module olx {
             view?: ol.View;
         }
 
-
         /**
          * @typedef {{className: (string|undefined),
          *     minWidth: (number|undefined),
@@ -12809,7 +12624,6 @@ declare module olx {
             target?: Element;
             units?: (ol.control.ScaleLine.Units | string);
         }
-
 
         /**
          * @typedef {{duration: (number|undefined),
@@ -12832,7 +12646,6 @@ declare module olx {
             target?: Element;
         }
 
-
         /**
          * @typedef {{duration: (number|undefined),
          *     className: (string|undefined),
@@ -12854,7 +12667,6 @@ declare module olx {
             target?: Element;
         }
 
-
         /**
          * @typedef {{className: (string|undefined),
          *     duration: (number|undefined),
@@ -12870,7 +12682,6 @@ declare module olx {
             render?: ((event: ol.MapEvent) => any);
         }
 
-
         /**
          * @typedef {{className: (string|undefined),
          *     target: (Element|undefined),
@@ -12885,8 +12696,6 @@ declare module olx {
             tipLabel?: string;
             extent?: ol.Extent;
         }
-
-
     }
 
     /**
@@ -12903,7 +12712,6 @@ declare module olx {
             featureProjection: ol.ProjectionLike;
         }
 
-
         /**
          * @typedef {{dataProjection: ol.ProjectionLike,
          *     featureProjection: ol.ProjectionLike,
@@ -12917,7 +12725,6 @@ declare module olx {
             decimals?: number;
         }
 
-
         /**
          * @typedef {{defaultDataProjection: ol.ProjectionLike,
          *     geometryName: (string|undefined)}}
@@ -12927,7 +12734,6 @@ declare module olx {
             featureProjection: ol.ProjectionLike;
             geometryName?: string;
         }
-
 
         /**
          * @typedef {{geometryName: (string|undefined)}}
@@ -12946,12 +12752,13 @@ declare module olx {
          *     layerName: (string|undefined)}}
          */
         interface MVTOptions {
-            featureClass?: (((geom: (ol.geom.Geometry | { [k: string]: any })) => any) | ((geom: ol.geom.GeometryType, arg2: number[], arg3: (number[] | number[][]), arg4: { [k: string]: any }) => any));
+            featureClass?: (((geom: (ol.geom.Geometry | { [k: string]: any })) => any) | ((geom: ol.geom.GeometryType, arg2: number[],
+                           arg3: (number[] | number[][]),
+                           arg4: { [k: string]: any }) => any));
             geometryName?: string;
             layerName?: string;
             layers?: string[];
         }
-
 
         /**
          * @typedef {{factor: (number|undefined),
@@ -12962,7 +12769,6 @@ declare module olx {
             geometryLayout?: ol.geom.GeometryLayout;
         }
 
-
         /**
          * @typedef {{defaultDataProjection: ol.ProjectionLike}}
          */
@@ -12970,14 +12776,13 @@ declare module olx {
             defaultDataProjection: ol.ProjectionLike;
         }
 
-
         /**
          * @typedef {{altitudeMode: (ol.format.IGCZ|undefined)}}
          */
+        /* tslint:disable-next-line:interface-name */
         interface IGCOptions {
             altitudeMode?: ol.format.IGCZ;
         }
-
 
         /**
          * @typedef {{extractStyles: (boolean|undefined),
@@ -12991,7 +12796,6 @@ declare module olx {
             defaultStyle?: ol.style.Style[];
             writeStyles?: boolean;
         }
-
 
         /**
          * @typedef {{featureNS: (Object.<string, string>|string|undefined),
@@ -13014,14 +12818,12 @@ declare module olx {
             schemaLocation?: string;
         }
 
-
         /**
          * @typedef {{readExtensions: (function(ol.Feature, Node)|undefined)}}
          */
         interface GPXOptions {
             readExtensions?: ((feature: ol.Feature, node: Node) => any);
         }
-
 
         /**
          * @typedef {{featureNS: (Object.<string, string>|string|undefined),
@@ -13035,7 +12837,6 @@ declare module olx {
             gmlFormat?: ol.format.GMLBase;
             schemaLocation?: string;
         }
-
 
         /**
          * @typedef {{featureNS: string,
@@ -13070,7 +12871,6 @@ declare module olx {
             resultType?: string;
         }
 
-
         /**
          * @typedef {{featureNS: string,
          *     featurePrefix: string,
@@ -13090,14 +12890,12 @@ declare module olx {
             gmlOptions?: olx.format.GMLOptions;
         }
 
-
         /**
          * @typedef {{splitCollection: (boolean|undefined)}}
          */
         interface WKTOptions {
             splitCollection?: boolean;
         }
-
 
         /**
          * @typedef {{
@@ -13107,8 +12905,6 @@ declare module olx {
         interface WMSGetFeatureInfoOptions {
             layers?: string[];
         }
-
-
     }
 
     /**
@@ -13122,7 +12918,6 @@ declare module olx {
         interface InteractionOptions {
             handleEvent: (event: ol.MapBrowserEvent) => boolean;
         }
-
 
         /**
          * Interactions for the map. Default is `true` for all options.
@@ -13151,7 +12946,6 @@ declare module olx {
             zoomDuration?: number;
         }
 
-
         /**
          * @typedef {{duration: (number|undefined),
          *     delta: (number|undefined)}}
@@ -13161,7 +12955,6 @@ declare module olx {
             delta?: number;
         }
 
-
         /**
          * @typedef {{formatConstructors: (Array.<function(new: ol.format.Feature)>|undefined),
          *     projection: ol.ProjectionLike,
@@ -13169,12 +12962,11 @@ declare module olx {
          *     source: (ol.source.Vector|undefined)}}
          */
         interface DragAndDropOptions {
-            formatConstructors?: ((n: ol.format.Feature) => any)[];
+            formatConstructors?: Array<((n: ol.format.Feature) => any)>;
             projection: ol.ProjectionLike;
             target?: Element;
             source?: ol.source.Vector;
         }
-
 
         /**
          * @typedef {{className: (string|undefined),
@@ -13189,7 +12981,6 @@ declare module olx {
             boxEndCondition?: ol.DragBoxEndConditionType;
         }
 
-
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
          *     kinetic: (ol.Kinetic|undefined)}}
@@ -13198,7 +12989,6 @@ declare module olx {
             condition?: ol.EventsConditionType;
             kinetic?: ol.Kinetic;
         }
-
 
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
@@ -13209,7 +12999,6 @@ declare module olx {
             duration?: number;
         }
 
-
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
          *     duration: (number|undefined)}}
@@ -13218,7 +13007,6 @@ declare module olx {
             condition?: ol.EventsConditionType;
             duration?: number;
         }
-
 
         /**
          * @typedef {{className: (string|undefined),
@@ -13232,7 +13020,6 @@ declare module olx {
             duration?: number;
             out?: boolean;
         }
-
 
         /**
          * @typedef {{clickTolerance: (number|undefined),
@@ -13269,7 +13056,6 @@ declare module olx {
             wrapX?: boolean;
         }
 
-
         /**
          * @typedef {{
          *     features: (ol.Collection.<ol.Feature>|undefined),
@@ -13280,7 +13066,6 @@ declare module olx {
             features?: ol.Collection<ol.Feature>;
             layers?: (ol.layer.Layer[] | ((layer: ol.layer.Layer) => boolean));
         }
-
 
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
@@ -13293,7 +13078,6 @@ declare module olx {
             pixelDelta?: number;
         }
 
-
         /**
          * @typedef {{duration: (number|undefined),
          *     condition: (ol.EventsConditionType|undefined),
@@ -13304,7 +13088,6 @@ declare module olx {
             condition?: ol.EventsConditionType;
             delta?: number;
         }
-
 
         /**
          * @typedef {{condition: (ol.EventsConditionType|undefined),
@@ -13327,7 +13110,6 @@ declare module olx {
             source?: ol.source.Vector;
         }
 
-
         /**
          * @typedef {{constrainResolution: (boolean|undefined),
          *     duration: (number|undefined),
@@ -13341,7 +13123,6 @@ declare module olx {
             useAnchor?: boolean;
         }
 
-
         /**
          * @typedef {{threshold: (number|undefined),
          *     duration: (number|undefined)}}
@@ -13351,7 +13132,6 @@ declare module olx {
             threshold?: number;
         }
 
-
         /**
          * @typedef {{constrainResolution: (boolean|undefined)
          *     duration: (number|undefined)}}
@@ -13360,7 +13140,6 @@ declare module olx {
             constrainResolution?: boolean;
             duration?: number;
         }
-
 
         /**
          * @typedef {{handleDownEvent: (function(ol.MapBrowserPointerEvent):boolean|undefined),
@@ -13376,7 +13155,6 @@ declare module olx {
             handleMoveEvent?: ((event: ol.MapBrowserPointerEvent) => boolean);
             handleUpEvent?: ((event: ol.MapBrowserPointerEvent) => boolean);
         }
-
 
         /**
          * @typedef {{addCondition: (ol.EventsConditionType|undefined),
@@ -13405,7 +13183,6 @@ declare module olx {
             hitTolerance?: number;
         }
 
-
         /**
          * Options for snap
          * @typedef {{
@@ -13423,8 +13200,6 @@ declare module olx {
             pixelTolerance?: number;
             source?: ol.source.Vector;
         }
-
-
     }
 
     /**
@@ -13448,7 +13223,6 @@ declare module olx {
             maxResolution?: number;
         }
 
-
         /**
          * @typedef {{opacity: (number|undefined),
          *     source: (ol.source.Source|undefined),
@@ -13468,7 +13242,6 @@ declare module olx {
             maxResolution?: number;
         }
 
-
         /**
          * @typedef {{opacity: (number|undefined),
          *     visible: (boolean|undefined),
@@ -13487,7 +13260,6 @@ declare module olx {
             maxResolution?: number;
             layers?: (ol.layer.Base[] | ol.Collection<ol.layer.Base>);
         }
-
 
         /**
          * @typedef {{gradient: (Array.<string>|undefined),
@@ -13518,7 +13290,6 @@ declare module olx {
             zIndex?: number;
         }
 
-
         /**
          * @typedef {{opacity: (number|undefined),
          *     map: (ol.Map|undefined),
@@ -13539,7 +13310,6 @@ declare module olx {
             maxResolution?: number;
             zIndex?: number;
         }
-
 
         /**
          * @typedef {{opacity: (number|undefined),
@@ -13566,7 +13336,6 @@ declare module olx {
             zIndex?: number;
         }
 
-
         /**
          * @enum {string}
          * Render mode for vector layers:
@@ -13580,7 +13349,6 @@ declare module olx {
          * @api
          */
         type VectorRenderType = "image" | "vector";
-
 
         /**
          * @typedef {{renderOrder: (function(ol.Feature, ol.Feature):number|null|undefined),
@@ -13614,7 +13382,6 @@ declare module olx {
             zIndex?: number;
         }
 
-
         /**
          * @typedef {{extent: (ol.Extent|undefined),
          *     map: (ol.Map|undefined),
@@ -13647,8 +13414,6 @@ declare module olx {
             visible?: boolean;
             zIndex?: number;
         }
-
-
     }
 
     /**
@@ -13669,8 +13434,6 @@ declare module olx {
             size?: ol.Size;
             pixelRatio?: number;
         }
-
-
     }
 
     /**
@@ -13697,7 +13460,6 @@ declare module olx {
             tileLoadFunction?: ol.TileLoadFunctionType;
             wrapX?: boolean;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -13737,7 +13499,6 @@ declare module olx {
             url?: string;
         }
 
-
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
          *            cacheSize: (number|undefined),
@@ -13756,7 +13517,8 @@ declare module olx {
          *            tileUrlFunction: (ol.TileUrlFunctionType|undefined),
          *            url: (string|undefined),
          *            urls: (Array.<string>|undefined),
-         *            wrapX: (boolean|undefined)}}
+         *            wrapX: (boolean|undefined),
+         *            transition: (number|undefined)}}
          */
         interface TileImageOptions {
             attributions?: ol.AttributionLike;
@@ -13775,8 +13537,8 @@ declare module olx {
             url?: string;
             urls?: string[];
             wrapX?: boolean;
+            transition?: number;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -13813,7 +13575,6 @@ declare module olx {
             wrapX?: boolean;
         }
 
-
         /**
          * @typedef {{url: (string|undefined),
          *     displayDpi: (number|undefined),
@@ -13839,7 +13600,6 @@ declare module olx {
             params?: GlobalObject;
         }
 
-
         /**
          * @typedef {{cacheSize: (number|undefined),
          *     layer: string,
@@ -13855,7 +13615,6 @@ declare module olx {
             url?: string;
         }
 
-
         /**
          * @typedef {{projection: ol.ProjectionLike,
          *     tileGrid: (ol.tilegrid.TileGrid|undefined),
@@ -13866,7 +13625,6 @@ declare module olx {
             tileGrid?: ol.tilegrid.TileGrid;
             wrapX?: boolean;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -13891,7 +13649,6 @@ declare module olx {
             wrapX?: boolean;
         }
 
-
         /**
          * @typedef {{attributions: (Array.<ol.Attribution>|undefined),
          *     crossOrigin: (null|string|undefined),
@@ -13915,7 +13672,6 @@ declare module olx {
             url?: string;
         }
 
-
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
          *     canvasFunction: ol.CanvasFunctionType,
@@ -13934,7 +13690,6 @@ declare module olx {
             resolutions?: number[];
             state?: ol.source.State;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -13957,7 +13712,6 @@ declare module olx {
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
         }
 
-
         /**
          * @typedef {{sources: Array.<ol.source.Source>,
          *     operation: (ol.RasterOperation|undefined),
@@ -13973,7 +13727,6 @@ declare module olx {
             threads?: number;
             operationType?: ol.RasterOperationType;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -14002,7 +13755,6 @@ declare module olx {
             url?: string;
         }
 
-
         /**
          * @typedef {{cacheSize: (number|undefined),
          *     layer: string,
@@ -14023,7 +13775,6 @@ declare module olx {
             tileLoadFunction?: ol.TileLoadFunctionType;
             url?: string;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -14046,7 +13797,6 @@ declare module olx {
             url: string;
         }
 
-
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
          *     cacheSize: (number|undefined),
@@ -14058,8 +13808,9 @@ declare module olx {
          *     reprojectionErrorThreshold: (number|undefined),
          *     tileLoadFunction: (ol.TileLoadFunctionType|undefined),
          *     url: (string|undefined),
-         *     urls: (Array.<string>|undefined),
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     transition: (number|undefined),
+         *     urls: (Array.<string>|undefined)}}
          */
         interface TileArcGISRestOptions {
             attributions?: ol.AttributionLike;
@@ -14073,9 +13824,9 @@ declare module olx {
             tileLoadFunction?: ol.TileLoadFunctionType;
             url?: string;
             wrapX?: boolean;
+            transition?: number;
             urls?: string[];
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -14085,7 +13836,8 @@ declare module olx {
          *     reprojectionErrorThreshold: (number|undefined),
          *     tileLoadFunction: (ol.TileLoadFunctionType|undefined),
          *     url: string,
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     transition: (number|undefined)}}
          */
         interface TileJSONOptions {
             attributions?: ol.AttributionLike;
@@ -14096,8 +13848,8 @@ declare module olx {
             tileLoadFunction?: ol.TileLoadFunctionType;
             url: string;
             wrapX?: boolean;
+            transition?: number;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -14114,7 +13866,8 @@ declare module olx {
          *     tileLoadFunction: (ol.TileLoadFunctionType|undefined),
          *     url: (string|undefined),
          *     urls: (Array.<string>|undefined),
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     transition: (number|undefined)}}
          */
         interface TileWMSOptions {
             attributions?: ol.AttributionLike;
@@ -14132,8 +13885,8 @@ declare module olx {
             url?: string;
             urls?: string[];
             wrapX?: boolean;
+            transition?: number;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -14159,7 +13912,6 @@ declare module olx {
             useSpatialIndex?: boolean;
             wrapX?: boolean;
         }
-
 
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -14208,7 +13960,6 @@ declare module olx {
             wrapX?: boolean;
         }
 
-
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
          *     cacheSize: (number|undefined),
@@ -14248,7 +13999,6 @@ declare module olx {
             wrapX?: boolean;
         }
 
-
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
          *     cacheSize: (number|undefined),
@@ -14276,7 +14026,6 @@ declare module olx {
             account: string;
         }
 
-
         /**
          * @typedef {{attributions: (ol.AttributionLike|undefined),
          *     cacheSize: (number|undefined),
@@ -14297,8 +14046,6 @@ declare module olx {
             tierSizeCalculation?: string;
             size: ol.Size;
         }
-
-
     }
 
     /**
@@ -14320,14 +14067,12 @@ declare module olx {
             atlasManager?: ol.style.AtlasManager;
         }
 
-
         /**
          * @typedef {{color: (ol.Color|ol.ColorLike|undefined)}}
          */
         interface FillOptions {
             color?: (ol.Color | ol.ColorLike);
         }
-
 
         /**
          * @typedef {{anchor: (Array.<number>|undefined),
@@ -14368,7 +14113,6 @@ declare module olx {
             src?: string;
         }
 
-
         /**
          * Specify radius for regular polygons, or radius1 and radius2 for stars.
          * @typedef {{fill: (ol.style.Fill|undefined),
@@ -14394,7 +14138,6 @@ declare module olx {
             stroke?: ol.style.Stroke;
             rotation?: number;
         }
-
 
         /**
          * @typedef {{color: (ol.Color|string|undefined),
@@ -14422,8 +14165,6 @@ declare module olx {
          */
         type TextPlacement = 'point' | 'line';
 
-
-
         /**
          * @typedef {{font: (string|undefined),
          *     maxAngle: (number|undefined),
@@ -14449,7 +14190,7 @@ declare module olx {
             offsetX?: number;
             offsetY?: number;
             overflow?: boolean;
-            placement?: olx.style.TextPlacement,
+            placement?: olx.style.TextPlacement;
             scale?: number;
             rotateWithView?: boolean;
             rotation?: number;
@@ -14462,7 +14203,6 @@ declare module olx {
             backgroundStroke?: ol.style.Stroke;
             padding?: number[];
         }
-
 
         /**
          * @typedef {{geometry: (undefined|string|ol.geom.Geometry|ol.StyleGeometryFunction),
@@ -14481,7 +14221,6 @@ declare module olx {
             zIndex?: number;
         }
 
-
         /**
          * @typedef {{initialSize: (number|undefined),
          *     maxSize: (number|undefined),
@@ -14492,8 +14231,6 @@ declare module olx {
             maxSize?: number;
             space?: number;
         }
-
-
     }
 
     /**
@@ -14517,9 +14254,8 @@ declare module olx {
             origins?: ol.Coordinate[];
             resolutions: number[];
             tileSize?: (number | ol.Size);
-            tileSizes?: ((number | ol.Size)[]);
+            tileSizes?: (Array<(number | ol.Size)>);
         }
-
 
         /**
          * @typedef {{extent: (ol.Extent|undefined),
@@ -14539,10 +14275,9 @@ declare module olx {
             matrixIds: string[];
             sizes?: ol.Size[];
             tileSize?: (number | ol.Size);
-            tileSizes?: ((number | ol.Size)[]);
+            tileSizes?: (Array<(number | ol.Size)>);
             widths?: number[];
         }
-
 
         /**
          * @typedef {{extent: (ol.Extent|undefined),
@@ -14556,8 +14291,6 @@ declare module olx {
             minZoom?: number;
             tileSize?: (number | ol.Size);
         }
-
-
     }
 
     /**
@@ -14567,7 +14300,6 @@ declare module olx {
     interface AttributionOptions {
         html: string;
     }
-
 
     /**
      * @typedef {{tracking: (boolean|undefined)}}
@@ -14587,7 +14319,6 @@ declare module olx {
         projection: ol.ProjectionLike;
     }
 
-
     /**
      * Object literal with config options for the map logo.
      * @typedef {{href: (string), src: (string)}}
@@ -14596,7 +14327,6 @@ declare module olx {
         href: string;
         src: string;
     }
-
 
     /**
      * @typedef {{map: (ol.Map|undefined),
@@ -14617,7 +14347,6 @@ declare module olx {
         lonLabelStyle?: ol.style.Text;
         latLabelStyle?: ol.style.Text;
     }
-
 
     /**
      * Object literal with config options for the map.
@@ -14644,11 +14373,10 @@ declare module olx {
         loadTilesWhileInteracting?: boolean;
         logo?: (boolean | string | olx.LogoOptions | Element);
         overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]);
-        renderer?: (ol.RendererType | (ol.RendererType | string)[] | string);
+        renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
         target?: (Element | string);
         view?: ol.View;
     }
-
 
     /**
      * Object literal with config options for the overlay.
@@ -14675,7 +14403,6 @@ declare module olx {
         autoPanAnimation?: olx.animation.PanOptions;
         autoPanMargin?: number;
     }
-
 
     /**
      * Object literal with config options for the projection.
@@ -14712,7 +14439,7 @@ declare module olx {
          *     easing: (function(t: number) => number) }}
          */
         interface FitOptions {
-            size?: ol.Size,
+            size?: ol.Size;
             padding?: number[];
             constrainResolution?: boolean;
             nearest?: boolean;
@@ -14759,14 +14486,14 @@ declare module olx {
     }
 
     /**
-    * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
-    * {@link ol.Map#hasFeatureAtPixel} methods.
-    * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
-    *     hitTolerance: (number|undefined)}}
-    */
+     * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
+     * {@link ol.Map#hasFeatureAtPixel} methods.
+     * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
+     *     hitTolerance: (number|undefined)}}
+     */
     interface AtPixelOptions {
-        layerFilter?: ((layer: ol.layer.Layer) => boolean)
-        hitTolerance?: number
+        layerFilter?: ((layer: ol.layer.Layer) => boolean);
+        hitTolerance?: number;
     }
 
     /**
@@ -14797,7 +14524,6 @@ declare module olx {
         viewState: olx.ViewState;
     }
 
-
     /**
      * @typedef {{center: ol.Coordinate,
      *     projection: ol.proj.Projection,
@@ -14810,7 +14536,6 @@ declare module olx {
         resolution: number;
         rotation: number;
     }
-
 }
 
 declare module "openlayers" {

@@ -610,8 +610,11 @@ export interface RowRenderProps extends Partial<RowInfo> {
 }
 
 export interface RowInfo {
-    /** Original row from your data */
+    /** Materialized row of data */
     row: any;
+
+    /** Original row from your data */
+    original: any;
 
     /** The post-accessed values from the original row */
     rowValues: any;
