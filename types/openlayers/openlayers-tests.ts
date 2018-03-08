@@ -896,6 +896,16 @@ let modifySource: ol.interaction.Modify = new ol.interaction.Modify({
     }),
 });
 
+const dragAndDrop: ol.interaction.DragAndDrop = new ol.interaction.DragAndDrop({
+    formatConstructors: [ol.format.KML],
+    projection: projectionLike,
+    source: vectorSource,
+});
+
+const dragAndDropWithUndefined: ol.interaction.DragAndDrop = new ol.interaction.DragAndDrop({
+    projection: projectionLike,
+});
+
 let draw: ol.interaction.Draw = new ol.interaction.Draw({
     type: "Point",
     clickTolerance: numberValue,
