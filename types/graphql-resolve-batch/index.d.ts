@@ -17,7 +17,7 @@ export type ResolverFunction<TSource, TArgs, TContext, TReturn> = (
     source: TSource,
     args: TArgs,
     context: TContext
-) => Promise<TReturn[]>;
+) => Promise<TReturn> | Promise<TReturn[]>;
 
 export type BatchResolveFunction<TSource, TArgs, TContext, TReturn> = (
     sources: ReadonlyArray<TSource>,
