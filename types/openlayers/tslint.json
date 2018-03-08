@@ -6,7 +6,6 @@
         // Not sure how to work around this, or if it's necessary to
         "no-declare-current-package": false,
         "no-internal-module": false,
-        "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
