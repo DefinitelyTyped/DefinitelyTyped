@@ -1,6 +1,7 @@
 // Type definitions for Bootstrap 4.0
 // Project: https://github.com/twbs/bootstrap/
 // Definitions by: denisname <https://github.com/denisname>
+//                 BickelLukas <https://github.com/BickelLukas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -224,7 +225,7 @@ interface BootstrapTooltipOption {
      *
      * @default 0
      */
-     offset?: number | string;
+    offset?: number | string;
 
     /**
      * Allow to specify which position Popper will use on fallback.
@@ -243,6 +244,117 @@ interface BootstrapTooltipOption {
      * @default "scrollParent"
      */
     boundary?: "viewport" | "window" | "scrollParent" | HTMLElement;
+}
+
+interface BootstrapPopoverOption {
+    /**
+     * Apply a CSS fade transition to the tooltip.
+     *
+     * @default true
+     */
+    animation?: boolean;
+
+    /**
+     * Appends the popover to a specific element. Example: container: 'body'.
+     * This option is particularly useful in that it allows you to position the popover
+     * in the flow of the document near the triggering element -
+     * which will prevent the popover from floating away from the triggering element during a window resize.
+     *
+     * @default false
+     */
+    container?: string | Element | false;
+
+    /**
+     * Default content value if data-content attribute isn't present.
+     * If a function is given, it will be called with its this reference set to the element that the popover is attached to.
+     *
+     * @default ""
+     */
+    content?: string | Element | ((this: Element) => string);
+
+    /**
+     * Delay showing and hiding the popover (ms) - does not apply to manual trigger type
+     * If a number is supplied, delay is applied to both hide/show
+     * Object structure is: delay: { "show": 500, "hide": 100 }
+     *
+     * @default 0
+     */
+    delay?: number | object;
+
+    /**
+     * Insert HTML into the popover. If false, jQuery's text method will be used to insert content into the DOM.
+     * Use text if you're worried about XSS attacks.
+     *
+     * @default false
+     */
+    html?: boolean;
+
+    /**
+     * How to position the popover - auto | top | bottom | left | right.
+     * When auto is specified, it will dynamically reorient the popover.
+     * When a function is used to determine the placement, it is called with the popover DOM node as its
+     * first argument and the triggering element DOM node as its second. The this context is set to the popover instance.
+     *
+     * @default "right"
+     */
+    placement?: BootstrapPlacement | ((this: BootstrapTooltipInstance, popover: HTMLElement, trigger: Element) => BootstrapPlacement);
+
+    /**
+     * If a selector is provided, popover objects will be delegated to the specified targets.
+     * In practice, this is used to enable dynamic HTML content to have popovers added. See this and an informative example.
+     *
+     * @default false
+     */
+    selector?: string | false;
+
+    /**
+     * Base HTML to use when creating the popover.
+     * The popover's title will be injected into the .popover-header.
+     * The popover's content will be injected into the .popover-body.
+     * .arrow will become the popover's arrow.
+     * The outermost wrapper element should have the .popover class.
+     *
+     * @default '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+     */
+    template?: string;
+
+    /**
+     * Default title value if title attribute isn't present.
+     * If a function is given, it will be called with its this reference set to the element that the popover is attached to.
+     *
+     * @default ""
+     */
+    title?: string | Element | ((this: Element) => string);
+
+    /**
+     * How popover is triggered - click | hover | focus | manual. You may pass multiple triggers;
+     * separate them with a space. `manual` cannot be combined with any other trigger.
+     *
+     * @default "click"
+     */
+    trigger?: "click" | "hover" | "focus" | "manual";
+
+    /**
+     * Offset of the popover relative to its target. For more information refer to Popper.js's offset docs.
+     *
+     * @default 0
+     */
+    offset?: number | string;
+
+    /**
+     * Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs
+     *
+     * @default "flip"
+     */
+    fallbackPlacement?: PopperBehavior | PopperBehavior[];
+
+    /**
+     * Overflow constraint boundary of the popover. Accepts the values of 'viewport', 'window', 'scrollParent',
+     * or an HTMLElement reference (JavaScript only). For more information refer to Popper.js's preventOverflow docs.
+     *
+     * @default "scrollParent"
+     */
+    boundary?: "viewport" | "window" | "scrollParent" | Element;
 }
 
 // --------------------------------------------------------------------------------------
@@ -269,8 +381,9 @@ interface BootstrapCarouselEventHandler<TElement> extends JQuery.Event<TElement,
 type BootstrapAlertEvent = "close.bs.alert" | "closed.bs.alert";
 type BootstrapCarouselEvent = "slide.bs.carousel" | "slid.bs.carousel";
 type BootstrapDropdownEvent = "show.bs.dropdown" | "shown.bs.dropdown" | "hide.bs.dropdown" | "hidden.bs.dropdown";
-type BootstrapModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" |  "hidden.bs.modal";
-type BootstrapTooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" |  "hidden.bs.tooltip" | "inserted.bs.tooltip";
+type BootstrapModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" | "hidden.bs.modal";
+type BootstrapTooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" | "hidden.bs.tooltip" | "inserted.bs.tooltip";
+type BootstrapPopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
 
 // --------------------------------------------------------------------------------------
 // jQuery
@@ -293,7 +406,10 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     tooltip(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
     tooltip(options?: BootstrapTooltipOption): this;
 
+    popover(action: "show" | "hide" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
+    popover(options?: BootstrapPopoverOption): this;
+
     on(events: BootstrapCarouselEvent, handler: JQuery.EventHandlerBase<TElement, BootstrapCarouselEventHandler<TElement>>): this;
-    on(events: BootstrapAlertEvent | BootstrapDropdownEvent | BootstrapModalEvent | BootstrapTooltipEvent,
+    on(events: BootstrapAlertEvent | BootstrapDropdownEvent | BootstrapModalEvent | BootstrapTooltipEvent | BootstrapPopoverEvent,
         handler: JQuery.EventHandler<TElement>): this;
 }
