@@ -284,14 +284,27 @@ export interface WithdrawOpts {
  * Combination of an amount and a currency
  */
 export interface MoneyHash {
-    /**
-     * Amount as floating-point in a string
-     */
-    amount: string;
-    /**
-     * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
-     */
-    currency: string;
+    data: {
+        /**
+         * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+         */
+        base: string;
+        /**
+         * Amount as floating-point in a string
+         */
+        amount: string;
+        /**
+         * Currency e.g. "EUR" (see Client#getCurrencies() for available strings)
+         */
+        currency: string;
+    }
+    warnings?: [
+        {
+            id: string
+            message: string
+            url: string
+        }
+    ]
 }
 
 export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
