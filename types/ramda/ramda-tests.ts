@@ -1597,13 +1597,14 @@ class Rectangle {
 };
 
 () => {
-    const a = R.toPairs<string, number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs<number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const b = R.toPairs({1: 'a'}); // => [['1', 'something']]
 };
 
 () => {
     const f    = new F();
     const a1 = R.toPairsIn(f); // => [['x','X'], ['y','Y']]
-    const a2 = R.toPairsIn<string, string>(f); // => [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn<string>(f); // => [['x','X'], ['y','Y']]
 };
 
 () => {
