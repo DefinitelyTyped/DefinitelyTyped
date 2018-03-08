@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // It appears somewhat difficult to remove the Function and Object types
-        "ban-types": false,
         // This currently fails for an option that does not appear to be in OL 4
         "no-any-union": false,
         // Not sure how to work around this, or if it's necessary to        

@@ -6,8 +6,9 @@ let stringValue: string;
 let stringArray: string[];
 let jsonValue: JSON;
 let domEventTarget: EventTarget;
-let fn: Function;
-let object: Object;
+let listener: ol.EventsListenerFunctionType;
+let object: { [key: string]: any };
+let fn: () => void;
 
 // Callback predefinitions for OpenLayers
 let preRenderFunction: ol.PreRenderFunction;
@@ -579,12 +580,12 @@ observable.dispatchEvent({ type: stringValue, a: numberValue, b: stringValue, c:
 observable.dispatchEvent(olEvent);
 observable.dispatchEvent(stringValue);
 numberValue = observable.getRevision();
-eventKeyMixed = observable.on(stringValue, fn);
-eventKeyMixed = observable.on([stringValue, stringValue], fn, {});
-eventKeyMixed = observable.once(stringValue, fn);
-eventKeyMixed = observable.once([stringValue, stringValue], fn, {});
-observable.un(stringValue, fn);
-observable.un([stringValue, stringValue], fn, {});
+eventKeyMixed = observable.on(stringValue, listener);
+eventKeyMixed = observable.on([stringValue, stringValue], listener, {});
+eventKeyMixed = observable.once(stringValue, listener);
+eventKeyMixed = observable.once([stringValue, stringValue], listener, {});
+observable.un(stringValue, listener);
+observable.un([stringValue, stringValue], listener, {});
 
 //
 // ol.proj
