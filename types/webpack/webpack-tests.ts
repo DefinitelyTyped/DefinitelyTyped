@@ -34,47 +34,12 @@ let rule: webpack.Rule;
 let plugin: webpack.Plugin;
 declare const __dirname: string;
 
-//
-// https://webpack.github.io/docs/using-loaders.html
-//
-
-configuration = {
-    module: {
-        loaders: [
-            { test: /\.jade$/, loader: "jade" },
-            // => "jade" loader is used for ".jade" files
-
-            { test: /\.css$/, loader: "style!css" },
-            // => "style" and "css" loader is used for ".css" files
-            // Alternative syntax:
-            { test: /\.css$/, loaders: ["style", "css"] },
-        ]
-    }
-};
-
 rule = { test: /\.png$/, loader: "url-loader?mimetype=image/png" };
 
 rule = {
     test: /\.png$/,
     loader: "url-loader",
     query: { mimetype: "image/png" }
-};
-
-//
-// http://webpack.github.io/docs/tutorials/getting-started/
-//
-
-configuration = {
-    entry: "./entry.js",
-    output: {
-        path: __dirname,
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-            { test: /\.css$/, loader: "style!css" }
-        ]
-    }
 };
 
 //
@@ -98,45 +63,6 @@ configuration = {
 };
 
 //
-// https://webpack.github.io/docs/code-splitting.html
-//
-
-configuration = {
-    entry: {
-        app: "./app.js",
-        vendor: ["jquery", "underscore"],
-    },
-    output: {
-        filename: "bundle.js"
-    },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendor.bundle.js",
-        }),
-    ]
-};
-
-configuration = {
-    entry: { a: "./a", b: "./b" },
-    output: { filename: "[name].js" },
-    plugins: [new webpack.optimize.CommonsChunkPlugin({ name: "init.js" })]
-};
-
-//
-// https://webpack.github.io/docs/stylesheets.html
-//
-
-configuration = {
-    // ...
-    module: {
-        loaders: [
-            { test: /\.css$/, loader: "style-loader!css-loader" }
-        ]
-    }
-};
-
-//
 // https://webpack.github.io/docs/optimization.html
 //
 
@@ -151,21 +77,6 @@ configuration = {
     }
 };
 
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-configuration = {
-    entry: {
-        p1: "./page1",
-        p2: "./page2",
-        p3: "./page3"
-    },
-    output: {
-        filename: "[name].entry.chunk.js"
-    },
-    plugins: [
-        new CommonsChunkPlugin({ name: "commons.chunk.js" })
-    ]
-};
-
 configuration = {
     entry: {
         p1: "./page1",
@@ -177,26 +88,6 @@ configuration = {
     output: {
         filename: "[name].js"
     },
-};
-// <script>s required:
-// page1.html: commons.js, p1.js
-// page2.html: commons.js, p2.js
-// page3.html: p3.js
-// admin-page1.html: commons.js, admin-commons.js, ap1.js
-// admin-page2.html: commons.js, admin-commons.js, ap2.js
-
-configuration = {
-    entry: {
-        p1: "./page1",
-        p2: "./page2",
-        commons: "./entry-for-the-commons-chunk"
-    },
-    plugins: [
-        new CommonsChunkPlugin({
-            name: "commons",
-            filename: "commons.js",
-        }),
-    ]
 };
 
 //
@@ -374,43 +265,6 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 plugin = new webpack.optimize.UglifyJsPlugin({
     comments: (astNode: any, comment: any) => false
 });
-plugin = new webpack.optimize.CommonsChunkPlugin(options);
-plugin = new CommonsChunkPlugin({
-    name: "commons",
-    // (the commons chunk name)
-
-    filename: "commons.js",
-    // (the filename of the commons chunk)
-
-    // minChunks: 3,
-    // (Modules must be shared between 3 entries)
-
-    // chunks: ["pageA", "pageB"],
-    // (Only use these entries)
-});
-plugin = new CommonsChunkPlugin({
-    // names: ["app", "subPageA"]
-    // (choose the chunks, or omit for all chunks)
-
-    children: true,
-    // (select all children of chosen chunks)
-
-    // minChunks: 3,
-    // (3 children must share the module before it's moved)
-});
-plugin = new CommonsChunkPlugin({
-    // names: ["app", "subPageA"]
-    // (choose the chunks, or omit for all chunks)
-
-    children: true,
-    // (use all children of the chunk)
-
-    async: true,
-    // (create an async commons chunk)
-
-    // minChunks: 3,
-    // (3 children must share the module before it's separated)
-});
 plugin = new webpack.DefinePlugin(definitions);
 plugin = new webpack.DefinePlugin({
     VERSION: JSON.stringify("5fa3b9"),
@@ -445,7 +299,6 @@ plugin = new webpack.SourceMapDevToolPlugin({
 plugin = new webpack.EvalSourceMapDevToolPlugin(false);
 plugin = new webpack.HotModuleReplacementPlugin();
 plugin = new webpack.ExtendedAPIPlugin();
-plugin = new webpack.NoErrorsPlugin();
 plugin = new webpack.NoEmitOnErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
 plugin = new webpack.LoaderOptionsPlugin({
@@ -665,3 +518,65 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 (loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => { };
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);
+
+/**
+ * New v4 tests
+ */
+configuration = {
+};
+
+configuration = {
+    mode: "development"
+};
+
+configuration = {
+    mode: "production"
+};
+
+configuration = {
+    mode: "development",
+    optimization: {
+        removeAvailableModules: true,
+        removeEmptyChunks: true,
+        mergeDuplicateChunks: true,
+        flagIncludedChunks: false,
+        occurrenceOrder: false,
+        providedExports: true,
+        usedExports: false,
+        sideEffects: false,
+        concatenateModules: false,
+        splitChunks: false,
+        runtimeChunk: true,
+        noEmitOnErrors: false,
+        namedModules: true,
+        namedChunks: true,
+        nodeEnv: "development",
+        minimize: false,
+        portableRecords: false
+    }
+};
+
+configuration = {
+    mode: "production",
+    optimization: {
+        removeAvailableModules: true,
+        removeEmptyChunks: true,
+        mergeDuplicateChunks: true,
+        flagIncludedChunks: true,
+        occurrenceOrder: true,
+        providedExports: true,
+        usedExports: true,
+        sideEffects: true,
+        concatenateModules: true,
+        splitChunks: { chunks: "async", minChunks: 2 },
+        runtimeChunk: true,
+        noEmitOnErrors: true,
+        namedModules: false,
+        namedChunks: false,
+        nodeEnv: "production",
+        minimize: true,
+        portableRecords: true
+    }
+};
+
+plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });

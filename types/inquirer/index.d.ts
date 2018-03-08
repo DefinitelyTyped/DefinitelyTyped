@@ -3,10 +3,11 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
 //                 Jouderian <https://github.com/jouderianjr>
+//                 Qibang <https://github.com/bang88>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
+// TypeScript Version: 2.3
 /// <reference types="rx" />
 
 import through = require('through');
@@ -14,10 +15,10 @@ import through = require('through');
 declare namespace inquirer {
     type Prompts = { [name: string]: PromptModule };
     type ChoiceType = string | objects.ChoiceOption | objects.Separator;
-    type Questions =
-        | Question
-        | ReadonlyArray<Question>
-        | Rx.Observable<Question>;
+    type Questions<T> =
+        | Question<T>
+        | ReadonlyArray<Question<T>>
+        | Rx.Observable<Question<T>>;
 
     interface Inquirer {
         restoreDefaultPrompts(): void;
@@ -37,8 +38,8 @@ declare namespace inquirer {
          * @param cb Callback being passed the user answers
          * @return
          */
-        prompt(questions: Questions, cb: (answers: Answers) => any): ui.Prompt;
-        prompt(questions: Questions): Promise<Answers>;
+        prompt<T>(questions: Questions<T>, cb: (answers: T) => any): ui.Prompt;
+        prompt<T>(questions: Questions<T>): Promise<T>;
         prompts: Prompts;
         Separator: objects.SeparatorStatic;
         ui: {
@@ -48,8 +49,8 @@ declare namespace inquirer {
     }
 
     interface PromptModule {
-        (questions: Questions): Promise<Answers>;
-        (questions: Questions, cb: (answers: Answers) => any): ui.Prompt;
+        <T>(questions: Questions<T>): Promise<T>;
+        <T>(questions: Questions<T>, cb: (answers: T) => any): ui.Prompt;
         /**
          * Register a prompt type
          * @param name Prompt type name
@@ -62,7 +63,7 @@ declare namespace inquirer {
         restoreDefaultPrompts(): void;
     }
 
-    interface Question {
+    interface Question<T = Answers> {
         /**
          * Type of the prompt.
          * Possible values:
@@ -84,12 +85,12 @@ declare namespace inquirer {
          * The question to print. If defined as a function,
          * the first parameter will be the current inquirer session answers.
          */
-        message?: string | ((answers: Answers) => string);
+        message?: string | ((answers: T) => string);
         /**
          * Default value(s) to use if nothing is entered, or a function that returns the default value(s).
          * If defined as a function, the first parameter will be the current inquirer session answers.
          */
-        default?: any | ((answers: Answers) => any);
+        default?: any | ((answers: T) => any);
         /**
          * Choices array or a function returning a choices array. If defined as a function,
          * the first parameter will be the current inquirer session answers.
@@ -98,12 +99,12 @@ declare namespace inquirer {
          */
         choices?:
             | ReadonlyArray<ChoiceType>
-            | ((answers: Answers) => ReadonlyArray<ChoiceType>);
+            | ((answers: T) => ReadonlyArray<ChoiceType>);
         /**
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
          */
-        validate?(input: string, answers?: Answers): boolean | string;
+        validate?(input: string, answers?: T): boolean | string;
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the Answers hash.
@@ -113,7 +114,7 @@ declare namespace inquirer {
          * Receive the current user answers hash and should return true or false depending on whether or
          * not this question should be asked. The value can also be a simple boolean.
          */
-        when?: boolean | ((answers: Answers) => boolean);
+        when?: boolean | ((answers: T) => boolean);
         paginated?: boolean;
         /**
          * Change the number of lines that will be rendered when using list, rawList, expand or checkbox.
@@ -150,10 +151,10 @@ declare namespace inquirer {
              * Once all prompt are over
              */
             onCompletion(): void;
-            processQuestion(question: Question): any;
-            fetchAnswer(question: Question): any;
-            setDefaultType(question: Question): any;
-            filterIfRunnable(question: Question): any;
+            processQuestion<T>(question: Question<T>): any;
+            fetchAnswer<T>(question: Question<T>): any;
+            setDefaultType<T>(question: Question<T>): any;
+            filterIfRunnable<T>(question: Question<T>): any;
         }
 
         /**
@@ -244,7 +245,7 @@ declare namespace inquirer {
             extra?: any;
             key?: string;
             checked?: boolean;
-            disabled?: string | ((answers: Answers) => any);
+            disabled?: string | (<T = Answers>(answers: T) => any);
         }
 
         /**
@@ -254,9 +255,9 @@ declare namespace inquirer {
          * @param choices  All `choice` to keep in the collection
          */
         interface Choices {
-            new (
+            new <T = Answers>(
                 choices: ReadonlyArray<string | Separator | ChoiceOption>,
-                answers?: Answers
+                answers?: T
             ): Choices;
             choices: ReadonlyArray<Choice>;
             realChoices: ReadonlyArray<Choice>;

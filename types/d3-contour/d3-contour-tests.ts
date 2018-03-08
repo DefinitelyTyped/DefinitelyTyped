@@ -63,6 +63,8 @@ let contGen: d3Contour.Contours = d3Contour.contours();
 
 // size(...) -------------------------------------------------------------------
 
+const multiPolygon: d3Contour.ContourMultiPolygon = contGen.contour(values, 5);
+
 // set with chainability
 contGen = contGen.size([n, m]);
 

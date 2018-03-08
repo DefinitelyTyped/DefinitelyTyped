@@ -5,6 +5,7 @@
 // 				Frederik Aalund <https://github.com/frederikaalund>
 // 				taoqf <https://github.com/taoqf>
 // 				Dadstart <https://github.com/Dadstart>
+// 				Jared Szechy <https://github.com/szechyjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -281,12 +282,46 @@ export interface Margin {
 	r: number;
 }
 
-export type ModeBarButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
+export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
 	'zoom2d' | 'pan2d' | 'zoomIn2d' | 'zoomOut2d' | 'autoScale2d' | 'resetScale2d' |
 	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
 	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
 	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
 	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
+
+export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
+
+export interface ModeBarButton {
+	/** name / id of the buttons (for tracking) */
+	name: string;
+	/**
+	 * text that appears while hovering over the button,
+	 * enter null, false or '' for no hover text
+	 */
+	title: string;
+	/**
+	 * svg icon object associated with the button
+	 * can be linked to Plotly.Icons to use the default plotly icons
+	 */
+	icon: string;
+	/** icon positioning */
+	gravity?: string;
+	/**
+	 * click handler associated with the button, a function of
+	 * 'gd' (the main graph object) and
+	 * 'ev' (the event object)
+	 */
+	click: ButtonClickEvent;
+	/**
+	 * attribute associated with button,
+	 * use this with 'val' to keep track of the state
+	 */
+	attr?: string;
+	/** initial 'attr' value, can be a function of gd */
+	val?: any;
+	/** is the button a toggle button? */
+	toggle?: boolean;
+}
 
 // Data
 
@@ -428,17 +463,17 @@ export interface Config {
 
 	// remove mode bar button by name
 	// (see ./components/modebar/buttons.js for the list of names)
-	modeBarButtonsToRemove: ModeBarButtons[];
+	modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
 	// add mode bar button using config objects
 	// (see ./components/modebar/buttons.js for list of arguments)
-	modeBarButtonsToAdd: ModeBarButtons[];
+	modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
 
 	// fully custom mode bar buttons as nested array,
 	// where the outer arrays represents button groups, and
 	// the inner arrays have buttons config objects or names of default buttons
 	// (see ./components/modebar/buttons.js for more info)
-	modeBarButtons: ModeBarButtons[][];
+	modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][];
 
 	// add the plotly logo on the end of the mode bar
 	displaylogo: boolean;

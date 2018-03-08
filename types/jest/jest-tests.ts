@@ -309,7 +309,7 @@ describe('missing tests', () => {
        expect(spy).lastCalledWith('jest');
        expect(spy).toBeCalledWith('jest');
        expect(jest.isMockFunction(spy)).toBeTruthy();
-   });
+    });
 
     it('tests all missing Mocks functionality', () => {
        type FruitsGetter = () => string[];
@@ -328,6 +328,35 @@ describe('missing tests', () => {
        expect(thisMock()).toBe(this);
    });
 
+    it('async test with mockResolvedValue and mockResolvedValueOnce', async () => {
+      const asyncMock = jest
+        .fn()
+        .mockResolvedValue('default')
+        .mockResolvedValueOnce('first call')
+        .mockResolvedValueOnce('second call');
+
+      await asyncMock(); // first call
+      await asyncMock(); // second call
+      await asyncMock(); // default
+      await asyncMock(); // default
+    });
+
+    it('async test with mockRejectedValue', async () => {
+      const asyncMock = jest.fn().mockRejectedValue(new Error('Async error'));
+
+      await asyncMock(); // throws "Async error"
+    });
+
+    it('async test with mockResolvedValueOnce and mockRejectedValueOnce', async () => {
+      const asyncMock = jest
+        .fn()
+        .mockResolvedValueOnce('first call')
+        .mockRejectedValueOnce(new Error('Async error'));
+
+      await asyncMock(); // first call
+      await asyncMock(); // throws "Async error"
+    });
+
     it('tests mock name functionality', () => {
         const mock: jest.Mock = jest.fn();
         mock.mockName('Carrot');
@@ -339,27 +368,27 @@ describe('missing tests', () => {
        const render: () => string = require('./render');
        expect(render()).toMatch(/Link/);
        jest.enableAutomock();
-   });
+    });
 
     it('runs only pending timers', () => {
         jest.useRealTimers();
         setTimeout(() => expect(1).not.toEqual(0), 3000);
         jest.runOnlyPendingTimers().runTimersToTime(300);
-   });
+    });
 
     it('runs all timers', () => {
         jest.clearAllTimers();
         jest.useFakeTimers();
         setTimeout(() => expect(0).not.toEqual(1), 3000);
         jest.runAllTimers();
-   });
+    });
 
     it('cleares cache', () => {
        const sum1 = require('../sum');
        jest.resetModules();
        const sum2 = require('../sum');
        expect(sum1).not.toBe(sum2);
-   });
+    });
 });
 
 describe('toMatchSnapshot', () => {
