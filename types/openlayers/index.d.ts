@@ -11709,7 +11709,7 @@ declare module olx {
         }
 
         interface DragAndDropOptions {
-            formatConstructors?: Array<((n: ol.format.Feature) => any)>;
+            formatConstructors?: Array<typeof ol.format.Feature>;
             projection: ol.ProjectionLike;
             target?: Element;
             source?: ol.source.Vector;
