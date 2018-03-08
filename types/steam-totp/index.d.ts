@@ -2,6 +2,7 @@
 // Project: https://github.com/DoctorMcKay/node-steam-totp
 // Definitions by: Max Uetrecht <https://github.com/phenomax>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -50,15 +51,13 @@ export function generateConfirmationKey(identitySecret: Buffer | string, time: n
  */
 export function getConfirmationKey(identitySecret: Buffer | string, time: number, tag: string): string;
 
-export type Callback = (error: Error, offset?: number, elapsedTime?: number) => void;
-
 /**
  * Requests the time offset from the Steam API.
  * @param callback - The result of the steam api request
  * @param [timeOffset=0] - If you know how far off your clock is from the Steam servers, put the offset here in seconds
  * @returns the time offset
  */
-export function getTimeOffset(callback: Callback): void;
+export function getTimeOffset(callback: (error: Error, offset?: number, elapsedTime?: number) => void): void;
 
 /**
  * Get a standardized device ID based on your SteamID.
