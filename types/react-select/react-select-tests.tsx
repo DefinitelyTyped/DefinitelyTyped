@@ -339,6 +339,16 @@ describe("Examples", () => {
         />;
     });
 
+    it("Custom option component", () => {
+        class OptionComponent extends React.Component<ReactSelectModule.OptionComponentProps> {
+            render() {
+                return <div>{this.props.option.label}</div>;
+            }
+        }
+
+        <ReactSelect optionComponent={OptionComponent} />;
+    });
+
     it("Value render with custom value option", () => {
         const valueRenderer = (option: ReactSelectModule.Option<CustomValueType>): ReactSelectModule.HandlerRendererResult =>
             null;
