@@ -1,7 +1,8 @@
-// Type definitions for deepmerge 1.3
+// Type definitions for deepmerge 2.1
 // Project: https://github.com/KyleAMathews/deepmerge
 // Definitions by: marvinscharle <https://github.com/marvinscharle>
 //                 syy1125 <https://github.com/syy1125>
+//                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -14,6 +15,7 @@ declare namespace deepmerge {
     interface Options {
         clone?: boolean;
         arrayMerge?(destination: any[], source: any[], options?: Options): any[];
+        isMergeableObject?(value: object): boolean;
     }
 
     function all<T>(objects: Array<Partial<T>>, options?: Options): T;
