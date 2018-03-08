@@ -284,6 +284,20 @@ export interface WithdrawOpts {
  * Combination of an amount and a currency
  */
 export interface MoneyHash {
+    /**
+     * Amount as floating-point in a string
+     */
+    amount: string;
+    /**
+     * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+     */
+    currency: string;
+}
+
+/**
+ * Price response
+ */
+export interface Price {
     data: {
         /**
          * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
@@ -1321,7 +1335,7 @@ export class Client {
      * If you need more accurate price estimate for a specific payment method or amount, @see Account#buy() and `quote: true` option.
      * Scope: none
      */
-    getBuyPrice(opts: GetBuyPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getBuyPrice(opts: GetBuyPriceOpts, cb: (error: Error, result: Price) => void): void;
 
     /**
      * Get the total price to sell one bitcoin or ether. Note that exchange rates fluctuates so the price is only correct for seconds at the time.
@@ -1329,7 +1343,7 @@ export class Client {
      * estimate for a specific payment method or amount, see sell bitcoin endpoint and quote: true option.
      * Scope: none
      */
-    getSellPrice(opts: GetSellPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getSellPrice(opts: GetSellPriceOpts, cb: (error: Error, result: Price) => void): void;
 
     /**
      * Get the current market price for bitcoin. This is usually somewhere in between the buy and sell price.
@@ -1337,7 +1351,7 @@ export class Client {
      * You can also get historic prices with date parameter.
      * Scope: none
      */
-    getSpotPrice(opts: GetSpotPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getSpotPrice(opts: GetSpotPriceOpts, cb: (error: Error, result: Price) => void): void;
 
     /**
      * Get the API server time.
