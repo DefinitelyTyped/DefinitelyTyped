@@ -11,7 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
-declare type GlobalObject = Object;
+interface GlobalObject { [key: string]: any; }
 
 /**
  * @namespace ol
@@ -1490,6 +1490,9 @@ declare module ol {
             constructor();
         }
     }
+
+    /* From ol/typedefs.js */
+    type EventsListenerFunctionType = ((evt: ol.events.Event) => void) | ((evt: ol.events.Event) => boolean);
 
     /**
      * @namespace ol.extent
@@ -7957,7 +7960,7 @@ declare module ol {
          *     will be an array of keys.
          * @api stable
          */
-        on(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
+        on(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
 
         /**
          * Listen once for a certain type of event.
@@ -7969,7 +7972,7 @@ declare module ol {
          *     will be an array of keys.
          * @api stable
          */
-        once(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
+        once(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
 
         /**
          * Unlisten for a certain type of event.
@@ -7979,7 +7982,7 @@ declare module ol {
          * `listener`.
          * @api stable
          */
-        un(type: (string | string[]), listener: Function, opt_this?: GlobalObject): void;
+        un(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): void;
     }
 
     /**
@@ -11694,7 +11697,7 @@ declare module ol {
      *     target: (EventTarget|ol.events.EventTarget),
      *     type: string}}
      */
-    type EventsKey = Object;
+    type EventsKey = GlobalObject;
 
     /**
      * An array of numbers representing an extent: `[minx, miny, maxx, maxy]`.
@@ -11995,7 +11998,7 @@ declare module ol {
      * @typedef {{numberOfFeatures: number,
      *            bounds: ol.Extent}}
      */
-    type WFSFeatureCollectionMetadata = Object;
+    type WFSFeatureCollectionMetadata = GlobalObject;
 
     /**
      * Total deleted; total inserted; total updated; array of insert ids.
@@ -12004,7 +12007,7 @@ declare module ol {
      *            totalUpdated: number,
      *            insertIds: Array.<string>}}
      */
-    type WFSTransactionResponse = Object;
+    type WFSTransactionResponse = GlobalObject;
 
     /**
      * @constructor
