@@ -1,6 +1,5 @@
 import winston = require('winston');
 import { SyslogTransportOptions } from 'winston-syslog';
-require('winston-syslog').Syslog;
 
 const str = "";
 const bool  = true;
