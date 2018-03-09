@@ -1,6 +1,12 @@
-import { DocumentNode, Location } from '../language/ast';
+import { DocumentNode, Location, StringValueNode } from '../language/ast';
 import { Source } from '../language/source';
 import { GraphQLSchema } from '../type/schema';
+
+type BuildSchemaOptions = {
+    assumeValid?: boolean;
+    allowedLegacyNames?: ReadonlyArray<string>;
+    commentDescriptions?: boolean;
+};
 
 /**
  * This takes the ast of a schema document produced by the parse function in
@@ -18,7 +24,10 @@ export function buildASTSchema(ast: DocumentNode): GraphQLSchema;
  * Given an ast node, returns its string description based on a contiguous
  * block full-line of comments preceding it.
  */
-export function getDescription(node: { loc?: Location }): string;
+export function getDescription(
+    node: { description?: StringValueNode; loc?: Location },
+    options: BuildSchemaOptions
+  ): string;
 
 /**
  * A helper function to build a GraphQLSchema directly from a source
