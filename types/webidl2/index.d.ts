@@ -1,9 +1,9 @@
-// Type definitions for webidl2.js
+// Type definitions for webidl2.js 10.2
 // Project: https://github.com/w3c/webidl2.js/
 // Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare function parse(str: string, options?: ParseOptions): IDLRootType[];
+export function parse(str: string, options?: ParseOptions): IDLRootType[];
 
 export type IDLRootType = InterfaceType | InterfaceMixinType | NamespaceType | CallbackType | DictionaryType | EnumType | TypedefType | ImplementsType | IncludesType;
 
@@ -29,6 +29,7 @@ export interface WebIDLParseError {
     toString(): string;
 }
 
+// tslint:disable-next-line interface-name
 export interface IDLTypeDescription {
     type: string;
     /** Boolean indicating if it is a sequence. Same as generic === "sequence" */
@@ -39,10 +40,12 @@ export interface IDLTypeDescription {
     nullable: boolean;
     /** Boolean indicating whether this is a union type or not. */
     union: boolean;
-    /** In most cases, this will just be a string with the type name.
-    If the type is a union, then this contains an array of the types it unites.
-    If it is a generic type, it contains the IDL type description for the type in the sequence,
-    the eventual value of the promise, etc. */
+    /**
+     * In most cases, this will just be a string with the type name.
+     * If the type is a union, then this contains an array of the types it unites.
+     * If it is a generic type, it contains the IDL type description for the type in the sequence,
+     * the eventual value of the promise, etc.
+     */
     idlType: string | IDLTypeDescription | IDLTypeDescription[];
 }
 
@@ -134,7 +137,7 @@ export interface EnumType {
     /** The enum's name. */
     name: string;
     /** An array of values (strings). */
-    values: { type: "string", value: string }[];
+    values: Array<{ type: "string", value: string }>;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttributes[];
 }
@@ -257,7 +260,7 @@ export interface ExtendedAttributeRightHandSideIdentifier {
 }
 
 export interface ExtendedAttributeRightHandSideIdentifierList {
-    type: "identifier-list"
+    type: "identifier-list";
     value: string[];
 }
 
