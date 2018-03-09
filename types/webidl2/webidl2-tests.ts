@@ -120,8 +120,12 @@ function logArguments(args: webidl2.Argument[]) {
     }
 }
 
-function logIdlType(idlType: string | webidl2.IDLTypeDescription | webidl2.IDLTypeDescription[]) {
+function logIdlType(idlType: string | webidl2.IDLTypeDescription | webidl2.IDLTypeDescription[] | null) {
+    if (!idlType) {
+        return;
+    }
     if (typeof idlType === "string") {
+        console.log(idlType);
         return;
     }
     if (Array.isArray(idlType)) {
