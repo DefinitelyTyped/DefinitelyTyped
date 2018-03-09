@@ -5,6 +5,7 @@
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
 //                 Gabriel Terwesten <https://github.com/blaugold>
+//                 Marshalys <https://github.com/blaugold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -267,6 +268,7 @@ declare namespace Bull {
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
+     * The callback can also be defined as the string path to a module exporting the callback function.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
@@ -275,10 +277,11 @@ declare namespace Bull {
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      */
-    process(callback: (job: Job) => void): Promise<any>;
+    process(callback: ((job: Job) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
+     * The callback can also be defined as the string path to a module exporting the callback function.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
@@ -289,7 +292,7 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(concurrency: number, callback: (job: Job) => void): Promise<any>;
+    process(concurrency: number, callback: ((job: Job) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -308,6 +311,7 @@ declare namespace Bull {
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
+     * The callback can also be defined as the string path to a module exporting the callback function.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
@@ -319,7 +323,7 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      */
     // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: (job: Job) => void): Promise<any>;
+    process(name: string, callback: ((job: Job) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -339,6 +343,7 @@ declare namespace Bull {
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
+     * The callback can also be defined as the string path to a module exporting the callback function.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
@@ -350,7 +355,7 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(name: string, concurrency: number, callback: (job: Job) => void): Promise<any>;
+    process(name: string, concurrency: number, callback: ((job: Job) => void | string)): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
