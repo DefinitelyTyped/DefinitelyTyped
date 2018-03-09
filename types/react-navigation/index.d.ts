@@ -247,6 +247,25 @@ export interface NavigationUriAction extends NavigationUriActionPayload {
   type: 'Navigation/URI';
 }
 
+export interface NavigationPopActionPayload {
+  // n: the number of routes to pop of the stack
+  n?: number;
+  immediate?: boolean;
+}
+
+export interface NavigationPopAction extends NavigationPopActionPayload {
+  type: 'Navigation/POP';
+}
+
+export interface NavigationPopToTopActionPayload {
+  key?: string;
+  immediate?: boolean;
+}
+
+export interface NavigationPopToTopAction extends NavigationPopToTopActionPayload {
+  type: 'Navigation/POP_TO_TOP';
+}
+
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
@@ -287,7 +306,9 @@ export type NavigationStackAction =
   | NavigationNavigateAction
   | NavigationBackAction
   | NavigationSetParamsAction
-  | NavigationResetAction;
+  | NavigationResetAction
+  | NavigationPopAction
+  | NavigationPopToTopAction;
 
 export type NavigationTabAction =
   NavigationInitAction
@@ -718,12 +739,16 @@ export namespace NavigationActions {
   const RESET: 'Navigation/RESET';
   const SET_PARAMS: 'Navigation/SET_PARAMS';
   const URI: 'Navigation/URI';
+  const POP: 'Navigation/POP';
+  const POP_TO_TOP: 'Navigation/POP_TO_TOP';
 
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(options: NavigationNavigateActionPayload): NavigationNavigateAction;
   function reset(options: NavigationResetActionPayload): NavigationResetAction;
   function back(options?: NavigationBackActionPayload): NavigationBackAction;
   function setParams(options: NavigationSetParamsActionPayload): NavigationSetParamsAction;
+  function pop(options: NavigationPopActionPayload): NavigationPopAction;
+  function popToTop(options: NavigationPopToTopActionPayload): NavigationPopToTopAction;
 }
 
 /**
