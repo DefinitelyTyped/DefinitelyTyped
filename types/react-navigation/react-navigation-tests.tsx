@@ -32,6 +32,8 @@ import {
     HeaderBackButton,
     Header,
     NavigationParams,
+    NavigationPopAction,
+    NavigationPopToTopAction,
 } from 'react-navigation';
 
 // Constants
@@ -337,3 +339,13 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
         foo: "bar"
     }
 });
+
+const popAction: NavigationPopAction = NavigationActions.pop({
+    n: 1,
+    immediate: true
+});
+
+const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
+    key: "foo",
+    immediate: true
+})
