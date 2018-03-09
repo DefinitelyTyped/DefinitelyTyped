@@ -1,4 +1,4 @@
-// Type definitions for Screeps 2.1
+// Type definitions for Screeps 2.2
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -39,6 +39,7 @@ declare const FIND_MY_CREEPS: 102;
 declare const FIND_HOSTILE_CREEPS: 103;
 declare const FIND_SOURCES_ACTIVE: 104;
 declare const FIND_SOURCES: 105;
+/** `FIND_DROPPED_ENERGY` is deprecated the return value is the same as `FIND_DROPPED_RESOURCES` */
 declare const FIND_DROPPED_ENERGY: -106;
 declare const FIND_DROPPED_RESOURCES: 106;
 declare const FIND_STRUCTURES: 107;
@@ -106,6 +107,7 @@ declare const RAMPART_DECAY_AMOUNT: 300;
 declare const RAMPART_DECAY_TIME: 100;
 declare const RAMPART_HITS: 1;
 declare const RAMPART_HITS_MAX: {
+    [rcl: number]: number
     2: 300000,
     3: 1000000,
     4: 3000000,
@@ -128,6 +130,7 @@ declare const WALL_HITS_MAX: 300000000;
 
 declare const EXTENSION_HITS: 1000;
 declare const EXTENSION_ENERGY_CAPACITY: {
+    [rcl: number]: number
     0: 50,
     1: 50,
     2: 50,
@@ -243,7 +246,7 @@ declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: "XKHO2";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: "XLH2O";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: "XLHO2";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "ZXHO2";
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "XZHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
 declare const RESOURCES_ALL: ResourceConstant[];
@@ -286,6 +289,7 @@ declare const POWER_SPAWN_POWER_CAPACITY: number;
 declare const POWER_SPAWN_ENERGY_RATIO: number;
 
 declare const EXTRACTOR_HITS: number;
+declare const EXTRACTOR_COOLDOWN: number;
 
 declare const LAB_HITS: number;
 declare const LAB_MINERAL_CAPACITY: number;
@@ -316,17 +320,19 @@ declare const MINERAL_MIN_AMOUNT: Record<MineralConstant, number>;
 declare const MINERAL_RANDOM_FACTOR: number;
 
 declare const MINERAL_DENSITY: {
-        1: number,
-        2: number,
-        3: number,
-        4: number
+    [level: number]: number
+    1: number,
+    2: number,
+    3: number,
+    4: number
 };
 
 declare const MINERAL_DENSITY_PROBABILITY: {
-        1: number,
-        2: number,
-        3: number,
-        4: number
+    [level: number]: number
+    1: number,
+    2: number,
+    3: number,
+    4: number
 };
 
 declare const MINERAL_DENSITY_CHANGE: number;
@@ -354,12 +360,14 @@ declare const NUKER_GHODIUM_CAPACITY: number;
 declare const NUKE_LAND_TIME: number;
 declare const NUKE_RANGE: number;
 declare const NUKE_DAMAGE: {
+    [range: number]: number
     0: number,
     1: number,
     4: number
 };
 
 declare const REACTIONS: {
+  [resource: string]: {[resource: string]: string}
   H: {
       O: "OH",
       L: "LH",
@@ -493,6 +501,7 @@ declare const REACTIONS: {
 };
 
 declare const BOOSTS: {
+  [part: string]: {[boost: string]: {[action: string]: number}}
   work: {
       UO: {
           harvest: 3
@@ -621,6 +630,8 @@ declare const LOOK_TERRAIN: "terrain";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
+
+declare const SYSTEM_USERNAME: string;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -727,8 +738,10 @@ interface Creep extends RoomObject {
     saying: string;
     /**
      * The remaining amount of game ticks after which the creep will die.
+     *
+     * Will be `undefined` if the creep is still spawning.
      */
-    ticksToLive: number;
+    ticksToLive: number | undefined;
     /**
      * Attack another creep or structure in a short-ranged attack. Needs the
      * ATTACK body part. If the target is inside a rampart, then the rampart is
@@ -748,7 +761,7 @@ interface Creep extends RoomObject {
      * The controller under attack cannot be upgraded for the next 1,000 ticks.
      * The target has to be at adjacent square to the creep.
      *
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_TIRED
      */
     attackController(target: StructureController): CreepActionReturnCode;
     /**
@@ -1225,19 +1238,21 @@ type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { 
 //   energy: number;
 // }
 
-interface LookAtTypes {
-    constructionSite?: ConstructionSite;
-    creep?: Creep;
-    energy?: Resource<RESOURCE_ENERGY>;
-    exit?: any;  // TODO what type is this?
-    flag?: Flag;
-    mineral?: Mineral;
-    nuke?: Nuke;
-    resource?: Resource;
-    source?: Source;
-    structure?: Structure;
-    terrain?: Terrain;
+interface AllLookAtTypes {
+    constructionSite: ConstructionSite;
+    creep: Creep;
+    energy: Resource<RESOURCE_ENERGY>;
+    exit: any;  // TODO what type is this?
+    flag: Flag;
+    mineral: Mineral;
+    nuke: Nuke;
+    resource: Resource;
+    source: Source;
+    structure: Structure;
+    terrain: Terrain;
 }
+
+type LookAtTypes = Partial<AllLookAtTypes>;
 
 type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & { type: K };
 
@@ -1276,7 +1291,6 @@ interface FindTypes {
   103: Creep; // FIND_HOSTILE_CREEPS
   104: Source; // FIND_SOURCES_ACTIVE
   105: Source; // FIND_SOURCES
-  "-106": Resource<RESOURCE_ENERGY>; // FIND_DROPPED_ENERGY
   106: Resource; // FIND_DROPPED_RESOURCES
   107: AnyStructure; // FIND_STRUCTURES
   108: AnyOwnedStructure; // FIND_MY_STRUCTURES
@@ -1439,6 +1453,7 @@ type ScreepsReturnCode =
   ERR_NOT_OWNER |
   ERR_NO_PATH |
   ERR_BUSY |
+  ERR_NAME_EXISTS |
   ERR_NOT_FOUND |
   ERR_NOT_ENOUGH_RESOURCES |
   ERR_NOT_ENOUGH_ENERGY |
@@ -1476,7 +1491,8 @@ type CreepActionReturnCode =
   ERR_BUSY |
   ERR_INVALID_TARGET |
   ERR_NOT_IN_RANGE |
-  ERR_NO_BODYPART;
+  ERR_NO_BODYPART |
+  ERR_TIRED;
 
 type CreepMoveReturnCode =
   OK |
@@ -1504,7 +1520,6 @@ type FindConstant =
   FIND_HOSTILE_CREEPS |
   FIND_SOURCES_ACTIVE |
   FIND_SOURCES |
-  FIND_DROPPED_ENERGY |
   FIND_DROPPED_RESOURCES |
   FIND_STRUCTURES |
   FIND_MY_STRUCTURES |
@@ -1829,7 +1844,7 @@ type RESOURCE_CATALYZED_KEANIUM_ALKALIDE = "XKHO2";
 type RESOURCE_CATALYZED_LEMERGIUM_ACID = "XLH2O";
 type RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = "XLHO2";
 type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
-type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2";
+type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 /**
@@ -2126,7 +2141,7 @@ interface PathFinder {
      * @param goal goal A RoomPosition, an object containing a RoomPosition and range or an array of either.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
+    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | Array<RoomPosition | { pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -2506,6 +2521,13 @@ interface RoomPosition {
     getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Check whether this position is in the given range of another position.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param range The range distance.
+     */
+    inRangeTo(x: number, y: number, range: number): boolean;
+    /**
+     * Check whether this position is in the given range of another position.
      * @param toPos The target position.
      * @param range The range distance.
      */
@@ -2540,7 +2562,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T extends keyof LookAtTypes>(type: T): Array<LookAtTypes[T]>;
+    lookFor<T extends keyof AllLookAtTypes>(type: T): Array<AllLookAtTypes[T]>;
 }
 
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {
@@ -2915,14 +2937,14 @@ interface Room {
      * @param y The Y position.
      * @returns An array of Creep at the given position.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, x: number, y: number): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
     /**
      * Get the objects at the given RoomPosition.
      * @param type One of the LOOK_* constants.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of Creeps at the specified position if found.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -2933,14 +2955,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray?: false
-    ): LookForAtAreaResultMatrix<LookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -2951,14 +2973,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An array of found objects with an x & y property for their position
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray: true
-    ): LookForAtAreaResultArray<LookAtTypes[T], T>;
+    ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
@@ -3056,11 +3078,8 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     name: string;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
-     * @param name The name of a new creep.
-     * @param needTime Time needed in total to complete the spawning.
-     * @param remainingTime Remaining time to go.
      */
-    spawning: { name: string, needTime: number, remainingTime: number };
+    spawning: Spawning | null;
 
     /**
      * Check if a creep can be created.
@@ -3158,11 +3177,56 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
 }
 
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
+    Spawning: SpawningConstructor;
 }
 
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor; // legacy alias
 // declare type Spawn = StructureSpawn;
+
+interface Spawning {
+    readonly prototype: Spawning;
+
+    /**
+     * An array with the spawn directions
+     * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
+     */
+    directions: DirectionConstant[];
+
+    /**
+     * The name of the creep
+     */
+    name: string;
+
+    /**
+     * Time needed in total to complete the spawning.
+     */
+    needTime: number;
+
+    /**
+     * Remaining time to go.
+     */
+    remainingTime: number;
+
+    /**
+     * A link to the spawn
+     */
+    spawn: StructureSpawn;
+
+    /**
+     * Cancel spawning immediately. Energy spent on spawning is not returned.
+     */
+    cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
+
+    /**
+     * Set desired directions where the creep should move when spawned.
+     * @param directions An array with the spawn directions
+     */
+    setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+}
+
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
+}
 /**
  * Parent object for structure classes
  */
@@ -3620,7 +3684,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      */
-    mineralType: MineralConstant;
+    mineralType: _ResourceConstantSansEnergy | undefined;
     /**
      * The total amount of minerals the lab can contain.
      */
@@ -3780,6 +3844,7 @@ type AnyOwnedStructure =
     StructureLink |
     StructureNuker |
     StructureObserver |
+    StructurePowerBank |
     StructurePowerSpawn |
     StructureRampart |
     StructureSpawn |
@@ -3794,6 +3859,5 @@ type AnyStructure =
     AnyOwnedStructure |
     StructureContainer |
     StructurePortal |
-    StructurePowerBank |
     StructureRoad |
     StructureWall;
