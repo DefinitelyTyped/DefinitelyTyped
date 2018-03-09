@@ -4,6 +4,20 @@ import { PresenceChannel } from "pusher-js";
 var APP_KEY: string;
 var pusher: Pusher.Pusher;
 
+/*
+ * samples from https://github.com/pusher/pusher-js
+ */
+
+//
+// Global Configuration
+//
+
+Pusher.logToConsole = true;
+
+Pusher.log = (msg) => {
+    console.log(msg);
+};
+
 //
 // Configuration
 //
