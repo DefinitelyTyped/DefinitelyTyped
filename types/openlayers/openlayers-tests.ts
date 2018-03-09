@@ -3,12 +3,13 @@ let anyValue: any;
 let booleanValue: boolean;
 let canvas: HTMLCanvasElement;
 let domEventTarget: EventTarget;
-let fn: Function;
+let fn: () => void;
 let image: HTMLImageElement;
 let jsonValue: JSON;
+let listener: ol.EventsListenerFunctionType;
 let numberArray: number[];
 let numberValue: number;
-let object: Object;
+let object: { [key: string]: any };
 let stringArray: string[];
 let stringValue: string;
 
@@ -584,12 +585,12 @@ observable.dispatchEvent({ type: stringValue, a: numberValue, b: stringValue, c:
 observable.dispatchEvent(olEvent);
 observable.dispatchEvent(stringValue);
 numberValue = observable.getRevision();
-eventKeyMixed = observable.on(stringValue, fn);
-eventKeyMixed = observable.on([stringValue, stringValue], fn, {});
-eventKeyMixed = observable.once(stringValue, fn);
-eventKeyMixed = observable.once([stringValue, stringValue], fn, {});
-observable.un(stringValue, fn);
-observable.un([stringValue, stringValue], fn, {});
+eventKeyMixed = observable.on(stringValue, listener);
+eventKeyMixed = observable.on([stringValue, stringValue], listener, {});
+eventKeyMixed = observable.once(stringValue, listener);
+eventKeyMixed = observable.once([stringValue, stringValue], listener, {});
+observable.un(stringValue, listener);
+observable.un([stringValue, stringValue], listener, {});
 
 //
 // ol.proj

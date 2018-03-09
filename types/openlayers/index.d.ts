@@ -11,7 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
-declare type GlobalObject = Object;
+interface GlobalObject { [key: string]: any; }
 
 declare namespace ol {
     /**
@@ -1384,6 +1384,9 @@ declare namespace ol {
             constructor();
         }
     }
+
+    /* From ol/typedefs.js */
+    type EventsListenerFunctionType = ((evt: ol.events.Event) => void) | ((evt: ol.events.Event) => boolean);
 
     namespace extent {
         /**
@@ -7296,7 +7299,7 @@ declare namespace ol {
          *     will be an array of keys.
          * @api stable
          */
-        on(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
+        on(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
 
         /**
          * Listen once for a certain type of event.
@@ -7308,7 +7311,7 @@ declare namespace ol {
          *     will be an array of keys.
          * @api stable
          */
-        once(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
+        once(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
 
         /**
          * Unlisten for a certain type of event.
@@ -7318,7 +7321,7 @@ declare namespace ol {
          * `listener`.
          * @api stable
          */
-        un(type: (string | string[]), listener: Function, opt_this?: GlobalObject): void;
+        un(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): void;
     }
 
     /**
@@ -10778,7 +10781,7 @@ declare namespace ol {
      * Key to use with {@link ol.Observable#unByKey}.
      *
      */
-    type EventsKey = Object;
+    type EventsKey = GlobalObject;
 
     /**
      * An array of numbers representing an extent: `[minx, miny, maxx, maxy]`.
@@ -11002,12 +11005,12 @@ declare namespace ol {
     /**
      * Number of features; bounds/extent.
      */
-    type WFSFeatureCollectionMetadata = Object;
+    type WFSFeatureCollectionMetadata = GlobalObject;
 
     /**
      * Total deleted; total inserted; total updated; array of insert ids.
      */
-    type WFSTransactionResponse = Object;
+    type WFSTransactionResponse = GlobalObject;
 
     /**
      * @param tileCoord Tile coordinate.
