@@ -1,4 +1,4 @@
-// Type definitions for coinbase 2.0.6
+// Type definitions for coinbase 2.0
 // Project: https://github.com/coinbase/coinbase-node
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -311,14 +311,14 @@ export interface Price {
          * Currency e.g. "EUR" (see Client#getCurrencies() for available strings)
          */
         currency: string;
-    }
+    };
     warnings?: [
         {
             id: string
             message: string
             url: string
         }
-    ]
+    ];
 }
 
 export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
