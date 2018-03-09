@@ -9,7 +9,7 @@ const fn: () => void = () => {};
 const image: HTMLImageElement = new HTMLImageElement();
 let jsonValue: JSON;
 const listener: ol.EventsListenerFunctionType = (evt) => {};
-const numberArray: number[] = [];
+let numberArray: number[] = [];
 let numberValue: number;
 let object: { [key: string]: any };
 let stringArray: string[];
@@ -666,7 +666,7 @@ projection = source.getProjection();
 //
 // ol.source.TileUTFGrid
 //
-let tileJSONValue = JSON;
+const tileJSONValue = JSON;
 let tileUTFGrid = new ol.source.TileUTFGrid({});
 tileUTFGrid = new ol.source.TileUTFGrid({
     jsonp: booleanValue,

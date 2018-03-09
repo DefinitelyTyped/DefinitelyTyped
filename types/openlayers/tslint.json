@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "no-unnecessary-class": ["allow-constructor-only"],
-        "no-unnecessary-qualifier": false,
-        "strict-export-declare-modifiers": false
+        "no-unnecessary-qualifier": false
     }
 }
