@@ -1369,7 +1369,7 @@ declare module paper {
          * Rasterizes the item into a newly created Raster object. The item itself is not removed after rasterization.
          * @param resolution [optional] - the resolution of the raster in pixels per inch (DPI). If not specified, the value of view.resolution is used. default: view.resolution
          */
-        rasterize(resolution: number): Raster;
+        rasterize(resolution?: number): Raster;
 
         /**
          * Checks whether the item's geometry contains the given point.
@@ -3359,99 +3359,99 @@ declare module paper {
          * The view that this style belongs to.
          * Read only.
          */
-        view: View;
+        view?: View;
 
         /**
          * The color of the stroke.
          */
-        strokeColor: Color | string;
+        strokeColor?: Color | string;
 
         /**
          * The width of the stroke.
          */
-        strokeWidth: number;
+        strokeWidth?: number;
 
         /**
          * The shape to be used at the beginning and end of open Path items, when they have a stroke.
          * String('round', 'square', 'butt'
          */
-        strokeCap: string;
+        strokeCap?: string;
 
         /**
          * The shape to be used at the segments and corners of Path items when they have a stroke.
          * String('miter', 'round', 'bevel')
          */
-        strokeJoin: string;
+        strokeJoin?: string;
 
         /**
          * Specifies whether the stroke is to be drawn taking the current affine transformation into account (the default behavior), or whether it should appear as a non-scaling stroke.
          */
-        strokeScaling: boolean;
+        strokeScaling?: boolean;
 
         /**
          * The dash offset of the stroke.
          */
-        dashOffset: number;
+        dashOffset?: number;
 
         /**
          * Specifies an array containing the dash and gap lengths of the stroke.
          */
-        dashArray: number[];
+        dashArray?: number[];
 
         /**
          * The miter limit of the stroke. When two line segments meet at a sharp angle and miter joins have been specified for strokeJoin, it is possible for the miter to extend far beyond the strokeWidth of the path. The miterLimit imposes a limit on the ratio of the miter length to the strokeWidth.
          */
-        miterLimit: number;
+        miterLimit?: number;
 
         /**
          * The fill color.
          */
-        fillColor: Color | string;
+        fillColor?: Color | string;
 
         /**
          * The shadow color.
          */
-        shadowColor: Color | string;
+        shadowColor?: Color | string;
 
         /**
          * The shadow's blur radius.
          */
-        shadowBlur: number;
+        shadowBlur?: number;
 
         /**
          * The shadow's offset.
          */
-        shadowOffset: Point;
+        shadowOffset?: Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
          */
-        selectedColor: Color | string;
+        selectedColor?: Color | string;
 
         /**
          * The font-family to be used in text content. default 'sans-serif'
          */
-        fontFamily: string;
+        fontFamily?: string;
 
         /**
          * The font-weight to be used in text content.
          */
-        fontWeight: string | number;
+        fontWeight?: string | number;
 
         /**
          * The font size of text content, as {@Number} in pixels, or as {@String} with optional units 'px', 'pt' and 'em'.
          */
-        fontSize: string | number;
+        fontSize?: string | number;
 
         /**
          * The text leading of text content.
          */
-        leading: number | string;
+        leading?: number | string;
 
         /**
          * The justification of text paragraphs. default "left"
          */
-        justification: string;
+        justification?: string;
 
     }
     export interface IHSBColor {
