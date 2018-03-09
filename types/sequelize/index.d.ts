@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.0
+// Type definitions for Sequelize 4.27.8
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -3445,7 +3445,7 @@ declare namespace sequelize {
     /**
  * Options for Model.upsert method
      */
-    interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
+    interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions, ReturningOptions {
     }
 
     /**
@@ -3993,8 +3993,10 @@ declare namespace sequelize {
  * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
  * whether the row was inserted or not.
  */
-        upsert(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
 
         /**
          * Create and insert multiple instances in bulk.
