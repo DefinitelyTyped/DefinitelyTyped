@@ -5,6 +5,7 @@
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
 //                 Gabriel Terwesten <https://github.com/blaugold>
+//                 Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -51,6 +52,8 @@ declare namespace Bull {
     settings?: AdvancedSettings;
 
     limiter?: RateLimiter;
+
+    defaultJobOptions?: JobOptions;
   }
 
   interface AdvancedSettings {
@@ -135,7 +138,7 @@ declare namespace Bull {
     promote(): Promise<void>;
   }
 
-  type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
+  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -432,6 +435,11 @@ declare namespace Bull {
     getJob(jobId: JobId): Promise<Job>;
 
     /**
+     * Returns a promise that will return an array with the waiting jobs between start and end.
+     */
+    getWaiting(start?: number, end?: number): Promise<Job[]>;
+
+    /**
      * Returns a promise that will return an array with the active jobs between start and end.
      */
     getActive(start?: number, end?: number): Promise<Job[]>;
@@ -450,11 +458,6 @@ declare namespace Bull {
      * Returns a promise that will return an array with the failed jobs between start and end.
      */
     getFailed(start?: number, end?: number): Promise<Job[]>;
-
-    /**
-     * Returns a promise that will return an array with the waiting jobs between start and end.
-     */
-    getWaiting(start?: number, end?: number): Promise<Job[]>;
 
     /**
      * Returns JobInformation of repeatable jobs (ordered descending). Provide a start and/or an end

@@ -1,24 +1,25 @@
+import { Chance } from 'chance';
 // Instantiation
-let globalInstance: Chance.Chance = chance;
-let createYourOwn = new Chance(Math.random);
+const chance = new Chance();
+const createYourOwn = new Chance(Math.random);
 
 // Basic usage
-let randBool: boolean = chance.bool();
+const randBool: boolean = chance.bool();
 
-let birthday: Date = chance.birthday();
-let birthdayStr: Date | string = chance.birthday({ string: true });
+const birthday: Date = chance.birthday();
+const birthdayStr: Date | string = chance.birthday({ string: true });
 
 let guid = chance.guid();
 guid = chance.guid({ version: 4 });
 guid = chance.guid({ version: 5 });
 
-let strArr: string[] = chance.n(chance.string, 42);
+const strArr: string[] = chance.n(chance.string, 42);
 
-let uniqInts: number[] = chance.unique(chance.integer, 99);
+const uniqInts: number[] = chance.unique(chance.integer, 99);
 
-let currencyPair = chance.currency_pair();
-let firstCurrency = currencyPair[0];
-let secondCurrency = currencyPair[1];
+const currencyPair = chance.currency_pair();
+const firstCurrency = currencyPair[0];
+const secondCurrency = currencyPair[1];
 
 // Mixins can be used with on-the-fly type declaration
 declare namespace Chance {
@@ -35,8 +36,38 @@ chance.mixin({
     },
 });
 
-let timeString: string = chance.time();
+const chanceConstructedWithSeed100 = new Chance(100);
+const chanceCalledWithSeed100 = Chance();
+const chanceConstructedWithStringSeed = new Chance("test");
 
-let chanceConstructedWithSeed100 = new Chance(100);
-let chanceCalledWithSeed100 = Chance();
-let chanceConstructedWithStringSeed = new Chance("test");
+// Test new added typed functions
+
+let letter = chance.letter();
+letter = chance.letter({opt: 'abc'});
+
+let cf = chance.cf();
+cf = chance.cf({opt: 'abc'});
+
+let animal = chance.animal();
+animal = chance.animal({opt: 'abc'});
+
+let avatar = chance.avatar();
+avatar = chance.avatar({opt: 'abc'});
+
+let company = chance.company();
+company = chance.company();
+
+let profession = chance.profession();
+profession = chance.profession({opt: 'abc'});
+
+let timezone = chance.timezone();
+timezone = chance.timezone();
+
+let weekday = chance.weekday({opt: 'abc'});
+weekday = chance.weekday({opt: 'abc'});
+
+let euro = chance.euro();
+euro = chance.euro({opt: 'abc'});
+
+let coin = chance.coin();
+coin = chance.coin();

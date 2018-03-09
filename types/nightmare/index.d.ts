@@ -2,6 +2,7 @@
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Sam Yang <https://github.com/samyang-au>
+//                 Bleser   <https://github.com/Bleser92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -132,6 +133,10 @@ declare class Nightmare {
 declare namespace Nightmare {
     export interface IConstructorOptions {
         timeout?: any;  // number | string;
+        waitTimeout?:number //in ms
+        gotoTimeout?:number
+        pollInterval?:number
+        executionTimeout?:number
         interval?: any; // number | string;
         port?: number;
         weak?: boolean;

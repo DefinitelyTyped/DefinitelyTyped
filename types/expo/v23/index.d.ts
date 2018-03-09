@@ -2,7 +2,7 @@
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { EventSubscription } from 'fbemitter';
 import { Component, Ref } from 'react';
@@ -1200,7 +1200,7 @@ export namespace Notifications {
     type LocalNotificationId = string | number;
 
     function addListener(listener: (notification: Notification) => any): EventSubscription;
-    function getExponentPushTokenAsync(): Promise<string>;
+    function getExpoPushTokenAsync(): Promise<string>;
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,

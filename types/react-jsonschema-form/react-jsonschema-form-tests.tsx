@@ -1,11 +1,11 @@
 import * as React from "react";
 import Form, { UiSchema } from "react-jsonschema-form";
-import { JSONSchema4 } from "json-schema";
+import { JSONSchema6 } from "json-schema";
 
 // example taken from the react-jsonschema-form playground:
 // https://github.com/mozilla-services/react-jsonschema-form/blob/fedd830294417969d88e38fb9f6b3a85e6ad105e/playground/samples/simple.js
 
-const schema: JSONSchema4 =  {
+const schema: JSONSchema6 =  {
     "title": "A registration form",
     "type": "object",
     "required": [

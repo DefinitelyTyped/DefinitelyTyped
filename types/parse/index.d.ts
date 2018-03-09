@@ -4,8 +4,9 @@
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
 //                  Cedric Kemp <https://github.com/jaeggerr>
 //                  Flavio Negrão <https://github.com/flavionegrao>
+//                  Wes Grimes <https://github.com/wesleygrimes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 /// <reference types="jquery" />
@@ -376,6 +377,7 @@ declare namespace Parse {
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
         remove(attr: string, item: any): any;
+        revert(): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
@@ -644,6 +646,7 @@ declare namespace Parse {
         select(...keys: string[]): Query<T>;
         skip(n: number): Query<T>;
         startsWith(key: string, prefix: string): Query<T>;
+        subscribe(): Events;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
         withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
@@ -889,7 +892,8 @@ declare namespace Parse {
 
         interface FunctionResponse {
             success: (response: any) => void;
-            error: (response: any) => void;
+            error (code: number, response: any): void;
+            error (response: any): void;
         }
 
         interface Cookie {
@@ -905,22 +909,32 @@ declare namespace Parse {
             object: Object;
         }
 
-        interface BeforeFindTriggerRequest extends TriggerRequest {
-            query?: Query
-            count?: boolean
-        }
 
         interface AfterSaveRequest extends TriggerRequest { }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteResponse extends FunctionResponse { }
-        interface BeforeSaveRequest extends TriggerRequest { }
-        interface BeforeFindRequest extends BeforeFindTriggerRequest { }
+        interface BeforeSaveRequest extends TriggerRequest {
+            original?: Parse.Object;
+        }
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
         }
+
+        // Read preference describes how MongoDB driver route read operations to the members of a replica set.
+        enum ReadPreferenceOption {
+            Primary = 'PRIMARY',
+            PrimaryPreferred = 'PRIMARY_PREFERRED',
+            Secondary = 'SECONDARY',
+            SecondaryPreferred = 'SECONDARY_PREFERRED',
+            Nearest = 'NEAREST'
+        }
+
         interface BeforeFindRequest extends TriggerRequest {
-            query: Query;
+            query: Query
+            count: boolean
+            isGet: boolean
+            readPreference?: ReadPreferenceOption
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;

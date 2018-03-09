@@ -521,6 +521,11 @@ export interface MysqlError extends Error {
      * SQL of failed query
      */
     sql?: string;
+
+    /**
+     * Error message from MySQL
+     */
+    sqlMessage?: string;
 }
 
 export const enum Types {

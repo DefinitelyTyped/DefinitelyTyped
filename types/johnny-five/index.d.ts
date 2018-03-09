@@ -487,10 +487,10 @@ export declare module Led {
 
         on(): void;
         off(): void;
-        color(value: number): void;
+        color(value: string): void;
         toggle(): void;
         strobe(ms: number): void;
-        brightness(value: number): void;
+        intensity(value: number): void;
         fadeIn(ms: number): void;
         fadeOut(ms: number): void;
         pulse(ms: number): void;
@@ -597,12 +597,12 @@ export declare class Pin {
     mode: number;
 
     static write(pin: number, value: number): void;
-    static read(pin: number, cb: (data: number) => void): void;
+    static read(pin: number, cb: (error: Error, data: number) => void): void;
     query(cb: (pin: PinState) => void): void;
     high(): void;
     low(): void;
     write(value: number): void;
-    read(cb: (value: number) => void): void;
+    read(cb: (error: Error, value: number) => void): void;
     on(event: string, cb: () => void): this;
     on(event: "high", cb: () => void): this;
     on(event: "low", cb: () => void): this;

@@ -1,10 +1,10 @@
-// Type definitions for d3-contour 1.1
+// Type definitions for d3-contour 1.2
 // Project: https://d3js.org/d3-contour/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Hugues Stefanski <https://github.com/Ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.2.0
 
 import { MultiPolygon } from 'geojson';
 import { ThresholdArrayGenerator, ThresholdCountGenerator } from 'd3-array';
@@ -40,6 +40,17 @@ export interface Contours {
      * furthermore, each values[i + jn] must represent the value at the position ⟨i, j⟩.
      */
     (values: number[]): ContourMultiPolygon[];
+
+    /**
+     * Computes a single contour, returning a GeoJSON MultiPolygon geometry object.
+     * This geometry object represents the area where the input values are greater than or equal to the given threshold value;
+     * the threshold value for the geometry object is exposed as geometry.value.
+     *
+     * @param values  Array of input values. The input values must be an array of length n×m where [n, m] is the contour generator’s size;
+     * furthermore, each values[i + jn] must represent the value at the position ⟨i, j⟩.
+     * @param threshold Threshold value.
+     */
+    contour(values: number[], threshold: number): ContourMultiPolygon;
 
     /**
      * Return the expected size of the input values grid, which defaults to [1,1].

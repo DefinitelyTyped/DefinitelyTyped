@@ -5,14 +5,16 @@
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Rich Baird <https://github.com/richbai90>
+//                 Dan Torberg <https://github.com/caspeco-dan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
 export type RechartsFunction = (...args: any[]) => void;
+export type LegendValueFormatter = (value?: LegendPayload['value'], entry?: LegendPayload, i?: number) => any;
 export type TickFormatterFunction = (value: any) => any;
 export type TickGeneratorFunction = (noTicksProps: object) => any[];
 export type LabelFormatter = (label: string | number) => React.ReactNode;
@@ -188,6 +190,7 @@ export interface BarData {
 export interface BarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
+    fill?: string;
     layout?: LayoutType;
     xAxisId?: string | number;
     yAxisId?: string | number;
@@ -218,10 +221,10 @@ export interface BrushProps {
     className?: string;
     fill?: string;
     stroke?: string;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
     travellerWidth?: number;
     padding?: Partial<Margin>;
     dataKey?: DataKey;
@@ -370,7 +373,7 @@ export interface LegendProps {
     verticalAlign?: 'top' | 'middle' | 'bottom';
     margin?: Partial<Margin>;
     payload?: LegendPayload[];
-    formatter?: RechartsFunction;
+    formatter?: LegendValueFormatter;
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
@@ -718,6 +721,8 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement<any> | ContentRenderer<any>;
     points?: ScatterPoint[];
     hide?: boolean;
+    data?: object[];
+    name?: string | number;
 }
 
 export class Scatter extends React.Component<ScatterProps> { }

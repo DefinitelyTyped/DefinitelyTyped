@@ -99,15 +99,34 @@ namespace isTests {
         }
     }
     { const a: boolean = is.json({}); }
-    { const a: boolean = is.object({}); }
-    { const a: boolean = is.plainObject({}); }
+    {
+        const a: boolean = is.object({});
+        const b: any = 2;
+        if (is.object(b)) {
+            const c: object = b;
+        }
+    }
+    {
+        const a: boolean = is.plainObject({});
+        const b: any = 2;
+        if (is.plainObject(b)) {
+            const c: object = b;
+        }
+    }
     { const a: boolean = is.class({}); }
     { const a: boolean = is.emptyObject({}); }
     { const a: boolean = is.propertyOwned({}, "a"); }
     { const a: boolean = is.propertyDefined({}, "a"); }
     { const a: boolean = is.conforms({}, {}); }
     { const a: boolean = is.conforms({}, {}, true); }
-    { const a: boolean = is.arrayLikeObject({}); }
+    {
+        const a: boolean = is.arrayLikeObject({});
+        const b: any = {};
+        if (is.arrayLikeObject(b)) {
+            const c: number = b.length;
+            b[0];
+        }
+    }
     { const a: boolean = is.inArray(1, [1, 2, 3]); }
     { const a: boolean = is.inArray(1, [1, 2, 3], 0); }
     { const a: boolean = is.inArray(1, [1, 2, 3], 0, (a, b) => a === b); }
@@ -133,8 +152,20 @@ namespace isTests {
         }
     }
     { const a: boolean = is.dotfile("abc"); }
-    { const a: boolean = is.function(() => { }); }
-    { const a: boolean = is.asyncFunction(async () => { }); }
+    {
+        const a: boolean = is.function(() => { });
+        const b: any = 2;
+        if (is.function(b)) {
+            b();
+        }
+    }
+    {
+        const a: boolean = is.asyncFunction(async () => { });
+        const b: any = 2;
+        if (is.asyncFunction(b)) {
+            b().then(() => {});
+        }
+    }
     {
         const a: boolean = is.promise({});
         const b: any = 2;
@@ -155,7 +186,13 @@ namespace isTests {
         }
     }
     { const a: boolean = is.callback({}); }
-    { const a: boolean = is.generator({}); }
+    {
+        const a: boolean = is.generator({});
+        const b: any = 2;
+        if (is.generator(b)) {
+            b().next();
+        }
+    }
     { const a: boolean = is.nan({}); }
     {
         const a: boolean = is.finite({});
@@ -226,13 +263,51 @@ namespace isTests {
         }
     }
     { const a: boolean = is.transform({}); }
-    { const a: boolean = is.subsystem({}); }
-    { const a: boolean = is.application({}); }
+    {
+        const a: boolean = is.subsystem({});
+        const b: any = 2;
+        if (is.subsystem(b)) {
+            b.configureSubsystems().then(() => {});
+        }
+    }
+    {
+        const a: boolean = is.application({});
+        const b: any = 2;
+        if (is.application(b)) {
+            b.exitOnSignal("SIGINT");
+        }
+    }
     { const a: boolean = is.logger({}); }
-    { const a: boolean = is.coreStream({}); }
-    { const a: boolean = is.fastStream({}); }
-    { const a: boolean = is.fastLocalStream({}); }
-    { const a: boolean = is.fastLocalMapStream({}); }
+    {
+        const a: boolean = is.coreStream({});
+        const b: any = 2;
+        if (is.coreStream(b)) {
+            b.map((x) => 2).forEach((t: number) => {
+                //
+            });
+        }
+    }
+    {
+        const a: boolean = is.fastStream({});
+        const b: any = 2;
+        if (is.fastStream(b)) {
+            b.compress("deflate");
+        }
+    }
+    {
+        const a: boolean = is.fastLocalStream({});
+        const b: any = 2;
+        if (is.fastLocalStream(b)) {
+            b.compress("gz");
+        }
+    }
+    {
+        const a: boolean = is.fastLocalMapStream({});
+        const b: any = 2;
+        if (is.fastLocalMapStream(b)) {
+            b.decompress("gz");
+        }
+    }
     { const a: boolean = is.genesisNetron({}); }
     { const a: boolean = is.genesisPeer({}); }
     { const a: boolean = is.netronAdapter({}); }
@@ -248,7 +323,14 @@ namespace isTests {
     { const a: boolean = is.netronStub({}); }
     { const a: boolean = is.netronRemoteStub({}); }
     { const a: boolean = is.netronStream({}); }
-    { const a: boolean = is.iterable({}); }
+    {
+        const a: boolean = is.iterable({});
+        const b: any = 2;
+        if (is.iterable(b)) {
+            const it = b[Symbol.iterator]();
+            it.next();
+        }
+    }
     { const a: boolean = is.windows; }
     { const a: boolean = is.linux; }
     { const a: boolean = is.freebsd; }

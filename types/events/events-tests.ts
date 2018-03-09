@@ -55,6 +55,12 @@ setTimeout(() => {
 
 setTimeout(() => {
   console.log('\n');
+  emitter.emit('send', 'params1');
+  emitter.removeAllListeners();
+}, 3000);
+
+setTimeout(() => {
+  console.log('\n');
   emitter.emit(1);
   emitter.emit('send');
 }, 3000);
