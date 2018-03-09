@@ -9,7 +9,6 @@
 // NOTE: only those classes exported within this file should be retain that status below.
 // https://github.com/atom/atom/blob/v1.24.0/exports/atom.js
 
-/// <reference types="jquery" />
 /// <reference types="node" />
 
 import { ReadStream, WriteStream } from "fs";
@@ -6754,7 +6753,7 @@ export interface Tooltip {
     enabled: boolean;
     timeout: number;
     hoverState: "in"|"out"|null;
-    element: JQuery|HTMLElement;
+    element: HTMLElement;
 
     getTitle(): string;
     getTooltipElement(): HTMLElement;
