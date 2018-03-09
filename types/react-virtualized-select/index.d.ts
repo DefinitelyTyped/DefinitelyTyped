@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import * as React from "react";
-import { ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, LoadOptionsHandler, OptionValues } from "react-select";
+import { ReactSelectProps, ReactAsyncSelectProps, LoadOptionsHandler, OptionValues } from "react-select";
 import { ListProps } from "react-virtualized";
 
 export interface VirtualizedOptionRenderOptions<T> {
@@ -29,13 +29,8 @@ export interface AdditionalVirtualizedSelectProps<TValue> {
     selectComponent?: React.ComponentClass<any> | React.StatelessComponent<any>;
 }
 
-export declare class VirtualizedSelectCreatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue>> {}
+type VirtualizedSelectProps<TValue = OptionValues> = (ReactAsyncSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue> & { async: true }) |
+    ReactSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue>;
 
-export declare class VirtualizedSelectAsync<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue> & { async: true }> {}
-
-export declare class VirtualizedSelectAsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>
-& ReactCreatableSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue> & { async: true }> {}
-
-declare class VirtualizedSelect<TValue = OptionValues> extends React.PureComponent<ReactSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue>> {}
-
+declare class VirtualizedSelect<TValue = OptionValues> extends React.PureComponent<VirtualizedSelectProps<TValue>> {}
 export default VirtualizedSelect;

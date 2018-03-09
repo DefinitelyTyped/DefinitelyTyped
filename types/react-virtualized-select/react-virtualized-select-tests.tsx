@@ -1,6 +1,6 @@
 import * as React from "react";
 import Select from "react-select";
-import VirtualizedSelect, { VirtualizedSelectAsync } from "react-virtualized-select";
+import VirtualizedSelect from "react-virtualized-select";
 
 /*Example TValue.*/
 interface Example {
@@ -8,7 +8,7 @@ interface Example {
 }
 
 /*Example generic class.*/
-class ExampleSelectAsync extends VirtualizedSelectAsync<Example> {
+class ExampleSelectAsync extends VirtualizedSelect<Example> {
 }
 
 <div>
