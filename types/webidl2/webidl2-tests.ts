@@ -6,48 +6,50 @@ for (const rootType of parsed) {
     if (rootType.type !== "implements" && rootType.type !== "includes") {
         console.log(rootType.name);
     }
-    if (rootType.type === "interface") {
-        console.log(rootType.inheritance);
-        logMembers(rootType.members);
-        console.log(rootType.partial);
-    }
-    else if (rootType.type === "interface mixin") {
-        logMembers(rootType.members);
-        console.log(rootType.partial);
-    }
-    else if (rootType.type === "namespace") {
-        console.log(rootType.partial);
-        logNamespaceMembers(rootType.members);
-    }
-    else if (rootType.type === "callback interface") {
-        logMembers(rootType.members);
-        console.log(rootType.partial);
-    }
-    else if (rootType.type === "callback") {
-        logArguments(rootType.arguments);
-    }
-    else if (rootType.type === "dictionary") {
-        console.log(rootType.inheritance);
-        for (const member of rootType.members) {
-            console.log(member.required, member.default);
-        }
-    }
-    else if (rootType.type === "enum") {
-        for (const v of rootType.values) {
-            console.log(v.type);
-            console.log(v.value);
-        }
-    }
-    else if (rootType.type === "typedef") {
-        logIdlType(rootType.idlType);
-    }
-    else if (rootType.type === "implements") {
-        console.log(rootType.target);
-        console.log(rootType.implements);
-    }
-    else if (rootType.type === "includes") {
-        console.log(rootType.target);
-        console.log(rootType.includes);
+    switch (rootType.type) {
+        case "interface":
+            console.log(rootType.inheritance);
+            logMembers(rootType.members);
+            console.log(rootType.partial);
+            break;
+        case "interface mixin":
+            logMembers(rootType.members);
+            console.log(rootType.partial);
+            break;
+        case "namespace":
+            console.log(rootType.partial);
+            logNamespaceMembers(rootType.members);
+            break;
+        case "callback interface":
+            logMembers(rootType.members);
+            console.log(rootType.partial);
+            break;
+        case "callback":
+            logArguments(rootType.arguments);
+            break;
+        case "dictionary":
+            console.log(rootType.inheritance);
+            for (const member of rootType.members) {
+                console.log(member.required, member.default);
+            }
+            break;
+        case "enum":
+            for (const v of rootType.values) {
+                console.log(v.type);
+                console.log(v.value);
+            }
+            break;
+        case "typedef":
+            logIdlType(rootType.idlType);
+            break;
+        case "implements":
+            console.log(rootType.target);
+            console.log(rootType.implements);
+            break;
+        case "includes":
+            console.log(rootType.target);
+            console.log(rootType.includes);
+            break;
     }
 
     logExtAttrs(rootType.extAttrs);
@@ -55,27 +57,29 @@ for (const rootType of parsed) {
 
 function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
     for (const member of members) {
-        if (member.type === "operation" || member.type === "attribute") {
-            logNamespaceMembers([member]);
+        switch (member.type) {
+            case "operation":
+            case "attribute":
+                logNamespaceMembers([member]);
+                break;
+            case "const":
+                console.log(member.name);
+                console.log(member.value);
+                console.log(member.nullable);
+                break;
+            case "iterable":
+                console.log(member.readonly);
+                break;
+            case "legacyiterable":
+                console.log(member.readonly);
+                break;
+            case "setlike":
+                console.log(member.readonly);
+                break;
+            case "maplike":
+                console.log(member.readonly);
+                break;
         }
-        else if (member.type === "const") {
-            console.log(member.name);
-            console.log(member.value);
-            console.log(member.nullable);
-        }
-        else if (member.type === "iterable") {
-            console.log(member.readonly);
-        }
-        else if (member.type === "legacyiterable") {
-            console.log(member.readonly);
-        }
-        else if (member.type === "setlike") {
-            console.log(member.readonly);
-        }
-        else if (member.type === "maplike") {
-            console.log(member.readonly);
-        }
-
         logIdlType(member.idlType);
         logExtAttrs(member.extAttrs);
     }
@@ -87,8 +91,7 @@ function logNamespaceMembers(members: webidl2.IDLNamespaceMemberType[]) {
             console.log(member.name);
             console.log(member.getter, member.setter, member.deleter);
             console.log(member.static, member.stringifier);
-        }
-        else if (member.type === "attribute") {
+        } else if (member.type === "attribute") {
             console.log(member.name);
             console.log(member.static, member.stringifier, member.readonly, member.inherit);
         }
@@ -101,8 +104,7 @@ function logExtAttrs(extAttrs: webidl2.ExtendedAttributes[]) {
     const { rhs } = extAttrs[0];
     if (rhs.type === "identifier") {
         console.log(rhs);
-    }
-    else {
+    } else {
         for (const v of rhs.value) {
             console.log(v);
         }
