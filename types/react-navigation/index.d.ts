@@ -420,12 +420,18 @@ export interface NavigationEventSubscription {
 export interface NavigationScreenProp<S> {
   state: S;
   dispatch: NavigationDispatch;
-  goBack: (routeKey?: (string | null)) => boolean;
-  navigate: (
-    routeName: string,
+  goBack: (routeKey?: string | null) => boolean;
+  navigate(options: {
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationAction;
+    key?: string;
+  }): boolean;
+  navigate(
+    routeNameOrOptions: string,
     params?: NavigationParams,
-    action?: NavigationAction
-  ) => boolean;
+    action?: NavigationAction,
+  ): boolean;
   setParams: (newParams: NavigationParams) => boolean;
   addListener: (
     eventName: string,
