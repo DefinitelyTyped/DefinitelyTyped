@@ -3,7 +3,7 @@
 // Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Cheerio {
+export interface Cheerio {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // JQuery http://api.jquery.com
@@ -202,7 +202,7 @@ interface Cheerio {
     toArray(): CheerioElement[];
 }
 
-interface CheerioOptionsInterface {
+export interface CheerioOptionsInterface {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // HTMLParser2 https://github.com/fb55/htmlparser2/wiki/Parser-options
@@ -217,7 +217,7 @@ interface CheerioOptionsInterface {
     normalizeWhitespace?: boolean;
 }
 
-interface CheerioSelector {
+export interface CheerioSelector {
     (selector: string): Cheerio;
     (selector: string, context: string): Cheerio;
     (selector: string, context: CheerioElement): Cheerio;
@@ -230,7 +230,7 @@ interface CheerioSelector {
     (selector: any): Cheerio;
 }
 
-interface CheerioStatic extends CheerioSelector {
+export interface CheerioStatic extends CheerioSelector {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // JQuery http://api.jquery.com
@@ -245,7 +245,7 @@ interface CheerioStatic extends CheerioSelector {
     html(element: CheerioElement, options?: CheerioOptionsInterface): string;
 }
 
-interface CheerioElement {
+export interface CheerioElement {
     // Document References
     // Node Console
     tagName: string;
@@ -266,12 +266,12 @@ interface CheerioElement {
     data?: string;
 }
 
-interface CheerioAPI extends CheerioSelector, CheerioStatic {
+export interface CheerioAPI extends CheerioSelector, CheerioStatic {
   load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
   load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }
 
-interface Document { }
+export interface Document { }
 
 declare var cheerio:CheerioAPI;
 
