@@ -2524,6 +2524,10 @@ export interface TextEditorRegistry {
     observe(callback: (editor: TextEditor) => void): Disposable;
 }
 
+export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
+    jquery: string;
+}
+
 export type TooltipPlacement =
     |"top"|"bottom"|"left"|"right"
     |"auto"|"auto top"|"auto bottom"|"auto left"|"auto right";
@@ -2531,7 +2535,7 @@ export type TooltipPlacement =
 /** Associates tooltips with HTML elements or selectors. */
 export interface TooltipManager {
     /** Add a tooltip to the given element. */
-    add(target: HTMLElement, options: {
+    add(target: HTMLElement | JQueryCompatible, options: {
         item?: object,
     } | {
         title?: string|(() => string),
