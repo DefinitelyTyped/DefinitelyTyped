@@ -16,7 +16,7 @@
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 declare let R: R.Static;
 
@@ -679,7 +679,7 @@ declare namespace R {
          * on each element, and grouping the results according to values returned.
          */
         groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-        groupBy<T>(fn: (a: T) => string): <T>(list: ReadonlyArray<T>) => { [index: string]: T[] };
+        groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
