@@ -1,3 +1,3 @@
 import prismicDom = require("prismic-dom");
 
-let rendered: string = prismicDom.RichText.asHtml({});
+const rendered: string = prismicDom.RichText.asHtml({});
