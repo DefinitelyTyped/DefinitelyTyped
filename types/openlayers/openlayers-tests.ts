@@ -1,22 +1,25 @@
 // Basic type variables for test functions
 let anyValue: any;
-let numberValue: number;
 let booleanValue: boolean;
-let stringValue: string;
-let stringArray: string[];
-let jsonValue: JSON;
+let canvas: HTMLCanvasElement;
 let domEventTarget: EventTarget;
 let fn: Function;
+let image: HTMLImageElement;
+let jsonValue: JSON;
+let numberArray: number[];
+let numberValue: number;
 let object: Object;
+let stringArray: string[];
+let stringValue: string;
 
 // Callback predefinitions for OpenLayers
+let coordinateFormatType: ol.CoordinateFormatType;
+let drawGeometryFunction: ol.DrawGeometryFunctionType;
+let easingFunction: (t: number) => number;
+let featureLoader: ol.FeatureLoader;
+let featureStyleFunction: ol.FeatureStyleFunction;
 let preRenderFunction: ol.PreRenderFunction;
 let transformFunction: ol.TransformFunction;
-let coordinateFormatType: ol.CoordinateFormatType;
-let featureStyleFunction: ol.FeatureStyleFunction;
-let featureLoader: ol.FeatureLoader;
-let easingFunction: (t: number) => number;
-let drawGeometryFunction: ol.DrawGeometryFunctionType;
 drawGeometryFunction([0, 0], new ol.geom.Point([0, 0]));
 drawGeometryFunction([0, 0]);
 
@@ -24,27 +27,29 @@ drawGeometryFunction([0, 0]);
 let attribution: ol.Attribution;
 let boundingCoordinates: ol.Coordinate[];
 let circle: ol.geom.Circle;
+let clusterSource: ol.source.Cluster;
 let color: ol.Color;
 let coordinate: ol.Coordinate;
 let coordinatesArray: ol.Coordinate[];
 let coordinatesArrayDim2: ol.Coordinate[][];
-let extent: ol.Extent;
-let olEvent: ol.events.Event;
 let eventKey: ol.EventsKey;
 let eventKeyArray: ol.EventsKey[];
 let eventKeyMixed: ol.EventsKey | ol.EventsKey[];
 let eventTarget: ol.events.EventTarget;
+let extent: ol.Extent;
 let feature: ol.Feature;
 let featureArray: ol.Feature[];
 let featureCollection: ol.Collection<ol.Feature>;
 let featureFormat: ol.format.Feature;
 let featureUrlFunction: ol.FeatureUrlFunction;
-let graticule: ol.Graticule;
 let geometriesArray: ol.geom.Geometry[];
 let geometry: ol.geom.Geometry;
 let geometryCollection: ol.geom.GeometryCollection;
 let geometryLayout: ol.geom.GeometryLayout;
 let geometryType: ol.geom.GeometryType;
+let graticule: ol.Graticule;
+let iconAnchorUnits: ol.style.IconAnchorUnits;
+let iconOrigin: ol.style.IconOrigin;
 let linearRing: ol.geom.LinearRing;
 let lineString: ol.geom.LineString;
 let loadingStrategy: ol.LoadingStrategy;
@@ -53,6 +58,7 @@ let mapBrowserEvent: ol.MapBrowserEvent;
 let multiLineString: ol.geom.MultiLineString;
 let multiPoint: ol.geom.MultiPoint;
 let multiPolygon: ol.geom.MultiPolygon;
+let olEvent: ol.events.Event;
 let pixel: ol.Pixel;
 let point: ol.geom.Point;
 let polygon: ol.geom.Polygon;
@@ -63,12 +69,11 @@ let size: ol.Size;
 let style: ol.style.Style;
 let styleArray: ol.style.Style[];
 let styleFunction: ol.StyleFunction;
+let styleRegularShape: ol.style.RegularShape;
 let tilegrid: ol.tilegrid.TileGrid;
 let transformFn: ol.TransformFunction;
-let clusterSource: ol.source.Cluster;
-let vectorSource: ol.source.Vector;
 let units: ol.proj.Units;
-let styleRegularShape: ol.style.RegularShape;
+let vectorSource: ol.source.Vector;
 
 //
 // ol.Attribution
@@ -985,6 +990,53 @@ let mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWhee
     timeout: numberValue,
     useAnchor: booleanValue
 });
+
+//
+// ol.style.Icon
+//
+
+let iconWithUndefined = new ol.style.Icon({});
+let icon: ol.style.Icon;
+
+icon = new ol.style.Icon({
+    anchor: numberArray,
+    anchorOrigin: iconOrigin,
+    anchorXUnits: iconAnchorUnits,
+    anchorYUnits: iconAnchorUnits,
+    color: stringValue,
+    crossOrigin: stringValue,
+    img: image,
+    offset: numberArray,
+    offsetOrigin: iconOrigin,
+    opacity: numberValue,
+    scale: numberValue,
+    snapToPixel: booleanValue,
+    rotateWithView: booleanValue,
+    rotation: numberValue,
+    size,
+    imgSize: size,
+    src: stringValue,
+});
+icon = new ol.style.Icon({
+    anchor: numberArray,
+    anchorOrigin: iconOrigin,
+    anchorXUnits: iconAnchorUnits,
+    anchorYUnits: iconAnchorUnits,
+    color,
+    crossOrigin: stringValue,
+    img: canvas,
+    offset: numberArray,
+    offsetOrigin: iconOrigin,
+    opacity: numberValue,
+    scale: numberValue,
+    snapToPixel: booleanValue,
+    rotateWithView: booleanValue,
+    rotation: numberValue,
+    size,
+    imgSize: size,
+    src: stringValue,
+});
+
 //
 // ol.style.RegularShape
 //
