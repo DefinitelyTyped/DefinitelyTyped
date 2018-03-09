@@ -13,7 +13,7 @@
 
 export as namespace ol;
 
-interface GlobalObject { [key: string]: any; }
+export interface GlobalObject { [key: string]: any; }
 
 /**
  * Error object thrown when an assertion failed. This is an ECMA-262 Error,
@@ -1387,7 +1387,7 @@ export namespace events {
 }
 
 /* From ol/typedefs.js */
-type EventsListenerFunctionType = ((evt: ol.events.Event) => void) | ((evt: ol.events.Event) => boolean);
+export type EventsListenerFunctionType = ((evt: ol.events.Event) => void) | ((evt: ol.events.Event) => boolean);
 
 export namespace extent {
     /**
@@ -11415,7 +11415,7 @@ export class View extends Object {
 }
 
 export namespace olx {
-    export namespace animation {
+    namespace animation {
         interface BounceOptions {
             resolution: number;
             start?: number;
@@ -11465,7 +11465,7 @@ export namespace olx {
         type AnimateCallback = (completed: boolean) => void;
     }
 
-    export namespace control {
+    namespace control {
         interface AttributionOptions {
             className?: string;
             target?: Element;
@@ -11570,7 +11570,7 @@ export namespace olx {
         }
     }
 
-    export namespace format {
+    namespace format {
         interface ReadOptions {
             dataProjection: ol.ProjectionLike;
             featureProjection: ol.ProjectionLike;
@@ -11681,7 +11681,7 @@ export namespace olx {
         }
     }
 
-    export namespace interaction {
+    namespace interaction {
         /**
          * Object literal with config options for interactions.
          */
@@ -11844,7 +11844,7 @@ export namespace olx {
         }
     }
 
-    export namespace layer {
+    namespace layer {
         interface BaseOptions {
             opacity?: number;
             visible?: boolean;
@@ -11961,15 +11961,15 @@ export namespace olx {
         }
     }
 
-    export namespace parser {
+    namespace parser {
     }
-    export namespace render {
+    namespace render {
         interface ToContextOptions {
             size?: ol.Size;
             pixelRatio?: number;
         }
     }
-    export namespace source {
+    namespace source {
         interface BingMapsOptions {
             cacheSize?: number;
             culture?: string;
@@ -12286,7 +12286,7 @@ export namespace olx {
             size: ol.Size;
         }
     }
-    export namespace style {
+    namespace style {
         interface CircleOptions {
             fill?: ol.style.Fill;
             radius: number;
@@ -12386,7 +12386,7 @@ export namespace olx {
             space?: number;
         }
     }
-    export namespace tilegrid {
+    namespace tilegrid {
         interface TileGridOptions {
             extent?: ol.Extent;
             minZoom?: number;
@@ -12417,15 +12417,15 @@ export namespace olx {
         }
     }
 
-    export interface AttributionOptions {
+    interface AttributionOptions {
         html: string;
     }
 
-    export interface DeviceOrientationOptions {
+    interface DeviceOrientationOptions {
         tracking?: boolean;
     }
 
-    export interface GeolocationOptions {
+    interface GeolocationOptions {
         tracking?: boolean;
         trackingOptions?: PositionOptions;
         projection: ol.ProjectionLike;
@@ -12434,12 +12434,12 @@ export namespace olx {
     /**
      * Object literal with config options for the map logo.
      */
-    export interface LogoOptions {
+    interface LogoOptions {
         href: string;
         src: string;
     }
 
-    export interface GraticuleOptions {
+    interface GraticuleOptions {
         map?: ol.Map;
         maxLines?: number;
         strokeStyle?: ol.style.Stroke;
@@ -12456,7 +12456,7 @@ export namespace olx {
     /**
      * Object literal with config options for the map.
      */
-    export interface MapOptions {
+    interface MapOptions {
         controls?: (ol.Collection<ol.control.Control> | ol.control.Control[]);
         pixelRatio?: number;
         interactions?: (ol.Collection<ol.interaction.Interaction> | ol.interaction.Interaction[]);
@@ -12474,7 +12474,7 @@ export namespace olx {
     /**
      * Object literal with config options for the overlay.
      */
-    export interface OverlayOptions {
+    interface OverlayOptions {
         id?: (number | string);
         element?: Element;
         offset?: number[];
@@ -12490,7 +12490,7 @@ export namespace olx {
     /**
      * Object literal with config options for the projection.
      */
-    export interface ProjectionOptions {
+    interface ProjectionOptions {
         code: string;
         units?: (ol.proj.Units | string);
         extent?: ol.Extent;
@@ -12501,7 +12501,7 @@ export namespace olx {
         getPointResolution?: ((resolution: number, coords: ol.Coordinate) => number);
     }
 
-    export namespace view {
+    namespace view {
         interface FitOptions {
             size?: ol.Size;
             padding?: number[];
@@ -12518,7 +12518,7 @@ export namespace olx {
     /**
      * Object literal with config options for the view.
      */
-    export interface ViewOptions {
+    interface ViewOptions {
         center?: ol.Coordinate;
         constrainRotation?: (boolean | number);
         enableRotation?: boolean;
@@ -12539,18 +12539,18 @@ export namespace olx {
      * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
      * {@link ol.Map#hasFeatureAtPixel} methods.
      */
-    export interface AtPixelOptions {
+    interface AtPixelOptions {
         layerFilter?: ((layer: ol.layer.Layer) => boolean);
         hitTolerance?: number;
     }
 
-    export interface FrameState {
+    interface FrameState {
         pixelRatio: number;
         time: number;
         viewState: olx.ViewState;
     }
 
-    export interface ViewState {
+    interface ViewState {
         center: ol.Coordinate;
         projection: ol.proj.Projection;
         resolution: number;
