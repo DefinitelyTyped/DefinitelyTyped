@@ -348,4 +348,4 @@ const popAction: NavigationPopAction = NavigationActions.pop({
 const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
     key: "foo",
     immediate: true
-})
+});
