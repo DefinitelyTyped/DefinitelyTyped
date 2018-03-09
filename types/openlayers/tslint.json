@@ -1,9 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // Not sure how to work around this, or if it's necessary to
-        "no-declare-current-package": false,
-        "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,

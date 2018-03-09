@@ -54,7 +54,7 @@ let iconOrigin: ol.style.IconOrigin;
 let linearRing: ol.geom.LinearRing;
 let lineString: ol.geom.LineString;
 let loadingStrategy: ol.LoadingStrategy;
-let logoOptions: olx.LogoOptions;
+let logoOptions: ol.olx.LogoOptions;
 let mapBrowserEvent: ol.MapBrowserEvent;
 let multiLineString: ol.geom.MultiLineString;
 let multiPoint: ol.geom.MultiPoint;
@@ -539,7 +539,7 @@ let tileLayer: ol.layer.Tile = new ol.layer.Tile({
 //
 // ol.layer.Vector
 //
-let vectorLayerRenderMode: olx.layer.VectorRenderType = 'image';
+let vectorLayerRenderMode: ol.olx.layer.VectorRenderType = 'image';
 let vectorLayer: ol.layer.Vector = new ol.layer.Vector({
     renderMode: vectorLayerRenderMode,
     source: new ol.source.Vector(),
@@ -751,7 +751,7 @@ popup.setPositioning(popupPositioning);
 // ol.format.GeoJSON
 //
 
-let geojsonOptions: olx.format.GeoJSONOptions;
+let geojsonOptions: ol.olx.format.GeoJSONOptions;
 geojsonOptions.defaultDataProjection = "EPSG";
 geojsonOptions.defaultDataProjection = projection;
 geojsonOptions.geometryName = "geom";
@@ -761,13 +761,13 @@ geojsonFormat = new ol.format.GeoJSON();
 geojsonFormat = new ol.format.GeoJSON(geojsonOptions);
 
 // Test options
-let readOptions: olx.format.ReadOptions;
+let readOptions: ol.olx.format.ReadOptions;
 readOptions.dataProjection = "EPSG";
 readOptions.dataProjection = projection;
 readOptions.featureProjection = "EPSG";
 readOptions.featureProjection = projection;
 
-let writeOptions: olx.format.WriteOptions;
+let writeOptions: ol.olx.format.WriteOptions;
 writeOptions.dataProjection = "EPSG";
 writeOptions.dataProjection = projection;
 writeOptions.featureProjection = "EPSG";
