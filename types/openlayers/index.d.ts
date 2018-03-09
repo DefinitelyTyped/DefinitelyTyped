@@ -144,7 +144,7 @@ export class Collection<T> extends Object {
      * @template S
      * @api stable
      */
-    forEach<S>(f: ((item: T, index: number, array: T[]) => any), opt_this?: S): void;
+    forEach(f: ((item: T, index: number, array: T[]) => any), opt_this?: any): void;
 
     /**
      * Get a reference to the underlying Array object. Warning: if the array
@@ -6711,11 +6711,11 @@ export class Map extends Object {
      * @template S,T,U
      * @api stable
      */
-    forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel,
-                                    callback: ((layer: ol.layer.Layer, color: ol.Color) => T),
-                                    opt_this?: S,
-                                    opt_layerFilter?: ((layer: ol.layer.Layer) => boolean),
-                                    opt_this2?: U): (T);
+    forEachLayerAtPixel<T>(pixel: ol.Pixel,
+                           callback: (layer: ol.layer.Layer, color: ol.Color) => T,
+                           opt_this?: any,
+                           opt_layerFilter?: (layer: ol.layer.Layer) => boolean,
+                           opt_this2?: any): (T);
 
     /**
      * Detect if features intersect a pixel on the viewport. Layers included in the
@@ -8978,7 +8978,7 @@ export namespace source {
          * @template T
          * @api
          */
-        forDataAtCoordinateAndResolution<T>(coordinate: ol.Coordinate, resolution: number, callback: ((d: any) => any), opt_this?: T, opt_request?: boolean): void;
+        forDataAtCoordinateAndResolution(coordinate: ol.Coordinate, resolution: number, callback: ((d: any) => any), opt_this?: any, opt_request?: boolean): void;
     }
 
     /**
@@ -9158,7 +9158,7 @@ export namespace source {
          * @template T,S
          * @api stable
          */
-        forEachFeature<T, S>(callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
+        forEachFeature<S>(callback: ((feature: ol.Feature) => S), opt_this?: any): (S);
 
         /**
          * Iterate through all features whose bounding box intersects the provided
@@ -9181,7 +9181,7 @@ export namespace source {
          * @template T,S
          * @api
          */
-        forEachFeatureInExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
+        forEachFeatureInExtent<S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: any): (S);
 
         /**
          * Iterate through all features whose geometry intersects the provided extent,
@@ -9200,7 +9200,7 @@ export namespace source {
          * @template T,S
          * @api
          */
-        forEachFeatureIntersectingExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
+        forEachFeatureIntersectingExtent<S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: any): (S);
 
         /**
          * Get the features collection associated with this source. Will be `null`

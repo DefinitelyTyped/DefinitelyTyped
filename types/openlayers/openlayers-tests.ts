@@ -61,6 +61,7 @@ let map: ol.Map;
 let multiLineString: ol.geom.MultiLineString;
 let multiPoint: ol.geom.MultiPoint;
 let multiPolygon: ol.geom.MultiPolygon;
+let numberCollection: ol.Collection<number>;
 const olEvent = new ol.events.Event(stringValue);
 const pixel: ol.Pixel = [numberValue, numberValue];
 let point: ol.geom.Point;
@@ -89,6 +90,24 @@ const mapBrowserEvent = new ol.MapBrowserEvent(stringValue, map, event, booleanV
 attribution = new ol.Attribution({
     html: stringValue,
 });
+
+//
+// ol.Collection
+//
+let collection = new ol.Collection<number>();
+collection = new ol.Collection<number>([]);
+collection.clear();
+numberCollection = collection.extend(numberArray);
+collection.forEach((item, index, array) => {});
+numberArray = collection.getArray();
+numberValue = collection.item(numberValue);
+numberValue = collection.getLength();
+collection.insertAt(numberValue, numberValue);
+numberValue = collection.pop();
+numberValue = collection.push(numberValue);
+numberValue = collection.remove(numberValue);
+numberValue = collection.removeAt(numberValue);
+collection.setAt(numberValue, numberValue);
 
 //
 // ol.color
@@ -626,6 +645,7 @@ map = new ol.Map({
     layers: [tileLayer],
     target: stringValue
 });
+numberValue = map.forEachLayerAtPixel(coordinate, (layer, color) => numberValue, anyValue, (layer) => booleanValue, anyValue);
 
 //
 // ol.source.ImageWMS
@@ -642,6 +662,19 @@ const imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
 //
 const source = imageWMS as ol.source.Source;
 projection = source.getProjection();
+
+//
+// ol.source.TileUTFGrid
+//
+let tileJSONValue = JSON;
+let tileUTFGrid = new ol.source.TileUTFGrid({});
+tileUTFGrid = new ol.source.TileUTFGrid({
+    jsonp: booleanValue,
+    preemptive: booleanValue,
+    tileJSON: tileJSONValue,
+    url: stringValue,
+});
+tileUTFGrid.forDataAtCoordinateAndResolution(coordinate, numberValue, (d) => anyValue, anyValue, booleanValue);
 
 //
 // ol.source.TileWMS
