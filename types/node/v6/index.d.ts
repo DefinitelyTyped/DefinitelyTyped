@@ -2094,9 +2094,9 @@ declare module "net" {
         setEncoding(encoding?: string): void;
         write(data: any, encoding?: string, callback?: Function): void;
         destroy(): void;
-        setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: boolean): void;
-        setKeepAlive(enable?: boolean, initialDelay?: number): void;
+        setTimeout(timeout: number, callback?: Function): this;
+        setNoDelay(noDelay?: boolean): this;
+        setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): { port: number; family: string; address: string; };
         unref(): void;
         ref(): void;
@@ -2614,7 +2614,7 @@ declare module "fs" {
      * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: string | Buffer, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: Array<string | Buffer>) => void): void;
+    export function readdir(path: string | Buffer, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -2640,7 +2640,7 @@ declare module "fs" {
      * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: string | Buffer, options?: { encoding?: string | null } | string | null): Array<string | Buffer>;
+    export function readdirSync(path: string | Buffer, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function closeSync(fd: number): void;
     export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
@@ -3215,6 +3215,14 @@ declare module "tls" {
             fingerprint: string;
             serialNumber: string;
         };
+        /**
+         * Returns a string containing the negotiated SSL/TLS protocol version of the current connection.
+         * The value `'unknown'` will be returned for connected sockets that have not completed the handshaking process.
+         * The value `null` will be returned for server sockets or disconnected client sockets.
+         * See https://www.openssl.org/docs/man1.0.2/ssl/SSL_get_version.html for more information.
+         * @returns negotiated SSL/TLS protocol version of the current connection
+         */
+        getProtocol(): string | null;
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
          * @returns ASN.1 encoded TLS session or undefined if none was negotiated.
@@ -3897,12 +3905,12 @@ declare module "tty" {
     import * as net from "net";
 
     export function isatty(fd: number): boolean;
-    export interface ReadStream extends net.Socket {
+    export class ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
     }
-    export interface WriteStream extends net.Socket {
+    export class WriteStream extends net.Socket {
         columns: number;
         rows: number;
         isTTY: boolean;

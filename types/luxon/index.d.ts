@@ -1,7 +1,8 @@
-// Type definitions for luxon 0.2
+// Type definitions for luxon 0.5
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
+//                 Jonathan Siebern <https://github.com/jsiebern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -165,6 +166,7 @@ declare module 'luxon' {
             offsetNameShort: string;
             ordinal: number;
             outputCalendar: string;
+            quarter: number;
             second: number;
             weekNumber: number;
             weekYear: number;
@@ -209,7 +211,7 @@ declare module 'luxon' {
             toSQLTime(options?: Object): string;
             toString(): string;
             toUTC(offset?: number, options?: ZoneOptions): DateTime;
-            until(other: DateTime): Duration;
+            until(other: DateTime): Interval;
             valueOf(): number;
         }
 
@@ -251,6 +253,7 @@ declare module 'luxon' {
             minutes: number;
             months: number;
             numberingSystem: string;
+            quarters: number;
             seconds: number;
             weeks: number;
             years: number;
@@ -287,7 +290,7 @@ declare module 'luxon' {
         type Features = {
             intl: boolean;
             intlTokens: boolean;
-            timezones: boolean;
+            zones: boolean;
         };
 
         namespace Info {
@@ -335,7 +338,7 @@ declare module 'luxon' {
             abutsStart(other: Interval): boolean;
             contains(dateTime: DateTime): boolean;
             count(unit?: string): number;
-            difference(...intervals: Interval[]): Interval;
+            difference(...intervals: Interval[]): Interval[];
             divideEqually(numberOfParts?: number): Interval[];
             engulfs(other: Interval): boolean;
             equals(other: Interval): boolean;
@@ -372,7 +375,7 @@ declare module 'luxon' {
             let defaultZoneName: string;
             let throwOnInvalid: boolean;
             let now: () => number;
-            function resetCache(): void;
+            function resetCaches(): void;
         }
 
         type ZoneOffsetOptions = {

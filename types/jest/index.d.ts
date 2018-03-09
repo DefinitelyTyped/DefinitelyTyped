@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.1
+// Type definitions for Jest 22.2
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -56,7 +56,8 @@ declare namespace jest {
      */
     function autoMockOn(): typeof jest;
     /**
-     * @deprecated use resetAllMocks instead
+     * Clears the mock.calls and mock.instances properties of all mocks.
+     * Equivalent to calling .mockClear() on every mocked function.
      */
     function clearAllMocks(): typeof jest;
     /**
@@ -470,7 +471,7 @@ declare namespace jest {
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
-        toHaveProperty(propertyPath: string, value?: any): R;
+        toHaveProperty(propertyPath: string | any[], value?: any): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -526,16 +527,20 @@ declare namespace jest {
     } & T;
 
     interface MockInstance<T> {
+        getMockName(): string;
         mock: MockContext<T>;
         mockClear(): void;
         mockReset(): void;
         mockImplementation(fn: (...args: any[]) => any): Mock<T>;
         mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        mockName(name: string): Mock<T>;
         mockReturnThis(): Mock<T>;
         mockReturnValue(value: any): Mock<T>;
         mockReturnValueOnce(value: any): Mock<T>;
-        mockName(name: string): Mock<T>;
-        getMockName(): string;
+        mockResolvedValue(value: any): Mock<T>;
+        mockResolvedValueOnce(value: any): Mock<T>;
+        mockRejectedValue(value: any): Mock<T>;
+        mockRejectedValueOnce(value: any): Mock<T>;
     }
 
     interface MockContext<T> {
@@ -548,6 +553,16 @@ declare namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
+declare function spyOn(object: any, method: string): jasmine.Spy;
+/**
+ * If you call the function pending anywhere in the spec body,
+ * no matter the expectations, the spec will be marked pending.
+ */
+declare function pending(reason?: string): void;
+/**
+ * Fails a test when called within one.
+ */
+declare function fail(error?: any): void;
 declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;

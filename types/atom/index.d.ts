@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.23
+// Type definitions for Atom 1.24
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.23.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.24.0/exports/atom.js
 
 /// <reference types="jquery" />
 /// <reference types="node" />
@@ -654,6 +654,9 @@ export interface DisplayMarker {
  *  This API is experimental and subject to change on any release.
  */
 export interface DisplayMarkerLayer {
+    /** The identifier for the underlying MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Destroy this layer. */
     destroy(): void;
@@ -949,6 +952,9 @@ export interface Marker {
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
+    /** The identifier for this MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Create a copy of this layer with markers in the same state and locations. */
     copy(): MarkerLayer;
@@ -1311,6 +1317,12 @@ export class TextEditor {
 
     /** Retrieves the current TextBuffer. */
     getBuffer(): TextBuffer;
+
+    /** Sets the read-only state for the editor. */
+    setReadOnly(readonly: boolean): void;
+
+    /** Whether or not this editor is in read-only mode. */
+    isReadOnly(): boolean;
 
     /**
      *  Calls your callback when a Gutter is added to the editor. Immediately calls
@@ -1911,7 +1923,7 @@ export class TextEditor {
     getCursors(): Cursor[];
 
     /**
-     *  Get all Cursorss, ordered by their position in the buffer instead of the
+     *  Get all Cursors, ordered by their position in the buffer instead of the
      *  order in which they were added.
      */
     getCursorsOrderedByBufferPosition(): Cursor[];
@@ -2259,12 +2271,6 @@ export class TextEditor {
     // Grammars
     /** Get the current Grammar of this editor. */
     getGrammar(): Grammar;
-
-    /**
-     *  Set the current Grammar of this editor.
-     *  Assigning a grammar will cause the editor to re-tokenize based on the new grammar.
-     */
-    setGrammar(grammar: Grammar): void;
 
     // Managing Syntax Scopes
     /**
@@ -3341,7 +3347,7 @@ export class Directory {
     getEntriesSync(): Array<File|Directory>;
 
     /** Reads file entries in this directory from disk asynchronously. */
-    getEntries(callback: (error: Error, entries: Array<File|Directory>) => void): void;
+    getEntries(callback: (error: Error|null, entries: Array<File|Directory>) => void): void;
 
     /**
      *  Determines if the given path (real or symbolic) is inside this directory. This
@@ -3547,7 +3553,7 @@ export class File {
 
     // Reading and Writing
     /** Reads the contents of the file. */
-    read(flushCache?: boolean): Promise<string>;
+    read(flushCache?: boolean): Promise<string | null>;
 
     /** Returns a stream to read the content of the file. */
     createReadStream(): ReadStream;
@@ -3847,6 +3853,51 @@ export interface GrammarRegistry {
      *  @return An array of Token instances decoded from the given tags.
      */
     decodeTokens(lineText: string, tags: Array<number|string>): GrammarToken[];
+
+    /**
+     *  Set a TextBuffer's language mode based on its path and content, and continue
+     *  to update its language mode as grammars are added or updated, or the buffer's
+     *  file path changes.
+     *  @param buffer The buffer whose language mode will be maintained.
+     *  @return A Disposable that can be used to stop updating the buffer's
+     *  language mode.
+     */
+    maintainLanguageMode(buffer: TextBuffer): Disposable;
+
+    /**
+     *  Force a TextBuffer to use a different grammar than the one that would otherwise
+     *  be selected for it.
+     *  @param buffer The buffer whose grammar will be set.
+     *  @param languageId The identifier of the desired language.
+     *  @return Returns a boolean that indicates whether the language was successfully
+     * found.
+     */
+    assignLanguageMode(buffer: TextBuffer, languageId: string): boolean;
+
+    /**
+     *  Remove any language mode override that has been set for the given TextBuffer.
+     *  This will assign to the buffer the best language mode available.
+     */
+    autoAssignLanguageMode(buffer: TextBuffer): void;
+
+    /**
+     *  Select a grammar for the given file path and file contents.
+     *
+     *  This picks the best match by checking the file path and contents against
+     *  each grammar.
+     *  @param filePath A string file path.
+     *  @param fileContents A string of text for that file path.
+     */
+    selectGrammar(filePath: string, fileContents: string): Grammar;
+
+    /**
+     *  Returns a number representing how well the grammar matches the
+     *  `filePath` and `contents`.
+     *  @param grammar The grammar to score.
+     *  @param filePath A string file path.
+     *  @param contents A string of text for that file path.
+     */
+    getGrammarScore(grammar: Grammar, filePath: string, contents: string): number;
 }
 
 /** Represents a gutter within a TextEditor. */
@@ -4366,7 +4417,7 @@ export interface PathWatcher extends DisposableLike {
 
     /**
      *  Unsubscribe all subscribers from filesystem events. Native resources will be
-     *  release asynchronously, but this watcher will stop broadcasting events
+     *  released asynchronously, but this watcher will stop broadcasting events
      *  immediately.
      */
     dispose(): void;
@@ -4391,7 +4442,11 @@ export interface Project {
     onDidChangeFiles(callback: (events: FilesystemChangeEvent) => void): Disposable;
 
     // Accessing the Git Repository
-    /** Get an Array of GitRepositorys associated with the project's directories. */
+    /**
+     * Get an Array of GitRepositorys associated with the project's directories.
+     *
+     * This method will be removed in 2.0 because it does synchronous I/O.
+     */
     getRepositories(): GitRepository[];
 
     /** Get the repository for a given directory asynchronously. */
@@ -5075,7 +5130,7 @@ export class TextBuffer {
 
     /**
      *  Get a MarkerLayer by id.
-     *  Returns a MarkerLayer or `` if no layer exists with the given id.
+     *  Returns a MarkerLayer or undefined if no layer exists with the given id.
      */
     getMarkerLayer(id: string): MarkerLayer|undefined;
 
@@ -5313,7 +5368,7 @@ export interface ThemeManager {
     /** Returns an Array of all the loaded themes. */
     getLoadedThemes(): Package[]|undefined;
 
-    // Accessing Active Themes
+    // Managing Enabled Themes
     /** Returns an Array of strings all the active theme names. */
     getActiveThemeNames(): string[]|undefined;
 
@@ -5695,7 +5750,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.23.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.24.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under

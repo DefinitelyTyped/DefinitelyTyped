@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.43.0
+// Type definitions for Mapbox GL JS v0.44.1
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -689,6 +689,9 @@ declare namespace mapboxgl {
         /** Return a LngLatBounds as a string */
         toString(): string;
 
+        /** Returns a boolean */
+        isEmpty(): boolean
+
         /** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
         static convert(input: LngLatBoundsLike): mapboxgl.LngLatBounds;
     }
@@ -1031,7 +1034,7 @@ declare namespace mapboxgl {
         'icon-size'?: number | StyleFunction | Expression;
         'icon-text-fit'?: 'none' | 'both' | 'width' | 'height';
         'icon-text-fit-padding'?: number[] | Expression;
-        'icon-image'?: string | StyleFunction;
+        'icon-image'?: string | StyleFunction | Expression;
         'icon-rotate'?: number | StyleFunction | Expression;
         'icon-padding'?: number | Expression;
         'icon-keep-upright'?: boolean;

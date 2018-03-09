@@ -1,4 +1,4 @@
-import * as when from 'saywhen';
+import when = require('saywhen');
 
 when(jasmine.createSpy('test')); // $ExpectType CallHandler<Spy>
 when(jasmine.createSpy('test')).isCalled; // $ExpectType Proxy<Spy>

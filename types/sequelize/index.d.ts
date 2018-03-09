@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.0
+// Type definitions for Sequelize 4.27.8
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -10,6 +10,8 @@
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Carven Zhang <https://github.com/zjy01>
 //                 Nikola Vidic <https://github.com/nidzov>
+//                 Florian Oellerich <https://github.com/Raigen>
+//                 Todd Bealmear <https://github.com/todd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3134,11 +3136,11 @@ declare namespace sequelize {
         $ilike: string | WherePGStatement;
         $notLike: string | WherePGStatement;
         $notILike: string | WherePGStatement;
-        $between: [number, number];
+        $between: [number, number] | [Date, Date];
         "..": [number, number];
         $notBetween: [number, number];
         "!..": [number, number];
-        $overlap: [number, number];
+        $overlap: [number, number] | [string, string];
         "&&": [number, number];
         $contains: any;
         "@>": any;
@@ -3153,7 +3155,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
+        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | WhereNested | Array<string | number> | null;
     };
 
     /**
@@ -3443,7 +3445,7 @@ declare namespace sequelize {
     /**
  * Options for Model.upsert method
      */
-    interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
+    interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions, ReturningOptions {
     }
 
     /**
@@ -3779,7 +3781,7 @@ declare namespace sequelize {
  * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
  *     model will clear the previous scope.
  */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
 
         /**
          * Search for multiple instances.
@@ -3991,8 +3993,10 @@ declare namespace sequelize {
  * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
  * whether the row was inserted or not.
  */
-        upsert(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
 
         /**
          * Create and insert multiple instances in bulk.
@@ -4060,7 +4064,12 @@ declare namespace sequelize {
         /**
          * A function that gets executed while running the query to log the sql.
          */
-        logging?: boolean | Function;
+        logging?: boolean | Function;            
+
+        /**
+         * An optional transaction to perform this query in
+         */
+        transaction?: Transaction; 
 
     }
 
@@ -5313,7 +5322,7 @@ declare namespace sequelize {
         /**
          * Only retry a query if the error matches one of these strings.
          */
-        match?: string[];
+        match?: (string|RegExp|Error)[];
 
         /**
          * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.

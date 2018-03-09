@@ -223,7 +223,7 @@ declare namespace winston {
         unhandleExceptions(...transports: TransportInstance[]): void;
         add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
         clear(): void;
-        remove(transport: TransportInstance): LoggerInstance;
+        remove(transport: string | TransportInstance): LoggerInstance;
         startTimer(): ProfileHandler;
         profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
         configure(options: LoggerOptions): void;

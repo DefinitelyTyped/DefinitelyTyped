@@ -1,4 +1,4 @@
-// Type definitions for webpack 3.8
+// Type definitions for webpack 4.0
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -9,12 +9,15 @@
 //                 Ahmed T. Ali <https://github.com/ahmed-taj>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
+//                 Jason Cheatham <https://github.com/jason0x43>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 import Tapable = require('tapable');
 import * as UglifyJS from 'uglify-js';
+import { RawSourceMap } from 'source-map';
 
 export = webpack;
 
@@ -32,6 +35,8 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
+        /** Enable production optimizations or development hints. */
+        mode?: "development" | "production" | "none";
         /** Name of the configuration. Used when loading multiple configurations. */
         name?: string;
         /**
@@ -76,7 +81,7 @@ declare namespace webpack {
         /** Capture timing information for each module. */
         profile?: boolean;
         /** Cache generated modules and chunks to improve performance for multiple incremental builds. */
-        cache?: boolean | any;
+        cache?: boolean | object;
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
         watchOptions?: Options.WatchOptions;
@@ -102,6 +107,9 @@ declare namespace webpack {
         performance?: Options.Performance;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
+
+        /** Optimization options */
+        optimization?: Options.Optimization;
     }
 
     interface Entry {
@@ -165,7 +173,7 @@ declare namespace webpack {
          *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
          *   <li>"amd" - Export to AMD (optionally named)</li>
          *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
-         *   <li>"window" - Assign to widnow</li>
+         *   <li>"window" - Assign to window</li>
          *   <li>"assign" - Assign to a global variable</li>
          *   <li>"jsonp" - Generate Webpack JSONP module<li>
          * </ul>
@@ -179,9 +187,13 @@ declare namespace webpack {
         sourcePrefix?: string;
         /** This option enables cross-origin loading of chunks. */
         crossOriginLoading?: string | boolean;
+        /** Algorithm used for generation the hash (see node.js crypto package) */
+        hashFunction?: string | ((algorithm: string, options?: any) => any);
+        /** An expression which is used to address the global object/scope in runtime code. */
+        globalObject?: string;
     }
 
-    interface BaseModule {
+    interface Module {
         /** A array of applied pre loaders. */
         preLoaders?: Rule[];
         /** A array of applied post loaders. */
@@ -200,17 +212,9 @@ declare namespace webpack {
         wrappedContextRecursive?: boolean;
         wrappedContextCritical?: boolean;
         strictExportPresence?: boolean;
-    }
-    interface OldModule extends BaseModule {
-        /** An array of automatically applied loaders. */
-        loaders: Rule[];
-    }
-    interface NewModule extends BaseModule {
         /** An array of rules applied for modules. */
         rules: Rule[];
     }
-
-    type Module = OldModule | NewModule;
 
     interface Resolve {
         /**
@@ -373,7 +377,10 @@ declare namespace webpack {
         options?: { [name: string]: any };
     }
     type Loader = string | OldLoader | NewLoader;
-
+    interface ParserOptions {
+        [optName: string]: any;
+        system?: boolean;
+    }
     /**
      * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
      * Direct rules can optionally contain delegate keys (oneOf, rules).
@@ -413,11 +420,17 @@ declare namespace webpack {
          * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options.
          * Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
          */
-        parser?: { [optName: string]: any };
+        parser?: ParserOptions;
         /** An array of Rules that is also used when the Rule matches. */
         rules?: Rule[];
         /** An array of Rules from which only the first matching Rule is used when the Rule matches. */
         oneOf?: Rule[];
+        /** Configures module resolving. */
+        resolve?: Resolve;
+        /** Configures the module type. */
+        type?: "javascript/auto" | "javascript/esm" | "javascript/dynamic" | "json" | "webassembly/experimental";
+        /** Flags a module as with or without side effects */
+        sideEffects?: boolean;
     }
     interface BaseDirectRule extends BaseRule {
         /** A condition that must be met */
@@ -491,8 +504,99 @@ declare namespace webpack {
              */
             maxEntrypointSize?: number;
         }
-        type Stats = webpack.Stats.ToStringOptions;
+        type Stats = Stats.ToStringOptions;
         type WatchOptions = ICompiler.WatchOptions;
+        interface CacheGroupsOptions {
+            /** Assign modules to a cache group */
+            test?: ((...args: any[]) => boolean) | string | RegExp;
+            /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
+            chunks?: "initial" | "async" | "all";
+            /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
+            enforce?: boolean;
+            /** Priority of this cache group */
+            priority?: number;
+            /** Minimal size for the created chunk */
+            minSize?: number;
+            /** Minimum number of times a module has to be duplicated until it's considered for splitting */
+            minChunks?: number;
+            /** Maximum number of requests which are accepted for on-demand loading */
+            maxAsyncRequests?: number;
+            /** Maximum number of initial chunks which are accepted for an entry point */
+            maxInitialRequests?: number;
+            /** Try to reuse existing chunk (with name) when it has matching modules */
+            reuseExistingChunk?: boolean;
+            /** Give chunks created a name (chunks with equal name are merged) */
+            name?: boolean | string | ((...args: any[]) => any);
+        }
+        interface SplitChunksOptions {
+            /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
+            chunks?: "initial" | "async" | "all";
+            /** Minimal size for the created chunk */
+            minSize?: number;
+            /** Minimum number of times a module has to be duplicated until it's considered for splitting */
+            minChunks?: number;
+            /** Maximum number of requests which are accepted for on-demand loading */
+            maxAsyncRequests?: number;
+            /** Maximum number of initial chunks which are accepted for an entry point */
+            maxInitialRequests?: number;
+            /** Give chunks created a name (chunks with equal name are merged) */
+            name?: boolean | string | ((...args: any[]) => any);
+            /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
+            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | CacheGroupsOptions;
+        }
+        interface RuntimeChunkOptions {
+            /** The name or name factory for the runtime chunks. */
+            name?: string | ((...args: any[]) => any);
+        }
+        interface Optimization {
+            /**
+             *  Modules are removed from chunks when they are already available in all parent chunk groups.
+             *  This reduces asset size. Smaller assets also result in faster builds since less code generation has to be performed.
+             */
+            removeAvailableModules?: boolean;
+            /** Empty chunks are removed. This reduces load in filesystem and results in faster builds. */
+            removeEmptyChunks?: boolean;
+            /** Equal chunks are merged. This results in less code generation and faster builds. */
+            mergeDuplicateChunks?: boolean;
+            /** Chunks which are subsets of other chunks are determined and flagged in a way that subsets don’t have to be loaded when the bigger chunk has been loaded. */
+            flagIncludedChunks?: boolean;
+            /** Give more often used ids smaller (shorter) values. */
+            occurrenceOrder?: boolean;
+            /** Determine exports for each module when possible. This information is used by other optimizations or code generation. I. e. to generate more efficient code for export * from. */
+            providedExports?: boolean;
+            /**
+             *  Determine used exports for each module. This depends on optimization.providedExports. This information is used by other optimizations or code generation.
+             *  I. e. exports are not generated for unused exports, export names are mangled to single char identifiers when all usages are compatible.
+             *  DCE in minimizers will benefit from this and can remove unused exports.
+             */
+            usedExports?: boolean;
+            /**
+             *  Recognise the sideEffects flag in package.json or rules to eliminate modules. This depends on optimization.providedExports and optimization.usedExports.
+             *  These dependencies have a cost, but eliminating modules has positive impact on performance because of less code generation. It depends on your codebase.
+             *  Try it for possible performance wins.
+             */
+            sideEffects?: boolean;
+            /** Tries to find segments of the module graph which can be safely concatenated into a single module. Depends on optimization.providedExports and optimization.usedExports. */
+            concatenateModules?: boolean;
+            /** Finds modules which are shared between chunk and splits them into separate chunks to reduce duplication or separate vendor modules from application modules. */
+            splitChunks?: SplitChunksOptions | false;
+            /** Create a separate chunk for the webpack runtime code and chunk hash maps. This chunk should be inlined into the HTML */
+            runtimeChunk?: boolean | "single" | "multiple" | RuntimeChunkOptions;
+            /** Avoid emitting assets when errors occur. */
+            noEmitOnErrors?: boolean;
+            /** Instead of numeric ids, give modules readable names for better debugging. */
+            namedModules?: boolean;
+            /** Instead of numeric ids, give chunks readable names for better debugging. */
+            namedChunks?: boolean;
+            /** Defines the process.env.NODE_ENV constant to a compile-time-constant value. This allows to remove development only code from code. */
+            nodeEnv?: string | false;
+            /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
+            minimize?: boolean;
+            /** Minimizer(s) to use for minimizing the output */
+            minimizer?: Array<Plugin | Tapable.Plugin>;
+            /** Generate records with relative paths to be able to move the context folder". */
+            portableRecords?: boolean;
+        }
     }
 
     // tslint:disable-next-line:interface-name
@@ -541,7 +645,7 @@ declare namespace webpack {
         type Handler = ICompiler.Handler;
         type WatchOptions = ICompiler.WatchOptions;
 
-        class Watching implements webpack.Watching {
+        class Watching implements Watching {
             constructor(compiler: Compiler, watchOptions: Watching.WatchOptions, handler: Watching.Handler);
 
             close(callback: () => void): void;
@@ -826,6 +930,7 @@ declare namespace webpack {
         constructor(options: any);
     }
 
+    /** @deprecated use config.optimization.namedModules */
     class NamedModulesPlugin extends Plugin {
         constructor();
     }
@@ -834,15 +939,12 @@ declare namespace webpack {
         constructor(nameResolver?: (chunk: any) => string | null);
     }
 
+    /** @deprecated use config.optimization.noEmitOnErrors */
     class NoEmitOnErrorsPlugin extends Plugin {
         constructor();
     }
 
     /** @deprecated use webpack.NoEmitOnErrorsPlugin */
-    class NoErrorsPlugin extends Plugin {
-        constructor();
-    }
-
     class NormalModuleReplacementPlugin extends Plugin {
         constructor(resourceRegExp: any, newResource: any);
     }
@@ -863,6 +965,10 @@ declare namespace webpack {
 
     class ProvidePlugin extends Plugin {
         constructor(definitions: { [key: string]: any });
+    }
+
+    class SplitChunksPlugin extends Plugin {
+        constructor(options?: Options.SplitChunksOptions);
     }
 
     class SourceMapDevToolPlugin extends Plugin {
@@ -896,6 +1002,7 @@ declare namespace webpack {
     }
 
     namespace optimize {
+        /** @deprecated use config.optimization.concatenateModules */
         class ModuleConcatenationPlugin extends Plugin { }
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
@@ -919,62 +1026,6 @@ declare namespace webpack {
                  * Defaults to false.
                  */
                 moveToParents?: boolean;
-            }
-        }
-
-        class CommonsChunkPlugin extends Plugin {
-            constructor(options?: CommonsChunkPlugin.Options);
-        }
-
-        namespace CommonsChunkPlugin {
-            type MinChunksFn = (module: any, count: number) => boolean;
-
-            interface Options {
-                /**
-                 * The chunk name of the commons chunk. An existing chunk can be selected by passing a name of an existing chunk.
-                 * If an array of strings is passed this is equal to invoking the plugin multiple times for each chunk name.
-                 * If omitted and `options.async` or `options.children` is set all chunks are used,
-                 * otherwise `options.filename` is used as chunk name.
-                 */
-                name?: string;
-                names?: string[];
-
-                /**
-                 * The filename template for the commons chunk. Can contain the same placeholders as `output.filename`.
-                 * If omitted the original filename is not modified (usually `output.filename` or `output.chunkFilename`).
-                 */
-                filename?: string;
-
-                /**
-                 * The minimum number of chunks which need to contain a module before it's moved into the commons chunk.
-                 * The number must be greater than or equal 2 and lower than or equal to the number of chunks.
-                 * Passing `Infinity` just creates the commons chunk, but moves no modules into it.
-                 * By providing a `function` you can add custom logic. (Defaults to the number of chunks)
-                 */
-                minChunks?: number | MinChunksFn;
-
-                /**
-                 * Select the source chunks by chunk names. The chunk must be a child of the commons chunk.
-                 * If omitted all entry chunks are selected.
-                 */
-                chunks?: string[];
-
-                /**
-                 * If `true` all children of the commons chunk are selected
-                 */
-                children?: boolean;
-
-                /**
-                 * If `true` a new async commons chunk is created as child of `options.name` and sibling of `options.chunks`.
-                 * It is loaded in parallel with `options.chunks`. It is possible to change the name of the output file
-                 * by providing the desired string instead of `true`.
-                 */
-                async?: boolean | string;
-
-                /**
-                 * Minimum size of all common module before a commons chunk is created.
-                 */
-                minSize?: number;
             }
         }
 
@@ -1020,7 +1071,7 @@ declare namespace webpack {
 
     namespace loader {
         interface Loader extends Function {
-            (this: LoaderContext, source: string | Buffer, sourceMap: string | Buffer): string | Buffer | void | undefined;
+            (this: LoaderContext, source: string | Buffer, sourceMap?: RawSourceMap): string | Buffer | void | undefined;
 
             /**
              * The order of chained loaders are always called from right to left.
@@ -1029,7 +1080,7 @@ declare namespace webpack {
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
              */
-            pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
+            pitch?(remainingRequest: string, precedingRequest: string, data: any): any;
 
             /**
              * By default, the resource file is treated as utf-8 string and passed as String to the loader.
@@ -1040,7 +1091,7 @@ declare namespace webpack {
             raw?: boolean;
         }
 
-        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: string | Buffer) => void;
+        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: RawSourceMap) => void;
 
         interface LoaderContext {
             /**
@@ -1195,11 +1246,6 @@ declare namespace webpack {
             inputValue: any;
 
             /**
-             * The options passed to the Compiler.
-             */
-            options: any;
-
-            /**
              * A boolean flag. It is set when in debug mode.
              */
             debug: boolean;
@@ -1253,43 +1299,49 @@ declare namespace webpack {
              * Hacky access to the Module object being loaded.
              */
             _module: any;
+
+            /** Flag if HMR is enabled */
+            hot: boolean;
         }
     }
 
     /** @deprecated */
     namespace compiler {
         /** @deprecated use webpack.Compiler */
+        // tslint:disable-next-line:no-unnecessary-qualifier
         type Compiler = webpack.Compiler;
 
         /** @deprecated use webpack.Compiler.Watching */
-        type Watching = webpack.Compiler.Watching;
+        type Watching = Compiler.Watching;
 
         /** @deprecated use webpack.Compiler.WatchOptions */
-        type WatchOptions = webpack.Compiler.WatchOptions;
+
+        type WatchOptions = Compiler.WatchOptions;
 
         /** @deprecated use webpack.Stats */
+        // tslint:disable-next-line:no-unnecessary-qualifier
         type Stats = webpack.Stats;
 
         /** @deprecated use webpack.Stats.ToJsonOptions */
-        type StatsOptions = webpack.Stats.ToJsonOptions;
+        type StatsOptions = Stats.ToJsonOptions;
 
         /** @deprecated use webpack.Stats.ToStringOptions */
-        type StatsToStringOptions = webpack.Stats.ToStringOptions;
+        type StatsToStringOptions = Stats.ToStringOptions;
 
         /** @deprecated use webpack.Compiler.Handler */
-        type CompilerCallback = webpack.Compiler.Handler;
+        type CompilerCallback = Compiler.Handler;
     }
 
     /** @deprecated use webpack.Options.Performance */
-    type PerformanceOptions = webpack.Options.Performance;
+    type PerformanceOptions = Options.Performance;
     /** @deprecated use webpack.Options.WatchOptions */
-    type WatchOptions = webpack.Options.WatchOptions;
+    type WatchOptions = Options.WatchOptions;
     /** @deprecated use webpack.EvalSourceMapDevToolPlugin.Options */
-    type EvalSourceMapDevToolPluginOptions = webpack.EvalSourceMapDevToolPlugin.Options;
+    type EvalSourceMapDevToolPluginOptions = EvalSourceMapDevToolPlugin.Options;
     /** @deprecated use webpack.SourceMapDevToolPlugin.Options */
-    type SourceMapDevToolPluginOptions = webpack.SourceMapDevToolPlugin.Options;
+    type SourceMapDevToolPluginOptions = SourceMapDevToolPlugin.Options;
     /** @deprecated use webpack.optimize.UglifyJsPlugin.CommentFilter */
-    type UglifyCommentFunction = webpack.optimize.UglifyJsPlugin.CommentFilter;
+    type UglifyCommentFunction = optimize.UglifyJsPlugin.CommentFilter;
     /** @deprecated use webpack.optimize.UglifyJsPlugin.Options */
-    type UglifyPluginOptions = webpack.optimize.UglifyJsPlugin.Options;
+    type UglifyPluginOptions = optimize.UglifyJsPlugin.Options;
 }
