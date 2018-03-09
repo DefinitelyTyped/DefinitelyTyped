@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // This currently fails for an option that does not appear to be in OL 4
-        "no-any-union": false,
         // Not sure how to work around this, or if it's necessary to
         "no-declare-current-package": false,
         "no-internal-module": false,

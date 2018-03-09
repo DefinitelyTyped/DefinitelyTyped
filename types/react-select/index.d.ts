@@ -130,6 +130,67 @@ export interface MenuRendererProps<TValue = OptionValues> {
     valueArray: Options<TValue>;
 }
 
+export interface OptionComponentProps<TValue = OptionValues> {
+    /**
+     * Classname(s) to apply to the option component.
+     */
+    className?: string;
+
+    /**
+     * Currently focused option.
+     */
+    focusOption?: Option<TValue>;
+
+    inputValue?: string;
+    instancePrefix?: string;
+
+    /**
+     * True if this option is disabled.
+     */
+    isDisabled?: boolean;
+
+    /**
+     * True if this option is focused.
+     */
+    isFocused?: boolean;
+
+    /**
+     * True if this option is selected.
+     */
+    isSelected?: boolean;
+
+    /**
+     * Callback to be invoked when this option is focused.
+     */
+    onFocus?: (option: Option<TValue>, event: any) => void;
+
+    /**
+     * Callback to be invoked when this option is selected.
+     */
+    onSelect?: (option: Option<TValue>, event: any) => void;
+
+    /**
+     * Option to be rendered by this component.
+     */
+    option: Option<TValue>;
+
+    /**
+     * Index of the option being rendered in the list
+     */
+    optionIndex?: number;
+
+    /**
+     * Callback to invoke when removing an option from a multi-selection. (Not necessarily the one
+     * being rendered)
+     */
+    removeValue?: (value: TValue | TValue[]) => void;
+
+    /**
+     * Callback to invoke to select an option. (Not necessarily the one being rendered)
+     */
+    selectValue?: (value: TValue | TValue[]) => void;
+}
+
 export interface ArrowRendererProps {
     /**
      * Arrow mouse down event handler.
@@ -388,7 +449,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * option component to render in dropdown
      */
-    optionComponent?: React.ComponentType<TValue>;
+    optionComponent?: React.ComponentType<OptionComponentProps<TValue>>;
     /**
      * function which returns a custom way to render the options in the menu
      */

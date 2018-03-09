@@ -11712,7 +11712,7 @@ declare module olx {
         }
 
         interface DragAndDropOptions {
-            formatConstructors?: Array<((n: ol.format.Feature) => any)>;
+            formatConstructors?: Array<typeof ol.format.Feature>;
             projection: ol.ProjectionLike;
             target?: Element;
             source?: ol.source.Vector;
@@ -12306,7 +12306,7 @@ declare module olx {
             anchorYUnits?: ol.style.IconAnchorUnits;
             color?: (ol.Color | string);
             crossOrigin?: (string);
-            img?: (any | HTMLCanvasElement);
+            img?: (HTMLImageElement | HTMLCanvasElement);
             offset?: number[];
             offsetOrigin?: ol.style.IconOrigin;
             opacity?: number;
