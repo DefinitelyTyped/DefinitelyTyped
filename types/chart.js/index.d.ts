@@ -199,7 +199,7 @@ declare namespace Chart {
         circumference?: number;
         rotation?: number;
         // Plugins can require any options
-        plugins?: any;
+        plugins?: { [plugin: string]: any };
     }
 
     interface ChartFontOptions {
