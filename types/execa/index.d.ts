@@ -23,7 +23,11 @@ declare namespace execa {
          * Think of this as a mix of `child_process.execFile` and `child_process.spawn`.
          * @returns a `child_process` instance which is enhanced to also be a `Promise` for a result `Object` with `stdout` and `stderr` properties.
          */
-        (file: string, args?: string[], options?: Options): ExecaChildProcess;
+        (
+            file: string,
+            args?: ReadonlyArray<string>,
+            options?: Options
+        ): ExecaChildProcess;
         (file: string, options?: Options): ExecaChildProcess;
 
         /**
@@ -32,7 +36,11 @@ declare namespace execa {
          * Think of this as a mix of `child_process.execFile` and `child_process.spawn`.
          * @returns a `child_process` instance which is enhanced to also be a `Promise` for `stdout`.
          */
-        stdout(file: string, args?: string[], options?: Options): Promise<string>;
+        stdout(
+            file: string,
+            args?: ReadonlyArray<string>,
+            options?: Options
+        ): Promise<string>;
         stdout(file: string, options?: Options): Promise<string>;
 
         /**
@@ -41,7 +49,11 @@ declare namespace execa {
          * Think of this as a mix of `child_process.execFile` and `child_process.spawn`.
          * @returns a `child_process` instance which is enhanced to also be a `Promise` for `stderr`.
          */
-        stderr(file: string, args?: string[], options?: Options): Promise<string>;
+        stderr(
+            file: string,
+            args?: ReadonlyArray<string>,
+            options?: Options
+        ): Promise<string>;
         stderr(file: string, options?: Options): Promise<string>;
 
         /**
@@ -59,7 +71,11 @@ declare namespace execa {
          * @returns the same result object as `child_process.spawnSync`.
          * @throws an `Error` if the command fails.
          */
-        sync(file: string, args?: string[], options?: SyncOptions): ExecaReturns;
+        sync(
+            file: string,
+            args?: ReadonlyArray<string>,
+            options?: SyncOptions
+        ): ExecaReturns;
         sync(file: string, options?: SyncOptions): ExecaReturns;
 
         /**
@@ -71,7 +87,14 @@ declare namespace execa {
         shellSync(command: string, options?: Options): ExecaReturns;
     }
 
-    type StdIOOption = 'pipe' | 'ipc' | 'ignore' | Stream | number | null | undefined;
+    type StdIOOption =
+        | 'pipe'
+        | 'ipc'
+        | 'ignore'
+        | Stream
+        | number
+        | null
+        | undefined;
 
     interface CommonOptions {
         /**
@@ -103,7 +126,7 @@ declare namespace execa {
          *
          * @see https://nodejs.org/api/child_process.html#child_process_options_stdio
          */
-        stdio?: 'pipe' | 'ignore' | 'inherit' | StdIOOption[];
+        stdio?: 'pipe' | 'ignore' | 'inherit' | ReadonlyArray<StdIOOption>;
         /**
          * Prepare child to run independently of its parent process.
          * Specific behavior depends on the platform.
@@ -253,10 +276,16 @@ declare namespace execa {
     type ExecaError = Error & ExecaReturns;
 
     interface ExecaChildPromise {
-        catch<TResult = never>(onrejected?: ((reason: ExecaError) => TResult | PromiseLike<TResult>) | null): Promise<ExecaReturns | TResult>;
+        catch<TResult = never>(
+            onrejected?:
+                | ((reason: ExecaError) => TResult | PromiseLike<TResult>)
+                | null
+        ): Promise<ExecaReturns | TResult>;
     }
 
-    type ExecaChildProcess = ChildProcess & ExecaChildPromise & Promise<ExecaReturns>;
+    type ExecaChildProcess = ChildProcess &
+        ExecaChildPromise &
+        Promise<ExecaReturns>;
 }
 
 declare var execa: execa.ExecaStatic;
