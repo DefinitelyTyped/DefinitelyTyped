@@ -1091,6 +1091,7 @@ export class DeviceOrientation extends Object {
 /**
  * Objects that need to clean up after themselves.
  */
+/* tslint:disable-next-line:no-unnecessary-class */
 export class Disposable {
     /**
      * Objects that need to clean up after themselves.
@@ -1915,6 +1916,7 @@ export namespace format {
      *
      * @api stable
      */
+    /* tslint:disable-next-line:no-unnecessary-class */
     class Feature {
         /**
          * @classdesc
@@ -3608,6 +3610,7 @@ export namespace format {
      *
      * @struct
      */
+    /* tslint:disable-next-line:no-unnecessary-class */
     class XML {
         /**
          * @classdesc
@@ -5944,6 +5947,7 @@ export namespace interaction {
  * @struct
  * @api
  */
+/* tslint:disable-next-line:no-unnecessary-class */
 export class Kinetic {
     /**
      * @classdesc
@@ -8052,6 +8056,7 @@ export namespace render {
      * @struct
      * @api
      */
+    /* tslint:disable-next-line:no-unnecessary-class */
     class VectorContext {
         /**
          * Context for drawing geometries.  A vector context is available on render
@@ -9737,6 +9742,7 @@ export namespace style {
      * @api
      * @param opt_options Options.
      */
+    /* tslint:disable-next-line:no-unnecessary-class */
     class AtlasManager {
         /**
          * Manages the creation of image atlases.
