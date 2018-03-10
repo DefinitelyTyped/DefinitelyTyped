@@ -18,6 +18,7 @@
  * @template TReturn The return type of the field resolver.
  * @template TArgs The type of supplied arguments.
  * @template TContext The type of the current resolver context.
+ * @returns A batch function to resolve all fields for the given sources in a single batch.
  */
 export function createBatchResolver<
     TSource,
