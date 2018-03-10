@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "fabric-tests.ts"
+        "test/index.ts",
+        "test/import.ts"
     ]
 }

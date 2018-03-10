@@ -67,8 +67,8 @@ class ReactGeosuggest extends React.Component {
                     style={styles}
                     suggestsClassName="suggestsClassName"
                     suggestsHiddenClassName="suggestsHiddenClassName"
-                    suggestsItemActiveClassName="suggestsItemActiveClassName"
-                    suggestsItemClassName="suggestsItemClassName"
+                    suggestItemActiveClassName="suggestItemActiveClassName"
+                    suggestItemClassName="suggestItemClassName"
                     types={["geocode", "(regions)"]}
                 />
 

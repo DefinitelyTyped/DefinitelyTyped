@@ -41,7 +41,7 @@ spinner.stopAndPersist({text: 'all done'});
 spinner.stopAndPersist({symbol: '@', text: 'all done'});
 
 const resolves = Promise.resolve(1);
-spinner.promise(resolves, {
+Ora.promise(resolves, {
     stream: new PassThrough(),
     text: 'foo',
     color: 'blue',

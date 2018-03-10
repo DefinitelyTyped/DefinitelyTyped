@@ -3,6 +3,7 @@
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Aleh Zasypkin <https://github.com/azasypkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -118,14 +119,14 @@ declare class Ora {
     text: string;
 
     color: Color;
-
-    promise(action: PromiseLike<any>, options?: Options | string): Ora;
 }
 
 interface oraFactory {
     (options?: Options | string): Ora;
 
     new (options?: Options | string): Ora;
+
+    promise(action: PromiseLike<any>, options?: Options | string): Ora;
 }
 
 declare const ora: oraFactory;

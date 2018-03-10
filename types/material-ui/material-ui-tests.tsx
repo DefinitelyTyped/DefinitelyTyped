@@ -4754,7 +4754,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
