@@ -91,6 +91,7 @@ declare namespace execa {
         | 'pipe'
         | 'ipc'
         | 'ignore'
+        | 'inherit'
         | Stream
         | number
         | null
