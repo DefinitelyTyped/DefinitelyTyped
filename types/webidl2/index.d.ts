@@ -219,7 +219,7 @@ export interface ConstantMemberType {
     /** Whether its type is nullable. */
     nullable: boolean;
     /** The type of the constant (a simple type, the type name). */
-    idlType: string;
+    idlType: IDLTypeDescription;
     /** The name of the constant. */
     name: string;
     /** The constant value */
