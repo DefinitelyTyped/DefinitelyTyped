@@ -242,7 +242,7 @@ export namespace Collection {
          * @param type Type.
          * @param opt_element Element.
          */
-        constructor(type: ol.Collection.EventType, opt_element?: any);
+        constructor(type: EventType, opt_element?: any);
 
         /**
          * The element that is added to or removed from the collection.
@@ -302,7 +302,7 @@ export namespace control {
      * @param opt_options Attribution options.
      * @api stable
      */
-    class Attribution extends control.Control {
+    class Attribution extends Control {
         /**
          * @classdesc
          * Control to show all the attributions associated with the layer sources
@@ -452,7 +452,7 @@ export namespace control {
      * @param opt_options Options.
      * @api stable
      */
-    class FullScreen extends control.Control {
+    class FullScreen extends Control {
         /**
          * @classdesc
          * Provides a button that when clicked fills up the full screen with the map.
@@ -483,7 +483,7 @@ export namespace control {
      * @return Controls.
      * @api stable
      */
-    function defaults(opt_options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
+    function defaults(opt_options?: olx.control.DefaultsOptions): ol.Collection<Control>;
 
     /**
      * @classdesc
@@ -496,7 +496,7 @@ export namespace control {
      *     options.
      * @api stable
      */
-    class MousePosition extends control.Control {
+    class MousePosition extends Control {
         /**
          * @classdesc
          * A control to show the 2D coordinates of the mouse cursor. By default, these
@@ -561,7 +561,7 @@ export namespace control {
      * @param opt_options OverviewMap options.
      * @api
      */
-    class OverviewMap extends control.Control {
+    class OverviewMap extends Control {
         /**
          * Create a new control with a map acting as an overview map for an other
          * defined map.
@@ -624,7 +624,7 @@ export namespace control {
      * @param opt_options Rotate options.
      * @api stable
      */
-    class Rotate extends control.Control {
+    class Rotate extends Control {
         /**
          * @classdesc
          * A button control to reset rotation to 0.
@@ -657,7 +657,7 @@ export namespace control {
      * @param opt_options Scale line options.
      * @api stable
      */
-    class ScaleLine extends control.Control {
+    class ScaleLine extends Control {
         /**
          * @classdesc
          * A control displaying rough y-axis distances, calculated for the center of the
@@ -680,7 +680,7 @@ export namespace control {
          * @observable
          * @api stable
          */
-        getUnits(): (ol.control.ScaleLine.Units);
+        getUnits(): (ScaleLine.Units);
 
         /**
          * Update the scale line element.
@@ -695,7 +695,7 @@ export namespace control {
          * @observable
          * @api stable
          */
-        setUnits(units: ol.control.ScaleLine.Units): void;
+        setUnits(units: ScaleLine.Units): void;
     }
 
     namespace ScaleLine {
@@ -720,7 +720,7 @@ export namespace control {
      * @param opt_options Zoom options.
      * @api stable
      */
-    class Zoom extends control.Control {
+    class Zoom extends Control {
         /**
          * @classdesc
          * A control with 2 buttons, one for zoom in and one for zoom out.
@@ -744,7 +744,7 @@ export namespace control {
      * @param opt_options Zoom slider options.
      * @api stable
      */
-    class ZoomSlider extends control.Control {
+    class ZoomSlider extends Control {
         /**
          * @classdesc
          * A slider type of control for zooming.
@@ -774,7 +774,7 @@ export namespace control {
      * @param opt_options Options.
      * @api stable
      */
-    class ZoomToExtent extends control.Control {
+    class ZoomToExtent extends Control {
         /**
          * @classdesc
          * A button control which, when pressed, changes the map view to a specific
@@ -1790,7 +1790,7 @@ export namespace format {
      * @param opt_options Options.
      * @api
      */
-    class EsriJSON extends format.JSONFeature {
+    class EsriJSON extends JSONFeature {
         /**
          * @classdesc
          * Feature format for reading and writing data in the EsriJSON format.
@@ -1942,7 +1942,7 @@ export namespace format {
      * @param opt_options Options.
      * @api stable
      */
-    class GeoJSON extends format.JSONFeature {
+    class GeoJSON extends JSONFeature {
         /**
          * @classdesc
          * Feature format for reading and writing data in the GeoJSON format.
@@ -2064,7 +2064,7 @@ export namespace format {
      *     Optional configuration object.
      * @api stable
      */
-    class GML extends format.GMLBase {
+    class GML extends GMLBase {
         /**
          * @classdesc
          * Feature format for reading and writing data in the GML format
@@ -2106,7 +2106,7 @@ export namespace format {
      * @param opt_options Optional configuration object.
      * @api
      */
-    class GML2 extends format.GMLBase {
+    class GML2 extends GMLBase {
         /**
          * @classdesc
          * Feature format for reading and writing data in the GML format,
@@ -2128,7 +2128,7 @@ export namespace format {
      *     Optional configuration object.
      * @api
      */
-    class GML3 extends format.GMLBase {
+    class GML3 extends GMLBase {
         /**
          * @classdesc
          * Feature format for reading and writing data in the GML format
@@ -2184,7 +2184,7 @@ export namespace format {
      * @param opt_options
      *     Optional configuration object.
      */
-    class GMLBase extends format.XMLFeature {
+    class GMLBase extends XMLFeature {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -2217,7 +2217,7 @@ export namespace format {
      * @param opt_options Options.
      * @api stable
      */
-    class GPX extends format.XMLFeature {
+    class GPX extends XMLFeature {
         /**
          * @classdesc
          * Feature format for reading and writing data in the GPX format.
@@ -2297,7 +2297,7 @@ export namespace format {
      * @param opt_options Options.
      * @api
      */
-    class IGC extends format.TextFeature {
+    class IGC extends TextFeature {
         /**
          * @classdesc
          * Feature format for `*.igc` flight recording files.
@@ -2345,7 +2345,7 @@ export namespace format {
      * Base class for JSON feature formats.
      *
      */
-    class JSONFeature extends format.Feature {
+    class JSONFeature extends Feature {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -2366,7 +2366,7 @@ export namespace format {
      * @param opt_options Options.
      * @api stable
      */
-    class KML extends format.XMLFeature {
+    class KML extends XMLFeature {
         /**
          * @classdesc
          * Feature format for reading and writing data in the KML format.
@@ -2460,7 +2460,7 @@ export namespace format {
      * @param opt_options Options.
      * @api
      */
-    class MVT extends format.Feature {
+    class MVT extends Feature {
         /**
          * @classdesc
          * Feature format for reading data in the Mapbox MVT format.
@@ -2502,7 +2502,7 @@ export namespace format {
          * @returns `<Intersects>` operator.
          * @api
          */
-        function intersects(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): ol.format.filter.Intersects;
+        function intersects(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): Intersects;
 
         /**
          * Create a logical `<Or>` operator between two or more filter conditions.
@@ -2511,7 +2511,7 @@ export namespace format {
          * @returns `<Or>` operator.
          * @api
          */
-        function or(...conditions: ol.format.filter.Filter[]): ol.format.filter.Or;
+        function or(...conditions: Filter[]): Or;
 
         /**
          * Create a logical `<And>` operator between two or more filter conditions.
@@ -2520,7 +2520,7 @@ export namespace format {
          * @returns `<And>` operator.
          * @api
          */
-        function and(...conditions: ol.format.filter.Filter[]): ol.format.filter.And;
+        function and(...conditions: Filter[]): And;
 
         /**
          * Represents a logical `<Not>` operator for a filter condition.
@@ -2529,7 +2529,7 @@ export namespace format {
          * @returns `<Not>` operator.
          * @api
          */
-        function not(condition: ol.format.filter.Filter): ol.format.filter.Not;
+        function not(condition: Filter): Not;
 
         /**
          * Create a `<BBOX>` operator to test whether a geometry-valued property
@@ -2542,7 +2542,7 @@ export namespace format {
          * @returns `<BBOX>` operator.
          * @api
          */
-        function bbox(geometryName: string, extent: ol.Extent, opt_srsName?: string): ol.format.filter.Bbox;
+        function bbox(geometryName: string, extent: ol.Extent, opt_srsName?: string): Bbox;
 
         /**
          * Create a `<Within>` operator to test whether a geometry-valued property
@@ -2555,7 +2555,7 @@ export namespace format {
          * @returns `<Within>` operator.
          * @api
          */
-        function within(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): ol.format.filter.Within;
+        function within(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): Within;
 
         /**
          * Creates a `<PropertyIsEqualTo>` comparison operator.
@@ -2566,7 +2566,7 @@ export namespace format {
          * @returns `<PropertyIsEqualTo>` operator.
          * @api
          */
-        function equalTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): ol.format.filter.EqualTo;
+        function equalTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): EqualTo;
 
         /**
          * Creates a `<PropertyIsNotEqualTo>` comparison operator.
@@ -2577,7 +2577,7 @@ export namespace format {
          * @returns `<PropertyIsNotEqualTo>` operator.
          * @api
          */
-        function notEqualTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): ol.format.filter.NotEqualTo;
+        function notEqualTo(propertyName: string, expression: string | number, opt_matchCase?: boolean): NotEqualTo;
 
         /**
          * Creates a `<PropertyIsLessThan>` comparison operator.
@@ -2587,7 +2587,7 @@ export namespace format {
          * @returns `<PropertyIsLessThan>` operator.
          * @api
          */
-        function lessThan(propertyName: string, expression: number): ol.format.filter.LessThan;
+        function lessThan(propertyName: string, expression: number): LessThan;
 
         /**
          * Creates a `<PropertyIsLessThanOrEqualTo>` comparison operator.
@@ -2597,7 +2597,7 @@ export namespace format {
          * @returns `<PropertyIsLessThanOrEqualTo>` operator.
          * @api
          */
-        function lessThanOrEqualTo(propertyName: string, expression: number): ol.format.filter.LessThanOrEqualTo;
+        function lessThanOrEqualTo(propertyName: string, expression: number): LessThanOrEqualTo;
 
         /**
          * Creates a `<PropertyIsGreaterThan>` comparison operator.
@@ -2607,7 +2607,7 @@ export namespace format {
          * @returns `<PropertyIsGreaterThan>` operator.
          * @api
          */
-        function greaterThan(propertyName: string, expression: number): ol.format.filter.GreaterThan;
+        function greaterThan(propertyName: string, expression: number): GreaterThan;
 
         /**
          * Creates a `<PropertyIsGreaterThanOrEqualTo>` comparison operator.
@@ -2617,7 +2617,7 @@ export namespace format {
          * @returns `<PropertyIsGreaterThanOrEqualTo>` operator.
          * @api
          */
-        function greaterThanOrEqualTo(propertyName: string, expression: number): ol.format.filter.GreaterThanOrEqualTo;
+        function greaterThanOrEqualTo(propertyName: string, expression: number): GreaterThanOrEqualTo;
 
         /**
          * Creates a `<PropertyIsNull>` comparison operator to test whether a property value
@@ -2627,7 +2627,7 @@ export namespace format {
          * @returns `<PropertyIsNull>` operator.
          * @api
          */
-        function isNull(propertyName: string): ol.format.filter.IsNull;
+        function isNull(propertyName: string): IsNull;
 
         /**
          * Creates a `<PropertyIsBetween>` comparison operator to test whether an expression
@@ -2639,7 +2639,7 @@ export namespace format {
          * @returns `<PropertyIsBetween>` operator.
          * @api
          */
-        function between(propertyName: string, lowerBoundary: number, upperBoundary: number): ol.format.filter.IsBetween;
+        function between(propertyName: string, lowerBoundary: number, upperBoundary: number): IsBetween;
 
         /**
          * Represents a `<PropertyIsLike>` comparison operator that matches a string property
@@ -2657,7 +2657,7 @@ export namespace format {
          * @returns `<PropertyIsLike>` operator.
          * @api
          */
-        function like(propertyName: string, pattern: string, opt_wildCard?: string, opt_singleChar?: string, opt_escapeChar?: string, opt_matchCase?: boolean): ol.format.filter.IsLike;
+        function like(propertyName: string, pattern: string, opt_wildCard?: string, opt_singleChar?: string, opt_escapeChar?: string, opt_matchCase?: boolean): IsLike;
 
         /**
          * Create a `<During>` temporal operator.
@@ -2668,7 +2668,7 @@ export namespace format {
          * @returns `<During>` operator.
          * @api
          */
-        function during(propertyName: string, begin: string, end: string): ol.format.filter.During;
+        function during(propertyName: string, begin: string, end: string): During;
 
         /**
          * @classdesc
@@ -2710,7 +2710,7 @@ export namespace format {
          *    set on geometries when this is not provided.
          * @api
          */
-        class Spatial extends format.filter.Filter {
+        class Spatial extends Filter {
             /**
              * @classdesc
              * Represents a spatial operator to test whether a geometry-valued property
@@ -2737,7 +2737,7 @@ export namespace format {
          *    set on geometries when this is not provided.
          * @api
          */
-        class Intersects extends format.filter.Spatial {
+        class Intersects extends Spatial {
             /**
              * @classdesc
              * Represents a `<Intersects>` operator to test whether a geometry-valued property
@@ -2763,7 +2763,7 @@ export namespace format {
          *    set on geometries when this is not provided.
          * @api
          */
-        class Within extends format.filter.Spatial {
+        class Within extends Spatial {
             /**
              * @classdesc
              * Represents a `<Within>` operator to test whether a geometry-valued property
@@ -2783,7 +2783,7 @@ export namespace format {
          * Abstract class; normally only used for creating subclasses and not instantiated in apps.
          * Base class for WFS GetFeature n-ary logical filters.
          */
-        class LogicalNary extends format.filter.Filter { }
+        class LogicalNary extends Filter { }
 
         /**
          * @classdesc
@@ -2792,7 +2792,7 @@ export namespace format {
          * @param conditions Conditions
          * @api
          */
-        class And extends format.filter.LogicalNary {
+        class And extends LogicalNary {
             /**
              * @classdesc
              * Represents a logical <And> operator between two or more filter conditions.
@@ -2800,7 +2800,7 @@ export namespace format {
              * @param conditions Conditions
              * @api
              */
-            constructor(...conditions: ol.format.filter.Filter[]);
+            constructor(...conditions: Filter[]);
         }
 
         /**
@@ -2810,7 +2810,7 @@ export namespace format {
          * @param conditions Conditions
          * @api
          */
-        class Or extends format.filter.LogicalNary {
+        class Or extends LogicalNary {
             /**
              * @classdesc
              * Represents a logical <Or> operator between two or more filter conditions.
@@ -2818,7 +2818,7 @@ export namespace format {
              * @param conditions Conditions
              * @api
              */
-            constructor(...conditions: ol.format.filter.Filter[]);
+            constructor(...conditions: Filter[]);
         }
 
         /**
@@ -2832,7 +2832,7 @@ export namespace format {
          * @param propertyName Name of the context property to compare.
          * @api
          */
-        class Comparison extends format.filter.Filter {
+        class Comparison extends Filter {
             /**
              * @classdesc
              * Abstract class; normally only used for creating subclasses and not instantiated in apps.
@@ -2860,7 +2860,7 @@ export namespace format {
          * @param opt_matchCase Case-sensitive?
          * @api
          */
-        class ComparisonBinary extends format.filter.Comparison {
+        class ComparisonBinary extends Comparison {
             /**
              * @classdesc
              * Abstract class; normally only used for creating subclasses and not instantiated in apps.
@@ -2886,7 +2886,7 @@ export namespace format {
          * @param opt_matchCase Case-sensitive?
          * @api
          */
-        class EqualTo extends format.filter.ComparisonBinary {
+        class EqualTo extends ComparisonBinary {
             /**
              * @classdesc
              * Represents a `<PropertyIsEqualTo>` comparison operator.
@@ -2907,7 +2907,7 @@ export namespace format {
          * @param expression The value to compare.
          * @api
          */
-        class GreaterThan extends format.filter.ComparisonBinary {
+        class GreaterThan extends ComparisonBinary {
             /**
              * @classdesc
              * Represents a `<PropertyIsGreaterThan>` comparison operator.
@@ -2927,7 +2927,7 @@ export namespace format {
          * @param expression The value to compare.
          * @api
          */
-        class GreaterThanOrEqualTo extends format.filter.ComparisonBinary {
+        class GreaterThanOrEqualTo extends ComparisonBinary {
             /**
              * @classdesc
              * Represents a `<PropertyIsGreaterThanOrEqualTo>` comparison operator.
@@ -2947,7 +2947,7 @@ export namespace format {
          * @param expression The value to compare.
          * @api
          */
-        class LessThan extends format.filter.ComparisonBinary {
+        class LessThan extends ComparisonBinary {
             /**
              * @classdesc
              * Represents a `<PropertyIsLessThan>` comparison operator.
@@ -2967,7 +2967,7 @@ export namespace format {
          * @param expression The value to compare.
          * @api
          */
-        class LessThanOrEqualTo extends format.filter.ComparisonBinary {
+        class LessThanOrEqualTo extends ComparisonBinary {
             /**
              * @classdesc
              * Represents a `<PropertyIsLessThanOrEqualTo>` comparison operator.
@@ -2988,7 +2988,7 @@ export namespace format {
          * @param opt_matchCase Case-sensitive?
          * @api
          */
-        class NotEqualTo extends format.filter.ComparisonBinary {
+        class NotEqualTo extends ComparisonBinary {
             /**
              * @classdesc
              * Represents a `<PropertyIsNotEqualTo>` comparison operator.
@@ -3010,7 +3010,7 @@ export namespace format {
          * @param end The end date in ISO-8601 format.
          * @api
          */
-        class During extends format.filter.Comparison {
+        class During extends Comparison {
             /**
              * @classdesc
              * Represents a `<During>` comparison operator.
@@ -3032,7 +3032,7 @@ export namespace format {
          * @param upperBoundary The upper bound of the range.
          * @api
          */
-        class IsBetween extends format.filter.Comparison {
+        class IsBetween extends Comparison {
             /**
              * @classdesc
              * Represents a `<PropertyIsBetween>` comparison operator.
@@ -3060,7 +3060,7 @@ export namespace format {
          * @param opt_matchCase Case-sensitive?
          * @api
          */
-        class IsLike extends format.filter.Comparison {
+        class IsLike extends Comparison {
             /**
              * @classdesc
              * Represents a `<PropertyIsLike>` comparison operator.
@@ -3086,7 +3086,7 @@ export namespace format {
          * @param propertyName Name of the context property to compare.
          * @api
          */
-        class IsNull extends format.filter.Comparison {
+        class IsNull extends Comparison {
             /**
              * @classdesc
              * Represents a `<PropertyIsNull>` comparison operator.
@@ -3104,7 +3104,7 @@ export namespace format {
          * @param condition Filter condition.
          * @api
          */
-        class Not extends format.filter.Filter {
+        class Not extends Filter {
             /**
              * @classdesc
              * Represents a logical `<Not>` operator for a filter condition.
@@ -3112,7 +3112,7 @@ export namespace format {
              * @param condition Filter condition.
              * @api
              */
-            constructor(condition: ol.format.filter.Filter);
+            constructor(condition: Filter);
         }
 
         /**
@@ -3126,7 +3126,7 @@ export namespace format {
          *    set on geometries when this is not provided.
          * @api
          */
-        class Bbox extends format.filter.Filter {
+        class Bbox extends Filter {
             /**
              * @classdesc
              * Represents a `<BBOX>` operator to test whether a geometry-valued property
@@ -3149,7 +3149,7 @@ export namespace format {
      *
      * @api stable
      */
-    class OSMXML extends format.XMLFeature {
+    class OSMXML extends XMLFeature {
         /**
          * @classdesc
          * Feature format for reading data in the
@@ -3188,7 +3188,7 @@ export namespace format {
      *     Optional configuration object.
      * @api stable
      */
-    class Polyline extends format.TextFeature {
+    class Polyline extends TextFeature {
         /**
          * @classdesc
          * Feature format for reading and writing data in the Encoded
@@ -3312,7 +3312,7 @@ export namespace format {
      * Base class for text feature formats.
      *
      */
-    class TextFeature extends format.Feature {
+    class TextFeature extends Feature {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -3330,7 +3330,7 @@ export namespace format {
      * @param opt_options Options.
      * @api stable
      */
-    class TopoJSON extends format.JSONFeature {
+    class TopoJSON extends JSONFeature {
         /**
          * @classdesc
          * Feature format for reading data in the TopoJSON format.
@@ -3370,7 +3370,7 @@ export namespace format {
      *     Optional configuration object.
      * @api stable
      */
-    class WFS extends format.XMLFeature {
+    class WFS extends XMLFeature {
         /**
          * @classdesc
          * Feature format for reading and writing data in the WFS format.
@@ -3451,7 +3451,7 @@ export namespace format {
      * @param opt_options Options.
      * @api stable
      */
-    class WKT extends format.TextFeature {
+    class WKT extends TextFeature {
         /**
          * @classdesc
          * Geometry format for reading and writing data in the `WellKnownText` (WKT)
@@ -3528,7 +3528,7 @@ export namespace format {
      *
      * @api
      */
-    class WMSCapabilities extends format.XML {
+    class WMSCapabilities extends XML {
         /**
          * @classdesc
          * Format for reading WMS capabilities data
@@ -3555,7 +3555,7 @@ export namespace format {
      * @param opt_options Options.
      * @api
      */
-    class WMSGetFeatureInfo extends format.XMLFeature {
+    class WMSGetFeatureInfo extends XMLFeature {
         /**
          * @classdesc
          * Format for reading WMSGetFeatureInfo format. It uses
@@ -3583,7 +3583,7 @@ export namespace format {
      *
      * @api
      */
-    class WMTSCapabilities extends format.XML {
+    class WMTSCapabilities extends XML {
         /**
          * @classdesc
          * Format for reading WMTS capabilities data.
@@ -3625,7 +3625,7 @@ export namespace format {
      * Base class for XML feature formats.
      *
      */
-    class XMLFeature extends format.Feature {
+    class XMLFeature extends Feature {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -3816,7 +3816,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api
      */
-    class Circle extends geom.SimpleGeometry {
+    class Circle extends SimpleGeometry {
         /**
          * @classdesc
          * Circle geometry.
@@ -3826,14 +3826,14 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api
          */
-        constructor(center: ol.Coordinate, opt_radius?: number, opt_layout?: ol.geom.GeometryLayout);
+        constructor(center: ol.Coordinate, opt_radius?: number, opt_layout?: GeometryLayout);
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api
          */
-        clone(): ol.geom.Circle;
+        clone(): Circle;
 
         /**
          * Return the center of the circle as {@link ol.Coordinate coordinate}.
@@ -3853,7 +3853,7 @@ export namespace geom {
          * @inheritDoc
          * @api
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -3876,7 +3876,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api
          */
-        setCenterAndRadius(center: ol.Coordinate, radius: number, opt_layout?: ol.geom.GeometryLayout): void;
+        setCenterAndRadius(center: ol.Coordinate, radius: number, opt_layout?: GeometryLayout): void;
 
         /**
          * Set the radius of the circle. The radius is in the units of the projection.
@@ -3984,7 +3984,7 @@ export namespace geom {
          *     geometry.
          * @api
          */
-        simplify(tolerance: number): ol.geom.Geometry;
+        simplify(tolerance: number): Geometry;
 
         /**
          * Transform each coordinate of the geometry from one coordinate reference
@@ -4001,13 +4001,13 @@ export namespace geom {
          *     modified in place.
          * @api stable
          */
-        transform(source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.geom.Geometry;
+        transform(source: ol.ProjectionLike, destination: ol.ProjectionLike): Geometry;
 
         /**
          * Get the type of this geometry.
          * @return Geometry type.
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
     }
 
     /**
@@ -4017,7 +4017,7 @@ export namespace geom {
      * @param opt_geometries Geometries.
      * @api stable
      */
-    class GeometryCollection extends geom.Geometry {
+    class GeometryCollection extends Geometry {
         /**
          * @classdesc
          * An array of {@link ol.geom.Geometry} objects.
@@ -4025,27 +4025,27 @@ export namespace geom {
          * @param opt_geometries Geometries.
          * @api stable
          */
-        constructor(opt_geometries?: ol.geom.Geometry[]);
+        constructor(opt_geometries?: Geometry[]);
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.GeometryCollection;
+        clone(): GeometryCollection;
 
         /**
          * Return the geometries that make up this geometry collection.
          * @return Geometries.
          * @api stable
          */
-        getGeometries(): ol.geom.Geometry[];
+        getGeometries(): Geometry[];
 
         /**
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -4058,7 +4058,7 @@ export namespace geom {
          * @param geometries Geometries.
          * @api stable
          */
-        setGeometries(geometries: ol.geom.Geometry[]): void;
+        setGeometries(geometries: Geometry[]): void;
 
         /**
          * @inheritDoc
@@ -4084,7 +4084,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api stable
      */
-    class LinearRing extends geom.SimpleGeometry {
+    class LinearRing extends SimpleGeometry {
         /**
          * @classdesc
          * Linear ring geometry. Only used as part of polygon; cannot be rendered
@@ -4094,14 +4094,14 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        constructor(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout);
+        constructor(coordinates: ol.Coordinate[], opt_layout?: GeometryLayout);
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.LinearRing;
+        clone(): LinearRing;
 
         /**
          * Return the area of the linear ring on projected plane.
@@ -4121,7 +4121,7 @@ export namespace geom {
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * Set the coordinates of the linear ring.
@@ -4129,7 +4129,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
+        setCoordinates(coordinates: ol.Coordinate[], opt_layout?: GeometryLayout): void;
     }
 
     /**
@@ -4140,7 +4140,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api stable
      */
-    class LineString extends geom.SimpleGeometry {
+    class LineString extends SimpleGeometry {
         /**
          * @classdesc
          * Linestring geometry.
@@ -4149,7 +4149,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        constructor(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout);
+        constructor(coordinates: ol.Coordinate[], opt_layout?: GeometryLayout);
 
         /**
          * Append the passed coordinate to the coordinates of the linestring.
@@ -4163,7 +4163,7 @@ export namespace geom {
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.LineString;
+        clone(): LineString;
 
         /**
          * Iterate over each segment, calling the provided callback.
@@ -4226,7 +4226,7 @@ export namespace geom {
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -4240,7 +4240,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
+        setCoordinates(coordinates: ol.Coordinate[], opt_layout?: GeometryLayout): void;
     }
 
     /**
@@ -4251,7 +4251,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api stable
      */
-    class MultiLineString extends geom.SimpleGeometry {
+    class MultiLineString extends SimpleGeometry {
         /**
          * @classdesc
          * Multi-linestring geometry.
@@ -4260,21 +4260,21 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        constructor(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout);
+        constructor(coordinates: ol.Coordinate[][], opt_layout?: GeometryLayout);
 
         /**
          * Append the passed linestring to the multilinestring.
          * @param lineString LineString.
          * @api stable
          */
-        appendLineString(lineString: ol.geom.LineString): void;
+        appendLineString(lineString: LineString): void;
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.MultiLineString;
+        clone(): MultiLineString;
 
         /**
          * Returns the coordinate at `m` using linear interpolation, or `null` if no
@@ -4313,20 +4313,20 @@ export namespace geom {
          * @return LineString.
          * @api stable
          */
-        getLineString(index: number): ol.geom.LineString;
+        getLineString(index: number): LineString;
 
         /**
          * Return the linestrings of this multilinestring.
          * @return LineStrings.
          * @api stable
          */
-        getLineStrings(): ol.geom.LineString[];
+        getLineStrings(): LineString[];
 
         /**
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -4340,7 +4340,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        setCoordinates(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout): void;
+        setCoordinates(coordinates: ol.Coordinate[][], opt_layout?: GeometryLayout): void;
     }
 
     /**
@@ -4351,7 +4351,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api stable
      */
-    class MultiPoint extends geom.SimpleGeometry {
+    class MultiPoint extends SimpleGeometry {
         /**
          * @classdesc
          * Multi-point geometry.
@@ -4360,21 +4360,21 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        constructor(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout);
+        constructor(coordinates: ol.Coordinate[], opt_layout?: GeometryLayout);
 
         /**
          * Append the passed point to this multipoint.
          * @param point Point.
          * @api stable
          */
-        appendPoint(point: ol.geom.Point): void;
+        appendPoint(point: Point): void;
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.MultiPoint;
+        clone(): MultiPoint;
 
         /**
          * Return the coordinates of the multipoint.
@@ -4389,20 +4389,20 @@ export namespace geom {
          * @return Point.
          * @api stable
          */
-        getPoint(index: number): ol.geom.Point;
+        getPoint(index: number): Point;
 
         /**
          * Return the points of this multipoint.
          * @return Points.
          * @api stable
          */
-        getPoints(): ol.geom.Point[];
+        getPoints(): Point[];
 
         /**
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -4416,7 +4416,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
+        setCoordinates(coordinates: ol.Coordinate[], opt_layout?: GeometryLayout): void;
     }
 
     /**
@@ -4427,7 +4427,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api stable
      */
-    class MultiPolygon extends geom.SimpleGeometry {
+    class MultiPolygon extends SimpleGeometry {
         /**
          * @classdesc
          * Multi-polygon geometry.
@@ -4436,21 +4436,21 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        constructor(coordinates: ol.Coordinate[][][], opt_layout?: ol.geom.GeometryLayout);
+        constructor(coordinates: ol.Coordinate[][][], opt_layout?: GeometryLayout);
 
         /**
          * Append the passed polygon to this multipolygon.
          * @param polygon Polygon.
          * @api stable
          */
-        appendPolygon(polygon: ol.geom.Polygon): void;
+        appendPolygon(polygon: Polygon): void;
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.MultiPolygon;
+        clone(): MultiPolygon;
 
         /**
          * Return the area of the multipolygon on projected plane.
@@ -4475,11 +4475,11 @@ export namespace geom {
         getCoordinates(opt_right?: boolean): ol.Coordinate[][][];
 
         /**
-         * Return the interior points as {@link ol.geom.MultiPoint multipoint}.
+         * Return the interior points as {@link MultiPoint multipoint}.
          * @return Interior points.
          * @api stable
          */
-        getInteriorPoints(): ol.geom.MultiPoint;
+        getInteriorPoints(): MultiPoint;
 
         /**
          * Return the polygon at the specified index.
@@ -4487,20 +4487,20 @@ export namespace geom {
          * @return Polygon.
          * @api stable
          */
-        getPolygon(index: number): ol.geom.Polygon;
+        getPolygon(index: number): Polygon;
 
         /**
          * Return the polygons of this multipolygon.
          * @return Polygons.
          * @api stable
          */
-        getPolygons(): ol.geom.Polygon[];
+        getPolygons(): Polygon[];
 
         /**
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -4514,7 +4514,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        setCoordinates(coordinates: ol.Coordinate[][][], opt_layout?: ol.geom.GeometryLayout): void;
+        setCoordinates(coordinates: ol.Coordinate[][][], opt_layout?: GeometryLayout): void;
     }
 
     /**
@@ -4525,7 +4525,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api stable
      */
-    class Point extends geom.SimpleGeometry {
+    class Point extends SimpleGeometry {
         /**
          * @classdesc
          * Point geometry.
@@ -4534,14 +4534,14 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        constructor(coordinates: ol.Coordinate, opt_layout?: ol.geom.GeometryLayout);
+        constructor(coordinates: ol.Coordinate, opt_layout?: GeometryLayout);
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.Point;
+        clone(): Point;
 
         /**
          * Return the coordinate of the point.
@@ -4554,7 +4554,7 @@ export namespace geom {
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -4568,7 +4568,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        setCoordinates(coordinates: ol.Coordinate, opt_layout?: ol.geom.GeometryLayout): void;
+        setCoordinates(coordinates: ol.Coordinate, opt_layout?: GeometryLayout): void;
     }
 
     /**
@@ -4579,7 +4579,7 @@ export namespace geom {
      * @param opt_layout Layout.
      * @api stable
      */
-    class Polygon extends geom.SimpleGeometry {
+    class Polygon extends SimpleGeometry {
         /**
          * @classdesc
          * Polygon geometry.
@@ -4588,21 +4588,21 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        constructor(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout);
+        constructor(coordinates: ol.Coordinate[][], opt_layout?: GeometryLayout);
 
         /**
          * Append the passed linear ring to this polygon.
          * @param linearRing Linear ring.
          * @api stable
          */
-        appendLinearRing(linearRing: ol.geom.LinearRing): void;
+        appendLinearRing(linearRing: LinearRing): void;
 
         /**
          * Make a complete copy of the geometry.
          * @return Clone.
          * @api stable
          */
-        clone(): ol.geom.Polygon;
+        clone(): Polygon;
 
         /**
          * Return the area of the polygon on projected plane.
@@ -4631,7 +4631,7 @@ export namespace geom {
          * @return Interior point.
          * @api stable
          */
-        getInteriorPoint(): ol.geom.Point;
+        getInteriorPoint(): Point;
 
         /**
          * Return the number of rings of the polygon,  this includes the exterior
@@ -4652,20 +4652,20 @@ export namespace geom {
          * @return Linear ring.
          * @api stable
          */
-        getLinearRing(index: number): ol.geom.LinearRing;
+        getLinearRing(index: number): LinearRing;
 
         /**
          * Return the linear rings of the polygon.
          * @return Linear rings.
          * @api stable
          */
-        getLinearRings(): ol.geom.LinearRing[];
+        getLinearRings(): LinearRing[];
 
         /**
          * @inheritDoc
          * @api stable
          */
-        getType(): ol.geom.GeometryType;
+        getType(): GeometryType;
 
         /**
          * @inheritDoc
@@ -4679,7 +4679,7 @@ export namespace geom {
          * @param opt_layout Layout.
          * @api stable
          */
-        setCoordinates(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout): void;
+        setCoordinates(coordinates: ol.Coordinate[][], opt_layout?: GeometryLayout): void;
 
         /**
          * Create an approximation of a circle on the surface of a sphere.
@@ -4692,7 +4692,7 @@ export namespace geom {
          * @return The "circular" polygon.
          * @api stable
          */
-        static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, opt_n?: number): ol.geom.Polygon;
+        static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, opt_n?: number): Polygon;
 
         /**
          * Create a polygon from an extent. The layout used is `XY`.
@@ -4700,7 +4700,7 @@ export namespace geom {
          * @return The polygon.
          * @api
          */
-        static fromExtent(extent: ol.Extent): ol.geom.Polygon;
+        static fromExtent(extent: ol.Extent): Polygon;
 
         /**
          * Create a regular polygon from a circle.
@@ -4711,7 +4711,7 @@ export namespace geom {
          * @return Polygon geometry.
          * @api
          */
-        static fromCircle(circle: ol.geom.Circle, opt_sides?: number, opt_angle?: number): ol.geom.Polygon;
+        static fromCircle(circle: Circle, opt_sides?: number, opt_angle?: number): Polygon;
     }
 
     /**
@@ -4721,7 +4721,7 @@ export namespace geom {
      *
      * @api stable
      */
-    class SimpleGeometry extends geom.Geometry {
+    class SimpleGeometry extends Geometry {
         /**
          * @classdesc
          * Abstract base class; only used for creating subclasses; do not instantiate
@@ -4746,11 +4746,11 @@ export namespace geom {
         getLastCoordinate(): ol.Coordinate;
 
         /**
-         * Return the {@link ol.geom.GeometryLayout layout} of the geometry.
+         * Return the {@link GeometryLayout layout} of the geometry.
          * @return Layout.
          * @api stable
          */
-        getLayout(): ol.geom.GeometryLayout;
+        getLayout(): GeometryLayout;
 
         /**
          * @inheritDoc
@@ -4970,7 +4970,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class DoubleClickZoom extends interaction.Interaction {
+    class DoubleClickZoom extends Interaction {
         /**
          * @classdesc
          * Allows the user to zoom by double-clicking on the map.
@@ -4998,7 +4998,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class DragAndDrop extends interaction.Interaction {
+    class DragAndDrop extends Interaction {
         /**
          * @classdesc
          * Handles input of vector data by drag and drop.
@@ -5041,7 +5041,7 @@ export namespace interaction {
              * @param opt_features Features.
              * @param opt_projection Projection.
              */
-            constructor(type: ol.interaction.DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
+            constructor(type: DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
 
             /**
              * The features parsed from dropped data.
@@ -5080,7 +5080,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class DragBox extends interaction.Pointer {
+    class DragBox extends Pointer {
         /**
          * @classdesc
          * Allows the user to draw a vector box by clicking and dragging on the map,
@@ -5152,7 +5152,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class DragPan extends interaction.Pointer {
+    class DragPan extends Pointer {
         /**
          * @classdesc
          * Allows the user to pan the map by dragging the map.
@@ -5174,7 +5174,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class DragRotate extends interaction.Pointer {
+    class DragRotate extends Pointer {
         /**
          * @classdesc
          * Allows the user to rotate the map by clicking and dragging on the map,
@@ -5202,7 +5202,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class DragRotateAndZoom extends interaction.Pointer {
+    class DragRotateAndZoom extends Pointer {
         /**
          * @classdesc
          * Allows the user to zoom and rotate the map by clicking and dragging
@@ -5231,7 +5231,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class DragZoom extends interaction.DragBox {
+    class DragZoom extends DragBox {
         /**
          * @classdesc
          * Allows the user to zoom the map by clicking and dragging on the map,
@@ -5265,7 +5265,7 @@ export namespace interaction {
              * @param type Type.
              * @param feature The feature drawn.
              */
-            constructor(type: ol.interaction.DrawEventType, feature: ol.Feature);
+            constructor(type: DrawEventType, feature: ol.Feature);
 
             /**
              * The feature being drawn.
@@ -5285,7 +5285,7 @@ export namespace interaction {
      * @param options Options.
      * @api stable
      */
-    class Draw extends interaction.Pointer {
+    class Draw extends Pointer {
         /**
          * @classdesc
          * Interaction for drawing feature geometries.
@@ -5367,7 +5367,7 @@ export namespace interaction {
      * interactions to be used with the ol.Map constructor's interactions option.
      * @api stable
      */
-    function defaults(opt_options?: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
+    function defaults(opt_options?: olx.interaction.DefaultsOptions): ol.Collection<Interaction>;
 
     /**
      * @classdesc
@@ -5441,7 +5441,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class KeyboardPan extends interaction.Interaction {
+    class KeyboardPan extends Interaction {
         /**
          * @classdesc
          * Allows the user to pan the map using keyboard arrows.
@@ -5485,7 +5485,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class KeyboardZoom extends interaction.Interaction {
+    class KeyboardZoom extends Interaction {
         /**
          * @classdesc
          * Allows the user to zoom the map using keyboard + and -.
@@ -5560,7 +5560,7 @@ export namespace interaction {
      * @fires ol.interaction.ModifyEvent
      * @api
      */
-    class Modify extends interaction.Pointer {
+    class Modify extends Pointer {
         /**
          * @classdesc
          * Interaction for modifying feature geometries.
@@ -5586,7 +5586,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class MouseWheelZoom extends interaction.Interaction {
+    class MouseWheelZoom extends Interaction {
         /**
          * @classdesc
          * Allows the user to zoom the map by scrolling the mouse wheel.
@@ -5622,7 +5622,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class PinchRotate extends interaction.Pointer {
+    class PinchRotate extends Pointer {
         /**
          * @classdesc
          * Allows the user to rotate the map by twisting with two fingers
@@ -5642,7 +5642,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api stable
      */
-    class PinchZoom extends interaction.Pointer {
+    class PinchZoom extends Pointer {
         /**
          * @classdesc
          * Allows the user to zoom the map by pinching with two fingers
@@ -5667,7 +5667,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api
      */
-    class Pointer extends interaction.Interaction {
+    class Pointer extends Interaction {
         /**
          * @classdesc
          * Base class that calls user-defined functions on `down`, `move` and `up`
@@ -5756,7 +5756,7 @@ export namespace interaction {
      * @fires ol.interaction.SelectEvent
      * @api stable
      */
-    class Select extends interaction.Interaction {
+    class Select extends Interaction {
         /**
          * @classdesc
          * Interaction for selecting vector features. By default, selected features are
@@ -5831,7 +5831,7 @@ export namespace interaction {
      * @param opt_options Options.
      * @api
      */
-    class Snap extends interaction.Pointer {
+    class Snap extends Pointer {
         /**
          * @classdesc
          * Handles snapping of vector features while modifying or drawing them.  The
@@ -5893,7 +5893,7 @@ export namespace interaction {
              * @param features The features translated.
              * @param coordinate The event coordinate.
              */
-            constructor(type: ol.interaction.TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
+            constructor(type: TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
 
             /**
              * The features being translated.
@@ -5920,7 +5920,7 @@ export namespace interaction {
      * @param options Options.
      * @api
      */
-    class Translate extends interaction.Pointer {
+    class Translate extends Pointer {
         /**
          * @classdesc
          * Interaction for translating (moving) features.
@@ -6095,7 +6095,7 @@ export namespace layer {
      * @param opt_options Layer options.
      * @api stable
      */
-    class Group extends layer.Base {
+    class Group extends Base {
         /**
          * @classdesc
          * A {@link ol.Collection} of layers that are handled together.
@@ -6115,7 +6115,7 @@ export namespace layer {
          * @observable
          * @api stable
          */
-        getLayers(): ol.Collection<ol.layer.Base>;
+        getLayers(): ol.Collection<Base>;
 
         /**
          * Set the {@link ol.Collection collection} of {@link ol.layer.Layer layers}
@@ -6125,7 +6125,7 @@ export namespace layer {
          * @observable
          * @api stable
          */
-        setLayers(layers: ol.Collection<ol.layer.Base>): void;
+        setLayers(layers: ol.Collection<Base>): void;
     }
 
     /**
@@ -6139,7 +6139,7 @@ export namespace layer {
      * @param opt_options Options.
      * @api
      */
-    class Heatmap extends layer.Vector {
+    class Heatmap extends Vector {
         /**
          * @classdesc
          * Layer for rendering vector data as a heatmap.
@@ -6214,7 +6214,7 @@ export namespace layer {
      * @param opt_options Layer options.
      * @api stable
      */
-    class Image extends layer.Layer {
+    class Image extends Layer {
         /**
          * @classdesc
          * Server-rendered images that are available for arbitrary extents and
@@ -6249,7 +6249,7 @@ export namespace layer {
      * @param options Layer options.
      * @api stable
      */
-    class Layer extends layer.Base {
+    class Layer extends Base {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -6314,7 +6314,7 @@ export namespace layer {
      * @param opt_options Tile layer options.
      * @api stable
      */
-    class Tile extends layer.Layer {
+    class Tile extends Layer {
         /**
          * @classdesc
          * For layer sources that provide pre-rendered, tiled images in grids that are
@@ -6373,7 +6373,7 @@ export namespace layer {
      * @param opt_options Options.
      * @api stable
      */
-    class Vector extends layer.Layer {
+    class Vector extends Layer {
         /**
          * @classdesc
          * Vector data that is rendered client-side.
@@ -6446,7 +6446,7 @@ export namespace layer {
      * @param opt_options Options.
      * @api
      */
-    class VectorTile extends layer.Vector {
+    class VectorTile extends Vector {
         /**
          * @classdesc
          * Layer for vector tile data that is rendered client-side.
@@ -7630,7 +7630,7 @@ export namespace proj {
          * @return Units.
          * @api stable
          */
-        getUnits(): ol.proj.Units;
+        getUnits(): Units;
 
         /**
          * Get the amount of meters per unit of this projection.  If the projection is
@@ -7723,7 +7723,7 @@ export namespace proj {
      * @param projections Projections.
      * @api
      */
-    function addEquivalentProjections(projections: ol.proj.Projection[]): void;
+    function addEquivalentProjections(projections: Projection[]): void;
 
     /**
      * Add a Projection object to the list of supported projections that can be
@@ -7732,7 +7732,7 @@ export namespace proj {
      * @param projection Projection instance.
      * @api stable
      */
-    function addProjection(projection: ol.proj.Projection): void;
+    function addProjection(projection: Projection): void;
 
     /**
      * Registers coordinate transform functions to convert coordinates between the
@@ -7789,7 +7789,7 @@ export namespace proj {
      * @return Projection object, or null if not in list.
      * @api stable
      */
-    function get(projectionLike: ol.ProjectionLike): ol.proj.Projection;
+    function get(projectionLike: ol.ProjectionLike): Projection;
 
     /**
      * Checks if two projections are the same, that is every coordinate in one
@@ -7801,7 +7801,7 @@ export namespace proj {
      * @return Equivalent.
      * @api
      */
-    function equivalent(projection1: ol.proj.Projection, projection2: ol.proj.Projection): boolean;
+    function equivalent(projection1: Projection, projection2: Projection): boolean;
 
     /**
      * Given the projection-like objects, searches for a transformation
@@ -7854,7 +7854,7 @@ export namespace proj {
      * @return Point to find adjusted resolution at.
      */
     function getPointResolution(
-        projection: ol.proj.Projection,
+        projection: Projection,
         resolution: number,
         point: ol.Coordinate
     ): number;
@@ -7878,7 +7878,7 @@ export namespace render {
          * @param viewRotation View rotation.
          * @struct
          */
-        class Immediate extends render.VectorContext {
+        class Immediate extends VectorContext {
             /**
              * @classdesc
              * A concrete subclass of {@link ol.render.VectorContext} that implements
@@ -7922,7 +7922,7 @@ export namespace render {
              * @param geometry The geometry to render.
              * @api
              */
-            drawGeometry(geometry: (ol.geom.Geometry | ol.render.Feature)): void;
+            drawGeometry(geometry: (ol.geom.Geometry | Feature)): void;
 
             /**
              * Render a feature into the canvas.  Note that any `zIndex` on the provided
@@ -7953,13 +7953,13 @@ export namespace render {
          * @param opt_context Context.
          * @param opt_glContext WebGL Context.
          */
-        constructor(type: ol.render.EventType, opt_vectorContext?: ol.render.VectorContext, opt_frameState?: olx.FrameState, opt_context?: CanvasRenderingContext2D, opt_glContext?: any);
+        constructor(type: EventType, opt_vectorContext?: VectorContext, opt_frameState?: olx.FrameState, opt_context?: CanvasRenderingContext2D, opt_glContext?: any);
 
         /**
          * For canvas, this is an instance of {@link ol.render.canvas.Immediate}.
          * @api
          */
-        vectorContext: ol.render.VectorContext;
+        vectorContext: VectorContext;
 
         /**
          * An object representing the current render frame state.
@@ -8029,7 +8029,7 @@ export namespace render {
          * @return Feature.
          * @api
          */
-        getGeometry(): ol.render.Feature;
+        getGeometry(): Feature;
 
         /**
          * Get the feature properties.
@@ -8082,7 +8082,7 @@ export namespace render {
      * @return Canvas Immediate.
      * @api
      */
-    function toContext(context: CanvasRenderingContext2D, opt_options?: olx.render.ToContextOptions): ol.render.canvas.Immediate;
+    function toContext(context: CanvasRenderingContext2D, opt_options?: olx.render.ToContextOptions): canvas.Immediate;
 }
 
 /**
@@ -8103,7 +8103,7 @@ export namespace source {
      * @param options Bing Maps options.
      * @api stable
      */
-    class BingMaps extends source.TileImage {
+    class BingMaps extends TileImage {
         /**
          * @classdesc
          * Layer source for Bing Maps tile data.
@@ -8129,7 +8129,7 @@ export namespace source {
      * @param options CartoDB options.
      * @api
      */
-    class CartoDB extends source.XYZ {
+    class CartoDB extends XYZ {
         /**
          * @classdesc
          * Layer source for the CartoDB tiles.
@@ -8173,7 +8173,7 @@ export namespace source {
      * @param options Constructor options.
      * @api
      */
-    class Cluster extends source.Vector {
+    class Cluster extends Vector {
         /**
          * @classdesc
          * Layer source to cluster vector data. Works out of the box with point
@@ -8190,7 +8190,7 @@ export namespace source {
          * @return Source.
          * @api
          */
-        getSource(): ol.source.Vector;
+        getSource(): Vector;
 
         /**
          * Get the distance in pixels between clusters.
@@ -8216,7 +8216,7 @@ export namespace source {
      * @param options Single image source options.
      * @api
      */
-    class Image extends source.Source {
+    class Image extends Source {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -8268,7 +8268,7 @@ export namespace source {
      * @param opt_options Image ArcGIS Rest Options.
      * @api
      */
-    class ImageArcGISRest extends source.Image {
+    class ImageArcGISRest extends Image {
         /**
          * @classdesc
          * Source for data from ArcGIS Rest services providing single, untiled images.
@@ -8335,7 +8335,7 @@ export namespace source {
      * @param options Constructor options.
      * @api
      */
-    class ImageCanvas extends source.Image {
+    class ImageCanvas extends Image {
         /**
          * @classdesc
          * Base class for image sources where a canvas element is the image.
@@ -8354,7 +8354,7 @@ export namespace source {
      * @param options Options.
      * @api stable
      */
-    class ImageMapGuide extends source.Image {
+    class ImageMapGuide extends Image {
         /**
          * @classdesc
          * Source for images from Mapguide servers
@@ -8402,7 +8402,7 @@ export namespace source {
      * @param options Options.
      * @api stable
      */
-    class ImageStatic extends source.Image {
+    class ImageStatic extends Image {
         /**
          * @classdesc
          * A layer source for displaying a single, static image.
@@ -8428,7 +8428,7 @@ export namespace source {
      * @param options Options.
      * @api
      */
-    class ImageVector extends source.ImageCanvas {
+    class ImageVector extends ImageCanvas {
         /**
          * @classdesc
          * An image source whose images are canvas elements into which vector features
@@ -8451,7 +8451,7 @@ export namespace source {
          * @return Source.
          * @api
          */
-        getSource(): ol.source.Vector;
+        getSource(): Vector;
 
         /**
          * Get the style for features.  This returns whatever was passed to the `style`
@@ -8489,7 +8489,7 @@ export namespace source {
      * @param opt_options Options.
      * @api stable
      */
-    class ImageWMS extends source.Image {
+    class ImageWMS extends Image {
         /**
          * @classdesc
          * Source for WMS servers providing single, untiled images.
@@ -8567,7 +8567,7 @@ export namespace source {
      * @param opt_options Open Street Map options.
      * @api stable
      */
-    class OSM extends source.XYZ {
+    class OSM extends XYZ {
         /**
          * @classdesc
          * Layer source for the OpenStreetMap tile server.
@@ -8596,7 +8596,7 @@ export namespace source {
      * @param options Options.
      * @api
      */
-    class Raster extends source.Image {
+    class Raster extends Image {
         /**
          * @classdesc
          * A source that transforms data from any number of input sources using an array
@@ -8716,7 +8716,7 @@ export namespace source {
          * @return State.
          * @api
          */
-        getState(): ol.source.State;
+        getState(): State;
 
         /**
          * Refreshes the source and finally dispatches a 'change' event.
@@ -8741,7 +8741,7 @@ export namespace source {
      * @param options Stamen options.
      * @api stable
      */
-    class Stamen extends source.XYZ {
+    class Stamen extends XYZ {
         /**
          * @classdesc
          * Layer source for the Stamen tile server.
@@ -8761,7 +8761,7 @@ export namespace source {
      * @param options Tile source options.
      * @api
      */
-    class Tile extends source.Source {
+    class Tile extends Source {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -8819,7 +8819,7 @@ export namespace source {
      *     options.
      * @api
      */
-    class TileArcGISRest extends source.TileImage {
+    class TileArcGISRest extends TileImage {
         /**
          * @classdesc
          * Layer source for tile data from ArcGIS Rest services. Map and Image
@@ -8861,7 +8861,7 @@ export namespace source {
      * @param options Debug tile options.
      * @api
      */
-    class TileDebug extends source.Tile {
+    class TileDebug extends Tile {
         /**
          * @classdesc
          * A pseudo tile source, which does not fetch tiles from a server, but renders
@@ -8884,7 +8884,7 @@ export namespace source {
      * @param options Image tile options.
      * @api
      */
-    class TileImage extends source.UrlTile {
+    class TileImage extends UrlTile {
         /**
          * @classdesc
          * Base class for sources providing images divided into a tile grid.
@@ -8924,7 +8924,7 @@ export namespace source {
      * @param options TileJSON options.
      * @api stable
      */
-    class TileJSON extends source.TileImage {
+    class TileJSON extends TileImage {
         /**
          * @classdesc
          * Layer source for tile data in TileJSON format.
@@ -8948,7 +8948,7 @@ export namespace source {
      * @param options Source options.
      * @api
      */
-    class TileUTFGrid extends source.Tile {
+    class TileUTFGrid extends Tile {
         /**
          * @classdesc
          * Layer source for UTFGrid interaction data loaded from TileJSON format.
@@ -8988,7 +8988,7 @@ export namespace source {
      * @param opt_options Tile WMS options.
      * @api stable
      */
-    class TileWMS extends source.TileImage {
+    class TileWMS extends TileImage {
         /**
          * @classdesc
          * Layer source for tile data from WMS servers.
@@ -9037,7 +9037,7 @@ export namespace source {
      * @fires ol.source.TileEvent
      * @param options Image tile options.
      */
-    class UrlTile extends source.Tile {
+    class UrlTile extends Tile {
         /**
          * @classdesc
          * Base class for sources providing tiles divided into a tile grid over http.
@@ -9110,7 +9110,7 @@ export namespace source {
      * @param opt_options Vector source options.
      * @api stable
      */
-    class Vector extends source.Source {
+    class Vector extends Source {
         /**
          * @classdesc
          * Provides a source of features for vector layers. Vector features provided
@@ -9340,7 +9340,7 @@ export namespace source {
      * @param options Vector tile options.
      * @api
      */
-    class VectorTile extends source.UrlTile {
+    class VectorTile extends UrlTile {
         /**
          * @classdesc
          * Class for layer sources providing vector data divided into a tile grid, to be
@@ -9379,7 +9379,7 @@ export namespace source {
      * @param options WMTS options.
      * @api stable
      */
-    class WMTS extends source.TileImage {
+    class WMTS extends TileImage {
         /**
          * @classdesc
          * Layer source for tile data from WMTS servers.
@@ -9424,7 +9424,7 @@ export namespace source {
          * @return Request encoding.
          * @api
          */
-        getRequestEncoding(): ol.source.WMTSRequestEncoding;
+        getRequestEncoding(): WMTSRequestEncoding;
 
         /**
          * Return the style of the WMTS source.
@@ -9493,7 +9493,7 @@ export namespace source {
      * @param opt_options XYZ options.
      * @api stable
      */
-    class XYZ extends source.TileImage {
+    class XYZ extends TileImage {
         /**
          * @classdesc
          * Layer source for tile data with URLs in a set XYZ format that are
@@ -9524,7 +9524,7 @@ export namespace source {
      * @param opt_options Options.
      * @api stable
      */
-    class Zoomify extends source.TileImage {
+    class Zoomify extends TileImage {
         /**
          * @classdesc
          * Layer source for tile data in Zoomify format.
@@ -9764,7 +9764,7 @@ export namespace style {
      * @param opt_options Options.
      * @api
      */
-    class Circle extends style.Image {
+    class Circle extends Image {
         /**
          * @classdesc
          * Set circle style for vector features.
@@ -9779,7 +9779,7 @@ export namespace style {
          * @return Fill style.
          * @api
          */
-        getFill(): ol.style.Fill;
+        getFill(): Fill;
 
         /**
          * Get the image used to render the circle.
@@ -9801,7 +9801,7 @@ export namespace style {
          * @return Stroke style.
          * @api
          */
-        getStroke(): ol.style.Stroke;
+        getStroke(): Stroke;
 
         /**
          * Set the circle radius.
@@ -9862,7 +9862,7 @@ export namespace style {
      * @param opt_options Options.
      * @api
      */
-    class Icon extends style.Image {
+    class Icon extends Image {
         /**
          * @classdesc
          * Set icon style for vector features.
@@ -10005,7 +10005,7 @@ export namespace style {
      * @param options Options.
      * @api
      */
-    class RegularShape extends style.Image {
+    class RegularShape extends Image {
         /**
          * @classdesc
          * Set regular shape style for vector features. The resulting shape will be
@@ -10035,7 +10035,7 @@ export namespace style {
          * @return Fill style.
          * @api
          */
-        getFill(): ol.style.Fill;
+        getFill(): Fill;
 
         /**
          * @inheritDoc
@@ -10081,7 +10081,7 @@ export namespace style {
          * @return Stroke style.
          * @api
          */
-        getStroke(): ol.style.Stroke;
+        getStroke(): Stroke;
     }
 
     /**
@@ -10232,7 +10232,7 @@ export namespace style {
          * @return The cloned style.
          * @api
          */
-        clone(): ol.style.Style;
+        clone(): Style;
 
         /**
          * Get the geometry to be rendered.
@@ -10255,28 +10255,28 @@ export namespace style {
          * @return Fill style.
          * @api
          */
-        getFill(): ol.style.Fill;
+        getFill(): Fill;
 
         /**
          * Get the image style.
          * @return Image style.
          * @api
          */
-        getImage(): ol.style.Image;
+        getImage(): Image;
 
         /**
          * Get the stroke style.
          * @return Stroke style.
          * @api
          */
-        getStroke(): ol.style.Stroke;
+        getStroke(): Stroke;
 
         /**
          * Get the text style.
          * @return Text style.
          * @api
          */
-        getText(): ol.style.Text;
+        getText(): Text;
 
         /**
          * Get the z-index for the style.
@@ -10290,7 +10290,7 @@ export namespace style {
          * @param fill Fill style.
          * @api
          */
-        setFill(fill: ol.style.Fill): void;
+        setFill(fill: Fill): void;
 
         /**
          * Set a geometry that is rendered instead of the feature's geometry.
@@ -10307,21 +10307,21 @@ export namespace style {
          * @param image Image style.
          * @api
          */
-        setImage(image: ol.style.Image): void;
+        setImage(image: Image): void;
 
         /**
          * Set the stroke style.
          * @param stroke Stroke style.
          * @api
          */
-        setStroke(stroke: ol.style.Stroke): void;
+        setStroke(stroke: Stroke): void;
 
         /**
          * Set the text style.
          * @param text Text style.
          * @api
          */
-        setText(text: ol.style.Text): void;
+        setText(text: Text): void;
 
         /**
          * Set the z-index.
@@ -10375,7 +10375,7 @@ export namespace style {
          * @return Fill style.
          * @api
          */
-        getFill(): ol.style.Fill;
+        getFill(): Fill;
 
         /**
          * Determine whether the text rotates with the map.
@@ -10403,7 +10403,7 @@ export namespace style {
          * @return Stroke style.
          * @api
          */
-        getStroke(): ol.style.Stroke;
+        getStroke(): Stroke;
 
         /**
          * Get the text to be rendered.
@@ -10456,7 +10456,7 @@ export namespace style {
          * @param fill Fill style.
          * @api
          */
-        setFill(fill: ol.style.Fill): void;
+        setFill(fill: Fill): void;
 
         /**
          * Set the rotation.
@@ -10480,7 +10480,7 @@ export namespace style {
          * @param stroke Stroke style.
          * @api
          */
-        setStroke(stroke: ol.style.Stroke): void;
+        setStroke(stroke: Stroke): void;
 
         /**
          * Set the text.
@@ -10552,7 +10552,7 @@ export namespace tilegrid {
      * @return Tile grid instance.
      * @api
      */
-    function createXYZ(opt_options?: olx.tilegrid.XYZOptions): ol.tilegrid.TileGrid;
+    function createXYZ(opt_options?: olx.tilegrid.XYZOptions): TileGrid;
 
     /**
      * @classdesc
@@ -10684,7 +10684,7 @@ export namespace tilegrid {
      * @struct
      * @api
      */
-    class WMTS extends tilegrid.TileGrid {
+    class WMTS extends TileGrid {
         /**
          * @classdesc
          * Set the grid pattern for sources accessing WMTS tiled-image servers.
@@ -10711,7 +10711,7 @@ export namespace tilegrid {
          * @return WMTS tileGrid instance.
          * @api
          */
-        static createFromCapabilitiesMatrixSet(matrixSet: GlobalObject, opt_extent?: ol.Extent): ol.tilegrid.WMTS;
+        static createFromCapabilitiesMatrixSet(matrixSet: GlobalObject, opt_extent?: ol.Extent): WMTS;
     }
 }
 
@@ -11485,11 +11485,11 @@ export namespace olx {
 
         interface DefaultsOptions {
             attribution?: boolean;
-            attributionOptions?: olx.control.AttributionOptions;
+            attributionOptions?: AttributionOptions;
             rotate?: boolean;
-            rotateOptions?: olx.control.RotateOptions;
+            rotateOptions?: RotateOptions;
             zoom?: boolean;
-            zoomOptions?: olx.control.ZoomOptions;
+            zoomOptions?: ZoomOptions;
         }
 
         interface FullScreenOptions {
@@ -11669,7 +11669,7 @@ export namespace olx {
             srsName?: string;
             handle?: string;
             nativeElements: GlobalObject[];
-            gmlOptions?: olx.format.GMLOptions;
+            gmlOptions?: GMLOptions;
         }
 
         interface WKTOptions {
@@ -11926,7 +11926,7 @@ export namespace olx {
         type VectorRenderType = "image" | "vector";
 
         interface VectorOptions {
-            renderMode?: (olx.layer.VectorRenderType | string);
+            renderMode?: (VectorRenderType | string);
             renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
             map?: ol.Map;
             extent?: ol.Extent;
@@ -12006,7 +12006,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             opaque?: boolean;
             projection: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12026,7 +12026,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             format?: ol.format.Feature;
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             overlaps?: boolean;
             projection: ol.ProjectionLike;
             state?: ol.source.State;
@@ -12081,7 +12081,7 @@ export namespace olx {
         interface ImageArcGISRestOptions {
             attributions?: ol.Attribution[];
             crossOrigin?: (string);
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             imageLoadFunction?: ol.ImageLoadFunctionType;
             params?: { [k: string]: any };
             projection: ol.ProjectionLike;
@@ -12093,7 +12093,7 @@ export namespace olx {
         interface ImageCanvasOptions {
             attributions?: ol.AttributionLike;
             canvasFunction: ol.CanvasFunctionType;
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             ratio?: number;
             resolutions?: number[];
@@ -12102,7 +12102,7 @@ export namespace olx {
 
         interface ImageVectorOptions {
             attributions?: ol.AttributionLike;
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             ratio?: number;
             renderBuffer?: number;
@@ -12128,7 +12128,7 @@ export namespace olx {
             hidpi?: boolean;
             serverType?: (ol.source.wms.ServerType | string);
             imageLoadFunction?: ol.ImageLoadFunctionType;
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             params: { [k: string]: any };
             projection: ol.ProjectionLike;
             ratio?: number;
@@ -12152,7 +12152,7 @@ export namespace olx {
             crossOrigin?: (string);
             imageExtent: ol.Extent;
             imageLoadFunction?: ol.ImageLoadFunctionType;
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             imageSize?: ol.Size;
             url: string;
@@ -12163,7 +12163,7 @@ export namespace olx {
             cacheSize?: number;
             crossOrigin?: (string);
             params?: { [k: string]: any };
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
             projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12193,7 +12193,7 @@ export namespace olx {
             crossOrigin?: (string);
             gutter?: number;
             hidpi?: boolean;
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
             projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12210,7 +12210,7 @@ export namespace olx {
             features?: (ol.Feature[] | ol.Collection<ol.Feature>);
             format?: ol.format.Feature;
             loader?: ol.FeatureLoader;
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             overlaps?: boolean;
             strategy?: ol.LoadingStrategy;
             url?: (string | ol.FeatureUrlFunction);
@@ -12222,7 +12222,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             tileGrid: ol.tilegrid.WMTS;
             projection: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12245,7 +12245,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             opaque?: boolean;
             projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12265,7 +12265,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             maxZoom?: number;
             minZoom?: number;
@@ -12279,7 +12279,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
-            logo?: (string | olx.LogoOptions);
+            logo?: (string | LogoOptions);
             reprojectionErrorThreshold?: number;
             url: string;
             tierSizeCalculation?: string;
@@ -12357,7 +12357,7 @@ export namespace olx {
             offsetX?: number;
             offsetY?: number;
             overflow?: boolean;
-            placement?: olx.style.TextPlacement;
+            placement?: TextPlacement;
             scale?: number;
             rotateWithView?: boolean;
             rotation?: number;
@@ -12464,7 +12464,7 @@ export namespace olx {
         layers?: (ol.layer.Base[] | ol.Collection<ol.layer.Base>);
         loadTilesWhileAnimating?: boolean;
         loadTilesWhileInteracting?: boolean;
-        logo?: (boolean | string | olx.LogoOptions | Element);
+        logo?: (boolean | string | LogoOptions | Element);
         overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]);
         renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
         target?: (Element | string);
@@ -12483,7 +12483,7 @@ export namespace olx {
         stopEvent?: boolean;
         insertFirst?: boolean;
         autoPan?: boolean;
-        autoPanAnimation?: olx.animation.PanOptions;
+        autoPanAnimation?: animation.PanOptions;
         autoPanMargin?: number;
     }
 
@@ -12511,7 +12511,7 @@ export namespace olx {
             maxZoom?: number;
             duration?: number;
             easing?: ((t: number) => number);
-            callback?: olx.animation.AnimateCallback;
+            callback?: animation.AnimateCallback;
         }
     }
 
@@ -12547,7 +12547,7 @@ export namespace olx {
     interface FrameState {
         pixelRatio: number;
         time: number;
-        viewState: olx.ViewState;
+        viewState: ViewState;
     }
 
     interface ViewState {
