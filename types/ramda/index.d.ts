@@ -15,6 +15,7 @@
 //                 Miika Hänninen <https://github.com/googol>
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
+//                 Jack Leigh <https://github.com/leighman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1802,7 +1803,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
+        toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1810,7 +1811,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
+        toPairsIn<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
         /**
          * Returns the string representation of the given value. eval'ing the output should
