@@ -9,7 +9,7 @@
  * together that share the *exact* same GraphQL field selection.
  *
  * Note:
- *  The batchResolveFunction you supply always expects you to always return an array of TReturn (or a promise with this array).
+ *  The batchResolveFunction you supply always expects you to return an array of TReturn (or a promise with this array).
  *  This is because you will have to return a TReturn for every source given to you by the batch function.
  *  For an example of this please see the examples in the original project repository:
  *  https://github.com/calebmer/graphql-resolve-batch/tree/master/examples
