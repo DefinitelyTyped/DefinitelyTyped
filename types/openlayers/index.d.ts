@@ -13,7 +13,7 @@
 
 interface GlobalObject { [key: string]: any; }
 
-declare module ol {
+declare namespace ol {
     /**
      * Error object thrown when an assertion failed. This is an ECMA-262 Error,
      * extended with a `code` property.
@@ -221,7 +221,7 @@ declare module ol {
         setAt(index: number, elem: T): void;
     }
 
-    module Collection {
+    namespace Collection {
         type EventType = string;
 
         /**
@@ -258,7 +258,7 @@ declare module ol {
      * Canvas renderer.
      *
      */
-    module color {
+    namespace color {
         /**
          * Return the color as an array. This function maintains a cache of calculated
          * arrays which means the result should not be modified.
@@ -281,7 +281,7 @@ declare module ol {
      * An {@link ol.ColorLike} can be a color, gradient or pattern accepted by
      * [CanvasRenderingContext2D.fillStyle](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle).
      */
-    module colorlike {
+    namespace colorlike {
         /**
          * @param color Color.
          * @return The color as an ol.ColorLike
@@ -290,7 +290,7 @@ declare module ol {
         function asColorLike(color: (ol.Color | ol.ColorLike)): ol.ColorLike;
     }
 
-    module control {
+    namespace control {
         /**
          * @classdesc
          * Control to show all the attributions associated with the layer sources
@@ -697,7 +697,7 @@ declare module ol {
             setUnits(units: ol.control.ScaleLine.Units): void;
         }
 
-        module ScaleLine {
+        namespace ScaleLine {
             /**
              * @api
              */
@@ -786,7 +786,7 @@ declare module ol {
         }
     }
 
-    module coordinate {
+    namespace coordinate {
         /**
          * Add `delta` to `coordinate`. `coordinate` is modified in place and returned
          * by the function.
@@ -1100,7 +1100,7 @@ declare module ol {
     /**
      * Easing functions for {@link ol.animation}.
      */
-    module easing {
+    namespace easing {
         /**
          * Start slow and speed up.
          * @param t Input between 0 and 1.
@@ -1157,8 +1157,8 @@ declare module ol {
      * properties; see the specific event class page for details.
      *
      */
-    module events {
-        module condition {
+    namespace events {
+        namespace condition {
             /**
              * Return `true` if only the alt-key is pressed, `false` otherwise (e.g. when
              * additionally the shift-key is pressed).
@@ -1388,7 +1388,7 @@ declare module ol {
     /* From ol/typedefs.js */
     type EventsListenerFunctionType = ((evt: ol.events.Event) => void) | ((evt: ol.events.Event) => boolean);
 
-    module extent {
+    namespace extent {
         /**
          * Build an extent that includes all given coordinates.
          *
@@ -1757,7 +1757,7 @@ declare module ol {
     /**
      * Loading mechanisms for vector data.
      */
-    module featureloader {
+    namespace featureloader {
         /**
          * Create an XHR feature loader for a `url` and `format`. The feature loader
          * loads features (with XHR), parses the features, and adds them to the
@@ -1781,7 +1781,7 @@ declare module ol {
         function xhr(url: (string | ol.FeatureUrlFunction), format: ol.format.Feature): ol.FeatureLoader;
     }
 
-    module format {
+    namespace format {
         /**
          * @classdesc
          * Feature format for reading and writing data in the EsriJSON format.
@@ -2489,7 +2489,7 @@ declare module ol {
             setLayers(layers: string[]): void;
         }
 
-        module filter {
+        namespace filter {
             /**
              * Create a `<Intersects>` operator to test whether a geometry-valued property
              * intersects a given geometry.
@@ -3805,7 +3805,7 @@ declare module ol {
         setTrackingOptions(options: PositionOptions): void;
     }
 
-    module geom {
+    namespace geom {
         /**
          * @classdesc
          * Circle geometry.
@@ -4808,7 +4808,7 @@ declare module ol {
         setMap(map: ol.Map): void;
     }
 
-    module has {
+    namespace has {
         /**
          * The ratio between physical pixels and device-independent pixels
          * (dips) on the device (`window.devicePixelRatio`).
@@ -4961,7 +4961,7 @@ declare module ol {
      */
     function inherits(childCtor: (() => any), parentCtor: (() => any)): void;
 
-    module interaction {
+    namespace interaction {
         /**
          * @classdesc
          * Allows the user to zoom by double-clicking on the map.
@@ -5018,7 +5018,7 @@ declare module ol {
             static handleEvent: any;
         }
 
-        module DragAndDrop {
+        namespace DragAndDrop {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
@@ -5105,7 +5105,7 @@ declare module ol {
             getGeometry(): ol.geom.Polygon;
         }
 
-        module DragBox {
+        namespace DragBox {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.DragBox} instances are instances of
@@ -5246,7 +5246,7 @@ declare module ol {
             constructor(opt_options?: olx.interaction.DragZoomOptions);
         }
 
-        module Draw {
+        namespace Draw {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Draw} instances are instances of
@@ -5513,7 +5513,7 @@ declare module ol {
             static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
         }
 
-        module Modify {
+        namespace Modify {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Modify} instances are instances of
@@ -5693,7 +5693,7 @@ declare module ol {
             static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
         }
 
-        module Select {
+        namespace Select {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Select} instances are instances of
@@ -5872,7 +5872,7 @@ declare module ol {
             removeFeature(feature: ol.Feature, opt_unlisten?: boolean): void;
         }
 
-        module Translate {
+        namespace Translate {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Translate} instances are instances of
@@ -5958,7 +5958,7 @@ declare module ol {
         constructor(decay: number, minVelocity: number, delay: number);
     }
 
-    module layer {
+    namespace layer {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -6495,7 +6495,7 @@ declare module ol {
     /**
      * Strategies for loading vector data.
      */
-    module loadingstrategy {
+    namespace loadingstrategy {
         /**
          * Strategy function for loading all features with a single request.
          * @param extent Extent.
@@ -7465,7 +7465,7 @@ declare module ol {
         setPositioning(positioning: ol.OverlayPositioning): void;
     }
 
-    module pointer {
+    namespace pointer {
         /**
          * @classdesc
          * A class for pointer events.
@@ -7535,7 +7535,7 @@ declare module ol {
      * this.
      *
      */
-    module proj {
+    namespace proj {
         /**
          * Projection units: `'degrees'`, `'ft'`, `'m'`, `'pixels'`, `'tile-pixels'` or
          * `'us-ft'`.
@@ -7859,8 +7859,8 @@ declare module ol {
         ): number;
     }
 
-    module render {
-        module canvas {
+    namespace render {
+        namespace canvas {
             /**
              * @classdesc
              * A concrete subclass of {@link ol.render.VectorContext} that implements
@@ -8094,7 +8094,7 @@ declare module ol {
      */
     type RasterOperationType = "pixel" | "image";
 
-    module source {
+    namespace source {
         /**
          * @classdesc
          * Layer source for Bing Maps tile data.
@@ -9357,7 +9357,7 @@ declare module ol {
             constructor(options: olx.source.VectorTileOptions);
         }
 
-        module wms {
+        namespace wms {
             /**
              * Available server types: `'carmentaserver'`, `'geoserver'`, `'mapserver'`,
              *     `'qgis'`. These are servers that have vendor parameters beyond the WMS
@@ -9719,7 +9719,7 @@ declare module ol {
      * ```
      *
      */
-    module style {
+    namespace style {
         /**
          * Manages the creation of image atlases.
          *
@@ -10540,11 +10540,11 @@ declare module ol {
         load(): void;
     }
 
-    module Tile {
+    namespace Tile {
         type State = number;
     }
 
-    module tilegrid {
+    namespace tilegrid {
         /**
          * Creates a tile grid with a standard XYZ tiling scheme.
          * @param opt_options Tile grid options.
@@ -11414,8 +11414,8 @@ declare module ol {
     }
 }
 
-declare module olx {
-    module animation {
+declare namespace olx {
+    namespace animation {
         interface BounceOptions {
             resolution: number;
             start?: number;
@@ -11465,7 +11465,7 @@ declare module olx {
         type AnimateCallback = (completed: boolean) => void;
     }
 
-    module control {
+    namespace control {
         interface AttributionOptions {
             className?: string;
             target?: Element;
@@ -11570,7 +11570,7 @@ declare module olx {
         }
     }
 
-    module format {
+    namespace format {
         interface ReadOptions {
             dataProjection: ol.ProjectionLike;
             featureProjection: ol.ProjectionLike;
@@ -11681,7 +11681,7 @@ declare module olx {
         }
     }
 
-    module interaction {
+    namespace interaction {
         /**
          * Object literal with config options for interactions.
          */
@@ -11844,7 +11844,7 @@ declare module olx {
         }
     }
 
-    module layer {
+    namespace layer {
         interface BaseOptions {
             opacity?: number;
             visible?: boolean;
@@ -11961,15 +11961,15 @@ declare module olx {
         }
     }
 
-    module parser {
+    namespace parser {
     }
-    module render {
+    namespace render {
         interface ToContextOptions {
             size?: ol.Size;
             pixelRatio?: number;
         }
     }
-    module source {
+    namespace source {
         interface BingMapsOptions {
             cacheSize?: number;
             culture?: string;
@@ -12286,7 +12286,7 @@ declare module olx {
             size: ol.Size;
         }
     }
-    module style {
+    namespace style {
         interface CircleOptions {
             fill?: ol.style.Fill;
             radius: number;
@@ -12386,7 +12386,7 @@ declare module olx {
             space?: number;
         }
     }
-    module tilegrid {
+    namespace tilegrid {
         interface TileGridOptions {
             extent?: ol.Extent;
             minZoom?: number;
@@ -12501,7 +12501,7 @@ declare module olx {
         getPointResolution?: ((resolution: number, coords: ol.Coordinate) => number);
     }
 
-    module view {
+    namespace view {
         interface FitOptions {
             size?: ol.Size;
             padding?: number[];
