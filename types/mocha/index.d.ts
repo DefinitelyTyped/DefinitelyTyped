@@ -1,7 +1,12 @@
-// Type definitions for mocha 2.2.5
+// Type definitions for mocha 5.0
 // Project: http://mochajs.org/
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>, otiai10 <https://github.com/otiai10>, jt000 <https://github.com/jt000>, Vadim Macagon <https://github.com/enlight>
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
+//                 otiai10 <https://github.com/otiai10>
+//                 jt000 <https://github.com/jt000>
+//                 Vadim Macagon <https://github.com/enlight>
+//                 Andrew Bradley <https://github.com/cspotcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 interface MochaSetupOptions {
     //milliseconds to wait before considering a test slow
@@ -11,7 +16,7 @@ interface MochaSetupOptions {
     timeout?: number;
 
     // ui name "bdd", "tdd", "exports" etc
-    ui?: string;
+    ui?: Mocha.Interface;
 
     //array of accepted globals
     globals?: any[];
@@ -32,38 +37,38 @@ interface MochaSetupOptions {
     require?: string[];
 }
 
-declare var mocha: Mocha;
-declare var describe: Mocha.IContextDefinition;
-declare var xdescribe: Mocha.IContextDefinition;
+declare const mocha: Mocha;
+declare const describe: Mocha.IContextDefinition;
+declare const xdescribe: Mocha.IContextDefinition;
 // alias for `describe`
-declare var context: Mocha.IContextDefinition;
+declare const context: Mocha.IContextDefinition;
 // alias for `describe`
-declare var suite: Mocha.IContextDefinition;
-declare var it: Mocha.ITestDefinition;
-declare var xit: Mocha.ITestDefinition;
+declare const suite: Mocha.IContextDefinition;
+declare const it: Mocha.ITestDefinition;
+declare const xit: Mocha.ITestDefinition;
 // alias for `it`
-declare var test: Mocha.ITestDefinition;
-declare var specify: Mocha.ITestDefinition;
+declare const test: Mocha.ITestDefinition;
+declare const specify: Mocha.ITestDefinition;
 
 // Used with the --delay flag; see https://mochajs.org/#hooks
 declare function run(): void;
 
 interface MochaDone {
-    (error?: any): any;
+    (error?: any): void;
 }
 
-declare function setup(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
-declare function teardown(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
-declare function suiteSetup(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function suiteTeardown(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function before(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function before(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function after(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function after(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function beforeEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
-declare function beforeEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
-declare function afterEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
-declare function afterEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function setup(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function teardown(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function suiteSetup(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function suiteTeardown(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function before(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function before(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function after(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function after(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function beforeEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function beforeEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function afterEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+declare function afterEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
 
 interface ReporterConstructor {
     new(runner: Mocha.IRunner, options: any): any;
@@ -81,6 +86,8 @@ declare class Mocha {
         bail?: boolean;
     });
 
+    /** Setup mocha with the given interface. */
+    setup(interface: Mocha.Interface): Mocha;
     /** Setup mocha with the given options. */
     setup(options: MochaSetupOptions): Mocha;
     bail(value?: boolean): Mocha;
@@ -118,6 +125,16 @@ declare class Mocha {
 
 // merge the Mocha class declaration with a module
 declare namespace Mocha {
+    /** Third-party declarations that want to add new interfaces can contribute names here */
+    interface InterfaceContributions {
+        bdd: any;
+        tdd: any;
+        qunit: any;
+        exports: any;
+    }
+
+    type Interface = keyof InterfaceContributions;
+
     interface ISuiteCallbackContext {
         timeout(ms: number | string): this;
         retries(n: number): this;
@@ -204,9 +221,9 @@ declare namespace Mocha {
     }
 
     interface ITestDefinition {
-        (expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): ITest;
-        only(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): ITest;
-        skip(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): void;
+        (expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => PromiseLike<any> | void): ITest;
+        only(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => PromiseLike<any> | void): ITest;
+        skip(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
         timeout(ms: number | string): void;
         state: "failed" | "passed";
     }
@@ -250,6 +267,64 @@ declare namespace Mocha {
             constructor(runner: IRunner, options?: any);
         }
     }
+
+    /*
+     * All ambient functions are also available via require('mocha') when invoked via the mocha CLI
+     * See for details: https://mochajs.org/#require
+     */
+
+    /** Only available when invoked via the mocha CLI */
+    export const describe: Mocha.IContextDefinition;
+    /** Only available when invoked via the mocha CLI */
+    export const xdescribe: Mocha.IContextDefinition;
+    /**
+     * alias for `describe`
+     * Only available when invoked via the mocha CLI
+     */
+    export const context: Mocha.IContextDefinition;
+    /**
+     * alias for `describe`
+     * Only available when invoked via the mocha CLI
+     */
+    export const suite: Mocha.IContextDefinition;
+    /** Only available when invoked via the mocha CLI */
+    export const it: Mocha.ITestDefinition;
+    /** Only available when invoked via the mocha CLI */
+    export const xit: Mocha.ITestDefinition;
+    /**
+     * alias for `it`
+     * Only available when invoked via the mocha CLI
+     */
+    export const test: Mocha.ITestDefinition;
+    /**
+     * Alias for `it`
+     * Only available when invoked via the mocha CLI
+     */
+    export const specify: Mocha.ITestDefinition;
+    /** Only available when invoked via the mocha CLI */
+    export function setup(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function teardown(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function suiteSetup(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function suiteTeardown(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function before(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function before(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function after(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function after(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function beforeEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function beforeEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function afterEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    /** Only available when invoked via the mocha CLI */
+    export function afterEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
 }
 
 declare module "mocha" {

@@ -1,8 +1,50 @@
+import {
+    after as importedAfter,
+    before as importedBefore,
+    afterEach as importedAfterEach,
+    beforeEach as importedBeforeEach,
+    context as importedContext,
+    describe as importedDescribe,
+    it as importedIt,
+    xdescribe as importedXdescribe,
+    xit as importedXit
+} from 'mocha';
+
 let boolean: boolean;
 let string: string;
 let number: number;
 let stringOrUndefined: string | undefined;
 let dateOrUndefined: Date | undefined;
+let resolved = Promise.resolve();
+let rejected = Promise.reject('some error');
+
+// Use module augmentation to add a third-party interface
+declare module 'mocha' {
+    interface InterfaceContributions {
+        'third-party-interface': any;
+    }
+}
+const i: Mocha.Interface = 'third-party-interface';
+
+// Lazy tests of compatibility between imported and global functions; should be identical
+const _after: typeof after = importedAfter;
+const _after2: typeof importedAfter = after;
+const _before: typeof before = importedBefore;
+const _before2: typeof importedBefore = before;
+const _afterEach: typeof afterEach = importedAfterEach;
+const _afterEach2: typeof importedAfterEach = afterEach;
+const _beforeEach: typeof beforeEach = importedBeforeEach;
+const _beforeEach2: typeof importedBeforeEach = beforeEach;
+const _context: typeof context = importedContext;
+const _context2: typeof importedContext = context;
+const _describe: typeof describe = importedDescribe;
+const _describe2: typeof importedDescribe = describe;
+const _it: typeof it = importedIt;
+const _it2: typeof importedIt = it;
+const _xdescribe: typeof xdescribe = importedXdescribe;
+const _xdescribe2: typeof importedXdescribe = xdescribe;
+const _xit: typeof xit = importedXit;
+const _xit2: typeof importedXit = xit;
 
 function test_describe() {
     describe('something', () => { });
@@ -48,6 +90,9 @@ function test_it() {
 
     it('does something', (done) => { done(); });
 
+    it('does something', () => { return resolved; });
+    it('does something', () => { return rejected; });
+
     it.only('does something', () => { });
 
     it.skip('does something', () => { });
@@ -64,6 +109,9 @@ function test_test() {
     test('does something', function () { this['sharedState'] = true; });
 
     test('does something', (done) => { done(); });
+
+    test('does something', () => { return resolved; });
+    test('does something', () => { return rejected; });
 
     test.only('does something', () => { });
 
@@ -82,6 +130,9 @@ function test_specify() {
 
     specify('does something', (done) => { done(); });
 
+    specify('does something', () => { return resolved; });
+    specify('does something', () => { return rejected; });
+
     specify.only('does something', () => { });
 
     specify.skip('does something', () => { });
@@ -98,9 +149,14 @@ function test_before() {
 
     before((done) => { done(); });
 
+    before(() => { return resolved; });
+    before(() => { return rejected; });
+
     before("my description", () => { });
 
     before("my description", done => { });
+
+    before("my description", () => { return resolved; });
 
     before("my description", function () {
         this.skip().timeout(2000).skip();
@@ -139,6 +195,17 @@ function test_setup() {
         string = this.currentTest.fullTitle();
         stringOrUndefined = this.currentTest.state;
     });
+
+    setup(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
 }
 
 function test_after() {
@@ -148,9 +215,13 @@ function test_after() {
 
     after((done) => { done(); });
 
+    after(() => { return resolved; });
+
     after("my description", () => { });
 
     after("my description", done => { });
+
+    after("my description", () => { return resolved; });
 }
 
 function test_teardown() {
@@ -184,6 +255,17 @@ function test_teardown() {
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
         stringOrUndefined = this.currentTest.state;
+    });
+
+    teardown(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
     });
 }
 
@@ -220,6 +302,17 @@ function test_beforeEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
+    beforeEach(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
+
     beforeEach("my description", function () {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -240,6 +333,17 @@ function test_beforeEach() {
         string = this.currentTest.fullTitle();
         stringOrUndefined = this.currentTest.state;
     });
+
+    beforeEach("my description", function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
 }
 
 function test_suiteSetup() {
@@ -248,6 +352,8 @@ function test_suiteSetup() {
     suiteSetup(function () { this['sharedState'] = true; });
 
     suiteSetup((done) => { done(); });
+
+    suiteSetup(() => { return resolved; });
 }
 
 function test_afterEach() {
@@ -283,6 +389,17 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
+    afterEach(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
+
     afterEach("my description", function () {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -304,6 +421,17 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
+    afterEach("my description", function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
+
 }
 
 function test_suiteTeardown() {
@@ -312,6 +440,8 @@ function test_suiteTeardown() {
     suiteTeardown(function () { this['sharedState'] = true; });
 
     suiteTeardown((done) => { done(); });
+
+    suiteTeardown(() => { return resolved; });
 }
 
 function test_reporter_string() {
