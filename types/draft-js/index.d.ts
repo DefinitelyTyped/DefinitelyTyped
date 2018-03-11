@@ -1,4 +1,4 @@
-// Type definitions for Draft.js v0.10.4
+// Type definitions for Draft.js v0.10.5
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 //                 Eelco Lempsink <https://github.com/eelco>
