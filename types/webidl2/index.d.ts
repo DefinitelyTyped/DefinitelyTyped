@@ -33,7 +33,8 @@ export interface WebIDLParseError {
 
 // tslint:disable-next-line interface-name
 export interface IDLTypeDescription {
-    type: string;
+    /** String indicating where this type is used. Can be null if not applicable. */
+    type: string | null;
     /** Boolean indicating if it is a sequence. Same as generic === "sequence" */
     sequence: boolean;
     /** String indicating the generic type (e.g. "Promise", "sequence"). null otherwise. */
@@ -218,7 +219,7 @@ export interface ConstantMemberType {
     type: "const";
     /** Whether its type is nullable. */
     nullable: boolean;
-    /** The type of the constant (a simple type, the type name). */
+    /** An IDL Type of the constant that represents a simple type, the type name. */
     idlType: IDLTypeDescription;
     /** The name of the constant. */
     name: string;
