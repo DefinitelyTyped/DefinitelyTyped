@@ -7,6 +7,7 @@
 //                 Michael Wu <https://github.com/michael-yx-wu>
 //                 Willis Plummer <https://github.com/willisplummer>
 //                 Santiago Vilar <https://github.com/smvilar>
+//                 Ulf Schwekendiek <https://github.com/sulf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -398,7 +399,7 @@ declare namespace Draft {
                 /**
                  * Given a `ContentBlock`, return an immutable List of decorator keys.
                  */
-                getDecorations(block: ContentBlock): Immutable.List<string>;
+                getDecorations(block: ContentBlock, contentState: ContentState): Immutable.List<string>;
 
                 /**
                  * Given a decorator key, return the component to use when rendering
@@ -456,7 +457,7 @@ declare namespace Draft {
             class CompositeDraftDecorator {
                 constructor(decorators: Array<DraftDecorator>);
 
-                getDecorations(block: ContentBlock): Immutable.List<string>;
+                getDecorations(block: ContentBlock, contentState: ContentState): Immutable.List<string>;
                 getComponentForKey(key: string): Function;
                 getPropsForKey(key: string): Object;
             }
