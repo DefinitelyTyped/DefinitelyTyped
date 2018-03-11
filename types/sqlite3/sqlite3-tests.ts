@@ -1,5 +1,5 @@
-import sqlite3 = require('sqlite3');
-sqlite3.verbose();
+import * as sqlite from 'sqlite3';
+const sqlite3 = sqlite.verbose();
 
 let db: sqlite3.Database = new sqlite3.Database('chain.sqlite3', () => {});
 
