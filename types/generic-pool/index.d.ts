@@ -1,6 +1,7 @@
 // Type definitions for generic-pool 3.1
 // Project: https://github.com/coopernurse/node-pool#readme
 // Definitions by: Jerray Fu <https://github.com/jerray>
+//                 Will Boyce <https://github.com/wrboyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -16,17 +17,17 @@ export class Pool<T> extends EventEmitter {
     max: number;
     min: number;
 
-    acquire(priority?: number): Promise<T>;
+    acquire(priority?: number): PromiseLike<T>;
     release(resource: T): void;
     destroy(resource: T): void;
-    drain(): Promise<undefined>;
-    clear(): Promise<undefined[]>;
+    drain(): PromiseLike<undefined>;
+    clear(): PromiseLike<undefined[]>;
 }
 
 export interface Factory<T> {
-    create(): Promise<T>;
-    destroy(client: T): Promise<undefined>;
-    validate?(client: T): Promise<boolean>;
+    create(): PromiseLike<T>;
+    destroy(client: T): PromiseLike<undefined>;
+    validate?(client: T): PromiseLike<boolean>;
 }
 
 export interface Options {

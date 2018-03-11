@@ -4,7 +4,7 @@
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 ///<reference types="react" />
 
@@ -133,7 +133,7 @@ declare module 'recompose' {
     >;
 
     // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
-    type StateHandler<TState> = (...payload: any[]) => TState | undefined;
+    type StateHandler<TState> = (...payload: any[]) => Partial<TState> | undefined;
     type StateHandlerMap<TState> = {
       [updaterName: string]: StateHandler<TState>;
     };

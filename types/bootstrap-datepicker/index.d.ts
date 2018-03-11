@@ -58,6 +58,7 @@ interface DatepickerOptions {
     daysOfWeekHighlighted?:string|number[];
     defaultViewDate?:Date|string|DatepickerViewDate;
     updateViewDate?:boolean;
+    enableOnReadonly?: boolean;
 }
 
 interface DatepickerViewDate {

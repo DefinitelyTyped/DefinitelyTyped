@@ -2,7 +2,7 @@
 // Project: https://github.com/reactjs/react-transition-group
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import CSSTransition = require("./CSSTransition");
 import Transition from "./Transition";

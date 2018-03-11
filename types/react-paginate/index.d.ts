@@ -5,7 +5,7 @@
 //                 pegel03 <https://github.com/pegel03>
 //                 Simon Archer <https://github.com/archy-bold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 

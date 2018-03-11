@@ -14,8 +14,9 @@
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 Guilherme Hübner <https://github.com/guilhermehubner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /*
 Known Problems & Workarounds
@@ -284,7 +285,7 @@ declare namespace React {
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
+            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
             callback?: () => void
         ): void;
 
@@ -479,6 +480,7 @@ declare namespace React {
     interface FocusEvent<T> extends SyntheticEvent<T> {
         nativeEvent: NativeFocusEvent;
         relatedTarget: EventTarget;
+        target: EventTarget & T;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -2863,6 +2865,10 @@ declare namespace React {
         dateTime?: string;
     }
 
+    interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        open?: boolean;
+    }
+
     interface EmbedHTMLAttributes<T> extends HTMLAttributes<T> {
         height?: number | string;
         src?: string;
@@ -2909,6 +2915,7 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
         height?: number | string;
         sizes?: string;
         src?: string;
@@ -3500,7 +3507,7 @@ declare namespace React {
         del: DetailedHTMLFactory<DelHTMLAttributes<HTMLElement>, HTMLElement>;
         details: DetailedHTMLFactory<DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
         dfn: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        dialog: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dialog: DetailedHTMLFactory<DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
         div: DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
         dl: DetailedHTMLFactory<HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
         dt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3723,7 +3730,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
     interface ErrorInfo {
         /**
-         * Captures which component contained the exception, and it's ancestors.
+         * Captures which component contained the exception, and its ancestors.
          */
         componentStack: string;
     }
@@ -3774,7 +3781,7 @@ declare global {
             del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;
             details: React.DetailedHTMLProps<React.DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
             dfn: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            dialog: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dialog: React.DetailedHTMLProps<React.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
             div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
             dl: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
             dt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;

@@ -100,7 +100,11 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach<T>(obj: T[], iterator: (value: T, key: number, obj: T[]) => void, context?: any): T[];
+        forEach<T, U extends ArrayLike<T> = T[]>(
+            obj: U,
+            iterator: (value: U[number], key: number, obj: U) => void,
+            context?: any
+        ): U;
         /**
          * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
          *
@@ -357,9 +361,9 @@ declare namespace angular {
         $valid: boolean;
         $invalid: boolean;
         $submitted: boolean;
-        $error: any;
-        $name: string;
-        $pending: any;
+        $error: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
+        $name?: string;
+        $pending?: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
         $addControl(control: INgModelController | IFormController): void;
         $removeControl(control: INgModelController | IFormController): void;
         $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
@@ -399,8 +403,8 @@ declare namespace angular {
         $parsers: IModelParser[];
         $formatters: IModelFormatter[];
         $viewChangeListeners: IModelViewChangeListener[];
-        $error: any;
-        $name: string;
+        $error: { [validationErrorKey: string]: boolean };
+        $name?: string;
 
         $touched: boolean;
         $untouched: boolean;
@@ -408,7 +412,7 @@ declare namespace angular {
         $validators: IModelValidators;
         $asyncValidators: IAsyncModelValidators;
 
-        $pending: any;
+        $pending?: { [validationErrorKey: string]: boolean };
         $pristine: boolean;
         $dirty: boolean;
         $valid: boolean;
@@ -1103,28 +1107,43 @@ declare namespace angular {
 
     interface IPromise<T> {
         /**
-         * Regardless of when the promise was or will be resolved or rejected, then calls one of the success or error callbacks asynchronously as soon as the result is available. The callbacks are called with a single argument: the result or rejection reason. Additionally, the notify callback may be called zero or more times to provide a progress indication, before the promise is resolved or rejected.
-         * The successCallBack may return IPromise<never> for when a $q.reject() needs to be returned
-         * This method returns a new promise which is resolved or rejected via the return value of the successCallback, errorCallback. It also notifies via the return value of the notifyCallback method. The promise can not be resolved or rejected from the notifyCallback method.
+         * Regardless of when the promise was or will be resolved or rejected, then calls one of
+         * the success or error callbacks asynchronously as soon as the result is available. The
+         * callbacks are called with a single argument: the result or rejection reason.
+         * Additionally, the notify callback may be called zero or more times to provide a
+         * progress indication, before the promise is resolved or rejected.
+         * The `successCallBack` may return `IPromise<never>` for when a `$q.reject()` needs to
+         * be returned.
+         * This method returns a new promise which is resolved or rejected via the return value
+         * of the `successCallback`, `errorCallback`. It also notifies via the return value of
+         * the `notifyCallback` method. The promise can not be resolved or rejected from the
+         * `notifyCallback` method.
          */
-        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult>;
-        then<TResult1, TResult2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback?: null, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2>;
-
-        then<TResult, TCatch>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => IPromise<TCatch>|TCatch, notifyCallback?: (state: any) => any): IPromise<TResult | TCatch>;
-        then<TResult1, TResult2, TCatch1, TCatch2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback: (reason: any) => IPromise<TCatch1>|TCatch2, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2 | TCatch1 | TCatch2>;
+        then<TResult1 = T, TResult2 = never>(
+            successCallback?:
+                | ((value: T) => IPromise<never> | IPromise<TResult1> | TResult1)
+                | null,
+            errorCallback?:
+                | ((reason: any) => IPromise<never> | IPromise<TResult2> | TResult2)
+                | null,
+            notifyCallback?: (state: any) => any
+        ): IPromise<TResult1 | TResult2>;
 
         /**
          * Shorthand for promise.then(null, errorCallback)
          */
-        catch<TCatch>(onRejected: (reason: any) => IPromise<TCatch>|TCatch): IPromise<T | TCatch>;
-        catch<TCatch1, TCatch2>(onRejected: (reason: any) => IPromise<TCatch1>|TCatch2): IPromise<T | TCatch1 | TCatch2>;
+        catch<TResult = never>(
+            onRejected?:
+                | ((reason: any) => IPromise<never> | IPromise<TResult> | TResult)
+                | null
+        ): IPromise<T | TResult>;
 
         /**
          * Allows you to observe either the fulfillment or rejection of a promise, but to do so without modifying the final value. This is useful to release resources or do some clean-up that needs to be done whether the promise was rejected or resolved. See the full specification for more information.
          *
          * Because finally is a reserved word in JavaScript and reserved keywords are not supported as property names by ES3, you'll need to invoke the method like promise['finally'](callback) to make your code IE8 and Android 2.x compatible.
          */
-        finally(finallyCallback: () => any): IPromise<T>;
+        finally(finallyCallback: () => void): IPromise<T>;
     }
 
     interface IDeferred<T> {

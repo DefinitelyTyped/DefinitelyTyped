@@ -147,6 +147,7 @@ declare namespace Mocha {
         sync: boolean;
         timedOut: boolean;
         timeout(n: number | string): this;
+        duration?: number;
     }
 
     /** Partial interface for Mocha's `Suite` class. */
@@ -170,9 +171,30 @@ declare namespace Mocha {
         currentTest: ITest;
     }
 
+    interface IStats {
+        suites: number;
+        tests: number;
+        passes: number;
+        pending: number;
+        failures: number;
+        start?: Date;
+        end?: Date;
+        duration?: Date;
+    }
 
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner { }
+    interface IRunner {
+        stats?: IStats;
+        started: boolean;
+        suite: ISuite;
+        total: number;
+        failures: number;
+        grep: (re: string, invert: boolean) => this;
+        grepTotal: (suite: ISuite) => number;
+        globals: (arr: ReadonlyArray<string>) => this | string[];
+        abort: () => this;
+        run: (fn?: (failures: number) => void) => this;
+    }
 
     interface IContextDefinition {
         (description: string, callback: (this: ISuiteCallbackContext) => void): ISuite;
@@ -191,13 +213,7 @@ declare namespace Mocha {
 
     export module reporters {
         export class Base {
-            stats: {
-                suites: number;
-                tests: number;
-                passes: number;
-                pending: number;
-                failures: number;
-            };
+            stats: IStats;
 
             constructor(runner: IRunner);
         }

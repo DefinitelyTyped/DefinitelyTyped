@@ -3810,7 +3810,7 @@ declare namespace kendo.ui {
         aggregates?: any;
         attributes?: any;
         columns?: any;
-        command?: GridColumnCommandItem[];
+        command?: string|(string|GridColumnCommandItem)[];
         editable?: Function;
         encoded?: boolean;
         field?: string;
@@ -18894,6 +18894,7 @@ declare namespace kendo.ooxml {
         cells?: WorkbookSheetRowCell[];
         index?: number;
         height?: number;
+        type?: "header" | "footer" | "groupHeader" | "groupFooter" | "data";
     }
 
     interface WorkbookSheet {

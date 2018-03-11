@@ -8,6 +8,7 @@
 //                 Joseph Page <https://github.com/josefpaij>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
+//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -43,6 +44,9 @@ declare class Chart {
     static controllers: {
         [key: string]: any;
     };
+
+    // Tooltip Static Options
+    static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
 declare class PluginServiceStatic {
     register(plugin: PluginServiceRegistrationOptions): void;
@@ -119,6 +123,7 @@ declare namespace Chart {
         lineJoin?: string;
         lineWidth?: number;
         strokeStyle?: string;
+        pointStyle?: PointStyle;
     }
 
     interface ChartTooltipItem {
@@ -157,12 +162,15 @@ declare namespace Chart {
     interface ChartPoint {
         x?: number | string | Date;
         y?: number;
+        r?: number;
     }
 
     interface ChartConfiguration {
         type?: ChartType | string;
         data?: ChartData;
         options?: ChartOptions;
+        // Plugins can require any options
+        plugins?: any;
     }
 
     interface ChartData {
@@ -191,7 +199,7 @@ declare namespace Chart {
         circumference?: number;
         rotation?: number;
         // Plugins can require any options
-        plugins?: any;
+        plugins?: { [plugin: string]: any };
     }
 
     interface ChartFontOptions {
@@ -231,6 +239,8 @@ declare namespace Chart {
         fontFamily?: string;
         padding?: number;
         generateLabels?(chart: any): any;
+        filter?(item: ChartLegendItem, data: ChartData): any;
+        usePointStyle?: boolean;
     }
 
     interface ChartTooltipOptions {
@@ -264,12 +274,18 @@ declare namespace Chart {
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
-        position?: "average"|"nearest";
+        position?: string;
         caretPadding?: number;
         displayColors?: boolean;
         borderColor?: ChartColor;
         borderWidth?: number;
     }
+
+    interface ChartTooltipsStaticConfiguration {
+        positioners: {[mode: string]: ChartTooltipPositioner};
+    }
+
+    type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
 
     interface ChartHoverOptions {
         mode?: string;
@@ -556,6 +572,11 @@ declare namespace Chart {
         angleLines?: AngleLineOptions;
         pointLabels?: PointLabelOptions;
         ticks?: TickOptions;
+    }
+
+    interface Point {
+        x: number;
+        y: number;
     }
 }
 

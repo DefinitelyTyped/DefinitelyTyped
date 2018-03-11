@@ -1,4 +1,4 @@
-import * as Koa from 'koa';
+import Koa = require('koa');
 import * as connect from 'connect';
 import expressToKoa = require('express-to-koa');
 

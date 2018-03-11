@@ -259,11 +259,11 @@ declare namespace jasmine {
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
-        beforeEach(beforeEachFunction: () => void): void;
-        beforeAll(beforeAllFunction: () => void): void;
+        beforeEach(beforeEachFunction: (done: DoneFn) => void, timeout?: number): void;
+        beforeAll(beforeAllFunction: (done: DoneFn) => void, timeout?: number): void;
         currentRunner(): Runner;
-        afterEach(afterEachFunction: () => void): void;
-        afterAll(afterAllFunction: () => void): void;
+        afterEach(afterEachFunction: (done: DoneFn) => void, timeout?: number): void;
+        afterAll(afterAllFunction: (done: DoneFn) => void, timeout?: number): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these

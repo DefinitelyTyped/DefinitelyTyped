@@ -6,9 +6,13 @@ var Engine = Matter.Engine,
 	Composites = Matter.Composites,
 	Constraint = Matter.Constraint,
 	Events = Matter.Events,
-	Query = Matter.Query;
-	
-	
+	Query = Matter.Query,
+    Plugin = Matter.Plugin;
+    
+
+Matter.use('matter-attractors');
+Plugin.use(Matter, ["matter-wrap"]);
+
 var engine = Engine.create();
 
 //Bodies

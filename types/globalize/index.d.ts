@@ -30,6 +30,12 @@ interface DateFormatterOptions {
 	 * Note this is NOT recommended for i18n in general. Use skeleton instead.
 	 */
 	raw?: string;
+
+	/**
+	 * String based on the time zone names of the IANA time zone database, 
+	 * such as "Asia/Shanghai", "Asia/Kolkata", "America/New_York".
+	 */
+	timeZone?: string;
 }
 
 interface CommonNumberFormatterOptions {
@@ -125,6 +131,13 @@ interface UnitFormatterOptions {
 interface GlobalizeStatic {
 
 	cldr: Cldr.CldrStatic;
+
+	/**
+	 * Globalize.loadTimeZone ( ianaTzData, ... )
+	 * This method allows you to load IANA time zone data to enable options.timeZone feature on date formatters and parsers.
+	 * @param {Object} ianaTzData A JSON object with zdumped IANA timezone data. Get the data via https://github.com/rxaviers/iana-tz-data
+	 */
+	loadTimeZone(ianaTzData: Object): void;
 
 	/**
 	 * Globalize.load( json, ... )

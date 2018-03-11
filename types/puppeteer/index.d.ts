@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.0
+// Type definitions for puppeteer 1.1
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -673,6 +673,10 @@ export interface RespondOptions {
 export interface Response {
   /** Promise which resolves to a buffer with response body. */
   buffer(): Promise<Buffer>;
+  /** True if the response was served from either the browser's disk cache or memory cache. */
+  fromCache(): boolean;
+  /** True if the response was served by a service worker. */
+  fromServiceWorker(): boolean;
   /** An object with HTTP headers associated with the response. All header names are lower-case. */
   headers(): Headers;
   /**
@@ -1203,6 +1207,8 @@ export interface Target {
 }
 
 export interface LaunchOptions {
+  /** Whether to open chrome in appMode. Defaults to false. */
+  appMode?: boolean;
   /** Whether to ignore HTTPS errors during navigation. Defaults to false. */
   ignoreHTTPSErrors?: boolean;
   /** Do not use `puppeteer.defaultArgs()` for launching Chromium. Defaults to false. */
