@@ -1,5 +1,4 @@
 import * as Git from 'nodegit';
-import { Clone, Repository } from 'nodegit';
 
 Git.Repository.discover("startPath", 1, "ceilingDirs").then((string) => {
     // Use string
