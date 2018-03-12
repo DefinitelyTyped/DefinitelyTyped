@@ -722,3 +722,14 @@ class RenderChildren extends React.Component {
         return children !== undefined ? children : null;
     }
 }
+
+interface MyComponentClassProps { bar: string; }
+declare const MyComponentClass: React.ComponentClass<MyComponentClassProps>;
+
+interface MyStatelessComponentProps { bar: string; }
+declare const MyStatelessComponent: React.StatelessComponent<MyStatelessComponentProps>;
+
+// $ExpectType MyComponentClassProps
+type MyComponentClassPropsExtracted = React.GetComponentProps<typeof MyComponentClass>;
+// $ExpectType MyStatelessComponentProps
+type MyStatelessComponentPropsExtracted = React.GetComponentProps<typeof MyStatelessComponent>;
