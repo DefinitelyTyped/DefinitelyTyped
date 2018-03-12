@@ -5,6 +5,7 @@
 //                 Konstantin Nesterov <https://github.com/wasd171>
 //                 Szőke Szabolcs <https://github.com/szabolcsx>
 //                 Kræn Hansen <https://github.com/kraenhansen>
+//                 Steve Zhang <https://github.com/Stevearzh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
