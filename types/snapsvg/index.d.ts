@@ -144,8 +144,9 @@ declare namespace Snap {
         append(el:Snap.Element):Snap.Element;
         appendTo(el:Snap.Element):Snap.Element;
         asPX(attr:string,value?:string):number;            //TODO: check what is really returned
-        attr(param:string):string;
-        attr(params:{[attr:string]:string|number|boolean|any}):Snap.Element;
+        attr(param: "viewBox"): BBox;
+        attr(param: string): string;
+        attr(params:{[attr:string]:string|number|boolean|BBox|any}):Snap.Element;
         before(el:Snap.Element):Snap.Element;
         children(): Snap.Element[];
         clone():Snap.Element;
@@ -289,7 +290,8 @@ declare namespace Snap {
     export interface Set {
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Element;
         animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Element;
-        attr(params: {[attr:string]:string|number|boolean|any}): Snap.Element;
+        attr(params: {[attr:string]:string|number|boolean|BBox|any}): Snap.Element;
+        attr(param: "viewBox"): BBox;
         attr(param: string): string;
         bind(attr: string, callback: Function): Snap.Set;
         bind(attr:string,element:Snap.Element):Snap.Set;
