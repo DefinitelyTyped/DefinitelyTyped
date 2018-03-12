@@ -106,6 +106,7 @@ declare namespace got {
         followRedirect?: boolean;
         decompress?: boolean;
         useElectronNet?: boolean;
+        json?: boolean;
     };
 
     interface TimeoutOptions {
