@@ -136,12 +136,14 @@ declare namespace Snap {
 
     export interface Element {
         add(el:Snap.Element):Snap.Element;
+        add(el:Snap.Set):Snap.Element;
         addClass(value:string):Snap.Element;
         after(el:Snap.Element):Snap.Element;
         align(el: Snap.Element, way: string):Snap.Element;
         animate(animation:any):Snap.Element;
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
         append(el:Snap.Element):Snap.Element;
+        append(el:Snap.Set):Snap.Element;
         appendTo(el:Snap.Element):Snap.Element;
         asPX(attr:string,value?:string):number;            //TODO: check what is really returned
         attr(param: "viewBox"): BBox;
