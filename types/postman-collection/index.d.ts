@@ -186,9 +186,9 @@ export class Collection extends ItemGroup<Request> {
 
     constructor(definition?: CollectionDefinition, environments?: any[]);
 
-    syncVariablesFrom(obj: any, track?: boolean): any;
+    syncVariablesFrom(obj: {[key: string]: VariableDefinition}, track?: boolean, prune?: boolean): {created: string[], updated: string[], deleted: string[]} | undefined;
 
-    syncVariablesTo(obj: any): any;
+    syncVariablesTo(obj?: {[key: string]: VariableDefinition}): {[key: string]: VariableDefinition};
 
     toJSON(): CollectionDefinition;
 
@@ -466,7 +466,7 @@ export class Request extends Property<RequestDefinition> implements RequestDefin
 
     removeHeader(toRemove: string | Header, options?: {ignoreCase: boolean}): void;
 
-    removeQueryParams(params: string | string[] | QueryParamDefinition[]): void;
+    removeQueryParams(params: string | string[] | QueryParamDefinition[] | QueryParamDefinition): void;
 
     toJSON(): RequestDefinition;
 
