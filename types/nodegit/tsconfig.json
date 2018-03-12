@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "nodegit-test.ts"
+        "nodegit-tests.ts"
     ]
 }
