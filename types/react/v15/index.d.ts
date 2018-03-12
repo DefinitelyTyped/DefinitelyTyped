@@ -343,7 +343,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type NonNullable<T> = T & {};
-    type GetComponentProps<C extends React.ComponentType<any>> = NonNullable<C['_props']>;
+    type GetComponentProps<C extends React.ComponentType<any>> = NonNullable<C['_doNotUse_props']>;
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
@@ -352,7 +352,7 @@ declare namespace React {
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
-        _props?: P;
+        _doNotUse_props?: P;
     }
 
     interface ComponentClass<P = {}> {
@@ -362,7 +362,7 @@ declare namespace React {
         childContextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
-        _props?: P;
+        _doNotUse_props?: P;
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
