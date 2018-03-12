@@ -192,7 +192,7 @@ export interface OperationMemberType {
     /** The name of the operation. If a stringifier, may be null. */
     name: string | null;
     /** An array of arguments for the operation. */
-    arguments: Argument[] | null;
+    arguments: Argument[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttributes[];
 }
