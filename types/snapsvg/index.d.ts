@@ -287,6 +287,7 @@ declare namespace Snap {
         rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
         text(x:number,y:number,text:string|number):Snap.Element;
         text(x:number,y:number,text:Array<string|number>):Snap.Element;
+        symbol(vbx:number,vby:number,vbw:number,vbh:number):Snap.Element;
     }
 
     export interface Set {
