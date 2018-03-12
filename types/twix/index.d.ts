@@ -80,6 +80,7 @@ export interface Twix {
 
     asDuration(period: string): Duration;
     isValid(): boolean;
+    toDate(): Date;
 }
 
 export interface TwixStatic {
