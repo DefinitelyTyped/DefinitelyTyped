@@ -17,8 +17,3 @@ interface Options {
 }
 
 declare function textarea_caret(element: HTMLElement, position: number, options?: Options): Caret;
-
-declare namespace textarea_caret {
-    const prototype: {
-    };
-}
