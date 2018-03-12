@@ -1,4 +1,4 @@
-// Type definitions for next 2.4
+// Type definitions for next 5.0
 // Project: https://github.com/zeit/next.js
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
@@ -7,21 +7,21 @@
 // TypeScript Version: 2.6
 
 /// <reference types="node" />
-/// <reference types="isomorphic-unfetch" />
 
 import * as http from "http";
 import * as url from "url";
 import * as fetch from "isomorphic-unfetch";
 
 declare namespace next {
+    // <<https://github.com/zeit/next.js/issues/1651>>
     interface NextContext {
-        pathname?: string;                      //path section of URL
+        pathname?: string;                      // path section of URL
         query?: any;                            // meant to be an object - // query string section of URL parsed as an object
         asPath?: string;                        // String of the actual path (including the query) shows in the browser
-        req?: http.IncomingMessage;             //HTTP request object (server only)
-        res?: http.ServerResponse;              //HTTP response object (server only)
-        jsonPageRes?: fetch.IsomorphicResponse; //Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response
-        err?: Error;                            //Error object if any error is encountered during the rendering
+        req?: http.IncomingMessage;             // HTTP request object (server only)
+        res?: http.ServerResponse;              // HTTP response object (server only)
+        jsonPageRes?: fetch.IsomorphicResponse; // Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response
+        err?: Error;                            // Error object if any error is encountered during the rendering
     }
 
     type UrlLike = url.UrlObject | url.Url;
