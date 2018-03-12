@@ -20,6 +20,14 @@ declare function SocketIO(port: string | number, opts?: SocketIO.ServerOptions):
 declare function SocketIO(opts: SocketIO.ServerOptions): SocketIO.Server;
 
 declare namespace SocketIO {
+	/**	
+	 * Backwards compatibility	
+	 * @see io().listen()
+	 */
+	function listen(): Server;
+	function listen(srv: any, opts?: ServerOptions): Server;
+	function listen(port: string | number, opts?: ServerOptions): Server;
+	function listen(opts: ServerOptions): Server;
 
 	interface Server {
 		engine: { ws: any };
