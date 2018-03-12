@@ -323,7 +323,7 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    type GetComponentProps<C extends React.ComponentType<any>> = NonNullable<C['_doNotUse_props']>;
+    type GetComponentProps<C extends ComponentType<any>> = NonNullable<C['_doNotUse_props']>;
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
