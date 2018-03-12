@@ -1,12 +1,11 @@
-/// <reference types="node" />
-import { WriteStream } from "fs";
-import { EventEmitter } from "events";
-
 // Type definitions for nodegit 0.18
 // Project: https://github.com/nodegit/nodegit
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+import { WriteStream } from "fs";
+import { EventEmitter } from "events";
 declare module "nodegit" {
     export class AnnotatedCommit {
         /**
