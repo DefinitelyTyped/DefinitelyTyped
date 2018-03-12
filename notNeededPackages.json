@@ -238,7 +238,7 @@
             "libraryName": "colors.js (colors)",
             "typingsPackageName": "colors",
             "sourceRepoURL": "https://github.com/Marak/colors.js",
-            "asOfVersion": "1.2.0"
+            "asOfVersion": "1.2.1"
         },
         {
             "libraryName": "commander",
