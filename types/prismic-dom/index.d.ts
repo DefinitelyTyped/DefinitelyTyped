@@ -9,7 +9,5 @@ interface RichText {
 
 export const RichText: RichText;
 
-declare const PrismicDOM: {
-    RichText: RichText;
-};
-export default PrismicDOM;
+declare const _default: { RichText: RichText };
+export default _default;
