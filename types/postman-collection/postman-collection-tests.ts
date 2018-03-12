@@ -164,13 +164,12 @@ collection = new pmCollection.Collection({}, []);
 collection.events; // $ExpectType EventList
 collection.variables; // $ExpectType VariableList
 collection.version; // $ExpectType Version | undefined
-// TODO update when get to VariableList
-collection.syncVariablesFrom({}); // $ExpectType any
-// TODO update
-collection.syncVariablesFrom({}, true); // ExpectType any
 
-// TODO update
-collection.syncVariablesTo({}); // ExpectType any
+collection.syncVariablesFrom({}); // $ExpectType { created: string[]; updated: string[]; deleted: string[]; } | undefined
+collection.syncVariablesFrom({}, true); // $ExpectType { created: string[]; updated: string[]; deleted: string[]; } | undefined
+
+collection.syncVariablesTo({}); // ExpectType $ExpectType { [key: string]: VariableDefinition; }
+
 collection.toJSON(); // $ExpectType CollectionDefinition
 
 pmCollection.Collection.isCollection(collection); // $ExpectType boolean
@@ -492,10 +491,10 @@ req.upsertHeader(headerDef); // $ExpectType void
 req.addQueryParams("string"); // $ExpectType void
 req.addQueryParams([qpDef]); // $ExpectType void
 
-// TODO check these - they might also need plain qpDef as a parameter
 req.removeQueryParams("string"); // $ExpectType void
 req.removeQueryParams(["string"]); // $ExpectType void
 req.removeQueryParams([qpDef]); // $ExpectType void
+req.removeQueryParams(qpDef); // $ExpectType void
 
 req.toJSON(); // $ExpectType RequestDefinition
 
