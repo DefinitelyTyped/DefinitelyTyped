@@ -7737,7 +7737,7 @@ export interface EasingStatic {
     ease: EasingFunction;
     quad: EasingFunction;
     cubic: EasingFunction;
-    poly: EasingFunction;
+    poly(n: number): EasingFunction;
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;
