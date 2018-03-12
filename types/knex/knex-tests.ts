@@ -1026,6 +1026,9 @@ knex('users')
   }).unionAll(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
+  }).modify(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
   });
 
 //
