@@ -119,17 +119,23 @@ interface Auth0LockConstructorOptions {
     autoclose?: boolean;
     autofocus?: boolean;
     avatar?: Auth0LockAvatarOptions;
+    clientBaseUrl?: string;
     closable?: boolean;
+    configurationBaseUrl?: string;
     container?: string;
     defaultADUsernameFromEmailPrefix?: string;
     defaultDatabaseConnection?: string;
     defaultEnterpriseConnection?: string;
     forgotPasswordLink?: string;
+    hashCleanup?: boolean;
     initialScreen?: "login" | "signUp" | "forgotPassword";
     language?: string;
+    languageBaseUrl?: string;
     languageDictionary?: any;
+    leeway?: number;
     loginAfterSignUp?: boolean;
     mustAcceptTerms?: boolean;
+    oidcConformant?: boolean;
     popupOptions?: Auth0LockPopupOptions;
     prefill?: { email?: string, username?: string};
     rememberLastLogin?: boolean;
@@ -137,7 +143,6 @@ interface Auth0LockConstructorOptions {
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
-    oidcConformant?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {
