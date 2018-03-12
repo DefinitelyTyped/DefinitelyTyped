@@ -3,6 +3,13 @@
 // Definitions by: Nick Whyte <https://github.com/nickw444>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export namespace RichText {
-    function asHtml(richText: any, linkResolver?: (doc: any) => string): string;
+interface RichText {
+    asHtml(richText: any, linkResolver?: (doc: any) => string): string;
 }
+
+export const RichText: RichText;
+
+declare const PrismicDOM: {
+    RichText: RichText;
+};
+export default PrismicDOM;
