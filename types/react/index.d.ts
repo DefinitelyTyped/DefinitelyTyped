@@ -67,6 +67,8 @@ type NativeWheelEvent = WheelEvent;
 export = React;
 export as namespace React;
 
+type NonNullable<T> = T & {};
+
 declare namespace React {
     //
     // React Elements
@@ -321,7 +323,6 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    type NonNullable<T> = T & {};
     type GetComponentProps<C extends React.ComponentType<any>> = NonNullable<C['_doNotUse_props']>;
 
     type SFC<P = {}> = StatelessComponent<P>;
