@@ -1,8 +1,6 @@
 // Modified from Permissions API spec: https://w3c.github.io/permissions/#examples
 // NOTE: Code kept as close to spec examples as possible
 
-// import {} from ".";
-
 // Example 3
 function showLocalNewsWithGeolocation() {}
 function showButtonToEnableLocalNews() {}
