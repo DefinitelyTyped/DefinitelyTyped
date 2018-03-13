@@ -4,9 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery" />
+declare module 'gijgo' {
+    export = Types;
+}
 
-export declare module Gijgo {
+declare const dp: Types.DatePicker;
+
+declare module Types {
 
     //Grid
     interface GridPager {
@@ -425,22 +429,22 @@ export declare module Gijgo {
 }
 
 
-export interface jQuery {
-    grid(settings: Gijgo.GridSettings<any>): Gijgo.Grid<any, any>;
-    grid<Entity>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, any>;
-    grid<Entity, Params>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, Params>;
+interface JQuery {
+    grid(settings: Types.GridSettings<any>): Types.Grid<any, any>;
+    grid<Entity>(settings: Types.GridSettings<Entity>): Types.Grid<Entity, any>;
+    grid<Entity, Params>(settings: Types.GridSettings<Entity>): Types.Grid<Entity, Params>;
 
-    dialog(settings: Gijgo.DialogSettings): Gijgo.Dialog;
+    dialog(settings: Types.DialogSettings): Types.Dialog;
 
-    checkbox(settings: Gijgo.CheckboxSettings): Gijgo.Checkbox;
+    checkbox(settings: Types.CheckboxSettings): Types.Checkbox;
 
-    datepicker(settings: Gijgo.DatePickerSettings): Gijgo.DatePicker;
+    datepicker(settings: Types.DatePickerSettings): Types.DatePicker;
 
-    dropdown(settings: Gijgo.DropDownSettings): Gijgo.DropDown;
+    dropdown(settings: Types.DropDownSettings): Types.DropDown;
 
-    editor(settings: Gijgo.EditorSettings): Gijgo.Editor;
+    editor(settings: Types.EditorSettings): Types.Editor;
 
-    timepicker(settings: Gijgo.TimePickerSettings): Gijgo.TimePicker;
+    timepicker(settings: Types.TimePickerSettings): Types.TimePicker;
 
-    tree(settings: Gijgo.TreeSettings): Gijgo.Tree;
+    tree(settings: Types.TreeSettings): Types.Tree;
 }
