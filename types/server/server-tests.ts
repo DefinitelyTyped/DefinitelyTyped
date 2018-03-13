@@ -1,3 +1,5 @@
+// TypeScript Version: 2.1
+
 import server from "server";
 const { get, post, del, error, sub, socket } = server.router;
 const {

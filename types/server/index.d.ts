@@ -1,3 +1,5 @@
+// TypeScript Version: 2.1
+
 import http = require("http");
 import * as express from "express";
 import * as session from "express-session";
@@ -9,7 +11,7 @@ import * as helmet from "helmet";
 declare module "server";
 
 // Extracted from formidable
-type DataParserOptions = {
+interface DataParserOptions {
     encoding: string;
     uploadDir: string;
     keepExtensions: boolean;
@@ -32,15 +34,15 @@ type DataParserOptions = {
             files: formidable.Files
         ) => any
     ): void;
-};
+}
 
 // extracted from csurf
-type CsurfOptions = {
+interface CsurfOptions {
     value?: (req: express.Request) => string;
     cookie?: csurf.CookieOptions | boolean;
     ignoreMethods?: string[];
     sessionKey?: string;
-};
+}
 
 type LogLevel =
     | "emergency"
@@ -52,7 +54,7 @@ type LogLevel =
     | "info"
     | "debug";
 
-type Options = {
+interface Options {
     port?: number;
     secret?: string;
     public?: string;
@@ -79,32 +81,32 @@ type Options = {
               level: LogLevel;
               report: (content: string, type: LogLevel) => void;
           };
-};
+}
 
 type Send = any;
 
 interface Context {
-    options: Options,
-    data: Send,
-    params: { [key: string]: string },
-    query: { [key: string]: string | string[] },
-    session: Object,
-    headers: { [key: string]: string },
-    cookie: { [key: string]: string },
-    files: formidable.Files,
-    ip: string,
-    ips?: string[],
-    url: string,
-    method: string,
-    path: string,
-    secure: boolean,
-    xhr: boolean,
-    error: Error,
+    options: Options;
+    data: Send;
+    params: { [key: string]: string };
+    query: { [key: string]: string | string[] };
+    session: object;
+    headers: { [key: string]: string };
+    cookie: { [key: string]: string };
+    files: formidable.Files;
+    ip: string;
+    ips?: string[];
+    url: string;
+    method: string;
+    path: string;
+    secure: boolean;
+    xhr: boolean;
+    error: Error;
     req: express.Request;
     res: express.Response;
-};
+}
 
-type BasicType = string | Array<any> | Object | number;
+type BasicType = string | any[] | object | number;
 
 declare class Reply {
     cookie(name: string, value: string, opts?: express.CookieOptions): Reply;
@@ -114,7 +116,7 @@ declare class Reply {
     jsonp(data?: Send): Reply;
     redirect(path: string): Reply;
     redirect(status: number, path: string): Reply;
-    render(view: string, locals?: Object): Reply;
+    render(view: string, locals?: object): Reply;
     send(body?: Send): Reply;
     status(code: number): Reply;
     type(type: string): Reply;
@@ -125,16 +127,16 @@ type Middlewares = Array<Middleware | Middleware[]>;
 
 declare namespace server {
     namespace reply {
-        var cookie: Reply["cookie"];
-        var download: Reply["download"];
-        var header: Reply["header"];
-        var json: Reply["json"];
-        var jsonp: Reply["jsonp"];
-        var redirect: Reply["redirect"];
-        var render: Reply["render"];
-        var send: Reply["send"];
-        var status: Reply["status"];
-        var type: Reply["type"];
+        const cookie: Reply["cookie"];
+        const download: Reply["download"];
+        const header: Reply["header"];
+        const json: Reply["json"];
+        const jsonp: Reply["jsonp"];
+        const redirect: Reply["redirect"];
+        const render: Reply["render"];
+        const send: Reply["send"];
+        const status: Reply["status"];
+        const type: Reply["type"];
     }
 
     namespace router {
