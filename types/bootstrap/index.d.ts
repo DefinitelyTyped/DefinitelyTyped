@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="popper.js" />
 /// <reference types="jquery"/>
+
+import * as Popper from "popper.js";
 
 export as namespace Bootstrap;
 
@@ -163,7 +164,7 @@ export interface ScrollspyOption {
      *
      * @default "auto"
      */
-    method?: "auto" | "offset" | "position";
+    method?: "auto" | "offset" | "position";
 
     /**
      * Pixels to offset from top when calculating position of scroll.
