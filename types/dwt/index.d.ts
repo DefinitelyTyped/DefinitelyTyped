@@ -2,6 +2,7 @@
 // Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx>
 //                 Josh Hall <https://github.com/jbh>
+//                 Lincoln Hu <https://github.com/lincoln2018>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1261,21 +1262,11 @@ interface Container {
     Height: string | number;
 }
 
-interface WebTwainAddon {
-
-}
-
 /**
  * @class
  */
 // properties (get/set) / sync functions
 interface WebTwain {
-    /**
-     * Returns addon.
-     * @type {WebTwainAddon}
-     */
-    Addon: WebTwainAddon;
-
     /**
      * Returns or sets whether multi-page selection is supported.
      * @type {bool}

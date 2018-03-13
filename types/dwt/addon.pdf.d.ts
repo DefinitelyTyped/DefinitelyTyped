@@ -60,3 +60,7 @@ interface PDF {
 interface WebTwainAddon {
     PDF: PDF;
 }
+
+interface WebTwain {
+	Addon: WebTwainAddon;
+}
