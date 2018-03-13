@@ -43,7 +43,7 @@ export class MongoClient extends EventEmitter {
     close(force?: boolean): Promise<void>;
     close(force: boolean, callback: MongoCallback<void>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#db */
-    db(name: string, options?: MongoClientCommonOption): Db
+    db(dbName?: string, options?: MongoClientCommonOption): Db
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#isConnected */
     isConnected(name: string, options?: MongoClientCommonOption): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#logout */
