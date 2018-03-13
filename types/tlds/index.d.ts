@@ -1,4 +1,1 @@
-declare module "tlds" {
-	const c:Array<string>;
-    export default c;
-}
+export declare const tlds: string[];
