@@ -103,6 +103,8 @@ function downloadImage() {
 function loadPDF() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
     if (DWObject) {
+		DWObject.Addon.PDF.SetResolution(200);
+		DWObject.Addon.PDF.SetConvertMode(1);
         DWObject.IfShowFileDialog = true;
         DWObject.LoadImageEx(" ", 5);
     }
