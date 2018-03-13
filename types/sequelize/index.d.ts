@@ -1894,8 +1894,8 @@ declare namespace sequelize {
      *
      * ```js
      * sequelize.define('model', {
- *   column: DataTypes.INTEGER
- * })
+     *   column: DataTypes.INTEGER
+     * })
      * ```
      * When defining a model you can just as easily pass a string as type, but often using the types defined here
      * is
@@ -1915,12 +1915,12 @@ declare namespace sequelize {
      *
      * ```js
      * sequelize.define('model', {
- *   uuid: {
- *     type: DataTypes.UUID,
- *     defaultValue: DataTypes.UUIDV1,
- *     primaryKey: true
- *   }
- * })
+     *   uuid: {
+     *     type: DataTypes.UUID,
+     *     defaultValue: DataTypes.UUIDV1,
+     *     primaryKey: true
+     *   }
+     * })
      * ```
      */
     interface DataTypes {
@@ -3611,12 +3611,12 @@ declare namespace sequelize {
         limit?: number;
 
         /**
-             * Transaction to run query under
+         * Transaction to run query under
          */
         transaction?: Transaction;
 
         /**
-        * If true, the updatedAt timestamp will not be updated.
+         * If true, the updatedAt timestamp will not be updated.
          */
         silent?: boolean;
     }
@@ -3656,6 +3656,13 @@ declare namespace sequelize {
     }
 
     /**
+     * Models contains Model instances associated to their name
+     */
+    interface Models {
+        [index: string]: Model<any, any>;
+    }
+
+    /**
      * A Model represents a table in the database. Sometimes you might also see it referred to as model, or simply
      * as factory. This class should _not_ be instantiated directly, it is created using `sequelize.define`, and
      * already created models can be loaded using `sequelize.import`
@@ -3666,6 +3673,11 @@ declare namespace sequelize {
          * The Instance class
          */
         Instance(): TInstance;
+
+        /**
+         * The singular name of the model
+         */
+        name: string;
 
         /**
          * Remove attribute from model definition
@@ -3723,64 +3735,64 @@ declare namespace sequelize {
         addScope(name: string, scope: AnyFindOptions | Function, options?: AddScopeOptions): void;
 
         /**
-             * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
-             *
-             * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
-             *
-             * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
-             * @param {Object|Function} scope
-             * @param {Object}          [options]
-             * @param {Boolean}         [options.override=false]
-             */
+         * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
+         *
+         * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
+         *
+         * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
+         * @param {Object|Function} scope
+         * @param {Object}          [options]
+         * @param {Boolean}         [options.override=false]
+         */
         addScope(name: string, scope: AnyFindOptions | Function, options?: AddScopeOptions): void;
 
         /**
- * Apply a scope created in `define` to the model. First let's look at how to create scopes:
- * ```js
- * var Model = sequelize.define('model', attributes, {
- *   defaultScope: {
- *     where: {
- *       username: 'dan'
- *     },
- *     limit: 12
- *   },
- *   scopes: {
- *     isALie: {
- *       where: {
- *         stuff: 'cake'
- *       }
- *     },
- *     complexFunction: function(email, accessLevel) {
- *       return {
- *         where: {
- *           email: {
- *             $like: email
- *           },
- *           accesss_level {
- *             $gte: accessLevel
- *           }
- *         }
- *       }
- *     }
- *   }
- * })
- * ```
- * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
- * your query. Here's a couple of examples:
- * ```js
- * Model.findAll() // WHERE username = 'dan'
- * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
- * ```
- *
- * To invoke scope functions you can do:
- * ```js
- * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
- * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
- * ```
- *
- * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
- *     model will clear the previous scope.
- */
+         * Apply a scope created in `define` to the model. First let's look at how to create scopes:
+         * ```js
+         * var Model = sequelize.define('model', attributes, {
+         *   defaultScope: {
+         *     where: {
+         *       username: 'dan'
+         *     },
+         *     limit: 12
+         *   },
+         *   scopes: {
+         *     isALie: {
+         *       where: {
+         *         stuff: 'cake'
+         *       }
+         *     },
+         *     complexFunction: function(email, accessLevel) {
+         *       return {
+         *         where: {
+         *           email: {
+         *             $like: email
+         *           },
+         *           accesss_level {
+         *             $gte: accessLevel
+         *           }
+         *         }
+         *       }
+         *     }
+         *   }
+         * })
+         * ```
+         * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
+         * your query. Here's a couple of examples:
+         * ```js
+         * Model.findAll() // WHERE username = 'dan'
+         * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
+         * ```
+         *
+         * To invoke scope functions you can do:
+         * ```js
+         * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
+         * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
+         * ```
+         *
+         * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
+         *     model will clear the previous scope.
+         */
         scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
 
         /**
@@ -3969,30 +3981,30 @@ declare namespace sequelize {
         findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
-             * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
-             * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
-             */
+         * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
+         * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
+         */
         findCreateFind<TCustomAttributes>(options: FindCreateFindOptions<TAttributes & TCustomAttributes>): Promise<[TInstance, boolean]>;
 
         /**
- * Insert or update a single row. An update will be executed if a row which matches the supplied values on
- * either the primary key or a unique key is found. Note that the unique index must be defined in your
- * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
- * because sequelize fails to identify the row that should be updated.
- *
- * **Implementation details:**
- *
- * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
- * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
- *   unique_constraint UPDATE
- * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
- * regardless
- *   of whether the row already existed or not
- *
- * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
- * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
- * whether the row was inserted or not.
- */
+         * Insert or update a single row. An update will be executed if a row which matches the supplied values on
+         * either the primary key or a unique key is found. Note that the unique index must be defined in your
+         * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
+         * because sequelize fails to identify the row that should be updated.
+         *
+         * **Implementation details:**
+         *
+         * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
+         * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
+         *   unique_constraint UPDATE
+         * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
+         * regardless
+         *   of whether the row already existed or not
+         *
+         * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
+         * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
+         * whether the row was inserted or not.
+         */
         upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
         upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
@@ -4046,6 +4058,13 @@ declare namespace sequelize {
          */
         unscoped(): this;
 
+        /**
+         * Set associations with other models
+         *
+         * @param models
+         */
+        associate?(models: Models): void;
+
     }
 
     //
@@ -4064,12 +4083,12 @@ declare namespace sequelize {
         /**
          * A function that gets executed while running the query to log the sql.
          */
-        logging?: boolean | Function;            
+        logging?: boolean | Function;
 
         /**
          * An optional transaction to perform this query in
          */
-        transaction?: Transaction; 
+        transaction?: Transaction;
 
     }
 
@@ -4654,10 +4673,10 @@ declare namespace sequelize {
         bind?: Object | string[];
 
         /**
- * Force the query to use the write pool, regardless of the query type.
- *
- * Defaults to false
- */
+         * Force the query to use the write pool, regardless of the query type.
+         *
+         * Defaults to false
+         */
         useMaster?: boolean;
 
         /**
