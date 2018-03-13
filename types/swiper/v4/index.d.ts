@@ -10,24 +10,25 @@
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-export as namespace Swiper;
+// export as namespace Swiper;
 
 /*~ This declaration specifies that the class constructor function
  *~ is the exported object from the file
  */
-export = Swiper;
+// export = Swiper;
 
+type DOM7Element = any;
 type SelectableElement = string | HTMLElement;
 
 /*~ Write your module's methods and properties in this class */
-declare class Swiper {
+export declare class Swiper {
 
-    constructor(container: SelectableElement, options?: Options);
+    constructor(container: SelectableElement, options?: Swiper.SwiperOptions);
 
     /**
      * Object with passed initialization parameters
      */
-    params: SwiperOptions;
+    params: Swiper.SwiperOptions;
 
     /**
      * Element with slider container.
@@ -233,7 +234,7 @@ declare class Swiper {
     /**
      * Set custom css3 transform's translate value for swiper wrapper
      */
-    setTranslate: (translate);
+    setTranslate: (translate: any) => {};
     /**
      * Get current value of swiper wrapper css3 transform translate
      */
@@ -251,13 +252,9 @@ declare class Swiper {
 
     /**
      * Remove event listener for specified event
+     * If no handler specified, removes all listeners for specified event
      */
-    off: (event: any, handler: any) => {};
-
-    /**
-     * Remove all listeners for specified event
-     */
-    off: (event: any) => {};
+    off: (event: any, handler?: any) => {};
 
     /**
      * Disable mousewheel control
@@ -291,7 +288,7 @@ declare class Swiper {
 }
 
 
-namespace Swiper {
+export declare namespace Swiper {
 
     export interface SwiperEvents {
 
@@ -583,8 +580,8 @@ namespace Swiper {
         keyboard?: KeyboardOptions | boolean;
         mousewheel?: MousewheelOptions | boolean;
         virtual?: VirtualOptions | boolean;
-        hashNavigation?: SwiperHashNavigation | boolean;
-        history?: HistoryOptions | boolean;
+        hashNavigation?: HashNavigationOptions | boolean;
+        history?: HistoryNavigationOptions | boolean;
         a11y?: A11yOptions | boolean;
     }
 
@@ -820,24 +817,96 @@ namespace Swiper {
 }
 
 // Swiper exports the folloing as ES5 module (in swiper.esm.js), so we gotta make sure that everything is exported here.
-export {
-  // Swiper, // - core module
-  /* virtual as */ Virtual, // - Virtual Slides module
-  /* keyboard as */ Keyboard, // - Keyboard Control module
-  /* mousewheel as */ Mousewheel, // - Mousewheel Control module
-  /* navigation as */ Navigation, // - Navigation module
-  /* pagination as */ Pagination, // - Pagination module
-  /* scrollbar as */ Scrollbar, // - Scrollbar module
-  /* parallax as */ Parallax, // - Parallax module
-  /* zoom as */ Zoom, // - Zoom module
-  /* lazy as */ Lazy, // - Lazy module
-  /* controller as */ Controller, // - Controller module
-  /* a11y$1 as */ A11y, // - Accessibility module
-  /* history as */ History, // - History Navigation module
-  /* hashNavigation as */ HashNavigation, // - Hash Navigation module
-  /* autoplay as */ Autoplay, // - Autoplay module
-  /* effectFade as */ EffectFade, // - Fade Effect module
-  /* effectCube as */ EffectCube, // - Cube Effect module
-  /* effectFlip as */ EffectFlip, // - Flip Effect module
-  /* effectCoverflow as */ EffectCoverflow // - Coverflow Effect module
-};
+// export {
+    // Swiper, // - core module
+   
+  /**
+   * Virtual Slides module (virtual as)
+   */
+//   Virtual,
+   
+  /**
+   * Keyboard Control module (keyboard as)
+   */
+//   Keyboard,
+   
+  /**
+   * Mousewheel Control module (mousewheel as)
+   */
+//   Mousewheel,
+   
+  /**
+   * Navigation module (navigation as)
+   */
+//   Navigation,
+   
+  /**
+   * Pagination module (pagination as)
+   */
+//   Pagination,
+   
+  /**
+   * Scrollbar module (scrollbar as)
+   */
+//   Scrollbar,
+   
+  /**
+   * Parallax module (parallax as)
+   */
+//   Parallax,
+   
+  /**
+   * Zoom module (zoom as)
+   */
+//   Zoom,
+   
+  /**
+   * Lazy module (lazy as)
+   */
+//   Lazy,
+   
+  /**
+   * Controller module (controller as)
+   */
+//   Controller,
+
+/**
+   * Accessibility module (a11y$)
+   */
+//   A11y,
+   
+  /**
+   * History Navigation module (history as)
+   */
+//   History,
+   
+  /**
+   * Hash Navigation module (hashNavigation as)
+   */
+//   HashNavigation,
+   
+  /**
+   * Autoplay module (autoplay as)
+   */
+//   Autoplay,
+   
+  /**
+   * Fade Effect module (effectFade as)
+   */
+//   EffectFade,
+   
+  /**
+   * Cube Effect module (effectCube as)
+   */
+//   EffectCube,
+   
+  /**
+   * Flip Effect module (effectFlip as)
+   */
+//   EffectFlip,
+   
+  /**
+   * Coverflow Effect module (effectCoverflow as)
+   */
+//   EffectCoverflow 
+// };
