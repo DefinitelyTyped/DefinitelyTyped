@@ -99,12 +99,12 @@ export interface PayloadError {
  *
  * May return an Observable or Promise of a raw server response.
  */
-export function FetchFunction(
+export type FetchFunction = (
     operation: RequestNode,
     variables: Variables,
     cacheConfig: CacheConfig,
     uploadables?: UploadableMap
-): ObservableFromValue<QueryPayload>;
+) => ObservableFromValue<QueryPayload>;
 
 /**
  * A function that executes a GraphQL subscription operation, returning one or
@@ -671,14 +671,14 @@ export interface RelayNetwork {
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayDefaultHandlerProvider
 // ~~~~~~~~~~~~~~~~~~~~~
-export function HandlerProvider(name: string): HandlerInterface | null;
+export type HandlerProvider = (name: string) => HandlerInterface | null;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayModernEnvironment
 // ~~~~~~~~~~~~~~~~~~~~~
 export interface EnvironmentConfig {
     configName?: string;
-    handlerProvider?: typeof HandlerProvider;
+    handlerProvider?: HandlerProvider;
     network: Network;
     store: Store;
 }
@@ -732,7 +732,7 @@ export class Network {
      * Creates an implementation of the `Network` interface defined in
      * `RelayNetworkTypes` given `fetch` and `subscribe` functions.
      */
-    static create(fetchFn: typeof FetchFunction, subscribeFn?: SubscribeFunction): RelayNetwork;
+    static create(fetchFn: FetchFunction, subscribeFn?: SubscribeFunction): RelayNetwork;
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
