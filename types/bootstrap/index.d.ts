@@ -159,11 +159,26 @@ export interface PopoverOption extends TooltipOption {
 
 export interface ScrollspyOption {
     /**
+     * TODO: https://github.com/twbs/bootstrap/issues/25799
+     *
+     * @default "auto"
+     */
+    method?: "auto" | "offset" | "position";
+
+    /**
      * Pixels to offset from top when calculating position of scroll.
      *
      * @default 10
      */
     offset?: number;
+
+    /**
+     * A selector of the parent element or the parent element itself
+     * of any Bootstrap `.nav` or `.list-group` component.
+     *
+     * @default ""
+     */
+    target?: string | Element;
 }
 
 export interface TooltipOption {
@@ -302,11 +317,11 @@ export type AlertEvent = "close.bs.alert" | "closed.bs.alert";
 export type CarouselEvent = "slide.bs.carousel" | "slid.bs.carousel";
 export type CollapseEvent = "show.bs.collapse" | "shown.bs.collapse" | "hide.bs.collapse" | "hidden.bs.collapse";
 export type DropdownEvent = "show.bs.dropdown" | "shown.bs.dropdown" | "hide.bs.dropdown" | "hidden.bs.dropdown";
-export type ModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" |  "hidden.bs.modal";
+export type ModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" | "hidden.bs.modal";
 export type PopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
 export type ScrollspyEvent = "activate.bs.scrollspy";
 export type TapEvent = "show.bs.tab" | "shown.bs.tab" | "hide.bs.tab" | "hidden.bs.tab";
-export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" |  "hidden.bs.tooltip" | "inserted.bs.tooltip";
+export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" | "hidden.bs.tooltip" | "inserted.bs.tooltip";
 
 // --------------------------------------------------------------------------------------
 // jQuery

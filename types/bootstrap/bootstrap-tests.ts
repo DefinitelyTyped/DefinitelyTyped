@@ -189,6 +189,16 @@ $("#scrollspy").on("activate.bs.scrollspy", () => {});
 
 $("#scrollspy").scrollspy({
     offset: 100,
+    target: "#navbar-example2",
+    method: "offset",
+});
+
+$("#scrollspy").scrollspy({
+    target: document.getElementById("navbar-example2") as HTMLElement
+});
+
+$("#scrollspy").scrollspy({
+    method: "position"
 });
 
 // --------------------------------------------------------------------------------------
