@@ -13,7 +13,7 @@
 *
 * Copyright 2018, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 13
+* Version: 13.4
 */
 
 /**

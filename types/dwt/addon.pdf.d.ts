@@ -1,6 +1,13 @@
-/**
- * Dynamsoft WebTwain Addon PDF
- */
+/*!
+* Dynamsoft WebTwain PDF Addon
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2018, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+* Version: 13.4
+*/
+
 declare enum EnumDWT_ConverMode {
     CM_DEFAULT = 0,
     TWPT_CM_RENDERALLGRAY = 1
