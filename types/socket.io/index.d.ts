@@ -1,50 +1,33 @@
 // Type definitions for socket.io 1.4.4
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>, KentarouTakeda <https://github.com/KentarouTakeda>, Alexey Snigirev <https://github.com/gigi>
+// Definitions by: PROGRE <https://github.com/progre>,
+//                 Damian Connolly <https://github.com/divillysausages>,
+//                 Florent Poujol <https://github.com/florentpoujol>,
+//                 KentarouTakeda <https://github.com/KentarouTakeda>, 
+//                 Alexey Snigirev <https://github.com/gigi>, 
+//                 Ayon Lee <https://github.com/hyurl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
 
-declare module 'socket.io' {
-	var server: SocketIOStatic;
-
-	export = server;
+declare module "socket.io" {
+	export = SocketIO;
 }
 
-interface SocketIOStatic {
-	/**
-	 * Default Server constructor
-	 */
-	(): SocketIO.Server;
-
-	/**
-	 * Creates a new Server
-	 * @param srv The HTTP server that we're going to bind to
-	 * @param opts An optional parameters object
-	 */
-	(srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
-
-	/**
-	 * Creates a new Server
-	 * @param port A port to bind to, as a number, or a string
-	 * @param An optional parameters object
-	 */
-	(port: string|number, opts?: SocketIO.ServerOptions): SocketIO.Server;
-
-	/**
-	 * Creates a new Server
-	 * @param A parameters object
-	 */
-	(opts: SocketIO.ServerOptions): SocketIO.Server;
-
-	/**
-	 * Backwards compatibility
-	 * @see io().listen()
-	 */
-    listen: SocketIOStatic;
-}
+declare function SocketIO(): SocketIO.Server;
+declare function SocketIO(srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
+declare function SocketIO(port: string | number, opts?: SocketIO.ServerOptions): SocketIO.Server;
+declare function SocketIO(opts: SocketIO.ServerOptions): SocketIO.Server;
 
 declare namespace SocketIO {
+	/**	
+	 * Backwards compatibility	
+	 * @see io().listen()
+	 */
+	function listen(): Server;
+	function listen(srv: any, opts?: ServerOptions): Server;
+	function listen(port: string | number, opts?: ServerOptions): Server;
+	function listen(opts: ServerOptions): Server;
 
 	interface Server {
 		engine: { ws: any };
@@ -52,7 +35,7 @@ declare namespace SocketIO {
 		/**
 		 * A dictionary of all the namespaces currently on this Server
 		 */
-		nsps: {[namespace: string]: Namespace};
+		nsps: { [namespace: string]: Namespace };
 
 		/**
 		 * The default '/' Namespace
@@ -81,7 +64,7 @@ declare namespace SocketIO {
 		 * which will be null if there was no problem, and one parameter, success,
 		 * of type boolean
 		 */
-		checkRequest( req:any, fn:( err: any, success: boolean ) => void ):void;
+		checkRequest(req: any, fn: (err: any, success: boolean) => void): void;
 
 		/**
 		 * Gets whether we're serving the client.js file or not
@@ -95,7 +78,7 @@ declare namespace SocketIO {
 		 * @default true
 		 * @return This Server
 		 */
-		serveClient( v: boolean ): Server;
+		serveClient(v: boolean): Server;
 
 		/**
 		 * Gets the client serving path
@@ -109,7 +92,7 @@ declare namespace SocketIO {
 		 * @default '/socket.io'
 		 * @return This Server
 		 */
-		path( v: string ): Server;
+		path(v: string): Server;
 
 		/**
 		 * Gets the adapter that we're going to use for handling rooms
@@ -123,7 +106,7 @@ declare namespace SocketIO {
 		 * @default typeof Adapter
 		 * @return This Server
 		 */
-		adapter( v: any ): Server;
+		adapter(v: any): Server;
 
 		/**
 		 * Gets the allowed origins for requests
@@ -137,7 +120,7 @@ declare namespace SocketIO {
 		 * @default "*:*"
 		 * return This Server
 		 */
-		origins( v: string ): Server;
+		origins(v: string): Server;
 
 		/**
 		 * Attaches socket.io to a server
@@ -145,7 +128,7 @@ declare namespace SocketIO {
 		 * @param opts An optional parameters object
 		 * @return This Server
 		 */
-		attach( srv: any, opts?: ServerOptions ): Server;
+		attach(srv: any, opts?: ServerOptions): Server;
 
 		/**
 		 * Attaches socket.io to a port
@@ -153,31 +136,31 @@ declare namespace SocketIO {
 		 * @param opts An optional parameters object
 		 * @return This Server
 		 */
-		attach( port: number, opts?: ServerOptions ): Server;
+		attach(port: number, opts?: ServerOptions): Server;
 
 		/**
 		 * @see attach( srv, opts )
 		 */
-		listen( srv: any, opts?: ServerOptions ): Server;
+		listen(srv: any, opts?: ServerOptions): Server;
 
 		/**
 		 * @see attach( port, opts )
 		 */
-		listen( port: number, opts?: ServerOptions ): Server;
+		listen(port: number, opts?: ServerOptions): Server;
 
 		/**
 		 * Binds socket.io to an engine.io intsance
 		 * @param src The Engine.io (or compatible) server to bind to
 		 * @return This Server
 		 */
-		bind( srv: any ): Server;
+		bind(srv: any): Server;
 
 		/**
 		 * Called with each incoming connection
 		 * @param socket The Engine.io Socket
 		 * @return This Server
 		 */
-		onconnection( socket: any ): Server;
+		onconnection(socket: any): Server;
 
 		/**
 		 * Looks up/creates a Namespace
@@ -185,12 +168,12 @@ declare namespace SocketIO {
 		 * with a '/'
 		 * @return The Namespace
 		 */
-		of( nsp: string ): Namespace;
+		of(nsp: string): Namespace;
 
 		/**
 		 * Closes the server connection
 		 */
-		close( fn ?: () => void ):void;
+		close(fn?: () => void): void;
 
 		/**
 		 * The event fired when we get a new connection
@@ -198,12 +181,12 @@ declare namespace SocketIO {
 		 * @param listener A listener that should take one parameter of type Socket
 		 * @return The default '/' Namespace
 		 */
-		on( event: 'connection', listener: ( socket: Socket ) => void ): Namespace;
+		on(event: 'connection', listener: (socket: Socket) => void): Namespace;
 
 		/**
 		 * @see on( 'connection', listener )
 		 */
-		on( event: 'connect', listener: ( socket: Socket ) => void ): Namespace;
+		on(event: 'connect', listener: (socket: Socket) => void): Namespace;
 
 		/**
 		 * Base 'on' method to add a listener for an event
@@ -212,19 +195,19 @@ declare namespace SocketIO {
 		 * for the callback depend on the event
 		 * @return The default '/' Namespace
 		 */
-		on( event: string, listener: Function ): Namespace;
+		on(event: string, listener: Function): Namespace;
 
 		/**
 		 * Targets a room when emitting to the default '/' Namespace
 		 * @param room The name of the room that we're targeting
 		 * @return The default '/' Namespace
 		 */
-		to( room: string ): Namespace;
+		to(room: string): Namespace;
 
 		/**
 		 * @see to( room )
 		 */
-		in( room: string ): Namespace;
+		in(room: string): Namespace;
 
 		/**
 		 * Registers a middleware function, which is a function that gets executed
@@ -236,7 +219,7 @@ declare namespace SocketIO {
 		 * are sent as special 'error' packets to clients
 		 * @return The default '/' Namespace
 		 */
-		use( fn: ( socket:Socket, fn: ( err?: any ) => void ) =>void ): Namespace;
+		use(fn: (socket: Socket, fn: (err?: any) => void) => void): Namespace;
 
 		/**
 		 * Emits an event to the default Namespace
@@ -246,31 +229,31 @@ declare namespace SocketIO {
 		 * take whatever data was sent with the packet
 		 * @return The default '/' Namespace
 		 */
-		emit( event: string, ...args: any[]): Namespace;
+		emit(event: string, ...args: any[]): Namespace;
 
 		/**
 		 * Sends a 'message' event
 		 * @see emit( event, ...args )
 		 * @return The default '/' Namespace
 		 */
-		send( ...args: any[] ): Namespace;
+		send(...args: any[]): Namespace;
 
 		/**
 		 * @see send( ...args )
 		 */
-		write( ...args: any[] ): Namespace;
+		write(...args: any[]): Namespace;
 
 		/**
 		 * Gets a list of clients
 		 * @return The default '/' Namespace
 		 */
-		clients( ...args: any[] ): Namespace;
+		clients(...args: any[]): Namespace;
 
 		/**
 		 * Sets the compress flag
 		 * @return The default '/' Namespace
 		 */
-		compress( ...args: any[] ): Namespace;
+		compress(...args: any[]): Namespace;
 	}
 
 	/**
@@ -329,7 +312,7 @@ declare namespace SocketIO {
 		 * value where false means that the request is rejected, and err is an error code (engine.io)
 		 * @default null
 		 */
-		allowRequest?: (request:any, callback: (err: number, success: boolean) => void) => void;
+		allowRequest?: (request: any, callback: (err: number, success: boolean) => void) => void;
 
 		/**
 		 * Transports to allow connections to (engine.io)
@@ -348,7 +331,7 @@ declare namespace SocketIO {
 		 * Set to false to disable (engine.io)
 		 * @default true
 		 */
-		perMessageDeflate?: Object|boolean;
+		perMessageDeflate?: Object | boolean;
 
 		/**
 		 * Parameters of the http compression for the polling transports (see zlib).
@@ -356,14 +339,14 @@ declare namespace SocketIO {
 		 * to only compress data if the byte size is above this value (1024) (engine.io)
 		 * @default true|1024
 		 */
-		httpCompression?: Object|boolean;
+		httpCompression?: Object | boolean;
 
 		/**
 		 * Name of the HTTP cookie that contains the client sid to send as part of
 		 * handshake response headers. Set to false to not send one (engine.io)
 		 * @default "io"
 		 */
-		cookie?: string|boolean;
+		cookie?: string | boolean;
 	}
 
 	/**
@@ -414,31 +397,31 @@ declare namespace SocketIO {
 		 * are sent as special 'error' packets to clients
 		 * @return This Namespace
 		 */
-		use( fn: ( socket:Socket, fn: ( err?: any ) => void ) =>void ): Namespace;
+		use(fn: (socket: Socket, fn: (err?: any) => void) => void): Namespace;
 
 		/**
 		 * Targets a room when emitting
 		 * @param room The name of the room that we're targeting
 		 * @return This Namespace
 		 */
-		to( room: string ): Namespace;
+		to(room: string): Namespace;
 
 		/**
 		 * @see to( room )
 		 */
-		in( room: string ): Namespace;
+		in(room: string): Namespace;
 
 		/**
 		 * Sends a 'message' event
 		 * @see emit( event, ...args )
 		 * @return This Namespace
 		 */
-		send( ...args: any[] ): Namespace;
+		send(...args: any[]): Namespace;
 
 		/**
 		 * @see send( ...args )
 		 */
-		write( ...args: any[] ): Namespace;
+		write(...args: any[]): Namespace;
 
 		/**
 		 * The event fired when we get a new connection
@@ -446,12 +429,12 @@ declare namespace SocketIO {
 		 * @param listener A listener that should take one parameter of type Socket
 		 * @return This Namespace
 		 */
-		on( event: 'connection', listener: ( socket: Socket ) => void ): this;
+		on(event: 'connection', listener: (socket: Socket) => void): this;
 
 		/**
 		 * @see on( 'connection', listener )
 		 */
-		on( event: 'connect', listener: ( socket: Socket ) => void ): this;
+		on(event: 'connect', listener: (socket: Socket) => void): this;
 
 		/**
 		 * Base 'on' method to add a listener for an event
@@ -460,20 +443,20 @@ declare namespace SocketIO {
 		 * for the callback depend on the event
 		 * @ This Namespace
 		 */
-		on( event: string, listener: Function ): this;
+		on(event: string, listener: Function): this;
 
 		/**
 		 * Gets a list of clients.
 		 * @return This Namespace
 		 */
-		clients( fn: Function ): Namespace;
+		clients(fn: Function): Namespace;
 
 		/**
 		 * Sets the compress flag.
 		 * @param compress If `true`, compresses the sending data
 		 * @return This Namespace
 		 */
-		compress( compress: boolean ): Namespace;
+		compress(compress: boolean): Namespace;
 	}
 
 	/**
@@ -482,7 +465,7 @@ declare namespace SocketIO {
 	 * as we have a problem with the emit() event (as it's overridden with a
 	 * different return)
 	 */
-	interface Socket extends NodeJS.EventEmitter{
+	interface Socket extends NodeJS.EventEmitter {
 
 		/**
 		 * The namespace that this socket is for
@@ -607,23 +590,23 @@ declare namespace SocketIO {
 		 * @param room The name of the room that we're targeting
 		 * @return This Socket
 		 */
-		to( room: string ): Socket;
+		to(room: string): Socket;
 
 		/**
 		 * @see to( room )
 		 */
-		in( room: string ): Socket;
+		in(room: string): Socket;
 
 		/**
 		 * Sends a 'message' event
 		 * @see emit( event, ...args )
 		 */
-		send( ...args: any[] ): Socket;
+		send(...args: any[]): Socket;
 
 		/**
 		 * @see send( ...args )
 		 */
-		write( ...args: any[] ): Socket;
+		write(...args: any[]): Socket;
 
 		/**
 		 * Joins a room. You can join multiple rooms, and by default, on connection,
@@ -633,7 +616,7 @@ declare namespace SocketIO {
 		 * take an optional parameter, err, of a possible error
 		 * @return This Socket
 		 */
-		join( name: string, fn?: ( err?: any ) => void ): Socket;
+		join(name: string, fn?: (err?: any) => void): Socket;
 
 		/**
 		 * Leaves a room
@@ -641,7 +624,7 @@ declare namespace SocketIO {
 		 * @param fn An optional callback to call when we've left the room. It should
 		 * take on optional parameter, err, of a possible error
 		 */
-		leave( name: string, fn?: Function ): Socket;
+		leave(name: string, fn?: Function): Socket;
 
 		/**
 		 * Leaves all the rooms that we've joined
@@ -653,21 +636,21 @@ declare namespace SocketIO {
 		 * @param close If true, also closes the underlying connection
 		 * @return This Socket
 		 */
-		disconnect( close?: boolean ): Socket;
+		disconnect(close?: boolean): Socket;
 
 		/**
 		 * Returns all the callbacks for a particular event
 		 * @param event The event that we're looking for the callbacks of
 		 * @return An array of callback Functions, or an empty array if we don't have any
 		 */
-		listeners( event: string ):Function[];
+		listeners(event: string): Function[];
 
 		/**
 		 * Sets the compress flag
 		 * @param compress If `true`, compresses the sending data
 		 * @return This Socket
 		 */
-		compress( compress: boolean ): Socket;
+		compress(compress: boolean): Socket;
 	}
 
 	/**
@@ -684,13 +667,13 @@ declare namespace SocketIO {
 		 * A dictionary of all the rooms that we have in this namespace
 		 * The rooms are made of a `sockets` key which is the dictionary of sockets per ID
 		 */
-		rooms: {[room: string]: {sockets: {[id: string]: boolean }, length: number }};
+		rooms: { [room: string]: { sockets: { [id: string]: boolean }, length: number } };
 
 		/**
 		 * A dictionary of all the socket ids that we're dealing with, and all
 		 * the rooms that the socket is currently in
 		 */
-		sids: {[id: string]: {[room: string]: boolean}};
+		sids: { [id: string]: { [room: string]: boolean } };
 
 		/**
 		 * Adds a socket to a room. If the room doesn't exist, it's created
@@ -699,7 +682,7 @@ declare namespace SocketIO {
 		 * @param callback An optional callback to call when the socket has been
 		 * added. It should take an optional parameter, error, if there was a problem
 		 */
-		add( id: string, room: string, callback?: ( err?: any ) => void ): void;
+		add(id: string, room: string, callback?: (err?: any) => void): void;
 
 		/**
 		 * Removes a socket from a room. If there are no more sockets in the room,
@@ -709,13 +692,13 @@ declare namespace SocketIO {
 		 * @param callback An optional callback to call when the socket has been
 		 * removed. It should take on optional parameter, error, if there was a problem
 		 */
-		del( id: string, room: string, callback?: ( err?: any ) => void ): void;
+		del(id: string, room: string, callback?: (err?: any) => void): void;
 
 		/**
 		 * Removes a socket from all the rooms that it's joined
 		 * @param id The ID of the socket that we're removing
 		 */
-		delAll( id: string ):void;
+		delAll(id: string): void;
 
 		/**
 		 * Broadcasts a packet
@@ -725,7 +708,7 @@ declare namespace SocketIO {
 		 * 	- except: A list of Socket IDs to exclude
 		 * 	- flags: Any flags that we want to send along ('json', 'volatile', 'broadcast')
 		 */
-		broadcast( packet: any, opts: { rooms?: string[]; except?: string[]; flags?: {[flag: string]: boolean} } ):void;
+		broadcast(packet: any, opts: { rooms?: string[]; except?: string[]; flags?: { [flag: string]: boolean } }): void;
 	}
 
 	/**
@@ -757,13 +740,13 @@ declare namespace SocketIO {
 		 * The dictionary of sockets currently connect via this client (i.e. to different
 		 * namespaces) where the Socket ID is the key
 		 */
-		sockets: {[id: string]: Socket};
+		sockets: { [id: string]: Socket };
 
 		/**
 		 * A dictionary of all the namespaces for this client, with the Socket that
 		 * deals with that namespace
 		 */
-		nsps: {[nsp: string]: Socket};
+		nsps: { [nsp: string]: Socket };
 	}
 
 	/**
