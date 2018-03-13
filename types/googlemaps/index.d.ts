@@ -392,8 +392,8 @@ declare namespace google.maps {
     export module Data {
         export interface DataOptions {
             controlPosition?: ControlPosition;
-            controls?: string[];
-            drawingMode?: string;
+            controls?: DrawingMode[];
+            drawingMode?: DrawingMode;
             featureFactory?: (geometry: Data.Geometry) => Data.Feature;
             map?: Map;
             style?: Data.StylingFunction|Data.StyleOptions;
@@ -1863,7 +1863,8 @@ declare namespace google.maps {
         getZIndex(): number;
         setMap(map: Map | null): void;
         setUrl(url: string): void;
-        setZIndez(zIndex: number): void;
+        setZIndex(zIndex: number): void;
+        setOptions(options: KmlLayerOptions): void;
     }
 
     export interface KmlLayerOptions {
