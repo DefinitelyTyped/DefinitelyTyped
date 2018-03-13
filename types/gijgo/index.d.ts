@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module Gijgo {
+/// <reference types="jquery" />
+
+export declare module Gijgo {
 
     //Grid
     interface GridPager {
@@ -263,7 +265,7 @@ declare module Gijgo {
         close(): DatePicker;
         destroy(): void;
         open(): DatePicker;
-        value(value: string):  string | DatePicker;
+        value(value?: string):  string | DatePicker;
     }
 
     // DropDown
@@ -423,7 +425,7 @@ declare module Gijgo {
 }
 
 
-interface JQuery {
+export interface jQuery {
     grid(settings: Gijgo.GridSettings<any>): Gijgo.Grid<any, any>;
     grid<Entity>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, any>;
     grid<Entity, Params>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, Params>;
