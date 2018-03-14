@@ -2575,7 +2575,8 @@ namespace TestUnion {
     {
         let result: AbcObject[];
 
-        result = _.union();
+        // $ExpectType {}[]
+        _.union();
 
         result = _.union(array);
         result = _.union(array, list);
@@ -2642,9 +2643,10 @@ namespace TestUnionBy {
 
         result = _.unionBy(array, array, 'a');
         result = _.unionBy(array, list, array, 'a');
-        result = _.unionBy(array, array, list, array, 'a');
-        result = _.unionBy(array, list, array, list, array, 'a');
-        result = _.unionBy(array, array, list, array, list, array, 'a');
+        // <AbcObject> param needed for TS 2.3
+        result = _.unionBy<AbcObject>(array, array, list, array, 'a');
+        result = _.unionBy<AbcObject>(array, list, array, list, array, 'a');
+        result = _.unionBy<AbcObject>(array, array, list, array, list, array, 'a');
 
         result = _.unionBy(array, array, {a: 1});
         result = _.unionBy(array, list, array, {a: 1});
@@ -2666,9 +2668,10 @@ namespace TestUnionBy {
 
         result = _.unionBy(list, list, 'a');
         result = _.unionBy(list, array, list, 'a');
-        result = _.unionBy(list, list, array, list, 'a');
-        result = _.unionBy(list, array, list, array, list, 'a');
-        result = _.unionBy(list, list, array, list, array, list, 'a');
+        // <AbcObject> param needed for TS 2.3
+        result = _.unionBy<AbcObject>(list, list, array, list, 'a');
+        result = _.unionBy<AbcObject>(list, array, list, array, list, 'a');
+        result = _.unionBy<AbcObject>(list, list, array, list, array, list, 'a');
 
         result = _.unionBy(list, list, {a: 1});
         result = _.unionBy(list, array, list, {a: 1});
@@ -2694,9 +2697,10 @@ namespace TestUnionBy {
 
         result = _(array).unionBy(array, 'a');
         result = _(array).unionBy(list, array, 'a');
-        result = _(array).unionBy(array, list, array, 'a');
-        result = _(array).unionBy(list, array, list, array, 'a');
-        result = _(array).unionBy(array, list, array, list, array, 'a');
+        // <AbcObject> param needed for TS 2.3
+        result = _(array).unionBy<AbcObject>(array, list, array, 'a');
+        result = _(array).unionBy<AbcObject>(list, array, list, array, 'a');
+        result = _(array).unionBy<AbcObject>(array, list, array, list, array, 'a');
 
         result = _(array).unionBy(array, {a: 1});
         result = _(array).unionBy(list, array, {a: 1});
@@ -2718,9 +2722,10 @@ namespace TestUnionBy {
 
         result = _(list).unionBy(list, 'a');
         result = _(list).unionBy(array, list, 'a');
-        result = _(list).unionBy(list, array, list, 'a');
-        result = _(list).unionBy(array, list, array, list, 'a');
-        result = _(list).unionBy(list, array, list, array, list, 'a');
+        // <AbcObject> param needed for TS 2.3
+        result = _(list).unionBy<AbcObject>(list, array, list, 'a');
+        result = _(list).unionBy<AbcObject>(array, list, array, list, 'a');
+        result = _(list).unionBy<AbcObject>(list, array, list, array, list, 'a');
 
         result = _(list).unionBy(list, {a: 1});
         result = _(list).unionBy(array, list, {a: 1});
@@ -2747,8 +2752,9 @@ namespace TestUnionBy {
         result = _(array).chain().unionBy(array, 'a');
         result = _(array).chain().unionBy(list, array, 'a');
         result = _(array).chain().unionBy(array, list, array, 'a');
-        result = _(array).chain().unionBy(list, array, list, array, 'a');
-        result = _(array).chain().unionBy(array, list, array, list, array, 'a');
+        // <AbcObject> param needed for TS 2.3
+        result = _(array).chain().unionBy<AbcObject>(list, array, list, array, 'a');
+        result = _(array).chain().unionBy<AbcObject>(array, list, array, list, array, 'a');
 
         result = _(array).chain().unionBy(array, {a: 1});
         result = _(array).chain().unionBy(list, array, {a: 1});
@@ -2771,8 +2777,9 @@ namespace TestUnionBy {
         result = _(list).chain().unionBy(list, 'a');
         result = _(list).chain().unionBy(array, list, 'a');
         result = _(list).chain().unionBy(list, array, list, 'a');
-        result = _(list).chain().unionBy(array, list, array, list, 'a');
-        result = _(list).chain().unionBy(list, array, list, array, list, 'a');
+        // <AbcObject> param needed for TS 2.3
+        result = _(list).chain().unionBy<AbcObject>(array, list, array, list, 'a');
+        result = _(list).chain().unionBy<AbcObject>(list, array, list, array, list, 'a');
 
         result = _(list).chain().unionBy(list, {a: 1});
         result = _(list).chain().unionBy(array, list, {a: 1});
@@ -5356,14 +5363,14 @@ namespace TestForEach {
 
     // $ExpectType NumericDictionary<AbcObject>
     _.forEach(numericDictionary, (value, index, collection) => {
-        /* Broken in TS 2.4: value; // AbcObject */
+        value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
     // $ExpectType NumericDictionary<AbcObject> | null | undefined
     _.forEach(nilNumericDictionary, (value, index, collection) => {
-        /* Broken in TS 2.4: value; // AbcObject */
+        value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
@@ -5440,14 +5447,14 @@ namespace TestForEach {
 
     // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
     const result = _(numericDictionary).forEach((value, index, collection) => {
-        /* Broken in TS 2.4: value; // AbcObject */
+        value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
     // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
     _(nilNumericDictionary).forEach((value, index, collection) => {
-        /* Broken in TS 2.4: value; // AbcObject */
+        value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
@@ -5510,14 +5517,14 @@ namespace TestForEach {
 
     // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
     _(numericDictionary).chain().forEach((value, index, collection) => {
-        /* Broken in TS 2.4: value; // AbcObject */
+        value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
     // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
     _(nilNumericDictionary).chain().forEach((value, index, collection) => {
-        /* Broken in TS 2.4: value; // AbcObject */
+        value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
