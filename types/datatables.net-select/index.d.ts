@@ -44,7 +44,7 @@ declare namespace DataTables {
         /*
          * Set the selection style for end user interaction with the table
          */
-        style?: string;
+        style?: "api" | "single" | "multi" | "os" | "multi+shift";
     }
     
     interface Api {
