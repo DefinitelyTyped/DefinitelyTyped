@@ -85,7 +85,7 @@ export class ECPair {
 
     static fromPublicKeyBuffer(buffer: Buffer, network: Network): ECPair;
 
-    static fromWIF(string: string, network: Network): ECPair;
+    static fromWIF(string: string, network?: Network): ECPair;
 
     static makeRandom(options?: { compressed?: boolean, network?: Network, rng?: Rng }): ECPair;
 }
