@@ -430,12 +430,26 @@ export interface Font {
 	color: string;
 }
 
+export interface Edits {
+	annotationPosition: boolean;
+	annotationTail: boolean;
+	annotationText: boolean;
+	axisTitleText: boolean;
+	colorbarPosition: boolean;
+	colorbarTitleText: boolean;
+	legendPosition: boolean;
+	legendText: boolean;
+	shapePosition: boolean;
+	titleText: boolean;
+}
+
 export interface Config {
 	/** no interactivity, for export or image generation */
 	staticPlot: boolean;
 
 	/** we can edit titles, move annotations, etc */
 	editable: boolean;
+	edits: Partial<Edits>;
 
 	/** DO autosize once regardless of layout.autosize (use default width or height values otherwise) */
 	autosizable: boolean;
@@ -457,6 +471,12 @@ export interface Config {
 
 	/** new users see some hints about interactivity */
 	showTips: boolean;
+
+	/** enable axis pan/zoom drag handles */
+	showAxisDragHandles: boolean;
+
+	/** enable direct range entry at the pan/zoom drag points (drag handles must be enabled above) */
+	showAxisRangeEntryBoxes: boolean;
 
 	/** link to open this plot in plotly */
 	showLink: boolean;
@@ -485,7 +505,7 @@ export interface Config {
 	 * buttons config objects or names of default buttons
 	 * (see ./components/modebar/buttons.js for more info)
 	 */
-	modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][];
+	modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
 
 	/** add the plotly logo on the end of the mode bar */
 	displaylogo: boolean;
@@ -497,7 +517,7 @@ export interface Config {
 	 * function to add the background color to a different container
 	 * or 'opaque' to ensure there's white behind it
 	 */
-	setBackground: string | 'opaque';
+	setBackground: string | 'opaque' | 'transparent';
 
 	/** URL to topojson files used in geo charts */
 	topojsonURL: string;
@@ -513,10 +533,13 @@ export interface Config {
 	 * Turn all console logging on or off (errors will be thrown)
 	 * This should ONLY be set via Plotly.setPlotConfig
 	 */
-	logging: boolean;
+	logging: boolean | 0 | 1 | 2;
 
 	/** Set global transform to be applied to all traces with no specification needed */
 	globalTransforms: any[];
+
+	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
+	locale: string;
 }
 
 // Components
