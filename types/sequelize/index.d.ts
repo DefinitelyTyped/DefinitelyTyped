@@ -4006,9 +4006,9 @@ declare namespace sequelize {
          * whether the row was inserted or not.
          */
         upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
 
         /**
          * Create and insert multiple instances in bulk.
