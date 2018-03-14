@@ -6787,7 +6787,6 @@ namespace TestSome {
         result = _.some(sampleObject, objectIterator);
         result = _.some(sampleObject, 'a');
         result = _.some(sampleObject, ['a', 42]);
-        result = _.some<{a: number}>(sampleObject, {a: 42});
 
         result = _(array).some();
         result = _(array).some(listIterator);
@@ -6817,7 +6816,6 @@ namespace TestSome {
         result = _(sampleObject).some(objectIterator);
         result = _(sampleObject).some('a');
         result = _(sampleObject).some(['a', 42]);
-        result = _(sampleObject).some({a: 42});
     }
 
     {
@@ -6851,7 +6849,6 @@ namespace TestSome {
         result = _(sampleObject).chain().some(objectIterator);
         result = _(sampleObject).chain().some('a');
         result = _(sampleObject).chain().some(['a', 42]);
-        result = _(sampleObject).chain().some({a: 42});
     }
 }
 
