@@ -12,6 +12,19 @@ import * as d3Format from 'd3-format';
 // Preparatory Steps
 // ----------------------------------------------------------------------
 
+class NumCoercible {
+  a: number;
+
+  constructor(a: number) {
+      this.a = a;
+  }
+  valueOf() {
+      return this.a;
+  }
+}
+
+const numeric: NumCoercible = new NumCoercible(10);
+
 let num: number;
 
 let formatFn: (n: number) => string;
@@ -29,6 +42,15 @@ let localeObj: d3Format.FormatLocaleObject;
 formatFn = d3Format.format('.0%');
 
 formatFn = d3Format.formatPrefix(',.0', 1e-6);
+
+d3Format.format('.0%')(10);
+d3Format.format('.0%')(numeric);
+d3Format.format("$c")("☃");
+
+d3Format.formatPrefix(',.0', 1e-6)(10);
+d3Format.formatPrefix(',.0', 1e-6)(numeric);
+// $ExpectError
+d3Format.formatPrefix(',.0', 1e-6)("☃");
 
 // ----------------------------------------------------------------------
 // Test Format Specifier

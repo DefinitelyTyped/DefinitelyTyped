@@ -46,7 +46,7 @@ export interface FormatLocaleObject {
      *
      * @param specifier A Specifier string
      */
-    format(specifier: string): (n: number) => string;
+    format(specifier: string): (n: { valueOf(): number; } | string) => string;
 
     /**
      * Returns a new format function for the given string specifier. The returned function
@@ -57,7 +57,7 @@ export interface FormatLocaleObject {
      * @param specifier A Specifier string
      * @param value The reference value to determine the appropriate SI prefix.
      */
-    formatPrefix(specifier: string, value: number): (n: number) => string;
+    formatPrefix(specifier: string, value: number): (n: { valueOf(): number; }) => string;
 }
 
 /**
@@ -175,7 +175,7 @@ export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): Form
  *
  * @param specifier A Specifier string
  */
-export function format(specifier: string): (n: number) => string;
+export function format(specifier: string): (n: { valueOf(): number; } | string) => string;
 
 /**
  * Returns a new format function for the given string specifier. The returned function
@@ -191,7 +191,7 @@ export function format(specifier: string): (n: number) => string;
  * @param specifier A Specifier string
  * @param value The reference value to determine the appropriate SI prefix.
  */
-export function formatPrefix(specifier: string, value: number): (n: number) => string;
+export function formatPrefix(specifier: string, value: number): (n: { valueOf(): number; }) => string;
 
 /**
  * Parses the specified specifier, returning an object with exposed fields that correspond to the
