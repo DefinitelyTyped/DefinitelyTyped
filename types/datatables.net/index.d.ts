@@ -1297,7 +1297,7 @@ declare namespace DataTables {
         /**
          * Data to use as the display data for the table. Since: 1.10
          */
-        data?: object;
+        data?: Object[];
 
         //#endregion "Data"
 
@@ -1931,6 +1931,7 @@ declare namespace DataTables {
     }
 
     interface ColumnLegacy {
+        idx: number;
         aDataSort: any;
         asSorting: string[];
         bSearchable: boolean;
