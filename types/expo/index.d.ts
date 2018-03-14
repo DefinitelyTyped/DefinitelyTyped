@@ -5,6 +5,7 @@
 //                 Jan Aagaard <https://github.com/janaagaard75>
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
+//                 Umidbek Karimov <https://github.com/umidbekkarimov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
