@@ -29,7 +29,7 @@ export interface FormatLocaleDefinition {
     /**
      * An optional array of ten strings to replace the numerals 0-9.
      */
-    numerals?: string[];
+    numerals?: [string, string, string, string, string, string, string, string, string, string];
     /**
      * An optional symbol to replace the `percent` suffix; the percent suffix (defaults to "%").
      */
