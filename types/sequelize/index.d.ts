@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.8
+// Type definitions for Sequelize 4.27.9
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -12,6 +12,7 @@
 //                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
+//                 Nick Schultz <https://github.com/nrschultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
