@@ -6,7 +6,6 @@
 
 import { GraphQLResolveInfo } from "graphql";
 
-declare namespace getFieldList {}
 declare function getFieldList(info: GraphQLResolveInfo): string[];
 
 export = getFieldList;
