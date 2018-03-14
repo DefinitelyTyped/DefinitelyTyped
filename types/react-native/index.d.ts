@@ -6,6 +6,7 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
+//                 Umidbek Karimov <https://github.com/umidbekkarimov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
