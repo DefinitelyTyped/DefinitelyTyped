@@ -2,32 +2,25 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
-        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "esModuleInterop": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
-        "paths": {
-            "expo": [
-                "expo/v23"
-            ],
-            "expo/*": [
-                "expo/v23/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "expo-tests.tsx"
+        "addons/createStore.d.ts",
+        "addons/BaseStore.d.ts",
+        "dispatchr-tests.ts"
     ]
 }
