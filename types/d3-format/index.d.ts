@@ -118,7 +118,7 @@ export interface FormatSpecifier {
      *
      * See precisionFixed and precisionRound for help picking an appropriate precision
      */
-    precision: number;
+    precision: number | undefined;
     /**
      * The available type values are:
      *

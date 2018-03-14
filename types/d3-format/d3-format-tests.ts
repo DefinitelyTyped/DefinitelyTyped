@@ -43,7 +43,7 @@ const symbol: '$' | '#' | '' = specifier.symbol;
 const zero: boolean = specifier.zero;
 const width: number | undefined = specifier.width;
 const comma: boolean = specifier.comma;
-const precision: number = specifier.precision;
+const precision: number | undefined = specifier.precision;
 const type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n' = specifier.type;
 
 const formatString: string = specifier.toString();
