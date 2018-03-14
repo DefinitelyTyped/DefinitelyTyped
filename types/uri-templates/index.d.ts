@@ -7,11 +7,12 @@
 declare function utpl(template: string): utpl.URITemplate;
 
 declare namespace utpl {
-    export interface URITemplate {
-        fillFromObject(vars: Object): string;
-        fill(callback: (varName: string) => string): string;
-        fromUri(uri: string): Object;
-    }
+  export interface URITemplate {
+    fillFromObject(vars: Object): string;
+    fill(callback: (varName: string) => string): string;
+    fromUri(uri: string, options: {strict: boolean}): Object;
+    varNames: string[];
+  }
 }
 
 export = utpl;
