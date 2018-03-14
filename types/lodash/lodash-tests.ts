@@ -5356,14 +5356,14 @@ namespace TestForEach {
 
     // $ExpectType NumericDictionary<AbcObject>
     _.forEach(numericDictionary, (value, index, collection) => {
-        value; // $ExpectType AbcObject
+        /* Broken in TS 2.4: value; // AbcObject */
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
     // $ExpectType NumericDictionary<AbcObject> | null | undefined
     _.forEach(nilNumericDictionary, (value, index, collection) => {
-        value; // $ExpectType AbcObject
+        /* Broken in TS 2.4: value; // AbcObject */
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
@@ -5440,14 +5440,14 @@ namespace TestForEach {
 
     // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
     const result = _(numericDictionary).forEach((value, index, collection) => {
-        value; // $ExpectType AbcObject
+        /* Broken in TS 2.4: value; // AbcObject */
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
     // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
     _(nilNumericDictionary).forEach((value, index, collection) => {
-        value; // $ExpectType AbcObject
+        /* Broken in TS 2.4: value; // AbcObject */
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
@@ -5510,14 +5510,14 @@ namespace TestForEach {
 
     // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
     _(numericDictionary).chain().forEach((value, index, collection) => {
-        value; // $ExpectType AbcObject
+        /* Broken in TS 2.4: value; // AbcObject */
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
     // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject> | null | undefined>
     _(nilNumericDictionary).chain().forEach((value, index, collection) => {
-        value; // $ExpectType AbcObject
+        /* Broken in TS 2.4: value; // AbcObject */
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
