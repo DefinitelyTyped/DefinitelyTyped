@@ -153,11 +153,19 @@ const gTransition = gSelection.transition();
 gSelection.call(topAxis);
 gTransition.call(topAxis);
 
-const svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('g');
+const svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('svg');
 const svgTransition = svgSelection.transition();
 
 svgSelection.call(leftAxis);
 svgTransition.call(leftAxis);
+
+const pathSelection: Selection<SVGPathElement, any, any, any> = select<SVGPathElement, any>('path');
+const pathTransition = svgSelection.transition();
+
+// $ExpectError
+pathSelection.call(bottomAxis);
+// $ExpectError
+pathSelection.call(bottomAxis);
 
 const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 const canvasTransition = canvasSelection.transition();
@@ -167,3 +175,30 @@ canvasSelection.call(rightAxis); // fails, incompatible context container elemen
 // $ExpectError
 canvasTransition.call(rightAxis); // fails, incompatible context container element
 
+// --------------------------------------------------------------------------
+// Strict Function Types
+// --------------------------------------------------------------------------
+
+interface Animal {
+    Die: () => void;
+}
+
+interface Dog extends Animal {
+    Bark: () => string;
+}
+
+declare let animalScale: d3Axis.AxisScale<Animal>;
+declare let dogScale: d3Axis.AxisScale<Dog>;
+
+// $ExpectError
+animalScale = dogScale;
+// $ExpectError
+dogScale = animalScale;
+
+declare let animalAxis: d3Axis.Axis<Animal>;
+declare let dogAxis: d3Axis.Axis<Dog>;
+
+// $ExpectError
+animalAxis = dogAxis;
+// $ExpectError
+dogAxis = animalAxis;

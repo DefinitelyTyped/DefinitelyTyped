@@ -58,14 +58,14 @@ export interface Axis<Domain> {
      *
      * @param context A selection of SVG containers (either SVG or G elements).
      */
-    (context: Selection<AxisContainerElement, any, any, any>): void;
+    (context: Selection<SVGSVGElement, any, any, any> | Selection<SVGGElement, any, any, any>): void;
 
     /**
      * Render the axis to the given context.
      *
      * @param context A transition defined on SVG containers (either SVG or G elements).
      */
-    (context: TransitionLike<AxisContainerElement, any>): void;
+    (context: TransitionLike<SVGSVGElement, any> | TransitionLike<SVGGElement, any>): void;
 
     /**
      * Gets the current scale underlying the axis.
