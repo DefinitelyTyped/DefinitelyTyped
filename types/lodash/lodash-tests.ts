@@ -3162,7 +3162,8 @@ namespace TestXor {
     {
         let result: AbcObject[];
 
-        result = _.xor();
+        // $ExpectType {}[]
+        _.xor();
 
         result = _.xor(array);
         result = _.xor(array, list);
