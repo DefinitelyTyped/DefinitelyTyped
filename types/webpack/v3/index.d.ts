@@ -129,7 +129,7 @@ declare namespace webpack {
         /** The output directory as absolute path */
         path?: string;
         /** (Required) The filename of the entry chunk as relative path inside the output.path directory. */
-        filename: string;
+        filename?: string;
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
         /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
