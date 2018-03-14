@@ -3545,6 +3545,8 @@ declare namespace uiGrid {
     export interface IGridColumnOf<TEntity> {
         /** Column definition */
         colDef: uiGrid.IColumnDefOf<TEntity>;
+        /** Default sort on this column */
+        defaultSort?: ISortInfo;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
@@ -3683,6 +3685,8 @@ declare namespace uiGrid {
          * @default false
          */
         cellTooltip?: boolean | string | ICellTooltipGetter<TEntity>;
+        /** Default object of sort information */
+        defaultSort?: ISortInfo;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
