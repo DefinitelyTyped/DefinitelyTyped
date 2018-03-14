@@ -196,10 +196,7 @@ async () => {
         onError={(error) => console.log(error)} />
 );
 () => (
-    <AppLoading
-        startAsync={null}
-        onFinish={null}
-        onError={null} />
+    <AppLoading />
 );
 
 const barcodeReadCallback = () => {};
