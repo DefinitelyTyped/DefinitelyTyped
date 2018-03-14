@@ -392,8 +392,8 @@ declare namespace google.maps {
     export module Data {
         export interface DataOptions {
             controlPosition?: ControlPosition;
-            controls?: DrawingMode[];
-            drawingMode?: DrawingMode;
+            controls?: DrawingMode[] | null;
+            drawingMode?: DrawingMode | null;
             featureFactory?: (geometry: Data.Geometry) => Data.Feature;
             map?: Map;
             style?: Data.StylingFunction|Data.StyleOptions;
