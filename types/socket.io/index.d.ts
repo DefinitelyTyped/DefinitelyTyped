@@ -12,46 +12,26 @@
 
 import Parser = require('socket.io-parser');
 
-declare module 'socket.io' {
-    var server: SocketIOStatic;
+export = SocketIO;
 
-    export = server;
-}
+declare function SocketIO(): SocketIO.Server;
+declare function SocketIO(srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
+declare function SocketIO(port: string|number, opts?: SocketIO.ServerOptions): SocketIO.Server;
+declare function SocketIO(opts: SocketIO.ServerOptions): SocketIO.Server;
 
-interface SocketIOStatic {
-    /**
-     * Default Server constructor
-     */
-    (): SocketIO.Server;
-
-    /**
-     * Creates a new Server
-     * @param srv The HTTP server that we're going to bind to
-     * @param opts An optional parameters object
-     */
-    (srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
-
-    /**
-     * Creates a new Server
-     * @param port A port to bind to, as a number, or a string
-     * @param An optional parameters object
-     */
-    (port: string | number, opts?: SocketIO.ServerOptions): SocketIO.Server;
-
-    /**
-     * Creates a new Server
-     * @param A parameters object
-     */
-    (opts: SocketIO.ServerOptions): SocketIO.Server;
-
-    /**
-     * Backwards compatibility
-     * @see io().listen()
-     */
-    listen: SocketIOStatic;
-}
+// {
+//     /**
+//      * Backwards compatibility
+//      * @see io().listen()
+//      */
+//     listen: SocketIOStatic;
+// }
 
 declare namespace SocketIO {
+    function listen(): SocketIO.Server;
+    function listen(srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
+    function listen(port: string|number, opts?: SocketIO.ServerOptions): SocketIO.Server;
+    function listen(opts: SocketIO.ServerOptions): SocketIO.Server;
 
     interface Server {
         engine: { ws: any };
@@ -381,9 +361,12 @@ declare namespace SocketIO {
 
     /**
      * The Namespace, sandboxed environments for sockets, each connection
-     * to a Namespace requires a new Socket
+     * to a Namespace requires a new Socket. NOTE: while
+     * we technically extend NodeJS.EventEmitter, we're not putting it here
+     * as we have a problem with the emit() event (as it's overridden with a
+     * different return)
      */
-    interface Namespace extends NodeJS.EventEmitter {
+    interface Namespace {
 
         /**
          * The name of the NameSpace
@@ -494,13 +477,29 @@ declare namespace SocketIO {
          * @return This Namespace
          */
         compress(compress: boolean): Namespace;
+
+        // The following is manually copied from EventEmitter from Node v6.x types
+        addListener(event: string | symbol, listener: Function): this;
+        once(event: string | symbol, listener: Function): this;
+        removeListener(event: string | symbol, listener: Function): this;
+        removeAllListeners(event?: string | symbol): this;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
+        listeners(event: string | symbol): Function[];
+        listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: Function): this;
+        prependOnceListener(event: string | symbol, listener: Function): this;
+        eventNames(): (string | symbol)[];
+        emit(event: string | symbol, ...args: any[]): boolean;
     }
 
     /**
-     * The socket, which handles our connection for a namespace. NOTE: while
-     * we technically extend NodeJS.EventEmitter, we're not putting it here
-     * as we have a problem with the emit() event (as it's overridden with a
-     * different return)
+     * Interface to a `Client` for a given `Namespace`.
+     */
+    function Socket(nsp: Namespace, client: Client, query: any): void;
+
+    /**
+     * The socket, which handles our connection for a namespace.
      */
     interface Socket extends NodeJS.EventEmitter {
 
@@ -621,11 +620,6 @@ declare namespace SocketIO {
          * will send it to all the other sockets in the namespace except for yourself
          */
         broadcast: Socket;
-
-        /**
-         * Interface to a `Client` for a given `Namespace`.
-         */
-        (nsp: Namespace, client: Client, query: any): void;
 
         /**
          * Targets a room when broadcasting
