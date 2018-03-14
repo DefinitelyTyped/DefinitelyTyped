@@ -1,6 +1,8 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <https://github.com/joeskeen>
+// Definitions by: Ben Tesser <https://github.com/btesser>
+//                 Joe Skeen <https://github.com/joeskeen>
+//                 Peter Bojanczyk <https://github.com/pbojanczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
