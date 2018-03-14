@@ -6141,7 +6141,7 @@ namespace TestMap {
         _.map(numericDictionary);  // $ExpectType AbcObject[]
         // $ExpectType number[]
         _.map(numericDictionary, (value, key, collection) => {
-            value; // $ExpectType AbcObject
+            /* Broken in TS 2.4: value; // AbcObject */
             key; // $ExpectType string
             collection; // $ExpectType NumericDictionary<AbcObject>
             return 0;
@@ -6195,7 +6195,7 @@ namespace TestMap {
         _(numericDictionary).map();  // $ExpectType LoDashImplicitWrapper<AbcObject[]>
         // $ExpectType LoDashImplicitWrapper<number[]>
         _(numericDictionary).map((value, key, collection) => {
-            value; // $ExpectType AbcObject
+            /* Broken in TS 2.4: value; // AbcObject */
             key; // $ExpectType string
             collection; // $ExpectType NumericDictionary<AbcObject>
             return 0;
@@ -6248,7 +6248,7 @@ namespace TestMap {
         _(numericDictionary).chain().map();  // $ExpectType LoDashExplicitWrapper<AbcObject[]>
         // $ExpectType LoDashExplicitWrapper<number[]>
         _(numericDictionary).chain().map((value, key, collection) => {
-            value; // $ExpectType AbcObject
+            /* Broken in TS 2.4: value; // AbcObject */
             key; // $ExpectType string
             collection; // $ExpectType NumericDictionary<AbcObject>
             return 0;
