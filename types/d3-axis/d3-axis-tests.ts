@@ -58,7 +58,8 @@ const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node(
 
 containerElement = svg;
 containerElement = g;
-// containerElement = canvas; // fails, incompatible type
+// $ExpectError
+containerElement = canvas; // fails, incompatible type
 
 // --------------------------------------------------------------------------
 // Test Axis Generators
@@ -77,14 +78,17 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 
 leftAxis = leftAxis.scale(scalePow());
 const powerScale: ScalePower<number, number> = leftAxis.scale() as ScalePower<number, number>;
-// powerScale = leftAxis.scale(); // fails, without casting as AxisScale is purposely  generic
+// $ExpectError
+powerScale = leftAxis.scale(); // fails, without casting as AxisScale is purposely generic
 
 bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
-// bottomAxis = bottomAxis.scale(scalePow()) // fails, domain of scale incompatible with domain of axis
+// $ExpectError
+bottomAxis = bottomAxis.scale(scalePow()); // fails, domain of scale incompatible with domain of axis
 
 const axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
 const ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale() as ScaleOrdinal<string, number>;
-// ordinalScale = bottomAxis.scale(); // fails, without casting as AxisScale is purposely  generic
+// $ExpectError
+ordinalScale = bottomAxis.scale(); // fails, without casting as AxisScale is purposely generic
 
 // ticks(...) ----------------------------------------------------------------
 
@@ -158,5 +162,8 @@ svgTransition.call(leftAxis);
 const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 const canvasTransition = canvasSelection.transition();
 
-// canvasSelection.call(rightAxis); // fails, incompatible context container element
-// canvasTransition.call(rightAxis); // fails, incompatible context container element
+// $ExpectError
+canvasSelection.call(rightAxis); // fails, incompatible context container element
+// $ExpectError
+canvasTransition.call(rightAxis); // fails, incompatible context container element
+
