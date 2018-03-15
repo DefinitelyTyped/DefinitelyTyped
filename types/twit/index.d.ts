@@ -224,7 +224,7 @@ declare module 'twit' {
       }
     }
 
-    export type Response = object
+    export type Response = any
 
     interface MediaParam {
       file_path: string
@@ -259,8 +259,7 @@ declare module 'twit' {
       lat?: number,
       long?: number,
       follow?: boolean,
-      include_email?: boolean,
-      cursor?: number
+      include_email?: boolean
     }
     export interface PromiseResponse {
       data: Response,
