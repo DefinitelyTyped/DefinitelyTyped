@@ -465,7 +465,7 @@ declare namespace WebdriverIO {
     }
 
     class ErrorHandler {
-        constructor(type: string, msg: string | number);
+        constructor(type: string, msg: string | number, details: string | undefined);
     }
 
     function multiremote(options: MultiRemoteOptions): Client<void>;
