@@ -2,7 +2,8 @@
 
 import {
 	create as createJSS,
-	default as sharedInstance
+	SheetsRegistry,
+	default as sharedInstance,
 } from 'jss';
 
 const jss = createJSS().setup({});
@@ -21,28 +22,30 @@ const styleSheet = jss.createStyleSheet(
 	{
 		link: true,
 	}
-).attach();
+);
 
-styleSheet.classes.container; // $ExpectType string
-styleSheet.classes.ruleWithMockObservable; // $ExpectType string
+const attachedStyleSheet = styleSheet.attach();
 
-const rule = styleSheet.addRule('dynamicRule', { color: 'indigo' });
+attachedStyleSheet.classes.container; // $ExpectType string
+attachedStyleSheet.classes.ruleWithMockObservable; // $ExpectType string
+
+const rule = attachedStyleSheet.addRule('dynamicRule', { color: 'indigo' });
 rule.prop('border-radius', 5).prop('color'); // $ExpectType string
-styleSheet.classes.dynamicRule; // $ExpectType string
+attachedStyleSheet.classes.dynamicRule; // $ExpectType string
 
-styleSheet.deleteRule('dynamicRule');
+attachedStyleSheet.deleteRule('dynamicRule');
 
 // test that `addRule` supports the shorthand signature
-const dynamicRule = styleSheet.addRule({ color: 'red' });
+const dynamicRule = attachedStyleSheet.addRule({ color: 'red' });
 
 const div = document.createElement('div');
 dynamicRule.applyTo(div);
 
-const containerRule = styleSheet.getRule('container');
+const containerRule = attachedStyleSheet.getRule('container');
 const containerJSON = containerRule.toJSON();
-const css = styleSheet.toString();
+const css = attachedStyleSheet.toString();
 
-styleSheet.addRules({
+attachedStyleSheet.addRules({
 	rule1: {
 		fontFamily: 'Roboto',
 		color: '#FFFFFF',
@@ -53,10 +56,42 @@ styleSheet.addRules({
 	},
 });
 
-styleSheet.detach();
+attachedStyleSheet.detach();
 
 sharedInstance.createStyleSheet({
 	container: {
 		background: '#000099',
 	}
 });
+
+/* SheetsRegistry test */
+const sheetsRegistry = new SheetsRegistry();
+sheetsRegistry.add(styleSheet);
+
+const secondStyleSheet = jss.createStyleSheet(
+	{
+		ruleWithMockObservable: {
+			subscribe() {}
+		},
+		container2: {
+			display: 'flex',
+			width: 150,
+			opacity: .8,
+		},
+	},
+	{
+		link: true,
+	}
+);
+
+sheetsRegistry.add(secondStyleSheet);
+sheetsRegistry.registry.length; // $ExpectType number
+sheetsRegistry.remove(secondStyleSheet);
+
+sheetsRegistry.index; // $ExpectType number
+sheetsRegistry.index = 5; // $ExpectError
+sheetsRegistry.toString(); // $ExpectType string
+// With css options
+sheetsRegistry.toString({indent: 5}); // $ExpectType string
+
+sheetsRegistry.reset();
