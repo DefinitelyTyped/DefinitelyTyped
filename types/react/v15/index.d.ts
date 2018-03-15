@@ -69,6 +69,8 @@ type NativeWheelEvent = WheelEvent;
 export = React;
 export as namespace React;
 
+type NonNullable<T> = T & {};
+
 declare namespace React {
     //
     // React Elements
@@ -342,6 +344,8 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
+    type GetComponentProps<C extends ComponentType<any>> = NonNullable<C['_doNotUse_props']>;
+
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
@@ -349,6 +353,7 @@ declare namespace React {
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
+        _doNotUse_props?: P;
     }
 
     interface ComponentClass<P = {}> {
@@ -358,6 +363,7 @@ declare namespace React {
         childContextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
+        _doNotUse_props?: P;
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {

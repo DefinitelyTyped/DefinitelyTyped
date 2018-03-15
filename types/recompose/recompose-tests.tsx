@@ -93,7 +93,7 @@ function testWithHandlers() {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
         onChange: Function;
     }
-    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps> = ({onChange, onSubmit, foo}) =>
+    const InnerComponent: React.StatelessComponent<OutterProps & InnerProps & HandlerProps> = ({onChange, onSubmit, foo}) =>
       <div onClick={onSubmit}>{foo}</div>;
 
     const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
