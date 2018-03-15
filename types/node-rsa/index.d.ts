@@ -31,7 +31,10 @@ declare class NodeRSA {
     /**
      * Export key to PEM string, PEM/DER Buffer or components.
      */
-    exportKey(format?: NodeRSA.Format): NodeRSA.Key;
+    exportKey(): string;
+    exportKey(format: NodeRSA.FormatPem): string;
+    exportKey(format: NodeRSA.FormatDer): Buffer;
+    exportKey(format: NodeRSA.FormatComponents): NodeRSA.KeyComponents;
 
     isPrivate(): boolean;
 
@@ -88,17 +91,22 @@ declare namespace NodeRSA {
     type Key = string | Buffer | KeyComponents;
     type Data = string | object | any[];
 
-    type Format =
+    type FormatPem =
         | 'private' | 'public'
-        | 'pkcs1' | 'pkcs1-pem' | 'pkcs1-der'
-        | 'pkcs1-private' | 'pkcs1-private-pem' | 'pkcs1-private-der'
-        | 'pkcs1-public' | 'pkcs1-public-pem' | 'pkcs1-public-der'
-        | 'pkcs8' | 'pkcs8-pem' | 'pkcs8-der'
-        | 'pkcs8-private' | 'pkcs8-private-pem' | 'pkcs8-private-der'
-        | 'pkcs8-public' | 'pkcs8-public-pem' | 'pkcs8-public-der'
+        | 'pkcs1' | 'pkcs1-pem'
+        | 'pkcs1-private' | 'pkcs1-private-pem'
+        | 'pkcs1-public' | 'pkcs1-public-pem'
+        | 'pkcs8' | 'pkcs8-pem'
+        | 'pkcs8-private' | 'pkcs8-private-pem'
+        | 'pkcs8-public' | 'pkcs8-public-pem';
+    type FormatDer =
+        | 'pkcs1-der' | 'pkcs1-private-der' | 'pkcs1-public-der'
+        | 'pkcs8-der' | 'pkcs8-private-der' | 'pkcs8-public-der';
+    type FormatComponents =
         | 'components' | 'components-pem' | 'components-der'
         | 'components-private' | 'components-private-pem' | 'components-private-der'
         | 'components-public' | 'components-public-pem' | 'components-public-der';
+    type Format = FormatPem | FormatDer | FormatComponents;
 
     type EncryptionScheme = 'pkcs1_oaep' | 'pkcs1';
 
