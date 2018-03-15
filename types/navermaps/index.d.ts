@@ -1,3 +1,4 @@
+// Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 declare namespace naver.maps {
   /**
    * Types
