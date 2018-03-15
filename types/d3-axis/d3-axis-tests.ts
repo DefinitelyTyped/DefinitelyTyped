@@ -47,6 +47,7 @@ axisScaleNumber = scaleBand<number>();
 axisScaleNumber = scalePoint<number>();
 axisScaleString = scaleBand();
 axisScaleString = scalePoint();
+
 // --------------------------------------------------------------------------
 // Test AxisContainerElement
 // --------------------------------------------------------------------------
@@ -123,6 +124,7 @@ const formatFn: ((domainValue: string, index: number) => string) | null = bottom
 
 bottomAxis.tickFormat((d, i) => '#' + i);
 bottomAxis.tickFormat(d => d + '!');
+
 // tickSize(...) ----------------------------------------------------------------
 
 rightAxis = rightAxis.tickSize(5);

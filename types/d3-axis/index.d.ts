@@ -29,7 +29,7 @@ export interface AxisTimeInterval {
 
 /**
  * A helper interface to which a scale passed into axis must conform (at a minimum)
- * for axis to use the scale without error
+ * for axis to use the scale without error.
  */
 export interface AxisScale<Domain> {
     (x: Domain): number | undefined;
@@ -37,7 +37,7 @@ export interface AxisScale<Domain> {
     range(): number[];
     copy(): this;
     bandwidth?(): number;
-    // TODO: Reconsider the below, note that the compiler does not  differentiate the overloads w.r.t. optionality
+    // TODO: Reconsider the below, note that the compiler does not differentiate the overloads w.r.t. optionality
     // ticks?(count?: number): Domain[];
     // ticks?(count?: AxisTimeInterval): Date[];
     // tickFormat?(count?: number, specifier?: string): ((d: number) => string);
@@ -45,12 +45,12 @@ export interface AxisScale<Domain> {
 }
 
 /**
- * A helper type to alias elements which can serve as a container for an axis
+ * A helper type to alias elements which can serve as a container for an axis.
  */
 export type AxisContainerElement = SVGSVGElement | SVGGElement;
 
 /**
- * Interface defining an axis generator. The generic <Domain> is the type of the axis domain
+ * Interface defining an axis generator. The generic <Domain> is the type of the axis domain.
  */
 export interface Axis<Domain> {
     /**
@@ -75,7 +75,7 @@ export interface Axis<Domain> {
     /**
      * Sets the scale and returns the axis.
      *
-     * @param scale  The scale to be used for axis generation
+     * @param scale The scale to be used for axis generation.
      */
     scale(scale: AxisScale<Domain>): this;
 
@@ -86,7 +86,7 @@ export interface Axis<Domain> {
      *
      * This method is also a convenience function for axis.tickArguments.
      *
-     * @param count Number of ticks that should be rendered
+     * @param count Number of ticks that should be rendered.
      * @param specifier An optional format specifier to customize how the tick values are formatted.
      */
     ticks(count: number, specifier?: string): this;
@@ -178,7 +178,7 @@ export interface Axis<Domain> {
      *
      * See also axis.ticks.
      *
-     * @param args An array with arguments suitable for the scale to be used for tick generation
+     * @param args An array with arguments suitable for the scale to be used for tick generation.
      */
     tickArguments(args: any[]): this;
 
@@ -210,7 +210,7 @@ export interface Axis<Domain> {
     tickFormat(): ((domainValue: Domain, index: number) => string) | null;
 
     /**
-     *  Sets the tick format function and returns the axis.
+     * Sets the tick format function and returns the axis.
      *
      * @param format A function mapping a value from the axis Domain to a formatted string
      * for display purposes. When invoked, the format function is also passed a second argument representing the zero-based index
@@ -287,7 +287,7 @@ export interface Axis<Domain> {
     /**
      * Set the current padding and return the axis.
      *
-     * @param padding Padding in pixels  (Default is 3).
+     * @param padding Padding in pixels (Default is 3).
      */
     tickPadding(padding: number): this;
 }
@@ -296,7 +296,7 @@ export interface Axis<Domain> {
  * Constructs a new top-oriented axis generator for the given scale, with empty tick arguments,
  * a tick size of 6 and padding of 3. In this orientation, ticks are drawn above the horizontal domain path.
  *
- * @param scale The scale to be used for axis generation
+ * @param scale The scale to be used for axis generation.
  */
 export function axisTop<Domain>(scale: AxisScale<Domain>): Axis<Domain>;
 
@@ -304,7 +304,7 @@ export function axisTop<Domain>(scale: AxisScale<Domain>): Axis<Domain>;
  * Constructs a new right-oriented axis generator for the given scale, with empty tick arguments,
  * a tick size of 6 and padding of 3. In this orientation, ticks are drawn to the right of the vertical domain path.
  *
- * @param scale The scale to be used for axis generation
+ * @param scale The scale to be used for axis generation.
  */
 export function axisRight<Domain>(scale: AxisScale<Domain>): Axis<Domain>;
 
@@ -312,7 +312,7 @@ export function axisRight<Domain>(scale: AxisScale<Domain>): Axis<Domain>;
  * Constructs a new bottom-oriented axis generator for the given scale, with empty tick arguments,
  * a tick size of 6 and padding of 3. In this orientation, ticks are drawn below the horizontal domain path.
  *
- * @param scale The scale to be used for axis generation
+ * @param scale The scale to be used for axis generation.
  */
 export function axisBottom<Domain>(scale: AxisScale<Domain>): Axis<Domain>;
 
@@ -320,6 +320,6 @@ export function axisBottom<Domain>(scale: AxisScale<Domain>): Axis<Domain>;
  * Constructs a new left-oriented axis generator for the given scale, with empty tick arguments,
  * a tick size of 6 and padding of 3. In this orientation, ticks are drawn to the left of the vertical domain path.
  *
- * @param scale The scale to be used for axis generation
+ * @param scale The scale to be used for axis generation.
  */
 export function axisLeft<Domain>(scale: AxisScale<Domain>): Axis<Domain>;
