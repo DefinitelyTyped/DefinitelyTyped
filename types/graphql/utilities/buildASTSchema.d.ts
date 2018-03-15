@@ -1,6 +1,17 @@
-import { DocumentNode, Location } from '../language/ast';
+import { DocumentNode, Location, StringValueNode } from '../language/ast';
 import { Source } from '../language/source';
-import { GraphQLSchema } from '../type/schema';
+import { GraphQLSchema, GraphQLSchemaValidationOptions } from '../type/schema';
+
+interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
+  /**
+   * Descriptions are defined as preceding string literals, however an older
+   * experimental version of the SDL supported preceding comments as
+   * descriptions. Set to true to enable this deprecated behavior.
+   *
+   * Default: false
+   */
+  commentDescriptions?: boolean;
+}
 
 /**
  * This takes the ast of a schema document produced by the parse function in
@@ -15,10 +26,18 @@ import { GraphQLSchema } from '../type/schema';
 export function buildASTSchema(ast: DocumentNode): GraphQLSchema;
 
 /**
- * Given an ast node, returns its string description based on a contiguous
- * block full-line of comments preceding it.
+ * Given an ast node, returns its string description.
+ *
+ * Accepts options as a second argument:
+ *
+ *    - commentDescriptions:
+ *        Provide true to use preceding comments as the description.
+ *
  */
-export function getDescription(node: { loc?: Location }): string;
+export function getDescription(
+  node: { description?: StringValueNode; loc?: Location },
+  options: BuildSchemaOptions
+): string;
 
 /**
  * A helper function to build a GraphQLSchema directly from a source
