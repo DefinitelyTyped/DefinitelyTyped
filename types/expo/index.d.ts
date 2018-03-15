@@ -1435,6 +1435,8 @@ export namespace ImagePicker {
         aspect?: [number, number];
         quality?: number;
         mediaTypes?: keyof _MediaTypeOptions;
+        base64? boolean; 
+        exif? boolean;                       
     }
 
     function launchImageLibraryAsync(options?: ImageLibraryOptions): Promise<ImageResult>;
