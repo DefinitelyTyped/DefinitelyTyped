@@ -613,9 +613,6 @@ export interface RowInfo {
     /** Materialized row of data */
     row: any;
 
-    /** Original row from your data */
-    original: any;
-
     /** The post-accessed values from the original row */
     rowValues: any;
 
