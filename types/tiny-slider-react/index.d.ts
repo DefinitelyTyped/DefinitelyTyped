@@ -7,103 +7,103 @@ import * as React from "react";
 
 interface CommonOptions {
     /**
-     * Default: 0.
      * The initial index of the slider.
+     * @defaultValue 0
      */
     startIndex?: number;
     /**
-     * Default: 1.
      * Number of slides being displayed in the viewport.
+     * @defaultValue 1
      */
     items?: number;
     /**
-     * Default: 0.
      * Space between slides (in "px").
+     * @defaultValue 0
      */
     gutter?: number;
     /**
-     * 	Default: 1.
      * Number of slides going on one "click".
+     * @defaultValue 1
      */
     slideBy?: number | "page";
     /**
-     * Default: 300.
      * Speed of the slide animation (in "ms").
+     * @defaultValue 300
      */
     speed?: number;
     /**
-     * 	Default: false.
      * Height of slider container changes according to each slide"s height.
+     * @defaultValue false
      */
     autoHeight?: boolean;
     /**
-     * Default: false.
      * Controls width attribute of the slides.
+     * @defaultValue false
      */
     fixedWidth?: number | false;
     /**
-     * Default: 0.
      * Space on the outside (in "px").
+     * @defaultValue 0
      */
     edgePadding?: number;
     /**
-     * Default: true.
      * Controls the display and functionalities of controls components (prev/next buttons). If true, display the controls and add all functionalities.
+     * @defaultValue true
      */
     controls?: boolean;
     /**
-     * Default: ["prev", "next"].
      * Text or markup in the prev/next buttons
+     * @defaultValue ["prev", "next"]
      */
     controlsText?: string[];
     /**
-     * Default: true.
      * Controls the display and functionalities of nav components (dots). If true, display the nav and add all functionalities.
+     * @defaultValue true
      */
     nav?: boolean;
     /**
-     * Default: false.
      * Toggles the automatic change of slides
+     * @defaultValue false
      */
     autoplay?: boolean;
     /**
-     * Default: false.
      * Stops sliding on mouseover.
+     * @defaultValue false
      */
     autoplayHoverPause?: boolean;
     /**
-     * Default: true.
      * Pauses the sliding when the page is invisiable and resumes it when the page become visiable again
+     * @defaultValue true
      */
     autoplayResetOnVisibility?: boolean;
     /**
-     * Default: ["start", "stop"].
      * Text or markup in the autoplay start/stop button.
+     * @defaultValue ["start", "stop"]
      */
     autoplayText?: string[];
     /**
-     * Default: 5000.
      * Time between 2 autoplay slides change (in "ms").
+     * @defaultValue 5000
      */
     autoplayTimeout?: number;
     /**
-     * 	Default: true.
      * Activates input detection for touch devices.
+     * @defaultValue true
      */
     touch?: boolean;
     /**
-     * Default: false.
      * Changing slides by dragging them.
+     * @defaultValue false
      */
     mouseDrag?: boolean;
     /**
-     * Default: false.
      * Allows using arrow keys to switch slides.
+     * @defaultValue false
      */
     arrowKeys?: boolean;
     /**
-     * Default: false.
      * Disable slider.
+     * @defaultValue false
      */
     disable?: boolean;
 }
@@ -114,113 +114,108 @@ export interface ResponsiveOptions {
 
 export interface TinySliderSettings extends CommonOptions {
     /**
-     * Default: document.querySelector(".slider").
-     * The slider container element or selector.
-     */
-    container?: HTMLElement | string;
-    /**
-     * Default: "carousel".
      * Controls animation behaviour.
      * With carousel everything slides to the side, while gallery uses fade animations and changes all slides at once.
+     * @defaultValue "carousel"
      */
     mode?: "carousel" | "gallery";
     /**
-     * Default: "horizontal".
      * The axis of the slider.
+     * @defaultValue "horizontal"
      */
     axis?: "horizontal" | "vertical";
     /**
-     * Default: false.
      * The container element/selector around the prev/next buttons.
      * controlsContainer must have at least 2 child elements.
+     * @defaultValue false
      */
     controlsContainer?: HTMLElement | string | false;
     /**
-     * Default: false.
      * The container element/selector around the dots.
      * navContainer must have at least same number of children as the slides.
+     * @defaultValue false
      */
     navContainer?: HTMLElement | string | false;
     /**
-     * Default: false.
      * Indecate if the dots are thurbnails. If true, they will always be visible even when more than 1 slides displayed in the viewport.
+     * @defaultValue false
      */
     navAsThumbnails?: boolean;
     /**
-     * Default: "forward".
      * Direction of slide movement (ascending/descending the slide index).
+     * @defaultValue "forward"
      */
     autoplayDirection?: "forward" | "backward";
     /**
-     * Default: false.
      * The customized autoplay start/stop button or selector.
+     * @defaultValue false
      */
     autoplayButton?: HTMLElement | string | false;
     /**
-     * Default: true.
      * Output autoplayButton markup when autoplay is true but a customized autoplayButton is not provided.
+     * @defaultValue true
      */
     autoplayButtonOutput?: boolean;
     /**
-     * Default: "tns-fadeIn".
      * Name of intro animation class.
+     * @defaultValue "tns-fadeIn"
      */
     animateIn?: string;
     /**
-     * Default: "tns-fadeOut".
      * Name of outro animation class.
+     * @defaultValue "tns-fadeOut"
      */
     animateOut?: string;
     /**
-     * Default: "tns-normal".
      * Name of default animation class.
+     * @defaultValue "tns-normal"
      */
     animateNormal?: string;
     /**
-     * Default: false.
      * Time between each gallery animation (in "ms").
+     * @defaultValue false
      */
     animateDelay?: number | false;
     /**
-     * Default: true.
      * Moves throughout all the slides seamlessly.
+     * @defaultValue true
      */
     loop?: boolean;
     /**
-     * Default: false.
      * Moves to the opposite edge when reaching the first or last slide.
+     * @defaultValue false
      */
     rewind?: boolean;
     /**
-     * Default: false.
      * Breakpoint: Integer.
      * Defines options for different viewport widths
+     * @defaultValue false
      */
     responsive?: ResponsiveOptions | false;
     /**
-     * Default: false.
      * Enables lazyloading images that are currently not viewed, thus saving bandwidth
+     * @defaultValue false
      */
     lazyload?: boolean;
     /**
-     * Default: 15.
      * Swipe or drag will not be triggered if the angle is not inside the range when set.
+     * @defaultValue 15
      */
     swipeAngle?: number | boolean;
     /**
-     * Default: false.
      * Difine the relationship between nested sliders.
      * Make sure you run the inner slider first, otherwise the height of the inner slider container will be wrong.
+     * @defaultValue false
      */
     nested?: "inner" | "outer" | false;
     /**
-     * Default: true.
      * Indicate whether the slider will be frozen (controls, nav, autoplay and other functions will stop work) when all slides can be displayed in one page.
+     * @defaultValue true
      */
     freezable?: boolean;
     /**
-     * Default: false.
      * Callback to be run on initialization.
+     * @defaultValue false
      */
     onInit?: () => void | false;
 }
