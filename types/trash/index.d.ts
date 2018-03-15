@@ -9,4 +9,4 @@ interface TrashOptions {
 
 declare function trash(iterable: Iterable<string>, opts?: TrashOptions): Promise<void>;
 
-export default trash;
+export = trash;
