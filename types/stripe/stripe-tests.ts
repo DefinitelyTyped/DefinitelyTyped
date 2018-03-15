@@ -66,7 +66,7 @@ stripe.charges.create({
     });
 
     charge.refunds.retrieve("re_15jzA4Ee31JkLCeQcxbTbjaL").then(function (refund) {
-
+        var status: "pending" | "succeeded" | "failed" | "canceled" = refund.status;
     });
 
     charge.refunds.update("re_15jzA4Ee31JkLCeQcxbTbjaL", { metadata: { test: "data" } }).then(function (refund) {

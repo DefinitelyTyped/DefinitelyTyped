@@ -719,6 +719,9 @@ function testDisplayMarker() {
 
 // DisplayMarkerLayer =========================================================
 function testDisplayMarkerLayer() {
+    // Properties
+    str = displayMarkerLayer.id;
+
     // Lifecycle
     displayMarkerLayer.destroy();
     displayMarkerLayer.clear();
@@ -953,7 +956,8 @@ function testFile() {
 
     // Reading and Writing
     async function readFile() {
-        str = await file.read();
+        const res = await file.read();
+        if (res !== null) str = res;
     }
 
     const stream = file.createReadStream();
@@ -1274,6 +1278,9 @@ function testMarker() {
 
 // MarkerLayer ================================================================
 function testMarkerLayer() {
+    // Properties
+    str = markerLayer.id;
+
     // Lifecycle
     markerLayer = markerLayer.copy();
     bool = markerLayer.destroy();

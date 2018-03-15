@@ -414,6 +414,13 @@ export class ListItem extends Component<{
     style?: React.CSSProperties,
 }, any> {}
 
+export class ListTitle extends Component<{
+    modifier?: string,
+    onClick?: React.MouseEventHandler<any>,
+    className?: string,
+    style?: React.CSSProperties,
+}, any> {}
+
 export class Card extends Component<{
     modifier?: string,
 }, any> {}

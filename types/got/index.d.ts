@@ -98,7 +98,11 @@ declare namespace got {
         json?: boolean;
     }
 
-    type GotOptions<E extends string | null> = http.RequestOptions & {
+    interface TimoutRequestOptions extends http.RequestOptions {
+        timeout?: any;
+    }
+
+    interface GotOptions<E extends string | null> extends TimoutRequestOptions {
         encoding?: E;
         query?: string | object;
         timeout?: number | TimeoutOptions;
@@ -106,7 +110,7 @@ declare namespace got {
         followRedirect?: boolean;
         decompress?: boolean;
         useElectronNet?: boolean;
-    };
+    }
 
     interface TimeoutOptions {
         connect?: number;

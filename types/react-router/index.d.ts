@@ -15,6 +15,7 @@
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Egor Shulga <https://github.com/egorshulga>
 //                 Youen Toupin <https://github.com/neuoy>
+//                 Rahul Raina <https://github.com/rraina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -76,7 +77,7 @@ export interface RouteProps {
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
 export interface RouterProps {
-  history: any;
+  history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> { }
 
