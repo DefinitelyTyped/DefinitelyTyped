@@ -739,10 +739,18 @@ export namespace Operation {
     function fromXDRObject<T extends Operation>(xdrOperation: xdr.Operation<T>): T;
 }
 
-export class OperationCallBuilder extends CallBuilder<OperationRecord> { }
+export class OperationCallBuilder extends CallBuilder<OperationRecord> { 
+    forAccount(accountId: string): this;
+    forLedger(sequence: string): this;
+    forTransaction(transactionId: string): this;
+}
 export class OrderbookCallBuilder extends CallBuilder<OrderbookRecord> { }
 export class PathCallBuilder extends CallBuilder<PaymentPathRecord> { }
-export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> { }
+export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> { 
+    forAccount(accountId: string): this;
+    forLedger(sequence: string): this;
+    forTransaction(transactionId: string): this;
+}
 
 export class Server {
     constructor(serverURL: string, options?: { allowHttp: boolean })
