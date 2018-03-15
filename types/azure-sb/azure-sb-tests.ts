@@ -14,14 +14,14 @@ function ResponseCallback(err: Error | null, response: Azure.ServiceBus.Response
 const ServiceBus = AzureSB.createServiceBusService('connectionstring');
 
 // Queues
-ServiceBus.listQueues('', createResultCallback<Models.Queue[]>());
+ServiceBus.listQueues(createResultCallback<Models.Queue[]>());
 ServiceBus.createQueue('test', createResultCallback<Models.Queue>());
 ServiceBus.createQueueIfNotExists('test', createResultCallback<boolean>());
 ServiceBus.getQueue('test', createResultCallback<Models.Queue>());
 ServiceBus.deleteQueue('test', ResponseCallback);
 
 // Topics
-ServiceBus.listTopics('', createResultCallback<Models.Topic[]>());
+ServiceBus.listTopics(createResultCallback<Models.Topic[]>());
 ServiceBus.createTopic('test', createResultCallback<Models.Topic>());
 ServiceBus.createTopicIfNotExists('test', createResultCallback<boolean>());
 ServiceBus.getTopic('test', createResultCallback<Models.Topic>());
