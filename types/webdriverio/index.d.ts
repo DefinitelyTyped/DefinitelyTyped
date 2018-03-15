@@ -464,8 +464,8 @@ declare namespace WebdriverIO {
         run(): Promise<any>;
     }
 
-    class ErrorHandler {
-        constructor(type: string, msg: string | number, details: string | undefined);
+    class ErrorHandler extends Error {
+        constructor(type: string, msg: string | number, details?: string);
     }
 
     function multiremote(options: MultiRemoteOptions): Client<void>;
