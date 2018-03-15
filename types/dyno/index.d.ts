@@ -226,7 +226,7 @@ declare namespace Dyno {
         AttributeValueList?: Array<AttributeValueDefinition>
     }
 
-    type AttributeValueDefinition =  string | Buffer | boolean | number | Array<Buffer | string | number> | Array<{[keyName: string]: AttributeValueDefinition}>;
+    type AttributeValueDefinition = string | Buffer | boolean | number | Array<Buffer> | string | number | Array<{[keyName: string]: AttributeValueDefinition}>;
         // B?: Buffer | string;
         // BOOL?: boolean;
         // BS?: Array<Buffer | string>;
