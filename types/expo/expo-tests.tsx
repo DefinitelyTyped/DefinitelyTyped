@@ -289,14 +289,37 @@ async () => {
 };
 
 async () => {
+    // Video test
     const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos
+        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
     });
 
     if (!result.cancelled) {
         result.uri;
         result.width;
         result.height;
+        result.duration;
+        result.type;
+    }
+};
+
+async () => {
+    // Image test
+    const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        base64: true,
+        aspect: [4, 3],
+        quality: 1,
+        exif: true,
+    });
+
+    if (!result.cancelled) {
+        result.uri;
+        result.width;
+        result.height;
+        result.exif;
+        result.base64;
+        result.type;
     }
 };
 
