@@ -1,16 +1,16 @@
 import * as auth0 from 'auth0-js';
-import Auth0Lock from 'auth0-lock';
+import Auth0Lock, * as auth0Lock from 'auth0-lock';
 
 const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
 const DOMAIN = "YOUR_DOMAIN_AT.auth0.com";
 
-const lock: Auth0LockStatic = new Auth0Lock(CLIENT_ID, DOMAIN);
+const lock: Auth0Lock = new Auth0Lock(CLIENT_ID, DOMAIN);
 
 lock.show();
 lock.hide();
 lock.logout(() => {});
 
-lock.checkSession({}, function(error: auth0.Auth0Error, authResult: AuthResult): void {
+lock.checkSession({}, function(error: auth0.Auth0Error, authResult: auth0Lock.AuthResult): void {
   if (error || !authResult) {
     lock.show();
   } else {
@@ -23,7 +23,7 @@ lock.checkSession({}, function(error: auth0.Auth0Error, authResult: AuthResult):
 
 // Show supports UI arguments
 
-const showOptions : Auth0LockShowOptions = {
+const showOptions : auth0Lock.ShowOptions = {
   allowedConnections: [ "twitter", "facebook" ],
   allowSignUp: true,
   allowForgotPassword: false,
@@ -48,7 +48,7 @@ lock.show(showOptions);
 
 // "on" event-driven example
 
-lock.on("authenticated", function(authResult: AuthResult) {
+lock.on("authenticated", function(authResult: auth0Lock.AuthResult) {
   lock.getProfile(authResult.idToken, function(error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) {
     if (error) {
       // Handle error
@@ -60,7 +60,7 @@ lock.on("authenticated", function(authResult: AuthResult) {
   });
 });
 
-lock.on("authenticated", function(authResult: AuthResult) {
+lock.on("authenticated", function(authResult: auth0Lock.AuthResult) {
   lock.getUserInfo(authResult.accessToken, function(error, profile) {
     if (error) {
       // Handle error
@@ -74,7 +74,7 @@ lock.on("authenticated", function(authResult: AuthResult) {
 
 // test theme
 
-const themeOptions : Auth0LockConstructorOptions = {
+const themeOptions : auth0Lock.ConstructorOptions = {
   theme: {
     authButtons: {
       fooProvider: {
@@ -97,7 +97,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 // test empty theme
 
-const themeOptionsEmpty : Auth0LockConstructorOptions = {
+const themeOptionsEmpty : auth0Lock.ConstructorOptions = {
   theme: { }
 };
 
@@ -105,7 +105,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 // test authentication
 
-const authOptions : Auth0LockConstructorOptions = {
+const authOptions : auth0Lock.ConstructorOptions = {
   auth: {
    params: { state: "foo" },
    redirect: true,
@@ -119,7 +119,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, authOptions);
 
 // test multi-variant example
 
-const multiVariantOptions : Auth0LockConstructorOptions = {
+const multiVariantOptions : auth0Lock.ConstructorOptions = {
   container: "myContainer",
   closable: false,
   languageDictionary: {
@@ -133,7 +133,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);
 
 // test text-field additional sign up field
 
-const textFieldOptions : Auth0LockConstructorOptions = {
+const textFieldOptions : auth0Lock.ConstructorOptions = {
   additionalSignUpFields: [{
     name: "address",
     placeholder: "enter your address",
@@ -153,7 +153,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, textFieldOptions);
 
 // test select-field additional sign up field
 
-const selectFieldOptions : Auth0LockConstructorOptions = {
+const selectFieldOptions : auth0Lock.ConstructorOptions = {
   additionalSignUpFields: [{
     type: "select",
     name: "location",
@@ -173,7 +173,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptions);
 
 // test select-field additional sign up field with callbacks for
 
-const selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
+const selectFieldOptionsWithCallbacks : auth0Lock.ConstructorOptions = {
   additionalSignUpFields: [{
     type: "select",
     name: "location",
@@ -206,7 +206,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptionsWithCallbacks);
 
 // test checkbox-field additional sign up field
 
-const checkboxFieldOptions : Auth0LockConstructorOptions = {
+const checkboxFieldOptions : auth0Lock.ConstructorOptions = {
     additionalSignUpFields: [{
       type: "checkbox",
       name: "remember",
@@ -219,9 +219,9 @@ const checkboxFieldOptions : Auth0LockConstructorOptions = {
 
 // test Avatar options
 
-const avatarOptions : Auth0LockConstructorOptions = {
+const avatarOptions : auth0Lock.ConstructorOptions = {
   avatar: {
-    url: (email : string, cb : Auth0LockAvatarUrlCallback) => {
+    url: (email : string, cb : auth0Lock.AvatarUrlCallback) => {
       // obtain url for email, in case of error you call cb with the error in
       // the first arg instead of null
 
@@ -229,7 +229,7 @@ const avatarOptions : Auth0LockConstructorOptions = {
 
       cb(null, url);
     },
-    displayName: (email : string, cb : Auth0LockAvatarDisplayNameCallback) => {
+    displayName: (email : string, cb : auth0Lock.AvatarDisplayNameCallback) => {
       // obtain displayName for email, in case of error you call cb with the
       // error in the first arg instead of null
 
@@ -242,7 +242,7 @@ const avatarOptions : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
-const authResult : AuthResult = {
+const authResult : auth0Lock.AuthResult = {
     accessToken: 'fake_access_token',
     idToken: 'fake_id_token',
     idTokenPayload: {
