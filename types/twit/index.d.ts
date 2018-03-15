@@ -260,6 +260,7 @@ declare module 'twit' {
       long?: number,
       follow?: boolean,
       include_email?: boolean,
+      cursor?: number,
     }
     export interface PromiseResponse {
       data: Response,
