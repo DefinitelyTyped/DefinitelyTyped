@@ -724,7 +724,9 @@ interface Obj {
     const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
     const a1 = R.indexBy(R.prop("id"), list);
     const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+    const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
+    const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
+    const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
 
     const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
         R.map((x: Book) => x.title),
@@ -1161,7 +1163,8 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const x          = R.prop("x");
-    const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a: boolean  = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a1: boolean = R.tryCatch(R.prop<"x", true>("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
     const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
 };
@@ -1754,7 +1757,7 @@ class Rectangle {
 
     const format = R.converge(
         R.call, [
-            R.pipe<{}, number, (s: string) => string>(R.prop("indent"), indentN),
+            R.pipe(R.prop<"indent", number>("indent"), indentN),
             R.prop("value")
         ]
     );

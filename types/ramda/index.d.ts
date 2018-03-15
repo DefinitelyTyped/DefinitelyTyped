@@ -1481,6 +1481,7 @@ declare namespace R {
          */
         prop<P extends keyof T, T>(p: P, obj: T): T[P];
         prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
+        prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1519,6 +1520,7 @@ declare namespace R {
          */
         props<P extends string, T>(ps: ReadonlyArray<P>, obj: Record<P, T>): T[];
         props<P extends string>(ps: ReadonlyArray<P>): <T>(obj: Record<P, T>) => T[];
+        props<P extends string, T>(ps: ReadonlyArray<P>): (obj: Record<P, T>) => T[];
 
         /**
          * Returns true if the specified object property satisfies the given predicate; false otherwise.
