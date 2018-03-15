@@ -224,7 +224,7 @@ declare module 'twit' {
       }
     }
 
-    export type Response = any
+    export type Response = object
 
     interface MediaParam {
       file_path: string
