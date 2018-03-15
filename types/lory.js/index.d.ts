@@ -4,7 +4,7 @@
 //                 philip bulley <https://github.com/milkisevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var lory: LoryStatic;
+export declare var lory: LoryStatic;
 
 interface LoryStatic {
     (element: Element, options?: LoryOptions): LoryStatic;

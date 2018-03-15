@@ -5,12 +5,12 @@
 // TypeScript Version: 2.6
 import * as React from 'react';
 
-export type ReactTableFunction = () => void;
+export type ReactTableFunction = (value?: any) => void;
 export type AccessorFunction = (row: object) => any;
 export type Accessor = string | string[] | object | AccessorFunction;
 export type Aggregator = (values: any, rows: any) => any;
 export type TableCellRenderer = ((data: any, column: any) => React.ReactNode) | React.ReactNode;
-export type FilterRender = (params: { column: Column, filter: any, onFilterChange: ReactTableFunction, key?: string }) => React.ReactElement<any>;
+export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement<any>;
 export type PivotRenderer = ((cellInfo: any) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
 export type ComponentPropsGetter0 = (finalState: any, rowInfo: undefined, column: undefined, instance?: any) => object | undefined;
@@ -610,7 +610,7 @@ export interface RowRenderProps extends Partial<RowInfo> {
 }
 
 export interface RowInfo {
-    /** Original row from your data */
+    /** Materialized row of data */
     row: any;
 
     /** The post-accessed values from the original row */

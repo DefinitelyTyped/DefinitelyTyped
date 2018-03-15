@@ -8,12 +8,13 @@
 
 import { IncomingMessage, ServerResponse, Server } from 'http';
 import { RequestHandler } from 'micro';
-
+export type ServerResponse = ServerResponse;
+export type ServerRequest = IncomingMessage & {
+    params: { [key: string]: string },
+    query: { [key: string]: string }
+};
 export type AugmentedRequestHandler = (
-    req: IncomingMessage & {
-        params: {[key: string]: string},
-        query: {[key: string]: string}
-    },
+    req: ServerRequest,
     res: ServerResponse
 ) => any;
 
