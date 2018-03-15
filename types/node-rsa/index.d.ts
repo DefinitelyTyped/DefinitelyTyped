@@ -31,10 +31,10 @@ declare class NodeRSA {
     /**
      * Export key to PEM string, PEM/DER Buffer or components.
      */
-    exportKey(): string;
-    exportKey(format: NodeRSA.FormatPem): string;
+    exportKey(format?: NodeRSA.FormatPem): string;
     exportKey(format: NodeRSA.FormatDer): Buffer;
-    exportKey(format: NodeRSA.FormatComponents): NodeRSA.KeyComponents;
+    exportKey(format: NodeRSA.FormatComponentsPrivate): NodeRSA.KeyComponentsPrivate;
+    exportKey(format: NodeRSA.FormatComponentsPublic): NodeRSA.KeyComponentsPublic;
 
     isPrivate(): boolean;
 
@@ -88,7 +88,7 @@ declare class NodeRSA {
 }
 
 declare namespace NodeRSA {
-    type Key = string | Buffer | KeyComponents;
+    type Key = string | Buffer | KeyComponentsPrivate | KeyComponentsPublic;
     type Data = string | object | any[];
 
     type FormatPem =
@@ -102,11 +102,12 @@ declare namespace NodeRSA {
     type FormatDer =
         | 'pkcs1-der' | 'pkcs1-private-der' | 'pkcs1-public-der'
         | 'pkcs8-der' | 'pkcs8-private-der' | 'pkcs8-public-der';
-    type FormatComponents =
+    type FormatComponentsPrivate =
         | 'components' | 'components-pem' | 'components-der'
-        | 'components-private' | 'components-private-pem' | 'components-private-der'
+        | 'components-private' | 'components-private-pem' | 'components-private-der';
+    type FormatComponentsPublic =
         | 'components-public' | 'components-public-pem' | 'components-public-der';
-    type Format = FormatPem | FormatDer | FormatComponents;
+    type Format = FormatPem | FormatDer | FormatComponentsPrivate | FormatComponentsPublic;
 
     type EncryptionScheme = 'pkcs1_oaep' | 'pkcs1';
 
@@ -132,7 +133,7 @@ declare namespace NodeRSA {
         | 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'latin1'
         | 'base64' | 'hex' | 'binary' | 'buffer';
 
-    interface KeyComponents {
+    interface KeyComponentsPrivate {
         n: Buffer;
         e: Buffer | number;
         d: Buffer;
@@ -141,6 +142,11 @@ declare namespace NodeRSA {
         dmp1: Buffer;
         dmq1: Buffer;
         coeff: Buffer;
+    }
+
+    interface KeyComponentsPublic {
+        n: Buffer;
+        e: Buffer | number;
     }
 
     interface KeyBits {
