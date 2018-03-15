@@ -15,8 +15,8 @@ let string: string;
 let number: number;
 let stringOrUndefined: string | undefined;
 let dateOrUndefined: Date | undefined;
-let resolved = Promise.resolve();
-let rejected = Promise.reject('some error');
+const resolved = Promise.resolve();
+const rejected = Promise.reject('some error');
 
 // Use module augmentation to add a third-party interface
 declare module 'mocha' {
@@ -53,7 +53,7 @@ function test_describe() {
 
     describe.skip('something', () => { });
 
-    describe('something', function () {
+    describe('something', function() {
         this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
@@ -65,7 +65,7 @@ function test_context() {
 
     context.skip('some context', () => { });
 
-    context('some context', function () {
+    context('some context', function() {
         this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
@@ -77,67 +77,64 @@ function test_suite() {
 
     suite.skip('some context', () => { });
 
-    suite('some context', function () {
+    suite('some context', function() {
         this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
 
 function test_it() {
-
     it('does something', () => { }).timeout('2s');
 
-    it('does something', function () { this['sharedState'] = true; });
+    it('does something', function() { this['sharedState'] = true; });
 
     it('does something', (done) => { done(); });
 
-    it('does something', () => { return resolved; });
-    it('does something', () => { return rejected; });
+    it('does something', () => resolved);
+    it('does something', () => rejected);
 
     it.only('does something', () => { });
 
     it.skip('does something', () => { });
 
-    it('does something', function () {
+    it('does something', function() {
         this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
 
 function test_test() {
-
     test('does something', () => { });
 
-    test('does something', function () { this['sharedState'] = true; });
+    test('does something', function() { this['sharedState'] = true; });
 
     test('does something', (done) => { done(); });
 
-    test('does something', () => { return resolved; });
-    test('does something', () => { return rejected; });
+    test('does something', () => resolved);
+    test('does something', () => rejected);
 
     test.only('does something', () => { });
 
     test.skip('does something', () => { });
 
-    test('does something', function () {
+    test('does something', function() {
         this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
 
 function test_specify() {
-
     specify('does something', () => { });
 
-    specify('does something', function () { this['sharedState'] = true; });
+    specify('does something', function() { this['sharedState'] = true; });
 
     specify('does something', (done) => { done(); });
 
-    specify('does something', () => { return resolved; });
-    specify('does something', () => { return rejected; });
+    specify('does something', () => resolved);
+    specify('does something', () => rejected);
 
     specify.only('does something', () => { });
 
     specify.skip('does something', () => { });
 
-    specify('does something', function () {
+    specify('does something', function() {
         this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
@@ -145,26 +142,26 @@ function test_specify() {
 function test_before() {
     before(() => { });
 
-    before(function () { this['sharedState'] = true; });
+    before(function() { this['sharedState'] = true; });
 
     before((done) => { done(); });
 
-    before(() => { return resolved; });
-    before(() => { return rejected; });
+    before(() => resolved);
+    before(() => rejected);
 
     before("my description", () => { });
 
     before("my description", done => { });
 
-    before("my description", () => { return resolved; });
+    before("my description", () => resolved);
 
-    before("my description", function () {
+    before("my description", function() {
         this.skip().timeout(2000).skip();
     });
 }
 
 function test_setup() {
-    setup(function () {
+    setup(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -174,7 +171,7 @@ function test_setup() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    setup(function () {
+    setup(function() {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -185,7 +182,7 @@ function test_setup() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    setup(function (done) {
+    setup(function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -196,7 +193,7 @@ function test_setup() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    setup(function () {
+    setup(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -211,21 +208,21 @@ function test_setup() {
 function test_after() {
     after(() => { });
 
-    after(function () { this['sharedState'] = true; });
+    after(function() { this['sharedState'] = true; });
 
     after((done) => { done(); });
 
-    after(() => { return resolved; });
+    after(() => resolved);
 
     after("my description", () => { });
 
     after("my description", done => { });
 
-    after("my description", () => { return resolved; });
+    after("my description", () => resolved);
 }
 
 function test_teardown() {
-    teardown(function () {
+    teardown(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -235,7 +232,7 @@ function test_teardown() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    teardown(function () {
+    teardown(function() {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -246,7 +243,7 @@ function test_teardown() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    teardown(function (done) {
+    teardown(function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -257,7 +254,7 @@ function test_teardown() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    teardown(function () {
+    teardown(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -270,7 +267,7 @@ function test_teardown() {
 }
 
 function test_beforeEach() {
-    beforeEach(function () {
+    beforeEach(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -280,7 +277,7 @@ function test_beforeEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -291,7 +288,7 @@ function test_beforeEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    beforeEach(function (done) {
+    beforeEach(function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -302,7 +299,7 @@ function test_beforeEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -313,7 +310,7 @@ function test_beforeEach() {
         return resolved;
     });
 
-    beforeEach("my description", function () {
+    beforeEach("my description", function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -323,7 +320,7 @@ function test_beforeEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    beforeEach("my description", function (done) {
+    beforeEach("my description", function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -334,7 +331,7 @@ function test_beforeEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    beforeEach("my description", function () {
+    beforeEach("my description", function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -349,15 +346,15 @@ function test_beforeEach() {
 function test_suiteSetup() {
     suiteSetup(() => { });
 
-    suiteSetup(function () { this['sharedState'] = true; });
+    suiteSetup(function() { this['sharedState'] = true; });
 
     suiteSetup((done) => { done(); });
 
-    suiteSetup(() => { return resolved; });
+    suiteSetup(() => resolved);
 }
 
 function test_afterEach() {
-    afterEach(function () {
+    afterEach(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -367,7 +364,7 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    afterEach(function () {
+    afterEach(function() {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -378,7 +375,7 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    afterEach(function (done) {
+    afterEach(function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -389,7 +386,7 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    afterEach(function () {
+    afterEach(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -400,7 +397,7 @@ function test_afterEach() {
         return resolved;
     });
 
-    afterEach("my description", function () {
+    afterEach("my description", function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -410,7 +407,7 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    afterEach("my description", function (done) {
+    afterEach("my description", function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -421,7 +418,7 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
     });
 
-    afterEach("my description", function () {
+    afterEach("my description", function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -431,17 +428,16 @@ function test_afterEach() {
         stringOrUndefined = this.currentTest.state;
         return resolved;
     });
-
 }
 
 function test_suiteTeardown() {
     suiteTeardown(() => { });
 
-    suiteTeardown(function () { this['sharedState'] = true; });
+    suiteTeardown(function() { this['sharedState'] = true; });
 
     suiteTeardown((done) => { done(); });
 
-    suiteTeardown(() => { return resolved; });
+    suiteTeardown(() => resolved);
 }
 
 function test_reporter_string() {
@@ -515,7 +511,7 @@ function test_setup_all_options() {
 }
 
 function test_run() {
-    mocha.run(function () { })
+    mocha.run(() => {});
 }
 
 function test_growl() {
@@ -549,7 +545,6 @@ function test_require_constructor_allOptions() {
         bail: true
     });
 }
-
 
 function test_require_fluentParams() {
     const instance = new MochaDef();
@@ -591,7 +586,7 @@ function test_throwError() {
 
 function test_mochaRunner_properties(runner: MochaDef.IRunner, suite: MochaDef.ISuite) {
     runner = runner.abort();
-    
+
     if (runner.stats !== undefined) {
         number = runner.stats.failures;
         number = runner.stats.passes;
@@ -604,7 +599,7 @@ function test_mochaRunner_properties(runner: MochaDef.IRunner, suite: MochaDef.I
         dateOrUndefined = runner.stats.duration;
     }
 
-    let s: MochaDef.ISuite = runner.suite;
+    const s: MochaDef.ISuite = runner.suite;
     boolean = runner.started;
     number = runner.total;
     number = runner.failures;
@@ -612,7 +607,7 @@ function test_mochaRunner_properties(runner: MochaDef.IRunner, suite: MochaDef.I
     runner = runner.grep("regex", false);
     number = runner.grepTotal(suite);
 
-    let globals: string[] | MochaDef.IRunner= runner.globals(["hello", "world"]);
+    const globals: string[] | MochaDef.IRunner = runner.globals(["hello", "world"]);
 
     runner = runner.run();
     runner = runner.run((f: number) => {});
