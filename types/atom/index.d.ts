@@ -9,7 +9,6 @@
 // NOTE: only those classes exported within this file should be retain that status below.
 // https://github.com/atom/atom/blob/v1.24.0/exports/atom.js
 
-/// <reference types="jquery" />
 /// <reference types="node" />
 
 import { ReadStream, WriteStream } from "fs";
@@ -40,58 +39,58 @@ export function watchPath(rootPath: string, options: {}, eventCallback: (events:
 export interface AtomEnvironment {
     // Properties
     /** A CommandRegistry instance. */
-    commands: CommandRegistry;
+    readonly commands: CommandRegistry;
 
     /** A Config instance. */
-    config: Config;
+    readonly config: Config;
 
     /** A Clipboard instance. */
-    clipboard: Clipboard;
+    readonly clipboard: Clipboard;
 
     /** A ContextMenuManager instance. */
-    contextMenu: ContextMenuManager;
+    readonly contextMenu: ContextMenuManager;
 
     /** A MenuManager instance. */
-    menu: MenuManager;
+    readonly menu: MenuManager;
 
     /** A KeymapManager instance. */
-    keymaps: KeymapManager;
+    readonly keymaps: KeymapManager;
 
     /** A TooltipManager instance. */
-    tooltips: TooltipManager;
+    readonly tooltips: TooltipManager;
 
     /** A NotificationManager instance. */
-    notifications: NotificationManager;
+    readonly notifications: NotificationManager;
 
     /** A Project instance. */
-    project: Project;
+    readonly project: Project;
 
     /** A GrammarRegistry instance. */
-    grammars: GrammarRegistry;
+    readonly grammars: GrammarRegistry;
 
     /** A HistoryManager instance. */
-    history: HistoryManager;
+    readonly history: HistoryManager;
 
     /** A PackageManager instance. */
-    packages: PackageManager;
+    readonly packages: PackageManager;
 
     /** A ThemeManager instance. */
-    themes: ThemeManager;
+    readonly themes: ThemeManager;
 
     /** A StyleManager instance. */
-    styles: StyleManager;
+    readonly styles: StyleManager;
 
     /** A DeserializerManager instance. */
-    deserializers: DeserializerManager;
+    readonly deserializers: DeserializerManager;
 
     /** A ViewRegistry instance. */
-    views: ViewRegistry;
+    readonly views: ViewRegistry;
 
     /** A Workspace instance. */
-    workspace: Workspace;
+    readonly workspace: Workspace;
 
     /** A TextEditorRegistry instance. */
-    textEditors: TextEditorRegistry;
+    readonly textEditors: TextEditorRegistry;
 
     // Event Subscription
     /** Invoke the given callback whenever ::beep is called. */
@@ -447,7 +446,7 @@ export interface Config {
  */
 export interface Decoration {
     /** The identifier for this Decoration. */
-    id: number;
+    readonly id: number;
 
     // Construction and Destruction
     /**
@@ -654,6 +653,9 @@ export interface DisplayMarker {
  *  This API is experimental and subject to change on any release.
  */
 export interface DisplayMarkerLayer {
+    /** The identifier for the underlying MarkerLayer. */
+    readonly id: string;
+
     // Lifecycle
     /** Destroy this layer. */
     destroy(): void;
@@ -837,7 +839,7 @@ export interface LayerDecoration {
  */
 export interface Marker {
     /** The identifier for this Marker. */
-    id: number;
+    readonly id: number;
 
     // Lifecycle
     /**
@@ -949,6 +951,9 @@ export interface Marker {
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
+    /** The identifier for this MarkerLayer. */
+    readonly id: string;
+
     // Lifecycle
     /** Create a copy of this layer with markers in the same state and locations. */
     copy(): MarkerLayer;
@@ -1031,7 +1036,7 @@ export class Notification {
 /** A notification manager used to create Notifications to be shown to the user. */
 export interface NotificationManager {
     // Properties
-    notifications: Notification[];
+    readonly notifications: Notification[];
 
     // Events
     /** Invoke the given callback after a notification has been added. */
@@ -1267,8 +1272,8 @@ export class Range {
  *  including cursor and selection positions, folds, and soft wraps.
  */
 export class TextEditor {
-    id: number;
-    buffer: TextBuffer;
+    readonly id: number;
+    readonly buffer: TextBuffer;
 
     // NOTE: undocumented within the public API. Don't go down the rabbit hole.
     constructor(options?: object);
@@ -2519,6 +2524,10 @@ export interface TextEditorRegistry {
     observe(callback: (editor: TextEditor) => void): Disposable;
 }
 
+export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
+    jquery: string;
+}
+
 export type TooltipPlacement =
     |"top"|"bottom"|"left"|"right"
     |"auto"|"auto top"|"auto bottom"|"auto left"|"auto right";
@@ -2526,7 +2535,7 @@ export type TooltipPlacement =
 /** Associates tooltips with HTML elements or selectors. */
 export interface TooltipManager {
     /** Add a tooltip to the given element. */
-    add(target: HTMLElement, options: {
+    add(target: HTMLElement | JQueryCompatible, options: {
         item?: object,
     } | {
         title?: string|(() => string),
@@ -2975,7 +2984,7 @@ export interface WorkspaceCenter {
  *  Node's ChildProcess.
  */
 export class BufferedProcess {
-    process?: ChildProcess;
+    readonly process?: ChildProcess;
 
     constructor(options: ProcessOptions);
 
@@ -4043,10 +4052,10 @@ export interface MenuManager {
  */
 export interface Package {
     /** The name of the Package. */
-    name: string;
+    readonly name: string;
 
     /** The path to the Package on disk. */
-    path: string;
+    readonly path: string;
 
     // Event Subscription
     /** Invoke the given callback when all packages have been activated. */
@@ -4368,7 +4377,7 @@ export interface Pane {
  */
 export interface Panel<T = object> {
     /** Whether or not the Panel is visible. */
-    visible: boolean;
+    readonly visible: boolean;
 
     // Construction and Destruction
     /** Destroy and remove this panel from the UI. */
@@ -4489,7 +4498,7 @@ export interface Project {
  *  syntax tree to a token including all scope names for the entire path.
  */
 export interface ScopeDescriptor {
-    scopes: string[];
+    readonly scopes: string[];
 
     /** Returns all scopes for this descriptor. */
     getScopesArray(): string[];
@@ -4885,13 +4894,13 @@ export class Task {
  */
 export class TextBuffer {
     /** The unique identifier for this buffer. */
-    id: string;
+    readonly id: string;
 
     /** The number of retainers for the buffer. */
-    refcount: number;
+    readonly refcount: number;
 
     /** Whether or not the bufffer has been destroyed. */
-    destroyed: boolean;
+    readonly destroyed: boolean;
 
     /** Create a new buffer backed by the given file path. */
     static load(filePath: string, params?: BufferLoadOptions): Promise<TextBuffer>;
@@ -6744,11 +6753,11 @@ export interface TokenizeLineResult {
  *  jQuery, which is an expensive dependency we want to eliminate.
  */
 export interface Tooltip {
-    options: TooltipOptions;
-    enabled: boolean;
-    timeout: number;
-    hoverState: "in"|"out"|null;
-    element: JQuery|HTMLElement;
+    readonly options: TooltipOptions;
+    readonly enabled: boolean;
+    readonly timeout: number;
+    readonly hoverState: "in"|"out"|null;
+    readonly element: HTMLElement;
 
     getTitle(): string;
     getTooltipElement(): HTMLElement;
@@ -6765,11 +6774,11 @@ export interface ViewModel {
 }
 
 export interface WindowLoadSettings {
-    appVersion: string;
-    atomHome: string;
-    devMode: boolean;
-    resourcePath: string;
-    safeMode: boolean;
-    env?: { [key: string]: string|undefined };
-    profileStartup?: boolean;
+    readonly appVersion: string;
+    readonly atomHome: string;
+    readonly devMode: boolean;
+    readonly resourcePath: string;
+    readonly safeMode: boolean;
+    readonly env?: { [key: string]: string|undefined };
+    readonly profileStartup?: boolean;
 }

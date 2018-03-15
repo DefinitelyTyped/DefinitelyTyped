@@ -5,6 +5,7 @@
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
 //                 Gabriel Terwesten <https://github.com/blaugold>
+//                 Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -51,6 +52,8 @@ declare namespace Bull {
     settings?: AdvancedSettings;
 
     limiter?: RateLimiter;
+
+    defaultJobOptions?: JobOptions;
   }
 
   interface AdvancedSettings {

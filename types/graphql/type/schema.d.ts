@@ -61,6 +61,27 @@ export class GraphQLSchema {
   getDirective(name: string): GraphQLDirective;
 }
 
+export type GraphQLSchemaValidationOptions = {
+  /**
+   * When building a schema from a GraphQL service's introspection result, it
+   * might be safe to assume the schema is valid. Set to true to assume the
+   * produced schema is valid.
+   *
+   * Default: false
+   */
+  assumeValid?: boolean;
+
+  /**
+   * If provided, the schema will consider fields or types with names included
+   * in this list valid, even if they do not adhere to the specification's
+   * schema validation rules.
+   *
+   * This option is provided to ease adoption and may be removed in a future
+   * major release.
+   */
+  allowedLegacyNames?: ReadonlyArray<string>;
+};
+
 export interface GraphQLSchemaConfig {
   query: GraphQLObjectType;
   mutation?: GraphQLObjectType;

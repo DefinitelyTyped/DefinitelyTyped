@@ -2,7 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import {
     Application,
@@ -57,7 +57,7 @@ export interface FeathersAuthenticationLocalOptions {
 }
 
 export class LocalVerifier {
-    constructor(app: Application<any>, options: any);
+    constructor(app: Application, options: any);
 
     _comparePassword<T>(entity: T, password: string): Promise<T>; // compares password using bcrypt
     _normalizeResult<T>(results: T[] | Paginated<T>): Promise<T>; // normalizes result from service to account for pagination

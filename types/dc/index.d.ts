@@ -176,6 +176,7 @@ declare namespace dc {
         legend: IGetSet<Legend, T>;
         options(optionsObject: any): T;
         renderlet(fn: (chart: T) => any): T;
+        useViewBoxResizing: IGetSet<boolean, T>;
 
         on(event: "renderlet", fn: (chart: T, filter: any) => any): T;
         on(event: "pretransition", fn: (chart: T, filter: any) => any): T;
