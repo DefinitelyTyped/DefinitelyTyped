@@ -10,6 +10,7 @@
 //                 Youngrok Kim <https://github.com/rokoroku>
 //                 Dan Kraus <https://github.com/dankraus>
 //                 Anjun Wang <https://github.com/wanganjun>
+//                 Rafael Kallis <https://github.com/rafaelkallis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -376,7 +377,7 @@ export interface AnySchema extends JoiObject {
      * override, that error will be returned and the override will be ignored (unless the `abortEarly`
      * option has been set to `false`).
      */
-    error?(err: Error | ValidationErrorFunction): this;
+    error(err: Error | ValidationErrorFunction): this;
 
     /**
      * Returns a plain object representing the schema's rules and properties

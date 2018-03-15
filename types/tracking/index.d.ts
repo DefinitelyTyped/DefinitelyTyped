@@ -8,10 +8,30 @@ declare namespace tracking {
     constructor(colours: string[]);
 
     static registerColor(name: string, predicate: (r: number, g: number, b: number) => boolean): void;
+
+    getColors(): string[];
+    getMinDimension(): number;
+    getMaxDimension(): number;
+    getMinGroupSize(): number;
+    setColors(colors: string[]): void;
+    setMinDimension(minDimension: number): void;
+    setMaxDimension(maxDimension: number): void;
+    setMinGroupSize(maxDimension: number): void;
   }
 
   export class ObjectTracker extends Tracker {
     constructor(objects: string[]);
+
+    getClassifiers(): number[];
+    getEdgesDensity(): number;
+    getInitialScale(): number;
+    getScaleFactor(): number;
+    getStepSize(): number;
+    setClassifiers(classifiers: number[]): void;
+    setEdgesDensity(edgesDensity: number): void;
+    setInitialScale(initialScale: number): void;
+    setScaleFactor(scaleFactor: number): void;
+    setStepSize(stepSize: number): void;
   }
 
   class Tracker {

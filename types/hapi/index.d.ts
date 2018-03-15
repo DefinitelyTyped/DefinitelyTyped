@@ -120,7 +120,7 @@ export interface PluginBase<T> {
      * * server - the server object with a plugin-specific server.realm.
      * * options - any options passed to the plugin during registration via server.register().
      */
-    register: (server: Server, options: T) => Promise<void>;
+    register: (server: Server, options: T) => void | Promise<void>;
 
     /** (optional) if true, allows the plugin to be registered multiple times with the same server. Defaults to false. */
     multiple?: boolean;
@@ -457,7 +457,7 @@ export interface Request extends Podium {
      * The response object when set. The object can be modified but must not be assigned another object. To replace the response with another from within an extension point, use reply(response) to
      * override with a different response. Contains null when no response has been set (e.g. when a request terminates prematurely when the client disconnects).
      */
-    response: ResponseObject | Boom.Boom | null;
+    response: ResponseObject | Boom | null;
 
     /**
      * Same as pre but represented as the response object created by the pre method.
@@ -3873,7 +3873,7 @@ export namespace Lifecycle {
     type ReturnValueTypes =
         (null | string | number | boolean) |
         (Buffer) |
-        (Error | Boom.Boom) |
+        (Error | Boom) |
         (stream.Stream) |
         (object | object[]) |
         symbol |

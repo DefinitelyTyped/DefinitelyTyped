@@ -2,7 +2,7 @@ import socketIO = require('socket.io');
 
 function testUsingWithNodeHTTPServer() {
     var app = require('http').createServer(handler);
-    var io = socketIO(app);
+    var io: socketIO.Server = socketIO(app);
     var fs = require('fs');
 
     app.listen(80);

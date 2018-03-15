@@ -23,6 +23,9 @@ declare module 'ember-data' {
     type AttributesFor<Model> = keyof Model; // TODO: filter to attr properties only (TS 2.8)
     type RelationshipsFor<Model> = keyof Model; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
 
+    export interface ChangedAttributes {
+        [key: string]: [any, any] | undefined;
+    }
     interface AttributeMeta<Model extends DS.Model> {
         type: keyof TransformRegistry;
         options: object;
@@ -500,7 +503,7 @@ declare module 'ember-data' {
              * Returns an object, whose keys are changed properties, and value is
              * an [oldProp, newProp] array.
              */
-            changedAttributes(): {};
+            changedAttributes(): ChangedAttributes;
             /**
              * If the model `hasDirtyAttributes` this function will discard any unsaved
              * changes. If the model `isNew` it will be removed from the store.
