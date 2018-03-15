@@ -30,7 +30,6 @@ declare namespace tracking {
     setClassifiers(classifiers: number[]): void;
     setEdgesDensity(edgesDensity: number): void;
     setInitialScale(initialScale: number): void;
-    setInitialScale(initialScale: number): void;
     setScaleFactor(scaleFactor: number): void;
     setStepSize(stepSize: number): void;
   }
