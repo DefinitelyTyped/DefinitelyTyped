@@ -9,7 +9,7 @@
 // TypeScript Version: 2.1
 
 interface MochaSetupOptions {
-    //milliseconds to wait before considering a test slow
+    // milliseconds to wait before considering a test slow
     slow?: number;
 
     // timeout in milliseconds
@@ -18,7 +18,7 @@ interface MochaSetupOptions {
     // ui name "bdd", "tdd", "exports" etc
     ui?: Mocha.Interface;
 
-    //array of accepted globals
+    // array of accepted globals
     globals?: any[];
 
     // reporter instance (function or string), defaults to `mocha.reporters.Spec`
@@ -53,9 +53,7 @@ declare const specify: Mocha.ITestDefinition;
 // Used with the --delay flag; see https://mochajs.org/#hooks
 declare function run(): void;
 
-interface MochaDone {
-    (error?: any): void;
-}
+type MochaDone = (error?: any) => void;
 
 declare function setup(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
 declare function teardown(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
@@ -147,7 +145,6 @@ declare namespace Mocha {
         [index: string]: any;
     }
 
-
     interface ITestCallbackContext {
         skip(): this;
         timeout(ms: number | string): this;
@@ -228,26 +225,26 @@ declare namespace Mocha {
         state: "failed" | "passed";
     }
 
-    export module reporters {
-        export class Base {
+    namespace reporters {
+        class Base {
             stats: IStats;
 
             constructor(runner: IRunner);
         }
 
-        export class Doc extends Base { }
-        export class Dot extends Base { }
-        export class HTML extends Base { }
-        export class HTMLCov extends Base { }
-        export class JSON extends Base { }
-        export class JSONCov extends Base { }
-        export class JSONStream extends Base { }
-        export class Landing extends Base { }
-        export class List extends Base { }
-        export class Markdown extends Base { }
-        export class Min extends Base { }
-        export class Nyan extends Base { }
-        export class Progress extends Base {
+        class Doc extends Base { }
+        class Dot extends Base { }
+        class HTML extends Base { }
+        class HTMLCov extends Base { }
+        class JSON extends Base { }
+        class JSONCov extends Base { }
+        class JSONStream extends Base { }
+        class Landing extends Base { }
+        class List extends Base { }
+        class Markdown extends Base { }
+        class Min extends Base { }
+        class Nyan extends Base { }
+        class Progress extends Base {
             /**
              * @param options.open String used to indicate the start of the progress bar.
              * @param options.complete String used to indicate a complete test on the progress bar.
@@ -261,9 +258,9 @@ declare namespace Mocha {
                 close?: string;
             });
         }
-        export class Spec extends Base { }
-        export class TAP extends Base { }
-        export class XUnit extends Base {
+        class Spec extends Base { }
+        class TAP extends Base { }
+        class XUnit extends Base {
             constructor(runner: IRunner, options?: any);
         }
     }
@@ -274,57 +271,57 @@ declare namespace Mocha {
      */
 
     /** Only available when invoked via the mocha CLI */
-    export const describe: Mocha.IContextDefinition;
+    const describe: IContextDefinition;
     /** Only available when invoked via the mocha CLI */
-    export const xdescribe: Mocha.IContextDefinition;
+    const xdescribe: IContextDefinition;
     /**
      * alias for `describe`
      * Only available when invoked via the mocha CLI
      */
-    export const context: Mocha.IContextDefinition;
+    const context: IContextDefinition;
     /**
      * alias for `describe`
      * Only available when invoked via the mocha CLI
      */
-    export const suite: Mocha.IContextDefinition;
+    const suite: IContextDefinition;
     /** Only available when invoked via the mocha CLI */
-    export const it: Mocha.ITestDefinition;
+    const it: ITestDefinition;
     /** Only available when invoked via the mocha CLI */
-    export const xit: Mocha.ITestDefinition;
+    const xit: ITestDefinition;
     /**
      * alias for `it`
      * Only available when invoked via the mocha CLI
      */
-    export const test: Mocha.ITestDefinition;
+    const test: ITestDefinition;
     /**
      * Alias for `it`
      * Only available when invoked via the mocha CLI
      */
-    export const specify: Mocha.ITestDefinition;
+    const specify: ITestDefinition;
     /** Only available when invoked via the mocha CLI */
-    export function setup(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function setup(callback: (this: IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function teardown(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function teardown(callback: (this: IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function suiteSetup(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function suiteSetup(callback: (this: IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function suiteTeardown(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function suiteTeardown(callback: (this: IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function before(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function before(callback: (this: IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function before(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function before(description: string, callback: (this: IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function after(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function after(callback: (this: IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function after(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function after(description: string, callback: (this: IHookCallbackContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function beforeEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function beforeEach(callback: (this: IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function beforeEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function beforeEach(description: string, callback: (this: IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function afterEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function afterEach(callback: (this: IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
     /** Only available when invoked via the mocha CLI */
-    export function afterEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
+    function afterEach(description: string, callback: (this: IBeforeAndAfterContext, done: MochaDone) => PromiseLike<any> | void): void;
 }
 
 declare module "mocha" {
