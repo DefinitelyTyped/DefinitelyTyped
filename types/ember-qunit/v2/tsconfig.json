@@ -10,9 +10,13 @@
         "strictNullChecks": true,
         "strictFunctionTypes": false,
         "baseUrl": "../../",
-        "typeRoots": ["../../"],
+        "typeRoots": [
+            "../../"
+        ],
         "paths": {
-            "ember-qunit": ["ember-qunit/v2"]
+            "ember-qunit": [
+                "ember-qunit/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

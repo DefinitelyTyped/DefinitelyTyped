@@ -1,10 +1,10 @@
-import * as pg from "pg";
+import { types, Client, QueryArrayConfig, Pool } from "pg";
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
-pg.types.setTypeParser(20, val => Number(val));
+types.setTypeParser(20, val => Number(val));
 
-const client = new pg.Client({
+const client = new Client({
   host: 'my.database-server.com',
   port: 5334,
   user: 'database-user',
@@ -48,23 +48,51 @@ client.query('SELECT $1::text as name', ['brianc'], (err, res) => {
 const query = {
   name: 'get-name',
   text: 'SELECT $1::text',
-  values: ['brianc'],
-  rowMode: 'array'
+  values: ['brianc']
 };
 client.query(query, (err, res) => {
   if (err) {
     console.error(err.stack);
   } else {
     console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
   }
 });
 client.query(query)
   .then(res => {
     console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
   })
   .catch(e => {
     console.error(e.stack);
   });
+
+const queryArrMode: QueryArrayConfig = {
+  name: 'get-name-array',
+  text: 'SELECT $1::text',
+  values: ['brianc'],
+  rowMode: 'array'
+};
+client.query(queryArrMode, (err, res) => {
+  if (err) {
+    console.error(err.stack);
+  } else {
+    console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
+  }
+});
+client.query(queryArrMode)
+  .then(res => {
+    console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
+  })
+  .catch(e => {
+    console.error(e.stack);
+  });
+client.query({
+  text: 'select 1',
+  rowMode: 'array',
+}).then(res => console.log(res.fields[0]));
 
 client.end((err) => {
   console.log('client has disconnected');
@@ -77,11 +105,11 @@ client.end()
   .then(() => console.log('client has disconnected'))
   .catch(err => console.error('error during disconnection', err.stack));
 
-const poolOne = new pg.Pool({
+const poolOne = new Pool({
   connectionString: 'postgresql://dbuser:secretpassword@database.server.com:3211/mydb'
 });
 
-const pool = new pg.Pool({
+const pool = new Pool({
   host: 'localhost',
   port: 5432,
   user: 'database-user',
@@ -105,6 +133,12 @@ pool.connect((err, client, done) => {
     }
     console.log(result.rows[0].number);
   });
+});
+
+pool.connect().then(client => {
+  client.query({ text: 'SELECT $1::int AS number', values: ['1'], rowMode: 'array' }).then(result => {
+    console.log(result.rowCount, result.rows[0][0], result.fields[0].name);
+  }).then(() => client.release(), e => client.release(e));
 });
 
 pool.on('error', (err, client) => {

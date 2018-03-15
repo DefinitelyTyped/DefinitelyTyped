@@ -1,4 +1,4 @@
-import caseless, { Caseless, httpify } from "caseless";
+import caseless, { Caseless, httpify, Httpified } from "caseless";
 
 new Caseless(); // $ExpectError
 
@@ -38,3 +38,20 @@ httpify({}, 1); // $ExpectError
 httpify({}, "2"); // $ExpectError
 
 httpify({}, {}); // $ExpectType Caseless
+
+const request: Httpified = {}; // $ExpectError
+
+request.setHeader({}); // $ExpectType void
+request.setHeader('foo', 'bar'); // $ExpectType string | false
+request.setHeader('foo', 'bar', false); // $ExpectType string | false
+request.setHeader('foo', new Date()); // $ExpectType string | false
+request.setHeader(10, 'bar'); // $ExpectError
+
+request.getHeader('foo'); // $ExpectType any
+request.getHeader(10); // $ExpectError
+
+request.hasHeader('foo'); // $ExpectType string | false
+request.hasHeader(10); // $ExpectError
+
+request.removeHeader('foo'); // $ExpectType boolean
+request.headers = {};

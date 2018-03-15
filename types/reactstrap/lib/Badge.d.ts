@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface BadgeProps {
+export interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;

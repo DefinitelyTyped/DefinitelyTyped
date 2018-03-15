@@ -2,7 +2,7 @@
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { EventSubscription } from 'fbemitter';
 import { Component, Ref } from 'react';
@@ -330,15 +330,12 @@ export class Video extends Component<VideoProps, VideoState> {
 /**
  * AppLoading
  */
-export type AppLoadingProperties = {
-    startAsync: () => Promise<void>;
-    onFinish: () => void;
+export interface AppLoadingProperties {
+    startAsync?: () => Promise<void>;
+    onFinish?: () => void;
     onError?: (error: Error) => void;
-} | {
-    startAsync: null;
-    onFinish: null;
-    onError?: null;
-};
+}
+
 export class AppLoading extends Component<AppLoadingProperties> { }
 
 /**
@@ -726,13 +723,11 @@ export namespace Facebook {
         permissions?: string[];
         behavior?: 'web' | 'native' | 'browser' | 'system';
     }
-    type Response = {
-        type: 'success';
-        token: string;
-        expires: number;
-    } | {
-        type: 'cancel';
-    };
+    interface Response {
+        type: 'cancel' | 'success';
+        token?: string;
+        expires?: number;
+    }
     function logInWithReadPermissionsAsync(appId: string, options?: Options): Promise<Response>;
 }
 
@@ -1202,7 +1197,7 @@ export namespace Notifications {
     type LocalNotificationId = string | number;
 
     function addListener(listener: (notification: Notification) => any): EventSubscription;
-    function getExponentPushTokenAsync(): Promise<string>;
+    function getExpoPushTokenAsync(): Promise<string>;
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,

@@ -480,7 +480,7 @@ declare const qrcode: {
 	readonly sizeOfDataLengthInfo: [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]],
 
 	// tslint:disable-next-line:prefer-method-signature
-	callback: () => void,
+	callback: (result: string) => void,
 
 	orderBestPatterns(patterns: AlignmentPattern[]): void,
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
-import * as FormControlFeedback from './FormControlFeedback';
-import * as FormControlStatic from './FormControlStatic';
+import FormControlFeedback = require('./FormControlFeedback');
+import FormControlStatic = require('./FormControlStatic');
 
 declare namespace FormControl {
     export interface FormControlProps extends React.HTMLProps<FormControl> {
