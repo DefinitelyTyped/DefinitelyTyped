@@ -2450,6 +2450,7 @@ declare namespace React {
         defaultChecked?: boolean;
         defaultValue?: string | string[];
         suppressContentEditableWarning?: boolean;
+        suppressHydrationWarning?: boolean;
 
         // Standard HTML Attributes
         accessKey?: string;
