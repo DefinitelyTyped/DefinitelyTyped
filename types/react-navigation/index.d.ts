@@ -3,7 +3,6 @@
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
 //                 fangpenlin <https://github.com/fangpenlin>
-//                 abrahambotros <https://github.com/abrahambotros>
 //                 petejkim <https://github.com/petejkim>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 phanalpha <https://github.com/phanalpha>
@@ -14,6 +13,7 @@
 //                 Veit Lehmann: <https://github.com/levito>
 //                 Roberto Huertas: <https://github.com/robertohuertasm>
 //                 Steven Miller <https://github.com/YourGamesBeOver>
+//                 Ciaran Liedeman <https://github.com/cliedeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -247,6 +247,25 @@ export interface NavigationUriAction extends NavigationUriActionPayload {
   type: 'Navigation/URI';
 }
 
+export interface NavigationPopActionPayload {
+  // n: the number of routes to pop of the stack
+  n?: number;
+  immediate?: boolean;
+}
+
+export interface NavigationPopAction extends NavigationPopActionPayload {
+  type: 'Navigation/POP';
+}
+
+export interface NavigationPopToTopActionPayload {
+  key?: string;
+  immediate?: boolean;
+}
+
+export interface NavigationPopToTopAction extends NavigationPopToTopActionPayload {
+  type: 'Navigation/POP_TO_TOP';
+}
+
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
@@ -287,7 +306,9 @@ export type NavigationStackAction =
   | NavigationNavigateAction
   | NavigationBackAction
   | NavigationSetParamsAction
-  | NavigationResetAction;
+  | NavigationResetAction
+  | NavigationPopAction
+  | NavigationPopToTopAction;
 
 export type NavigationTabAction =
   NavigationInitAction
@@ -399,12 +420,18 @@ export interface NavigationEventSubscription {
 export interface NavigationScreenProp<S> {
   state: S;
   dispatch: NavigationDispatch;
-  goBack: (routeKey?: (string | null)) => boolean;
-  navigate: (
-    routeName: string,
+  goBack: (routeKey?: string | null) => boolean;
+  navigate(options: {
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationAction;
+    key?: string;
+  }): boolean;
+  navigate(
+    routeNameOrOptions: string,
     params?: NavigationParams,
-    action?: NavigationAction
-  ) => boolean;
+    action?: NavigationAction,
+  ): boolean;
   setParams: (newParams: NavigationParams) => boolean;
   addListener: (
     eventName: string,
@@ -575,6 +602,19 @@ export function StackNavigator(
   stackConfig?: StackNavigatorConfig,
 ): NavigationContainer;
 
+export interface SwitchNavigatorConfig {
+  initialRouteName: string;
+  resetOnBlur?: boolean;
+  paths?: NavigationPathsConfig;
+  backBehavior?: 'none' | 'intialRoute';
+}
+
+// Return createNavigationContainer
+export function SwitchNavigator(
+  routeConfigMap: NavigationRouteConfigMap,
+  switchConfig?: SwitchNavigatorConfig
+): NavigationContainer;
+
 // DrawerItems
 export const DrawerItems: React.ReactType;
 
@@ -623,7 +663,7 @@ export interface TabViewConfig {
     showLabel?: boolean,
     style?: StyleProp<ViewStyle>,
     labelStyle?: StyleProp<TextStyle>,
-
+    iconStyle?: StyleProp<ViewStyle>,
     // Top
     showIcon?: boolean,
     upperCaseLabel?: boolean,
@@ -718,12 +758,16 @@ export namespace NavigationActions {
   const RESET: 'Navigation/RESET';
   const SET_PARAMS: 'Navigation/SET_PARAMS';
   const URI: 'Navigation/URI';
+  const POP: 'Navigation/POP';
+  const POP_TO_TOP: 'Navigation/POP_TO_TOP';
 
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(options: NavigationNavigateActionPayload): NavigationNavigateAction;
   function reset(options: NavigationResetActionPayload): NavigationResetAction;
   function back(options?: NavigationBackActionPayload): NavigationBackAction;
   function setParams(options: NavigationSetParamsActionPayload): NavigationSetParamsAction;
+  function pop(options: NavigationPopActionPayload): NavigationPopAction;
+  function popToTop(options: NavigationPopToTopActionPayload): NavigationPopToTopAction;
 }
 
 /**
