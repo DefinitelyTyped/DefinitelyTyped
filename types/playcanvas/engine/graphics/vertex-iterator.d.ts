@@ -10,6 +10,8 @@ declare namespace pc {
     class VertexIterator {
         constructor(vertexBuffer: pc.VertexBuffer)
 
+        element: any;
+
         /**
          * @function
          * @name pc.VertexIterator#next

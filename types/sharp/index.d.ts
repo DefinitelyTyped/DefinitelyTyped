@@ -382,14 +382,14 @@ declare namespace sharp {
          * @throws {Error} Invalid options
          * @returns A sharp instance that can be used to chain operations
          */
-        webp(options?: OutputOptions): SharpInstance;
+        webp(options?: WebpOptions): SharpInstance;
         /**
          * Use these TIFF options for output image.
          * @param options Output options.
          * @throws {Error} Invalid options
          * @returns A sharp instance that can be used to chain operations
          */
-        tiff(options?: OutputOptions): SharpInstance;
+        tiff(options?: TiffOptions): SharpInstance;
         /**
          * Force output to be raw, uncompressed uint8 pixel data.
          * @returns A sharp instance that can be used to chain operations
@@ -496,6 +496,28 @@ declare namespace sharp {
         optimiseScans?: boolean;
         /** Alternative spelling of optimiseScans (optional, default false) */
         optimizeScans?: boolean;
+    }
+
+    interface WebpOptions extends OutputOptions {
+        /** Quality of alpha layer, number from 0-100 (optional, default 100) */
+        alphaQuality?: number;
+        /** Use lossless compression mode (optional, default false) */
+        lossless?: boolean;
+        /** Use near_lossless compression mode (optional, default false) */
+        nearLossless?: boolean;
+    }
+
+    interface TiffOptions extends OutputOptions {
+        /** Compression options: lzw, deflate, jpeg (optional, default 'jpeg') */
+        compression?: string;
+        /** Compression predictor options: none, horizontal, float (optional, default  'horizontal') */
+        predictor?: string;
+        /** Horizontal resolution in pixels/mm (optional, default 1.0) */
+        xres?: number;
+        /** Vertical resolution in pixels/mm (optional, default 1.0) */
+        yres?: number;
+        /** Squash 8-bit images down to 1 bit (optional, default false) */
+        squash?: boolean;
     }
 
     interface PngOptions {

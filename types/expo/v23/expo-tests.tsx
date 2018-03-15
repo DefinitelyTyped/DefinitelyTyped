@@ -106,10 +106,7 @@ async () => {
         onError={(error) => console.log(error)} />
 );
 () => (
-    <AppLoading
-        startAsync={null}
-        onFinish={null}
-        onError={null} />
+    <AppLoading />
 );
 
 const barcodeReadCallback = () => {};
@@ -159,12 +156,7 @@ async () => {
 };
 
 async () => {
-    const result = await Facebook.logInWithReadPermissionsAsync('appId');
-
-    if (result.type === 'success') {
-        result.expires;
-        result.token;
-    }
+    const { type, expires, token } = await Facebook.logInWithReadPermissionsAsync("appId");
 };
 
 () => (

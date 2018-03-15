@@ -11,6 +11,7 @@ import {
   select,
   date,
   array,
+  button,
   knob,
 } from '@storybook/addon-knobs';
 
@@ -57,6 +58,8 @@ stories.add('with all knobs', () => {
   const genericArray: string[] = array<string>('Some generic array', ['red', 'green', 'blue']);
 
   const genericKnob: X = knob<X>('Some generic knob', { value: 'a', type: 'text' });
+
+  button('Some button', () => console.log('Button knob clicked'));
 
   const style = {
     ...customStyle,

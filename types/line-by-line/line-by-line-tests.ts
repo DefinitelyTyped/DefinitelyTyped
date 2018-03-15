@@ -1,4 +1,4 @@
-import * as LineByLineReader from "line-by-line";
+import LineByLineReader = require("line-by-line");
 
 const reader: LineByLineReader  = new LineByLineReader("index.d.ts");
 reader.on("line", (line: any) => {

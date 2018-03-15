@@ -15,7 +15,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes" : true
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",

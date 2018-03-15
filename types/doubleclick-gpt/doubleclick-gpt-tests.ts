@@ -224,6 +224,8 @@ googletag.defineSlot("/1234567/news", [160, 600], "div-2").
 
 googletag.display();
 
+googletag.pubads().getSlots();
+
 googletag.pubads().setTagForChildDirectedTreatment(1);
 
 // Example with a single value for a key.
@@ -423,3 +425,13 @@ slot.setTargeting("allow_expandable", "true");
 
 // Example with multiple values for a key inside in an array.
 slot.setTargeting("interests", ["sports", "music", "movies"]);
+
+// googletag.display accepts a div element as well as a div ID.
+googletag.display(new HTMLElement());
+
+// pubads.display accepts a div element.
+googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());
+
+// A named size can be a string or an array of strings.
+googletag.pubads().display("/1234567/science/physics", [[300, 250], "fluid"], "div-1");
+googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], "div-1");

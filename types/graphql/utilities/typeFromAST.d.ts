@@ -3,6 +3,6 @@ import { GraphQLType, GraphQLNullableType } from '../type/definition';
 import { GraphQLSchema } from '../type/schema';
 
 export function typeFromAST(
-    schema: GraphQLSchema,
-    typeNode: TypeNode
+  schema: GraphQLSchema,
+  typeNode: TypeNode,
 ): GraphQLType;

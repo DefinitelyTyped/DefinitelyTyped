@@ -1371,7 +1371,7 @@ export class GridFSBucket {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openUploadStream
     openUploadStream(filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openUploadStreamWithId
-    openUploadStreamWithId(id: string | number | Object, filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
+    openUploadStreamWithId(id: GridFSBucketWriteStreamId, filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#rename
     rename(id: ObjectID, filename: string, callback?: GridFSBucketErrorCallback): void;
 }
@@ -1409,6 +1409,7 @@ export interface GridFSBucketOpenUploadStreamOptions {
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketReadStream.html
 export class GridFSBucketReadStream extends Readable {
+    id: ObjectID;
     constructor(chunks: Collection<any>, files: Collection<any>, readPreference: Object, filter: Object, options?: GridFSBucketReadStreamOptions);
 }
 
@@ -1422,14 +1423,17 @@ export interface GridFSBucketReadStreamOptions {
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html
 export class GridFSBucketWriteStream extends Writable {
+    id: GridFSBucketWriteStreamId;
     constructor(bucket: GridFSBucket, filename: string, options?: GridFSBucketWriteStreamOptions);
 }
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html
 export interface GridFSBucketWriteStreamOptions {
-    id?: string | number | Object,
+    id?: GridFSBucketWriteStreamId,
     chunkSizeBytes?: number,
     w?: number,
     wtimeout?: number,
     j?: number
 }
+
+type GridFSBucketWriteStreamId = string | number | Object | ObjectID;

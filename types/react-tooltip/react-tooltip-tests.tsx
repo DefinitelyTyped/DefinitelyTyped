@@ -1,6 +1,6 @@
 import * as React from "react";
 import { findDOMNode } from "react-dom";
-import * as ReactTooltip from "react-tooltip";
+import ReactTooltip = require("react-tooltip");
 
 export class ReactTooltipTest extends React.PureComponent {
     componentDidMount() {

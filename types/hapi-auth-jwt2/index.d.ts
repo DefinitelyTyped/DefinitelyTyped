@@ -1,39 +1,43 @@
-// Type definitions for hapi-auth-jwt2 7.0
+// Type definitions for hapi-auth-jwt2 8.0
 // Project: https://github.com/dwyl/hapi-auth-jwt2
 // Definitions by: Warren Seymour <https://github.com/warrenseymour>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Request, Response, PluginFunction } from 'hapi';
+import { Request, ResponseObject, Plugin, ResponseToolkit } from 'hapi';
+import { VerifyOptions } from 'jsonwebtoken';
+
+declare module 'hapi' {
+    interface ServerAuth {
+        strategy(name: string, scheme: 'jwt', options?: hapiAuthJwt2.Options): void;
+    }
+}
 
 declare namespace hapiAuthJwt2 {
-    /**
-     * A key lookup function
-     *
-     * @param decoded the *decoded* but *unverified* JWT received from client
-     * @param callback the key lookup callback
-     */
-    type KeyLookup = (decoded: any, callback: KeyLookupCallback) => void;
+    interface ExtraInfo {
+    }
 
-    /**
-     * Called when key lookup function has completed
-     *
-     * @param err an internal error
-     * @param key the secret key
-     * @param extraInfo any additional information that you would like
-     * to use in `validateFunc` which can be accessed via
-     * `request.plugins['hapi-auth-jwt2'].extraInfo`
-     */
-    type KeyLookupCallback = (err: any, key: string, extraInfo?: any) => void;
-
-    /**
-     * Called when Validation has completed
-     *
-     * @param err an internal error
-     * @param valid `true` if the JWT was valid, otherwise `false`
-     * @param credentials alternative credentials to be set instead of `decoded`
-     */
-    type ValidateCallback = (err: any, valid: boolean, credentials?: any) => void;
+    interface ErrorContext {
+        /**
+         * Boom method to call (eg. unauthorized)
+         */
+        errorType: string;
+        /**
+         * message passed into the Boom method call
+         */
+        message?: string;
+        /**
+         * schema passed into the Boom method call
+         */
+        schema: string;
+        /**
+         * attributes passed into the Boom method call
+         */
+        attributes?: {
+            [key: string]: string;
+        };
+    }
 
     /**
      * Options passed to `hapi.auth.strategy` when this plugin is used
@@ -42,41 +46,24 @@ declare namespace hapiAuthJwt2 {
         /**
          * The secret key used to check the signature of the token *or* a *key lookup function*
          */
-        key?: string | KeyLookup;
+        key?: string | string[] | Promise<{ isValid: boolean; key: string; extraInfo?: ExtraInfo }>;
 
         /**
          * The function which is run once the Token has been decoded
          *
          * @param decoded the *decoded* and *verified* JWT received from the client in *request.headers.authorization*
          * @param request the original *request* received from the client
-         * @param callback the validation callback
          */
-        validateFunc(decoded: {}, request: Request, callback: ValidateCallback): void;
+        validate(decoded: {}, request: Request, tk: ResponseToolkit): Promise<{
+            isValid: boolean;
+            credentials?: any;
+            response?: ResponseObject
+        }>;
 
         /**
          * Settings to define how tokens are verified by the jsonwebtoken library
          */
-        verifyOptions?: {
-            /**
-             * Ignore expired tokens
-             */
-            ignoreExpiration?: boolean;
-
-            /**
-             * Do not enforce token audience
-             */
-            audience?: boolean;
-
-            /**
-             * Do not require the issuer to be valid
-             */
-            issuer?: boolean;
-
-            /**
-             * List of allowed algorithms
-             */
-            algorithms?: string[];
-        };
+        verifyOptions?: VerifyOptions;
 
         /**
          * function called to decorate the response with authentication headers
@@ -85,7 +72,14 @@ declare namespace hapiAuthJwt2 {
          * @param request the Request object
          * @param reply is called if an error occurred
          */
-        responseFunc?(request: Request, reply: (err: any, response: Response) => void): void;
+        responseFunc?(request: Request, reply: (err: any, response: ResponseObject) => void): void;
+
+        /**
+         *
+         * @param ctx called when an error has been raised.
+         * It provides an extension point to allow the host the ability to customise the error messages returned.
+         */
+        errorFunc?(ctx: ErrorContext): ErrorContext;
 
         /**
          * If you prefer to pass your token via url, simply add a token url
@@ -125,8 +119,18 @@ declare namespace hapiAuthJwt2 {
          */
         complete?: boolean;
     }
+
+    interface RegisterOptions {
+        /**
+         * function which is run once the Token has been decoded (instead of a validate) with signature async function(decoded, request) where:
+         */
+        verify?(decoded: any, request: Request): Promise<{
+            isValid: boolean;
+            credentials?: any;
+        }>;
+    }
 }
 
-declare var hapiAuthJwt2: PluginFunction<{}>;
+declare const hapiAuthJwt2: Plugin<hapiAuthJwt2.RegisterOptions>;
 
 export = hapiAuthJwt2;

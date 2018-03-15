@@ -1,12 +1,12 @@
-// Type definitions for async-lock
+// Type definitions for async-lock 1.1
 // Project: https://github.com/rain1017/async-lock
 // Definitions by: Elisée MAURER <https://github.com/elisee>
+//                 Alejandro <https://github.com/afharo>
+//                 Anatoly <https://github.com/rhymmor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-
-interface AsyncLockDoneCallback {
-    (err?: Error, ret?: any): void;
-}
+type AsyncLockDoneCallback<T> = (err?: Error, ret?: T) => void;
 
 interface AsyncLockOptions {
     timeout?: number;
@@ -18,10 +18,15 @@ interface AsyncLockOptions {
 declare class AsyncLock {
     constructor(options?: AsyncLockOptions);
 
-    acquire(key: string | string[], fn: (done: AsyncLockDoneCallback) => any, cb: AsyncLockDoneCallback, opts?: AsyncLockOptions): void;
-    acquire(key: string | string[], fn: (done: AsyncLockDoneCallback) => any, opts?: AsyncLockOptions): PromiseLike<any>;
+    acquire<T>(key: string | string[],
+               fn: (() => T | PromiseLike<T>) | ((done: AsyncLockDoneCallback<T>) => any),
+               opts?: AsyncLockOptions): Promise<T>;
+    acquire<T>(key: string | string[],
+               fn: (done: AsyncLockDoneCallback<T>) => any,
+               cb: AsyncLockDoneCallback<T>,
+               opts?: AsyncLockOptions): void;
 
-    isBusy(): boolean;
+    isBusy(key?: string): boolean;
 }
 
 declare namespace AsyncLock { }

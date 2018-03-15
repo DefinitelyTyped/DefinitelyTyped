@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactSwipe from "react-swipe";
+import ReactSwipe = require("react-swipe");
 
 class ReactSwipeTest extends React.PureComponent {
     private swipeComponent: ReactSwipe | null = null;
