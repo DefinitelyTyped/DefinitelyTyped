@@ -1,13 +1,15 @@
+import * as ol from 'openlayers';
+
 // Basic type variables for test functions
 let anyValue: any;
 let booleanValue: boolean;
-let canvas: HTMLCanvasElement;
-let domEventTarget: EventTarget;
-let fn: () => void;
-let image: HTMLImageElement;
+const canvas: HTMLCanvasElement = new HTMLCanvasElement();
+const domEventTarget: EventTarget = new EventTarget();
+const fn: () => void = () => {};
+const image: HTMLImageElement = new HTMLImageElement();
 let jsonValue: JSON;
-let listener: ol.EventsListenerFunctionType;
-let numberArray: number[];
+const listener: ol.EventsListenerFunctionType = (evt) => {};
+const numberArray: number[] = [];
 let numberValue: number;
 let object: { [key: string]: any };
 let stringArray: string[];
@@ -15,66 +17,70 @@ let stringValue: string;
 
 // Callback predefinitions for OpenLayers
 let coordinateFormatType: ol.CoordinateFormatType;
-let drawGeometryFunction: ol.DrawGeometryFunctionType;
+const drawGeometryFunction: ol.DrawGeometryFunctionType = (coords, geo) => new ol.geom.SimpleGeometry();
 let easingFunction: (t: number) => number;
 let featureLoader: ol.FeatureLoader;
 let featureStyleFunction: ol.FeatureStyleFunction;
-let preRenderFunction: ol.PreRenderFunction;
+const preRenderFunction: ol.PreRenderFunction = (map, state) => false;
 let transformFunction: ol.TransformFunction;
 drawGeometryFunction([0, 0], new ol.geom.Point([0, 0]));
 drawGeometryFunction([0, 0]);
 
 // Type variables for OpenLayers
 let attribution: ol.Attribution;
-let boundingCoordinates: ol.Coordinate[];
+const boundingCoordinates: ol.Coordinate[] = [];
 let circle: ol.geom.Circle;
 let clusterSource: ol.source.Cluster;
 let color: ol.Color;
 let coordinate: ol.Coordinate;
 let coordinatesArray: ol.Coordinate[];
 let coordinatesArrayDim2: ol.Coordinate[][];
-let eventKey: ol.EventsKey;
-let eventKeyArray: ol.EventsKey[];
+const eventKey: ol.EventsKey = {};
+const eventKeyArray: ol.EventsKey[] = [];
 let eventKeyMixed: ol.EventsKey | ol.EventsKey[];
-let eventTarget: ol.events.EventTarget;
+const eventTarget = new ol.events.EventTarget();
 let extent: ol.Extent;
 let feature: ol.Feature;
 let featureArray: ol.Feature[];
 let featureCollection: ol.Collection<ol.Feature>;
-let featureFormat: ol.format.Feature;
-let featureUrlFunction: ol.FeatureUrlFunction;
+const featureFormat = new ol.format.Feature();
+const featureUrlFunction: ol.FeatureUrlFunction = (extent, resolution, proj) => stringValue;
 let geometriesArray: ol.geom.Geometry[];
 let geometry: ol.geom.Geometry;
 let geometryCollection: ol.geom.GeometryCollection;
 let geometryLayout: ol.geom.GeometryLayout;
 let geometryType: ol.geom.GeometryType;
 let graticule: ol.Graticule;
-let iconAnchorUnits: ol.style.IconAnchorUnits;
-let iconOrigin: ol.style.IconOrigin;
+const iconAnchorUnits: ol.style.IconAnchorUnits = 'fraction';
+const iconOrigin: ol.style.IconOrigin = 'bottom-left';
 let linearRing: ol.geom.LinearRing;
 let lineString: ol.geom.LineString;
 let loadingStrategy: ol.LoadingStrategy;
-let logoOptions: olx.LogoOptions;
-let mapBrowserEvent: ol.MapBrowserEvent;
+const logoOptions: ol.olx.LogoOptions = {href: stringValue, src: stringValue};
+let map: ol.Map;
 let multiLineString: ol.geom.MultiLineString;
 let multiPoint: ol.geom.MultiPoint;
 let multiPolygon: ol.geom.MultiPolygon;
-let olEvent: ol.events.Event;
-let pixel: ol.Pixel;
+const olEvent = new ol.events.Event(stringValue);
+const pixel: ol.Pixel = [numberValue, numberValue];
 let point: ol.geom.Point;
 let polygon: ol.geom.Polygon;
 let projection: ol.proj.Projection;
-let projectionLike: ol.ProjectionLike;
-let simpleGeometry: ol.geom.SimpleGeometry;
+const projectionLike: ol.ProjectionLike = stringValue;
+const simpleGeometry = new ol.geom.SimpleGeometry();
 let size: ol.Size;
-let style: ol.style.Style;
-let styleArray: ol.style.Style[];
-let styleFunction: ol.StyleFunction;
+const style = new ol.style.Style();
+const styleArray: ol.style.Style[] = [];
+const styleFunction: ol.StyleFunction = (feature, resolution) => style;
 let styleRegularShape: ol.style.RegularShape;
-let tilegrid: ol.tilegrid.TileGrid;
-let transformFn: ol.TransformFunction;
+const tilegrid = new ol.tilegrid.TileGrid({resolutions: numberArray});
+const transformFn: ol.TransformFunction = (array, out, dimension) => numberArray;
 let units: ol.proj.Units;
 let vectorSource: ol.source.Vector;
+
+const viewState: ol.olx.ViewState = {center: coordinate, projection, resolution: numberValue, rotation: numberValue};
+const frameState: ol.olx.FrameState = {pixelRatio: numberValue, time: numberValue, viewState};
+const mapBrowserEvent = new ol.MapBrowserEvent(stringValue, map, event, booleanValue, frameState);
 
 //
 // ol.Attribution
@@ -155,7 +161,7 @@ circle = <ol.geom.Circle> circle.transform(projectionLike, projectionLike);
 //
 // ol.geom.Geometry
 //
-let geometryResult: ol.geom.Geometry;
+const geometryResult = new ol.geom.Geometry();
 coordinate = geometryResult.getClosestPoint(coordinate);
 geometryResult.getClosestPoint(coordinate, coordinate);
 extent = geometryResult.getExtent();
@@ -283,7 +289,7 @@ point.setCoordinates(coordinate, geometryLayout);
 //
 // ol.geom.Polygon
 //
-let localSphere: ol.Sphere;
+const localSphere = new ol.Sphere(numberValue);
 let linearRingsArray: ol.geom.LinearRing[];
 
 polygon = new ol.geom.Polygon(coordinatesArrayDim2);
@@ -321,7 +327,7 @@ simpleGeometry.translate(numberValue, numberValue);
 //
 // ol.source
 //
-let featureCallback: (f: ol.Feature) => any;
+const featureCallback = (f: ol.Feature) => anyValue;
 vectorSource = new ol.source.Vector({
     attributions: [attribution],
     features: featureCollection,
@@ -379,8 +385,8 @@ feature = new ol.Feature({
 feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
-let featureGetId: string | number = feature.getId();
-let featureGetStyle: ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
+const featureGetId: string | number = feature.getId();
+const featureGetStyle: ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
 featureStyleFunction = feature.getStyleFunction();
 feature.setGeometry(geometry);
 feature.setGeometryName(stringValue);
@@ -491,21 +497,21 @@ view.setZoom(numberValue);
 //
 // ol.layer.Base
 //
-let baseLayer: ol.layer.Base = new ol.layer.Base({
+const baseLayer: ol.layer.Base = new ol.layer.Base({
     zIndex: 1
 });
 
 //
 // ol.layer.Group
 //
-let groupLayer: ol.layer.Group = new ol.layer.Group({
+const groupLayer: ol.layer.Group = new ol.layer.Group({
     zIndex: 2
 });
 
 //
 // ol.layer.Heatmap
 //
-let heatmapLayer: ol.layer.Heatmap = new ol.layer.Heatmap({
+const heatmapLayer: ol.layer.Heatmap = new ol.layer.Heatmap({
     source: new ol.source.Vector(),
     weight: '',
     zIndex: 1
@@ -514,7 +520,7 @@ let heatmapLayer: ol.layer.Heatmap = new ol.layer.Heatmap({
 //
 // ol.layer.Image
 //
-let imageLayer: ol.layer.Image = new ol.layer.Image({
+const imageLayer: ol.layer.Image = new ol.layer.Image({
     source: new ol.source.Image({
         projection: ''
     }),
@@ -524,14 +530,14 @@ let imageLayer: ol.layer.Image = new ol.layer.Image({
 //
 // ol.layer.Layer
 //
-let layerLayer: ol.layer.Layer = new ol.layer.Layer({
+const layerLayer: ol.layer.Layer = new ol.layer.Layer({
     zIndex: 2
 });
 
 //
 // ol.layer.Tile
 //
-let tileLayer: ol.layer.Tile = new ol.layer.Tile({
+const tileLayer: ol.layer.Tile = new ol.layer.Tile({
     source: new ol.source.OSM(),
     zIndex: 0
 });
@@ -539,8 +545,8 @@ let tileLayer: ol.layer.Tile = new ol.layer.Tile({
 //
 // ol.layer.Vector
 //
-let vectorLayerRenderMode: olx.layer.VectorRenderType = 'image';
-let vectorLayer: ol.layer.Vector = new ol.layer.Vector({
+const vectorLayerRenderMode: ol.olx.layer.VectorRenderType = 'image';
+const vectorLayer: ol.layer.Vector = new ol.layer.Vector({
     renderMode: vectorLayerRenderMode,
     source: new ol.source.Vector(),
     zIndex: -1
@@ -549,7 +555,7 @@ let vectorLayer: ol.layer.Vector = new ol.layer.Vector({
 //
 // ol.layer.VectorTile
 //
-let vectorTileLayer: ol.layer.VectorTile = new ol.layer.VectorTile({
+const vectorTileLayer: ol.layer.VectorTile = new ol.layer.VectorTile({
     renderOrder: () => 1,
     zIndex: 2
 });
@@ -557,7 +563,7 @@ let vectorTileLayer: ol.layer.VectorTile = new ol.layer.VectorTile({
 //
 // ol.Object
 //
-let olObject: ol.Object = new ol.Object({
+const olObject: ol.Object = new ol.Object({
     a: numberValue,
     b: stringValue,
     c: booleanValue,
@@ -576,7 +582,7 @@ olObject.unset(stringValue, booleanValue);
 // ol.Observable
 //
 ol.Observable.unByKey(eventKey);
-let observable: ol.Observable = new ol.Observable();
+const observable: ol.Observable = new ol.Observable();
 observable.changed();
 observable.dispatchEvent({ type: stringValue });
 observable.dispatchEvent({ type: stringValue, target: domEventTarget });
@@ -595,7 +601,7 @@ observable.un([stringValue, stringValue], listener, {});
 //
 // ol.proj
 //
-let getPointResolutionFn: (n: number, c: ol.Coordinate) => number;
+const getPointResolutionFn = (n: number, c: ol.Coordinate) => numberValue;
 projection = new ol.proj.Projection({
     code: stringValue,
 });
@@ -615,7 +621,7 @@ projection.setWorldExtent(extent);
 // ol.Map
 //
 
-let map: ol.Map = new ol.Map({
+map = new ol.Map({
     view,
     layers: [tileLayer],
     target: stringValue
@@ -624,7 +630,7 @@ let map: ol.Map = new ol.Map({
 //
 // ol.source.ImageWMS
 //
-let imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
+const imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
     params: {},
     projection,
     serverType: stringValue,
@@ -660,7 +666,7 @@ stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 //
 // ol.source.WMTS
 //
-let wmts: ol.source.WMTS = new ol.source.WMTS({
+const wmts: ol.source.WMTS = new ol.source.WMTS({
     layer: "",
     projection,
     matrixSet: "",
@@ -700,7 +706,7 @@ easingFunction = ol.easing.upAndDown;
 //
 // ol.Geolocation
 //
-let geolocation: ol.Geolocation = new ol.Geolocation({
+const geolocation: ol.Geolocation = new ol.Geolocation({
     projection
 });
 coordinate = geolocation.getPosition();
@@ -713,16 +719,16 @@ graticule = new ol.Graticule();
 graticule = new ol.Graticule({
     map,
 });
-let graticuleMap: ol.Map = graticule.getMap();
-let graticuleMeridians: ol.geom.LineString[] = graticule.getMeridians();
-let graticuleParallels: ol.geom.LineString[] = graticule.getParallels();
+const graticuleMap: ol.Map = graticule.getMap();
+const graticuleMeridians: ol.geom.LineString[] = graticule.getMeridians();
+const graticuleParallels: ol.geom.LineString[] = graticule.getParallels();
 graticule.setMap(graticuleMap);
 
 //
 // ol.DeviceOrientation
 //
 
-let deviceOrientation: ol.DeviceOrientation = new ol.DeviceOrientation({
+const deviceOrientation: ol.DeviceOrientation = new ol.DeviceOrientation({
     tracking: true,
 });
 numberValue = deviceOrientation.getHeading();
@@ -731,15 +737,15 @@ numberValue = deviceOrientation.getHeading();
 // ol.Overlay
 //
 
-let popup: ol.Overlay = new ol.Overlay({
+const popup: ol.Overlay = new ol.Overlay({
     element: document.getElementById('popup')
 });
 map.addOverlay(popup);
-let popupElement: Element = popup.getElement();
-let popupMap: ol.Map = popup.getMap();
-let popupOffset: number[] = popup.getOffset();
+const popupElement: Element = popup.getElement();
+const popupMap: ol.Map = popup.getMap();
+const popupOffset: number[] = popup.getOffset();
 coordinate = popup.getPosition();
-let popupPositioning: ol.OverlayPositioning = popup.getPositioning();
+const popupPositioning: ol.OverlayPositioning = popup.getPositioning();
 popup.setElement(popupElement);
 popup.setMap(popupMap);
 popup.setOffset(popupOffset);
@@ -751,7 +757,7 @@ popup.setPositioning(popupPositioning);
 // ol.format.GeoJSON
 //
 
-let geojsonOptions: olx.format.GeoJSONOptions;
+const geojsonOptions: ol.olx.format.GeoJSONOptions = {defaultDataProjection: projectionLike, featureProjection: projectionLike, geometryName: stringValue};
 geojsonOptions.defaultDataProjection = "EPSG";
 geojsonOptions.defaultDataProjection = projection;
 geojsonOptions.geometryName = "geom";
@@ -761,13 +767,13 @@ geojsonFormat = new ol.format.GeoJSON();
 geojsonFormat = new ol.format.GeoJSON(geojsonOptions);
 
 // Test options
-let readOptions: olx.format.ReadOptions;
+const readOptions: ol.olx.format.ReadOptions = {dataProjection: projectionLike, featureProjection: projectionLike};
 readOptions.dataProjection = "EPSG";
 readOptions.dataProjection = projection;
 readOptions.featureProjection = "EPSG";
 readOptions.featureProjection = projection;
 
-let writeOptions: olx.format.WriteOptions;
+const writeOptions: ol.olx.format.WriteOptions = {dataProjection: projectionLike, featureProjection: projectionLike, rightHanded: booleanValue, decimals: numberValue};
 writeOptions.dataProjection = "EPSG";
 writeOptions.dataProjection = projection;
 writeOptions.featureProjection = "EPSG";
@@ -891,11 +897,11 @@ withinFilter = ol.format.filter.within("geometry", geometry, "srs");
 //
 // ol.interactions
 //
-let modifyFeature: ol.interaction.Modify = new ol.interaction.Modify({
+const modifyFeature: ol.interaction.Modify = new ol.interaction.Modify({
     insertVertexCondition: ol.events.condition.never,
     features: new ol.Collection<ol.Feature>(featureArray),
 });
-let modifySource: ol.interaction.Modify = new ol.interaction.Modify({
+const modifySource: ol.interaction.Modify = new ol.interaction.Modify({
     insertVertexCondition: ol.events.condition.never,
     source: new ol.source.Vector({
         features: new ol.Collection<ol.Feature>(featureArray),
@@ -935,7 +941,7 @@ draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunction
 });
-let styleFunctionAsStyle = (feature: ol.Feature, resolution: number): ol.style.Style => style;
+const styleFunctionAsStyle = (feature: ol.Feature, resolution: number): ol.style.Style => style;
 draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsStyle
@@ -949,13 +955,13 @@ ol.interaction.defaults({
     constrainResolution: booleanValue
 });
 
-let styleFunctionAsArray = (feature: ol.Feature, resolution: number): ol.style.Style[] => styleArray;
+const styleFunctionAsArray = (feature: ol.Feature, resolution: number): ol.style.Style[] => styleArray;
 draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsArray
 });
 
-let dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
+const dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,
     minArea: 10,
     condition: ol.events.condition.always,
@@ -967,7 +973,7 @@ let dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
 });
 polygon = dragbox.getGeometry();
 
-let interaction: ol.interaction.Interaction = new ol.interaction.Interaction({
+const interaction: ol.interaction.Interaction = new ol.interaction.Interaction({
     handleEvent: (e: ol.MapBrowserEvent) => {
         return booleanValue;
     }
@@ -980,12 +986,12 @@ const select: ol.interaction.Select = new ol.interaction.Select({
     layers: (layer: ol.layer.Layer) => true,
 });
 
-let pinchZoom: ol.interaction.PinchZoom = new ol.interaction.PinchZoom({
+const pinchZoom: ol.interaction.PinchZoom = new ol.interaction.PinchZoom({
     constrainResolution: booleanValue,
     duration: numberValue
 });
 
-let mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWheelZoom({
+const mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWheelZoom({
     constrainResolution: booleanValue,
     duration: numberValue,
     timeout: numberValue,
@@ -996,7 +1002,7 @@ let mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWhee
 // ol.style.Icon
 //
 
-let iconWithUndefined = new ol.style.Icon({});
+const iconWithUndefined = new ol.style.Icon({});
 let icon: ol.style.Icon;
 
 icon = new ol.style.Icon({
@@ -1051,7 +1057,7 @@ styleRegularShape = new ol.style.RegularShape({
 // ol.proj
 //
 
-let value = ol.proj.METERS_PER_UNIT['degrees'];
+const value = ol.proj.METERS_PER_UNIT['degrees'];
 
 numberValue = ol.Sphere.getArea(geometry, {
     projection,
