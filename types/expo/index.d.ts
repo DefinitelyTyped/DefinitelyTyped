@@ -1418,6 +1418,10 @@ export namespace ImagePicker {
         uri: string;
         width: number;
         height: number;
+        type: 'video' | 'image';
+        base64?: string;
+        exif?: object;
+        duration?: number;
     }
 
     type ImageResult = { cancelled: true } | ({ cancelled: false } & ImageInfo);
@@ -1434,6 +1438,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
         mediaTypes?: keyof _MediaTypeOptions;
     }
 
