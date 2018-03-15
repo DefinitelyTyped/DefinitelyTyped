@@ -1995,6 +1995,7 @@ declare namespace Highcharts {
         fontWeight?: string;
         left?: string;
         opacity?: number;
+		overflow?: string;
         padding?: string | number;
         position?: string;
         top?: string;
