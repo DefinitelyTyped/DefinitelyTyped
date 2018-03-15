@@ -637,7 +637,7 @@ export interface TabViewConfig {
     showLabel?: boolean,
     style?: StyleProp<ViewStyle>,
     labelStyle?: StyleProp<TextStyle>,
-
+    iconStyle?: StyleProp<ViewStyle>,
     // Top
     showIcon?: boolean,
     upperCaseLabel?: boolean,
