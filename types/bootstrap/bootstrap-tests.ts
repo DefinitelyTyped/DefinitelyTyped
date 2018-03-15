@@ -202,3 +202,29 @@ $("#tooltip").tooltip({
 $("#tooltip").tooltip({
     boundary: document.body,
 });
+
+// --------------------------------------------------------------------------------------
+// Popover
+// --------------------------------------------------------------------------------------
+
+$("#popover").popover();
+
+$("#popover").popover("show");
+
+$("#popover").popover({
+    animation: true,
+    container: "#contaienr",
+    content: "content",
+    delay: 10,
+    html: false,
+    placement: "auto",
+    selector: ".popover",
+    template: "template",
+    title: "title",
+    trigger: "click",
+    offset: 0,
+    fallbackPlacement: "flip",
+    boundary: "viewport"
+});
+
+$("#popover").on("hide.bs.popover", () => { });
