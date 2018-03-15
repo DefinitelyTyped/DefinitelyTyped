@@ -9,7 +9,7 @@ export type GridCellProps = {
     isScrolling: boolean;
     isVisible: boolean;
     key: string;
-    parent: Grid | List | Table;
+    parent: typeof Grid | typeof List | typeof Table;
     rowIndex: number;
     style: React.CSSProperties;
 };

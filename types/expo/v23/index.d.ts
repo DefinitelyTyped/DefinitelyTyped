@@ -330,15 +330,12 @@ export class Video extends Component<VideoProps, VideoState> {
 /**
  * AppLoading
  */
-export type AppLoadingProperties = {
-    startAsync: () => Promise<void>;
-    onFinish: () => void;
+export interface AppLoadingProperties {
+    startAsync?: () => Promise<void>;
+    onFinish?: () => void;
     onError?: (error: Error) => void;
-} | {
-    startAsync: null;
-    onFinish: null;
-    onError?: null;
-};
+}
+
 export class AppLoading extends Component<AppLoadingProperties> { }
 
 /**
