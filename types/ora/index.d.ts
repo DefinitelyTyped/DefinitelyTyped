@@ -119,6 +119,8 @@ declare class Ora {
     text: string;
 
     color: Color;
+
+    frameIndex: number;
 }
 
 interface oraFactory {
