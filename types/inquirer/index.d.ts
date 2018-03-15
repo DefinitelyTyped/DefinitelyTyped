@@ -4,19 +4,20 @@
 //                 Parvez <https://github.com/ppathan>
 //                 Jouderian <https://github.com/jouderianjr>
 //                 Qibang <https://github.com/bang88>
+//                 Jason Dreyzehner <https://github.com/bitjson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
 /// <reference types="rx" />
 
-import through = require("through");
+import through = require('through');
 
 declare namespace inquirer {
     type Prompts = { [name: string]: PromptModule };
     type ChoiceType = string | objects.ChoiceOption | objects.Separator;
     type Questions<T> =
         | Question<T>
-        | Question<T>[]
+        | ReadonlyArray<Question<T>>
         | Rx.Observable<Question<T>>;
 
     interface Inquirer {
@@ -96,7 +97,9 @@ declare namespace inquirer {
          * Array values can be simple strings, or objects containing a name (to display) and a value properties
          * (to save in the answers hash). Values can also be a Separator.
          */
-        choices?: ChoiceType[] | ((answers: T) => ChoiceType[]);
+        choices?:
+            | ReadonlyArray<ChoiceType>
+            | ((answers: T) => ReadonlyArray<ChoiceType>);
         /**
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
@@ -253,11 +256,11 @@ declare namespace inquirer {
          */
         interface Choices {
             new <T = Answers>(
-                choices: (string | Separator | ChoiceOption)[],
+                choices: ReadonlyArray<string | Separator | ChoiceOption>,
                 answers?: T
             ): Choices;
-            choices: Choice[];
-            realChoices: Choice[];
+            choices: ReadonlyArray<Choice>;
+            realChoices: ReadonlyArray<Choice>;
             length: number;
             realLength: number;
             /**
