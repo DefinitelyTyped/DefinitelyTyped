@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "addon.pdf.d.ts",
         "dwt-tests.ts"
     ]
 }
