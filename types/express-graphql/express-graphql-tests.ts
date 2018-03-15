@@ -14,13 +14,13 @@ const graphqlOption: graphqlHTTP.OptionsObj = {
     extensions: (args) => { }
 };
 
-const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsObj => ({
+const graphqlOptionRequest = (request: express.Request, response: express.Response): graphqlHTTP.OptionsObj => ({
     graphiql: true,
     schema: schema,
     context: request.session
 });
 
-const graphqlOptionRequestAsync = async (request: express.Request): Promise<graphqlHTTP.OptionsObj> => {
+const graphqlOptionRequestAsync = async (request: express.Request, response: express.Response): Promise<graphqlHTTP.OptionsObj> => {
     return {
         graphiql: true,
         schema: await Promise.resolve(schema),
