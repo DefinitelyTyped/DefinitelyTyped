@@ -1,4 +1,4 @@
-// Type definitions for React 16.0
+// Type definitions for React 16.1
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
