@@ -14,6 +14,7 @@
 //                 Veit Lehmann: <https://github.com/levito>
 //                 Roberto Huertas: <https://github.com/robertohuertasm>
 //                 Steven Miller <https://github.com/YourGamesBeOver>
+//                 Ciaran Liedeman <https://github.com/cliedeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -573,6 +574,19 @@ export interface StackNavigatorConfig extends NavigationStackViewConfig, Navigat
 export function StackNavigator(
   routeConfigMap: NavigationRouteConfigMap,
   stackConfig?: StackNavigatorConfig,
+): NavigationContainer;
+
+export interface SwitchNavigatorConfig {
+  initialRouteName: string;
+  resetOnBlur?: boolean;
+  paths?: NavigationPathsConfig;
+  backBehavior?: 'none' | 'intialRoute';
+}
+
+// Return createNavigationContainer
+export function SwitchNavigator(
+  routeConfigMap: NavigationRouteConfigMap,
+  switchConfig?: SwitchNavigatorConfig
 ): NavigationContainer;
 
 // DrawerItems

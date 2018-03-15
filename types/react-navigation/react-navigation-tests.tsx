@@ -24,6 +24,8 @@ import {
     NavigationTransitionProps,
     StackNavigator,
     StackNavigatorConfig,
+    SwitchNavigator,
+    SwitchNavigatorConfig,
     TabBarTop,
     TabNavigator,
     TabNavigatorConfig,
@@ -213,6 +215,30 @@ const AdvancedStackNavigator = StackNavigator(
 function renderAdvancedStackNavigator(): JSX.Element {
     return (
         <AdvancedStackNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
+/**
+ * Switch navigator.
+ */
+
+const switchNavigatorConfig: SwitchNavigatorConfig = {
+    initialRouteName: 'screen',
+    resetOnBlur: false,
+    backBehavior: 'none'
+};
+
+const BasicSwitchNavigator = SwitchNavigator(
+    routeConfigMap,
+    switchNavigatorConfig,
+);
+
+function renderBasicSwitchNavigator(): JSX.Element {
+    return (
+        <BasicSwitchNavigator
             ref={(ref: any) => { }}
             style={viewStyle}
         />
