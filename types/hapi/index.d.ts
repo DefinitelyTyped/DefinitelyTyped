@@ -2586,7 +2586,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app?: ApplicationState;
+    app: ApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
@@ -3257,7 +3257,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: ApplicationState;
+    app: ApplicationState;
 
     /**
      * Server Auth: properties and methods
