@@ -652,6 +652,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
     y?: number | string;
     xAxisId?: string | number;
     yAxisId?: string | number;
+    label?: string | number;
     shape?: ContentRenderer<
         EventAttributes
         & Partial<PresentationAttributes<number | string, number | string>>
