@@ -114,7 +114,7 @@ export class AutoSizerExample extends PureComponent<any, any> {
     }
 }
 import { } from 'react'
-import { CellMeasurer, CellMeasurerCache } from 'react-virtualized'
+import { CellMeasurer, CellMeasurerCache, ListRowProps } from 'react-virtualized'
 
 export class DynamicHeightList extends PureComponent<any> {
 
@@ -148,7 +148,7 @@ export class DynamicHeightList extends PureComponent<any> {
         )
     }
 
-    _rowRenderer({ index, isScrolling, key, parent, style }) {
+    _rowRenderer({ index, isScrolling, key, parent, style }: ListRowProps) {
         const { getClassName, list } = this.props
 
         const datum = list.get(index % list.size)
