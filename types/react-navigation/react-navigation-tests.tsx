@@ -286,7 +286,7 @@ function renderBasicDrawerNavigator(): JSX.Element {
 }
 
 interface CustomTransitionerProps {
-    navigation: NavigationScreenProp<any>;
+    navigation: NavigationScreenProp<any, any>;
 }
 /**
  * @desc Custom transitioner component. Follows react-navigation/src/views/CardStackTransitioner.js.
