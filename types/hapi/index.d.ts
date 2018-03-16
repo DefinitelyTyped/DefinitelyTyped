@@ -1706,7 +1706,7 @@ export interface RouteOptions {
      * * credentials - if true, allows user credentials to be sent ('Access-Control-Allow-Credentials'). Defaults to false.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscors)
      */
-    cors?: false | RouteOptionsCors;
+    cors?: boolean | RouteOptionsCors;
 
     /**
      * Default value: none.
