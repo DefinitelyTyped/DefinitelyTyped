@@ -2,6 +2,8 @@
 
 import xml = require("xml");
 
+const obj: xml.XmlObject = [{ _attr: { foo: "bar" }}];
+
 interface Tester {
   is(a: any, b: any): void;
   same(a: any, b: any): void;
