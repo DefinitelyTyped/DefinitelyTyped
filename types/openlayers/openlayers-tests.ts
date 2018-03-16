@@ -617,11 +617,6 @@ voidValue = projection.setWorldExtent(extent);
 let map: ol.Map = new ol.Map({
     view: view,
     layers: [tileLayer],
-    target: stringValue
-});
-map = new ol.Map({
-    view: view,
-    layers: [tileLayer],
     target: stringValue,
     moveTolerance: numberValue
 });
