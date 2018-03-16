@@ -5,6 +5,7 @@
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -152,6 +153,7 @@ declare namespace Knex {
         pluck(column: string): QueryBuilder;
 
         insert(data: any, returning?: string | string[]): QueryBuilder;
+        modify(callback: QueryCallback, ...args: any[]): QueryBuilder;
         update(data: any, returning?: string | string[]): QueryBuilder;
         update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
         returning(column: string | string[]): QueryBuilder;
@@ -402,6 +404,7 @@ declare namespace Knex {
     interface SchemaBuilder extends Bluebird<any> {
         createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+        alterTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         renameTable(oldTableName: string, newTableName: string): Bluebird<void>;
         dropTable(tableName: string): SchemaBuilder;
         hasTable(tableName: string): Bluebird<boolean>;
@@ -524,6 +527,8 @@ declare namespace Knex {
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        postProcessResponse?: (result: any, queryContext: any) => any;
+        wrapIdentifier?: (value: string, origImpl: (value: string) => string, queryContext: any) => string;
         seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;

@@ -12,7 +12,7 @@ class BraftEditorTest extends React.Component<BraftEditor.editorProps> {
             height: 500,
             initialContent: this.state.content,
             onChange: this.handleChange,
-            onHTMLChange: this.handleHTMLChange
+            onHTMLChange: this.handleHTMLChange,
         };
         return (
             <div>

@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.4
+// Type definitions for ej.web.all 16.1
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,8 +8,8 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.4.0.20
-*  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
+*  version : 16.1.0.24
+*  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
@@ -909,6 +909,7 @@ declare namespace ej {
     function parseFloat(value: string, radix?: any, culture?: string): number;
     function parseDate(value: string, format: string, culture?: string): Date;
     function getLocalizedConstants(controlName: string, culture?: string): any;
+	function findCulture(culture?: string): culture;
 
     interface globalize {
         addCulture(name: string, culture?: any): void;
@@ -918,6 +919,7 @@ declare namespace ej {
         parseFloat(value: string, radix?: any, culture?: string): number;
         parseDate(value: string, format: string, culture?: string): Date;
         getLocalizedConstants(controlName: string, culture?: string): any;
+		findCulture(culture?: string): culture;
     }
     interface culture {
         name?: string;
@@ -1856,6 +1858,11 @@ declare namespace ej {
          * @returns {string}
          */
         getActiveText(): string;
+
+        /** Hides the Autocomplete suggestion list.
+         * @returns {void}
+         */
+        hide(): void;
 
         /** Search the entered text and show it in the suggestion list if available.
          * @returns {void}
@@ -5108,6 +5115,11 @@ declare namespace ej {
              */
             uploadSettings?: UploadSettings;
 
+            /** Specifies the virtual item count for virtual support.
+             * @Default {0}
+             */
+            virtualItemCount?: number;
+
             /** Specifies the width of FileExplorer control.
              * @Default {850}
              */
@@ -5137,6 +5149,10 @@ declare namespace ej {
             /** Fires before opening the upload dialog.
              */
             beforeUploadDialogOpen?(e: BeforeUploadDialogOpenEventArgs): void;
+
+            /** Event is fired before the upload progress is started.
+             */
+            beforeUploadSend?(e: BeforeUploadSendEventArgs): void;
 
             /** Fires when FileExplorer control was created
              */
@@ -5233,6 +5249,18 @@ declare namespace ej {
             /** Fires when the items from grid view or tile view or large icons view of FileExplorer control is unselected.
              */
             unselect?(e: UnselectEventArgs): void;
+
+            /** Event is fired when the file upload progress gets completed.
+             */
+            uploadComplete?(e: UploadCompleteEventArgs): void;
+
+            /** Event is fired when the file upload fails due to some error.
+             */
+            uploadError?(e: UploadErrorEventArgs): void;
+
+            /** Event is fired when the file upload progress gets succeeded.
+             */
+            uploadSuccess?(e: UploadSuccessEventArgs): void;
         }
 
         export interface BeforeAjaxRequestEventArgs {
@@ -5375,6 +5403,29 @@ declare namespace ej {
             /** returns the name of the event.
              */
             type?: string;
+        }
+
+        export interface BeforeUploadSendEventArgs {
+
+            /** if the event is cancelled; otherwise, false
+             */
+            cancel?: boolean;
+
+            /** selected FileList Object
+             */
+            files?: any;
+
+            /** returns the upload model
+             */
+            model?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+
+            /** XHR-AJAX Object for reference
+             */
+            xhr?: any;
         }
 
         export interface CreateEventArgs {
@@ -6041,6 +6092,87 @@ declare namespace ej {
             unselectedItems?: any[];
         }
 
+        export interface UploadCompleteEventArgs {
+
+            /** AJAX event argument for reference
+             */
+            e?: any;
+
+            /** details about the error information
+             */
+            error?: string;
+
+            /** uploaded file list
+             */
+            files?: any;
+
+            /** returns the Upload model
+             */
+            model?: any;
+
+            /** response from the server
+             */
+            responseText?: string;
+
+            /** successfully uploaded files list
+             */
+            success?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+
+            /** XHR-AJAX Object for reference
+             */
+            xhr?: any;
+        }
+
+        export interface UploadErrorEventArgs {
+
+            /** error event action details
+             */
+            action?: string;
+
+            /** details about the error information
+             */
+            error?: string;
+
+            /** returns the details of the uploaded files
+             */
+            files?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+        }
+
+        export interface UploadSuccessEventArgs {
+
+            /** AJAX event argument for reference
+             */
+            e?: any;
+
+            /** uploaded file list
+             */
+            files?: any;
+
+            /** returns the Upload model
+             */
+            model?: any;
+
+            /** response from the server
+             */
+            responseText?: string;
+
+            /** returns the name of the event
+             */
+            type?: string;
+
+            /** XHR-AJAX Object for reference
+             */
+            xhr?: any;
+        }
+
         export interface ContextMenuSettings {
 
             /** The items property is used to configure and group the required ContextMenu items in FileExplorer control.
@@ -6094,11 +6226,6 @@ declare namespace ej {
 
         export interface UploadSettings {
 
-            /** Specifies the maximum file size allowed to upload. It accepts the value in bytes.
-             * @Default {31457280}
-             */
-            maxFileSize?: number;
-
             /** Enables or disables the multiple files upload. When it is enabled, you can upload multiple files at a time and when disabled, you can upload only one file at a time.
              * @Default {true}
              */
@@ -6108,6 +6235,26 @@ declare namespace ej {
              * @Default {false}
              */
             autoUpload?: boolean;
+
+            /** Specifies the actions for upload dialog during initialization.
+             * @Default {{ modal:false, closeOnComplete:false, content:null, drag:true }}
+             */
+            dialogAction?: any;
+
+            /** Specifies the position at which the upload dialog is displayed using X and Y values. X: Sets the left position value for dialog. Y: Sets the top position value for dialog.
+             * @Default {null}
+             */
+            dialogPosition?: any;
+
+            /** Specifies the maximum file size allowed to upload. It accepts the value in bytes.
+             * @Default {31457280}
+             */
+            maxFileSize?: number;
+
+            /** Specifies the file details which are to be displayed when selected for upload by setting the showFileDetails to true.
+             * @Default {true}
+             */
+            showFileDetails?: boolean;
         }
 
         enum layoutType {
@@ -7341,6 +7488,16 @@ declare namespace ej {
              * @Default {en-US}
              */
             locale?: string;
+
+            /** Specifies the maximum date in the calendar that the user can select as a startDate or endDate.
+             * @Default {new Date(2099, 11, 31)}
+             */
+            maxDate?: string|Date;
+
+            /** Specifies the minimum date in the calendar that the user can select as a startDate or endDate.
+             * @Default {new Date(1900, 00, 01)}
+             */
+            minDate?: string|Date;
 
             /** Used to add the preset ranges. Added ranges using this, will show in popup in right side for easy selection of different preset ranges.
              * @Default {null}
@@ -9301,6 +9458,515 @@ declare namespace ej {
         Continuous,
     }
 
+    class DropDownTree extends ej.Widget {
+        static fn: DropDownTree;
+        constructor(element: JQuery | Element, options?: DropDownTree.Model);
+        static Locale: any;
+        model: DropDownTree.Model;
+        defaults: DropDownTree.Model;
+
+        /** Checks all the nodes in the DropDownTree.
+         * @returns {void}
+         */
+        checkAll(): void;
+
+        /** Checks a node in the DropDownTree.
+         * @param {string|any|any[]}  ID of the DropDownTree node/object of the DropDownTree node/collection of the ID/object of the DropDownTree nodes.
+         * @returns {void}
+         */
+        checkNode(element: string|any|any[]): void;
+
+        /** Clears the text in the DropDownTree.
+         * @returns {void}
+         */
+        clearText(): void;
+
+        /** Destroys the DropDownTree control.
+         * @returns {void}
+         */
+        destroy(): void;
+
+        /** Returns the selected value.
+         * @returns {void}
+         */
+        getValue(): void;
+
+        /** Hides the popup in the DropDownTree.
+         * @returns {void}
+         */
+        hidePopup(): void;
+
+        /** Moves the DropDownTree node within the same DropDownTree. The new position of the given DropDownTree node will be based on destination node and index position.
+         * @param {string|any} ID of the DropDownTree node/object of the DropDownTree node.
+         * @param {string|any} ID of the DropDownTree node/object of the DropDownTree node.
+         * @param {number} New index position of the given source node.
+         * @returns {void}
+         */
+        moveNode(sourceNode: string|any, destinationNode: string|any, index: number): void;
+
+        /** Removes all the nodes in the DropDownTree.
+         * @returns {void}
+         */
+        removeAll(): void;
+
+        /** Removes a node in the DropDownTree.
+         * @param {string|any|any[]}  ID of the DropDownTree node/object of the DropDownTree node/collectionof the ID/object of the DropDownTree nodes.
+         * @returns {void}
+         */
+        removeNode(element: string|any|any[]): void;
+
+        /** Selects all the DropDownTree nodes when allowMultiSelection field is enabled in the treeViewSettings property.
+         * @returns {void}
+         */
+        selectAll(): void;
+
+        /** Selects a node in the DropDownTree control. To select the collection of nodes in the DropDownTree control, enable allowMultiSelection field of the treeViewSettings property.
+         * @param {string|any|any[]}  ID of the DropDownTree node/object of the DropDownTree node/ collection of I the D/object of the DropDownTree nodes.
+         * @returns {void}
+         */
+        selectNode(element: string|any|any[]): void;
+
+        /** Shows the DropDownTree control with the popup.
+         * @returns {void}
+         */
+        showPopup(): void;
+
+        /** Unchecks all the nodes in the DropDownTree.
+         * @returns {void}
+         */
+        unCheckAll(): void;
+
+        /** Unchecks a node in the DropDownTree.
+         * @param {string|any|any[]} ID of the DropDownTree node/object of the DropDownTree node/collection of the ID/object of the DropDownTree nodes.
+         * @returns {void}
+         */
+        unCheckNode(element: string|any|any[]): void;
+
+        /** Unselects all the DropDownTree nodes when allowMultiSelection field of the treeViewSettings property is enabled.
+         * @returns {void}
+         */
+        unselectAll(): void;
+
+        /** Unselects a node in the DropDownTree control. To unselect the collection of nodes in the DropDownTree control, enable allowMultiSelection field of the treeViewSettings property.
+         * @param {string|any|any[]}  ID of the DropDownTree node/object of the DropDownTree node/ collection of the ID/object of the DropDownTree nodes.
+         * @returns {void}
+         */
+        unselectNode(element: string|any|any[]): void;
+    }
+    export namespace DropDownTree {
+
+        export interface Model {
+
+            /** Uses the keyboard for any action, including opening and closing the drop-down tree; navigating, expanding, and collapsing nodes of the dropdown tree; and more.
+             * @Default {true}
+             */
+            allowKeyboardNavigation?: boolean;
+
+            /** Sets the root CSS class for DropDownTree that allows customization of appearance.
+             * @Default {``}
+             */
+            cssClass?: string;
+
+            /** Sets the separator when the multiSelectMode with delimiter option or checkbox is enabled.When you enter the delimiter value, the text after the delimiter is considered as a
+             * separateword or query. The delimiter string is a single character and must be a symbol. Mostly,the delimiter symbol is used as comma (,), semi-colon (;), or any other special
+             * character.
+             * @Default {,}
+             */
+            delimiter?: string;
+
+            /** Indicates whether the DropDownTree control responds to user interaction or not. By default, the control is in the enabled mode and can be disabled by setting this to false.
+             * @Default {true}
+             */
+            enabled?: boolean;
+
+            /** The enabled animation property uses the easeOutQuad animation to SlideDown and SlideUp the popup wrapper in 200 and 100 milliseconds, respectively.
+             * @Default {false}
+             */
+            enableAnimation?: boolean;
+
+            /** Gets or sets a value that indicates whether to continue the DropDownTree model state in the page using applicable medium, i.e., HTML5 localStorage or cookies.
+             * @Default {false}
+             */
+            enablePersistence?: boolean;
+
+            /** Sets the DropDownTree textbox direction from right to left alignment.
+             * @Default {false}
+             */
+            enableRTL?: boolean;
+
+            /** Creates footer with text or HTML elements for the dropdown items.
+             * @Default {null}
+             */
+            footerTemplate?: string;
+
+            /** Serves as a patch of the entries comprising the path (that is set in the entry area) of the selected node.
+             * @Default {'/'}
+             */
+            fullPathDelimiter?: string;
+
+            /** Creates header with text or HTML elements for the dropdown items.
+             * @Default {null}
+             */
+            headerTemplate?: string;
+
+            /** Defines the height of the DropDownTree textbox.
+             */
+            height?: string|number;
+
+            /** Allows you to set a particular country or regional language for the DropDownTree.
+             * @Default {en-US}
+             */
+            locale?: string;
+
+            /** Customizes the height and width of the popup wrapper.
+             * @Default {{height: '152px',width: 'auto',showPopupOnLoad: false}}
+             */
+            popupSettings?: PopupSettings;
+
+            /** Specifies that the DropDownTree textbox values should be read-only.
+             * @Default {false}
+             */
+            readOnly?: boolean;
+
+            /** The DropDownTreeâ€™s textbox is displayed with rounded corner style.
+             * @Default {false}
+             */
+            showRoundedCorner?: boolean;
+
+            /** Specifies the targetID for the DropDownTreeâ€™s items.
+             * @Default {null}
+             */
+            targetID?: string;
+
+            /** Specifies the delimiter between nodes (indicating their hierarchy).
+             * @Default {ej.DropDownTree.TextMode.none}
+             */
+            textMode?: ej.Textmode|string;
+
+            /** Sets the jQuery validation error message in the DropDownTree.
+             * @Default {null}
+             */
+            validationMessage?: any;
+
+            /** Sets the jQuery validation rules in the DropDownTree.
+             * @Default {null}
+             */
+            validationRules?: any;
+
+            /** Specifies the value (text content) for the DropDownTree control. For the single selection mode, the selected itemâ€™s value will be returned in its data type, and for
+             * MultiSelectMode, returns the selected itemsâ€™ values separated by delimiter in string type.
+             * @Default {null}
+             */
+            value?: string;
+
+            /** Specifies a short hint that describes the expected value of the DropDownTree control.
+             * @Default {null}
+             */
+            watermarkText?: string;
+
+            /** Defines the width of the DropDownTree textbox.
+             * @Default {100%}
+             */
+            width?: string|number;
+
+            /** Defines the popup settings of the DropDownTree widget. You can use any property which are in treeview using this property.
+             * @Default {{}}
+             */
+            treeViewSettings?: any;
+
+            /** Fires the action when the DropDownTree is about to lose focus.
+             */
+            blur?(e: BlurEventArgs): void;
+
+            /** Fires the action when the DropDownTree controlâ€™s value is changed.
+             */
+            change?(e: ChangeEventArgs): void;
+
+            /** Fires the action when the list item checkbox value is changed.
+             */
+            checkChange?(e: CheckChangeEventArgs): void;
+
+            /** Fires the action once the popup is closed.
+             */
+            close?(e: CloseEventArgs): void;
+
+            /** Fires the action once the DropDownTree is created.
+             */
+            Create?(e: CreateEventArgs): void;
+
+            /** Fires the action when DropDownTree is destroyed.
+             */
+            destroy?(e: DestroyEventArgs): void;
+
+            /** When the enableFilterSearch is enabled, the filtering action is fired as soon as you start typing in the DropDownTree.
+             */
+            filtering?(e: FilteringEventArgs): void;
+
+            /** Fires the action when the DropDownTree is focused.
+             */
+            focus?(e: FocusEventArgs): void;
+
+            /** Fires the action once the popup is opened.
+             */
+            open?(e: OpenEventArgs): void;
+
+            /** Fires the action when the list of nodes in the DropDownTree is selected.
+             */
+            select?(e: SelectEventArgs): void;
+        }
+
+        export interface BlurEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+        }
+
+        export interface ChangeEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+
+            /** Selected itemâ€™s text.
+             */
+            selectedText?: string;
+
+            /** Selected itemâ€™s text.
+             */
+            text?: string;
+
+            /** Selected itemâ€™s value.
+             */
+            value?: string;
+
+            /** Selected item's ID.
+             */
+            itemId?: string;
+
+            /** Returns the selected item with checkbox checked or not.
+             */
+            isChecked?: boolean;
+        }
+
+        export interface CheckChangeEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+
+            /** Selected itemâ€™s text.
+             */
+            text?: string;
+
+            /** Selected itemâ€™s value.
+             */
+            value?: string;
+
+            /** Selected item's ID.
+             */
+            itemId?: string;
+
+            /** Returns the selected item with checkbox checked or not.
+             */
+            isChecked?: boolean;
+        }
+
+        export interface CloseEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+
+            /** Selected itemâ€™s text.
+             */
+            text?: string;
+
+            /** Selected itemâ€™s value.
+             */
+            value?: string;
+        }
+
+        export interface CreateEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+        }
+
+        export interface DestroyEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+        }
+
+        export interface FilteringEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+
+            /** Selected itemâ€™s text.
+             */
+            selectedText?: string;
+
+            /** Returns the search string typed in the search box.
+             */
+            searchString?: string;
+
+            /** Returns the data items of theDropDownTreeView.
+             */
+            items?: any;
+        }
+
+        export interface FocusEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+        }
+
+        export interface OpenEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+
+            /** Selected itemâ€™s text.
+             */
+            text?: string;
+
+            /** Selected itemâ€™s value.
+             */
+            value?: string;
+        }
+
+        export interface SelectEventArgs {
+
+            /** If the event has to be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Event name
+             */
+            type?: string;
+
+            /** DropDownTreeView model.
+             */
+            model?: any;
+
+            /** Selected itemâ€™s text.
+             */
+            text?: string;
+
+            /** Selected itemâ€™s value.
+             */
+            value?: string;
+
+            /** Selected item's ID.
+             */
+            itemId?: string;
+
+            /** Returns the selected item with checkbox checked or not.
+             */
+            isChecked?: boolean;
+        }
+
+        export interface PopupSettings {
+
+            /** Defines the height of the popup wrapper in the DropDownTree control.
+             */
+            height?: string|number;
+
+            /** Defines the width of the popup wrapper in the DropDownTree control.
+             */
+            width?: string|number;
+
+            /** The DropDownTree control is displayed with the popup.
+             */
+            showPopupOnLoad?: boolean;
+        }
+    }
+    enum Textmode {
+        //When TextMode property is set to none, only selected/checked nodeâ€™s text is presented.
+        None,
+        //When FullPath option is selected, the full path of the selected node is shown in the control.
+        FullPath,
+    }
+
     class Tooltip extends ej.Widget {
         static fn: Tooltip;
         constructor(element: JQuery | Element, options?: Tooltip.Model);
@@ -9855,7 +10521,7 @@ declare namespace ej {
              */
             cssClass?: string;
 
-            /** Specifies the number of digits that should be allowed after the decimal point.
+            /** Specifies the number of digits that is allowed after the decimal point. When the decimalPlaces is set to â€œ-1â€, it allows the decimals without any limit in the Textboxes.
              * @Default {0}
              */
             decimalPlaces?: number;
@@ -23132,8 +23798,7 @@ declare namespace ej {
              */
             searchSettings?: SearchSettings;
 
-            /** Gets a value that indicates whether the grid model to hold multiple selected records . selectedRecords can be used to displayed hold the single or multiple selected records using
-             * â€œselectedRecordsâ€ property
+            /** Gets a value that display the array of selected records in the Grid.
              * @Default {null}
              */
             selectedRecords?: any[];
@@ -25890,6 +26555,11 @@ declare namespace ej {
              * @Default {null}
              */
             dropMapper?: string;
+
+            /** Gets or sets a value that indicates whether move or copy a record from one grid to another or within the grid
+             * @Default {ej.Grid.DragBehavior.Move}
+             */
+            dragBehavior?: ej.Grid.DragBehavior|string;
         }
 
         export interface SearchSettings {
@@ -25925,6 +26595,11 @@ declare namespace ej {
              * @Default {false}
              */
             enableToggle?: boolean;
+
+            /** Gets or sets a value that indicates whether to select multiple rows or cells by performing dragging in Grid.
+             * @Default {false}
+             */
+            allowDragSelection?: boolean;
 
             /** Gets or sets a value that indicates whether to add the default selection actions as a selection mode.See selectionMode
              * @Default {[row]}
@@ -26329,6 +27004,16 @@ declare namespace ej {
         }
 
 
+        enum DragBehavior {
+
+            ///Allows to move a record from one grid to another or within the grid.
+            Move,
+
+            ///Allows to copy a record from one grid to another or within the grid.
+            Copy
+        }
+
+
         enum CellSelectionMode {
 
             ///It selects cells continuously from the start cell to end cell.
@@ -26607,6 +27292,18 @@ declare namespace ej {
             /** Fires on moving mouse outside the sparkline.
              */
             sparklineMouseLeave?(e: SparklineMouseLeaveEventArgs): void;
+
+            /** Fires, on clicking the sparkline.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the sparkline.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the sparkline.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface LoadEventArgs {
@@ -26779,6 +27476,51 @@ declare namespace ej {
         }
 
         export interface SparklineMouseLeaveEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sparkline model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface ClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sparkline model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sparkline model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface RightClickEventArgs {
 
             /** Set this option to true to cancel the event
              */
@@ -27244,6 +27986,18 @@ declare namespace ej {
             /** Fires after resetting the sunburst points
              */
             drillDownReset?(e: DrillDownResetEventArgs): void;
+
+            /** Fires, on clicking the sunburst chart.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the sunburst chart.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the sunburst chart
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface LoadEventArgs {
@@ -27458,6 +28212,63 @@ declare namespace ej {
         export interface DrillDownResetEventArgs {
 
             /** Drill down reset data
+             */
+            data?: string;
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sunburst model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface ClickEventArgs {
+
+            /** Includes clicked region data
+             */
+            data?: string;
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sunburst model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Includes double clicked region data
+             */
+            data?: string;
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sunburst model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Includes right clicked region data
              */
             data?: string;
 
@@ -28240,12 +29051,12 @@ declare namespace ej {
          */
         exportPivotGrid(): void;
 
-        /** This function re-renders the PivotGrid on clicking the navigation buttons on PivotPager.
+        /** This function re-renders the PivotGrid when clicking the navigation buttons on the PivotPager.
          * @returns {void}
          */
         refreshPagedPivotGrid(): void;
 
-        /** This function refreshes the PivotGrid with modified data input in client-mode.
+        /** This function refreshes the PivotGrid with the modified data input in client-mode.
          * @returns {void}
          */
         refreshPivotGrid(): void;
@@ -28255,17 +29066,17 @@ declare namespace ej {
          */
         refreshControl(): void;
 
-        /** This function Destroy the PivotGrid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+        /** This function destroys the PivotGrid widget associated events that are bound using &quot;this._on&quot; and brings the control to pre-init state.
          * @returns {void}
          */
         destroy(): void;
 
-        /** This function returns the height of all rows and width each and every column.
+        /** This function returns the height of all rows and the width of all columns.
          * @returns {any}
          */
         calculateCellWidths(): any;
 
-        /** This function creates the conditional formatting dialog to apply conditional formatting for PivotGrid control.
+        /** This function creates the conditional formatting dialog to apply conditional formatting for the PivotGrid control.
          * @returns {void}
          */
         openConditionalFormattingDialog(): void;
@@ -28280,12 +29091,12 @@ declare namespace ej {
          */
         loadReport(): void;
 
-        /** This function reconstructs the JSON data formed for rendering PivotGrid in excel-like layout format.
+        /** This function reconstructs the JSON data that is formed for rendering the PivotGrid in the excel-like layout format.
          * @returns {void}
          */
         excelLikeLayout(): void;
 
-        /** Returns the OlapReport string maintained along with the axis elements information.
+        /** Returns the OlapReport string that is maintained along with the axis elements information.
          * @returns {string}
          */
         getOlapReport(): string;
@@ -28295,17 +29106,17 @@ declare namespace ej {
          */
         setOlapReport(): void;
 
-        /** Returns the JSON records formed to render the control.
+        /** Returns the JSON records that are formed to render the control.
          * @returns {any[]}
          */
         getJSONRecords(): any[];
 
-        /** Sets the JSON records formed to render the control.
+        /** Sets the JSON records that are formed to render the control.
          * @returns {void}
          */
         setJSONRecords(): void;
 
-        /** This function allows user to change the caption of the Pivot Item (name displayed in UI) on-demand for relational datasource in client-mode.
+        /** This function allows you to change the caption of the pivot item (name displayed in UI) on-demand for the relational datasource in client-mode.
          * @returns {void}
          */
         refreshFieldCaption(): void;
@@ -28319,17 +29130,17 @@ declare namespace ej {
 
         export interface Model {
 
-            /** Sets the mode for the PivotGrid widget for binding either OLAP or relational data source.
+            /** Sets the mode for the PivotGrid widget to bind either OLAP or relational data source.
              * @Default {ej.Pivot.AnalysisMode.Pivot}
              */
             analysisMode?: ej.Pivot.AnalysisMode|string;
 
-            /** Specifies the CSS class to PivotGrid to achieve custom theme.
+            /** Specifies the CSS class to the PivotGrid for achieving the custom theme.
              * @Default {â€œâ€}
              */
             cssClass?: string;
 
-            /** Connects the PivotSchemaDesigner with the specified ID to the PivotGrid Control.
+            /** Connects the PivotSchemaDesigner with specified ID to the PivotGrid control.
              * @Default {â€œâ€}
              */
             pivotTableFieldListID?: string;
@@ -28349,27 +29160,27 @@ declare namespace ej {
              */
             frozenHeaderSettings?: FrozenHeaderSettings;
 
-            /** Allows user to display header name in PivotGrid control.
+            /** Allows you to display the header name in the PivotGrid control.
              * @Default {{}}
              */
             headerSettings?: HeaderSettings;
 
-            /** Allows user to show appropriate unique name on Pivot button.
+            /** Allows you to show the appropriate unique name in the pivot button.
              * @Default {false}
              */
             showUniqueNameOnPivotButton?: boolean;
 
-            /** Object utilized to pass additional information between client-end and service-end on operating the control in server mode.
+            /** Object is utilized to pass additional information between the client-end and the service-end while operating the control in server mode.
              * @Default {null}
              */
             customObject?: any;
 
-            /** Allows the user to collapsed the specified members in each field by default.
+            /** Allows you to collapse specified members in each field by default.
              * @Default {null}
              */
             collapsedMembers?: any;
 
-            /** Allows the user to access each cell on mouse right-click.
+            /** Allows you to access each cell by right-clicking the mouse.
              * @Default {false}
              */
             enableCellContext?: boolean;
@@ -28379,136 +29190,146 @@ declare namespace ej {
              */
             enableCellSelection?: boolean;
 
-            /** Enables the Drill-Through feature which retrieves the raw items that are used to create the specific cell in PivotGrid.
+            /** Enables the Drill-Through feature which retrieves raw items that are used to create a specific cell in the PivotGrid.
              * @Default {false}
              */
             enableDrillThrough?: boolean;
 
-            /** Allows user to get the cell details in JSON format on double clicking the cell.
+            /** Allows you to get cell details in JSON format by clicking the value cell.
+             * @Default {false}
+             */
+            enableCellClick?: boolean;
+
+            /** Allows you to get cell details in JSON format by double-clicking the value cell.
              * @Default {false}
              */
             enableCellDoubleClick?: boolean;
 
-            /** Allows user to edit the value cells for write-back support in PivotGrid. This is applicable only for server-mode.
+            /** Allows you to edit value cells for write-back support in the PivotGrid. This is applicable only for the server-mode.
              * @Default {false}
              */
             enableCellEditing?: boolean;
 
-            /** Collapses the Pivot items along rows and columns by default.  It works only for relational data source.
+            /** Collapses the pivot items along rows and columns by default. It works only for the relational data source.
              * @Default {false}
              */
             enableCollapseByDefault?: boolean;
 
-            /** Enables/Disables the display of grand total for all the columns.
+            /** Enables/disables the display of grand total for all columns.
              * @Default {true}
              */
             enableColumnGrandTotal?: boolean;
 
-            /** Allows the user to format a specific set of cells based on the condition.
+            /** Allows you to format a specific set of cells based on the condition.
              * @Default {false}
              */
             enableConditionalFormatting?: boolean;
 
-            /** Enables the advanced filtering options Value Filtering, Label Filtering and Sorting for each fields in server mode.
+            /** Enables the advanced filtering options such as value filtering, label filtering, and sorting for each field in the server mode.
              * @Default {false}
              */
             enableAdvancedFilter?: boolean;
 
-            /** Allows the user to refresh the control on-demand and not during every UI operation.
+            /** Allows you to refresh the control on-demand and not during every UI operation.
              * @Default {false}
              */
             enableDeferUpdate?: boolean;
 
-            /** Enables the display of GroupingBar allowing you to filter, sort and remove fields obtained from datasource.
+            /** Enables the display of GroupingBar allowing you to filter, sort, and remove fields obtained from the datasource.
              * @Default {false}
              */
             enableGroupingBar?: boolean;
 
-            /** Enables/Disables paging in Member Editor for viewing the large count of members in pages.
+            /** Allows you to set the maximum number of nodes as well as child nodes to be displayed in the member editor.
+             * @Default {1000}
+             */
+            maxNodeLimitInMemberEditor?: number;
+
+            /** Enables/disables paging in the member editor for viewing the large count of members in pages.
              * @Default {false}
              */
             enableMemberEditorPaging?: boolean;
 
-            /** Allows the user to set the number of members to be displayed in each page of Member Editor on applying paging in it.
+            /** Allows you to set the number of members to be displayed in each page of member editor on applying paging in it.
              * @Default {100}
              */
             memberEditorPageSize?: number;
 
-            /** Enables/Disables the display of grand total for rows and columns.
+            /** Enables/disables the display of grand total for rows and columns.
              * @Default {true}
              */
             enableGrandTotal?: boolean;
 
-            /** Allows the user to load PivotGrid using JSON data.
+            /** Allows you to load the PivotGrid using the JSON data.
              * @Default {false}
              */
             enableJSONRendering?: boolean;
 
-            /** Enables rendering of PivotGrid widget along with the PivotTable Field List, which allows UI operations.
+            /** Enables rendering of the PivotGrid widget along with the PivotTable field list which allows UI operations.
              * @Default {true}
              */
             enablePivotFieldList?: boolean;
 
-            /** Enables the display of grand total for all the rows.
+            /** Enables the display of grand total for all rows.
              * @Default {true}
              */
             enableRowGrandTotal?: boolean;
 
-            /** Allows the user to view layout of the PivotGrid from right to left.
+            /** Allows you to view the layout of PivotGrid from right to left.
              * @Default {false}
              */
             enableRTL?: boolean;
 
-            /** Allows the user to enable ToolTip option.
+            /** Allows you to enable the ToolTip.
              * @Default {false}
              */
             enableToolTip?: boolean;
 
-            /** Allows the user to enable the animation effects in tooltip.
+            /** Allows you to enable the animation effects in the tooltip.
              * @Default {false}
              */
             enableToolTipAnimation?: boolean;
 
-            /** Allows the user to adjust the width of the columns dynamically within given widget size.
+            /** Allows you to adjust the width of columns dynamically within given widget size.
              * @Default {false}
              */
             enableColumnResizing?: boolean;
 
-            /** Allows the user to fit the width of the column based on its maximum text width.
+            /** Allows you to fit the width of the column based on its maximum text width.
              * @Default {true}
              */
             resizeColumnsToFit?: boolean;
 
-            /** Allows the user to enable/disable the context menu of Pivot buttons in the PivotGrid.
+            /** Allows you to enable/disable the context menu of pivot buttons in the PivotGrid.
              * @Default {false}
              */
             enableContextMenu?: boolean;
 
-            /** Allows the user to view large amount of data through virtual scrolling.
+            /** Allows you to view the large amount of data through virtual scrolling.
              * @Default {false}
              */
             enableVirtualScrolling?: boolean;
 
-            /** Allows the user to view large amount of data by applying paging.
+            /** Allows you to view the large amount of data by applying paging.
              * @Default {false}
              */
             enablePaging?: boolean;
 
-            /** Allows the user to configure hyperlink settings of PivotGrid control.
+            /** Allows you to configure the hyperlink settings of the PivotGrid control.
              * @Default {{}}
              */
             hyperlinkSettings?: HyperlinkSettings;
 
-            /** Allows the user to enable PivotGridâ€™s responsiveness in the browser layout.
+            /** Allows you to enable PivotGridâ€™s responsiveness in the browser layout.
              * @Default {false}
              */
             isResponsive?: boolean;
 
-            /** Contains the serialized JSON string which renders PivotGrid.
+            /** Contains the serialized JSON string which renders the PivotGrid.
              */
             jsonRecords?: string;
 
-            /** Sets the summary layout for PivotGrid.Following are the ways in which summary can be positioned: normal summary (bottom), top summary, no summary and excel-like summary.
+            /** Sets the summary layout for PivotGrid.Following are the ways in which summary can be positioned: normal summary (bottom), top summary, no summary, and excel-like summary.
              * @Default {ej.PivotGrid.Layout.Normal}
              */
             layout?: ej.PivotGrid.Layout|string;
@@ -28518,12 +29339,12 @@ declare namespace ej {
              */
             locale?: string;
 
-            /** Sets the mode for the PivotGrid widget for binding data source either in server-side or client-side.
+            /** Sets the mode for PivotGrid widget for binding the data source either in the server-side or client-side.
              * @Default {ej.Pivot.OperationalMode.ClientMode}
              */
             operationalMode?: ej.Pivot.OperationalMode|string;
 
-            /** Allows the user to set custom name for the methods at service-end, communicated during AJAX post.
+            /** Allows you to set the custom name for the methods at service-end, communicated during AJAX post.
              * @Default {{}}
              */
             serviceMethodSettings?: ServiceMethodSettings;
@@ -28533,19 +29354,33 @@ declare namespace ej {
              */
             url?: string;
 
-            /** Triggers when it reaches client-side after any AJAX request.
+            /** Allows you to export entire data instead of current page data, while paging option is enabled.
+             * @Default {false}
+             */
+            enableCompleteDataExport?: boolean;
+
+            /** Allows you to enable &quot;withCredentials&quot; property inside XMLHttpRequest object for CORS(Cross-Origin Resource Sharing) request.
+             * @Default {false}
+             */
+            enableXHRCredentials?: boolean;
+
+            /** Triggers when it reaches client-side after the AJAX request.
              */
             afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
-            /** Triggers before any AJAX request is passed from PivotGrid to service methods.
+            /** Triggers before any AJAX request is passed from the PivotGrid to service methods.
              */
             beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
-            /** Triggers before Pivot Engine starts to populate.
+            /** Triggers before the pivot engine starts to populate.
              */
             beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
-            /** Triggers when double click action is performed over a cell.
+            /** Triggers when click action is performed over a value cell.
+             */
+            cellClick?(e: CellClickEventArgs): void;
+
+            /** Triggers when double-click action is performed over a value cell.
              */
             cellDoubleClick?(e: CellDoubleClickEventArgs): void;
 
@@ -28553,7 +29388,7 @@ declare namespace ej {
              */
             cellContext?(e: CellContextEventArgs): void;
 
-            /** Triggers when a specific range of value cells are selected.
+            /** Triggers when a specific range of value cells is selected.
              */
             cellSelection?(e: CellSelectionEventArgs): void;
 
@@ -28561,15 +29396,15 @@ declare namespace ej {
              */
             columnHeaderHyperlinkClick?(e: ColumnHeaderHyperlinkClickEventArgs): void;
 
-            /** Triggers after performing drill operation in PivotGrid.
+            /** Triggers after performing drill operation in the PivotGrid.
              */
             drillSuccess?(e: DrillSuccessEventArgs): void;
 
-            /** Triggers while clicking &quot;OK&quot; button in the drill-through dialog.
+            /** Triggers while clicking &quot;OK&quot; in the drill-through dialog.
              */
             drillThrough?(e: DrillThroughEventArgs): void;
 
-            /** Triggers when PivotGrid loading is initiated.
+            /** Triggers when the PivotGrid loading is initiated.
              */
             load?(e: LoadEventArgs): void;
 
@@ -28577,11 +29412,11 @@ declare namespace ej {
              */
             renderComplete?(e: RenderCompleteEventArgs): void;
 
-            /** Triggers when any error occurred during AJAX request.
+            /** Triggers when any error occurred during the AJAX request.
              */
             renderFailure?(e: RenderFailureEventArgs): void;
 
-            /** Triggers when PivotGrid successfully reaches client-side after any AJAX request.
+            /** Triggers when the PivotGrid successfully reaches the client-side after any AJAX request.
              */
             renderSuccess?(e: RenderSuccessEventArgs): void;
 
@@ -28597,15 +29432,15 @@ declare namespace ej {
              */
             valueCellHyperlinkClick?(e: ValueCellHyperlinkClickEventArgs): void;
 
-            /** Triggers before saving the current report to database.
+            /** Triggers before saving the current report to the database.
              */
             saveReport?(e: SaveReportEventArgs): void;
 
-            /** Triggers before loading a report from database.
+            /** Triggers before loading a report from the database.
              */
             loadReport?(e: LoadReportEventArgs): void;
 
-            /** Triggers before performing exporting in pivot grid.
+            /** Triggers before performing exporting in the pivot grid.
              */
             beforeExport?(e: BeforeExportEventArgs): void;
 
@@ -28651,9 +29486,24 @@ declare namespace ej {
             pivotGridObject?: any;
         }
 
+        export interface CellClickEventArgs {
+
+            /** returns the JSON details of the respective on cell.
+             */
+            selectedData?: any[];
+
+            /** returns the custom object bound with PivotGrid control.
+             */
+            customObject?: any;
+
+            /** returns the HTML element of PivotGrid control.
+             */
+            element?: any;
+        }
+
         export interface CellDoubleClickEventArgs {
 
-            /** returns the JSON details of the double clicked cell.
+            /** returns the JSON details of the double respective on cell.
              */
             selectedData?: any[];
 
@@ -28892,36 +29742,36 @@ declare namespace ej {
 
         export interface DataSourceColumnsAdvancedFilter {
 
-            /** Allows the user to provide level unique name to perform advanced filtering.
+            /** Allows you to provide a level unique name to perform the advanced filtering.
              */
             name?: string;
 
-            /** Allows the user to set the operator to perform Label Filtering.
+            /** Allows you to set the operator to perform the label filtering.
              * @Default {none}
              */
             labelFilterOperator?: string;
 
-            /** Allows the user to set the operator to perform Value Filtering.
+            /** Allows you to set the operator to perform the value filtering.
              * @Default {none}
              */
             valueFilterOperator?: string;
 
-            /** Allows the user to set the filtering type while performing advanced filtering.
+            /** Allows you to set the filtering type while performing the advanced filtering.
              */
             advancedFilterType?: string;
 
-            /** In case of value filtering, this property contains the measure name to which the filter is applied.
+            /** In value filtering, this property contains the measure name to which the filter is applied.
              */
             measure?: string;
 
-            /** Allows the user to hold the filter operand values in advanced filtering.
+            /** Allows you to hold filter operand values in the advanced filtering.
              */
             values?: any[];
         }
 
         export interface DataSourceColumnsFilterItems {
 
-            /** Sets the type of filter whether to include/exclude the mentioned values.
+            /** Sets the type of filter to include/exclude the mentioned values.
              * @Default {ej.PivotAnalysis.FilterType.Exclude}
              */
             filterType?: ej.PivotAnalysis.FilterType|string;
@@ -28934,46 +29784,46 @@ declare namespace ej {
 
         export interface DataSourceColumn {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item.
+            /** Allows you to set the display caption for an item.
              */
             fieldCaption?: string;
 
-            /** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
+            /** Allows you to filter the report by using advanced filtering (e.g., Microsoft Excel) option for the OLAP data source in client-mode.
              * @Default {[]}
              */
             advancedFilter?: DataSourceColumnsAdvancedFilter[];
 
-            /** Allows the user to indicate whether the added item is a named set or not.
+            /** Allows you to indicate whether the added item is a named set or not.
              * @Default {false}
              */
             isNamedSets?: boolean;
 
-            /** Shows/Hides the sub-total of the field in PivotGrid.
+            /** Shows/hides the sub-total of the field in PivotGrid.
              * @Default {true}
              */
             showSubTotal?: boolean;
 
-            /** Allows to set the format for the column headers.
+            /** Allows you to set the format for column headers.
              */
             format?: string;
 
-            /** This property is set to display the formatted values with format types in PivotGrid.
+            /** This property is set to display the formatted values with format types in the PivotGrid.
              */
             formatString?: string;
 
-            /** Allows to set the custom theme for the column headers.
+            /** Allows you to set the custom theme for column headers.
              */
             cssClass?: string;
 
-            /** Allows the user to set delimiter for date type format in formatString. This is applicable for groupByDate option for row/column headers.
+            /** Allows you to set the delimiter for date type format in the formatString. This is applicable for the groupByDate of row/column headers.
              */
             delimiter?: string;
 
-            /** Allows the user to set the sorting order of the members of the field.
+            /** Allows you to set the sorting order of members of the field.
              * @Default {ej.PivotAnalysis.SortOrder.Ascending}
              */
             sortOrder?: ej.PivotAnalysis.SortOrder|string;
@@ -28983,7 +29833,7 @@ declare namespace ej {
              */
             drilledItems?: any[];
 
-            /** Applies filter to the field members.
+            /** Applies the filter to field members.
              * @Default {null}
              */
             filterItems?: DataSourceColumnsFilterItems;
@@ -28991,36 +29841,36 @@ declare namespace ej {
 
         export interface DataSourceRowsAdvancedFilter {
 
-            /** Allows the user to provide level unique name to perform advanced filtering.
+            /** Allows you to provide the level unique name to perform the advanced filtering.
              */
             name?: string;
 
-            /** Allows the user to set the operator to perform Label Filtering.
+            /** Allows you to set the operator to perform the label filtering.
              * @Default {none}
              */
             labelFilterOperator?: string;
 
-            /** Allows the user to set the operator to perform Value Filtering.
+            /** Allows you to set the operator to perform the value filtering.
              * @Default {none}
              */
             valueFilterOperator?: string;
 
-            /** Allows the user to set the filtering type while performing advanced filtering.
+            /** Allows you to set the filtering type while performing the advanced filtering.
              */
             advancedFilterType?: string;
 
-            /** In case of value filtering, this property contains the measure name to which the filter is applied.
+            /** In value filtering, this property contains the measure name to which the filter is applied.
              */
             measure?: string;
 
-            /** Allows the user to hold the filter operand values in advanced filtering.
+            /** Allows you to hold the filter operand values in the advanced filtering.
              */
             values?: any[];
         }
 
         export interface DataSourceRowsFilterItems {
 
-            /** Sets the type of filter whether to include/exclude the mentioned values.
+            /** Sets the type of filter to include/exclude the mentioned values.
              * @Default {ej.PivotAnalysis.FilterType.Exclude}
              */
             filterType?: ej.PivotAnalysis.FilterType|string;
@@ -29033,46 +29883,46 @@ declare namespace ej {
 
         export interface DataSourceRow {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item.
+            /** Allows you to set the display caption for the item.
              */
             fieldCaption?: string;
 
-            /** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
+            /** Allows you to filter the report by using the advanced filtering (e.g., Microsoft Excel) option for the OLAP data source in client-mode.
              * @Default {[]}
              */
             advancedFilter?: DataSourceRowsAdvancedFilter[];
 
-            /** Allows the user to indicate whether the added item is a named set or not.
+            /** Allows you to indicate whether the added item is a named set or not.
              * @Default {false}
              */
             isNamedSets?: boolean;
 
-            /** Shows/Hides the sub-total of the field.
+            /** Shows/hides the sub-total of the field.
              * @Default {true}
              */
             showSubTotal?: boolean;
 
-            /** Allows to set the format for the row headers.
+            /** Allows you to set the format for row headers.
              */
             format?: string;
 
-            /** This property is set to display the formatted values with format types in PivotGrid.
+            /** This property is set to display the formatted values with format types in the PivotGrid.
              */
             formatString?: string;
 
-            /** Allows to set the custom theme for the row headers.
+            /** Allows you to set the custom theme for row headers.
              */
             cssClass?: string;
 
-            /** Allows the user to set delimiter for date type format in formatString. This is applicable for groupByDate option for row/column headers.
+            /** Allows you to set the delimiter for date type format in the formatString. This is applicable for the groupByDate in row/column headers.
              */
             delimiter?: string;
 
-            /** Allows the user to set the sorting order of the members of the field.
+            /** Allows you to set the sorting order of members of the field.
              * @Default {ej.PivotAnalysis.SortOrder.Ascending}
              */
             sortOrder?: ej.PivotAnalysis.SortOrder|string;
@@ -29082,7 +29932,7 @@ declare namespace ej {
              */
             drilledItems?: any[];
 
-            /** Applies filter to the field members.
+            /** Applies the filter to field members.
              * @Default {null}
              */
             filterItems?: DataSourceRowsFilterItems;
@@ -29090,18 +29940,18 @@ declare namespace ej {
 
         export interface DataSourceValuesMeasure {
 
-            /** Allows the user to bind the measure from OLAP datasource by using its unique name as field name.
+            /** Allows you to bind the measure from the OLAP datasource by using its unique name as field name.
              */
             fieldName?: string;
         }
 
         export interface DataSourceValue {
 
-            /** Allows the user to bind the item by using its unique name as field name for Relational datasource.
+            /** Allows you to bind the item by using its unique name as field name for the relational datasource.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item for Relational datasource.
+            /** Allows you to set the display caption for the item in the relational datasource.
              */
             fieldCaption?: string;
 
@@ -29110,41 +29960,41 @@ declare namespace ej {
              */
             measures?: DataSourceValuesMeasure[];
 
-            /** Allows to set the axis name to place the measures items.
+            /** Allows you to set the axis name to place measures items.
              * @Default {rows}
              */
             axis?: string;
 
-            /** Indicates whether the field is a calculated field or not with Relational datasource.
+            /** Indicates whether the field is a calculated field with the relational datasource or not.
              * @Default {false}
              */
             isCalculatedField?: boolean;
 
-            /** Allows to set the type of PivotGrid summary calculation for the value field with Relational datasource.
+            /** Allows to set the type of PivotGrid summary calculation in the value field with the relational datasource.
              * @Default {ej.PivotAnalysis.SummaryType.Sum}
              */
             summaryType?: ej.PivotAnalysis.SummaryType|string;
 
-            /** Allows to set the format for the values.
+            /** Allows to set the format for values.
              */
             format?: string;
 
-            /** This property is set to display the formatted values with format types in PivotGrid.
+            /** This property is set to display the formatted values with format types in the PivotGrid.
              */
             formatString?: string;
 
-            /** Allows to set the formula for calculation of values for calculated members in Relational datasource.
+            /** Allows to set the formula for calculation of values for calculated members in the relational datasource.
              */
             formula?: string;
 
-            /** Allows to set the custom theme for the values.
+            /** Allows to set the custom theme for values.
              */
             cssClass?: string;
         }
 
         export interface DataSourceFiltersFilterItems {
 
-            /** Sets the type of filter whether to include/exclude the mentioned values.
+            /** Sets the type of filter to include/exclude the mentioned values.
              * @Default {ej.PivotAnalysis.FilterType.Exclude}
              */
             filterType?: ej.PivotAnalysis.FilterType|string;
@@ -29157,15 +30007,15 @@ declare namespace ej {
 
         export interface DataSourceFilter {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display name for an item.
+            /** Allows you to set the display name for the item.
              */
             fieldCaption?: string;
 
-            /** Applies filter to the field members.
+            /** Applies the filter to field members.
              * @Default {null}
              */
             filterItems?: DataSourceFiltersFilterItems;
@@ -29173,22 +30023,22 @@ declare namespace ej {
 
         export interface DataSourcePagerOptions {
 
-            /** Allows to set the number of categorical columns to be displayed in each page on applying paging.
+            /** Allows to set the number of categorical columns to be displayed in each page on applying the paging.
              * @Default {0}
              */
             categoricalPageSize?: number;
 
-            /** Allows to set the number of series rows to be displayed in each page on applying paging.
+            /** Allows to set the number of series rows to be displayed in each page on applying the paging.
              * @Default {0}
              */
             seriesPageSize?: number;
 
-            /** Allows to set the page number in categorical axis to be loaded by default.
+            /** Allows to set the page number to be loaded in the categorical axis by default.
              * @Default {1}
              */
             categoricalCurrentPage?: number;
 
-            /** Allows to set the page number in series axis to be loaded by default.
+            /** Allows to set the page number to be loaded in the series axis by default.
              * @Default {1}
              */
             seriesCurrentPage?: number;
@@ -29196,37 +30046,37 @@ declare namespace ej {
 
         export interface DataSource {
 
-            /** Lists out the items to be arranged in columns section of PivotGrid.
+            /** Lists out the items to be arranged in the columns section of the PivotGrid.
              * @Default {[]}
              */
             columns?: DataSourceColumn[];
 
-            /** Lists out the items to be arranged in rows section of PivotGrid.
+            /** Lists out the items to be arranged in the rows section of PivotGrid.
              * @Default {[]}
              */
             rows?: DataSourceRow[];
 
-            /** Lists out the items which supports calculation in PivotGrid.
+            /** Lists out the items that support calculation in the PivotGrid.
              * @Default {[]}
              */
             values?: DataSourceValue[];
 
-            /** Lists out the items which supports filtering of values without displaying the members in UI in PivotGrid.
+            /** Lists out the items which supports filtering of values without displaying the members in UI of the PivotGrid.
              * @Default {[]}
              */
             filters?: DataSourceFilter[];
 
-            /** Contains the respective cube name from OLAP database as string type.
+            /** Contains the respective cube name as string type in the OLAP database.
              * @Default {â€œâ€}
              */
             cube?: string;
 
-            /** To set the data source name to fetch data from that.
+            /** To set the data source name to fetch the data.
              * @Default {â€œâ€}
              */
             sourceInfo?: string;
 
-            /** Set the provider name for PivotGrid to identify whether the provider is SSAS or Mondrian.
+            /** Sets the provider name for PivotGrid to identify whether the provider is SSAS or Mondrian.
              * @Default {ssas}
              */
             providerName?: string;
@@ -29241,16 +30091,16 @@ declare namespace ej {
              */
             catalog?: string;
 
-            /** Allows user to filter the members (by its name and values) through advanced filtering (excel-like) option for OLAP data source in client-mode.
+            /** Allows you to filter the members (by its name and values) through advanced filtering (e.g., Microsoft Excel) option at OLAP data source in client-mode.
              * @Default {false}
              */
             enableAdvancedFilter?: boolean;
 
-            /** Sets a name to the report bound to the control.
+            /** Sets a name to the report that is bound to the control.
              */
             reportName?: string;
 
-            /** Allows to set the page size and current page number for each axis on applying paging.
+            /** Allows to set the page size and current page number for each axis on applying the paging.
              * @Default {{}}
              */
             pagerOptions?: DataSourcePagerOptions;
@@ -29258,15 +30108,15 @@ declare namespace ej {
 
         export interface ValueSortSettings {
 
-            /** Contains the headers of the specific column to which value sorting is applied.
+            /** Contains the header of the specific column to which value sorting is applied.
              */
             headerText?: string;
 
-            /** Allows the user to set the string for separating column headers provided in the above property headerText.
+            /** Allows you to set the string for separating column headers provided in the headerText property.
              */
             headerDelimiters?: string;
 
-            /** Allows the user to set the sorting order of the values of the field.
+            /** Allows you to set the sorting order of values of the field.
              * @Default {ej.PivotAnalysis.SortOrder.Ascending}
              */
             sortOrder?: ej.PivotAnalysis.SortOrder|string;
@@ -29274,22 +30124,22 @@ declare namespace ej {
 
         export interface FrozenHeaderSettings {
 
-            /** Allows the user to freeze the row headers alone on scrolling the horizontal scroll bar.
+            /** Allows you to freeze the row headers alone when scrolling the horizontal scroll bar.
              * @Default {false}
              */
             enableFrozenRowHeaders?: boolean;
 
-            /** Allows the user to freeze the column headers alone on scrolling the vertical scroll bar.
+            /** Allows you to freeze the column headers alone when scrolling the vertical scroll bar.
              * @Default {false}
              */
             enableFrozenColumnHeaders?: boolean;
 
-            /** Allows the user to freeze both the row headers and column headers on scrolling.
+            /** Allows you to freeze both row headers and column headers while scrolling.
              * @Default {false}
              */
             enableFrozenHeaders?: boolean;
 
-            /** Allows user to set the size of the scrollbar (horizontal and vertical) visible in PivotGrid.
+            /** Allows you to set the size of the scrollbar (horizontal and vertical) that is visible in the PivotGrid.
              * @Default {18}
              */
             scrollerSize?: number;
@@ -29297,12 +30147,12 @@ declare namespace ej {
 
         export interface HeaderSettings {
 
-            /** Allows user to enable/disable row header names in PivotGrid control.
+            /** Allows you to enable/disable the row header names in the PivotGrid control.
              * @Default {false}
              */
             showRowItems?: boolean;
 
-            /** Allows user to enable/disable column header names in PivotGrid control.
+            /** Allows you to enable/disable the column header names in the PivotGrid control.
              * @Default {false}
              */
             showColumnItems?: boolean;
@@ -29310,22 +30160,22 @@ declare namespace ej {
 
         export interface HyperlinkSettings {
 
-            /** Allows the user to enable/disable hyperlink for column header.
+            /** Allows you to enable/disable the hyperlink for the column header.
              * @Default {false}
              */
             enableColumnHeaderHyperlink?: boolean;
 
-            /** Allows the user to enable/disable hyperlink for row header.
+            /** Allows you to enable/disable the hyperlink for the row header.
              * @Default {false}
              */
             enableRowHeaderHyperlink?: boolean;
 
-            /** Allows the user to enable/disable hyperlink for summary cells.
+            /** Allows you to enable/disable the hyperlink for summary cells.
              * @Default {false}
              */
             enableSummaryCellHyperlink?: boolean;
 
-            /** Allows the user to enable/disable hyperlink for value cells.
+            /** Allows you to enable/disable the hyperlink for value cells.
              * @Default {false}
              */
             enableValueCellHyperlink?: boolean;
@@ -29333,102 +30183,102 @@ declare namespace ej {
 
         export interface ServiceMethodSettings {
 
-            /** Allows the user to set the custom name for the service method responsible for drill up/down operation in PivotGrid.
+            /** Allows you to set the custom name for service method which is responsible for drill up/down operation in the PivotGrid.
              * @Default {DrillGrid}
              */
             drillDown?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for exporting.
+            /** Allows you to set the custom name for the service method that is responsible for exporting.
              * @Default {Export}
              */
             exportPivotGrid?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for performing server-side actions on defer update.
+            /** Allows you to set the custom name for the service method responsible for performing server-side actions based on defer update.
              * @Default {DeferUpdate}
              */
             deferUpdate?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for getting the values for the tree-view inside filter dialog.
+            /** Allows you to set the custom name for the service method that is responsible for getting values of the tree-view inside filter dialog.
              * @Default {FetchMembers}
              */
             fetchMembers?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for filtering operation in PivotGrid.
+            /** Allows you to set the custom name for the service method that is responsible for filtering operation in the PivotGrid.
              * @Default {Filtering}
              */
             filtering?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for initializing PivotGrid.
+            /** Allows you to set the custom name for the service method that is responsible for initializing the PivotGrid.
              * @Default {InitializeGrid}
              */
             initialize?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for the server-side action, on dropping a node from Field List.
+            /** Allows you to set the custom name for the service method that is responsible for the server-side action when dropping a node from the field list.
              * @Default {NodeDropped}
              */
             nodeDropped?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for the server-side action on changing the checked state of a node in Field List.
+            /** Allows you to set the custom name for the service method that is responsible for server-side action when changing the checked state of a node in the field list.
              * @Default {NodeStateModified}
              */
             nodeStateModified?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for performing paging operation in PivotGrid.
+            /** Allows you to set the custom name for the service method that is responsible for performing paging operation in the PivotGrid.
              * @Default {Paging}
              */
             paging?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for sorting operation in PivotGrid.
+            /** Allows you to set the custom name for the service method that is responsible for sorting operation in the PivotGrid.
              * @Default {Sorting}
              */
             sorting?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for expanding members inside member editor.
+            /** Allows you to set the custom name for the service method that is responsible for expanding members in the member editor.
              * @Default {MemberExpanded}
              */
             memberExpand?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for editing the cells.
+            /** Allows you to set the custom name for the service method that is responsible for editing the cells.
              * @Default {CellEditing}
              */
             cellEditing?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for saving the current report to database.
+            /** Allows you to set the custom name for the service method that is responsible for saving the current report to the database.
              * @Default {SaveReport}
              */
             saveReport?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for loading a report from database.
+            /** Allows you to set the custom name for the service method that is responsible for loading a report from the database.
              * @Default {LoadReportFromDB}
              */
             loadReport?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for adding a calculated field to the report.
+            /** Allows you to set the custom name for the service method that is responsible for adding a calculated field to the report.
              * @Default {CalculatedField}
              */
             calculatedField?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for performing drill through operation.
+            /** Allows you to set the custom name for the service method that is responsible for performing the drill through operation.
              * @Default {DrillThroughHierarchies}
              */
             drillThroughHierarchies?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for performing drill through operation in data table.
+            /** Allows you to set the custom name for the service method that is responsible for performing drill through operation in the data table.
              * @Default {DrillThroughDataTable}
              */
             drillThroughDataTable?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for performing value sorting operation in PivotGrid.
+            /** Allows you to set the custom name for the service method that is responsible for performing value sorting operation in the PivotGrid.
              * @Default {ValueSorting}
              */
             valueSorting?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for removing pivot button from GroupingBar/Field List.
+            /** Allows you to set the custom name for the service method that is responsible for removing the pivot button from the GroupingBar/field list.
              * @Default {RemoveButton}
              */
             removeButton?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for write-back operation in OLAP Cube. This is only applicable in server-side component.
+            /** Allows you to set the custom name for the service method that is responsible for write-back operation in the OLAP Cube. This is applicable only in the server-side component.
              * @Default {WriteBack}
              */
             writeBack?: string;
@@ -29464,7 +30314,7 @@ declare namespace ej {
             Ascending,
             //Sorts the members of the field in descending order.
             Descending,
-            //Displays the members without sorting in any order.
+            //Displays the members without sorting in default order.
             None,
         }
     }
@@ -29764,32 +30614,32 @@ declare namespace ej {
         model: PivotChart.Model;
         defaults: PivotChart.Model;
 
-        /** Performs an asynchronous HTTP (AJAX) request.
+        /** Posts an asynchronous HTTP (AJAX) request.
          * @returns {void}
          */
         doAjaxPost(): void;
 
-        /** Perform an asynchronous HTTP (FullPost) submit.
+        /** Performs an asynchronous HTTP (FullPost) submit.
          * @returns {void}
          */
         doPostBack(): void;
 
-        /** Exports the PivotChart to the format specified in the parameter.
+        /** Exports the pivot chart to the format that is specified in the parameter.
          * @returns {void}
          */
         exportPivotChart(): void;
 
-        /** This function renders the PivotChart control with the JSON formatted datasource.
+        /** This function renders the pivot chart control with the JSON formatted data source.
          * @returns {void}
          */
         renderChartFromJSON(): void;
 
-        /** This function receives the update from service-end, which would be utilized for rendering the widget.
+        /** This function receives the update from the service-end, which will be utilized for rendering the widget.
          * @returns {void}
          */
         renderControlSuccess(): void;
 
-        /** Returns the OlapReport string maintained along with the axis elements information.
+        /** Returns the OlapReport string that is maintained along with the axis elements information.
          * @returns {string}
          */
         getOlapReport(): string;
@@ -29799,7 +30649,7 @@ declare namespace ej {
          */
         setOlapReport(): void;
 
-        /** Returns the JSON records formed to render the control.
+        /** Returns the JSON records that are formed to render the control.
          * @returns {any[]}
          */
         getJSONRecords(): any[];
@@ -29809,32 +30659,32 @@ declare namespace ej {
          */
         setJSONRecords(): void;
 
-        /** Returns the PivotEngine formed to render the control.
+        /** Returns the PivotEngine that is formed to render the control.
          * @returns {any[]}
          */
         getPivotEngine(): any[];
 
-        /** Sets the PivotEngine required to render the control.
+        /** Sets the PivotEngine that is required to render the control.
          * @returns {void}
          */
         setPivotEngine(): void;
 
-        /** Re-renders the control with the data source at the instant.
+        /** Re-renders the control with the datasource at instant.
          * @returns {void}
          */
         refreshControl(): void;
 
-        /** This function Destroy the PivotChart widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+        /** This function destroys the pivot chart widget associated events that are bound using &quot;this._on&quot; and brings the control to pre-init state.
          * @returns {void}
          */
         destroy(): void;
 
-        /** Renders the control with the pivot engine obtained from olap cube.
+        /** Renders the control with the pivot engine that is obtained from the OLAP cube.
          * @returns {void}
          */
         generateJSON(): void;
 
-        /** Navigates to the specified page number in specified axis.
+        /** Navigates to the specified page number in the specified axis.
          * @returns {void}
          */
         refreshPagedPivotChart(): void;
@@ -29843,141 +30693,152 @@ declare namespace ej {
 
         export interface Model {
 
-            /** Sets the mode for the PivotChart widget for binding either OLAP or Relational data source.
+            /** Sets the mode for the pivot chart widget to bind either the OLAP or relational datasource.
              * @Default {ej.Pivot.AnalysisMode.Pivot}
              */
             analysisMode?: ej.Pivot.AnalysisMode|string;
 
-            /** Specifies the CSS class to PivotChart to achieve custom theme.
+            /** Specifies the CSS class to the pivot chart for achieving the custom theme.
              * @Default {â€œâ€}
              */
             cssClass?: string;
 
-            /** Options for enabling zooming feature of PivotChart.
+            /** Options for enabling the zooming feature of the pivot chart.
              * @Default {{}}
              */
             zooming?: Zooming;
 
-            /** Options available to configure the properties of entire series. You can also override the options for specific series by using series collection.
+            /** Options available to configure the properties of entire series. You can also override the options for specific series by using the series collection.
              * @Default {{}}
              */
             commonSeriesOptions?: CommonSeriesOptions;
 
-            /** Initializes the data source for the PivotChart widget, when it functions completely on client-side.
+            /** Initializes the datasource for the pivot chart widget, when it functions completely on the client-side.
              * @Default {{}}
              */
             dataSource?: DataSource;
 
-            /** Object utilized to pass additional information between client-end and service-end on operating the control in server mode.
+            /** Object is utilized to pass additional information between the client-end and the service-end while operating the control in the server mode.
              * @Default {{}}
              */
             customObject?: any;
 
-            /** Allows the user to enable 3D view of PivotChart.
+            /** Allows you to enable the 3D view of the pivot chart.
              * @Default {false}
              */
             enable3D?: boolean;
 
-            /** Allows the user to view PivotChart from right to left.
+            /** Allows you to view the pivot chart from right to left.
              * @Default {false}
              */
             enableRTL?: boolean;
 
-            /** Allows user to render complete PivotChart on drill operation, that is, when expanding and collapsing members which are shown in multi-level labels.
+            /** Allows you to render the complete pivot chart on drill operation, when expanding and collapsing members are shown in multi-level labels.
              * @Default {false}
              */
             enableMultiLevelLabels?: boolean;
 
-            /** Allows the user to enable PivotChartâ€™s responsiveness in the browser layout.
+            /** Allows you to enable the responsiveness of pivot chart in the browser layout.
              * @Default {false}
              */
             isResponsive?: boolean;
 
-            /** Lets the user to customize the legend items and their labels.
+            /** You can customize the legend items and their labels.
              * @Default {{}}
              */
             legend?: any;
 
-            /** Allows the user to set the localized language for the widget.
+            /** Allows you to set the localized language for the widget.
              * @Default {en-US}
              */
             locale?: string;
 
-            /** Sets the mode for the PivotChart widget for binding data source either in server-side or client-side.
+            /** Sets the mode for the pivot chart widget to bind the data source either in the server-side or client-side.
              * @Default {ej.Pivot.OperationalMode.ClientMode}
              */
             operationalMode?: ej.Pivot.OperationalMode|string;
 
-            /** This is a horizontal axis that contains options to configure axis and it is the primary x axis for all the series in series array. To override x axis for particular series, create
-             * an axis object by providing unique name by using name property and add it to axes array. Then, assign the name to the seriesâ€™s xAxisName property to link both axis and series.
+            /** This is a horizontal axis that contains options to configure the axis and it is the primary x-axis for all series in the series array. To override x-axis for particular series,
+             * create an axis object by providing a unique name by using the name property and add it to the axes array. Then, assign the name to the seriesâ€™s xAxisName property to link both
+             * the axis and the series.
              * @Default {{}}
              */
             primaryXAxis?: any;
 
-            /** This is a vertical axis that contains options to configure axis. This is the primary y axis for all the series in series array. To override y axis for particular series, create an
-             * axis object by providing unique name by using name property and add it to axes array. Then, assign the name to the seriesâ€™s yAxisName property to link both axis and series.
+            /** This is a vertical axis that contains options to configure the axis. This is the primary y-axis for all the series in the series array. To override y-axis for particular series,
+             * create an axis object by providing a unique name by using the name property and add it to the axes array. Then, assign the name to the seriesâ€™s yAxisName property to link both
+             * the axis and the series.
              * @Default {{}}
              */
             primaryYAxis?: any;
 
-            /** Allows the user to rotate the angle of PivotChart in 3D view.
+            /** Allows you to rotate the angle of pivot chart in 3D view.
              * @Default {0}
              */
             rotation?: number;
 
-            /** Allows the user to enable/disable the context menu options in the PivotChart.
+            /** Allows you to enable/disable context menu options in the pivot chart.
              * @Default {false}
              */
             enableContextMenu?: boolean;
 
-            /** Allows the user to set custom name for the methods at service-end, communicated on AJAX post.
+            /** Allows you to set the custom name for methods at service-end, when you are communicating on AJAX post.
              * @Default {{}}
              */
             serviceMethodSettings?: ServiceMethodSettings;
 
-            /** Options to customize the size of the PivotChart control.
+            /** Options to customize the size of the pivot chart control.
              * @Default {{}}
              */
             size?: any;
 
-            /** Connects the service using the specified URL for any server updates on operating the control in server mode.
+            /** Options for customizing the title of PivotChart.
+             */
+            title?: Title;
+
+            /** Connects the service by using the specified URL for any server updates while operating the control in the server mode.
              * @Default {â€œâ€}
              */
             url?: string;
 
-            /** Triggers when PivotChart starts to render.
+            /** Allows you to enable &quot;withCredentials&quot; property inside XMLHttpRequest object for CORS(Cross-Origin Resource Sharing) request.
+             * @Default {false}
+             */
+            enableXHRCredentials?: boolean;
+
+            /** Triggers when the pivot chart starts to render.
              */
             load?(e: LoadEventArgs): void;
 
-            /** Triggers when it reaches client-side after any AJAX request.
+            /** Triggers when it reaches the client-side after any AJAX request.
              */
             afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
-            /** Triggers before any AJAX request is passed from PivotChart to service methods.
+            /** Triggers before any AJAX request is passed from the pivot chart to service methods.
              */
             beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
-            /** Triggers before Pivot Engine starts to populate.
+            /** Triggers before the pivot engine starts to populate.
              */
             beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
-            /** Triggers on performing drill up/down in PivotChart control.
+            /** Triggers when performing drill up/down operation in the pivot chart control.
              */
             drillSuccess?(e: DrillSuccessEventArgs): void;
 
-            /** Triggers when PivotChart widget completes all operations at client-side after any AJAX request.
+            /** Triggers when the pivot chart widget completes all operations at client-side after the AJAX request.
              */
             renderComplete?(e: RenderCompleteEventArgs): void;
 
-            /** Triggers when any error occurred during AJAX request.
+            /** Triggers when the error occurs on the AJAX request.
              */
             renderFailure?(e: RenderFailureEventArgs): void;
 
-            /** Triggers when PivotChart successfully reaches client-side after any AJAX request.
+            /** Triggers when the pivot chart successfully reaches the client-side after the AJAX request.
              */
             renderSuccess?(e: RenderSuccessEventArgs): void;
 
-            /** Triggers before performing exporting in pivot chart.
+            /** Triggers before performing export operation in the pivot chart.
              */
             beforeExport?(e: BeforeExportEventArgs): void;
         }
@@ -30107,7 +30968,7 @@ declare namespace ej {
 
         export interface Zooming {
 
-            /** Enables or disables horizontal scrollbar.
+            /** Enables or disables the horizontal scrollbar.
              * @Default {false}
              */
             enableScrollbar?: boolean;
@@ -30115,7 +30976,7 @@ declare namespace ej {
 
         export interface CommonSeriesOptions {
 
-            /** Allows the user to set the specific chart type for PivotChart widget.
+            /** Allows you to set the specific chart type for the pivot chart widget.
              * @Default {ej.PivotChart.ChartTypes.Column}
              */
             type?: ej.PivotChart.ChartTypes|string;
@@ -30136,25 +30997,25 @@ declare namespace ej {
 
         export interface DataSourceColumn {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item.
+            /** Allows you to set the display caption for the item.
              */
             fieldCaption?: string;
 
-            /** Allows the user to indicate whether the added item is a named set or not.
+            /** Allows you to indicate whether the added item is a named set or not.
              * @Default {false}
              */
             isNamedSets?: boolean;
 
-            /** Allows the user to set the sorting order of the members of the field.
+            /** Allows you to set the sorting order of field members.
              * @Default {ej.PivotAnalysis.SortOrder.Ascending}
              */
             sortOrder?: ej.PivotAnalysis.SortOrder|string;
 
-            /** Applies filter to the field members.
+            /** Applies filter to field members.
              * @Default {null}
              */
             filterItems?: DataSourceColumnsFilterItems;
@@ -30175,25 +31036,25 @@ declare namespace ej {
 
         export interface DataSourceRow {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item.
+            /** Allows you to set the display caption for the item.
              */
             fieldCaption?: string;
 
-            /** Allows the user to indicate whether the added item is a named set or not.
+            /** Allows you to indicate whether the added item is a named set or not.
              * @Default {false}
              */
             isNamedSets?: boolean;
 
-            /** Allows the user to set the sorting order of the members of the field.
+            /** Allows you to set the sorting order of field members.
              * @Default {ej.PivotAnalysis.SortOrder.Ascending}
              */
             sortOrder?: ej.PivotAnalysis.SortOrder|string;
 
-            /** Applies filter to the field members.
+            /** Applies filter to field members.
              * @Default {null}
              */
             filterItems?: DataSourceRowsFilterItems;
@@ -30201,37 +31062,37 @@ declare namespace ej {
 
         export interface DataSourceValuesMeasure {
 
-            /** Allows the user to bind the measure from OLAP datasource by using its unique name as field name.
+            /** Allows you to bind the measure from the OLAP datasource by using its unique name as field name.
              */
             fieldName?: string;
         }
 
         export interface DataSourceValue {
 
-            /** Allows the user to bind the item by using its unique name as field name for Relational datasource.
+            /** Allows you to bind the item by using its unique name as field name for the relational datasource.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item for Relational datasource.
+            /** Allows you to set the display caption for the item of the relational datasource.
              */
             fieldCaption?: string;
 
-            /** This holds the list of unique names of measures to bind them from the OLAP cube.
+            /** Holds the list of unique names of measures to bind them from the OLAP cube.
              * @Default {[]}
              */
             measures?: DataSourceValuesMeasure[];
 
-            /** Allows to set the axis name to place the measures items.
+            /** Allows you to set the axis name to place the measures items.
              * @Default {rows}
              */
             axis?: string;
 
-            /** Indicates whether the field is a calculated field or not with Relational datasource.
+            /** Indicates whether the field is a calculated field with the relational datasource or not.
              * @Default {false}
              */
             isCalculatedField?: boolean;
 
-            /** Allows to set the formula for calculation of values for calculated members in Relational datasource.
+            /** Allows you to set the formula to calculate the values for calculated members in the relational datasource.
              */
             formula?: string;
         }
@@ -30251,11 +31112,11 @@ declare namespace ej {
 
         export interface DataSourceFilter {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Applies filter to the field members.
+            /** Applies filter to field members.
              * @Default {null}
              */
             filterItems?: DataSourceFiltersFilterItems;
@@ -30263,47 +31124,47 @@ declare namespace ej {
 
         export interface DataSource {
 
-            /** Contains the respective cube name from OLAP database as string type.
+            /** Contains the respective cube name from the OLAP database as string type.
              * @Default {â€œâ€}
              */
             cube?: string;
 
-            /** To set the data source name to fetch data from that.
+            /** To set the datasource name to fetch the data from that.
              * @Default {â€œâ€}
              */
             sourceInfo?: string;
 
-            /** Set the provider name for PivotChart to identify whether the provider is SSAS or Mondrian.
+            /** Sets the provider name for the pivot chart to identify whether the provider is SSAS or Mondrian.
              * @Default {ssas}
              */
             providerName?: string;
 
-            /** Provides the raw data source for the PivotChart.
+            /** Provides the raw datasource for the pivot chart.
              * @Default {null}
              */
             data?: any;
 
-            /** In connection with an OLAP database, this property contains the database name as string to fetch the data from the given connection string.
+            /** In connection with the OLAP database, this property contains the database name as string to fetch the data from the given connection string.
              * @Default {â€œâ€}
              */
             catalog?: string;
 
-            /** Lists out the items to be displayed as series of PivotChart.
+            /** Lists out the items to be displayed as series of the pivot chart.
              * @Default {[]}
              */
             columns?: DataSourceColumn[];
 
-            /** Lists out the items to be displayed as segments of PivotChart.
+            /** Lists out the items to be displayed as segments of the pivot chart.
              * @Default {[]}
              */
             rows?: DataSourceRow[];
 
-            /** Lists out the items supports calculation in PivotChart.
+            /** Lists out the items support calculation in the pivot chart.
              * @Default {[]}
              */
             values?: DataSourceValue[];
 
-            /** Lists out the items which supports filtering of values without displaying the members in UI in PivotChart.
+            /** Lists out the items that supports filtering of values without displaying the members in UI of the pivot chart.
              * @Default {[]}
              */
             filters?: DataSourceFilter[];
@@ -30311,25 +31172,32 @@ declare namespace ej {
 
         export interface ServiceMethodSettings {
 
-            /** Allows the user to set the custom name for the service method responsible for drilling up/down operation in PivotChart.
+            /** Allows you to set the custom name for the service method that is responsible for drilling up/down in the pivot chart.
              * @Default {DrillChart}
              */
             drillDown?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for exporting.
+            /** Allows you to set the custom name for the service method which is responsible for exporting the pivot chart.
              * @Default {Export}
              */
             exportPivotChart?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for initializing PivotChart.
+            /** Allows you to set the custom name for the service method which is responsible for initializing the pivot chart.
              * @Default {InitializeChart}
              */
             initialize?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for navigating between pages in paged PivotChart.
+            /** Allows you to set the custom name for the service method which is responsible for navigating between pages in the paged pivot chart.
              * @Default {Paging}
              */
             paging?: string;
+        }
+
+        export interface Title {
+
+            /** Text to be displayed in PivotChart title.
+             */
+            text?: string;
         }
 
         enum ChartTypes {
@@ -30400,22 +31268,22 @@ declare namespace ej {
          */
         doAjaxPost(): void;
 
-        /** Performs an asynchronous HTTP (FullPost) submit.
+        /** Performs an asynchronous HTTP (full post) submit.
          * @returns {void}
          */
         doPostBack(): void;
 
-        /** Navigates to the specified page in specified axis.
+        /** Navigates to a specified page in the specified axis.
          * @returns {void}
          */
         refreshPagedPivotClient(): void;
 
-        /** Updates the PivotClient component with the JSON data fetched from the service on navigating between pages.
+        /** Updates the pivot client component with the JSON data that is fetched from the service while navigating between the pages.
          * @returns {void}
          */
         refreshPagedPivotClientSuccess(): void;
 
-        /** Renders the PivotChart and PivotGrid with the JSON data provided.
+        /** Renders the pivot chart and the pivot grid with the provided JSON data.
          * @returns {void}
          */
         generateJSON(): void;
@@ -30425,32 +31293,32 @@ declare namespace ej {
          */
         refreshControl(): void;
 
-        /** Returns the control tab string that displays currently in PivotClient.
+        /** Returns the control tab string that displays currently in the pivot client.
          * @returns {void}
          */
         getActiveTab(): void;
 
-        /** This function Destroy the PivotClient widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+        /** This function destroys all events of the pivot client widget bound using &quot;this._on&quot; and bring the control to pre-init state.
          * @returns {void}
          */
         destroy(): void;
 
-        /** Returns the OlapReport string maintained along with the axis elements information.
+        /** Returns the OLAP report string that is maintained along with the axis elements information.
          * @returns {string}
          */
         getOlapReport(): string;
 
-        /** Sets the OlapReport string along with the axis information and maintains it in a property.
+        /** Sets the OLAP report string along with the axis information and maintains it in a property.
          * @returns {void}
          */
         setOlapReport(): void;
 
-        /** Returns the JSON records formed to render the control.
+        /** Returns the formed JSON records to render the control.
          * @returns {any[]}
          */
         getJSONRecords(): any[];
 
-        /** Sets the JSON records formed to render the control to a property.
+        /** Sets the formed JSON records to render the control to a property.
          * @returns {void}
          */
         setJSONRecords(): void;
@@ -30459,157 +31327,178 @@ declare namespace ej {
 
         export interface Model {
 
-            /** Sets the mode for the PivotClient widget for binding either OLAP or Relational data source.
+            /** Sets the mode for the pivot client widget for binding the OLAP or relational data sources.
              * @Default {ej.Pivot.AnalysisMode.Pivot}
              */
             analysisMode?: ej.Pivot.AnalysisMode|string;
 
-            /** Allows the user to set the specific Chart type for PivotChart inside PivotClient widget.
+            /** Allows you to set the specific chart type for the pivot chart in the pivot client widget.
              * @Default {ej.PivotChart.ChartTypes.Column}
              */
             chartType?: ej.PivotChart.ChartTypes|string;
 
-            /** Allows the user to set the content on exporting the PivotClient widget.
+            /** Allows you to set the content for exporting the pivot client widget.
              * @Default {ej.PivotClient.ClientExportMode.ChartAndGrid}
              */
             clientExportMode?: ej.PivotClient.ClientExportMode|string;
 
-            /** Specifies the CSS class to PivotClient to achieve custom theme.
+            /** Specifies the CSS class to the pivot client for achieving the custom theme.
              * @Default {â€œâ€}
              */
             cssClass?: string;
 
-            /** Object utilized to pass additional information between client-end and service-end when the control functions in server-mode.
+            /** An object is utilized to pass the additional information between the client-end and the service-end when the control functions are present in the server-mode.
              * @Default {{}}
              */
             customObject?: any;
 
-            /** Initializes the data source for the PivotClient widget, when it functions completely on client-side.
+            /** Initializes the data source for the pivot client widget, when it functions completely on the client-side.
              * @Default {{}}
              */
             dataSource?: DataSource;
 
-            /** Enables the Drill-Through feature which retrieves the raw items that are used to create the specific cell in PivotGrid.
+            /** Enables the drill-through feature which retrieves the raw items that are used to create a specific cell in the pivot grid.
              * @Default {false}
              */
             enableDrillThrough?: boolean;
 
-            /** Allows the user to customize the widget's layout and appearance.
+            /** Allows you to customize the layout and appearance of the widget.
              * @Default {{}}
              */
             displaySettings?: DisplaySettings;
 
-            /** Allows user to set visibility of icons in toolbar panel.
+            /** Allows you to set the visibility of icons in the toolbar panel.
              * @Default {{}}
              */
             toolbarIconSettings?: ToolbarIconSettings;
 
-            /** Allows user to show unique name on pivot button.
+            /** Allows you to show a unique name on the pivot button.
              * @Default {false}
              */
             showUniqueNameOnPivotButton?: boolean;
 
-            /** Allows user to load the saved report collection from the database.
+            /** Allows you to load the saved report collection from the database.
              * @Default {false}
              */
             showReportCollection?: boolean;
 
-            /** Enables the splitter option for resizing the elements inside the control.
+            /** Enables the splitter option for resizing the elements in the control.
              * @Default {false}
              */
             enableSplitter?: boolean;
 
-            /** Enables the advanced filtering options Value Filtering, Label Filtering and Sorting for each dimensions on binding OLAP data in server mode.
+            /** Enables the advanced filtering options such as value filtering, label filtering, and sorting for each dimensions when binding the OLAP data in the server mode.
              * @Default {false}
              */
             enableAdvancedFilter?: boolean;
 
-            /** Allows the user to refresh the control on-demand and not during every UI operation.
+            /** Allows you to refresh the control on-demand and not during the every UI operation.
              * @Default {false}
              */
             enableDeferUpdate?: boolean;
 
-            /** Lets the user to save and load reports in a customized way with the help of events.
+            /** Allows to save and load the reports in a customized way with the help of events.
              * @Default {false}
              */
             enableLocalStorage?: boolean;
 
-            /** Allows the user to enable paging for both the PivotChart and PivotGrid components for the ease of viewing large data.
+            /** Allows you to enable the paging for both the pivot chart and the pivot grid components for viewing the large data.
              * @Default {false}
              */
             enablePaging?: boolean;
 
-            /** Allows the user to include the PivotTreeMap component as one of the Chart types.
+            /** Allows you to include the pivot tree map component as one of the chart types.
              * @Default {false}
              */
             enablePivotTreeMap?: boolean;
 
-            /** Allows the user to view the layout of PivotClient from right to left.
+            /** Allows you to view the layout of the pivot client from right to left.
              * @Default {false}
              */
             enableRTL?: boolean;
 
-            /** Enables/disables the visibility of measure group selector drop-down in Cube Browser.
+            /** Enables/disables the visibility of measure group selector drop-down in the cube browser.
              * @Default {false}
              */
             enableMeasureGroups?: boolean;
 
-            /** Allows the user to enable virtual scrolling for both the PivotChart and PivotGrid components for the ease of viewing large data.
+            /** Allows you to get cell details in JSON format by clicking the value cell.
+             * @Default {false}
+             */
+            enableCellClick?: boolean;
+
+            /** Allows you to get cell details in JSON format by double-clicking the value cell.
+             * @Default {false}
+             */
+            enableCellDoubleClick?: boolean;
+
+            /** Allows you to enable the virtual scrolling for both the pivot chart and pivot grid components for viewing the large data.
              * @Default {false}
              */
             enableVirtualScrolling?: boolean;
 
-            /** Enables/Disables paging in Member Editor for viewing the large count of members in pages.
+            /** Allows you to set the maximum number of nodes as well as child nodes to be displayed in the member editor.
+             * @Default {1000}
+             */
+            maxNodeLimitInMemberEditor?: number;
+
+            /** Enables/disables paging in the member editor for viewing the large count of members in the pages.
              * @Default {false}
              */
             enableMemberEditorPaging?: boolean;
 
-            /** Allows the user to set the number of members to be displayed in each page of Member Editor on applying paging in it.
+            /** Allows you to set the number of members to be displayed in each page of the member editor on applying the paging in it.
              * @Default {100}
              */
             memberEditorPageSize?: number;
 
-            /** Sets the summary layout for PivotGrid. Following are the ways in which summary can be positioned: normal summary (bottom), top summary, no summary and excel-like summary.
+            /** Sets the summary layout for the pivot grid. Following are the ways in which the summary can be positioned: normal summary (bottom), top summary, no summary, and Microsoft Excel
+             * summary.
              * @Default {ej.PivotGrid.Layout.Normal}
              */
             gridLayout?: ej.PivotGrid.Layout|string;
 
-            /** Allows the user to hide PivotClient's Cube Browser and Axis Element Builder while initiate the widget.
+            /** Allows you to hide the cube browser and the axis element builder of the pivot client while initiating the widget.
              * @Default {false}
              */
             collapseCubeBrowserByDefault?: boolean;
 
-            /** Allows the user to view the KPI elements in tree-view inside PivotClient's Cube Browser.
+            /** Allows you to view the KPI elements in tree-view of the pivot client's cube browser.
              * @Default {false}
              */
             enableKPI?: boolean;
 
-            /** Allows the user to enable PivotClientâ€™s responsiveness in the browser layout.
+            /** Allows you to enable the pivot clientâ€™s responsiveness in the browser layout.
              * @Default {false}
              */
             isResponsive?: boolean;
 
-            /** Options to customize the size of the PivotClient control.
+            /** Options to customize the size of the pivot client control.
              * @Default {Example:}
              */
             size?: any;
 
-            /** Allows the user to set the localized language for the widget.
+            /** Allows you to set the localized language for the widget.
              * @Default {en-US}
              */
             locale?: string;
 
-            /** Sets the mode for the PivotClient widget for binding data source either in server-side or client-side.
+            /** Sets the mode for the pivot client widget to bind the data source in the server-side or the client-side.
              * @Default {ej.Pivot.OperationalMode.ClientMode}
              */
             operationalMode?: ej.Pivot.OperationalMode|string;
 
-            /** Allows the user to set custom name for the methods at service-end, communicated during AJAX post.
+            /** Allows you to set the custom name for methods at service-end, and it is communicated during the AJAX post.
              * @Default {{}}
              */
             serviceMethodSettings?: ServiceMethodSettings;
 
-            /** Sets the title for PivotClient widget.
+            /** Holds the necessary properties for value sorting.
+             * @Default {{}}
+             */
+            valueSortSettings?: ValueSortSettings;
+
+            /** Sets the title for the pivot client widget.
              */
             title?: string;
 
@@ -30617,11 +31506,21 @@ declare namespace ej {
              */
             url?: string;
 
-            /** Triggers when it reaches client-side after any AJAX request.
+            /** Allows you to export entire data instead of current page data, while paging option is enabled.
+             * @Default {false}
+             */
+            enableCompleteDataExport?: boolean;
+
+            /** Allows you to enable &quot;withCredentials&quot; property inside XMLHttpRequest object for CORS(Cross-Origin Resource Sharing) request.
+             * @Default {false}
+             */
+            enableXHRCredentials?: boolean;
+
+            /** Triggers when it reaches the client-side after any AJAX request.
              */
             afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
-            /** Triggers before any AJAX request is passed from client-side to service methods.
+            /** Triggers before any AJAX request is passed from the client-side to the service methods.
              */
             beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
@@ -30629,11 +31528,11 @@ declare namespace ej {
              */
             saveReport?(e: SaveReportEventArgs): void;
 
-            /** Triggers before loading a saved collection of reports.
+            /** Triggers before loading the saved collection of reports.
              */
             loadReport?(e: LoadReportEventArgs): void;
 
-            /** Triggers before fetching the report collection from storage.
+            /** Triggers before fetching the report collection from the storage.
              */
             fetchReport?(e: FetchReportEventArgs): void;
 
@@ -30641,47 +31540,51 @@ declare namespace ej {
              */
             beforeExport?(e: BeforeExportEventArgs): void;
 
-            /** Triggers before rendering the PivotChart.
+            /** Triggers before rendering the pivot chart.
              */
             chartLoad?(e: ChartLoadEventArgs): void;
 
-            /** Triggers before rendering the PivotSchemaDesigner.
+            /** Triggers before rendering the pivot schema designer.
              */
             schemaLoad?(e: SchemaLoadEventArgs): void;
 
-            /** Triggers before rendering the PivotTreeMap.
+            /** Triggers before rendering the pivot tree map.
              */
             treeMapLoad?(e: TreeMapLoadEventArgs): void;
 
-            /** Triggers on clicking any value cell in PivotGrid.
+            /** Triggers when clicking any value cell in the pivot grid.
              */
             valueCellHyperlinkClick?(e: ValueCellHyperlinkClickEventArgs): void;
 
-            /** Triggers when clicking on any Chart series points in the PivotChart.
+            /** Triggers when click action is performed over a grid value cell.
+             */
+            cellClick?(e: CellClickEventArgs): void;
+
+            /** Triggers when clicking on any chart series points in the pivot chart.
              */
             pointRegionClick?(e: PointRegionClickEventArgs): void;
 
-            /** Triggers before Chart label rendering in the PivotChart.
+            /** Triggers before the chart label is rendered in the pivot chart.
              */
             axesLabelRendering?(e: AxesLabelRenderingEventArgs): void;
 
-            /** Triggers while clicking value cells in PivotGrid.
+            /** Triggers while clicking the value cells in the pivot grid.
              */
             drillThrough?(e: DrillThroughEventArgs): void;
 
-            /** Triggers while we initiate loading of the widget.
+            /** Triggers while initiating the loading of the widget.
              */
             load?(e: LoadEventArgs): void;
 
-            /** Triggers when PivotClient widget completes all operations at client-end after any AJAX request.
+            /** Triggers when the pivot client widget completes all operations at client-end after any AJAX request.
              */
             renderComplete?(e: RenderCompleteEventArgs): void;
 
-            /** Triggers when any error occurred during AJAX request.
+            /** Triggers when any error is occurred during the AJAX request.
              */
             renderFailure?(e: RenderFailureEventArgs): void;
 
-            /** Triggers when PivotClient successfully completes rendering.
+            /** Triggers when the pivot client is completely rendered.
              */
             renderSuccess?(e: RenderSuccessEventArgs): void;
         }
@@ -30820,6 +31723,21 @@ declare namespace ej {
             model?: any;
         }
 
+        export interface CellClickEventArgs {
+
+            /** returns the JSON details of the respective on cell.
+             */
+            selectedData?: any[];
+
+            /** returns the custom object bound with PivotClient control.
+             */
+            customObject?: any;
+
+            /** returns the HTML element of PivotGrid control.
+             */
+            element?: any;
+        }
+
         export interface PointRegionClickEventArgs {
 
             /** returns the current action of PivotClient control.
@@ -30907,29 +31825,29 @@ declare namespace ej {
 
         export interface DataSourceColumnsAdvancedFilter {
 
-            /** Allows the user to provide level unique name to perform advanced filtering.
+            /** Allows you to provide a level unique name to perform the advanced filtering.
              */
             name?: string;
 
-            /** Allows the user to set the operator to perform Label Filtering.
+            /** Allows you to set the operator to perform label filtering.
              * @Default {none}
              */
             labelFilterOperator?: string;
 
-            /** Allows the user to set the operator to perform Value Filtering.
+            /** Allows you to set the operator to perform value filtering.
              * @Default {none}
              */
             valueFilterOperator?: string;
 
-            /** Allows the user to set the filtering type while performing advanced filtering.
+            /** Allows you to set the filtering type while performing the advanced filtering.
              */
             advancedFilterType?: string;
 
-            /** In case of value filtering, this property contains the measure name to which the filter is applied.
+            /** In value filtering, this property contains the measure name to which the filter is applied.
              */
             measure?: string;
 
-            /** Allows the user to hold the filter operand values in advanced filtering.
+            /** Allows you to hold the filter operand values in the advanced filtering.
              */
             values?: any[];
         }
@@ -30949,25 +31867,25 @@ declare namespace ej {
 
         export interface DataSourceColumn {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item.
+            /** Allows you to set the display caption for an item.
              */
             fieldCaption?: string;
 
-            /** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
+            /** Allows you to filter the report by default using the advanced filtering (e.g., Microsoft Excel) option for the OLAP data source in the client-mode.
              * @Default {[]}
              */
             advancedFilter?: DataSourceColumnsAdvancedFilter[];
 
-            /** Allows the user to indicate whether the added item is a named set or not.
+            /** Allows you to indicate whether the added item is a named set or not.
              * @Default {false}
              */
             isNamedSets?: boolean;
 
-            /** Shows/Hides the sub-total of the field in PivotGrid.
+            /** Shows/hides the sub-total of the field in the pivot grid.
              * @Default {true}
              */
             showSubTotal?: boolean;
@@ -30976,15 +31894,15 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property is set to display the formatted values with format types in PivotGrid.
+            /** This property is set to display the formatted values with format types in the pivot grid.
              */
             formatString?: string;
 
-            /** Allows to set the custom theme for the column headers.
+            /** Allows you to set the custom theme for the column headers.
              */
             cssClass?: string;
 
-            /** Allows the user to set the sorting order of the members of the field.
+            /** Allows you to set the sorting order of members of the field.
              * @Default {ej.PivotAnalysis.SortOrder.Ascending}
              */
             sortOrder?: ej.PivotAnalysis.SortOrder|string;
@@ -30994,7 +31912,7 @@ declare namespace ej {
              */
             drilledItems?: any[];
 
-            /** Applies filter to the field members.
+            /** Applies the filter to field members.
              * @Default {null}
              */
             filterItems?: DataSourceColumnsFilterItems;
@@ -31002,29 +31920,29 @@ declare namespace ej {
 
         export interface DataSourceRowsAdvancedFilter {
 
-            /** Allows the user to provide level unique name to perform advanced filtering.
+            /** Allows you to provide a level unique name to perform the advanced filtering.
              */
             name?: string;
 
-            /** Allows the user to set the operator to perform Label Filtering.
+            /** Allows you to set the operator to perform the label filtering.
              * @Default {none}
              */
             labelFilterOperator?: string;
 
-            /** Allows the user to set the operator to perform Value Filtering.
+            /** Allows you to set the operator to perform the value filtering.
              * @Default {none}
              */
             valueFilterOperator?: string;
 
-            /** Allows the user to set the filtering type while performing advanced filtering.
+            /** Allows you to set the filtering type while performing the advanced filtering.
              */
             advancedFilterType?: string;
 
-            /** In case of value filtering, this property contains the measure name to which the filter is applied.
+            /** In value filtering, this property contains the measure name to which the filter is applied.
              */
             measure?: string;
 
-            /** Allows the user to hold the filter operand values in advanced filtering.
+            /** Allows you to hold the filter operand values in the advanced filtering.
              */
             values?: any[];
         }
@@ -31044,42 +31962,42 @@ declare namespace ej {
 
         export interface DataSourceRow {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item.
+            /** Allows you to set the display caption for an item.
              */
             fieldCaption?: string;
 
-            /** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
+            /** Allows you to filter the report by using the advanced filtering (e.g., Microsoft Excel) option for the OLAP data source in the client-mode.
              * @Default {[]}
              */
             advancedFilter?: DataSourceRowsAdvancedFilter[];
 
-            /** Allows the user to indicate whether the added item is a named set or not.
+            /** Allows you to indicate whether the added item is a named set or not.
              * @Default {false}
              */
             isNamedSets?: boolean;
 
-            /** Shows/Hides the sub-total of the field.
+            /** Shows/hides the sub-total of the field.
              * @Default {true}
              */
             showSubTotal?: boolean;
 
-            /** Allows to set the format for the row headers.
+            /** Allows to set the format for row headers.
              */
             format?: string;
 
-            /** This property is set to display the formatted values with format types in PivotGrid.
+            /** This property is set to display the formatted values with format types in the pivot grid.
              */
             formatString?: string;
 
-            /** Allows to set the custom theme for the row headers.
+            /** Allows to set the custom theme for row headers.
              */
             cssClass?: string;
 
-            /** Allows the user to set the sorting order of the members of the field.
+            /** Allows you to set the sorting order for the field members.
              * @Default {ej.PivotAnalysis.SortOrder.Ascending}
              */
             sortOrder?: ej.PivotAnalysis.SortOrder|string;
@@ -31089,7 +32007,7 @@ declare namespace ej {
              */
             drilledItems?: any[];
 
-            /** Applies filter to the field members.
+            /** Applies the filter to the field members.
              * @Default {null}
              */
             filterItems?: DataSourceRowsFilterItems;
@@ -31097,18 +32015,18 @@ declare namespace ej {
 
         export interface DataSourceValuesMeasure {
 
-            /** Allows the user to bind the measure from OLAP datasource by using its unique name as field name.
+            /** Allows you to bind the measure from the OLAP data source by using its unique name as field name.
              */
             fieldName?: string;
         }
 
         export interface DataSourceValue {
 
-            /** Allows the user to bind the item by using its unique name as field name for Relational datasource.
+            /** Allows you to bind the item by using its unique name as field name for the relational data source.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display caption for an item for Relational datasource.
+            /** Allows you to set the display caption for an item for the relational data source.
              */
             fieldCaption?: string;
 
@@ -31122,12 +32040,12 @@ declare namespace ej {
              */
             axis?: string;
 
-            /** Indicates whether the field is a calculated field or not with Relational datasource.
+            /** Indicates whether the field is a calculated field or not with the relational data source.
              * @Default {false}
              */
             isCalculatedField?: boolean;
 
-            /** Allows to set the type of PivotGrid summary calculation for the value field with Relational datasource.
+            /** Allows to set the type of the pivot grid summary calculation for the value field with the relational data source.
              * @Default {ej.PivotAnalysis.SummaryType.Sum}
              */
             summaryType?: ej.PivotAnalysis.SummaryType|string;
@@ -31136,7 +32054,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** This property is set to display the formatted values with format types in PivotGrid.
+            /** This property is set to display the formatted values with format types in the pivot grid.
              */
             formatString?: string;
 
@@ -31144,7 +32062,7 @@ declare namespace ej {
              */
             cssClass?: string;
 
-            /** Allows to set the formula for calculation of values for calculated members in Relational datasource.
+            /** Allows to set the formula for calculation of members values in the relational data source.
              */
             formula?: string;
         }
@@ -31164,11 +32082,11 @@ declare namespace ej {
 
         export interface DataSourceFilter {
 
-            /** Allows the user to bind the item by using its unique name as field name.
+            /** Allows you to bind the item by using its unique name as field name.
              */
             fieldName?: string;
 
-            /** Allows the user to set the display name for an item.
+            /** Allows you to set the display name for an item.
              */
             fieldCaption?: string;
 
@@ -31180,22 +32098,22 @@ declare namespace ej {
 
         export interface DataSourcePagerOptions {
 
-            /** Allows to set the number of categorical columns to be displayed in each page on applying paging.
+            /** Allows to set the number of categorical columns to be displayed in each page on applying the paging.
              * @Default {0}
              */
             categoricalPageSize?: number;
 
-            /** Allows to set the number of series rows to be displayed in each page on applying paging.
+            /** Allows to set the number of series rows to be displayed in each page on applying the paging.
              * @Default {0}
              */
             seriesPageSize?: number;
 
-            /** Allows to set the page number in categorical axis to be loaded by default.
+            /** Allows to set the page number in the categorical axis to be loaded by default.
              * @Default {1}
              */
             categoricalCurrentPage?: number;
 
-            /** Allows to set the page number in series axis to be loaded by default.
+            /** Allows to set the page number in the series axis to be loaded by default.
              * @Default {1}
              */
             seriesCurrentPage?: number;
@@ -31203,42 +32121,42 @@ declare namespace ej {
 
         export interface DataSource {
 
-            /** Lists out the items to be arranged in columns section of PivotClient.
+            /** Lists out the items to be arranged in the columns section of the pivot client.
              * @Default {[]}
              */
             columns?: DataSourceColumn[];
 
-            /** Lists out the items to be arranged in rows section of PivotClient.
+            /** Lists out the items to be arranged in the rows section of the pivot client.
              * @Default {[]}
              */
             rows?: DataSourceRow[];
 
-            /** Lists out the items which supports calculation in PivotClient.
+            /** Lists out the items which supports calculation in the pivot client.
              * @Default {[]}
              */
             values?: DataSourceValue[];
 
-            /** Lists out the items which supports filtering of values without displaying the members in UI in PivotClient.
+            /** Lists out the items which supports filtering of values without displaying the members in UI of the pivot client.
              * @Default {[]}
              */
             filters?: DataSourceFilter[];
 
-            /** Contains the respective cube name from OLAP database as string type.
+            /** Contains the respective cube name from the OLAP database as string type.
              * @Default {â€œâ€}
              */
             cube?: string;
 
-            /** To set the data source name to fetch data from that.
+            /** Allows to set the data source name to fetch the data from that.
              * @Default {â€œâ€}
              */
             sourceInfo?: string;
 
-            /** Set the provider name for PivotClient to identify whether the provider is SSAS or Mondrian.
+            /** Sets the provider name for the pivot client to identify whether the provider is SSAS or Mondrian.
              * @Default {ssas}
              */
             providerName?: string;
 
-            /** Provides the raw data source for the PivotClient.
+            /** Provides the raw data source for the pivot client.
              * @Default {null}
              */
             data?: any;
@@ -31248,7 +32166,7 @@ declare namespace ej {
              */
             catalog?: string;
 
-            /** Allows user to filter the members (by its name and values) through advanced filtering (excel-like) option in client-mode.
+            /** Allows you to filter the members (by its name and values) through the advanced filtering (e.g., Microsoft Excel) option in the client-mode.
              * @Default {false}
              */
             enableAdvancedFilter?: boolean;
@@ -31257,7 +32175,7 @@ declare namespace ej {
              */
             reportName?: string;
 
-            /** Allows to set the page size and current page number for each axis on applying paging.
+            /** Allows to set the page size and current page number for each axis on applying the paging.
              * @Default {{}}
              */
             pagerOptions?: DataSourcePagerOptions;
@@ -31265,27 +32183,27 @@ declare namespace ej {
 
         export interface DisplaySettings {
 
-            /** Lets the user to customize the display of PivotChart and PivotGrid widgets, either in tabs or tiles.
+            /** Allows you to customize the display of the pivot chart and pivot grid widgets in the tabs or tiles.
              * @Default {ej.PivotClient.ControlPlacement.Tab}
              */
             controlPlacement?: ej.PivotClient.ControlPlacement|string;
 
-            /** Lets the user to set either Chart or Grid as the start-up widget.
+            /** Allows you to set either the chart or grid as the start-up widget.
              * @Default {ej.PivotClient.DefaultView.Grid}
              */
             defaultView?: ej.PivotClient.DefaultView|string;
 
-            /** Lets the user to have an option for switching to full screen view of PivotChart and PivotGrid from default view in PivotClient.
+            /** Allows you to switch to full screen view of the pivot chart and the pivot grid from default view in the pivot client.
              * @Default {false}
              */
             enableFullScreen?: boolean;
 
-            /** Enables an option to enhance the space for PivotGrid and PivotChart by hiding Cube Browser and Axis Element Builder.
+            /** Enables an option to enhance the space for the pivot grid and pivot chart by hiding the cube browser and the axis element builder.
              * @Default {false}
              */
             enableTogglePanel?: boolean;
 
-            /** Sets the display mode (Only Chart/Only Grid/Both) in PivotClient.
+            /** Sets the display mode (only chart/only grid/both) in the pivot client.
              * @Default {ej.PivotClient.DisplayMode.ChartAndGrid}
              */
             mode?: ej.PivotClient.DisplayMode|string;
@@ -31293,82 +32211,82 @@ declare namespace ej {
 
         export interface ToolbarIconSettings {
 
-            /** Allows user to set the visibility of Add Report icon in toolbar panel.
+            /** Allows you to set the visibility of Add Report icon in the toolbar panel.
              * @Default {true}
              */
             enableAddReport?: boolean;
 
-            /** Allows user to set the visibility of New Report icon in toolbar panel.
+            /** Allows you to set the visibility of New Report icon in the toolbar panel.
              * @Default {true}
              */
             enableNewReport?: boolean;
 
-            /** Allows user to set the visibility of Rename Report icon in toolbar panel.
+            /** Allows you to set the visibility of Rename Report icon in the toolbar panel.
              * @Default {true}
              */
             enableRenameReport?: boolean;
 
-            /** Allows user to set the visibility of DB Manipulation icon in toolbar panel.
+            /** Allows you to set the visibility of DB Manipulation icon in the toolbar panel.
              * @Default {true}
              */
             enableDBManipulation?: boolean;
 
-            /** Allows user to set the visibility of Word Export icon in toolbar panel.
+            /** Allows you to set the visibility of Word Export icon in the toolbar panel.
              * @Default {true}
              */
             enableWordExport?: boolean;
 
-            /** Allows user to set the visibility of Excel Export icon in toolbar panel.
+            /** Allows you to set the visibility of Excel Export icon in the toolbar panel.
              * @Default {true}
              */
             enableExcelExport?: boolean;
 
-            /** Allows user to set the visibility of PDF Export icon in toolbar panel.
+            /** Allows you to set the visibility of PDF Export icon in the toolbar panel.
              * @Default {true}
              */
             enablePdfExport?: boolean;
 
-            /** Allows user to set the visibility of MDX Query icon in toolbar panel.
+            /** Allows you to set the visibility of MDX Query icon in the toolbar panel.
              * @Default {true}
              */
             enableMDXQuery?: boolean;
 
-            /** Allows user to set the visibility of Defer Update icon in toolbar panel.
+            /** Allows to set the visibility of Defer Update icon in the toolbar panel.
              * @Default {false}
              */
             enableDeferUpdate?: boolean;
 
-            /** Allows user to set the visibility of Full Screen icon in toolbar panel.
+            /** Allows to set the visibility of Full Screen icon in the toolbar panel.
              * @Default {false}
              */
             enableFullScreen?: boolean;
 
-            /** Allows user to set the visibility of Sort/Filter Column icon in toolbar panel.
+            /** Allows you to set the visibility of Sort/Filter Column icon in the toolbar panel.
              * @Default {true}
              */
             enableSortOrFilterColumn?: boolean;
 
-            /** Allows user to set the visibility of Sort/Filter Row icon in toolbar panel.
+            /** Allows you to set the visibility of Sort/Filter Row icon in the toolbar panel.
              * @Default {true}
              */
             enableSortOrFilterRow?: boolean;
 
-            /** Allows user to set the visibility of Toggle Axis icon in toolbar panel.
+            /** Allows you to set the visibility of Toggle Axis icon in the toolbar panel.
              * @Default {true}
              */
             enableToggleAxis?: boolean;
 
-            /** Allows user to set the visibility of Chart Types icon in toolbar panel.
+            /** Allows you to set the visibility of Chart Types icon in the toolbar panel.
              * @Default {true}
              */
             enableChartTypes?: boolean;
 
-            /** Allows user to set the visibility of Remove Report icon in toolbar panel.
+            /** Allows you to set the visibility of Remove Report icon in the toolbar panel.
              * @Default {true}
              */
             enableRemoveReport?: boolean;
 
-            /** Allows user to set the visibility of Calculated Member icon in toolbar panel.
+            /** Allows you to set the visibility of Calculated Member icon in the toolbar panel.
              * @Default {false}
              */
             enableCalculatedMember?: boolean;
@@ -31376,115 +32294,136 @@ declare namespace ej {
 
         export interface ServiceMethodSettings {
 
-            /** Allows the user to set the custom name for the service method responsible for updating the entire report and widget, while changing the Cube.
+            /** Allows you to set the custom name for the service method that is responsible for updating the entire report and widget, while changing the cube.
              * @Default {CubeChanged}
              */
             cubeChanged?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for exporting.
+            /** Allows to set the custom name for the service method responsible for exporting.
              * @Default {Export}
              */
             exportPivotClient?: string;
 
-            /** Allows the user to set the custom name for the service method responsible to get the members for the tree-view, inside member-editor dialog.
+            /** Allows you to set the custom name for the service method that is responsible to get the members for tree-view in the member-editor dialog.
              * @Default {FetchMemberTreeNodes}
              */
             fetchMemberTreeNodes?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for fetching the report names from the database.
+            /** Allows you to set the custom name for the service method that is responsible for fetching the report names from the database.
              * @Default {FetchReportListFromDB}
              */
             fetchReportList?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for updating report while filtering members.
+            /** Allows you to set the custom name for the service method that is responsible for updating the report while filtering the members.
              * @Default {FilterElement}
              */
             filterElement?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for initializing PivotClient.
+            /** Allows you to set the custom name for the service method that is responsible for initializing the pivot client.
              * @Default {InitializeClient}
              */
             initialize?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for loading a report collection from the database.
+            /** Allows you to set the custom name for the service method that is responsible for loading a report collection from the database.
              * @Default {LoadReportFromDB}
              */
             loadReport?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for remove a report collection from the database.
+            /** Allows you to set the custom name for the service method that is responsible to remove a report collection from the database.
              * @Default {RemoveReportFromDB}
              */
             removeDBReport?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for rename the report collection in the database.
+            /** Allows you to set the custom name for the service method that is responsible for renaming the report collection in the database.
              * @Default {RenameReportInDB}
              */
             renameDBReport?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for retrieving the MDX query for the current report.
+            /** Allows you to set the custom name for the service method that is responsible for retrieving the MDX query for the current report.
              * @Default {GetMDXQuery}
              */
             mdxQuery?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for updating the tree-view inside Cube Browser, while changing the measure group.
+            /** Allows you to set the custom name for the service method that is responsible for updating the tree-view in the cube browser, while changing the measure group.
              * @Default {MeasureGroupChanged}
              */
             measureGroupChanged?: string;
 
-            /** Allows the user to set the custom name for the service method responsible to get the child members, on tree-view node expansion.
+            /** Allows you to set the custom name for the service method that is responsible to get the child members, on tree-view node expansion.
              * @Default {MemberExpanded}
              */
             memberExpand?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for updating report while dropping a node/SplitButton inside Axis Element Builder.
+            /** Allows you to set the custom name for the service method that is responsible for updating the report while dropping a node/split button in the axis element builder.
              * @Default {NodeDropped}
              */
             nodeDropped?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for updating report while removing SplitButton from Axis Element Builder.
+            /** Allows you to set the custom name for the service method that is responsible to update the report while removing the split button from the axis element builder.
              * @Default {RemoveSplitButton}
              */
             removeSplitButton?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for saving the report collection to database.
+            /** Allows you to set the custom name for the service method that is responsible for saving the report collection in the database.
              * @Default {SaveReportToDB}
              */
             saveReport?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for toggling the elements in row and column axes.
+            /** Allows you to set the custom name for the service method that is responsible for toggling the elements in the row and column axes.
              * @Default {ToggleAxis}
              */
             toggleAxis?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for all the toolbar operations.
+            /** Allows you to set the custom name for the service method that is responsible for all the toolbar operations.
              * @Default {ToolbarOperations}
              */
             toolbarServices?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for updating report collection.
+            /** Allows you to set the custom name for the service method that is responsible for updating the report collection.
              * @Default {UpdateReport}
              */
             updateReport?: string;
 
-            /** Allows the user to set the custom name for the service method responsible on navigating between pages in paged PivotClient.
+            /** Allows you to set the custom name for the service method while navigating between the pages in the paged pivot client.
              * @Default {Paging}
              */
             paging?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for updating report with calculated member.
+            /** Allows you to set the custom name for the service method that is responsible for updating the report with the calculated member.
              * @Default {CalculatedMember}
              */
             calculatedMember?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for performing drill through operation.
+            /** Allows you to set the custom name for the service method that is responsible for performing value sorting operation in the PivotClient.
+             * @Default {ValueSorting}
+             */
+            valueSorting?: string;
+
+            /** Allows you to set the custom name for the service method that is responsible for performing the drill through operation.
              * @Default {DrillThroughHierarchies}
              */
             drillThroughHierarchies?: string;
 
-            /** Allows the user to set the custom name for the service method responsible for performing drill through operation in data table.
+            /** Allows you to set the custom name for the service method that is responsible for performing the drill through operation in the data table.
              * @Default {DrillThroughDataTable}
              */
             drillThroughDataTable?: string;
+        }
+
+        export interface ValueSortSettings {
+
+            /** Contains the header of the specific column to which value sorting is applied.
+             */
+            headerText?: string;
+
+            /** Allows you to set the string for separating column headers provided in the headerText property.
+             */
+            headerDelimiters?: string;
+
+            /** Allows you to set the sorting order of values of the field.
+             * @Default {ej.PivotAnalysis.SortOrder.Ascending}
+             */
+            sortOrder?: ej.PivotAnalysis.SortOrder|string;
         }
 
         enum ClientExportMode {
@@ -31630,6 +32569,11 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
+            /** Specify the frame details of PivotGauge here.
+             * @Default {Object}
+             */
+            frame?: Frame;
+
             /** Allows the user to enable PivotGaugeâ€™s responsiveness in the browser layout.
              * @Default {false}
              */
@@ -31679,6 +32623,11 @@ declare namespace ej {
              * @Default {ej.Pivot.OperationalMode.ClientMode}
              */
             operationalMode?: ej.Pivot.OperationalMode|string;
+
+            /** Allows you to enable &quot;withCredentials&quot; property inside XMLHttpRequest object for CORS(Cross-Origin Resource Sharing) request.
+             * @Default {false}
+             */
+            enableXHRCredentials?: boolean;
 
             /** Triggers when it reaches client-side after any AJAX request.
              */
@@ -31954,6 +32903,24 @@ declare namespace ej {
             filters?: DataSourceFilter[];
         }
 
+        export interface Frame {
+
+            /** Specifies the frame type of PivotGauge.
+             * @Default {fullcircle}
+             */
+            frameType?: string;
+
+            /** Specifies the end angle for the half circular frame.
+             * @Default {360}
+             */
+            halfCircleFrameEndAngle?: number;
+
+            /** Specifies the start angle for the half circular frame.
+             * @Default {180}
+             */
+            halfCircleFrameStartAngle?: number;
+        }
+
         export interface LabelFormatSettings {
 
             /** Allows the user to change the number format of the label values in PivotGauge.
@@ -32109,6 +33076,11 @@ declare namespace ej {
              * @Default {â€œâ€}
              */
             url?: string;
+
+            /** Allows you to enable &quot;withCredentials&quot; property inside XMLHttpRequest object for CORS(Cross-Origin Resource Sharing) request.
+             * @Default {false}
+             */
+            enableXHRCredentials?: boolean;
 
             /** Triggers when it reaches client-side after any AJAX request.
              */
@@ -32410,6 +33382,15 @@ declare namespace ej {
         model: Schedule.Model;
         defaults: Schedule.Model;
 
+        /** It is used to add the resources dynamically in the scheduler. It renders the resource based on the index if it is available or else it renders this resource at end of all
+         * resources.
+         * @param {any} Resource object which can be defined with all the available options of resources.
+         * @param {string} Defines the name of the resource collection to which this object needs to be added.
+         * @param {number} It is optional. If it is available, this render the resource at the given specified index location. Else render at end of the all resources.
+         * @returns {void}
+         */
+        addResource(resourceObject: any, name: string, index: number): void;
+
         /** This method is used to delete the appointment based on the guid value or the appointment data passed to it.
          * @param {string|any} GUID value of an appointment element or an appointment object
          * @returns {void}
@@ -32459,6 +33440,13 @@ declare namespace ej {
          * @returns {void}
          */
         refreshScroller(): void;
+
+        /** It is used to remove the resources dynamically from the scheduler. It removed the resource based on the resource id with the given resource collection name.
+         * @param {string|number} Defines the Id of the resource.
+         * @param {string} Defines the name of the resource collection which this resource id belongs.
+         * @returns {void}
+         */
+        removeResource(resourceId: string|number, name: string): void;
 
         /** It is used to save the appointment. The appointment object is based on the argument passed to this method.
          * @param {any} appointment object which includes appointment details
@@ -33888,6 +34876,11 @@ declare namespace ej {
             /** Holds the array of resource names to be grouped on the Schedule.
              */
             resources?: any[];
+
+            /** When set to true, allows performing CRUD actions simultaneously on all the grouped appointments of multiple resources.
+             * @Default {false}
+             */
+            allowGroupEditing?: boolean;
         }
 
         export interface WorkHours {
@@ -34364,28 +35357,27 @@ declare namespace ej {
          */
         addRecord(data: any, rowPosition: string): void;
 
-        /** Positions the splitter by the specified column index.
-         * @param {number} Set the splitter position based on column index.
-         * @returns {void}
-         */
-        setSplitterIndex(index: number): void;
-
-        /** To sort the column in required direction
-         * @param {string} Defines the column's mapping name in which sorting have to be performed
-         * @param {string} Defines the sort direction whether the column has to sorted in ascending/descending order. By default it is sorting in an ascending order
-         * @returns {void}
-         */
-        sortColumn(mappingName: string, columnSortDirection: string): void;
-
         /** To cancel the edited state of an item in Gantt
          * @returns {void}
          */
         cancelEdit(): void;
 
+        /** To clear all the filtered columns in Gantt.
+         * @returns {void}
+         */
+        clearFilter(): void;
+
         /** To collapse all the parent items in Gantt
          * @returns {void}
          */
         collapseAllItems(): void;
+
+        /** To delete the dependency between the two tasks.
+         * @param {number} taskID of predecessor task
+         * @param {number} taskID of successor task
+         * @returns {void}
+         */
+        deleteDependency(fromTaskId: number, toTaskId: number): void;
 
         /** To delete a selected item in Gantt
          * @returns {void}
@@ -34415,6 +35407,16 @@ declare namespace ej {
          * @returns {void}
          */
         export(action: string, serverEvent?: string, multipleExport?: boolean): void;
+
+        /** Sends filtering request to filter a column in Gantt dynamically.
+         * @param {string} Pass the field name of the column.
+         * @param {string} string/integer/date operator.
+         * @param {string} Pass the value to be filtered in a column.
+         * @param {string} Optional - Pass the predicate as and/or.
+         * @param {boolean} Optional - pass the match case value as true/false.
+         * @returns {void}
+         */
+        filterColumn(fieldName: string, filterOperator: string, filterValue: string, predicate?: string, matchCase?: boolean): void;
 
         /** To hide the column by using header text
          * @param {string} you can pass a header text of a column to hide
@@ -34447,6 +35449,12 @@ declare namespace ej {
          */
         saveEdit(): void;
 
+        /** To search an item with search string provided at the run time
+         * @param {string} you can pass a text to search in Gantt Control.
+         * @returns {void}
+         */
+        searchItem(searchString: string): void;
+
         /** To select cell based on the cell and row index dynamically.
          * @param {any[]} array of cell indexes to be select
          * @param {boolean} Defines that we need to preserve the previously selected cells of not
@@ -34460,11 +35468,11 @@ declare namespace ej {
          */
         selectMultipleRows(rowIndexes: any[]): void;
 
-        /** To search an item with search string provided at the run time
-         * @param {string} you can pass a text to search in Gantt Control.
+        /** Positions the splitter by the specified column index.
+         * @param {number} Set the splitter position based on column index.
          * @returns {void}
          */
-        searchItem(searchString: string): void;
+        setSplitterIndex(index: number): void;
 
         /** To set the grid width in Gantt
          * @param {string} you can give either percentage or pixels value
@@ -34477,6 +35485,41 @@ declare namespace ej {
          * @returns {void}
          */
         showColumn(headerText: string): void;
+
+        /** To show/hide the critical tasks in current project.
+         * @param {boolean} To show/hide the critical tasks
+         * @returns {void}
+         */
+        showCriticalPath(isShown: boolean): void;
+
+        /** To sort the column in required direction
+         * @param {string} Defines the column's mapping name in which sorting have to be performed
+         * @param {string} Defines the sort direction whether the column has to sorted in ascending/descending order. By default it is sorting in an ascending order
+         * @returns {void}
+         */
+        sortColumn(mappingName: string, columnSortDirection: string): void;
+
+        /** To update the predecessor type and offset value for existing task dependency.
+         * @param {number} taskID of predecessor task
+         * @param {number} taskID of successor task
+         * @param {string} Type of dependency task.
+         * @param {number} Offset value of dependency task.
+         * @returns {void}
+         */
+        updateDependency(fromTaskId: number, toTaskId: number, predecessorType: string, offset: number): void;
+
+        /** To update the value of Gantt record by using it's task id value.
+         * @param {any} object with modified field values and current task id value
+         * @returns {void}
+         */
+        updateRecordByTaskId(data: any): void;
+
+        /** To update the value of Gantt record by using row index.
+         * @param {number} index of Gantt record to be updated
+         * @param {any} object with modified field value
+         * @returns {void}
+         */
+        updateRecordByIndex(index: number, data: any): void;
 
         /** To change an existing Gantt ID by new ID value dynamically
          * @param {number} you can pass an existing ID value to be change
@@ -34498,6 +35541,11 @@ declare namespace ej {
              * @Default {false}
              */
             allowColumnResize?: boolean;
+
+            /** Enables or disables the ability to drag and drop the row interactively to reorder the rows
+             * @Default {false}
+             */
+            allowDragAndDrop?: boolean;
 
             /** Enables or Disables Gantt chart editing in Gantt
              * @Default {true}
@@ -34529,33 +35577,10 @@ declare namespace ej {
              */
             allowSorting?: boolean;
 
-            /** Enables or disables the ability to drag and drop the row interactively to reorder the rows
-             * @Default {false}
-             */
-            allowDragAndDrop?: boolean;
-
-            /** Enable or disable predecessor validation. When it is true, all the task's start and end dates are aligned based on its predecessors start and end dates.
-             * @Default {true}
-             */
-            enablePredecessorValidation?: boolean;
-
-            /** Enables or disables serial number column for Gantt. When enabled, the records will be number sequenced.
-             * @Default {false}
-             */
-            enableSerialNumber?: boolean;
-
             /** Specifies the baseline background color in Gantt
              * @Default {#fba41c}
              */
             baselineColor?: string;
-
-            /** Specifies the mapping property path for the work field of a task in the data source. When it is mapped the end date and duration for a task will be calculated automatically.
-             */
-            workMapping?: string;
-
-            /** Specifies the mapping property path for the expand status of a record in data source.
-             */
-            expandStateMapping?: string;
 
             /** Specifies the mapping property path for baseline end date in datasource
              */
@@ -34564,6 +35589,11 @@ declare namespace ej {
             /** Specifies the mapping property path for baseline start date of a task in datasource
              */
             baselineStartDateMapping?: string;
+
+            /** Specifies the template for cell tooltip
+             * @Default {null}
+             */
+            cellTooltipTemplate?: string;
 
             /** Specifies the mapping property path for sub tasks in datasource
              */
@@ -34587,15 +35617,6 @@ declare namespace ej {
              */
             cssClass?: string;
 
-            /** Specifies the template for cell tooltip
-             * @Default {null}
-             */
-            cellTooltipTemplate?: string;
-
-            /** Option for customizing the drag tooltip while reordering the rows.
-             */
-            dragTooltip?: DragTooltip;
-
             /** Collection of data or hierarchical data to represent in Gantt
              * @Default {null}
              */
@@ -34611,6 +35632,10 @@ declare namespace ej {
              */
             dayWorkingTime?: any[];
 
+            /** Option for customizing the drag tooltip while reordering the rows.
+             */
+            dragTooltip?: DragTooltip;
+
             /** Specifies the mapping property path for duration of a task in datasource
              */
             durationMapping?: string;
@@ -34620,23 +35645,14 @@ declare namespace ej {
              */
             durationUnit?: ej.Gantt.DurationUnit|string;
 
+            /** Specifies the mapping property path for task duration unit in datasource
+             */
+            durationUnitMapping?: string;
+
             /** Specifies the fields to be included in the edit dialog in Gantt
              * @Default {[]}
              */
             editDialogFields?: EditDialogField[];
-
-            /** Options for filtering and customizing filter actions.
-             */
-            filterSettings?: FilterSettings;
-
-            /** Enables or disables the responsiveness of Gantt
-             * @Default {false}
-             */
-            isResponsive?: boolean;
-
-            /** Option to configure the splitter position.
-             */
-            splitterSettings?: SplitterSettings;
 
             /** Specifies the editSettings options in Gantt.
              */
@@ -34647,41 +35663,20 @@ declare namespace ej {
              */
             enableAltRow?: boolean;
 
-            /** Enables/disables work breakdown structure column.
-             * @Default {false}
-             */
-            enableWBS?: boolean;
-
-            /** Enables/disables WBS predecessor column.
-             * @Default {false}
-             */
-            enableWBSPredecessor?: boolean;
-
             /** Enables or disables the collapse all records when loading the Gantt.
              * @Default {false}
              */
             enableCollapseAll?: boolean;
 
-            /** Specifies the data source field name to be displayed as left task label
-             */
-            leftTaskLabelMapping?: string;
-
-            /** Specifies the data source field name to be displayed as right task label
-             */
-            rightTaskLabelMapping?: string;
-
-            /** Specifies the template for left task label
-             */
-            leftTaskLabelTemplate?: string;
-
-            /** Specifies the template for right task label
-             */
-            rightTaskLabelTemplate?: string;
-
             /** Enables or disables the contextmenu for Gantt , when enabled contextmenu appears on right clicking Gantt
              * @Default {false}
              */
             enableContextMenu?: boolean;
+
+            /** Enable or disable predecessor validation. When it is true, all the task's start and end dates are aligned based on its predecessors start and end dates.
+             * @Default {true}
+             */
+            enablePredecessorValidation?: boolean;
 
             /** Indicates whether we can edit the progress of a task interactively in Gantt.
              * @Default {true}
@@ -34692,6 +35687,11 @@ declare namespace ej {
              * @Default {false}
              */
             enableResize?: boolean;
+
+            /** Enables or disables serial number column for Gantt. When enabled, the records will be number sequenced.
+             * @Default {false}
+             */
+            enableSerialNumber?: boolean;
 
             /** Enables or disables tooltip while editing (dragging/resizing) the taskbar.
              * @Default {true}
@@ -34708,9 +35708,40 @@ declare namespace ej {
              */
             enableVirtualization?: boolean;
 
+            /** Enables/disables work breakdown structure column.
+             * @Default {false}
+             */
+            enableWBS?: boolean;
+
+            /** Enables/disables WBS predecessor column.
+             * @Default {false}
+             */
+            enableWBSPredecessor?: boolean;
+
             /** Specifies the mapping property path for end Date of a task in datasource
              */
             endDateMapping?: string;
+
+            /** Specifies the mapping property path for the expand status of a record in data source.
+             */
+            expandStateMapping?: string;
+
+            /** Options for filtering and customizing filter actions.
+             */
+            filterSettings?: FilterSettings;
+
+            /** Specifies the data collection for grouping the resources in resource allocation view in Gantt.
+             * @Default {[]}
+             */
+            groupCollection?: any[];
+
+            /** Default Value
+             */
+            groupIdMapping?: string;
+
+            /** Default Value
+             */
+            groupNameMapping?: string;
 
             /** Specifies whether to highlight the weekends in Gantt .
              * @Default {true}
@@ -34727,6 +35758,19 @@ declare namespace ej {
              */
             includeWeekend?: boolean;
 
+            /** Enables or disables the responsiveness of Gantt
+             * @Default {false}
+             */
+            isResponsive?: boolean;
+
+            /** Specifies the data source field name to be displayed as left task label
+             */
+            leftTaskLabelMapping?: string;
+
+            /** Specifies the template for left task label
+             */
+            leftTaskLabelTemplate?: string;
+
             /** Specify the locale for Gantt
              * @Default {en-US}
              */
@@ -34736,67 +35780,41 @@ declare namespace ej {
              */
             milestoneMapping?: string;
 
-            /** Enables/disables the options for inserting , deleting and renaming  columns.
-             * @Default {false}
+            /** To Specify the JsRender script Id to customize the mile stone with our preference
              */
-            showColumnOptions?: boolean;
-
-            /** Specifies the template for parent taskbar
-             */
-            parentTaskbarTemplate?: string;
-
-            /** Specifies the nature of a task for calculating the work,  and it can fixed duration, fixed work and fixed resource unit
-             * @Default {ej.Gantt.TaskType.FixedUnit}
-             */
-            taskType?: ej.Gantt.TaskType|string;
-
-            /** Specifies the unit for the work involved in a task and it can be day, hour or minute
-             * @Default {ej.Gantt.WorkUnit.Hour}
-             */
-            workUnit?: ej.Gantt.WorkUnit|string;
-
-            /** Specifies the task scheduling mode for a project and this will be set to all the tasks available in the project
-             * @Default {ej.Gantt.TaskSchedulingMode.Auto}
-             */
-            taskSchedulingMode?: ej.Gantt.TaskSchedulingMode|string;
-
-            /** Specifies the row selection type.
-             * @Default {ej.Gantt.SelectionType.Single}
-             */
-            selectionType?: ej.Gantt.SelectionType|string;
-
-            /** Specifies the background of parent progressbar in Gantt
-             */
-            parentProgressbarBackground?: string;
-
-            /** Specifies the mapping property path for resource's percent effort involved in a task in datasource
-             */
-            resourceUnitMapping?: string;
+            milestoneTemplate?: string;
 
             /** Specifies the mapping property path for the task description in datasource
              */
             notesMapping?: string;
 
-            /** Specifies the mapping property path for the task scheduling mode for a task in datasource
-             * @Default {auto}
+            /** Specifies the background of parent progressbar in Gantt
              */
-            taskSchedulingModeMapping?: string;
-
-            /** Specifies the mapping property path for task duration unit in datasource
-             */
-            durationUnitMapping?: string;
-
-            /** Specifies the background of parent taskbar in Gantt
-             */
-            parentTaskbarBackground?: string;
+            parentProgressbarBackground?: string;
 
             /** Specifies the mapping property path for parent task Id in self reference datasource
              */
             parentTaskIdMapping?: string;
 
+            /** Specifies the background of parent taskbar in Gantt
+             */
+            parentTaskbarBackground?: string;
+
+            /** Specifies the template for parent taskbar
+             */
+            parentTaskbarTemplate?: string;
+
             /** Specifies the mapping property path for predecessors of a task in datasource
              */
             predecessorMapping?: string;
+
+            /** Specifies the JsRender template id or template script for predecessor tooltip on mouse action.
+             */
+            predecessorTooltipTemplate?: string;
+
+            /** Specifies the mapping property path for progress percentage of a task in datasource
+             */
+            progressMapping?: string;
 
             /** Specifies the background of progressbar in Gantt
              */
@@ -34817,19 +35835,24 @@ declare namespace ej {
              */
             progressbarTooltipTemplateId?: string;
 
-            /** Specifies the mapping property path for progress percentage of a task in datasource
-             */
-            progressMapping?: string;
-
             /** It receives query to retrieve data from the table (query is same as SQL).
              * @Default {null}
              */
             query?: any;
 
+            /** Enables or disables Gantt to read-only mode
+             * @Default {false}
+             */
+            readOnly?: boolean;
+
             /** Enables or Disables rendering baselines in Gantt , when enabled baseline is rendered in Gantt
              * @Default {false}
              */
             renderBaseline?: boolean;
+
+            /** Default Value
+             */
+            resourceCollectionMapping?: string;
 
             /** Specifies the mapping property name for resource ID in resource Collection in Gantt
              */
@@ -34843,10 +35866,22 @@ declare namespace ej {
              */
             resourceNameMapping?: string;
 
+            /** Specifies the mapping property path for resource's percent effort involved in a task in datasource
+             */
+            resourceUnitMapping?: string;
+
             /** Collection of data regarding resources involved in entire project
              * @Default {[]}
              */
             resources?: any[];
+
+            /** Specifies the data source field name to be displayed as right task label
+             */
+            rightTaskLabelMapping?: string;
+
+            /** Specifies the template for right task label
+             */
+            rightTaskLabelTemplate?: string;
 
             /** Specifies whether rounding off the day working time edits
              * @Default {true}
@@ -34872,15 +35907,34 @@ declare namespace ej {
              */
             scheduleStartDate?: string;
 
+            /** Specifies the selected cell information on rendering Gantt.
+             */
+            selectedCellIndexes?: SelectedCellIndex[];
+
             /** Specifies the selected row Index in Gantt , the row with given index will highlighted
              * @Default {-1}
              */
             selectedRowIndex?: number;
 
+            /** Specifies the row selection type.
+             * @Default {ej.Gantt.SelectionType.Single}
+             */
+            selectionType?: ej.Gantt.SelectionType|string;
+
+            /** Specifies the type of selection whether to select row or cell.
+             * @Default {ej.Gantt.SelectionMode.Row}
+             */
+            selectionMode?: ej.Gantt.SelectionMode|string;
+
             /** Enables or disables the column chooser.
              * @Default {false}
              */
             showColumnChooser?: boolean;
+
+            /** Enables/disables the options for inserting , deleting and renaming  columns.
+             * @Default {false}
+             */
+            showColumnOptions?: boolean;
 
             /** Specifies the template for cell tooltip
              * @Default {true}
@@ -34911,10 +35965,6 @@ declare namespace ej {
              */
             sizeSettings?: SizeSettings;
 
-            /** Specifies the selected cell information on rendering Gantt.
-             */
-            selectedCellIndexes?: SelectedCellIndex[];
-
             /** Specifies the sorting options for Gantt.
              */
             sortSettings?: SortSettings;
@@ -34924,6 +35974,10 @@ declare namespace ej {
              */
             splitterPosition?: string;
 
+            /** Option to configure the splitter position.
+             */
+            splitterSettings?: SplitterSettings;
+
             /** Specifies the mapping property path for start date of a task in datasource
              */
             startDateMapping?: string;
@@ -34932,6 +35986,33 @@ declare namespace ej {
              * @Default {[]}
              */
             stripLines?: StripLine[];
+
+            /** Default Value
+             */
+            taskCollectionMapping?: string;
+
+            /** Specifies the mapping property path for task Id in datasource
+             */
+            taskIdMapping?: string;
+
+            /** Specifies the mapping property path for task name in datasource
+             */
+            taskNameMapping?: string;
+
+            /** Specifies the task scheduling mode for a project and this will be set to all the tasks available in the project
+             * @Default {ej.Gantt.TaskSchedulingMode.Auto}
+             */
+            taskSchedulingMode?: ej.Gantt.TaskSchedulingMode|string;
+
+            /** Specifies the mapping property path for the task scheduling mode for a task in datasource
+             * @Default {auto}
+             */
+            taskSchedulingModeMapping?: string;
+
+            /** Specifies the nature of a task for calculating the work,  and it can fixed duration, fixed work and fixed resource unit
+             * @Default {ej.Gantt.TaskType.FixedUnit}
+             */
+            taskType?: ej.Gantt.TaskType|string;
 
             /** Specifies the background of the taskbar in Gantt
              */
@@ -34950,34 +36031,17 @@ declare namespace ej {
              */
             taskbarHeight?: number;
 
-            /** Specifies the template for tooltip on mouse action on taskbars
-             */
-            taskbarTooltipTemplate?: string;
-
             /** To Specify the JsRender script Id to customize the task bar with our preference
              */
             taskbarTemplate?: string;
 
-            /** To Specify the JsRender script Id to customize the mile stone with our preference
+            /** Specifies the template for tooltip on mouse action on taskbars
              */
-            milestoneTemplate?: string;
-
-            /** Enables or disables Gantt to read-only mode
-             * @Default {false}
-             */
-            readOnly?: boolean;
+            taskbarTooltipTemplate?: string;
 
             /** Specifies the template id for tooltip on mouse action on taskbars
              */
             taskbarTooltipTemplateId?: string;
-
-            /** Specifies the mapping property path for task Id in datasource
-             */
-            taskIdMapping?: string;
-
-            /** Specifies the mapping property path for task name in datasource
-             */
-            taskNameMapping?: string;
 
             /** Specifies the toolbarSettings options.
              */
@@ -34988,56 +36052,39 @@ declare namespace ej {
              */
             treeColumnIndex?: number;
 
-            /** Specifies the type of selection whether to select row or cell.
-             * @Default {ej.Gantt.SelectionMode.Row}
-             */
-            selectionMode?: ej.Gantt.SelectionMode|string;
-
             /** Enables or disables the schedule date validation while connecting a manually scheduled task with predecessor
              * @Default {false}
              */
             validateManualTasksOnLinking?: boolean;
-
-            /** Specifies the weekendBackground color in Gantt
-             * @Default {#F2F2F2}
-             */
-            weekendBackground?: string;
-
-            /** Specifies the working time schedule of day
-             * @Default {ej.Gantt.workingTimeScale.TimeScale8Hours}
-             */
-            workingTimeScale?: ej.Gantt.workingTimeScale|string;
-
-            /** Gets or sets the working days of a week in a project.
-             * @Default {[Monday,Tuesday,Wednesday,Thursday,Friday]}
-             */
-            workWeek?: any[];
 
             /** Specifies the view type for a project in the Gantt.
              * @Default {ej.Gantt.ViewType.ProjectView}
              */
             viewType?: ej.Gantt.ViewType|string;
 
-            /** Specifies the data collection for grouping the resources in resource allocation view in Gantt.
-             * @Default {[]}
+            /** Specifies the weekendBackground color in Gantt
+             * @Default {#F2F2F2}
              */
-            groupCollection?: any[];
+            weekendBackground?: string;
 
-            /** Default Value
+            /** Specifies the mapping property path for the work field of a task in the data source. When it is mapped the end date and duration for a task will be calculated automatically.
              */
-            resourceCollectionMapping?: string;
+            workMapping?: string;
 
-            /** Default Value
+            /** Specifies the unit for the work involved in a task and it can be day, hour or minute
+             * @Default {ej.Gantt.WorkUnit.Hour}
              */
-            taskCollectionMapping?: string;
+            workUnit?: ej.Gantt.WorkUnit|string;
 
-            /** Default Value
+            /** Gets or sets the working days of a week in a project.
+             * @Default {[Monday,Tuesday,Wednesday,Thursday,Friday]}
              */
-            groupIdMapping?: string;
+            workWeek?: any[];
 
-            /** Default Value
+            /** Specifies the working time schedule of day
+             * @Default {ej.Gantt.workingTimeScale.TimeScale8Hours}
              */
-            groupNameMapping?: string;
+            workingTimeScale?: ej.Gantt.workingTimeScale|string;
 
             /** Triggered for every Gantt action before its starts.
              */
@@ -35051,25 +36098,13 @@ declare namespace ej {
              */
             beginEdit?(e: BeginEditEventArgs): void;
 
-            /** Triggered before selecting a cell
-             */
-            cellSelecting?(e: CellSelectingEventArgs): void;
-
             /** Triggered after selected a cell
              */
             cellSelected?(e: CellSelectedEventArgs): void;
 
-            /** Triggered while dragging a row in Gantt control
+            /** Triggered before selecting a cell
              */
-            rowDrag?(e: RowDragEventArgs): void;
-
-            /** Triggered while start to drag row in Gantt control
-             */
-            rowDragStart?(e: RowDragStartEventArgs): void;
-
-            /** Triggered while drop a row in Gantt control
-             */
-            rowDragStop?(e: RowDragStopEventArgs): void;
+            cellSelecting?(e: CellSelectingEventArgs): void;
 
             /** Triggered after collapsed the Gantt record
              */
@@ -35115,6 +36150,18 @@ declare namespace ej {
              */
             rowDataBound?(e: RowDataBoundEventArgs): void;
 
+            /** Triggered while dragging a row in Gantt control
+             */
+            rowDrag?(e: RowDragEventArgs): void;
+
+            /** Triggered while start to drag row in Gantt control
+             */
+            rowDragStart?(e: RowDragStartEventArgs): void;
+
+            /** Triggered while drop a row in Gantt control
+             */
+            rowDragStop?(e: RowDragStopEventArgs): void;
+
             /** Triggered after the row is selected.
              */
             rowSelected?(e: RowSelectedEventArgs): void;
@@ -35123,6 +36170,10 @@ declare namespace ej {
              */
             rowSelecting?(e: RowSelectingEventArgs): void;
 
+            /** Triggered when taskbar item is clicked in Gantt.
+             */
+            taskbarClick?(e: TaskbarClickEventArgs): void;
+
             /** Triggered after completing the editing operation in taskbar
              */
             taskbarEdited?(e: TaskbarEditedEventArgs): void;
@@ -35130,10 +36181,6 @@ declare namespace ej {
             /** Triggered while editing the Gantt chart (dragging, resizing the taskbar )
              */
             taskbarEditing?(e: TaskbarEditingEventArgs): void;
-
-            /** Triggered when taskbar item is clicked in Gantt.
-             */
-            taskbarClick?(e: TaskbarClickEventArgs): void;
 
             /** Triggered when toolbar item is clicked in Gantt.
              */
@@ -35177,6 +36224,10 @@ declare namespace ej {
             /** Returns selected record index
              */
             recordIndex?: number;
+
+            /** Returns the edit dialog element.
+             */
+            element?: string;
         }
 
         export interface ActionCompleteEventArgs {
@@ -35241,37 +36292,6 @@ declare namespace ej {
             columnIndex?: number;
         }
 
-        export interface CellSelectingEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the cell index on the selection.
-             */
-            cellIndex?: number;
-
-            /** Returns the row index on the selection
-             */
-            rowIndex?: number;
-
-            /** Returns the selecting cell element
-             */
-            targetCell?: any;
-
-            /** Returns the selecting row element
-             */
-            targetRow?: any;
-
-            /** Returns the selecting record object
-             */
-            data?: any;
-
-            /** Returns the Gantt object Model
-             */
-            model?: any;
-        }
-
         export interface CellSelectedEventArgs {
 
             /** Returns the cancel option value.
@@ -35323,105 +36343,35 @@ declare namespace ej {
             previousTargetRow?: any;
         }
 
-        export interface RowDragEventArgs {
+        export interface CellSelectingEventArgs {
 
             /** Returns the cancel option value.
              */
             cancel?: boolean;
 
-            /** Returns the row which we start to drag.
+            /** Returns the cell index on the selection.
              */
-            draggedRow?: any;
+            cellIndex?: number;
 
-            /** Returns the row index which we start to drag.
+            /** Returns the row index on the selection
              */
-            draggedRowIndex?: number;
+            rowIndex?: number;
 
-            /** Returns the row on which we are dragging.
+            /** Returns the selecting cell element
+             */
+            targetCell?: any;
+
+            /** Returns the selecting row element
              */
             targetRow?: any;
 
-            /** Returns the row index on which we are dragging.
+            /** Returns the selecting record object
              */
-            targetRowIndex?: number;
+            data?: any;
 
-            /** Returns that we can drop over that record or not.
-             */
-            canDrop?: boolean;
-
-            /** Returns the Gantt model.
+            /** Returns the Gantt object Model
              */
             model?: any;
-
-            /** Returns request type.
-             */
-            requestType?: string;
-
-            /** Returns the name of the event.
-             */
-            type?: string;
-        }
-
-        export interface RowDragStartEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the row which we start to drag.
-             */
-            draggedRow?: any;
-
-            /** Returns the row index which we start to drag.
-             */
-            draggedRowIndex?: boolean;
-
-            /** Returns the Gantt model.
-             */
-            model?: any;
-
-            /** Returns request type.
-             */
-            requestType?: string;
-
-            /** Returns the name of the event.
-             */
-            type?: string;
-        }
-
-        export interface RowDragStopEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the row which we start to drag.
-             */
-            draggedRow?: any;
-
-            /** Returns the row index which we start to drag.
-             */
-            draggedRowIndex?: number;
-
-            /** Returns the row which we are dropped to row.
-             */
-            targetRow?: any;
-
-            /** Returns the row index which we are dropped to row.
-             */
-            targetRowIndex?: number;
-
-            /** Returns the Gantt model.
-             */
-            model?: any;
-
-            /** Returns request type.
-             */
-            requestType?: string;
-
-            /** Returns the name of the event.
-             */
-            type?: string;
         }
 
         export interface CollapsedEventArgs {
@@ -35653,6 +36603,115 @@ declare namespace ej {
             data?: any;
         }
 
+        export interface RowDragEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the row which we start to drag.
+             */
+            draggedRow?: any;
+
+            /** Returns the row index which we start to drag.
+             */
+            draggedRowIndex?: number;
+
+            /** Returns the row on which we are dragging.
+             */
+            targetRow?: any;
+
+            /** Returns the row index on which we are dragging.
+             */
+            targetRowIndex?: number;
+
+            /** Returns that we can drop over that record or not.
+             */
+            canDrop?: boolean;
+
+            /** Returns the drop position value on current target row.
+             */
+            dropPosition?: string;
+
+            /** Returns the Gantt model.
+             */
+            model?: any;
+
+            /** Returns request type.
+             */
+            requestType?: string;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
+
+            /** Duration is rounded off when it is set true.
+             */
+            roundOffDuration?: boolean;
+        }
+
+        export interface RowDragStartEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the row which we start to drag.
+             */
+            draggedRow?: any;
+
+            /** Returns the row index which we start to drag.
+             */
+            draggedRowIndex?: boolean;
+
+            /** Returns the Gantt model.
+             */
+            model?: any;
+
+            /** Returns request type.
+             */
+            requestType?: string;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
+        }
+
+        export interface RowDragStopEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the row which we start to drag.
+             */
+            draggedRow?: any;
+
+            /** Returns the row index which we start to drag.
+             */
+            draggedRowIndex?: number;
+
+            /** Returns the row which we are dropped to row.
+             */
+            targetRow?: any;
+
+            /** Returns the row index which we are dropped to row.
+             */
+            targetRowIndex?: number;
+
+            /** Returns the Gantt model.
+             */
+            model?: any;
+
+            /** Returns request type.
+             */
+            requestType?: string;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
+        }
+
         export interface RowSelectedEventArgs {
 
             /** Returns the cancel option value.
@@ -35709,6 +36768,33 @@ declare namespace ej {
             /** Returns the previous selected row grid element.
              */
             previousGridRow?: any;
+        }
+
+        export interface TaskbarClickEventArgs {
+
+            /** Returns currently clicked row data
+             */
+            data?: any;
+
+            /** Returns the current item index.
+             */
+            index?: number;
+
+            /** Returns the Gantt model.
+             */
+            model?: any;
+
+            /** Returns the clicked row element
+             */
+            taskbarElement?: any;
+
+            /** Returns the target element.
+             */
+            target?: any;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
         }
 
         export interface TaskbarEditedEventArgs {
@@ -35771,33 +36857,10 @@ declare namespace ej {
             /** Returns the name of the event.
              */
             type?: string;
-        }
 
-        export interface TaskbarClickEventArgs {
-
-            /** Returns currently clicked row data
+            /** Returns duration value will be round-off or not.
              */
-            data?: any;
-
-            /** Returns the current item index.
-             */
-            index?: number;
-
-            /** Returns the Gantt model.
-             */
-            model?: any;
-
-            /** Returns the clicked row element
-             */
-            taskbarElement?: any;
-
-            /** Returns the target element.
-             */
-            target?: any;
-
-            /** Returns the name of the event.
-             */
-            type?: string;
+            roundOffDuration?: boolean;
         }
 
         export interface ToolbarClickEventArgs {
@@ -35832,6 +36895,11 @@ declare namespace ej {
             /** Specifies editType of fields to be included in the add dialog in Gantt
              */
             editType?: string;
+
+            /** Specifies the custom column field was displayed in General tab of add dialog or not.
+             * @Default {false}
+             */
+            displayInGeneralTab?: boolean;
         }
 
         export interface DragTooltip {
@@ -35861,6 +36929,54 @@ declare namespace ej {
             /** Specifies editType of fields to be included in the edit dialog in Gantt
              */
             editType?: string;
+
+            /** Specifies the custom column field was displayed in General tab of edit dialog or not.
+             * @Default {false}
+             */
+            displayInGeneralTab?: boolean;
+        }
+
+        export interface EditSettings {
+
+            /** Enables or disables add record icon in Gantt toolbar
+             * @Default {false}
+             */
+            allowAdding?: boolean;
+
+            /** Enables or disables delete icon in Gantt toolbar
+             * @Default {false}
+             */
+            allowDeleting?: boolean;
+
+            /** Specifies the option for enabling or disabling editing in Gantt grid part
+             * @Default {false}
+             */
+            allowEditing?: boolean;
+
+            /** Specifies the option for enabling or disabling indent action in Gantt.
+             * @Default {false}
+             */
+            allowIndent?: boolean;
+
+            /** Specifies the mouse action whether single click or double click to begin the editing
+             * @Default {ej.Gantt.BeginEditAction.DblClick}
+             */
+            beginEditAction?: ej.Gantt.BeginEditAction|string;
+
+            /** Specifies the edit mode in Gantt, &quot;normal&quot; is for dialog editing ,&quot;cellEditing&quot; is for cell type editing
+             * @Default {normal}
+             */
+            editMode?: string;
+
+            /** Specifies the position where the new row has to be added.
+             * @Default {ej.Gantt.RowPosition.BelowSelectedRow}
+             */
+            rowPosition?: ej.Gantt.RowPosition|string;
+
+            /** Enable or disable the confirmation dialog while deleting the record.
+             * @Default {false}
+             */
+            showDeleteConfirmDialog?: boolean;
         }
 
         export interface FilterSettingsFilteredColumn {
@@ -35888,65 +37004,6 @@ declare namespace ej {
              * @Default {[]}
              */
             filteredColumns?: FilterSettingsFilteredColumn[];
-        }
-
-        export interface SplitterSettings {
-
-            /** Specifies position of the splitter in Gantt , splitter can be placed either based on percentage values or pixel values.
-             */
-            position?: string;
-
-            /** Specifies the position of splitter in Gantt, based on column index in Gantt.
-             */
-            index?: string;
-        }
-
-        export interface EditSettings {
-
-            /** Enables or disables add record icon in Gantt toolbar
-             * @Default {false}
-             */
-            allowAdding?: boolean;
-
-            /** Enables or disables delete icon in Gantt toolbar
-             * @Default {false}
-             */
-            allowDeleting?: boolean;
-
-            /** Specifies the option for enabling or disabling editing in Gantt grid part
-             * @Default {false}
-             */
-            allowEditing?: boolean;
-
-            /** Specifies the option for enabling or disabling indent action in Gantt.
-             * @Default {false}
-             */
-            allowIndent?: boolean;
-
-            /** Specifies the option for enabling or disabling outdent action in Gantt
-             * @Default {false}
-             */
-            allowOutdent?: boolean;
-
-            /** Specifies the mouse action whether single click or double click to begin the editing
-             * @Default {ej.Gantt.BeginEditAction.DblClick}
-             */
-            beginEditAction?: ej.Gantt.BeginEditAction|string;
-
-            /** Specifies the edit mode in Gantt, &quot;normal&quot; is for dialog editing ,&quot;cellEditing&quot; is for cell type editing
-             * @Default {normal}
-             */
-            editMode?: string;
-
-            /** Specifies the position where the new row has to be added.
-             * @Default {ej.Gantt.RowPosition.BelowSelectedRow}
-             */
-            rowPosition?: ej.Gantt.RowPosition|string;
-
-            /** Enable or disable the confirmation dialog while deleting the record.
-             * @Default {false}
-             */
-            showDeleteConfirmDialog?: boolean;
         }
 
         export interface Holiday {
@@ -36022,6 +37079,19 @@ declare namespace ej {
             weekStartDay?: number;
         }
 
+        export interface SelectedCellIndex {
+
+            /** Specifies the row index of the cell to be selected Gantt control
+             * @Default {-1}
+             */
+            rowIndex?: number;
+
+            /** Specifies the cell index to be selected in the row.
+             * @Default {-1}
+             */
+            cellIndex?: number;
+        }
+
         export interface SizeSettings {
 
             /** Specifies the height of Gantt control
@@ -36031,18 +37101,6 @@ declare namespace ej {
             /** Specifies the width of Gantt control
              */
             width?: string;
-        }
-
-        export interface SelectedCellIndex {
-
-            /** Specifies the row index of the cell to be selected Gantt control
-             */
-            rowIndex?: number;
-
-            /** Specifies the cell index to be selected in the row.
-             * @Default { }
-             */
-            cellIndex?: number;
         }
 
         export interface SortSettingsSortedColumn {
@@ -36062,6 +37120,17 @@ declare namespace ej {
              * @Default {[]}
              */
             sortedColumns?: SortSettingsSortedColumn[];
+        }
+
+        export interface SplitterSettings {
+
+            /** Specifies position of the splitter in Gantt , splitter can be placed either based on percentage values or pixel values.
+             */
+            position?: string;
+
+            /** Specifies the position of splitter in Gantt, based on column index in Gantt.
+             */
+            index?: string;
         }
 
         export interface StripLine {
@@ -36161,55 +37230,6 @@ declare namespace ej {
         }
 
 
-        enum TaskType {
-
-            ///Resource unit remains constant while editing the work and duration values.
-            FixedUnit,
-
-            ///Work value of a task remains constant while editing duration and resource unit values.
-            FixedWork,
-
-            ///Duration value remains constant while editing work and resource unit values.
-            FixedDuration
-        }
-
-
-        enum WorkUnit {
-
-            ///Displays the work involved in a task in days.
-            Day,
-
-            ///Displays the work involved in a task in hours.
-            Hour,
-
-            ///Displays the work involved in a task in minutes
-            Minute
-        }
-
-
-        enum TaskSchedulingMode {
-
-            ///All the tasks in the project will be displayed in auto scheduled mode, where the tasks are scheduled automatically over non-working days and holidays.
-            Auto,
-
-            ///All the tasks in the project will be displayed in manually scheduled mode.
-            Manual,
-
-            ///Project consists of tasks with both auto and manually scheduled modes, based on the datasource values
-            Custom
-        }
-
-
-        enum SelectionType {
-
-            ///you can select a single row.
-            Single,
-
-            ///you can select a multiple row.
-            Multiple
-        }
-
-
         enum minutesPerInterval {
 
             ///Sets the interval automatically according with schedule start and end date.
@@ -36264,6 +37284,16 @@ declare namespace ej {
         }
 
 
+        enum SelectionType {
+
+            ///you can select a single row.
+            Single,
+
+            ///you can select a multiple row.
+            Multiple
+        }
+
+
         enum SelectionMode {
 
             ///you can select a row.
@@ -36274,13 +37304,29 @@ declare namespace ej {
         }
 
 
-        enum workingTimeScale {
+        enum TaskSchedulingMode {
 
-            ///Sets eight hour timescale.
-            TimeScale8Hours,
+            ///All the tasks in the project will be displayed in auto scheduled mode, where the tasks are scheduled automatically over non-working days and holidays.
+            Auto,
 
-            ///Sets twenty four hour timescale.
-            TimeScale24Hours
+            ///All the tasks in the project will be displayed in manually scheduled mode.
+            Manual,
+
+            ///Project consists of tasks with both auto and manually scheduled modes, based on the datasource values
+            Custom
+        }
+
+
+        enum TaskType {
+
+            ///Resource unit remains constant while editing the work and duration values.
+            FixedUnit,
+
+            ///Work value of a task remains constant while editing duration and resource unit values.
+            FixedWork,
+
+            ///Duration value remains constant while editing work and resource unit values.
+            FixedDuration
         }
 
 
@@ -36291,6 +37337,29 @@ declare namespace ej {
 
             ///Displays the project in resource allocation view in Gantt.
             ResourceView
+        }
+
+
+        enum WorkUnit {
+
+            ///Displays the work involved in a task in days.
+            Day,
+
+            ///Displays the work involved in a task in hours.
+            Hour,
+
+            ///Displays the work involved in a task in minutes
+            Minute
+        }
+
+
+        enum workingTimeScale {
+
+            ///Sets eight hour timescale.
+            TimeScale8Hours,
+
+            ///Sets twenty four hour timescale.
+            TimeScale24Hours
         }
 
     }
@@ -36637,7 +37706,7 @@ declare namespace ej {
             /** Gets or sets the values of data source.
              * @Default {[]}
              */
-            values?: any[];
+            value?: any[];
         }
 
         export interface ExportSettings {
@@ -38837,6 +39906,11 @@ declare namespace ej {
              * @Default {true}
              */
             enableComplexBlankFilter?: boolean;
+
+            /** Specifies the mode of filtering to filter the record with or without hierarchy.
+             * @Default {ej.TreeGrid.FilterHierarchyMode.Parent}
+             */
+            filterHierarchyMode?: ej.TreeGrid.FilterHierarchyMode|string;
         }
 
         export interface PageSettings {
@@ -39195,6 +40269,22 @@ declare namespace ej {
 
             ///In this mode columns are stretched with control width in load time and on resizing action.
             NextColumn
+        }
+
+
+        enum FilterHierarchyMode {
+
+            ///Shows the filtered record with parent record
+            Parent,
+
+            ///Shows the filtered record with child record
+            Child,
+
+            ///shows the filtered record with both parent and child record
+            Both,
+
+            ///Shows only filtered record.
+            None
         }
 
 
@@ -40529,6 +41619,11 @@ declare namespace ej {
          */
         redo(): void;
 
+        /** Refreshes the Signature widget
+         * @returns {void}
+         */
+        refresh(): void;
+
         /** used to save the drawn image.
          * @param {string} The file name of the signature to be downloaded.
          * @returns {void}
@@ -41320,6 +42415,11 @@ declare namespace ej {
          */
         protectSheet(isProtected?: boolean): void;
 
+        /** This method is used to perform the redo action in Spreadsheet.
+         * @returns {void}
+         */
+        redo(): void;
+
         /** This method is used to refresh the content in Spreadsheet.
          * @param {number} Pass the index of the sheet.
          * @returns {void}
@@ -41476,6 +42576,11 @@ declare namespace ej {
          * @returns {void}
          */
         showWaitingPopUp(): void;
+
+        /** This method is used to perform the undo action in Spreadsheet.
+         * @returns {void}
+         */
+        undo(): void;
 
         /** This method is used to unhide the sheet based on specified sheet name or sheet index.
          * @param {string|number} Pass the sheet name or index that you want to unhide.
@@ -41795,12 +42900,26 @@ declare namespace ej {
              */
             enableItem(target: string, idxColl: any[]): void;
 
+            /** This method is used to hide the items in the context menu.
+             * @param {string} Specifies the context menu type in which the item to be hides.
+             * @param {any[]} Specifies the Menu Item id collection to be hides
+             * @returns {void}
+             */
+            hideItem(cMenuType: string, idxColl: any[]): void;
+
             /** This method is used to remove the items in the context menu.
              * @param {string} Specifies the context menu type in which the item to be removed.
              * @param {any[]} Specifies the Menu Item id collection to be removed
              * @returns {void}
              */
             removeItem(target: string, idxColl: any[]): void;
+
+            /** This method is used to show the items in the context menu.
+             * @param {string} Specifies the context menu type in which the item to be shown.
+             * @param {any[]} Specifies the Menu Item id collection to be shown
+             * @returns {void}
+             */
+            showItem(cMenuType: string, idxColl: any[]): void;
         }
 
         export interface XLDragDrop {
@@ -42231,12 +43350,12 @@ declare namespace ej {
             addNamedRange(name: string, refersTo: string, comment: string, sheetIdx: number): void;
 
             /** This method is used to dynamically add the tab in the ribbon.
-             * @param {any[]} Specifies the text to be displayed in the tab.
-             * @param {number} pass the groups to be displayed in the ribbon tab.
+             * @param {string} Specifies the text to be displayed in the tab.
+             * @param {any[]} pass the groups to be displayed in the ribbon tab.
              * @param {number} pass the index of the tab.
              * @returns {void}
              */
-            addTab(tabText: any[], ribbonGroups: number, index: number): void;
+            addTab(tabText: string, ribbonGroups: any[], index: number): void;
 
             /** This method is used to dynamically add the tab group in the ribbon.
              * @param {number} Specifies the ribbon tab index.
@@ -42902,10 +44021,6 @@ declare namespace ej {
              */
             ribbonClick?(e: RibbonClickEventArgs): void;
 
-            /** Triggered when the chart series rendering.
-             */
-            seriesRendering?(e: SeriesRenderingEventArgs): void;
-
             /** Triggered when click the ribbon tab.
              */
             tabClick?(e: TabClickEventArgs): void;
@@ -43384,7 +44499,7 @@ declare namespace ej {
 
             /** Returns the cell previous value.
              */
-            pValue?: string;
+            prevValue?: string;
 
             /** Returns the name of the event.
              */
@@ -43946,25 +45061,6 @@ declare namespace ej {
             /** Returns the target element.
              */
             target?: HTMLElement;
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-        }
-
-        export interface SeriesRenderingEventArgs {
-
-            /** Returns chart data and chart information.
-             */
-            data?: any;
-
-            /** Returns the chart model.
-             */
-            model?: ej.Spreadsheet.Model;
-
-            /** Returns the name of the event.
-             */
-            type?: string;
 
             /** Returns the cancel option value.
              */
@@ -45056,7 +46152,7 @@ declare namespace ej {
              */
             pageChange?(e: PageChangeEventArgs): void;
 
-            /** Triggers when the ajax request is failed.
+            /** Triggers when the AJAX request is failed.
              */
             ajaxRequestFailure?(e: AjaxRequestFailureEventArgs): void;
 
@@ -45123,7 +46219,7 @@ declare namespace ej {
 
         export interface DocumentLoadEventArgs {
 
-            /** true, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45142,7 +46238,7 @@ declare namespace ej {
 
         export interface DocumentUnloadEventArgs {
 
-            /** true, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45157,7 +46253,7 @@ declare namespace ej {
 
         export interface PageChangeEventArgs {
 
-            /** true, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45176,7 +46272,7 @@ declare namespace ej {
 
         export interface AjaxRequestFailureEventArgs {
 
-            /** true, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45195,7 +46291,7 @@ declare namespace ej {
 
         export interface ZoomChangeEventArgs {
 
-            /** true, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45218,7 +46314,7 @@ declare namespace ej {
 
         export interface HyperlinkClickEventArgs {
 
-            /** true, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45237,7 +46333,7 @@ declare namespace ej {
 
         export interface BeforePrintEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45252,7 +46348,7 @@ declare namespace ej {
 
         export interface AfterPrintEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45267,7 +46363,7 @@ declare namespace ej {
 
         export interface PageClickEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45290,7 +46386,7 @@ declare namespace ej {
 
         export interface AnnotationAddEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45325,7 +46421,7 @@ declare namespace ej {
 
         export interface AnnotationRemoveEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45352,7 +46448,7 @@ declare namespace ej {
 
         export interface AnnotationPropertiesChangeEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45387,7 +46483,7 @@ declare namespace ej {
 
         export interface SignatureAddEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45414,7 +46510,7 @@ declare namespace ej {
 
         export interface SignatureDeleteEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45433,7 +46529,7 @@ declare namespace ej {
 
         export interface SignaturePropertiesChangeEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45476,7 +46572,7 @@ declare namespace ej {
 
         export interface SignatureResizeEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45507,7 +46603,7 @@ declare namespace ej {
 
         export interface BufferStartEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45526,7 +46622,7 @@ declare namespace ej {
 
         export interface BufferEndEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -45545,7 +46641,7 @@ declare namespace ej {
 
         export interface DestroyEventArgs {
 
-            /** True, if the event should be canceled; otherwise, false.
+            /** Returns the cancel option value.
              */
             cancel?: boolean;
 
@@ -47707,6 +48803,10 @@ declare namespace ej.datavisualization {
              */
             enableMarkerPointerAnimation?: boolean;
 
+            /** This provides options for customizing export settings
+             */
+            exportSettings?: ExportSettings;
+
             /** Specifies the can resize state.
              * @Default {false}
              */
@@ -47858,6 +48958,14 @@ declare namespace ej.datavisualization {
             /** Triggers while the rendering of the gauge completed.
              */
             renderComplete?(e: RenderCompleteEventArgs): void;
+
+            /** Fires, on double clicking the gauge.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the gauge.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface DrawBarPointersEventArgs {
@@ -48449,6 +49557,68 @@ declare namespace ej.datavisualization {
             /** returns the name of the event
              */
             type?: any;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the gauge model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to gauge area.id - ID of the target element.    size - Width and height of the gauge.    pageX - x-coordinate of the
+             * pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the gauge model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to gauge area.id - ID of the target element.    size - Width and height of the gauge.    pageX - x-coordinate of the
+             * pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface ExportSettings {
+
+            /** Specifies the downloading filename
+             * @Default {LinearGauge}
+             */
+            filename?: string;
+
+            /** Specifies the format of the file to export
+             * @Default {png}
+             */
+            type?: ej.datavisualization.LinearGauge.ExportingType|string;
+
+            /** Specifies the name of the action URL
+             */
+            action?: string;
+
+            /** Specifies the mode of exporting
+             * @Default {client}
+             */
+            mode?: ej.datavisualization.LinearGauge.ExportingMode|string;
         }
 
         export interface Frame {
@@ -49181,6 +50351,22 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             templateID?: string;
+        }
+    }
+    namespace LinearGauge {
+        enum ExportingType {
+            //string
+            PNG,
+            //string
+            JPG,
+        }
+    }
+    namespace LinearGauge {
+        enum ExportingMode {
+            //string
+            ServerSide,
+            //string
+            ClientSide,
         }
     }
     namespace LinearGauge {
@@ -49928,7 +51114,7 @@ declare namespace ej.datavisualization {
              */
             distanceFromCorner?: number;
 
-            /** Specify range zOrder placement of circular gauge.
+            /** Specify range Z-order placement of circular gauge.
              * @Default {Rear}
              */
             rangeZOrder?: ej.datavisualization.CircularGauge.RangeZOrderPlacement|string;
@@ -49947,6 +51133,10 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             enableResize?: boolean;
+
+            /** This provides options for customizing export settings
+             */
+            exportSettings?: ExportSettings;
 
             /** Specify the frame of circular gauge
              * @Default {Object}
@@ -50097,6 +51287,14 @@ declare namespace ej.datavisualization {
             /** Triggers when the rendering of the gauge is completed.
              */
             renderComplete?(e: RenderCompleteEventArgs): void;
+
+            /** Fires, on double clicking the circular gauge.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the circular gauge.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface LegendItemRenderEventArgs {
@@ -50714,6 +51912,68 @@ declare namespace ej.datavisualization {
             /** returns the name of the event
              */
             type?: string;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the circular gauge model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to circular gauge area.id - ID of the target element.    size - Width and height of the circular gauge.    pageX -
+             * x-coordinate of the pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the circular gauge model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to circular gauge area.id - ID of the target element.    size - Width and height of the circular gauge.    pageX -
+             * x-coordinate of the pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface ExportSettings {
+
+            /** Specifies the downloading filename
+             * @Default {CircularGauge}
+             */
+            filename?: string;
+
+            /** Specifies the format of the file to export
+             * @Default {png}
+             */
+            type?: ej.datavisualization.CircularGauge.ExportingType|string;
+
+            /** Specifies the name of the action URL
+             */
+            action?: string;
+
+            /** Specifies the mode of exporting
+             * @Default {client}
+             */
+            mode?: ej.datavisualization.CircularGauge.ExportingMode|string;
         }
 
         export interface Frame {
@@ -51610,6 +52870,22 @@ declare namespace ej.datavisualization {
         }
     }
     namespace CircularGauge {
+        enum ExportingType {
+            //string
+            PNG,
+            //string
+            JPG,
+        }
+    }
+    namespace CircularGauge {
+        enum ExportingMode {
+            //string
+            ServerSide,
+            //string
+            ClientSide,
+        }
+    }
+    namespace CircularGauge {
         enum FrameType {
             //string
             FullCircle,
@@ -51854,6 +53130,10 @@ declare namespace ej.datavisualization {
 
         export interface Model {
 
+            /** This provides options for customizing export settings
+             */
+            exportSettings?: ExportSettings;
+
             /** Specifies the frame of the Digital gauge.
              * @Default {{backgroundImageUrl: null, innerWidth: 6, outerWidth: 10}}
              */
@@ -51917,6 +53197,18 @@ declare namespace ej.datavisualization {
             /** Triggers when the gauge render is completed.
              */
             renderComplete?(e: RenderCompleteEventArgs): void;
+
+            /** Fires, on clicking the gauge.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the digital gauge.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the digital gauge.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface InitEventArgs {
@@ -52025,6 +53317,88 @@ declare namespace ej.datavisualization {
             /** returns the name of the event
              */
             type?: string;
+        }
+
+        export interface ClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the gauge model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to gauge area.id - ID of the target element.    size - Width and height of the gauge.    pageX - x-coordinate of the
+             * pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the digital gauge model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to digital gauge area.id - ID of the target element.    size - Width and height of the digital gauge.    pageX -
+             * x-coordinate of the pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the digital gauge model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to digital gauge area.id - ID of the target element.    size - Width and height of the digital gauge.    pageX -
+             * x-coordinate of the pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface ExportSettings {
+
+            /** Specifies the downloading filename
+             * @Default {DigitalGauge}
+             */
+            filename?: string;
+
+            /** Specifies the format of the file to export
+             * @Default {png}
+             */
+            type?: ej.datavisualization.DigitalGauge.ExportingType|string;
+
+            /** Specifies the name of the action URL
+             */
+            action?: string;
+
+            /** Specifies the mode of exporting
+             * @Default {client}
+             */
+            mode?: ej.datavisualization.DigitalGauge.ExportingMode|string;
         }
 
         export interface Frame {
@@ -52193,6 +53567,22 @@ declare namespace ej.datavisualization {
              * @Default {null}
              */
             value?: string;
+        }
+    }
+    namespace DigitalGauge {
+        enum ExportingType {
+            //string
+            PNG,
+            //string
+            JPG,
+        }
+    }
+    namespace DigitalGauge {
+        enum ExportingMode {
+            //string
+            ServerSide,
+            //string
+            ClientSide,
         }
     }
     namespace DigitalGauge {
@@ -60231,6 +61621,18 @@ declare namespace ej.datavisualization {
             /** Fires on changes ending the scrollbar position of range navigator.
              */
             scrollEnd?(e: ScrollEndEventArgs): void;
+
+            /** Fires, on clicking the range of range navigator.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the range of range navigator.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the range of range navigator.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface LoadEventArgs {
@@ -60401,6 +61803,63 @@ declare namespace ej.datavisualization {
             cancel?: boolean;
 
             /** returns the RangeNavigator model
+             */
+            model?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+        }
+
+        export interface ClickEventArgs {
+
+            /** parameters from range navigator
+             */
+            Data?: any;
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the range navigator model
+             */
+            model?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** parameters from range navigator
+             */
+            Data?: any;
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the range navigator model
+             */
+            model?: any;
+
+            /** returns the name of the event
+             */
+            type?: string;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** parameters from range navigator
+             */
+            Data?: any;
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the range navigator model
              */
             model?: any;
 
@@ -61447,6 +62906,18 @@ declare namespace ej.datavisualization {
             /** Fires on loading bullet graph.
              */
             load?(e: LoadEventArgs): void;
+
+            /** Fires, on clicking the bullet graph.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the bullet graph.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the bullet graph.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface DrawCaptionEventArgs {
@@ -61634,6 +63105,66 @@ declare namespace ej.datavisualization {
             /** if the event should be canceled; otherwise, false.
              */
             cancel?: boolean;
+        }
+
+        export interface ClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the bullet graph model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to bullet graph area.id - ID of the target element.    size - Width and height of the bullet graph.    pageX -
+             * x-coordinate of the pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the bullet graph model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to bullet graph area.id - ID of the target element.    size - Width and height of the bullet graph.    pageX -
+             * x-coordinate of the pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the bullet graph model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to bullet graph area.id - ID of the target element.    size - Width and height of the bullet graph.    pageX -
+             * x-coordinate of the pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
         }
 
         export interface CaptionSettingsFont {
@@ -62614,6 +64145,11 @@ declare namespace ej.datavisualization {
              */
             enableAnimation?: boolean;
 
+            /** Enables or Disables right to left(RTL) support for maps.
+             * @Default {false}
+             */
+            enableRTL?: boolean;
+
             /** Enables or Disables the animation for layer change in map
              * @Default {false}
              */
@@ -62656,6 +64192,18 @@ declare namespace ej.datavisualization {
              */
             markerSelected?(e: MarkerSelectedEventArgs): void;
 
+            /** Triggered while rendering the each legend in maps.
+             */
+            legendItemRendering?(e: LegendItemRenderingEventArgs): void;
+
+            /** Triggered while rendering the each bubbles in maps.
+             */
+            bubbleRendering?(e: BubbleRenderingEventArgs): void;
+
+            /** Triggered while rendering the each shapes in maps.
+             */
+            shapeRendering?(e: ShapeRenderingEventArgs): void;
+
             /** Triggers while leaving the hovered map shape
              */
             mouseleave?(e: MouseleaveEventArgs): void;
@@ -62683,11 +64231,48 @@ declare namespace ej.datavisualization {
             /** Triggers when map is zoomed out.
              */
             zoomedOut?(e: ZoomedOutEventArgs): void;
+
+            /** Fires, on clicking the map.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the map.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the map.
+             */
+            rightClick?(e: RightClickEventArgs): void;
+
+            /** Fires before loading the map.
+             */
+            onLoad?(e: OnLoadEventArgs): void;
         }
 
         export interface MarkerSelectedEventArgs {
 
             /** Returns marker object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface LegendItemRenderingEventArgs {
+
+            /** Returns the legend item.
+             */
+            originalEvent?: any;
+        }
+
+        export interface BubbleRenderingEventArgs {
+
+            /** Returns the bubble values.
+             */
+            originalEvent?: any;
+        }
+
+        export interface ShapeRenderingEventArgs {
+
+            /** Returns the shape values.
              */
             originalEvent?: any;
         }
@@ -62749,6 +64334,42 @@ declare namespace ej.datavisualization {
             zoomLevel?: any;
         }
 
+        export interface ClickEventArgs {
+
+            /** Returns clicked shape object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Returns double clicked shape object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Returns right clicked shape object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface OnLoadEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the map model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
         export interface ZoomSettings {
 
             /** Enables or Disables the zooming of map
@@ -62760,6 +64381,11 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             enableZoomOnSelection?: boolean;
+
+            /** Enables or Disables the zoom on mouse wheel the map.
+             * @Default {true}
+             */
+            enableMouseWheelZoom?: boolean;
 
             /** Specifies the zoom factor for map zoom value.
              * @Default {1}
@@ -62963,6 +64589,11 @@ declare namespace ej.datavisualization {
              */
             leftLabel?: string;
 
+            /** To get the field name in the datasource for generating legend items.
+             * @Default {null}
+             */
+            textPath?: string;
+
             /** to get mode of legend setting
              * @Default {default}
              */
@@ -63080,6 +64711,11 @@ declare namespace ej.datavisualization {
              */
             colorValuePath?: string;
 
+            /** Specifies the field name in the datasource that contains color values for each shapes.
+             * @Default {null}
+             */
+            colorPath?: string;
+
             /** Enables or Disables the gradient colors for map shapes.
              * @Default {false}
              */
@@ -63188,6 +64824,11 @@ declare namespace ej.datavisualization {
              */
             colorValuePath?: string;
 
+            /** Specifies the field name in the datasource that contains color values for each bubbles.
+             * @Default {null}
+             */
+            colorPath?: string;
+
             /** Specifies the maximum size value of bubbles for shape layer in map
              * @Default {20}
              */
@@ -63288,6 +64929,11 @@ declare namespace ej.datavisualization {
              * @Default {null}
              */
             leftLabel?: string;
+
+            /** To get the field name in the datasource for generating legend items.
+             * @Default {null}
+             */
+            textPath?: string;
 
             /** to get mode of legend setting
              * @Default {default}
@@ -63848,6 +65494,11 @@ declare namespace ej.datavisualization {
              */
             colorValuePath?: string;
 
+            /** Specifies the field name in the datasource that contains color values for treemap items.
+             * @Default {null}
+             */
+            colorPath?: string;
+
             /** Specifies the datasource of the treemap
              * @Default {null}
              */
@@ -64014,6 +65665,14 @@ declare namespace ej.datavisualization {
              */
             treeMapItemSelected?(e: TreeMapItemSelectedEventArgs): void;
 
+            /** Triggers while rendering each treemap items.
+             */
+            itemRendering?(e: ItemRenderingEventArgs): void;
+
+            /** Triggers while rendering each legend item
+             */
+            legendItemRendering?(e: LegendItemRenderingEventArgs): void;
+
             /** Triggers when drilldown is started
              */
             drillStarted?(e: DrillStartedEventArgs): void;
@@ -64033,11 +65692,37 @@ declare namespace ej.datavisualization {
             /** Triggers when the group selection is performed on treemap items.
              */
             treeMapGroupSelected?(e: TreeMapGroupSelectedEventArgs): void;
+
+            /** Fires, on clicking the tree map items.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the tree map items.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the tree map items.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface TreeMapItemSelectedEventArgs {
 
             /** Returns selected treeMapItem object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface ItemRenderingEventArgs {
+
+            /** Returns treemap leaf item
+             */
+            originalEvent?: any;
+        }
+
+        export interface LegendItemRenderingEventArgs {
+
+            /** Returns treemap legend item
              */
             originalEvent?: any;
         }
@@ -64073,6 +65758,27 @@ declare namespace ej.datavisualization {
         export interface TreeMapGroupSelectedEventArgs {
 
             /** Returns the  selected group of treeMapItems as  object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface ClickEventArgs {
+
+            /** Returns the clicked group of treeMapItems as  object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Returns the  double clicked group of treeMapItems as  object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Returns the right clicked group of treeMapItems as  object.
              */
             originalEvent?: any;
         }
@@ -64461,6 +66167,19 @@ declare namespace ej.datavisualization {
          */
         addPhase(name: string, options: any): void;
 
+        /** Add a collection of layers can be added to the existing diagram layer at runtime.
+         * @param {any[]} a collection of layers to be added to the existing diagram layers.
+         * @returns {void}
+         */
+        addLayers(layers: any[]): void;
+
+        /** Add a collection of diagram elements can be added to the specific diagram layer.
+         * @param {string} specifies the name of the layer to the nodes will be added.
+         * @param {any[]} collection of diagram elements to be added to the specific layer.
+         * @returns {void}
+         */
+        addNodeToLayer(layerName: string, nodes: any[]): void;
+
         /** Add a collection of ports to the node specified by name
          * @param {string} name of the node to which the ports have to be added
          * @param {any[]} a collection of ports to be added to the specified node
@@ -64531,10 +66250,10 @@ declare namespace ej.datavisualization {
 
         /** The exportImage method is used to export the image passed through argument with different image format and exporting options as like exportDiagram method.
          * @param {string} pass the base64String image to be exported.
-         * @param {Diagram.Options} options to export the desired region of diagram to the desired formats.
+         * @param {Diagram.ExportImageSettings} options to export the desired region of diagram to the desired formats.
          * @returns {string}
          */
-        exportImage(image: string, options?: Diagram.Options): string;
+        exportImage(image: string, exportImageSettings?: Diagram.ExportImageSettings): string;
 
         /** Read a node/connector object by its name
          * @param {string} name of the node/connector that is to be identified
@@ -64606,17 +66325,17 @@ declare namespace ej.datavisualization {
         paste(object?: any, rename?: boolean): void;
 
         /** Print the diagram as image
-         * @param {Diagram.Options} options to print the desired region of diagram and print the diagram in multiple pages.
+         * @param {Diagram.PrintSettings} options to print the desired region of diagram and print the diagram in multiple pages.
          * @returns {void}
          */
-        print(options?: Diagram.Options): void;
+        print(printSettings?: Diagram.PrintSettings): void;
 
         /** The printImage method is used to print the image passed through argument with desired region and multiple pages as like print method.
          * @param {string} pass the base64String image to be printed.
-         * @param {Diagram.Options} options to export the desired region of diagram to the desired formats.
+         * @param {Diagram.PrintImageSettings} options to export the desired region of diagram to the desired formats.
          * @returns {string}
          */
-        printImage(image: string, options?: Diagram.Options): string;
+        printImage(image: string, printImageSettings?: Diagram.PrintImageSettings): string;
 
         /** Restore the last action that was reverted
          * @returns {void}
@@ -64634,7 +66353,20 @@ declare namespace ej.datavisualization {
          */
         remove(node?: any): void;
 
-        /** Add a collection of ports to the node specified by name
+        /** Remove the collection of layers from the diagram layers.
+         * @param {any[]} collection of layers to be removed from diagram layer.
+         * @returns {void}
+         */
+        removeLayers(layers: any[]): void;
+
+        /** Remove the collection of nodes from the specific layer.
+         * @param {string} Specifies the layer name to the node will be removed.
+         * @param {any[]} collection of diagram elements name to be removed from specific layer.
+         * @returns {void}
+         */
+        removeNodeToLayer(layerName: string, nodes: any[]): void;
+
+        /** Remove the collection of ports from the specified node.
          * @param {string} name of the node to which the ports have to be added
          * @param {any[]} a collection of ports to be deleted from the specified node
          * @returns {void}
@@ -64743,6 +66475,13 @@ declare namespace ej.datavisualization {
          */
         updateLabel(nodeName: string, label: any, options: any): any;
 
+        /** Update the given layer at run time.
+         * @param {string} the name of layer to be updated
+         * @param {any} the layer object to be modified
+         * @returns {void}
+         */
+        updateLayer(layerName: string, options: any): void;
+
         /** Update nodes at runtime
          * @param {string} name of the node that is to be updated
          * @param {any} JSON to specify the properties of node that have to be updated
@@ -64842,7 +66581,7 @@ declare namespace ej.datavisualization {
             pageOrientation?: ej.datavisualization.Diagram.PageOrientations;
         }
 
-        export interface Options {
+        export interface ExportImageSettings {
 
             /** name of the file to be downloaded.
              */
@@ -64881,7 +66620,7 @@ declare namespace ej.datavisualization {
             pageOrientation?: ej.datavisualization.Diagram.PageOrientations;
         }
 
-        export interface Options {
+        export interface PrintSettings {
 
             /** to set the region of the diagram to be printed.
              */
@@ -64912,7 +66651,7 @@ declare namespace ej.datavisualization {
             pageOrientation?: ej.datavisualization.Diagram.PageOrientations;
         }
 
-        export interface Options {
+        export interface PrintImageSettings {
 
             /** to set the region of the diagram to be printed.
              */
@@ -65044,6 +66783,11 @@ declare namespace ej.datavisualization {
              * @Default {[]}
              */
             nodes?: Node[];
+
+            /** A collection of JSON objects where each object represents a layer. Layer is a named category of diagram shapes.
+             * @Default {[]}
+             */
+            layers?: Layer[];
 
             /** Binds the custom JSON data with node properties
              * @Default {null}
@@ -67901,11 +69645,6 @@ declare namespace ej.datavisualization {
              */
             gradient?: NodesGradient;
 
-            /** Sets the type of the BPMN Shapes as group. Applicable, if the node is a BPMN.
-             * @Default {ej.datavisualization.Diagram.BPMNShapes}
-             */
-            group?: any;
-
             /** Defines the header of a swimlane/lane
              * @Default {{ text: Title, fontSize: 11 }}
              */
@@ -68151,6 +69890,38 @@ declare namespace ej.datavisualization {
              * @Default {0}
              */
             zOrder?: number;
+        }
+
+        export interface Layer {
+
+            /** To specify the name of the diagram layer. Layer name should be unique.
+             */
+            name?: string;
+
+            /** Enable or disable diagram objects to be added to the specific layer.
+             * @Default {false}
+             */
+            active?: boolean;
+
+            /** Enable or disable the specific layer objects to be visible.
+             * @Default {true}
+             */
+            visible?: boolean;
+
+            /** Enable or disable the specific layer objects to be visible on printing or exporting.
+             * @Default {true}
+             */
+            print?: boolean;
+
+            /** Enable or disable the interaction of the specific diagram objects.
+             * @Default {false}
+             */
+            lock?: boolean;
+
+            /** To Specify the collection of the object names belongs to the layer.
+             * @Default {[]}
+             */
+            objects?: any[];
         }
 
         export interface PageSettings {
@@ -69003,6 +70774,10 @@ declare namespace ej.datavisualization {
             HierarchicalTree,
             //Used to set layout type as organnizational chart
             OrganizationalChart,
+            //Used to set layout type as radial tree
+            RadialTree,
+            //Used to set layout type as symmetric layout
+            SymmetricLayout,
         }
     }
     namespace Diagram {
@@ -70442,6 +72217,18 @@ declare namespace ej.datavisualization {
             /** Fires on moving mouse outside the sparkline.
              */
             sparklineMouseLeave?(e: SparklineMouseLeaveEventArgs): void;
+
+            /** Fires, on clicking the sparkline.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the sparkline.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the sparkline.
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface LoadEventArgs {
@@ -70614,6 +72401,51 @@ declare namespace ej.datavisualization {
         }
 
         export interface SparklineMouseLeaveEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sparkline model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface ClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sparkline model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sparkline model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface RightClickEventArgs {
 
             /** Set this option to true to cancel the event
              */
@@ -71079,6 +72911,18 @@ declare namespace ej.datavisualization {
             /** Fires after resetting the sunburst points
              */
             drillDownReset?(e: DrillDownResetEventArgs): void;
+
+            /** Fires, on clicking the sunburst chart.
+             */
+            Click?(e: ClickEventArgs): void;
+
+            /** Fires, on double clicking the sunburst chart.
+             */
+            doubleClick?(e: DoubleClickEventArgs): void;
+
+            /** Fires, on right clicking the sunburst chart
+             */
+            rightClick?(e: RightClickEventArgs): void;
         }
 
         export interface LoadEventArgs {
@@ -71293,6 +73137,63 @@ declare namespace ej.datavisualization {
         export interface DrillDownResetEventArgs {
 
             /** Drill down reset data
+             */
+            data?: string;
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sunburst model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface ClickEventArgs {
+
+            /** Includes clicked region data
+             */
+            data?: string;
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sunburst model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface DoubleClickEventArgs {
+
+            /** Includes double clicked region data
+             */
+            data?: string;
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the sunburst model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface RightClickEventArgs {
+
+            /** Includes right clicked region data
              */
             data?: string;
 
@@ -72175,6 +74076,9 @@ interface JQuery {
     ejDropDownList(options?: ej.DropDownList.Model): JQuery;
     ejDropDownList(memberName: any, value?: any, param?: any): any;
 
+    ejDropDownTree(options?: ej.DropDownTree.Model): JQuery;
+    ejDropDownTree(memberName: any, value?: any, param?: any): any;
+
     ejDroppable(options?: ej.Droppable.Model): JQuery;
     ejDroppable(memberName: any, value?: any, param?: any): any;
 
@@ -72386,6 +74290,7 @@ interface JQuery {
     data(key: "ejDocumentEditor"): ej.DocumentEditor;
     data(key: "ejDraggable"): ej.Draggable;
     data(key: "ejDropDownList"): ej.DropDownList;
+    data(key: "ejDropDownTree"): ej.DropDownTree;
     data(key: "ejDroppable"): ej.Droppable;
     data(key: "ejFileExplorer"): ej.FileExplorer;
     data(key: "ejGantt"): ej.Gantt;

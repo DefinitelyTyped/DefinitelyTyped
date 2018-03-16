@@ -961,7 +961,7 @@ declare namespace Highcharts {
          * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient.
          * The stops is an array of tuples, where the first item is a float between 0 and 1 assigning the relative position in the gradient, and the second item is the color.
          */
-        stops?: Array<[number, string]>;
+        stops?: Array<Array<number|string>>;
         /**
          * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
          * a chart. This option overrides the tickPixelInterval option.
@@ -1995,6 +1995,7 @@ declare namespace Highcharts {
         fontWeight?: string;
         left?: string;
         opacity?: number;
+		overflow?: string;
         padding?: string | number;
         position?: string;
         top?: string;
@@ -3076,7 +3077,7 @@ declare namespace Highcharts {
          * @default ['50%', '50%']
          * @since 2.3.0
          */
-        center?: [number | string, number | string];
+        center?: Array<number|string>;
         /**
          * The end angle of the polar X axis or gauge value axis, given in degrees where 0 is north.
          * @default startAngle + 360
@@ -6554,6 +6555,13 @@ declare namespace Highcharts {
          */
         definition(def: object): ElementObject;
         /**
+         * Utility to return the baseline offset and total line height from the font size.
+         *
+         * @param fontSize The current font size to inspect. If not given, the font size will be found from the DOM element.
+         * @param elem The element to inspect for a current font size.
+         */
+        fontMetrics(fontSize: string, elem: ElementObject): FontMetrics;
+        /**
          * Add an SVG/VML group.
          * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name.
          * Other Element objects are added to the group by using the group as the first parameter in .add() for the wrappers
@@ -6613,6 +6621,21 @@ declare namespace Highcharts {
          * @since 2.0
          */
         text(str: string, x: number, y: number): ElementObject;
+    }
+
+    interface FontMetrics {
+        /**
+         * The baseline relative to the top of the box.
+         */
+        b: number;
+        /**
+         * The font size.
+         */
+        f: number;
+        /**
+         * The line height.
+         */
+        h: number;
     }
 
     interface Renderer {

@@ -15,8 +15,9 @@
 //                 Miika Hänninen <https://github.com/googol>
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
+//                 Jack Leigh <https://github.com/leighman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 declare let R: R.Static;
 
@@ -576,10 +577,9 @@ declare namespace R {
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
          * codomain; false otherwise.
          */
-        eqBy<T>(fn: (a: T) => T, a: T, b: T): boolean;
-        eqBy<T>(fn: (a: T) => T, a: T): (b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T, b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T) => (b: T) => boolean;
+        eqBy<T, U = T>(fn: (a: T) => U, a: T, b: T): boolean;
+        eqBy<T, U = T>(fn: (a: T) => U, a: T): (b: T) => boolean;
+        eqBy<T, U = T>(fn: (a: T) => U): CurriedFunction2<T, T, boolean>;
 
         /**
          * Reports whether two functions have the same value for the specified property.
@@ -680,7 +680,7 @@ declare namespace R {
          * on each element, and grouping the results according to values returned.
          */
         groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-        groupBy<T>(fn: (a: T) => string): <T>(list: ReadonlyArray<T>) => { [index: string]: T[] };
+        groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
 
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
@@ -1601,6 +1601,10 @@ declare namespace R {
          * Returns a new list with the same elements as the original list, just in the reverse order.
          */
         reverse<T>(list: ReadonlyArray<T>): T[];
+        /**
+         * Returns a new string with the characters in reverse order.
+         */
+        reverse(str: string): string;
 
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
@@ -1799,7 +1803,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
+        toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1807,7 +1811,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
+        toPairsIn<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
         /**
          * Returns the string representation of the given value. eval'ing the output should

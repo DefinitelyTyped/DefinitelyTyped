@@ -422,7 +422,7 @@ export interface ExportNamedDeclaration extends Node {
     type: "ExportNamedDeclaration";
     declaration: Declaration;
     specifiers: ExportSpecifier[];
-    source: StringLiteral;
+    source: StringLiteral | null;
 }
 
 export interface ExportSpecifier extends Node {

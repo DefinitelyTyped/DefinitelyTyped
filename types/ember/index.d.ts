@@ -1182,7 +1182,7 @@ declare module 'ember' {
              * argument for all items in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isEvery(key: string, value: boolean): boolean;
+            isEvery(key: string, value?: any): boolean;
             /**
              * Returns `true` if the passed function returns true for any item in the
              * enumeration.
@@ -1193,7 +1193,7 @@ declare module 'ember' {
              * argument for any item in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isAny(key: string, value?: boolean): boolean;
+            isAny(key: string, value?: any): boolean;
             /**
              * This will combine the values of the enumerator into a single value. It
              * is a useful way to collect a summary value from an enumeration. This
@@ -2078,6 +2078,7 @@ declare module 'ember' {
              * Transition the application into another route. The route may
              * be either a single route or route path:
              */
+            transitionTo(name: string, options?: {}): Transition;
             transitionTo(name: string, ...models: any[]): Transition;
             transitionTo(name: string, options: {}): Transition;
         }
@@ -3305,6 +3306,7 @@ declare module 'ember' {
          * @param options   optional hash with a queryParams property containing a
          *                  mapping of query parameters
          */
+        isActive(routeName: string, options?: { queryParams: object }): boolean;
         isActive(routeName: string, models: RouteModel, options?: { queryParams: object }): boolean;
         isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): boolean;
         isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): boolean;
@@ -3322,6 +3324,7 @@ declare module 'ember' {
          *                       containing a mapping of query parameters
          * @returns              the Transition object associated with this attempted transition
          */
+        replaceWith(routeNameOrUrl: string, options?: { queryParams: object }): Ember.Transition;
         replaceWith(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
         replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
         replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
@@ -3339,6 +3342,7 @@ declare module 'ember' {
          *                       containing a mapping of query parameters
          * @returns              the Transition object associated with this attempted transition
          */
+        transitionTo(routeNameOrUrl: string, options?: { queryParam: object }): Ember.Transition;
         transitionTo(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
         transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
         transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
@@ -3355,6 +3359,7 @@ declare module 'ember' {
          *                  a mapping of query parameters
          * @returns         the string representing the generated URL
          */
+        urlFor(routeName: string, options?: { queryParams: object }): string;
         urlFor(routeName: string, models: RouteModel, options?: { queryParams: object }): string;
         urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): string;
         urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): string;

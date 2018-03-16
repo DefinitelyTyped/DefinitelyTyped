@@ -126,6 +126,22 @@ var knex = Knex({
     searchPath: ['public', 'private'],
 });
 
+// postProcessResponse
+var knex = Knex({
+  client: 'pg',
+  postProcessResponse: function(result, queryContext){
+    return result;
+  }
+});
+
+// wrapIdentifier
+var knex = Knex({
+  client: 'pg',
+  wrapIdentifier: function(value, origImpl, queryContext){
+    return origImpl(value + 'foo');
+  }
+});
+
 // useNullAsDefault
 var knex = Knex({
   client: 'sqlite',
@@ -747,6 +763,10 @@ knex.schema.createTable('users', function (table) {
   table.timestamps(true, true);
 });
 
+knex.schema.alterTable('users', function (table) {
+  table.string('role').nullable();
+});
+
 knex.schema.renameTable('users', 'old_users');
 
 knex.schema.dropTable('users');
@@ -1008,6 +1028,9 @@ knex('users')
     let self: Knex.QueryBuilder = this;
     self = builder;
   }).unionAll(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).modify(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
   });

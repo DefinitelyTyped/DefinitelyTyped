@@ -1,12 +1,13 @@
-// Type definitions for Google Publisher Tag v104
+// Type definitions for Google Publisher Tag v172
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
+//                 Steven Joyce <https://github.com/steven-joyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace googletag {
     export type SingleSizeArray = number[];
 
-    export type NamedSize = string;
+    export type NamedSize = string | string[];
 
     export type SingleSize = SingleSizeArray | NamedSize;
 
@@ -27,6 +28,7 @@ declare namespace googletag {
           eventType: string,
             listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
         ): void;
+        getSlots(): Slot[];
     }
 
     export interface CompanionAdsService extends Service {
@@ -42,7 +44,6 @@ declare namespace googletag {
         advertiserId: string;
         campaignId: string;
         creativeId?: number;
-        labelIds: number[];
         lineItemId?: number;
     }
 
@@ -61,7 +62,7 @@ declare namespace googletag {
         defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
         destroySlots(opt_slots?: Slot[]): boolean;
         disablePublisherConsole(): void;
-        display(div?: string): void;
+        display(div?: string | Element): void;
         enableServices(): void;
         getVersion(): string;
         openConsole(opt_div?: string): void;
@@ -113,7 +114,7 @@ declare namespace googletag {
         defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
         definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
         disableInitialLoad(): void;
-        display(adUnitPath: string, size: GeneralSize, opt_div?: string, opt_clickUrl?: string): Slot;
+        display(adUnitPath: string, size: GeneralSize, opt_div?: string | Element, opt_clickUrl?: string): Slot;
         enableAsyncRendering(): boolean;
         enableSingleRequest(): boolean;
         enableSyncRendering(): boolean;
@@ -154,12 +155,15 @@ declare namespace googletag {
         }
 
         export interface SlotRenderEndedEvent {
+            advertiserId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;
             serviceName: string;
             size: number[] | string;
             slot: Slot;
+            sourceAgnosticCreativeId?: number;
+            sourceAgnosticLineItemId?: number;
         }
 
         export interface slotVisibilityChangedEvent {

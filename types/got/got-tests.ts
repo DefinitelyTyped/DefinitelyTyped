@@ -52,6 +52,20 @@ got('todomvc.com', {
     encoding: 'utf8',
     hostname: 'todomvc'
 }).then(response => str = response.body);
+got('todomvc.com', {
+    form: true,
+    body: [{}],
+    encoding: 'utf8',
+    hostname: 'todomvc',
+    timeout: 2000
+}).then(response => str = response.body);
+got('todomvc.com', {
+    form: true,
+    body: [{}],
+    encoding: 'utf8',
+    hostname: 'todomvc',
+    timeout: {connect: 20, request: 20, socket: 20}
+}).then(response => str = response.body);
 // following must lead to type checking error: got('todomvc.com', {form: true, body: ''}).then(response => str = response.body);
 
 got('todomvc.com', {encoding: null, hostname: 'todomvc'}).then(response => buf = response.body);

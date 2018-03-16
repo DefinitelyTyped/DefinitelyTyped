@@ -3,6 +3,7 @@
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Tomer Kruvi <https://github.com/kutomer>
 //                 Philipp Gürtler <https://github.com/philippguertler>
+//                 Daniel McGraw <https://github.com/danielmcgraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
@@ -254,7 +255,8 @@ interface JWPlayer {
 	getSafeRegion(): Region;
 	getState(): string;
 	getVolume(): number;
-    getEnvironment(): Environment;
+  getContainer(): HTMLElement;
+  getEnvironment(): Environment;
 	getWidth(): number;
 	load(playlist: any[]): void;
 	load(playlist: string): void;

@@ -1,4 +1,4 @@
-import Tapable = require('tapable');
+import {Tapable} from "tapable";
 
 class DllPlugin {
     apply(compiler: Compiler) {
