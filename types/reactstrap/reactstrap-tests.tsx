@@ -413,7 +413,7 @@ const Example18 = (
 );
 
 const Example19 = (
-  <ButtonDropdown isOpen={true} toggle={() => true} dropup>
+  <ButtonDropdown isOpen={true} toggle={() => true} direction="up">
     <DropdownToggle caret size="lg">
       Dropup
     </DropdownToggle>
