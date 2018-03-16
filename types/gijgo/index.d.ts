@@ -8,8 +8,6 @@ declare module 'gijgo' {
     export = Types;
 }
 
-declare const dp: Types.DatePicker;
-
 declare module Types {
 
     //Grid
@@ -157,8 +155,8 @@ declare module Types {
         count(): number;
         destroy(keepTableTag?: boolean, keepWrapperTag?: boolean): void;
         downloadCSV(filename?: string, includeAllRecords?: boolean): Grid<Entity, Params>;
-        edit(id: string): Grid<Entity, Params>; 
-        expandAll(): Grid<Entity, Params>; 
+        edit(id: string): Grid<Entity, Params>;
+        expandAll(): Grid<Entity, Params>;
         //get(position: number): Entity; //TODO: rename to getByPosition to avoid conflicts with jquery.get
         getAll(): Array<Entity>;
         getById(id: string): Entity;
@@ -312,7 +310,7 @@ declare module Types {
     }
 
     interface Editor extends JQuery {
-        content(html: string):  string | Editor;
+        content(html?: string):  string | Editor;
         destroy(): void;
     }
 
@@ -338,7 +336,7 @@ declare module Types {
         close(): TimePicker;
         destroy(): void;
         open(): TimePicker;
-        value(value: string):  string | TimePicker;
+        value(value?: string):  string | TimePicker;
     }
 
     // Tree
@@ -374,7 +372,7 @@ declare module Types {
         checkedField?: string;
         cascadeCheck?: boolean;
         dragAndDrop?: boolean;
-        paramNames: TreeParamNames;
+        paramNames?: TreeParamNames;
         lazyLoading?: boolean;
 
 
@@ -414,9 +412,9 @@ declare module Types {
         selectAll() : Tree;
         unselectAll() : Tree;
         getSelections() : Array<string>;
-        getChildren(node: any, cascade: boolean) : Array<any>;
-        enable(node: any, cascade: boolean) : Tree;
-        disable(node: any, cascade: boolean) : Tree;
+        getChildren(node: any, cascade?: boolean) : Array<any>;
+        enable(node: any, cascade?: boolean) : Tree;
+        disable(node: any, cascade?: boolean) : Tree;
         enableAll() : Tree;
         disableAll() : Tree;
 
