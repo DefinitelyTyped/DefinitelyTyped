@@ -10,8 +10,11 @@ import globby = require("globby");
     result = globby.sync('*.tmp');
     result = globby.sync(['a.tmp', '*.tmp', '!{c,d,e}.tmp']);
 
-    result = await globby('*.tmp', Object.freeze({ignore: Object.freeze([])}));
-    result = globby.sync('*.tmp', Object.freeze({ignore: Object.freeze([])}));
+    result = await globby('*.tmp', Object.freeze({ignore: []}));
+    result = globby.sync('*.tmp', Object.freeze({ignore: []}));
+
+    result = await globby('*.tmp', Object.freeze({onlyDirectories: true}));
+    result = globby.sync('*.tmp', Object.freeze({onlyDirectories: true}));
 })();
 
 const tasks: Array<{
