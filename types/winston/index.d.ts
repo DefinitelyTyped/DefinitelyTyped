@@ -488,15 +488,15 @@ declare namespace winston {
     }
 
     interface LogMethod {
-        (level: string, msg: string, callback: LogCallback): LoggerInstance;
-        (level: string, msg: string, meta: any, callback: LogCallback): LoggerInstance;
-        (level: string, msg: string, ...meta: any[]): LoggerInstance;
+        (level: string, msg: string | object, callback: LogCallback): LoggerInstance;
+        (level: string, msg: string | object, meta: any, callback: LogCallback): LoggerInstance;
+        (level: string, msg: string | object, ...meta: any[]): LoggerInstance;
     }
 
     interface LeveledLogMethod {
-        (msg: string, callback: LogCallback): LoggerInstance;
-        (msg: string, meta: any, callback: LogCallback): LoggerInstance;
-        (msg: string, ...meta: any[]): LoggerInstance;
+        (msg: string | object, callback: LogCallback): LoggerInstance;
+        (msg: string | object, meta: any, callback: LogCallback): LoggerInstance;
+        (msg: string | object, ...meta: any[]): LoggerInstance;
     }
 
     type LogCallback = (error?: any, level?: string, msg?: string, meta?: any) => void;
