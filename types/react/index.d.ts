@@ -277,9 +277,9 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
-    class Component<P, S> {
-        constructor(props: P, context?: any);
+    interface Component<P = {}, S = {}, DP extends Partial<P> = P> extends ComponentLifecycle<P, S> { }
+    class Component<P, S, DP extends Partial<P> = P> {
+        constructor(props: P & DP, context?: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -292,12 +292,14 @@ declare namespace React {
         forceUpdate(callBack?: () => void): void;
         render(): ReactNode;
 
+        private __externalProps: Readonly<{ children?: ReactNode }> & Readonly<P>;
+
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
-        // on the existence of `children` in `P`, then we should remove this.
-        props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        // on the existence of `children` in `P`, then we should  remove this.
+        props: Readonly<{ children?: ReactNode }> & Readonly<P> & Readonly<DP>;
         state: Readonly<S>;
         context: any;
         refs: {
@@ -305,7 +307,7 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = {}, S = {}> extends Component<P, S> { }
+    class PureComponent<P = {}, S = {}, DP extends Partial<P> = P> extends Component<P, S, DP> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
@@ -3743,7 +3745,7 @@ declare global {
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
-        interface ElementAttributesProperty { props: {}; }
+        interface ElementAttributesProperty { __externalProps: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
         // tslint:disable-next-line:no-empty-interface
