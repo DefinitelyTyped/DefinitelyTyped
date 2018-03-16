@@ -244,7 +244,7 @@ export interface QueryOptions {
     /**
      * Values for template query
      */
-    values: any;
+    values?: any;
 
     /**
      * Every operation takes an optional inactivity timeout option. This allows you to specify appropriate timeouts for
