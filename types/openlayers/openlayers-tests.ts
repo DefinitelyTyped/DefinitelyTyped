@@ -617,6 +617,13 @@ projection.setGetPointResolution(getPointResolutionFn);
 projection.setGlobal(booleanValue);
 projection.setWorldExtent(extent);
 
+units = 'degrees';
+units = 'ft';
+units = 'm';
+units = 'pixels';
+units = 'tile-pixels';
+units = 'us-ft';
+
 //
 // ol.Map
 //
