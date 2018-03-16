@@ -7545,7 +7545,7 @@ export namespace proj {
      * Projection units: `'degrees'`, `'ft'`, `'m'`, `'pixels'`, `'tile-pixels'` or
      * `'us-ft'`.
      */
-    type Units = "degress" | "ft" | "m" | "pixels" | "tile-pixels" | "us-ft";
+    type Units = "degrees" | "ft" | "m" | "pixels" | "tile-pixels" | "us-ft";
 
     /**
      * Meters per unit lookup table.
