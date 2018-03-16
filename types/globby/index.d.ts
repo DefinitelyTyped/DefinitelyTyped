@@ -3,6 +3,7 @@
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 //                 Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Options } from 'fast-glob';
 
