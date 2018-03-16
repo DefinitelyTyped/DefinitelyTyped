@@ -624,7 +624,8 @@ projection.setWorldExtent(extent);
 map = new ol.Map({
     view,
     layers: [tileLayer],
-    target: stringValue
+    target: stringValue,
+    moveTolerance: numberValue
 });
 
 //

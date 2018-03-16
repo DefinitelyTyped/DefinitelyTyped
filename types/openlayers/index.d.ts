@@ -12465,6 +12465,7 @@ export namespace olx {
         loadTilesWhileAnimating?: boolean;
         loadTilesWhileInteracting?: boolean;
         logo?: (boolean | string | olx.LogoOptions | Element);
+        moveTolerance?: number;
         overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]);
         renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
         target?: (Element | string);
