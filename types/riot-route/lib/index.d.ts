@@ -22,14 +22,10 @@ interface RiotRoute {
     create(): RiotSubRoute;
 
     /**
-     * Start listening the url changes.
+     * Start listening the url changes
+     * and also exec routing on the current url.
      */
-    start(): void;
-
-    /**
-     * Start listening the url changes and also exec routing on the current url.
-     */
-    start(autoStart: boolean): void;
+    start(autoStart?: boolean): void;
 
     /**
      * Stop all the routings. It'll removes the listeners and clear also the callbacks.
@@ -59,8 +55,8 @@ interface RiotRoute {
      * @param parser
      * @param secondParser
      */
-    parser<T>(
-        parser: (path: string) => T[],
+    parser(
+        parser: (path: string) => any[],
         secondParser?: (path: string, filter: string) => string[] | undefined
     ): void;
 }
