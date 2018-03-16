@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strict": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "riot-route-tests.ts"
+    ]
+}
