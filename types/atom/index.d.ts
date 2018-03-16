@@ -9,7 +9,6 @@
 // NOTE: only those classes exported within this file should be retain that status below.
 // https://github.com/atom/atom/blob/v1.24.0/exports/atom.js
 
-/// <reference types="jquery" />
 /// <reference types="node" />
 
 import { ReadStream, WriteStream } from "fs";
@@ -654,6 +653,9 @@ export interface DisplayMarker {
  *  This API is experimental and subject to change on any release.
  */
 export interface DisplayMarkerLayer {
+    /** The identifier for the underlying MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Destroy this layer. */
     destroy(): void;
@@ -949,6 +951,9 @@ export interface Marker {
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
+    /** The identifier for this MarkerLayer. */
+    id: string;
+
     // Lifecycle
     /** Create a copy of this layer with markers in the same state and locations. */
     copy(): MarkerLayer;
@@ -2519,6 +2524,10 @@ export interface TextEditorRegistry {
     observe(callback: (editor: TextEditor) => void): Disposable;
 }
 
+export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
+    jquery: string;
+}
+
 export type TooltipPlacement =
     |"top"|"bottom"|"left"|"right"
     |"auto"|"auto top"|"auto bottom"|"auto left"|"auto right";
@@ -2526,7 +2535,7 @@ export type TooltipPlacement =
 /** Associates tooltips with HTML elements or selectors. */
 export interface TooltipManager {
     /** Add a tooltip to the given element. */
-    add(target: HTMLElement, options: {
+    add(target: HTMLElement | JQueryCompatible, options: {
         item?: object,
     } | {
         title?: string|(() => string),
@@ -3547,7 +3556,7 @@ export class File {
 
     // Reading and Writing
     /** Reads the contents of the file. */
-    read(flushCache?: boolean): Promise<string>;
+    read(flushCache?: boolean): Promise<string | null>;
 
     /** Returns a stream to read the content of the file. */
     createReadStream(): ReadStream;
@@ -6748,7 +6757,7 @@ export interface Tooltip {
     enabled: boolean;
     timeout: number;
     hoverState: "in"|"out"|null;
-    element: JQuery|HTMLElement;
+    element: HTMLElement;
 
     getTitle(): string;
     getTooltipElement(): HTMLElement;

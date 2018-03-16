@@ -169,6 +169,15 @@ client.index({
 }, (error, response) => {
 });
 
+client.get({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  routing: '1'
+}, (error, response) => {
+    const routing = response._routing;
+});
+
 client.mget({
   body: {
     docs: [
@@ -255,6 +264,30 @@ client.search({
   } else {
     console.log('every "test" title', allTitles);
   }
+});
+
+client.updateByQuery({
+  index: 'myIndex',
+  type: 'mytype',
+}, (error, response) => {
+  const {
+    took,
+    timed_out,
+    updated,
+    deleted,
+    batches,
+    version_conflicts,
+    noops,
+    retries,
+    throttled_millis,
+    throttled_until_millis,
+    total,
+    failures
+  } = response;
+
+  const { bulk, search } = retries;
+
+  // ...
 });
 
 client.indices.updateAliases({

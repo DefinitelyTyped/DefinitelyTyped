@@ -9,10 +9,9 @@ const minio = new Minio.Client({
     secretKey: 'Go1hhOkXnl',
 });
 
-minio.makeBucket('testBucket', (error: Error|null) => { console.log(error); });
 minio.makeBucket('testBucket', 'ap-southeast-2', (error: Error|null) => { console.log(error); });
-minio.makeBucket('testBucket');
 minio.makeBucket('testBucket', 'eu-west-1');
+minio.makeBucket('testBucket', 'region-not-from-list');
 
 minio.listBuckets((error: Error|null, bucketList: Minio.BucketItemFromList[]) => { console.log(error, bucketList); });
 minio.listBuckets();

@@ -95,6 +95,7 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
       this.setState({ foo: true });
       this.setState({ foo: true, bar: true });
       this.setState({});
+      this.setState(null);
       this.setState({ foo: true, foo2: true }); // $ExpectError
       this.setState(() => ({ foo: '' })); // $ExpectError
       this.setState(() => ({ foo: true }));
@@ -103,6 +104,7 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
       this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
       this.setState(() => ({ })); // ok!
       this.setState({ foo: true, bar: undefined}); // $ExpectError
+      this.setState(prevState => (prevState.bar ? { bar: false } : null));
     }
 }
 

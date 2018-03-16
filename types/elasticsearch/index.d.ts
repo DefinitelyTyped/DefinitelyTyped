@@ -8,6 +8,7 @@
 //                 Ahmad Ferdous Bin Alam <https://github.com/ahmadferdous>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Paul Brabban <https://github.com/brabster>
+//                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -88,8 +89,8 @@ export class Client {
     termvectors(params: TermvectorsParams, callback: (error: any, response: any) => void): void;
     update(params: UpdateDocumentParams): Promise<any>;
     update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
-    updateByQuery(params: UpdateDocumentByQueryParams): Promise<any>;
-    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: any) => void): void;
+    updateByQuery(params: UpdateDocumentByQueryParams): Promise<UpdateDocumentByQueryResponse>;
+    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: UpdateDocumentByQueryResponse) => void): void;
     close(): void;
 }
 
@@ -407,6 +408,7 @@ export interface GetResponse<T> {
     _type: string;
     _id: string;
     _version: number;
+    _routing?: string;
     found: boolean;
     _source: T;
 }
@@ -781,6 +783,25 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     requestsPerSecond?: number;
     index: NameList;
     type: NameList;
+}
+
+export interface UpdateDocumentByQueryResponse {
+    took: number;
+    timed_out: boolean;
+    updated: number;
+    deleted: number;
+    batches: number;
+    version_conflicts: number;
+    noops: number;
+    retries: {
+        bulk: number;
+        search: number;
+    };
+    throttled_millis: number;
+    requests_per_second: number;
+    throttled_until_millis: number;
+    total: number;
+    failures: any[];
 }
 
 export interface Cat {
