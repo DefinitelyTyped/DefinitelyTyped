@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "lib": [
             "es6",
@@ -9,15 +8,15 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "forceConsistentCasingInFileNames": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
-        "noEmit": true
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
