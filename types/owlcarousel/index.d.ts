@@ -29,7 +29,7 @@ interface IOwlCarouselOptions {
     scrollPerPage?: boolean;
     pagination?: boolean;
     paginationNumbers?: boolean;
-    responsive?: boolean;
+    responsive?: boolean | any;
     responsiveRefreshRate?: number;
     responsiveBaseWidth?: JQuery | string;
     baseClass?: string;
