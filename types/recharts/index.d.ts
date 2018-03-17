@@ -401,7 +401,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     left?: number;
     width?: number;
     height?: number;
-    dataKey: string | number; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
+    dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     label?: boolean | object | React.ReactElement<any> | LabelProps['content'];
     points?: Point[];
 }
@@ -782,7 +782,7 @@ export interface TooltipPayload {
     unit?: string;
     color?: string;
     fill?: string;
-    dataKey?: string;
+    dataKey?: DataKey;
     formatter?: TooltipFormatter;
 }
 

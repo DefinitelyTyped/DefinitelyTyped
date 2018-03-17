@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.24
+// Type definitions for Atom 1.25
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.24.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.25.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -204,7 +204,27 @@ export interface AtomEnvironment {
     beep(): void;
 
     /**
-     *  A flexible way to open a dialog akin to an alert dialog.
+     *  A flexible way to open a dialog akin to an alert dialog. If a callback
+     *  is provided, then the confirmation will work asynchronously, which is
+     *  recommended.
+     *
+     *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
+     *  selecting a button the first button will be clicked unless a "Cancel" or "No"
+     *  button is provided.
+     *
+     *  Returns the chosen button index number if the buttons option was an array.
+     *  @param response The index of the button that was clicked.
+     *  @param checkboxChecked The checked state of the checkbox if `checkboxLabel` was set.
+     *  Otherwise false.
+     */
+    confirm(options: ConfirmationOptions, callback: (response: number,
+        checkboxChecked: boolean) => void): void;
+
+    /**
+     *  A flexible way to open a dialog akin to an alert dialog. If a callback
+     *  is provided, then the confirmation will work asynchronously, which is
+     *  recommended.
+     *
      *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
      *  selecting a button the first button will be clicked unless a "Cancel" or "No"
      *  button is provided.
@@ -218,7 +238,10 @@ export interface AtomEnvironment {
     }): void;
 
     /**
-     *  A flexible way to open a dialog akin to an alert dialog.
+     *  A flexible way to open a dialog akin to an alert dialog. If a callback
+     *  is provided, then the confirmation will work asynchronously, which is
+     *  recommended.
+     *
      *  If the dialog is closed (via `Esc` key or `X` in the top corner) without
      *  selecting a button the first button will be clicked unless a "Cancel" or "No"
      *  button is provided.
@@ -264,11 +287,11 @@ export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
 }
 
 export type CommandRegistryListener<TargetType extends EventTarget> = {
-  didDispatch(event: CommandEvent<TargetType>): void,
-  displayName?: string,
-  description?: string,
-  hiddenInCommandPalette?: boolean,
-} | ((event: CommandEvent<TargetType>) => void);
+    didDispatch(event: CommandEvent<TargetType>): void | Promise<void>,
+    displayName?: string,
+    description?: string,
+    hiddenInCommandPalette?: boolean,
+} | ((event: CommandEvent<TargetType>) => void | Promise<void>);
 
 /**
  *  Associates listener functions with commands in a context-sensitive way
@@ -305,9 +328,10 @@ export interface CommandRegistry {
 
     /**
      *  Simulate the dispatch of a command on a DOM node.
-     *  @return Whether or not there was a matching command for the target.
+     *  @return Either a Promise that resolves after all handlers complete or null if
+     *  no handlers were matched.
      */
-    dispatch(target: Node, commandName: string): boolean;
+    dispatch(target: Node, commandName: string): Promise<void> | null;
 
     /** Invoke the given callback before dispatching a command event. */
     onWillDispatch(callback: (event: CommandEvent) => void): Disposable;
@@ -1035,12 +1059,12 @@ export class Notification {
 
 /** A notification manager used to create Notifications to be shown to the user. */
 export interface NotificationManager {
-    // Properties
-    readonly notifications: Notification[];
-
     // Events
     /** Invoke the given callback after a notification has been added. */
     onDidAddNotification(callback: (notification: Notification) => void): Disposable;
+
+    /** Invoke the given callback after the notifications have been cleared. */
+    onDidClearNotifications(callback: () => void): Disposable;
 
     // Adding Notifications
     /** Add a success notification. */
@@ -1060,7 +1084,11 @@ export interface NotificationManager {
 
     // Getting Notifications
     /** Get all the notifications. */
-    getNotifications(): Notification[];
+    getNotifications(): ReadonlyArray<Notification>;
+
+    // Managing Notifications
+    /** Clear all the notifications. */
+    clear(): void;
 }
 
 /** Represents a point in a buffer in row/column coordinates. */
@@ -1273,7 +1301,6 @@ export class Range {
  */
 export class TextEditor {
     readonly id: number;
-    readonly buffer: TextBuffer;
 
     // NOTE: undocumented within the public API. Don't go down the rabbit hole.
     constructor(options?: object);
@@ -2137,6 +2164,12 @@ export class TextEditor {
      */
     selectToBeginningOfPreviousParagraph(): void;
 
+    /** For each selection, select the syntax node that contains that selection. */
+    selectLargerSyntaxNode(): void;
+
+    /** Undo the effect a preceding call to `::selectLargerSyntaxNode`. */
+    selectSmallerSyntaxNode(): void;
+
     /** Select the range of the given marker if it is valid. */
     selectMarker(marker: DisplayMarker): Range|undefined;
 
@@ -2347,7 +2380,10 @@ export class TextEditor {
     /** Unfold all existing folds. */
     unfoldAll(): void;
 
-    /** Fold all foldable lines at the given indent level. */
+    /**
+     * Fold all foldable lines at the given indent level.
+     * @param level A zero-indexed number.
+     */
     foldAllAtIndentLevel(level: number): void;
 
     /**
@@ -2522,10 +2558,6 @@ export interface TextEditorRegistry {
     // Event Subscription
     /** Invoke the given callback with all the current and future registered TextEditors. */
     observe(callback: (editor: TextEditor) => void): Disposable;
-}
-
-export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
-    jquery: string;
 }
 
 export type TooltipPlacement =
@@ -3451,6 +3483,12 @@ export interface Dock {
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
+
+    /**
+     *  Invoke the given callback when the hovered state of the dock changes.
+     *  @param hovered Is the dock now hovered?
+     */
+    onDidChangeHovered(callback: (hovered: boolean) => void): Disposable;
 
     // Pane Items
     /** Get all pane items in the dock. */
@@ -4498,10 +4536,8 @@ export interface Project {
  *  syntax tree to a token including all scope names for the entire path.
  */
 export interface ScopeDescriptor {
-    readonly scopes: string[];
-
     /** Returns all scopes for this descriptor. */
-    getScopesArray(): string[];
+    getScopesArray(): ReadonlyArray<string>;
 }
 
 /** Represents a selection in the TextEditor. */
@@ -5068,7 +5104,10 @@ export class TextBuffer {
     /** Get the text of the last line of the buffer, without its line ending. */
     getLastLine(): string;
 
-    /** Get the text of the line at the given row, without its line ending. */
+    /**
+     *  Get the text of the line at the given 0-indexed row, without its line ending.
+     *  @param row A number representing the row.
+     */
     lineForRow(row: number): string|undefined;
 
     /** Get the line ending for the given 0-indexed row. */
@@ -5120,10 +5159,18 @@ export class TextBuffer {
     /** Delete the text in the given range. */
     delete(range: RangeCompatible): Range;
 
-    /** Delete the line associated with a specified row. */
+    /**
+     *  Delete the line associated with a specified 0-indexed row.
+     *  @param row A number representing the row to delete.
+     */
     deleteRow(row: number): Range;
 
-    /** Delete the lines associated with the specified row range. */
+    /**
+     *  Delete the lines associated with the specified 0-indexed row range.
+     *
+     *  If the row range is out of bounds, it will be clipped. If the `startRow`
+     *  is greater than the `endRow`, they will be reordered.
+     */
     deleteRows(startRow: number, endRow: number): Range;
 
     // Markers
@@ -5162,10 +5209,16 @@ export class TextBuffer {
     getMarkerCount(): number;
 
     // History
-    /** Undo the last operation. If a transaction is in progress, aborts it. */
+    /**
+     *  Undo the last operation. If a transaction is in progress, aborts it.
+     *  @return A boolean of whether or not a change was made.
+     */
     undo(): boolean;
 
-    /** Redo the last operation. */
+    /**
+     *  Redo the last operation.
+     *  @return A boolean of whether or not a change was made.
+     */
     redo(): boolean;
 
     /** Batch multiple operations as a single undo/redo step. */
@@ -5173,36 +5226,43 @@ export class TextBuffer {
     transact<T>(fn: () => T): T;
 
     /**
-     *  Call within a transaction to terminate the function's execution and
-     *  revert any changes performed up to the abortion.
+     *  Abort the currently running transaction.
+     *
+     *  Only intended to be called within the `fn` option to `::transact`.
      */
     abortTransaction(): void;
 
-    /**
-     *  Clear the undo stack. When calling this method within a transaction,
-     *  the ::onDidChangeText event will not be triggered because the information
-     *  describing the changes is lost.
-     */
+    /** Clear the undo stack. */
     clearUndoStack(): void;
 
     /**
      *  Create a pointer to the current state of the buffer for use with
-     *  ::revertToCheckpoint and ::groupChangesSinceCheckpoint.
+     *  `::revertToCheckpoint` and `::groupChangesSinceCheckpoint`.
+     *  @return A checkpoint ID value.
      */
     createCheckpoint(): number;
 
     /**
      *  Revert the buffer to the state it was in when the given checkpoint was created.
-     *  Returns a boolean indicating whether the operation succeeded.
+     *  @return A boolean indicating whether the operation succeeded.
      */
     revertToCheckpoint(checkpoint: number): boolean;
 
     /**
      *  Group all changes since the given checkpoint into a single transaction for
      *  purposes of undo/redo.
-     *  Returns a boolean indicating whether the operation succeeded.
+     *  @return A boolean indicating whether the operation succeeded.
      */
     groupChangesSinceCheckpoint(checkpoint: number): boolean;
+
+    /**
+     *  Group the last two text changes for purposes of undo/redo.
+     *
+     *  This operation will only succeed if there are two changes on the undo stack.
+     *  It will not group past the beginning of an open transaction.
+     *  @return A boolean indicating whether the operation succeeded.
+     */
+    groupLastChanges(): boolean;
 
     /**
      *  Returns a list of changes since the given checkpoint.
@@ -5293,17 +5353,26 @@ export class TextBuffer {
     /** Get the maximal position in the buffer, where new text would be appended. */
     getEndPosition(): Point;
 
+    /** Get the length of the buffer's text. */
+    getLength(): number;
+
     /** Get the length of the buffer in characters. */
     getMaxCharacterIndex(): number;
 
-    /** Get the range for the given row. */
-    rangeForRow(row: number, includeNewline: boolean): Range;
+    /**
+     *  Get the range for the given row.
+     *  @param row A number representing a 0-indexed row.
+     *  @param includeNewline A boolean indicating whether or not to include the
+     *  newline, which results in a range that extends to the start of the next line.
+     *  (default: false)
+     */
+    rangeForRow(row: number, includeNewline?: boolean): Range;
 
     /**
      *  Convert a position in the buffer in row/column coordinates to an absolute
      *  character offset, inclusive of line ending characters.
      */
-    characterIndexForPosition(position: Point|[number, number]): number;
+    characterIndexForPosition(position: PointCompatible): number;
 
     /**
      *  Convert an absolute character offset, inclusive of newlines, to a position
@@ -5753,7 +5822,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.24.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.25.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6037,6 +6106,59 @@ export interface BuildEnvironmentOptions {
      *  from the file system. You probably want this to be false.
      */
     enablePersistence?: boolean;
+}
+
+export interface ConfirmationOptions {
+    /** The type of the confirmation prompt. */
+    type?: "none"|"info"|"error"|"question"|"warning";
+
+    /** The text for the buttons. */
+    buttons?: ReadonlyArray<string>;
+
+    /** The index for the button to be selected by default in the prompt. */
+    defaultId?: number;
+
+    /** The title for the prompt. */
+    title?: string;
+
+    /** The content of the message box. */
+    message?: string;
+
+    /** Additional information regarding the message. */
+    detail?: string;
+
+    /** If provided, the message box will include a checkbox with the given label. */
+    checkboxLabel?: string;
+
+    /** Initial checked state of the checkbox. false by default. */
+    checkboxChecked?: boolean;
+
+    /** An Electron NativeImage to use as the prompt's icon. */
+    icon?: object;
+
+    /**
+     *  The index of the button to be used to cancel the dialog, via the `Esc` key.
+     *  By default this is assigned to the first button with "cancel" or "no" as the
+     *  label. If no such labeled buttons exist and this option is not set, 0 will be
+     *  used as the return value or callback response.
+     *
+     *  This option is ignored on Windows.
+     */
+    cancelId?: number;
+
+    /**
+     *  On Windows, Electron will try to figure out which one of the buttons are
+     *  common buttons (like `Cancel` or `Yes`), and show the others as command links
+     *  in the dialog. This can make the dialog appear in the style of modern Windows
+     *  apps. If you don't like this behavior, you can set noLink to true.
+     */
+    noLink?: boolean;
+
+    /**
+     * Normalize the keyboard access keys across platforms.
+     * Atom defaults this to true.
+     */
+    normalizeAccessKeys?: boolean;
 }
 
 export interface ContextMenuOptions {
@@ -6504,6 +6626,10 @@ export interface Deserializer {
 
 export interface DisposableLike {
     dispose(): void;
+}
+
+export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
+    jquery: string;
 }
 
 /** The types usable when constructing a point via the Point::fromObject method. */
