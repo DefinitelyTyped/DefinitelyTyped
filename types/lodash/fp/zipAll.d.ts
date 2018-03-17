@@ -12,7 +12,7 @@ type Zip =
      * @param arrays The arrays to process.
      * @return Returns the new array of grouped elements.
      */
-    <T>(arrays: ReadonlyArray<_.List<T> | null | undefined>) => (T | undefined)[][];
+    <T>(arrays: ReadonlyArray<_.List<T> | null | undefined>) => Array<Array<T | undefined>>;
 
 declare const zipAll: Zip;
 export = zipAll;

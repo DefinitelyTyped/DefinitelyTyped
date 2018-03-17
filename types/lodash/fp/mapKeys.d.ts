@@ -54,17 +54,7 @@ interface MapKeys {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped object.
      */
-    <T>(iteratee: _.ValueIteratee<string>, object: _.Dictionary<T> | null | undefined): _.Dictionary<T>;
-    /**
-     * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
-     * by running each own enumerable property of object through iteratee.
-     *
-     * @param object The object to iterate over.
-     * @param iteratee The function invoked per iteration.
-     * @param thisArg The this binding of iteratee.
-     * @return Returns the new mapped object.
-     */
-    (iteratee: _.ValueIteratee<string>, object: object | null | undefined): _.Dictionary<any>;
+    <T extends object>(iteratee: _.ValueIteratee<string>, object: T | null | undefined): _.Dictionary<T[keyof T]>;
 }
 interface MapKeys1x1 {
     /**
@@ -108,17 +98,7 @@ interface MapKeys2x1 {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped object.
      */
-    <T>(object: _.Dictionary<T> | null | undefined): _.Dictionary<T>;
-    /**
-     * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
-     * by running each own enumerable property of object through iteratee.
-     *
-     * @param object The object to iterate over.
-     * @param iteratee The function invoked per iteration.
-     * @param thisArg The this binding of iteratee.
-     * @return Returns the new mapped object.
-     */
-    (object: object | null | undefined): _.Dictionary<any>;
+    <T extends object>(object: T | null | undefined): _.Dictionary<T[keyof T]>;
 }
 
 declare const mapKeys: MapKeys;

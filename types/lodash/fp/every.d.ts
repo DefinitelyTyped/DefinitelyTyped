@@ -31,7 +31,7 @@ interface Every {
      * @param predicate The function invoked per iteration.
      * @return Returns true if all elements pass the predicate check, else false.
      */
-    <T>(predicate: _.ValueIterateeCustom<T, boolean>, collection: _.List<T> | _.NumericDictionary<T> | null | undefined): boolean;
+    <T>(predicate: _.ValueIterateeCustom<T, boolean>, collection: _.List<T> | null | undefined): boolean;
     /**
      * Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate
      * returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
@@ -60,7 +60,7 @@ interface Every1x1<T> {
      * @param predicate The function invoked per iteration.
      * @return Returns true if all elements pass the predicate check, else false.
      */
-    (collection: _.List<T> | _.NumericDictionary<T> | object | null | undefined): boolean;
+    (collection: _.List<T> | object | null | undefined): boolean;
 }
 
 declare const every: Every;

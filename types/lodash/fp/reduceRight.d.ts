@@ -40,7 +40,7 @@ interface ReduceRight {
     * @param accumulator Initial value of the accumulator.
     * @return The accumulated value.
     **/
-    <T, TResult>(callback: _.MemoIteratorCappedRight<T, TResult>, accumulator: TResult, collection: T[] | _.List<T> | _.NumericDictionary<T> | null | undefined): TResult;
+    <T, TResult>(callback: _.MemoIteratorCappedRight<T, TResult>, accumulator: TResult, collection: T[] | _.List<T> | null | undefined): TResult;
     /**
     * This method is like _.reduce except that it iterates over elements of a collection from
     * right to left.
@@ -96,7 +96,7 @@ interface ReduceRight1x1<T, TResult> {
     * @param accumulator Initial value of the accumulator.
     * @return The accumulated value.
     **/
-    (accumulator: TResult, collection: T[] | _.List<T> | _.NumericDictionary<T> | null | undefined): TResult;
+    (accumulator: TResult, collection: T[] | _.List<T> | null | undefined): TResult;
 }
 interface ReduceRight1x2<T, TResult> {
     /**
@@ -116,7 +116,7 @@ interface ReduceRight1x2<T, TResult> {
     * @param accumulator Initial value of the accumulator.
     * @return The accumulated value.
     **/
-    (collection: T[] | _.List<T> | _.NumericDictionary<T> | null | undefined): TResult;
+    (collection: T[] | _.List<T> | null | undefined): TResult;
 }
 interface ReduceRight3x1<T extends object, TResult> {
     /**

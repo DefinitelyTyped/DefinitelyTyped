@@ -109,7 +109,7 @@ interface KeyBy {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    <T>(iteratee: _.ValueIterateeCustom<T, _.PropertyName>, collection: _.List<T> | _.NumericDictionary<T> | null | undefined): _.Dictionary<T>;
+    <T>(iteratee: _.ValueIterateeCustom<T, _.PropertyName>, collection: _.List<T> | null | undefined): _.Dictionary<T>;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is the last element responsible for generating the key. The
@@ -218,7 +218,7 @@ interface KeyBy2x1<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    (collection: _.List<T> | object | _.NumericDictionary<T> | null | undefined): _.Dictionary<T>;
+    (collection: _.List<T> | object | null | undefined): _.Dictionary<T>;
 }
 
 declare const keyBy: KeyBy;

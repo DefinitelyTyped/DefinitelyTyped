@@ -52,7 +52,7 @@ interface Reduce {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    <T, TResult>(callback: _.MemoIteratorCapped<T, TResult>, accumulator: TResult, collection: T[] | _.List<T> | _.NumericDictionary<T> | null | undefined): TResult;
+    <T, TResult>(callback: _.MemoIteratorCapped<T, TResult>, accumulator: TResult, collection: T[] | _.List<T> | null | undefined): TResult;
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution
@@ -126,7 +126,7 @@ interface Reduce1x1<T, TResult> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    (accumulator: TResult, collection: T[] | _.List<T> | _.NumericDictionary<T> | null | undefined): TResult;
+    (accumulator: TResult, collection: T[] | _.List<T> | null | undefined): TResult;
 }
 interface Reduce1x2<T, TResult> {
     /**
@@ -152,7 +152,7 @@ interface Reduce1x2<T, TResult> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    (collection: T[] | _.List<T> | _.NumericDictionary<T> | null | undefined): TResult;
+    (collection: T[] | _.List<T> | null | undefined): TResult;
 }
 interface Reduce3x1<T extends object, TResult> {
     /**

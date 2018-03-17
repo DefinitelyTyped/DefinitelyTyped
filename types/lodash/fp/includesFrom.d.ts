@@ -44,7 +44,7 @@ interface Includes {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    <T>(target: T, fromIndex: number, collection: _.List<T>|_.Dictionary<T> | null | undefined): boolean;
+    <T>(target: T, fromIndex: number, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): boolean;
 }
 interface Includes1x1<T> {
     /**
@@ -76,7 +76,7 @@ interface Includes1x1<T> {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    (fromIndex: number, collection: _.List<T>|_.Dictionary<T> | null | undefined): boolean;
+    (fromIndex: number, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): boolean;
 }
 interface Includes1x2<T> {
     /**
@@ -98,7 +98,7 @@ interface Includes1x2<T> {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    (collection: _.List<T>|_.Dictionary<T> | null | undefined): boolean;
+    (collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): boolean;
 }
 
 declare const includesFrom: Includes;

@@ -61,7 +61,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, collection: _.List<T> | _.NumericDictionary<T> | null | undefined): TResult[];
+    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, collection: _.List<T> | null | undefined): TResult[];
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -80,7 +80,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult | TResult>): FlatMapDeep3x1<T, TResult>;
+    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult | TResult>): FlatMapDeep2x1<T, TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -118,7 +118,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    (iteratee: string): FlatMapDeep4x1;
+    (iteratee: string): FlatMapDeep3x1;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -156,7 +156,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    (iteratee: object): FlatMapDeep5x1;
+    (iteratee: object): FlatMapDeep4x1;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -215,9 +215,9 @@ interface FlatMapDeep1x1<T, TResult> {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    (collection: _.List<T> | _.NumericDictionary<T> | null | undefined): TResult[];
+    (collection: _.List<T> | null | undefined): TResult[];
 }
-interface FlatMapDeep3x1<T extends object, TResult> {
+interface FlatMapDeep2x1<T extends object, TResult> {
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -236,7 +236,7 @@ interface FlatMapDeep3x1<T extends object, TResult> {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    (): FlatMapDeep3x1<T, TResult>;
+    (): FlatMapDeep2x1<T, TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -256,6 +256,46 @@ interface FlatMapDeep3x1<T extends object, TResult> {
      * // => [1, 1, 2, 2]
      */
     (collection: T | null | undefined): TResult[];
+}
+interface FlatMapDeep3x1 {
+    /**
+     * This method is like `_.flatMap` except that it recursively flattens the
+     * mapped results.
+     *
+     * @since 4.7.0
+     * @category Collection
+     * @param collection The collection to iterate over.
+     * @param [iteratee=_.identity] The function invoked per iteration.
+     * @returns Returns the new flattened array.
+     * @example
+     *
+     * function duplicate(n) {
+     *   return [[[n, n]]];
+     * }
+     *
+     * _.flatMapDeep([1, 2], duplicate);
+     * // => [1, 1, 2, 2]
+     */
+    (): FlatMapDeep3x1;
+    /**
+     * This method is like `_.flatMap` except that it recursively flattens the
+     * mapped results.
+     *
+     * @since 4.7.0
+     * @category Collection
+     * @param collection The collection to iterate over.
+     * @param [iteratee=_.identity] The function invoked per iteration.
+     * @returns Returns the new flattened array.
+     * @example
+     *
+     * function duplicate(n) {
+     *   return [[[n, n]]];
+     * }
+     *
+     * _.flatMapDeep([1, 2], duplicate);
+     * // => [1, 1, 2, 2]
+     */
+    (collection: object | null | undefined): any[];
 }
 interface FlatMapDeep4x1 {
     /**
@@ -277,46 +317,6 @@ interface FlatMapDeep4x1 {
      * // => [1, 1, 2, 2]
      */
     (): FlatMapDeep4x1;
-    /**
-     * This method is like `_.flatMap` except that it recursively flattens the
-     * mapped results.
-     *
-     * @since 4.7.0
-     * @category Collection
-     * @param collection The collection to iterate over.
-     * @param [iteratee=_.identity] The function invoked per iteration.
-     * @returns Returns the new flattened array.
-     * @example
-     *
-     * function duplicate(n) {
-     *   return [[[n, n]]];
-     * }
-     *
-     * _.flatMapDeep([1, 2], duplicate);
-     * // => [1, 1, 2, 2]
-     */
-    (collection: object | null | undefined): any[];
-}
-interface FlatMapDeep5x1 {
-    /**
-     * This method is like `_.flatMap` except that it recursively flattens the
-     * mapped results.
-     *
-     * @since 4.7.0
-     * @category Collection
-     * @param collection The collection to iterate over.
-     * @param [iteratee=_.identity] The function invoked per iteration.
-     * @returns Returns the new flattened array.
-     * @example
-     *
-     * function duplicate(n) {
-     *   return [[[n, n]]];
-     * }
-     *
-     * _.flatMapDeep([1, 2], duplicate);
-     * // => [1, 1, 2, 2]
-     */
-    (): FlatMapDeep5x1;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.

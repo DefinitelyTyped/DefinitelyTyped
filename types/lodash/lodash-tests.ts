@@ -13083,6 +13083,14 @@ namespace TestMapKeys {
         _(abcObject).chain().mapKeys(abcObjectIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<string | number | boolean>>
         _(abcObject).chain().mapKeys(''); // $ExpectType LoDashExplicitWrapper<Dictionary<string | number | boolean>>
     }
+
+    const indexIterator = (index: number) => index + 1;
+    const keyIterator = (key: string) => "_" + key;
+    fp.mapKeys(indexIterator, array); // $ExpectType Dictionary<AbcObject>
+    fp.mapKeys(indexIterator)(array); // $ExpectType Dictionary<AbcObject>
+    fp.mapKeys(indexIterator, list); // $ExpectType Dictionary<AbcObject>
+    fp.mapKeys(keyIterator)(dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.mapKeys(keyIterator)(abcObject); // $ExpectType Dictionary<string | number | boolean>
 }
 
 // _.mapValues
@@ -13262,10 +13270,12 @@ namespace TestMapKeys {
         _(abcObjectOrNull).chain().mapValues(); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     }
 
-    const obj: AbcObject | null | undefined = anything;
-    const dictionaryIterator2 = (key: string) => "_" + key;
-    fp.mapKeys(dictionaryIterator2)(dictionary); // $ExpectType Dictionary<AbcObject>
-    fp.mapKeys(dictionaryIterator2)(obj); // $ExpectType Dictionary<any>
+    const valueIterator = (value: AbcObject) => "";
+    fp.mapValues(valueIterator)(dictionary); // $ExpectType Dictionary<string>
+    fp.mapValues("a", dictionary); // $ExpectType Dictionary<number>
+    fp.mapValues(valueIterator)(numericDictionary); // $ExpectType Dictionary<string>
+    fp.mapValues({ a: 42 })(numericDictionary); // $ExpectType Dictionary<boolean>
+    fp.mapValues(value => "", abcObjectOrNull); // $ExpectType { a: string; b: string; c: string; }
 }
 
 // _.merge
@@ -13455,8 +13465,8 @@ namespace TestOmit {
 
 // _.omitBy
 namespace TestOmitBy {
-    let obj: AbcObject | null | undefined = anything;
-    let predicate = (element: any, key: string) => true;
+    const obj: AbcObject | null | undefined = anything;
+    const predicate = (element: string | number | boolean, key: string) => true;
 
     {
         let result: Partial<AbcObject>;
@@ -13522,8 +13532,8 @@ namespace TestPick {
 
 // _.pickBy
 namespace TestPickBy {
-    let obj: AbcObject | null | undefined = anything;
-    let predicate = (element: any, key: string) => true;
+    const obj: AbcObject | null | undefined = anything;
+    const predicate = (element: string | number | boolean, key: string) => true;
 
     {
         let result: Partial<AbcObject>;

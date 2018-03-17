@@ -109,7 +109,7 @@ interface CountBy {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    <T>(iteratee: _.ValueIteratee<T>, collection: _.List<T> | _.NumericDictionary<T> | null | undefined): _.Dictionary<number>;
+    <T>(iteratee: _.ValueIteratee<T>, collection: _.List<T> | null | undefined): _.Dictionary<number>;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The
@@ -218,7 +218,7 @@ interface CountBy2x1<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    (collection: _.List<T> | _.NumericDictionary<T> | object | null | undefined): _.Dictionary<number>;
+    (collection: _.List<T> | object | null | undefined): _.Dictionary<number>;
 }
 
 declare const countBy: CountBy;

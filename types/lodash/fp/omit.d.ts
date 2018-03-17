@@ -55,7 +55,7 @@ interface Omit {
      * _.omit(object, ['a', 'c']);
      * // => { 'b': '2' }
      */
-    <T>(paths: _.PropertyPath, object: _.Dictionary<T>): _.Dictionary<T>;
+    <T extends _.AnyKindOfDictionary>(paths: _.PropertyPath, object: T | null | undefined): T;
     /**
      * The opposite of `_.pick`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that are not omitted.
@@ -108,7 +108,7 @@ interface Omit1x1 {
      * _.omit(object, ['a', 'c']);
      * // => { 'b': '2' }
      */
-    <T>(object: _.Dictionary<T>): _.Dictionary<T>;
+    <T extends _.AnyKindOfDictionary>(object: T | null | undefined): T;
     /**
      * The opposite of `_.pick`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that are not omitted.

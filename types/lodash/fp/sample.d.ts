@@ -18,13 +18,6 @@ interface Sample {
      * @param collection The collection to sample.
      * @return Returns the random element.
      */
-    <T extends object>(collection: T): T[keyof T];
-    /**
-     * Gets a random element from collection.
-     *
-     * @param collection The collection to sample.
-     * @return Returns the random element.
-     */
     <T extends object>(collection: T | null | undefined): T[keyof T] | undefined;
 }
 

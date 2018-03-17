@@ -210,7 +210,6 @@ declare module "../index" {
 
     // conformsTo
 
-
     interface LoDashStatic {
         /**
          * Checks if object conforms to source by invoking the predicate properties of source with the

@@ -28,7 +28,7 @@ interface SampleSize {
      * @param n The number of elements to sample.
      * @return Returns the random elements.
      */
-    <T>(n: number, collection: _.List<T>|_.Dictionary<T>|_.NumericDictionary<T> | null | undefined): T[];
+    <T>(n: number, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T[];
     /**
      * Gets n random elements at unique keys from collection up to the size of collection.
      *
@@ -54,7 +54,7 @@ interface SampleSize1x1 {
      * @param n The number of elements to sample.
      * @return Returns the random elements.
      */
-    <T>(collection: _.List<T>|_.Dictionary<T>|_.NumericDictionary<T> | null | undefined): T[];
+    <T>(collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T[];
     /**
      * Gets n random elements at unique keys from collection up to the size of collection.
      *

@@ -109,7 +109,7 @@ interface GroupBy {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    <T>(iteratee: _.ValueIteratee<T>, collection: _.List<T> | _.NumericDictionary<T> | null | undefined): _.Dictionary<T[]>;
+    <T>(iteratee: _.ValueIteratee<T>, collection: _.List<T> | null | undefined): _.Dictionary<T[]>;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is an array of the elements responsible for generating the
@@ -218,7 +218,7 @@ interface GroupBy2x1<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    (collection: _.List<T> | _.NumericDictionary<T> | object | null | undefined): _.Dictionary<T[]>;
+    (collection: _.List<T> | object | null | undefined): _.Dictionary<T[]>;
 }
 
 declare const groupBy: GroupBy;
