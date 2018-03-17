@@ -13,7 +13,7 @@
 //                 Ahn <https://github.com/AhnpGit>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
--// TypeScript Version: 2.3
+// TypeScript Version: 2.3
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
