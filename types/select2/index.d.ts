@@ -1,9 +1,8 @@
-// Type definitions for Select2 4.0.1
+// Type definitions for Select2 4.0
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
 
 /// <reference types="jquery"/>
 
@@ -66,7 +65,6 @@ interface Select2Options {
     formatInputTooShort?: (term: string, minLength: number) => string;
     formatSelectionTooBig?: (maxSize: number) => string;
     formatLoadMore?: (pageNumber: number) => string;
-    createSearchChoice?: (term: string, data: any) => any;
     initSelection?: (element: JQuery, callback: (data: any) => void) => void;
     tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Select2Options) => string;
     tokenSeparators?: string[];
@@ -92,8 +90,6 @@ interface Select2Options {
     dropdownParent?: JQuery;
     debug?: boolean;
     dropdownAdapter?: any;
-    selectionAdapter?: any;
-    resultsAdapter?: any;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -189,22 +185,22 @@ interface JQuery {
     on(events: "change", selector?: string, data?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "change", selector?: string, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "change", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-opening", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-open", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-highlight", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-removing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-removed", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:closing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:opening", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:open", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:select", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:unselecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2:unselect", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
 }
 
 declare class Select2 {
     constructor(element: JQuery, options: Select2Options);
     focus(): void;
     destroy(): void;
+    // TODO: Don't use 'Function' as a type.
+    // tslint:disable-next-line:ban-types
     on(event: string, callback: Function): void;
     selection: any;
     dropdown: any;
