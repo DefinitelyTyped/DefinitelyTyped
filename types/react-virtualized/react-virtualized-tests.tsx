@@ -1836,7 +1836,7 @@ export class WindowScrollerExample extends PureComponent<{}, any> {
     }
 }
 
-import { GridCellProps, GridCellRangeProps, GridProps } from 'react-virtualized'
+import { GridCellProps, GridCellRangeProps } from 'react-virtualized'
 
 export class GridCellRangeRendererExample extends PureComponent<{}, any> {
 
