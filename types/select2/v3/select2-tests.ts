@@ -6,9 +6,6 @@ $("#e2").select2({
 $("#e2_2").select2({
     placeholder: "Select a State"
 });
-$("#e2_3").select2({
-    placeholder: { id: "1", text: "Select options" }
-});
 $("#e3").select2({
     minimumInputLength: 2
 });
@@ -32,7 +29,7 @@ $("#e5").select2({
     }
 });
 
-$("#e19").select2({ maximumSelectionLength: 3 });
+$("#e19").select2({ maximumSelectionSize: 3 });
 $("#e10").select2({
     data: [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }]
 });
@@ -58,9 +55,9 @@ $("#e6").select2({
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
         cache: false,
-        data: function (params, page) {
+        data: function (term, page) {
             return {
-                q: params.term,
+                q: term,
                 page_limit: 10,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
             };
@@ -79,9 +76,9 @@ $("#e6").select2({
     ajax: {
         url: () => { return "http://api.rottentomatoes.com/api/public/v1.0/movies.json"; },
         dataType: 'jsonp',
-        data: function (params, page) {
+        data: function (term, page) {
             return {
-                q: params.term,
+                q: term,
                 page_limit: 10,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
             };
@@ -102,9 +99,9 @@ $("#e6").select2({
         type: 'GET',
         dataType: 'jsonp',
         cache: false,
-        data: function (params, page) {
+        data: function (term, page) {
             return {
-                q: params.term,
+                q: term,
                 page_limit: 10,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
             };
@@ -123,10 +120,10 @@ $("#e7").select2({
     ajax: {
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
-        delay: 100,
-        data: function (params, page) {
+        quietMillis: 100,
+        data: function (term, page) {
             return {
-                q: params.term,
+                q: term,
                 page_limit: 10,
                 page: page,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
@@ -145,9 +142,6 @@ $("#e7").select2({
 function sort(elements) {
     return elements.sort();
 }
-$("#e20").select2({
-    sorter: sort
-});
 
 $("#e8").select2();
 $("#e8_get").click(function () { alert("Selected value is: " + $("#e8").select2("val")); });
@@ -204,7 +198,7 @@ $("#e15").on("change", function () { $("#e15_val").html($("#e15").val() as strin
 $("#e16").select2();
 $("#e16_2").select2();
 $("#e16_enable").click(function () { $("#e16,#e16_2").select2("enable"); });
-$("#e16_disable").click(function () { $("#e16,#e16_2").select2("disable"); });
+$("#e16_disable").click(function () { $("#e16,#e16_2").select2("enable", false); });
 $("#e17").select2({
     matcher: function (term, text) { return text.toUpperCase().indexOf(term.toUpperCase()) == 0; }
 });
