@@ -27,6 +27,9 @@ declare class WPAPI {
      */
     static discover(url: string): Promise<WPAPI>;
 
+    /** Start a request of plugin authors endpoint */
+    authors(): WPAPI.WPRequest;
+
     /** Start a request against /categories endpoint */
     categories(): WPAPI.WPRequest;
 
@@ -252,6 +255,13 @@ declare namespace WPAPI {
         get(callback?: Function): Promise<any>;
 
         /**
+         * Set the id of resource.
+         *
+         * @param id An ID of item
+         */
+        id(id: number): WPRequest;
+
+        /**
          * Include specific resource IDs in the response collection.
          *
          * @param ids An ID or array of IDs to include
@@ -372,6 +382,18 @@ declare namespace WPAPI {
          * Parse the request into a WordPress API request URI string
          */
         toString(): string;
+
+        /**
+         * Update the specified resource with the provided data
+         *
+         * This is the public interface for creating PATCH requests
+         *
+         * TODO: callback type
+         *
+         * @param data The data for the PATCH request
+         * @param callback A callback to invoke with the results of the PATCH request
+         */
+        update(data: Object, callback?: Function): Promise<any>;
 
         /**
          * Validate whether the specified path parts are valid for this endpoint
