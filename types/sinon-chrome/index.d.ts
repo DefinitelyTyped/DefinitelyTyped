@@ -357,12 +357,17 @@ declare namespace SinonChrome.permissions {
 }
 
 declare namespace SinonChrome.plugins {
-    export interface Translation {
-        message: string;
-        placeholders?: object;
-    }
     export interface Translations {
-        [key: string]: Translation;
+        [key: string]: {
+            message: string;
+            description?: string;
+            placeholders?: {
+              [key: string]: {
+                content: string;
+                example?: string;
+              };
+            };
+        };
     }
     export class I18nPlugin {
         constructor(translations?: Translations);
