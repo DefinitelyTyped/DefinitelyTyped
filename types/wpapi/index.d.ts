@@ -25,7 +25,7 @@ declare class WPAPI {
      *
      * @param url A URL within a REST API-enabled WordPress website
      */
-    discover(url: string): Promise<WPAPI>;
+    static discover(url: string): Promise<WPAPI>;
 
     /** Start a request against /categories endpoint */
     categories(): WPAPI.WPRequest;
