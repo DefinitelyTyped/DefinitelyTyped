@@ -199,16 +199,6 @@ interface JQuery {
     on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-opening", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-open", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-highlight", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-removing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-removed", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-    on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
 }
 
 declare class Select2 {
