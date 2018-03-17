@@ -1,4 +1,4 @@
-// Type definitions for Select2 4.0.1
+// Type definitions for Select2 3.5
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,8 @@ interface Select2QueryOptions {
 }
 
 interface AjaxFunction {
-    (settings: JQueryAjaxSettings, success?: (data: any) => null, failure?: () => null): JQueryXHR;
+    (settings: JQueryAjaxSettings): JQueryXHR;
+    (url: string, settings?: JQueryAjaxSettings): JQueryXHR;
 }
 
 interface Select2AjaxOptions extends JQueryAjaxSettings {
@@ -25,14 +26,12 @@ interface Select2AjaxOptions extends JQueryAjaxSettings {
     */
     url?: any;
     dataType?: string;
-    delay?: number;
-    headers?: any;
+    quietMillis?: number;
     cache?: boolean;
-    data?: (params: Select2QueryOptions, page: number, context: any) => any;
+    jsonpCallback?: any;
+    data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
-    processResults?: (data: any, params: any) => any;
-    templateResult?: (data: any) => any;
-    templateSelection?: (data: any) => any;
+    params?: any;
 }
 
 interface IdTextPair {
@@ -41,19 +40,16 @@ interface IdTextPair {
 }
 
 interface Select2Options {
-    amdBase?: string;
-    amdLanguageBase?: string;
     width?: string;
     dropdownAutoWidth?: boolean;
     minimumInputLength?: number;
     maximumInputLength?: number;
     minimumResultsForSearch?: number;
-    maximumSelectionLength?: number;
-    placeholder?: string | IdTextPair;
+    maximumSelectionSize?: number;
+    placeholder?: string;
     separator?: string;
     allowClear?: boolean;
     multiple?: boolean;
-    disabled?: boolean;
     closeOnSelect?: boolean;
     openOnEnter?: boolean;
     id?: (object: any) => string;
@@ -74,26 +70,11 @@ interface Select2Options {
     ajax?: Select2AjaxOptions;
     data?: any;
     tags?: any;
-    createTag?: any;
     containerCss?: any;
     containerCssClass?: any;
     dropdownCss?: any;
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
-    theme?: string;
-    /**
-    * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
-    */
-    templateSelection?: (object: Select2SelectionObject, container: JQuery) => any;
-    templateResult?: (object: Select2SelectionObject) => any;
-    language?: string | string[] | {};
-    selectOnClose?: boolean;
-    sorter?: (data: any[]) => any[];
-    dropdownParent?: JQuery;
-    debug?: boolean;
-    dropdownAdapter?: any;
-    selectionAdapter?: any;
-    resultsAdapter?: any;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -106,19 +87,7 @@ interface Select2JQueryEventObject extends JQueryEventObject {
     };
 }
 
-interface Select2SelectionObject {
-    loading: boolean;
-    disabled: boolean;
-    element: HTMLOptionElement;
-    id: string;
-    selected: boolean;
-    text: string;
-    title: string;
-}
-
 interface Select2Plugin {
-    amd: any;
-
     (): JQuery;
     (it: IdTextPair): JQuery;
 
@@ -158,7 +127,7 @@ interface Select2Plugin {
 	 * Enables or disables Select2 and its underlying form component
 	 * @param value True if it should be enabled false if it should be disabled
 	 */
-    (method: 'enable', value: boolean): JQuery;
+    (method: 'enable', value?: boolean): JQuery;
 	/**
 	 * Toggles readonly mode on Select2 and its underlying form component
 	 * @param value True if it should be readonly false if it should be read write
@@ -176,9 +145,11 @@ interface Select2Plugin {
 	 * Notifies Select2 that a drag and drop sorting operation has finished
 	 */
     (method: 'onSortEnd'): JQuery;
+     /**
+     * Executes a new search using the provided value. Example: $("#tags").select2("search", "California")
+     */
+    (method: 'search'): JQuery;
 
-    (method: string): any;
-    (method: string, value: any, trigger?: boolean): any;
     (options: Select2Options): JQuery;
 }
 
@@ -194,24 +165,10 @@ interface JQuery {
     on(events: "select2-close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-highlight", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-clearing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-removing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-removed", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-}
-
-declare class Select2 {
-    constructor(element: JQuery, options: Select2Options);
-    focus(): void;
-    destroy(): void;
-    on(event: string, callback: Function): void;
-    selection: any;
-    dropdown: any;
-    results: any;
-    $container: JQuery;
-    $dropdown: JQuery;
-    $selection: JQuery;
-    $results: JQuery;
-    options: { options: Select2Options };
 }
