@@ -38,7 +38,7 @@ declare namespace SinonChrome {
      */
     export function reset(): void;
 
-    export function registerPlugin(plugin: SinonChrome.plugins.Plugin): void;
+    export function registerPlugin(plugin: {}): void;
 
     export var csi: Sinon.SinonSpy;
     export var loadTimes: Sinon.SinonSpy;
@@ -357,7 +357,6 @@ declare namespace SinonChrome.permissions {
 }
 
 declare namespace SinonChrome.plugins {
-    export interface Plugin {}
     export interface Translation {
         message: string;
         placeholders?: object;
@@ -365,10 +364,10 @@ declare namespace SinonChrome.plugins {
     export interface Translations {
         [key: string]: Translation;
     }
-    export class I18nPlugin implements Plugin {
+    export class I18nPlugin {
         constructor(translations: Translations);
     }
-    export class CookiePlugin implements Plugin {
+    export class CookiePlugin {
         constructor(state?: Array<chrome.cookies.Cookie>);
     }
 }
