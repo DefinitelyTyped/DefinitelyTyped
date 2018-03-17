@@ -13,15 +13,14 @@ interface Select2QueryOptions {
     callback?: (result: { results: any; more?: boolean; context?: any; }) => void;
 }
 
-interface AjaxFunction {
-    (settings: JQueryAjaxSettings, success?: (data: any) => null, failure?: () => null): JQueryXHR;
-}
+type AjaxFunction =
+    (settings: JQueryAjaxSettings, success?: (data: any) => null, failure?: () => null) => JQueryXHR;
 
 interface Select2AjaxOptions extends JQueryAjaxSettings {
     transport?: AjaxFunction;
     /**
-    * Url to make request to, Can be string or a function returning a string.
-    */
+     * Url to make request to, can be string or a function returning a string.
+     */
     url?: any;
     dataType?: string;
     delay?: number;
@@ -80,8 +79,8 @@ interface Select2Options {
     escapeMarkup?: (markup: string) => string;
     theme?: string;
     /**
-    * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
-    */
+     * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
+     */
     templateSelection?: (object: Select2SelectionObject, container: JQuery) => any;
     templateResult?: (object: Select2SelectionObject) => any;
     language?: string | string[] | {};
