@@ -1706,7 +1706,7 @@ export interface RouteOptions {
      * * credentials - if true, allows user credentials to be sent ('Access-Control-Allow-Credentials'). Defaults to false.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscors)
      */
-    cors?: false | RouteOptionsCors;
+    cors?: boolean | RouteOptionsCors;
 
     /**
      * Default value: none.
@@ -2586,7 +2586,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app?: ApplicationState;
+    app: ApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
@@ -3257,7 +3257,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: ApplicationState;
+    app: ApplicationState;
 
     /**
      * Server Auth: properties and methods
