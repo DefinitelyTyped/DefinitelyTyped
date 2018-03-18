@@ -1,11 +1,10 @@
 // Initialize the client
 import * as WPAPI from "wpapi";
-import { WPRequest } from "wpapi";
 
 const wp = new WPAPI({ endpoint: "http://src.wordpress-develop.dev/wp-json" });
 
 // Callbacks
-wp.posts().get(function(err: Error, data: any) {
+wp.posts().get((err: Error, data: any) => {
     if (err) {
         // handle err
     }
@@ -15,24 +14,24 @@ wp.posts().get(function(err: Error, data: any) {
 // Promises
 wp
     .posts()
-    .then(function(data: any) {
+    .then((data: any) => {
         // do something with the returned posts
     })
-    .catch(function(err: Error) {
+    .catch((err: Error) => {
         // handle error
     });
 
 // Auto-discover
 const apiPromise = WPAPI.discover("http://my-site.com");
-apiPromise.then(function(site) {
+apiPromise.then(site => {
     // If default routes were detected, they are now available
-    site.posts().then(function(posts: Object[]) {}); // etc
+    site.posts().then((posts: Object[]) => {}); // etc
 
     // If custom routes were detected, they can be accessed via .namespace()
     site
         .namespace("myplugin/v1")
         .authors()
-        .then(function(authors: Object[]) {
+        .then((authors: Object[]) => {
             /* ... */
         });
 
@@ -41,20 +40,20 @@ apiPromise.then(function(site) {
     myplugin
         .authors()
         .id(7)
-        .then(function(author: Object[]) {
+        .then((author: Object[]) => {
             /* ... */
         });
 });
 
 // Authenticating with Auto-Discovery
-const apiPromise2 = WPAPI.discover("http://my-site.com").then(function(site) {
+const apiPromise2 = WPAPI.discover("http://my-site.com").then(site => {
     return site.auth({
         username: "admin",
         password: "always use secure passwords"
     });
 });
 
-apiPromise2.then(function(site) {
+apiPromise2.then(site => {
     // site is now configured to use authentication
 });
 
@@ -75,7 +74,7 @@ wp2
         // is not specified
         status: "publish"
     })
-    .then(function(response) {
+    .then((response: Object) => {
         // "response" will hold all properties of your newly-created post,
         // including the unique `id` the post was assigned on creation
     });
@@ -91,4 +90,4 @@ wp2
         // Set the post live (assuming it was "draft" before)
         status: "publish"
     })
-    .then(function(response: Object) {});
+    .then((response: Object) => {});
