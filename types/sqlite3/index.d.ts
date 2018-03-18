@@ -90,12 +90,12 @@ export function verbose(): sqlite3;
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface sqlite3 {
-	OPEN_READONLY: number;
-	OPEN_READWRITE: number;
-	OPEN_CREATE: number;
+    OPEN_READONLY: number;
+    OPEN_READWRITE: number;
+    OPEN_CREATE: number;
     cached: typeof cached;
     RunResult: RunResult;
     Statement: typeof Statement;
     Database: typeof Database;
-	verbose(): this;
+    verbose(): this;
 }
