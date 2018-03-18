@@ -167,6 +167,11 @@ declare namespace Bull {
      * End date when the repeat job should stop repeating
      */
     endDate?: Date | string | number;
+
+    /**
+     * Number of times the job should repeat at max.
+     */
+    limit?: number;
   }
 
   interface JobOptions {
