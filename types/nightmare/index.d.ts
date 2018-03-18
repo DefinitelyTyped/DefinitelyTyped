@@ -12,7 +12,7 @@ declare class Nightmare {
     constructor(options?: Nightmare.IConstructorOptions);
 
     // Interact
-    userAgent(agent: string): Nightmare;
+    // userAgent(agent: string): Nightmare;
     end(): Nightmare;
     then<T, R>(fn: (value: T) => R): Promise<R>;
     halt(error: string, cb: () => void): Nightmare;
