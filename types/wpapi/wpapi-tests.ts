@@ -25,7 +25,7 @@ wp
 const apiPromise = WPAPI.discover("http://my-site.com");
 apiPromise.then(site => {
     // If default routes were detected, they are now available
-    site.posts().then((posts: Object[]) => {}); // etc
+    site.posts().then((posts: any[]) => {}); // etc
 
     // If custom routes were detected, they can be accessed via .namespace()
     // Custom routes have different methods to generate requests, so .authors()
@@ -76,7 +76,7 @@ wp2
         // is not specified
         status: "publish"
     })
-    .then((response: Object) => {
+    .then((response: any) => {
         // "response" will hold all properties of your newly-created post,
         // including the unique `id` the post was assigned on creation
     });
@@ -92,4 +92,4 @@ wp2
         // Set the post live (assuming it was "draft" before)
         status: "publish"
     })
-    .then((response: Object) => {});
+    .then((response: any) => {});
