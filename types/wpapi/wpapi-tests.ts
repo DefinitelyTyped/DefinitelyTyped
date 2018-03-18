@@ -28,19 +28,21 @@ apiPromise.then(site => {
     site.posts().then((posts: Object[]) => {}); // etc
 
     // If custom routes were detected, they can be accessed via .namespace()
-    site
-        .namespace("myplugin/v1")
-        .authors()
-        .then((authors: Object[]) => {
+    // Custom routes have different methods to generate requests, so .authors()
+    // does not necessarily exist. You have use force type <WPRequest> or 'as
+    // Request'
+    (site.namespace("myplugin/v1").authors() as WPAPI.WPRequest).then(
+        (authors: any[]) => {
             /* ... */
-        });
+        }
+    );
 
     // Namespaces can be saved out to variables:
     const myplugin = site.namespace("myplugin/v1");
     myplugin
         .authors()
         .id(7)
-        .then((author: Object[]) => {
+        .then((author: any) => {
             /* ... */
         });
 });
