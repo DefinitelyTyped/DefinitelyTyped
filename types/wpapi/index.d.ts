@@ -27,9 +27,6 @@ declare class WPAPI {
      */
     static discover(url: string): Promise<WPAPI>;
 
-    /** Start a request of plugin authors endpoint */
-    authors(): WPAPI.WPRequest;
-
     /** Start a request against /categories endpoint */
     categories(): WPAPI.WPRequest;
 
@@ -163,6 +160,13 @@ declare class WPAPI {
      * @param url The URL to request
      */
     url(url: string): WPAPI.WPRequest;
+
+    /**
+     * An API client can define its parameter methods, like .authors(), .cart(),
+     * .products(). They are usually decided by WPAPI namespaces configuration
+     * object. They have WPRequest return type.
+     */
+    [customRoutesMethod: string]: any;
 }
 
 /*~ If you want to expose types from your module as well, you can
@@ -411,6 +415,13 @@ declare namespace WPAPI {
          * the regular expression the API uses to goven that segment.
          */
         validatePath(): WPRequest;
+
+        /**
+         * A request can define its parameter methods, like .id(), .date(),
+         * .author(). They are usually decided by WPAPI routes configuration
+         * object.
+         */
+        [customParamsMethod: string]: any;
     }
 
     export interface WPAPIOptions extends Credentials {
