@@ -208,7 +208,8 @@ declare namespace WPAPI {
          * TODO: callback type
          *
          * @param data The data for the POST request
-         * @param callback A callback to invoke with the results of the POST request
+         * @param callback A callback to invoke with the results of the POST
+         * request
          */
         create(data: Object, callback?: Function): Promise<any>;
 
@@ -216,7 +217,8 @@ declare namespace WPAPI {
          * Delete the specified resource
          *
          * @param data Data to send along with the DELETE request
-         * @param callback A callback to invoke with the results of the DELETE request
+         * @param callback A callback to invoke with the results of the DELETE
+         * request
          */
         delete(data?: Object, callback?: Function): Promise<any>;
 
@@ -250,7 +252,8 @@ declare namespace WPAPI {
         /**
          * Get the headers for the specified resource
          *
-         * @param callback A callback to invoke with the results of the HEAD request
+         * @param callback A callback to invoke with the results of the HEAD
+         * request
          */
         get(callback?: Function): Promise<any>;
 
@@ -324,7 +327,8 @@ declare namespace WPAPI {
         /**
          * Set the number of items to be returned in a page of responses.
          *
-         * @param itemsPerPage The number of items to return in one page of results
+         * @param itemsPerPage The number of items to return in one page of
+         * results
          */
         perPage(itemsPerPage: number): WPRequest;
 
@@ -391,7 +395,8 @@ declare namespace WPAPI {
          * TODO: callback type
          *
          * @param data The data for the PATCH request
-         * @param callback A callback to invoke with the results of the PATCH request
+         * @param callback A callback to invoke with the results of the PATCH
+         * request
          */
         update(data: Object, callback?: Function): Promise<any>;
 
