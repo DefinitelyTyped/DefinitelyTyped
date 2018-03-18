@@ -9,8 +9,7 @@ interface IndexOf {
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -31,8 +30,7 @@ interface IndexOf {
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -53,8 +51,7 @@ interface IndexOf {
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -70,13 +67,12 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(value: T, fromIndex: boolean|number): IndexOf1x2<T>;
+    <T>(value: T, fromIndex: number): IndexOf1x2<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -92,15 +88,14 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(value: T, fromIndex: boolean|number, array: _.List<T> | null | undefined): number;
+    <T>(value: T, fromIndex: number, array: _.List<T> | null | undefined): number;
 }
 interface IndexOf1x1<T> {
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -121,8 +116,7 @@ interface IndexOf1x1<T> {
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -138,13 +132,12 @@ interface IndexOf1x1<T> {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    (fromIndex: boolean|number): IndexOf1x2<T>;
+    (fromIndex: number): IndexOf1x2<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -160,15 +153,14 @@ interface IndexOf1x1<T> {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    (fromIndex: boolean|number, array: _.List<T> | null | undefined): number;
+    (fromIndex: number, array: _.List<T> | null | undefined): number;
 }
 interface IndexOf1x2<T> {
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
@@ -189,8 +181,7 @@ interface IndexOf1x2<T> {
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-     * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-     * performs a faster binary search.
+     * from the end of `array`.
      *
      * @category Array
      * @param array The array to search.
