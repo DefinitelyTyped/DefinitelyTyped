@@ -972,7 +972,7 @@ export interface TextInputIOSProperties {
      * Pressed key value is passed as an argument to the callback handler.
      * Fires before onChange callbacks.
      */
-    onKeyPress?: (key: string) => void;
+    onKeyPress?: (event: {nativeEvent: {key: string}}) => void;
 
     /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
@@ -7737,7 +7737,7 @@ export interface EasingStatic {
     ease: EasingFunction;
     quad: EasingFunction;
     cubic: EasingFunction;
-    poly: EasingFunction;
+    poly(n: number): EasingFunction;
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;

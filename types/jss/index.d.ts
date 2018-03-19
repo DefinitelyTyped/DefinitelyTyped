@@ -11,6 +11,10 @@ import { Style } from './css';
 export type Styles<Name extends string = any> = Record<Name, Style>;
 export type Classes<Name extends string = any> = Record<Name, string>;
 
+export interface ToCssOptions {
+	indent?: number;
+}
+
 export interface Rule {
 	className: string;
 	selector: string;
@@ -67,7 +71,7 @@ export interface StyleSheet<Name extends string = any> {
 	/**
 	 * Convert rules to a CSS string.
 	 */
-	toString(options?: { indent?: number }): string;
+	toString(options?: ToCssOptions): string;
 }
 export type GenerateClassName<Name extends string = any> = (rule: Rule, sheet?: StyleSheet<Name>) => string;
 
@@ -98,6 +102,15 @@ export interface RuleFactoryOptions<Name extends string = any> {
 export interface RuleOptions {
 	index: number;
 	className: string;
+}
+export declare class SheetsRegistry {
+    constructor();
+    registry: ReadonlyArray<StyleSheet<any>>;
+    readonly index: number;
+    add(sheet: StyleSheet<any>): void;
+    reset(): void;
+    remove(sheet: StyleSheet<any>): void;
+    toString(options?: ToCssOptions): string;
 }
 declare class JSS {
 	constructor(options?: Partial<JSSOptions>);

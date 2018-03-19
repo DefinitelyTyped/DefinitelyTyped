@@ -2104,6 +2104,7 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsHide?: boolean;
     }
 
     export interface ExecOptionsWithStringEncoding extends ExecOptions {
@@ -2150,6 +2151,7 @@ declare module "child_process" {
         killSignal?: string;
         uid?: number;
         gid?: number;
+        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
     }
     export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
@@ -2233,6 +2235,7 @@ declare module "child_process" {
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
+        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
@@ -2270,6 +2273,7 @@ declare module "child_process" {
         killSignal?: string;
         maxBuffer?: number;
         encoding?: string;
+        windowsHide?: boolean;
     }
     export interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
@@ -2293,6 +2297,7 @@ declare module "child_process" {
         killSignal?: string;
         maxBuffer?: number;
         encoding?: string;
+        windowsHide?: boolean;
     }
     export interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
         encoding: BufferEncoding;
@@ -4895,6 +4900,14 @@ declare module "tls" {
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
+        /**
+         * Returns a string containing the negotiated SSL/TLS protocol version of the current connection.
+         * The value `'unknown'` will be returned for connected sockets that have not completed the handshaking process.
+         * The value `null` will be returned for server sockets or disconnected client sockets.
+         * See https://www.openssl.org/docs/man1.0.2/ssl/SSL_get_version.html for more information.
+         * @returns negotiated SSL/TLS protocol version of the current connection
+         */
+        getProtocol(): string | null;
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
          * @returns ASN.1 encoded TLS session or undefined if none was negotiated.

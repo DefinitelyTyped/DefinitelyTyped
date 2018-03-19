@@ -12,6 +12,7 @@
 //                 Tim Griesser <https://github.com/tgriesser>
 //                 Dylan Stewart <https://github.com/dyst5422>
 //                 Alessio Dionisi <https://github.com/adnsio>
+//                 Divyendu Singh <https://github.com/divyenduz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -99,6 +100,9 @@ export {
 
     // Build a GraphQLSchema from a GraphQL schema language document.
     buildSchema,
+
+    // Get the description of an AST node
+    getDescription,
 
     // Extends an existing GraphQLSchema from a parsed GraphQL Schema
     // language AST.

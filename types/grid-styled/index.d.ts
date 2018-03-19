@@ -1,4 +1,4 @@
-// Type definitions for grid-styled 3.0
+// Type definitions for grid-styled 3.2
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -44,9 +44,14 @@ export interface BoxProps
 }
 
 export interface FlexProps extends BoxProps {
-    align: ResponsiveProp | boolean;
-    justify: ResponsiveProp | boolean;
-    flexDirection: ResponsiveProp | boolean;
+    alignItems: ResponsiveProp;
+    justifyContent: ResponsiveProp;
+    flexDirection: ResponsiveProp;
+    flexWrap: ResponsiveProp;
+
+    // legacy aliases https://github.com/jxnblk/styled-system/releases/tag/v2.0.0
+    justify: ResponsiveProp;
+    align: ResponsiveProp;
     wrap: ResponsiveProp | boolean;
 }
 
