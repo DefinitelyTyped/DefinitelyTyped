@@ -595,6 +595,7 @@ declare namespace IORedis {
         hget(key: string, field: string, callback?: (err: Error, res: string) => void): Pipeline;
 
         hmset(key: string, field: string, value: any, ...args: string[]): Pipeline;
+        hmset(key: string, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hmget(key: string, ...fields: string[]): Pipeline;
 

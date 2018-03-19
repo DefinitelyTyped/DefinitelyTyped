@@ -563,3 +563,24 @@ function likesFood(aFood: string) {
 inquirer.prompt<Answers4>(questions, function(answers) {
     console.log(JSON.stringify(answers, null, "  "));
 });
+
+// immutable usage
+const immutableChoices: ReadonlyArray<string> = [
+    'Order a pizza',
+    'Make a reservation',
+    'Ask opening hours',
+    'Talk to the receptionist'
+];
+inquirer.prompt(
+    [
+        {
+            type: 'rawlist',
+            name: 'theme',
+            message: 'What do you want to do?',
+            choices: immutableChoices
+        }
+    ],
+    function(answers: inquirer.Answers) {
+        console.log(JSON.stringify(answers, null, '  '));
+    }
+);
