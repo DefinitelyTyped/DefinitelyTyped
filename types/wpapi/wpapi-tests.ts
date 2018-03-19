@@ -93,3 +93,11 @@ wp2
         status: "publish"
     })
     .then((response: any) => {});
+
+// Custom routes
+
+const site = new WPAPI({ endpoint: "http://www.yoursite.com/wp-json" });
+const myCustomResource = site.registerRoute("myplugin/v1", "/author/(?P<id>)");
+myCustomResource()
+    .id(17)
+    .then((response: any) => {}); // => myplugin/v1/author/17

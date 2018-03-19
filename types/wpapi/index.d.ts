@@ -1,8 +1,8 @@
 // Type definitions for wpapi 1.1
-// TypeScript Version: 2.2
 // Project: https://github.com/wp-api/node-wpapi
 // Definitions by: Guo Yunhe <https://github.com/guoyunhe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export = WPAPI;
 
@@ -94,7 +94,6 @@ declare class WPAPI {
 
     /**
      * Create and return a handler for an arbitrary WP REST API endpoint.
-     * TODO: type for Endpoint Factory
      *
      * @param namespace A namespace string, e.g. 'myplugin/v1'
      * @param restBase A REST route string, e.g. '/author/(?P\d+)'
@@ -104,7 +103,7 @@ declare class WPAPI {
         namespace: string,
         restBase: string,
         options?: WPAPI.RegisterRouteOptions
-    ): Function;
+    ): WPAPI.WPRequestFactory;
 
     /**
      * Set the default headers to use for all HTTP requests created from this
@@ -179,7 +178,7 @@ declare namespace WPAPI {
      *
      * @see http://wp-api.org/node-wpapi/api-reference/wpapi/1.1.2/WPRequest.html
      */
-    export class WPRequest {
+    class WPRequest {
         /**
          * WPRequest is the base API request object constructor
          *
@@ -195,7 +194,7 @@ declare namespace WPAPI {
          *
          * @param credentials An authentication credentials object
          */
-        auth(credentials?: WPAPI.Credentials): WPRequest;
+        auth(credentials?: Credentials): WPRequest;
 
         /**
          * Set the context of the request. Used primarily to expose private
@@ -210,13 +209,11 @@ declare namespace WPAPI {
          *
          * This is the public interface for creating POST requests
          *
-         * TODO: callback type
-         *
          * @param data The data for the POST request
          * @param callback A callback to invoke with the results of the POST
          * request
          */
-        create(data: Object, callback?: Function): Promise<any>;
+        create(data: any, callback?: WPRequestCallback): Promise<any>;
 
         /**
          * Delete the specified resource
@@ -225,7 +222,7 @@ declare namespace WPAPI {
          * @param callback A callback to invoke with the results of the DELETE
          * request
          */
-        delete(data?: Object, callback?: Function): Promise<any>;
+        delete(data?: any, callback?: WPRequestCallback): Promise<any>;
 
         /**
          * Convenience wrapper for .context( 'edit' )
@@ -248,11 +245,11 @@ declare namespace WPAPI {
          * Specify a file or a file buffer to attach to the request, for use
          * when creating a new Media item
          *
-         * @param fileA path to a file (in Node) or an file object (Node or
+         * @param file A path to a file (in Node) or an file object (Node or
          * Browser) to attach to the request
          * @param name An (optional) filename to use for the file
          */
-        file(file: Object | string, name?: string): WPRequest;
+        file(file: string | File, name?: string): WPRequest;
 
         /**
          * Get the headers for the specified resource
@@ -260,7 +257,7 @@ declare namespace WPAPI {
          * @param callback A callback to invoke with the results of the HEAD
          * request
          */
-        get(callback?: Function): Promise<any>;
+        get(callback?: WPRequestCallback): Promise<any>;
 
         /**
          * Set the id of resource.
@@ -325,7 +322,7 @@ declare namespace WPAPI {
          * @param value The value of the parameter being set
          */
         param(
-            props: string | Object,
+            props: string | { [name: string]: string | number | any[] },
             value?: string | number | any[]
         ): WPRequest;
 
@@ -351,7 +348,10 @@ declare namespace WPAPI {
          * names and their associated string values
          * @param value The value of the header being set
          */
-        setHeaders(headers: string | Object, value?: string): WPRequest;
+        setHeaders(
+            headers: string | { [name: string]: string },
+            value?: string
+        ): WPRequest;
 
         /**
          * Set a component of the resource URL itself (as opposed to a query
@@ -383,8 +383,8 @@ declare namespace WPAPI {
          * by the request
          */
         then(
-            successCallback?: Function,
-            failureCallback?: Function
+            successCallback?: (data: any) => void,
+            failureCallback?: (error: Error) => void
         ): Promise<any>;
 
         /**
@@ -397,13 +397,11 @@ declare namespace WPAPI {
          *
          * This is the public interface for creating PATCH requests
          *
-         * TODO: callback type
-         *
          * @param data The data for the PATCH request
          * @param callback A callback to invoke with the results of the PATCH
          * request
          */
-        update(data: Object, callback?: Function): Promise<any>;
+        update(data: any, callback?: WPRequestCallback): Promise<any>;
 
         /**
          * Validate whether the specified path parts are valid for this endpoint
@@ -425,7 +423,7 @@ declare namespace WPAPI {
         [customParamsMethod: string]: any;
     }
 
-    export interface WPAPIOptions extends Credentials {
+    interface WPAPIOptions extends Credentials {
         /** The URI for a WP-API endpoint */
         endpoint: string;
         /**
@@ -442,7 +440,7 @@ declare namespace WPAPI {
         transport?: Transport;
     }
 
-    export interface WPRequestOptions extends Credentials {
+    interface WPRequestOptions extends Credentials {
         /** The URI for a WP-API endpoint */
         endpoint: string;
         /**
@@ -453,8 +451,12 @@ declare namespace WPAPI {
         transport?: Transport;
     }
 
+    type WPRequestFactory = () => WPRequest;
+
+    type WPRequestCallback = (error: Error, data: any) => void;
+
     /** Authentication credentials */
-    export interface Credentials {
+    interface Credentials {
         /** A WP-API Basic HTTP Authentication username */
         username?: string;
         /** A WP-API Basic HTTP Authentication password */
@@ -463,7 +465,7 @@ declare namespace WPAPI {
         nonce?: string;
     }
 
-    export interface Transport {
+    interface Transport {
         get?: TransportFunction;
         post?: TransportFunction;
         put?: TransportFunction;
@@ -471,16 +473,16 @@ declare namespace WPAPI {
         head?: TransportFunction;
     }
 
-    export type TransportFunction = (
+    type TransportFunction = (
         wpreq: WPRequest,
-        cb: Function
+        cb?: WPRequestCallback
     ) => Promise<any>;
 
-    export interface Routes {
+    interface Routes {
         [path: string]: Route;
     }
 
-    export interface Route {
+    interface Route {
         namespace: string;
         methods: HTTPMethod[];
         endpoints: HTTPEndpoint[];
@@ -489,16 +491,16 @@ declare namespace WPAPI {
         };
     }
 
-    export type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+    type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
-    export interface HTTPEndpoint {
+    interface HTTPEndpoint {
         methods: HTTPMethod[];
         args: {
             [arg: string]: HTTPArgument;
         };
     }
 
-    export interface HTTPArgument {
+    interface HTTPArgument {
         required: boolean;
         default?: string | number;
         enum?: string[];
@@ -509,7 +511,7 @@ declare namespace WPAPI {
         };
     }
 
-    export type HTTPArgumentType =
+    type HTTPArgumentType =
         | "string"
         | "integer"
         | "number"
@@ -517,11 +519,11 @@ declare namespace WPAPI {
         | "object"
         | "array";
 
-    export interface HTTPHeaders {
+    interface HTTPHeaders {
         [key: string]: string;
     }
 
-    export interface RegisterRouteOptions {
+    interface RegisterRouteOptions {
         params?: string[];
         methods?: HTTPMethod[];
         mixins?: {
