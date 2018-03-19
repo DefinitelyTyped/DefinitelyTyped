@@ -100,7 +100,7 @@ declare namespace inquirer {
          */
         choices?:
             | ReadonlyArray<ChoiceType>
-            | ((answers: T) => ReadonlyArray<ChoiceType>);
+            | ((answers: T) => ReadonlyArray<ChoiceType>)
             | ((answers: T) => Promise<ReadonlyArray<ChoiceType>>);
         /**
          * Receive the user input and should return true if the value is valid, and an error message (String)
