@@ -6125,6 +6125,7 @@ export interface ActionSheetIOSOptions {
     cancelButtonIndex?: number;
     destructiveButtonIndex?: number;
     message?: string;
+    tintColor?: string;
 }
 
 export interface ShareActionSheetIOSOptions {
