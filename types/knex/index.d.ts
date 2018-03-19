@@ -280,29 +280,35 @@ declare namespace Knex {
     }
 
     interface WhereNull {
+        (raw: Raw): QueryBuilder;
         (columnName: string): QueryBuilder;
     }
 
     interface WhereIn {
+        (raw: Raw): QueryBuilder;
         (columnName: string, values: Value[]): QueryBuilder;
         (columnName: string, callback: QueryCallback): QueryBuilder;
         (columnName: string, query: QueryBuilder): QueryBuilder;
     }
 
     interface WhereBetween {
+        (raw: Raw): QueryBuilder;
         (columnName: string, range: [Value, Value]): QueryBuilder;
     }
 
     interface WhereExists {
+        (raw: Raw): QueryBuilder;
         (callback: QueryCallback): QueryBuilder;
         (query: QueryBuilder): QueryBuilder;
     }
 
     interface WhereNull {
+        (raw: Raw): QueryBuilder;
         (columnName: string): QueryBuilder;
     }
 
     interface WhereIn {
+        (raw: Raw): QueryBuilder;
         (columnName: string, values: Value[]): QueryBuilder;
     }
 
