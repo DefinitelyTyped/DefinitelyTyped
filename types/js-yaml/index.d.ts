@@ -4,8 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function safeLoad(str: string, opts?: LoadOptions): any;
-export function load(str: string, opts?: LoadOptions): any;
+export type DocumentLoadResult = object | undefined;
+
+export function safeLoad(str: string, opts?: LoadOptions): DocumentLoadResult;
+export function load(str: string, opts?: LoadOptions): DocumentLoadResult;
 
 export class Type {
 	constructor(tag: string, opts?: TypeConstructorOptions);
@@ -26,8 +28,8 @@ export class Schema implements SchemaDefinition {
 	static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 }
 
-export function safeLoadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
-export function loadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
+export function safeLoadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): DocumentLoadResult[] | undefined;
+export function loadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): DocumentLoadResult[] | undefined;
 
 export function safeDump(obj: any, opts?: DumpOptions): string;
 export function dump(obj: any, opts?: DumpOptions): string;
