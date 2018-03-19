@@ -92,7 +92,11 @@ sheetsRegistry.add(styleSheet);
 const secondStyleSheet = jss.createStyleSheet(
 	{
 		ruleWithMockObservable: {
-			subscribe() {}
+			subscribe() {
+				return {
+					unsubscribe() {}
+				};
+			}
 		},
 		container2: {
 			display: 'flex',

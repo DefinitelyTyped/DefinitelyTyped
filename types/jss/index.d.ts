@@ -105,11 +105,11 @@ export interface RuleOptions {
 }
 export declare class SheetsRegistry {
     constructor();
-    registry: ReadonlyArray<StyleSheet<any>>;
+    registry: ReadonlyArray<StyleSheet>;
     readonly index: number;
-    add(sheet: StyleSheet<any>): void;
+    add(sheet: StyleSheet): void;
     reset(): void;
-    remove(sheet: StyleSheet<any>): void;
+    remove(sheet: StyleSheet): void;
     toString(options?: ToCssOptions): string;
 }
 declare class JSS {
