@@ -70,7 +70,7 @@ styleSheet.addRule('badProperty', {
 });
 
 styleSheet.addRule('badValue', { // $ExpectError
-	'align-items': 'thisIsNotAValidValue',
+	'align-items': Symbol(),
 });
 
 styleSheet.detach();
