@@ -246,7 +246,7 @@ declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: "XKHO2";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: "XLH2O";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: "XLHO2";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "ZXHO2";
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "XZHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
 declare const RESOURCES_ALL: ResourceConstant[];
@@ -1844,7 +1844,7 @@ type RESOURCE_CATALYZED_KEANIUM_ALKALIDE = "XKHO2";
 type RESOURCE_CATALYZED_LEMERGIUM_ACID = "XLH2O";
 type RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = "XLHO2";
 type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
-type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2";
+type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 /**
@@ -3078,11 +3078,8 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     name: string;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
-     * @param name The name of a new creep.
-     * @param needTime Time needed in total to complete the spawning.
-     * @param remainingTime Remaining time to go.
      */
-    spawning: { name: string, needTime: number, remainingTime: number };
+    spawning: Spawning | null;
 
     /**
      * Check if a creep can be created.
@@ -3180,11 +3177,56 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
 }
 
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
+    Spawning: SpawningConstructor;
 }
 
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor; // legacy alias
 // declare type Spawn = StructureSpawn;
+
+interface Spawning {
+    readonly prototype: Spawning;
+
+    /**
+     * An array with the spawn directions
+     * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
+     */
+    directions: DirectionConstant[];
+
+    /**
+     * The name of the creep
+     */
+    name: string;
+
+    /**
+     * Time needed in total to complete the spawning.
+     */
+    needTime: number;
+
+    /**
+     * Remaining time to go.
+     */
+    remainingTime: number;
+
+    /**
+     * A link to the spawn
+     */
+    spawn: StructureSpawn;
+
+    /**
+     * Cancel spawning immediately. Energy spent on spawning is not returned.
+     */
+    cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
+
+    /**
+     * Set desired directions where the creep should move when spawned.
+     * @param directions An array with the spawn directions
+     */
+    setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+}
+
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
+}
 /**
  * Parent object for structure classes
  */
@@ -3642,7 +3684,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      */
-    mineralType: MineralConstant;
+    mineralType: _ResourceConstantSansEnergy | undefined;
     /**
      * The total amount of minerals the lab can contain.
      */

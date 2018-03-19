@@ -43,6 +43,21 @@ interface CreepMemory {
 {
     for (const i in Game.spawns) {
         Game.spawns[i].createCreep(body);
+
+        // Test StructureSpawn.Spawning
+        let creep: Spawning | null = Game.spawns[i].spawning;
+        if (creep) {
+            const name: string = creep.name;
+            const needTime: number = creep.needTime;
+            const remainingTime: number = creep.remainingTime;
+            const creepSpawn: StructureSpawn = creep.spawn;
+
+            const cancelStatus: OK | ERR_NOT_OWNER = creep.cancel();
+            const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
+        }
+
+        creep = new StructureSpawn.Spawning("");
+        creep = StructureSpawn.Spawning("");
     }
 }
 
@@ -354,7 +369,7 @@ interface CreepMemory {
     const interShardData = JSON.parse(RawMemory.interShardSegment);
     if (interShardData.creeps[creep.name]) {
         creep.memory = interShardData[creep.name];
-        delete interShardData.creeps[creep.name]; // tslint:disable-line no-dynamic-delete
+        delete interShardData.creeps[creep.name];
     }
     RawMemory.interShardSegment = JSON.stringify(interShardData);
 
