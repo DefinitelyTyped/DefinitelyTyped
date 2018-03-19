@@ -10,9 +10,9 @@ interface KeyvOptions {
     /** Namespace for the current instance. */
     namespace?: string;
     /** A custom serialization function. */
-    serialize: (data: any) => string;
+    serialize?: (data: any) => string;
     /** A custom deserialization function. */
-    deserialize: (data: string) => any;
+    deserialize?: (data: string) => any;
     /** The connection string URI. */
     uri?: string;
     /** The storage adapter instance to be used by Keyv. */
@@ -25,16 +25,16 @@ interface KeyvOptions {
 
 declare class Keyv extends NodeJS.EventEmitter {
     /**
+     * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
+     */
+    constructor(opts?: KeyvOptions);
+    /**
      * @param uri The connection string URI.
      *
      * Merged into the options object as options.uri.
      * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
      */
     constructor(uri?: string, opts?: KeyvOptions);
-    /**
-     * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
-     */
-    constructor(opts?: KeyvOptions);
     /** Returns the value. */
     get(key: string): Promise<any>;
     /**
