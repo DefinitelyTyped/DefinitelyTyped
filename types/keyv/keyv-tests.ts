@@ -1,5 +1,10 @@
 import Keyv = require("keyv");
 
+new Keyv({
+    uri: 'redis://user:pass@localhost:6379',
+    namespace: "redis"
+});
+
 new Keyv('mongodb://user:pass@localhost:27017/dbname');
 new Keyv('redis://user:pass@localhost:6379');
 new Keyv('sqlite://path/to/database.sqlite');
