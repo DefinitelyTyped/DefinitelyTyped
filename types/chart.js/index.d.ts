@@ -198,6 +198,8 @@ declare namespace Chart {
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
+        // Plugins can require any options
+        plugins?: { [plugin: string]: any };
     }
 
     interface ChartFontOptions {
