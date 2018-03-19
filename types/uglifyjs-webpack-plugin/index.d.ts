@@ -33,6 +33,11 @@ declare namespace UglifyJsPlugin {
         output?: object;
         compress?: boolean | object;
         warnings?: boolean;
+        toplevel?: boolean;
+        nameCache?: object;
+        keep_classnames?: boolean;
+        keep_fnames?: boolean;
+        safari10?: boolean;
     }
 
     interface ExtractCommentsOptions {
