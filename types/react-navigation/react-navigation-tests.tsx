@@ -24,6 +24,8 @@ import {
     NavigationTransitionProps,
     StackNavigator,
     StackNavigatorConfig,
+    SwitchNavigator,
+    SwitchNavigatorConfig,
     TabBarTop,
     TabNavigator,
     TabNavigatorConfig,
@@ -32,6 +34,8 @@ import {
     HeaderBackButton,
     Header,
     NavigationParams,
+    NavigationPopAction,
+    NavigationPopToTopAction,
 } from 'react-navigation';
 
 // Constants
@@ -58,6 +62,7 @@ class StartScreen extends React.Component<NavigationScreenProps> {
         return (
             <View>
                 <TouchableOpacity onPress={this.navigateToNextScreen} />
+                <TouchableOpacity onPress={this.navigateDifferentlyToNextScreen} />
             </View>
         );
     }
@@ -67,6 +72,13 @@ class StartScreen extends React.Component<NavigationScreenProps> {
             name: this.props.navigation.state.params && this.props.navigation.state.params.s,
         };
         this.props.navigation.navigate(ROUTE_NAME_NEXT_SCREEN, params);
+    }
+    private readonly navigateDifferentlyToNextScreen = (): void => {
+        const params = {
+            id: this.props.navigation.state.params && this.props.navigation.state.params.id,
+            name: this.props.navigation.state.params && this.props.navigation.state.params.s,
+        };
+        this.props.navigation.navigate({routeName: ROUTE_NAME_NEXT_SCREEN, params});
     }
 }
 
@@ -220,6 +232,30 @@ function renderAdvancedStackNavigator(): JSX.Element {
 }
 
 /**
+ * Switch navigator.
+ */
+
+const switchNavigatorConfig: SwitchNavigatorConfig = {
+    initialRouteName: 'screen',
+    resetOnBlur: false,
+    backBehavior: 'none'
+};
+
+const BasicSwitchNavigator = SwitchNavigator(
+    routeConfigMap,
+    switchNavigatorConfig,
+);
+
+function renderBasicSwitchNavigator(): JSX.Element {
+    return (
+        <BasicSwitchNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
+/**
  * Drawer navigator.
  */
 
@@ -250,7 +286,7 @@ function renderBasicDrawerNavigator(): JSX.Element {
 }
 
 interface CustomTransitionerProps {
-    navigation: NavigationScreenProp<any>;
+    navigation: NavigationScreenProp<any, any>;
 }
 /**
  * @desc Custom transitioner component. Follows react-navigation/src/views/CardStackTransitioner.js.
@@ -336,4 +372,14 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
     params: {
         foo: "bar"
     }
+});
+
+const popAction: NavigationPopAction = NavigationActions.pop({
+    n: 1,
+    immediate: true
+});
+
+const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
+    key: "foo",
+    immediate: true
 });

@@ -4,7 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module Gijgo {
+declare module 'gijgo' {
+    export = Types;
+}
+
+declare module Types {
 
     //Grid
     interface GridPager {
@@ -151,8 +155,8 @@ declare module Gijgo {
         count(): number;
         destroy(keepTableTag?: boolean, keepWrapperTag?: boolean): void;
         downloadCSV(filename?: string, includeAllRecords?: boolean): Grid<Entity, Params>;
-        edit(id: string): Grid<Entity, Params>; 
-        expandAll(): Grid<Entity, Params>; 
+        edit(id: string): Grid<Entity, Params>;
+        expandAll(): Grid<Entity, Params>;
         //get(position: number): Entity; //TODO: rename to getByPosition to avoid conflicts with jquery.get
         getAll(): Array<Entity>;
         getById(id: string): Entity;
@@ -263,7 +267,7 @@ declare module Gijgo {
         close(): DatePicker;
         destroy(): void;
         open(): DatePicker;
-        value(value: string):  string | DatePicker;
+        value(value?: string):  string | DatePicker;
     }
 
     // DropDown
@@ -306,7 +310,7 @@ declare module Gijgo {
     }
 
     interface Editor extends JQuery {
-        content(html: string):  string | Editor;
+        content(html?: string):  string | Editor;
         destroy(): void;
     }
 
@@ -332,7 +336,7 @@ declare module Gijgo {
         close(): TimePicker;
         destroy(): void;
         open(): TimePicker;
-        value(value: string):  string | TimePicker;
+        value(value?: string):  string | TimePicker;
     }
 
     // Tree
@@ -368,7 +372,7 @@ declare module Gijgo {
         checkedField?: string;
         cascadeCheck?: boolean;
         dragAndDrop?: boolean;
-        paramNames: TreeParamNames;
+        paramNames?: TreeParamNames;
         lazyLoading?: boolean;
 
 
@@ -408,9 +412,9 @@ declare module Gijgo {
         selectAll() : Tree;
         unselectAll() : Tree;
         getSelections() : Array<string>;
-        getChildren(node: any, cascade: boolean) : Array<any>;
-        enable(node: any, cascade: boolean) : Tree;
-        disable(node: any, cascade: boolean) : Tree;
+        getChildren(node: any, cascade?: boolean) : Array<any>;
+        enable(node: any, cascade?: boolean) : Tree;
+        disable(node: any, cascade?: boolean) : Tree;
         enableAll() : Tree;
         disableAll() : Tree;
 
@@ -424,21 +428,21 @@ declare module Gijgo {
 
 
 interface JQuery {
-    grid(settings: Gijgo.GridSettings<any>): Gijgo.Grid<any, any>;
-    grid<Entity>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, any>;
-    grid<Entity, Params>(settings: Gijgo.GridSettings<Entity>): Gijgo.Grid<Entity, Params>;
+    grid(settings: Types.GridSettings<any>): Types.Grid<any, any>;
+    grid<Entity>(settings: Types.GridSettings<Entity>): Types.Grid<Entity, any>;
+    grid<Entity, Params>(settings: Types.GridSettings<Entity>): Types.Grid<Entity, Params>;
 
-    dialog(settings: Gijgo.DialogSettings): Gijgo.Dialog;
+    dialog(settings: Types.DialogSettings): Types.Dialog;
 
-    checkbox(settings: Gijgo.CheckboxSettings): Gijgo.Checkbox;
+    checkbox(settings: Types.CheckboxSettings): Types.Checkbox;
 
-    datepicker(settings: Gijgo.DatePickerSettings): Gijgo.DatePicker;
+    datepicker(settings: Types.DatePickerSettings): Types.DatePicker;
 
-    dropdown(settings: Gijgo.DropDownSettings): Gijgo.DropDown;
+    dropdown(settings: Types.DropDownSettings): Types.DropDown;
 
-    editor(settings: Gijgo.EditorSettings): Gijgo.Editor;
+    editor(settings: Types.EditorSettings): Types.Editor;
 
-    timepicker(settings: Gijgo.TimePickerSettings): Gijgo.TimePicker;
+    timepicker(settings: Types.TimePickerSettings): Types.TimePicker;
 
-    tree(settings: Gijgo.TreeSettings): Gijgo.Tree;
+    tree(settings: Types.TreeSettings): Types.Tree;
 }

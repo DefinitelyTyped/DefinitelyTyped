@@ -12,6 +12,7 @@ import * as H from 'history';
 export {
     Prompt,
     MemoryRouter,
+    RedirectProps,
     Redirect,
     RouteComponentProps,
     RouteProps,
