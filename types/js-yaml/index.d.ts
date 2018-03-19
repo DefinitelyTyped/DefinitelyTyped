@@ -28,8 +28,12 @@ export class Schema implements SchemaDefinition {
 	static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 }
 
-export function safeLoadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): DocumentLoadResult[] | undefined;
-export function loadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): DocumentLoadResult[] | undefined;
+export function safeLoadAll(str: string, iterator?: undefined, opts?: LoadOptions): DocumentLoadResult[];
+export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
+
+export function loadAll(str: string, iterator?: undefined, opts?: LoadOptions): DocumentLoadResult[];
+
+export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
 
 export function safeDump(obj: any, opts?: DumpOptions): string;
 export function dump(obj: any, opts?: DumpOptions): string;
