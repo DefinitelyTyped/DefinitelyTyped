@@ -242,7 +242,7 @@ declare namespace inquirer {
 
         interface ChoiceOption {
             name?: string;
-            value?: string;
+            value?: any;
             type?: string;
             extra?: any;
             key?: string;
