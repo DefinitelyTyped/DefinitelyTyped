@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { match } from "react-router";
+import { match, RouterProps } from "react-router";
 import * as React from 'react';
 import * as H from 'history';
 
@@ -26,7 +26,7 @@ export {
     RouterChildContext
 } from 'react-router';
 
-export interface BrowserRouterProps {
+export interface BrowserRouterProps extends RouterProps {
     basename?: string;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     forceRefresh?: boolean;
@@ -34,7 +34,7 @@ export interface BrowserRouterProps {
 }
 export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
-export interface HashRouterProps {
+export interface HashRouterProps extends RouterProps {
     basename?: string;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     hashType?: 'slash' | 'noslash' | 'hashbang';
