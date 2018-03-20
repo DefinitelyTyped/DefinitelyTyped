@@ -762,7 +762,7 @@ export class Timeline {
     items: DataItemCollectionType,
     options?: TimelineOptions
   );
-
+  constructor(container: HTMLElement);
   /**
    * Add new vertical bar representing a custom time that can be dragged by the user. Parameter time can be a Date, Number, or String, and is new Date() by default.
    * Parameter id can be Number or String and is undefined by default. The id is added as CSS class name of the custom time bar, allowing to style multiple time bars differently.
