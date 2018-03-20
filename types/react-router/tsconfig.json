@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "react",
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "experimentalDecorators": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/examples-from-react-router-website/Ambiguous.tsx",
+        "test/examples-from-react-router-website/Animation.tsx",
+        "test/examples-from-react-router-website/Auth.tsx",
+        "test/examples-from-react-router-website/Basic.tsx",
+        "test/examples-from-react-router-website/CustomLink.tsx",
+        "test/examples-from-react-router-website/ModalGallery.tsx",
+        "test/examples-from-react-router-website/NoMatch.tsx",
+        "test/examples-from-react-router-website/Params.tsx",
+        "test/examples-from-react-router-website/PreventingTransitions.tsx",
+        "test/examples-from-react-router-website/Recursive.tsx",
+        "test/examples-from-react-router-website/RouteConfig.tsx",
+        "test/examples-from-react-router-website/Sidebar.tsx",
+        "test/examples-from-react-router-website/StaticRouter.tsx",
+        "test/Children.tsx",
+        "test/NavigateWithContext.tsx",
+        "test/MemoryRouter.tsx",
+        "test/Switch.tsx",
+        "test/InheritingRoute.tsx",
+        "test/WithRouter.tsx"
+    ]
+}

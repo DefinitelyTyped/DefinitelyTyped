@@ -1,0 +1,14 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "callable-types": false,
+        "new-parens": false,
+        "no-declare-current-package": false,
+        "no-empty-interface": false,
+        "no-redundant-jsdoc-2": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false,
+        "strict-export-declare-modifiers": false
+    }
+}

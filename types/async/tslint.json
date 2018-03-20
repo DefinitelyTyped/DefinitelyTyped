@@ -1,0 +1,34 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "arrow-return-shorthand": false,
+        "array-type": false,
+        "ban-types": false,
+        "callable-types": false,
+        "comment-format": false,
+        "dt-header": false,
+        "max-line-length": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "no-unnecessary-generics": false,
+        "no-var-keyword": false,
+        "no-void-expression": false,
+        "object-literal-key-quotes": false,
+        "object-literal-shorthand": false,
+        "one-line": false,
+        "one-variable-per-declaration": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "prefer-for-of": false,
+        "prefer-method-signature": false,
+        "prefer-template": false,
+        "semicolon": false,
+        "space-before-function-paren": false,
+        "space-within-parens": false,
+        "trim-file": false,
+        "typedef-whitespace": false,
+        "unified-signatures": false,
+        "whitespace": false
+    }
+}
