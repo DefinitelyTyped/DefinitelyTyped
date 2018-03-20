@@ -196,7 +196,6 @@ new Nightmare()
   })
   .run(done)
 
-
 new Nightmare()
   .goto('http://www.google.com/')
   .wait('input')
