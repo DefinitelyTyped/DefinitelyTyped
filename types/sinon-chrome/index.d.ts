@@ -3,7 +3,7 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 //                 CRIMX <https://github.com/crimx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="chrome"/>
 /// <reference types="sinon"/>
