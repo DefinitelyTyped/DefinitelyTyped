@@ -2,7 +2,8 @@ import * as React from 'react';
 import {
   NavLink,
   NavLinkProps,
-  match
+  BrowserRouter as Router,
+  match,
 } from 'react-router-dom';
 import * as H from 'history';
 
