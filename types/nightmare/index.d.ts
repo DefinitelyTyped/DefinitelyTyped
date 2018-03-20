@@ -107,7 +107,7 @@ declare class Nightmare {
     html(path: string, saveType: 'MHTML'): Nightmare;
     pdf(path: string): Nightmare;
     pdf(path: string, options: Object): Nightmare;
-    pdf(cd:(err:Error, data:Buffer)=>void): Nightmare;
+    pdf(cb: (err: Error, data: Buffer) => void): Nightmare;
     title(): string;
     title(cb: (title: string) => void): Nightmare;
     url(cb: (url: string) => void): Nightmare;
