@@ -3,7 +3,6 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom",
             "es2017"
         ],
         "target": "es2017",

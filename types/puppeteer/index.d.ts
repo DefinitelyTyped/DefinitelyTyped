@@ -11,6 +11,18 @@
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
 
+// Stub DOM types when the dom lib isn't included
+
+interface Element { }
+
+interface Node { }
+
+interface NodeListOf<TNode extends Node> {
+  length: number;
+  item(index: number): TNode;
+  [index: number]: TNode;
+}
+
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {
   /**

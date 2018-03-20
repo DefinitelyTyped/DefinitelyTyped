@@ -24,17 +24,6 @@ import * as puppeteer from "puppeteer";
   const page = await browser.newPage();
   await page.goto("https://example.com");
 
-  // Get the "viewport" of the page, as reported by the page.
-  const dimensions = await page.evaluate(() => {
-    return {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
-      deviceScaleFactor: window.devicePixelRatio
-    };
-  });
-
-  console.log("Dimensions:", dimensions);
-
   browser.close();
 })();
 
@@ -51,14 +40,7 @@ puppeteer.launch().then(async browser => {
   });
   console.log(await page.evaluate("1 + 2"));
 
-  const bodyHandle = await page.$("body");
-
-  // Typings for this are really difficult since they depend on internal state
-  // of the page class.
-  const html = await page.evaluate(
-    (body: HTMLElement) => body.innerHTML,
-    bodyHandle
-  );
+  const bodyHandle: puppeteer.ElementHandle | null = await page.$("body");
 });
 
 import * as crypto from "crypto";
@@ -73,12 +55,6 @@ puppeteer.launch().then(async browser => {
       .update(text)
       .digest("hex")
   );
-  await page.evaluate(async () => {
-    // use window.md5 to compute hashes
-    const myString = "PUPPETEER";
-    const myHash = await (window as any).md5(myString);
-    console.log(`md5 of ${myString} is ${myHash}`);
-  });
   browser.close();
 
   page.on("console", console.log);
@@ -90,12 +66,8 @@ puppeteer.launch().then(async browser => {
       });
     });
   });
-  await page.evaluate(async () => {
-    // use window.readfile to read contents of a file
-    const content = await (window as any).readfile("/etc/hosts");
-    console.log(content);
-  });
 
+  await page.evaluate(() => {});
   await page.emulateMedia("screen");
   await page.pdf({ path: "page.pdf" });
 
@@ -237,15 +209,13 @@ puppeteer.launch().then(async browser => {
   await bodyHandle.dispose();
 
   // getProperties example
-  const handle = await page.evaluateHandle(() => ({ window, document }));
+  const handle = await page.evaluateHandle(() => ({ foo: "bar" }));
   const properties = await handle.getProperties();
   const windowHandle = properties.get('window');
   const documentHandle = properties.get('document');
   await handle.dispose();
 
   // queryObjects example
-  // Create a Map object
-  await page.evaluate(() => (window as any).map = new Map());
   // Get a handle to the Map object prototype
   const mapPrototype = await page.evaluateHandle(() => Map.prototype);
   // Query all map instances into an array
@@ -255,12 +225,6 @@ puppeteer.launch().then(async browser => {
   await mapInstances.dispose();
   await mapPrototype.dispose();
 
-  // evaluateHandle example
-  const aHandle = await page.evaluateHandle(() => document.body);
-  const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
-  console.log(await resultHandle.jsonValue());
-  await resultHandle.dispose();
-
   browser.close();
 })();
 
@@ -269,14 +233,12 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://example.com");
-  let elementText = await page.$eval('#someElement', (element) => {
-    return element.innerHTML;
-  });
+  let elementText: string = await page.$eval('#someElement', (element: puppeteer.Element) => "");
 
-  elementText = await page.$$eval('.someClassName', (elements) => {
-    console.log(elements.length);
-    console.log(elements.item(0).outerHTML);
-    return elements[3].innerHTML;
+  elementText = await page.$$eval('.someClassName', (elements: puppeteer.NodeListOf<puppeteer.Element>) => {
+    const length: number = elements.length;
+
+    return Promise.resolve(`${length}`);
   });
 
   browser.close();
