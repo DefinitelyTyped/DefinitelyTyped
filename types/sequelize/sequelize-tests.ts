@@ -10,10 +10,14 @@ import Bluebird = require('bluebird');
 interface AnyAttributes { [name: string]: boolean | number | string | object; };
 interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
+interface UserModel extends Sequelize.Model<AnyInstance, AnyAttributes> {
+    findUser?(arbitraryThing: any): Promise<AnyInstance>;
+}
+
 var s         = new Sequelize( '' );
 var sequelize = s;
 var DataTypes = Sequelize;
-var User      = s.define<AnyInstance, AnyAttributes>( 'user', {} );
+var User: UserModel = s.define<AnyInstance, AnyAttributes>( 'user', {} );
 var user      = User.build();
 var Task      = s.define<AnyInstance, AnyAttributes>( 'task', {} );
 var Group     = s.define<AnyInstance, AnyAttributes>( 'group', {} );
@@ -893,6 +897,7 @@ User.addScope('lowAccessWithParam', function(id: number) {
 } );
 
 User.scope( 'lowAccess' ).count();
+User.scope( 'lowAccess' ).findUser( 'foo' );
 User.scope( { where : { parent_id : 2 } } );
 User.scope( [ 'lowAccess', { method: ['lowAccessWithParam', 2] }, { where : { parent_id : 2 } } ] )
 
