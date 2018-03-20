@@ -1,6 +1,7 @@
 // Type definitions for stellar-sdk 0.8
 // Project: https://github.com/stellar/js-stellar-sdk
 // Definitions by: Carl Foster <https://github.com/carl-foster>
+//                 Triston Jones <https://github.com/tristonj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -596,7 +597,7 @@ export namespace Operation {
     }
     interface ChangeTrustOptions {
         asset: Asset;
-        limit: string;
+        limit?: string;
         source?: string;
     }
     function changeTrust(options: ChangeTrustOptions): xdr.Operation<ChangeTrust>;
