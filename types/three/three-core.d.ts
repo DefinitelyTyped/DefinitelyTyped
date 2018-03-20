@@ -6913,6 +6913,18 @@ export class ExtrudeGeometry extends Geometry {
     addShape(shape: Shape, options?: any): void;
 }
 
+export class ExtrudeBufferGeometry extends BufferGeometry {
+    constructor(shapes?: Shape[], options?: any);
+
+    static WorldUVGenerator: {
+        generateTopUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+        generateSideWallUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+    };
+
+    addShapeList(shapes: Shape[], options?: any): void;
+    addShape(shape: Shape, options?: any): void;
+}
+
 export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
     constructor(radius?: number, detail?: number);
 }
