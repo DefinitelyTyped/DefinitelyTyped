@@ -122,5 +122,3 @@ declare namespace KarmaViewport {
 }
 
 declare const viewport: KarmaViewport.Viewport;
-
-export = viewport;

@@ -1,5 +1,3 @@
-import * as viewport from 'karma-viewport';
-
 // Set to 320px x 100%
 viewport.set(320);
 
