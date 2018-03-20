@@ -148,6 +148,15 @@ function testSandbox() {
     sandbox.verifyAndRestore();
     sandbox.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
     sandbox.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
+
+    class OneFunctionOneNumber {
+        memberFunction() { }
+        memberNumber: number;
+    }
+
+    const stubInstance = sinon.createStubInstance<OneFunctionOneNumber>(OneFunctionOneNumber);
+    const memberFunction: sinon.SinonStub = stubInstance.memberFunction;
+    const memberNumber: number = stubInstance.memberNumber;
 }
 
 function testPromises() {
