@@ -25,7 +25,8 @@ let options: mongodb.MongoClientOptions = {
     sslCA: ['str'],
     sslCert: new Buffer(999),
     sslKey: new Buffer(999),
-    sslPass: new Buffer(999)
+    sslPass: new Buffer(999),
+    promoteBuffers: false
 }
 MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
