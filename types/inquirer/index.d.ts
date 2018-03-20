@@ -113,6 +113,12 @@ declare namespace inquirer {
          */
         filter?(input: string): string | Promise<string>;
         /**
+         * Receive the user input and return the transformed value to be displayed to the user. The
+         * transformation only impacts what is shown while editing. It does not impact the answers
+         * hash.
+         */
+        transformer?(input: string): string;
+        /**
          * Receive the current user answers hash and should return true or false depending on whether or
          * not this question should be asked. The value can also be a simple boolean.
          */
