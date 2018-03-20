@@ -29,7 +29,7 @@ export interface DragStart {
 }
 
 export interface DragUpdate extends DragStart {
-    destination?: DraggableLocation;
+    destination?: DraggableLocation | null;
 }
 
 export interface DropResult {
