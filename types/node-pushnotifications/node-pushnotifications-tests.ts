@@ -1,4 +1,4 @@
-import * as PushNotifications from "node-pushnotifications";
+import PushNotifications = require('node-pushnotifications');
 
 const settings = {
     gcm: {
