@@ -28,6 +28,10 @@ export interface DragStart {
     source: DraggableLocation;
 }
 
+export interface DragUpdate extends DragStart {
+    destination?: DraggableLocation;
+}
+
 export interface DropResult {
     draggableId: DraggableId;
     type: TypeId;
@@ -37,6 +41,7 @@ export interface DropResult {
 
 export interface DragDropContextProps {
     onDragStart?(initial: DragStart): void;
+    onDragUpdate?(initial: DragUpdate): void;
     onDragEnd(result: DropResult): void;
 }
 
