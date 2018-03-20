@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "monaco-editor": "^0.10.0"
+    }
+}
