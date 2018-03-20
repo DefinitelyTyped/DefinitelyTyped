@@ -7,6 +7,7 @@
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
 //                 Enrico Picci <https://github.com/EnricoPicci>
+//                 Alexander Christie <https://github.com/AJCStriker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -636,7 +637,7 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
 
-type FilterQuery<T> = {
+export type FilterQuery<T> = {
     [P in keyof T]?: T[P] | {
         $eq?: T[P];
         $gt?: T[P];
