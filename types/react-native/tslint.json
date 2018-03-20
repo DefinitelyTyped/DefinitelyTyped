@@ -1,0 +1,27 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Lowercase `object` is available in TypeScript 2.2 only.
+        "ban-types": false,
+        // Below are all TODO
+        "align": false,
+        "array-type": false,
+        "comment-format": false,
+        "interface-over-type-literal": false,
+        "jsdoc-format": false,
+        "no-misused-new": false,
+        "no-consecutive-blank-lines": false,
+        "no-duplicate-imports": false,
+        "no-empty-interface": false,
+        "no-padding": false,
+        "no-var": false,
+        "no-var-keyword": false,
+        "prefer-declare-function": false,
+        "prefer-method-signature": false,
+        "semicolon": false,
+        "space-within-parens": false,
+        "strict-export-declare-modifiers": false,
+        "use-default-type-parameter": false,
+        "no-unnecessary-generics": false
+    }
+}
