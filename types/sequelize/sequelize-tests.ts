@@ -1044,7 +1044,7 @@ findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', com
 findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
 
 let upsertPromiseNoOptions: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
-let upsertPromiseReturning: Bluebird<[boolean, AnyInstance]> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: true } );
+let upsertPromiseReturning: Bluebird<[AnyInstance, boolean]> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: true } );
 let upsertPromiseNotReturning: Bluebird<boolean> = User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) }, { returning: false } );
 
 User.bulkCreate( [{ aNumber : 10 }, { aNumber : 12 }] ).then( ( i ) => i[0].isNewRecord );

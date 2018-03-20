@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.8
+// Type definitions for Sequelize 4.27.9
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -12,6 +12,7 @@
 //                 Nikola Vidic <https://github.com/nidzov>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
+//                 Nick Schultz <https://github.com/nrschultz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -4006,9 +4007,9 @@ declare namespace sequelize {
          * whether the row was inserted or not.
          */
         upsert(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[boolean, TInstance]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
 
         /**
          * Create and insert multiple instances in bulk.
