@@ -93,7 +93,7 @@ export interface MongoClientOptions extends
     logger?: Object;
     // Default: false;
     validateOptions?: Object;
-    // The name of the application that created this MongoClient instance. 
+    // The name of the application that created this MongoClient instance.
     appname?: string;
 }
 
@@ -160,8 +160,8 @@ export interface DbCreateOptions extends CommonOptions {
     raw?: boolean;
     // Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
     promoteLongs?: boolean;
-    // Default: -1 (unlimited); Amount of operations the driver buffers up untill discard any new ones
-    promoteBuffers?: number;
+    // Default: false; Promotes Binary BSON values to native Node Buffers
+    promoteBuffers?: boolean;
     // the prefered read preference. use 'ReadPreference' class.
     readPreference?: ReadPreference | string;
     // Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
@@ -1495,7 +1495,7 @@ export interface ChangeStreamOptions {
 }
 
 type GridFSBucketWriteStreamId = string | number | Object | ObjectID;
-               
+
 export interface LoggerOptions {
     loggerLevel?: string // Custom logger function
     logger?: log // Override default global log level.
