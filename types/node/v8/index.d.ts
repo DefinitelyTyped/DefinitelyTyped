@@ -1758,6 +1758,7 @@ declare module "https" {
 
     export class Agent extends http.Agent {
         constructor(options?: AgentOptions);
+        options: AgentOptions;
     }
 
     export class Server extends tls.Server {
