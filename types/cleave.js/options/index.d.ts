@@ -1,19 +1,4 @@
-// Credit Card Options
-export type CreditCardType =
-    | "amex"
-    | "dankort"
-    | "diners"
-    | "discover"
-    | "instapayment"
-    | "jcb"
-    | "maestro"
-    | "mastercard"
-    | "uatp"
-    | "unknown"
-    | "unionPay"
-    | "mir"
-    | "visa";
-export type CreditCardTypeChangeHandler = (owner: HTMLInputElement, type: CreditCardType) => void;
+import { CreditCardTypeChangeHandler } from "./creditCard";
 
 export interface CleaveOptions {
     creditCard?: boolean;

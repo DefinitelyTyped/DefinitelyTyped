@@ -2,25 +2,22 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "dom",
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+		"strictFunctionTypes": true,
+		"baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "Accordion.d.ts",
-        "react-native-collapsible-tests.tsx"
+        "uglifyjs-webpack-plugin-tests.ts"
     ]
 }
