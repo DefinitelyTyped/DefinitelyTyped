@@ -6,7 +6,7 @@
 //                 Matt Brooks <https://github.com/EnableSoftware>, 
 //                 Benjamin Eckardt <https://github.com/BenjaminEckardt>, 
 //                 Mathias Lorenzen <https://github.com/ffMathy>
-//		   Ken Kohler <https://github.com/kkohler2>
+//                 Ken Kohler <https://github.com/kkohler2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6.3
 
