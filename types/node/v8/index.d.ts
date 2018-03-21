@@ -1,4 +1,4 @@
-// Type definitions for Node.js 8.9.x
+// Type definitions for Node.js 8.10.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -6053,6 +6053,23 @@ declare module "async_hooks" {
      */
     export function createHook(options: HookCallbacks): AsyncHook;
 
+    export interface AsyncResourceOptions {
+      /**
+       * The ID of the execution context that created this async event.
+       * Default: `executionAsyncId()`
+       */
+      triggerAsyncId?: number;
+
+      /**
+       * Disables automatic `emitDestroy` when the object is garbage collected.
+       * This usually does not need to be set (even if `emitDestroy` is called
+       * manually), unless the resource's `asyncId` is retrieved and the
+       * sensitive API's `emitDestroy` is called with it.
+       * Default: `false`
+       */
+      requireManualDestroy?: boolean;
+    }
+
     /**
      * The class AsyncResource was designed to be extended by the embedder's async resources.
      * Using this users can easily trigger the lifetime events of their own resources.
@@ -6062,10 +6079,12 @@ declare module "async_hooks" {
          * AsyncResource() is meant to be extended. Instantiating a
          * new AsyncResource() also triggers init. If triggerAsyncId is omitted then
          * async_hook.executionAsyncId() is used.
-         * @param type the name of this async resource type
-         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
+         * @param type The type of async event.
+         * @param triggerAsyncId The ID of the execution context that created
+         *   this async event (default: `executionAsyncId()`), or an
+         *   AsyncResourceOptions object (since 8.10)
          */
-        constructor(type: string, triggerAsyncId?: number)
+        constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
 
         /**
          * Call AsyncHooks before callbacks.

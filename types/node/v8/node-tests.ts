@@ -3304,6 +3304,16 @@ namespace async_hooks_tests {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////
