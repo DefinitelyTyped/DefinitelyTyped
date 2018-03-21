@@ -103,7 +103,7 @@ export class PropertyList<TElement> extends PropertyBase<PropertyBaseDefinition>
 
     find(rule: (item: TElement) => boolean, context: any): TElement;
 
-    get(key: string): TElement | undefined;
+    get(key: string): any;
 
     has(item: string | TElement, value?: any): boolean;
 

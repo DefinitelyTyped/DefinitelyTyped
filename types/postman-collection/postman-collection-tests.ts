@@ -99,7 +99,7 @@ pList.eachParent((el: any) => {}); // $ExpectType void
 pList.eachParent((el: any) => {}, pList); // $ExpectType void
 pList.filter((el) => true, pList); // $ExpectType Certificate[]
 pList.find((el) => true, pList); // $ExpectType Certificate
-pList.get("string"); // $ExpectType Certificate | undefined
+pList.get("string"); // $ExpectType any
 pList.has("string"); // $ExpectType boolean
 pList.has("string", null); // $ExpectType boolean
 pList.has(certificate); // $ExpectType boolean
