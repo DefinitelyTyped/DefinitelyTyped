@@ -582,6 +582,21 @@ configuration = {
     }
 };
 
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /node_modules/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
+    }
+};
+
 plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });
 
 class SingleEntryDependency extends webpack.compilation.Dependency {}
