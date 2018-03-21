@@ -2278,6 +2278,16 @@ declare module "../index" {
 
         /**
          * @see _.mapValues
+         */
+        mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(obj: T | null | undefined, iteratee: object): { [P in keyof T]: boolean };
+
+        /**
+         * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
@@ -2285,20 +2295,10 @@ declare module "../index" {
 
         /**
          * @see _.mapValues
-         */
-        mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
-
-        /**
-         * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
         mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(obj: T | null | undefined, iteratee: object): { [P in keyof T]: boolean };
 
         /**
          * @see _.mapValues
