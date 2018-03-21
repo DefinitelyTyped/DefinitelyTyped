@@ -7133,19 +7133,8 @@ export class TextGeometry extends ExtrudeGeometry {
     };
 }
 
-export interface TextBufferGeometryParameters {
-    font?: Font;
-    size?: number;
-    height?: number;
-    curveSegments?: number;
-    bevelEnabled?: boolean;
-    bevelThickness?: number;
-    bevelSize?: number;
-    bevelSegments?: number;
-}
-
 export class TextBufferGeometry extends ExtrudeBufferGeometry {
-    constructor(text: string, parameters?: TextBufferGeometryParameters);
+    constructor(text: string, parameters?: TextGeometryParameters);
 
     parameters: {
         font: Font;
