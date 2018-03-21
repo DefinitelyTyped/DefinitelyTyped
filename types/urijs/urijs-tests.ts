@@ -109,6 +109,9 @@ URI('http://user:pass@example.org:80/foo/bar.html').equals(
     })
 );
 
+const template = URITemplate('/items/{?page,count}');
+template.parse() === template;
+
 /*
 Tests for hasSearch(), hasQuery()
 From: http://medialize.github.io/URI.js/docs.html#search-has

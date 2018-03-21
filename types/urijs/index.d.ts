@@ -239,8 +239,30 @@ declare namespace uri {
     type URITemplateCallback = (keyName: string) => URITemplateValue;
     type URITemplateInput = { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback;
 
+    type URITemplateLiteral = string;
+    interface URITemplateVariable {
+      name: string;
+      explode: boolean;
+      maxLength?: number;
+    }
+
+    interface URITemplateExpression {
+      expression: string;
+      operator: string;
+      variables: ReadonlyArray<URITemplateVariable>;
+    }
+
+    type URITemplatePart = URITemplateLiteral | URITemplateExpression;
+
     interface URITemplate {
       expand(data: URITemplateInput, opts?: Object) : URI;
+      parse(): this;
+
+      /**
+       * @description The parsed parts of the URI Template. Only present after calling
+       *              `parse()` first.
+       */
+      parts?: ReadonlyArray<URITemplatePart>;
     }
 
     interface URITemplateStatic {
