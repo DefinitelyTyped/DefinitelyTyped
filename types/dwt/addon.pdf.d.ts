@@ -1,5 +1,5 @@
 /*!
-* Dynamsoft WebTwain PDF Addon
+* Based on Dynamsoft WebTwain JavaScript Intellisense
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
@@ -25,7 +25,7 @@ interface PDF {
      * The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional.
      * The function to call when the download fails. Please refer to the function prototype OnFailure.
-     * @return {bool}
+     * @return {boolean}
      */
     Download(remoteFile: string,
         optionalAsyncSuccessFunc?: () => void,
@@ -35,7 +35,7 @@ interface PDF {
      *  Input the password to decrypt PDF files using PDF Rasterizer add-on.
      * @method Dynamsoft.WebTwain#SetPassword
      * @param {string} password Specifies the PDF password.
-     * @return {bool}
+     * @return {boolean}
      */
     SetPassword(password: string): boolean;
 
@@ -43,7 +43,7 @@ interface PDF {
      *  Set the image convert mode for PDF Rasterizer in Dynamic Web TWAIN.
      * @method Dynamsoft.WebTwain#SetConvertMode
      * @param {EnumDWT_ConverMode} convertMode Specifies the image convert mode.
-     * @return {bool}
+     * @return {boolean}
      */
     SetConvertMode(convertMode: EnumDWT_ConverMode): boolean;
 
@@ -51,7 +51,7 @@ interface PDF {
      *  Set the output resolution for the PDF Rasterizer in Dynamic Web TWAIN.
      * @method Dynamsoft.WebTwain#ReadRect
      * @param {float} fResolution Specifies the resolution for convert image from PDF file.
-     * @return {bool}
+     * @return {boolean}
      */
     SetResolution(fResolution: number): boolean;
 
@@ -59,7 +59,7 @@ interface PDF {
      * Judges whether the local PDF is text-based or not.
      * @method Dynamsoft.WebTwain#ReadRect
      * @param {string} localFile specifies the local path of the target PDF.
-     * @return {bool}
+     * @return {boolean}
      */
     IsTextBasedPDF(localFile: string): boolean;
 }
@@ -69,5 +69,5 @@ interface WebTwainAddon {
 }
 
 interface WebTwain {
-	Addon: WebTwainAddon;
+    Addon: WebTwainAddon;
 }

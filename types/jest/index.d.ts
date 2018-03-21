@@ -11,6 +11,7 @@
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
 //                 Ahn <https://github.com/AhnpGit>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -202,6 +203,10 @@ declare namespace jest {
 
     type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
 
+    interface FunctionLike {
+        readonly name: string;
+    }
+
     /**
      * Creates a test closure
      */
@@ -223,7 +228,8 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: string, fn: EmptyFunction): void;
+        // tslint:disable-next-line ban-types
+        (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
