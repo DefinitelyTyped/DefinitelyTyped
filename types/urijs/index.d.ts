@@ -13,6 +13,7 @@ declare namespace uri {
         absoluteTo(path: URI): URI;
         addFragment(fragment: string): URI;
         addQuery(qry: string): URI;
+        addQuery(qry: string, value:any): URI;
         addQuery(qry: Object): URI;
         addSearch(qry: string): URI;
         addSearch(key: string, value:any): URI;
