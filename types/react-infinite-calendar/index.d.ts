@@ -8,8 +8,8 @@ import * as React from 'react';
 
 export interface ReactInfiniteCalendarProps {
     selected?: Date | boolean;
-    width?: number;
-    height?: number;
+    width?: number | 'auto';
+    height?: number | 'auto';
     min?: Date;
     max?: Date;
     minDate?: Date;
@@ -40,7 +40,7 @@ export interface ReactInfiniteCalendarProps {
     };
     theme?: {
         accentColor?: string;
-        floatingNav: {
+        floatingNav?: {
             background?: string;
             chevron?: string;
             color?: string;
@@ -55,7 +55,7 @@ export interface ReactInfiniteCalendarProps {
         weekdayColor?: string;
     };
     className?: string;
-    onSelect?: () => void;
+    onSelect?: (date: string) => void;
     onScroll?: (scrollTop: number) => void;
     onScrollEnd?: (scrollTop: number) => void;
     rowHeight?: number;
