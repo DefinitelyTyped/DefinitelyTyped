@@ -957,6 +957,12 @@ User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Da
 User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
 User.findById( 'a string' );
+User.findById( 42 );
+User.findById( Buffer.from('a buffer') );
+
+User.findByPrimary( 'a string' );
+User.findByPrimary( 42 );
+User.findByPrimary( Buffer.from('a buffer') );
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
