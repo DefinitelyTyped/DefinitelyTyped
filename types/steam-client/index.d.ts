@@ -2,6 +2,7 @@
 // Project: https://github.com/DoctorMcKay/node-steam-client
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 /// <reference types="bytebuffer" />
@@ -119,7 +120,7 @@ export type SendMessage = (
     callback?: SendMessage | false
 ) => void;
 
-export type CMEventCallback = {
+export interface CMEventCallback {
     /**
      * Connection closed by the server.
      * Only emitted if the encryption handshake is complete, otherwise it will reconnect automatically (unless you disabled autoRetry).
@@ -127,7 +128,7 @@ export type CMEventCallback = {
      *
      * @param err An Error object. May contain an eresult property.
      */
-    error: (err: Error) => void,
+    error: (err: Error) => void;
 
     /**
      * Encryption handshake complete.
@@ -136,14 +137,14 @@ export type CMEventCallback = {
      *
      * @param serverLoad The load value of the CM server you're connected to. Only available if you're connecting using UDP. It's unclear at this time what scale this value uses.
      */
-    connected: (serverLoad: string) => void,
+    connected: (serverLoad: string) => void;
 
     /**
      * Logon response received. If eresult is EResult.OK, loggedOn is now true.
      *
      * @param response An object with the properties in CMsgClientLogonResponse
      */
-    logOnResponse: (response: CMsgClientLogonResponse) => void,
+    logOnResponse: (response: CMsgClientLogonResponse) => void;
 
     /**
      * CMClient will use this new list when reconnecting, but it will be lost when your application restarts.
@@ -154,21 +155,21 @@ export type CMEventCallback = {
      *
      * @param servers An array containing the up-to-date server list
      */
-    servers: (servers: Server[]) => void,
+    servers: (servers: Server[]) => void;
 
     /**
      * You were logged off from Steam. loggedOn is now false.
      *
      * @param eresesult A value from EResult
      */
-    loggedOff: (eresesult: EResult) => void,
+    loggedOff: (eresesult: EResult) => void;
 
-    message: SendMessage,
-};
+    message: SendMessage;
+}
 
-export type Server = {
-    host: string,
-    port: string | number,
+export interface Server {
+    host: string;
+    port: string | number;
 }
 
 // Protobufs
@@ -191,7 +192,8 @@ export interface CMsgClientLogon {
 
     /**
      * SHA1 hash of your sentry file.
-     * If not provided, Steam will send you a sentry file through the ClientUpdateMachineAuth message (unless a limit for registered sentries is reached? see https://github.com/seishun/node-steam/issues/178).
+     * If not provided, Steam will send you a sentry file through the ClientUpdateMachineAuth message
+     * (unless a limit for registered sentries is reached? see https://github.com/seishun/node-steam/issues/178).
      * If no Steam Guard code is provided, the hash must be already registered with this account, otherwise it's ignored.
      * This value will be ignored if you enable 2FA.
      */
@@ -988,7 +990,6 @@ export enum EMsg {
     CCSGetCommentsForNewsResponse = 3160, // obsolete
     CCSDeleteAllCommentsByAuthor = 3161,
     CCSDeleteAllCommentsByAuthorResponse = 3162,
-
 
     BaseLBSRange = 3200,
     LBSSetScore = 3201,
@@ -2647,7 +2648,7 @@ export enum EChatRoomEnterResponse {
     // these appear to have been removed
     NoRankingDataLobby = 12, // removed
     NoRankingDataUser = 13, // removed
-    RankOutOfRange = 14, //removed
+    RankOutOfRange = 14, // removed
 }
 
 export enum EChatRoomType {
@@ -2953,7 +2954,6 @@ export enum EActivationCodeClass {
     Test = 2147483647,
     Invalid = 4294967295,
 }
-
 
 export enum EChatMemberStateChange {
     Entered = 0x01,
