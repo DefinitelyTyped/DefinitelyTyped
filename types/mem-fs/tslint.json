@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
-        "strict-export-declare-modifiers": false
+
     }
 }
