@@ -94,6 +94,7 @@ interface Select2Options {
     dropdownAdapter?: any;
     selectionAdapter?: any;
     resultsAdapter?: any;
+    dataAdapter?: any;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
