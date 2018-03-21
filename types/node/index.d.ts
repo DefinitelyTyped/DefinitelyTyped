@@ -1,4 +1,4 @@
-// Type definitions for Node.js 9.4.x
+// Type definitions for Node.js 9.6.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -6081,6 +6081,23 @@ declare module "async_hooks" {
      */
     export function createHook(options: HookCallbacks): AsyncHook;
 
+    export interface AsyncResourceOptions {
+      /**
+       * The ID of the execution context that created this async event.
+       * Default: `executionAsyncId()`
+       */
+      triggerAsyncId?: number;
+
+      /**
+       * Disables automatic `emitDestroy` when the object is garbage collected.
+       * This usually does not need to be set (even if `emitDestroy` is called
+       * manually), unless the resource's `asyncId` is retrieved and the
+       * sensitive API's `emitDestroy` is called with it.
+       * Default: `false`
+       */
+      requireManualDestroy?: boolean;
+    }
+
     /**
      * The class AsyncResource was designed to be extended by the embedder's async resources.
      * Using this users can easily trigger the lifetime events of their own resources.
@@ -6090,20 +6107,37 @@ declare module "async_hooks" {
          * AsyncResource() is meant to be extended. Instantiating a
          * new AsyncResource() also triggers init. If triggerAsyncId is omitted then
          * async_hook.executionAsyncId() is used.
-         * @param type the name of this async resource type
-         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
+         * @param type The type of async event.
+         * @param triggerAsyncId The ID of the execution context that created
+         *   this async event (default: `executionAsyncId()`), or an
+         *   AsyncResourceOptions object (since 9.3)
          */
-        constructor(type: string, triggerAsyncId?: number)
+        constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
 
         /**
          * Call AsyncHooks before callbacks.
+         * @deprecated since 9.6 - Use asyncResource.runInAsyncScope() instead.
          */
         emitBefore(): void;
 
         /**
-         * Call AsyncHooks after callbacks
+         * Call AsyncHooks after callbacks.
+         * @deprecated since 9.6 - Use asyncResource.runInAsyncScope() instead.
          */
         emitAfter(): void;
+
+        /**
+         * Call the provided function with the provided arguments in the
+         * execution context of the async resource. This will establish the
+         * context, trigger the AsyncHooks before callbacks, call the function,
+         * trigger the AsyncHooks after callbacks, and then restore the original
+         * execution context.
+         * @param fn The function to call in the execution context of this
+         *   async resource.
+         * @param thisArg The receiver to be used for the function call.
+         * @param args Optional arguments to pass to the function.
+         */
+        runInAsyncScope<This, Result>(fn: (this: This, ...args: any[]) => Result, thisArg?: This, ...args: any[]): Result;
 
         /**
          * Call AsyncHooks destroy callbacks.

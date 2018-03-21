@@ -3333,13 +3333,23 @@ namespace async_hooks_tests {
             const tId: number = this.triggerAsyncId();
         }
         run() {
-            this.emitBefore();
-            this.emitAfter();
+            this.runInAsyncScope(() => {});
+            this.runInAsyncScope(Array.prototype.find, [], () => true);
         }
         destroy() {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////
