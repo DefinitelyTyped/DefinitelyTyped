@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import Buffer = require('buffer');
-import stream = require('stream');
+import * as Buffer from 'buffer';
+import { Transform } from 'stream';
 
 // TODO: type of store comes from mem-fs
 export function create(store: any): memFsEditor.Editor;
@@ -41,7 +41,7 @@ export namespace memFsEditor {
         copyTpl: (from: string, to: string, context: any, templateOptions?: any, copyOptions?: CopyOptions) => void;
         move: (from: string, to: string, options?: { globOptions: GlobOptions }) => void;
         exists: (filepath: string) => boolean;
-        commit: (filters: stream.Transform[], callback: () => void) => void;
+        commit: (filters: Transform[], callback: () => void) => void;
     }
 
     const prototype: {
