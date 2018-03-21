@@ -1528,7 +1528,9 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface Agent extends http.Agent { }
+    export interface Agent extends http.Agent {
+        options?: AgentOptions;
+    }
 
     export interface AgentOptions extends http.AgentOptions {
         pfx?: any;
