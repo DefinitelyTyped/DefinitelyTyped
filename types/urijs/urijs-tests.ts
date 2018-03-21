@@ -32,6 +32,12 @@ URI('').setQuery('foo', 'bar');
 URI('').setQuery({ foo: 'bar' });
 URI('').setSearch('foo', 'bar');
 URI('').setSearch({ foo: 'bar' });
+URI('http://example.org/foo/hello.html').addQuery('foo');
+URI('http://example.org/foo/hello.html').addQuery('foo', 'bar');
+URI('http://example.org/foo/hello.html').addQuery({ foo: 'bar' });
+URI('http://example.org/foo/hello.html').addSearch('foo');
+URI('http://example.org/foo/hello.html').addSearch('foo', 'bar');
+URI('http://example.org/foo/hello.html').addSearch({ foo: 'bar' });
 
 var uri: uri.URI = $('a').uri();
 
