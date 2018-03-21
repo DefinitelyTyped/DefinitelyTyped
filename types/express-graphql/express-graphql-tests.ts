@@ -4,11 +4,21 @@ import graphqlHTTP = require('express-graphql');
 import { GraphQLSchema } from 'graphql/type/schema';
 
 const app = express();
-const schema = {} as GraphQLSchema;
+const schema: GraphQLSchema = {
+    getQueryType: null,
+    getMutationType: null,
+    getSubscriptionType: null,
+    getTypeMap: null,
+    getType: null,
+    getPossibleTypes: null,
+    isPossibleType: null,
+    getDirective: null,
+    getDirectives: null,
+};
 
 const graphqlOption: graphqlHTTP.OptionsData = {
     graphiql: true,
-    schema: schema,
+    schema,
     formatError: (error: Error) => ({
         message: error.message
     }),
@@ -18,7 +28,7 @@ const graphqlOption: graphqlHTTP.OptionsData = {
 
 const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsData => ({
     graphiql: true,
-    schema: schema,
+    schema,
     context: request.session,
     validationRules: [() => false, () => true],
 });
