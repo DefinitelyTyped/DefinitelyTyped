@@ -59,7 +59,7 @@ declare namespace PushNotifications {
             pfx?: Buffer | string;
             /** The passphrase for the connection key, if required */
             passphrase?: string;
-            productionv?: boolean;
+            production?: boolean;
             voip?: boolean;
             address?: string;
             port?: number;
