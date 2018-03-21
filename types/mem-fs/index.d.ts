@@ -3,18 +3,20 @@
 // Definitions by: My Food Bag <https://github.com/MyFoodBag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import events = require('events');
-import stream = require('stream');
-import File = require('vinyl');
+/// <reference types="node" />
 
-export function create(...args: any[]): create.Store;
+import { EventEmitter } from 'events';
+import { Transform } from 'stream';
+import * as File from 'vinyl';
 
-export namespace create {
-    interface Store extends events.EventEmitter {
+export function create(...args: any[]): memFs.Store;
+
+export namespace memFs {
+    interface Store extends EventEmitter {
         add: (file: File, content: string) => void;
         each: (callback: (file: File, index: number) => void) => void;
         get: (filepath: string) => File;
-        stream: () => stream.Transform;
+        stream: () => Transform;
     }
 
     const prototype: {
