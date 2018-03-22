@@ -887,7 +887,15 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param precision A numeric value in pixels to use as the threshold for the projection’s adaptive resampling.
      */
     precision(precision: number): this;
-
+    /**
+     * Returns the projection’s current angle, which defaults to 0°.
+     */
+    angle(): number;
+    /**
+     * Sets the projection’s post-projection planar rotation angle to the specified angle in degrees and returns the projection.
+     * @param angle The new rotation angle of the projection.
+     */
+    angle(angle: number): this;
     /**
      * Returns the current rotation [lambda, phi, gamma] specifying the rotation angles in degrees about each spherical axis.
      * (These correspond to yaw, pitch and roll.) which defaults [0, 0, 0].
