@@ -8,7 +8,6 @@ export as namespace CryptoJS;
 
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
-	type Hash = (message: string | LibWordArray, key?: string | WordArray, ...options: any[]) => WordArray;
 	interface Cipher {
 		encrypt(message: string, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
 		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
@@ -54,23 +53,40 @@ declare namespace CryptoJS {
 	interface Padding {}
 
 	export interface Hashes {
-		MD5: Hash;
-		SHA1: Hash;
-		SHA256: Hash;
-		SHA224: Hash;
-		SHA512: Hash;
-		SHA384: Hash;
-		SHA3: Hash;
-		RIPEMD160: Hash;
-		HmacMD5: Hash;
-		HmacSHA1: Hash;
-		HmacSHA256: Hash;
-		HmacSHA224: Hash;
-		HmacSHA512: Hash;
-		HmacSHA384: Hash;
-		HmacSHA3: Hash;
-		HmacRIPEMD160: Hash;
-		PBKDF2: Hash;
+		MD5(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		MD5(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA1(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA1(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA256(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA256(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA224(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA224(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA512(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA512(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA384(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA384(message: string | LibWordArray, ...options: any[]): WordArray;
+		SHA3(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		SHA3(message: string | LibWordArray, ...options: any[]): WordArray;
+		RIPEMD160(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		RIPEMD160(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacMD5(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacMD5(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA1(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA1(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA256(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA256(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA224(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA224(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA512(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA512(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA384(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA384(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacSHA3(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacSHA3(message: string | LibWordArray, ...options: any[]): WordArray;
+		HmacRIPEMD160(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		HmacRIPEMD160(message: string | LibWordArray, ...options: any[]): WordArray;
+		PBKDF2(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
+		PBKDF2(message: string | LibWordArray, ...options: any[]): WordArray;
 		AES: Cipher;
 		DES: Cipher;
 		TripleDES: Cipher;
