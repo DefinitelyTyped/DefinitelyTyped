@@ -128,7 +128,7 @@ export class Navigator {
     toggleDrawer(params: { side: 'left' | 'right'; animated?: boolean; to?: 'open' | 'closed' }): void;
     setDrawerEnabled(params: { side: 'left' | 'right'; enabled: boolean }): void;
     toggleTabs(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setTabBadge(params?: { tabIndex?: number; badge?: number; badgeColor?: string; }): void;
+    setTabBadge(params?: { tabIndex?: number; badge: number | null; badgeColor?: string; }): void;
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
