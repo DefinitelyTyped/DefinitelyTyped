@@ -42,7 +42,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>): FlatMapDeep1x1<T, TResult>;
+    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult> | TResult): FlatMapDeep1x1<T, TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -61,7 +61,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, collection: _.List<T> | null | undefined): TResult[];
+    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult> | TResult, collection: _.List<T> | null | undefined): TResult[];
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -80,7 +80,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult | TResult>): FlatMapDeep2x1<T, TResult>;
+    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult> | TResult): FlatMapDeep2x1<T, TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -99,7 +99,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult | TResult>, collection: T | null | undefined): TResult[];
+    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult> | TResult, collection: T | null | undefined): TResult[];
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.

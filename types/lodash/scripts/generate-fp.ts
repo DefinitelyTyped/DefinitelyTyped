@@ -45,7 +45,6 @@ async function main() {
     lineBreak = _.find(["\r\n", "\n", "\r"], x => tsconfigFile.includes(x)) || "\n";
 
     // Read each function definition and fp-ify it
-    //const subfolders = ["array", "collection", "date", "function", "lang", "math", "number", "object", "seq", "string", "util"];
     const subfolders = ["common"];
     const promises: Array<Promise<string[]>> = [];
     for (const subfolder of subfolders) {
@@ -268,7 +267,7 @@ function parseDefinitions(definitionString: string, startIndex: number, endIndex
     for (; overloadMatch && overloadMatch.index < endIndex; overloadMatch = overloadRegExp.exec(definitionString)) {
         name = overloadMatch[1] || name!;
 
-        let overloadStartIndex = overloadMatch.index;
+        const overloadStartIndex = overloadMatch.index;
         if (!currentDefinition || name !== currentDefinition.name) {
             if (currentDefinition && !_.isEmpty(currentDefinition.overloads))
                 definitons.push(currentDefinition);
@@ -572,10 +571,10 @@ function capCallback(parameter: string, functionName: string): string {
     // Special case for mapKeys: callback is capped to the key parameter only
     if (functionName === "mapKeys") {
         parameter = parameter
-            .replace(/(iteratee|predicate|callback): *(?:Array|List|NumericDictionary|String)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<number>")
-            .replace(/(iteratee|predicate|callback): *(?:Dictionary|Object)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<string>")
-            .replace(/(iteratee|predicate|callback): *(?:Array|List|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<number,$3>")
-            .replace(/(iteratee|predicate|callback): *(?:Dictionary|Object)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<string,$3>");
+            .replace(/(iteratee|predicate|callback): *(?:Array|List|NumericDictionary|String)Iteratee<(.+)>$/g, "$1: ValueIteratee<number>")
+            .replace(/(iteratee|predicate|callback): *(?:Dictionary|Object)Iteratee<(.+)>$/g, "$1: ValueIteratee<string>")
+            .replace(/(iteratee|predicate|callback): *(?:Array|List|NumericDictionary|String)Iteratee(?:Custom)?<(.+?),(.+)>$/g, "$1: ValueIterateeCustom<number,$3>")
+            .replace(/(iteratee|predicate|callback): *(?:Dictionary|Object)Iteratee(?:Custom)?<(.+?),(.+)>$/g, "$1: ValueIterateeCustom<string,$3>");
     }
 
     // Special case for reduceRight: callback argument order of (b, a)
@@ -585,20 +584,20 @@ function capCallback(parameter: string, functionName: string): string {
     }
 
     return parameter
-        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>/g, "$1: ValueIteratee<$2>")
-        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<$2,$3>")
-        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)IteratorTypeGuard<([^,>]+),([^,>]+)>/g, "$1: ValueIteratorTypeGuard<$2,$3>")
-        .replace(/(iteratee|predicate|callback): *ObjectIteratee<([^,>]+)>/g, "$1: ValueIteratee<$2[keyof $2]>")
-        .replace(/(iteratee|predicate|callback): *ObjectIterateeCustom<([^,>]+),([^,>]+)>/g, "$1: ValueIterateeCustom<$2[keyof $2],$3>")
-        .replace(/(iteratee|predicate|callback): *ObjectIteratorTypeGuard<([^,>]+),([^,>]+)>/g, "$1: ValueIteratorTypeGuard<$2[keyof $2],$3>")
-        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary)Iterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2) => $3")
-        .replace(/(iteratee|predicate|callback): *StringIterator<([^,>]+)>/g, "$1: (value: string) => $2")
-        .replace(/(iteratee|predicate|callback): *ObjectIterator<([^,>]+), *([^,>]+)>/g, "$1: (value: $2[keyof $2]) => $3")
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<(.+)>$/g, "$1: ValueIteratee<$2>")
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)Iteratee(?:Custom)?<(.+?),(.+)>$/g, "$1: ValueIterateeCustom<$2,$3>")
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary|String)IteratorTypeGuard<(.+?),(.+)>$/g, "$1: ValueIteratorTypeGuard<$2,$3>")
+        .replace(/(iteratee|predicate|callback): *ObjectIteratee<(.+)>$/g, "$1: ValueIteratee<$2[keyof $2]>")
+        .replace(/(iteratee|predicate|callback): *ObjectIterateeCustom<(.+?),(.+)>$/g, "$1: ValueIterateeCustom<$2[keyof $2],$3>")
+        .replace(/(iteratee|predicate|callback): *ObjectIteratorTypeGuard<(.+?),(.+)>$/g, "$1: ValueIteratorTypeGuard<$2[keyof $2],$3>")
+        .replace(/(iteratee|predicate|callback): *(?:Array|List|Dictionary|NumericDictionary)Iterator<(.+?), *(.+)>$/g, "$1: (value: $2) => $3")
+        .replace(/(iteratee|predicate|callback): *StringIterator<(.+)>$/g, "$1: (value: string) => $2")
+        .replace(/(iteratee|predicate|callback): *ObjectIterator<(.+?), *(.+?)>$/g, "$1: (value: $2[keyof $2]) => $3")
         .replace(/(iteratee|predicate|callback): *Memo(Void)?(?:Array|List|Object|Dictionary)Iterator<([^,>]+),([^,>]+)(?:,[^,>]+?(<T>)?)?>/g, "$1: Memo$2IteratorCapped<$3,$4>")
-        .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<([^,>]+)>>/g, "$1: Many<ValueIteratee<$2>>")
-        .replace(/(iteratees|predicates|callbacks): *Many<ObjectIteratee<([^,>]+)>>/g, "$1: Many<ValueIteratee<$2[keyof $2]>>")
-        .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary)Iterator<([^,>]+), *([^,>]+)>>/g, "$1: Many<(value: $2) => $3>")
-        .replace(/(iteratees|predicates|callbacks): *Many<ObjectIterator<([^,>]+), *([^,>]+)>>/g, "$1: Many<(value: $2[keyof $2]) => $3>");
+        .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary|String)Iteratee<(.+?)>>/g, "$1: Many<ValueIteratee<$2>>")
+        .replace(/(iteratees|predicates|callbacks): *Many<ObjectIteratee<(.+?)>>/g, "$1: Many<ValueIteratee<$2[keyof $2]>>")
+        .replace(/(iteratees|predicates|callbacks): *Many<(?:Array|List|Dictionary|NumericDictionary)Iterator<(.+?), *(.+?)>>/g, "$1: Many<(value: $2) => $3>")
+        .replace(/(iteratees|predicates|callbacks): *Many<ObjectIterator<(.+?), *(.+?)>>/g, "$1: Many<(value: $2[keyof $2]) => $3>");
 }
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {
