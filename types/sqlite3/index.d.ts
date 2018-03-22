@@ -88,8 +88,7 @@ export class Database extends events.EventEmitter {
 
 export function verbose(): sqlite3;
 
-// tslint:disable-next-line:strict-export-declare-modifiers
-interface sqlite3 {
+export interface sqlite3 {
     OPEN_READONLY: number;
     OPEN_READWRITE: number;
     OPEN_CREATE: number;
