@@ -29,7 +29,7 @@ export interface FormatLocaleDefinition {
     /**
      * An optional array of ten strings to replace the numerals 0-9.
      */
-    numerals?: [string, string, string, string, string, string, string, string, string, string];
+    numerals?: string[];
     /**
      * An optional symbol to replace the `percent` suffix; the percent suffix (defaults to "%").
      */
@@ -47,7 +47,7 @@ export interface FormatLocaleObject {
      * @param specifier A Specifier string.
      * @throws Error on invalid format specifier.
      */
-    format(specifier: string): (n: { valueOf(): number; } | string) => string;
+    format(specifier: string): (n: number | { valueOf(): number }) => string;
 
     /**
      * Returns a new format function for the given string specifier. The returned function
@@ -59,7 +59,7 @@ export interface FormatLocaleObject {
      * @param value The reference value to determine the appropriate SI prefix.
      * @throws Error on invalid format specifier.
      */
-    formatPrefix(specifier: string, value: number): (n: { valueOf(): number; }) => string;
+    formatPrefix(specifier: string, value: number): (n: number | { valueOf(): number }) => string;
 }
 
 /**
@@ -178,7 +178,7 @@ export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): Form
  * @param specifier A Specifier string.
  * @throws Error on invalid format specifier.
  */
-export function format(specifier: string): (n: { valueOf(): number; } | string) => string;
+export function format(specifier: string): (n: number | { valueOf(): number }) => string;
 
 /**
  * Returns a new format function for the given string specifier. The returned function
@@ -195,7 +195,7 @@ export function format(specifier: string): (n: { valueOf(): number; } | string) 
  * @param value The reference value to determine the appropriate SI prefix.
  * @throws Error on invalid format specifier.
  */
-export function formatPrefix(specifier: string, value: number): (n: { valueOf(): number; }) => string;
+export function formatPrefix(specifier: string, value: number): (n: number | { valueOf(): number }) => string;
 
 /**
  * Parses the specified specifier, returning an object with exposed fields that correspond to the

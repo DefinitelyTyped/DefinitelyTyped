@@ -45,12 +45,9 @@ formatFn = d3Format.formatPrefix(',.0', 1e-6);
 
 d3Format.format('.0%')(10);
 d3Format.format('.0%')(numeric);
-d3Format.format("$c")("☃");
 
 d3Format.formatPrefix(',.0', 1e-6)(10);
 d3Format.formatPrefix(',.0', 1e-6)(numeric);
-// $ExpectError
-d3Format.formatPrefix(',.0', 1e-6)("☃");
 
 // ----------------------------------------------------------------------
 // Test Format Specifier
