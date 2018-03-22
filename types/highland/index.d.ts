@@ -89,6 +89,17 @@ interface HighlandStatic {
 	// UTILS
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+  /**
+	 * Returns true if `x` is the end of stream marker.
+	 *
+	 * @id isNil
+	 * @section Streams
+	 * @name _.isNil(x)
+	 * @param x - the object to test
+	 * @api public
+	 */
+  isNil<R>(x: R | Highland.Nil): x is Highland.Nil;
+
 	/**
 	 * Returns true if `x` is a Highland Stream.
 	 *
