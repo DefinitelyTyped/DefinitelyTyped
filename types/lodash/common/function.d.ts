@@ -667,30 +667,30 @@ declare module "../index" {
     // flip
 
     interface LoDashStatic {
-       /**
-        * Creates a function that invokes `func` with arguments reversed.
-        *
-        * @category Function
-        * @param func The function to flip arguments for.
-        * @returns Returns the new function.
-        * @example
-        *
-        * var flipped = _.flip(function() {
-        *   return _.toArray(arguments);
-        * });
-        *
-        * flipped('a', 'b', 'c', 'd');
-        * // => ['d', 'c', 'b', 'a']
-        */
-       flip<T extends (...args: any[]) => any>(func: T): T;
-   }
+        /**
+         * Creates a function that invokes `func` with arguments reversed.
+         *
+         * @category Function
+         * @param func The function to flip arguments for.
+         * @returns Returns the new function.
+         * @example
+         *
+         * var flipped = _.flip(function() {
+         *   return _.toArray(arguments);
+         * });
+         *
+         * flipped('a', 'b', 'c', 'd');
+         * // => ['d', 'c', 'b', 'a']
+         */
+        flip<T extends (...args: any[]) => any>(func: T): T;
+    }
 
-   interface LoDashWrapper<TValue> {
-       /**
-        * @see _.flip
-        */
-       flip(): this;
-   }
+    interface LoDashWrapper<TValue> {
+        /**
+         * @see _.flip
+         */
+        flip(): this;
+    }
 
     // memoize
 
@@ -771,34 +771,34 @@ declare module "../index" {
 
     // overArgs
 
-   interface LoDashStatic {
-       /**
-        * Creates a function that runs each argument through a corresponding transform function.
-        *
-        * @param func The function to wrap.
-        * @param transforms The functions to transform arguments, specified as individual functions or arrays
-        * of functions.
-        * @return Returns the new function.
-        */
-       overArgs(
-           func: (...args: any[]) => any,
-           ...transforms: Array<Many<(...args: any[]) => any>>
-       ): (...args: any[]) => any;
-   }
+    interface LoDashStatic {
+        /**
+         * Creates a function that runs each argument through a corresponding transform function.
+         *
+         * @param func The function to wrap.
+         * @param transforms The functions to transform arguments, specified as individual functions or arrays
+         * of functions.
+         * @return Returns the new function.
+         */
+        overArgs(
+            func: (...args: any[]) => any,
+            ...transforms: Array<Many<(...args: any[]) => any>>
+        ): (...args: any[]) => any;
+    }
 
-   interface LoDashImplicitWrapper<TValue> {
-       /**
-        * @see _.overArgs
-        */
-       overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
-   }
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.overArgs
+         */
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+    }
 
-   interface LoDashExplicitWrapper<TValue> {
-       /**
-        * @see _.overArgs
-        */
-       overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
-   }
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.overArgs
+         */
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+    }
 
     // partial
 
