@@ -1,3 +1,8 @@
+// Type definitions for cosmiconfig 4.0.0
+// Project: https://github.com/davidtheclark/cosmiconfig
+// Definitions by: ozum <https://github.com/ozum>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 type Options = {
     packageProp?: string | false;
     rc?: string | false;
