@@ -1,6 +1,6 @@
 // Type definitions for steamid 1.1
 // Project: https://github.com/DoctorMcKay/node-steamid
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
