@@ -39,7 +39,11 @@ function language_printer_tests() {
 }
 
 function language_source_tests() {
-    // TODO
+    const { Source } = graphql;
+
+    new Source('{ hello }');
+    new Source('{ hello }', 'source name');
+    new Source('{ hello }', 'source name', { line: 1, column: 2 });
 }
 
 function language_visitor_tests() {
