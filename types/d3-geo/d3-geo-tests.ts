@@ -395,6 +395,9 @@ constructedProjection = constructedProjection.translate([480, 250]);
 const center: [number, number] = constructedProjection.center();
 constructedProjection = constructedProjection.center([0, 0]);
 
+const angle = constructedProjection.angle();
+constructedProjection = constructedProjection.angle(45);
+
 const rotate: [number, number, number] = constructedProjection.rotate();
 constructedProjection = constructedProjection.rotate([0, 0]);
 constructedProjection = constructedProjection.rotate([0, 0, 0]);
