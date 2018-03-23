@@ -447,5 +447,7 @@ interface ModernizrAPI {
 
 interface ModernizrStatic extends ModernizrAPI, FeatureDetects { }
 
-declare var Modernizr: ModernizrStatic;
-export = Modernizr;
+declare var Modernizr: ModernizrStatic;declare module "Modernizr" {
+declare module "Modernizr" {
+    export = Modernizr;
+}
