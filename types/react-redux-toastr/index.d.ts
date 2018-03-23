@@ -4,7 +4,7 @@
 //                 Artyom Stukans <https://github.com/artyomsv>
 //                 Mika Kuitunen <https://github.com/kulmajaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { Component } from 'react';
 import { Action, ActionCreator, Reducer } from 'redux';
@@ -18,7 +18,7 @@ export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 interface BasicToastrOptions {
     attention?: boolean;
     className?: string;
-    component?: Component;
+    component?: Component | JSX.Element;
     icon?: JSX.Element;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
@@ -100,6 +100,7 @@ interface ReduxToastrProps {
     toastr?: ToastrState;
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
+    className?: string;
 }
 
 interface ToastrEmitter {

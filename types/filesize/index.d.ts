@@ -1,15 +1,15 @@
-// Type definitions for filesize 3.2.1
+// Type definitions for filesize 3.6
 // Project: https://github.com/avoidwork/filesize.js
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Renaud Chaput <https://github.com/renchap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var fileSize: Filesize.IFilesize;
+declare var fileSize: Filesize.Filesize;
 export = fileSize;
 export as namespace filesize;
 
 declare namespace Filesize {
-
-    export interface SiJedecBits {
+    interface SiJedecBits {
         b?: string;
         Kb?: string;
         Mb?: string;
@@ -21,7 +21,7 @@ declare namespace Filesize {
         Yb?: string;
     }
 
-    export interface SiJedecBytes {
+    interface SiJedecBytes {
         B?: string;
         KB?: string;
         MB?: string;
@@ -35,48 +35,64 @@ declare namespace Filesize {
 
     type SiJedec = SiJedecBits & SiJedecBytes & { [name: string]: string };
 
-    export interface Options {
+    interface Options {
         /**
-        * Enables bit sizes, default is false
-        */
-        bits?: boolean;
-        /**
-        * Number base, default is 2
-        */
+         * Number base, default is 2
+         */
         base?: number;
         /**
-        * Decimal place, default is 2
-        */
-        round?: number;
+         * Enables bit sizes, default is false
+         */
+        bits?: boolean;
         /**
-        * Output of function (array, exponent, object, or string), default is string
-        */
-        output?: string;
-        /**
-        * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
-        * @deprecated: use 'symbols'
-        */
-        suffixes?: SiJedec;
-        /**
-        * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
-        */
-        symbols?: SiJedec;
-        /**
-        * Specifies the SI suffix via exponent, e.g. 2 is MB for bytes, default is -1
-        */
+         * Specifies the SI suffix via exponent, e.g. 2 is MB for bytes, default is -1
+         */
         exponent?: number;
         /**
-        *  Enables unix style human readable output, e.g ls -lh, default is false
-        */
-        unix?: boolean;
+         * Enables full form of unit of measure, default is false
+         */
+        fullform?: boolean;
         /**
-        * Character between the result and suffix, default is " "
-        */
+         * Array of full form overrides, default is []
+         */
+        fullforms?: string[];
+        /**
+         * Output of function (array, exponent, object, or string), default is string
+         */
+        output?: "array" | "exponent" | "object" | "string";
+        /**
+         * Decimal place, default is 2
+         */
+        round?: number;
+        /**
+         * Decimal separator character, default is `.`
+         */
+        separator?: string;
+        /**
+         * Character between the result and suffix, default is ` `
+         */
         spacer?: string;
+        /**
+         * Standard unit of measure, can be iec or jedec, default is jedec; can be overruled by base
+         */
+        standard?: "iec" | "jedec";
+        /**
+         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
+         */
+        symbols?: SiJedec;
+        /**
+         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
+         * @deprecated: use `symbols`
+         */
+        suffixes?: SiJedec;
+        /**
+         *  Enables unix style human readable output, e.g ls -lh, default is false
+         */
+        unix?: boolean;
     }
 
-    export interface IFilesize {
-        (bytes: number): string;
-        (bytes: number, options: Options): string;
+    interface Filesize {
+        (bytes: number, options?: Options): string;
+        partial: (options: Options) => ((bytes: number) => string);
     }
 }

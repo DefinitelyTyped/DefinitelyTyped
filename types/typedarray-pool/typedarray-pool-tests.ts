@@ -1,5 +1,5 @@
 import * as pool from 'typedarray-pool';
-import * as tape from 'tape';
+import tape = require('tape');
 
 tape("typedarray-pool", function(t) {
 

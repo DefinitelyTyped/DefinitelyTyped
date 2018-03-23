@@ -93,6 +93,7 @@ const Component = (props: {}) => {
         PadRowComponent={() => <span>&nbsp;</span>}
         page={undefined}
         pageSize={undefined}
+        pages={undefined}
         sorted={[]}
         filtered={[]}
         resized={[]}
@@ -106,7 +107,7 @@ const Component = (props: {}) => {
         indexKey='_index'
         groupedByPivotKey='_groupedByPivot'
         className=''
-        onFetchData={() => null}
+        onFetchData={(state, instance) => null}
         style={{}}
         column={{
           Cell: undefined,
@@ -148,6 +149,11 @@ const Component = (props: {}) => {
         pageText='Page'
         ofText='of'
         rowsText='rows'
+        onSortedChange={(newSorted, column, additive) => {
+          if (newSorted) {
+            console.log(newSorted);
+          }
+        }}
       />
       <br />
     </div>

@@ -4,8 +4,9 @@
 //                 Eduard Shvedai <https://github.com/eshvedai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-import { EditorState, Plugin, SelectionRange, Transaction } from 'prosemirror-state';
+import { EditorState, Plugin, SelectionRange, Transaction, PluginKey } from 'prosemirror-state';
 import { Node as ProsemirrorNode, NodeSpec, Slice, ResolvedPos } from 'prosemirror-model';
+import { NodeView } from 'prosemirror-view';
 
 export interface TableNodesOptions {
   tableGroup?: string;
@@ -122,3 +123,25 @@ export function deleteColumn(state: EditorState, dispatch?: (tr: Transaction) =>
 export function addColumnAfter(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
 
 export function addColumnBefore(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
+
+export function columnResizing(props: { handleWidth?: number, cellMinWidth?: number, View?: NodeView }): Plugin;
+
+export const columnResizingPluginKey: PluginKey;
+
+export function updateColumnsOnResize(node: ProsemirrorNode, colgroup: Element, table: Element, cellMinWidth: number, overrideCol?: number, overrideValue?: number): void;
+
+export function cellAround(pos: ResolvedPos): ResolvedPos | null;
+
+export function isInTable(state: EditorState): boolean;
+
+export function selectionCell(state: EditorState): ResolvedPos | null | undefined;
+
+export function moveCellForward(pos: ResolvedPos): ResolvedPos;
+
+export function inSameTable($a: ResolvedPos, $b: ResolvedPos): boolean;
+
+export function findCell(pos: ResolvedPos): {top: number, left: number, right: number, buttom: number};
+
+export function colCount(pos: ResolvedPos): number;
+
+export function nextCell(pos: ResolvedPos, axis: string, dir: number): null | ResolvedPos;

@@ -1,6 +1,6 @@
-import * as express from 'express';
+import express = require('express');
 import 'express-session';
-import * as graphqlHTTP from 'express-graphql';
+import graphqlHTTP = require('express-graphql');
 
 const app = express();
 const schema = {};
@@ -10,20 +10,22 @@ const graphqlOption: graphqlHTTP.OptionsObj = {
     schema: schema,
     formatError: (error: Error) => ({
         message: error.message
-    })
+    }),
+    extensions: (args) => { }
 };
 
-const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsObj => ({
+const graphqlOptionRequest = (request: express.Request, response: express.Response): graphqlHTTP.OptionsObj => ({
     graphiql: true,
     schema: schema,
     context: request.session
 });
 
-const graphqlOptionRequestAsync = async (request: express.Request): Promise<graphqlHTTP.OptionsObj> => {
+const graphqlOptionRequestAsync = async (request: express.Request, response: express.Response): Promise<graphqlHTTP.OptionsObj> => {
     return {
         graphiql: true,
         schema: await Promise.resolve(schema),
-        context: request.session
+        context: request.session,
+        extensions: async (args) => { }
     };
 };
 

@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import events2 = require("events");
@@ -233,6 +233,25 @@ namespace fs_tests {
                 errno = err.errno;
             }
         });
+    }
+
+    {
+        let listS: string[];
+        listS = fs.readdirSync('path');
+        listS = fs.readdirSync('path', { encoding: 'utf8' });
+        listS = fs.readdirSync('path', { encoding: null });
+        listS = fs.readdirSync('path', { encoding: undefined });
+        listS = fs.readdirSync('path', 'utf8');
+        listS = fs.readdirSync('path', null);
+        listS = fs.readdirSync('path', undefined);
+
+        let listB: Buffer[];
+        listB = fs.readdirSync('path', { encoding: 'buffer' });
+        listB = fs.readdirSync("path", 'buffer');
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
     }
 
     {
@@ -571,9 +590,22 @@ namespace url_tests {
     }
 
     {
-        var helloUrl = url.parse('http://example.com/?hello=world', true);
-        if (typeof helloUrl.query !== 'string') {
-            assert.equal(helloUrl.query['hello'], 'world');
+        const helloUrl = url.parse('http://example.com/?hello=world', true);
+        let helloQuery = helloUrl.query['hello'];
+        assert.equal(helloUrl.query['hello'], 'world');
+
+        let strUrl = url.parse('http://example.com/?hello=world');
+        let queryStr: string = strUrl.query;
+
+        strUrl = url.parse('http://example.com/?hello=world', false);
+        queryStr = strUrl.query;
+
+        function getBoolean(): boolean { return false; }
+        const urlUrl = url.parse('http://example.com/?hello=world', getBoolean());
+        if (typeof(urlUrl.query) === 'string') {
+            queryStr = urlUrl.query;
+        } else if (urlUrl.query) {
+            helloQuery = urlUrl.query['hello'];
         }
     }
 
@@ -1439,6 +1471,8 @@ namespace https_tests {
 
     https.request('http://www.example.com/xyz');
 
+    https.globalAgent.options.ca = [];
+
     {
         const server = new https.Server();
 
@@ -1746,6 +1780,46 @@ namespace path_tests {
     });
     // returns
     //    '/home/user/dir/file.txt'
+
+    path.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        root: "/",
+        dir: "/home/user/dir",
+        base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.win32.format({
+        root: "C:\\",
+        dir: "C:\\home\\user\\dir",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
+
+    path.win32.format({
+        dir: "C:\\home\\user\\dir",
+        base: "file.txt"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
 }
 
 ////////////////////////////////////////////////////
@@ -3232,6 +3306,16 @@ namespace async_hooks_tests {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////
@@ -3860,6 +3944,8 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+    let paths: string[] = module.paths;
+    paths = m1.paths;
 }
 
 ////////////////////////////////////////////////////

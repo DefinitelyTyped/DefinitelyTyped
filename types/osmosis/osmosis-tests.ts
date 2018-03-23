@@ -1,4 +1,4 @@
-import { osmosis } from 'osmosis';
+import * as osmosis from 'osmosis';
 
 const logFunction = (log: string) => {
     const myLog = log;

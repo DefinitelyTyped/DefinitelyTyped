@@ -43,6 +43,21 @@ interface CreepMemory {
 {
     for (const i in Game.spawns) {
         Game.spawns[i].createCreep(body);
+
+        // Test StructureSpawn.Spawning
+        let creep: Spawning | null = Game.spawns[i].spawning;
+        if (creep) {
+            const name: string = creep.name;
+            const needTime: number = creep.needTime;
+            const remainingTime: number = creep.remainingTime;
+            const creepSpawn: StructureSpawn = creep.spawn;
+
+            const cancelStatus: OK | ERR_NOT_OWNER = creep.cancel();
+            const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
+        }
+
+        creep = new StructureSpawn.Spawning("");
+        creep = StructureSpawn.Spawning("");
     }
 }
 
@@ -275,11 +290,12 @@ interface CreepMemory {
 {
     const pfCreep = Game.creeps.John;
 
-    const goals = pfCreep.room.find(FIND_SOURCES).map((source) => {
-        // We can't actually walk on sources-- set `range` to 1
-        // so we path next to it.
-        return { pos: source.pos, range: 1 };
-    });
+    const goals = pfCreep.room.find(FIND_SOURCES)
+        .map((source) => {
+            // We can't actually walk on sources-- set `range` to 1
+            // so we path next to it.
+            return { pos: source.pos, range: 1 };
+        });
 
     const ret = PathFinder.search(
         pfCreep.pos, goals,
@@ -299,22 +315,24 @@ interface CreepMemory {
                 }
                 const costs = new PathFinder.CostMatrix();
 
-                curRoom.find(FIND_STRUCTURES).forEach((struct) => {
-                    if (struct.structureType === STRUCTURE_ROAD) {
-                        // Favor roads over plain tiles
-                        costs.set(struct.pos.x, struct.pos.y, 1);
-                    } else if (struct.structureType !== STRUCTURE_CONTAINER &&
-                        (struct.structureType !== STRUCTURE_RAMPART ||
-                            !(struct as OwnedStructure).my)) {
-                        // Can't walk through non-walkable buildings
-                        costs.set(struct.pos.x, struct.pos.y, 0xff);
-                    }
-                });
+                curRoom.find(FIND_STRUCTURES)
+                    .forEach((struct) => {
+                        if (struct.structureType === STRUCTURE_ROAD) {
+                            // Favor roads over plain tiles
+                            costs.set(struct.pos.x, struct.pos.y, 1);
+                        } else if (struct.structureType !== STRUCTURE_CONTAINER &&
+                            (struct.structureType !== STRUCTURE_RAMPART ||
+                                !(struct as OwnedStructure).my)) {
+                            // Can't walk through non-walkable buildings
+                            costs.set(struct.pos.x, struct.pos.y, 0xff);
+                        }
+                    });
 
                 // Avoid creeps in the room
-                curRoom.find(FIND_CREEPS).forEach((thisCreep) => {
-                    costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
-                });
+                curRoom.find(FIND_CREEPS)
+                    .forEach((thisCreep) => {
+                        costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
+                    });
 
                 return costs;
             },
@@ -400,9 +418,6 @@ interface CreepMemory {
     const resources = room.find(FIND_DROPPED_RESOURCES);
     resources[0].resourceType;
 
-    const energy = room.find(FIND_DROPPED_ENERGY);
-    energy[0].resourceType;
-
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     sites[0].remove();
 
@@ -410,7 +425,7 @@ interface CreepMemory {
     const exits = room.find(FIND_EXIT);
 
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
-    creepsHere[0]!.getActiveBodyparts(ATTACK);
+    creepsHere[0].getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
         filter: (structure) => {
@@ -462,20 +477,20 @@ interface CreepMemory {
 {
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
-    nukes[0]!.launchRoomName;
+    nukes[0].launchRoomName;
 
     const flags = room.lookForAtArea(LOOK_FLAGS, 10, 10, 20, 20);
 
     const x = flags[10];
     const y = x[11];
     const entry = y[0];
-    entry.flag!.remove();
+    entry.flag.remove();
 
     const creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true);
 
     creeps[0].x;
     creeps[0].y;
-    creeps[0].creep!.move(TOP);
+    creeps[0].creep.move(TOP);
 }
 
 // Advanced Structure types
@@ -507,5 +522,30 @@ interface CreepMemory {
     const from = Game.rooms.myRoom.find(FIND_STRUCTURES, (s) => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0)[0];
     const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity});
 
-    Game.rooms.myRoom.find(FIND_MY_STRUCTURES, (s) => s.structureType === STRUCTURE_RAMPART).forEach((r) => r.notifyWhenAttacked(false));
+    Game.rooms.myRoom.find(FIND_MY_STRUCTURES, (s) => s.structureType === STRUCTURE_RAMPART)
+        .forEach((r) => r.notifyWhenAttacked(false));
+}
+
+{
+    // Test that you can use signatures
+    EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom.controller!.level];
+
+    REACTIONS[Object.keys(creep.carry)[0]];
+
+    BOOSTS[creep.body[0].type];
+}
+
+{
+    const tombstone = room.find(FIND_TOMBSTONES)[0];
+
+    tombstone.creep.my;
+
+    tombstone.store.energy;
+}
+
+{
+    if (Game.cpu.hasOwnProperty('getHeapStatistics')) {
+        const heap = Game.cpu.getHeapStatistics!();
+        heap.total_heap_size;
+    }
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/margox/braft#readme
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 import { RawDraftContentState } from 'draft-js';
@@ -15,8 +15,8 @@ declare namespace BraftEditor {
 	}
 	interface editorProps {
 		editorState?: any;
-		contentFormat?: RawDraftContentState;
-		initialContent?: RawDraftContentState | null;
+		contentFormat?: 'raw' | 'html';
+		initialContent?: string | null;
 		onChange?: (content: RawDraftContentState) => void;
 		onRawChange?: (content: RawDraftContentState) => void;
 		onHTMLChange?: (content: string) => void;

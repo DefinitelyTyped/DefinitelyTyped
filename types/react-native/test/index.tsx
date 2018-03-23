@@ -17,6 +17,7 @@ import {
     AppState,
     AppStateIOS,
     BackAndroid,
+    BackHandler,
     Button,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -43,7 +44,7 @@ import {
     RefreshControl,
     TabBarIOS,
     NativeModules,
-    MaskedView,
+    MaskedViewIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -72,6 +73,8 @@ function testDimensions() {
     Dimensions.addEventListener('change', dimensionsListener);
     Dimensions.removeEventListener('change', dimensionsListener);
 }
+
+BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
 
 BackAndroid.addEventListener("hardwareBackPress", () => {});
 
@@ -359,9 +362,9 @@ class AlertTest extends React.Component {
 class MaskedViewTest extends React.Component {
     render() {
         return (
-            <MaskedView maskElement={<View />}>
+            <MaskedViewIOS maskElement={<View />}>
                 <View />
-            </MaskedView>
+            </MaskedViewIOS>
         );
     }
 }

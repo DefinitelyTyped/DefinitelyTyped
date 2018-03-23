@@ -5,14 +5,14 @@
 
 const player = new Spotify.Player({
     name: "Carly Rae Jepsen Player",
-    getOAuthToken: (callback) => {
+    getOAuthToken: (callback: (t: string) => void) => {
         // Run code to get a fresh access token
         callback("access token here");
     },
     volume: 0.5
 });
 
-player.connect().then((success) => {
+player.connect().then((success: boolean) => {
     if (success) {
         console.log("The Web Playback SDK successfully connected to Spotify!");
     }
@@ -20,11 +20,11 @@ player.connect().then((success) => {
 
 player.disconnect();
 
-player.on("ready", (data) => {
+player.addListener("ready", (data) => {
     console.log("The Web Playback SDK is ready to play music!");
 });
 
-player.getCurrentState().then((playbackState) => {
+player.getCurrentState().then((playbackState: Spotify.PlaybackState | null) => {
     if (playbackState) {
         const { current_track, next_tracks } = playbackState.track_window;
 
@@ -35,7 +35,7 @@ player.getCurrentState().then((playbackState) => {
     }
 });
 
-player.getVolume().then((volume) => {
+player.getVolume().then((volume: number) => {
     const volume_percentage = (volume * 100);
     console.log(`The volume of the player is ${volume_percentage}%`);
 });
@@ -68,12 +68,12 @@ player.nextTrack().then(() => {
     console.log("Skipped to next track!");
 });
 
-player.on("ready", (data) => {
+player.on("ready", (data: Spotify.WebPlaybackInstance) => {
     const { device_id } = data;
     console.log("Connected with Device ID", device_id);
 });
 
-player.on("player_state_changed", (playbackState) => {
+player.on("player_state_changed", (playbackState: Spotify.PlaybackState) => {
     const { position, duration } = playbackState;
     const { current_track } = playbackState.track_window;
 
@@ -82,18 +82,24 @@ player.on("player_state_changed", (playbackState) => {
     console.log("Duration of Song", duration);
 });
 
-player.on('initialization_error', (e) => {
+player.addListener('initialization_error', (e: Spotify.Error) => {
     console.error("Failed to initialize", e.message);
 });
 
-player.on('authentication_error', (e) => {
+player.addListener('authentication_error', (e: Spotify.Error) => {
     console.error("Failed to authenticate", e.message);
 });
 
-player.on('account_error', (e) => {
+player.addListener('account_error', (e: Spotify.Error) => {
     console.error("Failed to validate Spotify account", e.message);
 });
 
-player.on('playback_error', (e) => {
+const listener = (e: Spotify.Error) => {
     console.error("Failed to perform playback", e.message);
-});
+};
+player.addListener('playback_error', listener);
+player.addListener('playback_error', () => {});
+player.removeListener('playback_error', () => {});
+
+player.removeListener('playback_error');
+player.removeListener('playback_error', listener);

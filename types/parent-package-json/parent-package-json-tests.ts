@@ -1,4 +1,4 @@
-import * as parent from 'parent-package-json';
+import parent = require('parent-package-json');
 
 const hasParent = parent('/optional/path/', 1);
 

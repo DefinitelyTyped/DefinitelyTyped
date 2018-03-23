@@ -4487,6 +4487,31 @@ const IconMenuExampleSimple = () => (
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+      onClick={(e) => {}}
+      onItemClick={(e, child) => {}}
+    >
+            <MenuItem primaryText="Refresh"/>
+            <MenuItem primaryText="Send feedback"/>
+            <MenuItem primaryText="Settings"/>
+            <MenuItem primaryText="Help"/>
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            {false}
+            {undefined}
+            {null}
+            {true}
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
@@ -4696,7 +4721,6 @@ class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
           value={this.state.value}
           onChange={this.handleChange}
           style={styles.customWidth}
-          autoWidth={false}
         >
                     <MenuItem value={1} primaryText="Custom width"/>
                     <MenuItem value={2} primaryText="Every Night"/>
@@ -4730,7 +4754,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
@@ -5494,6 +5518,31 @@ class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string
       >
         {this.menuItems(persons)}
       </SelectField>
+    );
+  }
+}
+
+class SelectFieldExampleDropDownMenu extends Component<{}, {value?: number}> {
+  constructor(props) {
+    super(props);
+    this.state = {value: null};
+  }
+
+  handleChange = (event, index, value) => this.setState({value});
+
+  render() {
+    return (
+    <SelectField
+      value={this.state.value}
+      onChange={this.handleChange}
+      dropDownMenuProps={{
+        anchorOrigin: { vertical: 'top', horizontal: 'left' },
+      }}
+    >
+      <MenuItem value={1} primaryText="Foo"/>
+      <MenuItem value={2} primaryText="Bar"/>
+      <MenuItem value={3} primaryText="Baz"/>
+    </SelectField>
     );
   }
 }
