@@ -22,6 +22,7 @@
     "files": [
         "adone-tests.ts",
         "adone.d.ts",
+        "benchmark.d.ts",
         "glosses/archives.d.ts",
         "glosses/assertion.d.ts",
         "glosses/collections/array_set.d.ts",

@@ -916,17 +916,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * Flattens a nested array. If isDeep is true the array is recursively flattened, otherwise it’s only
-         * flattened a single level.
+         * Flattens `array` a single level deep.
          *
          * @param array The array to flatten.
-         * @param isDeep Specify a deep flatten.
          * @return Returns the new flattened array.
-         */
-        flatten<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, isDeep: boolean): T[];
-
-        /**
-         * @see _.flatten
          */
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
@@ -935,20 +928,10 @@ declare module "../index" {
         /**
          * @see _.flatten
          */
-        flatten<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, isDeep: boolean): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.flatten
-         */
         flatten<T>(this: LoDashImplicitWrapper<List<Many<T>> | null | undefined>): LoDashImplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.flatten
-         */
-        flatten<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, isDeep: boolean): LoDashExplicitWrapper<T[]>;
-
         /**
          * @see _.flatten
          */
@@ -1102,8 +1085,7 @@ declare module "../index" {
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
          * for equality comparisons. If `fromIndex` is negative, it's used as the offset
-         * from the end of `array`. If `array` is sorted providing `true` for `fromIndex`
-         * performs a faster binary search.
+         * from the end of `array`.
          *
          * @category Array
          * @param array The array to search.
@@ -1122,7 +1104,7 @@ declare module "../index" {
         indexOf<T>(
             array: List<T> | null | undefined,
             value: T,
-            fromIndex?: boolean|number
+            fromIndex?: number
         ): number;
     }
 
@@ -1133,7 +1115,7 @@ declare module "../index" {
         indexOf<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             value: T,
-            fromIndex?: boolean|number
+            fromIndex?: number
         ): number;
     }
 
@@ -1144,7 +1126,7 @@ declare module "../index" {
         indexOf<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            fromIndex?: boolean|number
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -3463,7 +3445,7 @@ declare module "../index" {
         /**
          * @see _.zip
          */
-        zip<T>(...arrays: Array<List<T> | null | undefined>): (T | undefined)[][];
+        zip<T>(...arrays: Array<List<T> | null | undefined>): Array<Array<T | undefined>>;
     }
 
     interface LoDashImplicitWrapper<TValue> {

@@ -19,6 +19,10 @@ interface ReactWidgetsCommonProps<C> extends React.Props<C> {
      * @default false
      */
     isRtl?: boolean;
+    /**
+     * Used to label and annotate aria- attributes
+     */
+    id?: string;
 }
 
 export interface AutoFocus {

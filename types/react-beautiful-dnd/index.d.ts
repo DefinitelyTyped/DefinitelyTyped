@@ -28,6 +28,10 @@ export interface DragStart {
     source: DraggableLocation;
 }
 
+export interface DragUpdate extends DragStart {
+    destination?: DraggableLocation | null;
+}
+
 export interface DropResult {
     draggableId: DraggableId;
     type: TypeId;
@@ -37,6 +41,7 @@ export interface DropResult {
 
 export interface DragDropContextProps {
     onDragStart?(initial: DragStart): void;
+    onDragUpdate?(initial: DragUpdate): void;
     onDragEnd(result: DropResult): void;
 }
 
@@ -125,6 +130,7 @@ export interface DraggableProps {
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
+    type?: TypeId;
 }
 
 export class Draggable extends React.Component<DraggableProps> {}

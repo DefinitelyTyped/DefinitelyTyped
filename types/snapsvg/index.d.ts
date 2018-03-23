@@ -136,16 +136,19 @@ declare namespace Snap {
 
     export interface Element {
         add(el:Snap.Element):Snap.Element;
+        add(el:Snap.Set):Snap.Element;
         addClass(value:string):Snap.Element;
         after(el:Snap.Element):Snap.Element;
         align(el: Snap.Element, way: string):Snap.Element;
         animate(animation:any):Snap.Element;
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num: number)=> number,callback?:()=>void):Snap.Element;
         append(el:Snap.Element):Snap.Element;
+        append(el:Snap.Set):Snap.Element;
         appendTo(el:Snap.Element):Snap.Element;
         asPX(attr:string,value?:string):number;            //TODO: check what is really returned
-        attr(param:string):string;
-        attr(params:{[attr:string]:string|number|boolean|any}):Snap.Element;
+        attr(param: "viewBox"): BBox;
+        attr(param: string): string;
+        attr(params:{[attr:string]:string|number|boolean|BBox|any}):Snap.Element;
         before(el:Snap.Element):Snap.Element;
         children(): Snap.Element[];
         clone():Snap.Element;
@@ -284,12 +287,14 @@ declare namespace Snap {
         rect(x:number,y:number,width:number,height:number,rx?:number,ry?:number):Snap.Element;
         text(x:number,y:number,text:string|number):Snap.Element;
         text(x:number,y:number,text:Array<string|number>):Snap.Element;
+        symbol(vbx:number,vby:number,vbw:number,vbh:number):Snap.Element;
     }
 
     export interface Set {
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Element;
         animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Element;
-        attr(params: {[attr:string]:string|number|boolean|any}): Snap.Element;
+        attr(params: {[attr:string]:string|number|boolean|BBox|any}): Snap.Element;
+        attr(param: "viewBox"): BBox;
         attr(param: string): string;
         bind(attr: string, callback: Function): Snap.Set;
         bind(attr:string,element:Snap.Element):Snap.Set;

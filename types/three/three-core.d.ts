@@ -448,7 +448,7 @@ export class Camera extends Object3D {
      */
     projectionMatrix: Matrix4;
 
-    getWorldDirection(optionalTarget?: Vector3): Vector3;
+    getWorldDirection(target: Vector3): Vector3;
 
 }
 
@@ -687,7 +687,6 @@ export class BufferAttribute {
     copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
     copyArray(array: ArrayLike<number>): BufferAttribute;
     copyColorsArray(colors: {r: number, g: number, b: number}[]): BufferAttribute;
-    copyIndicesArray(indices: {a: number, b: number, c: number}[]): BufferAttribute;
     copyVector2sArray(vectors: {x: number, y: number}[]): BufferAttribute;
     copyVector3sArray(vectors: {x: number, y: number, z: number}[]): BufferAttribute;
     copyVector4sArray(vectors: {x: number, y: number, z: number, w: number}[]): BufferAttribute;
@@ -868,7 +867,7 @@ export class BufferGeometry extends EventDispatcher {
     scale(x: number, y: number, z: number): BufferGeometry;
     lookAt(v: Vector3): void;
 
-    center(): Vector3;
+    center(): BufferGeometry;
 
     setFromObject(object: Object3D): BufferGeometry;
     setFromPoints(points: Vector3[]): BufferGeometry;
@@ -1343,7 +1342,7 @@ export class Geometry extends EventDispatcher {
 
     fromBufferGeometry(geometry: BufferGeometry): Geometry;
 
-    center(): Vector3;
+    center(): Geometry;
 
     normalize(): Geometry;
 
@@ -1367,8 +1366,6 @@ export class Geometry extends EventDispatcher {
      * Computes morph normals.
      */
     computeMorphNormals(): void;
-
-    computeLineDistances(): void;
 
     /**
      * Computes bounding box of the geometry, updating {@link Geometry.boundingBox} attribute.
@@ -1782,11 +1779,10 @@ export class Object3D extends EventDispatcher {
 
     getObjectByProperty( name: string, value: string ): Object3D;
 
-    getWorldPosition(optionalTarget?: Vector3): Vector3;
-    getWorldQuaternion(optionalTarget?: Quaternion): Quaternion;
-    getWorldRotation(optionalTarget?: Euler): Euler;
-    getWorldScale(optionalTarget?: Vector3): Vector3;
-    getWorldDirection(optionalTarget?: Vector3): Vector3;
+    getWorldPosition(target: Vector3): Vector3;
+    getWorldQuaternion(target: Quaternion): Quaternion;
+    getWorldScale(target: Vector3): Vector3;
+    getWorldDirection(target: Vector3): Vector3;
 
     raycast(raycaster: Raycaster, intersects: any): void;
 
@@ -3088,8 +3084,8 @@ export class Box2 {
     copy(box: this): this;
     makeEmpty(): Box2;
     isEmpty(): boolean;
-    getCenter(optionalTarget?: Vector2): Vector2;
-    getSize(optionalTarget?: Vector2): Vector2;
+    getCenter(target: Vector2): Vector2;
+    getSize(target: Vector2): Vector2;
     expandByPoint(point: Vector2): Box2;
     expandByVector(vector: Vector2): Box2;
     expandByScalar(scalar: number): Box2;
@@ -3097,7 +3093,7 @@ export class Box2 {
     containsBox(box: Box2): boolean;
     getParameter(point: Vector2): Vector2;
     intersectsBox(box: Box2): boolean;
-    clampPoint(point: Vector2, optionalTarget?: Vector2): Vector2;
+    clampPoint(point: Vector2, target: Vector2): Vector2;
     distanceToPoint(point: Vector2): number;
     intersect(box: Box2): Box2;
     union(box: Box2): Box2;
@@ -3128,8 +3124,8 @@ export class Box3 {
     copy(box: this): this;
     makeEmpty(): Box3;
     isEmpty(): boolean;
-    getCenter(optionalTarget?: Vector3): Vector3;
-    getSize(optionalTarget?: Vector3): Vector3;
+    getCenter(target: Vector3): Vector3;
+    getSize(target: Vector3): Vector3;
     expandByPoint(point: Vector3): Box3;
     expandByVector(vector: Vector3): Box3;
     expandByScalar(scalar: number): Box3;
@@ -3140,9 +3136,9 @@ export class Box3 {
     intersectsBox(box: Box3): boolean;
     intersectsSphere(sphere: Sphere): boolean;
     intersectsPlane(plane: Plane): boolean;
-    clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+    clampPoint(point: Vector3, target: Vector3): Vector3;
     distanceToPoint(point: Vector3): number;
-    getBoundingSphere(optionalTarget?: Sphere): Sphere;
+    getBoundingSphere(target: Sphere): Sphere;
     intersect(box: Box3): Box3;
     union(box: Box3): Box3;
     applyMatrix4(matrix: Matrix4): Box3;
@@ -3499,13 +3495,13 @@ export class Line3 {
     set(start?: Vector3, end?: Vector3): Line3;
     clone(): this;
     copy(line: this): this;
-    getCenter(optionalTarget?: Vector3): Vector3;
-    delta(optionalTarget?: Vector3): Vector3;
+    getCenter(target: Vector3): Vector3;
+    delta(target: Vector3): Vector3;
     distanceSq(): number;
     distance(): number;
-    at(t: number, optionalTarget?: Vector3): Vector3;
+    at(t: number, target: Vector3): Vector3;
     closestPointToPointParameter(point: Vector3, clampToLine?: boolean): number;
-    closestPointToPoint(point: Vector3, clampToLine?: boolean, optionalTarget?: Vector3): Vector3;
+    closestPointToPoint(point: Vector3, clampToLine: boolean, target: Vector3): Vector3;
     applyMatrix4(matrix: Matrix4): Line3;
     equals(line: Line3): boolean;
 }
@@ -3943,12 +3939,12 @@ export class Plane {
     negate(): Plane;
     distanceToPoint(point: Vector3): number;
     distanceToSphere(sphere: Sphere): number;
-    projectPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
-    orthoPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
-    intersectLine(line: Line3, optionalTarget?: Vector3): Vector3;
+    projectPoint(point: Vector3, target: Vector3): Vector3;
+    orthoPoint(point: Vector3, target: Vector3): Vector3;
+    intersectLine(line: Line3, target: Vector3): Vector3;
     intersectsLine(line: Line3): boolean;
     intersectsBox(box: Box3): boolean;
-    coplanarPoint(optionalTarget?: boolean): Vector3;
+    coplanarPoint(target: Vector3): Vector3;
     applyMatrix4(matrix: Matrix4, optionalNormalMatrix?: Matrix3): Plane;
     translate(offset: Vector3): Plane;
     equals(plane: Plane): boolean;
@@ -4106,21 +4102,21 @@ export class Ray {
     set(origin: Vector3, direction: Vector3): Ray;
     clone(): this;
     copy(ray: this): this;
-    at(t: number, optionalTarget?: Vector3): Vector3;
+    at(t: number, target: Vector3): Vector3;
     lookAt(v: Vector3): Vector3;
     recast(t: number): Ray;
-    closestPointToPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+    closestPointToPoint(point: Vector3, target: Vector3): Vector3;
     distanceToPoint(point: Vector3): number;
     distanceSqToPoint(point: Vector3): number;
     distanceSqToSegment(v0: Vector3, v1: Vector3, optionalPointOnRay?: Vector3, optionalPointOnSegment?: Vector3): number;
-    intersectSphere(sphere: Sphere, optionalTarget?: Vector3): Vector3;
+    intersectSphere(sphere: Sphere, target: Vector3): Vector3;
     intersectsSphere(sphere: Sphere): boolean;
     distanceToPlane(plane: Plane): number;
-    intersectPlane(plane: Plane, optionalTarget?: Vector3): Vector3;
+    intersectPlane(plane: Plane, target: Vector3): Vector3;
     intersectsPlane(plane: Plane): boolean;
-    intersectBox(box: Box3, optionalTarget?: Vector3): Vector3;
+    intersectBox(box: Box3, target: Vector3): Vector3;
     intersectsBox(box: Box3): boolean;
-    intersectTriangle(a: Vector3, b: Vector3, c: Vector3, backfaceCulling: boolean, optionalTarget?: Vector3): Vector3;
+    intersectTriangle(a: Vector3, b: Vector3, c: Vector3, backfaceCulling: boolean, target: Vector3): Vector3;
     applyMatrix4(matrix4: Matrix4): Ray;
     equals(ray: Ray): boolean;
 
@@ -4156,8 +4152,8 @@ export class Sphere {
     intersectsSphere(sphere: Sphere): boolean;
     intersectsBox(box: Box3): boolean;
     intersectsPlane(plane: Plane): boolean;
-    clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
-    getBoundingBox(optionalTarget?: Box3): Box3;
+    clampPoint(point: Vector3, target: Vector3): Vector3;
+    getBoundingBox(target: Box3): Box3;
     applyMatrix4(matrix: Matrix4): Sphere;
     translate(offset: Vector3): Sphere;
     equals(sphere: Sphere): boolean;
@@ -4180,17 +4176,17 @@ export class Triangle {
     setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
     clone(): this;
     copy(triangle: this): this;
-    area(): number;
-    midpoint(optionalTarget?: Vector3): Vector3;
-    normal(optionalTarget?: Vector3): Vector3;
-    plane(optionalTarget?: Vector3): Plane;
-    barycoordFromPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+    getArea(): number;
+    getMidpoint(target: Vector3): Vector3;
+    getNormal(target: Vector3): Vector3;
+    getPlane(target: Vector3): Plane;
+    getBarycoord(point: Vector3, target: Vector3): Vector3;
     containsPoint(point: Vector3): boolean;
-    closestPointToPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+    closestPointToPoint(point: Vector3, target: Vector3): Vector3;
     equals(triangle: Triangle): boolean;
 
-    static normal(a: Vector3, b: Vector3, c: Vector3, optionalTarget?: Vector3): Vector3;
-    static barycoordFromPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3, optionalTarget: Vector3): Vector3;
+    static getNormal(a: Vector3, b: Vector3, c: Vector3, target: Vector3): Vector3;
+    static getBarycoord(point: Vector3, a: Vector3, b: Vector3, c: Vector3, target: Vector3): Vector3;
     static containsPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3): boolean;
 }
 
@@ -5020,10 +5016,10 @@ export class LineSegments extends Line {
 }
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: Material);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
 
     geometry: Geometry|BufferGeometry;
-    material: Material;
+    material: Material | Material[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -5285,7 +5281,6 @@ export class WebGLRenderer implements Renderer {
         };
         render: {
             calls: number;
-            vertices: number;
             faces: number;
             points: number;
         };
@@ -5399,13 +5394,6 @@ export class WebGLRenderer implements Renderer {
      */
     render(scene: Scene, camera: Camera, renderTarget?: RenderTarget, forceClear?: boolean): void;
 
-    /**
-     * Used for setting the gl frontFace, cullFace states in the GPU, thus enabling/disabling face culling when rendering.
-     * If cullFace is false, culling will be disabled.
-     * @param cullFace "back", "front", "front_and_back", or false.
-     * @param frontFace "ccw" or "cw
-     */
-    setFaceCulling(cullFace?: CullFace, frontFace?: FrontFaceDirection): void;
     /**
      * @deprecated
      */
@@ -5648,12 +5636,15 @@ export let ShaderChunk: {
     lightmap_fragment: string;
     lightmap_pars_fragment: string;
     lights_lambert_vertex: string;
-    lights_pars: string;
+    lights_pars_begin: string;
+    lights_pars_map: string;
     lights_phong_fragment: string;
     lights_phong_pars_fragment: string;
     lights_physical_fragment: string;
     lights_physical_pars_fragment: string;
-    lights_template: string;
+    lights_fragment_begin: string;
+    lights_fragment_maps: string;
+    lights_fragment_end: string;
     logdepthbuf_fragment: string;
     logdepthbuf_pars_fragment: string;
     logdepthbuf_pars_vertex: string;
@@ -5677,7 +5668,8 @@ export let ShaderChunk: {
     morphtarget_vertex: string;
     normal_flip: string;
     normal_frag: string;
-    normal_fragment: string;
+    normal_fragment_begin: string;
+    normal_fragment_maps: string;
     normal_vert: string;
     normalmap_pars_fragment: string;
     packing: string;
@@ -6034,8 +6026,6 @@ export class WebGLShadowMap {
     autoUpdate: boolean;
     needsUpdate: boolean;
     type: ShadowMapType;
-    renderReverseSided: boolean;
-    renderSingleSided: boolean;
 
     render(scene: Scene, camera: Camera): void;
 
