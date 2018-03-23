@@ -150,11 +150,6 @@ declare module "../index" {
          * @return Returns the cache object.
          */
         set(key: string, value: any): Dictionary<any>;
-
-        /**
-         * Removes all key-value entries from the map.
-         */
-        clear(): void;
     }
     interface MapCacheConstructor {
         new (): MapCache;

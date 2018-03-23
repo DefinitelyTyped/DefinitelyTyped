@@ -3691,7 +3691,6 @@ fp.now(); // $ExpectType number
         get(key: string): any { return 1; },
         has(key: string) { return true; },
         set(key: string, value: any): _.Dictionary<any> { return {}; },
-        clear() { },
     };
 
     const memoizeFn = (a1: string, a2: number): boolean => true;
