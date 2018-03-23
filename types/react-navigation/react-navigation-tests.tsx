@@ -61,7 +61,7 @@ interface StartScreenNavigationParams {
 class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: StartScreenNavigationParams | void = this.props.navigation.state.params;
+        const navigationStateParams: StartScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
         const s = this.props.navigation.state.params && this.props.navigation.state.params.s;
 
@@ -98,7 +98,7 @@ interface NextScreenNavigationParams {
 class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: NextScreenNavigationParams | void = this.props.navigation.state.params;
+        const navigationStateParams: NextScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
         const name = this.props.navigation.state.params && this.props.navigation.state.params.name;
 
@@ -134,7 +134,7 @@ export const AppNavigator = StackNavigator(
     },
 );
 
-const StatelessScreen: NavigationScreenComponent<{}, {}> = () => <View />;
+const StatelessScreen: NavigationScreenComponent = () => <View />;
 
 const SimpleStackNavigator = StackNavigator(
     {
@@ -142,7 +142,7 @@ const SimpleStackNavigator = StackNavigator(
             screen: StatelessScreen,
         },
     }
-)
+);
 
 /**
  * Router.
