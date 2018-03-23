@@ -52,12 +52,11 @@ export interface OnVisibilityToggleData extends FullTree, TreeNode {
     expanded: boolean;
 }
 export interface PreviousAnNextLocation {
-    prevPath: number[];
-    prevParent: TreeItem;
     prevTreeIndex: number;
-    nextPath: number[];
-    nextParent: TreeItem;
+    prevPath: number[];
     nextTreeIndex: number;
+    nextPath: number[];
+    nextParentNode: TreeItem;
 }
 
 export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
