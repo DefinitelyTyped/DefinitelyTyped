@@ -130,6 +130,7 @@ export interface DraggableProps {
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
+    type?: TypeId;
 }
 
 export class Draggable extends React.Component<DraggableProps> {}

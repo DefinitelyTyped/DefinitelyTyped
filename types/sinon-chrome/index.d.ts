@@ -2,6 +2,7 @@
 // Project: https://github.com/vitalets/sinon-chrome
 // Definitions by: Tim Perry <https://github.com/pimterry>
 //                 CRIMX <https://github.com/crimx>
+//                 kobanyan <https://github.com/kobanyan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -36,6 +37,8 @@ declare namespace SinonChrome {
      * See https://github.com/cjohansen/Sinon.JS/issues/572
      */
     export function reset(): void;
+
+    export function registerPlugin(plugin: {}): void;
 
     export var csi: Sinon.SinonSpy;
     export var loadTimes: Sinon.SinonSpy;
@@ -351,6 +354,27 @@ declare namespace SinonChrome.permissions {
     export var onRemoved: SinonChrome.events.Event;
     export var remove: SinonChromeStub;
     export var request: SinonChromeStub;
+}
+
+declare namespace SinonChrome.plugins {
+    export interface Translations {
+        [key: string]: {
+            message: string;
+            description?: string;
+            placeholders?: {
+              [key: string]: {
+                content: string;
+                example?: string;
+              };
+            };
+        };
+    }
+    export class I18nPlugin {
+        constructor(translations?: Translations);
+    }
+    export class CookiePlugin {
+        constructor(state?: Array<chrome.cookies.Cookie>);
+    }
 }
 
 declare namespace SinonChrome.power {

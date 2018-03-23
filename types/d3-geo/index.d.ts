@@ -1,10 +1,10 @@
-// Type definitions for D3JS d3-geo module 1.9
+// Type definitions for D3JS d3-geo module 1.10
 // Project: https://github.com/d3/d3-geo/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.9.0
+// Last module patch version validated against: 1.10.0
 
 import * as GeoJSON from 'geojson';
 
@@ -887,7 +887,15 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param precision A numeric value in pixels to use as the threshold for the projection’s adaptive resampling.
      */
     precision(precision: number): this;
-
+    /**
+     * Returns the projection’s current angle, which defaults to 0°.
+     */
+    angle(): number;
+    /**
+     * Sets the projection’s post-projection planar rotation angle to the specified angle in degrees and returns the projection.
+     * @param angle The new rotation angle of the projection.
+     */
+    angle(angle: number): this;
     /**
      * Returns the current rotation [lambda, phi, gamma] specifying the rotation angles in degrees about each spherical axis.
      * (These correspond to yaw, pitch and roll.) which defaults [0, 0, 0].

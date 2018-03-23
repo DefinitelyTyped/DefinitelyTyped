@@ -36,3 +36,27 @@ class AccordianTest extends React.Component<any, any> {
     );
   }
 }
+
+class AccordionComplexTest extends React.Component<any, any> {
+    _renderHeader() {
+        return (
+            <View />
+        );
+    }
+
+    _renderContent() {
+        return (
+            <View />
+        );
+    }
+
+    render() {
+        return (
+            <Accordion
+                sections={[{icon: 'foo', title: 'Section 1'}, {icon: 'bar', title: 'Section 2'}, {icon: 'baz', title: 'Section 3'}]}
+                renderHeader={this._renderHeader}
+                renderContent={this._renderContent}
+            />
+        );
+    }
+}
