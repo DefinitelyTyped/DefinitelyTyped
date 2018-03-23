@@ -164,7 +164,7 @@ declare module 'qunit' {
      * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
-    export function skip(name: string, callback: (this: TestContext, assert: Assert) => void): void;
+    export function skip(name: string, callback?: (this: TestContext, assert: Assert) => void): void;
 
     export default QUnit;
 }
