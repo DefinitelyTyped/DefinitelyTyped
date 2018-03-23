@@ -147,6 +147,8 @@ declare namespace WebSocket {
         clientNoContextTakeover?: boolean;
         serverMaxWindowBits?: number;
         clientMaxWindowBits?: number;
+        zlibDeflateOptions?: object;
+        zlibInflateOptions?: object;
         level?: number;
         memLevel?: number;
         threshold?: number;
@@ -174,7 +176,8 @@ declare namespace WebSocket {
         clients: Set<WebSocket>;
 
         constructor(options?: ServerOptions, callback?: () => void);
-
+        
+        address<T={ port: number, family: string, address: string }>(): T;
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
