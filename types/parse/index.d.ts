@@ -5,6 +5,7 @@
 //                  Cedric Kemp <https://github.com/jaeggerr>
 //                  Flavio Negrão <https://github.com/flavionegrao>
 //                  Wes Grimes <https://github.com/wesleygrimes>
+//                  Otherwise SAS <https://github.com/owsas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
