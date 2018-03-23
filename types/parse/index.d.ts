@@ -607,6 +607,7 @@ declare namespace Parse {
 
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
+        aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
         addAscending(key: string): Query<T>;
         addAscending(key: string[]): Query<T>;
         addDescending(key: string): Query<T>;
@@ -623,6 +624,7 @@ declare namespace Parse {
         doesNotExist(key: string): Query<T>;
         doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
         doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
+        distinct(key: string): Query<T>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
         endsWith(key: string, suffix: string): Query<T>;
         equalTo(key: string, value: any): Query<T>;
@@ -659,6 +661,17 @@ declare namespace Parse {
         interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
         interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
         interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
+        interface AggregationOptions {
+            group?: { objectId?: string, [key:string]: any };
+            match?: {[key: string]: any};
+            project?: {[key: string]: any};
+            limit?: number;
+            skip?: number;
+            // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
+            sort?: {[key: string]: 1|-1};
+        }
     }
 
     /**
