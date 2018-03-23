@@ -115,7 +115,7 @@ declare global {
         bgWhite: string;
 
         reset: string;
-        bold: string;
+        bold: () => string;
         dim: string;
         italic: string;
         underline: string;
