@@ -1666,18 +1666,6 @@ declare namespace Office {
             Beta
         }
     }
-    export module cast {
-        export module item {
-            function toAppointmentCompose(item: Office.Item): Office.AppointmentCompose;
-            function toAppointmentRead(item: Office.Item): Office.AppointmentRead;
-            function toAppointment(item: Office.Item): Office.Appointment;
-            function toMessageCompose(item: Office.Item): Office.MessageCompose;
-            function toMessageRead(item: Office.Item): Office.MessageRead;
-            function toMessage(item: Office.Item): Office.Message;
-            function toItemCompose(item: Office.Item): Office.ItemCompose;
-            function toItemRead(item: Office.Item): Office.ItemRead;
-        }
-    }
     export interface AsyncContextOptions {
         asyncContext?: any;
     }

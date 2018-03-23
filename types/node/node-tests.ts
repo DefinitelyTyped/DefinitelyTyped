@@ -1497,6 +1497,8 @@ namespace https_tests {
 
     https.request('http://www.example.com/xyz');
 
+    https.globalAgent.options.ca = [];
+
     {
         const server = new https.Server();
 
@@ -2049,14 +2051,17 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
+        childProcess.exec("echo test", {windowsHide: true});
         childProcess.spawnSync("echo test");
+        childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
     }
 
     {
         childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", { windowsHide: true }, () => {});
         childProcess.execFile("npm", ["-v"], () => {});
-        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     }
@@ -3330,13 +3335,23 @@ namespace async_hooks_tests {
             const tId: number = this.triggerAsyncId();
         }
         run() {
-            this.emitBefore();
-            this.emitAfter();
+            this.runInAsyncScope(() => {});
+            this.runInAsyncScope(Array.prototype.find, [], () => true);
         }
         destroy() {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////

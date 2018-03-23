@@ -1,4 +1,5 @@
 import _ = require("../index");
+// tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
@@ -85,7 +86,6 @@ declare module "../index" {
         **/
         templateSettings: TemplateSettings;
     }
-
 
     /**
     * By default, the template delimiters used by Lo-Dash are similar to those in embedded Ruby
@@ -188,30 +188,28 @@ declare module "../index" {
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
     type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: string, collection: TObject) => TResult;
     type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
-    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | object | [string, any] | PartialDeep<TObject[keyof TObject]>;
+    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
-
-    type DictionaryIterator<T, TResult> = ObjectIterator<Dictionary<T>, TResult>;
-    type DictionaryIteratee<T> = ObjectIteratee<Dictionary<T>>;
-    type DictionaryIteratorTypeGuard<T, S extends T> = ObjectIteratorTypeGuard<Dictionary<T>, S>;
-
-    type NumericDictionaryIterator<T, TResult> = (value: T, key: number, collection: NumericDictionary<T>) => TResult;
-    type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
+    /** @deprecated Use MemoVoidArrayIterator or MemoVoidDictionaryIterator instead. */
     type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => void;
 
-    /** @deprecated Use MemoListIterator or MemoObjectIterator instead.  */
+    /** @deprecated Use MemoListIterator or MemoObjectIterator instead. */
     type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => TResult;
     type MemoListIterator<T, TResult, TList> = (prev: TResult, curr: T, index: number, list: TList) => TResult;
     type MemoObjectIterator<T, TResult, TList> = (prev: TResult, curr: T, key: string, list: TList) => TResult;
+    type MemoIteratorCapped<T, TResult> = (prev: TResult, curr: T) => TResult;
+    type MemoIteratorCappedRight<T, TResult> = (curr: T, prev: TResult) => TResult;
 
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
+    type MemoVoidIteratorCapped<T, TResult> = (acc: TResult, curr: T) => void;
 
     type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
+    type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;
+    type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
     type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
     type Comparator<T> = (a: T, b: T) => boolean;
     type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;
@@ -229,6 +227,11 @@ declare module "../index" {
     interface NumericDictionary<T> {
         [index: number]: T;
     }
+
+    // Crazy typedef needed get _.omit to work properly with Dictionary and NumericDictionary
+    type AnyKindOfDictionary =
+        | Dictionary<{} | null | undefined>
+        | NumericDictionary<{} | null | undefined>;
 
     interface Cancelable {
         cancel(): void;
@@ -252,4 +255,12 @@ declare module "../index" {
     type LoDashExplicitNillableObjectWrapper<T> = LoDashExplicitWrapper<T | null | undefined>;
     type LoDashExplicitNumberArrayWrapper = LoDashExplicitWrapper<number[]>;
     type LoDashExplicitStringWrapper = LoDashExplicitWrapper<string>;
+
+    type DictionaryIterator<T, TResult> = ObjectIterator<Dictionary<T>, TResult>;
+    type DictionaryIteratee<T> = ObjectIteratee<Dictionary<T>>;
+    type DictionaryIteratorTypeGuard<T, S extends T> = ObjectIteratorTypeGuard<Dictionary<T>, S>;
+    // NOTE: keys of objects at run time are always strings, even when a NumericDictionary is being iterated.
+    type NumericDictionaryIterator<T, TResult> = (value: T, key: string, collection: NumericDictionary<T>) => TResult;
+    type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
+    type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
 }

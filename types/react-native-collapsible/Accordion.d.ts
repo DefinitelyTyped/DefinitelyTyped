@@ -5,7 +5,7 @@ export interface AccordionProps {
   /**
    * An array of sections passed to the render methods
    */
-  sections: string[];
+  sections: any[];
 
   /**
    * A function that should return a renderable representing the header

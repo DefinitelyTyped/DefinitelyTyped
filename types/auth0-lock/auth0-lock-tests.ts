@@ -117,6 +117,18 @@ const authOptions : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, authOptions);
 
+// test "other" properties
+
+const otherOptions : Auth0LockConstructorOptions = {
+  clientBaseUrl: "http://www.example.com",
+  configurationBaseUrl: "https://cdn.auth0.com",
+  languageBaseUrl: "http://www.example.com",
+  hashCleanup: false,
+  leeway: 30
+};
+
+new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
+
 // test multi-variant example
 
 const multiVariantOptions : Auth0LockConstructorOptions = {
