@@ -68,4 +68,4 @@ export type Kind = {
 /**
  * The enum type representing the possible kind values of AST nodes.
  */
-export type KindEnum = (Kind[keyof Kind]);
+export type KindEnum = Kind[keyof Kind];

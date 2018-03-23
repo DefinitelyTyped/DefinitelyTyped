@@ -12,3 +12,4 @@ export {
     getVisitFn,
     BREAK,
 } from './visitor';
+export { DirectiveLocation, DirectiveLocationEnum } from './directiveLocation';
