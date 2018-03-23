@@ -406,7 +406,6 @@ function test_cloud_functions() {
 
     Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
         response: Parse.Cloud.BeforeSaveResponse) => {
-
             if (request.object.isNew()) {
                 if (!request.object.has('immutable')) return response.error('Field immutable is required')
             } else {
