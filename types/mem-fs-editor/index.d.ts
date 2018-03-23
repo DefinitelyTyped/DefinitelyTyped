@@ -31,14 +31,14 @@ export namespace memFsEditor {
         read: (filepath: string, options?: { raw: boolean, defaults: string }) => string;
         readJSON: (filepath: string, defaults?: string) => string;
         write: (filepath: string, contents: Contents) => void;
-        writeJSON: (filepath: string, contents: Contents, replacer?: ReplacerFunc, space?: Space) => void;
+        writeJSON: (filepath: string, contents: object, replacer?: ReplacerFunc, space?: Space) => void;
         append: (filepath: string, contents: Contents, options?: { trimEnd: boolean, separator: string }) => void;
-        extendJSON: (filepath: string, contents: Contents, replacer?: ReplacerFunc, space?: Space) => void;
+        extendJSON: (filepath: string, contents: object, replacer?: ReplacerFunc, space?: Space) => void;
         // TODO: see if there are typings for node-glob
         delete: (filepath: string, options?: { globOptions: GlobOptions }) => void;
         copy: (from: string, to: string, options?: CopyOptions) => void;
         // TODO: create type for TemplateOptions
-        copyTpl: (from: string, to: string, context: any, templateOptions?: any, copyOptions?: CopyOptions) => void;
+        copyTpl: (from: string, to: string, context: object, templateOptions?: any, copyOptions?: CopyOptions) => void;
         move: (from: string, to: string, options?: { globOptions: GlobOptions }) => void;
         exists: (filepath: string) => boolean;
         commit: (filters: Transform[], callback: () => void) => void;
