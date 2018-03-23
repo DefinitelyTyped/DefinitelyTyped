@@ -27,7 +27,9 @@ function language_lexer_tests() {
 }
 
 function language_location_tests() {
-    // TODO
+    const { Source, getLocation } = graphql;
+    const source = new Source('query { hello }');
+    const loc = getLocation(source, 6);
 }
 
 function language_parser_tests() {
