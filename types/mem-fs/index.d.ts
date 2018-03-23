@@ -18,7 +18,4 @@ export namespace memFs {
         get: (filepath: string) => File;
         stream: () => Transform;
     }
-
-    const prototype: {
-    };
 }
