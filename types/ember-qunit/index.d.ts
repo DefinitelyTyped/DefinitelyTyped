@@ -161,9 +161,10 @@ declare module 'qunit' {
      * ignoring the callback argument and the respective global and module's
      * hooks.
      *
-     * @param Title of unit being tested
+     * @param name Title of unit being tested
+     * @param callback Function to close over assertions
      */
-    export const skip: typeof QUnit.skip;
+    export function skip(name: string, callback: (this: TestContext, assert: Assert) => void): void;
 
     export default QUnit;
 }
