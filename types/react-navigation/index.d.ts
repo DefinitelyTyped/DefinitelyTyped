@@ -183,7 +183,6 @@ export type NavigationScreenComponent<
 > = React.ComponentType<NavigationNavigatorProps<Options, NavigationState> & Props> &
 ({} | { navigationOptions: NavigationScreenConfig<Options> });
 
-
 export type NavigationNavigator<
     State = NavigationState,
     Options = {},
