@@ -129,7 +129,7 @@ const AnotherScreen: NavigationStatelessScreen<AnotherScreenProps, AnotherScreen
         style={{ backgroundColor: navigation.getParam('color', 'red')}}
         hitSlop={{ left: apolloData[0], right: apolloData[1] }}
     />
-)
+);
 
 // Demonstrates overriding navigationOptions on static components
 AnotherScreen.navigationOptions = ({ navigation, navigationOptions }) => ({
@@ -159,7 +159,7 @@ const routeConfigMap: NavigationRouteConfigMap = {
         navigationOptions: {
             // Demonstrates that stack entries can set optins for tab navigation (for deeper use)
             tabBarVisible: false,
-        }
+        },
     },
 };
 export const AppNavigator = StackNavigator(
