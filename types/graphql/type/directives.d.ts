@@ -1,30 +1,6 @@
 import { GraphQLFieldConfigArgumentMap, GraphQLArgument } from "./definition";
 import { DirectiveDefinitionNode } from "../language/ast";
-
-export const DirectiveLocation: {
-    // Operations
-    QUERY: "QUERY";
-    MUTATION: "MUTATION";
-    SUBSCRIPTION: "SUBSCRIPTION";
-    FIELD: "FIELD";
-    FRAGMENT_DEFINITION: "FRAGMENT_DEFINITION";
-    FRAGMENT_SPREAD: "FRAGMENT_SPREAD";
-    INLINE_FRAGMENT: "INLINE_FRAGMENT";
-    // Schema Definitions
-    SCHEMA: "SCHEMA";
-    SCALAR: "SCALAR";
-    OBJECT: "OBJECT";
-    FIELD_DEFINITION: "FIELD_DEFINITION";
-    ARGUMENT_DEFINITION: "ARGUMENT_DEFINITION";
-    INTERFACE: "INTERFACE";
-    UNION: "UNION";
-    ENUM: "ENUM";
-    ENUM_VALUE: "ENUM_VALUE";
-    INPUT_OBJECT: "INPUT_OBJECT";
-    INPUT_FIELD_DEFINITION: "INPUT_FIELD_DEFINITION";
-};
-
-export type DirectiveLocationEnum = keyof typeof DirectiveLocation;
+import { DirectiveLocationEnum } from "../language/directiveLocation";
 
 /**
  * Directives are used by the GraphQL runtime as a way of modifying execution

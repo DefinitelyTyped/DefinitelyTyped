@@ -1,4 +1,4 @@
-import { DirectiveLocationEnum } from "../type/directives";
+import { DirectiveLocationEnum } from "../language/directiveLocation";
 
 /*
 query IntrospectionQuery {

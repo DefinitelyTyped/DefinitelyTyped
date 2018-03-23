@@ -4,8 +4,6 @@ export { GraphQLSchema } from "./schema";
 export * from "./definition";
 
 export {
-    // "Enum" of Directive Locations
-    DirectiveLocation,
     // Directives Definition
     GraphQLDirective,
     // Built-in Directives defined by the Spec
@@ -37,5 +35,3 @@ export {
     TypeMetaFieldDef,
     TypeNameMetaFieldDef,
 } from "./introspection";
-
-export { DirectiveLocationEnum } from "./directives";
