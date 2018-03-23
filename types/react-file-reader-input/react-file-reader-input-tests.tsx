@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as FileReaderInput from 'react-file-reader-input';
+import FileReaderInput = require('react-file-reader-input');
 
 class MyComponent extends React.Component {
   handleChange = (event: React.SyntheticEvent<any>, results: FileReaderInput.Result[]) => {

@@ -1,4 +1,4 @@
-import type from 'type-detect';
+import type = require('type-detect');
 
 // $ExpectType string
 type(123);

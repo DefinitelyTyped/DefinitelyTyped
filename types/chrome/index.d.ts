@@ -1740,7 +1740,7 @@ declare namespace chrome.devtools.network {
  * Availability: Since Chrome 18.
  */
 declare namespace chrome.devtools.panels {
-    export interface PanelShownEvent extends chrome.events.Event<(window: chrome.windows.Window) => void> {}
+    export interface PanelShownEvent extends chrome.events.Event<(window: Window) => void> {}
 
     export interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
 
@@ -5041,7 +5041,7 @@ declare namespace chrome.runtime {
 
     export interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> {}
 
-    export interface PortMessageEvent extends chrome.events.Event<(message: Object, port: Port) => void> {}
+    export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> {}
 
     export interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> {}
 
@@ -6050,6 +6050,12 @@ declare namespace chrome.tabs {
          * @since Chrome 39.
          */
         matchAboutBlank?: boolean;
+        /**
+         * Optional. The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
+         * One of: "author", or "user"
+         * @since Chrome 66.
+         */
+        cssOrigin?: string;
     }
 
     export interface CreateProperties {

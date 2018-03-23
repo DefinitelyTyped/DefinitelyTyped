@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { match } from "react-router";
 import * as React from 'react';
@@ -12,6 +12,7 @@ import * as H from 'history';
 export {
     Prompt,
     MemoryRouter,
+    RedirectProps,
     Redirect,
     RouteComponentProps,
     RouteProps,

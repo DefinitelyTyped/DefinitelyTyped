@@ -1,6 +1,4 @@
-
-
-import * as nock from 'nock';
+import nock = require('nock');
 import * as fs from 'fs';
 
 var scope: nock.Scope;

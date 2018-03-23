@@ -8,15 +8,15 @@
 
 interface StoreJsAPI {
     readonly version: string;
-    readonly enabled: string;
+    readonly enabled: boolean;
     get(key: string, optionalDefaultValue?: any): any;
     set(key: string, value: any): any;
     remove(key: string): void;
     each(callback: (val: any, namespacedKey: string) => void): void;
     clearAll(): void;
     hasNamespace(namespace: string): boolean;
-    createStore(plugins?: any[], namespace?: string): StoreJsAPI;
-    addPlugin(plugin: any): void;
+    createStore(plugins?: Function[], namespace?: string): StoreJsAPI;
+    addPlugin(plugin: Function): void;
     namespace(namespace: string): StoreJsAPI;
 }
 
@@ -32,4 +32,31 @@ declare module 'store' {
 declare const engine: StoreJsEngine;
 declare module 'store/src/store-engine' {
     export = engine;
+}
+declare module 'store/plugins/all' {
+    export = Function;
+}
+declare module 'store/plugins/default' {
+    export = Function;
+}
+declare module 'store/plugins/dump' {
+    export = Function;
+}
+declare module 'store/plugins/events' {
+    export = Function;
+}
+declare module 'store/plugins/expire' {
+    export = Function;
+}
+declare module 'store/plugins/observe' {
+    export = Function;
+}
+declare module 'store/plugins/operations' {
+    export = Function;
+}
+declare module 'store/plugins/update' {
+    export = Function;
+}
+declare module 'store/plugins/v1-backcompat' {
+    export = Function;
 }

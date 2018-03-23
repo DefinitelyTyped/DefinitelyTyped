@@ -712,7 +712,7 @@ declare namespace core {
         from<T, U>(arrayLike: ArrayLike<T> | Iterable<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[];
         from<T>(arrayLike: ArrayLike<T> | Iterable<T>): T[];
         of<T>(...items: T[]): T[];
-        isArray(arg: any): arg is Array<any>;
+        isArray(arg: any): arg is any[];
         push<T>(array: ArrayLike<T>, ...items: T[]): number;
         pop<T>(array: ArrayLike<T>): T;
         concat<T>(array: ArrayLike<T>, ...items: Array<T[] | T>): T[];

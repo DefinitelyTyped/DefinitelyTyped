@@ -701,7 +701,7 @@ declare namespace algoliasearch {
      * return {Promise}
      * https://github.com/algolia/algoliasearch-client-js#add-objects---addobjects
      */
-    addObjects(objects: [{}]): Promise<any>;
+    addObjects(objects: {}[]): Promise<any>;
     /**
      * Add or replace a specific object
      * @param object
@@ -729,7 +729,7 @@ declare namespace algoliasearch {
      * return {Promise}
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
-    partialUpdateObjects(objects: [{}]): Promise<any>;
+    partialUpdateObjects(objects: {}[]): Promise<any>;
     /**
      * Delete a specific object
      * @param objectID
@@ -1388,6 +1388,12 @@ Interface describing options available for gettings the logs
      */
     unretrievableAttributes?: string[];
     /**
+     * List of attributes you want to use for textual search
+     * default: []
+     * https://github.com/algolia/algoliasearch-client-js#searchableattributes
+     */
+    searchableAttributes?: string[];
+    /**
      * A string that contains the list of attributes you want to retrieve in order to minimize the size of the JSON answer
      * default: *
      * https://github.com/algolia/algoliasearch-client-js#attributestoretrieve
@@ -1602,7 +1608,7 @@ Interface describing options available for gettings the logs
      * default: []
      * https://github.com/algolia/algoliasearch-client-js#altcorrections
      */
-    altCorrections?: [{}];
+    altCorrections?: {}[];
     /**
      * Configure the precision of the proximity ranking criterion
      * default: 1

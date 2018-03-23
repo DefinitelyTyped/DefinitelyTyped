@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import events2 = require("events");
@@ -233,6 +233,25 @@ namespace fs_tests {
                 errno = err.errno;
             }
         });
+    }
+
+    {
+        let listS: string[];
+        listS = fs.readdirSync('path');
+        listS = fs.readdirSync('path', { encoding: 'utf8' });
+        listS = fs.readdirSync('path', { encoding: null });
+        listS = fs.readdirSync('path', { encoding: undefined });
+        listS = fs.readdirSync('path', 'utf8');
+        listS = fs.readdirSync('path', null);
+        listS = fs.readdirSync('path', undefined);
+
+        let listB: Buffer[];
+        listB = fs.readdirSync('path', { encoding: 'buffer' });
+        listB = fs.readdirSync("path", 'buffer');
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
     }
 
     {
@@ -1478,6 +1497,8 @@ namespace https_tests {
 
     https.request('http://www.example.com/xyz');
 
+    https.globalAgent.options.ca = [];
+
     {
         const server = new https.Server();
 
@@ -2030,14 +2051,17 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
+        childProcess.exec("echo test", {windowsHide: true});
         childProcess.spawnSync("echo test");
+        childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
     }
 
     {
         childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", { windowsHide: true }, () => {});
         childProcess.execFile("npm", ["-v"], () => {});
-        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     }
@@ -3311,13 +3335,23 @@ namespace async_hooks_tests {
             const tId: number = this.triggerAsyncId();
         }
         run() {
-            this.emitBefore();
-            this.emitAfter();
+            this.runInAsyncScope(() => {});
+            this.runInAsyncScope(Array.prototype.find, [], () => true);
         }
         destroy() {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////
@@ -3373,15 +3407,21 @@ namespace http2_tests {
         http2Session.on('localSettings', (settings: http2.Settings) => {});
         http2Session.on('remoteSettings', (settings: http2.Settings) => {});
         http2Session.on('stream', (stream: http2.Http2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
-        http2Session.on('socketError', (err: Error) => {});
         http2Session.on('timeout', () => {});
 
         http2Session.destroy();
 
+        let alpnProtocol: string = http2Session.alpnProtocol;
         let destroyed: boolean = http2Session.destroyed;
+        let encrypted: boolean = http2Session.encrypted;
+        let originSet: string[] = http2Session.originSet;
         let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
+        let closed: boolean = http2Session.closed;
         settings = http2Session.remoteSettings;
+
+        http2Session.ref();
+        http2Session.unref();
 
         let headers: http2.OutgoingHttpHeaders;
         let options: http2.ClientSessionRequestOptions = {
@@ -3400,16 +3440,7 @@ namespace http2_tests {
         http2Session.rstStream(stream, 0);
 
         http2Session.setTimeout(100, () => {});
-
-        let shutdownOptions: http2.SessionShutdownOptions = {
-            graceful: true,
-            errorCode: 0,
-            lastStreamID: 0,
-            opaqueData: Buffer.from([])
-        };
-        shutdownOptions.opaqueData = Uint8Array.from([]);
-        http2Session.shutdown(shutdownOptions);
-        http2Session.shutdown(shutdownOptions, () => {});
+        http2Session.close(() => {});
 
         let socket: net.Socket | tls.TLSSocket = http2Session.socket;
         let state: http2.SessionState = http2Session.state;
@@ -3448,7 +3479,9 @@ namespace http2_tests {
         http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => {});
 
         let aborted: boolean = http2Stream.aborted;
+        let closed: boolean = http2Stream.closed;
         let destroyed: boolean = http2Stream.destroyed;
+        let pending: boolean = http2Stream.pending;
 
         http2Stream.priority({
             exclusive: true,
@@ -3456,14 +3489,6 @@ namespace http2_tests {
             weight: 0,
             silent: true
         });
-
-        let rstCode: number = http2Stream.rstCode;
-        http2Stream.rstStream(rstCode);
-        http2Stream.rstWithNoError();
-        http2Stream.rstWithProtocolError();
-        http2Stream.rstWithCancel();
-        http2Stream.rstWithRefuse();
-        http2Stream.rstWithInternalError();
 
         let sesh: http2.Http2Session = http2Stream.session;
 
@@ -3492,7 +3517,7 @@ namespace http2_tests {
         serverHttp2Stream.additionalHeaders(headers);
         let headerSent: boolean = serverHttp2Stream.headersSent;
         let pushAllowed: boolean = serverHttp2Stream.pushAllowed;
-        serverHttp2Stream.pushStream(headers, (pushStream: http2.ServerHttp2Stream) => {});
+        serverHttp2Stream.pushStream(headers, (err: Error | null, pushStream: http2.ServerHttp2Stream, headers: http2.OutgoingHttpHeaders) => {});
 
         let options: http2.ServerStreamResponseOptions = {
             endStream: true,
@@ -3533,7 +3558,7 @@ namespace http2_tests {
         let s2: tls.Server = http2SecureServer;
         [http2Server, http2SecureServer].forEach((server) => {
             server.on('sessionError', (err: Error) => {});
-            server.on('socketError', (err: Error) => {});
+            server.on('checkContinue', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
             server.on('stream', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
             server.on('request', (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {});
             server.on('timeout', () => {});
@@ -3658,6 +3683,15 @@ namespace http2_tests {
         secureClientSessionOptions.ca = '';
         let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
 
+        let serverHttp2Session: http2.ServerHttp2Session;
+
+        serverHttp2Session.altsvc('', '');
+        serverHttp2Session.altsvc('', 0);
+        serverHttp2Session.altsvc('', new url.URL(''));
+        serverHttp2Session.altsvc('', { origin: '' });
+        serverHttp2Session.altsvc('', { origin: 0 });
+        serverHttp2Session.altsvc('', { origin: new url.URL('') });
+
         let clientHttp2Session: http2.ClientHttp2Session;
 
         clientHttp2Session = http2.connect('');
@@ -3666,6 +3700,7 @@ namespace http2_tests {
         clientHttp2Session = http2.connect('', clientSessionOptions, onConnectHandler);
         clientHttp2Session = http2.connect('', secureClientSessionOptions);
         clientHttp2Session = http2.connect('', secureClientSessionOptions, onConnectHandler);
+        clientHttp2Session.on('altsvc', (alt: string, origin: string, number: number) => {});
 
         settings = http2.getDefaultSettings();
         settings = http2.getPackedSettings(settings);

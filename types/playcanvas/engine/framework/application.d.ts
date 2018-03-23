@@ -32,6 +32,8 @@ declare namespace pc {
     class Application {
         constructor(canvas: HTMLCanvasElement, options?: pc.ApplicationOptions)
 
+        static getApplication(id?: string): Application;
+
         // PROPERTIES
 
         /**
@@ -205,6 +207,25 @@ declare namespace pc {
         * });
         */
         loadSceneSettings(url: string, callback: (...args: any[]) => {}): void;
+
+        /**
+         * @function
+         * @name pc.Application#loadScene
+         * @description Load a scene file.
+         * @param {String} url The URL of the scene file. Usually this will be "scene_id.json"
+         * @param {Function} callback The function to call after loading, passed (err, entity) where err is null if no errors occurred.
+         * @example
+         *
+         * app.loadScene("1000.json", function (err, entity) {
+         *     if (!err) {
+         *       var e = app.root.find("My New Entity");
+         *     } else {
+         *       // error
+         *     }
+         *   }
+         * });
+         */
+        loadScene(url: string, callback: (...args: any[]) => {}): void;
 
         /**
          * @function
@@ -478,7 +499,7 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire(name: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
 
         /**
          * @function

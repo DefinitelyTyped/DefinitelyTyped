@@ -19,7 +19,7 @@ declare namespace koaWebpack {
         compiler?: webpack.Compiler;
         config?: webpack.Configuration;
         dev?: webpackDevMiddleware.Options;
-        hot?: webpackHotMiddleware.Options;
+        hot?: webpackHotMiddleware.Options | boolean;
     }
 
     interface CombinedWebpackMiddleware {

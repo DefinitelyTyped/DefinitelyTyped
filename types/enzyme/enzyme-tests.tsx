@@ -109,8 +109,13 @@ function ShallowWrapperTest() {
     function test_filter() {
         anotherComponentWrapper = shallowWrapper.filter(AnotherComponent);
         anotherStatelessWrapper = shallowWrapper.filter(AnotherStatelessComponent);
+        // NOTE: The following calls to filter do not narrow down the possible type of the result based
+        //       on the type of the param, so the return type should not be different than the original
+        //       "this". This is a special case for "filter" vs other methods like "find", because "filter"
+        //       is guaranteed to return only a subset of the existing list of components/elements without
+        //       finding/adding more.
         shallowWrapper = shallowWrapper.filter({ numberProp: 12 });
-        elementWrapper = shallowWrapper.filter('.selector');
+        shallowWrapper = shallowWrapper.filter('.selector');
     }
 
     function test_filterWhere() {
@@ -487,10 +492,15 @@ function ReactWrapperTest() {
     }
 
     function test_filter() {
-        elementWrapper = reactWrapper.filter('.selector');
         anotherComponentWrapper = reactWrapper.filter(AnotherComponent);
         anotherStatelessWrapper = reactWrapper.filter(AnotherStatelessComponent);
+        // NOTE: The following calls to filter do not narrow down the possible type of the result based
+        //       on the type of the param, so the return type should not be different than the original
+        //       "this". This is a special case for "filter" vs other methods like "find", because "filter"
+        //       is guaranteed to return only a subset of the existing list of components/elements without
+        //       finding/adding more.
         reactWrapper = reactWrapper.filter({ numberProp: 12 });
+        reactWrapper = reactWrapper.filter('.selector');
     }
 
     function test_filterWhere() {

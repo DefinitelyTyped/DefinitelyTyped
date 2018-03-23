@@ -6,6 +6,8 @@
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
+//                 Enrico Picci <https://github.com/EnricoPicci>
+//                 Alexander Christie <https://github.com/AJCStriker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,7 +44,7 @@ export class MongoClient extends EventEmitter {
     close(force?: boolean): Promise<void>;
     close(force: boolean, callback: MongoCallback<void>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#db */
-    db(name: string, options?: MongoClientCommonOption): Db
+    db(dbName?: string, options?: MongoClientCommonOption): Db
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#isConnected */
     isConnected(name: string, options?: MongoClientCommonOption): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#logout */
@@ -92,6 +94,8 @@ export interface MongoClientOptions extends
     logger?: Object;
     // Default: false;
     validateOptions?: Object;
+    // The name of the application that created this MongoClient instance.
+    appname?: string;
 }
 
 export interface SSLOptions {
@@ -157,8 +161,8 @@ export interface DbCreateOptions extends CommonOptions {
     raw?: boolean;
     // Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
     promoteLongs?: boolean;
-    // Default: -1 (unlimited); Amount of operations the driver buffers up untill discard any new ones
-    promoteBuffers?: number;
+    // Default: false; Promotes Binary BSON values to native Node Buffers
+    promoteBuffers?: boolean;
     // the prefered read preference. use 'ReadPreference' class.
     readPreference?: ReadPreference | string;
     // Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
@@ -480,13 +484,13 @@ export interface Collection<TSchema = Default> {
     createIndexes(indexSpecs: Object[], options?: {session?: ClientSession}): Promise<any>;
     createIndexes(indexSpecs: Object[], options: {session?: ClientSession}, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#deleteMany */
-    deleteMany(filter: Object, callback: MongoCallback<DeleteWriteOpResultObject>): void;
-    deleteMany(filter: Object, options?: CommonOptions): Promise<DeleteWriteOpResultObject>;
-    deleteMany(filter: Object, options: CommonOptions, callback: MongoCallback<DeleteWriteOpResultObject>): void;
+    deleteMany(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
+    deleteMany(filter: FilterQuery<TSchema>, options?: CommonOptions): Promise<DeleteWriteOpResultObject>;
+    deleteMany(filter: FilterQuery<TSchema>, options: CommonOptions, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#deleteOne */
-    deleteOne(filter: Object, callback: MongoCallback<DeleteWriteOpResultObject>): void;
-    deleteOne(filter: Object, options?: CommonOptions & { bypassDocumentValidation?: boolean }): Promise<DeleteWriteOpResultObject>;
-    deleteOne(filter: Object, options: CommonOptions & { bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>): void;
+    deleteOne(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
+    deleteOne(filter: FilterQuery<TSchema>, options?: CommonOptions & { bypassDocumentValidation?: boolean }): Promise<DeleteWriteOpResultObject>;
+    deleteOne(filter: FilterQuery<TSchema>, options: CommonOptions & { bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#distinct */
     distinct(key: string, query: Object, callback: MongoCallback<any>): void;
     distinct(key: string, query: Object, options?: { readPreference?: ReadPreference | string, maxTimeMS?: number, session?: ClientSession }): Promise<any>;
@@ -504,25 +508,25 @@ export interface Collection<TSchema = Default> {
     dropIndexes(callback?: MongoCallback<any>): void;
     dropIndexes(options: {session?: ClientSession, maxTimeMS?: number}, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#find */
-    find<T = TSchema>(query?: Object): Cursor<T>;
+    find<T = TSchema>(query?: FilterQuery<T>): Cursor<T>;
     /** @deprecated */
-    find<T = TSchema>(query: Object, options?: FindOneOptions): Cursor<T>;
+    find<T = TSchema>(query: FilterQuery<T>, options?: FindOneOptions): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#findOne */
-    findOne<T = TSchema>(filter: Object, callback: MongoCallback<T | null>): void;
-    findOne<T = TSchema>(filter: Object, options?: FindOneOptions): Promise<T | null>;
-    findOne<T = TSchema>(filter: Object, options: FindOneOptions, callback: MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions): Promise<T | null>;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions, callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#findOneAndDelete */
-    findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number, session?: ClientSession }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndDelete(filter: Object, options: { projection?: Object, sort?: Object, maxTimeMS?: number, session?: ClientSession }, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndDelete(filter: FilterQuery<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndDelete(filter: FilterQuery<TSchema>, options?: { projection?: Object, sort?: Object, maxTimeMS?: number, session?: ClientSession }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndDelete(filter: FilterQuery<TSchema>, options: { projection?: Object, sort?: Object, maxTimeMS?: number, session?: ClientSession }, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#findOneAndReplace */
-    findOneAndReplace(filter: Object, replacement: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndReplace(filter: Object, replacement: Object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndReplace(filter: Object, replacement: Object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#findOneAndUpdate */
-    findOneAndUpdate(filter: Object, update: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndUpdate(filter: Object, update: Object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndUpdate(filter: Object, update: Object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#geoHaystackSearch */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
@@ -600,9 +604,9 @@ export interface Collection<TSchema = Default> {
     rename(newName: string, options?: { dropTarget?: boolean, session?: ClientSession }): Promise<Collection<TSchema>>;
     rename(newName: string, options: { dropTarget?: boolean, session?: ClientSession }, callback: MongoCallback<Collection<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#replaceOne */
-    replaceOne(filter: Object, doc: Object, callback: MongoCallback<ReplaceWriteOpResult>): void;
-    replaceOne(filter: Object, doc: Object, options?: ReplaceOneOptions): Promise<ReplaceWriteOpResult>;
-    replaceOne(filter: Object, doc: Object, options: ReplaceOneOptions, callback: MongoCallback<ReplaceWriteOpResult>): void;
+    replaceOne(filter: FilterQuery<TSchema>, doc: Object, callback: MongoCallback<ReplaceWriteOpResult>): void;
+    replaceOne(filter: FilterQuery<TSchema>, doc: Object, options?: ReplaceOneOptions): Promise<ReplaceWriteOpResult>;
+    replaceOne(filter: FilterQuery<TSchema>, doc: Object, options: ReplaceOneOptions, callback: MongoCallback<ReplaceWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#save */
     /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: Object, callback: MongoCallback<WriteOpResult>): void;
@@ -616,22 +620,61 @@ export interface Collection<TSchema = Default> {
     stats(options: { scale: number, session?: ClientSession }, callback: MongoCallback<CollStats>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#update */
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: Object, update: Object, callback: MongoCallback<WriteOpResult>): void;
+    update(filter: FilterQuery<TSchema>, update: Object, callback: MongoCallback<WriteOpResult>): void;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: Object, update: Object, options?: ReplaceOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
+    update(filter: FilterQuery<TSchema>, update: Object, options?: ReplaceOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: Object, update: Object, options: ReplaceOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
+    update(filter: FilterQuery<TSchema>, update: Object, options: ReplaceOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#updateMany */
-    updateMany(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateMany(filter: Object, update: Object, options?: CommonOptions & { upsert?: boolean }): Promise<UpdateWriteOpResult>;
-    updateMany(filter: Object, update: Object, options: CommonOptions & { upsert?: boolean }, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany(filter: FilterQuery<TSchema>, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany(filter: FilterQuery<TSchema>, update: Object, options?: CommonOptions & { upsert?: boolean }): Promise<UpdateWriteOpResult>;
+    updateMany(filter: FilterQuery<TSchema>, update: Object, options: CommonOptions & { upsert?: boolean }, callback: MongoCallback<UpdateWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#updateOne */
-    updateOne(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateOne(filter: Object, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
-    updateOne(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(filter: FilterQuery<TSchema>, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(filter: FilterQuery<TSchema>, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
+    updateOne(filter: FilterQuery<TSchema>, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch */
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
+
+export type FilterQuery<T> = {
+    [P in keyof T]?: T[P] | {
+        $eq?: T[P];
+        $gt?: T[P];
+        $gte?: T[P];
+        $in?: T[P][];
+        $lt?: T[P];
+        $lte?: T[P];
+        $ne?: T[P];
+        $nin?: T[P][];
+        $and?: (FilterQuery<T[P]> | T[P])[];
+        $or?: (FilterQuery<T[P]> | T[P])[];
+        $not?: (FilterQuery<T[P]> | T[P])[] | T[P];
+        $expr?: any;
+        $jsonSchema?: any;
+        $mod?: [number, number];
+        $regex?: RegExp;
+        $options?: string;
+        $text?: {
+            $search: string;
+            $language?: string;
+            $caseSensitive?: boolean;
+            $diacraticSensitive?: boolean;
+        };
+        $where: Object;
+        $geoIntersects?: Object;
+        $geoWithin?: Object;
+        $near?: Object;
+        $nearSphere?: Object;
+        $elemMatch?: Object;
+        $size?: number;
+        $bitsAllClear?: Object;
+        $bitsAllSet?: Object;
+        $bitsAnyClear?: Object;
+        $bitsAnySet?: Object;
+        [key: string]: any;
+    };
+} | { [key:string]: any };
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
 export interface CollStats {
@@ -1068,7 +1111,7 @@ export interface FindOneOptions {
 export interface InsertWriteOpResult {
     insertedCount: number;
     ops: Array<any>;
-    insertedIds: Array<ObjectID>;
+    insertedIds: {[key: number]: ObjectID};
     connection: any;
     result: { ok: number, n: number }
 }
@@ -1453,3 +1496,49 @@ export interface ChangeStreamOptions {
 }
 
 type GridFSBucketWriteStreamId = string | number | Object | ObjectID;
+
+export interface LoggerOptions {
+    loggerLevel?: string // Custom logger function
+    logger?: log // Override default global log level.
+}
+
+export type log = (message?: string, state?: LoggerState) => void
+
+export interface LoggerState {
+    type: string
+    message: string
+    className: string
+    pid: number
+    date: number
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.0/api/Logger.html */
+export class Logger{
+    constructor(className: string, options?: LoggerOptions)
+    // Log a message at the debug level
+    debug(message: string, state: LoggerState):void
+    // Log a message at the warn level
+    warn(message: string, state: LoggerState):void
+    // Log a message at the info level
+    info(message: string, state: LoggerState):void
+    // Log a message at the error level
+    error(message: string, state: LoggerState):void
+    // Is the logger set at info level
+    isInfo():boolean
+    // Is the logger set at error level
+    isError():boolean
+    // Is the logger set at error level
+    isWarn():boolean
+    // Is the logger set at debug level
+    isDebug():boolean
+    // Resets the logger to default settings, error and no filtered classes
+    static reset():void
+    // Get the current logger function
+    static currentLogger():log
+    //Set the current logger function
+    static setCurrentLogger(log: log):void
+    // Set what classes to log.
+    static filter(type: string, values: string[]):void
+    // Set the current log level
+    static setLevel(level: string):void
+}

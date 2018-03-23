@@ -339,6 +339,16 @@ describe("Examples", () => {
         />;
     });
 
+    it("Custom option component", () => {
+        class OptionComponent extends React.Component<ReactSelectModule.OptionComponentProps> {
+            render() {
+                return <div>{this.props.option.label}</div>;
+            }
+        }
+
+        <ReactSelect optionComponent={OptionComponent} />;
+    });
+
     it("Value render with custom value option", () => {
         const valueRenderer = (option: ReactSelectModule.Option<CustomValueType>): ReactSelectModule.HandlerRendererResult =>
             null;
@@ -354,5 +364,25 @@ describe("Examples", () => {
 
     it("No Results renderer with element", () => {
         <ReactSelect noResultsText={<i>no results</i>} />;
+    });
+
+    it("onSelectResetsInput", () => {
+        <ReactSelect onSelectResetsInput />;
+    });
+
+    it("onCloseResetsInput", () => {
+        <ReactSelect onCloseResetsInput />;
+    });
+
+    it("pageSize", () => {
+        <ReactSelect pageSize={5} />;
+    });
+
+    it("removeSelected", () => {
+        <ReactSelect removeSelected />;
+    });
+
+    it("rtl", () => {
+        <ReactSelect rtl />;
     });
 });

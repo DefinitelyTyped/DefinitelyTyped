@@ -80,7 +80,7 @@ declare namespace got {
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
-    type GotUrl = string | http.RequestOptions | URL;
+    type GotUrl = string | http.RequestOptions | Url;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;
@@ -98,7 +98,11 @@ declare namespace got {
         json?: boolean;
     }
 
-    type GotOptions<E extends string | null> = http.RequestOptions & {
+    interface TimoutRequestOptions extends http.RequestOptions {
+        timeout?: any;
+    }
+
+    interface GotOptions<E extends string | null> extends TimoutRequestOptions {
         encoding?: E;
         query?: string | object;
         timeout?: number | TimeoutOptions;
@@ -106,7 +110,7 @@ declare namespace got {
         followRedirect?: boolean;
         decompress?: boolean;
         useElectronNet?: boolean;
-    };
+    }
 
     interface TimeoutOptions {
         connect?: number;

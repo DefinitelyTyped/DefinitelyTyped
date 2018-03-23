@@ -1,4 +1,4 @@
-import * as Archiver from 'archiver';
+import Archiver = require('archiver');
 import * as fs from 'fs';
 
 const options: Archiver.ArchiverOptions = {

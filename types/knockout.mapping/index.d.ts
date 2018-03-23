@@ -13,6 +13,10 @@ declare var self: KnockoutMapping;
 export = self;
 
 declare global {
+    type KnockoutObservableType<T> = {	
+        [P in keyof T]: KnockoutObservable<KnockoutObservableType<T[P]>>|T[P];	
+    };
+    
     interface KnockoutMappingCreateOptions {
         data: any;
         parent: any;
@@ -48,7 +52,8 @@ declare global {
         fromJSON(jsonString: string, targetOrOptions: any): any;
         fromJSON(jsonString: string, inputOptions: any, target: any): any;
         toJS<T>(viewModel: KnockoutObservableArray<T>|KnockoutObservableType<T>[]|KnockoutObservableArray<KnockoutObservableType<T>>|T[], options?: KnockoutMappingOptions): T[];
-        toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableType<T>|KnockoutObservable<KnockoutObservableType<T>>|T, options?: KnockoutMappingOptions): T;
+        toJS<T>(viewModel: KnockoutObservable<T>|KnockoutObservableType<T>|KnockoutObservable<KnockoutObservableType<T>>, options?: KnockoutMappingOptions): T;
+        toJS<T>(viewModel: T, options?: KnockoutMappingOptions): T;
         toJSON(rootObject: any, options?: KnockoutMappingOptions): string;
         defaultOptions(): KnockoutMappingOptions;
         resetDefaultOptions(): void;

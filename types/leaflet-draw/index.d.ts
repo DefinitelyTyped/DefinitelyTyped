@@ -387,7 +387,7 @@ declare module 'leaflet' {
 			/**
 			 * Layer that was just created.
 			 */
-			layer: Layer;
+			layer: Circle | CircleMarker | Marker | Polygon | Polyline | Rectangle;
 
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker.

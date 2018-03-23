@@ -25,6 +25,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "angular-touchspin",
+            "typingsPackageName": "angular-touchspin",
+            "sourceRepoURL": "https://github.com/nkovacic/angular-touchspin",
+            "asOfVersion": "1.8.2"
+        },
+        {
             "libraryName": "angular-ui-router-default",
             "typingsPackageName": "angular-ui-router-default",
             "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-default",
@@ -167,6 +173,12 @@
             "typingsPackageName": "bignumber.js",
             "sourceRepoURL": "https://github.com/MikeMcl/bignumber.js/",
             "asOfVersion": "5.0.0"
+        },
+		{
+            "libraryName": "bingmaps",
+            "typingsPackageName": "bingmaps",
+            "sourceRepoURL": "https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions",
+            "asOfVersion": "2.0.15"
         },
         {
             "libraryName": "botvs",
@@ -557,6 +569,12 @@
             "typingsPackageName": "fullcalendar",
             "sourceRepoURL": "http://arshaw.com/fullcalendar/",
             "asOfVersion": "3.8.0"
+        },
+        {
+            "libraryName": "fuse",
+            "typingsPackageName": "fuse",
+            "sourceRepoURL": "https://github.com/krisk/Fuse",
+            "asOfVersion": "2.6.0"
         },
         {
             "libraryName": "gaea-model",
@@ -1589,6 +1607,12 @@
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "yFiles for HTML",
+            "typingsPackageName": "yfiles",
+            "sourceRepoURL": "none",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "zetapush-js",

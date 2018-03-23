@@ -488,10 +488,16 @@ export interface UserIdParams {
 }
 
 export interface PasswordChangeTicketParams {
-  result_url: string;
-  user_id: string;
-  email: string;
-  new_password: string;
+  result_url?: string;
+  user_id?: string;
+  new_password?: string;
+  connection_id?: string;
+  email?: string;
+  ttl_sec?: number;
+}
+
+export interface PasswordChangeTicketResponse {
+  ticket: string;
 }
 
 export interface EmailVerificationTicketOptions {
@@ -711,8 +717,8 @@ export class ManagementClient {
   sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: any) => void): void;
 
   // Tickets
-  createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<any>;
-  createPasswordChangeTicket(params: PasswordChangeTicketParams, cb?: (err: Error, data: any) => void): void;
+  createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
+  createPasswordChangeTicket(params: PasswordChangeTicketParams, cb?: (err: Error, data: PasswordChangeTicketResponse) => void): void;
 
   createEmailVerificationTicket(data: EmailVerificationTicketOptions): Promise<any>;
   createEmailVerificationTicket(data: EmailVerificationTicketOptions, cb?: (err: Error, data: any) => void): void;

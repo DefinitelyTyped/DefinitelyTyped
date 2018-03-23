@@ -1,6 +1,6 @@
 import expressWinston = require('express-winston');
 import * as winston from 'winston';
-import * as express from 'express';
+import express = require('express');
 
 const app = express();
 

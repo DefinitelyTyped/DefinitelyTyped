@@ -7,7 +7,9 @@
 //                 Brannon Jones <https://github.com/brannon>
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
+//                 Thomas Bruun <https://github.com/bruun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -121,7 +123,7 @@ declare namespace Stripe {
              * is only false when Stripe is waiting for additional information from the
              * account holder.
              */
-            transfers_enabled: boolean;
+            payouts_enabled: boolean;
 
             /**
              * The state of the account’s information requests, including what
@@ -160,7 +162,7 @@ declare namespace Stripe {
              * established in. For example, if you are in the United States and the
              * business you’re creating an account for is legally represented in Canada,
              * you would use “CA” as the country for the account being created.
-             * 
+             *
              * optional, default is your own country
              */
             country?: string;
@@ -170,7 +172,7 @@ declare namespace Stripe {
              * will email your user with instructions for how to set up their account. For
              * managed accounts, this is only to make the account easier to identify to
              * you: Stripe will never directly reach out to your users.
-             * 
+             *
              * required if type is "standard"
              */
             email?: string;
@@ -315,11 +317,11 @@ declare namespace Stripe {
             };
 
             /**
-             * Details on when this account will make funds from charges available, and
-             * when they will be paid out to the account holder’s bank account. See our
-             * managed account bank transfer guide for more information
+             * Details on when funds from charges are available,
+             * and when they are paid out to an external account.
+             * See our Setting Bank and Debit Card Payouts documentation for details.
              */
-            transfer_schedule?: {
+            payout_schedule?: {
                 /**
                  * The number of days charges for the account will be held before being
                  * paid out. May also be the string “minimum” for the lowest available
@@ -332,7 +334,7 @@ declare namespace Stripe {
                  * How frequently funds will be paid out. One of "manual" (for only
                  * triggered via API call), "daily", "weekly", or "monthly". Default is "daily".
                  */
-                interval?: string;
+                interval?: "manual" | "daily" | "weekly" | "monthly";
 
                 /**
                  * The day of the month funds will be paid out. Required and available
@@ -344,8 +346,14 @@ declare namespace Stripe {
                  * The day of the week funds will be paid out, of the style ‘monday’,
                  * ‘tuesday’, etc. Required and available only if interval is weekly.
                  */
-                weekly_anchor?: string;
+                weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
             }
+
+            /**
+             * The text that appears on the bank account statement for payouts.
+             * If not set, this defaults to the platform’s bank descriptor as set in the Dashboard.
+             */
+            payout_statement_descriptor?: string;
         }
 
         interface IAccountUpdateOptions extends IDataOptions, IAccountShared {
@@ -557,7 +565,7 @@ declare namespace Stripe {
 
         interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds { }
 
-        interface IApplicationFeeRefundCreationOptions extends IDataOptions {
+        interface IApplicationFeeRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
              * A positive integer in pence representing how much of this fee to refund.
              * Can only refund up to the unrefunded amount remaining of the fee.
@@ -565,14 +573,6 @@ declare namespace Stripe {
              * default is entire application fee
              */
             amount?: number;
-
-            /**
-             * A set of key/value pairs that you can attach to a refund object. It can be
-             * useful for storing additional information about the refund in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IMetadata;
         }
     }
 
@@ -878,7 +878,7 @@ declare namespace Stripe {
             transfer: string | transfers.ITransfer;
         }
 
-        interface IChargeCreationOptions extends IDataOptions {
+        interface IChargeCreationOptions extends IDataOptionsWithMetadata {
             /**
              * A positive integer in the smallest currency unit (e.g 100 cents to charge
              * $1.00, or 1 to charge ¥1, a 0-decimal currency) representing how much to
@@ -946,14 +946,6 @@ declare namespace Stripe {
              * Connect only.
              */
             on_behalf_of?: string;
-
-            /**
-             * A set of key/value pairs that you can attach to a charge object. It can be
-             * useful for storing additional information about the customer in a
-             * structured format. It's often a good idea to store an email address in
-             * metadata for tracking later.
-             */
-            metadata?: IMetadata;
 
             /**
              * The email address to send this charge's receipt to. The receipt will not be
@@ -1345,7 +1337,7 @@ declare namespace Stripe {
              * override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to
              * end the customer's trial immediately. Only applies when the plan parameter is also provided.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
         }
 
         interface ICustomerUpdateOptions extends IDataOptionsWithMetadata {
@@ -2088,6 +2080,14 @@ declare namespace Stripe {
             tax_percent?: number;
         }
 
+        interface IInvoicePayOptions extends IDataOptionsWithMetadata {
+          /**
+             * A payment source to be charged. The source must be the ID of a source
+             * belonging to the customer associated with the invoice being paid.
+             */
+          source?: sources.ISourceCreationOptions;
+        }
+
         interface IInvoiceListOptions extends IListOptions {
             /**
              * The identifier of the customer whose invoices to return. If none is provided, all invoices will be returned.
@@ -2827,27 +2827,23 @@ declare namespace Stripe {
             metadata: IMetadata;
 
             /**
-             * Display name of the plan
+             * A brief description of the plan, hidden from customers.
              */
-            name: string;
+            nickname?: string;
 
             /**
-             * Extra information about a charge for the customer's credit card statement.
+             * The product whose pricing this plan determines. [Expandable]
              */
-            statement_descriptor: string;
-
-            /**
-             * Number of trial period days granted when subscribing a customer to this plan. Null if the plan has no trial period.
-             */
-            trial_period_days: number;
+            product?: string | products.IProduct;
         }
 
         interface IPlanCreationOptions extends IDataOptionsWithMetadata {
             /**
-             * Unique string of your choice that will be used to identify this plan when subscribing a customer. This could be an identifier
-             * like "gold" or a primary key from your own database.
+             * An identifier randomly generated by Stripe. Used to identify this plan when subscribing a customer. You can optionally override this
+             * ID, but the ID must be unique across all plans in your Stripe account. You can, however, use the same plan ID in both live and test
+             * modes.
              */
-            id: string;
+            id?: string;
 
             /**
              * A positive integer in cents/pence (or 0 for a free plan) representing how much to charge (on a recurring basis).
@@ -2865,9 +2861,10 @@ declare namespace Stripe {
             interval: IntervalUnit;
 
             /**
-             * Name of the plan, to be displayed on invoices and in the web interface.
+             * The product whose pricing the created plan will represent. This can either be the ID of an existing product, or a dictionary containing
+             * fields used to create a service product.
              */
-            name: string;
+            product: string | IPlanCreationOptionsProductHash;
 
             /**
              * The number of intervals between each subscription billing. For example, interval=month and interval_count=3 bills every 3 months.
@@ -2876,31 +2873,45 @@ declare namespace Stripe {
             interval_count?: number;
 
             /**
-             * An arbitrary string to be displayed on your customer’s credit card statement. This may be up to 22 characters. As an example, if your website
-             * is RunClub and the item you’re charging for is your Silver Plan, you may want to specify a statement_descriptor of RunClub Silver Plan.
-             * The statement description may not include <>"' characters, and will appear on your customer’s statement in capital letters. Non-ASCII
-             * characters are automatically stripped. While most banks display this information consistently, some may display it incorrectly or not at all.
+             * A brief description of the plan, hidden from customers.
              */
-            statement_descriptor?: string;
-
-            /**
-             * Specifies a trial period in (an integer number of) days. If you include a trial period, the customer won't be billed for the first time
-             * until the trial period ends. If the customer cancels before the trial period is over, she'll never be billed at all.
-             */
-            trial_period_days?: number;
+            nickname?: string;
         }
 
         interface IPlanUpdateOptions extends IDataOptionsWithMetadata {
             /**
-             * Name of the plan, to be displayed on invoices and in the web interface.
+             * A brief description of the plan, hidden from customers. This can be unset by updating the value to null and then saving.
              */
-            name?: string;
+            nickname?: string;
 
             /**
-             * An arbitrary string to be displayed on your customer’s credit card statement. This may be up to 22 characters. As an example, if your website
-             * is RunClub and the item you’re charging for is your Silver Plan, you may want to specify a statement_descriptor of RunClub Silver Plan.
-             * The statement description may not include <>"' characters, and will appear on your customer’s statement in capital letters. Non-ASCII
-             * characters are automatically stripped. While most banks display this information consistently, some may display it incorrectly or not at all.
+             * The product the plan belongs to. Note that after updating, statement descriptors and line items of the plan in active subscriptions will
+             * be affected.
+             */
+            product?: string;
+        }
+
+        interface IPlanCreationOptionsProductHash {
+            /**
+             * The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
+             */
+            id?: string;
+
+            /**
+             * The product’s name, meant to be displayable to the customer.
+             */
+            name: string;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about the object in a structured
+             * format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * An arbitrary string to be displayed on your customer’s credit card statement. This may be up to 22 characters. The statement description may not
+             * include <>”’ characters, and will appear on your customer’s statement in capital letters. Non-ASCII characters are automatically stripped. While
+             * most banks display this information consistently, some may display it incorrectly or not at all.
              */
             statement_descriptor?: string;
         }
@@ -2930,6 +2941,9 @@ declare namespace Stripe {
              */
             caption: string;
 
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             created: number;
 
             /**
@@ -2970,6 +2984,18 @@ declare namespace Stripe {
             updated: number;
 
             /**
+             * Extra information about a product which will appear on your customer’s credit card statement. In the case that multiple products are billed
+             * at once, the first statement descriptor will be used. Only available on products of type=service.
+             */
+            statement_descriptor: string;
+
+            /**
+             * The type of the product. The product is either of type good, which is eligible for use with Orders and SKUs, or service, which is eligible for
+             * use with Subscriptions and Plans.
+             */
+            type: ProductType;
+
+            /**
              * A URL of a publicly-accessible webpage for this product.
              */
             url: string;
@@ -2978,55 +3004,77 @@ declare namespace Stripe {
         interface IProductCreationOptions extends IDataOptionsWithMetadata {
             /**
              * The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
+             * Applicable to both service and good types.
              */
             id?: string;
 
             /**
              * The product’s name, meant to be displayable to the customer.
+             * Applicable to both service and good types.
              */
             name: string;
 
             /**
-             * Whether or not the product is currently available for purchase. Defaults to true.
+             * The type of the product. The product is either of type service, which is eligible for use with Subscriptions
+             * and Plans or good, which is eligible for use with Orders and SKUs.
+             */
+            type: ProductType;
+
+            /**
+             * Whether or not the product is currently available for purchase. Defaults to true. May only be set if type=good.
              */
             active?: boolean;
 
             /**
              * A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g. ["color", "size"]).
+             * Applicable to both service and good types.
              */
             attribute?: Array<string>;
 
             /**
-             * A short one-line description of the product, meant to be displayable to the customer.
+             * A short one-line description of the product, meant to be displayable to the customer. May only be set if type=good.
              */
             caption?: string;
 
             /**
              * An array of Connect application names or identifiers that should not be able to order the SKUs for this product.
+             * May only be set if type=good.
              */
             deactivate_on?: Array<string>;
 
             /**
-             * The product’s description, meant to be displayable to the customer.
+             * The product’s description, meant to be displayable to the customer. May only be set if type=good.
              */
             description?: string;
 
             /**
-             * A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+             * A list of up to 8 URLs of images for this product, meant to be displayable to the customer. May only be set if type=good.
              */
             images?: Array<string>;
 
+            /**
+             * The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own
+             * package_dimensions. May only be set if type=good.
+             */
             package_dimensions?: IPackageDimensions;
 
             /**
-             * Whether this product is shipped (i.e. physical goods). Defaults to true.
+             * Whether this product is shipped (i.e. physical goods). Defaults to true. May only be set if type=good.
              */
             shippable?: boolean;
 
             /**
-             * A URL of a publicly-accessible webpage for this product.
+             * A URL of a publicly-accessible webpage for this product. May only be set if type=good.
              */
             url?: string;
+
+            /**
+             * An arbitrary string to be displayed on your customer’s credit card statement. This may be up to 22 characters. The statement description
+             * may not include <>”’ characters, and will appear on your customer’s statement in capital letters. Non-ASCII characters are automatically
+             * stripped. While most banks display this information consistently, some may display it incorrectly or not at all.
+             * May only be set if type=service.
+             */
+            statement_descriptor?: string;
         }
 
         interface IProductUpdateOptions extends IDataOptionsWithMetadata {
@@ -3063,6 +3111,10 @@ declare namespace Stripe {
              */
             name?: string;
 
+            /**
+             * The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own
+             * package_dimensions.
+             */
             package_dimensions?: IPackageDimensions;
 
             /**
@@ -3074,6 +3126,14 @@ declare namespace Stripe {
              * A URL of a publicly-accessible webpage for this product.
              */
             url?: string;
+
+            /**
+             * An arbitrary string to be displayed on your customer’s credit card statement. This may be up to 22 characters. The statement description
+             * may not include <>”’ characters, and will appear on your customer’s statement in capital letters. Non-ASCII characters are automatically
+             * stripped. While most banks display this information consistently, some may display it incorrectly or not at all.
+             * May only be set if type=service.
+             */
+            statement_descriptor?: string;
         }
 
         interface IProductListOptions extends IListOptions {
@@ -3120,6 +3180,8 @@ declare namespace Stripe {
              */
             width: number;
         }
+
+        type ProductType = "service" | "good";
     }
 
     namespace recipientCards { }
@@ -4024,7 +4086,7 @@ declare namespace Stripe {
              * in the card object if the card belongs to an account or recipient
              * instead.
              */
-            customer?: customers.ICustomer;
+            customer?: string | customers.ICustomer;
 
             /**
              * Only applicable on accounts (not customers or recipients). This
@@ -4058,7 +4120,7 @@ declare namespace Stripe {
             /**
              * The card number
              */
-            number: number;
+            number: string;
 
             /**
              * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
@@ -4157,7 +4219,7 @@ declare namespace Stripe {
 
         interface ISourceCreationOptions {
             /**
-             * he type of payment source. Should be "card".
+             * The type of payment source. Should be "card".
              */
             object: "card";
 
@@ -4174,7 +4236,7 @@ declare namespace Stripe {
             /**
              * The card number, as a string without any separators.
              */
-            number: number;
+            number: string;
 
             /**
              * Card security code. Required unless your account is registered in
@@ -4195,7 +4257,7 @@ declare namespace Stripe {
             address_state?: string;
             address_zip?: string;
 
-            metadata?: IMetadata;
+            metadata?: IOptionsMetadata;
         }
 
         interface ISourceCreationOptionsExtended extends ISourceCreationOptions {
@@ -4223,6 +4285,7 @@ declare namespace Stripe {
 
     namespace subscriptions {
         type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+        type SubscriptionBilling = "charge_automatically" | "send_invoice";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -4283,9 +4346,9 @@ declare namespace Stripe {
             ended_at: number;
 
             metadata: IMetadata;
-            
+
             items: IList<subscriptionItems.ISubscriptionItem>;
-            
+
             /**
              * Hash describing the plan the customer is subscribed to
              */
@@ -4328,18 +4391,18 @@ declare namespace Stripe {
             trial_start: number;
 
             /**
-             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the 
-             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an 
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
+             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an
              * invoice with payment instructions.
              */
-            billing: "charge_automatically" | "send_invoice";
+            billing: SubscriptionBilling;
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
             /**
-             * The identifier of the plan to subscribe the customer to.
+             * @deprecated Use items property instead.
              */
-            plan: string;
+            plan?: string;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -4377,19 +4440,36 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
+
+            /**
+             * Integer representing the number of trial period days before the customer is charged for the first time.
+             */
+            trial_period_days?: number;
 
             /**
              * List of subscription items, each with an attached plan.
              */
-            items?: ISubscriptionCreationItem;
+            items?: ISubscriptionCreationItem[];
 
             /**
-             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
-             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment
              * instructions. Defaults to "charge_automatically".
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
+
+            /**
+             * Number of days a customer has to pay invoices generated by this subscription. 
+             * Only valid for subscriptions where billing=send_invoice.
+             */
+            days_until_due?: number;
+
+            /**
+             * A future timestamp to anchor the subscription’s billing cycle. This is used to determine the date of the first full invoice, and, for plans
+             * with month or year intervals, the day of the month for subsequent invoices.
+             */
+            billing_cycle_anchor?: number;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -4414,7 +4494,7 @@ declare namespace Stripe {
             coupon?: string;
 
             /**
-             * The identifier of the plan to update the subscription to. If omitted, the subscription will not change plans.
+             * @deprecated Use items property instead.
              */
             plan?: string;
 
@@ -4453,14 +4533,29 @@ declare namespace Stripe {
              * will override the default trial period of the plan the customer is being subscribed to. The special value now can be provided to end the
              * customer's trial immediately.
              */
-            trial_end?: number;
+            trial_end?: number | "now";
 
             /**
-             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the 
-             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment 
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the end of the
+             * cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment
              * instructions.
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
+
+            /**
+             * Number of days a customer has to pay invoices generated by this subscription. Only valid for subscriptions where billing=send_invoice.
+             */
+            days_until_due?: number;
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            items?: ISubscriptionUpdateItem[];
+
+            /**
+             * String, unchanged (default) or now. This allows you to reset the billing cycle of a subscription.
+             */
+            billing_cycle_anchor?: "unchanged" | "now";
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -4474,7 +4569,7 @@ declare namespace Stripe {
             /**
              * The billing mode of the subscriptions to retrieve. Either "charge_automatically" or "send_invoice".
              */
-            billing?: "charge_automatically" | "send_invoice";
+            billing?: SubscriptionBilling;
 
             /**
              * The ID of the customer whose subscriptions will be retrieved
@@ -4497,7 +4592,41 @@ declare namespace Stripe {
              * Plan ID for this item.
              */
             plan: string;
-            
+
+            /**
+             * Quantity for this item.
+             */
+            quantity?: number
+        }
+
+        interface ISubscriptionUpdateItem {
+            /**
+             * SubscriptionItem to update.
+             */
+            id?: string;
+
+            /**
+             * Delete all usage for a given subscription item. Only allowed when deleted is set to true and the current plan’s
+             * usage_type is metered.
+             */
+            clear_usage?: boolean;
+
+            /**
+             * Delete the specified item if set to true.
+             */
+            deleted?: boolean;
+
+            /**
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information about
+             * the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * Plan ID for this item.
+             */
+            plan?: string;
+
             /**
              * Quantity for this item.
              */
@@ -4519,7 +4648,7 @@ declare namespace Stripe {
             created: number;
 
             /**
-             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information 
+             * Set of key/value pairs that you can attach to an object. It can be useful for storing additional information
              * about the object in a structured format.
              */
             metadata: IMetadata;
@@ -4550,6 +4679,17 @@ declare namespace Stripe {
              * The quantity you’d like to apply to the subscription item you’re creating.
              */
             quantity?: number;
+
+            /**
+             * Flag indicating whether to prorate switching plans during a billing cycle.
+             */
+            prorate?: boolean;
+
+            /**
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same
+             * proration that was previewed with the upcoming invoice endpoint.
+             */
+            proration_date?: number;
         }
 
         interface ISubscriptionItemUpdateOptions extends IDataOptionsWithMetadata {
@@ -4582,7 +4722,7 @@ declare namespace Stripe {
             prorate?: boolean;
 
             /**
-             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same 
+             * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same
              * proration that was previewed with the upcoming invoice endpoint.
              */
             proration_date?: number;
@@ -4644,9 +4784,15 @@ declare namespace Stripe {
              * This is the transaction number that appears on email receipts sent for this refund.
              */
             receipt_number: string;
+
+            /**
+             * Status of the refund. For credit card refunds, this can be succeeded or failed.
+             * For other types of refunds, it can be pending, succeeded, failed, or canceled.
+             */
+            status: "pending" | "succeeded" | "failed" | "canceled";
         }
 
-        interface IRefundCreationOptions extends IDataOptions {
+        interface IRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
              * A positive integer in cents/pence representing how much of this charge to
              * refund. Can only refund up to the unrefunded amount remaining of the
@@ -4655,14 +4801,6 @@ declare namespace Stripe {
              * default is entire charge
              */
             amount?: number;
-
-            /**
-             * A set of key/value pairs that you can attach to a refund object. It can be
-             * useful for storing additional information about the refund in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IMetadata;
 
             /**
              * String indicating the reason for the refund. If set, possible values are
@@ -4980,8 +5118,8 @@ declare namespace Stripe {
              *
              * This request only accepts metadata as an argument.
              */
-            updateRefund(feeId: string, refundId: string, data: { metadata?: IMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
-            updateRefund(feeId: string, refundId: string, data: { metadata?: IMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            updateRefund(feeId: string, refundId: string, data: { metadata?: IOptionsMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            updateRefund(feeId: string, refundId: string, data: { metadata?: IOptionsMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
 
             /**
              * You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available
@@ -5025,8 +5163,8 @@ declare namespace Stripe {
              *
              * This request only accepts metadata as an argument.
              */
-            update(refundId: string, data: { metadata?: IMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
-            update(refundId: string, data: { metadata?: IMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            update(refundId: string, data: { metadata?: IOptionsMetadata }, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            update(refundId: string, data: { metadata?: IOptionsMetadata }, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
 
             /**
              * You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available
@@ -5925,7 +6063,7 @@ declare namespace Stripe {
              */
             create(data: subscriptionItems.ISubscriptionItemCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
             create(data: subscriptionItems.ISubscriptionItemCreationOptions, response?: IResponseFn<subscriptionItems.ISubscriptionItem>): Promise<subscriptionItems.ISubscriptionItem>;
-            
+
             /**
              * Retrieves the subscription item with the given ID.
              *
@@ -5948,7 +6086,7 @@ declare namespace Stripe {
             /**
              * Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
              *
-             * @returns An subscription item object with a deleted flag upon success. Otherwise, this call throws an error, such as if the 
+             * @returns An subscription item object with a deleted flag upon success. Otherwise, this call throws an error, such as if the
              * subscription item has already been deleted.
              *
              * @param subscriptionItemId The identifier of the subscription item to delete.
@@ -6155,6 +6293,9 @@ declare namespace Stripe {
              *
              * @param id The ID of the invoice to pay.
              */
+            pay(id: string, data: invoices.IInvoicePayOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            pay(id: string, data: invoices.IInvoicePayOptions, response: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            pay(id: string, data: invoices.IInvoicePayOptions): Promise<invoices.IInvoice>;
             pay(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             pay(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
 
@@ -6520,9 +6661,9 @@ declare namespace Stripe {
              * Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer,
              * or when trying to reverse more money than is left on a transfer.
              */
-            createReverse(transferId: string, data: transferReversals.IReversalCreationOptions, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
-            createReverse(transferId: string, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
-            createReverse(transferId: string, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
+            createReversal(transferId: string, data: transferReversals.IReversalCreationOptions, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
+            createReversal(transferId: string, options: HeaderOptions, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
+            createReversal(transferId: string, response?: IResponseFn<transferReversals.IReversal>): Promise<transferReversals.IReversal>;
 
             /**
              * By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a
@@ -6790,7 +6931,17 @@ declare namespace Stripe {
      * A set of key/value pairs that you can attach to an object. It can be useful for storing
      * additional information about the object in a structured format.
      */
-    interface IMetadata { }
+    interface IOptionsMetadata {
+        [x: string]: string | number;
+    }
+
+    /**
+     * A set of key/value pairs that you can attach to an object. It can be useful for storing
+     * additional information about the object in a structured format.
+     */
+    interface IMetadata {
+        [x: string]: string;
+    }
 
     interface IShippingInformation {
         /**
@@ -6919,7 +7070,7 @@ declare namespace Stripe {
          * format. You can unset an individual key by setting its value to null and
          * then saving. To clear all keys, set metadata to null, then save.
          */
-        metadata?: IMetadata;
+        metadata?: IOptionsMetadata;
     }
 
     interface IHeaderOptions {
@@ -6937,6 +7088,18 @@ declare namespace Stripe {
         stripe_account?: string;
 
         api_key?: string;
+
+        /**
+         * Many objects contain the ID of a related object in their response properties. For example, a Charge may have an associated Customer ID.
+         * Those objects can be expanded inline with the expand request parameter. Objects that can be expanded are noted in this documentation.
+         * This parameter is available on all API requests, and applies to the response of that request only.
+         * 
+         * You can nest expand requests with the dot property. For example, requesting invoice.customer on a charge will expand the invoice property
+         * into a full Invoice object, and will then expand the customer property on that invoice into a full Customer object.
+         * 
+         * You can expand multiple objects at once by identifying multiple items in the expand array.
+         */
+        expand?: string[];
     }
 
     /**
