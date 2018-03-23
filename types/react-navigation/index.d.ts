@@ -77,7 +77,7 @@ export interface NavigationState {
 
 export type NavigationRoute = NavigationLeafRoute | NavigationStateRoute;
 
-export interface NavigationLeafRoute {
+export interface NavigationLeafRoute<P extends NavigationParams = NavigationParams> {
   /**
    * React's key used by some navigators. No need to specify these manually,
    * they will be defined by the router.
@@ -96,7 +96,7 @@ export interface NavigationLeafRoute {
    * Params passed to this route when navigating to it,
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
-  params?: NavigationParams;
+  params?: P;
 }
 
 export type NavigationStateRoute = NavigationLeafRoute & NavigationState;
@@ -175,6 +175,7 @@ export type NavigationScreenConfig<Options> =
 
 export type NavigationComponent =
   NavigationScreenComponent<any, any>
+  | NavigationStatelessScreen
   | NavigationNavigator<any, any, any, any>;
 
 export interface NavigationScreenComponent<T, Options> extends React.ComponentClass<T> {
@@ -299,7 +300,7 @@ export interface NavigationStackRouterConfig {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationStackScreenOptions>;
+  navigationOptions?: NavigationScreenConfig<AnyScreenOptions>;
 }
 
 export type NavigationStackAction =
@@ -339,7 +340,7 @@ export interface NavigationPathsConfig {
 export interface NavigationTabRouterConfig {
   initialRouteName?: string;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationTabScreenOptions>;
+  navigationOptions?: NavigationScreenConfig<AnyScreenOptions>;
   order?: string[]; // todo: type these as the real route names rather than 'string'
 
   // Does the back button cause the router to switch to the initial tab
@@ -433,7 +434,8 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
     params?: P,
     action?: NavigationAction,
   ): boolean;
-  setParams: (newParams: NavigationParams) => boolean;
+  getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
+  setParams: (newParams: P) => boolean;
   addListener: (
     eventName: string,
     callback: NavigationEventCallback
@@ -853,11 +855,24 @@ export function createNavigationContainer(
  * BEGIN CUSTOM CONVENIENCE INTERFACES
  */
 
-export interface NavigationScreenProps {
-  navigation: NavigationScreenProp<NavigationRoute>;
+export interface NavigationScreenProps<P extends NavigationParams = NavigationParams> {
+  navigation: NavigationScreenProp<NavigationRoute, P>;
   screenProps?: { [key: string]: any };
-  navigationOptions?: NavigationScreenConfig<any>;
+  navigationOptions?: NavigationScreenConfig<AnyScreenOptions>;
 }
+
+export type AnyScreenOptions =
+  NavigationDrawerScreenOptions &
+  NavigationStackScreenOptions &
+  NavigationTabScreenOptions;
+
+export interface NavigationScreenStatic<Options = AnyScreenOptions> {
+  navigationOptions?: NavigationScreenConfig<Options>;
+}
+
+export type NavigationStatelessScreen<Props = {}, Params = {}, NavOptions = AnyScreenOptions> =
+  React.StatelessComponent<Props & NavigationScreenProps<Params>> &
+  NavigationScreenStatic<NavOptions>;
 
 /**
  * END CUSTOM CONVENIENCE INTERFACES
