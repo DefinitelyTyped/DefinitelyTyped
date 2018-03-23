@@ -5,15 +5,20 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "select2": [
+                "select2/v3"
+            ]
+        },        
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
