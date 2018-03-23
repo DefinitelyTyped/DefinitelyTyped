@@ -5366,6 +5366,25 @@ declare namespace Highcharts {
          * The name of the series as shown in the legend, tooltip etc.
          */
         name?: string;
+		/**
+         * Possible values: null, 'on', 'between'.
+         *
+         * In a column chart, when pointPlacement is 'on', the point will not create any padding of the X axis. In a polar
+         * column chart this means that the first column points directly north. If the pointPlacement is 'between', the
+         * columns will be laid out between ticks. This is useful for example for visualising an amount between two points
+         * in time or in a certain sector of a polar chart.
+         *
+         * Since Highcharts 3.0.2, the point placement can also be numeric, where 0 is on the axis value, -0.5 is between
+         * this value and the previous, and 0.5 is between this value and the next. Unlike the textual options, numeric
+         * point placement options won't affect axis padding.
+         *
+         * Note that pointPlacement needs a pointRange to work. For column series this is computed, but for line-type series
+         * it needs to be set.
+         *
+         * Defaults to null in cartesian charts, 'between' in polar charts.
+         * @since 2.3.0
+         */
+        pointPlacement?: string | number | null;
         /**
          * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
          * the pointPadding and groupPadding.
