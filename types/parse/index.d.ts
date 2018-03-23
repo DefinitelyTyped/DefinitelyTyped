@@ -1,5 +1,5 @@
-// Type definitions for parse 2.4
-// Project: https://parse.com/
+// Type definitions for parse 1.11.1
+// Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
 //                  Cedric Kemp <https://github.com/jaeggerr>
