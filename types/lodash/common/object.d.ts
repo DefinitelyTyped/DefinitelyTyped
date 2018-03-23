@@ -2278,20 +2278,15 @@ declare module "../index" {
 
         /**
          * @see _.mapValues
-         */
-        mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(obj: T | null | undefined, iteratee: object): { [P in keyof T]: boolean };
-
-        /**
-         * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: ObjectIterator<Dictionary<T>, TResult>): Dictionary<TResult>;
+        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
 
         /**
          * @see _.mapValues
@@ -2299,6 +2294,11 @@ declare module "../index" {
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
         mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(obj: T | null | undefined, iteratee: object): { [P in keyof T]: boolean };
 
         /**
          * @see _.mapValues
@@ -2358,7 +2358,7 @@ declare module "../index" {
          */
         mapValues<T, TResult>(
             this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            callback: ObjectIterator<Dictionary<T>, TResult>
+            callback: DictionaryIterator<T, TResult>
         ): LoDashImplicitWrapper<Dictionary<TResult>>;
 
         /**
@@ -2454,7 +2454,7 @@ declare module "../index" {
          */
         mapValues<T, TResult>(
             this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            callback: ObjectIterator<Dictionary<T>, TResult>
+            callback: DictionaryIterator<T, TResult>
         ): LoDashExplicitWrapper<Dictionary<TResult>>;
 
         /**
@@ -2680,6 +2680,10 @@ declare module "../index" {
          * @see _.merge
          */
         merge<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4
         ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
 
         /**
@@ -2692,7 +2696,7 @@ declare module "../index" {
 
     // mergeWith
 
-    type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"]
+    type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"];
 
     interface LoDashStatic {
         /**
@@ -2821,6 +2825,53 @@ declare module "../index" {
         mergeWith(
             ...otherArgs: any[]
         ): LoDashImplicitWrapper<any>;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.mergeWith
+         */
+        mergeWith<TSource>(
+            source: TSource,
+            customizer: MergeWithCustomizer
+        ): LoDashExplicitWrapper<TValue & TSource>;
+
+        /**
+         * @see _.mergeWith
+         */
+        mergeWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: MergeWithCustomizer
+        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
+
+        /**
+         * @see _.mergeWith
+         */
+        mergeWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: MergeWithCustomizer
+        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
+
+        /**
+         * @see _.mergeWith
+         */
+        mergeWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: MergeWithCustomizer
+        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+
+        /**
+         * @see _.mergeWith
+         */
+        mergeWith(
+            ...otherArgs: any[]
+        ): LoDashExplicitWrapper<any>;
     }
 
     // omit

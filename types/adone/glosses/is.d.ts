@@ -676,5 +676,9 @@ declare namespace adone {
         export function emitter(obj: any): obj is event.Emitter;
 
         export function asyncEmitter(obj: any): obj is event.AsyncEmitter;
+
+        export const openbsd: boolean;
+
+        export const aix: boolean;
     }
 }

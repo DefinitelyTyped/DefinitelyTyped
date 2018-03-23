@@ -11,6 +11,8 @@
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
 //                 Ahn <https://github.com/AhnpGit>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -201,6 +203,10 @@ declare namespace jest {
 
     type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
 
+    interface FunctionLike {
+        readonly name: string;
+    }
+
     /**
      * Creates a test closure
      */
@@ -222,7 +228,8 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: string, fn: EmptyFunction): void;
+        // tslint:disable-next-line ban-types
+        (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
@@ -230,8 +237,8 @@ declare namespace jest {
     interface MatcherUtils {
         readonly isNot: boolean;
         utils: {
-            readonly EXPECTED_COLOR: string;
-            readonly RECEIVED_COLOR: string;
+            readonly EXPECTED_COLOR: (text: string) => string;
+            readonly RECEIVED_COLOR: (text: string) => string;
             ensureActualIsNumber(actual: any, matcherName?: string): void;
             ensureExpectedIsNumber(actual: any, matcherName?: string): void;
             ensureNoExpected(actual: any, matcherName?: string): void;

@@ -165,6 +165,11 @@ export interface IPOptions {
     cidr?: string
 }
 
+export interface StringRegexOptions {
+    name?: string;
+    invert?: boolean;
+}
+
 export interface JoiObject {
     isJoi: boolean;
 }
@@ -552,9 +557,13 @@ export interface StringSchema extends AnySchema {
     /**
      * Defines a regular expression rule.
      * @param pattern - a regular expression object the string value must match against.
-     * @param name - optional name for patterns (useful with multiple patterns). Defaults to 'required'.
+     * @param options - optional, can be:
+     *   Name for patterns (useful with multiple patterns). Defaults to 'required'.
+     *   An optional configuration object with the following supported properties:
+     *     name - optional pattern name.
+     *     invert - optional boolean flag. Defaults to false behavior. If specified as true, the provided pattern will be disallowed instead of required.
      */
-    regex(pattern: RegExp, name?: string): this;
+    regex(pattern: RegExp, options?: string | StringRegexOptions): this;
 
     /**
      * Replace characters matching the given pattern with the specified replacement string where:
