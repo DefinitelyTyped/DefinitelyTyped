@@ -4,6 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+interface Result {
+    config: object;
+    filePath: string;
+}
+
 interface Options {
     packageProp?: string | false;
     rc?: string | false;
@@ -12,27 +17,47 @@ interface Options {
     rcExtensions?: boolean;
     stopDir?: string;
     cache?: boolean;
-    sync?: boolean;
     transform?: (result: Result) => Promise<Result> | Result;
     configPath?: string;
     format?: "json" | "yaml" | "js";
 }
 
-interface Result {
-    config: object;
-    filePath: string;
+// Default is false and makes load() method async
+interface AsyncOptions extends Options {
+    sync?: false;
+}
+
+// Makes load() method sync
+interface SyncOptions extends Options {
+    sync: true;
 }
 
 interface Explorer {
-    // You should provide either searchPath or configPath for load method. To disallow both, overloaded definitions added.
-    load(searchPath?: string): Promise<Result>;
-    load(searchPath: null | undefined, configPath?: string): Promise<Result>;
-
     clearFileCache(): void;
     clearDirectoryCache(): void;
     clearCaches(): void;
 }
 
-declare function cosmiconfig(moduleName: string, options?: Options): Explorer;
+interface AsyncExplorer extends Explorer {
+    // You should provide either searchPath or configPath for load method. To disallow both, overloaded definitions added.
+    load(searchPath?: string): Promise<Result>;
+    load(searchPath: null | undefined, configPath?: string): Promise<Result>;
+}
+
+interface SyncExplorer extends Explorer {
+    // You should provide either searchPath or configPath for load method. To disallow both, overloaded definitions added.
+    load(searchPath?: string): Result;
+    load(searchPath: null | undefined, configPath?: string): Result;
+}
+
+declare function cosmiconfig(
+    moduleName: string,
+    options: SyncOptions
+): SyncExplorer;
+
+declare function cosmiconfig(
+    moduleName: string,
+    options?: AsyncOptions
+): AsyncExplorer;
 
 export = cosmiconfig;
