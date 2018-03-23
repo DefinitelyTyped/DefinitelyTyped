@@ -129,7 +129,7 @@ export type GridCellRangeProps = {
     scrollTop: number,
     deferredMeasurementCache: CellMeasurerCache,
     horizontalOffsetAdjustment: number,
-    parent: Grid | List | Table,
+    parent: typeof Grid | typeof List | typeof Table,
     styleCache: Map<React.CSSProperties>,
     verticalOffsetAdjustment: number,
     visibleColumnIndices: VisibleCellRange,

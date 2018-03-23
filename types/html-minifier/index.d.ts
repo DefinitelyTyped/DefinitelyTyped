@@ -3,6 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Riku <https://github.com/rikuayanokozy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as UglifyJS from 'uglify-js';
 import * as CleanCSS from 'clean-css';
