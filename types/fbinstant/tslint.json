@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Needs to be declares as it cannot be imported in typescript
+        // using the standard import statement
+        "strict-export-declare-modifiers": false
+    }
+}
