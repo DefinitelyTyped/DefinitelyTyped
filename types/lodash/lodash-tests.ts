@@ -5774,24 +5774,6 @@ fp.now(); // $ExpectType number
     fp.mapValues(valueIterator)(numericDictionary); // $ExpectType Dictionary<string>
     fp.mapValues({ a: 42 })(numericDictionary); // $ExpectType Dictionary<boolean>
     fp.mapValues(value => "", abcObjectOrNull); // $ExpectType { a: string; b: string; c: string; }
-
-    {
-        type Value = {
-            a: number
-            b: number
-            c: number
-        }
-
-        function mapNumber(x: number) {
-            return x
-        }
-
-        function expectValue(arg: Value) {
-            return arg
-        }
-
-        expectValue(_.mapValues({a: 1, b: 1, c: 1}, mapNumber))
-    }
 }
 
 // _.omit
