@@ -1,7 +1,6 @@
 export * from "./ast";
 export { getLocation } from "./location";
-import * as Kind from "./kinds";
-export { Kind };
+export { Kind, KindEnum } from "./kinds";
 export { createLexer, TokenKind, Lexer } from "./lexer";
 export { parse, parseValue, parseType, ParseOptions } from "./parser";
 export { print } from "./printer";
