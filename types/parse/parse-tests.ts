@@ -514,6 +514,15 @@ function test_promise() {
         // failed
     });
 
+    // Test promise with a query
+    const query = new Parse.Query('Test');
+    query.find()
+    .then(() => {
+        // success
+    }).catch(() => {
+        // error
+    });
+
     // can check whether an object is a Parse.Promise object or not
     Parse.Promise.is(resolved);
 }
