@@ -5,6 +5,8 @@ import {
     ViewStyle,
 } from 'react-native';
 import {
+    DrawerNavigator,
+    DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
     NavigationBackAction,
@@ -22,6 +24,8 @@ import {
     NavigationTransitionProps,
     StackNavigator,
     StackNavigatorConfig,
+    SwitchNavigator,
+    SwitchNavigatorConfig,
     TabBarTop,
     TabNavigator,
     TabNavigatorConfig,
@@ -29,6 +33,9 @@ import {
     addNavigationHelpers,
     HeaderBackButton,
     Header,
+    NavigationParams,
+    NavigationPopAction,
+    NavigationPopToTopAction,
 } from 'react-navigation';
 
 // Constants
@@ -40,48 +47,49 @@ const viewStyle: ViewStyle = {
 };
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
-interface StartScreenNavigationParams {
-    id: number;
-    s: string;
-}
 
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
+class StartScreen extends React.Component<NavigationScreenProps> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: StartScreenNavigationParams = this.props.navigation.state.params;
-        const id = this.props.navigation.state.params.id;
-        const s = this.props.navigation.state.params.s;
+        const navigationStateParams = this.props.navigation.state.params;
+        const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
+        const s = this.props.navigation.state.params && this.props.navigation.state.params.s;
 
         return (
             <View>
                 <TouchableOpacity onPress={this.navigateToNextScreen} />
+                <TouchableOpacity onPress={this.navigateDifferentlyToNextScreen} />
             </View>
         );
     }
     private readonly navigateToNextScreen = (): void => {
-        const params: NextScreenNavigationParams = {
-            id: this.props.navigation.state.params.id,
-            name: this.props.navigation.state.params.s,
+        const params = {
+            id: this.props.navigation.state.params && this.props.navigation.state.params.id,
+            name: this.props.navigation.state.params && this.props.navigation.state.params.s,
         };
         this.props.navigation.navigate(ROUTE_NAME_NEXT_SCREEN, params);
+    }
+    private readonly navigateDifferentlyToNextScreen = (): void => {
+        const params = {
+            id: this.props.navigation.state.params && this.props.navigation.state.params.id,
+            name: this.props.navigation.state.params && this.props.navigation.state.params.s,
+        };
+        this.props.navigation.navigate({routeName: ROUTE_NAME_NEXT_SCREEN, params});
     }
 }
 
 const ROUTE_NAME_NEXT_SCREEN = "NextScreen";
-interface NextScreenNavigationParams {
-    id: number;
-    name: string;
-}
-class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
+
+class NextScreen extends React.Component<NavigationScreenProps> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: NextScreenNavigationParams = this.props.navigation.state.params;
-        const id = this.props.navigation.state.params.id;
-        const name = this.props.navigation.state.params.name;
+        const navigationStateParams = this.props.navigation.state.params;
+        const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
+        const name = this.props.navigation.state.params && this.props.navigation.state.params.name;
 
         return (
             <View />
@@ -92,7 +100,7 @@ class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigat
 const navigationOptions = {
     headerBackTitle: null,
 };
-const initialRouteParams: StartScreenNavigationParams = {
+const initialRouteParams: NavigationParams = {
     id: 1,
     s: "Start",
 };
@@ -138,6 +146,7 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
     tabBarVisible: true,
     tabBarIcon: <View />,
     tabBarLabel: 'label',
+    tabBarOnPress: ({scene, jumpToIndex}) => {}
 };
 
 const tabNavigatorConfig: TabNavigatorConfig = {
@@ -149,6 +158,15 @@ const tabNavigatorConfig: TabNavigatorConfig = {
 const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
   ...tabNavigatorConfig,
   initialLayout: { height: 0, width: 100 },
+};
+
+const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
+    ...tabNavigatorConfig,
+    navigationOptions: {
+        tabBarOnPress: ({scene, jumpToIndex}) => {
+            jumpToIndex(scene.index);
+        }
+    },
 };
 
 const BasicTabNavigator = TabNavigator(
@@ -193,8 +211,82 @@ function renderBasicStackNavigator(): JSX.Element {
     );
 }
 
+const stackNavigatorConfigWithNavigationOptionsAsFunction: StackNavigatorConfig = {
+    mode: "card",
+    headerMode: "screen",
+    navigationOptions: ({navigationOptions, navigation, screenProps}) => (stackNavigatorScreenOptions),
+};
+
+const AdvancedStackNavigator = StackNavigator(
+    routeConfigMap,
+    stackNavigatorConfigWithNavigationOptionsAsFunction
+);
+
+function renderAdvancedStackNavigator(): JSX.Element {
+    return (
+        <AdvancedStackNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
+/**
+ * Switch navigator.
+ */
+
+const switchNavigatorConfig: SwitchNavigatorConfig = {
+    initialRouteName: 'screen',
+    resetOnBlur: false,
+    backBehavior: 'none'
+};
+
+const BasicSwitchNavigator = SwitchNavigator(
+    routeConfigMap,
+    switchNavigatorConfig,
+);
+
+function renderBasicSwitchNavigator(): JSX.Element {
+    return (
+        <BasicSwitchNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
+/**
+ * Drawer navigator.
+ */
+
+const drawerNavigatorScreenOptions: NavigationTabScreenOptions = {
+    title: 'title',
+};
+
+const drawerNavigatorConfig: DrawerNavigatorConfig = {
+    drawerBackgroundColor: '#777777',
+    contentOptions: {
+        activeTintColor: '#7A9B49',
+        inactiveTintColor: '#FFFFFF',
+    },
+};
+
+const BasicDrawerNavigator = DrawerNavigator(
+    routeConfigMap,
+    stackNavigatorConfig,
+);
+
+function renderBasicDrawerNavigator(): JSX.Element {
+    return (
+        <BasicDrawerNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
 interface CustomTransitionerProps {
-    navigation: NavigationScreenProp<any, NavigationAction>;
+    navigation: NavigationScreenProp<any, any>;
 }
 /**
  * @desc Custom transitioner component. Follows react-navigation/src/views/CardStackTransitioner.js.
@@ -280,4 +372,14 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
     params: {
         foo: "bar"
     }
+});
+
+const popAction: NavigationPopAction = NavigationActions.pop({
+    n: 1,
+    immediate: true
+});
+
+const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
+    key: "foo",
+    immediate: true
 });

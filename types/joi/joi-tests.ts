@@ -135,6 +135,13 @@ refOpts = { contextPrefix: str };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+let stringRegexOpts: Joi.StringRegexOptions = null;
+
+stringRegexOpts = { name: str };
+stringRegexOpts = { invert: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 let validErr: Joi.ValidationError = null;
 let validErrItem: Joi.ValidationErrorItem;
 let validErrFunc: Joi.ValidationErrorFunction;
@@ -764,6 +771,7 @@ strSchema = strSchema.length(ref);
 strSchema = strSchema.length(ref, str);
 strSchema = strSchema.regex(exp);
 strSchema = strSchema.regex(exp, str);
+strSchema = strSchema.regex(exp, stringRegexOpts);
 strSchema = strSchema.replace(exp, str);
 strSchema = strSchema.replace(str, str);
 strSchema = strSchema.alphanum();

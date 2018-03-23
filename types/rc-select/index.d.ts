@@ -2,7 +2,7 @@
 // Project: https://github.com/react-component/select
 // Definitions by: Denis Tirilis <https://github.com/DenisTirilis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 

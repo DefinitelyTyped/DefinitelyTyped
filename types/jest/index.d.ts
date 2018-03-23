@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.0
+// Type definitions for Jest 22.2
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -10,6 +10,9 @@
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
+//                 Ahn <https://github.com/AhnpGit>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -55,7 +58,8 @@ declare namespace jest {
      */
     function autoMockOn(): typeof jest;
     /**
-     * @deprecated use resetAllMocks instead
+     * Clears the mock.calls and mock.instances properties of all mocks.
+     * Equivalent to calling .mockClear() on every mocked function.
      */
     function clearAllMocks(): typeof jest;
     /**
@@ -169,7 +173,7 @@ declare namespace jest {
     /**
      * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M): SpyInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -199,6 +203,10 @@ declare namespace jest {
 
     type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
 
+    interface FunctionLike {
+        readonly name: string;
+    }
+
     /**
      * Creates a test closure
      */
@@ -220,7 +228,8 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: string, fn: EmptyFunction): void;
+        // tslint:disable-next-line ban-types
+        (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
@@ -228,8 +237,8 @@ declare namespace jest {
     interface MatcherUtils {
         readonly isNot: boolean;
         utils: {
-            readonly EXPECTED_COLOR: string;
-            readonly RECEIVED_COLOR: string;
+            readonly EXPECTED_COLOR: (text: string) => string;
+            readonly RECEIVED_COLOR: (text: string) => string;
             ensureActualIsNumber(actual: any, matcherName?: string): void;
             ensureExpectedIsNumber(actual: any, matcherName?: string): void;
             ensureNoExpected(actual: any, matcherName?: string): void;
@@ -469,7 +478,7 @@ declare namespace jest {
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
-        toHaveProperty(propertyPath: string, value?: any): R;
+        toHaveProperty(propertyPath: string | any[], value?: any): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -525,16 +534,20 @@ declare namespace jest {
     } & T;
 
     interface MockInstance<T> {
+        getMockName(): string;
         mock: MockContext<T>;
         mockClear(): void;
         mockReset(): void;
         mockImplementation(fn: (...args: any[]) => any): Mock<T>;
         mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        mockName(name: string): Mock<T>;
         mockReturnThis(): Mock<T>;
         mockReturnValue(value: any): Mock<T>;
         mockReturnValueOnce(value: any): Mock<T>;
-        mockName(name: string): Mock<T>;
-        getMockName(): string;
+        mockResolvedValue(value: any): Mock<T>;
+        mockResolvedValueOnce(value: any): Mock<T>;
+        mockRejectedValue(value: any): Mock<T>;
+        mockRejectedValueOnce(value: any): Mock<T>;
     }
 
     interface MockContext<T> {

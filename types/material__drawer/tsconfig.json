@@ -1,0 +1,35 @@
+{
+    "files": [
+        "persistent/constants.d.ts",
+        "persistent/index.d.ts",
+        "persistent/foundation.d.ts",
+        "slidable/constants.d.ts",
+        "slidable/adapter.d.ts",
+        "slidable/index.d.ts",
+        "slidable/foundation.d.ts",
+        "temporary/constants.d.ts",
+        "temporary/index.d.ts",
+        "temporary/foundation.d.ts",
+        "util.d.ts",
+        "index.d.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

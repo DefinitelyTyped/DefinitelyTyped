@@ -1,4 +1,4 @@
-import * as browserSync from "browser-sync";
+import browserSync = require("browser-sync");
 
 (() => {
     //make sure that the interfaces are correctly exposed

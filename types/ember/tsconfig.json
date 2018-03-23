@@ -11,7 +11,9 @@
         "strictNullChecks": true,
         "strictFunctionTypes": false,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -44,6 +46,7 @@
         "test/run.ts",
         "test/test.ts",
         "test/controller.ts",
-        "test/route.ts"
+        "test/route.ts",
+        "test/view-utils.ts"
     ]
 }

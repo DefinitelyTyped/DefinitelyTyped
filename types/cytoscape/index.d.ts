@@ -3,6 +3,7 @@
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
+//                  Jan-Niclas Struewer <https://github.com/janniclas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -426,7 +427,7 @@ declare namespace cytoscape {
         /**
          * Get elements in the graph matching the specified selector or filter function.
          */
-        filter(selector: Selector | ((i: number, ele: Singular) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
 
         /**
          * Allow for manipulation of elements without triggering multiple style calculations or multiple redraws.
@@ -900,7 +901,7 @@ declare namespace cytoscape {
         /** complete - A function to call when the animation is done. */
         complete?(): void;
         /** step - A function to call each time the animation steps. */
-        step(): void;
+        step?(): void;
     }
     interface AnimationOptions extends AnimateOptionsCommon {
         /** queue - A transition-timing-function easing style string that shapes the animation progress curve. */
@@ -2230,7 +2231,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((i: number, ele: CollectionElements) => boolean)): CollectionElements;
+        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionElements) => boolean)): CollectionElements;
         /**
          * Get the nodes that match the specified selector.
          *

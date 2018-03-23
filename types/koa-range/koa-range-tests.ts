@@ -1,5 +1,5 @@
-import * as range from "koa-range";
-import * as Koa from "koa";
+import range = require("koa-range");
+import Koa = require("koa");
 
 const app = new Koa();
 app.use(range);
