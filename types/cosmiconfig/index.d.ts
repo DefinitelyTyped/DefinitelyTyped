@@ -1,9 +1,10 @@
-// Type definitions for cosmiconfig 4.0.0
+// Type definitions for cosmiconfig 4.0
 // Project: https://github.com/davidtheclark/cosmiconfig
 // Definitions by: ozum <https://github.com/ozum>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-type Options = {
+interface Options {
     packageProp?: string | false;
     rc?: string | false;
     js?: string | false;
@@ -15,16 +16,17 @@ type Options = {
     transform?: (result: Result) => Promise<Result> | Result;
     configPath?: string;
     format?: "json" | "yaml" | "js";
-};
+}
 
-type Result = {
-    config: Object;
+interface Result {
+    config: object;
     filePath: string;
-};
+}
 
-declare interface Explorer {
+interface Explorer {
+    // You should provide either searchPath or configPath for load method. To disallow both, overloaded definitions added.
     load(searchPath?: string): Promise<Result>;
-    load(searchPath?: null | undefined, configPath?: string): Promise<Result>;
+    load(searchPath: null | undefined, configPath?: string): Promise<Result>;
 
     clearFileCache(): void;
     clearDirectoryCache(): void;
