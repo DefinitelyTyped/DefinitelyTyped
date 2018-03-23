@@ -5,4 +5,4 @@ const file = store.get('hello');
 
 store.add(file, 'hahahahah');
 
-store.each((file, index) => console.log(index, file.path));
+store.each(file => console.dir(store.get(file.path)));
