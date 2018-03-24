@@ -1,4 +1,4 @@
-import isEmpty from 'is-empty';
+import isEmpty = require('is-empty');
 
 isEmpty({});
 isEmpty(null);
