@@ -1,4 +1,4 @@
-// Type definitions for glue
+// Type definitions for glue 5.0
 // Project: https://github.com/hapijs/glue
 // Definitions by: Gareth Parker <https://github.com/garfty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,20 +12,20 @@ import { Server, ServerOptions } from "hapi";
 
 export interface Options {
   relativeTo: string;
-  preConnections?: (Server: Server, next:( err: any ) => void ) => void;
-  preRegister?: (Server: Server, next:( err: any ) => void ) => void;
+  preConnections?: (Server: Server, next: (err: any) => void) => void;
+  preRegister?: (Server: Server, next: (err: any) => void) => void;
 }
 
-interface Plugin {
+export interface Plugin {
   plugin: string | {
       register: string;
       options?: any;
   };
   options?: any;
-  routes?: any
+  routes?: any;
 }
 
-interface Manifest {
+export interface Manifest {
   server: ServerOptions;
   register?: {
     plugins: Plugin[]
