@@ -4,18 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+/// <reference types="hapi" />
+
 import { Server, ServerOptions } from "hapi";
+
+// import hapi = require('hapi');
 
 export interface Options {
   relativeTo: string;
-  preConnections?: (Server:Server, next:(err:any)=>void ) => void;
-  preRegister?: (Server:Server, next:(err:any)=>void ) => void;
+  preConnections?: (Server: Server, next:( err: any ) => void ) => void;
+  preRegister?: (Server: Server, next:( err: any ) => void ) => void;
 }
 
 interface Plugin {
   plugin: string | {
-      register:string;
-      options?:any;
+      register: string;
+      options?: any;
   };
   options?: any;
   routes?: any
@@ -24,9 +28,8 @@ interface Plugin {
 interface Manifest {
   server: ServerOptions;
   register?: {
-    plugins: Array<Plugin>
-  }
+    plugins: Plugin[]
+  };
 }
 
 export function compose(manifest: Manifest, options?: Options): Server;
-
