@@ -21,7 +21,7 @@ export function notFound(): express.RequestHandler;
 
 export function rest(): (handler?: express.RequestHandler) => void;
 export namespace rest {
-    export let formatter: express.RequestHandler;
+    let formatter: express.RequestHandler;
 }
 
 /*
