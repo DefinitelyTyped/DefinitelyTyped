@@ -4,11 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference types="hapi" />
-
 import { Server, ServerOptions } from "hapi";
-
-// import hapi = require('hapi');
 
 export interface Options {
   relativeTo: string;
