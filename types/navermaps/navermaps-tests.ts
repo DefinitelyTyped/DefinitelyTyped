@@ -1,13 +1,12 @@
-var map = new naver.maps.Map('map');
+let map = new naver.maps.Map('map');
 map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
 
-
-var jeju = new naver.maps.LatLng(33.3590628, 126.534361);
+const jeju = new naver.maps.LatLng(33.3590628, 126.534361);
 
 map.setCenter(jeju); // 중심 좌표 이동
 map.setZoom(13);     // 줌 레벨 변경
 
-var seoul = new naver.maps.LatLngBounds(
+const seoul = new naver.maps.LatLngBounds(
     new naver.maps.LatLng(37.42829747263545, 126.76620435615891),
     new naver.maps.LatLng(37.7010174173061, 127.18379493229875));
 
@@ -15,13 +14,13 @@ map.fitBounds(seoul); // 좌표 경계 이동
 
 map.panBy(new naver.maps.Point(10, 10)); // 우측 하단으로 10 픽셀 이동
 
-var map = new naver.maps.Map('map', {
+map = new naver.maps.Map('map', {
     mapTypeId: naver.maps.MapTypeId.HYBRID
 });
 
-var registry = new naver.maps.MapTypeRegistry();
+const registry = new naver.maps.MapTypeRegistry();
 
-var map = new naver.maps.Map('map', {
+map = new naver.maps.Map('map', {
     mapTypes: registry,
     mapTypeId: naver.maps.MapTypeId.SATELLITE
 });
@@ -31,118 +30,122 @@ map.mapTypes.set(naver.maps.MapTypeId.HYBRID, naver.maps.NaverMapTypeOption.getH
 
 map.setMapTypeId(naver.maps.MapTypeId.NORMAL); // error thrown
 
-var MyMapType = {
-    name: "Alphabet",
+const GTA5MapTypeOption1 = {
     minZoom: 0,
     maxZoom: 22,
     projection: naver.maps.EPSG3857,
-    tileSize: new naver.maps.Size(50, 50),
-    getTile: function(x, y, z) {
-        var w = this.tileSize.width,
-            h = this.tileSize.height;
-
-        var ascii = parseInt(Math.abs(x + y) % 26, 10) + 65;
-        alphabet = String.fromCharCode(ascii);
-        var tile = document.createElement('div');
-
-        tile.style.width = w +'px';
-        tile.style.height = w +'px';
-
-        return tile;
-    }
-};
-
-var map = new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(37.3595704, 127.105399),
-    zoom: 10,
-    mapTypeId: 'mine',
-    mapTypes: new naver.maps.MapTypeRegistry({
-        'mine': MyMapType
-    }),
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-        style: naver.maps.MapTypeControlStyle.DROPDOWN
-    }
-});
-
-var GTA5MapTypeOption = function(name, type) {
-    this.name = name;
-    this.type = type;
-};
-GTA5MapTypeOption.prototype = {
-    constructor: GTA5MapTypeOption,
-
-    name: '',
-    type: '',
-    projection: naver.maps.EPSG3857,
-    minZoom: 1,
-    maxZoom: 6,
+    name: '세계 지도',
     tileSize: new naver.maps.Size(256, 256),
-    TRANSPARENT_URL: 'http://static.naver.net/maps/dot.gif',
-    tileRanges: [1, 2, 4, 8, 16, 32],
-
-    getName: function() {
-        return this.name;
-    },
-
-    getTileUrl: function(x, y, z) {
-        var tileRange = this.tileRanges[z - 1];
-
-        if ((x >=0 && x < tileRange) && (y >=0 && y < tileRange)) {
-            return "http://gta-5-map.com/" +this.type+'/'+z+'-'+x+'_'+y+".png";
-        } else {
-            return this.TRANSPARENT_URL;
-        }
-    },
-
-    onerror: function(tileImg) {
-        tileImg.src = this.TRANSPARENT_URL;
-    }
+    repeatX: true,
+    vendor: 'MyCorp.',
+    provider: [{
+        title: "내 지도 ver 1.0"
+    }, {
+        title: "OpenStreetMap",
+        link: "http://www.openstreetmap.org/copyright"
+    }, {
+        title: "/인천광역시",
+        bounds: new naver.maps.LatLngBounds(
+            new naver.maps.LatLng(36.915887, 125.690716),
+            new naver.maps.LatLng(37.687529, 126.853252))
+    }],
+    tileSet: [
+        "http://mymap1.com/tiles/world/{z}/{x}/{y}.png",
+        "http://mymap2.com/tiles/world/{z}/{x}/{y}.png",
+        "http://mymap3.com/tiles/world/{z}/{x}/{y}.png",
+        "http://mymap4.com/tiles/world/{z}/{x}/{y}.png"
+    ]
 };
 
-var map = new naver.maps.Map('map', {
+map = new naver.maps.Map('map', {
     center: new naver.maps.LatLng(74.92514151088395, -127.880859375),
     zoom: 2,
     mapTypes: new naver.maps.MapTypeRegistry({
-        "Atlas": new naver.maps.ImageMapType(new GTA5MapTypeOption("Atlas", "Tiles_ATLAS")),
-        "Satellite": new naver.maps.ImageMapType(new GTA5MapTypeOption("Satellite", "Tiles_SAT")),
+        Atlas: new naver.maps.ImageMapType(GTA5MapTypeOption1)
     })
 });
 
 map.setMapTypeId("Atlas");
 
-var MyMapType = {
-    name: "Alphabet",
-    minZoom: 0,
-    maxZoom: 22,
-    tileSize: new naver.maps.Size(50, 50),
-    getTileData: function(x, y, z) {
-        var w = this.tileSize.width,
-            h = this.tileSize.height,
-            canvas = document.createElement("canvas"),
-            ctx = canvas.getContext("2d");
+const map2 = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 10
+});
 
-        var ascii = parseInt(Math.abs(x + y) % 26, 10) + 65;
-        alphabet = String.fromCharCode(ascii);
+const marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    map: map2
+});
 
-        canvas.width = w;
-        canvas.height = h;
+const HOME_PATH = '';
 
-        ctx.globalAlpha = 1 - ((ascii - 65) * 0.04);
+const cityhall = new naver.maps.LatLng(37.5666805, 126.9784147);
+const map3 = new naver.maps.Map('map', {
+    center: cityhall.destinationPoint(0, 500),
+    zoom: 10
+});
+const marker2 = new naver.maps.Marker({
+    map: map3,
+    position: cityhall
+});
 
-        ctx.rect(0, 0, w, h);
-        ctx.fillStyle = "#000";
-        ctx.fill();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "#aaa";
-        ctx.stroke();
+const contentString = [
+  `<div class="iw_inner">
+   <h3>서울특별시청</h3>
+   <p>서울특별시 중구 태평로1가 31 | 서울특별시 중구 세종대로 110 서울특별시청<br />
+       <img src="${HOME_PATH}/img/example/hi-seoul.jpg" width="55" height="55" alt="서울시청" class="thumb" /><br />
+       02-120 | 공공,사회기관 &gt; 특별,광역시청<br />
+       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>
+   </p>
+</div>`
+    ].join('');
 
-        ctx.font = "bold " + (Math.min(w, h) - 10) + "px Arial";
-        ctx.textBaseline = "middle";
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#fff";
-        ctx.fillText(alphabet, w / 2, h / 2);
+const infowindow = new naver.maps.InfoWindow({
+    content: contentString
+});
 
-        return ctx.getImageData(0, 0, w, h);
+naver.maps.Event.addListener(marker2, "click", () => {
+    if (infowindow.getMap()) {
+        infowindow.close();
+    } else {
+        infowindow.open(map3, marker2);
     }
-};
+});
+
+infowindow.open(map3, marker2);
+
+const GREEN_FACTORY = new naver.maps.LatLng(37.3595953, 127.1053971);
+
+const map4 = new naver.maps.Map('map', {
+    center: GREEN_FACTORY,
+    zoom: 3
+});
+
+const rectangle = new naver.maps.Rectangle({
+    map: map4,
+    bounds: new naver.maps.LatLngBounds(
+        new naver.maps.LatLng(37.1793196, 125.8795594),
+        new naver.maps.LatLng(37.5398662, 126.3312422)
+    )
+});
+
+const circle = new naver.maps.Circle({
+    map: map4,
+    center: GREEN_FACTORY,
+    radius: 20000,
+    fillColor: 'crimson',
+    fillOpacity: 0.8
+});
+
+const ellipse = new naver.maps.Ellipse({
+    map: map4,
+    bounds: new naver.maps.LatLngBounds(
+        new naver.maps.LatLng(37.1793196, 127.6795594),
+        new naver.maps.LatLng(37.5398662, 128.4312422)
+    ),
+    strokeColor: 'yellowgreen',
+    strokeOpacity: 1,
+    strokeWeight: 3,
+    fillColor: 'yellowgreen',
+    fillOpacity: 0.3
+});
