@@ -70,7 +70,7 @@ export interface Axis<Domain> {
     /**
      * Gets the current scale underlying the axis.
      */
-    scale(): AxisScale<Domain>;
+    scale<A extends AxisScale<Domain>>(): A;
 
     /**
      * Sets the scale and returns the axis.
