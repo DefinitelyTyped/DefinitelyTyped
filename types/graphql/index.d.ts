@@ -81,7 +81,6 @@ export {
     GraphQLError,
     formatError,
     GraphQLFormattedError,
-    GraphQLErrorLocation,
 } from './error';
 
 // Utilities for operating on GraphQL type schema and parsed sources.
