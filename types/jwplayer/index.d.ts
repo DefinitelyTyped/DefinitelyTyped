@@ -255,8 +255,8 @@ interface JWPlayer {
 	getSafeRegion(): Region;
 	getState(): string;
 	getVolume(): number;
-  getContainer(): HTMLElement;
-  getEnvironment(): Environment;
+	getContainer(): HTMLElement;
+	getEnvironment(): Environment;
 	getWidth(): number;
 	load(playlist: any[]): void;
 	load(playlist: string): void;
