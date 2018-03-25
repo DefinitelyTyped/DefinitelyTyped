@@ -1,5 +1,5 @@
 // Type definitions for JW Player V8.0
-// Project: http://developer.longtailvideo.com/trac/
+// Project: https://github.com/jwplayer/jwplayer/
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Tomer Kruvi <https://github.com/kutomer>
 //                 Philipp Gürtler <https://github.com/philippguertler>
