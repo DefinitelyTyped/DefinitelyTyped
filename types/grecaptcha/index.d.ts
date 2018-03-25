@@ -78,7 +78,7 @@ declare namespace ReCaptchaV2 {
      * where reCAPTCHA is rendered.
      * Attribute: data-bind.
      */
-    bind?: string | HTMLElement
+    bind?: string | HTMLElement;
     /**
      * Optional. The badge location for g-recaptcha with size of "invisible".
      * If isolated this value is ignored and "none" is used instead.
@@ -86,13 +86,13 @@ declare namespace ReCaptchaV2 {
      * Attribute: data-badge.
      * @default "bottomright"
      */
-    badge?: Badge
+    badge?: Badge;
     /**
      * Optional preload(probably challenge).
      * Defaults to true if recaptcha is invisible.
      * Attribute: data-preload
      */
-    preload?: boolean
+    preload?: boolean;
     /**
      * Optional. Your callback function that's executed when the user submits a successful CAPTCHA response.
      * Attribute: data-callback.
@@ -116,27 +116,27 @@ declare namespace ReCaptchaV2 {
      * Optional.
      * Attribute: data-stoken.
      */
-    stoken?: any
+    stoken?: any;
     /**
      * Optional.
      * Attribute: data-s.
      */
-    s?: any
+    s?: any;
     /**
      * Optional.
      * Attribute: data-pool.
      */
-    pool?: any
+    pool?: any;
     /**
      * Optional.
      * Attribute: data-action.
      */
-    action?: any
+    action?: any;
     /**
      * Optional.
      * Attribute: data-content-binding.
      */
-    "content-binding"?: any
+    "content-binding"?: any;
     /**
      * Optional.
      * If true, this reCAPTCHA instance will be part of a separate ID space and badge value will be set to "none".
@@ -144,22 +144,22 @@ declare namespace ReCaptchaV2 {
      * Has no corresponding attribute.
      * @default false
      */
-    isolated?: boolean
+    isolated?: boolean;
     /**
      * Optional.
      * Has no corresponding attribute.
      */
-    origin?: any
+    origin?: any;
     /**
      * Optional. Defaults to language specified in script(hl query parameter) or browser language.
      * Has no corresponding attribute.
      * Accepted values: https://developers.google.com/recaptcha/docs/language .
      */
-    hl?: string
+    hl?: string;
     /**
      * Optional.
      * @default v1520836262157
      */
-    version?: string
+    version?: string;
   }
 }
