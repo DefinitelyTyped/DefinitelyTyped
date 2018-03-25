@@ -555,6 +555,8 @@ declare namespace NodeJS {
         stderr: WriteStream;
         stdin: ReadStream;
         openStdin(): Socket;
+        /** @deprecated */
+        bindings: { [key: string]: string; };
         argv: string[];
         argv0: string;
         execArgv: string[];
