@@ -3794,7 +3794,7 @@ declare namespace sequelize {
          * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
          *     model will clear the previous scope.
          */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -3865,8 +3865,8 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single

@@ -120,10 +120,35 @@ function testWithHandlers() {
         />
     )
 
-    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({
+    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({ // $ExpectError
       onChange: () => () => {},
-      notAKeyOnHandlerProps: () => () => {},  // $ExpectError
+      notAKeyOnHandlerProps: () => () => {},
     });
+
+    // The inner props should be fully inferrable
+    const enhancer3 = withHandlers({
+      onChange: (props: OutterProps) => (e: any) => {},
+      onSubmit: (props: OutterProps) => (e: React.MouseEvent<any>) => {},
+    });
+    const Enhanced3 = enhancer3(({onChange, onSubmit, out}) =>
+        <div onClick={onSubmit}>{out}</div>);
+    const rendered3 = (
+        <Enhanced3
+            out={42}
+        />
+    )
+
+    const enhancer4 = withHandlers((props: OutterProps) => ({
+      onChange: (props) => (e: any) => {},
+      onSubmit: (props) => (e: React.MouseEvent<any>) => {},
+    }));
+    const Enhanced4 = enhancer4(({onChange, onSubmit, out}) =>
+        <div onClick={onSubmit}>{out}</div>);
+    const rendered4 = (
+        <Enhanced4
+            out={42}
+        />
+    )
 }
 
 function testDefaultProps() {
@@ -220,7 +245,24 @@ function testWithStateHandlers() {
         (props: OutterProps) => ({ counter: props.initialCounter }),
         { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), }, // $ExpectError
     );
-  }
+
+    // The inner props should be fully inferrable
+    const enhancer2 = withStateHandlers(
+        (props: OutterProps) => ({ counter: props.initialCounter }),
+        {
+            add: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }),
+        },
+    );
+    const Enhanced2 = enhancer((props) =>
+        <div>
+            <div>{`Counts from: ${props.initialCounter}`}</div>
+            <div>{`Counter: ${props.counter}`}</div>
+            <div onClick={() => props.add(2)}></div>
+        </div>);
+    const rendered2 = (
+        <Enhanced initialCounter={4} power={2} />
+    );
+}
 
 function testWithReducer() {
     interface State { count: number }
