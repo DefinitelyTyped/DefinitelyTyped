@@ -35,6 +35,11 @@ export const __TypeKind: GraphQLEnumType;
  * Note that these are GraphQLField and not GraphQLFieldConfig,
  * so the format for args is different.
  */
+
 export const SchemaMetaFieldDef: GraphQLField<any, any>;
 export const TypeMetaFieldDef: GraphQLField<any, any>;
 export const TypeNameMetaFieldDef: GraphQLField<any, any>;
+
+export const introspectionTypes: ReadonlyArray<any>;
+
+export function isIntrospectionType(type: any): boolean;

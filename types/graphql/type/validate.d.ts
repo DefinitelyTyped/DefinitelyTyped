@@ -1,5 +1,5 @@
-import { GraphQLSchema } from './schema';
-import { GraphQLError } from '../error/GraphQLError';
+import { GraphQLSchema } from "./schema";
+import { GraphQLError } from "../error/GraphQLError";
 
 /**
  * Implements the "Type Validation" sub-sections of the specification's
@@ -8,9 +8,7 @@ import { GraphQLError } from '../error/GraphQLError';
  * Validation runs synchronously, returning an array of encountered errors, or
  * an empty array if no errors were encountered and the Schema is valid.
  */
-export function validateSchema(
-    schema: GraphQLSchema
-): ReadonlyArray<GraphQLError>;
+export function validateSchema(schema: GraphQLSchema): ReadonlyArray<GraphQLError>;
 
 /**
  * Utility function which asserts a schema is valid by throwing an error if
