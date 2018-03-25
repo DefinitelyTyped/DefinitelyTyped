@@ -6,6 +6,6 @@ import { DocumentNode, OperationDefinitionNode } from '../language/ast';
  * provided in the document.
  */
 export function getOperationAST(
-  documentAST: DocumentNode,
-  operationName?: string,
-): OperationDefinitionNode;
+    documentAST: DocumentNode,
+    operationName: string | void,
+): OperationDefinitionNode | void;
