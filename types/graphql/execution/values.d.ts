@@ -11,7 +11,7 @@ import {
     DirectiveNode,
     VariableDefinitionNode,
 } from '../language/ast';
-import { ObjMap } from '../js-utils/ObjMap';
+import { ObjMap } from '../jsutils/ObjMap';
 
 interface CoercedVariableValues {
     errors: ReadonlyArray<GraphQLError> | undefined;

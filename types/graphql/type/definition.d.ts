@@ -1,5 +1,5 @@
-import { ObjMap } from '../js-utils/ObjMap';
-import { MaybePromise } from '../js-utils/MaybePromise';
+import { ObjMap } from '../jsutils/ObjMap';
+import { MaybePromise } from '../jsutils/MaybePromise';
 import {
     ScalarTypeDefinitionNode,
     ObjectTypeDefinitionNode,
@@ -77,10 +77,10 @@ export type GraphQLInputType =
     | GraphQLInputObjectType
     | GraphQLList<any>
     | GraphQLNonNull<
-        | GraphQLScalarType
-        | GraphQLEnumType
-        | GraphQLInputObjectType
-        | GraphQLList<any>
+    | GraphQLScalarType
+    | GraphQLEnumType
+    | GraphQLInputObjectType
+    | GraphQLList<any>
     >;
 
 export function isInputType(type: GraphQLType): type is GraphQLInputType;
@@ -98,12 +98,12 @@ export type GraphQLOutputType =
     | GraphQLEnumType
     | GraphQLList<any>
     | GraphQLNonNull<
-        | GraphQLScalarType
-        | GraphQLObjectType
-        | GraphQLInterfaceType
-        | GraphQLUnionType
-        | GraphQLEnumType
-        | GraphQLList<any>
+    | GraphQLScalarType
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType
+    | GraphQLEnumType
+    | GraphQLList<any>
     >;
 
 export function isOutputType(type: GraphQLType): type is GraphQLOutputType;
@@ -423,7 +423,7 @@ export interface GraphQLArgumentConfig {
 
 export type GraphQLFieldConfigMap<TSource, TContext> = ObjMap<
     GraphQLFieldConfig<TSource, TContext>
->
+    >
 
 export interface GraphQLField<
     TSource,
@@ -451,7 +451,7 @@ export interface GraphQLArgument {
 
 export type GraphQLFieldMap<TSource, TContext> = ObjMap<
     GraphQLField<TSource, TContext>
->
+    >
 
 /**
  * Interface Type Definition
