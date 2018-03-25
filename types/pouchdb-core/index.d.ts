@@ -514,6 +514,12 @@ declare namespace PouchDB {
              * How many old revisions we keep track (not a copy) of.
              */
             revs_limit?: number;
+            /**
+             * Size of the database (Most significant for Safari)
+             * option to set the max size in MB that Safari will grant to the local database. Valid options are: 10, 50, 100, 500 and 1000
+             * ex_ new PouchDB("dbName", {size:100});
+             */
+            size?: number;
         }
 
         interface RemoteRequesterConfiguration {
