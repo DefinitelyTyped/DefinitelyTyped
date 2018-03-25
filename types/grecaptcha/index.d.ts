@@ -1,6 +1,6 @@
 // Type definitions for Google Recaptcha 2.0
 // Project: https://www.google.com/recaptcha
-// Definitions by: Kristof Mattei <http://kristofmattei.be>, Martin Costello <https://martincostello.com/>, Ruslan Arkhipau <https://github.com/DethAriel>
+// Definitions by: Kristof Mattei <http://kristofmattei.be>, Martin Costello <https://martincostello.com/>, Ruslan Arkhipau <https://github.com/DethAriel>, Pavel Levchuk <https://github.com/Spaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
