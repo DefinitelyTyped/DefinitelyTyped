@@ -3,7 +3,7 @@ import { GraphQLInputType, GraphQLField, GraphQLArgument } from "../type/definit
 import { GraphQLDirective } from "../type/directives";
 import { GraphQLSchema } from "../type/schema";
 import { FieldNode, DirectiveNode, VariableDefinitionNode } from "../language/ast";
-import { ObjMap } from "../js-utils/ObjMap";
+import { ObjMap } from "../jsutils/ObjMap";
 
 interface CoercedVariableValues {
     errors: ReadonlyArray<GraphQLError> | undefined;

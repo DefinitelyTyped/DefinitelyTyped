@@ -1,5 +1,5 @@
-import { ObjMap } from "../js-utils/ObjMap";
-import { MaybePromise } from "../js-utils/MaybePromise";
+import { ObjMap } from "../jsutils/ObjMap";
+import { MaybePromise } from "../jsutils/MaybePromise";
 import {
     ScalarTypeDefinitionNode,
     ObjectTypeDefinitionNode,

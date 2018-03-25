@@ -2,7 +2,7 @@ import { GraphQLObjectType } from "./definition";
 import { GraphQLType, GraphQLNamedType, GraphQLAbstractType } from "./definition";
 import { SchemaDefinitionNode } from "../language/ast";
 import { GraphQLDirective } from "./directives";
-import { ObjMap } from "../js-utils/ObjMap";
+import { ObjMap } from "../jsutils/ObjMap";
 
 /**
  * Test if the given value is a GraphQL schema.

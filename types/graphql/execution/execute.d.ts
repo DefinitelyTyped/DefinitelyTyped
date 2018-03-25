@@ -16,8 +16,8 @@ import {
     InlineFragmentNode,
     FragmentDefinitionNode,
 } from "../language/ast";
-import { ObjMap } from "../js-utils/ObjMap";
-import { MaybePromise } from "../js-utils/MaybePromise";
+import { ObjMap } from "../jsutils/ObjMap";
+import { MaybePromise } from "../jsutils/MaybePromise";
 
 /**
  * Data that must be available at all points during query execution.
