@@ -10,7 +10,7 @@ export interface ParseOptions {
     bare_returns?: boolean;
     html5_comments?: boolean;
     /** Support `#!command` as the first line */
-    shebang: boolean;
+    shebang?: boolean;
 }
 
 export interface CompressOptions {
