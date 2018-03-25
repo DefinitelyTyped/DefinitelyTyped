@@ -198,6 +198,7 @@ export interface MinifyOptions {
 
 export interface MinifyOutput {
     error?: Error;
+    warnings?: string[];
     code: string;
     map: string;
 }
