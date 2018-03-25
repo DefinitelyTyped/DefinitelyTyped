@@ -19,10 +19,10 @@ export function errorHandler(options?: {
 }): express.ErrorRequestHandler;
 export function notFound(): express.RequestHandler;
 
-export function rest(): (handler?: express.RequestHandler) => void;
-export namespace rest {
-    let formatter: express.RequestHandler;
-}
+export const rest: {
+    (handler?: express.RequestHandler): () => void;
+    formatter: express.RequestHandler;
+};
 
 /*
  * Re-export of the express package.
