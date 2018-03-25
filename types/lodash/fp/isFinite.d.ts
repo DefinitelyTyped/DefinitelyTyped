@@ -11,7 +11,7 @@ type IsFinite =
      * @param value The value to check.
      * @return Returns true if value is a finite number, else false.
      */
-    (value: any) => boolean;
+    (value: any) => value is number;
 
 declare const isFinite: IsFinite;
 export = isFinite;
