@@ -73,7 +73,7 @@ export {
 } from "./validation";
 
 // Create and format GraphQL errors.
-export { GraphQLError, formatError, GraphQLFormattedError, GraphQLErrorLocation } from "./error";
+export { GraphQLError, formatError, GraphQLFormattedError } from "./error";
 
 // Utilities for operating on GraphQL type schema and parsed sources.
 export {
