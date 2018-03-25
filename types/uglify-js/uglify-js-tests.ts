@@ -20,7 +20,7 @@ minify(code, {
     }
 });
 
-minify(code, {
+const output = minify(code, {
     warnings: 'verbose',
     mangle: {
         properties: {
@@ -34,3 +34,7 @@ minify(code, {
         arguments: true
     }
 });
+
+if (output.warnings) {
+    output.warnings.filter(x => x === 'Dropping unused variable');
+}
