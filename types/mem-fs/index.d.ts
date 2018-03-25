@@ -9,13 +9,14 @@ import { EventEmitter } from 'events';
 import { Transform } from 'stream';
 import * as File from 'vinyl';
 
-export function create(...args: any[]): memFs.Store;
+export interface Store extends EventEmitter {
+    add: (file: File, content: string) => void;
+    each: (callback: (file: File, index: number) => void) => void;
+    get: (filepath: string) => File;
+    stream: () => Transform;
+}
+
+export function create(...args: any[]): Store;
 
 export namespace memFs {
-    interface Store extends EventEmitter {
-        add: (file: File, content: string) => void;
-        each: (callback: (file: File, index: number) => void) => void;
-        get: (filepath: string) => File;
-        stream: () => Transform;
-    }
 }
