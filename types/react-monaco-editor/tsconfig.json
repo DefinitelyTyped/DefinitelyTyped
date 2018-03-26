@@ -13,7 +13,10 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": [
+            "monaco-editor",
+            "react"
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"

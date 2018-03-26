@@ -1,4 +1,4 @@
-// Type definitions for react-monaco-editor 0.14.1
+// Type definitions for react-monaco-editor 0.14
 // Project: https://github.com/superRaytin/react-monaco-editor
 // Definitions by: Joshua Netterfield <https://github.com/jnetterf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
