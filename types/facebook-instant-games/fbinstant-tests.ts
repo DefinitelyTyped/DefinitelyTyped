@@ -1,6 +1,4 @@
-declare const FBInstant: FBInstant;
-
-export class FBInstantTest {
+class FBInstantTest {
     winStreak: number;
 
     init() {
