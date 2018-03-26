@@ -11,5 +11,9 @@ export {
     visitWithTypeInfo,
     getVisitFn,
     BREAK,
+    ASTVisitor,
+    Visitor,
+    VisitFn,
+    VisitorKeyMap,
 } from './visitor';
 export { DirectiveLocation, DirectiveLocationEnum } from './directiveLocation';
