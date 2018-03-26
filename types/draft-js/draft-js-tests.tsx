@@ -22,7 +22,8 @@ import {
   DraftEntityMutability,
   DraftEntityType,
   convertFromHTML,
-  convertToRaw
+  convertToRaw,
+  CompositeDecorator,
 } from 'draft-js';
 
 const SPLIT_HEADER_BLOCK = 'split-header-block';
@@ -38,6 +39,14 @@ export const KEYCODES: Record<KeyName, KeyCode> = {
 
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 
+const HANDLE_REGEX = /\@[\w]+/g;
+
+class HandleSpan extends React.Component {
+  render() {
+    return <span>{this.props.children}</span>
+  }
+}
+
 class RichEditorExample extends React.Component<{}, { editorState: EditorState }> {
   constructor() {
     super({});
@@ -51,8 +60,22 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap,
     );
-
-    this.state = { editorState: EditorState.createWithContent(state) };
+    const decorator = new CompositeDecorator([{
+      strategy: (
+        block: ContentBlock,
+        callback: (start: number, end: number) => void,
+        contentState: ContentState
+      ) => {
+        const text = block.getText();
+        let matchArr, start;
+        while ((matchArr = HANDLE_REGEX.exec(text)) !== null) {
+          start = matchArr.index;
+          callback(start, start + matchArr[0].length);
+        }
+      },
+      component: HandleSpan,
+    }]);
+    this.state = { editorState: EditorState.createWithContent(state, decorator) };
   }
 
   onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });

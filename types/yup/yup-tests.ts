@@ -100,6 +100,7 @@ mixed.default(() => ({ number: 5}));
 mixed.default();
 mixed.nullable(true);
 mixed.required();
+mixed.notRequired(); // $ExpectType MixedSchema
 mixed.typeError('type error');
 mixed.oneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], 'message');

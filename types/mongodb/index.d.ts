@@ -7,6 +7,7 @@
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
 //                 Enrico Picci <https://github.com/EnricoPicci>
+//                 Alexander Christie <https://github.com/AJCStriker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -43,7 +44,7 @@ export class MongoClient extends EventEmitter {
     close(force?: boolean): Promise<void>;
     close(force: boolean, callback: MongoCallback<void>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#db */
-    db(name: string, options?: MongoClientCommonOption): Db
+    db(dbName?: string, options?: MongoClientCommonOption): Db
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#isConnected */
     isConnected(name: string, options?: MongoClientCommonOption): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#logout */
@@ -93,7 +94,7 @@ export interface MongoClientOptions extends
     logger?: Object;
     // Default: false;
     validateOptions?: Object;
-    // The name of the application that created this MongoClient instance. 
+    // The name of the application that created this MongoClient instance.
     appname?: string;
 }
 
@@ -160,8 +161,8 @@ export interface DbCreateOptions extends CommonOptions {
     raw?: boolean;
     // Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
     promoteLongs?: boolean;
-    // Default: -1 (unlimited); Amount of operations the driver buffers up untill discard any new ones
-    promoteBuffers?: number;
+    // Default: false; Promotes Binary BSON values to native Node Buffers
+    promoteBuffers?: boolean;
     // the prefered read preference. use 'ReadPreference' class.
     readPreference?: ReadPreference | string;
     // Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
@@ -636,7 +637,7 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
 }
 
-type FilterQuery<T> = {
+export type FilterQuery<T> = {
     [P in keyof T]?: T[P] | {
         $eq?: T[P];
         $gt?: T[P];
@@ -1495,7 +1496,7 @@ export interface ChangeStreamOptions {
 }
 
 type GridFSBucketWriteStreamId = string | number | Object | ObjectID;
-               
+
 export interface LoggerOptions {
     loggerLevel?: string // Custom logger function
     logger?: log // Override default global log level.

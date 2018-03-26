@@ -128,7 +128,7 @@ export class Navigator {
     toggleDrawer(params: { side: 'left' | 'right'; animated?: boolean; to?: 'open' | 'closed' }): void;
     setDrawerEnabled(params: { side: 'left' | 'right'; enabled: boolean }): void;
     toggleTabs(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setTabBadge(params?: { tabIndex?: number; badge?: number; badgeColor?: string; }): void;
+    setTabBadge(params?: { tabIndex?: number; badge: number | null; badgeColor?: string; }): void;
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
@@ -241,6 +241,8 @@ export type SystemItemIOS = 'done' | 'cancel' | 'edit' | 'save' | 'add' |
     'bookmarks' | 'search' | 'refresh' | 'stop' | 'camera' | 'trash' | 'play' |
     'pause' | 'rewind' | 'fastForward' | 'undo' | 'redo';
 
+export type ShowAsActionAndroid = 'ifRoom' | 'always' | 'withText' | 'never';
+
 export interface NavigatorButton {
     id: string | IdAndroid;
     title?: string;
@@ -254,6 +256,7 @@ export interface NavigatorButton {
     buttonFontSize?: number;
     buttonFontWeight?: string | number;
     systemItem?: SystemItemIOS;
+    showAsAction?: ShowAsActionAndroid;
 }
 
 export interface FABAndroid {

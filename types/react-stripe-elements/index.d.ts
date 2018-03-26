@@ -47,7 +47,7 @@ export namespace ReactStripeElements {
 
 		className?: string;
 
-		elementRef?(): void;
+		elementRef?(ref: any): void;
 
 		onChange?(event: ElementChangeResponse): void;
 

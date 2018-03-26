@@ -152,7 +152,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4
      */
     (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
-        JQuery.PlainObject |
+        JQuery.PlainObject | Window |
         ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.

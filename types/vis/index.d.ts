@@ -1793,6 +1793,12 @@ export interface NodeOptions {
     strokeWidth?: number, // px
     strokeColor?: string,
     align?: string,
+    vadjust?: string,
+    multi?: string,
+    bold?: string | FontOptions,
+    ital?: string | FontOptions,
+    boldital?: string | FontOptions,
+    mono?: string | FontOptions,
   };
 
   group?: string;
@@ -1881,6 +1887,12 @@ export interface EdgeOptions {
     strokeWidth?: number, // px
     strokeColor?: string,
     align?: string,
+    vadjust?: string,
+    multi?: string,
+    bold?: string | FontOptions,
+    ital?: string | FontOptions,
+    boldital?: string | FontOptions,
+    mono?: string | FontOptions,
   };
 
   from?: number | string;
@@ -1921,6 +1933,14 @@ export interface EdgeOptions {
   value?: number;
 
   width?: number;
+}
+
+export interface FontOptions {
+  color?: string;
+  size?: number;
+  face?: string;
+  mod?: string;
+  vadjust?: string;
 }
 
 export interface OptionsScaling {
