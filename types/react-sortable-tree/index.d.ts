@@ -51,7 +51,7 @@ export interface ExtendedNodeData extends NodeData {
 export interface OnVisibilityToggleData extends FullTree, TreeNode {
     expanded: boolean;
 }
-export interface PreviousAnNextLocation {
+export interface PreviousAndNextLocation {
     prevTreeIndex: number;
     prevPath: number[];
     nextTreeIndex: number;
@@ -112,7 +112,7 @@ export interface ReactSortableTreeProps {
     onMoveNode?(data: NodeData & FullTree): void;
     onVisibilityToggle?(data: OnVisibilityToggleData): void;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
-    canDrop?(data: PreviousAnNextLocation & NodeData): boolean;
+    canDrop?(data: PreviousAndNextLocation & NodeData): boolean;
     reactVirtualizedListProps?: ListProps;
     rowHeight?: ((info: Index) => number) | number;
     slideRegionSize?: number;
