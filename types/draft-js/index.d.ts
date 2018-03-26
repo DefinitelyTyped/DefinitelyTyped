@@ -958,6 +958,7 @@ import ContentBlock = Draft.Model.ImmutableData.ContentBlock;
 import ContentState = Draft.Model.ImmutableData.ContentState;
 import SelectionState = Draft.Model.ImmutableData.SelectionState;
 import DraftInlineStyle = Draft.Model.ImmutableData.DraftInlineStyle;
+import BlockMap = Draft.Model.ImmutableData.BlockMap;
 
 import AtomicBlockUtils = Draft.Model.Modifier.AtomicBlockUtils;
 import KeyBindingUtil = Draft.Component.Utils.KeyBindingUtil;
@@ -1006,6 +1007,7 @@ export {
     ContentState,
     SelectionState,
     DraftInlineStyle,
+    BlockMap,
 
     AtomicBlockUtils,
     KeyBindingUtil,
