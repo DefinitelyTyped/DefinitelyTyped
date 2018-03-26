@@ -1,11 +1,10 @@
-// Type definitions for react-monaco-editor 0.10
+// Type definitions for react-monaco-editor 0.14.1
 // Project: https://github.com/superRaytin/react-monaco-editor
 // Definitions by: Joshua Netterfield <https://github.com/jnetterf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-/// <reference types="monaco-editor" />
-
+import * as monaco from "monaco-editor";
 import * as React from "react";
 
 export interface ReactMonacoEditorProps {
