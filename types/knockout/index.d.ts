@@ -444,10 +444,10 @@ interface KnockoutStatic {
     toJS(viewModel: any): any;
 
     isObservable(instance: any): instance is KnockoutObservable<any>;
-    isObservable<T>(instance: KnockoutObservable<T>): instance is KnockoutObservable<T>;
+    isObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
 
     isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
-    isWriteableObservable<T>(instance: KnockoutObservable<T>): instance is KnockoutObservable<T>;
+    isWriteableObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
 
     isComputed(instance: any): instance is KnockoutComputed<any>;
     isComputed<T>(instance: KnockoutObservable<T> | T): instance is KnockoutComputed<T>;
