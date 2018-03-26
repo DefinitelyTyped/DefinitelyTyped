@@ -11,7 +11,8 @@ import {
     Checkbox,
     Dialog,
     DialogDefaultActions,
-    BottomNavigation
+    BottomNavigation,
+    Toolbar
 } from 'react-native-material-ui';
 
 const theme = {
@@ -110,6 +111,30 @@ class BottomNavigationExample extends React.Component<null, {active: string}> {
                     onPress={() => this.setState({ active: 'settings' })}
                 />
             </BottomNavigation>
+        );
+    }
+}
+
+class ToolbarExample extends React.Component<{}, {search: string}> {
+    state = {
+        search: ''
+    };
+
+    handleResults(search: string) {
+        this.setState({ search });
+    }
+
+    render() {
+        return (
+            <Toolbar
+                centerElement="Collections"
+                searchable={{
+                    autoFocus: true,
+                    placeholder: 'Search',
+                    onChangeText: (text: string) => this.handleResults(text),
+                    onSearchCloseRequested: () => this.handleResults(''),
+                }}
+            />
         );
     }
 }
