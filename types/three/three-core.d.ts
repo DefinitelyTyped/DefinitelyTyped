@@ -6990,6 +6990,18 @@ export class ExtrudeGeometry extends Geometry {
     addShape(shape: Shape, options?: any): void;
 }
 
+export class ExtrudeBufferGeometry extends BufferGeometry {
+    constructor(shapes?: Shape[], options?: any);
+
+    static WorldUVGenerator: {
+        generateTopUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+        generateSideWallUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+    };
+
+    addShapeList(shapes: Shape[], options?: any): void;
+    addShape(shape: Shape, options?: any): void;
+}
+
 export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
     constructor(radius?: number, detail?: number);
 }
@@ -7180,6 +7192,7 @@ export interface TextGeometryParameters {
     bevelEnabled?: boolean;
     bevelThickness?: number;
     bevelSize?: number;
+    bevelSegments?: number;
 }
 
 export class TextGeometry extends ExtrudeGeometry {
@@ -7193,6 +7206,22 @@ export class TextGeometry extends ExtrudeGeometry {
         bevelEnabled: boolean;
         bevelThickness: number;
         bevelSize: number;
+        bevelSegments: number;
+    };
+}
+
+export class TextBufferGeometry extends ExtrudeBufferGeometry {
+    constructor(text: string, parameters?: TextGeometryParameters);
+
+    parameters: {
+        font: Font;
+        size: number;
+        height: number;
+        curveSegments: number;
+        bevelEnabled: boolean;
+        bevelThickness: number;
+        bevelSize: number;
+        bevelSegments: number;
     };
 }
 
