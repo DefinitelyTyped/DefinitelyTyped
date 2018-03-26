@@ -1,4 +1,4 @@
-// Type definitions for graphql 0.12
+// Type definitions for graphql 0.13
 // Project: https://www.npmjs.com/package/graphql
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 //                 Caleb Meredith <https://github.com/calebmer>
