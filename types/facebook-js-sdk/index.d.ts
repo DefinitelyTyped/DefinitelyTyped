@@ -186,7 +186,7 @@ declare namespace facebook {
         authResponse: {
             accessToken: string;
             expiresIn: number;
-	    grantedScopes: string;
+	        grantedScopes: string;
             signedRequest: string;
             userID: string;
         };
@@ -219,7 +219,7 @@ declare namespace facebook {
         purchase_time?: number;
         purchase_token?: string;
         signed_request?: string;
-		error_code?: number; 
+		error_code?: number;
 		error_message?: string;
     }
 	
