@@ -8,12 +8,17 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
+        "paths": {
+            "openfin": [
+                "openfin/v29"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
