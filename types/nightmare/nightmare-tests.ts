@@ -200,6 +200,13 @@ new Nightmare()
   .run(done);
 
 new Nightmare()
+  .goto("http://yahoo.com")
+  .pdf((err,data)=>{
+    console.log(Buffer.isBuffer(data))
+  })
+  .run(done)
+
+new Nightmare()
   .goto('http://www.google.com/')
   .wait('input')
   .run(done);
