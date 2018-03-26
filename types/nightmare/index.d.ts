@@ -1,4 +1,4 @@
-// Type definitions for Nightmare 2.10.0
+// Type definitions for Nightmare 2.10.1
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Sam Yang <https://github.com/samyang-au>
@@ -57,8 +57,8 @@ declare class Nightmare {
     run(cb?: (err: any, nightmare: Nightmare) => void): Nightmare;
 
     // Extract
-    exists(selector: string, cb: (result: boolean) => void): Nightmare;
-    visible(selector: string, cb: (result: boolean) => void): Nightmare;
+    exists(selector: string, cb?: (result: boolean) => void): Nightmare;
+    visible(selector: string, cb?: (result: boolean) => void): Nightmare;
     on(event: string, cb: () => void): Nightmare;
     on(event: 'initialized', cb: () => void): Nightmare;
     on(event: 'loadStarted', cb: () => void): Nightmare;
