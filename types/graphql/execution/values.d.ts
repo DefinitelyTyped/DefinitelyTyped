@@ -3,7 +3,6 @@ import { GraphQLInputType, GraphQLField, GraphQLArgument } from "../type/definit
 import { GraphQLDirective } from "../type/directives";
 import { GraphQLSchema } from "../type/schema";
 import { FieldNode, DirectiveNode, VariableDefinitionNode } from "../language/ast";
-import { ObjMap } from "../jsutils/ObjMap";
 
 interface CoercedVariableValues {
     errors: ReadonlyArray<GraphQLError> | undefined;
@@ -22,7 +21,7 @@ interface CoercedVariableValues {
 export function getVariableValues(
     schema: GraphQLSchema,
     varDefNodes: VariableDefinitionNode[],
-    inputs: ObjMap<any>
+    inputs: { [key: string]: any }
 ): CoercedVariableValues;
 
 /**
@@ -36,7 +35,7 @@ export function getVariableValues(
 export function getArgumentValues(
     def: GraphQLField<any, any> | GraphQLDirective,
     node: FieldNode | DirectiveNode,
-    variableValues?: ObjMap<any> | void
+    variableValues?: { [key: string]: any } | void
 ): { [key: string]: any };
 
 /**
@@ -55,5 +54,5 @@ export function getDirectiveValues(
     node: {
         readonly directives?: ReadonlyArray<DirectiveNode>;
     },
-    variableValues?: ObjMap<any> | void
+    variableValues?: { [key: string]: any } | void
 ): undefined | { [key: string]: any };

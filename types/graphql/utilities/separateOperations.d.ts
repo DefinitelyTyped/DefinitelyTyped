@@ -1,5 +1,4 @@
 import { DocumentNode, OperationDefinitionNode } from "../language/ast";
-import { ObjMap } from "../jsutils/ObjMap";
 
 /**
  * separateOperations accepts a single AST document which may contain many
@@ -7,4 +6,4 @@ import { ObjMap } from "../jsutils/ObjMap";
  * which contains a single operation as well the fragment definitions it
  * refers to.
  */
-export function separateOperations(documentAST: DocumentNode): ObjMap<DocumentNode>;
+export function separateOperations(documentAST: DocumentNode): { [key: string]: DocumentNode };

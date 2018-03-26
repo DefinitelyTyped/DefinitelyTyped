@@ -11,8 +11,8 @@ import { GraphQLNamedType, GraphQLFieldConfig } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { Source } from "../language/source";
 import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
-import { ObjMap } from "../jsutils/ObjMap";
 import { ParseOptions } from "../language/parser";
+import blockStringValue from "../language/blockStringValue";
 
 interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
     /**
@@ -43,7 +43,7 @@ interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
  */
 export function buildASTSchema(ast: DocumentNode, options?: BuildSchemaOptions): GraphQLSchema;
 
-type TypeDefinitionsMap = ObjMap<TypeDefinitionNode>;
+type TypeDefinitionsMap = { [key: string]: TypeDefinitionNode };
 type TypeResolver = (typeRef: NamedTypeNode) => GraphQLNamedType;
 
 export class ASTDefinitionBuilder {

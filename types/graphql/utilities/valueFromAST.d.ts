@@ -1,6 +1,5 @@
 import { GraphQLInputType } from "../type/definition";
 import { ValueNode, VariableNode, ListValueNode, ObjectValueNode } from "../language/ast";
-import { ObjMap } from "../jsutils/ObjMap";
 
 /**
  * Produces a JavaScript value given a GraphQL Value AST.
@@ -22,4 +21,8 @@ import { ObjMap } from "../jsutils/ObjMap";
  * | NullValue            | null          |
  *
  */
-export function valueFromAST(valueNode: ValueNode | void, type: GraphQLInputType, variables?: ObjMap<any> | void): any;
+export function valueFromAST(
+    valueNode: ValueNode | void,
+    type: GraphQLInputType,
+    variables?: { [key: string]: any } | void
+): any;
