@@ -35,6 +35,11 @@ interface IsStatic {
     /**
      * Checks if the given value type is function.
      */
+    fn(value: any): boolean;
+
+    /**
+     * Checks if the given value type is function.
+     */
     function(value: any): boolean;
 
     /**
@@ -587,7 +592,7 @@ interface IsStaticApi {
      * Checks if the given value type is arguments.
      */
     arguments(...value: any[]): boolean;
-    
+
     /**
      * Checks if the given value type is arguments.
      */
@@ -632,6 +637,16 @@ interface IsStaticApi {
      * Checks if the given value type is error.
      */
     error(value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is function.
+     */
+    fn(...value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is function.
+     */
+    fn(value: any[]): boolean;
 
     /**
      * Checks if the given value type is function.
@@ -1234,12 +1249,12 @@ interface Is extends IsStatic {
      * Override RegExps if you think they suck.
      */
     setRegexp(value: RegExp, regexp: 'url'): boolean;
-    
+
     /**
      * Override RegExps if you think they suck.
      */
     setRegexp(value: RegExp, regexp: 'email'): boolean;
-    
+
     /**
      * Override RegExps if you think they suck.
      */
