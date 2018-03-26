@@ -49,7 +49,23 @@ function language_source_tests() {
 }
 
 function language_visitor_tests() {
-    // TODO
+    const { parse, visit } = graphql;
+    const ast = parse('{ hello }');
+
+    visit(ast, {
+        enter(node, key, parent, path, ancestors) { },
+        leave: {
+            Document(node) { },
+            Field(node) { },
+        }
+    });
+
+    visit(ast, {
+        Document(node) { },
+        Field: {
+            enter() { }
+        }
+    });
 }
 
 ///////////////////////////
