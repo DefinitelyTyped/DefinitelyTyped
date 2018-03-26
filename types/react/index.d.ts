@@ -324,7 +324,7 @@ declare namespace React {
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | ReactPortal | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
