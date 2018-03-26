@@ -174,7 +174,7 @@ export type NavigationScreenConfig<Options> =
 
 export type NavigationComponent =
   NavigationScreenComponent<any, any>
-  | NavigationNavigator<any, any, any>
+  | NavigationNavigator<any, any, any>;
 
 export type NavigationScreenComponent<
     Options = {},
