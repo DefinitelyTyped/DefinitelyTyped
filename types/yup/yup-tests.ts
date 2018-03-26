@@ -123,6 +123,7 @@ mixed.test({
     message: '${path} must be less than 5 characters',
     test: value => value == null || value.length <= 5
 });
+mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
     return this.isType(value) && value !== null ? value.toUpperCase() : value;
@@ -247,6 +248,14 @@ const description: SchemaDescription = {
 const testOptions: TestOptions = {
     name: 'name',
     test: value => true,
+    message: 'validation error message',
+    params: { param1: 'value'},
+    exclusive: true
+};
+
+const testOptionsWithPromise: TestOptions = {
+    name: 'name',
+    test: value => new Promise(resolve => true),
     message: 'validation error message',
     params: { param1: 'value'},
     exclusive: true
