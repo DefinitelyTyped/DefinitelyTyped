@@ -10,6 +10,7 @@
         "typeRoots": ["../"],
         "types": [],
         "paths": {
+            "d3-scale": ["d3-scale/v1"],
             "d3": ["d3/v4"]
         },
         "noEmit": true,

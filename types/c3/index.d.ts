@@ -1,11 +1,11 @@
-// Type definitions for C3js 0.4
+// Type definitions for C3js 0.5
 // Project: http://c3js.org/
 // Definitions by: Marc Climent <https://github.com/mcliment>
 //                 Gerin Jacob <https://github.com/gerinjacob>
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as d3 from "d3";
 
