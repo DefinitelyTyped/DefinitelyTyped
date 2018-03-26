@@ -98,6 +98,11 @@ declare namespace AdazzleReactDataGrid {
          */
         headerRowHeight?: number
         /**
+         * The height of the header filter row in pixels.
+         * @default 45
+         */
+        headerFiltersHeight?: number
+        /**
          * The minimum width of each column in pixels.
          * @default 80
          */
@@ -163,11 +168,11 @@ declare namespace AdazzleReactDataGrid {
         enableCellSelect?: boolean
 
         /**
-         * Enables cells to be dragged and dropped 
+         * Enables cells to be dragged and dropped
          * @default false
          */
         enableDragAndDrop?: boolean
-        
+
         /**
          * Called when a cell is selected.
          * @param coordinates The row and column indices of the selected cell.
@@ -211,10 +216,10 @@ declare namespace AdazzleReactDataGrid {
          * @param props OnRowExpandToggle object
          */
         onRowExpandToggle?: (props: OnRowExpandToggle ) => void
-        
+
         /**
          * Responsible for returning an Array of values that can be used for filtering
-         * a column that is column.filterable and using a column.filterRenderer that 
+         * a column that is column.filterable and using a column.filterRenderer that
          * displays a list of options.
          * @param columnKey the column key that we are looking to pull values from
          */
@@ -485,7 +490,7 @@ declare namespace AdazzleReactDataGrid {
      * Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like
      * http://adazzle.github.io/react-data-grid/
      */
-    export class ReactDataGrid extends React.Component<GridProps> { 
+    export class ReactDataGrid extends React.Component<GridProps> {
         /**
          * Opens the editor for the cell (idx) in the given row (rowIdx). If the column is not editable then nothing will happen.
          */
