@@ -7,8 +7,10 @@
 
 import { Application as FeathersApplication } from '@feathersjs/feathers';
 import * as express from 'express';
+import * as self from '@feathersjs/express';
 
-export default function feathersExpress<T>(app: FeathersApplication<T>): Application<T>;
+declare const feathersExpress: (<T>(app: FeathersApplication<T>) => Application<T>) & typeof self;
+export default feathersExpress;
 export type Application<T> = express.Application & FeathersApplication<T>;
 
 export function errorHandler(options?: {
