@@ -2,7 +2,6 @@ import { Source } from './language/source';
 import { GraphQLFieldResolver } from './type/definition';
 import { GraphQLSchema } from './type/schema';
 import { ExecutionResult } from './execution/execute';
-import { ObjMap } from './jsutils/ObjMap';
 
 /**
  * This is the primary entry point function for fulfilling GraphQL operations
@@ -39,7 +38,7 @@ export interface GraphQLArgs {
     source: Source | string;
     rootValue?: any;
     contextValue?: any;
-    variableValues?: ObjMap<any> | void;
+    variableValues?: { [key: string]: any } | void;
     operationName?: string | void;
     fieldResolver?: GraphQLFieldResolver<any, any> | void;
 }
@@ -50,7 +49,7 @@ export function graphql(
     source: Source | string,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: ObjMap<any> | void,
+    variableValues?: { [key: string]: any } | void,
     operationName?: string | void,
     fieldResolver?: GraphQLFieldResolver<any, any> | void,
 ): Promise<ExecutionResult>;
@@ -67,7 +66,7 @@ export function graphqlSync(
     source: Source | string,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: ObjMap<any> | void,
+    variableValues?: { [key: string]: any } | void,
     operationName?: string | void,
     fieldResolver?: GraphQLFieldResolver<any, any> | void,
 ): ExecutionResult;

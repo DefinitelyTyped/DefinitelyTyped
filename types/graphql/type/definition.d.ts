@@ -1,4 +1,3 @@
-import { ObjMap } from '../jsutils/ObjMap';
 import { MaybePromise } from '../jsutils/MaybePromise';
 import {
     ScalarTypeDefinitionNode,
@@ -276,7 +275,7 @@ export class GraphQLScalarType {
     parseValue(value: any): any;
 
     // Parses an externally provided literal value to use as an input.
-    parseLiteral(valueNode: ValueNode, variables?: ObjMap<any> | void): any;
+    parseLiteral(valueNode: ValueNode, variables?: { [key: string]: any } | void): any;
 
     toString(): string;
     toJSON(): string;
@@ -291,7 +290,7 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
     parseValue?(value: any): TInternal | void;
     parseLiteral?(
         valueNode: ValueNode,
-        variables: ObjMap<any> | void
+        variables: { [key: string]: any } | void
     ): TInternal | void;
 }
 
@@ -387,7 +386,7 @@ export interface GraphQLResolveInfo {
     readonly parentType: GraphQLObjectType;
     readonly path: ResponsePath;
     readonly schema: GraphQLSchema;
-    readonly fragments: ObjMap<FragmentDefinitionNode>;
+    readonly fragments: { [key: string]: FragmentDefinitionNode };
     readonly rootValue: any;
     readonly operation: OperationDefinitionNode;
     readonly variableValues: { [variableName: string]: any };
@@ -412,7 +411,7 @@ export interface GraphQLFieldConfig<
     astNode?: FieldDefinitionNode | void;
 }
 
-export type GraphQLFieldConfigArgumentMap = ObjMap<GraphQLArgumentConfig>;
+export type GraphQLFieldConfigArgumentMap = { [key: string]: GraphQLArgumentConfig };
 
 export interface GraphQLArgumentConfig {
     type: GraphQLInputType;
@@ -421,14 +420,14 @@ export interface GraphQLArgumentConfig {
     astNode?: InputValueDefinitionNode | void;
 }
 
-export type GraphQLFieldConfigMap<TSource, TContext> = ObjMap<
-    GraphQLFieldConfig<TSource, TContext>
-    >
+export type GraphQLFieldConfigMap<TSource, TContext> = {
+    [key: string]: GraphQLFieldConfig<TSource, TContext>
+};
 
 export interface GraphQLField<
     TSource,
     TContext,
-    TArgs = { [argName: string]: any }
+    TArgs = { [key: string]: any }
     > {
     name: string;
     description: string | void;
@@ -449,9 +448,9 @@ export interface GraphQLArgument {
     astNode?: InputValueDefinitionNode | void;
 }
 
-export type GraphQLFieldMap<TSource, TContext> = ObjMap<
-    GraphQLField<TSource, TContext>
-    >
+export type GraphQLFieldMap<TSource, TContext> = {
+    [key: string]: GraphQLField<TSource, TContext>
+};
 
 /**
  * Interface Type Definition
@@ -583,7 +582,10 @@ export class GraphQLEnumType {
     getValue(name: string): GraphQLEnumValue | void;
     serialize(value: any): string | void;
     parseValue(value: any): any;
-    parseLiteral(valueNode: ValueNode, _variables: ObjMap<any> | void): any;
+    parseLiteral(
+        valueNode: ValueNode,
+        _variables: { [key: string]: any } | void,
+    ): any;
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -596,7 +598,7 @@ export interface GraphQLEnumTypeConfig {
     astNode?: EnumTypeDefinitionNode | void;
 }
 
-export type GraphQLEnumValueConfigMap = ObjMap<GraphQLEnumValueConfig>
+export type GraphQLEnumValueConfigMap = { [key: string]: GraphQLEnumValueConfig };
 
 
 export interface GraphQLEnumValueConfig {
@@ -660,7 +662,9 @@ export interface GraphQLInputFieldConfig {
     astNode?: InputValueDefinitionNode | void;
 }
 
-export type GraphQLInputFieldConfigMap = ObjMap<GraphQLInputFieldConfig>;
+export type GraphQLInputFieldConfigMap = {
+    [key: string]: GraphQLInputFieldConfig
+};
 
 
 export interface GraphQLInputField {
@@ -671,4 +675,4 @@ export interface GraphQLInputField {
     astNode?: InputValueDefinitionNode | void;
 }
 
-export type GraphQLInputFieldMap = ObjMap<GraphQLInputField>;
+export type GraphQLInputFieldMap ={ [key: string]: GraphQLInputField };

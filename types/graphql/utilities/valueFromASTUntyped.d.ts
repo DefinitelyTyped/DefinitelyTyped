@@ -1,5 +1,4 @@
 import { ValueNode } from '../language/ast';
-import { ObjMap } from '../jsutils/ObjMap';
 
 /**
  * Produces a JavaScript value given a GraphQL Value AST.
@@ -19,5 +18,5 @@ import { ObjMap } from '../jsutils/ObjMap';
  */
 export function valueFromASTUntyped(
     valueNode: ValueNode,
-    variables?: ObjMap<any> | void,
+    variables?: { [key: string]: any } | void,
 ): any;

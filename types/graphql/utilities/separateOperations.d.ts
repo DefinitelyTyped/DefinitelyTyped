@@ -1,5 +1,4 @@
 import { DocumentNode, OperationDefinitionNode } from '../language/ast';
-import { ObjMap } from '../jsutils/ObjMap';
 
 /**
  * separateOperations accepts a single AST document which may contain many
@@ -9,4 +8,4 @@ import { ObjMap } from '../jsutils/ObjMap';
  */
 export function separateOperations(
     documentAST: DocumentNode,
-): ObjMap<DocumentNode>;
+): { [key: string]: DocumentNode };

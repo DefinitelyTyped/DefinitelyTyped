@@ -16,7 +16,6 @@ import {
     InlineFragmentNode,
     FragmentDefinitionNode,
 } from '../language/ast';
-import { ObjMap } from '../jsutils/ObjMap';
 import { MaybePromise } from '../jsutils/MaybePromise';
 
 /**
@@ -27,7 +26,7 @@ import { MaybePromise } from '../jsutils/MaybePromise';
  */
 export interface ExecutionContext {
     schema: GraphQLSchema;
-    fragments: ObjMap<FragmentDefinitionNode>;
+    fragments: { [key: string]: FragmentDefinitionNode };
     rootValue: any;
     contextValue: any;
     operation: OperationDefinitionNode;
@@ -44,7 +43,7 @@ export interface ExecutionContext {
  */
 export interface ExecutionResult {
     errors?: ReadonlyArray<GraphQLError>;
-    data?: ObjMap<any>;
+    data?: { [key: string]: any };
 }
 
 export type ExecutionArgs = {
@@ -104,7 +103,7 @@ export function addPath(
 export function assertValidExecutionArguments(
     schema: GraphQLSchema,
     document: DocumentNode,
-    rawVariableValues: ObjMap<any> | void,
+    rawVariableValues: { [key: string]: any } | void,
 ): void;
 
 /**
@@ -118,7 +117,7 @@ export function buildExecutionContext(
     document: DocumentNode,
     rootValue: any,
     contextValue: any,
-    rawVariableValues: ObjMap<any> | void,
+    rawVariableValues: { [key: string]: any } | void,
     operationName: string | void,
     fieldResolver: GraphQLFieldResolver<any, any> | void,
 ): ReadonlyArray<GraphQLError> | ExecutionContext;
@@ -143,9 +142,9 @@ export function collectFields(
     exeContext: ExecutionContext,
     runtimeType: GraphQLObjectType,
     selectionSet: SelectionSetNode,
-    fields: ObjMap<Array<FieldNode>>,
-    visitedFragmentNames: ObjMap<boolean>,
-): ObjMap<Array<FieldNode>>
+    fields: { [key: string]: Array<FieldNode> },
+    visitedFragmentNames: { [key: string]: boolean },
+): { [key: string]: Array<FieldNode> };
 
 export function buildResolveInfo(
     exeContext: ExecutionContext,

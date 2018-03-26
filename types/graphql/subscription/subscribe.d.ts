@@ -2,7 +2,6 @@ import { GraphQLSchema } from '../type/schema';
 import { DocumentNode } from '../language/ast';
 import { GraphQLFieldResolver } from '../type/definition';
 import { ExecutionResult } from '../execution/execute';
-import { ObjMap } from '../jsutils/ObjMap';
 
 /**
  * Implements the "Subscribe" algorithm described in the GraphQL specification.
@@ -30,7 +29,7 @@ export function subscribe(
         document: DocumentNode,
         rootValue?: any,
         contextValue?: any,
-        variableValues?: ObjMap<any> | void,
+        variableValues?: { [key: string]: any } | void,
         operationName?: string | void,
         fieldResolver?: GraphQLFieldResolver<any, any> | void,
         subscribeFieldResolver?: GraphQLFieldResolver<any, any> | void,
@@ -42,7 +41,7 @@ export function subscribe(
     document: DocumentNode,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: ObjMap<any> | void,
+    variableValues?: { [key: string]: any } | void,
     operationName?: string | void,
     fieldResolver?: GraphQLFieldResolver<any, any> | void,
     subscribeFieldResolver?: GraphQLFieldResolver<any, any> | void,
@@ -71,7 +70,7 @@ export function createSourceEventStream(
     document: DocumentNode,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: ObjMap<any>,
+    variableValues?: { [key: string]: any },
     operationName?: string | void,
     fieldResolver?: GraphQLFieldResolver<any, any> | void,
 ): Promise<AsyncIterable<any> | ExecutionResult>;
