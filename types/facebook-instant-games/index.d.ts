@@ -19,7 +19,7 @@ declare namespace FBInstant {
     function setSessionData(sessionData: any): void;
     function startGameAsync(): Promise<any>;
     function shareAsync(payload: SharePayload): Promise<void>;
-    function updateAsync(payload: UpdatePayload): Promise<void>;
+    function updateAsync(payload: UpdatePayload | LeaderboardUpdatePayload): Promise<void>;
     function switchGameAsync(appID: string, data?: string): Promise<void>;
     function canCreateShortcutAsync(): Promise<boolean>;
     function createShortcutAsync(): Promise<void>;
@@ -183,7 +183,7 @@ declare namespace FBInstant {
 
     interface DataObject { [ key: string ]: string | number; }
 
-    interface StatsObject { [ key: string ]: string | number; }
+    interface StatsObject { [ key: string ]: number; }
 
     interface IncrementObject { [ key: string ]: number; }
 
