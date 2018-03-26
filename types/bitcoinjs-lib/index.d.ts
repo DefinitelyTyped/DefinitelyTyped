@@ -71,6 +71,10 @@ export class ECPair {
 
     d: BigInteger;
 
+    readonly compressed: boolean;
+
+    readonly network: Network;
+
     getAddress(): string;
 
     getNetwork(): Network;
