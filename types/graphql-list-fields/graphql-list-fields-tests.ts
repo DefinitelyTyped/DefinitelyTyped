@@ -2,7 +2,6 @@ import getFieldNames = require("graphql-list-fields");
 
 import {
     GraphQLID,
-    GraphQLInterfaceType,
     GraphQLObjectType,
     GraphQLResolveInfo,
     GraphQLSchema,
@@ -13,7 +12,7 @@ const sampleGraphQLResolveInfo: GraphQLResolveInfo = {
     fieldName: "",
     fieldNodes: [],
     returnType: GraphQLString,
-    parentType: new GraphQLInterfaceType({
+    parentType: new GraphQLObjectType({
         name: "Sample",
         fields: {
             name: { type: GraphQLString }
