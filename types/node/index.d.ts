@@ -149,6 +149,7 @@ interface NodeModule {
     parent: NodeModule | null;
     children: NodeModule[];
     paths: string[];
+                                                       
 }
 
 declare var module: NodeModule;
@@ -800,6 +801,7 @@ declare namespace NodeJS {
         static runMain(): void;
         static wrap(code: string): string;
         static builtinModules: string[];
+        static _nodeModulePaths: string[];
 
         static Module: typeof Module;
 
