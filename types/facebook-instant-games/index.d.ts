@@ -1,40 +1,38 @@
-// Type definitions for FBInstant 6.1
+// Type definitions for facebook-instant-games 6.1
 // Project: https://developers.facebook.com/docs/games/instant-games
 // Definitions by: Menushka Weeratunga <https://github.com/menushka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class FBInstant {
-    player: FBInstant.Player;
-    context: FBInstant.Context;
-    payments: FBInstant.Payments;
-
-    getLocale(): string;
-    getPlatform(): string;
-    getSDKVersion(): string;
-    initializeAsync(): Promise<any>;
-    setLoadingProgress(progress: number): void;
-    getSupportedAPIs(): string[];
-    getEntryPointData(): any;
-    getEntryPointAsync(): Promise<string>;
-    setSessionData(sessionData: any): void;
-    startGameAsync(): Promise<any>;
-    shareAsync(payload: FBInstant.SharePayload): Promise<void>;
-    updateAsync(payload: FBInstant.UpdatePayload): Promise<void>;
-    switchGameAsync(appID: string, data: string): Promise<void>;
-    canCreateShortcutAsync(): Promise<boolean>;
-    createShortcutAsync(): Promise<void>;
-    quit(): void;
-    logEvent(eventName: string, valueToSum?: number, parameter?: any): FBInstant.APIError;
-    onPause(func: () => void): void;
-    getInterstitialAdAsync(placementID: string): Promise<FBInstant.AdInstance>;
-    getRewardedVideoAsync(placementID: string): Promise<FBInstant.AdInstance>;
-    matchPlayerAsync(matchTag: string, switchContextWhenMatched?: boolean): Promise<void>;
-    checkCanPlayerMatchAsync(): Promise<boolean>;
-    getLeaderboardAsync(name: string): Promise<FBInstant.Leaderboard>;
-}
-
 declare namespace FBInstant {
-    class Player {
+    let player: Player;
+    let context: Context;
+    let payments: Payments;
+
+    function getLocale(): string;
+    function getPlatform(): string;
+    function getSDKVersion(): string;
+    function initializeAsync(): Promise<any>;
+    function setLoadingProgress(progress: number): void;
+    function getSupportedAPIs(): string[];
+    function getEntryPointData(): any;
+    function getEntryPointAsync(): Promise<string>;
+    function setSessionData(sessionData: any): void;
+    function startGameAsync(): Promise<any>;
+    function shareAsync(payload: SharePayload): Promise<void>;
+    function updateAsync(payload: UpdatePayload): Promise<void>;
+    function switchGameAsync(appID: string, data: string): Promise<void>;
+    function canCreateShortcutAsync(): Promise<boolean>;
+    function createShortcutAsync(): Promise<void>;
+    function quit(): void;
+    function logEvent(eventName: string, valueToSum?: number, parameter?: any): APIError;
+    function onPause(func: () => void): void;
+    function getInterstitialAdAsync(placementID: string): Promise<AdInstance>;
+    function getRewardedVideoAsync(placementID: string): Promise<AdInstance>;
+    function matchPlayerAsync(matchTag: string, switchContextWhenMatched?: boolean): Promise<void>;
+    function checkCanPlayerMatchAsync(): Promise<boolean>;
+    function getLeaderboardAsync(name: string): Promise<Leaderboard>;
+
+    interface Player {
         getID(): string;
         getSignedPlayerInfoAsync(requestPayload: string): Promise<SignedPlayerInfo>;
         canSubscribeBotAsync(): Promise<boolean>;
@@ -50,7 +48,7 @@ declare namespace FBInstant {
         getConnectedPlayersAsync(): Promise<ConnectedPlayer[]>;
     }
 
-    class Context {
+    interface Context {
         getID(): string;
         getType(): Type;
         isSizeBetween(minSize: number, maxSize: number): ContextSizeResponse;
@@ -60,7 +58,7 @@ declare namespace FBInstant {
         getPlayersAsync(): Promise<ContextPlayer[]>;
     }
 
-    class Leaderboard {
+    interface Leaderboard {
         getName(): string;
         getContextID(): string;
         getEntryCountAsync(): Promise<number>;
@@ -69,7 +67,7 @@ declare namespace FBInstant {
         getEntriesAsync(count: number, offset: number): Promise<LeaderboardEntry[]>;
     }
 
-    class LeaderboardEntry {
+    interface LeaderboardEntry {
         getScore(): number;
         getFormattedScore(): string;
         getTimestamp(): number;
@@ -78,36 +76,36 @@ declare namespace FBInstant {
         getPlayer(): LeaderboardPlayer;
     }
 
-    class LeaderboardPlayer {
+    interface LeaderboardPlayer {
         getName(): string;
         getPhoto(): string;
         getID(): string;
     }
 
-    class ConnectedPlayer {
+    interface ConnectedPlayer {
         getID(): string;
         getName(): string;
         getPhoto(): string;
     }
 
-    class SignedPlayerInfo {
+    interface SignedPlayerInfo {
         getPlayerID(): string;
         getSignature(): string;
     }
 
-    class ContextPlayer {
+    interface ContextPlayer {
         getID(): string;
         getName(): string;
         getPhoto(): string;
     }
 
-    class AdInstance {
+    interface AdInstance {
         getPlacementID(): string;
         loadAsync(): Promise<void>;
         showAsync(): Promise<void>;
     }
 
-    class Payments {
+    interface Payments {
         purchaseAsync(purchaseConfig: PurchaseConfig): Promise<Purchase>;
         getPurchasesAsync(): Promise<Purchase[]>;
         consumePurchaseAsync(purchaseToken: string): Promise<void>;
