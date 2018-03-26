@@ -20,7 +20,7 @@ declare namespace FBInstant {
     function startGameAsync(): Promise<any>;
     function shareAsync(payload: SharePayload): Promise<void>;
     function updateAsync(payload: UpdatePayload): Promise<void>;
-    function switchGameAsync(appID: string, data: string): Promise<void>;
+    function switchGameAsync(appID: string, data?: string): Promise<void>;
     function canCreateShortcutAsync(): Promise<boolean>;
     function createShortcutAsync(): Promise<void>;
     function quit(): void;
@@ -28,7 +28,7 @@ declare namespace FBInstant {
     function onPause(func: () => void): void;
     function getInterstitialAdAsync(placementID: string): Promise<AdInstance>;
     function getRewardedVideoAsync(placementID: string): Promise<AdInstance>;
-    function matchPlayerAsync(matchTag: string, switchContextWhenMatched?: boolean): Promise<void>;
+    function matchPlayerAsync(matchTag?: string, switchContextWhenMatched?: boolean): Promise<void>;
     function checkCanPlayerMatchAsync(): Promise<boolean>;
     function getLeaderboardAsync(name: string): Promise<Leaderboard>;
 
@@ -39,10 +39,10 @@ declare namespace FBInstant {
         subscribeBotAsync(): Promise<void>;
         getName(): string;
         getPhoto(): string;
-        getDataAsync(keys: string[]): Promise<DataObject>;
+        getDataAsync(keys?: string[]): Promise<DataObject>;
         setDataAsync(data: DataObject): Promise<void>;
         flushDataAsync(): Promise<void>;
-        getStatsAsync(keys: string[]): Promise<StatsObject>;
+        getStatsAsync(keys?: string[]): Promise<StatsObject>;
         setStatsAsync(stats: StatsObject): Promise<void>;
         incrementStatsAsync(increments: IncrementObject): Promise<StatsObject>;
         getConnectedPlayersAsync(): Promise<ConnectedPlayer[]>;
