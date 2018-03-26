@@ -175,7 +175,6 @@ export type NavigationScreenConfig<Options> =
 export type NavigationComponent =
   NavigationScreenComponent<any, any>
   | NavigationNavigator<any, any, any>
-  | any;
 
 export type NavigationScreenComponent<
     Options = {},
@@ -189,7 +188,7 @@ export type NavigationNavigator<
     Props = {}
 > = React.ComponentType<NavigationNavigatorProps<Options, State> & Props> & {
     router: NavigationRouter<State, Options>,
-    navigationOptions?: NavigationScreenConfig<Options> | any,
+    navigationOptions?: NavigationScreenConfig<Options>,
 };
 
 export interface NavigationParams {
