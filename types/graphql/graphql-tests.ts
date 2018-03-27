@@ -27,7 +27,9 @@ function language_lexer_tests() {
 }
 
 function language_location_tests() {
-    // TODO
+    const { Source, getLocation } = graphql;
+    const source = new Source('query { hello }');
+    const loc = getLocation(source, 6);
 }
 
 function language_parser_tests() {
@@ -39,11 +41,31 @@ function language_printer_tests() {
 }
 
 function language_source_tests() {
-    // TODO
+    const { Source } = graphql;
+
+    new Source('{ hello }');
+    new Source('{ hello }', 'source name');
+    new Source('{ hello }', 'source name', { line: 1, column: 2 });
 }
 
 function language_visitor_tests() {
-    // TODO
+    const { parse, visit } = graphql;
+    const ast = parse('{ hello }');
+
+    visit(ast, {
+        enter(node, key, parent, path, ancestors) { },
+        leave: {
+            Document(node) { },
+            Field(node) { },
+        }
+    });
+
+    visit(ast, {
+        Document(node) { },
+        Field: {
+            enter() { }
+        }
+    });
 }
 
 ///////////////////////////
