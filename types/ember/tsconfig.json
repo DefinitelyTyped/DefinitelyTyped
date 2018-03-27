@@ -23,6 +23,7 @@
         "test/lib/assert.ts",
         "test/application.ts",
         "test/ember-tests.ts",
+        "test/error.ts",
         "test/event.ts",
         "test/extend.ts",
         "test/create.ts",
