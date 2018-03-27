@@ -68,7 +68,7 @@ declare namespace DataTables {
       /**
       * Deselect a row
       */
-      deselect: Api;
+      deselect(): Api;
     }
 
     interface RowsMethods {
