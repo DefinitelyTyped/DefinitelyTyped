@@ -1,4 +1,4 @@
-import * as EventSource from "eventsource";
+import EventSource = require("eventsource");
 
 const eventSource = new EventSource("http://foobar");
 eventSource.onmessage = (x: any) => {};
@@ -6,7 +6,7 @@ eventSource.onerror = (x: any) => {};
 eventSource.onopen = (x: any) => {};
 eventSource.close();
 
-import * as EventSourcePolyfill from "eventsource/lib/eventsource-polyfill";
+import EventSourcePolyfill = require("eventsource/lib/eventsource-polyfill");
 
 const eventSourcePolyfill = new EventSourcePolyfill("http://foobar");
 eventSourcePolyfill.onmessage = (x: any) => {};
