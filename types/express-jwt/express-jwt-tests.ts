@@ -13,6 +13,25 @@ app.use(jwt({
     userProperty: 'auth'
 }));
 
+app.use(jwt({
+    secret: (req: express.Request,
+        payload: any,
+        done: (err: any, secret: string) => void) => {
+        done(null, 'shhhhhhared-secret');
+    },
+    userProperty: 'auth'
+}));
+
+app.use(jwt({
+    secret: (req: express.Request,
+        header: any,
+        payload: any,
+        done: (err: any, secret: string) => void) => {
+        done(null, 'shhhhhhared-secret');
+    },
+    userProperty: 'auth'
+}));
+
 var jwtCheck = jwt({
     secret: 'shhhhhhared-secret'
 });

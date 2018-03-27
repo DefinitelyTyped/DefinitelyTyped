@@ -64,6 +64,6 @@ archiver.setModule(() => {});
 archiver.pointer();
 archiver.use(() => {});
 
-archiver.finalize().then();
+archiver.finalize();
 
 archiver.symlink('./path', './target');

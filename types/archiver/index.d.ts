@@ -35,7 +35,7 @@ declare namespace archiver {
         directory(dirpath: string, destpath: false | string, data?: EntryData | EntryDataFunction): this;
         file(filename: string, data: EntryData): this;
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
-        finalize(): Promise<void>;
+        finalize(): void;
 
         setFormat(format: string): this;
         setModule(module: Function): this;

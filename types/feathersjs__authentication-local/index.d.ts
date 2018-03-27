@@ -10,8 +10,10 @@ import {
     Paginated
 } from '@feathersjs/feathers';
 import { Request } from 'express';
+import * as self from '@feathersjs/authentication-local';
 
-export default function feathersAuthenticationLocal(options?: FeathersAuthenticationLocalOptions): () => void;
+declare const feathersAuthenticationLocal: ((options?: FeathersAuthenticationLocalOptions) => () => void) & typeof self;
+export default feathersAuthenticationLocal;
 
 export interface FeathersAuthenticationLocalOptions {
     /**
