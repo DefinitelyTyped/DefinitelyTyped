@@ -1,7 +1,7 @@
-import express = require("express");
+import exp = require("express");
 import jwt = require("jwt-express");
 
-const app = express();
+const app = exp();
 
 app.use(jwt.active());
 app.use(jwt.clear());
@@ -17,12 +17,12 @@ app.use(jwt.init("Secret", {
     cookies: true,
     refresh: true,
     reqProperty: "jwt",
-    revoke: (revokeJWT) => { jwtObj = revokeJWT; },
+    revoke: (revokeJWT: jwt.JWT) => { jwtObj = revokeJWT; },
     signOptions: {
         expiresIn: "1h"
     },
     stales: 1000,
-    verify: (verifyJWT) => { jwtObj = verifyJWT; return true; },
+    verify: (verifyJWT: jwt.JWT) => { jwtObj = verifyJWT; return true; },
     verifyOptions: {
         ignoreExpiration: true
     }
@@ -31,11 +31,14 @@ app.use(jwt.require("key"));
 app.use(jwt.require("key", "==", "value"));
 app.use(jwt.valid());
 
-let resObj: express.Response = <any> {};
-app.use((err: jwt.JWTExpressError, req: express.Request, res: express.Response, next: express.NextFunction) => {
+let resObj: exp.Response = <any> {};
+app.use((err: jwt.JWTExpressError, req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
     err.message.startsWith("");
     err.name.startsWith("");
     resObj = res;
+    jwtObj = req.jwt;
+    req.jwt.payload;
+    req.hostname.startsWith("");
 });
 
 jwtObj.expired.valueOf();
@@ -52,3 +55,9 @@ jwtObj = jwtObj.sign(jwtObj.payload);
 jwtObj = jwtObj.store(resObj);
 jwtObj = jwtObj.verify(jwtObj.token);
 jwtObj.toJSON();
+
+app.get("", (req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
+    jwtObj = req.jwt;
+    req.jwt.payload;
+    req.hostname.startsWith("");
+});
