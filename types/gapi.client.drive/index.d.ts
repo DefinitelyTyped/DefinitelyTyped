@@ -1852,22 +1852,22 @@ declare namespace gapi.client {
             }): Request<TeamDrive>;
         }
 
-        const about: drive.AboutResource;
+        const about: AboutResource;
 
-        const changes: drive.ChangesResource;
+        const changes: ChangesResource;
 
-        const channels: drive.ChannelsResource;
+        const channels: ChannelsResource;
 
-        const comments: drive.CommentsResource;
+        const comments: CommentsResource;
 
-        const files: drive.FilesResource;
+        const files: FilesResource;
 
-        const permissions: drive.PermissionsResource;
+        const permissions: PermissionsResource;
 
-        const replies: drive.RepliesResource;
+        const replies: RepliesResource;
 
-        const revisions: drive.RevisionsResource;
+        const revisions: RevisionsResource;
 
-        const teamdrives: drive.TeamdrivesResource;
+        const teamdrives: TeamdrivesResource;
     }
 }
