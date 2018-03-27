@@ -11,7 +11,7 @@ import SortableTree,
         ExtendedNodeData,
         FullTree,
         OnVisibilityToggleData,
-        PreviousAnNextLocation,
+        PreviousAndNextLocation,
         PlaceholderRendererProps
     } from "react-sortable-tree";
 import { ListProps, ListRowRenderer } from "react-virtualized";
@@ -55,7 +55,7 @@ class Test extends React.Component {
                     onMoveNode={(data: NodeData & FullTree) => {}}
                     onVisibilityToggle={(data: OnVisibilityToggleData) => {}}
                     canDrag={true}
-                    canDrop={(data: PreviousAnNextLocation & NodeData) => true}
+                    canDrop={(data: PreviousAndNextLocation & NodeData) => true}
                     reactVirtualizedListProps={reactVirtualizedListProps}
                     rowHeight={62}
                     slideRegionSize={100}

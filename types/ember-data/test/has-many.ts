@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import { assertType } from './lib/assert';
 
@@ -43,6 +44,10 @@ blogPost.get('commentsAsync').then(comments => {
     assertType<BlogComment | undefined>(comments.get('firstObject'));
     assertType<string>(comments.get('firstObject')!.get('text'));
 });
+
+blogPost.set('commentsAsync', blogPost.get('commentsAsync'));
+blogPost.set('commentsAsync', Ember.A());
+blogPost.set('commentsAsync', Ember.A([ comment! ]));
 
 class PaymentMethod extends DS.Model {}
 declare module 'ember-data' {
