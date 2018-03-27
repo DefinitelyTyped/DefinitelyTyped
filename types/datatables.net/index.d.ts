@@ -29,6 +29,10 @@ declare namespace DataTables {
 
     interface Api extends CoreMethods {
         /**
+         * API should be array-like
+         */
+        [key: number]: any;
+        /**
          * Returns DataTables API instance
          *
          * @param table Selector string for table
