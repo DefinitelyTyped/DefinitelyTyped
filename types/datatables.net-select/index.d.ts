@@ -59,4 +59,26 @@ declare namespace DataTables {
           style(s: "api" | "single" | "multi" | "os"): Api;
         }
     }
+    
+    interface RowMethods {
+      /**
+       * Select a row
+       */
+      select(): Api;
+      /**
+      * Deselect a row
+      */
+      deselect: Api;
+    }
+
+    interface RowsMethods {
+      /**
+       * Select multiple rows
+       */
+      select(): Api;
+      /**
+      * Deselect a row
+      */
+      deselect(): Api;
+    }
 }
