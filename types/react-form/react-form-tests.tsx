@@ -21,6 +21,50 @@ import {
 	FormApi
 } from 'react-form';
 
+// Form Api
+class FormApiMethods extends React.Component {
+	constructor(props: {}) {
+		super(props);
+		this.state = {};
+	}
+
+	render() {
+		const FormContent = (props: { formApi?: FormApi }) => (
+			<form onSubmit={props.formApi ? props.formApi.submitForm : () => {}}>
+				<Text field="hello" id="hello" />
+				<button type="submit">Submit</button>
+			</form>
+		);
+
+		return (
+			<div>
+				<Form>
+					{ formApi => (
+						<form onSubmit={formApi.submitForm}>
+							<Text field="hello" id="hello" />
+							<button type="submit">Submit</button>
+						</form>
+					)}
+				</Form>
+
+				<Form render={ formApi => (
+					<form onSubmit={formApi.submitForm}>
+						<Text field="hello" id="hello" />
+						<button type="submit">Submit</button>
+					</form>
+				)}>
+				</Form>
+
+				<Form>
+					<FormContent />
+				</Form>
+
+				<Form component={FormContent} />
+			</div>
+		);
+	}
+}
+
 // Basic Form Example
 const statusOptions = [
 	{
