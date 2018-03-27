@@ -6,6 +6,7 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
+//                 Alex Dunne <https://github.com/alexdunne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -6125,6 +6126,7 @@ export interface ActionSheetIOSOptions {
     cancelButtonIndex?: number;
     destructiveButtonIndex?: number;
     message?: string;
+    tintColor?: string;
 }
 
 export interface ShareActionSheetIOSOptions {
@@ -6550,7 +6552,7 @@ export interface BackAndroidStatic {
  */
 export interface BackHandlerStatic {
     exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): void;
+    addEventListener(eventName: BackPressEventName, handler: () => void): NativeEventSubscription;
     removeEventListener(eventName: BackPressEventName, handler: () => void): void;
 }
 
@@ -8257,26 +8259,71 @@ interface ImageEditorStatic {
     ): void;
 }
 
-export interface ARTShapeProps {
-    d: string;
-    strokeWidth: number;
+export interface ARTNodeMixin {
+    opacity?: number;
+    originX?: number;
+    originY?: number;
+    scaleX?: number;
+    scaleY?: number;
+    scale?: number;
+    title?: string;
+    x?: number;
+    y?: number;
+    visible?: boolean;
+}
+
+export interface ARTGroupProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTClippingRectangleProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTRenderableMixin extends ARTNodeMixin {
+    fill?: string;
+    stroke?: string;
+    strokeCap?: "butt" | "square" | "round";
     strokeDash?: number[];
-    stroke: string;
+    strokeJoin?: "bevel" | "miter" | "round";
+    strokeWidth?: number;
+}
+
+export interface ARTShapeProps extends ARTRenderableMixin {
+    d: string;
+    width?: number;
+    height?: number;
+}
+
+export interface ARTTextProps extends ARTRenderableMixin {
+    font?: string;
+    alignment?: string;
 }
 
 export interface ARTSurfaceProps {
-    style: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
     width: number;
     height: number;
 }
+
+export interface ClippingRectangleStatic extends React.ComponentClass<ARTClippingRectangleProps> {}
+
+export interface GroupStatic extends React.ComponentClass<ARTGroupProps> {}
 
 export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {}
 
 export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {}
 
+export interface ARTTextStatic extends React.ComponentClass<ARTTextProps> {}
+
 export interface ARTStatic {
+    ClippingRectangle: ClippingRectangleStatic;
+    Group: GroupStatic;
     Shape: ShapeStatic;
     Surface: SurfaceStatic;
+    Text: ARTTextStatic;
 }
 
 export interface KeyboardStatic extends NativeEventEmitter {

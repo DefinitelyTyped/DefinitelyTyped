@@ -44,7 +44,7 @@ const props: Props & React.ClassAttributes<{}> = {
     foo: 42
 };
 
-const container: Element = document.createElement("div");
+declare const container: Element;
 
 //
 // Top-Level API
@@ -226,9 +226,9 @@ const clonedSvgElement: React.ReactSVGElement =
 const component: ModernComponent = ReactDOM.render(element, container);
 const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
 
-const componentElementOrNull: ModernComponent = ReactDOM.render(element, document.getElementById("anelement"));
+const componentElementOrNull: ModernComponent = ReactDOM.render(element, container);
 const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, document.getElementById("anelement"));
+const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
 const domComponent: Element = ReactDOM.render(domElement, container);
 
 // Other Top-Level API
@@ -313,7 +313,7 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
         event.stopPropagation();
     },
     onAnimationStart: event => {
-        console.log(event.currentTarget.className);
+        const currentTarget: EventTarget & HTMLElement = event.currentTarget;
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
@@ -624,7 +624,7 @@ if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
 }
 
 if (TestUtils.isDOMComponent(container)) {
-    container.getAttribute("className");
+    const reassignedContainer: Element = container;
 } else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
     new ModernComponent({ hello: 'hi', foo: 3 }).props;
 }
@@ -670,7 +670,9 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     render() {
         return DOM.textarea({
             value: this.state.value,
-            onChange: e => this.setState({ value: e.target.value })
+            onChange: e => {
+                const target: HTMLTextAreaElement = e.target;
+            }
         });
     }
 }
@@ -678,7 +680,7 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
 DOM.input({
     onChange: event => {
         // `event.target` is guaranteed to be HTMLInputElement
-        event.target.value;
+        const target: HTMLInputElement = event.target;
     }
 });
 

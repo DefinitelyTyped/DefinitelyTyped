@@ -5,6 +5,7 @@
 //                 Jouderian <https://github.com/jouderianjr>
 //                 Qibang <https://github.com/bang88>
 //                 Jason Dreyzehner <https://github.com/bitjson>
+//                 Synarque <https://github.com/synarque>
 //                 Justin Rockwood <https://github.com/jrockwood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
