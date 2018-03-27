@@ -3,7 +3,7 @@
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions by: Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.7
 // Swiper Version: 4.1.0
 
 type DOM7Element = any;
@@ -62,74 +62,74 @@ export declare class Swiper {
     /**
      * Current progress of wrapper translate (from 0 to 1)
      */
-    progress;
+    progress: number;
 
     /**
      * Index number of currently active slide.
      * Note, that in loop mode active index value will be always shifted on a number of looped/duplicated slides
      */
-    activeIndex;
+    activeIndex: number;
 
     /**
      * Index number of currently active slide considering duplicated slides in loop mode
      */
-    realIndex;
+    realIndex: number;
 
     /**
      * Index number of previously active slide
      */
-    previousIndex;
+    previousIndex: number;
 
     /**
      * true if slider on most "left"/"top" position
      */
-    isBeginning;
+    isBeginning: boolean;
 
     /**
      * true if slider on most "right"/"bottom" position
      */
-    isEnd;
+    isEnd: boolean;
 
     /**
      * true if swiper is in transition
      */
-    animating;
+    animating: boolean;
 
     /**
      * Object with the following touch event properties:
      */
     touches: {
-        startX,
-        startY,
-        currentX,
-        currentY,
-        diff
+        startX: any,
+        startY: any,
+        currentX: any,
+        currentY: any,
+        diff: any
     };
 
     /**
      * Index number of last clicked slide
      */
-    clickedIndex;
+    clickedIndex: number;
 
     /**
      * Link to last clicked slide (HTMLElement)
      */
-    clickedSlide;
+    clickedSlide: HTMLElement;
 
     /**
      * Disable/enable ability to slide to the next slides by assigning false/true to this property
      */
-    allowSlideNext;
+    allowSlideNext: boolean;
 
     /**
      * Disable/enable ability to slide to the previous slides by assigning false/true to this property
      */
-    allowSlidePrev;
+    allowSlidePrev: boolean;
 
     /**
      * Disable/enable ability move slider by grabbing it with mouse or by touching it with finger (on touch screens) by assigning false/true to this property
      */
-    allowTouchMove;
+    allowTouchMove: boolean;
 
     // Methods
 
@@ -142,8 +142,8 @@ export declare class Swiper {
 
     /**
      * Run transition to previous slide
-    // speed - number - transition duration (in ms). Optional
-    // runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
+     * speed - number - transition duration (in ms). Optional
+     * runCallbacks - boolean - Set it to false (by default it is true) and transition will not produce transition events. Optional
      */
     slidePrev: (speed: number, runCallbacks: boolean) => {};
 
@@ -533,7 +533,7 @@ export interface SwiperOptions {
     loopFillGroupWithBlank?: boolean;
 
     // Breakpoints
-    breakpoints?: object;
+    breakpoints?: any;
 
     // Observer
     observer?: boolean;
