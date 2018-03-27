@@ -1,6 +1,6 @@
 import {
-  ValueNode,
-  /*
+    ValueNode,
+    /*
     TODO:
     IntValueNode,
     FloatValueNode,
@@ -10,8 +10,8 @@ import {
     ListValueNode,
     ObjectValueNode,
     */
-} from '../language/ast';
-import { GraphQLInputType } from '../type/definition';
+} from "../language/ast";
+import { GraphQLInputType } from "../type/definition";
 
 /**
  * Produces a GraphQL Value AST given a JavaScript value.

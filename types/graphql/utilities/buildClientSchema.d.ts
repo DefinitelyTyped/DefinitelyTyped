@@ -1,5 +1,5 @@
-import { IntrospectionQuery } from './introspectionQuery';
-import { GraphQLSchema, GraphQLSchemaValidationOptions } from '../type/schema';
+import { IntrospectionQuery } from "./introspectionQuery";
+import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
 
 interface Options extends GraphQLSchemaValidationOptions {}
 
@@ -12,7 +12,4 @@ interface Options extends GraphQLSchemaValidationOptions {}
  * represent the "resolver", "parse" or "serialize" functions or any other
  * server-internal mechanisms.
  */
-export function buildClientSchema(
-  introspection: IntrospectionQuery,
-  options?: Options,
-): GraphQLSchema;
+export function buildClientSchema(introspection: IntrospectionQuery, options?: Options): GraphQLSchema;

@@ -1,4 +1,4 @@
-import { ValidationContext } from '../index';
+import { ValidationContext } from "../index";
 
 /**
  * Known type names
