@@ -1,4 +1,3 @@
-
 // Type definitions for tapable v1.0.0
 // Project: https://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
