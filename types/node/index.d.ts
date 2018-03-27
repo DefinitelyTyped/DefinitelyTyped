@@ -800,6 +800,7 @@ declare namespace NodeJS {
         static runMain(): void;
         static wrap(code: string): string;
         static builtinModules: string[];
+        /** @deprecated */
         static _nodeModulePaths: string[];
 
         static Module: typeof Module;
