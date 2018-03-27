@@ -2,6 +2,7 @@
 // Project: https://github.com/mapbox/node-sqlite3
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Sumant Manne <https://github.com/dpyro>
+//                 Behind The Math <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -87,4 +88,15 @@ export class Database extends events.EventEmitter {
     configure(option: "busyTimeout", value: number): void;
 }
 
-export function verbose(): void;
+export function verbose(): sqlite3;
+
+export interface sqlite3 {
+    OPEN_READONLY: number;
+    OPEN_READWRITE: number;
+    OPEN_CREATE: number;
+    cached: typeof cached;
+    RunResult: RunResult;
+    Statement: typeof Statement;
+    Database: typeof Database;
+    verbose(): this;
+}
