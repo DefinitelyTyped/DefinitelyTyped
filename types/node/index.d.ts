@@ -148,7 +148,7 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
-    paths: string[];                                                     
+    paths: string[];
 }
 
 declare var module: NodeModule;
