@@ -15,7 +15,7 @@ export const version: string;
 
 export interface HttpRequestOptions {
     url?: string;
-    method?: "POST" | "GET" | "OPTIONS" | "HEAD" | "DELETE" | "PATCH";
+    method?: "POST" | "GET" | "OPTIONS" | "HEAD" | "DELETE" | "PATCH" | "PUT";
     body?: string | Buffer | NodeJS.ReadableStream | object | null;
     headers?: { [name: string]: string };
     json?: object | any[] | null;
