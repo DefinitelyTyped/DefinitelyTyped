@@ -1,10 +1,10 @@
-// Type definitions for d3-fetch 1.0
+// Type definitions for d3-fetch 1.1
 // Project: https://d3js.org/d3-fetch/
 // Definitions by: Hugues Stefanski <https://github.com/ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-// Last module patch version validated against: 1.0.1
+// Last module patch version validated against: 1.1.0
 
 import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
 
@@ -147,6 +147,16 @@ export function dsv<ParsedRow extends DSVRowAny>(
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /**
+ * Fetches the file at the specified input URL as text, parses it as HTML and returns a Promise of an HTML DOM Document.
+ *
+ * If init is specified, it is passed along to the underlying call to fetch.
+ *
+ * @param url A valid URL string.
+ * @param init An optional request initialization object.
+ */
+export function hmtl(url: string, init?: RequestInit): Promise<Document>;
+
+/**
  * Fetches the image at the specified input URL and returns a promise of an HTML image element.
  *
  * If init is specified, sets any additional properties on the image before loading.
@@ -167,6 +177,16 @@ export function image(url: string, init?: {[key: string]: any}): Promise<HTMLIma
  * @param init An optional request initialization object.
  */
 export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject>;
+
+/**
+ * Fetches the file at the specified input URL as text, parses it as SVG and returns a Promise of an SVG Document.
+ *
+ * If init is specified, it is passed along to the underlying call to fetch.
+ *
+ * @param url A valid URL string.
+ * @param init An optional request initialization object.
+ */
+export function svg(url: string, init?: RequestInit): Promise<Document>;
 
 /**
  * Fetches the text file at the specified input URL and returns it as a Promise of a string.
@@ -234,3 +254,13 @@ export function tsv<ParsedRow extends DSVRowAny>(
     init: RequestInit,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
+
+/**
+ * Fetches the file at the specified input URL as text, parses it as XML and returns a Promise of an XML Document.
+ *
+ * If init is specified, it is passed along to the underlying call to fetch.
+ *
+ * @param url A valid URL string.
+ * @param init An optional request initialization object.
+ */
+export function xml(url: string, init?: RequestInit): Promise<XMLDocument>;
