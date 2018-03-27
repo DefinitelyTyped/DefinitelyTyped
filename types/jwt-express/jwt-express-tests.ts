@@ -39,6 +39,7 @@ app.use((err: jwt.JWTExpressError, req: exp.Request, res: exp.Response, next: ex
     jwtObj = req.jwt;
     req.jwt.payload;
     req.hostname.startsWith("");
+    jwtObj = res.jwt({ });
 });
 
 jwtObj.expired.valueOf();
@@ -60,4 +61,5 @@ app.get("", (req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
     jwtObj = req.jwt;
     req.jwt.payload;
     req.hostname.startsWith("");
+    jwtObj = res.jwt({ });
 });
