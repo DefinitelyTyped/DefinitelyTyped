@@ -280,6 +280,7 @@ export class HookInterceptor {
 
 /** A HookMap is a helper class for a Map with Hooks */
 export class HookMap<T1 = any, T2 = any, T3 = any> {
+    constructor(fn: () => Hook);
     get: (key: any) => Hook<T1, T2, T3> | undefined;
     for: (key: any) => Hook<T1, T2, T3>;
     tap: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
