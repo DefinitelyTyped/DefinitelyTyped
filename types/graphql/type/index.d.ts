@@ -6,7 +6,93 @@ export {
     GraphQLSchemaConfig,
 } from "./schema";
 
-export * from "./definition";
+export {
+    // Predicates
+    isType,
+    isScalarType,
+    isObjectType,
+    isInterfaceType,
+    isUnionType,
+    isEnumType,
+    isInputObjectType,
+    isListType,
+    isNonNullType,
+    isInputType,
+    isOutputType,
+    isLeafType,
+    isCompositeType,
+    isAbstractType,
+    isWrappingType,
+    isNullableType,
+    isNamedType,
+    // Assertions
+    assertType,
+    assertScalarType,
+    assertObjectType,
+    assertInterfaceType,
+    assertUnionType,
+    assertEnumType,
+    assertInputObjectType,
+    assertListType,
+    assertNonNullType,
+    assertInputType,
+    assertOutputType,
+    assertLeafType,
+    assertCompositeType,
+    assertAbstractType,
+    assertWrappingType,
+    assertNullableType,
+    assertNamedType,
+    // Un-modifiers
+    getNullableType,
+    getNamedType,
+    // Definitions
+    GraphQLScalarType,
+    GraphQLObjectType,
+    GraphQLInterfaceType,
+    GraphQLUnionType,
+    GraphQLEnumType,
+    GraphQLInputObjectType,
+    // Type Wrappers
+    GraphQLList,
+    GraphQLNonNull,
+    // type
+    GraphQLType,
+    GraphQLInputType,
+    GraphQLOutputType,
+    GraphQLLeafType,
+    GraphQLCompositeType,
+    GraphQLAbstractType,
+    GraphQLWrappingType,
+    GraphQLNullableType,
+    GraphQLNamedType,
+    Thunk,
+    GraphQLArgument,
+    GraphQLArgumentConfig,
+    GraphQLEnumTypeConfig,
+    GraphQLEnumValue,
+    GraphQLEnumValueConfig,
+    GraphQLEnumValueConfigMap,
+    GraphQLField,
+    GraphQLFieldConfig,
+    GraphQLFieldConfigArgumentMap,
+    GraphQLFieldConfigMap,
+    GraphQLFieldMap,
+    GraphQLFieldResolver,
+    GraphQLInputField,
+    GraphQLInputFieldConfig,
+    GraphQLInputFieldConfigMap,
+    GraphQLInputFieldMap,
+    GraphQLInputObjectTypeConfig,
+    GraphQLInterfaceTypeConfig,
+    GraphQLIsTypeOfFn,
+    GraphQLObjectTypeConfig,
+    GraphQLResolveInfo,
+    ResponsePath,
+    GraphQLScalarTypeConfig,
+    GraphQLTypeResolver,
+    GraphQLUnionTypeConfig,
+} from "./definition";
 
 export {
     // Predicate
@@ -21,6 +107,7 @@ export {
     GraphQLDeprecatedDirective,
     // Constant Deprecation Reason
     DEFAULT_DEPRECATION_REASON,
+    // type
     GraphQLDirectiveConfig,
 } from "./directives";
 
