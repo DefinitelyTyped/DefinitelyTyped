@@ -1471,6 +1471,8 @@ namespace https_tests {
 
     https.request('http://www.example.com/xyz');
 
+    https.globalAgent.options.ca = [];
+
     {
         const server = new https.Server();
 
@@ -3304,6 +3306,16 @@ namespace async_hooks_tests {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////

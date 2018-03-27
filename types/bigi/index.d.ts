@@ -87,7 +87,7 @@ declare class bigi {
     static fromDERInteger(byteArray?: any): number;
     static fromHex(hex: string): bigi;
     static isBigInteger(obj: any, check_ver: any): obj is bigi;
-    static valueOf(i: any): number;
+    static valueOf(i: any): bigi;
 }
 declare namespace bigi {
     interface Constants {

@@ -1015,6 +1015,8 @@ namespace https_tests {
     });
 
     https.request('http://www.example.com/xyz');
+
+    https.globalAgent.options.ca = [];
 }
 
 ////////////////////////////////////////////////////

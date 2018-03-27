@@ -90,7 +90,7 @@ export interface AttributeValue {
 // Context
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_StreamRecord.html
 export interface StreamRecord {
-    ApproximateCreationTime?: number;
+    ApproximateCreationDateTime?: number;
     Keys?: { [key: string]: AttributeValue };
     NewImage?: { [key: string]: AttributeValue };
     OldImage?: { [key: string]: AttributeValue };

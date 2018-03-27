@@ -22,6 +22,11 @@ columnDef.cellTooltip = 'blah';
 columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGridColumn) {
     return `${gridRow.entity.unknownProperty}-${gridCol.displayName}`;
 };
+columnDef.defaultSort = {
+    direction: 'ASC',
+    ignoreSort: false,
+    priority: 1
+};
 columnDef.displayName = 'Jumper';
 columnDef.enableColumnMenu = false;
 columnDef.enableColumnMenus = false;
