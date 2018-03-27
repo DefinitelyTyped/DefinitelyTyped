@@ -127,6 +127,7 @@ declare namespace uiGrid {
         scrollbars: {
             NEVER: number;
             ALWAYS: number;
+            WHEN_NEEDED: number;
         };
     }
     export type IGridInstance = IGridInstanceOf<any>;
@@ -627,7 +628,7 @@ declare namespace uiGrid {
         enableGridMenu?: boolean;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
-         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
+         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
         enableHorizontalScrollbar?: boolean | number;
@@ -660,7 +661,7 @@ declare namespace uiGrid {
         enableSorting?: boolean;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the vertical scrollbar for the grid.
-         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
+         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
         enableVerticalScrollbar?: boolean | number;
@@ -897,7 +898,7 @@ declare namespace uiGrid {
          * which is provided when you want to remove an item.  The id should be unique.
 
          */
-        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>):  void;
+        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>): void;
         /**
          * Clears all filters and optionally refreshes the visible rows.
          * @param {boolean} [refreshRows=true] Defaults to true.
