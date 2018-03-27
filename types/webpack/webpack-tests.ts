@@ -145,6 +145,15 @@ rule = {
     loader: "babel-loader"
 };
 
+rule = {
+    test: /\.css$/,
+    resourceQuery: /module/,
+    loader: 'css-loader',
+    options: {
+        modules: true
+    }
+};
+
 declare const require: any;
 declare const path: any;
 configuration = {
