@@ -9,7 +9,7 @@ export declare abstract class Tapable {
         [propName: string]: Tapable.Handler[]
     }
 
-    /** Do not use directly */
+    /** @deprecated Private internals. Do not use directly */
     _pluginCompat: Hook;
 
     /**
@@ -249,30 +249,26 @@ export class Hook<T1 = any, T2 = any, T3 = any> {
     taps: any[];
     interceptors: any[];
     call: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => any;
-    promise: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => Promise<any>;
+    promise:(arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => Promise<any>;
     callAsync: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => any;
 
-    compile(options: HookCompileOptions): Function;
+    compile(options: HookCompileOptions) : Function;
     tap: (name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
     tapAsync: (name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => void) => void;
     tapPromise: (name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>) => void;
     intercept: (interceptor: HookInterceptor) => void;
 }
 
-export class SyncHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-export class SyncBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-export class SyncLoopHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-export class SyncWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
+export class SyncHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class SyncBailHook <T1 = any, T2 = any, T3 = any>extends Hook<T1, T2, T3> {}
+export class SyncLoopHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class SyncWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
 
-export class AsyncParallelHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-export class AsyncSeriesHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> { }
-
-export class MultiHook {
-    constructor(hooks: Hook[])
-}
+export class AsyncParallelHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncSeriesHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
+export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
 
 export class HookInterceptor {
     call: (...args: any[]) => void;
@@ -282,8 +278,8 @@ export class HookInterceptor {
     context: boolean;
 }
 
+/** A HookMap is a helper class for a Map with Hooks */
 export class HookMap<T1 = any, T2 = any, T3 = any> {
-    constructor(fn: () => SyncHook);
     get: (key: any) => Hook<T1, T2, T3> | undefined;
     for: (key: any) => Hook<T1, T2, T3>;
     tap: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
@@ -294,4 +290,17 @@ export class HookMap<T1 = any, T2 = any, T3 = any> {
 
 export class HookMapInterceptor<T1 = any, T2 = any, T3 = any> {
     factory: (key: any, hook: Hook<T1, T2, T3>) => Hook<T1, T2, T3>;
+}
+
+/**
+ *  A helper Hook-like class to redirect taps to multiple other hooks
+ *
+ * ```
+ * const { MultiHook } = require("tapable");
+ *
+ * this.hooks.allHooks = new MultiHook([this.hooks.hookA, this.hooks.hookB]);
+ * ```
+ */
+export class MultiHook {
+    constructor(hooks: Hook[])
 }
