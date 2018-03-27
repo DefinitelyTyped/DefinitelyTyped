@@ -218,5 +218,16 @@ declare global {
         interface Request {
             jwt: JWT;
         }
+
+        interface Response {
+            /**
+             * Returns a newly created / signed JWT Object from the payload. If you are using cookies,
+             * it will automatically store the JWT in the cookie as well.
+             *
+             * @param payload The payload of the JWT
+             * @return The newly created JWT
+             */
+            jwt(payload: any): JWT;
+        }
     }
 }
