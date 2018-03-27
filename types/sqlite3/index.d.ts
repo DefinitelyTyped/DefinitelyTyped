@@ -83,6 +83,8 @@ export class Database extends events.EventEmitter {
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "open" | "close", listener: () => void): this;
     on(event: string, listener: (...args: any[]) => void): this;
+
+    configure(option: "busyTimeout", value: number): void;
 }
 
 export function verbose(): void;
