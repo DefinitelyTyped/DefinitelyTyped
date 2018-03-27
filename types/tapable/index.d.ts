@@ -43,13 +43,13 @@ export declare abstract class Tapable {
      * @param name - plugin group name
      * @param args
      */
-    applyPlugins: (name: string, ...args: any[]) => void;
+    applyPlugins(name: string, ...args: any[]): void;
 
-    applyPlugins0: (name: string) => void;
+    applyPlugins0(name: string): void;
 
-    applyPlugins1: (name: string, param: any) => void;
+    applyPlugins1(name: string, param: any): void;
 
-    applyPlugins2: (name: string, param1: any, param2: any) => void;
+    applyPlugins2(name: string, param1: any, param2: any): void;
 
     /**
      * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
