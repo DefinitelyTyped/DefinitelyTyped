@@ -221,7 +221,7 @@ declare namespace DataTables {
          * @param event Event name to remove.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        off(event: string, callback?: ((e: Event, settings: Settings, json: any) => void)): Api;
+        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Table events listener.
@@ -229,7 +229,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        on(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
+        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -237,7 +237,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        one(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
+        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
 
         /**
          * Page Methods / object
