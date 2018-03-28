@@ -42,7 +42,7 @@ const fakeAuth = {
   }
 };
 
-const AuthButton = withRouter(({ history }) => (
+const AuthButton = withRouter(({ history }: RouteComponentProps<{}>) => (
   fakeAuth.isAuthenticated ? (
     <p>
       Welcome! <button onClick={() => {
