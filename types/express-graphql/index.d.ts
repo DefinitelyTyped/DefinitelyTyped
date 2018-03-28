@@ -5,6 +5,7 @@
 //                 Daniel Fader <https://github.com/hubel>
 //                 Ehsan Ziya <https://github.com/zya>
 //                 Margus Lamp <https://github.com/mlamp>
+//                 Firede <https://github.com/firede>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,8 +15,11 @@ export = graphqlHTTP;
 
 declare namespace graphqlHTTP {
     /**
-     * Used to configure the graphQLHTTP middleware by providing a schema
+     * Used to configure the graphqlHTTP middleware by providing a schema
      * and other configuration options.
+     *
+     * Options can be provided as an Object, a Promise for an Object, or a Function
+     * that returns an Object or a Promise for an Object.
      */
     export type Options =
         | ((request: Request, response: Response, params?: GraphQLParams) => OptionsResult)
@@ -40,20 +44,20 @@ declare namespace graphqlHTTP {
         /**
          * A boolean to configure whether the output should be pretty-printed.
          */
-        pretty?: boolean;
+        pretty?: boolean | null;
 
         /**
          * An optional function which will be used to format any errors produced by
          * fulfilling a GraphQL operation. If no function is provided, GraphQL's
          * default spec-compliant `formatError` function will be used.
          */
-        formatError?: (error: GraphQLError) => any;
+        formatError?: ((error: GraphQLError) => any) | null;
 
         /**
          * An optional array of validation rules that will be applied on the document
          * in additional to those defined by the GraphQL spec.
          */
-        validationRules?: any[];
+        validationRules?: any[] | null;
 
         /**
          * An optional function for adding additional metadata to the GraphQL response
@@ -65,12 +69,12 @@ declare namespace graphqlHTTP {
          *
          * This function may be async.
          */
-        extensions?: (info: RequestInfo) => { [key: string]: any };
+        extensions?: ((info: RequestInfo) => { [key: string]: any }) | null;
 
         /**
          * A boolean to optionally enable GraphiQL mode.
          */
-        graphiql?: boolean;
+        graphiql?: boolean | null;
     }
 
     /**
@@ -80,32 +84,32 @@ declare namespace graphqlHTTP {
         /**
          * The parsed GraphQL document.
          */
-        document?: DocumentNode;
+        document: DocumentNode | null | undefined;
 
         /**
          * The variable values used at runtime.
          */
-        variables?: { [name: string]: any };
+        variables: { [name: string]: any } | null | undefined;
 
         /**
          * The (optional) operation name requested.
          */
-        operationName?: string;
+        operationName: string | null | undefined;
 
         /**
          * The result of executing the operation.
          */
-        result?: any;
+        result: any;
     }
 
     export interface GraphQLParams {
-        query?: string;
-        variables?: { [name: string]: any };
-        operationName?: string;
-        raw?: boolean;
+        query: string | null | undefined;
+        variables: { [name: string]: any } | null | undefined;
+        operationName: string | null | undefined;
+        raw: boolean | null | undefined;
     }
 
-    type Middleware = (request: Request, response: Response) => void;
+    type Middleware = (request: Request, response: Response) => Promise<undefined>;
 }
 
 /**
