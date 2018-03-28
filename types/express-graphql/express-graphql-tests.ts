@@ -1,29 +1,19 @@
-import express = require('express');
-import 'express-session';
-import graphqlHTTP = require('express-graphql');
-import { GraphQLSchema } from 'graphql/type/schema';
+import express = require("express");
+import "express-session";
+import graphqlHTTP = require("express-graphql");
+import { buildSchema } from "graphql";
 
 const app = express();
-const schema: GraphQLSchema = {
-    getQueryType: null,
-    getMutationType: null,
-    getSubscriptionType: null,
-    getTypeMap: null,
-    getType: null,
-    getPossibleTypes: null,
-    isPossibleType: null,
-    getDirective: null,
-    getDirectives: null,
-};
+const schema = buildSchema(`type Query { hello: String }`);
 
 const graphqlOption: graphqlHTTP.OptionsData = {
     graphiql: true,
     schema,
     formatError: (error: Error) => ({
-        message: error.message
+        message: error.message,
     }),
     validationRules: [() => false, () => true],
-    extensions: ({ document, variables, operationName, result }) => ({ key: "value", key2: "value"}),
+    extensions: ({ document, variables, operationName, result }) => ({ key: "value", key2: "value" }),
 };
 
 const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsData => ({
@@ -38,15 +28,15 @@ const graphqlOptionRequestAsync = async (request: express.Request): Promise<grap
         graphiql: true,
         schema: await Promise.resolve(schema),
         context: request.session,
-        extensions: async (args) => { },
+        extensions: async args => {},
         validationRules: [() => false, () => true],
     };
 };
 
-app.use('/graphql1', graphqlHTTP(graphqlOption));
+app.use("/graphql1", graphqlHTTP(graphqlOption));
 
-app.use('/graphql2', graphqlHTTP(graphqlOptionRequest));
+app.use("/graphql2", graphqlHTTP(graphqlOptionRequest));
 
-app.use('/graphqlasync', graphqlHTTP(graphqlOptionRequestAsync));
+app.use("/graphqlasync", graphqlHTTP(graphqlOptionRequestAsync));
 
-app.listen(8080, () => console.log('GraphQL Server running on localhost:8080'));
+app.listen(8080, () => console.log("GraphQL Server running on localhost:8080"));
