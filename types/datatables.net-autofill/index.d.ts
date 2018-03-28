@@ -20,7 +20,10 @@ declare namespace DataTables {
      * Always ask the end user if an action should be taken or not
      */
     alwaysAsk?: boolean;
-
+    /*
+     * Always ask the end user if an action should be taken or not
+     */
+    columns: string | number[];
     /*
      *
      * Initial enablement state of AutoFill
