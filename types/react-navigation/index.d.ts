@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 1.2
+// Type definitions for react-navigation 1.5
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -45,7 +45,6 @@ export interface HeaderProps extends NavigationSceneRendererProps {
   mode: HeaderMode;
   router: NavigationRouter<
     NavigationState,
-    NavigationAction,
     NavigationStackScreenOptions
   >;
   getScreenDetails: (navigationScene: NavigationScene) => NavigationScreenDetails<
@@ -75,9 +74,9 @@ export interface NavigationState {
   routes: any[];
 }
 
-export type NavigationRoute = NavigationLeafRoute | NavigationStateRoute;
+export type NavigationRoute<Params = NavigationParams> = NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
 
-export interface NavigationLeafRoute {
+export interface NavigationLeafRoute<Params> {
   /**
    * React's key used by some navigators. No need to specify these manually,
    * they will be defined by the router.
@@ -96,23 +95,23 @@ export interface NavigationLeafRoute {
    * Params passed to this route when navigating to it,
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
-  params?: NavigationParams;
+  params?: Params;
 }
 
-export type NavigationStateRoute = NavigationLeafRoute & NavigationState;
+export type NavigationStateRoute<NavigationLeafRouteParams> = NavigationLeafRoute<NavigationLeafRouteParams> & NavigationState;
 
 export type NavigationScreenOptionsGetter<Options> = (
-  navigation: NavigationScreenProp<NavigationRoute>,
+  navigation: NavigationScreenProp<NavigationRoute<any>>,
   screenProps?: { [key: string]: any }
 ) => Options;
 
-export interface NavigationRouter<State, Action, Options> {
+export interface NavigationRouter<State = NavigationState, Options = {}> {
   /**
    * The reducer that outputs the new navigation state for a given action, with
    * an optional previous state. When the action is considered handled but the
    * state is unchanged, the output state is null.
    */
-  getStateForAction: (action: Action, lastState?: State) => (State | null);
+  getStateForAction: (action: NavigationAction, lastState?: State) => (State | null);
 
   /**
    * Maps a URI-like string to an action. This can be mapped to a state
@@ -121,7 +120,7 @@ export interface NavigationRouter<State, Action, Options> {
   getActionForPathAndParams: (
     path: string,
     params?: NavigationParams
-  ) => (Action | null);
+  ) => (NavigationAction | null);
 
   getPathAndParamsForState: (
     state: State
@@ -175,16 +174,22 @@ export type NavigationScreenConfig<Options> =
 
 export type NavigationComponent =
   NavigationScreenComponent<any, any>
-  | NavigationNavigator<any, any, any, any>;
+  | NavigationNavigator<any, any, any>;
 
-export interface NavigationScreenComponent<T, Options> extends React.ComponentClass<T> {
-  navigationOptions?: NavigationScreenConfig<Options>;
-}
+export type NavigationScreenComponent<
+    Options = {},
+    Props = {}
+> = React.ComponentType<NavigationNavigatorProps<Options, NavigationState> & Props> &
+({} | { navigationOptions: NavigationScreenConfig<Options> });
 
-export interface NavigationNavigator<T, State, Action, Options> extends React.ComponentClass<T> {
-  router?: NavigationRouter<State, Action, Options>;
-  navigationOptions?: NavigationScreenConfig<Options>;
-}
+export type NavigationNavigator<
+    State = NavigationState,
+    Options = {},
+    Props = {}
+> = React.ComponentType<NavigationNavigatorProps<Options, State> & Props> & {
+    router: NavigationRouter<State, Options>,
+    navigationOptions?: NavigationScreenConfig<Options>,
+};
 
 export interface NavigationParams {
   [key: string]: any;
@@ -452,10 +457,10 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   popToTop: (params?: { immediate?: boolean }) => boolean;
 }
 
-export interface NavigationNavigatorProps<S = {}> {
+export interface NavigationNavigatorProps<O = {}, S = {}> {
   navigation?: NavigationProp<S>;
   screenProps?: { [key: string]: any };
-  navigationOptions?: any;
+  navigationOptions?: O;
 }
 
 /**
@@ -587,7 +592,7 @@ export interface NavigationContainerProps {
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps & NavigationNavigatorProps<any>
 > {
-  router: NavigationRouter<any, any, any>;
+  router: NavigationRouter<any, any>;
   screenProps: { [key: string]: any };
   navigationOptions: any;
   state: { nav: NavigationState | null };
@@ -810,7 +815,7 @@ export class Transitioner extends React.Component<
 export function TabRouter(
   routeConfigs: NavigationRouteConfigMap,
   config: NavigationTabRouterConfig
-): NavigationRouter<any, any, any>;
+): NavigationRouter<any, any>;
 
 /**
  * Stack Router
@@ -820,19 +825,19 @@ export function TabRouter(
 export function StackRouter(
   routeConfigs: NavigationRouteConfigMap,
   config: NavigationTabRouterConfig
-): NavigationRouter<any, any, any>;
+): NavigationRouter<any, any>;
 
 /**
  * Create Navigator
  *
  * @see https://github.com/react-navigation/react-navigation/blob/master/src/navigators/createNavigator.js
  */
-export function createNavigator<C, S, A, Options>(
-  router: NavigationRouter<S, A, Options>,
+export function createNavigator<C, S, Options>(
+  router: NavigationRouter<S, Options>,
   routeConfigs?: NavigationRouteConfigMap,
   navigatorConfig?: {} | null,
   navigatorType?: NavigatorType
-): (NavigationView: React.ComponentClass<C>) => NavigationNavigator<C, S, A, Options>;
+): (NavigationView: React.ComponentClass<C>) => NavigationNavigator<C, S, Options>;
 
 /**
  * Create an HOC that injects the navigation and manages the navigation state
@@ -843,7 +848,7 @@ export function createNavigator<C, S, A, Options>(
  * @see https://github.com/react-navigation/react-navigation/blob/master/src/createNavigationContainer.js
  */
 export function createNavigationContainer(
-  Component: NavigationNavigator<any, any, any, any>
+  Component: NavigationNavigator<any, any, any>
 ): NavigationContainer;
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
@@ -853,8 +858,8 @@ export function createNavigationContainer(
  * BEGIN CUSTOM CONVENIENCE INTERFACES
  */
 
-export interface NavigationScreenProps {
-  navigation: NavigationScreenProp<NavigationRoute>;
+export interface NavigationScreenProps<Params = NavigationParams> {
+  navigation: NavigationScreenProp<NavigationRoute<Params>>;
   screenProps?: { [key: string]: any };
   navigationOptions?: NavigationScreenConfig<any>;
 }
