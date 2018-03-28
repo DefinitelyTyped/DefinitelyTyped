@@ -5,10 +5,6 @@ async function run() {
     const server = new Server({ port: 8000 });
     await server.register(bell);
 
-    // You'll need to go to https://developers.arcgis.com/en/applications and set up an application to get started
-    // Once you create your app you will get your ClientID and Client Secret.
-    // Also be sure to set redirect URL as well at the bottom of the screen in Redirect URIs section.
-
     server.auth.strategy('arcgisonline', 'bell', {
         provider: 'twitter',
         password: 'some cookie password',
