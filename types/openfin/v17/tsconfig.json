@@ -14,6 +14,11 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "openfin": [
+                "openfin/v17"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

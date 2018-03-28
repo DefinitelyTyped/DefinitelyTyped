@@ -19,7 +19,7 @@ function test_application() {
     }, (error) => {
         console.log("Error creating application:", error);
     });
-        //createFromManifest
+	// createFromManifest
     fin.desktop.Application.createFromManifest("http://stuf.com/app.json", (app) => {
         console.log(app.uuid);
     }, err => console.log(err));
@@ -88,8 +88,9 @@ function test_application() {
     // registerCustomData
     application.registerUser("a", "b", () => console.log("done"), err => console.log(err));
     // removeEventListener
-    const previousCallback = (event: fin.WindowEvent) => { };
-    application.removeEventListener("closed", previousCallback, () => {
+    application.removeEventListener("closed", (event: any) => {
+		console.log(event);
+	}, () => {
         console.log("The unregistration was successful");
     }, err => {
         console.log("failure:", err);
@@ -133,8 +134,8 @@ function test_application() {
         console.log("waiting for hung application");
         application.wait();
     });
-    //uuid
-    let hasUuid = application.uuid;
+    // uuid
+    const hasUuid = application.uuid;
 }
 
 function test_external_application() {
@@ -281,7 +282,7 @@ function test_system() {
     }, err => {
         console.log("failure: " + err);
     });
-    //flushCookieStore
+    // flushCookieStore
     fin.desktop.System.flushCookieStore(() => {
         console.log('successful');
     }, err => {
@@ -317,7 +318,7 @@ function test_system() {
     fin.desktop.System.getCommandLineArguments(args => {
         console.log("The command line arguments are " + args);
     });
-    //getCookieInfo
+    // getCookieInfo
     fin.desktop.System.getCookies({ name: 'myCookie1'}, cookies => {
         const cookie1 = cookies[0];
         console.log(cookie1.name, cookie1.domain, cookie1.path);
@@ -356,7 +357,7 @@ function test_system() {
             console.log(`The filename of the log is ${logInfo.name}, the size is ${logInfo.size}, and the date of creation is ${logInfo.date}`);
         });
     });
-    //getMinLogLevel
+    // getMinLogLevel
     fin.desktop.System.getMinLogLevel(level => console.log(level), err => console.log(err));
     // getMonitorInfo
     fin.desktop.System.getMonitorInfo(monitorInfo => {
@@ -399,7 +400,7 @@ function test_system() {
     }, error => {
         console.log('Error:', error);
     });
-    //
+    // launch external process with an alias
     fin.desktop.System.launchExternalProcess({
         // Additionally note that the executable found in the zip file specified in appAssets
         // will default to the one mentioned by appAssets.target
@@ -491,14 +492,15 @@ function test_system() {
         });
     });
     // removeEventListener
-    const aRegisteredListener = (event: fin.SystemBaseEvent) => { };
-    fin.desktop.System.removeEventListener("monitor-info-changed", aRegisteredListener, () => {
+    fin.desktop.System.removeEventListener("monitor-info-changed", (event) => {
+		console.log(event);
+	}, () => {
         console.log("successful");
-    }, err => {
+    }, (err: any) => {
         console.log("failure: " + err);
     });
-    //setMinLogLevel
-    fin.desktop.System.setMinLogLevel("log level", () => console.log('Success'), err => console.error(err));
+    // setMinLogLevel
+    fin.desktop.System.setMinLogLevel("log level", () => console.log('Success'), (err: any) => console.error(err));
     // showDeveloperTools
     fin.desktop.System.showDeveloperTools("uuid", "name", () => {
         console.log("successful");
@@ -750,8 +752,9 @@ function test_window() {
     // moveTo
     finWindow.moveTo(100, 200);
     // removeEventListener
-    const aRegisteredListener = (event: fin.WindowBaseEvent) => { };
-    finWindow.removeEventListener("bounds-changed", aRegisteredListener);
+    finWindow.removeEventListener("bounds-changed", event => {
+		console.log(event);
+	});
     // resizeBy
     finWindow.resizeBy(10, 10, "top-right");
     // resizeTo
@@ -778,13 +781,13 @@ function test_window() {
 }
 
 function test_frame() {
-    //wrap
+    // wrap
     const frame = fin.desktop.Frame.wrap('uuid', 'name');
-    //getCurrent
+    // getCurrent
     const currentFrame = fin.desktop.Frame.getCurrent();
     // addEventlistener
     frame.addEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
-    //removeEventListener
+    // removeEventListener
     frame.removeEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
     // getInfo
     frame.getInfo(info => {

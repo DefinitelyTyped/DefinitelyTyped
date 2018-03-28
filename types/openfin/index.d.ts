@@ -1,6 +1,7 @@
 // Type definitions for OpenFin API 29.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
+//                 Ricardo de Pena <https://github.com/rdepena>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // based on v8.56.29.51
@@ -641,8 +642,8 @@ declare namespace fin {
         /**
          * Download preload scripts from given URLs
          */
-        downloadPreloadScripts(scripts: Array<DownloadPreloadOption>, callback?: (downloadInfo: Array<DownloadPreloadInfo>) => void,
-                               errorCallback?:   (reason: string) => void): void;
+        downloadPreloadScripts(scripts: DownloadPreloadOption[], callback?: (downloadInfo: DownloadPreloadInfo[]) => void,
+                               errorCallback?: (reason: string) => void): void;
         /**
          * Downloads the given OpenFin Runtime.
          */
@@ -674,7 +675,7 @@ declare namespace fin {
         /**
          * Get additional info of cookies.
          */
-        getCookies(option: CookieOption, callback?: (info: Array<CookieInfo>) => void, errorCallback?: (reason: string) => void): void;
+        getCookies(option: CookieOption, callback?: (info: CookieInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the command line argument string that started OpenFin Runtime.
          */
@@ -870,19 +871,18 @@ declare namespace fin {
 
     interface DownloadPreloadInfo {
         success: boolean;
-            url?: string;
-            error: string;
-        }
+        url?: string;
+        error: string;
+    }
 
-
-     interface CookieInfo {
+    interface CookieInfo {
         name: string;
         // expirationDate: Date;
         domain: string;
         path: string;
     }
 
-     interface CookieOption {
+    interface CookieOption {
         name: string;
     }
 
@@ -1145,8 +1145,8 @@ declare namespace fin {
              */
             uuid?: string;
             /*
-                * Process exit code
-                */
+             * Process exit code
+             */
             exitCode?: number;
         }): void;
     }
@@ -1215,13 +1215,13 @@ declare namespace fin {
         addEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-                | WindowAuthRequestedEvent
-                | WindowBoundsEvent
-                | WindowExternalProcessStartedEvent
-                | WindowExternalProcessExited
-                | WindowGroupChangedEvent
-                | WindowHiddenEvent
-                | Window_NavigationRejectedEvent) => void,
+					   | WindowAuthRequestedEvent
+					   | WindowBoundsEvent
+					   | WindowExternalProcessStartedEvent
+					   | WindowExternalProcessExited
+					   | WindowGroupChangedEvent
+					   | WindowHiddenEvent
+					   | Window_NavigationRejectedEvent) => void,
             callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Performs the specified window transitions
@@ -1335,13 +1335,13 @@ declare namespace fin {
         removeEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-                | WindowAuthRequestedEvent
-                | WindowBoundsEvent
-                | WindowExternalProcessStartedEvent
-                | WindowExternalProcessExited
-                | WindowGroupChangedEvent
-                | WindowHiddenEvent
-                | Window_NavigationRejectedEvent) => void,
+					   | WindowAuthRequestedEvent
+					   | WindowBoundsEvent
+					   | WindowExternalProcessStartedEvent
+					   | WindowExternalProcessExited
+					   | WindowGroupChangedEvent
+					   | WindowHiddenEvent
+					   | Window_NavigationRejectedEvent) => void,
             callback?: () => void,
             errorCallback?: (reason: string) => void): void;
         /**
@@ -1466,17 +1466,17 @@ declare namespace fin {
         virtualScreen: MontiorCoordinates;
     }
 
-   interface TrayIconInfo {
-       x: number;
-       y: number;
-       bounds: {
-           x: number;
-           y: number;
-           width: number;
-           height: number;
-       }
-       monitorInfo: MonitorInfo
-   }
+	interface TrayIconInfo {
+		x: number;
+		y: number;
+		bounds: {
+			x: number;
+			y: number;
+			width: number;
+			height: number;
+		};
+		monitorInfo: MonitorInfo;
+	}
 
     interface MonitorInfoDetail {
         availableRect: MontiorCoordinates;
@@ -1784,7 +1784,7 @@ declare namespace fin {
         parent: {
             uuid: string;
             name: string;
-        }
+        };
     }
 
     interface SessionChangedEvent {
