@@ -610,7 +610,7 @@ declare namespace mapboxgl {
 
     interface RasterSource extends Source {
         type: 'raster';
-        url: string;
+        url?: string;
         tiles?: string[];
         minzoom?: number;
         maxzoom?: number;
