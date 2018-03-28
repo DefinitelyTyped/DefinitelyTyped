@@ -280,13 +280,6 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
-        /**
-         * Returns an update to a component's state based on its new props and old state.
-         *
-         * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
-         */
-        static getDerivedStateFromProps?<P, S, K extends keyof S = keyof S>(nextProps: Readonly<P>, prevState: Readonly<S>): Pick<S, K> | S | null;
-
         constructor(props: P, context?: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
@@ -399,13 +392,16 @@ declare namespace React {
 
     // Unfortunately, we have no way of declaring that the component constructor must implement this
     interface StaticLifecycle<P, S> {
+        getDerivedStateFromProps?: GetDerivedStateFromProps<P, S>;
+    }
+
+    type GetDerivedStateFromProps<P, S> =
         /**
          * Returns an update to a component's state based on its new props and old state.
          *
          * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
          */
-        getDerivedStateFromProps?<K extends keyof S>(nextProps: Readonly<P>, prevState: Readonly<S>): Pick<S, K> | S | null;
-    }
+        <K extends keyof S>(nextProps: Readonly<P>, prevState: Readonly<S>) => Pick<S, K> | S | null;
 
     // This should be "infer SS" but can't use it yet
     interface NewLifecycle<P, S, SS extends object = any> {
@@ -417,7 +413,7 @@ declare namespace React {
          * Note: the presence of getSnapshotBeforeUpdate prevents any of the deprecated
          * lifecycle events from running.
          */
-        getSnapshotBeforeUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>): SS|null
+        getSnapshotBeforeUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>): SS | null;
         /**
          * Called immediately after updating occurs. Not called for the initial render.
          *
