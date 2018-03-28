@@ -1032,3 +1032,32 @@ function sample9() {
   canvas.setBackgroundImage('yolo.jpg', () => { "a"; }, { opacity: 45 });
   canvas.setBackgroundImage('yolo.jpg', () => { "a"; });
 }
+
+function sample10() {
+  const canvas = new fabric.Canvas('c');
+  const objR = new fabric.Rect({
+    top: 10,
+    left: 10,
+    width: 10,
+    height: 10,
+    fill: "#FF0000",
+  });
+  const objG = new fabric.Rect({
+    top: 15,
+    left: 15,
+    width: 10,
+    height: 10,
+    fill: "#00FF00",
+  });
+  const objB = new fabric.Rect({
+    top: 20,
+    left: 20,
+    width: 10,
+    height: 10,
+    fill: "#0000FF",
+  });
+  canvas.add(objR);
+  canvas.add(objG);
+  canvas.add(objB);
+  const objArray = canvas.getActiveObjects();
+}
