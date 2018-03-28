@@ -274,7 +274,7 @@ export interface MoveOptions {
 
 export interface ReadOptions {
     throws?: boolean;
-    fs?: object;
+    fs?: Object;
     reviver?: any;
     encoding?: string;
     flag?: string;
@@ -287,7 +287,7 @@ export interface WriteFileOptions {
 }
 
 export interface WriteOptions extends WriteFileOptions {
-    fs?: object;
+    fs?: Object;
     replacer?: any;
     spaces?: number | string;
     EOL?: string;
