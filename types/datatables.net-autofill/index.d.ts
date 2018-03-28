@@ -21,9 +21,13 @@ declare namespace DataTables {
      */
     alwaysAsk?: boolean;
     /*
-     * Always ask the end user if an action should be taken or not
+     * Select the columns that can be auto filled
      */
     columns: string | number[];
+    /*
+     * Attach an Editor instance for database updating
+     */
+    editor: Object;
     /*
      *
      * Initial enablement state of AutoFill
