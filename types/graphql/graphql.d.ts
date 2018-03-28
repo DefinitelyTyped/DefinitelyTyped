@@ -1,7 +1,7 @@
-import { Source } from './language/source';
-import { GraphQLFieldResolver } from './type/definition';
-import { GraphQLSchema } from './type/schema';
-import { ExecutionResult } from './execution/execute';
+import { Source } from "./language/source";
+import { GraphQLFieldResolver } from "./type/definition";
+import { GraphQLSchema } from "./type/schema";
+import { ExecutionResult } from "./execution/execute";
 
 /**
  * This is the primary entry point function for fulfilling GraphQL operations
@@ -34,15 +34,15 @@ import { ExecutionResult } from './execution/execute';
  *    value or method on the source value with the field's name).
  */
 export function graphql(args: {
-    schema: GraphQLSchema,
-    source: string | Source,
-    rootValue?: any,
-    contextValue?: any,
+    schema: GraphQLSchema;
+    source: string | Source;
+    rootValue?: any;
+    contextValue?: any;
     variableValues?: {
-        [key: string]: any
-    },
-    operationName?: string,
-    fieldResolver?: GraphQLFieldResolver<any, any>
+        [key: string]: any;
+    };
+    operationName?: string;
+    fieldResolver?: GraphQLFieldResolver<any, any>;
 }): Promise<ExecutionResult>;
 export function graphql(
     schema: GraphQLSchema,
@@ -50,7 +50,7 @@ export function graphql(
     rootValue?: any,
     contextValue?: any,
     variableValues?: {
-        [key: string]: any
+        [key: string]: any;
     },
     operationName?: string,
     fieldResolver?: GraphQLFieldResolver<any, any>
