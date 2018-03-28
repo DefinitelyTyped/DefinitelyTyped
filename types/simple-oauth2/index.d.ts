@@ -1,4 +1,4 @@
-// Type definitions for simple-oauth2 1.0
+// Type definitions for simple-oauth2 1.1
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
