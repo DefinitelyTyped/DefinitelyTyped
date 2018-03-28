@@ -5492,7 +5492,7 @@ export class WebGLRenderer implements Renderer {
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
     getCurrentRenderTarget(): RenderTarget;
-    setRenderTarget(renderTarget: RenderTarget): void;
+    setRenderTarget(renderTarget?: RenderTarget): void;
     readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
 
     /**

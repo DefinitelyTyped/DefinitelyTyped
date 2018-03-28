@@ -6,6 +6,7 @@
 //                 Qibang <https://github.com/bang88>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Synarque <https://github.com/synarque>
+//                 Justin Rockwood <https://github.com/jrockwood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
@@ -112,6 +113,12 @@ declare namespace inquirer {
          * The value returned will be added to the Answers hash.
          */
         filter?(input: string): string | Promise<string>;
+        /**
+         * Receive the user input and return the transformed value to be displayed to the user. The
+         * transformation only impacts what is shown while editing. It does not impact the answers
+         * hash.
+         */
+        transformer?(input: string): string;
         /**
          * Receive the current user answers hash and should return true or false depending on whether or
          * not this question should be asked. The value can also be a simple boolean.
@@ -242,7 +249,7 @@ declare namespace inquirer {
 
         interface ChoiceOption {
             name?: string;
-            value?: string;
+            value?: any;
             type?: string;
             extra?: any;
             key?: string;
