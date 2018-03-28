@@ -2,7 +2,7 @@
 // Project: https://github.com/schiehll/react-alert
 // Definitions by: Steve Syrell <https://github.com/ssyrell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

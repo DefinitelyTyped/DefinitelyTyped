@@ -2,7 +2,7 @@
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as I18next from "i18next";
 import * as React from "react";

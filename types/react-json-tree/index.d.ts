@@ -2,7 +2,7 @@
 // Project: https://github.com/alexkuz/react-json-tree/
 // Definitions by: Grant Nestor <https://github.com/gnestor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import {
     Component,

@@ -6,7 +6,7 @@
 //                 Andrew Goh Yisheng <https://github.com/9y5>
 //                 Thomas Chia <https://github.com/thchia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="stripe-v3" />
 import * as React from 'react';

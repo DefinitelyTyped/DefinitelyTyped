@@ -8,7 +8,7 @@
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
 //                 Alex Dunne <https://github.com/alexdunne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

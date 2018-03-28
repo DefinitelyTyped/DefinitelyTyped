@@ -2,7 +2,7 @@
 // Project: https://github.com/margox/braft#readme
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import { RawDraftContentState } from 'draft-js';

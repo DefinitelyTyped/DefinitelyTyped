@@ -4,7 +4,7 @@
 //                 Cyrille Tuzi <https://github.com/cyrilletuzi>
 //                 Lucian Buzzo <https://github.com/lucianbuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /* JSON Schema 4 */
 

@@ -4,7 +4,7 @@
 //                 Poul Poulsen <https://github.com/ipoul>
 //                 Nico Hartto <https://github.com/nicohartto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Work In Progress
 

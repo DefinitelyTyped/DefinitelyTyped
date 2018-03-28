@@ -17,7 +17,7 @@
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /*
 Known Problems & Workarounds

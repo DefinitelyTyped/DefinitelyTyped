@@ -2,7 +2,7 @@
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/chrvadala/react-svg-pan-zoom#readme
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
