@@ -80,4 +80,4 @@ export interface LocationChangeAction {
 
 export function routerMiddleware(history: History): Middleware;
 
-export function createMatchSelector<State extends { router: RouterState }, Params>(path: string): (state: State) => match<Params> | null;
+export function createMatchSelector(path: string): (state: { router: RouterState }) => match<{}> | null;
