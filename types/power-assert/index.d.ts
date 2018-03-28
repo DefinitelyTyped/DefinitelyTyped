@@ -62,6 +62,8 @@ declare namespace assert {
 
     export function ifError(value:any):void;
 
+    export const strict: typeof assert;
+
     export interface Options {
         assertion?: empower.Options;
         output?: powerAssertFormatter.Options;
