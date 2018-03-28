@@ -1,4 +1,4 @@
-import * as enquire from 'enquire.js';
+import enquire = require('enquire.js');
 
 enquire
     .register('(min-width: 300px) and (max-width: 600px)', {
