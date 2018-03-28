@@ -1082,6 +1082,7 @@ declare namespace naver.maps {
   }
 
   // Sub module: drawing
+  function drawing(): void;
   namespace drawing {
     interface DrawingOptions {
       map?: Map;
@@ -1149,6 +1150,7 @@ declare namespace naver.maps {
   }
 
   // Sub module: visualization
+  function visualization(): void;
   namespace visualization {
     interface DotMapOptions {
       map: Map;
@@ -1218,6 +1220,7 @@ declare namespace naver.maps {
   }
 
   // Sub module: geocoder
+  function Service(): void;
   namespace Service {
     interface ServiceOptions {
       encoding?: any;
@@ -1274,6 +1277,7 @@ declare namespace naver.maps {
                             callback?: (status: Status, response: ReverseGeocodeResponse) => void): void;
   }
 
+  function TransCoord(): void;
   namespace TransCoord {
     function fromEPSG3857ToLatLng(coord: Point): LatLng;
     function fromEPSG3857ToNaver(coord: Point): Point;
@@ -1297,6 +1301,7 @@ declare namespace naver.maps {
     function fromUTMKToTM128(utmk: Point): Point;
   }
 
+  function Event(): void;
   namespace Event {
     function addDOMListener(element: HTMLElement, eventName: string, listener: () => any): void;
     function addListener(target: any, eventName: string, listener: () => any): MapEventListener;
@@ -1314,6 +1319,7 @@ declare namespace naver.maps {
   }
 
   // Projection
+  function EPSG3857(): void;
   namespace EPSG3857 { // implements Projection
     function fromCoordToPoint(coord: Coord): Point;
     function fromLatLngToPoint(latlng: LatLng): Point;
@@ -1322,6 +1328,8 @@ declare namespace naver.maps {
     function getDestinationCoord(fromLatLng: LatLng, angle: number, meter: number): LatLng;
     function getDistance(latlng1: LatLng, latlng2: LatLng): number;
   }
+
+  function UTMK(): void;
   namespace UTMK {
     let name: string;
     let pointPerMeter: number;
@@ -1338,6 +1346,8 @@ declare namespace naver.maps {
     function getDestinationCoord(fromLatLng: LatLng, angle: number, meter: number): LatLng;
     function getDistance(latlng1: LatLng, latlng2: LatLng): number;
   }
+
+  function UTMK_NAVER(): void;
   namespace UTMK_NAVER { // extends UTMK
     let name: string;
     let pointPerMeter: number;
@@ -1350,6 +1360,8 @@ declare namespace naver.maps {
     function fromPointToNaver(point: Point): Point;
     function fromUTMKToNaver(utmk: Point): Point;
   }
+
+  function EPSG3857Coord(): void;
   namespace EPSG3857Coord {
     function fromCoordToLatLng(coord: Point): LatLng;
     function fromCoordToPoint(coord: Point): Point;
@@ -1360,10 +1372,14 @@ declare namespace naver.maps {
     function fromPointToCoord(point: Point): Point;
     function fromPointToEPSG3857(point: Point): Point;
   }
+
+  function TM128(): void;
   namespace TM128 { // extends TM128Coord
     function fromCoordToPoint(latlng: Coord): Point;
     function fromPointToCoord(point: Point): LatLng;
   }
+
+  function TM128Coord(): void;
   namespace TM128Coord { // extends UTMK
     function fromCoordToLatLng(tm128: Point): LatLng;
     function fromCoordToPoint(tm128: Point): Point;
@@ -1376,12 +1392,16 @@ declare namespace naver.maps {
     function fromTM128ToUTMK(tm128: Point): Point;
     function fromUTMKToTM128(utmk: Point): Point;
   }
+
+  function UTMK_NAVERCoord(): void;
   namespace UTMK_NAVERCoord { // extends UTMK_NAVER
     function fromCoordToLatLng(n: Point): LatLng;
     function fromCoordToPoint(n: Point): Point;
     function fromLatLngToCoord(latlng: Coord): Point;
     function fromPointToCoord(point: Point): Point;
   }
+
+  function UTMKCoord(): void;
   namespace UTMKCoord { // extends UTMK
     function fromCoordToLatLng(utmk: Point): LatLng;
     function fromCoordToPoint(utmk: Point): Point;
