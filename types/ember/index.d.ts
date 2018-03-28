@@ -3500,6 +3500,12 @@ declare module '@ember/enumerable' {
     export default Enumerable;
 }
 
+declare module '@ember/error' {
+    import Ember from 'ember';
+    const Error: typeof Ember.Error;
+    export default Error;
+}
+
 declare module '@ember/instrumentation' {
     import Ember from 'ember';
     export const instrument: typeof Ember.instrument;

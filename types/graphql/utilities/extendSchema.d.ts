@@ -1,5 +1,5 @@
-import { DocumentNode } from '../language/ast';
-import { GraphQLSchema } from '../type/schema';
+import { DocumentNode } from "../language/ast";
+import { GraphQLSchema } from "../type/schema";
 
 /**
  * Produces a new schema given an existing schema and a document which may
@@ -13,7 +13,4 @@ import { GraphQLSchema } from '../type/schema';
  * This algorithm copies the provided schema, applying extensions while
  * producing the copy. The original schema remains unaltered.
  */
-export function extendSchema(
-  schema: GraphQLSchema,
-  documentAST: DocumentNode,
-): GraphQLSchema;
+export function extendSchema(schema: GraphQLSchema, documentAST: DocumentNode): GraphQLSchema;

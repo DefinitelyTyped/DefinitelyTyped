@@ -1,4 +1,4 @@
-import { DocumentNode } from '../language/ast';
+import { DocumentNode } from "../language/ast";
 
 /**
  * Provided a collection of ASTs, presumably each from different files,
