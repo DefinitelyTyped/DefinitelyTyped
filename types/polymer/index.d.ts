@@ -312,6 +312,18 @@ declare global {
       whenReady(cb: Function): void;
     }
 
+    interface PolymerSplice {
+      index: number;
+      removed: Array<{}>;
+      addedCount: number;
+      object: Array<{}>;
+      type: string;
+    }
+
+    interface ArraySplice {
+      calculateSplices<T>(current: ReadonlyArray<T>, previous: ReadonlyArray<T>): PolymerSplice[];
+    }
+
     interface ImportStatus extends RenderStatus {
       whenLoaded(cb: Function): void;
     }
