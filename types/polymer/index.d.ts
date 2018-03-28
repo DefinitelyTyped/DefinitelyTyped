@@ -341,6 +341,8 @@ declare global {
 
       RenderStatus: RenderStatus
 
+      ArraySplice: ArraySplice;
+
       /** @deprecated */
       ImportStatus: ImportStatus
     }
