@@ -258,10 +258,6 @@ export interface CustomProviderOptions extends RequiredProviderOptions, Optional
 export type BellOptions = CustomProviderOptions | KnownProviderOptions;
 
 export const plugin: Plugin<CustomProviderOptions | KnownProviderOptions>;
-/*
-   * [See docs](https://github.com/hapijs/bell/blob/master/API.md#simulated-authentication)
-   */
-
 /**
  * Enables simulation mode.
  */
