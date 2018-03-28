@@ -4470,6 +4470,12 @@ declare namespace Stripe {
              * with month or year intervals, the day of the month for subsequent invoices.
              */
             billing_cycle_anchor?: number;
+
+            /**
+             * Boolean (default true). Use with a billing_cycle_anchor timestamp to determine whether the customer will be invoiced a prorated amount until
+             * the anchor date. If false, the anchor period will be free (similar to a trial).
+             */
+            prorate?: boolean;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
