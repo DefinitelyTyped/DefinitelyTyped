@@ -1,6 +1,6 @@
 // Note -- running these tests under cscript requires some ES5 polyfills
 
-const collectionToArray = <T>(col: { Item(key: any): T }): ReadonlyArray<T> => {
+const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
