@@ -9,7 +9,7 @@
 // TypeScript Version: 2.3
 
 import { Request, Response } from "express";
-import { DocumentNode, GraphQLSchema, GraphQLError } from 'graphql';
+import { DocumentNode, GraphQLSchema, GraphQLError } from "graphql";
 export = graphqlHTTP;
 
 declare namespace graphqlHTTP {
@@ -17,9 +17,9 @@ declare namespace graphqlHTTP {
      * Used to configure the graphQLHTTP middleware by providing a schema
      * and other configuration options.
      */
-    export type Options = ((request: Request,
-        response: Response,
-        params?: GraphQLParams) => OptionsResult) | OptionsResult;
+    export type Options =
+        | ((request: Request, response: Response, params?: GraphQLParams) => OptionsResult)
+        | OptionsResult;
     export type OptionsResult = OptionsData | Promise<OptionsData>;
     export interface OptionsData {
         /**
