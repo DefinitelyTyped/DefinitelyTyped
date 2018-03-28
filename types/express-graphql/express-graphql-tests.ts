@@ -1,20 +1,10 @@
 import express = require("express");
 import "express-session";
 import graphqlHTTP = require("express-graphql");
-import { GraphQLSchema } from "graphql/type/schema";
+import { buildSchema } from "graphql";
 
 const app = express();
-const schema: GraphQLSchema = {
-    getQueryType: null,
-    getMutationType: null,
-    getSubscriptionType: null,
-    getTypeMap: null,
-    getType: null,
-    getPossibleTypes: null,
-    isPossibleType: null,
-    getDirective: null,
-    getDirectives: null,
-};
+const schema = buildSchema(`type Query { hello: String }`);
 
 const graphqlOption: graphqlHTTP.OptionsData = {
     graphiql: true,
