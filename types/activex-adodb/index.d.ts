@@ -2,7 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 declare namespace ADODB {
     const enum ADCPROP_ASYNCTHREADPRIORITY_ENUM {
@@ -597,7 +597,11 @@ declare namespace ADODB {
     class Command {
         private 'ADODB.Command_typekey': Command;
         private constructor();
-        ActiveConnection: Connection;
+
+        /**
+         * Sets or returns a String value that contains a definition for a connection if the connection is closed, or a Variant containing the current Connection object if the connection is open. Default is a null object reference.
+         */
+        ActiveConnection: string | Connection | null;
         Cancel(): void;
         CommandStream: any;
         CommandText: string;
@@ -605,7 +609,7 @@ declare namespace ADODB {
         CommandType: CommandTypeEnum;
 
         /**
-         * @param string [Name='']
+         * @param {string} [Name='']
          * @param ADODB.DataTypeEnum [Type=0]
          * @param ADODB.ParameterDirectionEnum [Direction=1]
          * @param number [Size=0]
@@ -638,19 +642,33 @@ declare namespace ADODB {
         DefaultDatabase: string;
         readonly Errors: Errors;
 
-        /** @param number [Options=-1] */
+        /**
+         * @param [Options=-1]
+         */
         Execute(CommandText: string, RecordsAffected: any, Options?: number): Recordset;
         IsolationLevel: IsolationLevelEnum;
         Mode: ConnectModeEnum;
 
         /**
-         * @param string [ConnectionString='']
+         * @param [ConnectionString='']
          * @param string [UserID='']
          * @param string [Password='']
          * @param number [Options=-1]
          */
         Open(ConnectionString?: string, UserID?: string, Password?: string, Options?: number): void;
-        OpenSchema(Schema: SchemaEnum, Restrictions?: any, SchemaID?: any): Recordset;
+
+        /**
+         * Returns a Recordset object that contains schema information
+         * @param Schema Type of schema query to run
+         * @param Restrictions A SafeArray of query constraints; depends on the [type of the schema query](https://msdn.microsoft.com/en-us/library/jj249359.aspx)
+         */
+        OpenSchema(Schema: SchemaEnum, Restrictions?: SafeArray<string>): Recordset;
+
+        /**
+         * Returns a Recordset object that contains schema information, for a provider-specific schema query type
+         * @param SchemaID The GUID for a provider-schema query not defined by the OLE DB specification.
+         */
+        OpenSchema(Schema: SchemaEnum.adSchemaProviderSpecific, Restrictions: SafeArray<string>, SchemaID: string): Recordset;
         readonly Properties: Properties;
         Provider: string;
         RollbackTrans(): void;
@@ -670,13 +688,12 @@ declare namespace ADODB {
         readonly SQLState: string;
     }
 
-    class Errors {
-        private 'ADODB.Errors_typekey': Errors;
-        private constructor();
+    interface Errors {
         Clear(): void;
         readonly Count: number;
         Item(Index: any): Error;
         Refresh(): void;
+        (Index: any): Error;
     }
 
     class Field {
@@ -699,10 +716,7 @@ declare namespace ADODB {
         Value: any;
     }
 
-    class Fields {
-        private 'ADODB.Fields_typekey': Fields;
-        private constructor();
-
+    interface Fields {
         /**
          * @param number [DefinedSize=0]
          * @param ADODB.FieldAttributeEnum [Attrib=-1]
@@ -716,13 +730,14 @@ declare namespace ADODB {
         Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum, FieldValue?: any): void;
         CancelUpdate(): void;
         readonly Count: number;
-        Delete(Index: any): void;
-        Item(Index: any): Field;
+        Delete(Index: string | number): void;
+        Item(Index: string | number): Field;
         Refresh(): void;
 
         /** @param ADODB.ResyncEnum [ResyncValues=2] */
         Resync(ResyncValues?: ResyncEnum): void;
         Update(): void;
+        (Index: string | number): Field;
     }
 
     class Parameter {
@@ -740,22 +755,20 @@ declare namespace ADODB {
         Value: any;
     }
 
-    class Parameters {
-        private 'ADODB.Parameters_typekey': Parameters;
-        private constructor();
+    interface Parameters {
         Append(Object: any): void;
         readonly Count: number;
-        Delete(Index: any): void;
-        Item(Index: any): Parameter;
+        Delete(Index: string | number): void;
+        Item(Index: string | number): Parameter;
         Refresh(): void;
+        (Index: string | number): Parameter;
     }
 
-    class Properties {
-        private 'ADODB.Properties_typekey': Properties;
-        private constructor();
+    interface Properties {
         readonly Count: number;
-        Item(Index: any): Property;
+        Item(Index: string | number): Property;
         Refresh(): void;
+        (Index: string | number): Property;
     }
 
     class Property {
@@ -770,7 +783,11 @@ declare namespace ADODB {
     class Record {
         private 'ADODB.Record_typekey': Record;
         private constructor();
-        ActiveConnection: any;
+
+        /**
+         * Sets or returns a String value that contains a definition for a connection if the connection is closed, or a Variant containing the current Connection object if the connection is open. Default is a null object reference.
+         */
+        ActiveConnection: string | Connection | null;
         Cancel(): void;
         Close(): void;
 
@@ -834,7 +851,11 @@ declare namespace ADODB {
         AbsolutePage: PositionEnum;
         AbsolutePosition: PositionEnum;
         readonly ActiveCommand: any;
-        ActiveConnection: any;
+
+        /**
+         * Sets or returns a String value that contains a definition for a connection if the connection is closed, or a Variant containing the current Connection object if the connection is open. Default is a null object reference.
+         */
+        ActiveConnection: string | Connection | null;
         AddNew(FieldList?: any, Values?: any): void;
         readonly BOF: boolean;
         Bookmark: any;
@@ -1009,60 +1030,23 @@ declare namespace ADODB {
 }
 
 interface ActiveXObject {
-    on(
-        obj: ADODB.Connection, event: 'BeginTransComplete', argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (
-            this: ADODB.Connection, parameter: {
-                readonly TransactionLevel: number, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
-    on(
-        obj: ADODB.Connection, event: 'CommitTransComplete' | 'ConnectComplete' | 'InfoMessage' | 'RollbackTransComplete', argNames: ['pError', 'adStatus', 'pConnection'],
-        handler: (this: ADODB.Connection, parameter: {readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
-    on(
-        obj: ADODB.Connection, event: 'Disconnect', argNames: ['adStatus', 'pConnection'], handler: (
-            this: ADODB.Connection, parameter: {adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
-    on(
-        obj: ADODB.Connection, event: 'ExecuteComplete', argNames: ADODB.EventHelperTypes.Connection_ExecuteComplete_ArgNames, handler: (
-            this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_ExecuteComplete_Parameter) => void): void;
-    on(
-        obj: ADODB.Connection, event: 'WillConnect', argNames: ADODB.EventHelperTypes.Connection_WillConnect_ArgNames, handler: (
-            this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillConnect_Parameter) => void): void;
-    on(
-        obj: ADODB.Connection, event: 'WillExecute', argNames: ADODB.EventHelperTypes.Connection_WillExecute_ArgNames, handler: (
-            this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillExecute_Parameter) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'EndOfRecordset', argNames: ['fMoreData', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {fMoreData: boolean, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'FetchComplete', argNames: ['pError', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'FetchProgress', argNames: ['Progress', 'MaxProgress', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {readonly Progress: number, readonly MaxProgress: number, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'FieldChangeComplete', argNames: ['cFields', 'Fields', 'pError', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {
-                readonly cFields: number, readonly Fields: any, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'MoveComplete' | 'RecordsetChangeComplete', argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'],
-        handler: (
-            this: ADODB.Recordset, parameter: {
-                readonly adReason: ADODB.EventReasonEnum, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'RecordChangeComplete', argNames: ['adReason', 'cRecords', 'pError', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {
-                readonly adReason: ADODB.EventReasonEnum, readonly cRecords: number, readonly pError: ADODB.Error,
-                adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'WillChangeField', argNames: ['cFields', 'Fields', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {readonly cFields: number, readonly Fields: any, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'WillChangeRecord', argNames: ['adReason', 'cRecords', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {
-                readonly adReason: ADODB.EventReasonEnum, readonly cRecords: number, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    on(
-        obj: ADODB.Recordset, event: 'WillChangeRecordset' | 'WillMove', argNames: ['adReason', 'adStatus', 'pRecordset'], handler: (
-            this: ADODB.Recordset, parameter: {readonly adReason: ADODB.EventReasonEnum, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
-    set(obj: ADODB.Recordset, propertyName: 'Collect', parameterTypes: [any], newValue: any): void;
     new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
+    on(obj: ADODB.Connection, event: 'BeginTransComplete', argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {readonly TransactionLevel: number, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Connection, event: 'CommitTransComplete' | 'ConnectComplete' | 'InfoMessage' | 'RollbackTransComplete', argNames: ['pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Connection, event: 'Disconnect', argNames: ['adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Connection, event: 'ExecuteComplete', argNames: ADODB.EventHelperTypes.Connection_ExecuteComplete_ArgNames, handler: (this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_ExecuteComplete_Parameter) => void): void;
+    on(obj: ADODB.Connection, event: 'WillConnect', argNames: ADODB.EventHelperTypes.Connection_WillConnect_ArgNames, handler: (this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillConnect_Parameter) => void): void;
+    on(obj: ADODB.Connection, event: 'WillExecute', argNames: ADODB.EventHelperTypes.Connection_WillExecute_ArgNames, handler: (this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillExecute_Parameter) => void): void;
+    on(obj: ADODB.Recordset, event: 'EndOfRecordset', argNames: ['fMoreData', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {fMoreData: boolean, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'FetchComplete', argNames: ['pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'FetchProgress', argNames: ['Progress', 'MaxProgress', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly Progress: number, readonly MaxProgress: number, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'FieldChangeComplete', argNames: ['cFields', 'Fields', 'pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly cFields: number, readonly Fields: any, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'MoveComplete' | 'RecordsetChangeComplete', argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly adReason: ADODB.EventReasonEnum, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'RecordChangeComplete', argNames: ['adReason', 'cRecords', 'pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly adReason: ADODB.EventReasonEnum, readonly cRecords: number, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'WillChangeField', argNames: ['cFields', 'Fields', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly cFields: number, readonly Fields: any, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'WillChangeRecord', argNames: ['adReason', 'cRecords', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly adReason: ADODB.EventReasonEnum, readonly cRecords: number, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'WillChangeRecordset' | 'WillMove', argNames: ['adReason', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {readonly adReason: ADODB.EventReasonEnum, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    set(obj: ADODB.Recordset, propertyName: 'Collect', parameterTypes: [any], newValue: any): void;
 }
 
 interface ActiveXObjectNameMap {
@@ -1072,15 +1056,4 @@ interface ActiveXObjectNameMap {
     'ADODB.Record': ADODB.Record;
     'ADODB.Recordset': ADODB.Recordset;
     'ADODB.Stream': ADODB.Stream;
-}
-
-interface EnumeratorConstructor {
-    new(col: ADODB.Errors): Enumerator<ADODB.Error>;
-    new(col: ADODB.Fields): Enumerator<ADODB.Field>;
-    new(col: ADODB.Parameters): Enumerator<ADODB.Parameter>;
-    new(col: ADODB.Properties): Enumerator<ADODB.Property>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }
