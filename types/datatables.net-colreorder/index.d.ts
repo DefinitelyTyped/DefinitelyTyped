@@ -38,7 +38,7 @@ declare namespace DataTables {
     /*
      * Callback after reorder
      */
-    reorderCallback: Function;
+    reorderCallback: () => void;
   }
 
   interface Api {
@@ -59,6 +59,6 @@ declare namespace DataTables {
       * Convert one or more column indexes to and from current and original indexes
       */
       transpose(idx?: number | number[], direction?: "toCurrent" | "toOriginal" | "fromOriginal" | "fromCurrent"): Api;
-    }
+    };
   }
 }
