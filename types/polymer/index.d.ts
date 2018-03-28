@@ -139,6 +139,8 @@ declare global {
 
       unshift?(path: string, ...item: any[]): number;
 
+      notifySplices?(path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
+
       // ResolveUrl
 
       resolveUrl?(url: string): string;
