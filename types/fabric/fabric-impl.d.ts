@@ -1428,6 +1428,11 @@ export class Canvas {
 	 */
 	getActiveObject(): Object;
 	/**
+	 * Returns an array with the current selected objects
+	 * @return {Object[]} array of active objects
+	 */
+	getActiveObjects(): Object[];
+	/**
 	 * Returns pointer coordinates relative to canvas.
 	 * @return object with "x" and "y" number values
 	 */
