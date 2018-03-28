@@ -30,7 +30,13 @@ declare class CircuitBreaker {
     static CLOSED: 2;
 
     constructor(options?: CircuitBreaker.Options);
-    run(command: () => void, fallback?: () => void): void;
+    run(
+        command: (
+            success: () => void,
+            failure: () => void,
+        ) => void,
+        fallback?: () => void
+    ): void;
     forceClose(): void;
     forceOpen(): void;
     unforce(): void;
