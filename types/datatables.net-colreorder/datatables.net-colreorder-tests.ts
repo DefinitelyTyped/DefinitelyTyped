@@ -4,9 +4,9 @@ $(document).ready(() => {
         colReorder: {
             fixedColumnsLeft: 0,
             fixedColumnsRight: 0,
-            order: [1,2,3],
+            order: [1, 2, 3],
             realtime: true,
-            reorderCallback: ()=>{},
+            reorderCallback: () => {},
         }
     };
 });

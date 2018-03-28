@@ -1301,7 +1301,7 @@ declare namespace DataTables {
         /**
          * Data to use as the display data for the table. Since: 1.10
          */
-        data?: Object[];
+        data?: any[];
 
         //#endregion "Data"
 

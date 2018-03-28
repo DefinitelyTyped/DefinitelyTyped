@@ -46,7 +46,7 @@ declare namespace DataTables {
          */
         style?: "api" | "single" | "multi" | "os" | "multi+shift";
     }
-    
+
     interface Api {
         select: {
           /*
@@ -57,17 +57,17 @@ declare namespace DataTables {
           * Set the table's selection style
           */
           style(s: "api" | "single" | "multi" | "os"): Api;
-        }
+        };
     }
-    
+
     interface RowMethods {
       /**
        * Select a row
        */
       select(): Api;
       /**
-      * Deselect a row
-      */
+       * Deselect a row
+       */
       deselect(): Api;
     }
 
@@ -77,8 +77,8 @@ declare namespace DataTables {
        */
       select(): Api;
       /**
-      * Deselect a row
-      */
+       * Deselect a row
+       */
       deselect(): Api;
     }
 }
