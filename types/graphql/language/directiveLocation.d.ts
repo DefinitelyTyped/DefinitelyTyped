@@ -1,7 +1,10 @@
 /**
  * The set of allowed directive location values.
  */
-export type DirectiveLocation = {
+export const DirectiveLocation: _DirectiveLocation;
+
+// @internal
+type _DirectiveLocation = {
     // Request Definitions
     QUERY: "QUERY";
     MUTATION: "MUTATION";
@@ -28,4 +31,4 @@ export type DirectiveLocation = {
 /**
  * The enum type representing the directive location values.
  */
-export type DirectiveLocationEnum = DirectiveLocation[keyof DirectiveLocation];
+export type DirectiveLocationEnum = _DirectiveLocation[keyof _DirectiveLocation];

@@ -55,7 +55,10 @@ export interface Lexer<TOptions> {
  * An exported enum describing the different kinds of tokens that the
  * lexer emits.
  */
-export type TokenKind = {
+export const TokenKind: _TokenKind;
+
+// @internal
+type _TokenKind = {
     SOF: "<SOF>";
     EOF: "<EOF>";
     BANG: "!";
@@ -83,7 +86,7 @@ export type TokenKind = {
 /**
  * The enum type representing the token kinds values.
  */
-export type TokenKindEnum = TokenKind[keyof TokenKind];
+export type TokenKindEnum = _TokenKind[keyof _TokenKind];
 
 /**
  * A helper function to describe a token as a string for debugging

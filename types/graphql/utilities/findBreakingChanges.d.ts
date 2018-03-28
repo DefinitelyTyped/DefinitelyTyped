@@ -12,7 +12,10 @@ import { GraphQLDirective } from "../type/directives";
 import { GraphQLSchema } from "../type/schema";
 import { DirectiveLocationEnum } from "../language/directiveLocation";
 
-export type BreakingChangeType = {
+export const BreakingChangeType : _BreakingChangeType;
+
+// @internal
+type _BreakingChangeType = {
     FIELD_CHANGED_KIND: "FIELD_CHANGED_KIND";
     FIELD_REMOVED: "FIELD_REMOVED";
     TYPE_CHANGED_KIND: "TYPE_CHANGED_KIND";
@@ -30,7 +33,10 @@ export type BreakingChangeType = {
     NON_NULL_DIRECTIVE_ARG_ADDED: "NON_NULL_DIRECTIVE_ARG_ADDED";
 };
 
-export type DangerousChangeType = {
+export const DangerousChangeType: _DangerousChangeType;
+
+// @internal
+type _DangerousChangeType = {
     ARG_DEFAULT_VALUE_CHANGE: "ARG_DEFAULT_VALUE_CHANGE";
     VALUE_ADDED_TO_ENUM: "VALUE_ADDED_TO_ENUM";
     INTERFACE_ADDED_TO_OBJECT: "INTERFACE_ADDED_TO_OBJECT";
@@ -40,12 +46,12 @@ export type DangerousChangeType = {
 };
 
 export interface BreakingChange {
-    type: keyof BreakingChangeType;
+    type: keyof _BreakingChangeType;
     description: string;
 }
 
 export interface DangerousChange {
-    type: keyof DangerousChangeType;
+    type: keyof _DangerousChangeType;
     description: string;
 }
 
