@@ -4562,6 +4562,11 @@ declare namespace Stripe {
              * String, unchanged (default) or now. This allows you to reset the billing cycle of a subscription.
              */
             billing_cycle_anchor?: "unchanged" | "now";
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            cancel_at_period_end?: boolean;
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
