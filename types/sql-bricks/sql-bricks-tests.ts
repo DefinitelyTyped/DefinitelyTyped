@@ -6,22 +6,38 @@
 import * as sql from "sql-bricks";
 
 // tslint:disable-next-line:prefer-const
-let assert;
+let assert: any;
 const select = sql.select;
-const insertInto = sql.insertInto, insert = sql.insert,
-  update = sql.update, del = sql.delete;
-const and = sql.and, or = sql.or, like = sql.like, not = sql.not, $in = sql.in,
-  isNull = sql.isNull, isNotNull = sql.isNotNull, equal = sql.equal, eq = sql.eq,
-  notEq = sql.notEq, lt = sql.lt, lte = sql.lte, gt = sql.gt, gte = sql.gte,
-  between = sql.between, exists = sql.exists, eqAny = sql.eqAny, notEqAny = sql.notEqAny;
+const insertInto = sql.insertInto;
+const insert = sql.insert;
+const update = sql.update;
+const del = sql.delete;
+const and = sql.and;
+const or = sql.or;
+const like = sql.like;
+const not = sql.not;
+const $in = sql.in;
+const isNull = sql.isNull;
+const isNotNull = sql.isNotNull;
+const equal = sql.equal;
+const eq = sql.eq;
+const notEq = sql.notEq;
+const lt = sql.lt;
+const lte = sql.lte;
+const gt = sql.gt;
+const gte = sql.gte;
+const between = sql.between;
+const exists = sql.exists;
+const eqAny = sql.eqAny;
+const notEqAny = sql.notEqAny;
 
 const alias_expansions = { usr: 'user', psn: 'person', addr: 'address' };
-const table_to_alias = alias_expansions;
+const table_to_alias: sql.OnCriteria = alias_expansions;
 sql.aliasExpansions(alias_expansions);
 
-sql.joinCriteria(function(left_tbl, left_alias, right_tbl, right_alias) {
-  const criteria = {};
-  criteria[left_alias + '.' + table_to_alias[right_tbl] + '_fk'] = right_alias + '.pk';
+sql.joinCriteria(function(left_tbl: string, left_alias: string, right_tbl: string, right_alias: string) {
+  const criteria: sql.OnCriteria = {};
+  criteria[`${left_alias}.${table_to_alias[right_tbl]}_fk`] = right_alias + '.pk';
   return criteria;
 });
 
@@ -160,7 +176,7 @@ describe('SQL Bricks', function() {
       });
       it('should support user-supplied conversions', function() {
         const orig_bool = sql.conversions.Boolean;
-        sql.conversions.Boolean = function(bool) { return bool ? '1' : '0'; };
+        sql.conversions.Boolean = function(bool: boolean) { return bool ? '1' : '0'; };
         const str = del('user').where('active', false).toString();
         sql.conversions.Boolean = orig_bool;
         assert.equal(str, 'DELETE FROM "user" WHERE active = 0');
@@ -184,7 +200,7 @@ describe('SQL Bricks', function() {
 
     select().from('test').join('psn').join('usr').toString();
     sql.joinCriteria(orig);
-    assert(left_tbls.indexOf('person') > -1 && left_tbls.indexOf('psn') === -1, 'left_tbl is not expanded: [' + left_tbls.join(',') + ']');
+    assert(left_tbls.indexOf('person') > -1 && left_tbls.indexOf('psn') === -1, `left_tbl is not expanded: [ ${left_tbls.join(',')} ]`);
   });
 
   it('should support aliases', function() {
@@ -727,9 +743,9 @@ describe('SQL Bricks', function() {
       it('should support changing the default array handling', function() {
         const proto = sql.select.prototype;
         const orig = proto.where;
-        proto.where = function(criteria) {
+        proto.where = function(criteria: sql.OnCriteria) {
           // return orig.call(this, arraysToOrs(criteria));
-          return orig.call()
+          return orig.call();
         };
 
         check(select().from('table').where({ this: 'test', that: ['test1', 'test2'] }),
@@ -738,15 +754,13 @@ describe('SQL Bricks', function() {
         proto.where = orig;
       });
 
-      function arraysToOrs(criteria) {
+      function arraysToOrs(criteria: sql.WhereObject) {
         const where = and();
         for (const col in criteria) {
           const val = criteria[col];
-          let expr;
-          if (Array.isArray(val))
-            expr = or(val.map(function(val) { return eq(col, val); }));
-          else
-            expr = eq(col, val);
+          let expr: sql.WhereExpression;
+            expr = Array.isArray(val) ? or(val.map(function(val) { return eq(col, val); }))
+              : expr = eq(col, val);
           where.expressions.push(expr);
         }
         return where;
@@ -929,7 +943,7 @@ describe('SQL Bricks', function() {
   });
 });
 
-function describe(...param) { }
-function it(...param) { }
-function check(...param) { }
-function checkParams(...param) { }
+function describe(...param: any[]) { }
+function it(...param: any[]) { }
+function check(...param: any[]) { }
+function checkParams(...param: any[]) { }
