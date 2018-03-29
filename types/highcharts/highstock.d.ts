@@ -84,6 +84,7 @@ declare namespace Highstock {
     }
 
     interface AxisOptions extends Highcharts.AxisOptions {
+        height?: number | string;
         scrollbar?: ScrollbarOptions;
     }
 
