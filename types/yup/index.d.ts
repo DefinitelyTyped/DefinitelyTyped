@@ -46,6 +46,7 @@ export interface Schema<T> {
     default(value?: any): this;
     nullable(isNullable: boolean): this;
     required(message?: string): this;
+    notRequired(): this;
     typeError(message?: string): this;
     oneOf(arrayOfValues: any[], message?: string): this;
     notOneOf(arrayOfValues: any[], message?: string): this;

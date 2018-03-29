@@ -36,10 +36,7 @@ import {
     NavigationParams,
     NavigationPopAction,
     NavigationPopToTopAction,
-    NavigationScreenStatic,
-    NavigationScreenConfig,
-    AnyScreenOptions,
-    NavigationStatelessScreen,
+    NavigationScreenComponent,
 } from 'react-navigation';
 
 // Constants
@@ -52,14 +49,19 @@ const viewStyle: ViewStyle = {
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
 
+interface StartScreenNavigationParams {
+    id: number;
+    s: string;
+}
+
 /**
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-class StartScreen extends React.Component<NavigationScreenProps> {
+class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams = this.props.navigation.state.params;
+        const navigationStateParams: StartScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
         const s = this.props.navigation.state.params && this.props.navigation.state.params.s;
 
@@ -88,23 +90,16 @@ class StartScreen extends React.Component<NavigationScreenProps> {
 
 const ROUTE_NAME_NEXT_SCREEN = "NextScreen";
 
-interface NextScreenParams {
-    id: string;
+interface NextScreenNavigationParams {
+    id: number;
     name: string;
 }
 
-class NextScreen extends React.Component<NavigationScreenProps<NextScreenParams>> {
-    static navigationOptions: NavigationScreenConfig<AnyScreenOptions>  = {
-        tabBarLabel: 'Next tab',
-        drawerLabel: 'Next drawe label',
-    };
-
+class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
         // Implicit type checks.
-        const navigationStateParams = this.props.navigation.state.params;
-        // typeof id is any
+        const navigationStateParams: NextScreenNavigationParams | undefined = this.props.navigation.state.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
-        // typeof name is string
         const name = this.props.navigation.getParam('name', 'Peter');
 
         return (
@@ -113,33 +108,10 @@ class NextScreen extends React.Component<NavigationScreenProps<NextScreenParams>
     }
 }
 
-const ROUTE_NAME_ANOTHER_SCREEN = "AnotherScreen";
-
-interface AnotherScreenParams {
-    color: string;
-}
-
-interface AnotherScreenProps {
-    apolloData: number[]; // Demonstrates that screen can be wrapped into HOCs
-}
-
-// View below compiles without TS errors, because props and navigation params are strongly typed
-const AnotherScreen: NavigationStatelessScreen<AnotherScreenProps, AnotherScreenParams> = ({ apolloData, navigation }) => (
-    <View
-        style={{ backgroundColor: navigation.getParam('color', 'red')}}
-        hitSlop={{ left: apolloData[0], right: apolloData[1] }}
-    />
-);
-
-// Demonstrates overriding navigationOptions on static components
-AnotherScreen.navigationOptions = ({ navigation, navigationOptions }) => ({
-    drawerLabel: navigation.state.params!.color + ' screen',
-});
-
 const navigationOptions = {
     headerBackTitle: null,
 };
-const initialRouteParams: NavigationParams = {
+const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
 };
@@ -152,15 +124,6 @@ const routeConfigMap: NavigationRouteConfigMap = {
         path: "next",
         screen: NextScreen,
     },
-    // Demonstrates stateless screen
-    [ROUTE_NAME_ANOTHER_SCREEN]: {
-        path: "another",
-        screen: AnotherScreen,
-        navigationOptions: {
-            // Demonstrates that stack entries can set optins for tab navigation (for deeper use)
-            tabBarVisible: false,
-        },
-    },
 };
 export const AppNavigator = StackNavigator(
     routeConfigMap,
@@ -169,6 +132,18 @@ export const AppNavigator = StackNavigator(
         initialRouteParams,
         navigationOptions,
     },
+);
+
+const StatelessScreen: NavigationScreenComponent = () => <View />;
+
+StatelessScreen.navigationOptions = { title: 'Stateless' };
+
+const SimpleStackNavigator = StackNavigator(
+    {
+        simple: {
+            screen: StatelessScreen,
+        },
+    }
 );
 
 /**
