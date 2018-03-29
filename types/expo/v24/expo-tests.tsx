@@ -528,7 +528,6 @@ Permissions.CONTACTS === 'contacts';
 Permissions.NOTIFICATIONS === 'remoteNotifications';
 Permissions.REMOTE_NOTIFICATIONS === 'remoteNotifications';
 Permissions.SYSTEM_BRIGHTNESS === 'systemBrightness';
-Permissions.CALENDAR === 'calendar';
 async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
 
