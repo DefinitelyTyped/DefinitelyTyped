@@ -7291,8 +7291,8 @@ export interface PushNotificationIOSStatic {
     addEventListener(type: "notification" | "localNotification", handler: (notification: PushNotification) => void): void;
 
     /**
-     * Fired when the user registers for remote notifications. 
-     * 
+     * Fired when the user registers for remote notifications.
+     *
      * The handler will be invoked with a hex string representing the deviceToken.
      *
      * The type MUST be 'register'
@@ -7300,9 +7300,9 @@ export interface PushNotificationIOSStatic {
     addEventListener(type: "register", handler: (deviceToken: string) => void): void;
 
     /**
-     * Fired when the user fails to register for remote notifications. 
-     * Typically occurs when APNS is having issues, or the device is a simulator. 
-     * 
+     * Fired when the user fails to register for remote notifications.
+     * Typically occurs when APNS is having issues, or the device is a simulator.
+     *
      * The handler will be invoked with {message: string, code: number, details: any}.
      *
      * The type MUST be 'registrationError'
