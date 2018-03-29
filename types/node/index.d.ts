@@ -555,6 +555,12 @@ declare namespace NodeJS {
         stderr: WriteStream;
         stdin: ReadStream;
         openStdin(): Socket;
+        /**
+         * @deprecated
+         * Using process.binding() in general should be avoided.
+         * The type checking methods in particular can be replaced by using util.types.
+         */
+        binding: { [key: string]: string; };
         argv: string[];
         argv0: string;
         execArgv: string[];
