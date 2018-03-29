@@ -25,10 +25,6 @@ declare namespace DataTables {
      */
     columns: string | number[];
     /*
-     * Attach an Editor instance for database updating
-     */
-    editor: Object;
-    /*
      *
      * Initial enablement state of AutoFill
      */
