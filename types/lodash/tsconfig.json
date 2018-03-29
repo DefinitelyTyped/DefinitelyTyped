@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "common/common.d.ts",
         "lodash-tests.ts",
         "add.d.ts",
         "after.d.ts",

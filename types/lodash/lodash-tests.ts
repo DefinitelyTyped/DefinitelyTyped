@@ -3527,6 +3527,10 @@ fp.now(); // $ExpectType number
     _.curry(testCurry)("1")(2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
     _.curry(testCurry)("1"); // $ExpectType CurriedFunction2<number, boolean, [string, number, boolean]>
     _.curry(testCurry); // $ExpectType CurriedFunction3<string, number, boolean, [string, number, boolean]>
+    _.curry(testCurry)(_, 2, true)("1"); // $ExpectType [string, number, boolean]
+    _.curry(testCurry)(_.curry.placeholder, 2, true)("1"); // $ExpectType [string, number, boolean]
+    _.curry(testCurry)("1", _, true)(2); // $ExpectType [string, number, boolean]
+    _.curry(testCurry)(_, 2)("1", true); // $ExpectType [string, number, boolean]
     _(testCurry).curry(); // $ExpectType LoDashImplicitWrapper<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
     _.chain(testCurry).curry(); // $ExpectType LoDashExplicitWrapper<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
 
@@ -3538,6 +3542,7 @@ fp.now(); // $ExpectType number
     fp.curry(testCurry)("1")(2); // $ExpectType CurriedFunction1<boolean, [string, number, boolean]>
     fp.curry(testCurry)("1"); // $ExpectType CurriedFunction2<number, boolean, [string, number, boolean]>
     fp.curry(testCurry); // $ExpectType CurriedFunction3<string, number, boolean, [string, number, boolean]>
+    fp.curry(testCurry)(fp.__, 2, true)("1"); // $ExpectType [string, number, boolean]
 
     // _.curryRight
     _.curryRight(testCurry)("1", 2, true); // $ExpectType [string, number, boolean]
@@ -3548,6 +3553,9 @@ fp.now(); // $ExpectType number
     _.curryRight(testCurry)(true)(2); // $ExpectType RightCurriedFunction1<string, [string, number, boolean]>
     _.curryRight(testCurry)(true); // $ExpectType RightCurriedFunction2<string, number, [string, number, boolean]>
     _.curryRight(testCurry); // $ExpectType RightCurriedFunction3<string, number, boolean, [string, number, boolean]>
+    _.curryRight(testCurry)("1", _, true)(2); // $ExpectType [string, number, boolean]
+    _.curryRight(testCurry)("1", _.curryRight.placeholder, true)(2); // $ExpectType [string, number, boolean]
+    _.curryRight(testCurry)(true)("1", _)(2); // $ExpectType [string, number, boolean]
     _(testCurry).curryRight(); // $ExpectType LoDashImplicitWrapper<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
     _.chain(testCurry).curryRight(); // $ExpectType LoDashExplicitWrapper<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
 
@@ -3559,6 +3567,7 @@ fp.now(); // $ExpectType number
     fp.curryRight(testCurry)(true)(2); // $ExpectType RightCurriedFunction1<string, [string, number, boolean]>
     fp.curryRight(testCurry)(true); // $ExpectType RightCurriedFunction2<string, number, [string, number, boolean]>
     fp.curryRight(testCurry); // $ExpectType RightCurriedFunction3<string, number, boolean, [string, number, boolean]>
+    fp.curryRight(testCurry)("1", fp.__, true)(2); // $ExpectType [string, number, boolean]
 }
 
 // _.debounce
@@ -7218,6 +7227,7 @@ _.templateSettings; // $ExpectType TemplateSettings
     _.partial(func2); // $ExpectType Function2<number, string, number>
     _.partial(func2, 42); // $ExpectType Function1<string, number>
     _.partial(func2,  _, "foo"); // $ExpectType Function1<number, number>
+    _.partial(func2, _.partial.placeholder, "foo"); // $ExpectType Function1<number, number>
     _.partial(func2, 42, "foo"); // $ExpectType Function0<number>
     // with arity 3 function
     _.partial(func3, 42,     _, true);
@@ -7230,6 +7240,7 @@ _.templateSettings; // $ExpectType TemplateSettings
     // with arity 2 function
     _.partialRight(func2); // $ExpectType Function2<number, string, number>
     _.partialRight(func2, 42,     _); // $ExpectType Function1<string, number>
+    _.partialRight(func2, 42, _.partialRight.placeholder); // $ExpectType Function1<string, number>
     _.partialRight(func2,     "foo"); // $ExpectType Function1<number, number>
     _.partialRight(func2, 42, "foo"); // $ExpectType Function0<number>
     // with arity 3 function

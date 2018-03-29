@@ -1,4 +1,4 @@
-// Script for converting the lodash types into unctional programming (FP) format.
+// Script for converting the lodash types into functional programming (FP) format.
 // The convertion is done based on this guide: https://github.com/lodash/lodash/wiki/FP-Guide
 
 // Assumptions:
@@ -79,6 +79,7 @@ async function main() {
         "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
         "// npm run fp",
         "",
+        'import lodash = require("./index");',
         ...functionNames.map(f => `import ${f} = require("./fp/${f}");`),
         "",
         "export = _;",
@@ -87,6 +88,10 @@ async function main() {
         "declare namespace _ {",
         "    interface LoDashFp {",
         ...functionNames.map(f => `        ${f}: typeof ${f};`),
+        "        /** The placeholder, to be used in curried functions */",
+        "        placeholder: lodash.__;",
+        "        /** The placeholder, to be used in curried functions */",
+        "        __: lodash.__;",
         "    }",
         "}",
         "",

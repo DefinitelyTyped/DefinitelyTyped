@@ -2,6 +2,7 @@
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
 // npm run fp
 
+import lodash = require("./index");
 import add = require("./fp/add");
 import after = require("./fp/after");
 import all = require("./fp/all");
@@ -774,6 +775,10 @@ declare namespace _ {
         zipObject: typeof zipObject;
         zipObjectDeep: typeof zipObjectDeep;
         zipWith: typeof zipWith;
+        /** The placeholder, to be used in curried functions */
+        placeholder: lodash.__;
+        /** The placeholder, to be used in curried functions */
+        __: lodash.__;
     }
 }
 
