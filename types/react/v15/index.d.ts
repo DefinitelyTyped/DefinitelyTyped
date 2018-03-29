@@ -2412,7 +2412,7 @@ declare namespace React {
         slot?: string;
         spellCheck?: boolean;
         style?: CSSProperties;
-        tabIndex?: number;
+        tabIndex?: string;
         title?: string;
 
         // Unknown
