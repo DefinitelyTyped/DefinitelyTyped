@@ -1681,7 +1681,7 @@ export namespace Pedometer {
  */
 export namespace Permissions {
     type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording';
+        'camera' | 'contacts' | 'audioRecording' | 'calendar';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1713,6 +1713,7 @@ export namespace Permissions {
     const NOTIFICATIONS: RemoteNotificationPermission;
     const CONTACTS: 'contacts';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const CALENDAR: 'calendar';
 }
 
 /**
