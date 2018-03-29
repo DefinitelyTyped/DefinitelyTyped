@@ -88,8 +88,8 @@ declare namespace Highstock {
     }
 
     interface XAxisOptions extends AxisOptions {
-        ordinal?: boolean;  
-        overscroll?: number;  
+        ordinal?: boolean;
+        overscroll?: number;
     }
 
     interface YAxisOptions extends AxisOptions {
