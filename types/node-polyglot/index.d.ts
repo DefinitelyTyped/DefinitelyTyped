@@ -38,6 +38,8 @@ declare class Polyglot {
     locale(): string;
 
     locale(locale: string): void;
+
+    has(phrase: string): boolean;
 }
 
 export = Polyglot;
