@@ -3,7 +3,7 @@
 // taked the 03/29/2018. Some dtslint rules has been deabled to be
 // close as possible of the original js file.
 
-import * as sql from "sql-bricks";
+import sql = require("sql-bricks");
 
 // tslint:disable-next-line:prefer-const
 let assert: any;
