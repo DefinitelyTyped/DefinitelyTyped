@@ -560,7 +560,7 @@ declare namespace NodeJS {
          * Using process.binding() in general should be avoided.
          * The type checking methods in particular can be replaced by using util.types.
          */
-        bindings: { [key: string]: string; };
+        binding: { [key: string]: string; };
         argv: string[];
         argv0: string;
         execArgv: string[];
