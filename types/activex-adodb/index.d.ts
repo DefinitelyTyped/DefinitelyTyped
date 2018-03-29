@@ -609,15 +609,15 @@ declare namespace ADODB {
         CommandType: CommandTypeEnum;
 
         /**
-         * @param {string} [Name='']
-         * @param ADODB.DataTypeEnum [Type=0]
-         * @param ADODB.ParameterDirectionEnum [Direction=1]
-         * @param number [Size=0]
+         * @param Name [Name='']
+         * @param Type [Type=0]
+         * @param Direction [Direction=1]
+         * @param Size [Size=0]
          */
         CreateParameter(Name?: string, Type?: DataTypeEnum, Direction?: ParameterDirectionEnum, Size?: number, Value?: any): Parameter;
         Dialect: string;
 
-        /** @param number [Options=-1] */
+        /** @param Options [Options=-1] */
         Execute(RecordsAffected?: number, Parameters?: SafeArray, Options?: number): Recordset;
         Name: string;
         NamedParameters: boolean;
@@ -642,18 +642,16 @@ declare namespace ADODB {
         DefaultDatabase: string;
         readonly Errors: Errors;
 
-        /**
-         * @param [Options=-1]
-         */
-        Execute(CommandText: string, RecordsAffected: any, Options?: number): Recordset;
+        /** @param Options [Options=-1] */
+        Execute(CommandText: string, RecordsAffected: any, Options?: CommandTypeEnum | ExecuteOptionEnum): Recordset | undefined;
         IsolationLevel: IsolationLevelEnum;
         Mode: ConnectModeEnum;
 
         /**
-         * @param [ConnectionString='']
-         * @param string [UserID='']
-         * @param string [Password='']
-         * @param number [Options=-1]
+         * @param ConnectionString [ConnectionString='']
+         * @param UserID [UserID='']
+         * @param Password [Password='']
+         * @param Options [Options=-1]
          */
         Open(ConnectionString?: string, UserID?: string, Password?: string, Options?: number): void;
 
@@ -718,14 +716,14 @@ declare namespace ADODB {
 
     interface Fields {
         /**
-         * @param number [DefinedSize=0]
-         * @param ADODB.FieldAttributeEnum [Attrib=-1]
+         * @param DefinedSize [DefinedSize=0]
+         * @param Attrib [Attrib=-1]
          */
         _Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum): void;
 
         /**
-         * @param number [DefinedSize=0]
-         * @param ADODB.FieldAttributeEnum [Attrib=-1]
+         * @param DefinedSize [DefinedSize=0]
+         * @param Attrib [Attrib=-1]
          */
         Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum, FieldValue?: any): void;
         CancelUpdate(): void;
@@ -734,7 +732,7 @@ declare namespace ADODB {
         Item(Index: string | number): Field;
         Refresh(): void;
 
-        /** @param ADODB.ResyncEnum [ResyncValues=2] */
+        /** @param ResyncValues [ResyncValues=2] */
         Resync(ResyncValues?: ResyncEnum): void;
         Update(): void;
         (Index: string | number): Field;
@@ -792,18 +790,18 @@ declare namespace ADODB {
         Close(): void;
 
         /**
-         * @param string [Source='']
-         * @param string [Destination='']
-         * @param string [UserName='']
-         * @param string [Password='']
-         * @param ADODB.CopyRecordOptionsEnum [Options=-1]
-         * @param boolean [Async=false]
+         * @param Source [Source='']
+         * @param Destination [Destination='']
+         * @param UserName [UserName='']
+         * @param Password [Password='']
+         * @param Options [Options=-1]
+         * @param Async [Async=false]
          */
         CopyRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: CopyRecordOptionsEnum, Async?: boolean): string;
 
         /**
-         * @param string [Source='']
-         * @param boolean [Async=false]
+         * @param Source [Source='']
+         * @param Async [Async=false]
          */
         DeleteRecord(Source?: string, Async?: boolean): void;
         readonly Fields: Fields;
@@ -811,27 +809,34 @@ declare namespace ADODB {
         Mode: ConnectModeEnum;
 
         /**
-         * @param string [Source='']
-         * @param string [Destination='']
-         * @param string [UserName='']
-         * @param string [Password='']
-         * @param ADODB.MoveRecordOptionsEnum [Options=-1]
-         * @param boolean [Async=false]
+         * @param Source [Source='']
+         * @param Destination [Destination='']
+         * @param UserName [UserName='']
+         * @param Password [Password='']
+         * @param Options [Options=-1]
+         * @param Async [Async=false]
          */
         MoveRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: MoveRecordOptionsEnum, Async?: boolean): string;
 
         /**
-         * @param ADODB.ConnectModeEnum [Mode=0]
-         * @param ADODB.RecordCreateOptionsEnum [CreateOptions=-1]
-         * @param ADODB.RecordOpenOptionsEnum [Options=-1]
-         * @param string [UserName='']
-         * @param string [Password='']
+         * Source may be:
+         * * A URL. If the protocol for the URL is http, then the Internet Provider will be invoked by default. If the URL points to a node that contains an executable script (such as an .ASP page), then a Record containing the source rather than the executed contents is opened by default. Use the Options argument to modify this behavior.
+         * * A Record object. A Record object opened from another Record will clone the original Record object.
+         * * A Command object. The opened Record object represents the single row returned by executing the Command. If the results contain more than a single row, the contents of the first row are placed in the record and an error may be added to the Errors collection.
+         * * A SQL SELECT statement. The opened Record object represents the single row returned by executing the contents of the string. If the results contain more than a single row, the contents of the first row are placed in the record and an error may be added to the Errors collection.
+         * * A table name.
+         *
+         * @param Mode [Mode=0]
+         * @param CreateOptions [CreateOptions=-1]
+         * @param Options [Options=-1]
+         * @param UserName [UserName='']
+         * @param Password [Password='']
          */
-        Open(Source: any, ActiveConnection: any, Mode?: ConnectModeEnum, CreateOptions?: RecordCreateOptionsEnum, Options?: RecordOpenOptionsEnum, UserName?: string, Password?: string): void;
+        Open(Source?: string | Record | Recordset | Command, ActiveConnection?: string | Connection, Mode?: ConnectModeEnum, CreateOptions?: RecordCreateOptionsEnum, Options?: RecordOpenOptionsEnum, UserName?: string, Password?: string): void;
         readonly ParentURL: string;
         readonly Properties: Properties;
         readonly RecordType: RecordTypeEnum;
-        Source: any;
+        Source: string | Recordset | Command;
         readonly State: ObjectStateEnum;
     }
 
@@ -844,29 +849,31 @@ declare namespace ADODB {
         _xResync(AffectRecords?: AffectEnum): void;
 
         /**
-         * @param string [FileName='']
-         * @param ADODB.PersistFormatEnum [PersistFormat=0]
+         * @param FileName [FileName='']
+         * @param PersistFormat [PersistFormat=0]
          */
         _xSave(FileName?: string, PersistFormat?: PersistFormatEnum): void;
         AbsolutePage: PositionEnum;
         AbsolutePosition: PositionEnum;
-        readonly ActiveCommand: any;
+        readonly ActiveCommand?: Command;
 
         /**
          * Sets or returns a String value that contains a definition for a connection if the connection is closed, or a Variant containing the current Connection object if the connection is open. Default is a null object reference.
          */
         ActiveConnection: string | Connection | null;
-        AddNew(FieldList?: any, Values?: any): void;
+        AddNew(): void;
+        AddNew(Fields: SafeArray<string | number>, Values: SafeArray): void;
+        AddNew(Field: string, Value: any): void;
         readonly BOF: boolean;
         Bookmark: any;
         CacheSize: number;
         Cancel(): void;
 
-        /** @param ADODB.AffectEnum [AffectRecords=3] */
+        /** @param AffectRecords [AffectRecords=3] */
         CancelBatch(AffectRecords?: AffectEnum): void;
         CancelUpdate(): void;
 
-        /** @param ADODB.LockTypeEnum [LockType=-1] */
+        /** @param LockType [LockType=-1] */
         Clone(LockType?: LockTypeEnum): Recordset;
         Close(): void;
         Collect(Index: any): any;
@@ -876,28 +883,35 @@ declare namespace ADODB {
         DataMember: string;
         DataSource: any;
 
-        /** @param ADODB.AffectEnum [AffectRecords=1] */
+        /** @param AffectRecords [AffectRecords=1] */
         Delete(AffectRecords?: AffectEnum): void;
         readonly EditMode: EditModeEnum;
         readonly EOF: boolean;
         readonly Fields: Fields;
-        Filter: any;
 
         /**
-         * @param number [SkipRecords=0]
-         * @param ADODB.SearchDirectionEnum [SearchDirection=1]
+         * Sets or returns one of the following:
+         * * Criteria string — a string made up of one or more individual clauses concatenated with AND or OR operators.
+         * * Array of bookmarks — an array of unique bookmark values that point to records in the Recordset object.
+         * * A FilterGroupEnum value
+         */
+        Filter: string | SafeArray | FilterGroupEnum;
+
+        /**
+         * @param SkipRecords [SkipRecords=0]
+         * @param SearchDirection [SearchDirection=1]
          */
         Find(Criteria: string, SkipRecords?: number, SearchDirection?: SearchDirectionEnum, Start?: any): void;
 
-        /** @param number [Rows=-1] */
-        GetRows(Rows?: number, Start?: any, Fields?: any): any;
+        /** @param Rows [Rows=-1] */
+        GetRows(Rows?: number, Start?: any, Fields?: string | SafeArray<string | number>): SafeArray;
 
         /**
-         * @param ADODB.StringFormatEnum [StringFormat=2]
-         * @param number [NumRows=-1]
-         * @param string [ColumnDelimeter='']
-         * @param string [RowDelimeter='']
-         * @param string [NullExpr='']
+         * @param StringFormat [StringFormat=2]
+         * @param NumRows [NumRows=-1]
+         * @param ColumnDelimeter [ColumnDelimeter='']
+         * @param RowDelimeter [RowDelimeter='']
+         * @param NullExpr [NullExpr='']
          */
         GetString(StringFormat?: StringFormatEnum, NumRows?: number, ColumnDelimeter?: string, RowDelimeter?: string, NullExpr?: string): string;
         Index: string;
@@ -909,42 +923,54 @@ declare namespace ADODB {
         MoveLast(): void;
         MoveNext(): void;
         MovePrevious(): void;
-        NextRecordset(RecordsAffected?: any): Recordset;
+
+        /** Since Javascript doesn't support byref parameters, the RecordsAffected parameter cannot be used */
+        NextRecordset(): Recordset;
 
         /**
-         * @param ADODB.CursorTypeEnum [CursorType=-1]
-         * @param ADODB.LockTypeEnum [LockType=-1]
-         * @param number [Options=-1]
+         * @param CursorType [CursorType=-1]
+         * @param LockType [LockType=-1]
+         * @param Options [Options=-1]
          */
-        Open(Source: any, ActiveConnection: any, CursorType?: CursorTypeEnum, LockType?: LockTypeEnum, Options?: number): void;
+        Open(Source: Command, ActiveConnection: null, CursorType?: CursorTypeEnum, LockType?: LockTypeEnum, Options?: CommandTypeEnum | ExecuteOptionEnum): void;
+        Open(Source?: Stream): void;
+
+        /**
+         * @param CursorType [CursorType=-1]
+         * @param LockType [LockType=-1]
+         * @param Options [Options=-1]
+         */
+        Open(Source: string, ActiveConnection: string | Connection, CursorType?: CursorTypeEnum, LockType?: LockTypeEnum, Options?: CommandTypeEnum | ExecuteOptionEnum): void;
         readonly PageCount: number;
         PageSize: number;
         readonly Properties: Properties;
         readonly RecordCount: number;
 
-        /** @param number [Options=-1] */
+        /** @param Options [Options=-1] */
         Requery(Options?: number): void;
 
         /**
-         * @param ADODB.AffectEnum [AffectRecords=3]
-         * @param ADODB.ResyncEnum [ResyncValues=2]
+         * @param AffectRecords [AffectRecords=3]
+         * @param ResyncValues [ResyncValues=2]
          */
         Resync(AffectRecords?: AffectEnum, ResyncValues?: ResyncEnum): void;
 
-        /** @param ADODB.PersistFormatEnum [PersistFormat=0] */
-        Save(Destination: any, PersistFormat?: PersistFormatEnum): void;
+        /** @param PersistFormat [PersistFormat=0] */
+        Save(Destination: string | Stream, PersistFormat?: PersistFormatEnum): void;
 
-        /** @param ADODB.SeekEnum [SeekOption=1] */
-        Seek(KeyValues: any, SeekOption?: SeekEnum): void;
+        /** @param SeekOption [SeekOption=1] */
+        Seek(KeyValues: SafeArray, SeekOption?: SeekEnum): void;
         Sort: string;
-        Source: any;
+        Source: string | Command;
         readonly State: number;
         readonly Status: number;
         StayInSync: boolean;
         Supports(CursorOptions: CursorOptionEnum): boolean;
-        Update(Fields?: string | SafeArray<string | number>, Values?: any): void;
+        Update(): void;
+        Update(Fields: SafeArray<string | number>, Values: SafeArray): void;
+        Update(Field: string, Value: any): void;
 
-        /** @param ADODB.AffectEnum [AffectRecords=3] */
+        /** @param AffectRecords [AffectRecords=3] */
         UpdateBatch(AffectRecords?: AffectEnum): void;
     }
 
@@ -955,7 +981,7 @@ declare namespace ADODB {
         Charset: string;
         Close(): void;
 
-        /** @param number [CharNumber=-1] */
+        /** @param CharNumber [CharNumber=-1] */
         CopyTo(DestStream: Stream, CharNumber?: number): void;
         readonly EOS: boolean;
         Flush(): void;
@@ -964,21 +990,21 @@ declare namespace ADODB {
         Mode: ConnectModeEnum;
 
         /**
-         * @param ADODB.ConnectModeEnum [Mode=0]
-         * @param ADODB.StreamOpenOptionsEnum [Options=-1]
-         * @param string [UserName='']
-         * @param string [Password='']
+         * @param Mode [Mode=0]
+         * @param Options [Options=-1]
+         * @param UserName [UserName='']
+         * @param Password [Password='']
          */
-        Open(Source: any, Mode?: ConnectModeEnum, Options?: StreamOpenOptionsEnum, UserName?: string, Password?: string): void;
+        Open(Source?: string | Record, Mode?: ConnectModeEnum, Options?: StreamOpenOptionsEnum, UserName?: string, Password?: string): void;
         Position: number;
 
-        /** @param number [NumBytes=-1] */
+        /** @param NumBytes [NumBytes=-1] */
         Read(NumBytes?: number): any;
 
-        /** @param number [NumChars=-1] */
+        /** @param NumChars [NumChars=-1] */
         ReadText(NumChars?: number): string;
 
-        /** @param ADODB.SaveOptionsEnum [Options=1] */
+        /** @param Options [Options=1] */
         SaveToFile(FileName: string, Options?: SaveOptionsEnum): void;
         SetEOS(): void;
         readonly Size: number;
@@ -987,7 +1013,7 @@ declare namespace ADODB {
         Type: StreamTypeEnum;
         Write(Buffer: any): void;
 
-        /** @param ADODB.StreamWriteEnum [Options=0] */
+        /** @param Options [Options=0] */
         WriteText(Data: string, Options?: StreamWriteEnum): void;
     }
 
