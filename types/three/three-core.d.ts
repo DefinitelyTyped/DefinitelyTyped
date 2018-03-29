@@ -7442,6 +7442,15 @@ export class VertexNormalsHelper extends LineSegments {
     update(object?: Object3D): void;
 }
 
+export class PlaneHelper extends LineSegments {
+    constructor(plane: Plane, size?: number, hex?: number);
+
+    plane: Plane;
+    size: number;
+
+    updateMatrixWorld(force: boolean): void;
+}
+
 /**
  * @deprecated Use {@link WireframeGeometry THREE.WireframeGeometry} instead.
  */
