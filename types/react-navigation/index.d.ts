@@ -180,7 +180,7 @@ export type NavigationScreenComponent<
     Options = {},
     Props = {}
 > = React.ComponentType<NavigationNavigatorProps<Options, NavigationState> & Props> &
-({} | { navigationOptions: NavigationScreenConfig<Options> });
+{ navigationOptions?: NavigationScreenConfig<Options> };
 
 export type NavigationNavigator<
     State = NavigationState,
@@ -438,6 +438,7 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
     params?: P,
     action?: NavigationAction,
   ): boolean;
+  getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
   setParams: (newParams: NavigationParams) => boolean;
   addListener: (
     eventName: string,
