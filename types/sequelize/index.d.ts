@@ -3794,7 +3794,7 @@ declare namespace sequelize {
          * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
          *     model will clear the previous scope.
          */
-        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): Model<TInstance, TAttributes>;
+        scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
          * Search for multiple instances.

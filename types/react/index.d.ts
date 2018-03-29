@@ -1,4 +1,4 @@
-// Type definitions for React 16.0
+// Type definitions for React 16.1
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -15,6 +15,7 @@
 //                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -2450,6 +2451,7 @@ declare namespace React {
         defaultChecked?: boolean;
         defaultValue?: string | string[];
         suppressContentEditableWarning?: boolean;
+        suppressHydrationWarning?: boolean;
 
         // Standard HTML Attributes
         accessKey?: string;
@@ -2533,6 +2535,11 @@ declare namespace React {
          * @see aria-colindex @see aria-rowspan.
          */
         'aria-colspan'?: number;
+        /**
+         * Identifies the element (or elements) whose contents or presence are controlled by the current element.
+         * @see aria-owns.
+         */
+        'aria-controls'?: string;
         /** Indicates the element that represents the current item within a container or set of related elements. */
         'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time';
         /**
