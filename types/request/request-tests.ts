@@ -270,7 +270,7 @@ request
 
 // The following examples from https://github.com/request/request
 request('http://www.google.com', (error, response, body) => {
-  if (!error && response.statusCode === 200) {
+  if (!error && response!.statusCode === 200) {
     console.log(body); // Show the HTML for the Google homepage.
   }
 });
@@ -454,9 +454,9 @@ options = {
   }
 };
 
-function callback(error: any, response: http.IncomingMessage, body: string) {
-  if (!error && response.statusCode === 200) {
-    const info = JSON.parse(body);
+function callback(error: any, response?: http.IncomingMessage, body?: string) {
+  if (!error && response!.statusCode === 200) {
+    const info = JSON.parse(body!);
     console.log(info.stargazers_count + " Stars");
     console.log(info.forks_count + " Forks");
   }
@@ -626,25 +626,27 @@ request.get('http://10.255.255.1', {timeout: 1500}, (err) => {
 });
 
 const rand = Math.floor(Math.random() * 100000000).toString();
-  request(
-    { method: 'PUT'
-    , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
-    , multipart:
-      [ { headers: { 'content-type': 'application/json' }
-        , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
+request(
+    {
+        method: 'PUT'
+        , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
+        , multipart:
+        [{
+            headers: { 'content-type': 'application/json' }
+            , body: JSON.stringify({ foo: 'bar', _attachments: { 'message.txt': { follows: true, length: 18, content_type: 'text/plain' } } })
         }
-      , { body: 'I am an attachment' }
-      ]
+            , { body: 'I am an attachment' }
+        ]
     }
-  , (error, response, body) => {
-      if (response.statusCode === 201) {
-        console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
-      } else {
-        console.log('error: ' + response.statusCode);
-        console.log(body);
-      }
+    , (error, response, body) => {
+        if (response!.statusCode === 201) {
+            console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
+        } else {
+            console.log('error: ' + response!.statusCode);
+            console.log(body);
+        }
     }
-  );
+);
 
 request(
     { method: 'GET'
@@ -653,7 +655,7 @@ request(
     }
   , (error, response, body) => {
       // body is the decompressed response body
-      console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'));
+      console.log('server encoded the data as: ' + (response!.headers['content-encoding'] || 'identity'));
       console.log('the decoded data is: ' + body);
     }
   ).on('data', (data: any) => {
