@@ -46,10 +46,10 @@ function translate(): void {
 	polyglot.t("i_like_to_write_in_language", {
 		_: "I like to write in %{language}.",
 		language: "Javascript"
-  });
+	});
   
-  polyglot.has("hello");
-  polyglot.has("world");
+	polyglot.has("hello");
+	polyglot.has("world");
 
 	polyglot.replace({
 		"hello": "hey",
