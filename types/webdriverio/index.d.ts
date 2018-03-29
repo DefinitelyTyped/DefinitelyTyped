@@ -6,6 +6,7 @@
 //                 Tanvir ul Islam <https://github.com/tanvirislam06>
 //                 Phil Leger <https://github.com/phil-lgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 
@@ -430,8 +431,8 @@ declare namespace WebdriverIO {
         screenshotPath?: string;
         specs?: string[];
         seleniumLogs?: string;
-        seleniumInstallArgs: any,
-        seleniumArgs: any,
+        seleniumInstallArgs?: any;
+        seleniumArgs?: any;
         suites?: { [name: string]: string[]; };
         sync?: boolean;
         waitforTimeout?: number;
