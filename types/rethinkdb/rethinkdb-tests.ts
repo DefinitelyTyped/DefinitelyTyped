@@ -20,6 +20,14 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
     )
     .run(conn, errorAndCursorCallback);
 
+    const center = r.point(123, 456);
+    r.table("geo")
+      .getIntersecting(r.circle(center, 1000, { unit: "m" }), { index: "location" })
+      .orderBy(r.row("location").distance(center, { unit: "m" }))
+      .eqJoin("external", testDb.table("other"), { index: "external" })
+      .getField("right")
+      .run(conn, errorAndCursorCallback);
+
     testDb.tableCreate("users").run(conn, function(err, stuff) {
         const users = testDb.table("users");
         users.wait({waitFor: 'ready_for_reads'});
@@ -40,6 +48,8 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
           });
         });
     });
+
+    testDb.table("users").indexCreate("name_index", [r.row("name")]);
 
     r.js("'str1' + 'str2'").run(conn, function (err, value) {});
     r.uuid().run(conn, function (err, uuid) {});
