@@ -1,8 +1,9 @@
-import { Decimal } from 'decimal.js';
 // Type definitions for mathjs
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { Decimal } from 'decimal.js';
 
 declare var math: mathjs.IMathJsStatic;
 export as namespace math;
