@@ -12,7 +12,7 @@ export type Id = string;
 export type DraggableId = Id;
 export type DroppableId = Id;
 export type TypeId = Id;
-export type ZIndex = number | string;
+export type ZIndex = React.CSSProperties['z-Index'];
 export type DropReason = 'DROP' | 'CANCEL';
 export type Announce = (message: string) => void;
 
