@@ -2586,7 +2586,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app: ApplicationState;
+    app?: ApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
