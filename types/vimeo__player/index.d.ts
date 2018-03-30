@@ -60,6 +60,7 @@ export default class Player {
     getVideoUrl(): VimeoPromise<string, PrivacyError | Error>;
     getVolume(): VimeoPromise<number, Error>;
     setVolume(volume: number): VimeoPromise<number, RangeError | Error>;
+    destroy(): VimeoPromise<void, Error>;
 }
 
 export interface VimeoCuePoint {
