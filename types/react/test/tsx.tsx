@@ -37,6 +37,7 @@ StatelessComponent2.defaultProps = {
     defaultValue="some value"
     contentEditable
     suppressContentEditableWarning
+    suppressHydrationWarning
 >
     <b>foo</b>
 </div>;

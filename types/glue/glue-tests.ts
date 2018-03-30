@@ -15,6 +15,6 @@ const manifest: Glue.Manifest = {
       }
     ]
   }
-}
+};
 
 Glue.compose(manifest);
