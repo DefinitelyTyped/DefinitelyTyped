@@ -288,6 +288,15 @@ DOM.div({ ref: node => domNodeRef = node });
 let inputNodeRef: HTMLInputElement | null;
 DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
+const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefComponent>) => {
+    return React.createElement(RefComponent, { ref });
+});
+
+function RefCarryingComponent() {
+    const ref: React.RefObject<RefComponent> = React.createRef();
+    return React.createElement(ForwardingRefComponent, { ref });
+}
+
 //
 // Attributes
 // --------------------------------------------------------------------------

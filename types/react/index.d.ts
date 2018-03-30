@@ -1,4 +1,4 @@
-// Type definitions for React 16.1
+// Type definitions for React 16.3
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -16,6 +16,7 @@
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Ferdy Budhidharma <https://github.com/ferdaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -77,7 +78,12 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
+
+    interface RefObject<T> {
+        readonly current: T | null;
+    }
+
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -331,6 +337,14 @@ declare namespace React {
         displayName?: string;
     }
 
+    interface RefForwardingComponent<T, P = {}> {
+        (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
+        propTypes?: ValidationMap<P>;
+        contextTypes?: ValidationMap<any>;
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+
     interface ComponentClass<P = {}> {
         new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
@@ -430,6 +444,10 @@ declare namespace React {
 
         [propertyName: string]: any;
     }
+
+    function createRef<T>(): RefObject<T>;
+
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ComponentType<P & ClassAttributes<T>>;
 
     //
     // Event System
