@@ -1,4 +1,4 @@
-// Type definitions for React 16.1
+// Type definitions for React 16.3
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -16,6 +16,7 @@
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Ferdy Budhidharma <https://github.com/ferdaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -278,7 +279,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
+    interface Component<P = {}, S = {}, N = any> extends ComponentLifecycle<P, S, N> { }
     class Component<P, S> {
         constructor(props: P, context?: any);
 
@@ -292,6 +293,17 @@ declare namespace React {
 
         forceUpdate(callBack?: () => void): void;
         render(): ReactNode;
+
+        // Typescript does not offer type inference for extending static members, so leave parameters as generic types
+        // See: https://github.com/Microsoft/TypeScript/issues/14600
+        /**
+         * Called after a component is instantiated as well as when it receives new props.
+         * It should return an object to update state, or null to indicate that the new props do not require any state updates.
+         *
+         * Note that if a parent component causes your component to re-render, this method will be called even if props have not changed.
+         * You may want to compare new and previous values if you only want to handle changes.
+         */
+        static getDerivedStateFromProps?(nextProps: object, prevState: object): object | null;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -331,13 +343,14 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = {}> {
-        new (props: P, context?: any): Component<P, ComponentState>;
+    interface ComponentClass<P = {}, S = {}> {
+        new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
+        getDerivedStateFromProps?(nextProps: Readonly<P>, prevState: Readonly<S>): Partial<S> | null;
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
@@ -359,11 +372,12 @@ declare namespace React {
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
 
-    interface ComponentLifecycle<P, S> {
+    interface ComponentLifecycle<P, S, N = any> {
         /**
          * Called immediately before mounting occurs, and before `Component#render`.
          * Avoid introducing any side-effects or subscriptions in this method.
          */
+        UNSAFE_componentWillMount?(): void;
         componentWillMount?(): void;
         /**
          * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
@@ -376,6 +390,7 @@ declare namespace React {
          *
          * Calling `Component#setState` generally does not trigger this method.
          */
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called to determine whether the change in props and state should trigger a re-render.
@@ -393,11 +408,20 @@ declare namespace React {
          *
          * Note: You cannot call `Component#setState` here.
          */
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
         componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+
+        /**
+         * Called right before the most recently rendered output is committed to the DOM
+         * Any value returned by this lifecycle will be passed as a parameter to componentDidUpdate
+         */
+        getSnapshotBeforeUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>): N;
+
         /**
          * Called immediately after updating occurs. Not called for the initial render.
+         * If getSnapshotBeforeUpdate is implemented, the third parameter "snapshot" passed in will be equal to what it returned
          */
-        componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, prevContext: any): void;
+        componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: N): void;
         /**
          * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
          * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
@@ -410,8 +434,8 @@ declare namespace React {
         componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
     }
 
-    interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-        mixins?: Array<Mixin<P, S>>;
+    interface Mixin<P, S, N = any> extends ComponentLifecycle<P, S, N> {
+        mixins?: Array<Mixin<P, S, N>>;
         statics?: {
             [key: string]: any;
         };
