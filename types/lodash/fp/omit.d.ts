@@ -55,7 +55,41 @@ interface Omit {
      * _.omit(object, ['a', 'c']);
      * // => { 'b': '2' }
      */
+    <T extends _.AnyKindOfDictionary>(p1: _.__, object: T | null | undefined): Omit1x2<T>;
+    /**
+     * The opposite of `_.pick`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that are not omitted.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [paths] The property names to omit, specified
+     *  individually or in arrays..
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omit(object, ['a', 'c']);
+     * // => { 'b': '2' }
+     */
     <T extends _.AnyKindOfDictionary>(paths: _.PropertyPath, object: T | null | undefined): T;
+    /**
+     * The opposite of `_.pick`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that are not omitted.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [paths] The property names to omit, specified
+     *  individually or in arrays..
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omit(object, ['a', 'c']);
+     * // => { 'b': '2' }
+     */
+    <T extends object>(p1: _.__, object: T | null | undefined): Omit2x2<T>;
     /**
      * The opposite of `_.pick`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that are not omitted.
@@ -126,6 +160,78 @@ interface Omit1x1 {
      * // => { 'b': '2' }
      */
     <T extends object>(object: T | null | undefined): _.PartialObject<T>;
+}
+interface Omit1x2<T extends _.AnyKindOfDictionary> {
+    /**
+     * The opposite of `_.pick`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that are not omitted.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [paths] The property names to omit, specified
+     *  individually or in arrays..
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omit(object, ['a', 'c']);
+     * // => { 'b': '2' }
+     */
+    (): Omit1x2<T>;
+    /**
+     * The opposite of `_.pick`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that are not omitted.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [paths] The property names to omit, specified
+     *  individually or in arrays..
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omit(object, ['a', 'c']);
+     * // => { 'b': '2' }
+     */
+    (paths: _.PropertyPath): T;
+}
+interface Omit2x2<T extends object> {
+    /**
+     * The opposite of `_.pick`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that are not omitted.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [paths] The property names to omit, specified
+     *  individually or in arrays..
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omit(object, ['a', 'c']);
+     * // => { 'b': '2' }
+     */
+    (): Omit2x2<T>;
+    /**
+     * The opposite of `_.pick`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that are not omitted.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [paths] The property names to omit, specified
+     *  individually or in arrays..
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omit(object, ['a', 'c']);
+     * // => { 'b': '2' }
+     */
+    (paths: _.PropertyPath): _.PartialObject<T>;
 }
 
 declare const omit: Omit;

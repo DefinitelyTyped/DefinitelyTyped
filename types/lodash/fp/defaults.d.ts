@@ -38,6 +38,18 @@ interface Defaults {
      * @param sources The source objects.
      * @return The destination object.
      */
+    <TObject>(p1: _.__, object: TObject): Defaults1x2<TObject>;
+    /**
+     * Assigns own enumerable properties of source object(s) to the destination object for all destination
+     * properties that resolve to undefined. Once a property is set, additional values of the same property are
+     * ignored.
+     *
+     * Note: This method mutates object.
+     *
+     * @param object The destination object.
+     * @param sources The source objects.
+     * @return The destination object.
+     */
     <TObject, TSource>(source: TSource, object: TObject): TSource & TObject;
 }
 interface Defaults1x1<TSource> {
@@ -65,6 +77,32 @@ interface Defaults1x1<TSource> {
      * @return The destination object.
      */
     <TObject>(object: TObject): TSource & TObject;
+}
+interface Defaults1x2<TObject> {
+    /**
+     * Assigns own enumerable properties of source object(s) to the destination object for all destination
+     * properties that resolve to undefined. Once a property is set, additional values of the same property are
+     * ignored.
+     *
+     * Note: This method mutates object.
+     *
+     * @param object The destination object.
+     * @param sources The source objects.
+     * @return The destination object.
+     */
+    (): Defaults1x2<TObject>;
+    /**
+     * Assigns own enumerable properties of source object(s) to the destination object for all destination
+     * properties that resolve to undefined. Once a property is set, additional values of the same property are
+     * ignored.
+     *
+     * Note: This method mutates object.
+     *
+     * @param object The destination object.
+     * @param sources The source objects.
+     * @return The destination object.
+     */
+    <TSource>(source: TSource): TSource & TObject;
 }
 
 declare const defaults: Defaults;

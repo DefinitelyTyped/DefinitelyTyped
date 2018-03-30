@@ -37,6 +37,17 @@ interface UnzipWith {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new array of regrouped elements.
      */
+    <T>(p1: _.__, array: _.List<_.List<T>> | null | undefined): UnzipWith1x2<T>;
+    /**
+     * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
+     * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
+     * group).
+     *
+     * @param array The array of grouped elements to process.
+     * @param iteratee The function to combine regrouped values.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns the new array of regrouped elements.
+     */
     <T, TResult>(iteratee: (...values: T[]) => TResult, array: _.List<_.List<T>> | null | undefined): TResult[];
 }
 interface UnzipWith1x1<T, TResult> {
@@ -62,6 +73,30 @@ interface UnzipWith1x1<T, TResult> {
      * @return Returns the new array of regrouped elements.
      */
     (array: _.List<_.List<T>> | null | undefined): TResult[];
+}
+interface UnzipWith1x2<T> {
+    /**
+     * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
+     * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
+     * group).
+     *
+     * @param array The array of grouped elements to process.
+     * @param iteratee The function to combine regrouped values.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns the new array of regrouped elements.
+     */
+    (): UnzipWith1x2<T>;
+    /**
+     * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
+     * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,
+     * group).
+     *
+     * @param array The array of grouped elements to process.
+     * @param iteratee The function to combine regrouped values.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns the new array of regrouped elements.
+     */
+    <TResult>(iteratee: (...values: T[]) => TResult): TResult[];
 }
 
 declare const unzipWith: UnzipWith;

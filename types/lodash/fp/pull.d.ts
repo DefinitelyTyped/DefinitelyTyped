@@ -34,7 +34,27 @@ interface Pull {
      * @param values The values to remove.
      * @return Returns array.
      */
+    <T>(p1: _.__, array: ReadonlyArray<T>): Pull1x2<T>;
+    /**
+     * Removes all provided values from array using SameValueZero for equality comparisons.
+     *
+     * Note: Unlike _.without, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @return Returns array.
+     */
     <T>(values: T, array: ReadonlyArray<T>): T[];
+    /**
+     * Removes all provided values from array using SameValueZero for equality comparisons.
+     *
+     * Note: Unlike _.without, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @return Returns array.
+     */
+    <T>(p1: _.__, array: _.List<T>): Pull2x2<T>;
     /**
      * Removes all provided values from array using SameValueZero for equality comparisons.
      *
@@ -77,6 +97,50 @@ interface Pull1x1<T> {
      * @return Returns array.
      */
     (array: _.List<T>): _.List<T>;
+}
+interface Pull1x2<T> {
+    /**
+     * Removes all provided values from array using SameValueZero for equality comparisons.
+     *
+     * Note: Unlike _.without, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @return Returns array.
+     */
+    (): Pull1x2<T>;
+    /**
+     * Removes all provided values from array using SameValueZero for equality comparisons.
+     *
+     * Note: Unlike _.without, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @return Returns array.
+     */
+    (values: T): T[];
+}
+interface Pull2x2<T> {
+    /**
+     * Removes all provided values from array using SameValueZero for equality comparisons.
+     *
+     * Note: Unlike _.without, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @return Returns array.
+     */
+    (): Pull2x2<T>;
+    /**
+     * Removes all provided values from array using SameValueZero for equality comparisons.
+     *
+     * Note: Unlike _.without, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @return Returns array.
+     */
+    (values: T): _.List<T>;
 }
 
 declare const pull: Pull;

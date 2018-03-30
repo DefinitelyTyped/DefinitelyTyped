@@ -31,6 +31,15 @@ interface At {
      * @param props The property names or indexes of elements to pick, specified individually or in arrays.
      * @return Returns the new array of picked elements.
      */
+    <T>(p1: _.__, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): At1x2<T>;
+    /**
+     * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
+     * specified as individual arguments or as arrays of keys.
+     *
+     * @param object The object to iterate over.
+     * @param props The property names or indexes of elements to pick, specified individually or in arrays.
+     * @return Returns the new array of picked elements.
+     */
     <T>(props: _.PropertyPath, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T[];
     /**
      * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
@@ -41,6 +50,15 @@ interface At {
      * @return Returns the new array of picked elements.
      */
     <T extends object>(props: _.Many<keyof T>): At2x1<T>;
+    /**
+     * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
+     * specified as individual arguments or as arrays of keys.
+     *
+     * @param object The object to iterate over.
+     * @param props The property names or indexes of elements to pick, specified individually or in arrays.
+     * @return Returns the new array of picked elements.
+     */
+    <T extends object>(p1: _.__, object: T | null | undefined): At2x2<T>;
     /**
      * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
      * specified as individual arguments or as arrays of keys.
@@ -71,6 +89,26 @@ interface At1x1 {
      */
     <T>(object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T[];
 }
+interface At1x2<T> {
+    /**
+     * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
+     * specified as individual arguments or as arrays of keys.
+     *
+     * @param object The object to iterate over.
+     * @param props The property names or indexes of elements to pick, specified individually or in arrays.
+     * @return Returns the new array of picked elements.
+     */
+    (): At1x2<T>;
+    /**
+     * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
+     * specified as individual arguments or as arrays of keys.
+     *
+     * @param object The object to iterate over.
+     * @param props The property names or indexes of elements to pick, specified individually or in arrays.
+     * @return Returns the new array of picked elements.
+     */
+    (props: _.PropertyPath): T[];
+}
 interface At2x1<T extends object> {
     /**
      * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
@@ -90,6 +128,26 @@ interface At2x1<T extends object> {
      * @return Returns the new array of picked elements.
      */
     (object: T | null | undefined): Array<T[keyof T]>;
+}
+interface At2x2<T extends object> {
+    /**
+     * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
+     * specified as individual arguments or as arrays of keys.
+     *
+     * @param object The object to iterate over.
+     * @param props The property names or indexes of elements to pick, specified individually or in arrays.
+     * @return Returns the new array of picked elements.
+     */
+    (): At2x2<T>;
+    /**
+     * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
+     * specified as individual arguments or as arrays of keys.
+     *
+     * @param object The object to iterate over.
+     * @param props The property names or indexes of elements to pick, specified individually or in arrays.
+     * @return Returns the new array of picked elements.
+     */
+    (props: _.Many<keyof T>): Array<T[keyof T]>;
 }
 
 declare const paths: At;

@@ -32,7 +32,47 @@ interface Pad {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (chars: string, length: number): Pad1x2;
+    (p1: _.__, length: number): Pad1x2;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (chars: string, length: number): Pad1x3;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (p1: _.__, p2: _.__, string: string): Pad1x4;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (chars: string, p2: _.__, string: string): Pad1x5;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (p1: _.__, length: number, string: string): Pad1x6;
     /**
      * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
      * they can’t be evenly divided by length.
@@ -64,7 +104,17 @@ interface Pad1x1 {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (length: number): Pad1x2;
+    (length: number): Pad1x3;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (p1: _.__, string: string): Pad1x5;
     /**
      * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
      * they can’t be evenly divided by length.
@@ -96,7 +146,135 @@ interface Pad1x2 {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
+    (chars: string): Pad1x3;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (p1: _.__, string: string): Pad1x6;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (chars: string, string: string): string;
+}
+interface Pad1x3 {
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (): Pad1x3;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
     (string: string): string;
+}
+interface Pad1x4 {
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (): Pad1x4;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (chars: string): Pad1x5;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (p1: _.__, length: number): Pad1x6;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (chars: string, length: number): string;
+}
+interface Pad1x5 {
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (): Pad1x5;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (length: number): string;
+}
+interface Pad1x6 {
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (): Pad1x6;
+    /**
+     * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+     * they can’t be evenly divided by length.
+     *
+     * @param string The string to pad.
+     * @param length The padding length.
+     * @param chars The string used as padding.
+     * @return Returns the padded string.
+     */
+    (chars: string): string;
 }
 
 declare const padChars: Pad;

@@ -49,6 +49,21 @@ interface SortedLastIndex {
      * _.sortedLastIndex([4, 5], 4);
      * // => 1
      */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): SortedLastIndex1x2<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it returns the highest
+     * index at which `value` should be inserted into `array` in order to
+     * maintain its sort order.
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * _.sortedLastIndex([4, 5], 4);
+     * // => 1
+     */
     <T>(value: T, array: _.List<T> | null | undefined): number;
 }
 interface SortedLastIndex1x1<T> {
@@ -82,6 +97,38 @@ interface SortedLastIndex1x1<T> {
      * // => 1
      */
     (array: _.List<T> | null | undefined): number;
+}
+interface SortedLastIndex1x2<T> {
+    /**
+     * This method is like `_.sortedIndex` except that it returns the highest
+     * index at which `value` should be inserted into `array` in order to
+     * maintain its sort order.
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * _.sortedLastIndex([4, 5], 4);
+     * // => 1
+     */
+    (): SortedLastIndex1x2<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it returns the highest
+     * index at which `value` should be inserted into `array` in order to
+     * maintain its sort order.
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * _.sortedLastIndex([4, 5], 4);
+     * // => 1
+     */
+    (value: T): number;
 }
 
 declare const sortedLastIndex: SortedLastIndex;

@@ -67,7 +67,91 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(value: T, fromIndex: number): IndexOf1x2<T>;
+    (p1: _.__, fromIndex: number): IndexOf1x2;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(value: T, fromIndex: number): IndexOf1x3<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(p1: _.__, p2: _.__, array: _.List<T> | null | undefined): IndexOf1x4<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(value: T, p2: _.__, array: _.List<T> | null | undefined): IndexOf1x5;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(p1: _.__, fromIndex: number, array: _.List<T> | null | undefined): IndexOf1x6<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -132,7 +216,28 @@ interface IndexOf1x1<T> {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    (fromIndex: number): IndexOf1x2<T>;
+    (fromIndex: number): IndexOf1x3<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (p1: _.__, array: _.List<T> | null | undefined): IndexOf1x5;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -155,7 +260,7 @@ interface IndexOf1x1<T> {
      */
     (fromIndex: number, array: _.List<T> | null | undefined): number;
 }
-interface IndexOf1x2<T> {
+interface IndexOf1x2 {
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -176,7 +281,93 @@ interface IndexOf1x2<T> {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    (): IndexOf1x2<T>;
+    (): IndexOf1x2;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(value: T): IndexOf1x3<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): IndexOf1x6<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(value: T, array: _.List<T> | null | undefined): number;
+}
+interface IndexOf1x3<T> {
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (): IndexOf1x3<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -198,6 +389,180 @@ interface IndexOf1x2<T> {
      * // => 3
      */
     (array: _.List<T> | null | undefined): number;
+}
+interface IndexOf1x4<T> {
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (): IndexOf1x4<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (value: T): IndexOf1x5;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (p1: _.__, fromIndex: number): IndexOf1x6<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (value: T, fromIndex: number): number;
+}
+interface IndexOf1x5 {
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (): IndexOf1x5;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    <T>(fromIndex: number): number;
+}
+interface IndexOf1x6<T> {
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (): IndexOf1x6<T>;
+    /**
+     * Gets the index at which the first occurrence of `value` is found in `array`
+     * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+     * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+     * from the end of `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param [fromIndex=0] The index to search from.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.indexOf([1, 2, 1, 2], 2);
+     * // => 1
+     *
+     * // using `fromIndex`
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
+     */
+    (value: T): number;
 }
 
 declare const indexOfFrom: IndexOf;

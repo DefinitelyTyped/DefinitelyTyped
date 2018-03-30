@@ -34,6 +34,16 @@ interface Unset {
      * @param path The path of the property to unset.
      * @return Returns true if the property is deleted, else false.
      */
+    (p1: _.__, object: any): Unset1x2;
+    /**
+     * Removes the property at path of object.
+     *
+     * Note: This method mutates object.
+     *
+     * @param object The object to modify.
+     * @param path The path of the property to unset.
+     * @return Returns true if the property is deleted, else false.
+     */
     (path: _.PropertyPath, object: any): boolean;
 }
 interface Unset1x1 {
@@ -57,6 +67,28 @@ interface Unset1x1 {
      * @return Returns true if the property is deleted, else false.
      */
     (object: any): boolean;
+}
+interface Unset1x2 {
+    /**
+     * Removes the property at path of object.
+     *
+     * Note: This method mutates object.
+     *
+     * @param object The object to modify.
+     * @param path The path of the property to unset.
+     * @return Returns true if the property is deleted, else false.
+     */
+    (): Unset1x2;
+    /**
+     * Removes the property at path of object.
+     *
+     * Note: This method mutates object.
+     *
+     * @param object The object to modify.
+     * @param path The path of the property to unset.
+     * @return Returns true if the property is deleted, else false.
+     */
+    (path: _.PropertyPath): boolean;
 }
 
 declare const dissoc: Unset;

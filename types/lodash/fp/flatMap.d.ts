@@ -34,6 +34,16 @@ interface FlatMap {
      * @param iteratee The function invoked per iteration.
      * @return Returns the new flattened array.
      */
+    <T>(p1: _.__, collection: _.List<T> | null | undefined): FlatMap1x2<T>;
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
     <T, TResult>(iteratee: (value: T) => _.Many<TResult>, collection: _.List<T> | null | undefined): TResult[];
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
@@ -54,6 +64,16 @@ interface FlatMap {
      * @param iteratee The function invoked per iteration.
      * @return Returns the new flattened array.
      */
+    <T extends object>(p1: _.__, collection: T | null | undefined): FlatMap2x2<T>;
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
     <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.Many<TResult>, collection: T | null | undefined): TResult[];
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
@@ -65,6 +85,16 @@ interface FlatMap {
      * @return Returns the new flattened array.
      */
     (iteratee: string): FlatMap3x1;
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    (p1: _.__, collection: object | null | undefined): FlatMap3x2;
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
      * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
@@ -118,6 +148,28 @@ interface FlatMap1x1<T, TResult> {
      */
     (collection: _.List<T> | null | undefined): TResult[];
 }
+interface FlatMap1x2<T> {
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    (): FlatMap1x2<T>;
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    <TResult>(iteratee: (value: T) => _.Many<TResult>): TResult[];
+}
 interface FlatMap2x1<T extends object, TResult> {
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
@@ -140,6 +192,28 @@ interface FlatMap2x1<T extends object, TResult> {
      */
     (collection: T | null | undefined): TResult[];
 }
+interface FlatMap2x2<T extends object> {
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    (): FlatMap2x2<T>;
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    <TResult>(iteratee: (value: T[keyof T]) => _.Many<TResult>): TResult[];
+}
 interface FlatMap3x1 {
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
@@ -161,6 +235,38 @@ interface FlatMap3x1 {
      * @return Returns the new flattened array.
      */
     (collection: object | null | undefined): any[];
+}
+interface FlatMap3x2 {
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    (): FlatMap3x2;
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    (iteratee: string): any[];
+    /**
+     * Creates an array of flattened values by running each element in collection through iteratee
+     * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+     * (value, index|key, collection).
+     *
+     * @param collection The collection to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the new flattened array.
+     */
+    (iteratee: object): boolean[];
 }
 interface FlatMap4x1 {
     /**

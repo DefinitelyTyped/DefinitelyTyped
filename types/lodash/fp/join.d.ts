@@ -28,6 +28,14 @@ interface Join {
      * @param separator The element separator.
      * @returns Returns the joined string.
      */
+    (p1: _.__, array: _.List<any> | null | undefined): Join1x2;
+    /**
+     * Converts all elements in `array` into a string separated by `separator`.
+     *
+     * @param array The array to convert.
+     * @param separator The element separator.
+     * @returns Returns the joined string.
+     */
     (separator: string, array: _.List<any> | null | undefined): string;
 }
 interface Join1x1 {
@@ -47,6 +55,24 @@ interface Join1x1 {
      * @returns Returns the joined string.
      */
     (array: _.List<any> | null | undefined): string;
+}
+interface Join1x2 {
+    /**
+     * Converts all elements in `array` into a string separated by `separator`.
+     *
+     * @param array The array to convert.
+     * @param separator The element separator.
+     * @returns Returns the joined string.
+     */
+    (): Join1x2;
+    /**
+     * Converts all elements in `array` into a string separated by `separator`.
+     *
+     * @param array The array to convert.
+     * @param separator The element separator.
+     * @returns Returns the joined string.
+     */
+    (separator: string): string;
 }
 
 declare const join: Join;

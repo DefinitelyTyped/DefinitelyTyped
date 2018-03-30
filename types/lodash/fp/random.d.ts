@@ -35,7 +35,29 @@ interface Random {
      * @param floating Specify returning a floating-point number.
      * @return Returns the random number.
      */
+    (p1: _.__, floating: boolean): Random1x2;
+    /**
+     * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+     * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+     * number is returned instead of an integer.
+     *
+     * @param min The minimum possible value.
+     * @param max The maximum possible value.
+     * @param floating Specify returning a floating-point number.
+     * @return Returns the random number.
+     */
     (maxOrMin: number, floatingOrMax: boolean | number): number;
+    /**
+     * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+     * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+     * number is returned instead of an integer.
+     *
+     * @param min The minimum possible value.
+     * @param max The maximum possible value.
+     * @param floating Specify returning a floating-point number.
+     * @return Returns the random number.
+     */
+    (p1: _.__, max: number): Random2x2;
 }
 interface Random1x1 {
     /**
@@ -60,6 +82,54 @@ interface Random1x1 {
      * @return Returns the random number.
      */
     (floatingOrMax: boolean | number): number;
+}
+interface Random1x2 {
+    /**
+     * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+     * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+     * number is returned instead of an integer.
+     *
+     * @param min The minimum possible value.
+     * @param max The maximum possible value.
+     * @param floating Specify returning a floating-point number.
+     * @return Returns the random number.
+     */
+    (): Random1x2;
+    /**
+     * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+     * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+     * number is returned instead of an integer.
+     *
+     * @param min The minimum possible value.
+     * @param max The maximum possible value.
+     * @param floating Specify returning a floating-point number.
+     * @return Returns the random number.
+     */
+    (max: number): number;
+}
+interface Random2x2 {
+    /**
+     * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+     * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+     * number is returned instead of an integer.
+     *
+     * @param min The minimum possible value.
+     * @param max The maximum possible value.
+     * @param floating Specify returning a floating-point number.
+     * @return Returns the random number.
+     */
+    (): Random2x2;
+    /**
+     * Produces a random number between min and max (inclusive). If only one argument is provided a number between
+     * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
+     * number is returned instead of an integer.
+     *
+     * @param min The minimum possible value.
+     * @param max The maximum possible value.
+     * @param floating Specify returning a floating-point number.
+     * @return Returns the random number.
+     */
+    (min: number): number;
 }
 
 declare const random: Random;

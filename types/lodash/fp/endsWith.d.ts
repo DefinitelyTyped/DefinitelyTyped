@@ -29,6 +29,15 @@ interface EndsWith {
      * @param position The position to search from.
      * @return Returns true if string ends with target, else false.
      */
+    (p1: _.__, string: string): EndsWith1x2;
+    /**
+     * Checks if string ends with the given target string.
+     *
+     * @param string The string to search.
+     * @param target The string to search for.
+     * @param position The position to search from.
+     * @return Returns true if string ends with target, else false.
+     */
     (target: string, string: string): boolean;
 }
 interface EndsWith1x1 {
@@ -50,6 +59,26 @@ interface EndsWith1x1 {
      * @return Returns true if string ends with target, else false.
      */
     (string: string): boolean;
+}
+interface EndsWith1x2 {
+    /**
+     * Checks if string ends with the given target string.
+     *
+     * @param string The string to search.
+     * @param target The string to search for.
+     * @param position The position to search from.
+     * @return Returns true if string ends with target, else false.
+     */
+    (): EndsWith1x2;
+    /**
+     * Checks if string ends with the given target string.
+     *
+     * @param string The string to search.
+     * @param target The string to search for.
+     * @param position The position to search from.
+     * @return Returns true if string ends with target, else false.
+     */
+    (target: string): boolean;
 }
 
 declare const endsWith: EndsWith;

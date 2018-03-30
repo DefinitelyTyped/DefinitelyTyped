@@ -28,6 +28,14 @@ interface FlattenDepth {
        * @param number The maximum recursion depth.
        * @return Returns the new flattened array.
        */
+    <T>(p1: _.__, array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): FlattenDepth1x2<T>;
+    /**
+       * Recursively flatten array up to depth times.
+       *
+       * @param array The array to recursively flatten.
+       * @param number The maximum recursion depth.
+       * @return Returns the new flattened array.
+       */
     <T>(depth: number, array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
 }
 interface FlattenDepth1x1 {
@@ -47,6 +55,24 @@ interface FlattenDepth1x1 {
        * @return Returns the new flattened array.
        */
     <T>(array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
+}
+interface FlattenDepth1x2<T> {
+    /**
+       * Recursively flatten array up to depth times.
+       *
+       * @param array The array to recursively flatten.
+       * @param number The maximum recursion depth.
+       * @return Returns the new flattened array.
+       */
+    (): FlattenDepth1x2<T>;
+    /**
+       * Recursively flatten array up to depth times.
+       *
+       * @param array The array to recursively flatten.
+       * @param number The maximum recursion depth.
+       * @return Returns the new flattened array.
+       */
+    (depth: number): T[];
 }
 
 declare const flattenDepth: FlattenDepth;

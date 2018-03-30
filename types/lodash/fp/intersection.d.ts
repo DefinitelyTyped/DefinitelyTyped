@@ -28,6 +28,14 @@ interface Intersection {
      * @param arrays The arrays to inspect.
      * @return Returns the new array of shared values.
      */
+    <T>(p1: _.__, arrays: _.List<T>): Intersection1x2<T>;
+    /**
+     * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
+     * equality comparisons.
+     *
+     * @param arrays The arrays to inspect.
+     * @return Returns the new array of shared values.
+     */
     <T>(arrays2: _.List<T>, arrays: _.List<T>): T[];
 }
 interface Intersection1x1<T> {
@@ -47,6 +55,24 @@ interface Intersection1x1<T> {
      * @return Returns the new array of shared values.
      */
     (arrays: _.List<T>): T[];
+}
+interface Intersection1x2<T> {
+    /**
+     * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
+     * equality comparisons.
+     *
+     * @param arrays The arrays to inspect.
+     * @return Returns the new array of shared values.
+     */
+    (): Intersection1x2<T>;
+    /**
+     * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
+     * equality comparisons.
+     *
+     * @param arrays The arrays to inspect.
+     * @return Returns the new array of shared values.
+     */
+    (arrays2: _.List<T>): T[];
 }
 
 declare const intersection: Intersection;

@@ -58,7 +58,43 @@ interface PullAll {
      * console.log(array);
      * // => [1, 1]
      */
+    <T>(p1: _.__, array: ReadonlyArray<T>): PullAll1x2<T>;
+    /**
+     * This method is like `_.pull` except that it accepts an array of values to remove.
+     *
+     * **Note:** Unlike `_.difference`, this method mutates `array`.
+     *
+     * @category Array
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @returns Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3, 1, 2, 3];
+     *
+     * _.pull(array, [2, 3]);
+     * console.log(array);
+     * // => [1, 1]
+     */
     <T>(values: _.List<T>, array: ReadonlyArray<T>): T[];
+    /**
+     * This method is like `_.pull` except that it accepts an array of values to remove.
+     *
+     * **Note:** Unlike `_.difference`, this method mutates `array`.
+     *
+     * @category Array
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @returns Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3, 1, 2, 3];
+     *
+     * _.pull(array, [2, 3]);
+     * console.log(array);
+     * // => [1, 1]
+     */
+    <T>(p1: _.__, array: _.List<T>): PullAll2x2<T>;
     /**
      * This method is like `_.pull` except that it accepts an array of values to remove.
      *
@@ -133,6 +169,82 @@ interface PullAll1x1<T> {
      * // => [1, 1]
      */
     (array: _.List<T>): _.List<T>;
+}
+interface PullAll1x2<T> {
+    /**
+     * This method is like `_.pull` except that it accepts an array of values to remove.
+     *
+     * **Note:** Unlike `_.difference`, this method mutates `array`.
+     *
+     * @category Array
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @returns Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3, 1, 2, 3];
+     *
+     * _.pull(array, [2, 3]);
+     * console.log(array);
+     * // => [1, 1]
+     */
+    (): PullAll1x2<T>;
+    /**
+     * This method is like `_.pull` except that it accepts an array of values to remove.
+     *
+     * **Note:** Unlike `_.difference`, this method mutates `array`.
+     *
+     * @category Array
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @returns Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3, 1, 2, 3];
+     *
+     * _.pull(array, [2, 3]);
+     * console.log(array);
+     * // => [1, 1]
+     */
+    (values: _.List<T>): T[];
+}
+interface PullAll2x2<T> {
+    /**
+     * This method is like `_.pull` except that it accepts an array of values to remove.
+     *
+     * **Note:** Unlike `_.difference`, this method mutates `array`.
+     *
+     * @category Array
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @returns Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3, 1, 2, 3];
+     *
+     * _.pull(array, [2, 3]);
+     * console.log(array);
+     * // => [1, 1]
+     */
+    (): PullAll2x2<T>;
+    /**
+     * This method is like `_.pull` except that it accepts an array of values to remove.
+     *
+     * **Note:** Unlike `_.difference`, this method mutates `array`.
+     *
+     * @category Array
+     * @param array The array to modify.
+     * @param values The values to remove.
+     * @returns Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3, 1, 2, 3];
+     *
+     * _.pull(array, [2, 3]);
+     * console.log(array);
+     * // => [1, 1]
+     */
+    (values: _.List<T>): _.List<T>;
 }
 
 declare const pullAll: PullAll;

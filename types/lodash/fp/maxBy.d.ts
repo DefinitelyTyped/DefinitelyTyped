@@ -67,6 +67,27 @@ interface MaxBy {
      * _.maxBy(objects, 'n');
      * // => { 'n': 2 }
      */
+    <T>(p1: _.__, collection: _.List<T> | null | undefined): MaxBy1x2<T>;
+    /**
+     * This method is like `_.max` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * the value is ranked. The iteratee is invoked with one argument: (value).
+     *
+     * @category Math
+     * @param array The array to iterate over.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the maximum value.
+     * @example
+     *
+     * var objects = [{ 'n': 1 }, { 'n': 2 }];
+     *
+     * _.maxBy(objects, function(o) { return o.a; });
+     * // => { 'n': 2 }
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.maxBy(objects, 'n');
+     * // => { 'n': 2 }
+     */
     <T>(iteratee: _.ValueIteratee<T>, collection: _.List<T> | null | undefined): T | undefined;
 }
 interface MaxBy1x1<T> {
@@ -112,6 +133,50 @@ interface MaxBy1x1<T> {
      * // => { 'n': 2 }
      */
     (collection: _.List<T> | null | undefined): T | undefined;
+}
+interface MaxBy1x2<T> {
+    /**
+     * This method is like `_.max` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * the value is ranked. The iteratee is invoked with one argument: (value).
+     *
+     * @category Math
+     * @param array The array to iterate over.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the maximum value.
+     * @example
+     *
+     * var objects = [{ 'n': 1 }, { 'n': 2 }];
+     *
+     * _.maxBy(objects, function(o) { return o.a; });
+     * // => { 'n': 2 }
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.maxBy(objects, 'n');
+     * // => { 'n': 2 }
+     */
+    (): MaxBy1x2<T>;
+    /**
+     * This method is like `_.max` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * the value is ranked. The iteratee is invoked with one argument: (value).
+     *
+     * @category Math
+     * @param array The array to iterate over.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the maximum value.
+     * @example
+     *
+     * var objects = [{ 'n': 1 }, { 'n': 2 }];
+     *
+     * _.maxBy(objects, function(o) { return o.a; });
+     * // => { 'n': 2 }
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.maxBy(objects, 'n');
+     * // => { 'n': 2 }
+     */
+    (iteratee: _.ValueIteratee<T>): T | undefined;
 }
 
 declare const maxBy: MaxBy;

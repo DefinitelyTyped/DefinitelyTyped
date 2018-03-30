@@ -23,6 +23,13 @@ interface Multiply {
      * @param multiplicand The second number in a multiplication.
      * @returns Returns the product.
      */
+    (p1: _.__, multiplicand: number): Multiply1x2;
+    /**
+     * Multiply two numbers.
+     * @param multiplier The first number in a multiplication.
+     * @param multiplicand The second number in a multiplication.
+     * @returns Returns the product.
+     */
     (multiplier: number, multiplicand: number): number;
 }
 interface Multiply1x1 {
@@ -40,6 +47,22 @@ interface Multiply1x1 {
      * @returns Returns the product.
      */
     (multiplicand: number): number;
+}
+interface Multiply1x2 {
+    /**
+     * Multiply two numbers.
+     * @param multiplier The first number in a multiplication.
+     * @param multiplicand The second number in a multiplication.
+     * @returns Returns the product.
+     */
+    (): Multiply1x2;
+    /**
+     * Multiply two numbers.
+     * @param multiplier The first number in a multiplication.
+     * @param multiplicand The second number in a multiplication.
+     * @returns Returns the product.
+     */
+    (multiplier: number): number;
 }
 
 declare const multiply: Multiply;

@@ -61,6 +61,25 @@ interface UniqBy {
      * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }, { 'x': 2 }]
      */
+    (p1: _.__, array: string | null | undefined): UniqBy1x2;
+    /**
+     * This method is like `_.uniq` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * uniqueness is computed. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The array to inspect.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the new duplicate free array.
+     * @example
+     *
+     * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+     * // => [2.1, 1.2]
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+     * // => [{ 'x': 1 }, { 'x': 2 }]
+     */
     (iteratee: (value: string) => _.NotVoid, array: string | null | undefined): string[];
     /**
      * This method is like `_.uniq` except that it accepts `iteratee` which is
@@ -81,6 +100,25 @@ interface UniqBy {
      * // => [{ 'x': 1 }, { 'x': 2 }]
      */
     <T>(iteratee: _.ValueIteratee<T>): UniqBy2x1<T>;
+    /**
+     * This method is like `_.uniq` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * uniqueness is computed. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The array to inspect.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the new duplicate free array.
+     * @example
+     *
+     * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+     * // => [2.1, 1.2]
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+     * // => [{ 'x': 1 }, { 'x': 2 }]
+     */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): UniqBy2x2<T>;
     /**
      * This method is like `_.uniq` except that it accepts `iteratee` which is
      * invoked for each element in `array` to generate the criterion by which
@@ -141,6 +179,46 @@ interface UniqBy1x1 {
      */
     (array: string | null | undefined): string[];
 }
+interface UniqBy1x2 {
+    /**
+     * This method is like `_.uniq` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * uniqueness is computed. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The array to inspect.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the new duplicate free array.
+     * @example
+     *
+     * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+     * // => [2.1, 1.2]
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+     * // => [{ 'x': 1 }, { 'x': 2 }]
+     */
+    (): UniqBy1x2;
+    /**
+     * This method is like `_.uniq` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * uniqueness is computed. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The array to inspect.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the new duplicate free array.
+     * @example
+     *
+     * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+     * // => [2.1, 1.2]
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+     * // => [{ 'x': 1 }, { 'x': 2 }]
+     */
+    (iteratee: (value: string) => _.NotVoid): string[];
+}
 interface UniqBy2x1<T> {
     /**
      * This method is like `_.uniq` except that it accepts `iteratee` which is
@@ -180,6 +258,46 @@ interface UniqBy2x1<T> {
      * // => [{ 'x': 1 }, { 'x': 2 }]
      */
     (array: _.List<T> | null | undefined): T[];
+}
+interface UniqBy2x2<T> {
+    /**
+     * This method is like `_.uniq` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * uniqueness is computed. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The array to inspect.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the new duplicate free array.
+     * @example
+     *
+     * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+     * // => [2.1, 1.2]
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+     * // => [{ 'x': 1 }, { 'x': 2 }]
+     */
+    (): UniqBy2x2<T>;
+    /**
+     * This method is like `_.uniq` except that it accepts `iteratee` which is
+     * invoked for each element in `array` to generate the criterion by which
+     * uniqueness is computed. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The array to inspect.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the new duplicate free array.
+     * @example
+     *
+     * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+     * // => [2.1, 1.2]
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+     * // => [{ 'x': 1 }, { 'x': 2 }]
+     */
+    (iteratee: _.ValueIteratee<T>): T[];
 }
 
 declare const uniqBy: UniqBy;

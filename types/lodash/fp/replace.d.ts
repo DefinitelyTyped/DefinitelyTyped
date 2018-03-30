@@ -28,7 +28,39 @@ interface Replace {
      *
      * @return Returns the modified string.
      */
-    (pattern: RegExp | string, replacement: _.ReplaceFunction | string): Replace1x2;
+    (p1: _.__, replacement: _.ReplaceFunction | string): Replace1x2;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string, replacement: _.ReplaceFunction | string): Replace1x3;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (p1: _.__, p2: _.__, string: string): Replace1x4;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string, p2: _.__, string: string): Replace1x5;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (p1: _.__, replacement: _.ReplaceFunction | string, string: string): Replace1x6;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -54,7 +86,15 @@ interface Replace1x1 {
      *
      * @return Returns the modified string.
      */
-    (replacement: _.ReplaceFunction | string): Replace1x2;
+    (replacement: _.ReplaceFunction | string): Replace1x3;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (p1: _.__, string: string): Replace1x5;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -80,7 +120,111 @@ interface Replace1x2 {
      *
      * @return Returns the modified string.
      */
+    (pattern: RegExp | string): Replace1x3;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (p1: _.__, string: string): Replace1x6;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string, string: string): string;
+}
+interface Replace1x3 {
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (): Replace1x3;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
     (string: string): string;
+}
+interface Replace1x4 {
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (): Replace1x4;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string): Replace1x5;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (p1: _.__, replacement: _.ReplaceFunction | string): Replace1x6;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string, replacement: _.ReplaceFunction | string): string;
+}
+interface Replace1x5 {
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (): Replace1x5;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (replacement: _.ReplaceFunction | string): string;
+}
+interface Replace1x6 {
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (): Replace1x6;
+    /**
+     * Replaces matches for pattern in string with replacement.
+     *
+     * Note: This method is based on String#replace.
+     *
+     * @return Returns the modified string.
+     */
+    (pattern: RegExp | string): string;
 }
 
 declare const replace: Replace;

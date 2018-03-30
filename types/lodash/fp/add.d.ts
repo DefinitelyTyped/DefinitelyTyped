@@ -26,6 +26,14 @@ interface Add {
      * @param addend The second number to add.
      * @return Returns the sum.
      */
+    (p1: _.__, addend: number): Add1x2;
+    /**
+     * Adds two numbers.
+     *
+     * @param augend The first number to add.
+     * @param addend The second number to add.
+     * @return Returns the sum.
+     */
     (augend: number, addend: number): number;
 }
 interface Add1x1 {
@@ -45,6 +53,24 @@ interface Add1x1 {
      * @return Returns the sum.
      */
     (addend: number): number;
+}
+interface Add1x2 {
+    /**
+     * Adds two numbers.
+     *
+     * @param augend The first number to add.
+     * @param addend The second number to add.
+     * @return Returns the sum.
+     */
+    (): Add1x2;
+    /**
+     * Adds two numbers.
+     *
+     * @param augend The first number to add.
+     * @param addend The second number to add.
+     * @return Returns the sum.
+     */
+    (augend: number): number;
 }
 
 declare const add: Add;

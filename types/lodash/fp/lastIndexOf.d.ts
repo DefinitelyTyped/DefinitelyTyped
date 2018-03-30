@@ -31,6 +31,15 @@ interface LastIndexOf {
      * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
      * @return Returns the index of the matched value, else -1.
      */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): LastIndexOf1x2<T>;
+    /**
+     * This method is like _.indexOf except that it iterates over elements of array from right to left.
+     *
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
+     * @return Returns the index of the matched value, else -1.
+     */
     <T>(value: T, array: _.List<T> | null | undefined): number;
 }
 interface LastIndexOf1x1<T> {
@@ -52,6 +61,26 @@ interface LastIndexOf1x1<T> {
      * @return Returns the index of the matched value, else -1.
      */
     (array: _.List<T> | null | undefined): number;
+}
+interface LastIndexOf1x2<T> {
+    /**
+     * This method is like _.indexOf except that it iterates over elements of array from right to left.
+     *
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
+     * @return Returns the index of the matched value, else -1.
+     */
+    (): LastIndexOf1x2<T>;
+    /**
+     * This method is like _.indexOf except that it iterates over elements of array from right to left.
+     *
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
+     * @return Returns the index of the matched value, else -1.
+     */
+    (value: T): number;
 }
 
 declare const lastIndexOf: LastIndexOf;

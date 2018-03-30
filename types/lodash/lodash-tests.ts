@@ -26,6 +26,10 @@ _.chain([1, 2, 3, 4]).splice(1); // $ExpectType LoDashExplicitWrapper<number[]>
 _.chain([1, 2, 3, 4]).splice(1, 2, 5, 6); // $ExpectType LoDashExplicitWrapper<number[]>
 _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number[]>
 
+/*********
+ * Array *
+ *********/
+
 // _.chunk
 {
     const list: _.List<AbcObject> | null | undefined = anything;
@@ -42,6 +46,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     fp.chunk(42, list); // $ExpectType AbcObject[][]
     fp.chunk(42)(list); // $ExpectType AbcObject[][]
     fp.chunk()(42)()(list); // $ExpectType AbcObject[][]
+    fp.chunk(fp.__, list)(42); // $ExpectType AbcObject[][]
 }
 
 // _.compact

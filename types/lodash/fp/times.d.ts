@@ -29,6 +29,15 @@ interface Times {
      * @param iteratee The function invoked per iteration.
      * @return Returns the array of results.
      */
+    (p1: _.__, n: number): Times1x2;
+    /**
+     * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
+     * is invoked with one argument; (index).
+     *
+     * @param n The number of times to invoke iteratee.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the array of results.
+     */
     <TResult>(iteratee: (num: number) => TResult, n: number): TResult[];
 }
 interface Times1x1<TResult> {
@@ -50,6 +59,26 @@ interface Times1x1<TResult> {
      * @return Returns the array of results.
      */
     (n: number): TResult[];
+}
+interface Times1x2 {
+    /**
+     * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
+     * is invoked with one argument; (index).
+     *
+     * @param n The number of times to invoke iteratee.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the array of results.
+     */
+    (): Times1x2;
+    /**
+     * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
+     * is invoked with one argument; (index).
+     *
+     * @param n The number of times to invoke iteratee.
+     * @param iteratee The function invoked per iteration.
+     * @return Returns the array of results.
+     */
+    <TResult>(iteratee: (num: number) => TResult): TResult[];
 }
 
 declare const times: Times;

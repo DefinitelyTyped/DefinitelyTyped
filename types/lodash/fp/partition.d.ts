@@ -64,7 +64,47 @@ interface Partition {
     * @param thisArg The this binding of predicate.
     * @return Returns the array of grouped elements.
     **/
+    <T>(p1: _.__, collection: _.List<T> | null | undefined): Partition1x2<T>;
+    /**
+    * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+    * while the second of which contains elements predicate returns falsey for.
+    * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+    *
+    * If a property name is provided for predicate the created _.property style callback
+    * returns the property value of the given element.
+    *
+    * If a value is also provided for thisArg the created _.matchesProperty style callback
+    * returns true for elements that have a matching property value, else false.
+    *
+    * If an object is provided for predicate the created _.matches style callback returns
+    * true for elements that have the properties of the given object, else false.
+    *
+    * @param collection The collection to iterate over.
+    * @param callback The function called per iteration.
+    * @param thisArg The this binding of predicate.
+    * @return Returns the array of grouped elements.
+    **/
     <T>(callback: _.ValueIteratee<T>, collection: _.List<T> | null | undefined): [T[], T[]];
+    /**
+    * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+    * while the second of which contains elements predicate returns falsey for.
+    * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+    *
+    * If a property name is provided for predicate the created _.property style callback
+    * returns the property value of the given element.
+    *
+    * If a value is also provided for thisArg the created _.matchesProperty style callback
+    * returns true for elements that have a matching property value, else false.
+    *
+    * If an object is provided for predicate the created _.matches style callback returns
+    * true for elements that have the properties of the given object, else false.
+    *
+    * @param collection The collection to iterate over.
+    * @param callback The function called per iteration.
+    * @param thisArg The this binding of predicate.
+    * @return Returns the array of grouped elements.
+    **/
+    <T extends object>(p1: _.__, collection: T | null | undefined): Partition2x2<T>;
     /**
     * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
     * while the second of which contains elements predicate returns falsey for.
@@ -127,6 +167,90 @@ interface Partition1x1<T> {
     * @return Returns the array of grouped elements.
     **/
     (collection: _.List<T> | object | null | undefined): [T[], T[]];
+}
+interface Partition1x2<T> {
+    /**
+    * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+    * while the second of which contains elements predicate returns falsey for.
+    * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+    *
+    * If a property name is provided for predicate the created _.property style callback
+    * returns the property value of the given element.
+    *
+    * If a value is also provided for thisArg the created _.matchesProperty style callback
+    * returns true for elements that have a matching property value, else false.
+    *
+    * If an object is provided for predicate the created _.matches style callback returns
+    * true for elements that have the properties of the given object, else false.
+    *
+    * @param collection The collection to iterate over.
+    * @param callback The function called per iteration.
+    * @param thisArg The this binding of predicate.
+    * @return Returns the array of grouped elements.
+    **/
+    (): Partition1x2<T>;
+    /**
+    * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+    * while the second of which contains elements predicate returns falsey for.
+    * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+    *
+    * If a property name is provided for predicate the created _.property style callback
+    * returns the property value of the given element.
+    *
+    * If a value is also provided for thisArg the created _.matchesProperty style callback
+    * returns true for elements that have a matching property value, else false.
+    *
+    * If an object is provided for predicate the created _.matches style callback returns
+    * true for elements that have the properties of the given object, else false.
+    *
+    * @param collection The collection to iterate over.
+    * @param callback The function called per iteration.
+    * @param thisArg The this binding of predicate.
+    * @return Returns the array of grouped elements.
+    **/
+    (callback: _.ValueIteratee<T>): [T[], T[]];
+}
+interface Partition2x2<T extends object> {
+    /**
+    * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+    * while the second of which contains elements predicate returns falsey for.
+    * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+    *
+    * If a property name is provided for predicate the created _.property style callback
+    * returns the property value of the given element.
+    *
+    * If a value is also provided for thisArg the created _.matchesProperty style callback
+    * returns true for elements that have a matching property value, else false.
+    *
+    * If an object is provided for predicate the created _.matches style callback returns
+    * true for elements that have the properties of the given object, else false.
+    *
+    * @param collection The collection to iterate over.
+    * @param callback The function called per iteration.
+    * @param thisArg The this binding of predicate.
+    * @return Returns the array of grouped elements.
+    **/
+    (): Partition2x2<T>;
+    /**
+    * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+    * while the second of which contains elements predicate returns falsey for.
+    * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
+    *
+    * If a property name is provided for predicate the created _.property style callback
+    * returns the property value of the given element.
+    *
+    * If a value is also provided for thisArg the created _.matchesProperty style callback
+    * returns true for elements that have a matching property value, else false.
+    *
+    * If an object is provided for predicate the created _.matches style callback returns
+    * true for elements that have the properties of the given object, else false.
+    *
+    * @param collection The collection to iterate over.
+    * @param callback The function called per iteration.
+    * @param thisArg The this binding of predicate.
+    * @return Returns the array of grouped elements.
+    **/
+    (callback: _.ValueIteratee<T[keyof T]>): [Array<T[keyof T]>, Array<T[keyof T]>];
 }
 
 declare const partition: Partition;

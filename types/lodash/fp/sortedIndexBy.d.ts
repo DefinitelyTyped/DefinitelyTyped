@@ -70,7 +70,95 @@ interface SortedIndexBy {
      * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 0
      */
-    <T>(iteratee: _.ValueIteratee<T>, value: T): SortedIndexBy1x2<T>;
+    <T>(p1: _.__, value: T): SortedIndexBy1x2<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    <T>(iteratee: _.ValueIteratee<T>, value: T): SortedIndexBy1x3<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    <T>(p1: _.__, p2: _.__, array: _.List<T> | null | undefined): SortedIndexBy1x4<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    <T>(iteratee: _.ValueIteratee<T>, p2: _.__, array: _.List<T> | null | undefined): SortedIndexBy1x5<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    <T>(p1: _.__, value: T, array: _.List<T> | null | undefined): SortedIndexBy1x6<T>;
     /**
      * This method is like `_.sortedIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -138,7 +226,29 @@ interface SortedIndexBy1x1<T> {
      * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 0
      */
-    (value: T): SortedIndexBy1x2<T>;
+    (value: T): SortedIndexBy1x3<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (p1: _.__, array: _.List<T> | null | undefined): SortedIndexBy1x5<T>;
     /**
      * This method is like `_.sortedIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -206,7 +316,279 @@ interface SortedIndexBy1x2<T> {
      * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 0
      */
+    (iteratee: _.ValueIteratee<T>): SortedIndexBy1x3<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (p1: _.__, array: _.List<T> | null | undefined): SortedIndexBy1x6<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (iteratee: _.ValueIteratee<T>, array: _.List<T> | null | undefined): number;
+}
+interface SortedIndexBy1x3<T> {
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (): SortedIndexBy1x3<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
     (array: _.List<T> | null | undefined): number;
+}
+interface SortedIndexBy1x4<T> {
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (): SortedIndexBy1x4<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (iteratee: _.ValueIteratee<T>): SortedIndexBy1x5<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (p1: _.__, value: T): SortedIndexBy1x6<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (iteratee: _.ValueIteratee<T>, value: T): number;
+}
+interface SortedIndexBy1x5<T> {
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (): SortedIndexBy1x5<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (value: T): number;
+}
+interface SortedIndexBy1x6<T> {
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (): SortedIndexBy1x6<T>;
+    /**
+     * This method is like `_.sortedIndex` except that it accepts `iteratee`
+     * which is invoked for `value` and each element of `array` to compute their
+     * sort ranking. The iteratee is invoked with one argument: (value).
+     *
+     * @category Array
+     * @param array The sorted array to inspect.
+     * @param value The value to evaluate.
+     * @param [iteratee=_.identity] The iteratee invoked per element.
+     * @returns Returns the index at which `value` should be inserted into `array`.
+     * @example
+     *
+     * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+     *
+     * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+     * // => 1
+     *
+     * // using the `_.property` iteratee shorthand
+     * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+     * // => 0
+     */
+    (iteratee: _.ValueIteratee<T>): number;
 }
 
 declare const sortedIndexBy: SortedIndexBy;

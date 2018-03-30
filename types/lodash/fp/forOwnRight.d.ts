@@ -29,7 +29,25 @@ interface ForOwnRight {
      * @param thisArg The this binding of iteratee.
      * @return Returns object.
      */
+    <T>(p1: _.__, object: T): ForOwnRight1x2<T>;
+    /**
+     * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns object.
+     */
     <T>(iteratee: (value: T[keyof T]) => any, object: T): T;
+    /**
+     * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns object.
+     */
+    <T>(p1: _.__, object: T | null | undefined): ForOwnRight2x2<T>;
     /**
      * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
      *
@@ -68,6 +86,46 @@ interface ForOwnRight1x1<T> {
      * @return Returns object.
      */
     <T1 extends object>(object: T1 | null | undefined): T1 | null | undefined;
+}
+interface ForOwnRight1x2<T> {
+    /**
+     * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns object.
+     */
+    (): ForOwnRight1x2<T>;
+    /**
+     * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns object.
+     */
+    (iteratee: (value: T[keyof T]) => any): T;
+}
+interface ForOwnRight2x2<T> {
+    /**
+     * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns object.
+     */
+    (): ForOwnRight2x2<T>;
+    /**
+     * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+     *
+     * @param object The object to iterate over.
+     * @param iteratee The function invoked per iteration.
+     * @param thisArg The this binding of iteratee.
+     * @return Returns object.
+     */
+    (iteratee: (value: T[keyof T]) => any): T | null | undefined;
 }
 
 declare const forOwnRight: ForOwnRight;

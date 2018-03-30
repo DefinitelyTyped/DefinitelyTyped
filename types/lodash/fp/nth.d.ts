@@ -28,6 +28,14 @@ interface Nth {
      * @param value The index of the element to return.
      * @return Returns the nth element of `array`.
      */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): Nth1x2<T>;
+    /**
+     * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
+     *
+     * @param array array The array to query.
+     * @param value The index of the element to return.
+     * @return Returns the nth element of `array`.
+     */
     <T>(n: number, array: _.List<T> | null | undefined): T | undefined;
 }
 interface Nth1x1 {
@@ -47,6 +55,24 @@ interface Nth1x1 {
      * @return Returns the nth element of `array`.
      */
     <T>(array: _.List<T> | null | undefined): T | undefined;
+}
+interface Nth1x2<T> {
+    /**
+     * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
+     *
+     * @param array array The array to query.
+     * @param value The index of the element to return.
+     * @return Returns the nth element of `array`.
+     */
+    (): Nth1x2<T>;
+    /**
+     * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
+     *
+     * @param array array The array to query.
+     * @param value The index of the element to return.
+     * @return Returns the nth element of `array`.
+     */
+    (n: number): T | undefined;
 }
 
 declare const nth: Nth;

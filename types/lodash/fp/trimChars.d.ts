@@ -26,6 +26,14 @@ interface Trim {
      * @param chars The characters to trim.
      * @return Returns the trimmed string.
      */
+    (p1: _.__, string: string): Trim1x2;
+    /**
+     * Removes leading and trailing whitespace or specified characters from string.
+     *
+     * @param string The string to trim.
+     * @param chars The characters to trim.
+     * @return Returns the trimmed string.
+     */
     (chars: string, string: string): string;
 }
 interface Trim1x1 {
@@ -45,6 +53,24 @@ interface Trim1x1 {
      * @return Returns the trimmed string.
      */
     (string: string): string;
+}
+interface Trim1x2 {
+    /**
+     * Removes leading and trailing whitespace or specified characters from string.
+     *
+     * @param string The string to trim.
+     * @param chars The characters to trim.
+     * @return Returns the trimmed string.
+     */
+    (): Trim1x2;
+    /**
+     * Removes leading and trailing whitespace or specified characters from string.
+     *
+     * @param string The string to trim.
+     * @param chars The characters to trim.
+     * @return Returns the trimmed string.
+     */
+    (chars: string): string;
 }
 
 declare const trimChars: Trim;

@@ -41,6 +41,19 @@ interface Subtract {
      * _.subtract(6, 4);
      * // => 2
      */
+    (p1: _.__, subtrahend: number): Subtract1x2;
+    /**
+     * Subtract two numbers.
+     *
+     * @category Math
+     * @param minuend The first number in a subtraction.
+     * @param subtrahend The second number in a subtraction.
+     * @returns Returns the difference.
+     * @example
+     *
+     * _.subtract(6, 4);
+     * // => 2
+     */
     (minuend: number, subtrahend: number): number;
 }
 interface Subtract1x1 {
@@ -70,6 +83,34 @@ interface Subtract1x1 {
      * // => 2
      */
     (subtrahend: number): number;
+}
+interface Subtract1x2 {
+    /**
+     * Subtract two numbers.
+     *
+     * @category Math
+     * @param minuend The first number in a subtraction.
+     * @param subtrahend The second number in a subtraction.
+     * @returns Returns the difference.
+     * @example
+     *
+     * _.subtract(6, 4);
+     * // => 2
+     */
+    (): Subtract1x2;
+    /**
+     * Subtract two numbers.
+     *
+     * @category Math
+     * @param minuend The first number in a subtraction.
+     * @param subtrahend The second number in a subtraction.
+     * @returns Returns the difference.
+     * @example
+     *
+     * _.subtract(6, 4);
+     * // => 2
+     */
+    (minuend: number): number;
 }
 
 declare const subtract: Subtract;

@@ -35,6 +35,17 @@ interface Split {
      * @param limit The length to truncate results to.
      * @return Returns the new array of string segments.
      */
+    (p1: _.__, string: string): Split1x2;
+    /**
+     * Splits string by separator.
+     *
+     * Note: This method is based on String#split.
+     *
+     * @param string The string to trim.
+     * @param separator The separator pattern to split by.
+     * @param limit The length to truncate results to.
+     * @return Returns the new array of string segments.
+     */
     (separator: RegExp|string, string: string): string[];
 }
 interface Split1x1 {
@@ -60,6 +71,30 @@ interface Split1x1 {
      * @return Returns the new array of string segments.
      */
     (string: string): string[];
+}
+interface Split1x2 {
+    /**
+     * Splits string by separator.
+     *
+     * Note: This method is based on String#split.
+     *
+     * @param string The string to trim.
+     * @param separator The separator pattern to split by.
+     * @param limit The length to truncate results to.
+     * @return Returns the new array of string segments.
+     */
+    (): Split1x2;
+    /**
+     * Splits string by separator.
+     *
+     * Note: This method is based on String#split.
+     *
+     * @param string The string to trim.
+     * @param separator The separator pattern to split by.
+     * @param limit The length to truncate results to.
+     * @return Returns the new array of string segments.
+     */
+    (separator: RegExp|string): string[];
 }
 
 declare const split: Split;

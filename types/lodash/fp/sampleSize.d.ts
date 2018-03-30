@@ -28,7 +28,23 @@ interface SampleSize {
      * @param n The number of elements to sample.
      * @return Returns the random elements.
      */
+    <T>(p1: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): SampleSize1x2<T>;
+    /**
+     * Gets n random elements at unique keys from collection up to the size of collection.
+     *
+     * @param collection The collection to sample.
+     * @param n The number of elements to sample.
+     * @return Returns the random elements.
+     */
     <T>(n: number, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T[];
+    /**
+     * Gets n random elements at unique keys from collection up to the size of collection.
+     *
+     * @param collection The collection to sample.
+     * @param n The number of elements to sample.
+     * @return Returns the random elements.
+     */
+    <T extends object>(p1: _.__, collection: T | null | undefined): SampleSize2x2<T>;
     /**
      * Gets n random elements at unique keys from collection up to the size of collection.
      *
@@ -63,6 +79,42 @@ interface SampleSize1x1 {
      * @return Returns the random elements.
      */
     <T extends object>(collection: T | null | undefined): Array<T[keyof T]>;
+}
+interface SampleSize1x2<T> {
+    /**
+     * Gets n random elements at unique keys from collection up to the size of collection.
+     *
+     * @param collection The collection to sample.
+     * @param n The number of elements to sample.
+     * @return Returns the random elements.
+     */
+    (): SampleSize1x2<T>;
+    /**
+     * Gets n random elements at unique keys from collection up to the size of collection.
+     *
+     * @param collection The collection to sample.
+     * @param n The number of elements to sample.
+     * @return Returns the random elements.
+     */
+    (n: number): T[];
+}
+interface SampleSize2x2<T extends object> {
+    /**
+     * Gets n random elements at unique keys from collection up to the size of collection.
+     *
+     * @param collection The collection to sample.
+     * @param n The number of elements to sample.
+     * @return Returns the random elements.
+     */
+    (): SampleSize2x2<T>;
+    /**
+     * Gets n random elements at unique keys from collection up to the size of collection.
+     *
+     * @param collection The collection to sample.
+     * @param n The number of elements to sample.
+     * @return Returns the random elements.
+     */
+    (n: number): Array<T[keyof T]>;
 }
 
 declare const sampleSize: SampleSize;

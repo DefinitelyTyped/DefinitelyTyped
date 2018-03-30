@@ -76,6 +76,30 @@ interface HasIn {
      * _.hasIn(object, 'b');
      * // => false
      */
+    <T>(p1: _.__, object: T): HasIn1x2;
+    /**
+     * Checks if `path` is a direct or inherited property of `object`.
+     *
+     * @category Object
+     * @param object The object to query.
+     * @param path The path to check.
+     * @returns Returns `true` if `path` exists, else `false`.
+     * @example
+     *
+     * var object = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
+     *
+     * _.hasIn(object, 'a');
+     * // => true
+     *
+     * _.hasIn(object, 'a.b.c');
+     * // => true
+     *
+     * _.hasIn(object, ['a', 'b', 'c']);
+     * // => true
+     *
+     * _.hasIn(object, 'b');
+     * // => false
+     */
     <T>(path: _.PropertyPath, object: T): boolean;
 }
 interface HasIn1x1 {
@@ -127,6 +151,56 @@ interface HasIn1x1 {
      * // => false
      */
     <T>(object: T): boolean;
+}
+interface HasIn1x2 {
+    /**
+     * Checks if `path` is a direct or inherited property of `object`.
+     *
+     * @category Object
+     * @param object The object to query.
+     * @param path The path to check.
+     * @returns Returns `true` if `path` exists, else `false`.
+     * @example
+     *
+     * var object = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
+     *
+     * _.hasIn(object, 'a');
+     * // => true
+     *
+     * _.hasIn(object, 'a.b.c');
+     * // => true
+     *
+     * _.hasIn(object, ['a', 'b', 'c']);
+     * // => true
+     *
+     * _.hasIn(object, 'b');
+     * // => false
+     */
+    (): HasIn1x2;
+    /**
+     * Checks if `path` is a direct or inherited property of `object`.
+     *
+     * @category Object
+     * @param object The object to query.
+     * @param path The path to check.
+     * @returns Returns `true` if `path` exists, else `false`.
+     * @example
+     *
+     * var object = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
+     *
+     * _.hasIn(object, 'a');
+     * // => true
+     *
+     * _.hasIn(object, 'a.b.c');
+     * // => true
+     *
+     * _.hasIn(object, ['a', 'b', 'c']);
+     * // => true
+     *
+     * _.hasIn(object, 'b');
+     * // => false
+     */
+    <T>(path: _.PropertyPath): boolean;
 }
 
 declare const hasIn: HasIn;

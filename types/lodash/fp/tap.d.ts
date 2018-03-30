@@ -35,6 +35,17 @@ interface Tap {
      * @parem thisArg The this binding of interceptor.
      * @return Returns value.
      **/
+    <T>(p1: _.__, value: T): Tap1x2<T>;
+    /**
+     * This method invokes interceptor and returns value. The interceptor is bound to thisArg and invoked with one
+     * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations
+     * on intermediate results within the chain.
+     *
+     * @param value The value to provide to interceptor.
+     * @param interceptor The function to invoke.
+     * @parem thisArg The this binding of interceptor.
+     * @return Returns value.
+     **/
     <T>(interceptor: (value: T) => void, value: T): T;
 }
 interface Tap1x1<T> {
@@ -60,6 +71,30 @@ interface Tap1x1<T> {
      * @return Returns value.
      **/
     (value: T): T;
+}
+interface Tap1x2<T> {
+    /**
+     * This method invokes interceptor and returns value. The interceptor is bound to thisArg and invoked with one
+     * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations
+     * on intermediate results within the chain.
+     *
+     * @param value The value to provide to interceptor.
+     * @param interceptor The function to invoke.
+     * @parem thisArg The this binding of interceptor.
+     * @return Returns value.
+     **/
+    (): Tap1x2<T>;
+    /**
+     * This method invokes interceptor and returns value. The interceptor is bound to thisArg and invoked with one
+     * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations
+     * on intermediate results within the chain.
+     *
+     * @param value The value to provide to interceptor.
+     * @param interceptor The function to invoke.
+     * @parem thisArg The this binding of interceptor.
+     * @return Returns value.
+     **/
+    (interceptor: (value: T) => void): T;
 }
 
 declare const tap: Tap;

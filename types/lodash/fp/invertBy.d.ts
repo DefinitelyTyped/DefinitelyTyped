@@ -34,7 +34,27 @@ interface InvertBy {
      * @param interatee The iteratee invoked per element.
      * @return Returns the new inverted object.
      */
+    <T>(p1: _.__, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): InvertBy1x2<T>;
+    /**
+     * This method is like _.invert except that the inverted object is generated from the results of running each
+     * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+     * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+     *
+     * @param object The object to invert.
+     * @param interatee The iteratee invoked per element.
+     * @return Returns the new inverted object.
+     */
     <T>(interatee: _.ValueIteratee<T>, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): _.Dictionary<string[]>;
+    /**
+     * This method is like _.invert except that the inverted object is generated from the results of running each
+     * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+     * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+     *
+     * @param object The object to invert.
+     * @param interatee The iteratee invoked per element.
+     * @return Returns the new inverted object.
+     */
+    <T extends object>(p1: _.__, object: T | null | undefined): InvertBy2x2<T>;
     /**
      * This method is like _.invert except that the inverted object is generated from the results of running each
      * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
@@ -67,6 +87,50 @@ interface InvertBy1x1<T> {
      * @return Returns the new inverted object.
      */
     (object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | object | null | undefined): _.Dictionary<string[]>;
+}
+interface InvertBy1x2<T> {
+    /**
+     * This method is like _.invert except that the inverted object is generated from the results of running each
+     * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+     * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+     *
+     * @param object The object to invert.
+     * @param interatee The iteratee invoked per element.
+     * @return Returns the new inverted object.
+     */
+    (): InvertBy1x2<T>;
+    /**
+     * This method is like _.invert except that the inverted object is generated from the results of running each
+     * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+     * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+     *
+     * @param object The object to invert.
+     * @param interatee The iteratee invoked per element.
+     * @return Returns the new inverted object.
+     */
+    (interatee: _.ValueIteratee<T>): _.Dictionary<string[]>;
+}
+interface InvertBy2x2<T extends object> {
+    /**
+     * This method is like _.invert except that the inverted object is generated from the results of running each
+     * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+     * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+     *
+     * @param object The object to invert.
+     * @param interatee The iteratee invoked per element.
+     * @return Returns the new inverted object.
+     */
+    (): InvertBy2x2<T>;
+    /**
+     * This method is like _.invert except that the inverted object is generated from the results of running each
+     * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+     * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+     *
+     * @param object The object to invert.
+     * @param interatee The iteratee invoked per element.
+     * @return Returns the new inverted object.
+     */
+    (interatee: _.ValueIteratee<T[keyof T]>): _.Dictionary<string[]>;
 }
 
 declare const invertBy: InvertBy;

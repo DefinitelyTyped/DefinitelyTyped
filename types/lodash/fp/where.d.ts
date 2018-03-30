@@ -25,6 +25,13 @@ interface ConformsTo {
      *
      * Note: This method is equivalent to _.conforms when source is partially applied.
      */
+    <T>(p1: _.__, object: T): ConformsTo1x2<T>;
+    /**
+     * Checks if object conforms to source by invoking the predicate properties of source with the
+     * corresponding property values of object.
+     *
+     * Note: This method is equivalent to _.conforms when source is partially applied.
+     */
     <T>(source: _.ConformsPredicateObject<T>, object: T): boolean;
 }
 interface ConformsTo1x1<T> {
@@ -42,6 +49,22 @@ interface ConformsTo1x1<T> {
      * Note: This method is equivalent to _.conforms when source is partially applied.
      */
     (object: T): boolean;
+}
+interface ConformsTo1x2<T> {
+    /**
+     * Checks if object conforms to source by invoking the predicate properties of source with the
+     * corresponding property values of object.
+     *
+     * Note: This method is equivalent to _.conforms when source is partially applied.
+     */
+    (): ConformsTo1x2<T>;
+    /**
+     * Checks if object conforms to source by invoking the predicate properties of source with the
+     * corresponding property values of object.
+     *
+     * Note: This method is equivalent to _.conforms when source is partially applied.
+     */
+    (source: _.ConformsPredicateObject<T>): boolean;
 }
 
 declare const where: ConformsTo;

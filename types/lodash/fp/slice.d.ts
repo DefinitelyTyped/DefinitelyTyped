@@ -31,7 +31,43 @@ interface Slice {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    (start: number, end: number): Slice1x2;
+    (p1: _.__, end: number): Slice1x2;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (start: number, end: number): Slice1x3;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    <T>(p1: _.__, p2: _.__, array: _.List<T> | null | undefined): Slice1x4<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    <T>(start: number, p2: _.__, array: _.List<T> | null | undefined): Slice1x5<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    <T>(p1: _.__, end: number, array: _.List<T> | null | undefined): Slice1x6<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -60,7 +96,16 @@ interface Slice1x1 {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    (end: number): Slice1x2;
+    (end: number): Slice1x3;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): Slice1x5<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -89,7 +134,123 @@ interface Slice1x2 {
      * @param end The end position.
      * @return Returns the slice of array.
      */
+    (start: number): Slice1x3;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): Slice1x6<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    <T>(start: number, array: _.List<T> | null | undefined): T[];
+}
+interface Slice1x3 {
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (): Slice1x3;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
     <T>(array: _.List<T> | null | undefined): T[];
+}
+interface Slice1x4<T> {
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (): Slice1x4<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (start: number): Slice1x5<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (p1: _.__, end: number): Slice1x6<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (start: number, end: number): T[];
+}
+interface Slice1x5<T> {
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (): Slice1x5<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (end: number): T[];
+}
+interface Slice1x6<T> {
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (): Slice1x6<T>;
+    /**
+     * Creates a slice of array from start up to, but not including, end.
+     *
+     * @param array The array to slice.
+     * @param start The start position.
+     * @param end The end position.
+     * @return Returns the slice of array.
+     */
+    (start: number): T[];
 }
 
 declare const slice: Slice;

@@ -52,6 +52,22 @@ interface LodashPick {
      * _.pick(object, ['a', 'c']);
      * // => { 'a': 1, 'c': 3 }
      */
+    <T extends object>(p1: _.__, object: T): LodashPick1x2<T>;
+    /**
+     * Creates an object composed of the picked `object` properties.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [props] The property names to pick, specified
+     *  individually or in arrays.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.pick(object, ['a', 'c']);
+     * // => { 'a': 1, 'c': 3 }
+     */
     <T extends object, U extends keyof T>(props: _.Many<U>, object: T): Pick<T, U>;
     /**
      * Creates an object composed of the picked `object` properties.
@@ -69,6 +85,22 @@ interface LodashPick {
      * // => { 'a': 1, 'c': 3 }
      */
     (props: _.PropertyPath): LodashPick2x1;
+    /**
+     * Creates an object composed of the picked `object` properties.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [props] The property names to pick, specified
+     *  individually or in arrays.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.pick(object, ['a', 'c']);
+     * // => { 'a': 1, 'c': 3 }
+     */
+    <T>(p1: _.__, object: T | null | undefined): LodashPick2x2<T>;
     /**
      * Creates an object composed of the picked `object` properties.
      *
@@ -120,6 +152,40 @@ interface LodashPick1x1<T extends object, U extends keyof T> {
      */
     (object: T): Pick<T, U>;
 }
+interface LodashPick1x2<T extends object> {
+    /**
+     * Creates an object composed of the picked `object` properties.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [props] The property names to pick, specified
+     *  individually or in arrays.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.pick(object, ['a', 'c']);
+     * // => { 'a': 1, 'c': 3 }
+     */
+    (): LodashPick1x2<T>;
+    /**
+     * Creates an object composed of the picked `object` properties.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [props] The property names to pick, specified
+     *  individually or in arrays.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.pick(object, ['a', 'c']);
+     * // => { 'a': 1, 'c': 3 }
+     */
+    <U extends keyof T>(props: _.Many<U>): Pick<T, U>;
+}
 interface LodashPick2x1 {
     /**
      * Creates an object composed of the picked `object` properties.
@@ -153,6 +219,40 @@ interface LodashPick2x1 {
      * // => { 'a': 1, 'c': 3 }
      */
     <T>(object: T | null | undefined): _.PartialDeep<T>;
+}
+interface LodashPick2x2<T> {
+    /**
+     * Creates an object composed of the picked `object` properties.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [props] The property names to pick, specified
+     *  individually or in arrays.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.pick(object, ['a', 'c']);
+     * // => { 'a': 1, 'c': 3 }
+     */
+    (): LodashPick2x2<T>;
+    /**
+     * Creates an object composed of the picked `object` properties.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [props] The property names to pick, specified
+     *  individually or in arrays.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.pick(object, ['a', 'c']);
+     * // => { 'a': 1, 'c': 3 }
+     */
+    (props: _.PropertyPath): _.PartialDeep<T>;
 }
 
 declare const pickAll: LodashPick;

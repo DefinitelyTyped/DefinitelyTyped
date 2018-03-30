@@ -3,6 +3,7 @@
 // npm run fp
 
 import lodash = require("./index");
+import __ = require("./fp/__");
 import add = require("./fp/add");
 import after = require("./fp/after");
 import all = require("./fp/all");
@@ -253,6 +254,7 @@ import pick = require("./fp/pick");
 import pickAll = require("./fp/pickAll");
 import pickBy = require("./fp/pickBy");
 import pipe = require("./fp/pipe");
+import placeholder = require("./fp/placeholder");
 import pluck = require("./fp/pluck");
 import prop = require("./fp/prop");
 import propEq = require("./fp/propEq");
@@ -392,6 +394,7 @@ export = _;
 declare const _: _.LoDashFp;
 declare namespace _ {
     interface LoDashFp {
+        __: typeof __;
         add: typeof add;
         after: typeof after;
         all: typeof all;
@@ -642,6 +645,7 @@ declare namespace _ {
         pickAll: typeof pickAll;
         pickBy: typeof pickBy;
         pipe: typeof pipe;
+        placeholder: typeof placeholder;
         pluck: typeof pluck;
         prop: typeof prop;
         propEq: typeof propEq;
@@ -775,21 +779,5 @@ declare namespace _ {
         zipObject: typeof zipObject;
         zipObjectDeep: typeof zipObjectDeep;
         zipWith: typeof zipWith;
-        /** The placeholder, to be used in curried functions */
-        placeholder: lodash.__;
-        /** The placeholder, to be used in curried functions */
-        __: lodash.__;
     }
-}
-
-// Backward compatibility with --target es5
-declare global {
-    // tslint:disable-next-line:no-empty-interface
-    interface Set<T> { }
-    // tslint:disable-next-line:no-empty-interface
-    interface Map<K, V> { }
-    // tslint:disable-next-line:no-empty-interface
-    interface WeakSet<T> { }
-    // tslint:disable-next-line:no-empty-interface
-    interface WeakMap<K extends object, V> { }
 }

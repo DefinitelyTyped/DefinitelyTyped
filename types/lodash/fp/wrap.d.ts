@@ -32,6 +32,16 @@ interface Wrap {
      * @param wrapper The wrapper function.
      * @return Returns the new function.
      */
+    <T>(p1: _.__, value: T): Wrap1x2<T>;
+    /**
+     * Creates a function that provides value to the wrapper function as its first argument. Any additional
+     * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is
+     * invoked with the this binding of the created function.
+     *
+     * @param value The value to wrap.
+     * @param wrapper The wrapper function.
+     * @return Returns the new function.
+     */
     <T, TArgs, TResult>(wrapper: (value: T, ...args: TArgs[]) => TResult, value: T): (...args: TArgs[]) => TResult;
     /**
      * Creates a function that provides value to the wrapper function as its first argument. Any additional
@@ -75,6 +85,38 @@ interface Wrap1x1<T, TArgs, TResult> {
      * @return Returns the new function.
      */
     (value: T): (...args: TArgs[]) => TResult;
+}
+interface Wrap1x2<T> {
+    /**
+     * Creates a function that provides value to the wrapper function as its first argument. Any additional
+     * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is
+     * invoked with the this binding of the created function.
+     *
+     * @param value The value to wrap.
+     * @param wrapper The wrapper function.
+     * @return Returns the new function.
+     */
+    (): Wrap1x2<T>;
+    /**
+     * Creates a function that provides value to the wrapper function as its first argument. Any additional
+     * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is
+     * invoked with the this binding of the created function.
+     *
+     * @param value The value to wrap.
+     * @param wrapper The wrapper function.
+     * @return Returns the new function.
+     */
+    <TArgs, TResult>(wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
+    /**
+     * Creates a function that provides value to the wrapper function as its first argument. Any additional
+     * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is
+     * invoked with the this binding of the created function.
+     *
+     * @param value The value to wrap.
+     * @param wrapper The wrapper function.
+     * @return Returns the new function.
+     */
+    <TResult>(wrapper: (value: T, ...args: any[]) => TResult): (...args: any[]) => TResult;
 }
 interface Wrap2x1<T, TResult> {
     /**

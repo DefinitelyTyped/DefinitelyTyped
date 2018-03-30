@@ -26,6 +26,14 @@ interface Repeat {
      * @param n The number of times to repeat the string.
      * @return Returns the repeated string.
      */
+    (p1: _.__, string: string): Repeat1x2;
+    /**
+     * Repeats the given string n times.
+     *
+     * @param string The string to repeat.
+     * @param n The number of times to repeat the string.
+     * @return Returns the repeated string.
+     */
     (n: number, string: string): string;
 }
 interface Repeat1x1 {
@@ -45,6 +53,24 @@ interface Repeat1x1 {
      * @return Returns the repeated string.
      */
     (string: string): string;
+}
+interface Repeat1x2 {
+    /**
+     * Repeats the given string n times.
+     *
+     * @param string The string to repeat.
+     * @param n The number of times to repeat the string.
+     * @return Returns the repeated string.
+     */
+    (): Repeat1x2;
+    /**
+     * Repeats the given string n times.
+     *
+     * @param string The string to repeat.
+     * @param n The number of times to repeat the string.
+     * @return Returns the repeated string.
+     */
+    (n: number): string;
 }
 
 declare const repeat: Repeat;

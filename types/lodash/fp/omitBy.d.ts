@@ -55,6 +55,23 @@ interface OmitBy {
      * _.omitBy(object, _.isNumber);
      * // => { 'b': '2' }
      */
+    <T extends object>(p1: _.__, object: T | null | undefined): OmitBy1x2<T>;
+    /**
+     * The opposite of `_.pickBy`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that `predicate`
+     * doesn't return truthy for.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [predicate=_.identity] The function invoked per property.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omitBy(object, _.isNumber);
+     * // => { 'b': '2' }
+     */
     <T extends object>(predicate: _.ValueKeyIteratee<T[keyof T]>, object: T | null | undefined): _.PartialObject<T>;
 }
 interface OmitBy1x1<T> {
@@ -92,6 +109,42 @@ interface OmitBy1x1<T> {
      * // => { 'b': '2' }
      */
     <T1 extends object>(object: T1 | null | undefined): _.PartialObject<T1>;
+}
+interface OmitBy1x2<T extends object> {
+    /**
+     * The opposite of `_.pickBy`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that `predicate`
+     * doesn't return truthy for.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [predicate=_.identity] The function invoked per property.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omitBy(object, _.isNumber);
+     * // => { 'b': '2' }
+     */
+    (): OmitBy1x2<T>;
+    /**
+     * The opposite of `_.pickBy`; this method creates an object composed of the
+     * own and inherited enumerable properties of `object` that `predicate`
+     * doesn't return truthy for.
+     *
+     * @category Object
+     * @param object The source object.
+     * @param [predicate=_.identity] The function invoked per property.
+     * @returns Returns the new object.
+     * @example
+     *
+     * var object = { 'a': 1, 'b': '2', 'c': 3 };
+     *
+     * _.omitBy(object, _.isNumber);
+     * // => { 'b': '2' }
+     */
+    (predicate: _.ValueKeyIteratee<T[keyof T]>): _.PartialObject<T>;
 }
 
 declare const omitBy: OmitBy;

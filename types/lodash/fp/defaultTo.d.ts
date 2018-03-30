@@ -32,6 +32,16 @@ interface DefaultTo {
      * @param defaultValue The default value.
      * @returns Returns the resolved value.
      */
+    <T>(p1: _.__, value: T | null | undefined): DefaultTo1x2<T>;
+    /**
+     * Checks `value` to determine whether a default value should be returned in
+     * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
+     * or `undefined`.
+     *
+     * @param value The value to check.
+     * @param defaultValue The default value.
+     * @returns Returns the resolved value.
+     */
     <T>(defaultValue: T, value: T | null | undefined): T;
     /**
      * Checks `value` to determine whether a default value should be returned in
@@ -75,6 +85,38 @@ interface DefaultTo1x1<T> {
      * @returns Returns the resolved value.
      */
     (value: T | null | undefined): T;
+}
+interface DefaultTo1x2<T> {
+    /**
+     * Checks `value` to determine whether a default value should be returned in
+     * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
+     * or `undefined`.
+     *
+     * @param value The value to check.
+     * @param defaultValue The default value.
+     * @returns Returns the resolved value.
+     */
+    (): DefaultTo1x2<T>;
+    /**
+     * Checks `value` to determine whether a default value should be returned in
+     * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
+     * or `undefined`.
+     *
+     * @param value The value to check.
+     * @param defaultValue The default value.
+     * @returns Returns the resolved value.
+     */
+    (defaultValue: T): T;
+    /**
+     * Checks `value` to determine whether a default value should be returned in
+     * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
+     * or `undefined`.
+     *
+     * @param value The value to check.
+     * @param defaultValue The default value.
+     * @returns Returns the resolved value.
+     */
+    <TDefault>(defaultValue: TDefault): T | TDefault;
 }
 interface DefaultTo2x1<TDefault> {
     /**

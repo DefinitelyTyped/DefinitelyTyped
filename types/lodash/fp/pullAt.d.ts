@@ -37,7 +37,29 @@ interface PullAt {
      * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
      * @return Returns the new array of removed elements.
      */
+    <T>(p1: _.__, array: ReadonlyArray<T>): PullAt1x2<T>;
+    /**
+     * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+     * Indexes may be specified as an array of indexes or as individual arguments.
+     *
+     * Note: Unlike _.at, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+     * @return Returns the new array of removed elements.
+     */
     <T>(indexes: _.Many<number>, array: ReadonlyArray<T>): T[];
+    /**
+     * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+     * Indexes may be specified as an array of indexes or as individual arguments.
+     *
+     * Note: Unlike _.at, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+     * @return Returns the new array of removed elements.
+     */
+    <T>(p1: _.__, array: _.List<T>): PullAt2x2<T>;
     /**
      * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
      * Indexes may be specified as an array of indexes or as individual arguments.
@@ -84,6 +106,54 @@ interface PullAt1x1 {
      * @return Returns the new array of removed elements.
      */
     <T>(array: _.List<T>): _.List<T>;
+}
+interface PullAt1x2<T> {
+    /**
+     * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+     * Indexes may be specified as an array of indexes or as individual arguments.
+     *
+     * Note: Unlike _.at, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+     * @return Returns the new array of removed elements.
+     */
+    (): PullAt1x2<T>;
+    /**
+     * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+     * Indexes may be specified as an array of indexes or as individual arguments.
+     *
+     * Note: Unlike _.at, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+     * @return Returns the new array of removed elements.
+     */
+    (indexes: _.Many<number>): T[];
+}
+interface PullAt2x2<T> {
+    /**
+     * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+     * Indexes may be specified as an array of indexes or as individual arguments.
+     *
+     * Note: Unlike _.at, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+     * @return Returns the new array of removed elements.
+     */
+    (): PullAt2x2<T>;
+    /**
+     * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+     * Indexes may be specified as an array of indexes or as individual arguments.
+     *
+     * Note: Unlike _.at, this method mutates array.
+     *
+     * @param array The array to modify.
+     * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+     * @return Returns the new array of removed elements.
+     */
+    (indexes: _.Many<number>): _.List<T>;
 }
 
 declare const pullAt: PullAt;

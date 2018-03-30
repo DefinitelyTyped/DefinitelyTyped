@@ -46,6 +46,20 @@ interface SortedLastIndexOf {
      * _.sortedLastIndexOf([1, 1, 2, 2], 2);
      * // => 3
      */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): SortedLastIndexOf1x2<T>;
+    /**
+     * This method is like `_.lastIndexOf` except that it performs a binary
+     * search on a sorted `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.sortedLastIndexOf([1, 1, 2, 2], 2);
+     * // => 3
+     */
     <T>(value: T, array: _.List<T> | null | undefined): number;
 }
 interface SortedLastIndexOf1x1<T> {
@@ -77,6 +91,36 @@ interface SortedLastIndexOf1x1<T> {
      * // => 3
      */
     (array: _.List<T> | null | undefined): number;
+}
+interface SortedLastIndexOf1x2<T> {
+    /**
+     * This method is like `_.lastIndexOf` except that it performs a binary
+     * search on a sorted `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.sortedLastIndexOf([1, 1, 2, 2], 2);
+     * // => 3
+     */
+    (): SortedLastIndexOf1x2<T>;
+    /**
+     * This method is like `_.lastIndexOf` except that it performs a binary
+     * search on a sorted `array`.
+     *
+     * @category Array
+     * @param array The array to search.
+     * @param value The value to search for.
+     * @returns Returns the index of the matched value, else `-1`.
+     * @example
+     *
+     * _.sortedLastIndexOf([1, 1, 2, 2], 2);
+     * // => 3
+     */
+    (value: T): number;
 }
 
 declare const sortedLastIndexOf: SortedLastIndexOf;

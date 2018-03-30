@@ -28,6 +28,14 @@ interface Drop {
      * @param n The number of elements to drop.
      * @return Returns the slice of array.
      */
+    <T>(p1: _.__, array: _.List<T> | null | undefined): Drop1x2<T>;
+    /**
+     * Creates a slice of array with n elements dropped from the beginning.
+     *
+     * @param array The array to query.
+     * @param n The number of elements to drop.
+     * @return Returns the slice of array.
+     */
     <T>(n: number, array: _.List<T> | null | undefined): T[];
 }
 interface Drop1x1 {
@@ -47,6 +55,24 @@ interface Drop1x1 {
      * @return Returns the slice of array.
      */
     <T>(array: _.List<T> | null | undefined): T[];
+}
+interface Drop1x2<T> {
+    /**
+     * Creates a slice of array with n elements dropped from the beginning.
+     *
+     * @param array The array to query.
+     * @param n The number of elements to drop.
+     * @return Returns the slice of array.
+     */
+    (): Drop1x2<T>;
+    /**
+     * Creates a slice of array with n elements dropped from the beginning.
+     *
+     * @param array The array to query.
+     * @param n The number of elements to drop.
+     * @return Returns the slice of array.
+     */
+    (n: number): T[];
 }
 
 declare const drop: Drop;

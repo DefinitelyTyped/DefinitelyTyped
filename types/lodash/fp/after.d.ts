@@ -26,6 +26,14 @@ interface After {
      * @param func The function to restrict.
      * @return Returns the new restricted function.
      */
+    (p1: _.__, n: number): After1x2;
+    /**
+     * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
+     *
+     * @param n The number of calls before func is invoked.
+     * @param func The function to restrict.
+     * @return Returns the new restricted function.
+     */
     <TFunc extends (...args: any[]) => any>(func: TFunc, n: number): TFunc;
 }
 interface After1x1<TFunc extends (...args: any[]) => any> {
@@ -45,6 +53,24 @@ interface After1x1<TFunc extends (...args: any[]) => any> {
      * @return Returns the new restricted function.
      */
     (n: number): TFunc;
+}
+interface After1x2 {
+    /**
+     * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
+     *
+     * @param n The number of calls before func is invoked.
+     * @param func The function to restrict.
+     * @return Returns the new restricted function.
+     */
+    (): After1x2;
+    /**
+     * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
+     *
+     * @param n The number of calls before func is invoked.
+     * @param func The function to restrict.
+     * @return Returns the new restricted function.
+     */
+    <TFunc extends (...args: any[]) => any>(func: TFunc): TFunc;
 }
 
 declare const after: After;

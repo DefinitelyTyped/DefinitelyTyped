@@ -31,6 +31,15 @@ interface Truncate {
      * @param options The options object or maximum string length.
      * @return Returns the truncated string.
      */
+    (p1: _.__, string: string): Truncate1x2;
+    /**
+     * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
+     * string are replaced with the omission string which defaults to "…".
+     *
+     * @param string The string to truncate.
+     * @param options The options object or maximum string length.
+     * @return Returns the truncated string.
+     */
     (options: _.TruncateOptions, string: string): string;
 }
 interface Truncate1x1 {
@@ -52,6 +61,26 @@ interface Truncate1x1 {
      * @return Returns the truncated string.
      */
     (string: string): string;
+}
+interface Truncate1x2 {
+    /**
+     * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
+     * string are replaced with the omission string which defaults to "…".
+     *
+     * @param string The string to truncate.
+     * @param options The options object or maximum string length.
+     * @return Returns the truncated string.
+     */
+    (): Truncate1x2;
+    /**
+     * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
+     * string are replaced with the omission string which defaults to "…".
+     *
+     * @param string The string to truncate.
+     * @param options The options object or maximum string length.
+     * @return Returns the truncated string.
+     */
+    (options: _.TruncateOptions): string;
 }
 
 declare const truncate: Truncate;

@@ -26,6 +26,14 @@ interface PartialRight {
     * @param args Arguments to be partially applied.
     * @return The new partially applied function.
     **/
+    (p1: _.__, func: (...args: any[]) => any): PartialRight1x2;
+    /**
+    * This method is like _.partial except that partial arguments are appended to those provided
+    * to the new function.
+    * @param func The function to partially apply arguments to.
+    * @param args Arguments to be partially applied.
+    * @return The new partially applied function.
+    **/
     (args: ReadonlyArray<any>, func: (...args: any[]) => any): (...args: any[]) => any;
 }
 interface PartialRight1x1 {
@@ -45,6 +53,24 @@ interface PartialRight1x1 {
     * @return The new partially applied function.
     **/
     (func: (...args: any[]) => any): (...args: any[]) => any;
+}
+interface PartialRight1x2 {
+    /**
+    * This method is like _.partial except that partial arguments are appended to those provided
+    * to the new function.
+    * @param func The function to partially apply arguments to.
+    * @param args Arguments to be partially applied.
+    * @return The new partially applied function.
+    **/
+    (): PartialRight1x2;
+    /**
+    * This method is like _.partial except that partial arguments are appended to those provided
+    * to the new function.
+    * @param func The function to partially apply arguments to.
+    * @param args Arguments to be partially applied.
+    * @return The new partially applied function.
+    **/
+    (args: ReadonlyArray<any>): (...args: any[]) => any;
 }
 
 declare const partialRight: PartialRight;

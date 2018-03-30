@@ -53,7 +53,75 @@ interface Clamp {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (lower: number, upper: number): Clamp1x2;
+    (p1: _.__, upper: number): Clamp1x2;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (lower: number, upper: number): Clamp1x3;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (p1: _.__, p2: _.__, number: number): Clamp1x4;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (lower: number, p2: _.__, number: number): Clamp1x5;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (p1: _.__, upper: number, number: number): Clamp1x6;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -106,7 +174,24 @@ interface Clamp1x1 {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (upper: number): Clamp1x2;
+    (upper: number): Clamp1x3;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (p1: _.__, number: number): Clamp1x5;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -159,7 +244,219 @@ interface Clamp1x2 {
      * _.clamp(10, -5, 5);
      * // => 5
      */
+    (lower: number): Clamp1x3;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (p1: _.__, number: number): Clamp1x6;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (lower: number, number: number): number;
+}
+interface Clamp1x3 {
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (): Clamp1x3;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
     (number: number): number;
+}
+interface Clamp1x4 {
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (): Clamp1x4;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (lower: number): Clamp1x5;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (p1: _.__, upper: number): Clamp1x6;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (lower: number, upper: number): number;
+}
+interface Clamp1x5 {
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (): Clamp1x5;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (upper: number): number;
+}
+interface Clamp1x6 {
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (): Clamp1x6;
+    /**
+     * Clamps `number` within the inclusive `lower` and `upper` bounds.
+     *
+     * @category Number
+     * @param number The number to clamp.
+     * @param [lower] The lower bound.
+     * @param upper The upper bound.
+     * @returns Returns the clamped number.
+     * @example
+     *
+     * _.clamp(-10, -5, 5);
+     * // => -5
+     *
+     * _.clamp(10, -5, 5);
+     * // => 5
+     */
+    (lower: number): number;
 }
 
 declare const clamp: Clamp;

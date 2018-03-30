@@ -26,6 +26,14 @@ interface Ary {
      * @param n The arity cap.
      * @returns Returns the new function.
      */
+    (p1: _.__, func: (...args: any[]) => any): Ary1x2;
+    /**
+     * Creates a function that accepts up to n arguments ignoring any additional arguments.
+     *
+     * @param func The function to cap arguments for.
+     * @param n The arity cap.
+     * @returns Returns the new function.
+     */
     (n: number, func: (...args: any[]) => any): (...args: any[]) => any;
 }
 interface Ary1x1 {
@@ -45,6 +53,24 @@ interface Ary1x1 {
      * @returns Returns the new function.
      */
     (func: (...args: any[]) => any): (...args: any[]) => any;
+}
+interface Ary1x2 {
+    /**
+     * Creates a function that accepts up to n arguments ignoring any additional arguments.
+     *
+     * @param func The function to cap arguments for.
+     * @param n The arity cap.
+     * @returns Returns the new function.
+     */
+    (): Ary1x2;
+    /**
+     * Creates a function that accepts up to n arguments ignoring any additional arguments.
+     *
+     * @param func The function to cap arguments for.
+     * @param n The arity cap.
+     * @returns Returns the new function.
+     */
+    (n: number): (...args: any[]) => any;
 }
 
 declare const ary: Ary;

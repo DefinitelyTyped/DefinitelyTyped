@@ -88,23 +88,7 @@ async function main() {
         "declare namespace _ {",
         "    interface LoDashFp {",
         ...functionNames.map(f => `        ${f}: typeof ${f};`),
-        "        /** The placeholder, to be used in curried functions */",
-        "        placeholder: lodash.__;",
-        "        /** The placeholder, to be used in curried functions */",
-        "        __: lodash.__;",
         "    }",
-        "}",
-        "",
-        "// Backward compatibility with --target es5",
-        "declare global {",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface Set<T> { }",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface Map<K, V> { }",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface WeakSet<T> { }",
-        "    // tslint:disable-next-line:no-empty-interface",
-        "    interface WeakMap<K extends object, V> { }",
         "}",
         "",
     ].join(lineBreak);
@@ -192,31 +176,42 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     const builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
     _.defaults(builderFp, unconvertedBuilder);
 
-    const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && typeof builderFp[key] === "function");
+    const ph = builderFp.placeholder;
+
+    const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && (typeof builderFp[key] === "function" || key === "placeholder" || key === "__"));
     for (const functionName of functionNames) {
         // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
-        const outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3], [4]);
-        const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
-        commonTypeSearch.lastIndex;
         let importCommon = false;
-        let output = outputFn([0], [1], [2], [3], [4])
-            .map(interfaceToString)
-            .join(lineBreak)
-            .replace(commonTypeSearch, match => {
+        let interfaceLines: string;
+        let interfaceName: string;
+        if (typeof builderFp[functionName] === "function") {
+            const outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3], [4]);
+            const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
+            commonTypeSearch.lastIndex;
+            interfaceLines = outputFn([0], [1], [2], [3], [4])
+                .map(interfaceToString)
+                .join(lineBreak)
+                .replace(commonTypeSearch, match => {
+                    importCommon = true;
+                    return `_.${match}`;
+                })
+                + lineBreak;
+            if (!importCommon && interfaceLines.includes("typeof _"))
                 importCommon = true;
-                return `_.${match}`;
-            });
-        if (!importCommon && output.includes("typeof _"))
+            const interfaceNameMatch = interfaceLines.match(/(?:interface|type) ([A-Za-z0-9]+)/);
+            interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || _.upperFirst(functionName);
+        } else {
+            // Placeholder
+            interfaceName = "_.__";
             importCommon = true;
-        const interfaceNameMatch = output.match(/(?:interface|type) ([A-Za-z0-9]+)/);
-        const interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || _.upperFirst(functionName);
-        output = [
+            interfaceLines = "";
+        }
+        const output = [
             "// AUTO-GENERATED: do not modify this file directly.",
             "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
             "// npm run fp",
             importCommon ? `${lineBreak}import _ = require("../index");${lineBreak}` : '',
-            output,
-            "",
+            interfaceLines,
             `declare const ${functionName}: ${interfaceName};`,
             `export = ${functionName};`,
             "",
@@ -557,6 +552,10 @@ function getParamType(param: string) {
     return index !== -1 ? param.substring(index + 1).trim() : "any";
 }
 
+function isPlaceholder(param: string) {
+    return param.endsWith("__");
+}
+
 function preProcessOverload(overload: Overload, functionName: string, arity: number): void {
     overload.params = overload.params
             .slice(0, arity)
@@ -618,29 +617,34 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
         }];
     }
 
+    // Create a separate interface for each possible combination of parameters that could be passed.
+    // i = binary representation of which parameters were passed to result in this interface (reversed), e.g.
+    //   1 = 0001 = 1st parameter was passed; 2nd-4th remain
+    //   6 = 1010 = 2nd and 4th parameters were passed; 1st and 3rd remain
     const interfaces: Interface[] = [];
-    let passTypeParams: TypeParam[] = [];
-    for (let i = 0; i < overload.params.length; ++i) {
+    const interfaceCount = (1 << overload.params.length) - 1;
+    for (let i = 0; i < interfaceCount; ++i) {
+        const passedParams = overload.params.filter((p, j) => i & (1 << j));
+        const currentParams = _.without(overload.params, ...passedParams);
+        const passedTypeParams = overload.typeParams.filter(tp => passedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+        passedTypeParams.unshift(...overload.typeParams.filter(tp =>
+            !passedTypeParams.includes(tp) && passedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
+        const interfaceTypeParams = passedTypeParams.filter(tp => currentParams.concat(overload.returnType).some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
         const interfaceDef = {
             name: getInterfaceName(baseName, overloadId, i, []),
-            typeParams: _.cloneDeep(passTypeParams),
+            typeParams: _.cloneDeep(interfaceTypeParams),
             overloads: curryParams(
-                overload.params.slice(i),
-                _.without(overload.typeParams, ...passTypeParams),
+                currentParams,
+                _.without(overload.typeParams, ...interfaceTypeParams),
                 overload.returnType,
                 baseName,
-                passTypeParams,
+                interfaceTypeParams,
                 overloadId,
                 i,
                 overload.jsdoc,
             ),
         };
         interfaces.push(interfaceDef);
-        const currentParams = overload.params.slice(0, i + 1);
-        const usedTypeParams = overload.typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        usedTypeParams.unshift(...overload.typeParams.filter(tp => !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
-        const unusedParams = overload.params.slice(i + 1).concat(overload.returnType);
-        passTypeParams = usedTypeParams.filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
     }
     // The T[keyof T] constraint doesn't work so well if it's the only constraint. Convert to a plain old T constraint so it can be merged with
     // other ValueIteratee<T> overloads
@@ -702,19 +706,30 @@ function curryParams(
     jsdoc: string,
 ): Overload[] {
     // Assume params.length >= 1
+    // 1st overload takes no parameters and just returns the same interface (effectively a no-op)
     const overloads: Overload[] = [{
         typeParams: [],
         params: [],
         returnType: getInterfaceName(baseName, overloadId, index, interfaceTypeParams),
         jsdoc,
     }];
-    for (let i = 1; i <= params.length; ++i) {
-        const currentParams = params.slice(0, i);
-        const usedTypeParams = i < params.length ? typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p))) : typeParams;
+    const lastOverload = (1 << params.length) - 1;
+    for (let i = 1; i <= lastOverload; ++i) {
+        // xxxx i = number of parameters used by this overload
+        // const totalCombinations = nCk(params.length, i);
+        // i = binary representation of which parameters are used for this overload (reversed), e.g.
+        //   1 = 0001 -> 1000 = 1st parameter
+        //   6 = 1010 -> 0101 = 2nd and 4th parameters
+        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `p${j + 1}: _.__`);
+        while (currentParams.length > 0 && _.last(currentParams)!.endsWith("__"))
+            currentParams.pop(); // There's no point in passing a placeholder as the last parameter, so don't allow it.
+
+        const usedTypeParams = i < lastOverload ? typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p))) : typeParams;
         usedTypeParams.unshift(...typeParams.filter(tp => !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
-        const unusedParams = params.slice(i).concat(returnType);
+        const unusedParams = _.without(params, ...currentParams).concat(returnType);
         const passTypeParams = usedTypeParams.concat(interfaceTypeParams).filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        const currentReturnType = i < params.length ? getInterfaceName(baseName, overloadId, index + i, passTypeParams) : returnType;
+        const combinedIndex = combineIndexes(index, i);
+        const currentReturnType = i < lastOverload ? getInterfaceName(baseName, overloadId, combinedIndex, passTypeParams) : returnType;
 
         overloads.push({
             typeParams: _.cloneDeep(usedTypeParams),
@@ -737,10 +752,12 @@ function mergeSimilarOverloads(overloads: Overload[]): Overload[] {
     const newOverloads = _.cloneDeep(overloads);
     for (const overload of newOverloads) {
         // We can merge if all param types are the same except one, and the return types are the same.
+        // Also, we can't merge a placeholder param with a non-placeholder.
         const others = newOverloads.filter(o2 => o2 !== overload
             && _.isEqual(overload.typeParams, o2.typeParams)
             && overload.params.length === o2.params.length
             && overload.params.length >= 1
+            && overload.params.every((p, i) => isPlaceholder(p) === isPlaceholder(o2.params[i]))
             && overload.params.filter((p, i) => getParamType(p) !== getParamType(o2.params[i])).length <= 1
             && overload.returnType === o2.returnType);
         if (_.isEmpty(others))
@@ -753,8 +770,8 @@ function mergeSimilarOverloads(overloads: Overload[]): Overload[] {
             .value();
         if (differingParamIndexes.length > 1)
             continue; // Only one param is different, but it's a different param for some overloads, so we can't merge
+        const similarOverloads = [overload].concat(others);
         for (let i = 0; i < overload.params.length; ++i) {
-            const similarOverloads = [overload].concat(others);
             const paramNames = _.uniq(similarOverloads.map(o => getParamName(o.params[i])));
             const newParamName = (paramNames.length > 1) ? `${paramNames[0]}Or${paramNames.slice(1).map(_.upperFirst).join("Or")}` : paramNames[0];
 
@@ -770,6 +787,19 @@ function mergeSimilarOverloads(overloads: Overload[]): Overload[] {
         _.pull(newOverloads, ...others);
     }
     return newOverloads;
+}
+
+function combineIndexes(i1: number, i2: number): number {
+    let result = i1;
+    let resultMask = 1;
+    for (let i2mask = 1; i2mask <= i2; i2mask <<= 1) {
+        while (result & resultMask)
+            resultMask <<= 1;
+        if (i2 & i2mask)
+            result += resultMask;
+        resultMask <<= 1;
+    }
+    return result;
 }
 
 function getInterfaceName(baseName: string, overloadId: number, index: number, typeParams: TypeParam[]): string {

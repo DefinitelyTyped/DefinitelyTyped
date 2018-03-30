@@ -31,6 +31,15 @@ interface Difference {
      * @param values The arrays of values to exclude.
      * @return Returns the new array of filtered values.
      */
+    <T>(p1: _.__, values: _.List<T>): Difference1x2<T>;
+    /**
+     * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
+     * equality comparisons.
+     *
+     * @param array The array to inspect.
+     * @param values The arrays of values to exclude.
+     * @return Returns the new array of filtered values.
+     */
     <T>(array: _.List<T> | null | undefined, values: _.List<T>): T[];
 }
 interface Difference1x1<T> {
@@ -52,6 +61,26 @@ interface Difference1x1<T> {
      * @return Returns the new array of filtered values.
      */
     (values: _.List<T>): T[];
+}
+interface Difference1x2<T> {
+    /**
+     * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
+     * equality comparisons.
+     *
+     * @param array The array to inspect.
+     * @param values The arrays of values to exclude.
+     * @return Returns the new array of filtered values.
+     */
+    (): Difference1x2<T>;
+    /**
+     * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
+     * equality comparisons.
+     *
+     * @param array The array to inspect.
+     * @param values The arrays of values to exclude.
+     * @return Returns the new array of filtered values.
+     */
+    (array: _.List<T> | null | undefined): T[];
 }
 
 declare const difference: Difference;
