@@ -206,7 +206,7 @@ declare class plupload {
      * @param {Object} obj Object to iterate.
      * @param {function} callback Callback function to execute for each item.
      */
-    static each(obj: Object, callback: Function): void;
+    static each(obj: object, callback: Function): void;
 
     /**
      * Returns the absolute x, y position of an Element. The position will be returned in a object with x, y fields.
@@ -217,7 +217,7 @@ declare class plupload {
      * @param {Element} root Optional root element to stop calculations at.
      * @return {object} Absolute position of the specified element object with x, y fields.
      */
-    static getPos(node: Element, root: Element): Object;
+    static getPos(node: Element, root: Element): object;
 
     /**
      * Returns the size of the specified node in pixels.
@@ -227,7 +227,7 @@ declare class plupload {
      * @param {Node} node Node to get the size of.
      * @return {Object} Object with a w and h property.
      */
-    static getSize(node: Node): Object;
+    static getSize(node: Node): object;
 
     /**
      * Encodes the specified string.
@@ -247,7 +247,7 @@ declare class plupload {
      * @param {Object} obj Object with length field.
      * @return {Array} Array object containing all items.
      */
-    static toArray(obj: Object): Array<any>;
+    static toArray(obj: object): Array<any>;
 
     /**
      * Find an element in array and return its index if present, otherwise return -1.
@@ -281,7 +281,7 @@ declare class plupload {
      * @param {Object} pack Language pack items to add.
      * @return {Object} Extended language pack object.
      */
-    static addI18n(pack: Object): Object;
+    static addI18n(pack: object): object;
 
     /**
      * Translates the specified string by checking for the english string in the language pack lookup.
@@ -309,7 +309,7 @@ declare class plupload {
      * @param {Object} obj Object to check.
      * @return {Boolean}
      */
-    static isEmptyObj(obj: Object): boolean;
+    static isEmptyObj(obj: object): boolean;
 
     /**
      * Checks if specified DOM element has specified class.
@@ -319,7 +319,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object to add handler to.
      * @param {String} name Class name
      */
-    static hasClass(obj: Object, name: string): any;
+    static hasClass(obj: object, name: string): any;
 
     /**
      * Adds specified className to specified DOM element.
@@ -329,7 +329,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object to add handler to.
      * @param {String} name Class name
      */
-    static addClass(obj: Object, name: string): any;
+    static addClass(obj: object, name: string): any;
 
     /**
      * Removes specified className from specified DOM element.
@@ -339,7 +339,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object to add handler to.
      * @param {String} name Class name
      */
-    static removeClass(obj: Object, name: string): any;
+    static removeClass(obj: object, name: string): any;
 
     /**
      * Returns a given computed style of a DOM element.
@@ -349,7 +349,7 @@ declare class plupload {
      * @param {Object} obj DOM element like object.
      * @param {String} name Style you want to get from the DOM element
      */
-    static getStyle(obj: Object, name: string): any;
+    static getStyle(obj: object, name: string): any;
 
     /**
      * Adds an event handler to the specified object and store reference to the handler
@@ -362,7 +362,7 @@ declare class plupload {
      * @param {Function} callback Function to call when event occurs.
      * @param {String} (optional) key that might be used to add specifity to the event record.
      */
-    static addEvent(obj: Object, name: string, callback: Function, key?: string);
+    static addEvent(obj: object, name: string, callback: Function, key?: string);
 
     /**
      * Remove event handler from the specified object. If third argument (callback)
@@ -374,7 +374,7 @@ declare class plupload {
      * @param {String} name Name of event listener to remove.
      * @param {Function|String} (optional) might be a callback or unique key to match.
      */
-    static removeEvent(obj: Object, name: string, optional?: Function | string);
+    static removeEvent(obj: object, name: string, optional?: Function | string);
 
     /**
      * Remove all kind of events from the specified object
@@ -384,7 +384,7 @@ declare class plupload {
      * @param {Object} obj DOM element to remove event listeners from.
      * @param {String} (optional) unique key to match, when removing events.
      */
-    static removeAllEvents(obj: Object, key?: string);
+    static removeAllEvents(obj: object, key?: string);
 
     /**
      * Cleans the specified name from national characters (diacritics). The result will be a name with only a-z, 0-9 and _.
@@ -438,7 +438,7 @@ declare class plupload {
      * @param {String} [runtimes] Comma-separated list of runtimes to check against
      * @return {String} Type of compatible runtime
      */
-    static predictRuntime(config: Object | string, runtimes: string): string;
+    static predictRuntime(config: object | string, runtimes: string): string;
 
     /**
      * Registers a filter that will be executed for each file added to the queue.
