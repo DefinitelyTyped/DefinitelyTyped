@@ -3,7 +3,7 @@ declare function ok(cond: any, desc?: string): void;
 declare function deepEqual<T>(a: T, b: T, desc?: string): void;
 declare function equal<T>(a: T, b: T, desc?: string): void;
 
-// https://github.com/mrdoob/three.js/tree/master/test/unit/math
+// https://github.com/mrdoob/three.js/tree/master/test/unit/src/math
 
 ()=>{
     // -------------------------------------------- Constants
@@ -2743,6 +2743,14 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         ok( b.y == -y, "Passed!" );
     });
 
+    test( "applyMatrix3", function () {
+        var a = new THREE.Vector2( x, y );
+        var m = new THREE.Matrix3().set( 2, 3, 5, 7, 11, 13, 17, 19, 23 );
+
+        a.applyMatrix3( m );
+        ok( a.x == 18, "Passed!" );
+        ok( a.y == 60, "Passed!" );
+    });
 
     test( "min/max/clamp", function() {
         var a = new THREE.Vector2( x, y );
@@ -2896,6 +2904,15 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
         ok( a.equals( b ), "Passed!" );
         ok( b.equals( a ), "Passed!" );
+    });
+
+    test( "fromBufferAttribute", function() {
+        var a = new THREE.Vector2();
+        var attr = new THREE.BufferAttribute( new Float32Array( [ 1, 2, 3, 4 ] ), 2 );
+
+        a.fromBufferAttribute( attr, 0 );
+        ok( a.x == 1, "Passed!" );
+        ok( a.y == 2, "Passed!" );
     });
 
     // -------------------------------------------- Vector3

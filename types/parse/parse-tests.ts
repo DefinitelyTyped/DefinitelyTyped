@@ -134,6 +134,16 @@ function test_query() {
     query.include("score");
     query.include(["score.team"]);
 
+    // Find objects that match the aggregation pipeline
+    query.aggregate({
+        group:{
+            objectId: '$name'
+        }
+    });
+
+    // Find objects with distinct key
+    query.distinct('name');
+
     const testQuery = Parse.Query.or(query, query);
 }
 
@@ -396,7 +406,7 @@ function test_cloud_functions() {
 
     Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
         response: Parse.Cloud.BeforeSaveResponse) => {
-            
+
             if (request.object.isNew()) {
                 if (!request.object.has('immutable')) return response.error('Field immutable is required')
             } else {
@@ -502,6 +512,15 @@ function test_promise() {
         // success
     }, function () {
         // failed
+    });
+
+    // Test promise with a query
+    const query = new Parse.Query('Test');
+    query.find()
+    .then(() => {
+        // success
+    }).catch(() => {
+        // error
     });
 
     // can check whether an object is a Parse.Promise object or not

@@ -166,7 +166,7 @@ declare namespace session {
          * ContextStore must be a class which claims three instance methods demonstrated above.
          * new ContextStore(ctx) will be executed on every request.
          */
-        ContextStore?: { new(): stores };
+        ContextStore?: { new(ctx: Koa.Context): stores };
 
         /**
          * If you want to add prefix for all external session id, you can use options.prefix, it will not work if options.genid present.

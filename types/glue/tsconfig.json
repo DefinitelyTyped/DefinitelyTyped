@@ -21,6 +21,6 @@
   },
   "files": [
     "index.d.ts",
-    "hapi-glue-test.ts"
+    "glue-tests.ts"
   ]
 }

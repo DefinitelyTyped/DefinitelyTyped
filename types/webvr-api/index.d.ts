@@ -162,6 +162,11 @@ interface VRFrameData {
     readonly timestamp: number;
 }
 
+declare var VRFrameData: {
+    prototype: VRFrameData
+    new(): VRFrameData
+}
+
 interface VRPose {
     readonly angularAcceleration: Float32Array | null;
     readonly angularVelocity: Float32Array | null;
