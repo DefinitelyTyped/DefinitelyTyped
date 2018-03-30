@@ -134,7 +134,12 @@ export const AppNavigator = StackNavigator(
     },
 );
 
-const StatelessScreen: NavigationScreenComponent = () => <View />;
+interface StatelessScreenParams {
+    testID: string;
+}
+
+const StatelessScreen: NavigationScreenComponent<StatelessScreenParams> = (props) =>
+    <View testID={props.navigation.getParam('testID', 'fallback')}/>;
 
 StatelessScreen.navigationOptions = { title: 'Stateless' };
 
