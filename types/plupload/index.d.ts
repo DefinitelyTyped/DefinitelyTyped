@@ -206,7 +206,7 @@ declare class plupload {
      * @param {Object} obj Object to iterate.
      * @param {function} callback Callback function to execute for each item.
      */
-    static each(obj: object, callback: Function): void;
+    static each(obj: any, callback: Function): void;
 
     /**
      * Returns the absolute x, y position of an Element. The position will be returned in a object with x, y fields.
