@@ -12,7 +12,6 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
-//                 Rich Seviora <https://github.com/richseviora>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
