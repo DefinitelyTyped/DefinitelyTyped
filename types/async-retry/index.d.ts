@@ -10,8 +10,6 @@ declare function AsyncRetry<A>(
 ): Promise<A>;
 
 declare namespace AsyncRetry {
-	function retry<A>(fn: RetryFunction<A>, opts: Options): Promise<A>;
-
 	interface Options {
 		retries?: number;
 		factor?: number;
