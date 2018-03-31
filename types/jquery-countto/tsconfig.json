@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.countto-tests.ts"
+        "jquery-countto-tests.ts"
     ]
 }
