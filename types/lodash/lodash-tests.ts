@@ -6974,7 +6974,7 @@ fp.now(); // $ExpectType number
     _.noConflict(); // $ExpectType LoDashStatic
     _(42).noConflict(); // $ExpectType LoDashStatic
     _.chain(42).noConflict(); // $ExpectType LoDashExplicitWrapper<LoDashStatic>
-    fp.noConflict(); // $ExpectType LoDashStatic
+    fp.noConflict(); // $ExpectType LoDashFp
 }
 
 // _.noop

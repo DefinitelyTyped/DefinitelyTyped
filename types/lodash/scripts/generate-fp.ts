@@ -19,6 +19,10 @@ interface Definition {
     overloads: Overload[];
     jsdoc: string;
 }
+interface InterfaceGroup {
+    functionName: string;
+    interfaces: Interface[];
+}
 interface Interface {
     name: string;
     typeParams: TypeParam[];
@@ -46,9 +50,9 @@ async function main() {
 
     // Read each function definition and fp-ify it
     const subfolders = ["common"];
-    const promises: Array<Promise<string[]>> = [];
+    const promises: Array<Promise<InterfaceGroup[]>> = [];
     for (const subfolder of subfolders) {
-        promises.push(new Promise<string[]>((resolve, reject) => {
+        promises.push(new Promise<InterfaceGroup[]>((resolve, reject) => {
             fs.readdir(path.join("..", subfolder), (err, files) => {
                 if (err) {
                     console.error(`failed to list directory contents for '${subfolder}': `, err);
@@ -66,28 +70,54 @@ async function main() {
         }));
     }
 
-    let functionNames: string[];
+    let interfaceGroups: InterfaceGroup[];
     try {
-        functionNames = _.flatten(await Promise.all(promises));
+        interfaceGroups = _.flatten(await Promise.all(promises));
     } catch (err) {
         console.error("Failed to parse all functions: ", err);
         return;
     }
-    functionNames = _.sortedUniq(_.sortBy(functionNames, _.toLower));
+    interfaceGroups = _.sortBy(interfaceGroups, g => _.toLower(g.functionName));
+    for (const interfaceGroup of interfaceGroups) {
+        // Rename interfaces for different versions of the same function with different arity (to avoid name conflicts).
+        // Don't rename aliases - instead they will be removed from the output when interfaces are written.
+        const interfaceName = interfaceGroup.interfaces[0].name;
+        const conflicts = interfaceGroups.filter(g => g.interfaces[0].name === interfaceName);
+        if (conflicts.length > 1 && _.some(conflicts, c => !_.isEqual(c.interfaces, conflicts[0].interfaces))) {
+            for (const conflict of conflicts) {
+                const oldName = conflict.interfaces[0].name;
+                const newName = getInterfaceBaseName(conflict.functionName);
+                for (const interfaceDef of conflict.interfaces) {
+                    interfaceDef.name = interfaceDef.name.replace(oldName, newName);
+                    for (const overload of interfaceDef.overloads)
+                        overload.returnType = overload.returnType.replace(oldName, newName);
+                }
+            }
+        }
+    }
+    const interfaces = _.uniqBy(_.flatMap(interfaceGroups, g => g.interfaces), i => i.name);
+    const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
+    const interfaceStrings = _(interfaces)
+        .map(i => tab(interfaceToString(i), 1))
+        .join(lineBreak)
+        .replace(commonTypeSearch, match => `lodash.${match}`);
     const fpFile = [
         "// AUTO-GENERATED: do not modify this file directly.",
         "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
         "// npm run fp",
         "",
         'import lodash = require("./index");',
-        ...functionNames.map(f => `import ${f} = require("./fp/${f}");`),
         "",
         "export = _;",
         "",
         "declare const _: _.LoDashFp;",
         "declare namespace _ {",
+        interfaceStrings,
+        "",
         "    interface LoDashFp {",
-        ...functionNames.map(f => `        ${f}: typeof ${f};`),
+        "        __: lodash.__;",
+        "        placehodler: lodash.__;",
+        ...interfaceGroups.map(g => `        ${g.functionName}: ${g.interfaces[0].name};`),
         "    }",
         "}",
         "",
@@ -99,13 +129,15 @@ async function main() {
 
     // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
     const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
-    const newRows = functionNames.map(f => `        "fp/${f}.d.ts",`);
+    const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`);
     newRows[newRows.length - 1] = newRows[newRows.length - 1].replace(",", "");
 
     const insertIndex = _.findLastIndex(tsconfig, row => row.trim() === "]"); // Assume "files" is the last array
     if (!tsconfig[insertIndex - 1].endsWith(","))
         tsconfig[insertIndex - 1] += ",";
     tsconfig.splice(insertIndex, 0, ...newRows);
+
+    // TODO: write each function file
 
     fs.writeFile(tsconfigPath, tsconfig.join(lineBreak), (err) => {
         if (err)
@@ -129,13 +161,13 @@ function readFile(filePath: string): Promise<string> {
     });
 }
 
-async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<string[]> {
+async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<InterfaceGroup[]> {
     const builder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     const unconvertedBuilder: { [name: string]: (...args: number[][]) => () => Interface[] } = {};
     for (const filePath of filePaths) {
         const definitions = await parseFile(filePath, commonTypes);
         for (const definition of definitions) {
-            if (definition.overloads.every(o => o.params.length <= 1 && o.returnType === "typeof _")) {
+            if (definition.overloads.every(o => o.params.length <= 1 && (o.returnType === "typeof _" || o.returnType === "LoDashStatic"))) {
                 // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
                 // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
                 unconvertedBuilder[definition.name] = (...args: number[][]) => {
@@ -176,10 +208,13 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     const builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
     _.defaults(builderFp, unconvertedBuilder);
 
-    const ph = builderFp.placeholder;
-
-    const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && (typeof builderFp[key] === "function" || key === "placeholder" || key === "__"));
-    for (const functionName of functionNames) {
+    const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && (typeof builderFp[key] === "function"));
+    const interfaceGroups: InterfaceGroup[] = functionNames.map((functionName): InterfaceGroup => ({
+        functionName,
+        interfaces: builderFp[functionName]([0], [1], [2], [3], [4])([0], [1], [2], [3], [4]),
+    }));
+    return interfaceGroups;
+    /*for (const functionName of functionNames) {
         // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
         let importCommon = false;
         let interfaceLines: string;
@@ -222,7 +257,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                 console.error(`failed to write file: ${targetFile}`, err);
         });
     }
-    return functionNames;
+    return functionNames;*/
 }
 
 async function parseFile(filePath: string, commonTypes: string[]): Promise<Definition[]> {
@@ -414,7 +449,7 @@ function curryOverloads(overloads: Overload[], functionName: string, paramOrder:
         for (const overload of overloads)
             overload.params = overload.params.map(p => p.replace(/\?:/g, ":")); // No optional parameters
         return [{
-            name: _.upperFirst(functionName),
+            name: getInterfaceBaseName(functionName),
             typeParams: [],
             overloads,
         }];
@@ -605,9 +640,10 @@ function capCallback(parameter: string, functionName: string): string {
 }
 
 function curryOverload(overload: Overload, functionName: string, overloadId: number): Interface[] {
-    let baseName = _.upperFirst(functionName);
-    if (baseName === "Pick") // A type called "Pick" already exists, so rename to avoid conflicts
-        baseName = "Lodash" + baseName;
+    /*let baseName = _.upperFirst(functionName);
+    if (["Map", "Pick"].includes(baseName)) // These types already exist, so rename to avoid conflicts
+        baseName = "Lodash" + baseName;*/
+    const baseName = getInterfaceBaseName(functionName);
     if (overload.params.length <= 1) {
         // Functions with 0 or 1 arguments are not curried. Just use a basic function type.
         return [{
@@ -703,7 +739,7 @@ function curryParams(
         // i = binary representation of which parameters are used for this overload (reversed), e.g.
         //   1 = 0001 -> 1000 = 1st parameter
         //   6 = 1010 -> 0101 = 2nd and 4th parameters
-        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `${getParamName(p)}: _.__`);
+        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `${getParamName(p)}: lodash.__`);
         while (currentParams.length > 0 && _.last(currentParams)!.endsWith("__"))
             currentParams.pop(); // There's no point in passing a placeholder as the last parameter, so don't allow it.
 
@@ -730,6 +766,10 @@ function curryParams(
             delete typeParam.extends;
     }
     return interfaceDef;
+}
+
+function getInterfaceBaseName(functionName: string) {
+    return "Lodash" + _.upperFirst(functionName);
 }
 
 function getInterfaceParams(overload: Overload, interfaceIndex: number) {
