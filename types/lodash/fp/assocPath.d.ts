@@ -309,7 +309,7 @@ interface Set1x3 {
      */
     <TResult>(object: object): TResult;
 }
-interface Set1x4<T extends object> {
+interface Set1x4<T> {
     /**
      * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
      * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -355,7 +355,7 @@ interface Set1x4<T extends object> {
      */
     (path: _.PropertyPath, value: any): T;
 }
-interface Set1x5<T extends object> {
+interface Set1x5<T> {
     /**
      * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
      * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -379,7 +379,7 @@ interface Set1x5<T extends object> {
      */
     (value: any): T;
 }
-interface Set1x6<T extends object> {
+interface Set1x6<T> {
     /**
      * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
      * missing index properties while objects are created for all other missing properties. Use _.setWith to

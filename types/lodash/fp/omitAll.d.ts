@@ -161,7 +161,7 @@ interface Omit1x1 {
      */
     <T extends object>(object: T | null | undefined): _.PartialObject<T>;
 }
-interface Omit1x2<T extends _.AnyKindOfDictionary> {
+interface Omit1x2<T> {
     /**
      * The opposite of `_.pick`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that are not omitted.
@@ -197,7 +197,7 @@ interface Omit1x2<T extends _.AnyKindOfDictionary> {
      */
     (paths: _.PropertyPath): T;
 }
-interface Omit2x2<T extends object> {
+interface Omit2x2<T> {
     /**
      * The opposite of `_.pick`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that are not omitted.

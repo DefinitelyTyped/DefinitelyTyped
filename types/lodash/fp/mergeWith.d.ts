@@ -518,7 +518,7 @@ interface MergeWith1x2<TObject> {
      * _.merge(object, other, customizer);
      * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
      */
-    <TSource>(p1: _.__, source: TSource): MergeWith1x6<TSource, TObject>;
+    <TSource>(p1: _.__, source: TSource): MergeWith1x6<TObject, TSource>;
     /**
      * This method is like `_.merge` except that it accepts `customizer` which
      * is invoked to produce the merged values of the destination and source

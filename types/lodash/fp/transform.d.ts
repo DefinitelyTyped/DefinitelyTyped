@@ -454,7 +454,7 @@ interface Transform1x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>): Transform1x6<TResult, T>;
+    <TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>): Transform1x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -493,7 +493,7 @@ interface Transform1x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: _.Dictionary<TResult>): Transform2x6<TResult, T>;
+    <TResult>(p1: _.__, accumulator: _.Dictionary<TResult>): Transform2x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -821,7 +821,7 @@ interface Transform3x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: _.Dictionary<TResult>): Transform3x6<TResult, T>;
+    <TResult>(p1: _.__, accumulator: _.Dictionary<TResult>): Transform3x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -860,7 +860,7 @@ interface Transform3x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>): Transform4x6<TResult, T>;
+    <TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>): Transform4x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating

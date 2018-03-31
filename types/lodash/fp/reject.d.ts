@@ -184,7 +184,7 @@ interface Reject2x2<T> {
      */
     (predicate: _.ValueIterateeCustom<T, boolean>): T[];
 }
-interface Reject3x2<T extends object> {
+interface Reject3x2<T> {
     /**
      * The opposite of _.filter; this method returns the elements of collection that predicate does not return
      * truthy for.

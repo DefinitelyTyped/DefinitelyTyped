@@ -371,7 +371,7 @@ interface CountBy2x2<T> {
      */
     (iteratee: _.ValueIteratee<T>): _.Dictionary<number>;
 }
-interface CountBy3x2<T extends object> {
+interface CountBy3x2<T> {
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The

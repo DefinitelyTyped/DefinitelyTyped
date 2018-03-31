@@ -210,7 +210,7 @@ interface Partition1x2<T> {
     **/
     (callback: _.ValueIteratee<T>): [T[], T[]];
 }
-interface Partition2x2<T extends object> {
+interface Partition2x2<T> {
     /**
     * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
     * while the second of which contains elements predicate returns falsey for.

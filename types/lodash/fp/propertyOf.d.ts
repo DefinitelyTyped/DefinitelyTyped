@@ -166,7 +166,7 @@ interface Get {
      */
     (path: _.PropertyPath, object: any): any;
 }
-interface Get1x1<TObject extends object, TKey extends keyof TObject> {
+interface Get1x1<TObject, TKey extends keyof TObject> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -198,7 +198,7 @@ interface Get1x1<TObject extends object, TKey extends keyof TObject> {
      */
     (object: TObject | null | undefined): TObject[TKey] | undefined;
 }
-interface Get1x2<TObject extends object> {
+interface Get1x2<TObject> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -220,7 +220,7 @@ interface Get1x2<TObject extends object> {
      */
     <TKey extends keyof TObject>(path: TKey | [TKey]): TObject[TKey];
 }
-interface Get2x2<TObject extends object> {
+interface Get2x2<TObject> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.

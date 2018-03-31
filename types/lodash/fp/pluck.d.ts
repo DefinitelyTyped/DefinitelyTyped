@@ -579,7 +579,7 @@ interface Map2x2<T> {
      */
     <TResult>(iteratee: (value: T) => TResult): TResult[];
 }
-interface Map3x1<T extends object, TResult> {
+interface Map3x1<T, TResult> {
     /**
      * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
      * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -635,7 +635,7 @@ interface Map3x1<T extends object, TResult> {
      */
     (collection: T | null | undefined): TResult[];
 }
-interface Map3x2<T extends object> {
+interface Map3x2<T> {
     /**
      * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
      * thisArg and invoked with three arguments: (value, index|key, collection).

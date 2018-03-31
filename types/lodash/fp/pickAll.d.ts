@@ -118,7 +118,7 @@ interface LodashPick {
      */
     <T>(props: _.PropertyPath, object: T | null | undefined): _.PartialDeep<T>;
 }
-interface LodashPick1x1<T extends object, U extends keyof T> {
+interface LodashPick1x1<T, U extends keyof T> {
     /**
      * Creates an object composed of the picked `object` properties.
      *
@@ -152,7 +152,7 @@ interface LodashPick1x1<T extends object, U extends keyof T> {
      */
     (object: T): Pick<T, U>;
 }
-interface LodashPick1x2<T extends object> {
+interface LodashPick1x2<T> {
     /**
      * Creates an object composed of the picked `object` properties.
      *

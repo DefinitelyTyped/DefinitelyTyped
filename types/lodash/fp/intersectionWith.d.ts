@@ -260,7 +260,7 @@ interface IntersectionWith1x2<T1> {
      * _.intersectionWith(objects, others, _.isEqual);
      * // => [{ 'x': 1, 'y': 2 }]
      */
-    <T2>(comparator: _.Comparator2<T1, T2>): IntersectionWith1x3<T2, T1>;
+    <T2>(comparator: _.Comparator2<T1, T2>): IntersectionWith1x3<T1, T2>;
     /**
      * Creates an array of unique `array` values not included in the other
      * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -278,7 +278,7 @@ interface IntersectionWith1x2<T1> {
      * _.intersectionWith(objects, others, _.isEqual);
      * // => [{ 'x': 1, 'y': 2 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): IntersectionWith1x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): IntersectionWith1x6<T1, T2>;
     /**
      * Creates an array of unique `array` values not included in the other
      * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)

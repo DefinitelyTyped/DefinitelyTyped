@@ -366,7 +366,7 @@ interface ForEachRight3x2<T> {
      */
     (iteratee: (value: T) => any): _.List<T>;
 }
-interface ForEachRight4x2<T extends object> {
+interface ForEachRight4x2<T> {
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -388,7 +388,7 @@ interface ForEachRight4x2<T extends object> {
      */
     (iteratee: (value: T[keyof T]) => any): T;
 }
-interface ForEachRight5x2<T, TArray extends T[] | null | undefined> {
+interface ForEachRight5x2<T, TArray> {
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -410,7 +410,7 @@ interface ForEachRight5x2<T, TArray extends T[] | null | undefined> {
      */
     (iteratee: (value: T) => any): TArray;
 }
-interface ForEachRight6x2<TString extends string | null | undefined> {
+interface ForEachRight6x2<TString> {
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -432,7 +432,7 @@ interface ForEachRight6x2<TString extends string | null | undefined> {
      */
     (iteratee: (value: string) => any): TString;
 }
-interface ForEachRight7x2<T, TList extends _.List<T> | null | undefined> {
+interface ForEachRight7x2<T, TList> {
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -454,7 +454,7 @@ interface ForEachRight7x2<T, TList extends _.List<T> | null | undefined> {
      */
     (iteratee: (value: T) => any): TList;
 }
-interface ForEachRight8x2<T extends object> {
+interface ForEachRight8x2<T> {
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *

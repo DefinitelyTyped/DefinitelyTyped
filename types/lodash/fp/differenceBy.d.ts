@@ -162,7 +162,7 @@ interface DifferenceBy1x2<T1> {
      * @param iteratee The iteratee invoked per element.
      * @returns Returns the new array of filtered values.
      */
-    <T2>(iteratee: _.ValueIteratee<T1 | T2>): DifferenceBy1x3<T2, T1>;
+    <T2>(iteratee: _.ValueIteratee<T1 | T2>): DifferenceBy1x3<T1, T2>;
     /**
      * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
      * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -173,7 +173,7 @@ interface DifferenceBy1x2<T1> {
      * @param iteratee The iteratee invoked per element.
      * @returns Returns the new array of filtered values.
      */
-    <T2>(p1: _.__, values: _.List<T2>): DifferenceBy1x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): DifferenceBy1x6<T1, T2>;
     /**
      * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
      * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one

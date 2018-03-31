@@ -333,7 +333,7 @@ interface Filter1x2 {
      */
     (predicate: (value: string) => boolean): string[];
 }
-interface Filter2x1<T, S extends T> {
+interface Filter2x1<T, S> {
     /**
      * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
      * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -472,7 +472,7 @@ interface Filter3x1<T> {
      */
     (collection: _.List<T> | object | null | undefined): T[];
 }
-interface Filter4x1<T extends object, S extends T[keyof T]> {
+interface Filter4x1<T, S> {
     /**
      * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
      * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -512,7 +512,7 @@ interface Filter4x1<T extends object, S extends T[keyof T]> {
      */
     (collection: T | null | undefined): S[];
 }
-interface Filter4x2<T extends object> {
+interface Filter4x2<T> {
     /**
      * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
      * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).

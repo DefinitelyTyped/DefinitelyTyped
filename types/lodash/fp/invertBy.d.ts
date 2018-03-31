@@ -110,7 +110,7 @@ interface InvertBy1x2<T> {
      */
     (interatee: _.ValueIteratee<T>): _.Dictionary<string[]>;
 }
-interface InvertBy2x2<T extends object> {
+interface InvertBy2x2<T> {
     /**
      * This method is like _.invert except that the inverted object is generated from the results of running each
      * element of object through iteratee. The corresponding inverted value of each inverted key is an array of

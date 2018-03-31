@@ -170,7 +170,7 @@ interface FlatMap1x2<T> {
      */
     <TResult>(iteratee: (value: T) => _.Many<TResult>): TResult[];
 }
-interface FlatMap2x1<T extends object, TResult> {
+interface FlatMap2x1<T, TResult> {
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
      * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
@@ -192,7 +192,7 @@ interface FlatMap2x1<T extends object, TResult> {
      */
     (collection: T | null | undefined): TResult[];
 }
-interface FlatMap2x2<T extends object> {
+interface FlatMap2x2<T> {
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
      * and concating its result to the other mapped values. The iteratee is invoked with three arguments:

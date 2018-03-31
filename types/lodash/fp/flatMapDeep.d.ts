@@ -314,7 +314,7 @@ interface FlatMapDeep1x2<T> {
      */
     <TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult> | TResult): TResult[];
 }
-interface FlatMapDeep2x1<T extends object, TResult> {
+interface FlatMapDeep2x1<T, TResult> {
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -354,7 +354,7 @@ interface FlatMapDeep2x1<T extends object, TResult> {
      */
     (collection: T | null | undefined): TResult[];
 }
-interface FlatMapDeep2x2<T extends object> {
+interface FlatMapDeep2x2<T> {
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.

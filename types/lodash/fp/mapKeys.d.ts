@@ -142,7 +142,7 @@ interface MapKeys2x1 {
      */
     <T extends object>(object: T | null | undefined): _.Dictionary<T[keyof T]>;
 }
-interface MapKeys2x2<T extends object> {
+interface MapKeys2x2<T> {
     /**
      * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
      * by running each own enumerable property of object through iteratee.

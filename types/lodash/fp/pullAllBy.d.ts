@@ -1521,7 +1521,7 @@ interface PullAllBy3x4<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(iteratee: _.ValueIteratee<T1 | T2>): PullAllBy3x5<T2, T1>;
+    <T2>(iteratee: _.ValueIteratee<T1 | T2>): PullAllBy3x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1542,7 +1542,7 @@ interface PullAllBy3x4<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): PullAllBy3x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): PullAllBy3x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1695,7 +1695,7 @@ interface PullAllBy4x4<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(iteratee: _.ValueIteratee<T1 | T2>): PullAllBy4x5<T2, T1>;
+    <T2>(iteratee: _.ValueIteratee<T1 | T2>): PullAllBy4x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1716,7 +1716,7 @@ interface PullAllBy4x4<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): PullAllBy4x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): PullAllBy4x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion

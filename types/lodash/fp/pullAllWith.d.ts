@@ -1521,7 +1521,7 @@ interface PullAllWith3x4<T1> {
      * console.log(array);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
-    <T2>(comparator: _.Comparator2<T1, T2>): PullAllWith3x5<T2, T1>;
+    <T2>(comparator: _.Comparator2<T1, T2>): PullAllWith3x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `comparator` which is
      * invoked to compare elements of array to values. The comparator is invoked with
@@ -1542,7 +1542,7 @@ interface PullAllWith3x4<T1> {
      * console.log(array);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): PullAllWith3x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): PullAllWith3x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `comparator` which is
      * invoked to compare elements of array to values. The comparator is invoked with
@@ -1695,7 +1695,7 @@ interface PullAllWith4x4<T1> {
      * console.log(array);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
-    <T2>(comparator: _.Comparator2<T1, T2>): PullAllWith4x5<T2, T1>;
+    <T2>(comparator: _.Comparator2<T1, T2>): PullAllWith4x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `comparator` which is
      * invoked to compare elements of array to values. The comparator is invoked with
@@ -1716,7 +1716,7 @@ interface PullAllWith4x4<T1> {
      * console.log(array);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): PullAllWith4x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): PullAllWith4x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `comparator` which is
      * invoked to compare elements of array to values. The comparator is invoked with

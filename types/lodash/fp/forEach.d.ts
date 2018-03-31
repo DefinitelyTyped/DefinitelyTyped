@@ -541,7 +541,7 @@ interface ForEach3x2<T> {
      */
     (iteratee: (value: T) => any): _.List<T>;
 }
-interface ForEach4x2<T extends object> {
+interface ForEach4x2<T> {
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -573,7 +573,7 @@ interface ForEach4x2<T extends object> {
      */
     (iteratee: (value: T[keyof T]) => any): T;
 }
-interface ForEach5x2<T, TArray extends T[] | null | undefined> {
+interface ForEach5x2<T, TArray> {
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -605,7 +605,7 @@ interface ForEach5x2<T, TArray extends T[] | null | undefined> {
      */
     (iteratee: (value: T) => any): TArray;
 }
-interface ForEach6x2<TString extends string | null | undefined> {
+interface ForEach6x2<TString> {
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -637,7 +637,7 @@ interface ForEach6x2<TString extends string | null | undefined> {
      */
     (iteratee: (value: string) => any): TString;
 }
-interface ForEach7x2<T, TList extends _.List<T> | null | undefined> {
+interface ForEach7x2<T, TList> {
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -669,7 +669,7 @@ interface ForEach7x2<T, TList extends _.List<T> | null | undefined> {
      */
     (iteratee: (value: T) => any): TList;
 }
-interface ForEach8x2<T extends object> {
+interface ForEach8x2<T> {
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:

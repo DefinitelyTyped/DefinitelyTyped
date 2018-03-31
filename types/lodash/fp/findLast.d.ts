@@ -96,7 +96,7 @@ interface FindLast {
      */
     <T extends object>(predicate: _.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): T[keyof T]|undefined;
 }
-interface FindLast1x1<T, S extends T> {
+interface FindLast1x1<T, S> {
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.
@@ -165,7 +165,7 @@ interface FindLast2x1<T> {
      */
     (collection: _.List<T> | object | null | undefined): T|undefined;
 }
-interface FindLast3x1<T extends object, S extends T[keyof T]> {
+interface FindLast3x1<T, S> {
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.
@@ -185,7 +185,7 @@ interface FindLast3x1<T extends object, S extends T[keyof T]> {
      */
     (collection: T | null | undefined): S|undefined;
 }
-interface FindLast3x2<T extends object> {
+interface FindLast3x2<T> {
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.

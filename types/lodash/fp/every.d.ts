@@ -100,7 +100,7 @@ interface Every1x2<T> {
      */
     (predicate: _.ValueIterateeCustom<T, boolean>): boolean;
 }
-interface Every2x2<T extends object> {
+interface Every2x2<T> {
     /**
      * Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate
      * returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).

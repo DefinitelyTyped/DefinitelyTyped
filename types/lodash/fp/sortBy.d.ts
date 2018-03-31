@@ -330,7 +330,7 @@ interface SortBy1x2<T> {
      */
     (iteratees: _.Many<_.ValueIteratee<T>>): T[];
 }
-interface SortBy2x2<T extends object> {
+interface SortBy2x2<T> {
     /**
      * Creates an array of elements, sorted in ascending order by the results of
      * running each element in a collection through each iteratee. This method

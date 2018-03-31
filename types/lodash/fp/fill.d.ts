@@ -720,7 +720,7 @@ interface Fill1x4<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, p2: _.__, array: U[] | null | undefined): Fill1x12<U, T>;
+    <U>(p1: _.__, p2: _.__, array: U[] | null | undefined): Fill1x12<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -732,7 +732,7 @@ interface Fill1x4<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(start: number, p2: _.__, array: U[] | null | undefined): Fill1x13<U, T>;
+    <U>(start: number, p2: _.__, array: U[] | null | undefined): Fill1x13<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -744,7 +744,7 @@ interface Fill1x4<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, end: number, array: U[] | null | undefined): Fill1x14<U, T>;
+    <U>(p1: _.__, end: number, array: U[] | null | undefined): Fill1x14<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -768,7 +768,7 @@ interface Fill1x4<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, p2: _.__, array: _.List<U> | null | undefined): Fill2x12<U, T>;
+    <U>(p1: _.__, p2: _.__, array: _.List<U> | null | undefined): Fill2x12<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -780,7 +780,7 @@ interface Fill1x4<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(start: number, p2: _.__, array: _.List<U> | null | undefined): Fill2x13<U, T>;
+    <U>(start: number, p2: _.__, array: _.List<U> | null | undefined): Fill2x13<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -792,7 +792,7 @@ interface Fill1x4<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, end: number, array: _.List<U> | null | undefined): Fill2x14<U, T>;
+    <U>(p1: _.__, end: number, array: _.List<U> | null | undefined): Fill2x14<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -842,7 +842,7 @@ interface Fill1x5<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, array: U[] | null | undefined): Fill1x13<U, T>;
+    <U>(p1: _.__, array: U[] | null | undefined): Fill1x13<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -866,7 +866,7 @@ interface Fill1x5<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, array: _.List<U> | null | undefined): Fill2x13<U, T>;
+    <U>(p1: _.__, array: _.List<U> | null | undefined): Fill2x13<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -916,7 +916,7 @@ interface Fill1x6<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, array: U[] | null | undefined): Fill1x14<U, T>;
+    <U>(p1: _.__, array: U[] | null | undefined): Fill1x14<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *
@@ -940,7 +940,7 @@ interface Fill1x6<T> {
      * @param end The end position.
      * @return Returns array.
      */
-    <U>(p1: _.__, array: _.List<U> | null | undefined): Fill2x14<U, T>;
+    <U>(p1: _.__, array: _.List<U> | null | undefined): Fill2x14<T, U>;
     /**
      * Fills elements of array with value from start up to, but not including, end.
      *

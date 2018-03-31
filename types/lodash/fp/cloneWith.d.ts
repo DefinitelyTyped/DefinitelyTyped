@@ -60,7 +60,7 @@ interface CloneWith {
      */
     <T, TResult>(customizer: _.CloneWithCustomizer<T, TResult | undefined>, value: T): TResult | T;
 }
-interface CloneWith1x1<T, TResult extends object | string | number | boolean | null> {
+interface CloneWith1x1<T, TResult> {
     /**
      * This method is like _.clone except that it accepts customizer which is invoked to produce the cloned value.
      * If customizer returns undefined cloning is handled by the method instead.

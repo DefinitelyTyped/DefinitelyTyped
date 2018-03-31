@@ -98,7 +98,7 @@ interface SampleSize1x2<T> {
      */
     (n: number): T[];
 }
-interface SampleSize2x2<T extends object> {
+interface SampleSize2x2<T> {
     /**
      * Gets n random elements at unique keys from collection up to the size of collection.
      *

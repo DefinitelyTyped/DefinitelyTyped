@@ -394,19 +394,19 @@ function parseDefinitions(definitionString: string, startIndex: number, endIndex
 }
 
 function curryOverloads(overloads: Overload[], functionName: string, paramOrder: number[], spreadIndex: number, isFixed: boolean): Interface[] {
-    overloads = _.cloneDeep(overloads);
-
+    // Remove any duplicate/redundant overloads
+    overloads = _.uniqWith(_.cloneDeep(overloads), (a, b) => _.isEqual(a.params, b.params) && _.isEqual(getUsedTypeParams(a.params, a.typeParams), getUsedTypeParams(b.params, b.typeParams)));
     // Remove unused type parameters
     for (const overload of overloads) {
         for (let i = 0; i < overload.typeParams.length; ++i) {
-            const search = new RegExp(`\\b${overload.typeParams[i].name}\\b`);
+            const typeParam = overload.typeParams[i];
+            const search = new RegExp(`\\b${typeParam.name}\\b`);
             if (overload.params.every(p => !search.test(p)) && !search.test(overload.returnType)) {
+                // overload.returnType = overload.returnType.replace(search, typeParam.extends || "any");
                 overload.typeParams.splice(i, 1);
                 --i;
             }
         }
-        if (overloads.some(o => o !== overload && _.isEqual(o, overload)))
-            _.pull(overloads, overload);
     }
 
     if (!isFixed) {
@@ -624,26 +624,7 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
     const interfaces: Interface[] = [];
     const interfaceCount = (1 << overload.params.length) - 1;
     for (let i = 0; i < interfaceCount; ++i) {
-        const passedParams = overload.params.filter((p, j) => i & (1 << j));
-        const currentParams = _.without(overload.params, ...passedParams);
-        const passedTypeParams = overload.typeParams.filter(tp => passedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        passedTypeParams.unshift(...overload.typeParams.filter(tp =>
-            !passedTypeParams.includes(tp) && passedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
-        const interfaceTypeParams = passedTypeParams.filter(tp => currentParams.concat(overload.returnType).some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        const interfaceDef = {
-            name: getInterfaceName(baseName, overloadId, i, []),
-            typeParams: _.cloneDeep(interfaceTypeParams),
-            overloads: curryParams(
-                currentParams,
-                _.without(overload.typeParams, ...interfaceTypeParams),
-                overload.returnType,
-                baseName,
-                interfaceTypeParams,
-                overloadId,
-                i,
-                overload.jsdoc,
-            ),
-        };
+        const interfaceDef = curryParams(baseName, overloadId, overload, i);
         interfaces.push(interfaceDef);
     }
     // The T[keyof T] constraint doesn't work so well if it's the only constraint. Convert to a plain old T constraint so it can be merged with
@@ -696,22 +677,21 @@ function curryOverload(overload: Overload, functionName: string, overloadId: num
 }
 
 function curryParams(
-    params: string[],
-    typeParams: TypeParam[],
-    returnType: string,
     baseName: string,
-    interfaceTypeParams: TypeParam[],
-    overloadId: number,
-    index: number,
-    jsdoc: string,
-): Overload[] {
+    sourceOverloadId: number,
+    sourceOverload: Overload,
+    interfaceIndex: number,
+): Interface {
+    const params = getInterfaceParams(sourceOverload, interfaceIndex);
+    const interfaceTypeParams = getInterfaceTypeParams(sourceOverload, interfaceIndex);
+    const typeParams = _.without(sourceOverload.typeParams, ...interfaceTypeParams);
     // Assume params.length >= 1
     // 1st overload takes no parameters and just returns the same interface (effectively a no-op)
     const overloads: Overload[] = [{
         typeParams: [],
         params: [],
-        returnType: getInterfaceName(baseName, overloadId, index, interfaceTypeParams),
-        jsdoc,
+        returnType: getInterfaceName(baseName, sourceOverloadId, interfaceIndex, interfaceTypeParams),
+        jsdoc: sourceOverload.jsdoc,
     }];
     const lastOverload = (1 << params.length) - 1;
     for (let i = 1; i <= lastOverload; ++i) {
@@ -720,25 +700,54 @@ function curryParams(
         // i = binary representation of which parameters are used for this overload (reversed), e.g.
         //   1 = 0001 -> 1000 = 1st parameter
         //   6 = 1010 -> 0101 = 2nd and 4th parameters
-        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `p${j + 1}: _.__`);
+        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `p${j + 1}: _.__`);//TODO: use original param name?
         while (currentParams.length > 0 && _.last(currentParams)!.endsWith("__"))
             currentParams.pop(); // There's no point in passing a placeholder as the last parameter, so don't allow it.
 
-        const usedTypeParams = i < lastOverload ? typeParams.filter(tp => currentParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p))) : typeParams;
-        usedTypeParams.unshift(...typeParams.filter(tp => !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
-        const unusedParams = _.without(params, ...currentParams).concat(returnType);
-        const passTypeParams = usedTypeParams.concat(interfaceTypeParams).filter(tp => unusedParams.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
-        const combinedIndex = combineIndexes(index, i);
-        const currentReturnType = i < lastOverload ? getInterfaceName(baseName, overloadId, combinedIndex, passTypeParams) : returnType;
+        const usedTypeParams = i < lastOverload ? getUsedTypeParams(currentParams, typeParams) : typeParams;
+        const combinedIndex = combineIndexes(interfaceIndex, i);
+        const passTypeParams = getInterfaceTypeParams(sourceOverload, combinedIndex);
+        const currentReturnType = i < lastOverload ? getInterfaceName(baseName, sourceOverloadId, combinedIndex, passTypeParams) : sourceOverload.returnType;
 
         overloads.push({
             typeParams: _.cloneDeep(usedTypeParams),
             params: currentParams,
             returnType: currentReturnType,
-            jsdoc,
+            jsdoc: sourceOverload.jsdoc,
         });
     }
-    return overloads;
+    const interfaceDef: Interface = {
+        name: getInterfaceName(baseName, sourceOverloadId, interfaceIndex, []),
+        typeParams: _.cloneDeep(interfaceTypeParams),
+        overloads,
+    };
+    // Remove the `extends` constraint from interface type parameters, because sometimes they extend things that aren't passed to the interface.
+    for (const typeParam of interfaceDef.typeParams) {
+        if (!_.startsWith(typeParam.extends, "keyof ")) // We need to keep `extends keyof` constraints, because they're needed for TObject[TKey] to work.
+            delete typeParam.extends;
+    }
+    return interfaceDef;
+}
+
+function getInterfaceParams(overload: Overload, interfaceIndex: number) {
+    return overload.params.filter((p, j) => !(interfaceIndex & (1 << j)));
+}
+
+function getUsedTypeParams(params: string[], typeParams: TypeParam[]) {
+    const usedTypeParams = typeParams.filter(tp => params.some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+    usedTypeParams.unshift(...typeParams.filter(tp =>
+        !usedTypeParams.includes(tp) && usedTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\b${tp.name}\\b`).test(tp2.extends))));
+    return usedTypeParams;
+}
+
+function getInterfaceTypeParams(overload: Overload, interfaceIndex: number) {
+    const currentParams = getInterfaceParams(overload, interfaceIndex);
+    const passedParams = _.without(overload.params, ...currentParams);
+    const passedTypeParams = getUsedTypeParams(passedParams, overload.typeParams);
+    const interfaceTypeParams = passedTypeParams.filter(tp => currentParams.concat(overload.returnType).some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
+    interfaceTypeParams.unshift(...overload.typeParams.filter(tp =>
+        !interfaceTypeParams.includes(tp) && interfaceTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\bkeyof ${tp.name}\\b`).test(tp2.extends))));
+    return interfaceTypeParams;
 }
 
 function mergeInterfaces(interfaces: Interface[]): void {

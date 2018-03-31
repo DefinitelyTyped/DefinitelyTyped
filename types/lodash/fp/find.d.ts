@@ -196,7 +196,7 @@ interface Find {
      */
     <T extends object>(predicate: _.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): T[keyof T]|undefined;
 }
-interface Find1x1<T, S extends T> {
+interface Find1x1<T, S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -335,7 +335,7 @@ interface Find2x1<T> {
      */
     (collection: _.List<T> | object | null | undefined): T|undefined;
 }
-interface Find3x1<T extends object, S extends T[keyof T]> {
+interface Find3x1<T, S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -375,7 +375,7 @@ interface Find3x1<T extends object, S extends T[keyof T]> {
      */
     (collection: T | null | undefined): S|undefined;
 }
-interface Find3x2<T extends object> {
+interface Find3x2<T> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).

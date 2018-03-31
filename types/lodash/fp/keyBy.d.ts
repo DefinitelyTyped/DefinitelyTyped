@@ -371,7 +371,7 @@ interface KeyBy2x2<T> {
      */
     (iteratee: _.ValueIterateeCustom<T, _.PropertyName>): _.Dictionary<T>;
 }
-interface KeyBy3x2<T extends object> {
+interface KeyBy3x2<T> {
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is the last element responsible for generating the key. The

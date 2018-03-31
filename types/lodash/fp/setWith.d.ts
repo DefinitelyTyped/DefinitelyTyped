@@ -13,7 +13,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith;
@@ -25,7 +25,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>): SetWith1x1<T>;
@@ -37,7 +37,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, path: _.PropertyPath): SetWith1x2;
@@ -49,7 +49,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): SetWith1x3<T>;
@@ -61,7 +61,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, p2: _.__, value: any): SetWith1x4;
@@ -73,7 +73,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, value: any): SetWith1x5<T>;
@@ -85,7 +85,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, path: _.PropertyPath, value: any): SetWith1x6;
@@ -97,7 +97,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any): SetWith1x7<T>;
@@ -109,7 +109,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, p2: _.__, p3: _.__, object: T): SetWith1x8<T>;
@@ -121,7 +121,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, p3: _.__, object: T): SetWith1x9<T>;
@@ -133,7 +133,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, path: _.PropertyPath, p3: _.__, object: T): SetWith1x10<T>;
@@ -145,7 +145,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, p3: _.__, object: T): SetWith1x11<T>;
@@ -157,7 +157,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, p2: _.__, value: any, object: T): SetWith1x12<T>;
@@ -169,7 +169,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, value: any, object: T): SetWith1x13<T>;
@@ -181,7 +181,7 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, path: _.PropertyPath, value: any, object: T): SetWith1x14<T>;
@@ -193,24 +193,12 @@ interface SetWith {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any, object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object, TResult>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any, object: T): TResult;
 }
-interface SetWith1x1<T extends object> {
+interface SetWith1x1<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -219,7 +207,7 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x1<T>;
@@ -231,7 +219,7 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath): SetWith1x3<T>;
@@ -243,7 +231,7 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, value: any): SetWith1x5<T>;
@@ -255,7 +243,7 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath, value: any): SetWith1x7<T>;
@@ -267,7 +255,7 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, p2: _.__, object: T): SetWith1x9<T>;
@@ -279,7 +267,7 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath, p2: _.__, object: T): SetWith1x11<T>;
@@ -291,7 +279,7 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, value: any, object: T): SetWith1x13<T>;
@@ -303,58 +291,10 @@ interface SetWith1x1<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath, value: any, object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (p1: _.__, p2: _.__, object: T): SetWith1x9;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (path: _.PropertyPath, p2: _.__, object: T): SetWith1x11;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (p1: _.__, value: any, object: T): SetWith1x13;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(path: _.PropertyPath, value: any, object: T): TResult;
 }
 interface SetWith1x2 {
     /**
@@ -365,7 +305,7 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x2;
@@ -377,7 +317,7 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>): SetWith1x3<T>;
@@ -389,7 +329,7 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, value: any): SetWith1x6;
@@ -401,7 +341,7 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, value: any): SetWith1x7<T>;
@@ -413,7 +353,7 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, p2: _.__, object: T): SetWith1x10<T>;
@@ -425,7 +365,7 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): SetWith1x11<T>;
@@ -437,7 +377,7 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, value: any, object: T): SetWith1x14<T>;
@@ -449,36 +389,12 @@ interface SetWith1x2 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, value: any, object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): SetWith1x11;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object, TResult>(customizer: _.SetWithCustomizer<T>, value: any, object: T): TResult;
 }
-interface SetWith1x3<T extends object> {
+interface SetWith1x3<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -487,7 +403,7 @@ interface SetWith1x3<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x3<T>;
@@ -499,7 +415,7 @@ interface SetWith1x3<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (value: any): SetWith1x7<T>;
@@ -511,7 +427,7 @@ interface SetWith1x3<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, object: T): SetWith1x11<T>;
@@ -523,34 +439,10 @@ interface SetWith1x3<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (value: any, object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (p1: _.__, object: T): SetWith1x11;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(value: any, object: T): TResult;
 }
 interface SetWith1x4 {
     /**
@@ -561,7 +453,7 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x4;
@@ -573,7 +465,7 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>): SetWith1x5<T>;
@@ -585,7 +477,7 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, path: _.PropertyPath): SetWith1x6;
@@ -597,7 +489,7 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): SetWith1x7<T>;
@@ -609,7 +501,7 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, p2: _.__, object: T): SetWith1x12<T>;
@@ -621,7 +513,7 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): SetWith1x13<T>;
@@ -633,7 +525,7 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, path: _.PropertyPath, object: T): SetWith1x14<T>;
@@ -645,36 +537,12 @@ interface SetWith1x4 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): SetWith1x13;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object, TResult>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, object: T): TResult;
 }
-interface SetWith1x5<T extends object> {
+interface SetWith1x5<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -683,7 +551,7 @@ interface SetWith1x5<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x5<T>;
@@ -695,7 +563,7 @@ interface SetWith1x5<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath): SetWith1x7<T>;
@@ -707,7 +575,7 @@ interface SetWith1x5<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, object: T): SetWith1x13<T>;
@@ -719,34 +587,10 @@ interface SetWith1x5<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath, object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (p1: _.__, object: T): SetWith1x13;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(path: _.PropertyPath, object: T): TResult;
 }
 interface SetWith1x6 {
     /**
@@ -757,7 +601,7 @@ interface SetWith1x6 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x6;
@@ -769,7 +613,7 @@ interface SetWith1x6 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>): SetWith1x7<T>;
@@ -781,7 +625,7 @@ interface SetWith1x6 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(p1: _.__, object: T): SetWith1x14<T>;
@@ -793,24 +637,12 @@ interface SetWith1x6 {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     <T extends object>(customizer: _.SetWithCustomizer<T>, object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object, TResult>(customizer: _.SetWithCustomizer<T>, object: T): TResult;
 }
-interface SetWith1x7<T extends object> {
+interface SetWith1x7<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -819,7 +651,7 @@ interface SetWith1x7<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x7<T>;
@@ -831,24 +663,12 @@ interface SetWith1x7<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (object: T): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(object: T): TResult;
 }
-interface SetWith1x8<T extends object> {
+interface SetWith1x8<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -857,7 +677,7 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x8<T>;
@@ -869,7 +689,7 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>): SetWith1x9<T>;
@@ -881,7 +701,7 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, path: _.PropertyPath): SetWith1x10<T>;
@@ -893,7 +713,7 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): SetWith1x11<T>;
@@ -905,7 +725,7 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, p2: _.__, value: any): SetWith1x12<T>;
@@ -917,7 +737,7 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>, p2: _.__, value: any): SetWith1x13<T>;
@@ -929,7 +749,7 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, path: _.PropertyPath, value: any): SetWith1x14<T>;
@@ -941,60 +761,12 @@ interface SetWith1x8<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (customizer: _.SetWithCustomizer<T>): SetWith1x9;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): SetWith1x11;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (customizer: _.SetWithCustomizer<T>, p2: _.__, value: any): SetWith1x13;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: any): TResult;
 }
-interface SetWith1x9<T extends object> {
+interface SetWith1x9<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -1003,7 +775,7 @@ interface SetWith1x9<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x9<T>;
@@ -1015,7 +787,7 @@ interface SetWith1x9<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath): SetWith1x11<T>;
@@ -1027,7 +799,7 @@ interface SetWith1x9<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, value: any): SetWith1x13<T>;
@@ -1039,48 +811,12 @@ interface SetWith1x9<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath, value: any): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (path: _.PropertyPath): SetWith1x11;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (p1: _.__, value: any): SetWith1x13;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object, TResult>(path: _.PropertyPath, value: any): TResult;
 }
-interface SetWith1x10<T extends object> {
+interface SetWith1x10<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -1089,7 +825,7 @@ interface SetWith1x10<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x10<T>;
@@ -1101,7 +837,7 @@ interface SetWith1x10<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>): SetWith1x11<T>;
@@ -1113,7 +849,7 @@ interface SetWith1x10<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, value: any): SetWith1x14<T>;
@@ -1125,36 +861,12 @@ interface SetWith1x10<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>, value: any): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (customizer: _.SetWithCustomizer<T>): SetWith1x11;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(customizer: _.SetWithCustomizer<T>, value: any): TResult;
 }
-interface SetWith1x11<T extends object> {
+interface SetWith1x11<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -1163,7 +875,7 @@ interface SetWith1x11<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x11<T>;
@@ -1175,24 +887,12 @@ interface SetWith1x11<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (value: any): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object, TResult>(value: any): TResult;
 }
-interface SetWith1x12<T extends object> {
+interface SetWith1x12<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -1201,7 +901,7 @@ interface SetWith1x12<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x12<T>;
@@ -1213,7 +913,7 @@ interface SetWith1x12<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>): SetWith1x13<T>;
@@ -1225,7 +925,7 @@ interface SetWith1x12<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (p1: _.__, path: _.PropertyPath): SetWith1x14<T>;
@@ -1237,36 +937,12 @@ interface SetWith1x12<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    (customizer: _.SetWithCustomizer<T>): SetWith1x13;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath): TResult;
 }
-interface SetWith1x13<T extends object> {
+interface SetWith1x13<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -1275,7 +951,7 @@ interface SetWith1x13<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x13<T>;
@@ -1287,24 +963,12 @@ interface SetWith1x13<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (path: _.PropertyPath): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <T extends object, TResult>(path: _.PropertyPath): TResult;
 }
-interface SetWith1x14<T extends object> {
+interface SetWith1x14<T> {
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -1313,7 +977,7 @@ interface SetWith1x14<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (): SetWith1x14<T>;
@@ -1325,22 +989,10 @@ interface SetWith1x14<T extends object> {
      * @param object The object to modify.
      * @param path The path of the property to set.
      * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
+     * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
     (customizer: _.SetWithCustomizer<T>): T;
-    /**
-     * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
-     * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
-     * invoked with three arguments: (nsValue, key, nsObject).
-     *
-     * @param object The object to modify.
-     * @param path The path of the property to set.
-     * @param value The value to set.
-     * @parem customizer The function to customize assigned values.
-     * @return Returns object.
-     */
-    <TResult>(customizer: _.SetWithCustomizer<T>): TResult;
 }
 
 declare const setWith: SetWith;

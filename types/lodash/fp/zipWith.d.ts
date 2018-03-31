@@ -158,7 +158,7 @@ interface ZipWith1x2<T1> {
      * @param [thisArg] The `this` binding of `iteratee`.
      * @return Returns the new array of grouped elements.
      */
-    <T2>(p1: _.__, arrays2: _.List<T2>): ZipWith1x6<T2, T1>;
+    <T2>(p1: _.__, arrays2: _.List<T2>): ZipWith1x6<T1, T2>;
     /**
      * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
      * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,

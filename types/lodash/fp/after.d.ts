@@ -36,7 +36,7 @@ interface After {
      */
     <TFunc extends (...args: any[]) => any>(func: TFunc, n: number): TFunc;
 }
-interface After1x1<TFunc extends (...args: any[]) => any> {
+interface After1x1<TFunc> {
     /**
      * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
      *

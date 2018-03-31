@@ -1018,7 +1018,7 @@ interface FlatMapDepth1x6<T> {
      */
     <TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult> | TResult): TResult[];
 }
-interface FlatMapDepth2x1<T extends object, TResult> {
+interface FlatMapDepth2x1<T, TResult> {
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1100,7 +1100,7 @@ interface FlatMapDepth2x1<T extends object, TResult> {
      */
     (depth: number, collection: T | null | undefined): TResult[];
 }
-interface FlatMapDepth2x3<T extends object, TResult> {
+interface FlatMapDepth2x3<T, TResult> {
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1142,7 +1142,7 @@ interface FlatMapDepth2x3<T extends object, TResult> {
      */
     (collection: T | null | undefined): TResult[];
 }
-interface FlatMapDepth2x4<T extends object> {
+interface FlatMapDepth2x4<T> {
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1266,7 +1266,7 @@ interface FlatMapDepth2x5<TResult> {
      */
     <T extends object>(depth: number): TResult[];
 }
-interface FlatMapDepth2x6<T extends object> {
+interface FlatMapDepth2x6<T> {
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.

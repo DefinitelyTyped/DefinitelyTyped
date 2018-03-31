@@ -134,7 +134,7 @@ interface Debounce1x1 {
      */
     <T extends (...args: any[]) => any>(func: T): T & _.Cancelable;
 }
-interface Debounce1x2<T extends (...args: any[]) => any> {
+interface Debounce1x2<T> {
     /**
      * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
      * the last time the debounced function was invoked. The debounced function comes with a cancel method to

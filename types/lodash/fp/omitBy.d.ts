@@ -110,7 +110,7 @@ interface OmitBy1x1<T> {
      */
     <T1 extends object>(object: T1 | null | undefined): _.PartialObject<T1>;
 }
-interface OmitBy1x2<T extends object> {
+interface OmitBy1x2<T> {
     /**
      * The opposite of `_.pickBy`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that `predicate`

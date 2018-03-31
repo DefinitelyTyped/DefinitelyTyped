@@ -398,7 +398,7 @@ interface AssignInWith1x2<TObject> {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TSource>(p1: _.__, source: TSource): AssignInWith1x6<TSource, TObject>;
+    <TSource>(p1: _.__, source: TSource): AssignInWith1x6<TObject, TSource>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`

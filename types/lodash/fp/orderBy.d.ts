@@ -1324,7 +1324,7 @@ interface OrderBy2x5<T> {
      */
     (orders: _.Many<boolean|string>): T[];
 }
-interface OrderBy3x4<T extends object> {
+interface OrderBy3x4<T> {
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -1456,7 +1456,7 @@ interface OrderBy3x4<T extends object> {
      */
     (iteratees: _.Many<_.ValueIteratee<T[keyof T]>>): OrderBy4x5<T>;
 }
-interface OrderBy3x5<T extends object> {
+interface OrderBy3x5<T> {
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -1510,7 +1510,7 @@ interface OrderBy3x5<T extends object> {
      */
     (orders: _.Many<boolean|string>): Array<T[keyof T]>;
 }
-interface OrderBy3x6<T extends object> {
+interface OrderBy3x6<T> {
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -1564,7 +1564,7 @@ interface OrderBy3x6<T extends object> {
      */
     (iteratees: _.Many<(value: T[keyof T]) => _.NotVoid> | _.Many<_.ValueIteratee<T[keyof T]>>): Array<T[keyof T]>;
 }
-interface OrderBy4x5<T extends object> {
+interface OrderBy4x5<T> {
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values

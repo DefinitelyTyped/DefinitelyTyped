@@ -308,7 +308,7 @@ interface Find {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, p2: _.__, collection: T | null | undefined): Find3x5<S>;
+    <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, p2: _.__, collection: T | null | undefined): Find3x5<T, S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -386,7 +386,7 @@ interface Find {
      */
     <T extends object>(predicate: _.ValueIterateeCustom<T[keyof T], boolean>, fromIndex: number, collection: T | null | undefined): T[keyof T]|undefined;
 }
-interface Find1x1<T, S extends T> {
+interface Find1x1<T, S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -656,7 +656,7 @@ interface Find1x2 {
      */
     <T extends object>(predicate: _.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): T[keyof T]|undefined;
 }
-interface Find1x3<T, S extends T> {
+interface Find1x3<T, S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -812,7 +812,7 @@ interface Find1x4<T> {
      */
     (predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: number): T|undefined;
 }
-interface Find1x5<S extends T> {
+interface Find1x5<S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1107,7 +1107,7 @@ interface Find2x5<T> {
      */
     (fromIndex: number): T|undefined;
 }
-interface Find3x1<T extends object, S extends T[keyof T]> {
+interface Find3x1<T, S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1164,7 +1164,7 @@ interface Find3x1<T extends object, S extends T[keyof T]> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    (p1: _.__, collection: T | null | undefined): Find3x5<S>;
+    (p1: _.__, collection: T | null | undefined): Find3x5<T, S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1185,7 +1185,7 @@ interface Find3x1<T extends object, S extends T[keyof T]> {
      */
     (fromIndex: number, collection: T | null | undefined): S|undefined;
 }
-interface Find3x3<T extends object, S extends T[keyof T]> {
+interface Find3x3<T, S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1225,7 +1225,7 @@ interface Find3x3<T extends object, S extends T[keyof T]> {
      */
     (collection: T | null | undefined): S|undefined;
 }
-interface Find3x4<T extends object> {
+interface Find3x4<T> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1263,7 +1263,7 @@ interface Find3x4<T extends object> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    <S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): Find3x5<S>;
+    <S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): Find3x5<T, S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1341,7 +1341,7 @@ interface Find3x4<T extends object> {
      */
     (predicate: _.ValueIterateeCustom<T[keyof T], boolean>, fromIndex: number): T[keyof T]|undefined;
 }
-interface Find3x5<S extends T[keyof T]> {
+interface Find3x5<T, S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1360,7 +1360,7 @@ interface Find3x5<S extends T[keyof T]> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    (): Find3x5<S>;
+    (): Find3x5<T, S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1379,9 +1379,9 @@ interface Find3x5<S extends T[keyof T]> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    <T extends object>(fromIndex: number): S|undefined;
+    (fromIndex: number): S|undefined;
 }
-interface Find3x6<T extends object> {
+interface Find3x6<T> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1440,7 +1440,7 @@ interface Find3x6<T extends object> {
      */
     (predicate: _.ValueIterateeCustom<T[keyof T], boolean>): T[keyof T]|undefined;
 }
-interface Find4x5<T extends object> {
+interface Find4x5<T> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).

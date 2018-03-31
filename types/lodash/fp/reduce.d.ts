@@ -432,7 +432,7 @@ interface Reduce1x4<T> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    <TResult>(p1: _.__, accumulator: TResult): Reduce1x6<TResult, T>;
+    <TResult>(p1: _.__, accumulator: TResult): Reduce1x6<T, TResult>;
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution
@@ -534,7 +534,7 @@ interface Reduce2x4<T> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    <TResult>(p1: _.__, accumulator: TResult): Reduce2x6<TResult, T>;
+    <TResult>(p1: _.__, accumulator: TResult): Reduce2x6<T, TResult>;
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution
@@ -600,7 +600,7 @@ interface Reduce2x6<T, TResult> {
     **/
     (callback: _.MemoIteratorCapped<T, TResult>): TResult;
 }
-interface Reduce3x1<T extends object, TResult> {
+interface Reduce3x1<T, TResult> {
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution
@@ -650,7 +650,7 @@ interface Reduce3x1<T extends object, TResult> {
     **/
     (accumulator: TResult, collection: T | null | undefined): TResult;
 }
-interface Reduce3x3<T extends object, TResult> {
+interface Reduce3x3<T, TResult> {
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution
@@ -676,7 +676,7 @@ interface Reduce3x3<T extends object, TResult> {
     **/
     (collection: T | null | undefined): TResult;
 }
-interface Reduce3x4<T extends object> {
+interface Reduce3x4<T> {
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution
@@ -712,7 +712,7 @@ interface Reduce3x4<T extends object> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    <TResult>(p1: _.__, accumulator: TResult): Reduce3x6<TResult, T>;
+    <TResult>(p1: _.__, accumulator: TResult): Reduce3x6<T, TResult>;
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution
@@ -752,7 +752,7 @@ interface Reduce3x5<TResult> {
     **/
     <T extends object>(accumulator: TResult): TResult;
 }
-interface Reduce3x6<T extends object, TResult> {
+interface Reduce3x6<T, TResult> {
     /**
     * Reduces a collection to a value which is the accumulated result of running each
     * element in the collection through the callback, where each successive callback execution

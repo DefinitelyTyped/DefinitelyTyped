@@ -109,7 +109,7 @@ interface At1x2<T> {
      */
     (props: _.PropertyPath): T[];
 }
-interface At2x1<T extends object> {
+interface At2x1<T> {
     /**
      * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
      * specified as individual arguments or as arrays of keys.
@@ -129,7 +129,7 @@ interface At2x1<T extends object> {
      */
     (object: T | null | undefined): Array<T[keyof T]>;
 }
-interface At2x2<T extends object> {
+interface At2x2<T> {
     /**
      * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
      * specified as individual arguments or as arrays of keys.

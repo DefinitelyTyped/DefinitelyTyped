@@ -104,7 +104,7 @@ interface PickBy1x1<T> {
      */
     <T1 extends object>(object: T1 | null | undefined): _.PartialObject<T1>;
 }
-interface PickBy1x2<T extends object> {
+interface PickBy1x2<T> {
     /**
      * Creates an object composed of the `object` properties `predicate` returns
      * truthy for. The predicate is invoked with two arguments: (value, key).

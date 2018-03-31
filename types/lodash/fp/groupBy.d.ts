@@ -371,7 +371,7 @@ interface GroupBy2x2<T> {
      */
     (iteratee: _.ValueIteratee<T>): _.Dictionary<T[]>;
 }
-interface GroupBy3x2<T extends object> {
+interface GroupBy3x2<T> {
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is an array of the elements responsible for generating the

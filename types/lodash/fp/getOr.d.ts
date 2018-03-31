@@ -368,7 +368,7 @@ interface Get1x1<TDefault> {
      */
     (path: _.PropertyPath, object: null | undefined): TDefault;
 }
-interface Get1x2<TObject extends object, TKey extends keyof TObject> {
+interface Get1x2<TObject, TKey extends keyof TObject> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -388,7 +388,7 @@ interface Get1x2<TObject extends object, TKey extends keyof TObject> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TDefault>(defaultValue: TDefault): Get1x3<TDefault, TObject, TKey>;
+    <TDefault>(defaultValue: TDefault): Get1x3<TObject, TKey, TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -410,7 +410,7 @@ interface Get1x2<TObject extends object, TKey extends keyof TObject> {
      */
     <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): TObject[TKey] | TDefault;
 }
-interface Get1x3<TObject extends object, TKey extends keyof TObject, TDefault> {
+interface Get1x3<TObject, TKey extends keyof TObject, TDefault> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -432,7 +432,7 @@ interface Get1x3<TObject extends object, TKey extends keyof TObject, TDefault> {
      */
     (object: TObject | null | undefined): TObject[TKey] | TDefault;
 }
-interface Get1x4<TObject extends object> {
+interface Get1x4<TObject> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -452,7 +452,7 @@ interface Get1x4<TObject extends object> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TDefault>(defaultValue: TDefault): Get1x5<TDefault, TObject>;
+    <TDefault>(defaultValue: TDefault): Get1x5<TObject, TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -462,7 +462,7 @@ interface Get1x4<TObject extends object> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TKey extends keyof TObject>(p1: _.__, path: TKey | [TKey]): Get1x6<TKey, TObject>;
+    <TKey extends keyof TObject>(p1: _.__, path: TKey | [TKey]): Get1x6<TObject, TKey>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -474,7 +474,7 @@ interface Get1x4<TObject extends object> {
      */
     <TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey]): TObject[TKey] | TDefault;
 }
-interface Get1x5<TObject extends object, TDefault> {
+interface Get1x5<TObject, TDefault> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -496,7 +496,7 @@ interface Get1x5<TObject extends object, TDefault> {
      */
     <TKey extends keyof TObject>(path: TKey | [TKey]): TObject[TKey] | TDefault;
 }
-interface Get1x6<TObject extends object, TKey extends keyof TObject> {
+interface Get1x6<TObject, TKey extends keyof TObject> {
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -602,7 +602,7 @@ interface Get2x4<T> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TDefault>(defaultValue: TDefault): Get2x5<TDefault, T>;
+    <TDefault>(defaultValue: TDefault): Get2x5<T, TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.

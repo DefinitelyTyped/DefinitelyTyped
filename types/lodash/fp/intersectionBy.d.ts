@@ -274,7 +274,7 @@ interface IntersectionBy1x2<T1> {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T2>(iteratee: _.ValueIteratee<T1 | T2>): IntersectionBy1x3<T2, T1>;
+    <T2>(iteratee: _.ValueIteratee<T1 | T2>): IntersectionBy1x3<T1, T2>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion
@@ -293,7 +293,7 @@ interface IntersectionBy1x2<T1> {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): IntersectionBy1x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): IntersectionBy1x6<T1, T2>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion

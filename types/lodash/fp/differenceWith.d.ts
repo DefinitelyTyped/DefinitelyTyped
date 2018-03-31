@@ -246,7 +246,7 @@ interface DifferenceWith1x2<T1> {
      * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }]
      */
-    <T2>(comparator: _.Comparator2<T1, T2>): DifferenceWith1x3<T2, T1>;
+    <T2>(comparator: _.Comparator2<T1, T2>): DifferenceWith1x3<T1, T2>;
     /**
      * Creates an array of unique `array` values not included in the other
      * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -263,7 +263,7 @@ interface DifferenceWith1x2<T1> {
      * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): DifferenceWith1x6<T2, T1>;
+    <T2>(p1: _.__, values: _.List<T2>): DifferenceWith1x6<T1, T2>;
     /**
      * Creates an array of unique `array` values not included in the other
      * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)

@@ -110,7 +110,7 @@ interface Throttle1x1 {
      */
     <T extends (...args: any[]) => any>(func: T): T & _.Cancelable;
 }
-interface Throttle1x2<T extends (...args: any[]) => any> {
+interface Throttle1x2<T> {
     /**
      * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
      * function comes with a cancel method to cancel delayed invocations and a flush method to immediately invoke

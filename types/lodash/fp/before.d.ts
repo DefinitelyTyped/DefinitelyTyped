@@ -44,7 +44,7 @@ interface Before {
      */
     <TFunc extends (...args: any[]) => any>(func: TFunc, n: number): TFunc;
 }
-interface Before1x1<TFunc extends (...args: any[]) => any> {
+interface Before1x1<TFunc> {
     /**
      * Creates a function that invokes func, with the this binding and arguments of the created function, while
      * it’s called less than n times. Subsequent calls to the created function return the result of the last func
