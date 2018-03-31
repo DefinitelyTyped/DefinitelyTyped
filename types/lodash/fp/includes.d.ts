@@ -34,7 +34,7 @@ interface Includes {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    <T>(p1: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x2<T>;
+    <T>(target: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x2<T>;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.

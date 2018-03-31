@@ -700,7 +700,7 @@ function curryParams(
         // i = binary representation of which parameters are used for this overload (reversed), e.g.
         //   1 = 0001 -> 1000 = 1st parameter
         //   6 = 1010 -> 0101 = 2nd and 4th parameters
-        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `p${j + 1}: _.__`);//TODO: use original param name?
+        const currentParams = params.map((p, j) => (i & (1 << j)) ? p : `${getParamName(p)}: _.__`);
         while (currentParams.length > 0 && _.last(currentParams)!.endsWith("__"))
             currentParams.pop(); // There's no point in passing a placeholder as the last parameter, so don't allow it.
 

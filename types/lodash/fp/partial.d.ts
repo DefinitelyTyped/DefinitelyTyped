@@ -29,7 +29,7 @@ interface Partial {
     * @param args Arguments to be partially applied.
     * @return The new partially applied function.
     **/
-    (p1: _.__, func: (...args: any[]) => any): Partial1x2;
+    (args: _.__, func: (...args: any[]) => any): Partial1x2;
     /**
     * Creates a function that, when called, invokes func with any additional partial arguments
     * prepended to those provided to the new function. This method is similar to _.bind except

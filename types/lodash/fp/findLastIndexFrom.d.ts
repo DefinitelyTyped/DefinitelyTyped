@@ -58,7 +58,7 @@ interface FindLastIndex {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    (p1: _.__, fromIndex: number): FindLastIndex1x2;
+    (predicate: _.__, fromIndex: number): FindLastIndex1x2;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *
@@ -94,7 +94,7 @@ interface FindLastIndex {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    <T>(p1: _.__, p2: _.__, array: _.List<T> | null | undefined): FindLastIndex1x4<T>;
+    <T>(predicate: _.__, fromIndex: _.__, array: _.List<T> | null | undefined): FindLastIndex1x4<T>;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *
@@ -112,7 +112,7 @@ interface FindLastIndex {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    <T>(predicate: _.ValueIterateeCustom<T, boolean>, p2: _.__, array: _.List<T> | null | undefined): FindLastIndex1x5;
+    <T>(predicate: _.ValueIterateeCustom<T, boolean>, fromIndex: _.__, array: _.List<T> | null | undefined): FindLastIndex1x5;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *
@@ -130,7 +130,7 @@ interface FindLastIndex {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    <T>(p1: _.__, fromIndex: number, array: _.List<T> | null | undefined): FindLastIndex1x6<T>;
+    <T>(predicate: _.__, fromIndex: number, array: _.List<T> | null | undefined): FindLastIndex1x6<T>;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *
@@ -204,7 +204,7 @@ interface FindLastIndex1x1<T> {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    (p1: _.__, array: _.List<T> | null | undefined): FindLastIndex1x5;
+    (fromIndex: _.__, array: _.List<T> | null | undefined): FindLastIndex1x5;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *
@@ -278,7 +278,7 @@ interface FindLastIndex1x2 {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): FindLastIndex1x6<T>;
+    <T>(predicate: _.__, array: _.List<T> | null | undefined): FindLastIndex1x6<T>;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *
@@ -390,7 +390,7 @@ interface FindLastIndex1x4<T> {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    (p1: _.__, fromIndex: number): FindLastIndex1x6<T>;
+    (predicate: _.__, fromIndex: number): FindLastIndex1x6<T>;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *

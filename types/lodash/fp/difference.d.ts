@@ -31,7 +31,7 @@ interface Difference {
      * @param values The arrays of values to exclude.
      * @return Returns the new array of filtered values.
      */
-    <T>(p1: _.__, values: _.List<T>): Difference1x2<T>;
+    <T>(array: _.__, values: _.List<T>): Difference1x2<T>;
     /**
      * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
      * equality comparisons.

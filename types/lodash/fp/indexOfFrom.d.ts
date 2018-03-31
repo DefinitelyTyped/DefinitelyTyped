@@ -67,7 +67,7 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    (p1: _.__, fromIndex: number): IndexOf1x2;
+    (value: _.__, fromIndex: number): IndexOf1x2;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -109,7 +109,7 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(p1: _.__, p2: _.__, array: _.List<T> | null | undefined): IndexOf1x4<T>;
+    <T>(value: _.__, fromIndex: _.__, array: _.List<T> | null | undefined): IndexOf1x4<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -130,7 +130,7 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(value: T, p2: _.__, array: _.List<T> | null | undefined): IndexOf1x5;
+    <T>(value: T, fromIndex: _.__, array: _.List<T> | null | undefined): IndexOf1x5;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -151,7 +151,7 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(p1: _.__, fromIndex: number, array: _.List<T> | null | undefined): IndexOf1x6<T>;
+    <T>(value: _.__, fromIndex: number, array: _.List<T> | null | undefined): IndexOf1x6<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -237,7 +237,7 @@ interface IndexOf1x1<T> {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    (p1: _.__, array: _.List<T> | null | undefined): IndexOf1x5;
+    (fromIndex: _.__, array: _.List<T> | null | undefined): IndexOf1x5;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -323,7 +323,7 @@ interface IndexOf1x2 {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): IndexOf1x6<T>;
+    <T>(value: _.__, array: _.List<T> | null | undefined): IndexOf1x6<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -453,7 +453,7 @@ interface IndexOf1x4<T> {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    (p1: _.__, fromIndex: number): IndexOf1x6<T>;
+    (value: _.__, fromIndex: number): IndexOf1x6<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)

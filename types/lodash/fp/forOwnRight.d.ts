@@ -29,7 +29,7 @@ interface ForOwnRight {
      * @param thisArg The this binding of iteratee.
      * @return Returns object.
      */
-    <T>(p1: _.__, object: T): ForOwnRight1x2<T>;
+    <T>(iteratee: _.__, object: T): ForOwnRight1x2<T>;
     /**
      * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
      *
@@ -47,7 +47,7 @@ interface ForOwnRight {
      * @param thisArg The this binding of iteratee.
      * @return Returns object.
      */
-    <T>(p1: _.__, object: T | null | undefined): ForOwnRight2x2<T>;
+    <T>(iteratee: _.__, object: T | null | undefined): ForOwnRight2x2<T>;
     /**
      * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
      *

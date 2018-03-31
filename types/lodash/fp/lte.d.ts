@@ -26,7 +26,7 @@ interface Lte {
      * @param other The other value to compare.
      * @return Returns true if value is less than or equal to other, else false.
      */
-    (p1: _.__, other: any): Lte1x2;
+    (value: _.__, other: any): Lte1x2;
     /**
      * Checks if value is less than or equal to other.
      *

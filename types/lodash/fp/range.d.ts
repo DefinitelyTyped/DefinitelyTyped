@@ -35,7 +35,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (p1: _.__, end: number): Range1x2;
+    (start: _.__, end: number): Range1x2;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length

@@ -28,7 +28,7 @@ interface DropRight {
      * @param n The number of elements to drop.
      * @return Returns the slice of array.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): DropRight1x2<T>;
+    <T>(n: _.__, array: _.List<T> | null | undefined): DropRight1x2<T>;
     /**
      * Creates a slice of array with n elements dropped from the end.
      *

@@ -29,7 +29,7 @@ interface StartsWith {
      * @param position The position to search from.
      * @return Returns true if string starts with target, else false.
      */
-    (p1: _.__, string: string): StartsWith1x2;
+    (target: _.__, string: string): StartsWith1x2;
     /**
      * Checks if string starts with the given target string.
      *

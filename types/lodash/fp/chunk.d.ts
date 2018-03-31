@@ -31,7 +31,7 @@ interface Chunk {
      * @param size The length of each chunk.
      * @return Returns the new array containing chunks.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): Chunk1x2<T>;
+    <T>(size: _.__, array: _.List<T> | null | undefined): Chunk1x2<T>;
     /**
      * Creates an array of elements split into groups the length of size. If collection can’t be split evenly, the
      * final chunk will be the remaining elements.

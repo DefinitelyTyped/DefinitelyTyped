@@ -67,7 +67,7 @@ interface SumBy {
      * _.sumBy(objects, 'n');
      * // => 20
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): SumBy1x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): SumBy1x2<T>;
     /**
      * This method is like `_.sum` except that it accepts `iteratee` which is
      * invoked for each element in `array` to generate the value to be summed.

@@ -23,7 +23,7 @@ interface DefaultsDeep {
      * @param sources The source objects.
      * @return Returns object.
      **/
-    (p1: _.__, object: any): DefaultsDeep1x2;
+    (sources: _.__, object: any): DefaultsDeep1x2;
     /**
      * This method is like _.defaults except that it recursively assigns default properties.
      * @param object The destination object.

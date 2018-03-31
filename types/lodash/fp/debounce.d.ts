@@ -67,7 +67,7 @@ interface Debounce {
      * @param options.trailing Specify invoking on the trailing edge of the timeout.
      * @return Returns the new debounced function.
      */
-    <T extends (...args: any[]) => any>(p1: _.__, func: T): Debounce1x2<T>;
+    <T extends (...args: any[]) => any>(wait: _.__, func: T): Debounce1x2<T>;
     /**
      * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
      * the last time the debounced function was invoked. The debounced function comes with a cancel method to

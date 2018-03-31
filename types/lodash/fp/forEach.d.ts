@@ -49,7 +49,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    <T>(p1: _.__, collection: ReadonlyArray<T>): ForEach1x2<T>;
+    <T>(iteratee: _.__, collection: ReadonlyArray<T>): ForEach1x2<T>;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -94,7 +94,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    (p1: _.__, collection: string): ForEach2x2;
+    (iteratee: _.__, collection: string): ForEach2x2;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -124,7 +124,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    <T>(p1: _.__, collection: _.List<T>): ForEach3x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T>): ForEach3x2<T>;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -154,7 +154,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    <T extends object>(p1: _.__, collection: T): ForEach4x2<T>;
+    <T extends object>(iteratee: _.__, collection: T): ForEach4x2<T>;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -184,7 +184,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    <T, TArray extends T[] | null | undefined>(p1: _.__, collection: TArray & (T[] | null | undefined)): ForEach5x2<T, TArray>;
+    <T, TArray extends T[] | null | undefined>(iteratee: _.__, collection: TArray & (T[] | null | undefined)): ForEach5x2<T, TArray>;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -214,7 +214,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    <TString extends string | null | undefined>(p1: _.__, collection: TString): ForEach6x2<TString>;
+    <TString extends string | null | undefined>(iteratee: _.__, collection: TString): ForEach6x2<TString>;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -244,7 +244,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    <T, TList extends _.List<T> | null | undefined>(p1: _.__, collection: TList & (_.List<T> | null | undefined)): ForEach7x2<T, TList>;
+    <T, TList extends _.List<T> | null | undefined>(iteratee: _.__, collection: TList & (_.List<T> | null | undefined)): ForEach7x2<T, TList>;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:
@@ -274,7 +274,7 @@ interface ForEach {
      * @param iteratee The function invoked per iteration.
      * @param thisArg The this binding of iteratee.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): ForEach8x2<T>;
+    <T extends object>(iteratee: _.__, collection: T | null | undefined): ForEach8x2<T>;
     /**
      * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
      * and invoked with three arguments:

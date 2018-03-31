@@ -26,7 +26,7 @@ interface PartialRight {
     * @param args Arguments to be partially applied.
     * @return The new partially applied function.
     **/
-    (p1: _.__, func: (...args: any[]) => any): PartialRight1x2;
+    (args: _.__, func: (...args: any[]) => any): PartialRight1x2;
     /**
     * This method is like _.partial except that partial arguments are appended to those provided
     * to the new function.

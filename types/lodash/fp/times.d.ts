@@ -29,7 +29,7 @@ interface Times {
      * @param iteratee The function invoked per iteration.
      * @return Returns the array of results.
      */
-    (p1: _.__, n: number): Times1x2;
+    (iteratee: _.__, n: number): Times1x2;
     /**
      * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
      * is invoked with one argument; (index).

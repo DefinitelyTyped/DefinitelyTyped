@@ -61,7 +61,7 @@ interface FindKey {
      * @param thisArg The this binding of predicate.
      * @return Returns the key of the matched element, else undefined.
      */
-    <T>(p1: _.__, object: T | null | undefined): FindKey1x2<T>;
+    <T>(predicate: _.__, object: T | null | undefined): FindKey1x2<T>;
     /**
      * This method is like _.find except that it returns the key of the first element predicate returns truthy for
      * instead of the element itself.

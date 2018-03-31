@@ -49,7 +49,7 @@ interface SortedLastIndex {
      * _.sortedLastIndex([4, 5], 4);
      * // => 1
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): SortedLastIndex1x2<T>;
+    <T>(value: _.__, array: _.List<T> | null | undefined): SortedLastIndex1x2<T>;
     /**
      * This method is like `_.sortedIndex` except that it returns the highest
      * index at which `value` should be inserted into `array` in order to

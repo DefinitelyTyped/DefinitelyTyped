@@ -32,7 +32,7 @@ interface Wrap {
      * @param wrapper The wrapper function.
      * @return Returns the new function.
      */
-    <T>(p1: _.__, value: T): Wrap1x2<T>;
+    <T>(wrapper: _.__, value: T): Wrap1x2<T>;
     /**
      * Creates a function that provides value to the wrapper function as its first argument. Any additional
      * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is

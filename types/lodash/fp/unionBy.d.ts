@@ -34,7 +34,7 @@ interface UnionBy {
      * @param iteratee The iteratee invoked per element.
      * @return Returns the new array of combined values.
      */
-    <T>(p1: _.__, arrays1: _.List<T> | null | undefined): UnionBy1x2<T>;
+    <T>(iteratee: _.__, arrays1: _.List<T> | null | undefined): UnionBy1x2<T>;
     /**
      * This method is like `_.union` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -54,7 +54,7 @@ interface UnionBy {
      * @param iteratee The iteratee invoked per element.
      * @return Returns the new array of combined values.
      */
-    <T>(p1: _.__, p2: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x4<T>;
+    <T>(iteratee: _.__, arrays1: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x4<T>;
     /**
      * This method is like `_.union` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -64,7 +64,7 @@ interface UnionBy {
      * @param iteratee The iteratee invoked per element.
      * @return Returns the new array of combined values.
      */
-    <T>(iteratee: _.ValueIteratee<T>, p2: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x5<T>;
+    <T>(iteratee: _.ValueIteratee<T>, arrays1: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x5<T>;
     /**
      * This method is like `_.union` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -74,7 +74,7 @@ interface UnionBy {
      * @param iteratee The iteratee invoked per element.
      * @return Returns the new array of combined values.
      */
-    <T>(p1: _.__, arrays1: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): UnionBy1x6<T>;
+    <T>(iteratee: _.__, arrays1: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): UnionBy1x6<T>;
     /**
      * This method is like `_.union` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -116,7 +116,7 @@ interface UnionBy1x1<T> {
      * @param iteratee The iteratee invoked per element.
      * @return Returns the new array of combined values.
      */
-    (p1: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x5<T>;
+    (arrays1: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x5<T>;
     /**
      * This method is like `_.union` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -158,7 +158,7 @@ interface UnionBy1x2<T> {
      * @param iteratee The iteratee invoked per element.
      * @return Returns the new array of combined values.
      */
-    (p1: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x6<T>;
+    (iteratee: _.__, arrays2: _.List<T> | null | undefined): UnionBy1x6<T>;
     /**
      * This method is like `_.union` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -222,7 +222,7 @@ interface UnionBy1x4<T> {
      * @param iteratee The iteratee invoked per element.
      * @return Returns the new array of combined values.
      */
-    (p1: _.__, arrays1: _.List<T> | null | undefined): UnionBy1x6<T>;
+    (iteratee: _.__, arrays1: _.List<T> | null | undefined): UnionBy1x6<T>;
     /**
      * This method is like `_.union` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which

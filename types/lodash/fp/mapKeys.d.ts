@@ -34,7 +34,7 @@ interface MapKeys {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped object.
      */
-    <T>(p1: _.__, object: _.List<T> | null | undefined): MapKeys1x2<T>;
+    <T>(iteratee: _.__, object: _.List<T> | null | undefined): MapKeys1x2<T>;
     /**
      * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
      * by running each own enumerable property of object through iteratee.
@@ -64,7 +64,7 @@ interface MapKeys {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped object.
      */
-    <T extends object>(p1: _.__, object: T | null | undefined): MapKeys2x2<T>;
+    <T extends object>(iteratee: _.__, object: T | null | undefined): MapKeys2x2<T>;
     /**
      * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
      * by running each own enumerable property of object through iteratee.

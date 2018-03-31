@@ -32,7 +32,7 @@ interface InRange {
      * @param end The end of the range.
      * @return Returns true if n is in the range, else false.
      */
-    (p1: _.__, end: number): InRange1x2;
+    (start: _.__, end: number): InRange1x2;
     /**
      * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
      * with start then set to 0.
@@ -52,7 +52,7 @@ interface InRange {
      * @param end The end of the range.
      * @return Returns true if n is in the range, else false.
      */
-    (p1: _.__, p2: _.__, n: number): InRange1x4;
+    (start: _.__, end: _.__, n: number): InRange1x4;
     /**
      * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
      * with start then set to 0.
@@ -62,7 +62,7 @@ interface InRange {
      * @param end The end of the range.
      * @return Returns true if n is in the range, else false.
      */
-    (start: number, p2: _.__, n: number): InRange1x5;
+    (start: number, end: _.__, n: number): InRange1x5;
     /**
      * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
      * with start then set to 0.
@@ -72,7 +72,7 @@ interface InRange {
      * @param end The end of the range.
      * @return Returns true if n is in the range, else false.
      */
-    (p1: _.__, end: number, n: number): InRange1x6;
+    (start: _.__, end: number, n: number): InRange1x6;
     /**
      * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
      * with start then set to 0.
@@ -114,7 +114,7 @@ interface InRange1x1 {
      * @param end The end of the range.
      * @return Returns true if n is in the range, else false.
      */
-    (p1: _.__, n: number): InRange1x5;
+    (end: _.__, n: number): InRange1x5;
     /**
      * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
      * with start then set to 0.
@@ -156,7 +156,7 @@ interface InRange1x2 {
      * @param end The end of the range.
      * @return Returns true if n is in the range, else false.
      */
-    (p1: _.__, n: number): InRange1x6;
+    (start: _.__, n: number): InRange1x6;
     /**
      * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
      * with start then set to 0.
@@ -220,7 +220,7 @@ interface InRange1x4 {
      * @param end The end of the range.
      * @return Returns true if n is in the range, else false.
      */
-    (p1: _.__, end: number): InRange1x6;
+    (start: _.__, end: number): InRange1x6;
     /**
      * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
      * with start then set to 0.

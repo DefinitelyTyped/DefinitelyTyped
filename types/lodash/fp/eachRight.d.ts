@@ -34,7 +34,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    <T>(p1: _.__, collection: ReadonlyArray<T>): ForEachRight1x2<T>;
+    <T>(iteratee: _.__, collection: ReadonlyArray<T>): ForEachRight1x2<T>;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -64,7 +64,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    (p1: _.__, collection: string): ForEachRight2x2;
+    (iteratee: _.__, collection: string): ForEachRight2x2;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -84,7 +84,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    <T>(p1: _.__, collection: _.List<T>): ForEachRight3x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T>): ForEachRight3x2<T>;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -104,7 +104,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    <T extends object>(p1: _.__, collection: T): ForEachRight4x2<T>;
+    <T extends object>(iteratee: _.__, collection: T): ForEachRight4x2<T>;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -124,7 +124,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    <T, TArray extends T[] | null | undefined>(p1: _.__, collection: TArray & (T[] | null | undefined)): ForEachRight5x2<T, TArray>;
+    <T, TArray extends T[] | null | undefined>(iteratee: _.__, collection: TArray & (T[] | null | undefined)): ForEachRight5x2<T, TArray>;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -144,7 +144,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    <TString extends string | null | undefined>(p1: _.__, collection: TString): ForEachRight6x2<TString>;
+    <TString extends string | null | undefined>(iteratee: _.__, collection: TString): ForEachRight6x2<TString>;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -164,7 +164,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    <T, TList extends _.List<T> | null | undefined>(p1: _.__, collection: TList & (_.List<T> | null | undefined)): ForEachRight7x2<T, TList>;
+    <T, TList extends _.List<T> | null | undefined>(iteratee: _.__, collection: TList & (_.List<T> | null | undefined)): ForEachRight7x2<T, TList>;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *
@@ -184,7 +184,7 @@ interface ForEachRight {
      * @param iteratee The function called per iteration.
      * @param thisArg The this binding of callback.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): ForEachRight8x2<T>;
+    <T extends object>(iteratee: _.__, collection: T | null | undefined): ForEachRight8x2<T>;
     /**
      * This method is like _.forEach except that it iterates over elements of collection from right to left.
      *

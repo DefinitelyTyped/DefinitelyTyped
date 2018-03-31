@@ -25,7 +25,7 @@ interface Xor {
      * @param arrays The arrays to inspect.
      * @return Returns the new array of values.
      */
-    <T>(p1: _.__, arrays: _.List<T> | null | undefined): Xor1x2<T>;
+    <T>(arrays2: _.__, arrays: _.List<T> | null | undefined): Xor1x2<T>;
     /**
      * Creates an array of unique values that is the symmetric difference of the provided arrays.
      *

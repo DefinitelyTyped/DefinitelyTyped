@@ -28,7 +28,7 @@ interface ZipObjectDeep {
      * @param values The property values.
      * @return Returns the new object.
      */
-    (p1: _.__, values: _.List<any>): ZipObjectDeep1x2;
+    (paths: _.__, values: _.List<any>): ZipObjectDeep1x2;
     /**
      * This method is like _.zipObject except that it supports property paths.
      *

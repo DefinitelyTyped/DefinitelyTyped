@@ -31,7 +31,7 @@ interface ZipObject {
      * @param values The property values.
      * @return Returns the new object.
      */
-    <T>(p1: _.__, values: _.List<T>): ZipObject1x2<T>;
+    <T>(props: _.__, values: _.List<T>): ZipObject1x2<T>;
     /**
      * This method is like _.fromPairs except that it accepts two arrays, one of property
      * identifiers and one of corresponding values.

@@ -43,7 +43,7 @@ interface MeanBy {
        * _.mean([{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }], 'n');
        * // => 5
        */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): MeanBy1x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): MeanBy1x2<T>;
     /**
        * Computes the mean of the provided propties of the objects in the `array`
        *

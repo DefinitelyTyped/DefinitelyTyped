@@ -76,7 +76,7 @@ interface HasIn {
      * _.hasIn(object, 'b');
      * // => false
      */
-    <T>(p1: _.__, object: T): HasIn1x2;
+    <T>(path: _.__, object: T): HasIn1x2;
     /**
      * Checks if `path` is a direct or inherited property of `object`.
      *

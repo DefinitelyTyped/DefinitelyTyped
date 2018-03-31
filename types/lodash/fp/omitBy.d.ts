@@ -55,7 +55,7 @@ interface OmitBy {
      * _.omitBy(object, _.isNumber);
      * // => { 'b': '2' }
      */
-    <T extends object>(p1: _.__, object: T | null | undefined): OmitBy1x2<T>;
+    <T extends object>(predicate: _.__, object: T | null | undefined): OmitBy1x2<T>;
     /**
      * The opposite of `_.pickBy`; this method creates an object composed of the
      * own and inherited enumerable properties of `object` that `predicate`

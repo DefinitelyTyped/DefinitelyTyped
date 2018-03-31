@@ -32,7 +32,7 @@ interface Before {
      * @param func The function to restrict.
      * @return Returns the new restricted function.
      */
-    (p1: _.__, n: number): Before1x2;
+    (func: _.__, n: number): Before1x2;
     /**
      * Creates a function that invokes func, with the this binding and arguments of the created function, while
      * it’s called less than n times. Subsequent calls to the created function return the result of the last func

@@ -46,7 +46,7 @@ interface SortedUniqBy {
      * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
      * // => [1.1, 2.2]
      */
-    (p1: _.__, array: string | null | undefined): SortedUniqBy1x2;
+    (iteratee: _.__, array: string | null | undefined): SortedUniqBy1x2;
     /**
      * This method is like `_.uniqBy` except that it's designed and optimized
      * for sorted arrays.
@@ -88,7 +88,7 @@ interface SortedUniqBy {
      * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
      * // => [1.1, 2.2]
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): SortedUniqBy2x2<T>;
+    <T>(iteratee: _.__, array: _.List<T> | null | undefined): SortedUniqBy2x2<T>;
     /**
      * This method is like `_.uniqBy` except that it's designed and optimized
      * for sorted arrays.

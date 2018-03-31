@@ -34,7 +34,7 @@ interface FlatMap {
      * @param iteratee The function invoked per iteration.
      * @return Returns the new flattened array.
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): FlatMap1x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): FlatMap1x2<T>;
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
      * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
@@ -64,7 +64,7 @@ interface FlatMap {
      * @param iteratee The function invoked per iteration.
      * @return Returns the new flattened array.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): FlatMap2x2<T>;
+    <T extends object>(iteratee: _.__, collection: T | null | undefined): FlatMap2x2<T>;
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
      * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
@@ -94,7 +94,7 @@ interface FlatMap {
      * @param iteratee The function invoked per iteration.
      * @return Returns the new flattened array.
      */
-    (p1: _.__, collection: object | null | undefined): FlatMap3x2;
+    (iteratee: _.__, collection: object | null | undefined): FlatMap3x2;
     /**
      * Creates an array of flattened values by running each element in collection through iteratee
      * and concating its result to the other mapped values. The iteratee is invoked with three arguments:

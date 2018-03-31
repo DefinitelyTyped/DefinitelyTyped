@@ -32,7 +32,7 @@ interface PadStart {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, length: number): PadStart1x2;
+    (chars: _.__, length: number): PadStart1x2;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.
@@ -52,7 +52,7 @@ interface PadStart {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, p2: _.__, string: string): PadStart1x4;
+    (chars: _.__, length: _.__, string: string): PadStart1x4;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.
@@ -62,7 +62,7 @@ interface PadStart {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (chars: string, p2: _.__, string: string): PadStart1x5;
+    (chars: string, length: _.__, string: string): PadStart1x5;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.
@@ -72,7 +72,7 @@ interface PadStart {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, length: number, string: string): PadStart1x6;
+    (chars: _.__, length: number, string: string): PadStart1x6;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.
@@ -114,7 +114,7 @@ interface PadStart1x1 {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, string: string): PadStart1x5;
+    (length: _.__, string: string): PadStart1x5;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.
@@ -156,7 +156,7 @@ interface PadStart1x2 {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, string: string): PadStart1x6;
+    (chars: _.__, string: string): PadStart1x6;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.
@@ -220,7 +220,7 @@ interface PadStart1x4 {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, length: number): PadStart1x6;
+    (chars: _.__, length: number): PadStart1x6;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.

@@ -34,7 +34,7 @@ interface Pull {
      * @param values The values to remove.
      * @return Returns array.
      */
-    <T>(p1: _.__, array: ReadonlyArray<T>): Pull1x2<T>;
+    <T>(values: _.__, array: ReadonlyArray<T>): Pull1x2<T>;
     /**
      * Removes all provided values from array using SameValueZero for equality comparisons.
      *
@@ -54,7 +54,7 @@ interface Pull {
      * @param values The values to remove.
      * @return Returns array.
      */
-    <T>(p1: _.__, array: _.List<T>): Pull2x2<T>;
+    <T>(values: _.__, array: _.List<T>): Pull2x2<T>;
     /**
      * Removes all provided values from array using SameValueZero for equality comparisons.
      *

@@ -32,7 +32,7 @@ interface InvokeMap {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (p1: _.__, args: ReadonlyArray<any>): InvokeMap1x2;
+    (methodNameOrMethod: _.__, args: ReadonlyArray<any>): InvokeMap1x2;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -52,7 +52,7 @@ interface InvokeMap {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (p1: _.__, p2: _.__, collection: object | null | undefined): InvokeMap1x4;
+    (methodNameOrMethod: _.__, args: _.__, collection: object | null | undefined): InvokeMap1x4;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -62,7 +62,7 @@ interface InvokeMap {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (methodName: string, p2: _.__, collection: object | null | undefined): InvokeMap1x5;
+    (methodName: string, args: _.__, collection: object | null | undefined): InvokeMap1x5;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -72,7 +72,7 @@ interface InvokeMap {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (p1: _.__, args: ReadonlyArray<any>, collection: object | null | undefined): InvokeMap1x6;
+    (methodNameOrMethod: _.__, args: ReadonlyArray<any>, collection: object | null | undefined): InvokeMap1x6;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -112,7 +112,7 @@ interface InvokeMap {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    <TResult>(method: (...args: any[]) => TResult, p2: _.__, collection: object | null | undefined): InvokeMap2x5<TResult>;
+    <TResult>(method: (...args: any[]) => TResult, args: _.__, collection: object | null | undefined): InvokeMap2x5<TResult>;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -154,7 +154,7 @@ interface InvokeMap1x1 {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (p1: _.__, collection: object | null | undefined): InvokeMap1x5;
+    (args: _.__, collection: object | null | undefined): InvokeMap1x5;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -196,7 +196,7 @@ interface InvokeMap1x2 {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (p1: _.__, collection: object | null | undefined): InvokeMap1x6;
+    (methodNameOrMethod: _.__, collection: object | null | undefined): InvokeMap1x6;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -280,7 +280,7 @@ interface InvokeMap1x4 {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (p1: _.__, args: ReadonlyArray<any>): InvokeMap1x6;
+    (methodNameOrMethod: _.__, args: ReadonlyArray<any>): InvokeMap1x6;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided
@@ -396,7 +396,7 @@ interface InvokeMap2x1<TResult> {
     * @param methodName The name of the method to invoke.
     * @param args Arguments to invoke the method with.
     **/
-    (p1: _.__, collection: object | null | undefined): InvokeMap2x5<TResult>;
+    (args: _.__, collection: object | null | undefined): InvokeMap2x5<TResult>;
     /**
     * Invokes the method named by methodName on each element in the collection returning
     * an array of the results of each invoked method. Additional arguments will be provided

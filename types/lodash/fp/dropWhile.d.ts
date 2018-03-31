@@ -61,7 +61,7 @@ interface DropWhile {
      * @param thisArg The this binding of predicate.
      * @return Returns the slice of array.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): DropWhile1x2<T>;
+    <T>(predicate: _.__, array: _.List<T> | null | undefined): DropWhile1x2<T>;
     /**
      * Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate
      * returns falsey. The predicate is bound to thisArg and invoked with three arguments: (value, index, array).

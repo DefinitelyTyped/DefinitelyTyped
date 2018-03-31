@@ -82,7 +82,7 @@ interface AssignInWith {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    (p1: _.__, args: ReadonlyArray<any>): AssignInWith1x2;
+    (customizer: _.__, args: ReadonlyArray<any>): AssignInWith1x2;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`

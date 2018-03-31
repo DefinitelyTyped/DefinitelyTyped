@@ -46,7 +46,7 @@ interface SortedLastIndexOf {
      * _.sortedLastIndexOf([1, 1, 2, 2], 2);
      * // => 3
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): SortedLastIndexOf1x2<T>;
+    <T>(value: _.__, array: _.List<T> | null | undefined): SortedLastIndexOf1x2<T>;
     /**
      * This method is like `_.lastIndexOf` except that it performs a binary
      * search on a sorted `array`.

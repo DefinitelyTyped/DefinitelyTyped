@@ -58,7 +58,7 @@ interface FindLastKey {
      * @param thisArg The this binding of predicate.
      * @return Returns the key of the matched element, else undefined.
      */
-    <T>(p1: _.__, object: T | null | undefined): FindLastKey1x2<T>;
+    <T>(predicate: _.__, object: T | null | undefined): FindLastKey1x2<T>;
     /**
      * This method is like _.findKey except that it iterates over elements of a collection in the opposite order.
      *

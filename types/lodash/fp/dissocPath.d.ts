@@ -34,7 +34,7 @@ interface Unset {
      * @param path The path of the property to unset.
      * @return Returns true if the property is deleted, else false.
      */
-    (p1: _.__, object: any): Unset1x2;
+    (path: _.__, object: any): Unset1x2;
     /**
      * Removes the property at path of object.
      *

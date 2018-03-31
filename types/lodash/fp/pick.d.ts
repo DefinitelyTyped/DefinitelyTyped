@@ -52,7 +52,7 @@ interface LodashPick {
      * _.pick(object, ['a', 'c']);
      * // => { 'a': 1, 'c': 3 }
      */
-    <T extends object>(p1: _.__, object: T): LodashPick1x2<T>;
+    <T extends object>(props: _.__, object: T): LodashPick1x2<T>;
     /**
      * Creates an object composed of the picked `object` properties.
      *
@@ -100,7 +100,7 @@ interface LodashPick {
      * _.pick(object, ['a', 'c']);
      * // => { 'a': 1, 'c': 3 }
      */
-    <T>(p1: _.__, object: T | null | undefined): LodashPick2x2<T>;
+    <T>(props: _.__, object: T | null | undefined): LodashPick2x2<T>;
     /**
      * Creates an object composed of the picked `object` properties.
      *

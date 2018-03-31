@@ -35,7 +35,7 @@ interface Split {
      * @param limit The length to truncate results to.
      * @return Returns the new array of string segments.
      */
-    (p1: _.__, string: string): Split1x2;
+    (separator: _.__, string: string): Split1x2;
     /**
      * Splits string by separator.
      *

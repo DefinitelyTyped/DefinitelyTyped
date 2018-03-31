@@ -58,7 +58,7 @@ interface PullAll {
      * console.log(array);
      * // => [1, 1]
      */
-    <T>(p1: _.__, array: ReadonlyArray<T>): PullAll1x2<T>;
+    <T>(values: _.__, array: ReadonlyArray<T>): PullAll1x2<T>;
     /**
      * This method is like `_.pull` except that it accepts an array of values to remove.
      *
@@ -94,7 +94,7 @@ interface PullAll {
      * console.log(array);
      * // => [1, 1]
      */
-    <T>(p1: _.__, array: _.List<T>): PullAll2x2<T>;
+    <T>(values: _.__, array: _.List<T>): PullAll2x2<T>;
     /**
      * This method is like `_.pull` except that it accepts an array of values to remove.
      *

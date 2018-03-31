@@ -55,7 +55,7 @@ interface SortedIndex {
      * _.sortedIndex([4, 5], 4);
      * // => 0
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): SortedIndex1x2<T>;
+    <T>(value: _.__, array: _.List<T> | null | undefined): SortedIndex1x2<T>;
     /**
      * Uses a binary search to determine the lowest index at which `value` should
      * be inserted into `array` in order to maintain its sort order.

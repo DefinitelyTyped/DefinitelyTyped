@@ -53,7 +53,7 @@ interface Clamp {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (p1: _.__, upper: number): Clamp1x2;
+    (lower: _.__, upper: number): Clamp1x2;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -87,7 +87,7 @@ interface Clamp {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (p1: _.__, p2: _.__, number: number): Clamp1x4;
+    (lower: _.__, upper: _.__, number: number): Clamp1x4;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -104,7 +104,7 @@ interface Clamp {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (lower: number, p2: _.__, number: number): Clamp1x5;
+    (lower: number, upper: _.__, number: number): Clamp1x5;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -121,7 +121,7 @@ interface Clamp {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (p1: _.__, upper: number, number: number): Clamp1x6;
+    (lower: _.__, upper: number, number: number): Clamp1x6;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -191,7 +191,7 @@ interface Clamp1x1 {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (p1: _.__, number: number): Clamp1x5;
+    (upper: _.__, number: number): Clamp1x5;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -261,7 +261,7 @@ interface Clamp1x2 {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (p1: _.__, number: number): Clamp1x6;
+    (lower: _.__, number: number): Clamp1x6;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *
@@ -367,7 +367,7 @@ interface Clamp1x4 {
      * _.clamp(10, -5, 5);
      * // => 5
      */
-    (p1: _.__, upper: number): Clamp1x6;
+    (lower: _.__, upper: number): Clamp1x6;
     /**
      * Clamps `number` within the inclusive `lower` and `upper` bounds.
      *

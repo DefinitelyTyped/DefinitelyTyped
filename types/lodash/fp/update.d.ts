@@ -34,7 +34,7 @@ interface Update {
      * @param updater The function to produce the updated value.
      * @return Returns object.
      */
-    (p1: _.__, updater: (value: any) => any): Update1x2;
+    (path: _.__, updater: (value: any) => any): Update1x2;
     /**
      * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
      * customize path creation. The updater is invoked with one argument: (value).
@@ -54,7 +54,7 @@ interface Update {
      * @param updater The function to produce the updated value.
      * @return Returns object.
      */
-    (p1: _.__, p2: _.__, object: object): Update1x4;
+    (path: _.__, updater: _.__, object: object): Update1x4;
     /**
      * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
      * customize path creation. The updater is invoked with one argument: (value).
@@ -64,7 +64,7 @@ interface Update {
      * @param updater The function to produce the updated value.
      * @return Returns object.
      */
-    (path: _.PropertyPath, p2: _.__, object: object): Update1x5;
+    (path: _.PropertyPath, updater: _.__, object: object): Update1x5;
     /**
      * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
      * customize path creation. The updater is invoked with one argument: (value).
@@ -74,7 +74,7 @@ interface Update {
      * @param updater The function to produce the updated value.
      * @return Returns object.
      */
-    (p1: _.__, updater: (value: any) => any, object: object): Update1x6;
+    (path: _.__, updater: (value: any) => any, object: object): Update1x6;
     /**
      * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
      * customize path creation. The updater is invoked with one argument: (value).
@@ -116,7 +116,7 @@ interface Update1x1 {
      * @param updater The function to produce the updated value.
      * @return Returns object.
      */
-    (p1: _.__, object: object): Update1x5;
+    (updater: _.__, object: object): Update1x5;
     /**
      * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
      * customize path creation. The updater is invoked with one argument: (value).
@@ -158,7 +158,7 @@ interface Update1x2 {
      * @param updater The function to produce the updated value.
      * @return Returns object.
      */
-    (p1: _.__, object: object): Update1x6;
+    (path: _.__, object: object): Update1x6;
     /**
      * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
      * customize path creation. The updater is invoked with one argument: (value).
@@ -222,7 +222,7 @@ interface Update1x4 {
      * @param updater The function to produce the updated value.
      * @return Returns object.
      */
-    (p1: _.__, updater: (value: any) => any): Update1x6;
+    (path: _.__, updater: (value: any) => any): Update1x6;
     /**
      * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
      * customize path creation. The updater is invoked with one argument: (value).

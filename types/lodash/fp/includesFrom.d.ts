@@ -34,7 +34,7 @@ interface Includes {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    (p1: _.__, fromIndex: number): Includes1x2;
+    (target: _.__, fromIndex: number): Includes1x2;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.
@@ -54,7 +54,7 @@ interface Includes {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    <T>(p1: _.__, p2: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x4<T>;
+    <T>(target: _.__, fromIndex: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x4<T>;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.
@@ -64,7 +64,7 @@ interface Includes {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    <T>(target: T, p2: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x5;
+    <T>(target: T, fromIndex: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x5;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.
@@ -74,7 +74,7 @@ interface Includes {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    <T>(p1: _.__, fromIndex: number, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x6<T>;
+    <T>(target: _.__, fromIndex: number, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x6<T>;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.
@@ -116,7 +116,7 @@ interface Includes1x1<T> {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    (p1: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x5;
+    (fromIndex: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x5;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.
@@ -158,7 +158,7 @@ interface Includes1x2 {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    <T>(p1: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x6<T>;
+    <T>(target: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Includes1x6<T>;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.
@@ -222,7 +222,7 @@ interface Includes1x4<T> {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    (p1: _.__, fromIndex: number): Includes1x6<T>;
+    (target: _.__, fromIndex: number): Includes1x6<T>;
     /**
      * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
      * it’s used as the offset from the end of collection.

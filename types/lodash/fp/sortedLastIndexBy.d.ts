@@ -55,7 +55,7 @@ interface SortedLastIndexBy {
      * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 1
      */
-    <T>(p1: _.__, value: T): SortedLastIndexBy1x2<T>;
+    <T>(iteratee: _.__, value: T): SortedLastIndexBy1x2<T>;
     /**
      * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -89,7 +89,7 @@ interface SortedLastIndexBy {
      * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 1
      */
-    <T>(p1: _.__, p2: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x4<T>;
+    <T>(iteratee: _.__, value: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x4<T>;
     /**
      * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -106,7 +106,7 @@ interface SortedLastIndexBy {
      * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 1
      */
-    <T>(iteratee: _.ValueIteratee<T>, p2: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x5<T>;
+    <T>(iteratee: _.ValueIteratee<T>, value: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x5<T>;
     /**
      * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -123,7 +123,7 @@ interface SortedLastIndexBy {
      * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 1
      */
-    <T>(p1: _.__, value: T, array: _.List<T> | null | undefined): SortedLastIndexBy1x6<T>;
+    <T>(iteratee: _.__, value: T, array: _.List<T> | null | undefined): SortedLastIndexBy1x6<T>;
     /**
      * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -193,7 +193,7 @@ interface SortedLastIndexBy1x1<T> {
      * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 1
      */
-    (p1: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x5<T>;
+    (value: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x5<T>;
     /**
      * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -263,7 +263,7 @@ interface SortedLastIndexBy1x2<T> {
      * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 1
      */
-    (p1: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x6<T>;
+    (iteratee: _.__, array: _.List<T> | null | undefined): SortedLastIndexBy1x6<T>;
     /**
      * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their
@@ -369,7 +369,7 @@ interface SortedLastIndexBy1x4<T> {
      * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
      * // => 1
      */
-    (p1: _.__, value: T): SortedLastIndexBy1x6<T>;
+    (iteratee: _.__, value: T): SortedLastIndexBy1x6<T>;
     /**
      * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
      * which is invoked for `value` and each element of `array` to compute their

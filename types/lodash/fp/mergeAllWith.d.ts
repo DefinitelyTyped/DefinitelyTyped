@@ -106,7 +106,7 @@ interface MergeWith {
      * _.merge(object, other, customizer);
      * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
      */
-    (p1: _.__, args: ReadonlyArray<any>): MergeWith1x2;
+    (customizer: _.__, args: ReadonlyArray<any>): MergeWith1x2;
     /**
      * This method is like `_.merge` except that it accepts `customizer` which
      * is invoked to produce the merged values of the destination and source

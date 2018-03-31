@@ -32,7 +32,7 @@ interface Pad {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, string: string): Pad1x2;
+    (length: _.__, string: string): Pad1x2;
     /**
      * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
      * they can’t be evenly divided by length.

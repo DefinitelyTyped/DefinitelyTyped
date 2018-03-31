@@ -40,7 +40,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, path: _.PropertyPath): SetWith1x2;
+    (customizer: _.__, path: _.PropertyPath): SetWith1x2;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -64,7 +64,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, p2: _.__, value: any): SetWith1x4;
+    (customizer: _.__, path: _.__, value: any): SetWith1x4;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -76,7 +76,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, value: any): SetWith1x5<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, value: any): SetWith1x5<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -88,7 +88,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, path: _.PropertyPath, value: any): SetWith1x6;
+    (customizer: _.__, path: _.PropertyPath, value: any): SetWith1x6;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -112,7 +112,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, p2: _.__, p3: _.__, object: T): SetWith1x8<T>;
+    <T extends object>(customizer: _.__, path: _.__, value: _.__, object: T): SetWith1x8<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -124,7 +124,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, p3: _.__, object: T): SetWith1x9<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, value: _.__, object: T): SetWith1x9<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -136,7 +136,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, path: _.PropertyPath, p3: _.__, object: T): SetWith1x10<T>;
+    <T extends object>(customizer: _.__, path: _.PropertyPath, value: _.__, object: T): SetWith1x10<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -148,7 +148,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, p3: _.__, object: T): SetWith1x11<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, value: _.__, object: T): SetWith1x11<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -160,7 +160,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, p2: _.__, value: any, object: T): SetWith1x12<T>;
+    <T extends object>(customizer: _.__, path: _.__, value: any, object: T): SetWith1x12<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -172,7 +172,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, value: any, object: T): SetWith1x13<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, value: any, object: T): SetWith1x13<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -184,7 +184,7 @@ interface SetWith {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, path: _.PropertyPath, value: any, object: T): SetWith1x14<T>;
+    <T extends object>(customizer: _.__, path: _.PropertyPath, value: any, object: T): SetWith1x14<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -234,7 +234,7 @@ interface SetWith1x1<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, value: any): SetWith1x5<T>;
+    (path: _.__, value: any): SetWith1x5<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -258,7 +258,7 @@ interface SetWith1x1<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, p2: _.__, object: T): SetWith1x9<T>;
+    (path: _.__, value: _.__, object: T): SetWith1x9<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -270,7 +270,7 @@ interface SetWith1x1<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (path: _.PropertyPath, p2: _.__, object: T): SetWith1x11<T>;
+    (path: _.PropertyPath, value: _.__, object: T): SetWith1x11<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -282,7 +282,7 @@ interface SetWith1x1<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, value: any, object: T): SetWith1x13<T>;
+    (path: _.__, value: any, object: T): SetWith1x13<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -332,7 +332,7 @@ interface SetWith1x2 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, value: any): SetWith1x6;
+    (customizer: _.__, value: any): SetWith1x6;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -356,7 +356,7 @@ interface SetWith1x2 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, p2: _.__, object: T): SetWith1x10<T>;
+    <T extends object>(customizer: _.__, value: _.__, object: T): SetWith1x10<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -368,7 +368,7 @@ interface SetWith1x2 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): SetWith1x11<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, value: _.__, object: T): SetWith1x11<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -380,7 +380,7 @@ interface SetWith1x2 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, value: any, object: T): SetWith1x14<T>;
+    <T extends object>(customizer: _.__, value: any, object: T): SetWith1x14<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -430,7 +430,7 @@ interface SetWith1x3<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, object: T): SetWith1x11<T>;
+    (value: _.__, object: T): SetWith1x11<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -480,7 +480,7 @@ interface SetWith1x4 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, path: _.PropertyPath): SetWith1x6;
+    (customizer: _.__, path: _.PropertyPath): SetWith1x6;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -504,7 +504,7 @@ interface SetWith1x4 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, p2: _.__, object: T): SetWith1x12<T>;
+    <T extends object>(customizer: _.__, path: _.__, object: T): SetWith1x12<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -516,7 +516,7 @@ interface SetWith1x4 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): SetWith1x13<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, object: T): SetWith1x13<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -528,7 +528,7 @@ interface SetWith1x4 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, path: _.PropertyPath, object: T): SetWith1x14<T>;
+    <T extends object>(customizer: _.__, path: _.PropertyPath, object: T): SetWith1x14<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -578,7 +578,7 @@ interface SetWith1x5<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, object: T): SetWith1x13<T>;
+    (path: _.__, object: T): SetWith1x13<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -628,7 +628,7 @@ interface SetWith1x6 {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    <T extends object>(p1: _.__, object: T): SetWith1x14<T>;
+    <T extends object>(customizer: _.__, object: T): SetWith1x14<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -704,7 +704,7 @@ interface SetWith1x8<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, path: _.PropertyPath): SetWith1x10<T>;
+    (customizer: _.__, path: _.PropertyPath): SetWith1x10<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -728,7 +728,7 @@ interface SetWith1x8<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, p2: _.__, value: any): SetWith1x12<T>;
+    (customizer: _.__, path: _.__, value: any): SetWith1x12<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -740,7 +740,7 @@ interface SetWith1x8<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (customizer: _.SetWithCustomizer<T>, p2: _.__, value: any): SetWith1x13<T>;
+    (customizer: _.SetWithCustomizer<T>, path: _.__, value: any): SetWith1x13<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -752,7 +752,7 @@ interface SetWith1x8<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, path: _.PropertyPath, value: any): SetWith1x14<T>;
+    (customizer: _.__, path: _.PropertyPath, value: any): SetWith1x14<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -802,7 +802,7 @@ interface SetWith1x9<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, value: any): SetWith1x13<T>;
+    (path: _.__, value: any): SetWith1x13<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -852,7 +852,7 @@ interface SetWith1x10<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, value: any): SetWith1x14<T>;
+    (customizer: _.__, value: any): SetWith1x14<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -928,7 +928,7 @@ interface SetWith1x12<T> {
      * @param customizer The function to customize assigned values.
      * @return Returns object.
      */
-    (p1: _.__, path: _.PropertyPath): SetWith1x14<T>;
+    (customizer: _.__, path: _.PropertyPath): SetWith1x14<T>;
     /**
      * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
      * path. If customizer returns undefined path creation is handled by the method instead. The customizer is

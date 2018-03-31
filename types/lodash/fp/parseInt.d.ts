@@ -35,7 +35,7 @@ interface ParseInt {
      * @param radix The radix to interpret value by.
      * @return Returns the converted integer.
      */
-    (p1: _.__, string: string): ParseInt1x2;
+    (radix: _.__, string: string): ParseInt1x2;
     /**
      * Converts string to an integer of the specified radix. If radix is undefined or 0, a radix of 10 is used
      * unless value is a hexadecimal, in which case a radix of 16 is used.

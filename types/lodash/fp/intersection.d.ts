@@ -28,7 +28,7 @@ interface Intersection {
      * @param arrays The arrays to inspect.
      * @return Returns the new array of shared values.
      */
-    <T>(p1: _.__, arrays: _.List<T>): Intersection1x2<T>;
+    <T>(arrays2: _.__, arrays: _.List<T>): Intersection1x2<T>;
     /**
      * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
      * equality comparisons.

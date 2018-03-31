@@ -28,7 +28,7 @@ interface Replace {
      *
      * @return Returns the modified string.
      */
-    (p1: _.__, replacement: _.ReplaceFunction | string): Replace1x2;
+    (pattern: _.__, replacement: _.ReplaceFunction | string): Replace1x2;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -44,7 +44,7 @@ interface Replace {
      *
      * @return Returns the modified string.
      */
-    (p1: _.__, p2: _.__, string: string): Replace1x4;
+    (pattern: _.__, replacement: _.__, string: string): Replace1x4;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -52,7 +52,7 @@ interface Replace {
      *
      * @return Returns the modified string.
      */
-    (pattern: RegExp | string, p2: _.__, string: string): Replace1x5;
+    (pattern: RegExp | string, replacement: _.__, string: string): Replace1x5;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -60,7 +60,7 @@ interface Replace {
      *
      * @return Returns the modified string.
      */
-    (p1: _.__, replacement: _.ReplaceFunction | string, string: string): Replace1x6;
+    (pattern: _.__, replacement: _.ReplaceFunction | string, string: string): Replace1x6;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -94,7 +94,7 @@ interface Replace1x1 {
      *
      * @return Returns the modified string.
      */
-    (p1: _.__, string: string): Replace1x5;
+    (replacement: _.__, string: string): Replace1x5;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -128,7 +128,7 @@ interface Replace1x2 {
      *
      * @return Returns the modified string.
      */
-    (p1: _.__, string: string): Replace1x6;
+    (pattern: _.__, string: string): Replace1x6;
     /**
      * Replaces matches for pattern in string with replacement.
      *
@@ -180,7 +180,7 @@ interface Replace1x4 {
      *
      * @return Returns the modified string.
      */
-    (p1: _.__, replacement: _.ReplaceFunction | string): Replace1x6;
+    (pattern: _.__, replacement: _.ReplaceFunction | string): Replace1x6;
     /**
      * Replaces matches for pattern in string with replacement.
      *

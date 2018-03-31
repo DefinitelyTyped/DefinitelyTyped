@@ -64,7 +64,7 @@ interface Partition {
     * @param thisArg The this binding of predicate.
     * @return Returns the array of grouped elements.
     **/
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): Partition1x2<T>;
+    <T>(callback: _.__, collection: _.List<T> | null | undefined): Partition1x2<T>;
     /**
     * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
     * while the second of which contains elements predicate returns falsey for.
@@ -104,7 +104,7 @@ interface Partition {
     * @param thisArg The this binding of predicate.
     * @return Returns the array of grouped elements.
     **/
-    <T extends object>(p1: _.__, collection: T | null | undefined): Partition2x2<T>;
+    <T extends object>(callback: _.__, collection: T | null | undefined): Partition2x2<T>;
     /**
     * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
     * while the second of which contains elements predicate returns falsey for.

@@ -26,7 +26,7 @@ interface Add {
      * @param addend The second number to add.
      * @return Returns the sum.
      */
-    (p1: _.__, addend: number): Add1x2;
+    (augend: _.__, addend: number): Add1x2;
     /**
      * Adds two numbers.
      *

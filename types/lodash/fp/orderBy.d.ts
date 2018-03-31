@@ -82,7 +82,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (p1: _.__, orders: _.Many<boolean|string>): OrderBy1x2;
+    (iteratees: _.__, orders: _.Many<boolean|string>): OrderBy1x2;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -134,7 +134,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T>(p1: _.__, p2: _.__, collection: _.List<T> | null | undefined): OrderBy1x4<T>;
+    <T>(iteratees: _.__, orders: _.__, collection: _.List<T> | null | undefined): OrderBy1x4<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -160,7 +160,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T>(iteratees: _.Many<(value: T) => _.NotVoid>, p2: _.__, collection: _.List<T> | null | undefined): OrderBy1x5<T>;
+    <T>(iteratees: _.Many<(value: T) => _.NotVoid>, orders: _.__, collection: _.List<T> | null | undefined): OrderBy1x5<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -186,7 +186,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T>(p1: _.__, orders: _.Many<boolean|string>, collection: _.List<T> | null | undefined): OrderBy1x6<T>;
+    <T>(iteratees: _.__, orders: _.Many<boolean|string>, collection: _.List<T> | null | undefined): OrderBy1x6<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -290,7 +290,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T>(iteratees: _.Many<_.ValueIteratee<T>>, p2: _.__, collection: _.List<T> | null | undefined): OrderBy2x5<T>;
+    <T>(iteratees: _.Many<_.ValueIteratee<T>>, orders: _.__, collection: _.List<T> | null | undefined): OrderBy2x5<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -316,7 +316,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T extends object>(p1: _.__, p2: _.__, collection: T | null | undefined): OrderBy3x4<T>;
+    <T extends object>(iteratees: _.__, orders: _.__, collection: T | null | undefined): OrderBy3x4<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -342,7 +342,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T extends object>(iteratees: _.Many<(value: T[keyof T]) => _.NotVoid>, p2: _.__, collection: T | null | undefined): OrderBy3x5<T>;
+    <T extends object>(iteratees: _.Many<(value: T[keyof T]) => _.NotVoid>, orders: _.__, collection: T | null | undefined): OrderBy3x5<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -368,7 +368,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T extends object>(p1: _.__, orders: _.Many<boolean|string>, collection: T | null | undefined): OrderBy3x6<T>;
+    <T extends object>(iteratees: _.__, orders: _.Many<boolean|string>, collection: T | null | undefined): OrderBy3x6<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -420,7 +420,7 @@ interface OrderBy {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T extends object>(iteratees: _.Many<_.ValueIteratee<T[keyof T]>>, p2: _.__, collection: T | null | undefined): OrderBy4x5<T>;
+    <T extends object>(iteratees: _.Many<_.ValueIteratee<T[keyof T]>>, orders: _.__, collection: T | null | undefined): OrderBy4x5<T>;
 }
 interface OrderBy1x1<T> {
     /**
@@ -500,7 +500,7 @@ interface OrderBy1x1<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (p1: _.__, collection: _.List<T> | null | undefined): OrderBy1x5<T>;
+    (orders: _.__, collection: _.List<T> | null | undefined): OrderBy1x5<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -552,7 +552,7 @@ interface OrderBy1x1<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T1 extends object>(p1: _.__, collection: T1 | null | undefined): OrderBy3x5<T>;
+    <T1 extends object>(orders: _.__, collection: T1 | null | undefined): OrderBy3x5<T>;
 }
 interface OrderBy1x2 {
     /**
@@ -632,7 +632,7 @@ interface OrderBy1x2 {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): OrderBy1x6<T>;
+    <T>(iteratees: _.__, collection: _.List<T> | null | undefined): OrderBy1x6<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -710,7 +710,7 @@ interface OrderBy1x2 {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): OrderBy3x6<T>;
+    <T extends object>(iteratees: _.__, collection: T | null | undefined): OrderBy3x6<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -896,7 +896,7 @@ interface OrderBy1x4<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (p1: _.__, orders: _.Many<boolean | string>): OrderBy1x6<T>;
+    (iteratees: _.__, orders: _.Many<boolean | string>): OrderBy1x6<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -1136,7 +1136,7 @@ interface OrderBy2x1<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (p1: _.__, collection: _.List<T> | null | undefined): OrderBy2x5<T>;
+    (orders: _.__, collection: _.List<T> | null | undefined): OrderBy2x5<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values
@@ -1188,7 +1188,7 @@ interface OrderBy2x1<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T1 extends object>(p1: _.__, collection: T1 | null | undefined): OrderBy4x5<T>;
+    <T1 extends object>(orders: _.__, collection: T1 | null | undefined): OrderBy4x5<T>;
 }
 interface OrderBy2x3<T> {
     /**
@@ -1402,7 +1402,7 @@ interface OrderBy3x4<T> {
      * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    (p1: _.__, orders: _.Many<boolean | string>): OrderBy3x6<T>;
+    (iteratees: _.__, orders: _.Many<boolean | string>): OrderBy3x6<T>;
     /**
      * This method is like `_.sortBy` except that it allows specifying the sort
      * orders of the iteratees to sort by. If `orders` is unspecified, all values

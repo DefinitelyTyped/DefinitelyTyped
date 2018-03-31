@@ -67,7 +67,7 @@ interface MaxBy {
      * _.maxBy(objects, 'n');
      * // => { 'n': 2 }
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): MaxBy1x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): MaxBy1x2<T>;
     /**
      * This method is like `_.max` except that it accepts `iteratee` which is
      * invoked for each element in `array` to generate the criterion by which

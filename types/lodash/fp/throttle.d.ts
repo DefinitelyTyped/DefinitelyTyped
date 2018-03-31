@@ -55,7 +55,7 @@ interface Throttle {
      * @param options.trailing Specify invoking on the trailing edge of the timeout.
      * @return Returns the new throttled function.
      */
-    <T extends (...args: any[]) => any>(p1: _.__, func: T): Throttle1x2<T>;
+    <T extends (...args: any[]) => any>(wait: _.__, func: T): Throttle1x2<T>;
     /**
      * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
      * function comes with a cancel method to cancel delayed invocations and a flush method to immediately invoke

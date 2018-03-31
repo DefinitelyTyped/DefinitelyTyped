@@ -100,7 +100,7 @@ interface SortBy {
      * });
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): SortBy1x2<T>;
+    <T>(iteratees: _.__, collection: _.List<T> | null | undefined): SortBy1x2<T>;
     /**
      * Creates an array of elements, sorted in ascending order by the results of
      * running each element in a collection through each iteratee. This method
@@ -164,7 +164,7 @@ interface SortBy {
      * });
      * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): SortBy2x2<T>;
+    <T extends object>(iteratees: _.__, collection: T | null | undefined): SortBy2x2<T>;
     /**
      * Creates an array of elements, sorted in ascending order by the results of
      * running each element in a collection through each iteratee. This method

@@ -34,7 +34,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TObject extends object, TKey extends keyof TObject>(p1: _.__, path: TKey | [TKey]): Get1x2<TObject, TKey>;
+    <TObject extends object, TKey extends keyof TObject>(defaultValue: _.__, path: TKey | [TKey]): Get1x2<TObject, TKey>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -54,7 +54,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TObject extends object>(p1: _.__, p2: _.__, object: TObject | null | undefined): Get1x4<TObject>;
+    <TObject extends object>(defaultValue: _.__, path: _.__, object: TObject | null | undefined): Get1x4<TObject>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -64,7 +64,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TObject extends object, TDefault>(defaultValue: TDefault, p2: _.__, object: TObject | null | undefined): Get1x5<TObject, TDefault>;
+    <TObject extends object, TDefault>(defaultValue: TDefault, path: _.__, object: TObject | null | undefined): Get1x5<TObject, TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -74,7 +74,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TObject extends object, TKey extends keyof TObject>(p1: _.__, path: TKey | [TKey], object: TObject | null | undefined): Get1x6<TObject, TKey>;
+    <TObject extends object, TKey extends keyof TObject>(defaultValue: _.__, path: TKey | [TKey], object: TObject | null | undefined): Get1x6<TObject, TKey>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -94,7 +94,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, path: number): Get2x2;
+    (defaultValue: _.__, path: number): Get2x2;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -114,7 +114,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <T>(p1: _.__, p2: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x4<T>;
+    <T>(defaultValue: _.__, path: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x4<T>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -124,7 +124,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <T, TDefault>(defaultValue: TDefault, p2: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x5<T, TDefault>;
+    <T, TDefault>(defaultValue: TDefault, path: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x5<T, TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -134,7 +134,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <T>(p1: _.__, path: number, object: _.NumericDictionary<T> | null | undefined): Get2x6<T>;
+    <T>(defaultValue: _.__, path: number, object: _.NumericDictionary<T> | null | undefined): Get2x6<T>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -154,7 +154,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, path: _.PropertyPath): Get3x2;
+    (defaultValue: _.__, path: _.PropertyPath): Get3x2;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -174,7 +174,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, p2: _.__, object: null | undefined): Get3x4;
+    (defaultValue: _.__, path: _.__, object: null | undefined): Get3x4;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -184,7 +184,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TDefault>(defaultValue: TDefault, p2: _.__, object: null | undefined): Get3x5<TDefault>;
+    <TDefault>(defaultValue: TDefault, path: _.__, object: null | undefined): Get3x5<TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -194,7 +194,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, path: _.PropertyPath, object: null | undefined): Get3x6;
+    (defaultValue: _.__, path: _.PropertyPath, object: null | undefined): Get3x6;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -234,7 +234,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, p2: _.__, object: any): Get4x4;
+    (defaultValue: _.__, path: _.__, object: any): Get4x4;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -244,7 +244,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (defaultValue: any, p2: _.__, object: any): Get4x5;
+    (defaultValue: any, path: _.__, object: any): Get4x5;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -254,7 +254,7 @@ interface Get {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, path: _.PropertyPath, object: any): Get4x6;
+    (defaultValue: _.__, path: _.PropertyPath, object: any): Get4x6;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -296,7 +296,7 @@ interface Get1x1<TDefault> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TObject extends object>(p1: _.__, object: TObject | null | undefined): Get1x5<TObject, TDefault>;
+    <TObject extends object>(path: _.__, object: TObject | null | undefined): Get1x5<TObject, TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -326,7 +326,7 @@ interface Get1x1<TDefault> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <T>(p1: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x5<T, TDefault>;
+    <T>(path: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x5<T, TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -356,7 +356,7 @@ interface Get1x1<TDefault> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, object: null | undefined): Get3x5<TDefault>;
+    (path: _.__, object: null | undefined): Get3x5<TDefault>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -398,7 +398,7 @@ interface Get1x2<TObject, TKey extends keyof TObject> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, object: TObject | null | undefined): Get1x6<TObject, TKey>;
+    (defaultValue: _.__, object: TObject | null | undefined): Get1x6<TObject, TKey>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -462,7 +462,7 @@ interface Get1x4<TObject> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <TKey extends keyof TObject>(p1: _.__, path: TKey | [TKey]): Get1x6<TObject, TKey>;
+    <TKey extends keyof TObject>(defaultValue: _.__, path: TKey | [TKey]): Get1x6<TObject, TKey>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -548,7 +548,7 @@ interface Get2x2 {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    <T>(p1: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x6<T>;
+    <T>(defaultValue: _.__, object: _.NumericDictionary<T> | null | undefined): Get2x6<T>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -612,7 +612,7 @@ interface Get2x4<T> {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, path: number): Get2x6<T>;
+    (defaultValue: _.__, path: number): Get2x6<T>;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -698,7 +698,7 @@ interface Get3x2 {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, object: null | undefined): Get3x6;
+    (defaultValue: _.__, object: null | undefined): Get3x6;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -728,7 +728,7 @@ interface Get3x2 {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, object: any): Get4x6;
+    (defaultValue: _.__, object: any): Get4x6;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -792,7 +792,7 @@ interface Get3x4 {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, path: _.PropertyPath): Get3x6;
+    (defaultValue: _.__, path: _.PropertyPath): Get3x6;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -878,7 +878,7 @@ interface Get4x1 {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, object: any): Get4x5;
+    (path: _.__, object: any): Get4x5;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.
@@ -942,7 +942,7 @@ interface Get4x4 {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, path: _.PropertyPath): Get4x6;
+    (defaultValue: _.__, path: _.PropertyPath): Get4x6;
     /**
      * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
      * in its place.

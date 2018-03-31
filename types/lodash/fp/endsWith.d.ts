@@ -29,7 +29,7 @@ interface EndsWith {
      * @param position The position to search from.
      * @return Returns true if string ends with target, else false.
      */
-    (p1: _.__, string: string): EndsWith1x2;
+    (target: _.__, string: string): EndsWith1x2;
     /**
      * Checks if string ends with the given target string.
      *

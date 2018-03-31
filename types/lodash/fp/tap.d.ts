@@ -35,7 +35,7 @@ interface Tap {
      * @parem thisArg The this binding of interceptor.
      * @return Returns value.
      **/
-    <T>(p1: _.__, value: T): Tap1x2<T>;
+    <T>(interceptor: _.__, value: T): Tap1x2<T>;
     /**
      * This method invokes interceptor and returns value. The interceptor is bound to thisArg and invoked with one
      * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations

@@ -61,7 +61,7 @@ interface XorBy {
      * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, arrays: _.List<T> | null | undefined): XorBy1x2<T>;
+    <T>(iteratee: _.__, arrays: _.List<T> | null | undefined): XorBy1x2<T>;
     /**
      * This method is like `_.xor` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -99,7 +99,7 @@ interface XorBy {
      * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, p2: _.__, arrays2: _.List<T> | null | undefined): XorBy1x4<T>;
+    <T>(iteratee: _.__, arrays: _.__, arrays2: _.List<T> | null | undefined): XorBy1x4<T>;
     /**
      * This method is like `_.xor` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -118,7 +118,7 @@ interface XorBy {
      * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 2 }]
      */
-    <T>(iteratee: _.ValueIteratee<T>, p2: _.__, arrays2: _.List<T> | null | undefined): XorBy1x5<T>;
+    <T>(iteratee: _.ValueIteratee<T>, arrays: _.__, arrays2: _.List<T> | null | undefined): XorBy1x5<T>;
     /**
      * This method is like `_.xor` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -137,7 +137,7 @@ interface XorBy {
      * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): XorBy1x6<T>;
+    <T>(iteratee: _.__, arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): XorBy1x6<T>;
     /**
      * This method is like `_.xor` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -215,7 +215,7 @@ interface XorBy1x1<T> {
      * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, arrays2: _.List<T> | null | undefined): XorBy1x5<T>;
+    (arrays: _.__, arrays2: _.List<T> | null | undefined): XorBy1x5<T>;
     /**
      * This method is like `_.xor` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -293,7 +293,7 @@ interface XorBy1x2<T> {
      * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, arrays2: _.List<T> | null | undefined): XorBy1x6<T>;
+    (iteratee: _.__, arrays2: _.List<T> | null | undefined): XorBy1x6<T>;
     /**
      * This method is like `_.xor` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which
@@ -411,7 +411,7 @@ interface XorBy1x4<T> {
      * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, arrays: _.List<T> | null | undefined): XorBy1x6<T>;
+    (iteratee: _.__, arrays: _.List<T> | null | undefined): XorBy1x6<T>;
     /**
      * This method is like `_.xor` except that it accepts `iteratee` which is
      * invoked for each element of each `arrays` to generate the criterion by which

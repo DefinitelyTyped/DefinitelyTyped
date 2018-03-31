@@ -31,7 +31,7 @@ interface Slice {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    (p1: _.__, end: number): Slice1x2;
+    (start: _.__, end: number): Slice1x2;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -49,7 +49,7 @@ interface Slice {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    <T>(p1: _.__, p2: _.__, array: _.List<T> | null | undefined): Slice1x4<T>;
+    <T>(start: _.__, end: _.__, array: _.List<T> | null | undefined): Slice1x4<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -58,7 +58,7 @@ interface Slice {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    <T>(start: number, p2: _.__, array: _.List<T> | null | undefined): Slice1x5<T>;
+    <T>(start: number, end: _.__, array: _.List<T> | null | undefined): Slice1x5<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -67,7 +67,7 @@ interface Slice {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    <T>(p1: _.__, end: number, array: _.List<T> | null | undefined): Slice1x6<T>;
+    <T>(start: _.__, end: number, array: _.List<T> | null | undefined): Slice1x6<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -105,7 +105,7 @@ interface Slice1x1 {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): Slice1x5<T>;
+    <T>(end: _.__, array: _.List<T> | null | undefined): Slice1x5<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -143,7 +143,7 @@ interface Slice1x2 {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): Slice1x6<T>;
+    <T>(start: _.__, array: _.List<T> | null | undefined): Slice1x6<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *
@@ -201,7 +201,7 @@ interface Slice1x4<T> {
      * @param end The end position.
      * @return Returns the slice of array.
      */
-    (p1: _.__, end: number): Slice1x6<T>;
+    (start: _.__, end: number): Slice1x6<T>;
     /**
      * Creates a slice of array from start up to, but not including, end.
      *

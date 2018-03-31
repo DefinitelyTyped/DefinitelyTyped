@@ -58,7 +58,7 @@ interface XorWith {
      * _.xorWith(objects, others, _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
      */
-    <T>(p1: _.__, arrays: _.List<T> | null | undefined): XorWith1x2<T>;
+    <T>(comparator: _.__, arrays: _.List<T> | null | undefined): XorWith1x2<T>;
     /**
      * This method is like `_.xor` except that it accepts `comparator` which is
      * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -94,7 +94,7 @@ interface XorWith {
      * _.xorWith(objects, others, _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
      */
-    <T>(p1: _.__, p2: _.__, arrays2: _.List<T> | null | undefined): XorWith1x4<T>;
+    <T>(comparator: _.__, arrays: _.__, arrays2: _.List<T> | null | undefined): XorWith1x4<T>;
     /**
      * This method is like `_.xor` except that it accepts `comparator` which is
      * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -112,7 +112,7 @@ interface XorWith {
      * _.xorWith(objects, others, _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
      */
-    <T>(comparator: _.Comparator<T>, p2: _.__, arrays2: _.List<T> | null | undefined): XorWith1x5<T>;
+    <T>(comparator: _.Comparator<T>, arrays: _.__, arrays2: _.List<T> | null | undefined): XorWith1x5<T>;
     /**
      * This method is like `_.xor` except that it accepts `comparator` which is
      * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -130,7 +130,7 @@ interface XorWith {
      * _.xorWith(objects, others, _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
      */
-    <T>(p1: _.__, arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): XorWith1x6<T>;
+    <T>(comparator: _.__, arrays: _.List<T> | null | undefined, arrays2: _.List<T> | null | undefined): XorWith1x6<T>;
     /**
      * This method is like `_.xor` except that it accepts `comparator` which is
      * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -204,7 +204,7 @@ interface XorWith1x1<T> {
      * _.xorWith(objects, others, _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
      */
-    (p1: _.__, arrays2: _.List<T> | null | undefined): XorWith1x5<T>;
+    (arrays: _.__, arrays2: _.List<T> | null | undefined): XorWith1x5<T>;
     /**
      * This method is like `_.xor` except that it accepts `comparator` which is
      * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -278,7 +278,7 @@ interface XorWith1x2<T> {
      * _.xorWith(objects, others, _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
      */
-    (p1: _.__, arrays2: _.List<T> | null | undefined): XorWith1x6<T>;
+    (comparator: _.__, arrays2: _.List<T> | null | undefined): XorWith1x6<T>;
     /**
      * This method is like `_.xor` except that it accepts `comparator` which is
      * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -390,7 +390,7 @@ interface XorWith1x4<T> {
      * _.xorWith(objects, others, _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
      */
-    (p1: _.__, arrays: _.List<T> | null | undefined): XorWith1x6<T>;
+    (comparator: _.__, arrays: _.List<T> | null | undefined): XorWith1x6<T>;
     /**
      * This method is like `_.xor` except that it accepts `comparator` which is
      * invoked to compare elements of `arrays`. The comparator is invoked with

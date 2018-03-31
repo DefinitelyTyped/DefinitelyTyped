@@ -26,7 +26,7 @@ interface Divide {
     * @param divisor The second number in a division.
     * @returns Returns the quotient.
     */
-    (p1: _.__, divisor: number): Divide1x2;
+    (dividend: _.__, divisor: number): Divide1x2;
     /**
     * Divide two numbers.
     *

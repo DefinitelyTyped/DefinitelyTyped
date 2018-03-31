@@ -32,7 +32,7 @@ interface PadStart {
      * @param chars The string used as padding.
      * @return Returns the padded string.
      */
-    (p1: _.__, string: string): PadStart1x2;
+    (length: _.__, string: string): PadStart1x2;
     /**
      * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
      * length.

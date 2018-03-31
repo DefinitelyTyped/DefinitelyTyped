@@ -94,7 +94,7 @@ interface IsEqualWith {
      * _.isEqualWith(array, other, customizer);
      * // => true
      */
-    (p1: _.__, value: any): IsEqualWith1x2;
+    (customizer: _.__, value: any): IsEqualWith1x2;
     /**
      * This method is like `_.isEqual` except that it accepts `customizer` which is
      * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -154,7 +154,7 @@ interface IsEqualWith {
      * _.isEqualWith(array, other, customizer);
      * // => true
      */
-    (p1: _.__, p2: _.__, other: any): IsEqualWith1x4;
+    (customizer: _.__, value: _.__, other: any): IsEqualWith1x4;
     /**
      * This method is like `_.isEqual` except that it accepts `customizer` which is
      * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -184,7 +184,7 @@ interface IsEqualWith {
      * _.isEqualWith(array, other, customizer);
      * // => true
      */
-    (customizer: _.IsEqualCustomizer, p2: _.__, other: any): IsEqualWith1x5;
+    (customizer: _.IsEqualCustomizer, value: _.__, other: any): IsEqualWith1x5;
     /**
      * This method is like `_.isEqual` except that it accepts `customizer` which is
      * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -214,7 +214,7 @@ interface IsEqualWith {
      * _.isEqualWith(array, other, customizer);
      * // => true
      */
-    (p1: _.__, value: any, other: any): IsEqualWith1x6;
+    (customizer: _.__, value: any, other: any): IsEqualWith1x6;
     /**
      * This method is like `_.isEqual` except that it accepts `customizer` which is
      * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -336,7 +336,7 @@ interface IsEqualWith1x1 {
      * _.isEqualWith(array, other, customizer);
      * // => true
      */
-    (p1: _.__, other: any): IsEqualWith1x5;
+    (value: _.__, other: any): IsEqualWith1x5;
     /**
      * This method is like `_.isEqual` except that it accepts `customizer` which is
      * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -458,7 +458,7 @@ interface IsEqualWith1x2 {
      * _.isEqualWith(array, other, customizer);
      * // => true
      */
-    (p1: _.__, other: any): IsEqualWith1x6;
+    (customizer: _.__, other: any): IsEqualWith1x6;
     /**
      * This method is like `_.isEqual` except that it accepts `customizer` which is
      * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -642,7 +642,7 @@ interface IsEqualWith1x4 {
      * _.isEqualWith(array, other, customizer);
      * // => true
      */
-    (p1: _.__, value: any): IsEqualWith1x6;
+    (customizer: _.__, value: any): IsEqualWith1x6;
     /**
      * This method is like `_.isEqual` except that it accepts `customizer` which is
      * invoked to compare values. If `customizer` returns `undefined` comparisons are

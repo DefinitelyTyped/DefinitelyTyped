@@ -31,7 +31,7 @@ interface Rearg {
      * @param indexes The arranged argument indexes, specified as individual indexes or arrays of indexes.
      * @return Returns the new function.
      */
-    (p1: _.__, func: (...args: any[]) => any): Rearg1x2;
+    (indexes: _.__, func: (...args: any[]) => any): Rearg1x2;
     /**
      * Creates a function that invokes func with arguments arranged according to the specified indexes where the
      * argument value at the first index is provided as the first argument, the argument value at the second index

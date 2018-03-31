@@ -86,7 +86,7 @@ interface Merge {
      * _.merge(users, ages);
      * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
      */
-    <TSource>(p1: _.__, source: TSource): Merge1x2<TSource>;
+    <TSource>(object: _.__, source: TSource): Merge1x2<TSource>;
     /**
      * Recursively merges own and inherited enumerable properties of source
      * objects into the destination object, skipping source properties that resolve

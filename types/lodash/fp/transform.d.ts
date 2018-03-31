@@ -43,7 +43,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>): Transform1x2<TResult>;
+    <TResult>(iteratee: _.__, accumulator: ReadonlyArray<TResult>): Transform1x2<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -69,7 +69,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(p1: _.__, p2: _.__, object: ReadonlyArray<T>): Transform1x4<T>;
+    <T>(iteratee: _.__, accumulator: _.__, object: ReadonlyArray<T>): Transform1x4<T>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -82,7 +82,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, TResult[]>, p2: _.__, object: ReadonlyArray<T>): Transform1x5<TResult>;
+    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, TResult[]>, accumulator: _.__, object: ReadonlyArray<T>): Transform1x5<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -95,7 +95,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>, object: ReadonlyArray<T>): Transform1x6<T, TResult>;
+    <T, TResult>(iteratee: _.__, accumulator: ReadonlyArray<TResult>, object: ReadonlyArray<T>): Transform1x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -134,7 +134,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: _.Dictionary<TResult>): Transform2x2<TResult>;
+    <TResult>(iteratee: _.__, accumulator: _.Dictionary<TResult>): Transform2x2<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -160,7 +160,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, _.Dictionary<TResult>>, p2: _.__, object: ReadonlyArray<T>): Transform2x5<TResult>;
+    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, _.Dictionary<TResult>>, accumulator: _.__, object: ReadonlyArray<T>): Transform2x5<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -173,7 +173,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(p1: _.__, accumulator: _.Dictionary<TResult>, object: ReadonlyArray<T>): Transform2x6<T, TResult>;
+    <T, TResult>(iteratee: _.__, accumulator: _.Dictionary<TResult>, object: ReadonlyArray<T>): Transform2x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -199,7 +199,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(p1: _.__, p2: _.__, object: _.Dictionary<T>): Transform3x4<T>;
+    <T>(iteratee: _.__, accumulator: _.__, object: _.Dictionary<T>): Transform3x4<T>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -212,7 +212,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, _.Dictionary<TResult>>, p2: _.__, object: _.Dictionary<T>): Transform3x5<TResult>;
+    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, _.Dictionary<TResult>>, accumulator: _.__, object: _.Dictionary<T>): Transform3x5<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -225,7 +225,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(p1: _.__, accumulator: _.Dictionary<TResult>, object: _.Dictionary<T>): Transform3x6<T, TResult>;
+    <T, TResult>(iteratee: _.__, accumulator: _.Dictionary<TResult>, object: _.Dictionary<T>): Transform3x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -238,7 +238,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, TResult[]>, p2: _.__, object: _.Dictionary<T>): Transform4x5<TResult>;
+    <T, TResult>(iteratee: _.MemoVoidIteratorCapped<T, TResult[]>, accumulator: _.__, object: _.Dictionary<T>): Transform4x5<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -251,7 +251,7 @@ interface Transform {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T, TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>, object: _.Dictionary<T>): Transform4x6<T, TResult>;
+    <T, TResult>(iteratee: _.__, accumulator: ReadonlyArray<TResult>, object: _.Dictionary<T>): Transform4x6<T, TResult>;
 }
 interface Transform1x1<T, TResult> {
     /**
@@ -292,7 +292,7 @@ interface Transform1x1<T, TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    (p1: _.__, object: ReadonlyArray<T>): Transform1x5<TResult>;
+    (accumulator: _.__, object: ReadonlyArray<T>): Transform1x5<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -318,7 +318,7 @@ interface Transform1x1<T, TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    (p1: _.__, object: _.Dictionary<T>): Transform4x5<TResult>;
+    (accumulator: _.__, object: _.Dictionary<T>): Transform4x5<TResult>;
 }
 interface Transform1x2<TResult> {
     /**
@@ -359,7 +359,7 @@ interface Transform1x2<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(p1: _.__, object: ReadonlyArray<T>): Transform1x6<T, TResult>;
+    <T>(iteratee: _.__, object: ReadonlyArray<T>): Transform1x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -385,7 +385,7 @@ interface Transform1x2<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(p1: _.__, object: _.Dictionary<T>): Transform4x6<T, TResult>;
+    <T>(iteratee: _.__, object: _.Dictionary<T>): Transform4x6<T, TResult>;
 }
 interface Transform1x3<T, TResult> {
     /**
@@ -454,7 +454,7 @@ interface Transform1x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>): Transform1x6<T, TResult>;
+    <TResult>(iteratee: _.__, accumulator: ReadonlyArray<TResult>): Transform1x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -493,7 +493,7 @@ interface Transform1x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: _.Dictionary<TResult>): Transform2x6<T, TResult>;
+    <TResult>(iteratee: _.__, accumulator: _.Dictionary<TResult>): Transform2x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -603,7 +603,7 @@ interface Transform2x1<T, TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    (p1: _.__, object: ReadonlyArray<T>): Transform2x5<TResult>;
+    (accumulator: _.__, object: ReadonlyArray<T>): Transform2x5<TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -629,7 +629,7 @@ interface Transform2x1<T, TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    (p1: _.__, object: _.Dictionary<T>): Transform3x5<TResult>;
+    (accumulator: _.__, object: _.Dictionary<T>): Transform3x5<TResult>;
 }
 interface Transform2x2<TResult> {
     /**
@@ -670,7 +670,7 @@ interface Transform2x2<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(p1: _.__, object: ReadonlyArray<T>): Transform2x6<T, TResult>;
+    <T>(iteratee: _.__, object: ReadonlyArray<T>): Transform2x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -696,7 +696,7 @@ interface Transform2x2<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(p1: _.__, object: _.Dictionary<T>): Transform3x6<T, TResult>;
+    <T>(iteratee: _.__, object: _.Dictionary<T>): Transform3x6<T, TResult>;
 }
 interface Transform2x3<T, TResult> {
     /**
@@ -821,7 +821,7 @@ interface Transform3x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: _.Dictionary<TResult>): Transform3x6<T, TResult>;
+    <TResult>(iteratee: _.__, accumulator: _.Dictionary<TResult>): Transform3x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -860,7 +860,7 @@ interface Transform3x4<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <TResult>(p1: _.__, accumulator: ReadonlyArray<TResult>): Transform4x6<T, TResult>;
+    <TResult>(iteratee: _.__, accumulator: ReadonlyArray<TResult>): Transform4x6<T, TResult>;
     /**
      * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
      * running each of its own enumerable properties through iteratee, with each invocation potentially mutating

@@ -34,7 +34,7 @@ interface Result {
      * @param defaultValue The value returned if the resolved value is undefined.
      * @return Returns the resolved value.
      */
-    (p1: _.__, object: any): Result1x2;
+    (path: _.__, object: any): Result1x2;
     /**
      * This method is like _.get except that if the resolved value is a function it’s invoked with the this binding
      * of its parent object and its result is returned.

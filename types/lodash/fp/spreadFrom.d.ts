@@ -32,7 +32,7 @@ interface Spread {
      * @param func The function to spread arguments over.
      * @return Returns the new function.
      */
-    <TResult>(p1: _.__, func: (...args: any[]) => TResult): Spread1x2<TResult>;
+    <TResult>(start: _.__, func: (...args: any[]) => TResult): Spread1x2<TResult>;
     /**
      * Creates a function that invokes func with the this binding of the created function and an array of arguments
      * much like Function#apply.

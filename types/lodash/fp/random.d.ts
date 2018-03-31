@@ -35,7 +35,7 @@ interface Random {
      * @param floating Specify returning a floating-point number.
      * @return Returns the random number.
      */
-    (p1: _.__, floating: boolean): Random1x2;
+    (max: _.__, floating: boolean): Random1x2;
     /**
      * Produces a random number between min and max (inclusive). If only one argument is provided a number between
      * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point
@@ -57,7 +57,7 @@ interface Random {
      * @param floating Specify returning a floating-point number.
      * @return Returns the random number.
      */
-    (p1: _.__, max: number): Random2x2;
+    (min: _.__, max: number): Random2x2;
 }
 interface Random1x1 {
     /**

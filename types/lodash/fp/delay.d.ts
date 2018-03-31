@@ -29,7 +29,7 @@ interface Delay {
      * @param args The arguments to invoke the function with.
      * @return Returns the timer id.
      */
-    (p1: _.__, func: (...args: any[]) => any): Delay1x2;
+    (wait: _.__, func: (...args: any[]) => any): Delay1x2;
     /**
      * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.
      *

@@ -47,7 +47,7 @@ interface Bind {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (p1: _.__, thisArg: any): Bind1x2;
+    (func: _.__, thisArg: any): Bind1x2;
     /**
      * Creates a function that invokes func with the this binding of thisArg and prepends any additional _.bind
      * arguments to those provided to the bound function.

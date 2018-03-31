@@ -61,7 +61,7 @@ interface IntersectionBy {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T1>(p1: _.__, array: _.List<T1> | null): IntersectionBy1x2<T1>;
+    <T1>(iteratee: _.__, array: _.List<T1> | null): IntersectionBy1x2<T1>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion
@@ -99,7 +99,7 @@ interface IntersectionBy {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T2>(p1: _.__, p2: _.__, values: _.List<T2>): IntersectionBy1x4<T2>;
+    <T2>(iteratee: _.__, array: _.__, values: _.List<T2>): IntersectionBy1x4<T2>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion
@@ -118,7 +118,7 @@ interface IntersectionBy {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, p2: _.__, values: _.List<T2>): IntersectionBy1x5<T1>;
+    <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, array: _.__, values: _.List<T2>): IntersectionBy1x5<T1>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion
@@ -137,7 +137,7 @@ interface IntersectionBy {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T1, T2>(p1: _.__, array: _.List<T1> | null, values: _.List<T2>): IntersectionBy1x6<T1, T2>;
+    <T1, T2>(iteratee: _.__, array: _.List<T1> | null, values: _.List<T2>): IntersectionBy1x6<T1, T2>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion
@@ -215,7 +215,7 @@ interface IntersectionBy1x1<T1, T2> {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    (p1: _.__, values: _.List<T2>): IntersectionBy1x5<T1>;
+    (array: _.__, values: _.List<T2>): IntersectionBy1x5<T1>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion
@@ -293,7 +293,7 @@ interface IntersectionBy1x2<T1> {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): IntersectionBy1x6<T1, T2>;
+    <T2>(iteratee: _.__, values: _.List<T2>): IntersectionBy1x6<T1, T2>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion
@@ -411,7 +411,7 @@ interface IntersectionBy1x4<T2> {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T1>(p1: _.__, array: _.List<T1> | null): IntersectionBy1x6<T1, T2>;
+    <T1>(iteratee: _.__, array: _.List<T1> | null): IntersectionBy1x6<T1, T2>;
     /**
      * This method is like `_.intersection` except that it accepts `iteratee`
      * which is invoked for each element of each `arrays` to generate the criterion

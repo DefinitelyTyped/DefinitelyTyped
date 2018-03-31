@@ -31,7 +31,7 @@ interface FindLast {
      * @param fromIndex The index to search from.
      * @return The found element, else undefined.
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): FindLast1x2<T>;
+    <T>(predicate: _.__, collection: _.List<T> | null | undefined): FindLast1x2<T>;
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.
@@ -76,7 +76,7 @@ interface FindLast {
      * @param fromIndex The index to search from.
      * @return The found element, else undefined.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): FindLast3x2<T>;
+    <T extends object>(predicate: _.__, collection: T | null | undefined): FindLast3x2<T>;
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.

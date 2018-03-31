@@ -28,7 +28,7 @@ interface Nth {
      * @param value The index of the element to return.
      * @return Returns the nth element of `array`.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): Nth1x2<T>;
+    <T>(n: _.__, array: _.List<T> | null | undefined): Nth1x2<T>;
     /**
      * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
      *

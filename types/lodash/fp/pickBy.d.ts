@@ -52,7 +52,7 @@ interface PickBy {
      * _.pickBy(object, _.isNumber);
      * // => { 'a': 1, 'c': 3 }
      */
-    <T extends object>(p1: _.__, object: T | null | undefined): PickBy1x2<T>;
+    <T extends object>(predicate: _.__, object: T | null | undefined): PickBy1x2<T>;
     /**
      * Creates an object composed of the `object` properties `predicate` returns
      * truthy for. The predicate is invoked with two arguments: (value, key).

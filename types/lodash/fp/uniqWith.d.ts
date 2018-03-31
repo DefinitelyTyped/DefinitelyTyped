@@ -55,7 +55,7 @@ interface UniqWith {
      * _.uniqWith(objects, _.isEqual);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): UniqWith1x2<T>;
+    <T>(comparator: _.__, array: _.List<T> | null | undefined): UniqWith1x2<T>;
     /**
      * This method is like `_.uniq` except that it accepts `comparator` which
      * is invoked to compare elements of `array`. The comparator is invoked with

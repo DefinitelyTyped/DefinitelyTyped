@@ -86,7 +86,7 @@ interface AssignIn {
      * _.assignIn({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
      */
-    <TSource>(p1: _.__, source: TSource): AssignIn1x2<TSource>;
+    <TSource>(object: _.__, source: TSource): AssignIn1x2<TSource>;
     /**
      * This method is like `_.assign` except that it iterates over own and
      * inherited source properties.

@@ -101,7 +101,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (p1: _.__, end: number): RangeRight1x2;
+    (start: _.__, end: number): RangeRight1x2;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.

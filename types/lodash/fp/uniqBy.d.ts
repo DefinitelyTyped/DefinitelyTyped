@@ -61,7 +61,7 @@ interface UniqBy {
      * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }, { 'x': 2 }]
      */
-    (p1: _.__, array: string | null | undefined): UniqBy1x2;
+    (iteratee: _.__, array: string | null | undefined): UniqBy1x2;
     /**
      * This method is like `_.uniq` except that it accepts `iteratee` which is
      * invoked for each element in `array` to generate the criterion by which
@@ -118,7 +118,7 @@ interface UniqBy {
      * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }, { 'x': 2 }]
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): UniqBy2x2<T>;
+    <T>(iteratee: _.__, array: _.List<T> | null | undefined): UniqBy2x2<T>;
     /**
      * This method is like `_.uniq` except that it accepts `iteratee` which is
      * invoked for each element in `array` to generate the criterion by which

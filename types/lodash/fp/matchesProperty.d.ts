@@ -37,7 +37,7 @@ interface MatchesProperty {
      * @param srcValue The value to match.
      * @return Returns the new function.
      */
-    <T>(p1: _.__, srcValue: T): MatchesProperty1x2;
+    <T>(path: _.__, srcValue: T): MatchesProperty1x2;
     /**
      * Creates a function that compares the property value of path on a given object to value.
      *

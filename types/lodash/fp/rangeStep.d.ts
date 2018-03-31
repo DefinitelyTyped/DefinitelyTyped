@@ -35,7 +35,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (p1: _.__, end: number): Range1x2;
+    (start: _.__, end: number): Range1x2;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -57,7 +57,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (p1: _.__, p2: _.__, step: number): Range1x4;
+    (start: _.__, end: _.__, step: number): Range1x4;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -68,7 +68,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (start: number, p2: _.__, step: number): Range1x5;
+    (start: number, end: _.__, step: number): Range1x5;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -79,7 +79,7 @@ interface Range {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (p1: _.__, end: number, step: number): Range1x6;
+    (start: _.__, end: number, step: number): Range1x6;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -125,7 +125,7 @@ interface Range1x1 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (p1: _.__, step: number): Range1x5;
+    (end: _.__, step: number): Range1x5;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -171,7 +171,7 @@ interface Range1x2 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (p1: _.__, step: number): Range1x6;
+    (start: _.__, step: number): Range1x6;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -241,7 +241,7 @@ interface Range1x4 {
      * @param step The value to increment or decrement by.
      * @return Returns a new range array.
      */
-    (p1: _.__, end: number): Range1x6;
+    (start: _.__, end: number): Range1x6;
     /**
      * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
      * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length

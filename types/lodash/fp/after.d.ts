@@ -26,7 +26,7 @@ interface After {
      * @param func The function to restrict.
      * @return Returns the new restricted function.
      */
-    (p1: _.__, n: number): After1x2;
+    (func: _.__, n: number): After1x2;
     /**
      * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
      *

@@ -67,7 +67,7 @@ interface CountBy {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    (p1: _.__, collection: string | null | undefined): CountBy1x2;
+    (iteratee: _.__, collection: string | null | undefined): CountBy1x2;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The
@@ -130,7 +130,7 @@ interface CountBy {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): CountBy2x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): CountBy2x2<T>;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The
@@ -172,7 +172,7 @@ interface CountBy {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): CountBy3x2<T>;
+    <T extends object>(iteratee: _.__, collection: T | null | undefined): CountBy3x2<T>;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection through
      * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The

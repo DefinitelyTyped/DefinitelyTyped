@@ -34,7 +34,7 @@ interface Reject {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    (p1: _.__, collection: string | null | undefined): Reject1x2;
+    (predicate: _.__, collection: string | null | undefined): Reject1x2;
     /**
      * The opposite of _.filter; this method returns the elements of collection that predicate does not return
      * truthy for.
@@ -64,7 +64,7 @@ interface Reject {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): Reject2x2<T>;
+    <T>(predicate: _.__, collection: _.List<T> | null | undefined): Reject2x2<T>;
     /**
      * The opposite of _.filter; this method returns the elements of collection that predicate does not return
      * truthy for.
@@ -84,7 +84,7 @@ interface Reject {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): Reject3x2<T>;
+    <T extends object>(predicate: _.__, collection: T | null | undefined): Reject3x2<T>;
     /**
      * The opposite of _.filter; this method returns the elements of collection that predicate does not return
      * truthy for.

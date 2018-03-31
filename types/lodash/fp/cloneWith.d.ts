@@ -31,7 +31,7 @@ interface CloneWith {
      * @param customizer The function to customize cloning.
      * @return Returns the cloned value.
      */
-    <T>(p1: _.__, value: T): CloneWith1x2<T>;
+    <T>(customizer: _.__, value: T): CloneWith1x2<T>;
     /**
      * This method is like _.clone except that it accepts customizer which is invoked to produce the cloned value.
      * If customizer returns undefined cloning is handled by the method instead.

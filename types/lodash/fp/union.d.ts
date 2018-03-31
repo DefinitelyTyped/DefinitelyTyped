@@ -28,7 +28,7 @@ interface Union {
      * @param arrays The arrays to inspect.
      * @return Returns the new array of combined values.
      */
-    <T>(p1: _.__, arrays: _.List<T> | null | undefined): Union1x2<T>;
+    <T>(arrays2: _.__, arrays: _.List<T> | null | undefined): Union1x2<T>;
     /**
      * Creates an array of unique values, in order, from all of the provided arrays using SameValueZero for
      * equality comparisons.

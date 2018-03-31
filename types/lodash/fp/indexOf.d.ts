@@ -67,7 +67,7 @@ interface IndexOf {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): IndexOf1x2<T>;
+    <T>(value: _.__, array: _.List<T> | null | undefined): IndexOf1x2<T>;
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)

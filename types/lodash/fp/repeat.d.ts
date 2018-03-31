@@ -26,7 +26,7 @@ interface Repeat {
      * @param n The number of times to repeat the string.
      * @return Returns the repeated string.
      */
-    (p1: _.__, string: string): Repeat1x2;
+    (n: _.__, string: string): Repeat1x2;
     /**
      * Repeats the given string n times.
      *

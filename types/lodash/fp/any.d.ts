@@ -31,7 +31,7 @@ interface Some {
      * @param predicate The function invoked per iteration.
      * @return Returns true if any element passes the predicate check, else false.
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): Some1x2<T>;
+    <T>(predicate: _.__, collection: _.List<T> | null | undefined): Some1x2<T>;
     /**
      * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
      * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
@@ -49,7 +49,7 @@ interface Some {
      * @param predicate The function invoked per iteration.
      * @return Returns true if any element passes the predicate check, else false.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): Some2x2<T>;
+    <T extends object>(predicate: _.__, collection: T | null | undefined): Some2x2<T>;
     /**
      * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
      * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).

@@ -79,7 +79,7 @@ interface Has {
      * _.has(other, 'a');
      * // => false
      */
-    <T>(p1: _.__, object: T): Has1x2;
+    <T>(path: _.__, object: T): Has1x2;
     /**
      * Checks if `path` is a direct property of `object`.
      *

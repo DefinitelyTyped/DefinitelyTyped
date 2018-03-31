@@ -26,7 +26,7 @@ interface Trim {
      * @param chars The characters to trim.
      * @return Returns the trimmed string.
      */
-    (p1: _.__, string: string): Trim1x2;
+    (chars: _.__, string: string): Trim1x2;
     /**
      * Removes leading and trailing whitespace or specified characters from string.
      *

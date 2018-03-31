@@ -41,7 +41,7 @@ interface Subtract {
      * _.subtract(6, 4);
      * // => 2
      */
-    (p1: _.__, subtrahend: number): Subtract1x2;
+    (minuend: _.__, subtrahend: number): Subtract1x2;
     /**
      * Subtract two numbers.
      *

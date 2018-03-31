@@ -64,7 +64,7 @@ interface Concat {
      * console.log(array);
      * // => [1]
      */
-    <T>(p1: _.__, values: _.Many<T>): Concat1x2<T>;
+    <T>(array: _.__, values: _.Many<T>): Concat1x2<T>;
     /**
      * Creates a new array concatenating `array` with any additional arrays
      * and/or values.

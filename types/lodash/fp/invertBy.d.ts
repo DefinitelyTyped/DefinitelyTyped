@@ -34,7 +34,7 @@ interface InvertBy {
      * @param interatee The iteratee invoked per element.
      * @return Returns the new inverted object.
      */
-    <T>(p1: _.__, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): InvertBy1x2<T>;
+    <T>(interatee: _.__, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): InvertBy1x2<T>;
     /**
      * This method is like _.invert except that the inverted object is generated from the results of running each
      * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
@@ -54,7 +54,7 @@ interface InvertBy {
      * @param interatee The iteratee invoked per element.
      * @return Returns the new inverted object.
      */
-    <T extends object>(p1: _.__, object: T | null | undefined): InvertBy2x2<T>;
+    <T extends object>(interatee: _.__, object: T | null | undefined): InvertBy2x2<T>;
     /**
      * This method is like _.invert except that the inverted object is generated from the results of running each
      * element of object through iteratee. The corresponding inverted value of each inverted key is an array of

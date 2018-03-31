@@ -61,7 +61,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): FlatMapDeep1x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): FlatMapDeep1x2<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -118,7 +118,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): FlatMapDeep2x2<T>;
+    <T extends object>(iteratee: _.__, collection: T | null | undefined): FlatMapDeep2x2<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.
@@ -175,7 +175,7 @@ interface FlatMapDeep {
      * _.flatMapDeep([1, 2], duplicate);
      * // => [1, 1, 2, 2]
      */
-    (p1: _.__, collection: object | null | undefined): FlatMapDeep3x2;
+    (iteratee: _.__, collection: object | null | undefined): FlatMapDeep3x2;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results.

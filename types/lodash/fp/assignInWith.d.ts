@@ -82,7 +82,7 @@ interface AssignInWith {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TObject>(p1: _.__, object: TObject): AssignInWith1x2<TObject>;
+    <TObject>(customizer: _.__, object: TObject): AssignInWith1x2<TObject>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -134,7 +134,7 @@ interface AssignInWith {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TSource>(p1: _.__, p2: _.__, source: TSource): AssignInWith1x4<TSource>;
+    <TSource>(customizer: _.__, object: _.__, source: TSource): AssignInWith1x4<TSource>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -160,7 +160,7 @@ interface AssignInWith {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TSource>(customizer: _.AssignCustomizer, p2: _.__, source: TSource): AssignInWith1x5<TSource>;
+    <TSource>(customizer: _.AssignCustomizer, object: _.__, source: TSource): AssignInWith1x5<TSource>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -186,7 +186,7 @@ interface AssignInWith {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TObject, TSource>(p1: _.__, object: TObject, source: TSource): AssignInWith1x6<TObject, TSource>;
+    <TObject, TSource>(customizer: _.__, object: TObject, source: TSource): AssignInWith1x6<TObject, TSource>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -292,7 +292,7 @@ interface AssignInWith1x1 {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TSource>(p1: _.__, source: TSource): AssignInWith1x5<TSource>;
+    <TSource>(object: _.__, source: TSource): AssignInWith1x5<TSource>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -398,7 +398,7 @@ interface AssignInWith1x2<TObject> {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TSource>(p1: _.__, source: TSource): AssignInWith1x6<TObject, TSource>;
+    <TSource>(customizer: _.__, source: TSource): AssignInWith1x6<TObject, TSource>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -558,7 +558,7 @@ interface AssignInWith1x4<TSource> {
      * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
      * // => { 'a': 1, 'b': 2 }
      */
-    <TObject>(p1: _.__, object: TObject): AssignInWith1x6<TObject, TSource>;
+    <TObject>(customizer: _.__, object: TObject): AssignInWith1x6<TObject, TSource>;
     /**
      * This method is like `_.assignIn` except that it accepts `customizer` which
      * is invoked to produce the assigned values. If `customizer` returns `undefined`

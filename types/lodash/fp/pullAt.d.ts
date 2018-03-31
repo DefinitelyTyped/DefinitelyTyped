@@ -37,7 +37,7 @@ interface PullAt {
      * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
      * @return Returns the new array of removed elements.
      */
-    <T>(p1: _.__, array: ReadonlyArray<T>): PullAt1x2<T>;
+    <T>(indexes: _.__, array: ReadonlyArray<T>): PullAt1x2<T>;
     /**
      * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
      * Indexes may be specified as an array of indexes or as individual arguments.
@@ -59,7 +59,7 @@ interface PullAt {
      * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
      * @return Returns the new array of removed elements.
      */
-    <T>(p1: _.__, array: _.List<T>): PullAt2x2<T>;
+    <T>(indexes: _.__, array: _.List<T>): PullAt2x2<T>;
     /**
      * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
      * Indexes may be specified as an array of indexes or as individual arguments.

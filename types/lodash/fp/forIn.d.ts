@@ -35,7 +35,7 @@ interface ForIn {
      * @param thisArg The this binding of iteratee.
      * @return Returns object.
      */
-    <T>(p1: _.__, object: T): ForIn1x2<T>;
+    <T>(iteratee: _.__, object: T): ForIn1x2<T>;
     /**
      * Iterates over own and inherited enumerable properties of an object invoking iteratee for each property. The
      * iteratee is bound to thisArg and invoked with three arguments: (value, key, object). Iteratee functions may
@@ -57,7 +57,7 @@ interface ForIn {
      * @param thisArg The this binding of iteratee.
      * @return Returns object.
      */
-    <T>(p1: _.__, object: T | null | undefined): ForIn2x2<T>;
+    <T>(iteratee: _.__, object: T | null | undefined): ForIn2x2<T>;
     /**
      * Iterates over own and inherited enumerable properties of an object invoking iteratee for each property. The
      * iteratee is bound to thisArg and invoked with three arguments: (value, key, object). Iteratee functions may

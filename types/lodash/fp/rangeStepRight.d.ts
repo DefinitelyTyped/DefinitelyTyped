@@ -101,7 +101,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (p1: _.__, end: number): RangeRight1x2;
+    (start: _.__, end: number): RangeRight1x2;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -167,7 +167,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (p1: _.__, p2: _.__, step: number): RangeRight1x4;
+    (start: _.__, end: _.__, step: number): RangeRight1x4;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -200,7 +200,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (start: number, p2: _.__, step: number): RangeRight1x5;
+    (start: number, end: _.__, step: number): RangeRight1x5;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -233,7 +233,7 @@ interface RangeRight {
      * _.rangeRight(0);
      * // => []
      */
-    (p1: _.__, end: number, step: number): RangeRight1x6;
+    (start: _.__, end: number, step: number): RangeRight1x6;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -367,7 +367,7 @@ interface RangeRight1x1 {
      * _.rangeRight(0);
      * // => []
      */
-    (p1: _.__, step: number): RangeRight1x5;
+    (end: _.__, step: number): RangeRight1x5;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -501,7 +501,7 @@ interface RangeRight1x2 {
      * _.rangeRight(0);
      * // => []
      */
-    (p1: _.__, step: number): RangeRight1x6;
+    (start: _.__, step: number): RangeRight1x6;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.
@@ -703,7 +703,7 @@ interface RangeRight1x4 {
      * _.rangeRight(0);
      * // => []
      */
-    (p1: _.__, end: number): RangeRight1x6;
+    (start: _.__, end: number): RangeRight1x6;
     /**
      * This method is like `_.range` except that it populates values in
      * descending order.

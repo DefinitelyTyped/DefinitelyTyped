@@ -58,7 +58,7 @@ interface FindLastIndex {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): FindLastIndex1x2<T>;
+    <T>(predicate: _.__, array: _.List<T> | null | undefined): FindLastIndex1x2<T>;
     /**
      * This method is like _.findIndex except that it iterates over elements of collection from right to left.
      *

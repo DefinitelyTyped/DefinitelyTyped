@@ -89,7 +89,7 @@ interface Assign {
      * _.assign({ 'a': 1 }, new Foo, new Bar);
      * // => { 'a': 1, 'c': 3, 'e': 5 }
      */
-    <TSource>(p1: _.__, source: TSource): Assign1x2<TSource>;
+    <TSource>(object: _.__, source: TSource): Assign1x2<TSource>;
     /**
      * Assigns own enumerable properties of source objects to the destination
      * object. Source objects are applied from left to right. Subsequent sources

@@ -61,7 +61,7 @@ interface FindIndex {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): FindIndex1x2<T>;
+    <T>(predicate: _.__, array: _.List<T> | null | undefined): FindIndex1x2<T>;
     /**
      * This method is like _.find except that it returns the index of the first element predicate returns truthy
      * for instead of the element itself.

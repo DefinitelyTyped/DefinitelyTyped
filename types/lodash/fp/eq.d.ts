@@ -89,7 +89,7 @@ interface Eq {
      * _.eq(NaN, NaN);
      * // => true
      */
-    (p1: _.__, other: any): Eq1x2;
+    (value: _.__, other: any): Eq1x2;
     /**
      * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
      * comparison between two values to determine if they are equivalent.

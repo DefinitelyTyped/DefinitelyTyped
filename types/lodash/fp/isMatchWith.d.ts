@@ -94,7 +94,7 @@ interface IsMatchWith {
      * _.isMatchWith(object, source, customizer);
      * // => true
      */
-    (p1: _.__, source: object): IsMatchWith1x2;
+    (customizer: _.__, source: object): IsMatchWith1x2;
     /**
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -154,7 +154,7 @@ interface IsMatchWith {
      * _.isMatchWith(object, source, customizer);
      * // => true
      */
-    (p1: _.__, p2: _.__, object: object): IsMatchWith1x4;
+    (customizer: _.__, source: _.__, object: object): IsMatchWith1x4;
     /**
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -184,7 +184,7 @@ interface IsMatchWith {
      * _.isMatchWith(object, source, customizer);
      * // => true
      */
-    (customizer: _.isMatchWithCustomizer, p2: _.__, object: object): IsMatchWith1x5;
+    (customizer: _.isMatchWithCustomizer, source: _.__, object: object): IsMatchWith1x5;
     /**
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -214,7 +214,7 @@ interface IsMatchWith {
      * _.isMatchWith(object, source, customizer);
      * // => true
      */
-    (p1: _.__, source: object, object: object): IsMatchWith1x6;
+    (customizer: _.__, source: object, object: object): IsMatchWith1x6;
     /**
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -336,7 +336,7 @@ interface IsMatchWith1x1 {
      * _.isMatchWith(object, source, customizer);
      * // => true
      */
-    (p1: _.__, object: object): IsMatchWith1x5;
+    (source: _.__, object: object): IsMatchWith1x5;
     /**
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -458,7 +458,7 @@ interface IsMatchWith1x2 {
      * _.isMatchWith(object, source, customizer);
      * // => true
      */
-    (p1: _.__, object: object): IsMatchWith1x6;
+    (customizer: _.__, object: object): IsMatchWith1x6;
     /**
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -642,7 +642,7 @@ interface IsMatchWith1x4 {
      * _.isMatchWith(object, source, customizer);
      * // => true
      */
-    (p1: _.__, source: object): IsMatchWith1x6;
+    (customizer: _.__, source: object): IsMatchWith1x6;
     /**
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined` comparisons

@@ -50,7 +50,7 @@ interface BindKey {
      * @param partials The arguments to be partially applied.
      * @return Returns the new bound function.
      */
-    (p1: _.__, key: string): BindKey1x2;
+    (object: _.__, key: string): BindKey1x2;
     /**
      * Creates a function that invokes the method at object[key] and prepends any additional _.bindKey arguments
      * to those provided to the bound function.

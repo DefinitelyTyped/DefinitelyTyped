@@ -25,7 +25,7 @@ interface Invoke {
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (p1: _.__, object: any): Invoke1x2;
+    (path: _.__, object: any): Invoke1x2;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.

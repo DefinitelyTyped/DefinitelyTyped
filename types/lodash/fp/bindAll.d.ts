@@ -43,7 +43,7 @@ interface BindAll {
      * method names.
      * @return Returns object.
      */
-    <T>(p1: _.__, object: T): BindAll1x2<T>;
+    <T>(methodNames: _.__, object: T): BindAll1x2<T>;
     /**
      * Binds methods of an object to the object itself, overwriting the existing method. Method names may be
      * specified as individual arguments or as arrays of method names. If no method names are provided all

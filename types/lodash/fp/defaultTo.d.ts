@@ -32,7 +32,7 @@ interface DefaultTo {
      * @param defaultValue The default value.
      * @returns Returns the resolved value.
      */
-    <T>(p1: _.__, value: T | null | undefined): DefaultTo1x2<T>;
+    <T>(defaultValue: _.__, value: T | null | undefined): DefaultTo1x2<T>;
     /**
      * Checks `value` to determine whether a default value should be returned in
      * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,

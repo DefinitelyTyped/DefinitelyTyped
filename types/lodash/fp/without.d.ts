@@ -28,7 +28,7 @@ interface Without {
      * @param values The values to exclude.
      * @return Returns the new array of filtered values.
      */
-    <T>(p1: _.__, array: _.List<T> | null | undefined): Without1x2<T>;
+    <T>(values: _.__, array: _.List<T> | null | undefined): Without1x2<T>;
     /**
      * Creates an array excluding all provided values using SameValueZero for equality comparisons.
      *

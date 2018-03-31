@@ -31,7 +31,7 @@ interface Truncate {
      * @param options The options object or maximum string length.
      * @return Returns the truncated string.
      */
-    (p1: _.__, string: string): Truncate1x2;
+    (options: _.__, string: string): Truncate1x2;
     /**
      * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
      * string are replaced with the omission string which defaults to "…".

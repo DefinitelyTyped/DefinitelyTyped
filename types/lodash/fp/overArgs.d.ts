@@ -31,7 +31,7 @@ interface OverArgs {
      * of functions.
      * @return Returns the new function.
      */
-    (p1: _.__, transforms: _.Many<(...args: any[]) => any>): OverArgs1x2;
+    (func: _.__, transforms: _.Many<(...args: any[]) => any>): OverArgs1x2;
     /**
      * Creates a function that runs each argument through a corresponding transform function.
      *

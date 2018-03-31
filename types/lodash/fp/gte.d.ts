@@ -26,7 +26,7 @@ interface Gte {
      * @param other The other value to compare.
      * @return Returns true if value is greater than or equal to other, else false.
      */
-    (p1: _.__, other: any): Gte1x2;
+    (value: _.__, other: any): Gte1x2;
     /**
      * Checks if value is greater than or equal to other.
      *

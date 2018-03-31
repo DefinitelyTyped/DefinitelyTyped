@@ -35,7 +35,7 @@ interface Rest {
      * @param start The start position of the rest parameter.
      * @return Returns the new function.
      */
-    (p1: _.__, func: (...args: any[]) => any): Rest1x2;
+    (start: _.__, func: (...args: any[]) => any): Rest1x2;
     /**
      * Creates a function that invokes func with the this binding of the created function and arguments from start
      * and beyond provided as an array.

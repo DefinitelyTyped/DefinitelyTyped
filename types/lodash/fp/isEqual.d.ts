@@ -80,7 +80,7 @@ interface IsEqual {
      * object === other;
      * // => false
      */
-    (p1: _.__, other: any): IsEqual1x2;
+    (value: _.__, other: any): IsEqual1x2;
     /**
      * Performs a deep comparison between two values to determine if they are
      * equivalent.

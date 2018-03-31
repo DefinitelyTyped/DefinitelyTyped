@@ -31,7 +31,7 @@ interface At {
      * @param props The property names or indexes of elements to pick, specified individually or in arrays.
      * @return Returns the new array of picked elements.
      */
-    <T>(p1: _.__, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): At1x2<T>;
+    <T>(props: _.__, object: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): At1x2<T>;
     /**
      * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
      * specified as individual arguments or as arrays of keys.
@@ -58,7 +58,7 @@ interface At {
      * @param props The property names or indexes of elements to pick, specified individually or in arrays.
      * @return Returns the new array of picked elements.
      */
-    <T extends object>(p1: _.__, object: T | null | undefined): At2x2<T>;
+    <T extends object>(props: _.__, object: T | null | undefined): At2x2<T>;
     /**
      * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
      * specified as individual arguments or as arrays of keys.

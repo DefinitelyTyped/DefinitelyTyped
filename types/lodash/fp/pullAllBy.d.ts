@@ -67,7 +67,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, values: _.List<T>): PullAllBy1x2<T>;
+    <T>(iteratee: _.__, values: _.List<T>): PullAllBy1x2<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -109,7 +109,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, p2: _.__, array: ReadonlyArray<T>): PullAllBy1x4<T>;
+    <T>(iteratee: _.__, values: _.__, array: ReadonlyArray<T>): PullAllBy1x4<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -130,7 +130,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T>(iteratee: _.ValueIteratee<T>, p2: _.__, array: ReadonlyArray<T>): PullAllBy1x5<T>;
+    <T>(iteratee: _.ValueIteratee<T>, values: _.__, array: ReadonlyArray<T>): PullAllBy1x5<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -151,7 +151,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, values: _.List<T>, array: ReadonlyArray<T>): PullAllBy1x6<T>;
+    <T>(iteratee: _.__, values: _.List<T>, array: ReadonlyArray<T>): PullAllBy1x6<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -193,7 +193,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, p2: _.__, array: _.List<T>): PullAllBy2x4<T>;
+    <T>(iteratee: _.__, values: _.__, array: _.List<T>): PullAllBy2x4<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -214,7 +214,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T>(iteratee: _.ValueIteratee<T>, p2: _.__, array: _.List<T>): PullAllBy2x5<T>;
+    <T>(iteratee: _.ValueIteratee<T>, values: _.__, array: _.List<T>): PullAllBy2x5<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -235,7 +235,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T>(p1: _.__, values: _.List<T>, array: _.List<T>): PullAllBy2x6<T>;
+    <T>(iteratee: _.__, values: _.List<T>, array: _.List<T>): PullAllBy2x6<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -298,7 +298,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): PullAllBy3x2<T2>;
+    <T2>(iteratee: _.__, values: _.List<T2>): PullAllBy3x2<T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -340,7 +340,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1>(p1: _.__, p2: _.__, array: ReadonlyArray<T1>): PullAllBy3x4<T1>;
+    <T1>(iteratee: _.__, values: _.__, array: ReadonlyArray<T1>): PullAllBy3x4<T1>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -361,7 +361,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, p2: _.__, array: ReadonlyArray<T1>): PullAllBy3x5<T1, T2>;
+    <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, values: _.__, array: ReadonlyArray<T1>): PullAllBy3x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -382,7 +382,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1, T2>(p1: _.__, values: _.List<T2>, array: ReadonlyArray<T1>): PullAllBy3x6<T1, T2>;
+    <T1, T2>(iteratee: _.__, values: _.List<T2>, array: ReadonlyArray<T1>): PullAllBy3x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -424,7 +424,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1>(p1: _.__, p2: _.__, array: _.List<T1>): PullAllBy4x4<T1>;
+    <T1>(iteratee: _.__, values: _.__, array: _.List<T1>): PullAllBy4x4<T1>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -445,7 +445,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, p2: _.__, array: _.List<T1>): PullAllBy4x5<T1, T2>;
+    <T1, T2>(iteratee: _.ValueIteratee<T1 | T2>, values: _.__, array: _.List<T1>): PullAllBy4x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -466,7 +466,7 @@ interface PullAllBy {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1, T2>(p1: _.__, values: _.List<T2>, array: _.List<T1>): PullAllBy4x6<T1, T2>;
+    <T1, T2>(iteratee: _.__, values: _.List<T2>, array: _.List<T1>): PullAllBy4x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -552,7 +552,7 @@ interface PullAllBy1x1<T> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, array: ReadonlyArray<T>): PullAllBy1x5<T>;
+    (values: _.__, array: ReadonlyArray<T>): PullAllBy1x5<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -594,7 +594,7 @@ interface PullAllBy1x1<T> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, array: _.List<T>): PullAllBy2x5<T>;
+    (values: _.__, array: _.List<T>): PullAllBy2x5<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -680,7 +680,7 @@ interface PullAllBy1x2<T> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, array: ReadonlyArray<T>): PullAllBy1x6<T>;
+    (iteratee: _.__, array: ReadonlyArray<T>): PullAllBy1x6<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -722,7 +722,7 @@ interface PullAllBy1x2<T> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, array: _.List<T>): PullAllBy2x6<T>;
+    (iteratee: _.__, array: _.List<T>): PullAllBy2x6<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -873,7 +873,7 @@ interface PullAllBy1x4<T> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, values: _.List<T>): PullAllBy1x6<T>;
+    (iteratee: _.__, values: _.List<T>): PullAllBy1x6<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1047,7 +1047,7 @@ interface PullAllBy2x4<T> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, values: _.List<T>): PullAllBy2x6<T>;
+    (iteratee: _.__, values: _.List<T>): PullAllBy2x6<T>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1221,7 +1221,7 @@ interface PullAllBy3x1<T1, T2> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, array: ReadonlyArray<T1>): PullAllBy3x5<T1, T2>;
+    (values: _.__, array: ReadonlyArray<T1>): PullAllBy3x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1263,7 +1263,7 @@ interface PullAllBy3x1<T1, T2> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    (p1: _.__, array: _.List<T1>): PullAllBy4x5<T1, T2>;
+    (values: _.__, array: _.List<T1>): PullAllBy4x5<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1349,7 +1349,7 @@ interface PullAllBy3x2<T2> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1>(p1: _.__, array: ReadonlyArray<T1>): PullAllBy3x6<T1, T2>;
+    <T1>(iteratee: _.__, array: ReadonlyArray<T1>): PullAllBy3x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1391,7 +1391,7 @@ interface PullAllBy3x2<T2> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T1>(p1: _.__, array: _.List<T1>): PullAllBy4x6<T1, T2>;
+    <T1>(iteratee: _.__, array: _.List<T1>): PullAllBy4x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1542,7 +1542,7 @@ interface PullAllBy3x4<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): PullAllBy3x6<T1, T2>;
+    <T2>(iteratee: _.__, values: _.List<T2>): PullAllBy3x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1716,7 +1716,7 @@ interface PullAllBy4x4<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(p1: _.__, values: _.List<T2>): PullAllBy4x6<T1, T2>;
+    <T2>(iteratee: _.__, values: _.List<T2>): PullAllBy4x6<T1, T2>;
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion

@@ -85,7 +85,7 @@ interface Map {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped array.
      */
-    <T>(p1: _.__, collection: T[] | null | undefined): Map1x2<T>;
+    <T>(iteratee: _.__, collection: T[] | null | undefined): Map1x2<T>;
     /**
      * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
      * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -139,7 +139,7 @@ interface Map {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped array.
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): Map2x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): Map2x2<T>;
     /**
      * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
      * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -193,7 +193,7 @@ interface Map {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped array.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): Map3x2<T>;
+    <T extends object>(iteratee: _.__, collection: T | null | undefined): Map3x2<T>;
     /**
      * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
      * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -274,7 +274,7 @@ interface Map {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped array.
      */
-    <T>(p1: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Map4x2<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): Map4x2<T>;
     /**
      * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
      * thisArg and invoked with three arguments: (value, index|key, collection).

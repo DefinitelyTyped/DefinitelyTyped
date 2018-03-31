@@ -28,7 +28,7 @@ interface CloneDeepWith {
      * @param customizer The function to customize cloning.
      * @return Returns the deep cloned value.
      */
-    <T>(p1: _.__, value: T): CloneDeepWith1x2<T>;
+    <T>(customizer: _.__, value: T): CloneDeepWith1x2<T>;
     /**
      * This method is like _.cloneWith except that it recursively clones value.
      *

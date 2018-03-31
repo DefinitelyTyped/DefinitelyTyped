@@ -37,7 +37,7 @@ interface UnzipWith {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new array of regrouped elements.
      */
-    <T>(p1: _.__, array: _.List<_.List<T>> | null | undefined): UnzipWith1x2<T>;
+    <T>(iteratee: _.__, array: _.List<_.List<T>> | null | undefined): UnzipWith1x2<T>;
     /**
      * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
      * combined. The iteratee is bound to thisArg and invoked with four arguments: (accumulator, value, index,

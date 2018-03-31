@@ -73,7 +73,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, path: _.PropertyPath): UpdateWith1x2;
+    (customizer: _.__, path: _.PropertyPath): UpdateWith1x2;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -119,7 +119,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, p2: _.__, updater: (oldValue: any) => any): UpdateWith1x4;
+    (customizer: _.__, path: _.__, updater: (oldValue: any) => any): UpdateWith1x4;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -142,7 +142,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, updater: (oldValue: any) => any): UpdateWith1x5<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, updater: (oldValue: any) => any): UpdateWith1x5<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -165,7 +165,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith1x6;
+    (customizer: _.__, path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith1x6;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -211,7 +211,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, p2: _.__, p3: _.__, object: T): UpdateWith1x8<T>;
+    <T extends object>(customizer: _.__, path: _.__, updater: _.__, object: T): UpdateWith1x8<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -234,7 +234,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, p3: _.__, object: T): UpdateWith1x9<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, updater: _.__, object: T): UpdateWith1x9<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -257,7 +257,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, path: _.PropertyPath, p3: _.__, object: T): UpdateWith1x10<T>;
+    <T extends object>(customizer: _.__, path: _.PropertyPath, updater: _.__, object: T): UpdateWith1x10<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -280,7 +280,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, p3: _.__, object: T): UpdateWith1x11<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.PropertyPath, updater: _.__, object: T): UpdateWith1x11<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -303,7 +303,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, p2: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x12<T>;
+    <T extends object>(customizer: _.__, path: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x12<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -326,7 +326,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x13<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x13<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -349,7 +349,7 @@ interface UpdateWith {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, path: _.PropertyPath, updater: (oldValue: any) => any, object: T): UpdateWith1x14<T>;
+    <T extends object>(customizer: _.__, path: _.PropertyPath, updater: (oldValue: any) => any, object: T): UpdateWith1x14<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -443,7 +443,7 @@ interface UpdateWith1x1<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, updater: (oldValue: any) => any): UpdateWith1x5<T>;
+    (path: _.__, updater: (oldValue: any) => any): UpdateWith1x5<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -489,7 +489,7 @@ interface UpdateWith1x1<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, p2: _.__, object: T): UpdateWith1x9<T>;
+    (path: _.__, updater: _.__, object: T): UpdateWith1x9<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -512,7 +512,7 @@ interface UpdateWith1x1<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (path: _.PropertyPath, p2: _.__, object: T): UpdateWith1x11<T>;
+    (path: _.PropertyPath, updater: _.__, object: T): UpdateWith1x11<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -535,7 +535,7 @@ interface UpdateWith1x1<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x13<T>;
+    (path: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x13<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -629,7 +629,7 @@ interface UpdateWith1x2 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, updater: (oldValue: any) => any): UpdateWith1x6;
+    (customizer: _.__, updater: (oldValue: any) => any): UpdateWith1x6;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -675,7 +675,7 @@ interface UpdateWith1x2 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, p2: _.__, object: T): UpdateWith1x10<T>;
+    <T extends object>(customizer: _.__, updater: _.__, object: T): UpdateWith1x10<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -698,7 +698,7 @@ interface UpdateWith1x2 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): UpdateWith1x11<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, updater: _.__, object: T): UpdateWith1x11<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -721,7 +721,7 @@ interface UpdateWith1x2 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x14<T>;
+    <T extends object>(customizer: _.__, updater: (oldValue: any) => any, object: T): UpdateWith1x14<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -815,7 +815,7 @@ interface UpdateWith1x3<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, object: T): UpdateWith1x11<T>;
+    (updater: _.__, object: T): UpdateWith1x11<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -909,7 +909,7 @@ interface UpdateWith1x4 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, path: _.PropertyPath): UpdateWith1x6;
+    (customizer: _.__, path: _.PropertyPath): UpdateWith1x6;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -955,7 +955,7 @@ interface UpdateWith1x4 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, p2: _.__, object: T): UpdateWith1x12<T>;
+    <T extends object>(customizer: _.__, path: _.__, object: T): UpdateWith1x12<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -978,7 +978,7 @@ interface UpdateWith1x4 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(customizer: _.SetWithCustomizer<T>, p2: _.__, object: T): UpdateWith1x13<T>;
+    <T extends object>(customizer: _.SetWithCustomizer<T>, path: _.__, object: T): UpdateWith1x13<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1001,7 +1001,7 @@ interface UpdateWith1x4 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, path: _.PropertyPath, object: T): UpdateWith1x14<T>;
+    <T extends object>(customizer: _.__, path: _.PropertyPath, object: T): UpdateWith1x14<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1095,7 +1095,7 @@ interface UpdateWith1x5<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, object: T): UpdateWith1x13<T>;
+    (path: _.__, object: T): UpdateWith1x13<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1189,7 +1189,7 @@ interface UpdateWith1x6 {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    <T extends object>(p1: _.__, object: T): UpdateWith1x14<T>;
+    <T extends object>(customizer: _.__, object: T): UpdateWith1x14<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1331,7 +1331,7 @@ interface UpdateWith1x8<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, path: _.PropertyPath): UpdateWith1x10<T>;
+    (customizer: _.__, path: _.PropertyPath): UpdateWith1x10<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1377,7 +1377,7 @@ interface UpdateWith1x8<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, p2: _.__, updater: (oldValue: any) => any): UpdateWith1x12<T>;
+    (customizer: _.__, path: _.__, updater: (oldValue: any) => any): UpdateWith1x12<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1400,7 +1400,7 @@ interface UpdateWith1x8<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (customizer: _.SetWithCustomizer<T>, p2: _.__, updater: (oldValue: any) => any): UpdateWith1x13<T>;
+    (customizer: _.SetWithCustomizer<T>, path: _.__, updater: (oldValue: any) => any): UpdateWith1x13<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1423,7 +1423,7 @@ interface UpdateWith1x8<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith1x14<T>;
+    (customizer: _.__, path: _.PropertyPath, updater: (oldValue: any) => any): UpdateWith1x14<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1517,7 +1517,7 @@ interface UpdateWith1x9<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, updater: (oldValue: any) => any): UpdateWith1x13<T>;
+    (path: _.__, updater: (oldValue: any) => any): UpdateWith1x13<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1611,7 +1611,7 @@ interface UpdateWith1x10<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, updater: (oldValue: any) => any): UpdateWith1x14<T>;
+    (customizer: _.__, updater: (oldValue: any) => any): UpdateWith1x14<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -1753,7 +1753,7 @@ interface UpdateWith1x12<T> {
      * _.updateWith(object, '[0][1]', _.constant('a'), Object);
      * // => { '0': { '1': 'a' } }
      */
-    (p1: _.__, path: _.PropertyPath): UpdateWith1x14<T>;
+    (customizer: _.__, path: _.PropertyPath): UpdateWith1x14<T>;
     /**
      * This method is like `_.update` except that it accepts `customizer` which is
      * invoked to produce the objects of `path`.  If `customizer` returns `undefined`

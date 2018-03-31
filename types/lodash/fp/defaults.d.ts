@@ -38,7 +38,7 @@ interface Defaults {
      * @param sources The source objects.
      * @return The destination object.
      */
-    <TObject>(p1: _.__, object: TObject): Defaults1x2<TObject>;
+    <TObject>(source: _.__, object: TObject): Defaults1x2<TObject>;
     /**
      * Assigns own enumerable properties of source object(s) to the destination object for all destination
      * properties that resolve to undefined. Once a property is set, additional values of the same property are

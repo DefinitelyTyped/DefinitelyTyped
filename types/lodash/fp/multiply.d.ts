@@ -23,7 +23,7 @@ interface Multiply {
      * @param multiplicand The second number in a multiplication.
      * @returns Returns the product.
      */
-    (p1: _.__, multiplicand: number): Multiply1x2;
+    (multiplier: _.__, multiplicand: number): Multiply1x2;
     /**
      * Multiply two numbers.
      * @param multiplier The first number in a multiplication.

@@ -28,7 +28,7 @@ interface FlattenDepth {
        * @param number The maximum recursion depth.
        * @return Returns the new flattened array.
        */
-    <T>(p1: _.__, array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): FlattenDepth1x2<T>;
+    <T>(depth: _.__, array: _.ListOfRecursiveArraysOrValues<T> | null | undefined): FlattenDepth1x2<T>;
     /**
        * Recursively flatten array up to depth times.
        *

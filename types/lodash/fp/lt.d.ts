@@ -26,7 +26,7 @@ interface Lt {
      * @param other The other value to compare.
      * @return Returns true if value is less than other, else false.
      */
-    (p1: _.__, other: any): Lt1x2;
+    (value: _.__, other: any): Lt1x2;
     /**
      * Checks if value is less than other.
      *

@@ -64,7 +64,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, depth: number): FlatMapDepth1x2;
+    (iteratee: _.__, depth: number): FlatMapDepth1x2;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -104,7 +104,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T>(p1: _.__, p2: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x4<T>;
+    <T>(iteratee: _.__, depth: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x4<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -124,7 +124,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult> | TResult, p2: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x5<TResult>;
+    <T, TResult>(iteratee: (value: T) => _.ListOfRecursiveArraysOrValues<TResult> | TResult, depth: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x5<TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -144,7 +144,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T>(p1: _.__, depth: number, collection: _.List<T> | null | undefined): FlatMapDepth1x6<T>;
+    <T>(iteratee: _.__, depth: number, collection: _.List<T> | null | undefined): FlatMapDepth1x6<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -224,7 +224,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T extends object>(p1: _.__, p2: _.__, collection: T | null | undefined): FlatMapDepth2x4<T>;
+    <T extends object>(iteratee: _.__, depth: _.__, collection: T | null | undefined): FlatMapDepth2x4<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -244,7 +244,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult> | TResult, p2: _.__, collection: T | null | undefined): FlatMapDepth2x5<TResult>;
+    <T extends object, TResult>(iteratee: (value: T[keyof T]) => _.ListOfRecursiveArraysOrValues<TResult> | TResult, depth: _.__, collection: T | null | undefined): FlatMapDepth2x5<TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -264,7 +264,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T extends object>(p1: _.__, depth: number, collection: T | null | undefined): FlatMapDepth2x6<T>;
+    <T extends object>(iteratee: _.__, depth: number, collection: T | null | undefined): FlatMapDepth2x6<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -344,7 +344,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, p2: _.__, collection: object | null | undefined): FlatMapDepth3x4;
+    (iteratee: _.__, depth: _.__, collection: object | null | undefined): FlatMapDepth3x4;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -364,7 +364,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (iteratee: string, p2: _.__, collection: object | null | undefined): FlatMapDepth3x5;
+    (iteratee: string, depth: _.__, collection: object | null | undefined): FlatMapDepth3x5;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -384,7 +384,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, depth: number, collection: object | null | undefined): FlatMapDepth3x6;
+    (iteratee: _.__, depth: number, collection: object | null | undefined): FlatMapDepth3x6;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -464,7 +464,7 @@ interface FlatMapDepth {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (iteratee: object, p2: _.__, collection: object | null | undefined): FlatMapDepth4x5;
+    (iteratee: object, depth: _.__, collection: object | null | undefined): FlatMapDepth4x5;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -546,7 +546,7 @@ interface FlatMapDepth1x1<T, TResult> {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x5<TResult>;
+    (depth: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x5<TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -628,7 +628,7 @@ interface FlatMapDepth1x2 {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x6<T>;
+    <T>(iteratee: _.__, collection: _.List<T> | null | undefined): FlatMapDepth1x6<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -688,7 +688,7 @@ interface FlatMapDepth1x2 {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): FlatMapDepth2x6<T>;
+    <T extends object>(iteratee: _.__, collection: T | null | undefined): FlatMapDepth2x6<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -748,7 +748,7 @@ interface FlatMapDepth1x2 {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, collection: object | null | undefined): FlatMapDepth3x6;
+    (iteratee: _.__, collection: object | null | undefined): FlatMapDepth3x6;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -912,7 +912,7 @@ interface FlatMapDepth1x4<T> {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, depth: number): FlatMapDepth1x6<T>;
+    (iteratee: _.__, depth: number): FlatMapDepth1x6<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1078,7 +1078,7 @@ interface FlatMapDepth2x1<T, TResult> {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, collection: T | null | undefined): FlatMapDepth2x5<TResult>;
+    (depth: _.__, collection: T | null | undefined): FlatMapDepth2x5<TResult>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1202,7 +1202,7 @@ interface FlatMapDepth2x4<T> {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, depth: number): FlatMapDepth2x6<T>;
+    (iteratee: _.__, depth: number): FlatMapDepth2x6<T>;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1368,7 +1368,7 @@ interface FlatMapDepth3x1 {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, collection: object | null | undefined): FlatMapDepth3x5;
+    (depth: _.__, collection: object | null | undefined): FlatMapDepth3x5;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1492,7 +1492,7 @@ interface FlatMapDepth3x4 {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, depth: number): FlatMapDepth3x6;
+    (iteratee: _.__, depth: number): FlatMapDepth3x6;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.
@@ -1718,7 +1718,7 @@ interface FlatMapDepth4x1 {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    (p1: _.__, collection: object | null | undefined): FlatMapDepth4x5;
+    (depth: _.__, collection: object | null | undefined): FlatMapDepth4x5;
     /**
      * This method is like `_.flatMap` except that it recursively flattens the
      * mapped results up to `depth` times.

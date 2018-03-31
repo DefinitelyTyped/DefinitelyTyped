@@ -28,7 +28,7 @@ interface Join {
      * @param separator The element separator.
      * @returns Returns the joined string.
      */
-    (p1: _.__, array: _.List<any> | null | undefined): Join1x2;
+    (separator: _.__, array: _.List<any> | null | undefined): Join1x2;
     /**
      * Converts all elements in `array` into a string separated by `separator`.
      *

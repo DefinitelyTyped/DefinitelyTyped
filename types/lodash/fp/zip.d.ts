@@ -28,7 +28,7 @@ interface Zip {
      * @param arrays The arrays to process.
      * @return Returns the new array of grouped elements.
      */
-    <T2>(p1: _.__, arrays2: _.List<T2>): Zip1x2<T2>;
+    <T2>(arrays1: _.__, arrays2: _.List<T2>): Zip1x2<T2>;
     /**
      * Creates an array of grouped elements, the first of which contains the first elements of the given arrays,
      * the second of which contains the second elements of the given arrays, and so on.

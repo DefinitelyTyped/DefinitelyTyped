@@ -25,7 +25,7 @@ interface Invoke {
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (p1: _.__, args: ReadonlyArray<any>): Invoke1x2;
+    (path: _.__, args: ReadonlyArray<any>): Invoke1x2;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.
@@ -39,21 +39,21 @@ interface Invoke {
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (p1: _.__, p2: _.__, object: any): Invoke1x4;
+    (path: _.__, args: _.__, object: any): Invoke1x4;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (path: _.PropertyPath, p2: _.__, object: any): Invoke1x5;
+    (path: _.PropertyPath, args: _.__, object: any): Invoke1x5;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (p1: _.__, args: ReadonlyArray<any>, object: any): Invoke1x6;
+    (path: _.__, args: ReadonlyArray<any>, object: any): Invoke1x6;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.
@@ -83,7 +83,7 @@ interface Invoke1x1 {
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (p1: _.__, object: any): Invoke1x5;
+    (args: _.__, object: any): Invoke1x5;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.
@@ -113,7 +113,7 @@ interface Invoke1x2 {
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (p1: _.__, object: any): Invoke1x6;
+    (path: _.__, object: any): Invoke1x6;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.
@@ -159,7 +159,7 @@ interface Invoke1x4 {
     * @param path The path of the method to invoke.
     * @param args The arguments to invoke the method with.
     **/
-    (p1: _.__, args: ReadonlyArray<any>): Invoke1x6;
+    (path: _.__, args: ReadonlyArray<any>): Invoke1x6;
     /**
     * Invokes the method at path of object.
     * @param object The object to query.

@@ -26,7 +26,7 @@ interface Ary {
      * @param n The arity cap.
      * @returns Returns the new function.
      */
-    (p1: _.__, func: (...args: any[]) => any): Ary1x2;
+    (n: _.__, func: (...args: any[]) => any): Ary1x2;
     /**
      * Creates a function that accepts up to n arguments ignoring any additional arguments.
      *

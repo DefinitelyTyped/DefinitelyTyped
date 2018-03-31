@@ -61,7 +61,7 @@ interface Filter {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    (p1: _.__, collection: string | null | undefined): Filter1x2;
+    (predicate: _.__, collection: string | null | undefined): Filter1x2;
     /**
      * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
      * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -118,7 +118,7 @@ interface Filter {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    <T>(p1: _.__, collection: _.List<T> | null | undefined): Filter2x2<T>;
+    <T>(predicate: _.__, collection: _.List<T> | null | undefined): Filter2x2<T>;
     /**
      * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
      * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -213,7 +213,7 @@ interface Filter {
      * @param thisArg The this binding of predicate.
      * @return Returns the new filtered array.
      */
-    <T extends object>(p1: _.__, collection: T | null | undefined): Filter4x2<T>;
+    <T extends object>(predicate: _.__, collection: T | null | undefined): Filter4x2<T>;
     /**
      * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
      * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).

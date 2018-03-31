@@ -29,7 +29,7 @@ interface Thru {
      * @param thisArg The this binding of interceptor.
      * @return Returns the result of interceptor.
      */
-    <T>(p1: _.__, value: T): Thru1x2<T>;
+    <T>(interceptor: _.__, value: T): Thru1x2<T>;
     /**
      * This method is like _.tap except that it returns the result of interceptor.
      *

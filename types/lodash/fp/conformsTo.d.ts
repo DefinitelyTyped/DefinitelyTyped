@@ -25,7 +25,7 @@ interface ConformsTo {
      *
      * Note: This method is equivalent to _.conforms when source is partially applied.
      */
-    <T>(p1: _.__, object: T): ConformsTo1x2<T>;
+    <T>(source: _.__, object: T): ConformsTo1x2<T>;
     /**
      * Checks if object conforms to source by invoking the predicate properties of source with the
      * corresponding property values of object.

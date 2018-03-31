@@ -29,7 +29,7 @@ interface ForInRight {
      * @param thisArg The this binding of iteratee.
      * @return Returns object.
      */
-    <T>(p1: _.__, object: T): ForInRight1x2<T>;
+    <T>(iteratee: _.__, object: T): ForInRight1x2<T>;
     /**
      * This method is like _.forIn except that it iterates over properties of object in the opposite order.
      *
@@ -47,7 +47,7 @@ interface ForInRight {
      * @param thisArg The this binding of iteratee.
      * @return Returns object.
      */
-    <T>(p1: _.__, object: T | null | undefined): ForInRight2x2<T>;
+    <T>(iteratee: _.__, object: T | null | undefined): ForInRight2x2<T>;
     /**
      * This method is like _.forIn except that it iterates over properties of object in the opposite order.
      *
