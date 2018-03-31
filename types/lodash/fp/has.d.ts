@@ -208,7 +208,7 @@ interface Has1x2 {
      * _.has(other, 'a');
      * // => false
      */
-    <T>(path: _.PropertyPath): boolean;
+    (path: _.PropertyPath): boolean;
 }
 
 declare const has: Has;

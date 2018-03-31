@@ -308,7 +308,7 @@ interface Find {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, fromIndex: _.__, collection: T | null | undefined): Find3x5<T, S>;
+    <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, fromIndex: _.__, collection: T | null | undefined): Find3x5<S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -850,7 +850,7 @@ interface Find1x5<S> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    <T>(fromIndex: number): S|undefined;
+    (fromIndex: number): S|undefined;
 }
 interface Find1x6<T> {
     /**
@@ -1164,7 +1164,7 @@ interface Find3x1<T, S> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    (fromIndex: _.__, collection: T | null | undefined): Find3x5<T, S>;
+    (fromIndex: _.__, collection: T | null | undefined): Find3x5<S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1263,7 +1263,7 @@ interface Find3x4<T> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    <S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): Find3x5<T, S>;
+    <S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): Find3x5<S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1341,7 +1341,7 @@ interface Find3x4<T> {
      */
     (predicate: _.ValueIterateeCustom<T[keyof T], boolean>, fromIndex: number): T[keyof T]|undefined;
 }
-interface Find3x5<T, S> {
+interface Find3x5<S> {
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
@@ -1360,7 +1360,7 @@ interface Find3x5<T, S> {
      * @param fromIndex The index to search from.
      * @return Returns the matched element, else undefined.
      */
-    (): Find3x5<T, S>;
+    (): Find3x5<S>;
     /**
      * Iterates over elements of collection, returning the first element predicate returns truthy for.
      * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).

@@ -1456,7 +1456,7 @@ interface PullAllBy3x3<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(array: ReadonlyArray<T1>): T1[];
+    (array: ReadonlyArray<T1>): T1[];
     /**
      * This method is like `_.pullAll` except that it accepts `iteratee` which is
      * invoked for each element of `array` and `values` to to generate the criterion
@@ -1477,7 +1477,7 @@ interface PullAllBy3x3<T1> {
      * console.log(array);
      * // => [{ 'x': 2 }]
      */
-    <T2>(array: _.List<T1>): _.List<T1>;
+    (array: _.List<T1>): _.List<T1>;
 }
 interface PullAllBy3x4<T1> {
     /**

@@ -190,7 +190,7 @@ interface ZipWith1x3<T2, TResult> {
      * @param [thisArg] The `this` binding of `iteratee`.
      * @return Returns the new array of grouped elements.
      */
-    <T1>(arrays2: _.List<T2>): TResult[];
+    (arrays2: _.List<T2>): TResult[];
 }
 interface ZipWith1x4<T2> {
     /**
@@ -254,7 +254,7 @@ interface ZipWith1x5<T1, TResult> {
      * @param [thisArg] The `this` binding of `iteratee`.
      * @return Returns the new array of grouped elements.
      */
-    <T2>(arrays1: _.List<T1>): TResult[];
+    (arrays1: _.List<T1>): TResult[];
 }
 interface ZipWith1x6<T1, T2> {
     /**

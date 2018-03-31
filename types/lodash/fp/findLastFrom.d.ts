@@ -148,7 +148,7 @@ interface FindLast {
      * @param fromIndex The index to search from.
      * @return The found element, else undefined.
      */
-    <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, fromIndex: _.__, collection: T | null | undefined): FindLast3x5<T, S>;
+    <T extends object, S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>, fromIndex: _.__, collection: T | null | undefined): FindLast3x5<S>;
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.
@@ -410,7 +410,7 @@ interface FindLast1x5<S> {
      * @param fromIndex The index to search from.
      * @return The found element, else undefined.
      */
-    <T>(fromIndex: number): S|undefined;
+    (fromIndex: number): S|undefined;
 }
 interface FindLast1x6<T> {
     /**
@@ -564,7 +564,7 @@ interface FindLast3x1<T, S> {
      * @param fromIndex The index to search from.
      * @return The found element, else undefined.
      */
-    (fromIndex: _.__, collection: T | null | undefined): FindLast3x5<T, S>;
+    (fromIndex: _.__, collection: T | null | undefined): FindLast3x5<S>;
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.
@@ -613,7 +613,7 @@ interface FindLast3x4<T> {
      * @param fromIndex The index to search from.
      * @return The found element, else undefined.
      */
-    <S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): FindLast3x5<T, S>;
+    <S extends T[keyof T]>(predicate: _.ValueIteratorTypeGuard<T[keyof T], S>): FindLast3x5<S>;
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.
@@ -651,7 +651,7 @@ interface FindLast3x4<T> {
      */
     (predicate: _.ValueIterateeCustom<T[keyof T], boolean>, fromIndex: number): T[keyof T]|undefined;
 }
-interface FindLast3x5<T, S> {
+interface FindLast3x5<S> {
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.
@@ -660,7 +660,7 @@ interface FindLast3x5<T, S> {
      * @param fromIndex The index to search from.
      * @return The found element, else undefined.
      */
-    (): FindLast3x5<T, S>;
+    (): FindLast3x5<S>;
     /**
      * This method is like _.find except that it iterates over elements of a collection from
      * right to left.

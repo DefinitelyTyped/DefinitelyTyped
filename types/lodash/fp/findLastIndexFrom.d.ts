@@ -446,7 +446,7 @@ interface FindLastIndex1x5 {
      * @param fromIndex The index to search from.
      * @return Returns the index of the found element, else -1.
      */
-    <T>(fromIndex: number): number;
+    (fromIndex: number): number;
 }
 interface FindLastIndex1x6<T> {
     /**

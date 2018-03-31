@@ -1456,7 +1456,7 @@ interface PullAllWith3x3<T1> {
      * console.log(array);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
-    <T2>(array: ReadonlyArray<T1>): T1[];
+    (array: ReadonlyArray<T1>): T1[];
     /**
      * This method is like `_.pullAll` except that it accepts `comparator` which is
      * invoked to compare elements of array to values. The comparator is invoked with
@@ -1477,7 +1477,7 @@ interface PullAllWith3x3<T1> {
      * console.log(array);
      * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
      */
-    <T2>(array: _.List<T1>): _.List<T1>;
+    (array: _.List<T1>): _.List<T1>;
 }
 interface PullAllWith3x4<T1> {
     /**

@@ -278,7 +278,7 @@ interface DifferenceBy1x5<T1> {
      * @param iteratee The iteratee invoked per element.
      * @returns Returns the new array of filtered values.
      */
-    <T2>(array: _.List<T1> | null | undefined): T1[];
+    (array: _.List<T1> | null | undefined): T1[];
 }
 interface DifferenceBy1x6<T1, T2> {
     /**

@@ -254,7 +254,7 @@ interface Includes1x5 {
      * @param fromIndex The index to search from.
      * @return True if the target element is found, else false.
      */
-    <T>(fromIndex: number): boolean;
+    (fromIndex: number): boolean;
 }
 interface Includes1x6<T> {
     /**

@@ -422,7 +422,7 @@ interface DifferenceWith1x5<T1> {
      * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
      * // => [{ 'x': 2, 'y': 1 }]
      */
-    <T2>(array: _.List<T1> | null | undefined): T1[];
+    (array: _.List<T1> | null | undefined): T1[];
 }
 interface DifferenceWith1x6<T1, T2> {
     /**

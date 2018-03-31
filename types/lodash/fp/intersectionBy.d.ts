@@ -470,7 +470,7 @@ interface IntersectionBy1x5<T1> {
      * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }]
      */
-    <T2>(array: _.List<T1> | null): T1[];
+    (array: _.List<T1> | null): T1[];
 }
 interface IntersectionBy1x6<T1, T2> {
     /**

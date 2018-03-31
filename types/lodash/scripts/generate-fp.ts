@@ -684,7 +684,10 @@ function curryParams(
 ): Interface {
     const params = getInterfaceParams(sourceOverload, interfaceIndex);
     const interfaceTypeParams = getInterfaceTypeParams(sourceOverload, interfaceIndex);
-    const typeParams = _.without(sourceOverload.typeParams, ...interfaceTypeParams);
+
+    const prevParams = _.without(sourceOverload.params, ...params);
+    const prevTypeParams = getUsedTypeParams(prevParams, sourceOverload.typeParams);
+    const typeParams = _.without(sourceOverload.typeParams, ...prevTypeParams);
     // Assume params.length >= 1
     // 1st overload takes no parameters and just returns the same interface (effectively a no-op)
     const overloads: Overload[] = [{
@@ -746,7 +749,7 @@ function getInterfaceTypeParams(overload: Overload, interfaceIndex: number) {
     const passedTypeParams = getUsedTypeParams(passedParams, overload.typeParams);
     const interfaceTypeParams = passedTypeParams.filter(tp => currentParams.concat(overload.returnType).some(p => new RegExp(`\\b${tp.name}\\b`).test(p)));
     interfaceTypeParams.unshift(...overload.typeParams.filter(tp =>
-        !interfaceTypeParams.includes(tp) && interfaceTypeParams.some(tp2 => !!tp2.extends && new RegExp(`\\bkeyof ${tp.name}\\b`).test(tp2.extends))));
+        !interfaceTypeParams.includes(tp) && interfaceTypeParams.some(tp2 => !!tp2.extends && new RegExp(`^keyof ${tp.name}\\b`).test(tp2.extends))));
     return interfaceTypeParams;
 }
 

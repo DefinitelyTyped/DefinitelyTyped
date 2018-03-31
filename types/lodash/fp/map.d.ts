@@ -828,7 +828,7 @@ interface Map4x2<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped array.
      */
-    <T>(iteratee: string): any[];
+    (iteratee: string): any[];
     /**
      * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
      * thisArg and invoked with three arguments: (value, index|key, collection).
@@ -855,7 +855,7 @@ interface Map4x2<T> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the new mapped array.
      */
-    <T>(iteratee: object): boolean[];
+    (iteratee: object): boolean[];
 }
 interface Map5x1 {
     /**

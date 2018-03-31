@@ -200,7 +200,7 @@ interface HasIn1x2 {
      * _.hasIn(object, 'b');
      * // => false
      */
-    <T>(path: _.PropertyPath): boolean;
+    (path: _.PropertyPath): boolean;
 }
 
 declare const hasIn: HasIn;

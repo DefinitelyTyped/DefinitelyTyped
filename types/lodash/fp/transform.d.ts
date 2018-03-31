@@ -534,7 +534,7 @@ interface Transform1x5<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(accumulator: ReadonlyArray<TResult>): TResult[];
+    (accumulator: ReadonlyArray<TResult>): TResult[];
 }
 interface Transform1x6<T, TResult> {
     /**
@@ -752,7 +752,7 @@ interface Transform2x5<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(accumulator: _.Dictionary<TResult>): _.Dictionary<TResult>;
+    (accumulator: _.Dictionary<TResult>): _.Dictionary<TResult>;
 }
 interface Transform2x6<T, TResult> {
     /**
@@ -901,7 +901,7 @@ interface Transform3x5<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(accumulator: _.Dictionary<TResult>): _.Dictionary<TResult>;
+    (accumulator: _.Dictionary<TResult>): _.Dictionary<TResult>;
 }
 interface Transform3x6<T, TResult> {
     /**
@@ -957,7 +957,7 @@ interface Transform4x5<TResult> {
      * @param thisArg The this binding of iteratee.
      * @return Returns the accumulated value.
      */
-    <T>(accumulator: ReadonlyArray<TResult>): TResult[];
+    (accumulator: ReadonlyArray<TResult>): TResult[];
 }
 interface Transform4x6<T, TResult> {
     /**

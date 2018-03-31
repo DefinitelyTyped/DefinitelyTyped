@@ -96,7 +96,7 @@ interface MatchesProperty1x2 {
      * @param srcValue The value to match.
      * @return Returns the new function.
      */
-    <T>(path: _.PropertyPath): (value: any) => boolean;
+    (path: _.PropertyPath): (value: any) => boolean;
 }
 
 declare const matchesProperty: MatchesProperty;

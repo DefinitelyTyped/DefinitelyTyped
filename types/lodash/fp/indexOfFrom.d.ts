@@ -518,7 +518,7 @@ interface IndexOf1x5 {
      * _.indexOf([1, 2, 1, 2], 2, 2);
      * // => 3
      */
-    <T>(fromIndex: number): number;
+    (fromIndex: number): number;
 }
 interface IndexOf1x6<T> {
     /**

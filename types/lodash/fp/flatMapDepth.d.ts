@@ -974,7 +974,7 @@ interface FlatMapDepth1x5<TResult> {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T>(depth: number): TResult[];
+    (depth: number): TResult[];
 }
 interface FlatMapDepth1x6<T> {
     /**
@@ -1264,7 +1264,7 @@ interface FlatMapDepth2x5<TResult> {
      * _.flatMapDepth([1, 2], duplicate, 2);
      * // => [[1, 1], [2, 2]]
      */
-    <T extends object>(depth: number): TResult[];
+    (depth: number): TResult[];
 }
 interface FlatMapDepth2x6<T> {
     /**

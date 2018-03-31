@@ -237,7 +237,7 @@ interface CountBy1x1 {
      * @param thisArg The this binding of iteratee.
      * @return Returns the composed aggregate object.
      */
-    <T>(collection: string | null | undefined): _.Dictionary<number>;
+    (collection: string | null | undefined): _.Dictionary<number>;
 }
 interface CountBy1x2 {
     /**

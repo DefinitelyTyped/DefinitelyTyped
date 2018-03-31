@@ -470,7 +470,7 @@ interface Reduce1x5<TResult> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    <T>(accumulator: TResult): TResult;
+    (accumulator: TResult): TResult;
 }
 interface Reduce1x6<T, TResult> {
     /**
@@ -572,7 +572,7 @@ interface Reduce2x5<TResult> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    <T>(accumulator: TResult): TResult;
+    (accumulator: TResult): TResult;
 }
 interface Reduce2x6<T, TResult> {
     /**
@@ -750,7 +750,7 @@ interface Reduce3x5<TResult> {
     * @param accumulator Initial value of the accumulator.
     * @return Returns the accumulated value.
     **/
-    <T extends object>(accumulator: TResult): TResult;
+    (accumulator: TResult): TResult;
 }
 interface Reduce3x6<T, TResult> {
     /**

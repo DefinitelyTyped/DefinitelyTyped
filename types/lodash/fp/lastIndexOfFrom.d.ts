@@ -230,7 +230,7 @@ interface LastIndexOf1x5 {
      * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
      * @return Returns the index of the matched value, else -1.
      */
-    <T>(fromIndex: true|number): number;
+    (fromIndex: true|number): number;
 }
 interface LastIndexOf1x6<T> {
     /**

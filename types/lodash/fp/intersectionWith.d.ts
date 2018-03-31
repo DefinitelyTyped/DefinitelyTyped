@@ -446,7 +446,7 @@ interface IntersectionWith1x5<T1> {
      * _.intersectionWith(objects, others, _.isEqual);
      * // => [{ 'x': 1, 'y': 2 }]
      */
-    <T2>(array: _.List<T1> | null | undefined): T1[];
+    (array: _.List<T1> | null | undefined): T1[];
 }
 interface IntersectionWith1x6<T1, T2> {
     /**
