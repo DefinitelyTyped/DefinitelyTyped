@@ -173,14 +173,15 @@ export type NavigationScreenConfig<Options> =
     }) => Options);
 
 export type NavigationComponent =
-  NavigationScreenComponent<any, any>
+  NavigationScreenComponent<any, any, any>
   | NavigationNavigator<any, any, any>;
 
 export type NavigationScreenComponent<
+    Params = NavigationParams,
     Options = {},
     Props = {}
-> = React.ComponentType<NavigationNavigatorProps<Options, NavigationState> & Props> &
-({} | { navigationOptions: NavigationScreenConfig<Options> });
+> = React.ComponentType<NavigationScreenProps<Params, Options> & Props> &
+{ navigationOptions?: NavigationScreenConfig<Options> };
 
 export type NavigationNavigator<
     State = NavigationState,
@@ -429,16 +430,17 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   goBack: (routeKey?: string | null) => boolean;
   navigate(options: {
     routeName: string;
-    params?: P;
+    params?: NavigationParams;
     action?: NavigationAction;
     key?: string;
   }): boolean;
   navigate(
     routeNameOrOptions: string,
-    params?: P,
+    params?: NavigationParams,
     action?: NavigationAction,
   ): boolean;
-  setParams: (newParams: NavigationParams) => boolean;
+  getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
+  setParams: (newParams: P) => boolean;
   addListener: (
     eventName: string,
     callback: NavigationEventCallback
@@ -858,10 +860,10 @@ export function createNavigationContainer(
  * BEGIN CUSTOM CONVENIENCE INTERFACES
  */
 
-export interface NavigationScreenProps<Params = NavigationParams> {
-  navigation: NavigationScreenProp<NavigationRoute<Params>>;
+export interface NavigationScreenProps<Params = NavigationParams, Options = any> {
+  navigation: NavigationScreenProp<NavigationRoute<Params>, Params>;
   screenProps?: { [key: string]: any };
-  navigationOptions?: NavigationScreenConfig<any>;
+  navigationOptions?: NavigationScreenConfig<Options>;
 }
 
 /**

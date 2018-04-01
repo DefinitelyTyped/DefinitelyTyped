@@ -5492,7 +5492,7 @@ export class WebGLRenderer implements Renderer {
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
     getCurrentRenderTarget(): RenderTarget;
-    setRenderTarget(renderTarget: RenderTarget): void;
+    setRenderTarget(renderTarget?: RenderTarget): void;
     readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
 
     /**
@@ -7440,6 +7440,15 @@ export class VertexNormalsHelper extends LineSegments {
     size: number;
 
     update(object?: Object3D): void;
+}
+
+export class PlaneHelper extends LineSegments {
+    constructor(plane: Plane, size?: number, hex?: number);
+
+    plane: Plane;
+    size: number;
+
+    updateMatrixWorld(force: boolean): void;
 }
 
 /**
