@@ -10,3 +10,11 @@ status = CircuitBreaker.OPEN;
 
 breaker.forceOpen();
 breaker.forceClose();
+
+breaker.run((success, failure) => {
+    if (Math.random() > 0.5) {
+        success();
+    } else {
+        failure();
+    }
+});
