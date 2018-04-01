@@ -214,41 +214,9 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
         // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
         interfaces: builderFp[functionName]([0], [1], [2], [3], [4])([0], [1], [2], [3], [4]),
     }));
-    return interfaceGroups;
-    /*for (const functionName of functionNames) {
-        // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
-        let importCommon = false;
-        let interfaceLines: string;
-        let interfaceName: string;
-        if (typeof builderFp[functionName] === "function") {
-            const outputFn: (...args: any[]) => Interface[] = builderFp[functionName]([0], [1], [2], [3], [4]);
-            const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
-            commonTypeSearch.lastIndex;
-            interfaceLines = outputFn([0], [1], [2], [3], [4])
-                .map(interfaceToString)
-                .join(lineBreak)
-                .replace(commonTypeSearch, match => {
-                    importCommon = true;
-                    return `_.${match}`;
-                })
-                + lineBreak;
-            if (!importCommon && interfaceLines.includes("typeof _"))
-                importCommon = true;
-            const interfaceNameMatch = interfaceLines.match(/(?:interface|type) ([A-Za-z0-9]+)/);
-            interfaceName = (interfaceNameMatch ? interfaceNameMatch[1] : undefined) || _.upperFirst(functionName);
-        } else {
-            // Placeholder
-            interfaceName = "_.__";
-            importCommon = true;
-            interfaceLines = "";
-        }
+    for (const functionName of functionNames) {
         const output = [
-            "// AUTO-GENERATED: do not modify this file directly.",
-            "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
-            "// npm run fp",
-            importCommon ? `${lineBreak}import _ = require("../index");${lineBreak}` : '',
-            interfaceLines,
-            `declare const ${functionName}: ${interfaceName};`,
+            `import { ${functionName} } from "../fp";`,
             `export = ${functionName};`,
             "",
         ].join(lineBreak);
@@ -258,7 +226,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                 console.error(`failed to write file: ${targetFile}`, err);
         });
     }
-    return functionNames;*/
+    return interfaceGroups;
 }
 
 async function parseFile(filePath: string, commonTypes: string[]): Promise<Definition[]> {
