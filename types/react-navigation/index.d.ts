@@ -702,6 +702,7 @@ export function TabNavigator(
 export interface TabBarTopProps {
   activeTintColor: string;
   inactiveTintColor: string;
+  indicatorStyle: StyleProp<ViewStyle>;
   showIcon: boolean;
   showLabel: boolean;
   upperCaseLabel: boolean;
