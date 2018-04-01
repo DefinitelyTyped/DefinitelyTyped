@@ -211,6 +211,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && (typeof builderFp[key] === "function"));
     const interfaceGroups: InterfaceGroup[] = functionNames.map((functionName): InterfaceGroup => ({
         functionName,
+        // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.
         interfaces: builderFp[functionName]([0], [1], [2], [3], [4])([0], [1], [2], [3], [4]),
     }));
     return interfaceGroups;
@@ -724,14 +725,16 @@ function curryParams(
     const prevParams = _.without(sourceOverload.params, ...params);
     const prevTypeParams = getUsedTypeParams(prevParams, sourceOverload.typeParams);
     const typeParams = _.without(sourceOverload.typeParams, ...prevTypeParams);
-    // Assume params.length >= 1
     // 1st overload takes no parameters and just returns the same interface (effectively a no-op)
-    const overloads: Overload[] = [{
+    // HACK: omit the parameterless overload because it's not very useful, and it causes the build to run out of memory
+    // This assumes params.length > 0, which is true because curryParams is only called when params.length >= 2.
+    /*const overloads: Overload[] = [{
         typeParams: [],
         params: [],
         returnType: getInterfaceName(baseName, sourceOverloadId, interfaceIndex, interfaceTypeParams),
         jsdoc: sourceOverload.jsdoc,
-    }];
+    }];*/
+    const overloads: Overload[] = [];
     const lastOverload = (1 << params.length) - 1;
     for (let i = 1; i <= lastOverload; ++i) {
         // xxxx i = number of parameters used by this overload
@@ -752,7 +755,7 @@ function curryParams(
             typeParams: _.cloneDeep(usedTypeParams),
             params: currentParams,
             returnType: currentReturnType,
-            jsdoc: sourceOverload.jsdoc,
+            jsdoc: interfaceIndex === 0 ? sourceOverload.jsdoc : "",
         });
     }
     const interfaceDef: Interface = {
@@ -867,11 +870,12 @@ function interfaceToString(interfaceDef: Interface): string {
         return "";
     } else if (interfaceDef.overloads.length === 1) {
         // Don't create an interface for a single type. Instead use a basic type def.
-        let jsdoc = interfaceDef.overloads[0].jsdoc;
-        if (jsdoc)
-            jsdoc += lineBreak;
-        interfaceDef.overloads[0].jsdoc = "";
-        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =${lineBreak}${tab(jsdoc + overloadToString(interfaceDef.overloads[0], true), 1)}`;
+        const overload = interfaceDef.overloads[0];
+        const jsdoc = overload.jsdoc;
+        overload.jsdoc = "";
+        let overloadString = overloadToString(overload, true);
+        overloadString = jsdoc ? lineBreak + tab(jsdoc + lineBreak + overloadString, 1) : " " + overloadString;
+        return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =${overloadString}`;
     } else {
         const overloadStrings = interfaceDef.overloads.map(o => lineBreak + tab(overloadToString(o), 1)).join("");
         return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}${lineBreak}}`;
@@ -880,7 +884,9 @@ function interfaceToString(interfaceDef: Interface): string {
 
 function overloadToString(overload: Overload, arrowSyntax = false): string {
     const joinedParams = overload.params.join(", ");
-    let jsdoc = overload.jsdoc;
+    // HACK: omit jsdoc comments because they cause the build to run out of memory
+    // let jsdoc = overload.jsdoc;
+    let jsdoc = "";
     if (jsdoc)
         jsdoc += lineBreak;
     if (overload.tslintDisable)
@@ -912,7 +918,7 @@ function getLineNumber(fileContents: string, index: number) {
 
 function tab(s: string, count: number) {
     const prepend: string = " ".repeat(count * 4);
-    return prepend + s.replace(/(?:\r\n|\n|\r)(.)/g, `${lineBreak}${prepend}$1`);
+    return (s[0] === "\n" || s[0] === "\r" ? "" : prepend) + s.replace(/(?:\r\n|\n|\r)(.)/g, `${lineBreak}${prepend}$1`);
 }
 
 function indexOfAny(source: string, values: string[], position?: number): number {
