@@ -126,12 +126,12 @@ export abstract class SetStateTestForAndedState<P, S> extends React.Component<P,
 interface NewProps { foo: string; }
 interface NewState { bar: string; }
 
-class ComponentWithNewLifecycles extends React.Component<NewProps, NewState> {
+class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { baz: string }> {
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
         return { bar: `${nextProps.foo}bar` };
     }
 
-    getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>): { baz: string } | null {
+    getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
         return { baz: `${prevProps.foo}baz` };
     }
 
@@ -141,5 +141,15 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState> {
 
     render() {
         return this.state.bar;
+    }
+}
+
+class ComponentWithBadLifecycle extends React.Component<{}, {}, number> {
+    getSnapshotBeforeUpdate() { // $ExpectError
+        return 'number';
+    }
+
+    componentDidUpdate(prevProps: {}, prevState: {}, snapshot?: string) { // $ExpectError
+        return;
     }
 }
