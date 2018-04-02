@@ -37,7 +37,7 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-const props: Props & React.ClassAttributes<{}> = {
+const props = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
@@ -297,18 +297,18 @@ const divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-const htmlAttr: React.HTMLProps<HTMLElement> = {
+const htmlAttr = <E extends HTMLElement>(): React.HTMLProps<E> => ({
     key: 36,
     ref: "htmlComponent",
     children,
     className: "test-attr",
     style: divStyle,
     slot: "HTMLComponent",
-    onClick: (event: React.MouseEvent<{}>) => {
+    onClick: event => {
         event.preventDefault();
         event.stopPropagation();
     },
-    onClickCapture: (event: React.MouseEvent<{}>) => {
+    onClickCapture: event => {
         event.preventDefault();
         event.stopPropagation();
     },
@@ -322,10 +322,10 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     'aria-checked': 'true',
     'aria-colcount': 7,
     'aria-label': 'test'
-};
-DOM.div(htmlAttr);
-DOM.span(htmlAttr);
-DOM.input(htmlAttr);
+});
+DOM.div(htmlAttr());
+DOM.span(htmlAttr());
+DOM.input(htmlAttr());
 
 DOM.svg({
     viewBox: "0 0 48 48",
