@@ -1,3 +1,8 @@
+// Type definitions for detox 7.3.2
+// Project: https://github.com/wix/detox
+// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare const detox: Detox.Detox;
 declare const device: Detox.Device;
 declare const element: Detox.Element;
@@ -15,7 +20,7 @@ declare namespace Detox {
             const config = require('../package.json').detox;
 
             before(async () => {
-                await detox.init(config, { initGlobals: false });
+                await detox.init(config);
             });
          */
         init(config: any, options: DetoxInitOptions): Promise<void>
@@ -23,12 +28,12 @@ declare namespace Detox {
          * Artifacts currently include only logs from the app process before each task
          * @param args
          */
-        beforeEach(...args): Promise<void>
+        beforeEach(...args: any[]): Promise<void>
         /**
          * Artifacts currently include only logs from the app process after each task
          * @param args
          */
-        afterEach(...args): Promise<void>
+        afterEach(...args: any[]): Promise<void>
         /**
          * The cleanup phase should happen after all the tests have finished. This is the phase where detox-server shuts down.
          * @example after(async () => {
@@ -93,12 +98,12 @@ declare namespace Detox {
          * Mock handling of received user notification when app is in foreground.
          * @param params
          */
-        sendUserNotification(...params): Promise<void>
+        sendUserNotification(...params: any[]): Promise<void>
         /**
          * Mock handling of received user activity when app is in foreground.
          * @param params
          */
-        sendUserActivity(...params): Promise<void>
+        sendUserActivity(...params: any[]): Promise<void>
         /**
          * Takes "portrait" or "landscape" and rotates the device to the given orientation. Currently only available in the iOS Simulator.
          * @param orientation
@@ -280,42 +285,42 @@ declare namespace Detox {
          * Simulate tap on an element
          * @example await element(by.id('tappable')).tap();
          */
-        tap(): Actions<Promise<R>>;
+        tap(): Promise<Actions<R>>;
         /**
          * Simulate long press on an element
          * @example await element(by.id('tappable')).longPress();
          */
-        longPress(): Actions<Promise<R>>;
+        longPress(): Promise<Actions<R>>;
         /**
          * Simulate multiple taps on an element.
          * @param times number
          * @example await element(by.id('tappable')).multiTap(3);
          */
-        multiTap(times: number): Actions<Promise<R>>;
+        multiTap(times: number): Promise<Actions<R>>;
         /**
          * Simulate tap at a specific point on an element.
          * Note: The point coordinates are relative to the matched element and the element size could changes on different devices or even when changing the device font size.
          * @param point
          * @example await element(by.id('tappable')).tapAtPoint({ x:5, y:10 });
          */
-        tapAtPoint(point: { x:number, y:number }): Actions<Promise<R>>
+        tapAtPoint(point: { x:number, y:number }): Promise<Actions<R>>
         /**
          * Use the builtin keyboard to type text into a text field.
          * @param text
          * @example await element(by.id('textField')).typeText('passcode');
          */
-        typeText(text: string): Actions<Promise<R>>
+        typeText(text: string): Promise<Actions<R>>
         /**
          * Paste text into a text field.
          * @param text
          * @example await element(by.id('textField')).replaceText('passcode again');
          */
-        replaceText(text: string): Actions<Promise<R>>
+        replaceText(text: string): Promise<Actions<R>>
         /**
          * Clear text from a text field.
          * @example await element(by.id('textField')).clearText();
          */
-        clearText(): Actions<Promise<R>>
+        clearText(): Promise<Actions<R>>
         /**
          *
          * @param pixels
@@ -353,7 +358,7 @@ declare namespace Detox {
             await element(by.type('UIPickerView')).setColumnToValue(1,"6");
             await element(by.type('UIPickerView')).setColumnToValue(2,"34");
          */
-        setColumnToValue(column: number, value: string)
+        setColumnToValue(column: number, value: string): Actions<Promise<R>>
     }
 
     type Direction = "left" | "right" | "top" | "bottom" | "up" | "down"
