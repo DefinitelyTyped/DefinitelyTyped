@@ -284,6 +284,16 @@ declare namespace AFrame {
 		schema: Schema;
 	}
 
+	interface ShaderDefinition<T extends CustomProperties = {}> {
+		schema: T['data'];
+
+		init?(this: T & Component, data?: T['data']): void;
+		update?(this: T & Component, data: T['data']): void;
+
+		vertexShader: string,
+		fragmentShader: string
+	}
+
 	interface ShaderDescriptor {
 		Shader: Shader;
 		schema: Schema;
