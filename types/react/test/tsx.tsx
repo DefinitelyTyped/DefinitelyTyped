@@ -150,12 +150,10 @@ class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', st
     }
 }
 
-class ComponentWithBadLifecycle extends React.Component<{}, {}, number> {
-    getSnapshotBeforeUpdate() { // $ExpectError
-        return 'number';
-    }
-
-    componentDidUpdate(prevProps: {}, prevState: {}, snapshot?: string) { // $ExpectError
-        return;
-    }
-}
+const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
+componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
+    return 'number';
+};
+componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
+    return;
+};
