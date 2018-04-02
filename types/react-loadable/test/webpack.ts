@@ -14,8 +14,8 @@ const manifest = {
   react: [
     {
       id: 0,
-      name: "./node_modules/react/index.js",
-      file: "main.js"
+      name: './node_modules/react/index.js',
+      file: 'main.js'
     }
   ]
 };
