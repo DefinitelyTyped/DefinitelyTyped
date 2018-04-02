@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-import { ReactLoadablePlugin, getBundles, Manifest } from 'react-loadable/webpack';
+import { ReactLoadablePlugin, getBundles } from 'react-loadable/webpack';
 
 const config: webpack.Configuration = {
   plugins: [
@@ -10,7 +10,7 @@ const config: webpack.Configuration = {
   ]
 };
 
-const manifest: Manifest = {
+const manifest = {
   react: [
     {
       id: 0,
