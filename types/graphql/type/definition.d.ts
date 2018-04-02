@@ -34,6 +34,41 @@ export function isType(type: any): type is GraphQLType;
 export function assertType(type: any): GraphQLType;
 
 /**
+ * These are predicates for each kind of GraphQL type.
+ */
+export function isScalarType(type: any): type is GraphQLScalarType;
+
+export function assertScalarType(type: any): GraphQLScalarType;
+
+export function isObjectType(type: any): type is GraphQLObjectType;
+
+export function assertObjectType(type: any): GraphQLObjectType;
+
+export function isInterfaceType(type: any): type is GraphQLInterfaceType;
+
+export function assertInterfaceType(type: any): GraphQLInterfaceType;
+
+export function isUnionType(type: any): type is GraphQLUnionType;
+
+export function assertUnionType(type: any): GraphQLUnionType;
+
+export function isEnumType(type: any): type is GraphQLEnumType;
+
+export function assertEnumType(type: any): GraphQLEnumType;
+
+export function isInputObjectType(type: any): type is GraphQLInputObjectType;
+
+export function assertInputObjectType(type: any): GraphQLInputObjectType;
+
+export function isListType(type: any): type is GraphQLList<any>;
+
+export function assertListType(type: any): GraphQLList<any>;
+
+export function isNonNullType(type: any): type is GraphQLNonNull<any>;
+
+export function assertNonNullType(type: any): GraphQLNonNull<any>;
+
+/**
  * These types may be used as input types for arguments and directives.
  */
 export type GraphQLInputType =
@@ -109,6 +144,10 @@ export type GraphQLNullableType =
     | GraphQLInputObjectType
     | GraphQLList<any>;
 
+export function isNullableType(type: any): type is GraphQLNullableType;
+
+export function assertNullableType(type: any): GraphQLNullableType;
+
 export function getNullableType<T extends GraphQLType>(type: T): T & GraphQLNullableType;
 
 /**
@@ -127,6 +166,15 @@ export function isNamedType(type: GraphQLType): boolean;
 export function assertNamedType(type: GraphQLType): GraphQLNamedType;
 
 export function getNamedType(type: GraphQLType): GraphQLNamedType;
+
+/**
+ * These types wrap an modify other types.
+ */
+export type GraphQLWrappingType = GraphQLList<any> | GraphQLNonNull<any>;
+
+export function isWrappingType(type: any): type is GraphQLWrappingType;
+
+export function assertWrappingType(type: any): GraphQLWrappingType;
 
 /**
  * Used while defining GraphQL types to allow for circular references in
