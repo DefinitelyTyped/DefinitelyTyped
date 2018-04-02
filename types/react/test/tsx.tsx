@@ -144,6 +144,12 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
     }
 }
 
+class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
+        return { a: 'a' };
+    }
+}
+
 class ComponentWithBadLifecycle extends React.Component<{}, {}, number> {
     getSnapshotBeforeUpdate() { // $ExpectError
         return 'number';

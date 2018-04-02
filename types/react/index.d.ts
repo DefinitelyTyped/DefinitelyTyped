@@ -401,7 +401,7 @@ declare namespace React {
          *
          * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
          */
-        <K extends keyof S>(nextProps: Readonly<P>, prevState: Readonly<S>) => Pick<S, K> | S | null;
+        (nextProps: Readonly<P>, prevState: Readonly<S>) => Partial<S> | S | null;
 
     // This should be "infer SS" but can't use it yet
     interface NewLifecycle<P, S, SS> {
