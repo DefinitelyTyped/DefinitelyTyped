@@ -84,8 +84,8 @@ export class Client {
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
     listBuckets(): Promise<BucketItemFromList>;
 
-    bucketExists(bucketName: string, callback: NoResultCallback): void;
-    bucketExists(bucketName: string): Promise<void>;
+    bucketExists(bucketName: string, callback: ResultCallback<boolean>): void;
+    bucketExists(bucketName: string): Promise<boolean>;
 
     removeBucket(bucketName: string, callback: NoResultCallback): void;
     removeBucket(bucketName: string): Promise<void>;

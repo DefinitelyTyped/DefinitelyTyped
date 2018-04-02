@@ -16,7 +16,7 @@ minio.makeBucket('testBucket', 'region-not-from-list');
 minio.listBuckets((error: Error|null, bucketList: Minio.BucketItemFromList[]) => { console.log(error, bucketList); });
 minio.listBuckets();
 
-minio.bucketExists('testBucket', (error: Error|null) => { console.log(error); });
+minio.bucketExists('testBucket', (error: Error|null, exists: boolean) => { console.log(error, exists); });
 minio.bucketExists('testBucket');
 
 minio.removeBucket('testBucket', (error: Error|null) => { console.log(error); });
