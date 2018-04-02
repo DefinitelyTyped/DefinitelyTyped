@@ -2,6 +2,7 @@
 // Project: https://aframe.io/
 // Definitions by: Paul Shannon <https://github.com/devpaul>
 //                 Roberto Ritger <https://github.com/bertoritger>
+//                 Trygve Wastvedt <https://github.com/twastvedt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,12 +37,12 @@ declare namespace AFrame {
 		components: { [ key: string ]: ComponentDescriptor };
 		geometries: { [ key: string ]: GeometryDescriptor };
 		primitives: { [ key: string ]: Entity };
-		registerComponent(name: string, component: ComponentDefinition): ComponentConstructor;
+		registerComponent(name: string, component: ComponentDefinition<any, any>): ComponentConstructor;
 		registerElement(name: string, element: ANode): void;
 		registerGeometry(name: string, geometry: GeometryDefinition): Geometry;
 		registerPrimitive(name: string, primitive: PrimitiveDefinition): void;
 		registerShader(name: string, shader: any): void;
-		registerSystem(name: string, definition: SystemDefinition): void;
+		registerSystem(name: string, definition: SystemDefinition<any>): void;
 		schema: SchemaUtils;
 		shaders: { [ key: string ]: ShaderDescriptor };
 		systems: { [key: string]: System };
@@ -89,22 +90,23 @@ declare namespace AFrame {
 		tick(): void;
 	}
 
-	interface Component {
+	type Component<T extends CustomProperties = {}, S extends System = undefined> = {[P in keyof T]?: T[P];} & {
 		attrName?: string;
-		data?: any;
+		data?: T['data'];
 		dependencies?: string[];
 		el: Entity;
 		id: string;
 		multiple?: boolean;
 		name: string;
-		schema: Schema;
+		schema: Schema<T['data']>;
+		system: S;
 
-		init(data?: any): void;
+		init(data?: T['data']): void;
 		pause(): void;
 		play(): void;
 		remove(): void;
 		tick?(time: number, timeDelta: number): void;
-		update(oldData: any): void;
+		update(oldData: T['data']): void;
 		updateSchema?(): void;
 
 		extendSchema(update: Schema): void;
@@ -115,22 +117,26 @@ declare namespace AFrame {
 		new (el: Entity, name: string, id: string): Component;
 	}
 
-	interface ComponentDefinition {
+	interface CustomProperties {
+		data?: { [key: string ]: any };
+		[key: string ]: any;
+	}
+
+	type ComponentDefinition<T extends CustomProperties = {}, S extends System = undefined> = {[P in keyof T]?: T[P];} & {
+
 		dependencies?: string[];
 		el?: Entity;
 		id?: string;
 		multiple?: boolean;
-		schema?: Schema;
+		schema?: Schema<T['data']>;
 
-		init?(data?: any): void;
-		pause?(): void;
-		play?(): void;
-		remove?(): void;
-		tick?(time: number, timeDelta: number): void;
-		update?(oldData: any): void;
-		updateSchema?(): void;
-
-		[ key: string ]: any;
+		init?(this: Component<T, S> & T, data?: any): void;
+		pause?(this: Component<T, S> & T, ): void;
+		play?(this: Component<T, S> & T, ): void;
+		remove?(this: Component<T, S> & T, ): void;
+		tick?(this: Component<T, S> & T, time: number, timeDelta: number): void;
+		update?(this: Component<T, S> & T, oldData: T['data']): void;
+		updateSchema?(this: Component<T, S> & T): void;
 	}
 
 	interface ComponentDescriptor {
@@ -229,8 +235,8 @@ declare namespace AFrame {
 		schema: Schema;
 	}
 
-	interface MultiPropertySchema {
-		[ key: string ]: SinglePropertySchema<any>;
+	type MultiPropertySchema<T> = {
+			[P in keyof T]: SinglePropertySchema<T[P]>;
 	}
 
 	interface PrimitiveDefinition {
@@ -266,7 +272,7 @@ declare namespace AFrame {
 		addEventListener(type: SceneEvents, listener: EventListener, useCapture?: boolean): void;
 	}
 
-	type Schema = SinglePropertySchema<any> | MultiPropertySchema;
+	type Schema<T = { [key: string]: any }> = SinglePropertySchema<T> | MultiPropertySchema<T>;
 
 	interface SchemaUtils {
 		isSingleProperty(schema: Schema): boolean;
@@ -291,22 +297,21 @@ declare namespace AFrame {
 		[ key: string ]: any;
 	}
 
-	interface System {
-		data: any;
-		schema: Schema;
-		init(): void;
-		pause(): void;
-		play(): void;
-		tick?(): void;
+	type System<T extends CustomProperties = {}> = {[P in keyof T]?: T[P];} & {
+		data: T['data'];
+		schema: Schema<T['data']>;
+		init(this: System<T>): void;
+		pause(this: System<T>): void;
+		play(this: System<T>): void;
+		tick?(this: System<T>, t: number, dt: number): void;
 	}
 
-	interface SystemDefinition {
-		schema?: Schema;
-		init?(): void;
-		pause?(): void;
-		play?(): void;
-		tick?(): void;
-		[ key: string ]: any;
+	type SystemDefinition<T extends CustomProperties = {}> = {[P in keyof T]?: T[P];} & {
+		schema?: Schema<T['data']>;
+		init?(this: System<T>): void;
+		pause?(this: System<T>): void;
+		play?(this: System<T>): void;
+		tick?(this: System<T>): void;
 	}
 
 	interface Utils {
