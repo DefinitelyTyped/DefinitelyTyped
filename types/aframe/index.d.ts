@@ -198,12 +198,18 @@ declare namespace AFrame {
 		addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 	}
 
-	type DetailEvent<D> = Event & { detail: D };
+	type DetailEvent<D> = Event & {
+		detail: D;
+		target: EventTarget & Entity;
+	};
 
 	interface EntityEventMap {
 		'child-attached': DetailEvent<{ el: Element | Entity }>;
 		'child-detached': DetailEvent<{ el: Element | Entity }>;
-		'componentchanged': DetailEvent<{ name: string }>;
+		'componentchanged': DetailEvent<{
+			name: string,
+			id: string
+		}>;
 		'componentremoved': DetailEvent<{
 			name: string,
 			id: string,
