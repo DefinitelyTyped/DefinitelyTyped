@@ -511,7 +511,7 @@ declare namespace React {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
-    interface Mixin<P, S> extends ComponentLifecycle<P, S, never> {
+    interface Mixin<P, S> extends ComponentLifecycle<P, S> {
         mixins?: Array<Mixin<P, S>>;
         statics?: {
             [key: string]: any;
