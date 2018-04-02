@@ -278,7 +278,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
+    interface Component<P = {}, S = {}, SS = never> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
         constructor(props: P, context?: any);
 
@@ -362,7 +362,7 @@ declare namespace React {
     // This should actually be something like `Lifecycle<P, S> | DeprecatedLifecycle<P, S>`,
     // as React will _not_ call the deprecated lifecycle methods if any of the new lifecycle
     // methods are present.
-    interface ComponentLifecycle<P, S> extends NewLifecycle<P, S>, DeprecatedLifecycle<P, S> {
+    interface ComponentLifecycle<P, S, SS = never> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
         /**
          * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
          */
@@ -404,7 +404,7 @@ declare namespace React {
         <K extends keyof S>(nextProps: Readonly<P>, prevState: Readonly<S>) => Pick<S, K> | S | null;
 
     // This should be "infer SS" but can't use it yet
-    interface NewLifecycle<P, S, SS extends object = any> {
+    interface NewLifecycle<P, S, SS> {
         /**
          * Runs before React applies the result of `render` to the document, and
          * returns an object to be given to componentDidUpdate. Useful for saving
@@ -511,7 +511,7 @@ declare namespace React {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
-    interface Mixin<P, S> extends ComponentLifecycle<P, S> {
+    interface Mixin<P, S> extends ComponentLifecycle<P, S, never> {
         mixins?: Array<Mixin<P, S>>;
         statics?: {
             [key: string]: any;
