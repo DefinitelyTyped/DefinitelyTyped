@@ -348,5 +348,8 @@ declare namespace AFrame {
 		diff(a: object, b: object): object;
 		extend(target: object, ... source: object[]): object;
 		extendDeep(target: object, ... source: object[]): object;
+
+		throttle(tickFunction: () => void, minimumInterval: number, optionalContext?: {}): (t: number, dt: number) => void;
+		throttleTick(tickFunction: (t: number, dt: number) => void, minimumInterval: number, optionalContext?: {}): (t: number, dt: number) => void;
 	}
 }
