@@ -5457,8 +5457,6 @@ declare namespace _ {
     type LodashZipWith1x6<T1, T2> = <TResult>(iteratee: (value1: T1, value2: T2) => TResult) => TResult[];
 
     interface LoDashFp {
-        __: lodash.__;
-        placehodler: lodash.__;
         add: LodashAdd;
         after: LodashAfter;
         all: LodashEvery;
@@ -5842,5 +5840,7 @@ declare namespace _ {
         zipObject: LodashZipObject;
         zipObjectDeep: LodashZipObjectDeep;
         zipWith: LodashZipWith;
+        __: lodash.__;
+        placehodler: lodash.__;
     }
 }

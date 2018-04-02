@@ -115,9 +115,9 @@ async function main() {
         interfaceStrings,
         "",
         "    interface LoDashFp {",
+        ...interfaceGroups.map(g => `        ${g.functionName}: ${g.interfaces[0].name};`),
         "        __: lodash.__;",
         "        placehodler: lodash.__;",
-        ...interfaceGroups.map(g => `        ${g.functionName}: ${g.interfaces[0].name};`),
         "    }",
         "}",
         "",
@@ -129,15 +129,14 @@ async function main() {
 
     // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
     const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
-    const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`);
+    const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`)
+        .concat(["__", "placeholder"].map(p => `        "fp/${p}.d.ts",`));
     newRows[newRows.length - 1] = newRows[newRows.length - 1].replace(",", "");
 
     const insertIndex = _.findLastIndex(tsconfig, row => row.trim() === "]"); // Assume "files" is the last array
     if (!tsconfig[insertIndex - 1].endsWith(","))
         tsconfig[insertIndex - 1] += ",";
     tsconfig.splice(insertIndex, 0, ...newRows);
-
-    // TODO: write each function file
 
     fs.writeFile(tsconfigPath, tsconfig.join(lineBreak), (err) => {
         if (err)
@@ -208,7 +207,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     const builderFp = convert(builder, { rearg: true, fixed: true, immutable: false, curry: false, cap: false });
     _.defaults(builderFp, unconvertedBuilder);
 
-    const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && (typeof builderFp[key] === "function"));
+    const functionNames = Object.keys(builderFp).filter(key => key !== "convert" && typeof builderFp[key] === "function");
     const interfaceGroups: InterfaceGroup[] = functionNames.map((functionName): InterfaceGroup => ({
         functionName,
         // Assuming the maximum arity is 4. Pass one more arg than the max arity so we can detect if arguments weren't fixed.

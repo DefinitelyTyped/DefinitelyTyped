@@ -332,7 +332,6 @@
         "common/string.d.ts",
         "common/util.d.ts",
         "fp/convert.d.ts",
-        "fp/__.d.ts",
         "fp/add.d.ts",
         "fp/after.d.ts",
         "fp/all.d.ts",
@@ -583,7 +582,6 @@
         "fp/pickAll.d.ts",
         "fp/pickBy.d.ts",
         "fp/pipe.d.ts",
-        "fp/placeholder.d.ts",
         "fp/pluck.d.ts",
         "fp/prop.d.ts",
         "fp/propEq.d.ts",
@@ -716,6 +714,8 @@
         "fp/zipObj.d.ts",
         "fp/zipObject.d.ts",
         "fp/zipObjectDeep.d.ts",
-        "fp/zipWith.d.ts"
+        "fp/zipWith.d.ts",
+        "fp/__.d.ts",
+        "fp/placeholder.d.ts"
     ]
 }
