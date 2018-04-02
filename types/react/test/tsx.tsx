@@ -89,6 +89,13 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
     </React.Fragment>
 </div>;
 
+// Strict Mode
+<div>
+    <React.StrictMode>
+        <div />
+    </React.StrictMode>
+</div>;
+
 // Below tests that setState() works properly for both regular and callback modes
 class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
     handleSomething = () => {

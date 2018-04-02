@@ -1,4 +1,4 @@
-// Type definitions for React 16.1
+// Type definitions for React 16.3
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -16,6 +16,7 @@
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -268,6 +269,7 @@ declare namespace React {
 
     const Children: ReactChildren;
     const Fragment: ComponentType;
+    const StrictMode: ComponentType;
     const version: string;
 
     //
