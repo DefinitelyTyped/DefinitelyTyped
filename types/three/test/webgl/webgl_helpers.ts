@@ -1,3 +1,4 @@
+
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_helpers.html
 
 () => {
@@ -27,10 +28,14 @@
 
         scene.add(new THREE.PointLightHelper(light, 5));
 
-        var helper = new THREE.GridHelper(200, 10);
-        helper.setColors(0x0000ff, 0x808080);
-        helper.position.y = - 150;
-        scene.add(helper);
+        var gridHelper = new THREE.GridHelper(200, 10);
+        gridHelper.setColors(0x0000ff, 0x808080);
+        gridHelper.position.y = - 150;
+        scene.add(gridHelper);
+
+        var plane = new THREE.Plane(new THREE.Vector3(1, 1, 0.2), 3);
+        var planeHelper = new THREE.PlaneHelper(plane, 1, 0xffff00);
+        scene.add(planeHelper);
 
         var loader = new THREE.JSONLoader();
         loader.load('obj/leeperrysmith/LeePerrySmith.js', function (geometry, materials) {

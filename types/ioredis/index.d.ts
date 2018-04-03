@@ -48,6 +48,7 @@ declare namespace IORedis {
     }
 
     interface Redis extends NodeJS.EventEmitter, Commander {
+        Promise: typeof Promise;
         status: string;
         connect(callback?: () => void): Promise<any>;
         disconnect(): void;

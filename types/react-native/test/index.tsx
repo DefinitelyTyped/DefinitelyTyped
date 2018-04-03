@@ -17,6 +17,7 @@ import {
     AppState,
     AppStateIOS,
     BackAndroid,
+    BackHandler,
     Button,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -72,6 +73,8 @@ function testDimensions() {
     Dimensions.addEventListener('change', dimensionsListener);
     Dimensions.removeEventListener('change', dimensionsListener);
 }
+
+BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
 
 BackAndroid.addEventListener("hardwareBackPress", () => {});
 

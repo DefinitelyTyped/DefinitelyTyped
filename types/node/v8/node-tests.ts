@@ -610,6 +610,11 @@ namespace url_tests {
     }
 
     {
+        const ascii: string = url.domainToASCII('español.com');
+        const unicode: string = url.domainToUnicode('xn--espaol-zwa.com');
+    }
+
+    {
         let myURL = new url.URL('https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
         assert.equal(myURL.hash, '#bar');
         assert.equal(myURL.host, 'example.org:81');
@@ -1470,6 +1475,8 @@ namespace https_tests {
     });
 
     https.request('http://www.example.com/xyz');
+
+    https.globalAgent.options.ca = [];
 
     {
         const server = new https.Server();
@@ -3304,6 +3311,16 @@ namespace async_hooks_tests {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////

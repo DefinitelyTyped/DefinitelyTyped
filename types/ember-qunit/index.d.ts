@@ -45,6 +45,20 @@ declare module 'ember-qunit' {
     export function setResolver(resolver: Ember.Resolver): void;
 
     /**
+     * Sets up acceptance tests.
+     *
+     * The `setupApplicationTest` function is used for all acceptance tests. It
+     * is invoked in the callback scope of a QUnit module (aka "nested module").
+     *
+     * Once invoked, all subsequent hooks.beforeEach and test invocations will
+     * have access to the following:
+     * * `this.owner` - the owner object that been set on the test context.
+     * * `this.pauseTest` and `this.resumeTest` - allow easy pausing/resuming of tests.
+     * * `this.element` which returns the DOM element representing the application's root element.
+     */
+    export function setupApplicationTest(hooks: NestedHooks): void;
+
+    /**
      * Sets up tests that need to render snippets of templates.
      *
      * The setupRenderingTest method is used for tests that need to render
@@ -80,7 +94,7 @@ declare module 'ember-qunit' {
      */
     export function setupTest(hooks: NestedHooks): void;
 
-    export class QUnitAdapter extends Ember.Test.Adapter {}
+    export class QUnitAdapter extends Ember.Test.Adapter { }
 
     export { module, test, skip, only, todo } from 'qunit';
 }
@@ -147,9 +161,10 @@ declare module 'qunit' {
      * ignoring the callback argument and the respective global and module's
      * hooks.
      *
-     * @param Title of unit being tested
+     * @param name Title of unit being tested
+     * @param callback Function to close over assertions
      */
-    export const skip: typeof QUnit.skip;
+    export function skip(name: string, callback?: (this: TestContext, assert: Assert) => void): void;
 
     export default QUnit;
 }

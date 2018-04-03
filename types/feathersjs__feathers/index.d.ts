@@ -8,8 +8,10 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
+import * as self from '@feathersjs/feathers';
 
-export default function feathers(): Application<object>;
+declare const feathers: (() => Application<object>) & typeof self;
+export default feathers;
 
 export const version: string;
 
