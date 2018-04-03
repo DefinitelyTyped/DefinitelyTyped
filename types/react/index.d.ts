@@ -810,7 +810,7 @@ declare namespace React {
 
     export interface CSSProperties extends CSS.Properties<string | number> {
         // The string index signature fallback is needed at least until csstype
-        // provides SVG CSS properties: https://github.com/frenic/csstype
+        // provides SVG CSS properties: https://github.com/frenic/csstype/issues/4
         [propertyName: string]: any;
     }
 
