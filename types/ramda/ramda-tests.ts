@@ -310,6 +310,34 @@ R.times(i, 5);
 })();
 
 (() => {
+    let numberOfCalls = 0;
+
+    function trackedAdd(a: number, b: number) {
+        numberOfCalls += 1;
+        return a + b;
+    }
+
+    const memoTrackedAdd = R.memoizeWith(R.identity, trackedAdd);
+
+    memoTrackedAdd(1, 2); // => 3
+    numberOfCalls; // => 1
+    memoTrackedAdd(1, 2); // => 3
+    numberOfCalls; // => 1
+    memoTrackedAdd(2, 3); // => 5
+    numberOfCalls; // => 2
+
+    // Note that argument order matters
+    memoTrackedAdd(2, 1); // => 3
+    numberOfCalls; // => 3
+
+    function stringLength(str: string): number {
+      return str.length;
+    }
+    const memoStringLength = R.memoizeWith<number>(R.identity, stringLength);
+    const isLong = memoStringLength('short') > 10; // false
+})();
+
+(() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
