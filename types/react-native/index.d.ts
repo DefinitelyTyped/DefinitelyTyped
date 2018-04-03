@@ -1526,7 +1526,7 @@ export interface GestureResponderHandlers {
      * So if a parent View wants to prevent the child from becoming responder on a touch start,
      * it should have a onStartShouldSetResponderCapture handler which returns true.
      */
-    onMoveShouldSetResponderCapture?: () => void;
+    onMoveShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean;
 }
 
 // @see https://facebook.github.io/react-native/docs/view.html#style
