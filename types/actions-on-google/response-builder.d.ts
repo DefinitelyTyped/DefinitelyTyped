@@ -350,6 +350,16 @@ export class Carousel {
      * @return Returns current constructed Carousel.
      */
     addItems(optionItems: OptionItem | OptionItem[]): Carousel;
+
+    /**
+     * Sets the display options for the images in this carousel.
+     * Use one of the image display constants. If none is chosen,
+     * ImageDisplays.DEFAULT will be enforced.
+     *
+     * @param option The option for displaying the image.
+     * @return Returns current constructed Carousel.
+     */
+    setImageDisplay(option: ImageDisplays): Carousel;
 }
 
 /**
