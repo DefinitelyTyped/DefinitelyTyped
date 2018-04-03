@@ -202,6 +202,8 @@ export interface NavigationNavigateActionPayload {
 
   // The action to run inside the sub-router
   action?: NavigationNavigateAction;
+
+  key?: string;
 }
 
 export interface NavigationNavigateAction extends NavigationNavigateActionPayload {
