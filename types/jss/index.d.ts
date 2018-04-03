@@ -24,10 +24,10 @@ export interface Rule {
 	toJSON(): string;
 }
 
-export interface StyleSheet<Name extends string = any> {
+export interface StyleSheet<RuleName extends string = any> {
 	// Gives auto-completion on the rules declared in `createStyleSheet` without
 	// causing errors for rules added dynamically after creation.
-	classes: Classes<Name>;
+	classes: Classes<RuleName>;
 	options: RuleOptions;
 	linked: boolean;
 	attached: boolean;
@@ -44,21 +44,21 @@ export interface StyleSheet<Name extends string = any> {
 	 * Will insert a rule also after the stylesheet has been rendered first time.
 	 */
 	addRule(style: Style, options?: Partial<RuleOptions>): Rule;
-	addRule(name: Name, style: Style, options?: Partial<RuleOptions>): Rule;
+	addRule(name: RuleName, style: Style, options?: Partial<RuleOptions>): Rule;
 	/**
 	 * Create and add rules.
 	 * Will render also after Style Sheet was rendered the first time.
 	 */
-	addRules(styles: Partial<Styles<Name>>, options?: Partial<RuleOptions>): Rule[];
+	addRules(styles: Partial<Styles<RuleName>>, options?: Partial<RuleOptions>): Rule[];
 	/**
 	 * Get a rule by name.
 	 */
-	getRule(name: Name): Rule;
+	getRule(name: RuleName): Rule;
 	/**
 	 * Delete a rule by name.
 	 * Returns `true`: if rule has been deleted from the DOM.
 	 */
-	deleteRule(name: Name): boolean;
+	deleteRule(name: RuleName): boolean;
 	/**
 	 * Get index of a rule.
 	 */
@@ -67,7 +67,7 @@ export interface StyleSheet<Name extends string = any> {
 	 * Update the function values with a new data.
 	 */
 	update(data?: {}): this;
-	update(name: Name, data: {}): this;
+	update(name: RuleName, data: {}): this;
 	/**
 	 * Convert rules to a CSS string.
 	 */
