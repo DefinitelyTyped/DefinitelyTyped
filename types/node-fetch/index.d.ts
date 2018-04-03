@@ -77,6 +77,7 @@ export class Body {
 	json<T>(): Promise<T>;
 	text(): Promise<string>;
 	buffer(): Promise<Buffer>;
+	arrayBuffer(): Promise<ArrayBuffer>;
 }
 
 export class Response extends Body {
