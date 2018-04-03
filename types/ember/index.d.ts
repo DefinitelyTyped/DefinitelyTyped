@@ -3408,6 +3408,7 @@ declare module '@ember/application/resolver' {
 
 declare module '@ember/array' {
     import Ember from 'ember';
+    type EmberArray<T> = Ember.Array<T>;
     const EmberArray: typeof Ember.Array;
     export default EmberArray;
     export const A: typeof Ember.A;
