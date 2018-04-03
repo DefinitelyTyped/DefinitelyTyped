@@ -1247,6 +1247,13 @@ declare module "victory" {
             };
         }>;
         /**
+         * The itemsPerRow prop determines how many items to render in each row
+         * of a horizontal legend, or in each column of a vertical legend. This
+         * prop should be given as an integer. When this prop is not given,
+         * legend items will be rendered in a single row or column.
+         */
+        itemsPerRow?: number;
+        /**
          * The dataComponent prop takes a component instance which will be
          * responsible for rendering a data element used to associate a symbol
          * or color with each data series. The new element created from the
