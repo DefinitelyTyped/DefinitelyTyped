@@ -154,7 +154,7 @@ export function dsv<ParsedRow extends DSVRowAny>(
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function hmtl(url: string, init?: RequestInit): Promise<Document>;
+export function html(url: string, init?: RequestInit): Promise<Document>;
 
 /**
  * Fetches the image at the specified input URL and returns a promise of an HTML image element.
