@@ -4,7 +4,8 @@ import Loadable = require('react-loadable/webpack');
 const config: webpack.Configuration = {
   plugins: [
     new Loadable.ReactLoadablePlugin(),
-    new Loadable.ReactLoadablePlugin({ filename: 'react-loadable.json'
+    new Loadable.ReactLoadablePlugin({
+      filename: 'react-loadable.json'
     })
   ]
 };
