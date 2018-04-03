@@ -36,11 +36,13 @@ export interface JssExpand {
               attachment: CSSProperties['backgroundAttachment'];
               color: CSSProperties['backgroundColor'];
               image: CSSProperties['backgroundImage'];
-              position: CSSProperties['backgroundPosition'] | number[]; // Can be written using array e.g. `[0 0]`
+              position:
+                  | CSSProperties['backgroundPosition']
+                  | [csstype.Properties['backgroundPosition'], csstype.Properties['backgroundPosition']]; // Can be written using array e.g. `[0 0]`
               repeat: CSSProperties['backgroundRepeat'];
               size:
                   | CSSProperties['backgroundSize']
-                  | Array<CSSProperties['backgroundSize']>; // Can be written using array e.g. `['center' 'center']`
+                  | [csstype.Properties['backgroundSize'], csstype.Properties['backgroundSize']]; // Can be written using array e.g. `['center' 'center']`
           }
         | CSSProperties['background'];
     border:
