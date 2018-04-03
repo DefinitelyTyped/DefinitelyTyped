@@ -1305,6 +1305,13 @@ declare namespace React {
         boxShadow?: CSSWideKeyword | any;
 
         /**
+         * Specify whether borders and padding are included in box size.
+         * Not inherited.
+         * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
+         */
+        boxSizing?: "content-box" | "border-box";
+
+        /**
          * The CSS break-after property allows you to force a break on multi-column layouts.
          * More specifically, it allows you to force a break after an element.
          * It allows you to determine if a break should occur, and what type of break it should be.
