@@ -4399,6 +4399,11 @@ export interface ModalProperties {
      * @platform ios
      */
     onDismiss?: () => void;
+    /**
+     * The `presentationStyle` determines the style of modal to show
+     * @platform ios
+     */
+    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
 
 export interface ModalStatic extends React.ComponentClass<ModalProperties> {}
