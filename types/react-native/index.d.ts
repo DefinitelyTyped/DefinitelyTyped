@@ -4401,6 +4401,7 @@ export interface ModalProperties {
     onDismiss?: () => void;
     /**
      * The `presentationStyle` determines the style of modal to show
+     * @platform ios
      */
     presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
