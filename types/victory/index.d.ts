@@ -1,4 +1,4 @@
-// Type definitions for Victory 0.9.1
+// Type definitions for Victory 0.9.2
 // Project: https://github.com/FormidableLabs/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
@@ -1242,6 +1242,7 @@ declare module "victory" {
         data?: Array<{
             name?: string;
             symbol?: {
+                fill?: string;
                 type?: string;
             };
         }>;
