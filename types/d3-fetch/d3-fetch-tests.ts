@@ -51,8 +51,8 @@ promise2 = d3Fetch.tsv<MyType>(url, parseRow);
 promise2 = d3Fetch.tsv<MyType>(url, init, parseRow);
 
 let docPromise: Promise<Document>;
-docPromise = d3Fetch.hmtl(url);
-docPromise = d3Fetch.hmtl(url, init);
+docPromise = d3Fetch.html(url);
+docPromise = d3Fetch.html(url, init);
 
 docPromise = d3Fetch.svg(url);
 docPromise = d3Fetch.svg(url, init);
