@@ -3200,6 +3200,7 @@ declare namespace React {
         crossOrigin?: string;
         defer?: boolean;
         integrity?: string;
+        noModule?: boolean;
         nonce?: string;
         src?: string;
         type?: string;
@@ -3211,7 +3212,6 @@ declare namespace React {
         form?: string;
         multiple?: boolean;
         name?: string;
-        noModule?: boolean;
         required?: boolean;
         size?: number;
         value?: string | string[] | number;
