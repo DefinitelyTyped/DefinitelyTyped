@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import { BasicCard, Carousel, ImageDisplays, List, OptionItem, RichResponse } from './response-builder';
+import { BasicCard, Carousel, ImageDisplays, List, OptionItem, RichResponse, SimpleResponse } from './response-builder';
 import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, LineItem,
          Location, Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
 
@@ -30,6 +30,8 @@ export enum StandardIntents {
     DELIVERY_ADDRESS,
     /** App fires TRANSACTION_DECISION intent when action asks for transaction decision. */
     TRANSACTION_DECISION,
+    /** App fires PLACE intent when action asks for place. */
+    PLACE,
     /** App fires CONFIRMATION intent when requesting affirmation from user. */
     CONFIRMATION,
     /** App fires DATETIME intent when requesting date/time from user. */
@@ -45,7 +47,9 @@ export enum StandardIntents {
     /** App fires REGISTER_UPDATE intent when requesting user to register for proactive updates. */
     REGISTER_UPDATE,
     /** App receives CONFIGURE_UPDATES intent to indicate a REGISTER_UPDATE intent should be sent. */
-    CONFIGURE_UPDATES
+    CONFIGURE_UPDATES,
+    /** App fires LINK intent to request user to open to link. */
+    LINK
 }
 
 /**
@@ -102,6 +106,10 @@ export enum BuiltInArgNames {
      */
     TRANSACTION_DECISION_VALUE,
     /**
+     * Place value argument.
+     */
+    PLACE,
+    /**
      * Confirmation argument.
      */
     CONFIRMATION,
@@ -126,7 +134,9 @@ export enum BuiltInArgNames {
      */
     NEW_SURFACE,
     /** Update registration value argument. */
-    REGISTER_UPDATE
+    REGISTER_UPDATE,
+    /** Link request result argument. */
+    LINK
 }
 
 /**
@@ -173,6 +183,10 @@ export enum SurfaceCapabilities {
      * The ability to output on a screen
      */
     SCREEN_OUTPUT,
+    /**
+     * The ability to open a web URL
+     */
+    WEB_BROWSER
 }
 
 /**
@@ -259,10 +273,15 @@ export interface UserName {
     familyName: string;
 }
 
+export interface LocationCoordinates {
+    latitude: number;
+    longitude: number;
+}
+
 /**
- * User's permissioned device location.
+ * Location information.
  */
-export interface DeviceLocation {
+export interface Location {
     /** Coordinates: {latitude, longitude}. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
     coordinates: Coordinates;
     /** Full, formatted street address. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
@@ -271,6 +290,22 @@ export interface DeviceLocation {
     zipCode: string;
     /** Device city. Requested with SupportedPermissions.DEVICE_COARSE_LOCATION. */
     city: string;
+}
+
+/**
+ * User's permissioned device location.
+ */
+export type DeviceLocation = Location;
+
+/**
+ * Place information.
+ */
+export interface Place extends Location {
+    /**
+     * Used with Places API to fetch details of a place.
+     * See {@link https://developers.google.com/places/web-service/place-id}
+     */
+    placeId: string;
 }
 
 /**
@@ -924,6 +959,80 @@ export class AssistantApp {
     askForDeliveryAddress(reason: string, dialogState?: object): express.Response | null;
 
     /**
+     * Asks user to provide a geo-located place, possibly using contextual information,
+     * like a store near the user's location or a contact's address.
+     *
+     * Developer provides custom text prompts to tailor the request handled by Google.
+     *
+     * @example
+     * // For DialogflowApp:
+     *
+     * // Dialogflow Actions
+     * const Actions = {
+     *   WELCOME: 'input.welcome',
+     *   PLACE: 'get.place' // Create Dialogflow Action with actions_intent_PLACE event
+     * };
+     *
+     * const app = new DialogflowApp({request, response});
+     *
+     * function handleWelcome (app) {
+     *   const requestPrompt = 'Where do you want to get picked up?';
+     *   const permissionContext = 'To find a place to pick you up';
+     *   app.askForPlace(requestPrompt, permissionContext);
+     * }
+     *
+     * function handlePlace (app) {
+     *   const place = app.getPlace();
+     *   if (place) {
+     *     app.tell(`Ah, I see. You want to get picked up at ${place.address}`);
+     *   } else {
+     *     app.tell(`Sorry, I couldn't find where you want to get picked up`);
+     *   }
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(Actions.WELCOME, handleWelcome);
+     * actionMap.set(Actions.PLACE, handlePlace);
+     * app.handleRequest(actionMap);
+     *
+     * // For ActionsSdkApp:
+     * const app = new ActionsSdkApp({ request, response });
+     *
+     * function handleWelcome (app) {
+     *   const requestPrompt = 'Where do you want to get picked up?';
+     *   const permissionContext = 'To find a place to pick you up';
+     *   app.askForPlace(requestPrompt, permissionContext);
+     * }
+     *
+     * function handlePlace (app) {
+     *   const place = app.getPlace();
+     *   if (place) {
+     *     app.tell(`Ah, I see. You want to get picked up at ${place.address}`);
+     *   } else {
+     *     app.tell(`Sorry, I couldn't find where you want to get picked up`);
+     *   }
+     * }
+     *
+     * const actionsMap = new Map();
+     * actionsMap.set(app.StandardIntents.MAIN, handleWelcome);
+     * actionsMap.set(app.StandardIntents.PLACE, handlePlace);
+     * app.handleRequest(actionsMap);
+     *
+     * @param requestPrompt This is the initial response by location sub-dialog.
+     *     For example: "Where do you want to get picked up?"
+     * @param permissionContext This is the context for seeking permissions.
+     *     For example: "To find a place to pick you up"
+     *     Prompt to user: "*To find a place to pick you up*, I just need to check your location.
+     *       Can I get that from Google?".
+     * @param dialogState JSON object the app uses to hold dialog state that
+     *     will be circulated back by Assistant.
+     * @return HTTP response.
+     * @actionssdk
+     * @dialogflow
+     */
+    askForPlace(requestPrompt: string, permissionContext: string, dialogState?: object): express.Response | null;
+
+    /**
      * Asks user for a confirmation.
      *
      * @example
@@ -1132,6 +1241,72 @@ export class AssistantApp {
     askToRegisterDailyUpdate(intent: string, intentArguments: IntentArgument[], dialogState?: object): express.Response | null;
 
     /**
+     * Requests the user to transfer to a linked out Android app intent. Using this feature
+     * requires verifying the linked app in the (Actions console)[console.actions.google.com].
+     *
+     * @example
+     * // For DialogflowApp:
+     *
+     * // Dialogflow Actions
+     * const WELCOME_ACTION = 'input.welcome';
+     * const HANDLE_LINK = 'handle.link'; // Create Dialogflow Action with actions_intent_LINK event
+     *
+     * const app = new DialogflowApp({ request, response });
+     *
+     * console.log('Request headers: ' + JSON.stringify(request.headers));
+     * console.log('Request body: ' + JSON.stringify(request.body));
+     *
+     * function requestLink (app) {
+     *   app.askToDeepLink('Great! Looks like we can do that in the app.', 'Google',
+     *     'example://gizmos', 'com.example.gizmos', 'handle this for you');
+     * }
+     *
+     * function handleLink (app) {
+     *   const linkStatus = app.getLinkStatus();
+     *   app.tell('Okay maybe we can take care of that another time.');
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(WELCOME_ACTION, requestLink);
+     * actionMap.set(HANDLE_LINK, handleLink);
+     * app.handleRequest(actionMap);
+     *
+     * // For ActionsSdkApp
+     * const app = new ActionsSdkApp({ request, response });
+     *
+     * console.log('Request headers: ' + JSON.stringify(request.headers));
+     * console.log('Request body: ' + JSON.stringify(request.body));
+     *
+     * function requestLink (app) {
+     *   app.askToDeepLink('Great! Looks like we can do that in the app.', 'Google',
+     *     'example://gizmos', 'com.example.gizmos', 'handle this for you.');
+     * }
+     *
+     * function handleLink (app) {
+     *   const linkStatus = app.getLinkStatus();
+     *   app.tell('Okay maybe we can take care of that another time.');
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(app.StandardIntents.MAIN, requestLink);
+     * actionMap.set(app.StandardIntents.LINK, handleLink);
+     * app.handleRequest(actionMap);
+     *
+     * @param prompt A simple response to prepend to the link request.
+     * @param destinationName The name of the link destination.
+     * @param url URL of Android deep link.
+     * @param packageName Android app package name to which to link.
+     * @param reason The reason to transfer the user. This may be appended to a
+     *     Google-specified prompt.
+     * @param dialogState JSON object the app uses to hold dialog state that
+     *     will be circulated back by Assistant. Used in {@link ActionsSdkApp}.
+     * @return HTTP response.
+     * @dialogflow
+     * @actionssdk
+     */
+    askToDeepLink(prompt: string | SimpleResponse | null, destinationName: string, url: string, packageName: string, reason?: string | null, dialogState?: object): express.Response | null;
+
+    /**
      * Gets the {@link User} object.
      * The user object contains information about the user, including
      * a string identifier and personal information (requires requesting permissions,
@@ -1272,6 +1447,15 @@ export class AssistantApp {
      * @actionssdk
      */
     getTransactionDecision(): TransactionDecision;
+
+    /**
+     * Gets the user provided place. Use after askForPlace.
+     *
+     * @return Place information given by the user. Null if no place given.
+     * @dialogflow
+     * @actionssdk
+     */
+    getPlace(): Place | null;
 
     /**
      * Gets confirmation decision. Use after askForConfirmation.
@@ -1463,6 +1647,16 @@ export class AssistantApp {
      * @actionssdk
      */
     isUpdateRegistered(): boolean;
+
+    /**
+     * Returns the status of a link request. Used with
+     * {@link AssistantApp#askToDeepLink}
+     *
+     * @return The status code of the request to link.
+     * @dialogflow
+     * @actionssdk
+     */
+    getLinkStatus(): number;
 
     // ---------------------------------------------------------------------------
     //                   Response Builders
