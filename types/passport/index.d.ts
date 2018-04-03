@@ -5,6 +5,7 @@
 //                 Igor Belagorudsky <https://github.com/theigor>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
+//                 Mohsen Azimi <https://github.com/mohsen1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -75,12 +76,15 @@ declare namespace passport {
         Passport: PassportStatic["Authenticator"];
     }
 
-    interface Strategy {
+    /**
+     * @param T Strategy option config
+     */
+    export abstract class Strategy<T = object> {
         name?: string;
-        authenticate(this: StrategyCreated<this>, req: express.Request, options?: any): any;
-    }
 
-    interface StrategyCreatedStatic {
+        /** This method must be implemented by the subclass */
+        abstract authenticate(req: express.Request, options?: T): any;
+
         /**
          * Authenticate `user`, with optional `info`.
          *
@@ -123,10 +127,6 @@ declare namespace passport {
          */
         error(err: any): void;
     }
-
-    type StrategyCreated<T, O = T & StrategyCreatedStatic> = {
-        [P in keyof O]: O[P];
-    };
 
     interface Profile {
         provider: string;
