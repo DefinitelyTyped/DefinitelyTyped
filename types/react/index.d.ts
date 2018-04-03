@@ -78,7 +78,10 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefInstance<T>;
+    interface RefInstance<T> {
+        current: T;
+    }
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -266,6 +269,8 @@ declare namespace React {
         ...children: ReactNode[]): ReactElement<P>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
+
+    function createRef<T>(): RefInstance<T>;
 
     const Children: ReactChildren;
     const Fragment: ComponentType;
