@@ -1,11 +1,10 @@
-import * as webpack from 'webpack';
-import { ReactLoadablePlugin, getBundles } from 'react-loadable/webpack';
+import webpack = require('webpack');
+import Loadable = require('react-loadable/webpack');
 
 const config: webpack.Configuration = {
   plugins: [
-    new ReactLoadablePlugin(),
-    new ReactLoadablePlugin({
-      filename: 'react-loadable.json'
+    new Loadable.ReactLoadablePlugin(),
+    new Loadable.ReactLoadablePlugin({ filename: 'react-loadable.json'
     })
   ]
 };
@@ -22,4 +21,4 @@ const manifest = {
 
 const manifestIds = ['react'];
 
-const bundles = getBundles(manifest, manifestIds);
+const bundles = Loadable.getBundles(manifest, manifestIds);
