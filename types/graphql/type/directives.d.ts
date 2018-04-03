@@ -1,30 +1,11 @@
 import { GraphQLFieldConfigArgumentMap, GraphQLArgument } from "./definition";
 import { DirectiveDefinitionNode } from "../language/ast";
+import { DirectiveLocationEnum } from "../language/directiveLocation";
 
-export const DirectiveLocation: {
-    // Operations
-    QUERY: "QUERY";
-    MUTATION: "MUTATION";
-    SUBSCRIPTION: "SUBSCRIPTION";
-    FIELD: "FIELD";
-    FRAGMENT_DEFINITION: "FRAGMENT_DEFINITION";
-    FRAGMENT_SPREAD: "FRAGMENT_SPREAD";
-    INLINE_FRAGMENT: "INLINE_FRAGMENT";
-    // Schema Definitions
-    SCHEMA: "SCHEMA";
-    SCALAR: "SCALAR";
-    OBJECT: "OBJECT";
-    FIELD_DEFINITION: "FIELD_DEFINITION";
-    ARGUMENT_DEFINITION: "ARGUMENT_DEFINITION";
-    INTERFACE: "INTERFACE";
-    UNION: "UNION";
-    ENUM: "ENUM";
-    ENUM_VALUE: "ENUM_VALUE";
-    INPUT_OBJECT: "INPUT_OBJECT";
-    INPUT_FIELD_DEFINITION: "INPUT_FIELD_DEFINITION";
-};
-
-export type DirectiveLocationEnum = keyof typeof DirectiveLocation;
+/**
+ * Test if the given value is a GraphQL directive.
+ */
+export function isDirective(directive: any): directive is GraphQLDirective;
 
 /**
  * Directives are used by the GraphQL runtime as a way of modifying execution
@@ -32,20 +13,20 @@ export type DirectiveLocationEnum = keyof typeof DirectiveLocation;
  */
 export class GraphQLDirective {
     name: string;
-    description?: string;
+    description: string | void;
     locations: DirectiveLocationEnum[];
     args: GraphQLArgument[];
-    astNode?: DirectiveDefinitionNode;
+    astNode: DirectiveDefinitionNode | void;
 
     constructor(config: GraphQLDirectiveConfig);
 }
 
 export interface GraphQLDirectiveConfig {
     name: string;
-    description?: string;
+    description?: string | void;
     locations: DirectiveLocationEnum[];
-    args?: GraphQLFieldConfigArgumentMap;
-    astNode?: DirectiveDefinitionNode;
+    args?: GraphQLFieldConfigArgumentMap | void;
+    astNode?: DirectiveDefinitionNode | void;
 }
 
 /**
@@ -71,4 +52,6 @@ export const GraphQLDeprecatedDirective: GraphQLDirective;
 /**
  * The full list of specified directives.
  */
-export const specifiedDirectives: GraphQLDirective[];
+export const specifiedDirectives: ReadonlyArray<GraphQLDirective>;
+
+export function isSpecifiedDirective(directive: GraphQLDirective): boolean;
