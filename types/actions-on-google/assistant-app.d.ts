@@ -1,6 +1,7 @@
 import * as express from 'express';
 
-import { BasicCard, Carousel, ImageDisplays, List, OptionItem, RichResponse, SimpleResponse } from './response-builder';
+import { BasicCard, BrowseCarousel, BrowseItem, Carousel, ImageDisplays, List, MediaObject,
+         MediaResponse, MediaValues, OptionItem, RichResponse, SimpleResponse } from './response-builder';
 import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, LineItem,
          Location, Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
 
@@ -49,7 +50,9 @@ export enum StandardIntents {
     /** App receives CONFIGURE_UPDATES intent to indicate a REGISTER_UPDATE intent should be sent. */
     CONFIGURE_UPDATES,
     /** App fires LINK intent to request user to open to link. */
-    LINK
+    LINK,
+    /** App receives MEDIA_STATUS intent when the MediaResponse status is updated from user. */
+    MEDIA_STATUS
 }
 
 /**
@@ -136,7 +139,9 @@ export enum BuiltInArgNames {
     /** Update registration value argument. */
     REGISTER_UPDATE,
     /** Link request result argument. */
-    LINK
+    LINK,
+    /** MediaStatus value argument. */
+    MEDIA_STATUS
 }
 
 /**
@@ -183,6 +188,10 @@ export enum SurfaceCapabilities {
      * The ability to output on a screen
      */
     SCREEN_OUTPUT,
+    /**
+     * The ability to output a MediaResponse
+     */
+    MEDIA_RESPONSE_AUDIO,
     /**
      * The ability to open a web URL
      */
@@ -235,6 +244,18 @@ export enum SignInStatus {
      * System or network error.
      */
     ERROR
+}
+
+/**
+ * SKU (Stock Keeping Units) types for Play Package Entitlements.
+ */
+export enum EntitlementSkuTypes {
+    /** In app purchase */
+    IN_APP,
+    /** In app subscription */
+    SUBSCRIPTION,
+    /** Paid app. */
+    APP
 }
 
 /**
@@ -342,6 +363,33 @@ export interface User {
      * which is abstracted for convenience by the client library.
      */
     userStorage: string;
+}
+
+/**
+ * Google Play Android App Package Entitlements.
+ */
+export interface PackageEntitlement {
+    /** Name of the Android app package. */
+    packageName: string;
+    /** List of entitlements for a given app. */
+    entitlements: Entitlement[];
+}
+
+/**
+ * A user's digital entitlement.
+ */
+export interface Entitlement {
+    /** Product SKU. Matches getSku() in Google Play InApp Billing API. */
+    sku: string;
+    /** The type of SKU. One of EntitlementSkuType. */
+    skuType: string;
+    /** For in app purchases/subscriptions, relevant details. */
+    inAppDetails: {
+        /** JSON data of the in app purchase. */
+        inAppPurchaseData: object;
+        /** Matches IN_APP_DATA_SIGNATURE from getPurchases() method in Play InApp Billing API. */
+        inAppDataSignature: object;
+    };
 }
 
 /**
@@ -471,6 +519,16 @@ export class AssistantApp {
      * Values related to supporting {@link Transactions}.
      */
     readonly Transactions: typeof TransactionValues;
+
+    /**
+     * Values related to supporting {@link Media}.
+     */
+    readonly Media: typeof MediaValues;
+
+    /**
+     * SKU (Stock Keeping Units) types for Play Package Entitlements.
+     */
+    readonly EntitlementSkuTypes: typeof EntitlementSkuTypes;
 
     /**
      * Possible update trigger time context frequencies.
@@ -1385,6 +1443,20 @@ export class AssistantApp {
     getLastSeen(): Date | null;
 
     /**
+     * Get the the list of all digital goods that your user purchased from
+     * your published Android apps. To enable this feature, see the instructions
+     * in the (documentation)[https://developers.google.com/actions/identity/digital-goods].
+     *
+     * @example
+     * const app = new DialogflowApp({request, response});
+     * const packageEntitlements = app.getPackageEntitlements();
+     *
+     * @return The list of digital goods purchased by the user in
+     *     any verified Android app package. Null if no Package Entitlements present in the request.
+     */
+    getPackageEntitlements(): PackageEntitlement[] | null;
+
+    /**
      * If granted permission to device's location in previous intent, returns device's
      * location (see {@link AssistantApp#askForPermissions|askForPermissions}).
      * If device info is unavailable, returns null.
@@ -1487,6 +1559,31 @@ export class AssistantApp {
      * @actionssdk
      */
     getSignInStatus(): string;
+
+    /**
+     * Get status of MEDIA_STATUS intent.
+     *
+     * @example
+     * const app = new DialogflowApp({request: request, response: response});
+     *
+     * function mediaStatusIntent (app) {
+     *   const status = app.getMediaStatus();
+     *   if (status === app.Media.Status.FINISHED) {
+     *     app.tell('Oh, I see you are done playing the media!');
+     *   } else {
+     *     app.tell(`I don't understand the current media status: ${status}`);
+     *   }
+     * }
+     *
+     * const actionMap = new Map();
+     * actionMap.set(app.StandardIntents.MEDIA_STATUS, mediaStatusIntent);
+     * app.handleRequest(actionMap);
+     *
+     * @return Result of media status intent.
+     * @dialogflow
+     * @actionssdk
+     */
+    getMediaStatus(): MediaValues.Status | null;
 
     /**
      * Returns true if user device has a given surface capability.
@@ -1695,6 +1792,13 @@ export class AssistantApp {
     buildCarousel(): Carousel;
 
     /**
+     * Constructs a Browse Carousel with chainable property setters.
+     *
+     * @return Constructed Browse Carousel.
+     */
+    buildBrowseCarousel(): BrowseCarousel;
+
+    /**
      * Constructs OptionItem with chainable property setters.
      *
      * @param key A unique key to identify this option. This key will
@@ -1705,6 +1809,15 @@ export class AssistantApp {
      * @return Constructed OptionItem.
      */
     buildOptionItem(key?: string, synonyms?: string | string[]): OptionItem;
+
+    /**
+     * Constructs BrowseItem for the Browse Carousel with chainable property setters.
+     *
+     * @param title The displayed title of the Browse Carousel card.
+     * @param url The URL linked to by clicking the card.
+     * @return Constructed BrowseItem.
+     */
+    buildBrowseItem(title?: string, url?: string): BrowseItem;
 
     // ---------------------------------------------------------------------------
     //                   Transaction Builders
@@ -1746,4 +1859,24 @@ export class AssistantApp {
      * @return Constructed OrderUpdate.
      */
     buildOrderUpdate(orderId: string, isGoogleOrderId: boolean): OrderUpdate;
+
+    // ---------------------------------------------------------------------------
+    //                   Media Builders
+    // ---------------------------------------------------------------------------
+
+    /**
+     * Constructs Media Response with chainable property setters.
+     *
+     * @return Constructed Media Response.
+     */
+    buildMediaResponse(): MediaResponse;
+
+    /**
+     * Constructs MediaObject with chainable property setters.
+     *
+     * @param name Name of media file.
+     * @param contentUrl Location of media file.
+     * @return Constructed MediaObject.
+     */
+    buildMediaObject(name: string, contentUrl: string): MediaObject;
 }
