@@ -3,6 +3,7 @@
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
+//                 Rasmus Eneman <https://github.com/Pajn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -78,13 +79,25 @@ declare module 'recompose' {
 
     // withHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withhandlers
     type EventHandler = Function;
-    type HandleCreators<TOutter, THandlers> = {
-        [handlerName in keyof THandlers]: mapper<TOutter, EventHandler>;
+    // This type is required to infer TOutter
+    type HandleCreatorsStructure<TOutter> = {
+        [handlerName: string]: mapper<TOutter, EventHandler>;
     };
-    type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) => HandleCreators<TOutter, THandlers>;
+    // This type is required to infer THandlers
+    type HandleCreatorsHandlers<TOutter, THandlers> = {
+        [P in keyof THandlers]: (props: TOutter) => THandlers[P];
+    };
+    type HandleCreators<TOutter, THandlers> =
+        & HandleCreatorsStructure<TOutter>
+        & HandleCreatorsHandlers<TOutter, THandlers>
+    type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) =>
+        HandleCreators<TOutter, THandlers>;
+
     export function withHandlers<TOutter, THandlers>(
-        handlerCreators: HandleCreators<TOutter, THandlers> | HandleCreatorsFactory<TOutter, THandlers>
-    ): InferableComponentEnhancerWithProps<TOutter & THandlers, TOutter>;
+        handlerCreators:
+            | HandleCreators<TOutter, THandlers>
+            | HandleCreatorsFactory<TOutter, THandlers>
+    ): InferableComponentEnhancerWithProps<THandlers & TOutter, TOutter>;
 
     // defaultProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops
     export function defaultProps<T = {}>(

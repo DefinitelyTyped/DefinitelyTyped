@@ -1,5 +1,7 @@
 import * as React from "react";
 import ReactSelect, * as ReactSelectModule from "react-select";
+import defaultMenuRenderer from 'react-select/lib/utils/defaultMenuRenderer';
+import DefaultOptionComponent from 'react-select/lib/Option';
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
@@ -116,6 +118,22 @@ describe("react-select", () => {
         class Component extends React.PureComponent {
             private readonly selectRef = (component: ReactSelect) => {
                 component.focus();
+            }
+
+            render() {
+                return <ReactSelect
+                    ref={this.selectRef}
+                />;
+            }
+        }
+    });
+
+    it("setValue method", () => {
+        class Component extends React.PureComponent {
+            private readonly selectRef = (component: ReactSelect) => {
+                component.setValue({
+                    value: 'value'
+                });
             }
 
             render() {
@@ -246,7 +264,13 @@ describe("Examples", () => {
 
             private readonly menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
                 const options = props.options.map(option => {
-                    return <div className="option">{option.label}</div>;
+                    return (
+                        <div className="option">
+                            <div>{option.label}</div>
+                            <div>{props.optionRenderer({})}</div>
+                            <button onClick={() => props.removeValue(option)}/>
+                        </div>
+                    );
                 });
 
                 return <div className="menu">{options}</div>;
@@ -289,6 +313,41 @@ describe("Examples", () => {
         }
     });
 
+    it("Extend default menu renderer", () => {
+        return class Component extends React.Component {
+            private readonly menuRenderer: ReactSelectModule.MenuRendererHandler = props => {
+                return <div className="menu">defaultMenuRenderer(props)</div>;
+            }
+
+            render() {
+                return <ReactSelect
+                    menuRenderer={this.menuRenderer}
+                />;
+            }
+        };
+    });
+
+    it("Extend default Option component", () => {
+        function OptionComponent(props: ReactSelectModule.OptionComponentProps) {
+            const {option, isFocused, isSelected} = props;
+
+            return (
+                <DefaultOptionComponent {...props}>
+                    <span className={isFocused ? 'focused' : ''}>
+                        {isSelected ? '+' : '-'}
+                        {option.label}
+                    </span>
+                </DefaultOptionComponent>
+            );
+        }
+
+        return (
+            <ReactSelect
+                optionComponent={OptionComponent}
+            />
+        );
+    });
+
     it("Input render example", () => {
         class Component extends React.Component {
             private readonly onSelectChange: ReactSelectModule.OnChangeSingleHandler<string> = option => {
@@ -328,6 +387,19 @@ describe("Examples", () => {
             optionRenderer={props => null}
             valueRenderer={props => null}
         />;
+    });
+
+    it("Arrow render example", () => {
+        return (
+            <ReactSelect
+                arrowRenderer={({onMouseDown, isOpen}) => (
+                    <div
+                        className={isOpen ? 'open' : 'closed'}
+                        onMouseDown={onMouseDown}
+                    />
+                )}
+            />
+        );
     });
 
     it("Option render with custom value option", () => {

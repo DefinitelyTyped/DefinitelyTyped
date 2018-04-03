@@ -14,4 +14,5 @@
  * arrify([2, 3])    // returns [2, 3]
  */
 declare function arrify<T>(val: undefined | null | T | T[]): T[];
+declare namespace arrify {}
 export = arrify;

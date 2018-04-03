@@ -336,6 +336,8 @@ namespace isTests {
     { const a: boolean = is.freebsd; }
     { const a: boolean = is.darwin; }
     { const a: boolean = is.sunos; }
+    { const a: boolean = is.openbsd; }
+    { const a: boolean = is.aix; }
     { const a: boolean = is.uppercase("abc"); }
     { const a: boolean = is.lowercase("abc"); }
     { const a: boolean = is.digits("012"); }

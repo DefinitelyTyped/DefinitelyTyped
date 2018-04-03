@@ -7,6 +7,7 @@ import {
 } from 'jss';
 
 const jss = createJSS().setup({});
+jss.use({}, {}); // $ExpectType JSS
 
 const styleSheet = jss.createStyleSheet<string>(
 	{

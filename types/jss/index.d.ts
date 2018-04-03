@@ -128,7 +128,7 @@ declare class JSS {
 	): StyleSheet<Name>;
 	removeStyleSheet(sheet: StyleSheet): this;
 	setup(options?: Partial<JSSOptions>): this;
-	use(plugin: JSSPlugin): this;
+	use(...plugins: JSSPlugin[]): this;
 	createRule(style: Style, options?: RuleFactoryOptions): Rule;
 	createRule<Name extends string>(name: Name, style: Style, options?: RuleFactoryOptions<Name>): Rule;
 }

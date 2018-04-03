@@ -210,7 +210,6 @@ declare module "../index" {
 
     // conformsTo
 
-
     interface LoDashStatic {
         /**
          * Checks if object conforms to source by invoking the predicate properties of source with the
@@ -233,11 +232,11 @@ declare module "../index" {
         /**
          * @see _.conformsTo
          */
-        conformsTo<T>(this: LoDashImplicitWrapper<T>, source: ConformsPredicateObject<T>): LoDashExplicitWrapper<boolean>;
+        conformsTo<T>(this: LoDashExplicitWrapper<T>, source: ConformsPredicateObject<T>): LoDashExplicitWrapper<boolean>;
         // Note: we can't use TValue here,  because it generates a typescript error when strictFunctionTypes is enabled.
     }
 
-    type CondPair<T, R> = [(val: T) => boolean, (val: T) => R]
+    type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
 
     // eq
 
