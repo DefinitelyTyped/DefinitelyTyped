@@ -157,6 +157,11 @@ declare namespace session {
         rolling?: boolean;
 
         /**
+         * Renew session when session is nearly expired, so we can always keep user logged in. (default is false)
+         */
+        renew?: boolean;
+
+        /**
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
         store?: stores;
