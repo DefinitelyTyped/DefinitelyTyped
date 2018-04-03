@@ -6,6 +6,7 @@
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Theron Cross <https://github.com/theroncross>
 //                 Martin Feckie <https://github.com/mfeckie>
+//                 Alex LaFroscia <https://github.com/alexlafroscia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -3418,6 +3419,7 @@ declare module '@ember/array' {
 
 declare module '@ember/array/mutable' {
     import Ember from 'ember';
+    type MutableArray<T> = Ember.MutableArray<T>;
     const MutableArray: typeof Ember.MutableArray;
     export default MutableArray;
 }
@@ -3497,6 +3499,7 @@ declare module '@ember/engine/instance' {
 
 declare module '@ember/enumerable' {
     import Ember from 'ember';
+    type Enumerable<T> = Ember.Enumerable<T>;
     const Enumerable: typeof Ember.Enumerable;
     export default Enumerable;
 }
@@ -3585,6 +3588,7 @@ declare module '@ember/object/core' {
 
 declare module '@ember/object/evented' {
     import Ember from 'ember';
+    type Evented = Ember.Evented;
     const Evented: typeof Ember.Evented;
     export default Evented;
     export const on: typeof Ember.on;
@@ -3611,6 +3615,7 @@ declare module '@ember/object/mixin' {
 
 declare module '@ember/object/observable' {
     import Ember from 'ember';
+    type Observable = Ember.Observable;
     const Observable: typeof Ember.Observable;
     export default Observable;
 }
@@ -3623,6 +3628,7 @@ declare module '@ember/object/observers' {
 
 declare module '@ember/object/promise-proxy-mixin' {
     import Ember from 'ember';
+    type PromiseProxyMixin<T> = Ember.PromiseProxyMixin<T>;
     const PromiseProxyMixin: typeof Ember.PromiseProxyMixin;
     export default PromiseProxyMixin;
 }
