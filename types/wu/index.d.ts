@@ -1,6 +1,6 @@
 // Type definitions for wu.js 2.1
 // Project: https://fitzgen.github.io/wu.js/
-// Definitions by: phiresky <https://github.com/phiresky/>
+// Definitions by: phiresky <https://github.com/phiresky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Wu {
@@ -104,4 +104,6 @@ declare namespace Wu {
 		tee(n?: number): Array<WuIterable<T>>;
 	}
 }
-declare var wu: Wu.WuStatic;
+declare const wu: Wu.WuStatic;
+export = wu;
+export as namespace wu;

@@ -36,17 +36,17 @@ formatFn = d3Format.formatPrefix(',.0', 1e-6);
 
 specifier = d3Format.formatSpecifier('.0%');
 
-let fill: string = specifier.fill;
-let align: '>' | '<' | '^' | '=' = specifier.align;
-let sign: '-' | '+' | '(' | ' ' = specifier.sign;
-let symbol: '$' | '#' | '' = specifier.symbol;
-let zero: boolean = specifier.zero;
-let width: number | undefined = specifier.width;
-let comma: boolean = specifier.comma;
-let precision: number = specifier.precision;
-let type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n' = specifier.type;
+const fill: string = specifier.fill;
+const align: '>' | '<' | '^' | '=' = specifier.align;
+const sign: '-' | '+' | '(' | ' ' = specifier.sign;
+const symbol: '$' | '#' | '' = specifier.symbol;
+const zero: boolean = specifier.zero;
+const width: number | undefined = specifier.width;
+const comma: boolean = specifier.comma;
+const precision: number = specifier.precision;
+const type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n' = specifier.type;
 
-let formatString: string = specifier.toString();
+const formatString: string = specifier.toString();
 
 // ----------------------------------------------------------------------
 // Test Precision Suggestors
@@ -85,16 +85,16 @@ localeDef = {
   percent : "\u202f%"
 };
 
-let decimal: string = localeDef.decimal;
-let thousands: string = localeDef.thousands;
-let grouping: number[] = localeDef.grouping;
-let currency: [string, string] = localeDef.currency;
-let numerals: string[] | undefined = localeDef.numerals;
-let percent: string | undefined = localeDef.percent;
+const decimal: string = localeDef.decimal;
+const thousands: string = localeDef.thousands;
+const grouping: number[] = localeDef.grouping;
+const currency: [string, string] = localeDef.currency;
+const numerals: string[] | undefined = localeDef.numerals;
+const percent: string | undefined = localeDef.percent;
 
 localeObj = d3Format.formatLocale(localeDef);
 
 localeObj = d3Format.formatDefaultLocale(localeDef);
 
-let formatFactory: (specifier: string) => ((n: number) => string) = localeObj.format;
-let formatPrefixFactory: (specifier: string, value: number) => ((n: number) => string) = localeObj.formatPrefix;
+const formatFactory: (specifier: string) => ((n: number) => string) = localeObj.format;
+const formatPrefixFactory: (specifier: string, value: number) => ((n: number) => string) = localeObj.formatPrefix;

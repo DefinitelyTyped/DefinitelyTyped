@@ -1,5 +1,4 @@
 // Global
-
 const threeCamera = new AFRAME.THREE.Camera();
 AFRAME.TWEEN.Easing;
 
@@ -42,9 +41,18 @@ entity.addEventListener('child-detached', (event) => {
 const Component = AFRAME.registerComponent('test', {});
 
 // Scene
-
 const scene = document.querySelector('a-scene');
 scene.hasLoaded;
 
 // System
 const system = scene.systems['systemName'];
+
+// Register Custom Geometry
+AFRAME.registerGeometry('a-test-geometry', {
+	schema: {
+		groupIndex: { default: 0 }
+	},
+	init(data) {
+		this.geometry = new THREE.Geometry();
+	}
+});

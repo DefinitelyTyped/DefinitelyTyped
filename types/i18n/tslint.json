@@ -1,7 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-      "prefer-method-signature": false,
-      "no-single-declare-module": false
+      // TODOs
+      "no-any-union": false,
+      "no-declare-current-package": false,
+      "no-single-declare-module": false,
+      "prefer-method-signature": false
     }
 }

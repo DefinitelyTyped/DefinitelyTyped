@@ -200,7 +200,7 @@ export interface VastRequestOptions {
      * A VAST XML document. When response is provided, no Ajax request is made and thus the url parameter is ignored.
      */
     response?: string;
-    /**a
+    /**
      * A URL handler module, used to fetch the VAST document instead of the default ones.
      */
     urlhandler?: any;
@@ -231,9 +231,37 @@ export interface VastError {
     ERRORCODE: string;
 }
 
+export interface VastCreative {
+    id: string;
+    adId: string;
+    trackingEvents: VastTrackingEvents;
+    apiFramework: any;
+    sequence: any;
+    type: string;
+}
+
+export interface VastCreativeLinear extends VastCreative {
+    adParameters: any;
+    duration: number;
+    icons: string[];
+    mediaFiles: VastMediaFile[];
+    skipDelay: boolean;
+    videoClickThroughURLTemplate: string;
+    videoClickTrackingURLTemplates: string[];
+    videoCustomClickURLTempaltes: string[];
+}
+
+export interface VastCreativeNonLinear extends VastCreative {
+    variations: VastNonLinearAd[];
+}
+
+export interface VastCreativeCompanion extends VastCreative {
+    variations: VastCompanionAd[];
+}
+
 export interface VastAd {
     advertiser: any;
-    creatives: VastCreativeLinear | VastCreativeCompanion[];
+    creatives: VastCreative[];
     description: string;
     errorURLTemplates: string[];
     extensions: VastAdExtension[];
@@ -266,22 +294,22 @@ export interface VastAdChildAttributes {
     name: string;
 }
 
-export interface VastCreativeLinear {
-    adParameters: any;
-    duration: number;
-    icons: string[];
-    mediaFiles: VastMediaFile[];
-    skipDelay: boolean;
-    trackingEvents: VastTrackingEvents;
+export interface VastNonLinearAd {
+    nonLinearClickTrackingURLTemplates: string[];
+    nonLinearClickThroughURLTemplate: string;
+    adParameters: string;
     type: string;
-    videoClickThroughURLTemplate: string;
-    videoClickTrackingURLTemplates: string[];
-    videoCustomClickURLTempaltes: string[];
-}
-
-export interface VastCreativeCompanion {
-    type: string;
-    variations: VastCompanionAd[];
+    iframeResource: string;
+    htmlResource: string;
+    id: string;
+    width: string;
+    height: string;
+    expandedWidth: string;
+    expandedHeight: string;
+    scalablle: boolean;
+    maintainAspectRatio: boolean;
+    minSuggestedDuration: number;
+    apiFramework: any;
 }
 
 export interface VastCompanionAd {

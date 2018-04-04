@@ -11,13 +11,13 @@ import { ascending } from 'd3-array';
 
 // Preparatory steps --------------------------------------------------------------
 
-let keyValueObj = {
+const keyValueObj = {
     a: 'test',
     b: 123,
     c: [true, true, false]
 };
 
-let keyValueObj2 = {
+const keyValueObj2 = {
     a: 'test',
     b: 'same',
     c: 'type'
@@ -29,7 +29,6 @@ let stringKVArray: Array<{ key: string, value: string }>;
 let anyKVArray: Array<{ key: string, value: any }>;
 
 let num: number;
-let str: string;
 let booleanFlag: boolean;
 
 // ---------------------------------------------------------------------
@@ -39,6 +38,7 @@ let booleanFlag: boolean;
 // test keys(...) signatures ------------------------------------------------------
 
 stringArray = d3Collection.keys(keyValueObj);
+stringArray = d3Collection.keys([0, 1, 2]);
 
 stringArray = d3Collection.keys(document); // purely for the fun of it
 
@@ -49,17 +49,21 @@ anyArray = d3Collection.values(keyValueObj);
 
 stringArray = d3Collection.values(keyValueObj2);
 stringArray = d3Collection.values<string>(keyValueObj2);
+// stringArray = d3Collection.values<string>(keyValueObj); // test fails, as values in keyValueObj do not meet generic constraint
+stringArray = d3Collection.values(['1', '2']);
 
 anyArray = d3Collection.values(document); // purely for the fun of it
 
 // test entries(...) signatures ------------------------------------------------------
 
 anyKVArray = d3Collection.entries(keyValueObj);
-// stringKVArray = d3Collection.entres(keyValueObj); // test fails, as values in keyValueObj are not all strings
+// stringKVArray = d3Collection.entries(keyValueObj); // test fails, as values in keyValueObj are not all strings
 
 stringKVArray = d3Collection.entries(keyValueObj2);
 stringKVArray = d3Collection.entries<string>(keyValueObj2);
+// stringKVArray = d3Collection.entries<string>(keyValueObj); // test fails, as values in keyValueObj do not meet generic constraint
 
+stringKVArray = d3Collection.entries(['1', '2']);
 anyKVArray = d3Collection.entries(document); // purely for the fun of it
 
 // ---------------------------------------------------------------------
@@ -71,13 +75,15 @@ interface TestObject {
     val: number;
 }
 
-let testObject: TestObject;
+let testObjectMaybe: TestObject | undefined;
 let testObjArray: TestObject[];
 let testObjKVArray: Array<{ key: string, value: TestObject }>;
 
 // Create Map ========================================================
 
 let basicMap: d3Collection.Map<string>;
+let anyMap: d3Collection.Map<any>;
+anyMap = d3Collection.map(); // empty map
 basicMap = d3Collection.map<string>(); // empty map
 
 // from array with accessor without accessor
@@ -108,7 +114,7 @@ booleanFlag = basicMap.has('foo');
 
 // get(...) ------------------------------------------------------------
 
-testObject = testObjMap.get('foo');
+testObjectMaybe = testObjMap.get('foo');
 
 // set(...) ------------------------------------------------------------
 
@@ -137,9 +143,9 @@ testObjKVArray = testObjMap.entries();
 // each() --------------------------------------------------------------
 
 testObjMap.each((value, key, map) => {
-    let v: TestObject = value;
-    let k: string = key;
-    let m: d3Collection.Map<TestObject> = map;
+    const v: TestObject = value;
+    const k: string = key;
+    const m: d3Collection.Map<TestObject> = map;
     console.log(v.val);
 });
 
@@ -169,9 +175,9 @@ basicSet = d3Collection.set(['foo', 'bar', 42]); // last element is coerced
 
 // from array without accessor
 basicSet = d3Collection.set(testObjArray, (value, index, array) => {
-    let v: TestObject = value;
-    let i: number = index;
-    let a: TestObject[] = array;
+    const v: TestObject = value;
+    const i: number = index;
+    const a: TestObject[] = array;
     return v.name;
 });
 
@@ -208,9 +214,9 @@ stringArray = basicSet.values();
 // each() --------------------------------------------------------------
 
 basicSet.each((value, valueRepeat, set) => {
-    let v: string = value;
-    let vr: string = valueRepeat;
-    let s: d3Collection.Set = set;
+    const v: string = value;
+    const vr: string = valueRepeat;
+    const s: d3Collection.Set = set;
     console.log(v);
 });
 
@@ -233,7 +239,7 @@ interface Yield {
     site: string;
 }
 
-let raw: Yield[] = [
+const raw: Yield[] = [
     { yield: 27.00, variety: 'Manchuria', year: 1931, site: 'University Farm' },
     { yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca' },
     { yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris' },
@@ -279,8 +285,8 @@ nestL1Rollup = nestL1Rollup
 
 nestL2 = nestL2
     .sortValues((a, b) => {
-        let val1: Yield = a; // data type Yield
-        let val2: Yield = b; // data type Yield
+        const val1: Yield = a; // data type Yield
+        const val2: Yield = b; // data type Yield
         return a.yield - b.yield;
     });
 
@@ -288,7 +294,7 @@ nestL2 = nestL2
 
 nestL1Rollup = nestL1Rollup
     .rollup(values => {
-        let vs: Yield[] = values; // correct data array type
+        const vs: Yield[] = values; // correct data array type
         return vs.length;
     });
 
@@ -305,11 +311,11 @@ let testL1NestedMapRollup: TestL1NestedMapRollup;
 
 testL2NestedMap = nestL2.map(raw);
 
-num = testL2NestedMap.get('1931').get('Manchuria')[0].yield; // access chain to leaf property
+num = testL2NestedMap.get('1931')!.get('Manchuria')![0].yield; // use existence assertion with care for access chain to leaf property
 
 testL1NestedMapRollup = nestL1Rollup.map(raw);
 
-num = testL1NestedMapRollup.get('1931'); // get rollup value
+num = testL1NestedMapRollup.get('1931')!; // get rollup value (use existence assertion with care)
 
 // object(...) --------------------------------------------------------
 
@@ -346,7 +352,7 @@ type TestL2NestedArray = Array<{
 
 type TestL1NestedArrayRollup = Array<{
     key: string;
-    value: number;
+    value?: number; // conservatively allow for value to be undefined
 }>;
 
 let testL2NestedArray: TestL2NestedArray;
@@ -358,4 +364,4 @@ num = testL2NestedArray[0].values[0].values[0].yield; // access chain to leaf pr
 
 testL1NestedArrayRollup = nestL1Rollup.entries(raw);
 
-num = testL1NestedArrayRollup[0].value; // get rollup value
+num = testL1NestedArrayRollup[0].value!; // get rollup value use existence assertion with care

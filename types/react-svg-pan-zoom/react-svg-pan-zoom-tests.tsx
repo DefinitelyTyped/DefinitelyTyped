@@ -23,13 +23,13 @@ class Example1 extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={event => this.Viewer && this.Viewer.zoomOnViewerCenter(1.1)}>
+        <button onClick={event => { if (this.Viewer) this.Viewer.zoomOnViewerCenter(1.1); }}>
           Zoom in
         </button>
-        <button onClick={event => this.Viewer && this.Viewer.fitSelection(40, 40, 200, 200)}>
+        <button onClick={event => { if (this.Viewer) this.Viewer.fitSelection(40, 40, 200, 200); }}>
           Zoom area 200x200
         </button>
-        <button onClick={event => this.Viewer && this.Viewer.fitToViewer()}>
+        <button onClick={event => { if (this.Viewer) this.Viewer.fitToViewer(); }}>
           Fit
         </button>
 

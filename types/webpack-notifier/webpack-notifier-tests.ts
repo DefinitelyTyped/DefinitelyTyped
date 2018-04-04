@@ -1,5 +1,5 @@
 import { Plugin } from 'webpack';
-import * as WebpackNotifierPlugin from 'webpack-notifier';
+import WebpackNotifierPlugin = require('webpack-notifier');
 
 const optionsArray: WebpackNotifierPlugin.Options[] = [
 	{

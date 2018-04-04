@@ -1,6 +1,6 @@
 // Type definitions for bson 1.0.4
 // Project: https://github.com/mongodb/js-bson
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
+// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -39,6 +39,9 @@ export class Binary {
 
     constructor(buffer: Buffer, subType?: number);
 
+    /** The underlying Buffer which stores the binary data. */
+    readonly buffer: Buffer;
+
     /** The length of the binary. */
     length(): number;
     /** Updates this binary with byte_value */
@@ -55,6 +58,9 @@ export class Code {
 }
 export class DBRef {
     constructor(namespace: string, oid: ObjectID, db?: string);
+    namespace: string;
+    oid: ObjectID;
+    db?: string;
 }
 export class Double {
     constructor(value: number);
@@ -129,6 +135,8 @@ export class ObjectID {
     constructor(id?: string | number | ObjectID);
     /** The generation time of this ObjectID instance */
     generationTime: number;
+    /** If true cache the hex string representation of ObjectID */
+    static cacheHexString?: boolean;
     /**
      * Creates an ObjectID from a hex string representation of an ObjectID.
      * @param {string} hexString create a ObjectID from a passed in 24 byte hexstring.

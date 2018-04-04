@@ -33,7 +33,7 @@ export type ActionFunction2<T1, T2, R> = (t1: T1, t2: T2) => R;
 export type ActionFunction3<T1, T2, T3, R>  = (t1: T1, t2: T2, t3: T3) => R;
 export type ActionFunctionAny<R> = (...args: any[]) => R;
 
-export type ReducerHandler<State> = <A extends BaseAction, S extends State>(payload: any, state?: State, action?: A) => S;
+export type ReducerHandler<State> = (payload: any, state?: State, action?: BaseAction) => State;
 
 export interface ReducerHandlers<State> {
   [type: string]: ReducerHandler<State>;

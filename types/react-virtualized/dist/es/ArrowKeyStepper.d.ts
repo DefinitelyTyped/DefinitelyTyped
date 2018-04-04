@@ -1,4 +1,5 @@
-import { PropTypes, PureComponent, Validator, Requireable } from 'react'
+import { PureComponent, Validator, Requireable } from 'react'
+import * as PropTypes from 'prop-types'
 
 export type OnSectionRenderedParams = {
     columnStartIndex: number,
@@ -21,6 +22,14 @@ export type ArrowKeyStepperProps = {
     columnCount: number;
     rowCount: number;
     mode?: 'edges' | 'cells';
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 }
 export type ScrollIndexes = {
     scrollToRow: number,

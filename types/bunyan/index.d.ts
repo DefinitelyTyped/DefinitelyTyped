@@ -2,6 +2,7 @@
 // Project: https://github.com/trentm/node-bunyan
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -22,8 +23,6 @@ declare class Logger extends EventEmitter {
 
     fields: any;
     src: boolean;
-
-    /* tslint:disable:unified-signatures */
 
     /**
      * Returns a boolean: is the `trace` level enabled?
@@ -198,8 +197,6 @@ declare class Logger extends EventEmitter {
      * Uses `util.format` for msg formatting.
      */
     fatal(format: any, ...params: any[]): void;
-
-    /* tslint:enable:unified-signatures */
 }
 
 declare namespace Logger {
@@ -210,7 +207,11 @@ declare namespace Logger {
     const ERROR: number;
     const FATAL: number;
 
-    type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal' | number;
+    type LogLevelString = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
+    type LogLevel = LogLevelString | number;
+
+    const levelFromName: { [name in LogLevelString]: number };
+    const nameFromLevel: { [level: number]: string };
 
     const stdSerializers: StdSerializers;
 
@@ -228,6 +229,8 @@ declare namespace Logger {
         closeOnExit?: boolean;
         period?: string;
         count?: number;
+        name?: string;
+        reemitErrorEvents?: boolean;
     }
 
     interface LoggerOptions {

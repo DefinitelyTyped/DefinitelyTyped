@@ -1,6 +1,6 @@
 // Type definitions for Chosen.JQuery 1.6.1
 // Project: http://harvesthq.github.com/chosen/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, denis <https://github.com/denisname/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, denis <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

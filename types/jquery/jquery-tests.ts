@@ -1,5 +1,3 @@
-// tslint:disable:interface-name
-
 function JQueryStatic() {
     function type_assertion() {
         const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
@@ -62,6 +60,11 @@ function JQueryStatic() {
         $();
     }
 
+    function ajaxSettings() {
+        // $ExpectType AjaxSettings<any>
+        $.ajaxSettings;
+    }
+
     function Event() {
         // $ExpectType EventStatic<HTMLElement>
         $.Event;
@@ -94,7 +97,7 @@ function JQueryStatic() {
         }
 
         function step() {
-            // $ExpectType PlainObject<AnimationHook<HTMLElement>>
+            // $ExpectType PlainObject<AnimationHook<Node>>
             $.fx.step;
         }
     }
@@ -264,6 +267,11 @@ function JQueryStatic() {
             // $ExpectType jqXHR<any>
             jqXHR;
         });
+    }
+
+    function camelCase() {
+        // $ExpectType string
+        $.camelCase('foo-bar');
     }
 
     function contains() {
@@ -622,23 +630,25 @@ function JQueryStatic() {
             if ($.isArray(obj)) {
                 // $ExpectType any[]
                 obj;
+            } else {
+                // $ExpectType object
+                obj;
             }
         }
     }
 
     function isEmptyObject() {
-        function type_guard(obj: object) {
-            if ($.isEmptyObject(obj)) {
-                // $ExpectType {}
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isEmptyObject({});
     }
 
     function isFunction() {
         function type_guard(obj: object) {
             if ($.isFunction(obj)) {
                 // $ExpectType Function
+                obj;
+            } else {
+                // $ExpectType object
                 obj;
             }
         }
@@ -648,6 +658,9 @@ function JQueryStatic() {
         function type_guard(obj: boolean) {
             if ($.isNumeric(obj)) {
                 // $ExpectType (true & number) | (false & number)
+                obj;
+            } else {
+                // $ExpectType boolean
                 obj;
             }
         }
@@ -666,6 +679,9 @@ function JQueryStatic() {
         function type_guard(obj: object) {
             if ($.isWindow(obj)) {
                 // $ExpectType Window
+                obj;
+            } else {
+                // $ExpectType object
                 obj;
             }
         }
@@ -1646,8 +1662,8 @@ function JQueryStatic() {
     }
 
     function type() {
-        // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "array" | "date" | "error" | "null" | "regexp"
-        $.type({});
+        // // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "array" | "date" | "error" | "null" | "regexp"
+        // $.type({});
     }
 
     function unique() {
@@ -1980,21 +1996,21 @@ function JQueryStatic() {
                 }
 
                 runTask1() {
-                    let dfd = $.Deferred<One>();
+                    const dfd = $.Deferred<One>();
                     console.log('Task 1');
                     setTimeout(() => { dfd.resolve({ result: 1 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
                 }
 
                 runTask2() {
-                    let dfd = $.Deferred<Two>();
+                    const dfd = $.Deferred<Two>();
                     console.log('Task 2');
                     setTimeout(() => { dfd.resolve({ Result: 2 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
                 }
 
                 runTask3() {
-                    let dfd = $.Deferred<Three>();
+                    const dfd = $.Deferred<Three>();
                     console.log('Task 3');
                     setTimeout(() => { dfd.resolve({ TheResult: 3 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
@@ -2119,8 +2135,8 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-                textStatus;
+                // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+                // textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
             });
@@ -2131,8 +2147,8 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-                textStatus;
+                // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+                // textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
             });
@@ -2143,8 +2159,8 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-                textStatus;
+                // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+                // textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
             });
@@ -2640,6 +2656,9 @@ function JQuery() {
             $('p').addClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').addClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').addClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2662,6 +2681,9 @@ function JQuery() {
             $('p').removeClass('className');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').removeClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').removeClass(function(index, currentClassName) {
                 // $ExpectType HTMLElement
                 this;
@@ -2680,6 +2702,15 @@ function JQuery() {
         function toggleClass() {
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass('className', true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass('className');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy'], false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(['dave', 'michał', 'oleg', 'richard', 'jason', 'timmy']);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').toggleClass(function(index, className, state) {
@@ -3367,10 +3398,10 @@ function JQuery() {
                 }
             ]);
 
-            // $ExpectType Queue<HTMLElement>
+            // $ExpectType Queue<Node>
             $('p').queue('myQueue');
 
-            // $ExpectType Queue<HTMLElement>
+            // $ExpectType Queue<Node>
             $('p').queue();
         }
 
@@ -5122,7 +5153,7 @@ function JQuery() {
     function manipulation() {
         function after() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').after('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').after(function(index, html) {
@@ -5169,7 +5200,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return [new Element(), new Text()];
+                return $('p').contents();
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5181,13 +5212,13 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p');
+                return [new Element(), new Text(), $('p').contents()];
             });
         }
 
         function append() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').append('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append(function(index, html) {
@@ -5234,28 +5265,28 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return [new Element(), new Text()];
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').append(function(index, html) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType number
-                index;
-                // $ExpectType string
-                html;
-
-                return $('p');
+                return $('p').contents();
             });
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append($.parseHTML('<span>myTextNode <!-- myComment --></span>'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text(), $('p').contents()];
+            });
         }
 
         function before() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').before('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').before(function(index, html) {
@@ -5302,7 +5333,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return [new Element(), new Text()];
+                return $('p').contents();
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5314,13 +5345,13 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p');
+                return [new Element(), new Text(), $('p').contents()];
             });
         }
 
         function prepend() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').prepend('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').prepend(function(index, html) {
@@ -5367,7 +5398,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return [new Element(), new Text()];
+                return $('p').contents();
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5379,7 +5410,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p');
+                return [new Element(), new Text(), $('p').contents()];
             });
         }
 
@@ -6171,7 +6202,7 @@ function JQuery() {
     }
 }
 
-function AjaxSettings() {
+function JQuery_AjaxSettings() {
     $.ajax({
         accepts: {
             mycustomtype: 'application/x-some-custom-type'
@@ -6182,7 +6213,7 @@ function AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
         },
         cache: false,
@@ -6191,8 +6222,8 @@ function AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
         },
         contents: {
             mycustomtype: /mycustomtype/
@@ -6292,7 +6323,7 @@ function AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType AjaxSettingsBase<any>
+            // $ExpectType AjaxSettings<any>
             settings;
 
             return false;
@@ -6302,8 +6333,8 @@ function AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
         }],
         contentType: false,
         data: 'myData',
@@ -6337,7 +6368,7 @@ function AjaxSettings() {
     });
 }
 
-function Callbacks() {
+function JQuery_Callbacks() {
     function add() {
         const callbacks = $.Callbacks();
 
@@ -6417,7 +6448,7 @@ function Callbacks() {
     }
 }
 
-function EffectsOptions() {
+function JQuery_EffectsOptions() {
     $('p').show({
         always(animation, jumpToEnd) {
             // $ExpectType HTMLElement
@@ -6481,7 +6512,7 @@ function EffectsOptions() {
     });
 }
 
-function _Event() {
+function JQuery_Event() {
     function call_signature() {
         // $ExpectType Event<HTMLElement, null> & Coordinates
         $.Event('keydown', $('p').offset());
@@ -6503,28 +6534,30 @@ function _Event() {
     }
 }
 
-function jqXHR() {
+function JQuery_jqXHR() {
+    const p: JQuery.jqXHR = {} as any;
+
     function always() {
         // $ExpectType jqXHR<any>
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         });
@@ -6533,15 +6566,15 @@ function jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }]);
@@ -6550,15 +6583,15 @@ function jqXHR() {
         $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         });
@@ -6567,8 +6600,8 @@ function jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         });
@@ -6577,8 +6610,8 @@ function jqXHR() {
         $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }]);
@@ -6745,19 +6778,31 @@ function jqXHR() {
     }
 
     function _catch() {
-        // $ExpectType Promise3<void, never, never, never, never, never, never, never, never>
-        $.ajax('/echo').catch((jqXHR, textStatus, errorThrown) => {
-            // $ExpectType jqXHR<any>
-            jqXHR;
-            // $ExpectType ErrorTextStatus
-            textStatus;
-            // $ExpectType string
-            errorThrown;
-        });
+        {
+            const a = $.ajax('/echo').catch((jqXHR, textStatus, errorThrown) => {
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType ErrorTextStatus
+                textStatus;
+                // $ExpectType string
+                errorThrown;
+            });
+            // $ExpectType PromiseBase<void, never, never, never, never, never, never, never, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<void, never, never, never, never, never, never, never, never> = a;
+        }
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+
+    function compatibleWithJQueryPromise(): JQuery.Promise<any> {
+        return p;
     }
 }
 
-function Promise3() {
+function JQuery_Promise3() {
     interface I1 { kind: 'I1'; }
     interface I2 { kind: 'I2'; }
     interface I3 { kind: 'I3'; }
@@ -7123,20 +7168,39 @@ function Promise3() {
     }
 
     function _catch() {
-        // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
-        $.ajax('/echo/json').catch(() => {
-            return 1;
-        });
+        {
+            const a = $.ajax('/echo/json').catch(() => {
+                return 1;
+            });
+            // $ExpectType PromiseBase<number, never, never, never, never, never, never, never, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<number, never, never, never, never, never, never, never, never> = a;
+        }
+        {
+            const a = $.ajax('/echo/json').catch(() => {
+                return t1;
+            });
+            // $ExpectType PromiseBase<I1, never, never, never, never, never, never, never, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<I1, never, never, never, never, never, never, never, never> = a;
+        }
+        {
+            const a = $.ajax('/echo/json').catch(() => {
+                return $.ajax('/echo/json');
+            });
+            // $ExpectType PromiseBase<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<any, JQuery.jqXHR<any>, never, JQuery.Ajax.SuccessTextStatus, JQuery.Ajax.ErrorTextStatus, never, JQuery.jqXHR<any>, string, never> = a;
+        }
 
-        // $ExpectType Promise3<I1, never, never, never, never, never, never, never, never>
-        $.ajax('/echo/json').catch(() => {
-            return t1;
-        });
+        // $ExpectType PromiseBase<never, never, never, never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(undefined);
 
-        // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
-        $.ajax('/echo/json').catch(() => {
-            return $.ajax('/echo/json');
-        });
+        // $ExpectType PromiseBase<never, never, never, never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(null);
+
+        // $ExpectType PromiseBase<never, never, never, never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch();
     }
 
     // As argument to PromiseLike parameter
@@ -7145,9 +7209,22 @@ function Promise3() {
             a; // $ExpectType string
         });
     }
+
+    async function testAsync(p: JQuery.Promise3<string, {}, {}, {}, {}, {}, {}, {}, {}>): Promise<string> {
+        const s: string = await p;
+        return s;
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+
+    function compatibleWithJQueryPromise(): JQuery.Promise<any> {
+        return p;
+    }
 }
 
-function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
+function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
     function then() {
         p.then((a, b) => {
             a; // $ExpectType string
@@ -7276,9 +7353,22 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
             });
         }
     }
+
+    async function testAsync(p: JQuery.Promise2<string, {}, {}, {}, {}, {}>): Promise<string> {
+        const s: string = await p;
+        return s;
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+
+    function compatibleWithJQueryPromise(): JQuery.Promise<any> {
+        return p;
+    }
 }
 
-function _Promise(p: JQuery.Promise<string, Error, number>) {
+function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
     function then() {
         p.then((a) => {
             a; // $ExpectType string
@@ -7383,5 +7473,30 @@ function _Promise(p: JQuery.Promise<string, Error, number>) {
                 a; // $ExpectType number
             });
         }
+    }
+
+    async function testAsync(p: JQuery.Promise<string, Error, number>): Promise<string> {
+        const s: string = await p;
+        return s;
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+}
+
+function JQuery_Deferred() {
+    interface I1 { kind: 'I1'; }
+    interface I2 { kind: 'I2'; }
+    interface I3 { kind: 'I3'; }
+
+    const d1 = $.Deferred<I1, I2, I3>();
+
+    function promise() {
+        const target: I1 = {} as any;
+
+        d1.promise(target); // $ExpectType Promise<I1, I2, I3> & I1
+
+        d1.promise(); // $ExpectType Promise<I1, I2, I3>
     }
 }

@@ -1,7 +1,11 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface InputGroupAddonProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
+  addonType: 'prepend' | 'append';
 }
 
-declare var InputGroupAddon: React.StatelessComponent<Props>;
+declare const InputGroupAddon: React.StatelessComponent<InputGroupAddonProps>;
 export default InputGroupAddon;

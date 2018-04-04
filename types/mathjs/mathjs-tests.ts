@@ -496,6 +496,35 @@ Units examples
 	var b = math.unit('0.1m'); // 100 mm
 	console.log();
 
+	// creating units
+	math.createUnit('foo');
+	math.createUnit('furlong', '220 yards');
+	math.createUnit('furlong', '220 yards', {override: true});
+	math.createUnit('fahrenheit', {definition: '0.555556 kelvin', offset: 459.67});
+	math.createUnit('fahrenheit', {definition: '0.555556 kelvin', offset: 459.67}, {override: true});
+	math.createUnit('knot', {definition: '0.514444 m/s', aliases: ['knots', 'kt', 'kts']});
+	math.createUnit('knot', {definition: '0.514444 m/s', aliases: ['knots', 'kt', 'kts']}, {override: true});
+	math.createUnit('knot', {
+		definition: '0.514444 m/s',
+		aliases: ['knots', 'kt', 'kts'],
+		prefixes: 'long'
+	}, {override: true});
+	math.createUnit( {
+		foo: {
+			prefixes: 'long'
+		},
+		bar: '40 foo',
+		baz: {
+			definition: '1 bar/hour',
+			prefixes: 'long'
+		}
+	}, {
+		override: true
+	});
+	// use Unit as definition
+	math.createUnit('c', {definition: b});
+	math.createUnit('c', {definition: b}, {override: true});
+
 	// units can be added, subtracted, and multiplied or divided by numbers and by other units
 	console.log('perform operations');
 	math.add(a, b);                                  // 0.55 m

@@ -1,8 +1,9 @@
 // Type definitions for react-sortable-tree 0.1
 // Project: https://fritz-c.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
+//                 Jovica Zoric <https://github.com/jzoric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { ListProps, Index } from 'react-virtualized';
@@ -15,7 +16,7 @@ export interface TreeItem {
     title?: string;
     subtitle?: string;
     expanded?: boolean;
-    children: TreeItem[];
+    children?: TreeItem[];
     [x: string]: any;
 }
 
@@ -50,13 +51,12 @@ export interface ExtendedNodeData extends NodeData {
 export interface OnVisibilityToggleData extends FullTree, TreeNode {
     expanded: boolean;
 }
-export interface PreviousAnNextLocation {
-    prevPath: number[];
-    prevParent: TreeItem;
+export interface PreviousAndNextLocation {
     prevTreeIndex: number;
-    nextPath: number[];
-    nextParent: TreeItem;
+    prevPath: number[];
     nextTreeIndex: number;
+    nextPath: number[];
+    nextParentNode: TreeItem;
 }
 
 export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
@@ -86,6 +86,14 @@ export interface NodeRendererProps {
     canDrop?: boolean;
 }
 
+export type PlaceholderRenderer = React.ComponentClass<PlaceholderRendererProps>;
+
+export interface PlaceholderRendererProps {
+    isOver: boolean;
+    canDrop: boolean;
+    draggedNode: {[index: string]: any};
+}
+
 type NumberArrayOrStringArray = string[] | number[];
 
 export interface ReactSortableTreeProps {
@@ -104,13 +112,15 @@ export interface ReactSortableTreeProps {
     onMoveNode?(data: NodeData & FullTree): void;
     onVisibilityToggle?(data: OnVisibilityToggleData): void;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
-    canDrop?(data: PreviousAnNextLocation & NodeData): boolean;
+    canDrop?(data: PreviousAndNextLocation & NodeData): boolean;
     reactVirtualizedListProps?: ListProps;
     rowHeight?: ((info: Index) => number) | number;
     slideRegionSize?: number;
     scaffoldBlockPxWidth?: number;
     isVirtualized?: boolean;
     nodeContentRenderer?: NodeRenderer;
+    dndType?: string;
+    placeholderRenderer?: PlaceholderRenderer;
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;

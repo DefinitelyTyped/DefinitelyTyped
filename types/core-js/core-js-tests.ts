@@ -59,7 +59,7 @@ let dictOfAny: Dict<any>;
 //          es6.object.to-string, es6.function.name and es6.function.has-instance.
 // #############################################################################################
 
-point = Object.assign(point, point);
+point = Object.assign(point, point); // tslint:disable-line prefer-object-spread
 b = Object.is(point, point);
 Object.setPrototypeOf(point, point);
 s = f.name;
@@ -83,6 +83,8 @@ arrayOfPoint3D = Array.from(arrayOfPoint, point => point3d, a);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d, a);
 arrayOfPoint = Array.of(point, point);
+b = Array.isArray([]);
+b = Array.isArray({});
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp

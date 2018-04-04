@@ -569,7 +569,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
  *
  * @param name Name of the transition.
  */
-export function transition<OldDatum>(name: string): Transition<HTMLElement, OldDatum, null, undefined>;
+export function transition<OldDatum>(name?: string): Transition<HTMLElement, OldDatum, null, undefined>;
 
 /**
  * Returns a new transition from an existing transition.

@@ -206,13 +206,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  **/
 
 class Animal {
-    private sound: string;
-    constructor(doc: any) {
-
-    }
-    makeNoise() {
-        console.log(this.sound)
-    }
+    constructor(doc: any) {}
 }
 
 interface AnimalDAO {
@@ -730,6 +724,6 @@ if (Meteor.isTest) {
 
 DDPRateLimiter.addRule({ userId: 'foo' }, 5, 1000);
 
-DDPRateLimiter.addRule((userId: string) => userId == 'foo', 5, 1000);
+DDPRateLimiter.addRule({ userId: userId => userId == 'foo' }, 5, 1000);
 
 Template.instance().autorun(() => { }).stop();

@@ -911,7 +911,12 @@ function test_autocomplete() {
                 "Nothing selected, input was " + this.value);
         }
     });
-
+    $("#birds").autocomplete({
+        classes: {
+            'ui-autocomplete': 'foo',
+            'ui-autocomplete-input': 'bar'
+        }
+    })
 }
 
 
@@ -1432,6 +1437,7 @@ function test_dialog() {
     $(".selector").dialog({ autoOpen: false });
     $(".selector").dialog({ buttons: { Ok: function () { $(this).dialog("close"); } } });
     $(".selector").dialog({ buttons: [ { text: "Ok", click: function () { $(this).dialog("close"); } } ] } );
+    $(".selector").dialog({ classes: { "ui-dialog": "custom", "ui-dialog-content": "custom-content" } } );
     $(".selector").dialog({ closeOnEscape: false });
     $(".selector").dialog({ closeText: "hide" });
     $(".selector").dialog({ appendTo: "appendTo" });
@@ -1712,6 +1718,7 @@ function test_tabs() {
     $("#tabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
     $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
     $(".selector").tabs({ active: 1 });
+    $(".selector").tabs({ classes: { "ui-tabs": "custom", "ui-tabs-panel": "custom-panel" } } );
     $(".selector").tabs({ collapsible: true });
     $(".selector").tabs({ disabled: [0, 2] });
     $(".selector").tabs({ event: "mouseover" });

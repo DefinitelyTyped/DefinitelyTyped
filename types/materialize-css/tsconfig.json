@@ -7,7 +7,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
-        "materialize-css-tests.ts"
+        "test/materialize-css-global.test.ts",
+        "test/materialize-css-module.test.ts",
+        "test/materialize-css-jquery.test.ts"
     ]
 }

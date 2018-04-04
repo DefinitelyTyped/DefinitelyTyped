@@ -10,6 +10,7 @@
         "noUnusedParameters": true,
         "noUnusedLocals": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [

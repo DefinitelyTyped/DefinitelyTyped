@@ -1,6 +1,6 @@
 // Type definitions for es6-shim v0.31.2
 // Project: https://github.com/paulmillr/es6-shim
-// Definitions by: Ron Buckton <http://github.com/rbuckton>
+// Definitions by: Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -500,7 +500,7 @@ interface PromiseConstructor {
     /**
      * Creates a new Promise.
      * @param executor A callback used to initialize the promise. This callback is passed two arguments:
-     * a resolve callback used resolve the promise with a value or the result of another promise,
+     * a resolve callback used to resolve the promise with a value or the result of another promise,
      * and a reject callback used to reject the promise with a provided reason or error.
      */
     new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;

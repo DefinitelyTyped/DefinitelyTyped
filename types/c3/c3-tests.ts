@@ -3,7 +3,7 @@
 //////////////////
 
 function chart_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         bindto: "#myContainer",
         size: {
@@ -30,19 +30,19 @@ function chart_examples() {
         onresized: () => { /* code*/ }
     });
 
-    let chart2 = c3.generate({
+    const chart2 = c3.generate({
         bindto: document.getElementById("myContainer"),
         data: {}
     });
 
-    let chart3 = c3.generate({
+    const chart3 = c3.generate({
         bindto: d3.select("#myContainer"),
         data: {}
     });
 }
 
 function data_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             url: "/data/c3_test.csv",
             json: [
@@ -126,7 +126,7 @@ function data_examples() {
         }
     });
 
-    let chart2 = c3.generate({
+    const chart2 = c3.generate({
         data: {
             labels: { format: (v, id, i, j) => { /* code */ } },
             hide: ["data1"]
@@ -135,7 +135,7 @@ function data_examples() {
 }
 
 function axis_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         axis: {
             rotated: true,
@@ -152,7 +152,8 @@ function axis_examples() {
                     fit: true,
                     values: [1, 2, 4, 8, 16, 32],
                     rotate: 60,
-                    outer: false
+                    outer: false,
+                    width: 100
                 },
                 max: 100,
                 min: -100,
@@ -207,7 +208,7 @@ function axis_examples() {
         }
     });
 
-    let chart2 = c3.generate({
+    const chart2 = c3.generate({
         data: {},
         axis: {
             x: {
@@ -241,7 +242,7 @@ function axis_examples() {
 }
 
 function grid_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         grid: {
             x: {
@@ -265,7 +266,7 @@ function grid_examples() {
 }
 
 function region_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         regions: [
             { axis: "x", start: 1, end: 4, class: "region-1-4" },
@@ -274,7 +275,7 @@ function region_examples() {
 }
 
 function legend_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         legend: {
             show: true,
@@ -294,7 +295,7 @@ function legend_examples() {
         }
     });
 
-    let chart2 = c3.generate({
+    const chart2 = c3.generate({
         data: {},
         legend: {
             hide: "data1",
@@ -307,7 +308,7 @@ function legend_examples() {
         }
     });
 
-    let chart3 = c3.generate({
+    const chart3 = c3.generate({
         data: {},
         legend: {
             hide: ["data1", "data2"]
@@ -316,7 +317,7 @@ function legend_examples() {
 }
 
 function subchart_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         subchart: {
             show: true,
@@ -329,7 +330,7 @@ function subchart_examples() {
 }
 
 function zoom_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         zoom: {
             enabled: false,
@@ -343,7 +344,7 @@ function zoom_examples() {
 }
 
 function point_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         point: {
             show: false,
@@ -362,7 +363,7 @@ function point_examples() {
 }
 
 function line_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         line: {
             connectNull: true,
@@ -374,7 +375,7 @@ function line_examples() {
 }
 
 function area_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         area: {
             zerobased: false
@@ -383,7 +384,7 @@ function area_examples() {
 }
 
 function bar_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         bar: {
             width: 10,
@@ -391,7 +392,7 @@ function bar_examples() {
         }
     });
 
-    let chart2 = c3.generate({
+    const chart2 = c3.generate({
         data: {},
         bar: {
             width: {
@@ -403,7 +404,7 @@ function bar_examples() {
 }
 
 function pie_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         pie: {
             label: {
@@ -419,7 +420,7 @@ function pie_examples() {
 }
 
 function donut_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         donut: {
             label: {
@@ -437,7 +438,7 @@ function donut_examples() {
 }
 
 function gauge_examples() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {},
         gauge: {
             label: {
@@ -460,7 +461,7 @@ function gauge_examples() {
 /////////////////
 
 function simple_multiple() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -481,7 +482,7 @@ function simple_multiple() {
 }
 
 function timeseries() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             xFormat: "%Y%m%d", // 'xFormat' can be used as custom format of 'x'
@@ -503,7 +504,7 @@ function timeseries() {
 }
 
 function chart_spline() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -515,7 +516,7 @@ function chart_spline() {
 }
 
 function simple_xy() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -528,7 +529,7 @@ function simple_xy() {
 }
 
 function simple_xy_multiple() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             xs: {
                 data1: "x1",
@@ -545,7 +546,7 @@ function simple_xy_multiple() {
 }
 
 function simple_regions() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -560,7 +561,7 @@ function simple_regions() {
 }
 
 function chart_step() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 300, 350, 300, 0, 0, 100],
@@ -575,7 +576,7 @@ function chart_step() {
 }
 
 function area_chart() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 300, 350, 300, 0, 0, 0],
@@ -590,7 +591,7 @@ function area_chart() {
 }
 
 function chart_area_stacked() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 300, 350, 300, 0, 0, 120],
@@ -607,7 +608,7 @@ function chart_area_stacked() {
 }
 
 function chart_bar() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -619,7 +620,8 @@ function chart_bar() {
             width: {
                 ratio: 0.5, // this makes bar width 50% of length between ticks
                 max: 50 // this limits maximum width of bar to 50px
-            }
+            },
+            space: 10 // this adds space between bars in bar charts
             // or
             // width: 100 // this makes bar width 100px
         }
@@ -627,7 +629,7 @@ function chart_bar() {
 }
 
 function chart_bar_stacked() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", -30, 200, 200, 400, -150, 250],
@@ -648,7 +650,7 @@ function chart_bar_stacked() {
 }
 
 function chart_scatter() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             xs: {
                 setosa: "setosa_x",
@@ -682,7 +684,7 @@ function chart_scatter() {
 }
 
 function chart_pie() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             // iris data from R
             columns: [
@@ -698,7 +700,7 @@ function chart_pie() {
 }
 
 function chart_donut() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30],
@@ -716,7 +718,7 @@ function chart_donut() {
 }
 
 function gauge_chart() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data", 91.4]
@@ -753,7 +755,7 @@ function gauge_chart() {
 }
 
 function chart_combination() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -781,7 +783,7 @@ function chart_combination() {
 ////////////////////
 
 function categorized() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250, 50, 100, 250]
@@ -797,7 +799,7 @@ function categorized() {
 }
 
 function axes_rotated() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -814,7 +816,7 @@ function axes_rotated() {
 }
 
 function axes_y2() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -834,7 +836,7 @@ function axes_y2() {
 }
 
 function axes_x_tick_format() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -855,7 +857,7 @@ function axes_x_tick_format() {
 }
 
 function axes_x_tick_count() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -876,7 +878,7 @@ function axes_x_tick_count() {
 }
 
 function axes_x_tick_values() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -897,7 +899,7 @@ function axes_x_tick_values() {
 }
 
 function axes_x_tick_culling() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250, 200, 100, 400, 150, 250]
@@ -919,7 +921,7 @@ function axes_x_tick_culling() {
 }
 
 function axes_x_tick_fit() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -939,8 +941,28 @@ function axes_x_tick_fit() {
     });
 }
 
+function axes_x_tick_width() {
+    const chart = c3.generate({
+        data: {
+            x: "x",
+            columns: [
+                ["x", "2013-10-31", "2013-12-31", "2014-01-31", "2014-02-28"],
+                ["sample", 30, 100, 400, 150],
+            ]
+        },
+        axis: {
+            x: {
+                type: "bar",
+                tick: {
+                    width: 100
+                }
+            }
+        }
+    });
+}
+
 function axes_x_localtime() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             xFormat: "%Y",
@@ -966,7 +988,7 @@ function axes_x_localtime() {
 }
 
 function axes_x_tick_rotate() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -990,7 +1012,7 @@ function axes_x_tick_rotate() {
 }
 
 function axes_y_tick_format() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 2500]
@@ -1008,7 +1030,7 @@ function axes_y_tick_format() {
 }
 
 function axes_y_padding() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1032,7 +1054,7 @@ function axes_y_padding() {
 }
 
 function axes_y_range() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1050,7 +1072,7 @@ function axes_y_range() {
 }
 
 function axes_label() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250],
@@ -1076,7 +1098,7 @@ function axes_label() {
 }
 
 function axes_label_position() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample1", 30, 200, 100, 400, 150, 250],
@@ -1134,7 +1156,7 @@ function axes_label_position() {
 ///////////////////
 
 function data_columned() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -1146,7 +1168,7 @@ function data_columned() {
 }
 
 function data_rowed() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             rows: [
                 ["data1", "data2", "data3"],
@@ -1210,7 +1232,7 @@ function data_json() {
 }
 
 function data_url() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             url: "/data/c3_test.csv"
         }
@@ -1227,7 +1249,7 @@ function data_url() {
 }
 
 function data_stringx() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -1294,7 +1316,7 @@ function data_stringx() {
 }
 
 function data_load() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             url: "/data/c3_test.csv",
             type: "line"
@@ -1397,7 +1419,7 @@ function data_load() {
 }
 
 function data_name() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1412,7 +1434,7 @@ function data_name() {
 }
 
 function data_color() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -1434,7 +1456,7 @@ function data_color() {
 }
 
 function data_order() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 130, 200, 320, 400, 530, 750],
@@ -1478,7 +1500,7 @@ function data_order() {
 }
 
 function data_label() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, -200, -100, 400, 150, 250],
@@ -1500,7 +1522,7 @@ function data_label() {
 }
 
 function data_label_format() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, -200, -100, 400, 150, 250],
@@ -1532,7 +1554,7 @@ function data_label_format() {
 ///////////////////
 
 function options_gridline() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250, 120, 200]
@@ -1550,7 +1572,7 @@ function options_gridline() {
 }
 
 function grid_x_lines() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1569,7 +1591,7 @@ function grid_x_lines() {
 }
 
 function grid_y_lines() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250],
@@ -1601,7 +1623,7 @@ function grid_y_lines() {
 ///////////////////
 
 function region() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250, 400],
@@ -1631,7 +1653,7 @@ function region() {
 }
 
 function region_timeseries() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "date",
             columns: [
@@ -1657,7 +1679,7 @@ function region_timeseries() {
 /////////////////////
 
 function options_subchart() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1670,7 +1692,7 @@ function options_subchart() {
 }
 
 function interaction_zoom() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 150, 250, 150, 200, 170, 240, 100, 150, 250, 150, 200, 170, 240, 30, 200, 100, 400, 150, 250, 150,
@@ -1688,7 +1710,7 @@ function interaction_zoom() {
 /////////////////////
 
 function options_legend() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1701,7 +1723,7 @@ function options_legend() {
 }
 
 function legend_position() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1737,7 +1759,7 @@ function legend_position() {
 }
 
 function legend_custom() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 100],
@@ -1781,7 +1803,7 @@ function legend_custom() {
 /////////////////////
 
 function tooltip_show() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1795,7 +1817,7 @@ function tooltip_show() {
 }
 
 function tooltip_grouped() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1810,7 +1832,7 @@ function tooltip_grouped() {
 }
 
 function tooltip_format() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30000, 20000, 10000, 40000, 15000, 250000],
@@ -1837,10 +1859,41 @@ function tooltip_format() {
             format: {
                 title: (d: any) => "Data " + d,
                 value: (value: any, ratio: any, id: any) => {
-                    let format = id === "data1" ? d3.format(",") : d3.format("$");
+                    const format = id === "data1" ? d3.format(",") : d3.format("$");
                     return format(value);
                 }
                 //            value: d3.format(",") // apply this format to both y and y2
+            }
+        }
+    });
+}
+
+function tooltip_order() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["data1", 30, 200, 100, 400, 150, 250],
+                ["data2", 50, 20, 10, 40, 15, 25]
+            ]
+        },
+        tooltip: {
+            order: 'asc'
+        }
+    });
+}
+
+function tooltip_order_function() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["data1", 30, 200, 100, 400, 150, 250],
+                ["data2", 50, 20, 10, 40, 15, 25]
+            ]
+        },
+        tooltip: {
+            order: (data1, data2) => {
+                return data1.id - data2.id;
+                // return data2.id - data2.id in case we want desc order
             }
         }
     });
@@ -1851,7 +1904,7 @@ function tooltip_format() {
 ////////////////////////
 
 function options_size() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         size: {
             height: 240,
             width: 480
@@ -1865,7 +1918,7 @@ function options_size() {
 }
 
 function options_padding() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         padding: {
             top: 40,
             right: 100,
@@ -1881,7 +1934,7 @@ function options_padding() {
 }
 
 function options_color() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1900,7 +1953,7 @@ function options_color() {
 }
 
 function transition_duration() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             url: "/data/c3_test.csv"
         },
@@ -1953,7 +2006,7 @@ function transition_duration() {
 /////////////////////////////
 
 function point_show() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1971,7 +2024,7 @@ function point_show() {
 ////////////////////////////
 
 function pie_label_format() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30],
@@ -1994,7 +2047,7 @@ function pie_label_format() {
 /////////////////////
 
 function api_flow() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -2064,7 +2117,7 @@ function api_flow() {
 }
 
 function api_data_name() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2087,7 +2140,7 @@ function api_data_name() {
 }
 
 function api_data_color() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -2122,7 +2175,7 @@ function api_data_color() {
 }
 
 function api_axis_label() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2154,7 +2207,7 @@ function api_axis_label() {
 }
 
 function api_axis_range() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2210,7 +2263,7 @@ function api_axis_range() {
 }
 
 function api_resize() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2233,7 +2286,7 @@ function api_resize() {
 }
 
 function api_grid_x() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         bindto: "#chart",
         data: {
             columns: [
@@ -2276,7 +2329,7 @@ function api_grid_x() {
 /////////////////////
 
 function transform_line() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2304,7 +2357,7 @@ function transform_line() {
 }
 
 function transform_spline() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2332,7 +2385,7 @@ function transform_spline() {
 }
 
 function transform_bar() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2360,7 +2413,7 @@ function transform_bar() {
 }
 
 function transform_area() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2388,7 +2441,7 @@ function transform_area() {
 }
 
 function transform_areaspline() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2416,7 +2469,7 @@ function transform_areaspline() {
 }
 
 function transform_scatter() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             xs: {
                 setosa: "setosa_x",
@@ -2462,7 +2515,7 @@ function transform_scatter() {
 }
 
 function transform_pie() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2485,7 +2538,7 @@ function transform_pie() {
 }
 
 function transform_donut() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2516,7 +2569,7 @@ function transform_donut() {
 /////////////////////
 
 function style_region() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -2530,7 +2583,7 @@ function style_region() {
 }
 
 function style_grid() {
-    let chart = c3.generate({
+    const chart = c3.generate({
         data: {
             columns: [
                 ["data1", 100, 200, 1000, 900, 500]

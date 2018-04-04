@@ -1,0 +1,13 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "adjacent-overload-signatures": false,
+        "callable-types": false,
+        "comment-format": false,
+        "dt-header": false,
+        "no-empty-interface": false,
+        "no-useless-files": false,
+        "prefer-method-signature": false
+    }
+}

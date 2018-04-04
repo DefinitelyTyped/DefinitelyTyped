@@ -1,6 +1,10 @@
-// Type definitions for nock v8.2.0
+// Type definitions for nock v9.1.3
 // Project: https://github.com/node-nock/nock
-// Definitions by: bonnici <https://github.com/bonnici>, Horiuchi_H <https://github.com/horiuchi>
+// Definitions by: bonnici <https://github.com/bonnici>
+//                 Horiuchi_H <https://github.com/horiuchi>
+//                 afharo <https://github.com/afharo>
+//                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Garanzha Dmitriy <https://github.com/damour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,7 +19,7 @@ declare namespace nock {
     export function activate(): void;
     export function isActive(): boolean;
     export function isDone(): boolean;
-    export function pendingMocks(): void;
+    export function pendingMocks(): string[];
     export function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
     export function disableNetConnect(): void;
     export function enableNetConnect(matcher?: string | RegExp): void;
@@ -31,7 +35,7 @@ declare namespace nock {
 
     export var back: NockBack;
 
-    type HttpHeaders = { [key: string]: string | { (req: any, res: any, body: string): any; }; };
+    type HttpHeaders = { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; };
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
         requestBody?: string | RegExp | { (body: any): boolean; } | any,
@@ -67,7 +71,7 @@ declare namespace nock {
         filteringRequestBody(fn: (body: string) => string): this;
 
         log(out: () => void): this;
-        persist(): this;
+        persist(flag?: boolean): this;
         shouldPersist(): boolean;
         replyContentLength(): this;
         replyDate(d?: Date): this;

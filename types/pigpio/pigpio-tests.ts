@@ -6,7 +6,7 @@ import * as assert from 'assert';
 
     pigpio.configureClock(1, pigpio.CLOCK_PWM);
 
-    let led = new Gpio(18, {
+    const led = new Gpio(18, {
         mode: Gpio.OUTPUT,
         alert: true
     });
@@ -14,20 +14,18 @@ import * as assert from 'assert';
     led.digitalWrite(0);
 
     (function closure(): void {
-        let pulseCounts: number[] = [];
-        let pulses: number = 0;
-        let risingTick: number = 0;
+        const pulseCounts: number[] = [];
+        let pulses = 0;
+        let risingTick = 0;
         let fallingTick: number;
         let i: number;
 
         led.on('alert', function event(level: number, tick: number): void {
-            let pulseLength: number;
-
             if (level === 1) {
                 risingTick = tick;
             } else {
                 fallingTick = tick;
-                pulseLength = fallingTick - risingTick;
+                const pulseLength = fallingTick - risingTick;
 
                 if (pulseCounts[pulseLength] === undefined) {
                     pulseCounts[pulseLength] = 0;
@@ -55,12 +53,11 @@ import * as assert from 'assert';
 
 (function alert_trigger_pulse_measurement(): void {
     const Gpio = pigpio.Gpio;
-    let led: pigpio.Gpio;
     let iv: NodeJS.Timer;
 
     // pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
-    led = new Gpio(17, {
+    const led = new Gpio(17, {
         mode: Gpio.OUTPUT,
         alert: true
     });
@@ -68,20 +65,18 @@ import * as assert from 'assert';
     led.digitalWrite(0);
 
     (function closure(): void {
-        let pulseCounts: number[] = [];
-        let pulses: number = 0;
+        const pulseCounts: number[] = [];
+        let pulses = 0;
         let risingTick: number;
         let fallingTick: number;
         let i: number;
 
         led.on('alert', function event(level: number, tick: number): void {
-            let pulseLength: number;
-
             if (level === 1) {
                 risingTick = tick;
             } else {
                 fallingTick = tick;
-                pulseLength = fallingTick - risingTick;
+                const pulseLength = fallingTick - risingTick;
 
                 if (pulseCounts[pulseLength] === undefined) {
                     pulseCounts[pulseLength] = 0;
@@ -111,7 +106,7 @@ import * as assert from 'assert';
 
 (function alert(): void {
     const Gpio = pigpio.Gpio;
-    let button = new Gpio(4, { alert: true });
+    const button = new Gpio(4, { alert: true });
 
     button.on('alert', function event(level: number, tick: number): void {
         console.log(level + ' ' + tick);
@@ -123,32 +118,37 @@ import * as assert from 'assert';
 (function banked_leds(): void {
     const Gpio = pigpio.Gpio;
     const GpioBank = pigpio.GpioBank;
-    let led17 = new Gpio(17, { mode: Gpio.OUTPUT });
-    let led18 = new Gpio(18, { mode: Gpio.OUTPUT });
-    let bank1 = new GpioBank();
+    const led17 = new Gpio(17, { mode: Gpio.OUTPUT });
+    const led18 = new Gpio(18, { mode: Gpio.OUTPUT });
+    const bank1 = new GpioBank();
     let iv: NodeJS.Timer;
 
     bank1.clear(1 << 18 | 1 << 17);
     assert.strictEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
 
     iv = setInterval(function timer(): void {
-        let bits = (bank1.read() >> 17) & 0x3;
+        const bits = (bank1.read() >> 17) & 0x3;
 
-        if (bits === 0) {
-            bank1.set(1 << 17);
-            assert.strictEqual((bank1.read() >> 17) & 0x3, 1, 'expected 1');
-        } else if (bits === 1) {
-            bank1.clear(1 << 17);
-            bank1.set(1 << 18);
-            assert.strictEqual((bank1.read() >> 17) & 0x3, 2, 'expected 2');
-        } else if (bits === 2) {
-            bank1.set(1 << 17);
-            bank1.set(1 << 18);
-            assert.strictEqual((bank1.read() >> 17) & 0x3, 3, 'expected 3');
-        } else if (bits === 3) {
-            bank1.clear(1 << 17);
-            bank1.clear(1 << 18);
-            assert.strictEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
+        switch (bits) {
+            case 0:
+                bank1.set(1 << 17);
+                assert.strictEqual((bank1.read() >> 17) & 0x3, 1, 'expected 1');
+                break;
+            case 1:
+                bank1.clear(1 << 17);
+                bank1.set(1 << 18);
+                assert.strictEqual((bank1.read() >> 17) & 0x3, 2, 'expected 2');
+                break;
+            case 2:
+                bank1.set(1 << 17);
+                bank1.set(1 << 18);
+                assert.strictEqual((bank1.read() >> 17) & 0x3, 3, 'expected 3');
+                break;
+            case 3:
+                bank1.clear(1 << 17);
+                bank1.clear(1 << 18);
+                assert.strictEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
+                break;
         }
     }, 250);
 
@@ -160,7 +160,7 @@ import * as assert from 'assert';
 
 (function blinky_pwm(): void {
     const Gpio = pigpio.Gpio;
-    let led = new Gpio(18, { mode: Gpio.OUTPUT });
+    const led = new Gpio(18, { mode: Gpio.OUTPUT });
 
     led.hardwarePwmWrite(10, 500000);
 
@@ -171,10 +171,9 @@ import * as assert from 'assert';
 
 (function blinky(): void {
     const Gpio = pigpio.Gpio;
-    let iv: NodeJS.Timer;
-    let led = new Gpio(17, { mode: Gpio.OUTPUT });
+    const led = new Gpio(17, { mode: Gpio.OUTPUT });
 
-    iv = setInterval(function timer() {
+    const iv: NodeJS.Timer = setInterval(function timer() {
         led.digitalWrite(led.digitalRead() ^ 1);
     }, 100);
 
@@ -186,50 +185,46 @@ import * as assert from 'assert';
 
 (function digital_read_performance(): void {
     const Gpio = pigpio.Gpio;
-    let button = new Gpio(4, {
+    const button = new Gpio(4, {
         mode: Gpio.INPUT,
         pullUpDown: Gpio.PUD_DOWN
     });
-    let time: [number, number];
-    let ops: number;
-    let i: number;
 
-    time = process.hrtime();
+    let time = process.hrtime();
 
-    for (i = 0; i !== 2000000; i += 1) {
+    const maxI = 2000000;
+    for (let i = 0; i !== maxI; i += 1) {
         button.digitalRead();
     }
 
     time = process.hrtime(time);
-    ops = Math.floor(i / (time[0] + time[1] / 1E9));
+    const ops = Math.floor(maxI / (time[0] + time[1] / 1E9));
 
     console.log('  ' + ops + ' read ops per second');
 })();
 
 (function digital_write_performance(): void {
     const Gpio = pigpio.Gpio;
-    let led = new Gpio(17, { mode: Gpio.OUTPUT });
-    let time: [number, number];
-    let ops: number;
-    let i: number;
+    const led = new Gpio(17, { mode: Gpio.OUTPUT });
 
-    time = process.hrtime();
+    let time = process.hrtime();
 
-    for (i = 0; i !== 2000000; i += 1) {
+    const maxI = 2000000;
+    for (let i = 0; i !== maxI; i += 1) {
         led.digitalWrite(1);
         led.digitalWrite(0);
     }
 
     time = process.hrtime(time);
-    ops = Math.floor((i * 2) / (time[0] + time[1] / 1E9));
+    const ops = Math.floor((maxI * 2) / (time[0] + time[1] / 1E9));
 
     console.log('  ' + ops + ' write ops per second');
 })();
 
 (function gpio_mode(): void {
     const Gpio = pigpio.Gpio;
-    let gpio7 = new Gpio(7, { mode: Gpio.INPUT });
-    let gpio8 = new Gpio(8, { mode: Gpio.OUTPUT });
+    const gpio7 = new Gpio(7, { mode: Gpio.INPUT });
+    const gpio8 = new Gpio(8, { mode: Gpio.OUTPUT });
 
     assert.strictEqual(gpio7.getMode(), Gpio.INPUT, 'expected INPUT mode for gpio7');
     assert.strictEqual(gpio8.getMode(), Gpio.OUTPUT, 'expected OUTPUT mode for gpio8');
@@ -254,17 +249,16 @@ import * as assert from 'assert';
 
 (function isr_enable_disable(): void {
     const Gpio = pigpio.Gpio;
-    let input = new Gpio(7, { mode: Gpio.INPUT });
-    let output = new Gpio(8, { mode: Gpio.OUTPUT });
+    const input = new Gpio(7, { mode: Gpio.INPUT });
+    const output = new Gpio(8, { mode: Gpio.OUTPUT });
     let risingCount = 0;
     let fallingCount = 0;
-    let iv: NodeJS.Timer;
 
     // Put output (and input) in a known state.
     output.digitalWrite(0);
 
     // Toggle output (and input) every 10 ms
-    iv = setInterval(function timer() {
+    const iv = setInterval(function timer() {
         output.digitalWrite(output.digitalRead() ^ 1);
     }, 10);
 
@@ -344,8 +338,8 @@ import * as assert from 'assert';
 
     [[7, 8], [9, 11]].forEach(function loop(gpioNos: [number, number]) {
         let interruptCount = 0;
-        let input = new Gpio(gpioNos[0], { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE });
-        let output = new Gpio(gpioNos[1], { mode: Gpio.OUTPUT });
+        const input = new Gpio(gpioNos[0], { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE });
+        const output = new Gpio(gpioNos[1], { mode: Gpio.OUTPUT });
 
         // Put input and output in a known state
         output.digitalWrite(0);
@@ -370,8 +364,8 @@ import * as assert from 'assert';
 (function isr_performance(): void {
     const Gpio = pigpio.Gpio;
     let interruptCount = 0;
-    let input = new Gpio(7, { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE });
-    let output = new Gpio(8, { mode: Gpio.OUTPUT });
+    const input = new Gpio(7, { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE });
+    const output = new Gpio(8, { mode: Gpio.OUTPUT });
 
     output.digitalWrite(0);
 
@@ -386,10 +380,8 @@ import * as assert from 'assert';
         output.digitalWrite(1);
 
         setTimeout(function timer() {
-            let interruptsPerSec: number;
-
             time = process.hrtime(time);
-            interruptsPerSec = Math.floor(interruptCount / (time[0] + time[1] / 1E9));
+            const interruptsPerSec = Math.floor(interruptCount / (time[0] + time[1] / 1E9));
 
             console.log('  ' + interruptsPerSec + ' interrupts per second');
 
@@ -401,7 +393,7 @@ import * as assert from 'assert';
 (function isr_timeouts_2(): void {
     const Gpio = pigpio.Gpio;
     let timeoutCount = 0;
-    let input = new Gpio(7, { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 100 });
+    const input = new Gpio(7, { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 100 });
 
     input.on('interrupt', function timer(level: number) {
         if (level === Gpio.TIMEOUT) {
@@ -425,7 +417,7 @@ import * as assert from 'assert';
 (function isr_timeouts(): void {
     const Gpio = pigpio.Gpio;
     let timeoutCount = 0;
-    let input = new Gpio(7, { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 10 });
+    const input = new Gpio(7, { mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 10 });
 
     input.on('interrupt', function timer(level: number) {
         if (level === Gpio.TIMEOUT) {
@@ -448,12 +440,12 @@ import * as assert from 'assert';
 
 (function light_switch(): void {
     const Gpio = pigpio.Gpio;
-    let button = new Gpio(4, {
+    const button = new Gpio(4, {
         mode: Gpio.INPUT,
         pullUpDown: Gpio.PUD_DOWN,
         edge: Gpio.EITHER_EDGE
     });
-    let led = new Gpio(17, { mode: Gpio.OUTPUT });
+    const led = new Gpio(17, { mode: Gpio.OUTPUT });
 
     button.on('interrupt', function event(level: number) {
         led.digitalWrite(level);
@@ -472,17 +464,17 @@ import * as assert from 'assert';
     const Notifier = pigpio.Notifier;
     let notifierCount = 0;
 
-    let LED_GPIO = 18;
-    let FREQUENCY = 25000;
+    const LED_GPIO = 18;
+    const FREQUENCY = 25000;
 
     (function closure() {
-        let led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
+        const led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
 
         led.hardwarePwmWrite(FREQUENCY, 500000);
     }());
 
     (function next() {
-        let ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
+        const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
         let closing = false;
 
         ledNotifier.stream().on('data', function event() {
@@ -510,17 +502,17 @@ import * as assert from 'assert';
     const Gpio = pigpio.Gpio;
     const Notifier = pigpio.Notifier;
 
-    let LED_GPIO = 18;
-    let FREQUENCY = 25000;
+    const LED_GPIO = 18;
+    const FREQUENCY = 25000;
 
     (function closure() {
-        let led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
+        const led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
 
         led.hardwarePwmWrite(FREQUENCY, 500000);
     }());
 
     (function closure() {
-        let ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
+        const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
         let notificationsReceived = 0;
         let seqnoErrors = 0;
         let ledStateErrors = 0;
@@ -531,12 +523,10 @@ import * as assert from 'assert';
         let maxTickDiff = 0;
 
         ledNotifier.stream().on('data', function event(buf: Buffer) {
-            let ix = 0;
-
-            for (ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
-                let seqno = buf.readUInt16LE(ix);
-                let tick = buf.readUInt32LE(ix + 4);
-                let level = buf.readUInt32LE(ix + 8);
+            for (let ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
+                const seqno = buf.readUInt16LE(ix);
+                const tick = buf.readUInt32LE(ix + 4);
+                const level = buf.readUInt32LE(ix + 8);
 
                 if (notificationsReceived > 0) {
                     if (lastLedState === (level & (1 << LED_GPIO))) {
@@ -582,19 +572,19 @@ import * as assert from 'assert';
     const Gpio = pigpio.Gpio;
     const Notifier = pigpio.Notifier;
 
-    let LED_GPIO = 18;
-    let FREQUENCY = 150000;
+    const LED_GPIO = 18;
+    const FREQUENCY = 150000;
 
     pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
     (function closure() {
-        let led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
+        const led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
 
         led.hardwarePwmWrite(FREQUENCY, 500000);
     }());
 
     (function closure() {
-        let ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
+        const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
         let notificationsReceived = 0;
         let events = 0;
         let seqnoErrors = 0;
@@ -622,9 +612,7 @@ import * as assert from 'assert';
         }
 
         ledNotifier.stream().on('data', function event(buf: Buffer) {
-            let ix: number;
             let entries: number;
-            let rest: number;
 
             events += 1;
 
@@ -633,18 +621,14 @@ import * as assert from 'assert';
             }
 
             entries = Math.floor(buf.length / Notifier.NOTIFICATION_LENGTH);
-            rest = buf.length % Notifier.NOTIFICATION_LENGTH;
+            const rest = buf.length % Notifier.NOTIFICATION_LENGTH;
 
-            if (rest === 0) {
-                restBuf = null;
-            } else {
-                restBuf = new Buffer(buf.slice(buf.length - rest));
-            }
+            restBuf = rest === 0 ? null : new Buffer(buf.slice(buf.length - rest));
 
-            for (ix = 0; ix < buf.length - rest; ix += Notifier.NOTIFICATION_LENGTH) {
-                let seqno = buf.readUInt16LE(ix);
-                let tick = buf.readUInt32LE(ix + 4);
-                let level = buf.readUInt32LE(ix + 8);
+            for (let ix = 0; ix < buf.length - rest; ix += Notifier.NOTIFICATION_LENGTH) {
+                const seqno = buf.readUInt16LE(ix);
+                const tick = buf.readUInt32LE(ix + 4);
+                const level = buf.readUInt32LE(ix + 8);
 
                 if (notificationsReceived > 0) {
                     if (lastLedState === (level & (1 << LED_GPIO))) {
@@ -688,20 +672,19 @@ import * as assert from 'assert';
     const Gpio = pigpio.Gpio;
     const Notifier = pigpio.Notifier;
 
-    let LED_GPIO = 17;
-    let LED_TOGGLES = 1000;
+    const LED_GPIO = 17;
+    const LED_TOGGLES = 1000;
 
     (function closure() {
-        let led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
+        const led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
         let ledToggles = 0;
         let lastTime = process.hrtime();
         let minSetIntervalDiff = 0xffffffff;
         let maxSetIntervalDiff = 0;
-        let iv: NodeJS.Timer;
 
-        iv = setInterval(function timer() {
-            let time = process.hrtime();
-            let diff = Math.floor(((time[0] * 1e9 + time[1]) - (lastTime[0] * 1e9 + lastTime[1])) / 1000);
+        const iv = setInterval(function timer() {
+            const time = process.hrtime();
+            const diff = Math.floor(((time[0] * 1e9 + time[1]) - (lastTime[0] * 1e9 + lastTime[1])) / 1000);
 
             lastTime = time;
 
@@ -727,7 +710,7 @@ import * as assert from 'assert';
     }());
 
     (function closure() {
-        let ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
+        const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
         let notificationsReceived = 0;
         let seqnoErrors = 0;
         let ledStateErrors = 0;
@@ -738,12 +721,10 @@ import * as assert from 'assert';
         let maxTickDiff = 0;
 
         ledNotifier.stream().on('data', function event(buf: Buffer) {
-            let ix = 0;
-
-            for (ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
-                let seqno = buf.readUInt16LE(ix);
-                let tick = buf.readUInt32LE(ix + 4);
-                let level = buf.readUInt32LE(ix + 8);
+            for (let ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
+                const seqno = buf.readUInt16LE(ix);
+                const tick = buf.readUInt32LE(ix + 4);
+                const level = buf.readUInt32LE(ix + 8);
 
                 if (notificationsReceived > 0) {
                     if (lastLedState === (level & (1 << LED_GPIO))) {
@@ -785,7 +766,7 @@ import * as assert from 'assert';
 
 (function pull_up_down(): void {
     const Gpio = pigpio.Gpio;
-    let input = new Gpio(22, { mode: Gpio.INPUT, pullUpDown: Gpio.PUD_UP });
+    const input = new Gpio(22, { mode: Gpio.INPUT, pullUpDown: Gpio.PUD_UP });
 
     assert.strictEqual(input.digitalRead(), 1, 'expected gpio22 to be 1');
     input.pullUpDown(Gpio.PUD_DOWN);
@@ -794,16 +775,13 @@ import * as assert from 'assert';
 
 (function pulse_led(): void {
     const Gpio = pigpio.Gpio;
-    let iv: NodeJS.Timer;
-    let led = new Gpio(17, { mode: Gpio.OUTPUT });
+    const led = new Gpio(17, { mode: Gpio.OUTPUT });
     let dutyCycle = 0;
 
-    iv = setInterval(function timer() {
-        let dutyCycleRead: number;
-
+    const iv = setInterval(function timer() {
         led.pwmWrite(dutyCycle);
 
-        dutyCycleRead = led.getPwmDutyCycle();
+        const dutyCycleRead: number = led.getPwmDutyCycle();
         assert.strictEqual(dutyCycleRead, dutyCycle,
             'expected dutyCycle to be ' + dutyCycle + ', not ' + dutyCycleRead
         );
@@ -822,8 +800,7 @@ import * as assert from 'assert';
 
 (function pwm(): void {
     const Gpio = pigpio.Gpio;
-    let iv: NodeJS.Timer;
-    let led = new Gpio(18, { mode: Gpio.OUTPUT });
+    const led = new Gpio(18, { mode: Gpio.OUTPUT });
     let dutyCycle: number;
 
     assert.strictEqual(led.getPwmRange(), 255, 'expected pwm range to be 255');
@@ -859,7 +836,7 @@ import * as assert from 'assert';
 (function servo_control(): void {
     const Gpio = pigpio.Gpio;
     let iv: NodeJS.Timer;
-    let motor = new Gpio(17, { mode: Gpio.OUTPUT });
+    const motor = new Gpio(17, { mode: Gpio.OUTPUT });
     let pulseWidth = 500;
 
     motor.servoWrite(0);
@@ -868,11 +845,9 @@ import * as assert from 'assert';
     );
 
     iv = setInterval(function timer() {
-        let pulseWidthRead: number;
-
         motor.servoWrite(pulseWidth);
 
-        pulseWidthRead = motor.getServoPulseWidth();
+        const pulseWidthRead = motor.getServoPulseWidth();
         assert.strictEqual(pulseWidthRead, pulseWidth,
             'expected pulseWidth to be ' + pulseWidth + ', not ' + pulseWidthRead
         );
@@ -892,7 +867,7 @@ import * as assert from 'assert';
 (function tirgger_led(): void {
     const Gpio = pigpio.Gpio;
     let iv: NodeJS.Timer;
-    let led = new Gpio(17, { mode: Gpio.OUTPUT });
+    const led = new Gpio(17, { mode: Gpio.OUTPUT });
 
     iv = setInterval(function timer() {
         led.trigger(100, 1);

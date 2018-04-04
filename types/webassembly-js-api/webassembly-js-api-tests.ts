@@ -30,7 +30,7 @@ debug(`wasmDataU8[7]=${wasmDataU8[7].toString(16)}`);
 
 // Validate
 let valid = WebAssembly.validate(wasmDataU8);
-debug("wasmDataU8 is " + (valid ? "" : "not ") + "a valid wasm wasmModule");
+debug(`wasmDataU8 is ${valid ? "" : "not "}a valid wasm wasmModule`);
 
 // Module
 let wasmModule = new WebAssembly.Module(wasmDataU8);

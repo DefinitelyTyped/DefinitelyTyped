@@ -226,7 +226,7 @@ describe("wu.invoke", () => {
       this.name = name;
     }
     Greeter.prototype.greet = function(tail: string) {
-      return "hello " + this.name + tail;
+      return `hello ${this.name}${tail}`;
     };
     assert.eqArray(["hello world!", "hello test!"],
                    wu.invoke("greet", "!",

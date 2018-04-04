@@ -21,6 +21,28 @@ import {
 	Text
 } from "spectacle";
 
+// Import image preloader util
+import preloader from 'spectacle/lib/utils/preloader'
+
+// Import theme
+import createTheme from 'spectacle/lib/themes/default'
+
+const images = {
+  city: 'a-url'
+}
+
+preloader(images)
+
+const theme = createTheme({
+  primary: 'white',
+  secondary: '#1F2022',
+  tertiary: '#03A9FC',
+  quartenary: '#CECECE'
+}, {
+  primary: 'Montserrat',
+  secondary: 'Helvetica'
+})
+
 export class SpectacleTest extends React.Component {
 	callback() {
 		alert('Callback: ' + JSON.stringify(arguments));

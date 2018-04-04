@@ -1,6 +1,4 @@
-// Tests for Video.js API
-
-import * as videojs from 'video.js';
+import videojs = require('video.js');
 
 videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.

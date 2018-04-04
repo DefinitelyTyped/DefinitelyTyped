@@ -1,4 +1,4 @@
-import {isHoliday, isHolidayAt, getHolidaysOf} from 'japanese-holidays';
+import { isHoliday, isHolidayAt, getHolidaysOf } from 'japanese-holidays';
 
 const date = new Date(2017, 0, 9);
 const h: string | undefined = isHoliday(date);

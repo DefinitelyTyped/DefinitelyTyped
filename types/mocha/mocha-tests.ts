@@ -1,5 +1,50 @@
+import {
+    after as importedAfter,
+    before as importedBefore,
+    afterEach as importedAfterEach,
+    beforeEach as importedBeforeEach,
+    context as importedContext,
+    describe as importedDescribe,
+    it as importedIt,
+    xdescribe as importedXdescribe,
+    xit as importedXit
+} from 'mocha';
+
 let boolean: boolean;
 let string: string;
+let number: number;
+let stringOrUndefined: string | undefined;
+let dateOrUndefined: Date | undefined;
+const resolved = Promise.resolve();
+const rejected = Promise.reject('some error');
+
+// Use module augmentation to add a third-party interface
+declare module 'mocha' {
+    interface InterfaceContributions {
+        'third-party-interface': any;
+    }
+}
+const i: Mocha.Interface = 'third-party-interface';
+
+// Lazy tests of compatibility between imported and global functions; should be identical
+const _after: typeof after = importedAfter;
+const _after2: typeof importedAfter = after;
+const _before: typeof before = importedBefore;
+const _before2: typeof importedBefore = before;
+const _afterEach: typeof afterEach = importedAfterEach;
+const _afterEach2: typeof importedAfterEach = afterEach;
+const _beforeEach: typeof beforeEach = importedBeforeEach;
+const _beforeEach2: typeof importedBeforeEach = beforeEach;
+const _context: typeof context = importedContext;
+const _context2: typeof importedContext = context;
+const _describe: typeof describe = importedDescribe;
+const _describe2: typeof importedDescribe = describe;
+const _it: typeof it = importedIt;
+const _it2: typeof importedIt = it;
+const _xdescribe: typeof xdescribe = importedXdescribe;
+const _xdescribe2: typeof importedXdescribe = xdescribe;
+const _xit: typeof xit = importedXit;
+const _xit2: typeof importedXit = xit;
 
 function test_describe() {
     describe('something', () => { });
@@ -8,7 +53,7 @@ function test_describe() {
 
     describe.skip('something', () => { });
 
-    describe('something', function () {
+    describe('something', function() {
         this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
@@ -20,7 +65,7 @@ function test_context() {
 
     context.skip('some context', () => { });
 
-    context('some context', function () {
+    context('some context', function() {
         this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
@@ -32,58 +77,64 @@ function test_suite() {
 
     suite.skip('some context', () => { });
 
-    suite('some context', function () {
+    suite('some context', function() {
         this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
 
 function test_it() {
+    it('does something', () => { }).timeout('2s');
 
-    it('does something', () => { });
-
-    it('does something', function () { this['sharedState'] = true; });
+    it('does something', function() { this['sharedState'] = true; });
 
     it('does something', (done) => { done(); });
+
+    it('does something', () => resolved);
+    it('does something', () => rejected);
 
     it.only('does something', () => { });
 
     it.skip('does something', () => { });
 
-    it('does something', function () {
+    it('does something', function() {
         this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
 
 function test_test() {
-
     test('does something', () => { });
 
-    test('does something', function () { this['sharedState'] = true; });
+    test('does something', function() { this['sharedState'] = true; });
 
     test('does something', (done) => { done(); });
+
+    test('does something', () => resolved);
+    test('does something', () => rejected);
 
     test.only('does something', () => { });
 
     test.skip('does something', () => { });
 
-    test('does something', function () {
+    test('does something', function() {
         this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
 
 function test_specify() {
-
     specify('does something', () => { });
 
-    specify('does something', function () { this['sharedState'] = true; });
+    specify('does something', function() { this['sharedState'] = true; });
 
     specify('does something', (done) => { done(); });
+
+    specify('does something', () => resolved);
+    specify('does something', () => rejected);
 
     specify.only('does something', () => { });
 
     specify.skip('does something', () => { });
 
-    specify('does something', function () {
+    specify('does something', function() {
         this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
@@ -91,15 +142,20 @@ function test_specify() {
 function test_before() {
     before(() => { });
 
-    before(function () { this['sharedState'] = true; });
+    before(function() { this['sharedState'] = true; });
 
     before((done) => { done(); });
+
+    before(() => resolved);
+    before(() => rejected);
 
     before("my description", () => { });
 
     before("my description", done => { });
 
-    before("my description", function () {
+    before("my description", () => resolved);
+
+    before("my description", function() {
         this.skip().timeout(2000).skip();
     });
 }
@@ -112,8 +168,8 @@ function test_setup() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
-     });
+        stringOrUndefined = this.currentTest.state;
+    });
 
     setup(function() {
         this['sharedState'] = true;
@@ -123,10 +179,10 @@ function test_setup() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
-     });
+        stringOrUndefined = this.currentTest.state;
+    });
 
-    setup(function (done) {
+    setup(function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -134,20 +190,35 @@ function test_setup() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
+    });
+
+    setup(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
     });
 }
 
 function test_after() {
     after(() => { });
 
-    after(function () { this['sharedState'] = true; });
+    after(function() { this['sharedState'] = true; });
 
     after((done) => { done(); });
+
+    after(() => resolved);
 
     after("my description", () => { });
 
     after("my description", done => { });
+
+    after("my description", () => resolved);
 }
 
 function test_teardown() {
@@ -158,7 +229,7 @@ function test_teardown() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     teardown(function() {
@@ -169,7 +240,7 @@ function test_teardown() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     teardown(function(done) {
@@ -180,22 +251,33 @@ function test_teardown() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
-}
 
-function test_beforeEach() {
-    beforeEach(function () {
+    teardown(function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
+}
+
+function test_beforeEach() {
+    beforeEach(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -203,10 +285,10 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
-    beforeEach(function (done) {
+    beforeEach(function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -214,7 +296,18 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
+    });
+
+    beforeEach(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
     });
 
     beforeEach("my description", function() {
@@ -224,7 +317,7 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     beforeEach("my description", function(done) {
@@ -235,30 +328,43 @@ function test_beforeEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
-}
 
-function test_suiteSetup() {
-    suiteSetup(() => { });
-
-    suiteSetup(function () { this['sharedState'] = true; });
-
-    suiteSetup((done) => { done(); });
-}
-
-function test_afterEach() {
-    afterEach(function () {
+    beforeEach("my description", function() {
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
+}
+
+function test_suiteSetup() {
+    suiteSetup(() => { });
+
+    suiteSetup(function() { this['sharedState'] = true; });
+
+    suiteSetup((done) => { done(); });
+
+    suiteSetup(() => resolved);
+}
+
+function test_afterEach() {
+    afterEach(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
     });
 
-    afterEach(function () {
+    afterEach(function() {
         this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -266,10 +372,10 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
-    afterEach(function (done) {
+    afterEach(function(done) {
         done();
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
@@ -277,7 +383,18 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
+    });
+
+    afterEach(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
     });
 
     afterEach("my description", function() {
@@ -287,7 +404,7 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
     afterEach("my description", function(done) {
@@ -298,17 +415,29 @@ function test_afterEach() {
         boolean = this.currentTest.timedOut;
         string = this.currentTest.title;
         string = this.currentTest.fullTitle();
-        string = this.currentTest.state;
+        stringOrUndefined = this.currentTest.state;
     });
 
+    afterEach("my description", function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        stringOrUndefined = this.currentTest.state;
+        return resolved;
+    });
 }
 
 function test_suiteTeardown() {
     suiteTeardown(() => { });
 
-    suiteTeardown(function () { this['sharedState'] = true; });
+    suiteTeardown(function() { this['sharedState'] = true; });
 
     suiteTeardown((done) => { done(); });
+
+    suiteTeardown(() => resolved);
 }
 
 function test_reporter_string() {
@@ -316,7 +445,7 @@ function test_reporter_string() {
 }
 
 function test_reporter_function() {
-    mocha.reporter(function () { });
+    mocha.reporter(class { });
 }
 
 function test_setup_slow_option() {
@@ -339,8 +468,12 @@ function test_setup_reporter_string_option() {
     mocha.setup({ reporter: 'html' });
 }
 
+function test_setup_require_stringArray_option() {
+    mocha.setup({ require: ['ts-node/register'] });
+}
+
 function test_setup_reporter_function_option() {
-    mocha.setup({ reporter: function () { } });
+    mocha.setup({ reporter: class { } });
 }
 
 function test_setup_bail_option() {
@@ -372,12 +505,13 @@ function test_setup_all_options() {
         reporter: 'html',
         bail: true,
         ignoreLeaks: true,
-        grep: 'test'
+        grep: 'test',
+        require: ['ts-node/register']
     });
 }
 
 function test_run() {
-    mocha.run(function () { })
+    mocha.run(() => {});
 }
 
 function test_growl() {
@@ -389,21 +523,21 @@ function test_chaining() {
         .setup({ slow: 25 })
         .growl()
         .reporter('html')
-        .reporter(function () { });
+        .reporter(class { });
 }
 
 import MochaDef = require('mocha');
 
 function test_require_constructor_empty() {
-    var instance = new MochaDef();
+    const instance = new MochaDef();
 }
 
 function test_require_constructor_noOptions() {
-    var instance = new MochaDef({});
+    const instance = new MochaDef({});
 }
 
 function test_require_constructor_allOptions() {
-    var instance = new MochaDef({
+    const instance = new MochaDef({
         grep: /[a-z]*/,
         ui: 'tdd',
         reporter: 'dot',
@@ -412,9 +546,8 @@ function test_require_constructor_allOptions() {
     });
 }
 
-
 function test_require_fluentParams() {
-    var instance = new MochaDef();
+    const instance = new MochaDef();
 
     instance.bail(true)
         .bail()
@@ -440,7 +573,7 @@ function test_require_fluentParams() {
 }
 
 function test_run_withOnComplete() {
-    var instance = new MochaDef();
+    const instance = new MochaDef();
 
     instance.run((failures: number): void => {
         console.log(failures);
@@ -449,4 +582,45 @@ function test_run_withOnComplete() {
 
 function test_throwError() {
     mocha.throwError(new Error("I'm an error!"));
+}
+
+function test_mochaRunner_properties(runner: MochaDef.IRunner, suite: MochaDef.ISuite) {
+    runner = runner.abort();
+
+    if (runner.stats !== undefined) {
+        number = runner.stats.failures;
+        number = runner.stats.passes;
+        number = runner.stats.pending;
+        number = runner.stats.suites;
+        number = runner.stats.tests;
+
+        dateOrUndefined = runner.stats.start;
+        dateOrUndefined = runner.stats.end;
+        dateOrUndefined = runner.stats.duration;
+    }
+
+    const s: MochaDef.ISuite = runner.suite;
+    boolean = runner.started;
+    number = runner.total;
+    number = runner.failures;
+
+    runner = runner.grep("regex", false);
+    number = runner.grepTotal(suite);
+
+    const globals: string[] | MochaDef.IRunner = runner.globals(["hello", "world"]);
+
+    runner = runner.run();
+    runner = runner.run((f: number) => {});
+}
+
+function test_base_reporter_properties(reporter: MochaDef.reporters.Base) {
+    number = reporter.stats.failures;
+    number = reporter.stats.passes;
+    number = reporter.stats.pending;
+    number = reporter.stats.suites;
+    number = reporter.stats.tests;
+
+    dateOrUndefined = reporter.stats.start;
+    dateOrUndefined = reporter.stats.end;
+    dateOrUndefined = reporter.stats.duration;
 }

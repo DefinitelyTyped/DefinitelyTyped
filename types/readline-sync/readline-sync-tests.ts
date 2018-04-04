@@ -55,7 +55,7 @@ readlineSync.promptCL((command: string, arg1: string, arg2: string) => {
   if (command === 'add') {
     console.log(arg1 + ' is added.');
   } else if (command === 'copy') {
-    console.log(arg1 + ' is copied to ' + arg2 + '.');
+    console.log(`${arg1} is copied to ${arg2}.`);
   }
 });
 
@@ -64,12 +64,12 @@ readlineSync.promptCL({
     console.log(element + ' is added.');
   },
   copy: (from: string, to: string) => {
-    console.log(from + ' is copied to ' + to + '.');
+    console.log(`${from} is copied to ${to}.`);
   }
 });
 
 readlineSync.promptLoop((input: string) => {
-  console.log('-- You said "' + input + '"');
+  console.log(`-- You said "${input}"`);
   return input === 'bye';
 });
 
@@ -78,7 +78,7 @@ readlineSync.promptCLLoop({
     console.log(element + ' is added.');
   },
   copy: (from: string, to: string) => {
-    console.log(from + ' is copied to ' + to + '.');
+    console.log(`${from} is copied to ${to}.`);
   },
   bye: () => true
 });

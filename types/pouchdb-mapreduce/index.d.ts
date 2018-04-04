@@ -6,9 +6,6 @@
 
 /// <reference types="pouchdb-core" />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
 declare namespace PouchDB {
     type BuiltInReducers = '_sum' | '_count' | '_stats';
     /**
@@ -95,7 +92,7 @@ declare namespace PouchDB {
          * to take up space on disk. viewCleanup() removes these unnecessary
          * index files.
          */
-        viewCleanup(callback: PouchDB.Core.Callback<Core.BasicResponse>): void;
+        viewCleanup(callback: Core.Callback<Core.BasicResponse>): void;
         /**
          * Cleans up any stale map/reduce indexes.
          *

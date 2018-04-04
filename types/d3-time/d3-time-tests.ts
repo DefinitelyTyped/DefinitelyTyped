@@ -11,9 +11,9 @@ import * as d3Time from 'd3-time';
 let countableI: d3Time.CountableTimeInterval;
 let simpleI: d3Time.TimeInterval;
 let dateArray: Date[];
-let start: Date = new Date(2014, 1, 1, 6, 0, 0, 0);
-let end: Date = new Date(2016, 6, 13, 1, 25, 15, 500);
-let inBetween: Date = new Date(2015, 6, 13, 1, 30, 5, 700);
+const start: Date = new Date(2014, 1, 1, 6, 0, 0, 0);
+const end: Date = new Date(2016, 6, 13, 1, 25, 15, 500);
+const inBetween: Date = new Date(2015, 6, 13, 1, 30, 5, 700);
 let resultDate: Date;
 let count: number;
 
@@ -75,7 +75,7 @@ simpleI = countableI.filter((d: Date) => d.getMonth() === 2);
 count = countableI.count(start, end);
 
 // let countableIOrNull: d3Time.CountableTimeInterval | null = countableI.every(10); // Test fails, since .every(...) return Interval and not CountableInterval
-let simpleIOrNull: d3Time.TimeInterval | null = countableI.every(10);
+const simpleIOrNull: d3Time.TimeInterval | null = countableI.every(10);
 
 resultDate = simpleI.floor(inBetween);
 resultDate = simpleI.round(inBetween);

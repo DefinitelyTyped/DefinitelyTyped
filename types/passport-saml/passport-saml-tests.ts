@@ -1,8 +1,9 @@
 import express = require('express');
 import passport = require('passport');
 import SamlStrategy = require('passport-saml');
+import fs = require('fs');
 
-let samlStrategy = new SamlStrategy.Strategy(
+const samlStrategy = new SamlStrategy.Strategy(
 	{
 		path: '/login/callback',
 		entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
@@ -18,10 +19,11 @@ let samlStrategy = new SamlStrategy.Strategy(
 				// removes the key from the cache, invokes `callback` with the
 				// key removed, null if no key is removed
 			}
-		}
+		},
+		cert: fs.readFileSync('/path/to/cert.crt', 'UTF8')
 	},
 	(profile: {}, done: (err: Error | null, user: {}, info?: {}) => void) => {
-		let user = {};
+		const user = {};
 		done(null, user);
 	}
 );
@@ -29,4 +31,4 @@ let samlStrategy = new SamlStrategy.Strategy(
 passport.use(samlStrategy);
 passport.authenticate('saml', {failureRedirect: '/', failureFlash: true});
 
-let metadata = samlStrategy.generateServiceProviderMetadata("decryptionCert");
+const metadata = samlStrategy.generateServiceProviderMetadata("decryptionCert");

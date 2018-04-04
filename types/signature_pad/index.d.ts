@@ -1,6 +1,7 @@
 // Type definitions for signature_pad
 // Project: https://github.com/szimek/signature_pad
 // Definitions by: Abubaker Bashir <https://github.com/AbubakerB>
+//                 Jason Mihalick <https://github.com/jrmihalick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Szymon Nowak <https://github.com/szimek>
 
@@ -8,7 +9,8 @@ declare namespace SignaturePad {
 	class Point {
 	    x: number;
 	    y: number;
-	    time: number;
+		time: number;
+		color?: string;
 	    constructor(x: number, y: number, time: number);
 	    velocityFrom(start: Point): number;
 	    distanceTo(start: Point): number;
@@ -100,9 +102,14 @@ declare class SignaturePad {
     */
     fromDataURL(dataUrl: string): void;
     /**
-    *   Returns signature image as data URL
+    *   Returns array of signature point groups
     */
-    toDataURL(): string;
+    toData(): Array<Array<SignaturePad.Point>>;
+    /**
+	*   Returns signature image as data URL.
+	*   If 'type' parameter is ommitted, PNG dataUrl is returned.
+    */
+    toDataURL(type?: string): string;
     /**
     *   Unbinds all event handlers
     */

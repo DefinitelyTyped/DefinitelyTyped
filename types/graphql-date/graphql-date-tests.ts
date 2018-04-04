@@ -1,4 +1,4 @@
-import {GraphQLObjectType} from 'graphql';
+import { GraphQLObjectType } from 'graphql';
 import * as GraphQLDate from 'graphql-date';
 
 const fooType = new GraphQLObjectType({

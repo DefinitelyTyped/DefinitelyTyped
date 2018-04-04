@@ -1,23 +1,21 @@
-
-
 import cookie = require('cookie');
 
 function test_serialize(): void {
-    var retVal: string;
+    let retVal: string;
 
     retVal = cookie.serialize('foo', 'bar');
     retVal = cookie.serialize('foo', 'bar', { httpOnly: true });
 }
 
 function test_parse(): void {
-    var retVal: { [key: string]: string };
+    let retVal: { [key: string]: string };
 
     retVal = cookie.parse('foo=bar; bar=baz;');
     retVal = cookie.parse('foo=bar; bar=baz', { decode: x => x });
 }
 
 function test_options(): void {
-    var serializeOptions: cookie.CookieSerializeOptions = {
+    const serializeOptions: cookie.CookieSerializeOptions = {
         encode: (x: string) => x,
         path: '/',
         expires: new Date(),
@@ -27,7 +25,7 @@ function test_options(): void {
         httpOnly: false
     };
 
-    var parseOptios: cookie.CookieParseOptions = {
+    const parseOptios: cookie.CookieParseOptions = {
         decode: (x: string) => x
     };
 }

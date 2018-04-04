@@ -1,8 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "only-arrow-functions": [
-            false
-        ]
+        // TODOs
+        "no-object-literal-type-assertion": false,
+        "only-arrow-functions": false
     }
 }

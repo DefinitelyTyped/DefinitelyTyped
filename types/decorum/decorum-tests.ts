@@ -1,4 +1,4 @@
-import {Required} from 'decorum';
+import { Required } from 'decorum';
 import {Email} from 'decorum';
 import {MinLength} from 'decorum';
 import {MaxLength} from 'decorum';

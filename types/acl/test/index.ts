@@ -66,6 +66,18 @@ acl.isAllowed('joed', 'blogs', 'view', (err, res) => {
     }
 });
 
+acl.whatResources('foo', (err, res) => {
+    if (res) {
+        console.log(res);
+    }
+});
+
+acl.whatResources('foo', 'view', (err, res) => {
+    if (res) {
+        console.log(res);
+    }
+});
+
 acl.isAllowed('jsmith', 'blogs', ['edit','view','delete'])
 .then((result) => {
   console.dir('jsmith is allowed blogs ' + result);

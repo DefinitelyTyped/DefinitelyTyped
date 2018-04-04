@@ -83,3 +83,6 @@ declare namespace flowjs {
         getType(): string;
     }
 }
+
+export = flowjs;
+export as namespace flowjs;

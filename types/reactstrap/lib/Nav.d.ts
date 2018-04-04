@@ -1,14 +1,18 @@
-interface Props extends React.HTMLProps<HTMLUListElement> {
-  inline?: boolean;
-  disabled?: boolean;
+import { CSSModule } from '../index';
+
+export interface NavProps extends React.HTMLProps<HTMLUListElement> {
   tabs?: boolean;
   pills?: boolean;
-  stacked?: boolean;
+  vertical?: boolean | string;
+  horizontal?: string;
+  justified?: boolean;
+  fill?: boolean;
   navbar?: boolean;
+  card?: boolean;
   tag?: React.ReactType;
   className?: string;
-  vertical?: boolean;
+  cssModule?: CSSModule;
 }
 
-declare var Nav: React.StatelessComponent<Props>;
+declare const Nav: React.StatelessComponent<NavProps>;
 export default Nav;

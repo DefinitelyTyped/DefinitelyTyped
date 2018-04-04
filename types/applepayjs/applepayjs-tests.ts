@@ -6,7 +6,7 @@ declare function it(desc: string, fn: () => void): void;
 
 describe("ApplePaySession", () => {
     it("the constants are defined", () => {
-        let status = 0;
+        const status = 0;
         switch (status) {
             case ApplePaySession.STATUS_FAILURE:
             case ApplePaySession.STATUS_INVALID_BILLING_POSTAL_ADDRESS:
@@ -22,7 +22,7 @@ describe("ApplePaySession", () => {
     });
     it("can create a new instance", () => {
         const version = 1;
-        const paymentRequest = {
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: "US",
             currencyCode: "USD",
             supportedNetworks: [
@@ -43,8 +43,8 @@ describe("ApplePaySession", () => {
     it("can call static methods", () => {
         const merchantIdentifier = "MyMerchantId";
 
-        let canMakePayments: boolean = ApplePaySession.canMakePayments();
-        let supported: boolean = ApplePaySession.supportsVersion(2);
+        const canMakePayments: boolean = ApplePaySession.canMakePayments();
+        const supported: boolean = ApplePaySession.supportsVersion(2);
 
         ApplePaySession.canMakePaymentsWithActiveCard(merchantIdentifier)
             .then((status: boolean) => {
@@ -57,8 +57,8 @@ describe("ApplePaySession", () => {
             });
     });
     it("can call instance methods", () => {
-        const version = 1;
-        const paymentRequest = {
+        const version = 3;
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             countryCode: "US",
             currencyCode: "USD",
             supportedNetworks: [
@@ -66,7 +66,9 @@ describe("ApplePaySession", () => {
                 "visa"
             ],
             merchantCapabilities: [
-                "supports3DS"
+                "supports3DS",
+                "supportsCredit",
+                "supportsDebit"
             ],
             total: {
                 label: "My Store",
@@ -80,15 +82,29 @@ describe("ApplePaySession", () => {
         session.completeMerchantValidation({
             foo: "bar"
         });
+
         session.completePayment(ApplePaySession.STATUS_SUCCESS);
 
-        const total = {
+        const authorizationResult: ApplePayJS.ApplePayPaymentAuthorizationResult = {
+            status: ApplePaySession.STATUS_FAILURE,
+            errors: [
+                {
+                    code: "addressUnserviceable",
+                    contactField: "postalCode",
+                    message: "The specified postal code cannot be delivered to."
+                }
+            ]
+        };
+
+        session.completePayment(authorizationResult);
+
+        const total: ApplePayJS.ApplePayLineItem = {
             label: "Subtotal",
             type: "final",
             amount: "35.00"
         };
 
-        const lineItems = [
+        const lineItems: ApplePayJS.ApplePayLineItem[] = [
             {
                 label: "Subtotal",
                 type: "final",
@@ -97,11 +113,12 @@ describe("ApplePaySession", () => {
             {
                 label: "Free Shipping",
                 amount: "0.00",
-                type: "pending"
+                type: "final"
             },
             {
                 label: "Estimated Tax",
-                amount: "3.06"
+                amount: "3.06",
+                type: "pending"
             }
         ];
 
@@ -120,16 +137,34 @@ describe("ApplePaySession", () => {
 
         session.completePaymentMethodSelection(total, lineItems);
 
+        const paymentUpdate = {
+            newTotal: total
+        };
+
+        session.completePaymentMethodSelection(paymentUpdate);
+
         session.completeShippingContactSelection(
             ApplePaySession.STATUS_INVALID_SHIPPING_POSTAL_ADDRESS,
             shippingMethods,
             total,
             lineItems);
 
+        const contactUpdate = {
+            newTotal: total
+        };
+
+        session.completeShippingContactSelection(contactUpdate);
+
         session.completeShippingMethodSelection(
             ApplePaySession.STATUS_SUCCESS,
             total,
             lineItems);
+
+        const shippingUpdate = {
+            newTotal: total
+        };
+
+        session.completeShippingMethodSelection(shippingUpdate);
 
         session.oncancel = (event: ApplePayJS.Event): void => {
             event.cancelBubble = true;
@@ -168,7 +203,7 @@ describe("ApplePaySession", () => {
 });
 describe("ApplePayPaymentRequest", () => {
     it("can create a new instance", () => {
-        let paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             applicationData: "ApplicationData",
             countryCode: "GB",
             currencyCode: "GBP",
@@ -181,8 +216,8 @@ describe("ApplePayPaymentRequest", () => {
                 "amex",
                 "discover",
                 "jcb",
-                "master​Card",
-                "private​Label",
+                "masterCard",
+                "privateLabel",
                 "visa"
             ],
             total: {
@@ -201,7 +236,9 @@ describe("ApplePayPaymentRequest", () => {
                 "1 Infinite Loop"
             ],
             locality: "Cupertino",
+            subLocality: "",
             administrativeArea: "CA",
+            subAdministrativeArea: "",
             postalCode: "95014",
             country: "United States",
             countryCode: "US"
@@ -233,7 +270,7 @@ describe("ApplePayPaymentRequest", () => {
             "postalAddress",
             "name",
             "phone",
-            "email"
+            "name"
         ];
 
         paymentRequest.shippingContact = {
@@ -241,11 +278,15 @@ describe("ApplePayPaymentRequest", () => {
             familyName: "Patel",
             givenName: "Ravi",
             phoneNumber: "(408) 555-5555",
+            phoneticFamilyName: "Patel",
+            phoneticGivenName: "Ravi",
             addressLines: [
                 "1 Infinite Loop"
             ],
             locality: "Cupertino",
+            subLocality: "",
             administrativeArea: "CA",
+            subAdministrativeArea: "",
             postalCode: "95014",
             country: "United States",
             countryCode: "US"
@@ -265,5 +306,6 @@ describe("ApplePayPaymentRequest", () => {
         ];
 
         paymentRequest.shippingType = "storePickup";
+        paymentRequest.shippingType = "delivery";
     });
 });

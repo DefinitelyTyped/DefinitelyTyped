@@ -11,9 +11,17 @@ import SortableTree,
         ExtendedNodeData,
         FullTree,
         OnVisibilityToggleData,
-        PreviousAnNextLocation
+        PreviousAndNextLocation,
+        PlaceholderRendererProps
     } from "react-sortable-tree";
 import { ListProps, ListRowRenderer } from "react-virtualized";
+
+class PlaceholderRenderer extends React.Component<PlaceholderRendererProps> {
+    render() {
+        const backgroundColor = this.props.isOver ? 'green' : 'red';
+        return <div style={{backgroundColor}}>Custom Placeholder class</div>;
+    }
+}
 
 class Test extends React.Component {
     render() {
@@ -21,7 +29,7 @@ class Test extends React.Component {
             {
                 title: "Title", subtitle: "Subtitle", children: [
                     {title: "Child 1", subtitle: "Subtitle", children: []},
-                    {title: "Child 2", subtitle: "Subtitle", children: []}
+                    {title: "Child 2", subtitle: "Subtitle"}
                 ]
             }
         ];
@@ -47,13 +55,15 @@ class Test extends React.Component {
                     onMoveNode={(data: NodeData & FullTree) => {}}
                     onVisibilityToggle={(data: OnVisibilityToggleData) => {}}
                     canDrag={true}
-                    canDrop={(data: PreviousAnNextLocation & NodeData) => true}
+                    canDrop={(data: PreviousAndNextLocation & NodeData) => true}
                     reactVirtualizedListProps={reactVirtualizedListProps}
                     rowHeight={62}
                     slideRegionSize={100}
                     scaffoldBlockPxWidth={44}
                     isVirtualized={true}
                     nodeContentRenderer={nodeRenderer}
+                    dndType="testNodeType"
+                    placeholderRenderer={PlaceholderRenderer}
                 />
                 <SortableTreeWithoutDndContext
                     treeData={[{title: "Title", subtitle: "Subtitle", children: []}]}

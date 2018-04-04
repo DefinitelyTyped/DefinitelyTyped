@@ -2,10 +2,11 @@
 // Project: https://github.com/heyman/leaflet-areaselect
 // Definitions by: André Wallat <https://github.com/awallat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
   function areaSelect(box: AreaSelectOptions): AreaSelect;
 
   interface AreaSelectOptions {
@@ -20,7 +21,7 @@ declare namespace L {
   }
 
   interface AreaSelect {
-    addTo(map: Map): L.Map;
+    addTo(map: Map): Map;
     getBounds(): LatLngBounds;
     remove(): void;
     setDimensions(dim: Dimension): void;

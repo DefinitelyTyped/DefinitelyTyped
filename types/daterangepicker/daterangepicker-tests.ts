@@ -34,7 +34,7 @@ function tests_simple() {
     $('#demo').daterangepicker({
         "startDate": "05/06/2016",
         "endDate": "05/12/2016"
-    }, function (start: string, end: string, label: string) {
+    }, function (start: moment.Moment, end: moment.Moment, label: string) {
         console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
     });
 

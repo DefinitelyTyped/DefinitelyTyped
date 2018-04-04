@@ -1,4 +1,4 @@
-import * as nodePowershell from 'node-powershell';
+import nodePowershell = require('node-powershell');
 
 var options: nodePowershell.ShellOptions = {
     debugMsg: true

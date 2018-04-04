@@ -29,7 +29,7 @@ export declare class IncomingForm extends events.EventEmitter {
 }
 
 export interface Fields {
-    [key: string]: string;
+    [key: string]: string|Array<string>;
 }
 
 export interface Files {

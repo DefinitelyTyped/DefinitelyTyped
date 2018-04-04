@@ -6,21 +6,18 @@ import * as oibackoff from 'oibackoff';
 // Examples from https://github.com/chilts/oibackoff/blob/master/README.md
 
 // Example 1
-var backoff = oibackoff.backoff({
+let backoff = oibackoff.backoff({
     algorithm  : 'exponential',
     delayRatio : 0.2,
     maxTries   : 5,
 });
 
-
-backoff(dns.resolve, 'example.com', function(err, tries, delay): boolean {
-    return true;
-}, function(err, addresses) {
+backoff(dns.resolve, 'example.com', (err, tries, delay) => true, (err, addresses) => {
     // Do something
 });
 
-let fn = function(callback: (err: number) => any){}
-backoff(fn, function(err, addresses, priorErrors) {
+const fn = (callback: (err: number) => any) => {};
+backoff(fn, (err, addresses, priorErrors) => {
     if (err) {
         // do something to recover from this error
         return;
@@ -30,7 +27,7 @@ backoff(fn, function(err, addresses, priorErrors) {
     console.log(addresses);
 });
 
-backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
+backoff(dns.resolve, 'chilts.org', (err, addresses, priorErrors) => {
     if (err) {
         // do something to recover from this error
         return;
@@ -39,17 +36,16 @@ backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
     // do something with addresses
     console.log(addresses);
 });
-
 
 // Example 2
-var intermediate = function(err: Error, tries: number, delay: number): boolean {
+function intermediate(err: Error, tries: number, delay: number): boolean {
     console.log(err);   // last error
     console.log(tries); // total number of tries performed thus far
     console.log(delay); // the delay for the next attempt
     return false;       // this will cancel additional tries
-};
+}
 
-backoff(dns.resolve, 'chilts.org', intermediate, function(err, addresses, priorErrors) {
+backoff(dns.resolve, 'chilts.org', intermediate, (err, addresses, priorErrors) => {
     if (err) {
         // do something to recover from this error
         return;
@@ -59,9 +55,7 @@ backoff(dns.resolve, 'chilts.org', intermediate, function(err, addresses, priorE
     console.log(addresses);
 });
 
-backoff(dns.resolve, 'chilts.org', function(err, tries, delay): boolean {
-    return true;
-}, function(err, addresses) {
+backoff(dns.resolve, 'chilts.org', (err, tries, delay) => true, (err, addresses) => {
     if (err) {
         // do something to recover from this error
         return;

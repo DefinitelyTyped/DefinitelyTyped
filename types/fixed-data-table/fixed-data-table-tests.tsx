@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Table, Cell, Column, CellProps} from "fixed-data-table";
+import { Table, Cell, Column, CellProps } from "fixed-data-table";
 
 // create your Table
 class MyTable1 extends React.Component {
@@ -36,7 +36,7 @@ class MyTable2 extends React.Component {
 
 // provide Custom Data
 interface MyTable3State {
-    myTableData: [{name: string}];
+    myTableData: {name: string}[];
 }
 
 class MyTable3 extends React.Component<{}, MyTable3State> {

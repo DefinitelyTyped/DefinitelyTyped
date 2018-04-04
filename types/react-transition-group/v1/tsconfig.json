@@ -7,12 +7,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "jsx": "react",
         "baseUrl": "../../",
-        "typeRoots": ["../../"],
+        "typeRoots": [
+            "../../"
+        ],
         "paths": {
-          "react-transition-group": ["react-transition-group/v1"],
-          "react-transition-group/*": ["react-transition-group/v1/*"]
+            "react-transition-group": [
+                "react-transition-group/v1"
+            ],
+            "react-transition-group/*": [
+                "react-transition-group/v1/*"
+            ]
         },
         "types": [],
         "noEmit": true,

@@ -1,6 +1,7 @@
-// Type definitions for AFRAME 0.5
+// Type definitions for AFRAME 0.7
 // Project: https://aframe.io/
 // Definitions by: Paul Shannon <https://github.com/devpaul>
+//                 Roberto Ritger <https://github.com/bertoritger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,14 +16,11 @@
 declare var AFRAME: AFrame.AFrameGlobal;
 declare var hasNativeWebVRImplementation: boolean;
 
-interface NodeSelector {
-	querySelector(selectors: 'a-scene'): AFrame.Scene;
+interface Document {
+    createElement(tagName: string): AFrame.Entity;
+    querySelector(selectors: 'a-scene'): AFrame.Scene;
 	querySelector<T extends AFrame.Entity<any>>(selectors: string): T;
 	querySelectorAll(selectors: string): NodeListOf<AFrame.Entity<any> | Element>;
-}
-
-interface Document {
-	createElement(tagName: string): AFrame.Entity;
 }
 
 // Interfaces
@@ -40,7 +38,7 @@ declare namespace AFrame {
 		primitives: { [ key: string ]: Entity };
 		registerComponent(name: string, component: ComponentDefinition): ComponentConstructor;
 		registerElement(name: string, element: ANode): void;
-		registerGeometry(name: string, geometery: THREE.Geometry): Geometry;
+		registerGeometry(name: string, geometry: GeometryDefinition): Geometry;
 		registerPrimitive(name: string, primitive: PrimitiveDefinition): void;
 		registerShader(name: string, shader: any): void;
 		registerSystem(name: string, definition: SystemDefinition): void;
@@ -101,7 +99,7 @@ declare namespace AFrame {
 		name: string;
 		schema: Schema;
 
-		init(): void;
+		init(data?: any): void;
 		pause(): void;
 		play(): void;
 		remove(): void;
@@ -124,7 +122,7 @@ declare namespace AFrame {
 		multiple?: boolean;
 		schema?: Schema;
 
-		init?(): void;
+		init?(data?: any): void;
 		pause?(): void;
 		play?(): void;
 		remove?(): void;
@@ -220,6 +218,10 @@ declare namespace AFrame {
 		schema: Schema;
 		update(data: object): void;
 		[ key: string ]: any;
+	}
+
+	interface GeometryDefinition extends ComponentDefinition {
+		geometry?: THREE.Geometry;
 	}
 
 	interface GeometryDescriptor {

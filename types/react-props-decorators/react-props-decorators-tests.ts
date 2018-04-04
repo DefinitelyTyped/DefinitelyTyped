@@ -1,9 +1,10 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { propTypes, defaultProps } from 'react-props-decorators';
 
 @propTypes({
-    foo: React.PropTypes.string,
-    bar: React.PropTypes.number
+    foo: PropTypes.string,
+    bar: PropTypes.number
 })
 @defaultProps({
     foo: "defaultString",

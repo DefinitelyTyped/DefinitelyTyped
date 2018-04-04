@@ -27,6 +27,7 @@ function test_sticky() {
     // $ExpectType JQuery<HTMLElement>
     $(selector).sticky({
         pushing: false,
+        setSize: false,
         jitter: 4,
         observeChanges: true,
         context: $(),

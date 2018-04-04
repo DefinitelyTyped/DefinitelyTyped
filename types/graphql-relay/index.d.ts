@@ -2,6 +2,7 @@
 // Project: https://github.com/graphql/graphql-relay-js
 // Definitions by: Arvitaly <https://github.com/arvitaly>, nitintutlani <https://github.com/nitintutlani>, Grelinfo <https://github.com/Grelinfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import {
     GraphQLBoolean,
@@ -20,6 +21,9 @@ import {
     GraphQLOutputType,
     GraphQLFieldResolver,
     GraphQLTypeResolver,
+    GraphQLUnionType,
+    GraphQLEnumType,
+    GraphQLScalarType,
     Thunk
 } from "graphql";
 
@@ -57,9 +61,20 @@ export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
  */
 export const connectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionArgs & BackwardConnectionArgs;
 
+export type ConnectionConfigNodeTypeNullable =
+    | GraphQLScalarType
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType
+    | GraphQLEnumType;
+
+export type ConnectionConfigNodeType =
+    | ConnectionConfigNodeTypeNullable
+    | GraphQLNonNull<ConnectionConfigNodeTypeNullable>;
+
 export interface ConnectionConfig {
     name?: string | null;
-    nodeType: GraphQLObjectType;
+    nodeType: ConnectionConfigNodeType;
     resolveNode?: GraphQLFieldResolver<any, any> | null;
     resolveCursor?: GraphQLFieldResolver<any, any> | null;
     edgeFields?: Thunk<GraphQLFieldConfigMap<any, any>> | null;
@@ -244,6 +259,7 @@ export function mutationWithClientMutationId(
 export interface GraphQLNodeDefinitions {
     nodeInterface: GraphQLInterfaceType;
     nodeField: GraphQLFieldConfig<any, any>;
+    nodesField: GraphQLFieldConfig<any, any>;
 }
 
 export type typeResolverFn = ((any: any) => GraphQLObjectType) |

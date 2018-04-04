@@ -1,4 +1,4 @@
-// Type definitions for arrify 1.0.1
+// Type definitions for arrify 1.0
 // Project: https://github.com/sindresorhus/arrify
 // Definitions by: AnJun Wang <https://github.com/wanganjun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@
  * arrify(1)         // returns [1]
  * @example
  * arrify([2, 3])    // returns [2, 3]
- * @param val
  */
 declare function arrify<T>(val: undefined | null | T | T[]): T[];
+declare namespace arrify {}
 export = arrify;

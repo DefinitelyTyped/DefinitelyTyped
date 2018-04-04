@@ -5,6 +5,13 @@ function cb(response: DMVAST.VastResponse, error: Error): void {
     if (error) return;
     // process the VAST response
     const ads: DMVAST.VastAd[] = response.ads;
+    const linearCreative = response.ads[0].creatives.filter(creative => {
+        return creative.type === 'linear';
+    });
+    if (linearCreative && linearCreative.length > 0) {
+        const creative = linearCreative[0] as DMVAST.VastCreativeLinear;
+        const mediaFiles = creative.mediaFiles;
+    }
 }
 
 // CLIENT

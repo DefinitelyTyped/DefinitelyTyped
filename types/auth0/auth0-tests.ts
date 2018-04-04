@@ -111,3 +111,33 @@ management
 // Update app metadata using callback
 management
   .updateAppMetadata({id: "user_id"}, {"key": "value"}, (err: Error, users: auth0.User) => {});
+
+
+management.getUsersByEmail('email@address.com', (err, users) => {
+  console.log(users);
+});
+
+management.getUsersByEmail('email@address.com').then((users) => {
+  console.log(users);
+});
+
+// Using different client settings.
+
+const retryableManagementClient = new auth0.ManagementClient({
+  clientId: '',
+  clientSecret: '',
+  domain: 'xxx.auth0.com',
+  retry: {
+    enabled : true
+  }
+});
+
+management.createPasswordChangeTicket({
+  connection_id: 'con_id',
+  email: 'test@me.co',
+  new_password: 'password',
+  result_url: 'https://www.google.com/',
+  ttl_sec: 86400,
+}, (err: Error, data) => {
+  console.log(data.ticket);
+});

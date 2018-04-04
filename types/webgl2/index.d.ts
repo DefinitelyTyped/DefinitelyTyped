@@ -1,6 +1,6 @@
 // Type definitions for WebGL 2, Editor's Draft Fri Feb 24 16:10:18 2017 -0800
 // Project: https://www.khronos.org/registry/webgl/specs/latest/2.0/
-// Definitions by: Nico Kemnitz <https://github.com/nkemnitz/>
+// Definitions by: Nico Kemnitz <https://github.com/nkemnitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HTMLCanvasElement extends HTMLElement {
@@ -288,7 +288,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     // WebGL1:
     bufferData(target: number, size: number, usage: number): void;
     bufferData(target: number, srcData: ArrayBuffer | ArrayBufferView | null, usage: number): void;
-    bufferSubData(target: number, dstByteOffset: number, srcData: ArrayBuffer | ArrayBufferView): void;
+    bufferSubData(target: number, dstByteOffset: number, srcData: ArrayBuffer | ArrayBufferView | null): void;
     // WebGL2:
     bufferData(target: number, srcData: ArrayBufferView, usage: number, srcOffset: number,
         length?: number): void;
@@ -387,7 +387,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
         height: number, border: number, imageSize: number, offset: number): void;
     compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
-        height: number, border: number, srcData: ArrayBufferView,
+        height: number, border: number, srcData: ArrayBufferView | null,
         srcOffset?: number, srcLengthOverride?: number): void;
 
     compressedTexImage3D(target: number, level: number, internalformat: number, width: number,
@@ -400,7 +400,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
         width: number, height: number, format: number, imageSize: number, offset: number): void;
     compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
         width: number, height: number, format: number,
-        srcData: ArrayBufferView,
+        srcData: ArrayBufferView | null,
         srcOffset?: number,
         srcLengthOverride?: number): void;
 

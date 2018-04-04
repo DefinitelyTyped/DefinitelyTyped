@@ -5,7 +5,8 @@
 
 /// <reference types="node" />
 
-import {SrcOptions} from "vinyl-fs";
+import * as File from "vinyl";
+import { SrcOptions } from "vinyl-fs";
 
 interface IOptions extends SrcOptions {
     ignoreInitial?: boolean;
@@ -22,6 +23,9 @@ interface IWatchStream extends NodeJS.ReadWriteStream {
     close(): NodeJS.ReadWriteStream;
 }
 
-declare function watch(glob: string | Array<string>, options?: IOptions, callback?: Function): IWatchStream;
+type Cb = (file: File & { event: "add" | "change" | "unlink" }) => void;
+
+declare function watch(glob: string | Array<string>, callback?: Cb): IWatchStream;
+declare function watch(glob: string | Array<string>, options?: IOptions, callback?: Cb): IWatchStream;
 declare namespace watch { }
 export = watch;

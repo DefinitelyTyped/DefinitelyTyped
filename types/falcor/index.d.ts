@@ -1,6 +1,6 @@
 // Type definitions for falcor 0.1
 // Project: http://netflix.github.io/falcor/
-// Definitions by: Quramy <https://github.com/Quramy/>
+// Definitions by: Quramy <https://github.com/Quramy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 import { Path, PathSet, PathValue, JSONEnvelope, JSONGraph, JSONGraphEnvelope } from 'falcor-json-graph';
@@ -231,21 +231,21 @@ export interface Thenable<T> {
 //  Observable
 /////////////////////////////////////////////////////
 
-export class Observable<T>{
+export class Observable<T> {
     /**
      * The forEach method is a synonym for {@link Observable.prototype.subscribe} and triggers the execution of the Observable, causing the values within to be pushed to a callback.
      * An Observable is like a pipe of water that is closed.
      * When forEach is called, we open the valve and the values within are pushed at us.
      * These values can be received using either callbacks or an {@link Observer} object.
      */
-    forEach(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback ): Subscription;
+    forEach(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback): Subscription;
 
     /**
      * The subscribe method is a synonym for {@link Observable.prototype.forEach} and triggers the execution of the Observable, causing the values within to be pushed to a callback.
      * An Observable is like a pipe of water that is closed.
      * When forEach is called, we open the valve and the values within are pushed at us.  These values can be received using either callbacks or an {@link Observer} object.
      */
-    subscribe(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback ): Subscription;
+    subscribe(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback): Subscription;
 }
 
 /**

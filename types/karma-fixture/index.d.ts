@@ -1,6 +1,6 @@
 // Type definitions for karma-fixture 0.2.6
 // Project: https://github.com/billtrik/karma-fixture
-// Definitions by: Ezekiel Victor <https://github.com/evictor/>
+// Definitions by: Ezekiel Victor <https://github.com/evictor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace fixture {

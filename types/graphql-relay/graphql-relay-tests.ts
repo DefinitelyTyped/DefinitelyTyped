@@ -44,7 +44,7 @@ backwardConnectionArgs.before = "b";
 backwardConnectionArgs.last = 10;
 // connectionDefinitions returns a connectionType and its associated edgeType, given a node type.
 const resolve: GraphQLFieldResolver<any, any> = (source, args, context, info) => {
-    info.fieldName = "f";
+    context.flag = "f";
 };
 const fields: GraphQLFieldConfigMap<any, any> = {};
 let t: GraphQLObjectType;
@@ -118,11 +118,12 @@ const resolver: GraphQLTypeResolver<any, any> = () => {
         fields: {},
     });
 };
-const idFetcher = (id: string, context: number, info: GraphQLResolveInfo) => {
-    info.fieldName = "f";
+const idFetcher = (id: string, context: any, info: GraphQLResolveInfo) => {
+    context.flag = "f";
 };
-const nodeDef = nodeDefinitions<number>(idFetcher, resolver);
-const fieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodeField;
+const nodeDef = nodeDefinitions<any>(idFetcher, resolver);
+const nodeFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodeField;
+const nodesFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodesField;
 const interfaceType: GraphQLInterfaceType = nodeDef.nodeInterface;
 // toGlobalId takes a type name and an ID specific to that type name, and returns a "global ID" that is unique among all types.
 toGlobalId("t", "i").toLowerCase();
@@ -182,10 +183,10 @@ mutationWithClientMutationId({
     inputFields: gifcm,
     mutateAndGetPayload: (
         object: any,
-        ctx: any,
+        context: any,
         info: GraphQLResolveInfo) => {
         return new Promise<string>((resolve) => {
-            resolve(info.fieldName);
+            resolve(context.flag);
         });
     },
     outputFields: gfcm,

@@ -83,7 +83,7 @@ interface TypeSample {
 	result = cache.getStats();
 }
 
-/* tslint:disable void-return */
+/* tslint-:disable void-return no-void-expression
 {
 	let cache: NodeCache;
 	let result: void;
@@ -95,4 +95,4 @@ interface TypeSample {
 	let result: void;
 	result = cache.close();
 }
-/* tslint:enable void-return */
+ tslint-:enable void-return */

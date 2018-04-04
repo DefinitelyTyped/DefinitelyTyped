@@ -14,6 +14,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true
     },

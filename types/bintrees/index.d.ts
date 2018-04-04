@@ -5,8 +5,8 @@
 
 declare module 'bintrees' {
 
-    type Callback = <T>(item: T) => void;
-    type Comparator = <T>(a: T, b: T) => number;
+    type Callback<T> = (item: T) => void;
+    type Comparator<T> = (a: T, b: T) => number;
 
     class Iterator<T> {
         constructor(tree: TreeBase<T>);
@@ -37,14 +37,14 @@ declare module 'bintrees' {
 
         iterator(): Iterator<T>;
 
-        each(cb: Callback): void;
+        each(cb: Callback<T>): void;
 
-        reach(cb: Callback): void;
+        reach(cb: Callback<T>): void;
     }
 
 
     export class RBTree<T> extends TreeBase<T> {
-        constructor(comparator: Comparator);
+        constructor(comparator: Comparator<T>);
 
         insert(item: T): boolean;
 
@@ -52,7 +52,7 @@ declare module 'bintrees' {
     }
 
     export class BinTree<T> extends TreeBase<T> {
-        constructor(comparator: Comparator);
+        constructor(comparator: Comparator<T>);
 
         insert(item: T): boolean;
 

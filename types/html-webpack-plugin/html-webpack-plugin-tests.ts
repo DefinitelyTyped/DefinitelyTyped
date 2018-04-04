@@ -1,4 +1,4 @@
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackPlugin = require('html-webpack-plugin');
 
 new HtmlWebpackPlugin();
 
@@ -19,6 +19,9 @@ const optionsArray: HtmlWebpackPlugin.Options[] = [
 	{
 		arbitrary: 'data',
 	},
+	{
+		chunksSortMode: 'manual',
+	}
 ];
 
 const plugins: HtmlWebpackPlugin[] = optionsArray.map(options => new HtmlWebpackPlugin(options));

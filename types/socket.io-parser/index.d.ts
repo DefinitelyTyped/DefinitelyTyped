@@ -1,39 +1,33 @@
-// Type definitions for json-editor
+// Type definitions for socket.io-parser 2.2
 // Project: https://github.com/socketio/socket.io-parser
-// Definitions by: York Yao <https://github.com/plantain-00/>
+// Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node" />
+/// <reference types="node" />
 
-declare module "socket.io-parser" {
-    namespace Parser {
-        type Packet = {
-            type: number,
-            data: any,
-            id: number
-        }
-        type EncodedPacket = string | Buffer | ArrayBuffer | Blob;
+export interface Packet {
+    type: number;
+    data: any;
+    id: number;
+}
+export type EncodedPacket = string | Buffer | ArrayBuffer | Blob;
 
-        var types: string[];
+export const types: string[];
 
-        var CONNECT: number;
-        var DISCONNECT: number;
-        var EVENT: number;
-        var ACK: number;
-        var ERROR: number;
-        var BINARY_EVENT: number;
-        var BINARY_ACK: number;
+export const CONNECT: number;
+export const DISCONNECT: number;
+export const EVENT: number;
+export const ACK: number;
+export const ERROR: number;
+export const BINARY_EVENT: number;
+export const BINARY_ACK: number;
 
-        class Encoder {
-            encode(packet: Packet, callback: (encodedPackets: EncodedPacket[]) => void): void;
-        }
+export class Encoder {
+    encode(packet: Packet, callback: (encodedPackets: EncodedPacket[]) => void): void;
+}
 
-        class Decoder {
-            on(event: string, callback: (decodedPacket: Packet) => void): void;
-            add(encodedPacket: EncodedPacket): void;
-            destroy(): void;
-        }
-    }
-
-    export = Parser;
+export class Decoder {
+    on(event: string, callback: (decodedPacket: Packet) => void): void;
+    add(encodedPacket: EncodedPacket): void;
+    destroy(): void;
 }

@@ -1,11 +1,10 @@
 import * as fs from "fs";
-import temp from 'promised-temp';
-import { AffixOptions, OpenFile, Stats } from "promised-temp";
+import temp, { AffixOptions, OpenFile, Stats } from "promised-temp";
 
 function testCleanup() {
     temp.cleanup().then((result: boolean | Stats) => {
         if (typeof result === "boolean") {
-            const x = result === true;
+            const x = result;
         } else {
             const { files, dirs } = result;
             files.toPrecision(4);

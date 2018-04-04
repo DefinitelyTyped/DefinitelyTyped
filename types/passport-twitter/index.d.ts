@@ -2,7 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-twitter
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="passport"/>
 
@@ -44,12 +44,12 @@ interface IStrategyOptionWithRequest  extends IStrategyOptionBase {
     passReqToCallback: true;
 }
 
-declare class Strategy implements passport.Strategy {
+declare class Strategy extends passport.Strategy {
     constructor(options: IStrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
     constructor(options: IStrategyOptionWithRequest,
         verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
 
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate(req: express.Request, options?: Object): void;
 }

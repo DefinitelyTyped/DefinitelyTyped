@@ -1,6 +1,6 @@
 // Type definitions for Handlebars v4.0.5
 // Project: http://handlebarsjs.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -306,5 +306,9 @@ declare namespace hbs {
 }
 
 declare module "handlebars" {
+    export = Handlebars;
+}
+
+declare module "handlebars/handlebars.runtime" {
     export = Handlebars;
 }

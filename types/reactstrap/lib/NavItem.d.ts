@@ -1,7 +1,11 @@
-interface Props {
+import { CSSModule } from '../index';
+
+export interface NavItemProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
+  active?: boolean;
   className?: string;
+  cssModule?: CSSModule;
 }
 
-declare var NavItem: React.StatelessComponent<Props>;
+declare const NavItem: React.StatelessComponent<NavItemProps>;
 export default NavItem;

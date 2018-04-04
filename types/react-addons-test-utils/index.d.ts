@@ -2,7 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
@@ -80,6 +80,7 @@ declare namespace TestUtils {
         export var blur: EventSimulator;
         export var change: EventSimulator;
         export var click: EventSimulator;
+        export var contextMenu: EventSimulator;
         export var copy: EventSimulator;
         export var cut: EventSimulator;
         export var doubleClick: EventSimulator;

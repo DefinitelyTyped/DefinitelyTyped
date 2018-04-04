@@ -1,10 +1,13 @@
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
+import { CSSModule } from '../index';
+
+export interface PaginationLinkProps extends React.HTMLProps<HTMLAnchorElement> {
   'aria-label'?: string;
   className?: string;
+  cssModule?: CSSModule;
   next?: boolean;
   previous?: boolean;
   tag?: React.ReactType;
 }
 
-declare var PaginationLink: React.StatelessComponent<Props>;
+declare const PaginationLink: React.StatelessComponent<PaginationLinkProps>;
 export default PaginationLink;
