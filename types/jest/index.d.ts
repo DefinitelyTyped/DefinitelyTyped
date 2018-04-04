@@ -50,6 +50,12 @@ declare namespace jest {
      */
     function addMatchers(matchers: jasmine.CustomMatcherFactories): typeof jest;
     /**
+     * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
+     * queued via setTimeout() or setInterval(), and would be executed within this timeframe
+     * will be executed.
+     */
+    function advanceTimersByTime(msToRun: number): typeof jest;
+    /**
      * Disables automatic mocking in the module loader.
      */
     function autoMockOff(): typeof jest;
@@ -62,19 +68,6 @@ declare namespace jest {
      * Equivalent to calling .mockClear() on every mocked function.
      */
     function clearAllMocks(): typeof jest;
-    /**
-     * Clears the mock.calls and mock.instances properties of all mocks.
-     * Equivalent to calling .mockClear() on every mocked function.
-     */
-    function resetAllMocks(): typeof jest;
-    /**
-     * available since Jest 21.1.0
-     * Restores all mocks back to their original value.
-     * Equivalent to calling .mockRestore on every mocked function.
-     * Beware that jest.restoreAllMocks() only works when mock was created with
-     * jest.spyOn; other mocks will require you to manually restore them.
-     */
-    function restoreAllMocks(): typeof jest;
     /**
      * Removes any pending timers from the timer system. If any timers have
      * been scheduled, they will be cleared and will never have the opportunity
@@ -121,6 +114,11 @@ declare namespace jest {
      */
     function mock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
     /**
+     * Clears the mock.calls and mock.instances properties of all mocks.
+     * Equivalent to calling .mockClear() on every mocked function.
+     */
+    function resetAllMocks(): typeof jest;
+    /**
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.
      */
@@ -130,6 +128,14 @@ declare namespace jest {
      * useful to isolate modules where local state might conflict between tests.
      */
     function resetModules(): typeof jest;
+    /**
+     * available since Jest 21.1.0
+     * Restores all mocks back to their original value.
+     * Equivalent to calling .mockRestore on every mocked function.
+     * Beware that jest.restoreAllMocks() only works when mock was created with
+     * jest.spyOn; other mocks will require you to manually restore them.
+     */
+    function restoreAllMocks(): typeof jest;
     /**
      * Exhausts tasks queued by setImmediate().
      */
@@ -154,12 +160,6 @@ declare namespace jest {
      * task queue (i.e. all tasks queued by setTimeout() or setInterval() and setImmediate()).
      */
     function runTimersToTime(msToRun: number): typeof jest;
-    /**
-     * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
-     * queued via setTimeout() or setInterval(), and would be executed within this timeframe
-     * will be executed.
-     */
-    function advanceTimersByTime(msToRun: number): typeof jest;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -304,6 +304,10 @@ declare namespace jest {
      */
     interface Expect {
         /**
+         * Adds a module to format application-specific data structures for serialization.
+         */
+        addSnapshotSerializer(serializer: SnapshotSerializerPlugin): void;
+        /**
          * The `expect` function is used every time you want to test a value.
          * You will rarely call `expect` by itself.
          *
@@ -338,18 +342,14 @@ declare namespace jest {
          */
         extend(obj: ExpectExtendMap): void;
         /**
-         * Adds a module to format application-specific data structures for serialization.
-         */
-        addSnapshotSerializer(serializer: SnapshotSerializerPlugin): void;
-        /**
          * Matches any object that recursively matches the provided keys.
          * This is often handy in conjunction with other asymmetric matchers.
          */
         objectContaining(obj: {}): any;
         /**
-         * Matches any string that contains the exact provided string
+         * Matches any received string that matches the expected RegExp
          */
-        stringMatching(str: string | RegExp): any;
+        stringMatching(regexp: RegExp): any;
         /**
          * Matches any received string that contains the exact expected string
          */
@@ -791,7 +791,9 @@ declare namespace jest {
 
     type ReporterConfig = [string, object];
 
-    type ConfigGlobals = object;
+    interface ConfigGlobals {
+        [key: string]: any;
+    }
 
     type SnapshotUpdateState = 'all' | 'new' | 'none';
 
