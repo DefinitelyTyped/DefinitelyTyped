@@ -232,10 +232,15 @@ declare namespace Sinon {
         setSystemTime(date: Date): void;
     }
 
+    interface SinonFakeTimersConfig {
+        now: number | Date;
+        toFake: string[];
+        shouldAdvanceTime: boolean;
+    }
+
     interface SinonFakeTimersStatic {
-        (): SinonFakeTimers;
         (now?: number | Date): SinonFakeTimers;
-        (config: { now?: number | Date, toFake?: string[], shouldAdvanceTime?: boolean }): SinonFakeTimers;
+        (config?: Partial<SinonFakeTimersConfig>): SinonFakeTimers;
     }
 
     interface SinonStatic {
