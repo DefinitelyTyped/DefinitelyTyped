@@ -156,7 +156,7 @@ class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', st
         return { a: 'a' };
     }
 }
-const AssignedComponentWithLargeState: React.ComponentClass<{}> = ComponentWithLargeState;
+const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
 
 const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
 componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
