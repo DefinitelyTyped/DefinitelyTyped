@@ -1,13 +1,13 @@
-import { BaseModel, TId } from '../BaseModel.d';
+import { BaseModel, TId } from '../BaseModel';
 
-interface IShowFileParams {
+interface ShowFileParams {
     file_path: string;
     ref?: any;
     file_id?: any;
     [key: string]: any;
 }
 
-interface IAddTagParams {
+interface AddTagParams {
     id: TId;
     tag_name: string;
     ref: string;
@@ -16,24 +16,24 @@ interface IAddTagParams {
 }
 
 export class ProjectRepository extends BaseModel {
-    public listBranches(projectId: TId, fn?: Function): any;
-    public showBranch(projectId: TId, branchId: string, fn?: Function): any;
-    public protectBranch(projectId: TId, branchId: string, params: object, fn?: Function): any;
-    public unprotectBranch(projectId: TId, branchId: string, fn?: Function): any;
-    public createBranch(params: object, fn?: Function): any;
-    public deleteBranch(projectId: TId, branchId: string, fn?: Function): any;
-    public addTag(params: IAddTagParams, fn?: Function): any;
-    public deleteTag(projectId: TId, tagName: string, fn?: Function): any;
-    public showTag(projectId: TId, tagName: string, fn?: Function): any;
-    public listTags(projectId: TId, fn?: Function): any;
-    public listCommits(projectId: TId, fn?: Function): any;
-    public showCommit(projectId: TId, sha: string, fn?: Function): any;
-    public diffCommit(projectId: TId, sha: string, fn?: Function): any;
-    public listTree(projectId: TId, fn?: Function): any;
-    public listTree(projectId: TId, params?: object, fn?: Function): any;
-    public showFile(projectId: TId, fn?: Function): any;
-    public showFile(projectId: TId, params?: IShowFileParams, fn?: Function): any;
-    public createFile(params?: object, fn?: Function): any;
-    public updateFile(params?: object, fn?: Function): any;
-    public compare(params?: object, fn?: Function): any;
+    listBranches(projectId: TId, fn?: Function): any;
+    showBranch(projectId: TId, branchId: string, fn?: Function): any;
+    protectBranch(projectId: TId, branchId: string, params: object, fn?: Function): any;
+    unprotectBranch(projectId: TId, branchId: string, fn?: Function): any;
+    createBranch(params: object, fn?: Function): any;
+    deleteBranch(projectId: TId, branchId: string, fn?: Function): any;
+    addTag(params: AddTagParams, fn?: Function): any;
+    deleteTag(projectId: TId, tagName: string, fn?: Function): any;
+    showTag(projectId: TId, tagName: string, fn?: Function): any;
+    listTags(projectId: TId, fn?: Function): any;
+    listCommits(projectId: TId, fn?: Function): any;
+    showCommit(projectId: TId, sha: string, fn?: Function): any;
+    diffCommit(projectId: TId, sha: string, fn?: Function): any;
+    listTree(projectId: TId, fn?: Function): any;
+    listTree(projectId: TId, params?: object, fn?: Function): any;
+    showFile(projectId: TId, fn?: Function): any;
+    showFile(projectId: TId, params?: ShowFileParams, fn?: Function): any;
+    createFile(params?: object, fn?: Function): any;
+    updateFile(params?: object, fn?: Function): any;
+    compare(params?: object, fn?: Function): any;
 }

@@ -1,6 +1,6 @@
-import { BaseModel, TId, IDefParams } from '../BaseModel.d';
+import { BaseModel, TId, DefParams } from '../BaseModel';
 
 export class ProjectLabels extends BaseModel {
-    public all(projectId: TId, fn?: Function): any;
-    public all(projectId: TId, params?: IDefParams, fn?: Function): any;
+    all(projectId: TId, fn?: Function): any;
+    all(projectId: TId, params?: DefParams, fn?: Function): any;
 }

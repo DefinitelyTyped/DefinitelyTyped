@@ -1,12 +1,12 @@
-import { BaseModel, TId } from '../BaseModel.d';
+import { BaseModel, TId } from '../BaseModel';
 
 export class Issues extends BaseModel {
-    public all(fn?: Function): any;
-    public all(params?: object, fn?: Function): any;
-    public show(projectId: TId, issueId: TId, fn?: Function): any;
-    public create(projectId: TId, params?: object, fn?: Function): any;
-    public edit(projectId: TId, issueId: TId, params?: object, fn?: Function): any;
-    public remove(projectId: TId, issueId: TId, fn?: Function): any;
-    public subscribe(projectId: TId, issueId: TId, params?: object, fn?: Function): any;
-    public unsubscribe(projectId: TId, issueId: TId, fn?: Function): any;
+    all(fn?: Function): any;
+    all(params?: object, fn?: Function): any;
+    show(projectId: TId, issueId: TId, fn?: Function): any;
+    create(projectId: TId, params?: object, fn?: Function): any;
+    edit(projectId: TId, issueId: TId, params?: object, fn?: Function): any;
+    remove(projectId: TId, issueId: TId, fn?: Function): any;
+    subscribe(projectId: TId, issueId: TId, params?: object, fn?: Function): any;
+    unsubscribe(projectId: TId, issueId: TId, fn?: Function): any;
 }

@@ -1,17 +1,17 @@
-import { BaseModel, IDefParams, TId} from '../BaseModel.d';
-import { UserKeys } from './UserKeys.d';
+import { BaseModel, DefParams, TId } from '../BaseModel';
+import { UserKeys } from './UserKeys';
 
 type UsersCb = (users: any[]) => any;
 type UserCb = (user: any) => any;
 
 export class Users extends BaseModel {
-    public readonly keys: UserKeys;
+    readonly keys: UserKeys;
 
-    public all(fn?: UsersCb): any;
-    public all(params?: IDefParams, fn?: UsersCb): any;
-    public current(fn?: Function): any;
-    public show(userId: number, fn?: UserCb): any;
-    public create(params?: IDefParams, fn?: Function): any;
-    public session(email: string, password: string, fn?: Function): any;
-    public search(emailOrUsername: string, fn?: Function): any;
+    all(fn?: UsersCb): any;
+    all(params?: DefParams, fn?: UsersCb): any;
+    current(fn?: Function): any;
+    show(userId: number, fn?: UserCb): any;
+    create(params?: DefParams, fn?: Function): any;
+    session(email: string, password: string, fn?: Function): any;
+    search(emailOrUsername: string, fn?: Function): any;
 }

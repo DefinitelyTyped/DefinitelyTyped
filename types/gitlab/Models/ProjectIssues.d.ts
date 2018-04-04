@@ -1,9 +1,9 @@
-import { IssueNotes } from './IssueNotes.d';
-import { BaseModel, TId, IDefParams } from '../BaseModel.d';
+import { IssueNotes } from './IssueNotes';
+import { BaseModel, TId, DefParams } from '../BaseModel';
 
 export class ProjectIssues extends BaseModel {
-    public readonly notes: IssueNotes;
+    readonly notes: IssueNotes;
 
-    public list(projectId: TId, fn?: Function): any;
-    public list(projectId: TId, params?: IDefParams, fn?: Function): any;
+    list(projectId: TId, fn?: Function): any;
+    list(projectId: TId, params?: DefParams, fn?: Function): any;
 }

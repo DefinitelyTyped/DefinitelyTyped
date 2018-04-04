@@ -1,5 +1,5 @@
-import { BaseModel, TId } from '../BaseModel.d';
+import { BaseModel, TId } from '../BaseModel';
 
 export class Notes extends BaseModel {
-    public create(projectId: TId, issueId: number, params?: object, fn?: Function): any;
+    create(projectId: TId, issueId: number, params?: object, fn?: Function): any;
 }

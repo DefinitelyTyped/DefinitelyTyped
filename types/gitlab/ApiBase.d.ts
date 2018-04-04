@@ -1,12 +1,12 @@
-import { IApiBase } from './ApiBase.d';
-import { Labels } from './Models/Labels.d';
-import { Users } from './Models/Users.d';
-import { Notes } from './Models/Notes.d';
-import { Issues } from './Models/Issues.d';
-import { Projects } from './Models/Projects.d';
-import { Groups } from './Models/Groups.d';
+import { ApiBaseOptions } from './ApiBase';
+import { Labels } from './Models/Labels';
+import { Users } from './Models/Users';
+import { Notes } from './Models/Notes';
+import { Issues } from './Models/Issues';
+import { Projects } from './Models/Projects';
+import { Groups } from './Models/Groups';
 
-export interface IApiBase {
+export interface ApiBaseOptions {
     url?: string;
     token?: string;
     oauth_token?: string;
@@ -16,16 +16,16 @@ export interface IApiBase {
 }
 
 export class ApiBase {
-    constructor(options: IApiBase);
-    public readonly client: this;
-    public readonly groups: Groups
-    public readonly projects: Projects
-    public readonly issues: Issues
-    public readonly notes: Notes
-    public readonly users: Users
-    public readonly labels: Labels
-    public options: IApiBase;
+    constructor(options: ApiBaseOptions);
+    readonly client: this;
+    readonly groups: Groups
+    readonly projects: Projects
+    readonly issues: Issues
+    readonly notes: Notes
+    readonly users: Users
+    readonly labels: Labels
+    options: ApiBaseOptions;
 
-    public handleOptions(): void;
-    public init(): object;
+    handleOptions(): void;
+    init(): object;
 }

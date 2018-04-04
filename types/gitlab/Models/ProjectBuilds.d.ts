@@ -1,4 +1,4 @@
-import { BaseModel, TId, IDefParams } from '../BaseModel.d';
+import { BaseModel, TId, DefParams } from '../BaseModel';
 
 interface IShowBuildParam {
     projectId: TId;
@@ -6,8 +6,8 @@ interface IShowBuildParam {
 }
 
 export class ProjectBuilds extends BaseModel {
-    public listBuilds(projectId: TId, fn?: Function): any;
-    public listBuilds(projectId: TId, params?: IDefParams, fn?: Function): any;
-    public showBuild(projectId: TId, buildId: string, fn?: Function): any;
-    public triggerBuild(params?: IShowBuildParam, fn?: Function): any;
+    listBuilds(projectId: TId, fn?: Function): any;
+    listBuilds(projectId: TId, params?: DefParams, fn?: Function): any;
+    showBuild(projectId: TId, buildId: string, fn?: Function): any;
+    triggerBuild(params?: IShowBuildParam, fn?: Function): any;
 }
