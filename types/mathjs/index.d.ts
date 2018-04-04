@@ -1,6 +1,7 @@
 // Type definitions for mathjs 3.20
 // Project: http://mathjs.org/
-// Definitions by: Ilya Shestakov <https://github.com/siavol>
+// Definitions by: Ilya Shestakov <https://github.com/siavol>,
+// 				   Andy Patterson <https://github.com/andnp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
