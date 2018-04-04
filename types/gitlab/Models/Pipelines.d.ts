@@ -1,4 +1,5 @@
-import { BaseModel } from './../BaseModel.d';
+import { BaseModel, TId } from '../BaseModel.d';
+
 export class Pipelines extends BaseModel {
-    public all(projectId: number | string, fn?: Function): any;
+    public all(projectId: TId, fn?: Function): any;
 }

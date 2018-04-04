@@ -5,8 +5,14 @@ import { Issues } from './Models/Issues.d';
 import { Projects } from './Models/Projects.d';
 import { Groups } from './Models/Groups.d';
 
+export interface IApiBase {
+    url?: string;
+    token?: string;
+    [key: string]: any;
+}
+
 export class ApiBase {
-    constructor(options: object);
+    constructor(options: IApiBase);
     public groups: Groups
     public projects: Projects
     public issues: Issues

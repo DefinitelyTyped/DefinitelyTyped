@@ -1,4 +1,6 @@
-import { BaseModel } from './../BaseModel.d';
+import { BaseModel, TId, IDefParams } from '../BaseModel.d';
+
 export class IssueNotes extends BaseModel{
-    public all(projectId: number | string, issueId: number, params?: object, fn?: Function): any
+    public all(projectId: TId, issueId: number, fn?: Function): any
+    public all(projectId: TId, issueId: number, params?: IDefParams, fn?: Function): any
 }

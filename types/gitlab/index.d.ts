@@ -5,10 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ApiV3 } from "./ApiV3";
+import { IApiBase } from "./ApiBase";
 
-declare class GitlabApi extends ApiV3 {
-
-    public static readonly ApiV3: ApiV3;
+declare namespace Gitlib {
+    const ApiV3: new(options: IApiBase) => ApiV3;
 }
 
-export = GitlabApi;
+declare function Gitlib(options: IApiBase): ApiV3;
+
+export = Gitlib;
