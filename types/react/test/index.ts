@@ -144,6 +144,10 @@ const StatelessComponent3: React.SFC<SCProps> =
 // allows null as props
 const StatelessComponent4: React.SFC = props => null;
 
+// allows children as function
+const StatelessComponent5: React.SFC<SCProps> =
+    props => (typeof props.children === "function" ? DOM.div(null, props.children(1, 2, 3)) : null);
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
@@ -722,5 +726,13 @@ class RenderChildren extends React.Component {
     render() {
         const { children } = this.props;
         return children !== undefined ? children : null;
+    }
+}
+
+// Should be able to render its children as function
+class RenderChildrenFunction extends React.Component {
+    render() {
+        const { children } = this.props;
+        return typeof children === 'function' ? children(1, 'a', {}) : null;
     }
 }

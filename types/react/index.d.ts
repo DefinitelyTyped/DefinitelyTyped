@@ -298,7 +298,7 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        props: Readonly<{ children?: ReactNode | ((...args: any[]) => ReactNode) }> & Readonly<P>;
         state: Readonly<S>;
         context: any;
         refs: {
@@ -324,7 +324,7 @@ declare namespace React {
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode | ((...args: any[]) => ReactNode) }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -623,7 +623,7 @@ declare namespace React {
      * ```
      */
     interface Props<T> {
-        children?: ReactNode;
+        children?: ReactNode | ((...args: any[]) => ReactNode);
         key?: Key;
         ref?: Ref<T>;
     }
