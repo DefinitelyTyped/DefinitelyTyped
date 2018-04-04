@@ -404,7 +404,7 @@ declare namespace React {
          *
          * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
          */
-        (nextProps: Readonly<P>, prevState: Readonly<S>) => Partial<S> | null;
+        (nextProps: Readonly<P>, prevState: S) => Partial<S> | null;
 
     // This should be "infer SS" but can't use it yet
     interface NewLifecycle<P, S, SS> {
