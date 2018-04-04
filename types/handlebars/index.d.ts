@@ -14,9 +14,9 @@ declare namespace Handlebars {
     export interface RuntimeOptions {
         partial?: boolean;
         depths?: any[];
-        helpers?: { [name: string]: Function }
-        partials?: { [name: string]: HandlebarsTemplateDelegate }
-        decorators?: { [name: string]: Function }
+        helpers?: { [name: string]: Function };
+        partials?: { [name: string]: HandlebarsTemplateDelegate };
+        decorators?: { [name: string]: Function };
         data?: any;
         blockParams?: any[];
     }
@@ -143,7 +143,7 @@ interface HandlebarsTemplatable {
 }
 
 // NOTE: for backward compatibility of this typing
-type HandlebarsTemplateDelegate<T = any> = Handlebars.TemplateDelegate<T>
+type HandlebarsTemplateDelegate<T = any> = Handlebars.TemplateDelegate<T>;
 
 interface HandlebarsTemplates {
     [index: string]: HandlebarsTemplateDelegate;
@@ -168,7 +168,7 @@ interface CompileOptions {
         with?: boolean;
         log?: boolean;
         lookup?: boolean;
-    }
+    };
     knownHelpersOnly?: boolean;
     noEscape?: boolean;
     strict?: boolean;
@@ -260,11 +260,11 @@ declare namespace hbs {
 
         interface PartialBlockStatement extends Statement {
             name: PathExpression | SubExpression;
-            params: Expression[],
-            hash: Hash,
-            program: Program,
-            openStrip: StripFlags,
-            closeStrip: StripFlags
+            params: Expression[];
+            hash: Hash;
+            program: Program;
+            openStrip: StripFlags;
+            closeStrip: StripFlags;
         }
 
         interface ContentStatement extends Statement {
