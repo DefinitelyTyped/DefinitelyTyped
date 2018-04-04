@@ -24,7 +24,7 @@ interface ndarray<T = number> {
 	hi(...args: number[]): ndarray<T>;
 	step(...args: number[]): ndarray<T>;
 	transpose(...args: number[]): ndarray<T>;
-	pick(...args: number[]): ndarray<T>;
+	pick(...args: Array<number | null>): ndarray<T>;
 	reshape(...shapes: number[]): ndarray<T>;
 	T: ndarray<T>;
 }

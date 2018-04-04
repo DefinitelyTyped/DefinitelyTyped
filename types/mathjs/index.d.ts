@@ -229,6 +229,13 @@ declare namespace mathjs {
 		hypot(...args: number[]): number;
 		hypot(...args: BigNumber[]): BigNumber;
 
+        /**
+         * Calculate the kronecker product of two matrices or vectors
+         * @param x First Matrix
+         * @param y Second Matrix
+         */
+        kron(x: Matrix|MathArray, y: Matrix|MathArray): Matrix;
+
 		/**
 		 * Calculate the least common multiple for two or more values or arrays. lcm is defined as:
 		 * lcm(a, b) = abs(a * b) / gcd(a, b)
@@ -1655,6 +1662,13 @@ declare namespace mathjs {
 		 */
 		hypot(...args: number[]): IMathJsChain;
 		hypot(...args: BigNumber[]): IMathJsChain;
+
+        /**
+         * Calculate the kronecker product of two matrices or vectors
+         * @param x First Matrix
+         * @param y Second Matrix
+         */
+        kron(x: Matrix|MathArray, y: Matrix|MathArray): IMathJsChain;
 
 		/**
 		 * Calculate the least common multiple for two or more values or arrays. lcm is defined as:

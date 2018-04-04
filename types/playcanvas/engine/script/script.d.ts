@@ -144,6 +144,9 @@ declare namespace pc {
     * };
     */
     function createScript<Instance extends ScriptType, Class extends ScriptTypeConstructor<Instance>>(name: string, app?: pc.Application): Class;
+    namespace createScript {
+        export let reservedAttributes: any;
+    }
 
     /**
     * @name ScriptType
@@ -172,7 +175,7 @@ declare namespace pc {
          * @type String
          * @description Name of a Script Type.
          */
-        _name: string;
+        __name: string;
 
         /**
          * @field
@@ -220,9 +223,6 @@ declare namespace pc {
 
     interface ScriptType {
         [key: string]: any;
-        app: pc.Application;
-        entity: pc.Entity;
-        enabled: boolean;
 
         /**
          * initialize is called if defined when script is about to run for the first time.
@@ -231,7 +231,7 @@ declare namespace pc {
         initialize?(): void;
 
         /**
-         * postInitialize will run after all initialize methods are executed in the  
+         * postInitialize will run after all initialize methods are executed in the
          * same tick or enabling chain of actions.
          * @memberof ScriptType
          */
@@ -239,22 +239,22 @@ declare namespace pc {
 
         /**
          * update is called if defined for enabled (running state) scripts on each tick.
-         * @param {number} dt 
+         * @param {number} dt
          * @memberof ScriptType
          */
         update?(dt: number): void;
 
         /**
-         * postUpdate is called if defined for enabled (running state) scripts on each tick,  
+         * postUpdate is called if defined for enabled (running state) scripts on each tick,
          * after update.
          * @memberof ScriptType
          */
         postUpdate?(): void;
 
         /**
-         * This method will be called when a ScriptType that already exists in the registry   
-         * gets redefined. If the new ScriptType has a `swap` method in its prototype, 
-         * then it will be executed to perform hot-reload at runtime. 
+         * This method will be called when a ScriptType that already exists in the registry
+         * gets redefined. If the new ScriptType has a `swap` method in its prototype,
+         * then it will be executed to perform hot-reload at runtime.
          * @memberof ScriptType
          */
         swap?(): void;
@@ -274,7 +274,7 @@ declare namespace pc {
          * });
          * obj.fire('test', 1, 2); // prints 3 to the console
          */
-        on(name: string, callback: (...args: any[]) => void, scope: any): any;
+        on?(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
          * @function
@@ -294,7 +294,7 @@ declare namespace pc {
          * obj.off('test', handler); // Removes all handler functions, called 'test'
          * obj.off('test', handler, this); // Removes all hander functions, called 'test' with scope this
          */
-        off(name: string, callback: (...args: any[]) => void, scope: any): any;
+        off?(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
          * @function
@@ -305,7 +305,7 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire?(name: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
 
         /**
          * @function
@@ -321,7 +321,7 @@ declare namespace pc {
          * obj.fire('test', 1, 2); // prints 3 to the console
          * obj.fire('test', 1, 2); // not going to get handled
          */
-        once(name: string, callback: (...args: any[]) => void, scope: any): any;
+        once?(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
         * @function
@@ -332,7 +332,7 @@ declare namespace pc {
         * obj.on('test', function () { }); // bind an event to 'test'
         * obj.hasEvent('test'); // returns true
         */
-        hasEvent(name: string): boolean;
+        hasEvent?(name: string): boolean;
 
     }
 }

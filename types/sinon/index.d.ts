@@ -1,4 +1,4 @@
-// Type definitions for Sinon 4.1
+// Type definitions for Sinon 4.3
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
@@ -26,6 +26,8 @@ declare namespace Sinon {
         calledOn(obj: any): boolean;
         calledWith(...args: any[]): boolean;
         calledWithExactly(...args: any[]): boolean;
+        calledOnceWith(...args: any[]): boolean;
+        calledOnceWithExactly(...args: any[]): boolean;
         calledWithMatch(...args: any[]): boolean;
         notCalledWith(...args: any[]): boolean;
         notCalledWithMatch(...args: any[]): boolean;
@@ -353,19 +355,20 @@ declare namespace Sinon {
         calledThrice(spy: SinonSpy): void;
         callCount(spy: SinonSpy, count: number): void;
         callOrder(...spies: SinonSpy[]): void;
-        calledOn(spy: SinonSpy, obj: any): void;
+        calledOn(spyOrSpyCall: SinonSpy | SinonSpyCall, obj: any): void;
         alwaysCalledOn(spy: SinonSpy, obj: any): void;
-        calledWith(spy: SinonSpy, ...args: any[]): void;
+        calledWith(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
         alwaysCalledWith(spy: SinonSpy, ...args: any[]): void;
         neverCalledWith(spy: SinonSpy, ...args: any[]): void;
-        calledWithExactly(spy: SinonSpy, ...args: any[]): void;
+        calledWithExactly(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
         alwaysCalledWithExactly(spy: SinonSpy, ...args: any[]): void;
-        calledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        calledWithMatch(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
         alwaysCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
         neverCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
-        threw(spy: SinonSpy): void;
-        threw(spy: SinonSpy, exception: string): void;
-        threw(spy: SinonSpy, exception: any): void;
+        calledWithNew(spyOrSpyCall: SinonSpy | SinonSpyCall): void;
+        threw(spyOrSpyCall: SinonSpy | SinonSpyCall): void;
+        threw(spyOrSpyCall: SinonSpy | SinonSpyCall, exception: string): void;
+        threw(spyOrSpyCall: SinonSpy | SinonSpyCall, exception: any): void;
         alwaysThrew(spy: SinonSpy): void;
         alwaysThrew(spy: SinonSpy, exception: string): void;
         alwaysThrew(spy: SinonSpy, exception: any): void;

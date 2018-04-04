@@ -15,7 +15,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "noEmit": true
     },
     "files": [

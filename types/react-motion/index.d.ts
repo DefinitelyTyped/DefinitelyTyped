@@ -4,7 +4,7 @@
 //                 Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Dimitar Nestorov <https://github.com/dimitarnestorov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { Component, ReactElement } from 'react';
 

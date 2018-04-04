@@ -12,7 +12,8 @@ client.connect({
 client.list('/remote/path').then(() => null);
 
 client.get('/remote/path').then(stream => stream.read(0));
-client.get('/remote/path', true, 'binary').then(stream => stream.read(0));
+client.get('/remote/path', true, 'utf8').then(stream => stream.read(0));
+client.get('/remote/path', true, null).then(stream => stream.read(0));
 
 client.put('/local/path', '/remote/path').then(() => null);
 client.put(new Buffer('content'), '/remote/path').then(() => null);

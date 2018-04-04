@@ -100,7 +100,11 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach<T>(obj: T[], iterator: (value: T, key: number, obj: T[]) => void, context?: any): T[];
+        forEach<T, U extends ArrayLike<T> = T[]>(
+            obj: U,
+            iterator: (value: U[number], key: number, obj: U) => void,
+            context?: any
+        ): U;
         /**
          * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
          *

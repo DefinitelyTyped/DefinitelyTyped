@@ -4,8 +4,9 @@
 //                 Oden S. <https://github.com/odensc>
 //                 Ian Ker-Seymer <https://github.com/ianks>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
+//                 Ian Mobley <https://github.com/iMobs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 /// <reference types="react" />
 

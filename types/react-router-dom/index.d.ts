@@ -2,8 +2,9 @@
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
+//                 Philip Jackson <https://github.com/p-jackson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 import { match } from "react-router";
 import * as React from 'react';
@@ -12,6 +13,7 @@ import * as H from 'history';
 export {
     Prompt,
     MemoryRouter,
+    RedirectProps,
     Redirect,
     RouteComponentProps,
     RouteProps,
@@ -43,6 +45,7 @@ export class HashRouter extends React.Component<HashRouterProps, any> {}
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
     replace?: boolean;
+    innerRef?: (node: HTMLAnchorElement | null) => void;
 }
 export class Link extends React.Component<LinkProps, any> {}
 

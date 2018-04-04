@@ -1,4 +1,4 @@
-import * as mri from 'mri';
+import mri = require('mri');
 
 const first = mri(['--foo', 'bar']);
 

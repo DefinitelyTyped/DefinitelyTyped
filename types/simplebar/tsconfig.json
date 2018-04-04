@@ -15,11 +15,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "simplebar-tests.ts"
+        "simplebar-tests.ts",
+        "test/module-tests.ts"
     ]
 }

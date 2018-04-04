@@ -15,11 +15,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "fabric-tests.ts"
+        "test/index.ts",
+        "test/import.ts"
     ]
 }

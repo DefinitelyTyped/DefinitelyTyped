@@ -45,7 +45,6 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 }
             }]
         },
-        plugins: { arbitraryPlugin: {option: "value"} },
         legend: {
             display: true,
             labels: {

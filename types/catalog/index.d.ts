@@ -1,8 +1,8 @@
-// Type definitions for catalog 2.1
+// Type definitions for catalog 3.2
 // Project: https://github.com/interactivethings/catalog/
 // Definitions by: Peter Gassner <https://github.com/grossbart>, Tomas Carnecky <https://github.com/wereHamster>
 // Definitions: https://github.com/interactivethings/catalog/
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 
@@ -100,6 +100,7 @@ export interface ReactSpecimenProps extends DefaultCatalogProps {
   frame?: boolean;
   state?: any;
   responsive?: boolean | string | string[];
+  sourceText?: string;
 }
 export class ReactSpecimen extends React.Component<ReactSpecimenProps> {}
 

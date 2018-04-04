@@ -24,7 +24,7 @@ declare namespace echarts {
 
     function dispose(target: ECharts | HTMLDivElement | HTMLCanvasElement): void;
 
-    function getInstanceByDom(target: HTMLDivElement | HTMLCanvasElement): void;
+    function getInstanceByDom(target: HTMLDivElement | HTMLCanvasElement): ECharts;
 
     function registerMap(mapName: string, geoJson: Object, specialAreas?: Object): void;
 

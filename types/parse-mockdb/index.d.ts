@@ -2,7 +2,7 @@
 // Project: https://github.com/HustleInc/parse-mockdb
 // Definitions by: David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="parse" />
 

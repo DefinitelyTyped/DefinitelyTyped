@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface ProgressProps {
+export interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
   bar?: boolean;
   multi?: boolean;
   tag?: string;

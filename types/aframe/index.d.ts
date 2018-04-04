@@ -16,14 +16,11 @@
 declare var AFRAME: AFrame.AFrameGlobal;
 declare var hasNativeWebVRImplementation: boolean;
 
-interface NodeSelector {
-	querySelector(selectors: 'a-scene'): AFrame.Scene;
+interface Document {
+    createElement(tagName: string): AFrame.Entity;
+    querySelector(selectors: 'a-scene'): AFrame.Scene;
 	querySelector<T extends AFrame.Entity<any>>(selectors: string): T;
 	querySelectorAll(selectors: string): NodeListOf<AFrame.Entity<any> | Element>;
-}
-
-interface Document {
-	createElement(tagName: string): AFrame.Entity;
 }
 
 // Interfaces

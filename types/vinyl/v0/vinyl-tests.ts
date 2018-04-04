@@ -1,8 +1,11 @@
-/// <reference types="mocha" />
-
 import File = require('vinyl');
 import Stream = require('stream');
 import fs = require('fs');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 declare var fakeStream: NodeJS.ReadWriteStream;
 

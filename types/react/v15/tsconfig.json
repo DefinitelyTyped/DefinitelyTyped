@@ -27,7 +27,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "jsx": "preserve"
     }
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/wix/react-native-navigation
 // Definitions by: Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
@@ -40,10 +40,18 @@ export interface TabBasedApp {
     animationType?: 'none' | 'slide-down' | 'fade';
 }
 
+export interface IconInsets {
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+}
+
 export interface TabScreen {
     label?: string;
     screen: string;
     icon?: any;
+    iconInsets?: IconInsets;
     selectedIcon?: any;
     title?: string;
     navigatorStyle?: NavigatorStyle;
@@ -102,7 +110,7 @@ export interface LightBox {
     adjustSoftInput?: 'nothing' | 'pan' | 'resize' | 'unspecified';
 }
 
-export interface Navigator {
+export class Navigator {
     push(params: PushedScreen): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
     popToRoot(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
@@ -120,7 +128,7 @@ export interface Navigator {
     toggleDrawer(params: { side: 'left' | 'right'; animated?: boolean; to?: 'open' | 'closed' }): void;
     setDrawerEnabled(params: { side: 'left' | 'right'; enabled: boolean }): void;
     toggleTabs(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setTabBadge(params?: { tabIndex?: number; badge?: number; badgeColor?: string; }): void;
+    setTabBadge(params?: { tabIndex?: number; badge: number | null; badgeColor?: string; }): void;
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
@@ -150,10 +158,9 @@ export interface ListenerParams {
     commandType: string;
 }
 
-export type NavigationComponentProps<P = {}> =
-    P & {
-        navigator: Navigator;
-    };
+export interface NavigationComponentProps {
+    navigator: Navigator;
+}
 
 export interface NavigatorStyle {
     navBarTextColor?: string;
@@ -224,6 +231,7 @@ export interface NavigatorStyle {
 export interface NavigatorButtons {
     leftButtons?: NavigatorButton[];
     rightButtons?: NavigatorButton[];
+    fab?: FABAndroid;
 }
 
 export type IdAndroid = 'back' | 'cancel' | 'accept' | 'sideMenu';
@@ -232,6 +240,8 @@ export type SystemItemIOS = 'done' | 'cancel' | 'edit' | 'save' | 'add' |
     'flexibleSpace' | 'fixedSpace' | 'compose' | 'reply' | 'action' | 'organize' |
     'bookmarks' | 'search' | 'refresh' | 'stop' | 'camera' | 'trash' | 'play' |
     'pause' | 'rewind' | 'fastForward' | 'undo' | 'redo';
+
+export type ShowAsActionAndroid = 'ifRoom' | 'always' | 'withText' | 'never';
 
 export interface NavigatorButton {
     id: string | IdAndroid;
@@ -246,6 +256,7 @@ export interface NavigatorButton {
     buttonFontSize?: number;
     buttonFontWeight?: string | number;
     systemItem?: SystemItemIOS;
+    showAsAction?: ShowAsActionAndroid;
 }
 
 export interface FABAndroid {

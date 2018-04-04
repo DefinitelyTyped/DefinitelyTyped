@@ -186,18 +186,8 @@
     }
 
     function initGUI() {
-
-        var API = {
-            'show model'    : true,
-            'show skeleton' : false
-        };
-
-        var gui = new dat.GUI();
-
-        gui.add( API, 'show model' ).onChange( function() { mesh.visible = API[ 'show model' ]; } );
-
-        gui.add( API, 'show skeleton' ).onChange( function() { helper.visible = API[ 'show skeleton' ]; } );
-
+        mesh.visible = true;
+        helper.visible = true;
     }
 
     function onDocumentMouseMove( event: MouseEvent ) {

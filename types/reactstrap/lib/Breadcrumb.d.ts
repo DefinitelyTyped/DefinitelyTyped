@@ -1,6 +1,6 @@
 import { CSSModule } from '../index';
 
-export interface BreadcrumbProps {
+export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   tag?: string;
   className?: string;
   cssModule?: CSSModule;

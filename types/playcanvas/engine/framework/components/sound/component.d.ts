@@ -87,7 +87,7 @@ declare namespace pc {
          * this.entity.sound.slot('beep').volume = 0.5;
          *
          */
-        slot(name: string): pc.Slot;
+        slot(name: string): pc.SoundSlot;
 
         /**
         * @function

@@ -3,11 +3,14 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Liam Jones <https://github.com/G1itcher>
 //                 Federico Caselli <https://github.com/CaselIT>
+//                 Bas Luksenburg <https://github.com/bas-l>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="chai" />
+
+import * as request from 'superagent';
 
 declare global {
 	namespace Chai {
@@ -53,31 +56,14 @@ declare global {
 			on(event: string, fn: (...args: any[]) => void): void;
 		}
 
-		interface Request extends FinishedRequest {
-			attach(field: string, file: string|Buffer, filename: string): Request;
-			set(field: string, val: string): Request;
-			query(params: any): Request;
-			send(data: any): Request;
-			auth(user: string, name: string): Request;
-			field(name: string, val: string): Request;
-			buffer(): Request;
-			parse(fn: (res: Response, cb: (e?: Error, r?: any) => void) => void): Request;
-			end(callback?: (err: any, res: Response) => void): FinishedRequest;
-		}
-
-		interface FinishedRequest<T = Response> {
-			then<TR1 = T, TR2 = void>(success?: (res: T) => TR1 | PromiseLike<TR1>, failure?: (err: any) => TR2 | PromiseLike<TR2>): FinishedRequest<TR1>;
-			catch(failure?: (err: any) => void): FinishedRequest<T>;
-		}
-
-		interface Agent {
-			get(url: string, callback?: (err: any, res: Response) => void): Request;
-			post(url: string, callback?: (err: any, res: Response) => void): Request;
-			put(url: string, callback?: (err: any, res: Response) => void): Request;
-			head(url: string, callback?: (err: any, res: Response) => void): Request;
-			del(url: string, callback?: (err: any, res: Response) => void): Request;
-			options(url: string, callback?: (err: any, res: Response) => void): Request;
-			patch(url: string, callback?: (err: any, res: Response) => void): Request;
+		interface Agent  {
+			get(url: string, callback?: (err: any, res: Response) => void): request.Request;
+			post(url: string, callback?: (err: any, res: Response) => void): request.Request;
+			put(url: string, callback?: (err: any, res: Response) => void): request.Request;
+			head(url: string, callback?: (err: any, res: Response) => void): request.Request;
+			del(url: string, callback?: (err: any, res: Response) => void): request.Request;
+			options(url: string, callback?: (err: any, res: Response) => void): request.Request;
+			patch(url: string, callback?: (err: any, res: Response) => void): request.Request;
 		}
 
 		interface TypeComparison {

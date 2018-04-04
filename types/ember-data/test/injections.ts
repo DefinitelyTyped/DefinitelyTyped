@@ -1,6 +1,14 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
+class MyModel extends DS.Model {}
+
+declare module 'ember-data' {
+    interface ModelRegistry {
+        'my-model': MyModel;
+    }
+}
+
 Ember.Route.extend({
     model(): any {
         return this.store.findAll('my-model');

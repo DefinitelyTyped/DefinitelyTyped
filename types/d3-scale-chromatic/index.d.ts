@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-scale-chromatic module 1.1
+// Type definitions for D3JS d3-scale-chromatic module 1.2
 // Project: https://github.com/d3/d3-scale-chromatic/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>,
 //                 Alex Ford <https://github.com/gustavderdrache>,
@@ -6,11 +6,15 @@
 //                 Henrique Machado <https://github.com/henriquefm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.2
+// Last module patch version validated against: 1.2.0
 
 // -----------------------------------------------------------------------
 // Categorical
 // -----------------------------------------------------------------------
+/**
+ * An array of ten categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeCategory10: ReadonlyArray<string>;
 /**
  * An array of eight categorical colors represented as RGB hexadecimal strings.
  */
@@ -48,11 +52,11 @@ export const schemeSet3: ReadonlyArray<string>;
 // Diverging
 // -----------------------------------------------------------------------
 /**
- * Given a number value in the range [0,1], returns the corresponding color from the “BrBG” diverging color scheme represented as an RGB string.
+ * Given a number t in the range [0,1], returns the corresponding color from the “BrBG” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateBrBG(value: number): string;
+export function interpolateBrBG(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “BrBG” diverging color scheme. The kth element of this array contains
@@ -64,9 +68,9 @@ export const schemeBrBG: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “PRGn” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolatePRGn(value: number): string;
+export function interpolatePRGn(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “PRGn” diverging color scheme. The kth element of this array contains
@@ -78,9 +82,9 @@ export const schemePRGn: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “PiYG” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolatePiYG(value: number): string;
+export function interpolatePiYG(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “PiYG” diverging color scheme. The kth element of this array contains
@@ -92,9 +96,9 @@ export const schemePiYG: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “PuOr” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolatePuOr(value: number): string;
+export function interpolatePuOr(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “PuOr” diverging color scheme. The kth element of this array contains
@@ -106,9 +110,9 @@ export const schemePuOr: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “RdBu” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateRdBu(value: number): string;
+export function interpolateRdBu(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “RdBu” diverging color scheme. The kth element of this array contains
@@ -120,9 +124,9 @@ export const schemeRdBu: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “RdGy” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateRdGy(value: number): string;
+export function interpolateRdGy(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “RdGy” diverging color scheme. The kth element of this array contains
@@ -134,9 +138,9 @@ export const schemeRdGy: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “RdYlBu” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateRdYlBu(value: number): string;
+export function interpolateRdYlBu(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “RdYlBu” diverging color scheme. The kth element of this array contains
@@ -148,9 +152,9 @@ export const schemeRdYlBu: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “RdYlGn” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateRdYlGn(value: number): string;
+export function interpolateRdYlGn(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “RdYlGn” diverging color scheme. The kth element of this array contains
@@ -162,9 +166,9 @@ export const schemeRdYlGn: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “Spectral” diverging color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateSpectral(value: number): string;
+export function interpolateSpectral(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “Spectral” diverging color scheme. The kth element of this array contains
@@ -179,9 +183,9 @@ export const schemeSpectral: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “Blues” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateBlues(value: number): string;
+export function interpolateBlues(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “Blues” sequential color scheme. The kth element of this array contains
@@ -193,9 +197,9 @@ export const schemeBlues: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “Greens” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateGreens(value: number): string;
+export function interpolateGreens(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “Greens” sequential color scheme. The kth element of this array contains
@@ -207,9 +211,9 @@ export const schemeGreens: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “Greys” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateGreys(value: number): string;
+export function interpolateGreys(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “Greys” sequential color scheme. The kth element of this array contains
@@ -221,9 +225,9 @@ export const schemeGreys: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “Oranges” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateOranges(value: number): string;
+export function interpolateOranges(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “Oranges” sequential color scheme. The kth element of this array contains
@@ -235,9 +239,9 @@ export const schemeOranges: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “Purples” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolatePurples(value: number): string;
+export function interpolatePurples(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “Purples” sequential color scheme. The kth element of this array contains
@@ -249,9 +253,9 @@ export const schemePurples: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “Reds” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateReds(value: number): string;
+export function interpolateReds(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “Reds” sequential color scheme. The kth element of this array contains
@@ -265,11 +269,72 @@ export const schemeReds: ReadonlyArray<ReadonlyArray<string>>;
 // -----------------------------------------------------------------------
 
 /**
+ * Given a number t in the range [0,1], returns the corresponding color from the “viridis” perceptually-uniform color scheme designed by van der Walt, Smith and Firing for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateViridis(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “inferno” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateInferno(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “magma” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateMagma(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “plasma” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolatePlasma(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from a 180° rotation of Niccoli’s perceptual rainbow, represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateWarm(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from Niccoli’s perceptual rainbow, represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateCool(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from d3.interpolateWarm scale from [0.0, 0.5] followed by the d3.interpolateCool scale from [0.5, 1.0],
+ * thus implementing the cyclical less-angry rainbow color scheme.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateRainbow(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from Green’s default Cubehelix represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateCubehelixDefault(t: number): string;
+
+/**
  * Given a number t in the range [0,1], returns the corresponding color from the “BuGn” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateBuGn(value: number): string;
+export function interpolateBuGn(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “BuGn” sequential color scheme. The kth element of this array contains
@@ -281,9 +346,9 @@ export const schemeBuGn: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “BuPu” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateBuPu(value: number): string;
+export function interpolateBuPu(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “BuPu” sequential color scheme. The kth element of this array contains
@@ -295,9 +360,9 @@ export const schemeBuPu: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “GnBu” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateGnBu(value: number): string;
+export function interpolateGnBu(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “GnBu” sequential color scheme. The kth element of this array contains
@@ -309,9 +374,9 @@ export const schemeGnBu: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “OrRd” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateOrRd(value: number): string;
+export function interpolateOrRd(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “OrRd” sequential color scheme. The kth element of this array contains
@@ -323,9 +388,9 @@ export const schemeOrRd: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “PuBuGn” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolatePuBuGn(value: number): string;
+export function interpolatePuBuGn(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “PuBuGn” sequential color scheme. The kth element of this array contains
@@ -337,9 +402,9 @@ export const schemePuBuGn: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “PuBu” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolatePuBu(value: number): string;
+export function interpolatePuBu(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “PuBu” sequential color scheme. The kth element of this array contains
@@ -351,9 +416,9 @@ export const schemePuBu: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “PuRd” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolatePuRd(value: number): string;
+export function interpolatePuRd(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “PuRd” sequential color scheme. The kth element of this array contains
@@ -365,9 +430,9 @@ export const schemePuRd: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “RdPu” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateRdPu(value: number): string;
+export function interpolateRdPu(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “RdPu” sequential color scheme. The kth element of this array contains
@@ -379,9 +444,9 @@ export const schemeRdPu: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “YlGnBu” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateYlGnBu(value: number): string;
+export function interpolateYlGnBu(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “YlGnBu” sequential color scheme. The kth element of this array contains
@@ -393,9 +458,9 @@ export const schemeYlGnBu: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “YlGn” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateYlGn(value: number): string;
+export function interpolateYlGn(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “YlGn” sequential color scheme. The kth element of this array contains
@@ -407,9 +472,9 @@ export const schemeYlGn: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “YlOrBr” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateYlOrBr(value: number): string;
+export function interpolateYlOrBr(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “YlOrBr” sequential color scheme. The kth element of this array contains
@@ -421,9 +486,9 @@ export const schemeYlOrBr: ReadonlyArray<ReadonlyArray<string>>;
 /**
  * Given a number t in the range [0,1], returns the corresponding color from the “YlOrRd” sequential color scheme represented as an RGB string.
  *
- * @param value Number in the range [0, 1].
+ * @param t Number in the range [0, 1].
  */
-export function interpolateYlOrRd(value: number): string;
+export function interpolateYlOrRd(t: number): string;
 
 /**
  * An array of arrays of hexadecimal color strings from the “YlOrRd” sequential color scheme. The kth element of this array contains

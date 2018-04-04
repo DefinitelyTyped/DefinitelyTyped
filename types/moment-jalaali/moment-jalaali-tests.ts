@@ -1,4 +1,4 @@
-import * as moment from 'moment-jalaali';
+import moment = require('moment-jalaali');
 
 moment.loadPersian();
 

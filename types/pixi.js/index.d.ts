@@ -329,7 +329,7 @@ declare namespace PIXI {
         renderable: boolean;
         parent: Container;
         worldAlpha: number;
-        filterArea: Rectangle;
+        filterArea: Rectangle | null;
         protected _filters: Array<Filter<any>> | null;
         protected _enabledFilters: Array<Filter<any>> | null;
         protected _bounds: Bounds;
@@ -337,7 +337,7 @@ declare namespace PIXI {
         protected _lastBoundsID: number;
         protected _boundsRect: Rectangle;
         protected _localBoundsRect: Rectangle;
-        protected _mask: PIXI.Graphics | PIXI.Sprite;
+        protected _mask: PIXI.Graphics | PIXI.Sprite | null;
         protected readonly _destroyed: boolean;
         x: number;
         y: number;
@@ -349,7 +349,7 @@ declare namespace PIXI {
         skew: ObservablePoint;
         rotation: number;
         worldVisible: boolean;
-        mask: PIXI.Graphics | PIXI.Sprite;
+        mask: PIXI.Graphics | PIXI.Sprite | null;
         filters: Array<Filter<any>> | null;
 
         updateTransform(): void;
@@ -509,8 +509,8 @@ declare namespace PIXI {
         updateLocalBounds(): void;
         drawShape(shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any): GraphicsData;
         generateCanvasTexture(scaleMode?: number, resolution?: number): Texture;
-        protected closePath(): Graphics;
-        protected addHole(): Graphics;
+        closePath(): Graphics;
+        addHole(): Graphics;
         destroy(options?: DestroyOptions | boolean): void;
     }
     class CanvasGraphicsRenderer {
@@ -1428,9 +1428,11 @@ declare namespace PIXI {
 
         constructor(text: string, style: TextStyle, width: number, height: number, lines: number[], lineWidths: number[], lineHeight: number, maxLineWidth: number, fontProperties: any);
 
+        static addLine(line: string, newLine?: boolean): string;
         static measureText(text: string, style: TextStyle, wordWrap?: boolean, canvas?: HTMLCanvasElement): TextMetrics;
         static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;
         static measureFont(font: string): FontMetrics;
+        static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;
     }
     interface FontMetrics {
         ascent: number;
@@ -2057,6 +2059,7 @@ declare namespace PIXI {
             type: string;
             data: InteractionData;
             stopPropagation(): void;
+            reset(): void;
         }
         class InteractionData {
             global: Point;
@@ -2076,8 +2079,8 @@ declare namespace PIXI {
             twist: number;
             tangentialPressure: number;
             readonly pointerID: number;
-            protected _copyEvent(event: Touch | MouseEvent | PointerEvent): void;
-            protected _reset(): void;
+            copyEvent(event: Touch | MouseEvent | PointerEvent): void;
+            reset(): void;
             getLocalPosition(displayObject: DisplayObject, point?: Point, globalPos?: Point): Point;
         }
         type InteractionPointerEvents = "pointerdown" | "pointercancel" | "pointerup" |

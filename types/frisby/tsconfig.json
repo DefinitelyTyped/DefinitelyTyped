@@ -1,22 +1,16 @@
 {
     "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es6","dom"],
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "typeRoots": ["../"]
     },
     "files": [
         "index.d.ts",

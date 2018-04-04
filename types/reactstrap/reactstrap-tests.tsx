@@ -2107,9 +2107,9 @@ class Example75 extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <Navbar color="faded" light toggleable>
-          <NavbarToggler right onClick={this.toggle} />
+        <Navbar color="faded" light expand="md">
           <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
@@ -2118,6 +2118,23 @@ class Example75 extends React.Component<any, any> {
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
               </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Options
+                </DropdownToggle>
+                <DropdownMenu >
+                  <DropdownItem>
+                    Option 1
+                  </DropdownItem>
+                  <DropdownItem>
+                    Option 2
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    Reset
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Navbar>
@@ -2145,9 +2162,9 @@ class Example76 extends React.Component<any, any> {
     return (
       <div>
         <Navbar color="faded" light>
-          <NavbarToggler onClick={this.toggleNavbar} />
-          <Collapse className="navbar-toggleable-md" isOpen={!this.state.collapsed}>
-            <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand href="/" className="mr-auto">reactstrap</NavbarBrand>
+          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
                 <NavLink href="/components/">Components</NavLink>
@@ -2197,7 +2214,7 @@ class Example78 extends React.Component<any, any> {
     return (
       <div>
         <p>List Based</p>
-        <Nav inline>
+        <Nav vertical>
           <NavItem>
             <NavLink href="#">Link</NavLink>
           </NavItem>
@@ -2213,7 +2230,7 @@ class Example78 extends React.Component<any, any> {
         </Nav>
         <hr />
         <p>Link based</p>
-        <Nav inline>
+        <Nav vertical>
           <NavLink href="#">Link</NavLink> <NavLink href="#">Link</NavLink> <NavLink href="#">Another Link</NavLink> <NavLink disabled href="#">Disabled Link</NavLink>
         </Nav>
       </div>
@@ -3330,7 +3347,7 @@ class Example108 extends React.Component<any, any> {
     return (
       <div>
         <Navbar color="faded" dark toggleable>
-          <NavbarToggler right onClick={this.toggle} />
+          <NavbarToggler onClick={this.toggle} />
           <NavbarBrand href="/">reactstrap</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -3366,7 +3383,7 @@ class Example109 extends React.Component<any, any> {
     return (
       <div>
         <Navbar color="faded" light expand>
-          <NavbarToggler right onClick={this.toggle} />
+          <NavbarToggler onClick={this.toggle} />
           <NavbarBrand href="/">reactstrap</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -3402,7 +3419,7 @@ class Example110 extends React.Component<any, any> {
     return (
       <div>
         <Navbar color="faded" light expand="md">
-          <NavbarToggler right onClick={this.toggle} />
+          <NavbarToggler onClick={this.toggle} />
           <NavbarBrand href="/">reactstrap</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -3438,7 +3455,7 @@ class Example111 extends React.Component<any, any> {
     return (
       <div>
         <Navbar color="faded" light expand="md">
-          <NavbarToggler right onClick={this.toggle} />
+          <NavbarToggler onClick={this.toggle} />
           <NavbarBrand tag="a" href="/">reactstrap</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -3474,7 +3491,7 @@ class Example112 extends React.Component<any, any> {
     return (
       <div>
         <Navbar color="faded" light expand="md">
-          <NavbarToggler right onClick={this.toggle} />
+          <NavbarToggler onClick={this.toggle} />
           <NavbarBrand className="logo" href="/">reactstrap</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

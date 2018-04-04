@@ -51,6 +51,21 @@ const c: Configuration = {
 				to: 'directory/with/extension.ext',
 				toType: 'dir'
 			},
+
+			// transform and cache (cache is always used with transform option).
+			{
+				from: 'src/*.png',
+				to: 'dest/',
+				transform: (content, path) => content,
+				cache: true
+			},
+
+			// Copy glob results (without dot files) to {output}/to/directory/
+			{
+				from: '**/*.png',
+				fromArgs: { dot: false },
+				to: 'to/directory'
+			},
 		], {
 			ignore: [
 				// Doesn't copy any files with a txt extension

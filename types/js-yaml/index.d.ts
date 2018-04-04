@@ -1,11 +1,15 @@
-// Type definitions for js-yaml 3.10
+// Type definitions for js-yaml 3.11
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function safeLoad(str: string, opts?: LoadOptions): any;
-export function load(str: string, opts?: LoadOptions): any;
+export as namespace jsyaml;
+
+export type DocumentLoadResult = object | undefined;
+
+export function safeLoad(str: string, opts?: LoadOptions): DocumentLoadResult;
+export function load(str: string, opts?: LoadOptions): DocumentLoadResult;
 
 export class Type {
 	constructor(tag: string, opts?: TypeConstructorOptions);
@@ -26,8 +30,12 @@ export class Schema implements SchemaDefinition {
 	static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 }
 
-export function safeLoadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
-export function loadAll(str: string, iterator?: (doc: any) => void, opts?: LoadOptions): any;
+export function safeLoadAll(str: string, iterator?: undefined, opts?: LoadOptions): DocumentLoadResult[];
+export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
+
+export function loadAll(str: string, iterator?: undefined, opts?: LoadOptions): DocumentLoadResult[];
+
+export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
 
 export function safeDump(obj: any, opts?: DumpOptions): string;
 export function dump(obj: any, opts?: DumpOptions): string;

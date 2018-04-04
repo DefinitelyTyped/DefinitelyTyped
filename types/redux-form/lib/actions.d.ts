@@ -41,6 +41,7 @@ export declare function submit(form: string): FormAction;
 export declare function clearSubmit(form: string): FormAction;
 export declare function clearSubmitErrors(form: string): FormAction;
 export declare function clearAsyncError(form: string, field: string): FormAction;
+export declare function clearFields(form: string, keepTouched: boolean, persistentSubmitErrors: boolean, ...fields: string[]): FormAction;
 export declare function touch(form: string, ...fields: string[]): FormAction;
 export declare function unregisterField(form: string, name: string): FormAction;
 export declare function untouch(form: string, ...fields: string[]): FormAction;
@@ -64,6 +65,7 @@ declare const actions: {
     clearSubmit: typeof clearSubmit,
     clearSubmitErrors: typeof clearSubmitErrors,
     clearAsyncError: typeof clearAsyncError,
+    clearFields: typeof clearFields,
     destroy: typeof destroy,
     focus: typeof focus,
     initialize: typeof initialize,

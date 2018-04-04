@@ -3,7 +3,7 @@
 // Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 import * as moment from "moment";

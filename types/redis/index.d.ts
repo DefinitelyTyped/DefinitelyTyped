@@ -6,6 +6,7 @@
 //                 Stuart Schechter <https://github.com/UppaJung>
 //                 Junyoung Choi <https://github.com/Rokt33r>
 //                 James Garbutt <https://github.com/43081j>
+//                 Bartek Szczepański <https://github.com/barnski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -1238,4 +1239,4 @@ export function createClient(unix_socket: string, options?: ClientOpts): RedisCl
 export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
 export function createClient(options?: ClientOpts): RedisClient;
 
-export function print(err: Error | undefined, reply: any): void;
+export function print(err: Error | null, reply: any): void;

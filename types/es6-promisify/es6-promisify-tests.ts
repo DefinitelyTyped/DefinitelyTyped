@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import promisify = require('es6-promisify');
+import { promisify } from 'es6-promisify';
 
 function callbackFunction(a: string, b: string, callback: (error: any, combined: string) => void): void {
 	callback(undefined, a + b);
@@ -10,14 +10,8 @@ function multiArgFunction(a: string, b: string, c: string, callback: (error: any
 	callback(undefined, a + c, b + c);
 }
 
-const noKeys: promisify.Settings = {};
-const multiArgFunctionSettings: promisify.Settings = {
-	thisArg: multiArgFunction,
-	multiArgs: true
-};
-
 const callbackPromiseFactory: (...args: any[]) => Promise<string> = promisify(callbackFunction);
-const multiArgPromiseFactory: (...args: any[]) => Promise<string[]> = promisify(multiArgFunction, multiArgFunctionSettings);
+const multiArgPromiseFactory: (...args: any[]) => Promise<any> = promisify(multiArgFunction);
 
 const callbackPromise: Promise<string> = callbackPromiseFactory('stringA', 'stringB');
 const multiArgPromise: Promise<string[]> = multiArgPromiseFactory('stringA', 'stringB', 'stringC');
