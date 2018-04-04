@@ -46,7 +46,7 @@ export interface BucketItemStat {
     size: number;
     contentType: string;
     etag: string;
-    lastModified: string;
+    lastModified: Date;
 }
 
 export interface IncompleteUploadedBucketItem {
