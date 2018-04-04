@@ -16,7 +16,7 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 	type MathType = number|BigNumber|Fraction|Complex|Unit|MathArray|Matrix;
 	type MathExpression = string|string[]|MathArray|Matrix;
 
-	export interface MathJsStatic {
+	interface MathJsStatic {
 		e: number;
 		pi: number;
 		i: number;
@@ -1269,7 +1269,7 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		typeof(x: any): string;
 	}
 
-	export interface Matrix {
+	interface Matrix {
 		type: string;
 		storage(): string;
 		datatype(): string;
@@ -1287,49 +1287,49 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		swapRows(i: number, j: number): Matrix;
 	}
 
-	export interface BigNumber extends Decimal {} // tslint:disable-line no-empty-interface
+	interface BigNumber extends Decimal {} // tslint:disable-line no-empty-interface
 
-	export interface Fraction {
+	interface Fraction {
 		s: number;
 		n: number;
 		d: number;
 	}
 
-	export interface Complex {
+	interface Complex {
 		re: number;
 		im: number;
 		toPolar(): PolarCoordinates;
 		clone(): Complex;
 	}
 
-	export interface PolarCoordinates {
+	interface PolarCoordinates {
         r: number;
 		phi: number;
     }
 
-	export interface Unit {
+	interface Unit {
 		to(unit: string): Unit;
 		toNumber(unit: string): number;
 	}
 
-	export interface CreateUnitOptions {
+	interface CreateUnitOptions {
 		override?: boolean;
 	}
 
-	export interface UnitDefinition {
+	interface UnitDefinition {
 		definition?: string|Unit;
 		prefixes?: string;
 		offset?: number;
 		aliases?: string[];
 	}
 
-	export interface Index {} // tslint:disable-line no-empty-interface
+	interface Index {} // tslint:disable-line no-empty-interface
 
-	export interface EvalFunction {
+	interface EvalFunction {
 		eval(scope?: any): any;
 	}
 
-	export interface MathNode {
+	interface MathNode {
 		isNode: boolean;
 		isSymbolNode?: boolean;
 		isConstantNode?: boolean;
@@ -1361,15 +1361,12 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		 *
 		 * The callback function is called as callback(node: Node, path: string, parent: Node) : boolean for every node in the tree, and must return a boolean.
 		 * The function filter returns an array with nodes for which the test returned true. Parameter path is a string containing a relative JSON Path.
-		 * @param  {Function} callback(node [description]
-		 * @return {[Mathnode]}           Returns an array with nodes for which test returned true
+		 * @return Returns an array with nodes for which test returned true
 		 */
 		filter(callback: (node: MathNode, path: string, parent: MathNode) => any): MathNode[];
 
 		/**
 		 * [forEach description]
-		 * @param  {MathNode} callback(node [description]
-		 * @return {[type]}                 [description]
 		 */
 		forEach(callback: (node: MathNode, path: string, parent: MathNode) => any): MathNode[];
 
@@ -1400,9 +1397,6 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		 * //   SymbolNode x
 		 * //   ConstantNode 2
 		 * ```
-		 *
-		 * @param  {MathNode} callback=(node [description]
-		 * @return {[type]}                  [description]
 		 */
 		traverse(callback: (node: MathNode, path: string, parent: MathNode) => void): any;
 		/**
@@ -1440,20 +1434,20 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		map(callback: (node: MathNode, path: string, parent: MathNode) => MathNode): MathNode;
 	}
 
-	export interface Parser {
+	interface Parser {
 		eval(expr: string): any;
 		get(variable: string): any;
 		set: (variable: string, value: any) => void;
 		clear: () => void;
 	}
 
-	export interface Distribution {
+	interface Distribution {
 		random(size: any, min?: any, max?: any): any;
 		randomInt(min: any, max?: any): any;
 		pickRandom(array: any): any;
 	}
 
-	export interface FormatOptions {
+	interface FormatOptions {
 		/**
 		 * Number notation. Choose from:
 		 * 'fixed' Always use regular number notation. For example '123.40' and '14000000'
@@ -1489,12 +1483,12 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		fn?: (item: any) => string;
 	}
 
-	export interface Help {
+	interface Help {
 		toString(): string;
 		toJSON(): string;
-        }
+    }
 
-        export interface MathJsChain {
+    interface MathJsChain {
 		/**
 		 * Solves the linear equation system by forwards substitution. Matrix must be a lower triangular matrix.
 		 * @param b A column vector with the b values
@@ -1825,7 +1819,7 @@ declare namespace math { // tslint:disable-line strict-export-declare-modifiers
 		 * substituting coefficients of a line(a, b and c), use ax + by + c = 0 instead of ax + by = c For parametric
 		 * equation of a 3D line, x0, y0, z0, a, b, c are from: (x−x0, y−y0, z−z0) = t(a, b, c)
 		 */
-		distance(y: MathArray|Matrix|any): MathJsChain;
+		distance(y: MathType): MathJsChain;
 
 		/**
 		 * Calculates the point of intersection of two lines in two or three dimensions and of a line and a plane in

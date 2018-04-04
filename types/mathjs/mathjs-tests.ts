@@ -585,8 +585,7 @@ Units examples
 
 	/**
 	 * Helper function to format an output a value.
-	 * @param {*} value
-	 * @return {string} Returns the formatted value
+	 * @return Returns the formatted value
 	 */
 	function format(value: any): string {
 		const precision = 14;
