@@ -1,6 +1,7 @@
-// Type definitions for minio 5.0
+// Type definitions for minio 5.1
 // Project: https://github.com/minio/minio-js#readme
 // Definitions by: Barin Britva <https://github.com/barinbritva>
+//                 Lubomir Kaplan <https://github.com/castorw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -45,7 +46,7 @@ export interface BucketItemStat {
     size: number;
     contentType: string;
     etag: string;
-    lastModified: string;
+    lastModified: Date;
 }
 
 export interface IncompleteUploadedBucketItem {
@@ -82,7 +83,7 @@ export class Client {
     makeBucket(bucketName: string, region: Region): Promise<void>;
 
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
-    listBuckets(): Promise<BucketItemFromList>;
+    listBuckets(): Promise<BucketItemFromList[]>;
 
     bucketExists(bucketName: string, callback: ResultCallback<boolean>): void;
     bucketExists(bucketName: string): Promise<boolean>;
