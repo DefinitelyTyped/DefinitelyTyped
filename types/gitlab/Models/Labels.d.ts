@@ -1,5 +1,5 @@
-import { BaseModel, TId } from '../BaseModel.d';
+import { BaseModel, TId } from '../BaseModel';
 
 export class Labels extends BaseModel {
-    public create(projectId: TId, params?: object, fn?: Function): any;
+    create(projectId: TId, params?: object, fn?: Function): any;
 }
