@@ -1143,7 +1143,7 @@ export interface RouteOptionsAccess {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscache)
  */
 export type RouteOptionsCache = {
-    privacy?: 'default' | 'public' | 'privacy';
+    privacy?: 'default' | 'public' | 'private';
     statuses?: number[];
     otherwise?: string;
 } & (
