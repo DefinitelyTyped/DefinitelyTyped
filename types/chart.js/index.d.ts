@@ -9,6 +9,7 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Sergey Rubanov <https://github.com/chicoxyzzy>
+//                 Simon Archer <https://github.com/archy-bold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -124,6 +125,7 @@ declare namespace Chart {
         lineWidth?: number;
         strokeStyle?: string;
         pointStyle?: PointStyle;
+        datasetIndex?: number;
     }
 
     interface ChartTooltipItem {
