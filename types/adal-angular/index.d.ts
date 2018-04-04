@@ -1,6 +1,7 @@
 // Type definitions for adal-angular 1.0
 // Project: https://github.com/AzureAD/azure-activedirectory-library-for-js#readme
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
+//                 Anthony Ciccarello <https://github.com/aciccarello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // In module contexts the class constructor function is the exported object
@@ -8,7 +9,18 @@ export = AuthenticationContext;
 
 // This class is defined globally in not in a module context
 declare class AuthenticationContext {
+    instance: string;
     config: AuthenticationContext.Options;
+    callback: AuthenticationContext.TokenCallback;
+    popUp: boolean;
+    isAngular: boolean;
+
+    /**
+     * Enum for request type
+     * @enum {string}
+     */
+    REQUEST_TYPE: AuthenticationContext.RequestType
+    CONSTANTS: AuthenticationContext.Constants;
 
     constructor(options: AuthenticationContext.Options);
     /**
@@ -148,18 +160,38 @@ declare class AuthenticationContext {
      * @param message Message to log.
      */
     verbose(message: string): void;
+
+    /**
+    * Logs Pii messages when Logging Level is set to 0 and window.piiLoggingEnabled is set to true.
+    * @param message Message to log.
+    * @param error Error to log.
+    */
+    errorPii(message: string, error: any): void;
+
+    /**
+     * Logs  Pii messages when Logging Level is set to 1 and window.piiLoggingEnabled is set to true.
+     * @param message Message to log.
+     */
+    warnPii(message: string): void;
+
+    /**
+     * Logs messages when Logging Level is set to 2 and window.piiLoggingEnabled is set to true.
+     * @param message Message to log.
+     */
+    infoPii(message: string): void;
+
+    /**
+     * Logs messages when Logging Level is set to 3 and window.piiLoggingEnabled is set to true.
+     * @param message Message to log.
+     */
+    verbosePii(message: string): void;
 }
 
 declare namespace AuthenticationContext {
 
   export function inject(config: Options): AuthenticationContext;
 
-  export enum LoggingLevel {
-    ERROR = 0,
-    WARNING = 1,
-    INFO = 2,
-    VERBOSE = 3
-  }
+  export type LoggingLevel = 0 | 1 | 2 | 3;
 
   export type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
 
@@ -201,12 +233,15 @@ declare namespace AuthenticationContext {
 
   export type TokenCallback = (
       errorDesc: string | null,
-      token: string,
+      token: string | null,
       error: any
   ) => void;
 
-  export type UserCallback = (errorDesc: string | null, user: UserInfo) => void;
+  export type UserCallback = (errorDesc: string | null, user: UserInfo | null) => void;
 
+  /**
+   * Configuration options for Authentication Context
+   */
   export interface Options {
       /**
        * Client ID assigned to your app by Azure Active Directory.
@@ -290,6 +325,53 @@ declare namespace AuthenticationContext {
     level: LoggingLevel;
     log: (message: string) => void;
     piiLoggingEnabled: boolean;
+  }
+
+  /**
+   * Enum for storage constants
+   * @enum {string}
+   */
+  export interface Constants {
+    ACCESS_TOKEN: 'access_token',
+    EXPIRES_IN: 'expires_in',
+    ID_TOKEN: 'id_token',
+    ERROR_DESCRIPTION: 'error_description',
+    SESSION_STATE: 'session_state',
+    STORAGE: {
+        TOKEN_KEYS: 'adal.token.keys',
+        ACCESS_TOKEN_KEY: 'adal.access.token.key',
+        EXPIRATION_KEY: 'adal.expiration.key',
+        STATE_LOGIN: 'adal.state.login',
+        STATE_RENEW: 'adal.state.renew',
+        NONCE_IDTOKEN: 'adal.nonce.idtoken',
+        SESSION_STATE: 'adal.session.state',
+        USERNAME: 'adal.username',
+        IDTOKEN: 'adal.idtoken',
+        ERROR: 'adal.error',
+        ERROR_DESCRIPTION: 'adal.error.description',
+        LOGIN_REQUEST: 'adal.login.request',
+        LOGIN_ERROR: 'adal.login.error',
+        RENEW_STATUS: 'adal.token.renew.status'
+    },
+    RESOURCE_DELIMETER: '|',
+    LOADFRAME_TIMEOUT: '6000',
+    TOKEN_RENEW_STATUS_CANCELED: 'Canceled',
+    TOKEN_RENEW_STATUS_COMPLETED: 'Completed',
+    TOKEN_RENEW_STATUS_IN_PROGRESS: 'In Progress',
+    LOGGING_LEVEL: {
+        ERROR: 0,
+        WARN: 1,
+        INFO: 2,
+        VERBOSE: 3
+    },
+    LEVEL_STRING_MAP: {
+        0: 'ERROR:',
+        1: 'WARNING:',
+        2: 'INFO:',
+        3: 'VERBOSE:'
+    },
+    POPUP_WIDTH: 483,
+    POPUP_HEIGHT: 600
   }
 }
 
