@@ -1,9 +1,11 @@
-import { BaseModel } from './../BaseModel.d';
+import { BaseModel, TId, IDefParams } from '../BaseModel.d';
+
 export class ProjectMergeRequests extends BaseModel {
-    public list(projectId: number | string, params: { page?: number, per_page?: number, [key: string]: any }, fn?: Function): any;
-    public show(projectId: number | string, mergerequestId: number, fn?: Function): any;
-    public add(projectId: number | string, sourceBranch: any, targetBranch: any, assigneeId: number, title: any, fn?: Function): any;
-    public update(projectId: number | string, mergerequestId: number, params: object, fn?: Function): any;
-    public comment(projectId: number | string, mergerequestId: number, note: any, fn?: Function): any;
-    public merge(projectId: number | string, mergerequestId: number, params: object, fn?: Function): any;
+    public list(projectId: TId, fn?: Function): any;
+    public list(projectId: TId, params?: IDefParams, fn?: Function): any;
+    public show(projectId: TId, mergerequestId: number, fn?: Function): any;
+    public add(projectId: TId, sourceBranch: string, targetBranch: string, assigneeId: number, title: string, fn?: Function): any;
+    public update(projectId: TId, mergerequestId: number, params: object, fn?: Function): any;
+    public comment(projectId: TId, mergerequestId: number, note: any, fn?: Function): any;
+    public merge(projectId: TId, mergerequestId: number, params: object, fn?: Function): any;
 }

@@ -1,8 +1,12 @@
-import { BaseModel } from './../BaseModel.d';
+import { BaseModel, TId } from '../BaseModel.d';
+
+type MilestonesCb = (milestones: any[]) => any;
+type MilestoneCb = (milestones: any) => any;
+
 export class ProjectMilestones extends BaseModel {
-    public list(projectId: number | string, fn?: Function): any;
-    public all(projectId: number | string, fn?: Function): any;
-    public show(projectId: number | string, milestoneId: number, fn?: Function): any;
-    public add(projectId: number | string, title: any, description: any, due_date: any, fn?: Function): any;
-    public update(projectId: number | string, milestoneId: number, title: any, description: any, due_date: any, state_event: any, fn?: Function): any;
+    public list(projectId: TId, fn?: MilestonesCb): any;
+    public all(projectId: TId, fn?: MilestonesCb): any;
+    public show(projectId: TId, milestoneId: number, fn?: MilestoneCb): any;
+    public add(projectId: TId, title: string, description: string, due_date: any, fn?: Function): any;
+    public update(projectId: TId, milestoneId: number, title: string, description: string, due_date: any, state_event: any, fn?: Function): any;
 }
