@@ -1,4 +1,4 @@
-// Type definitions for minio 5.0.1
+// Type definitions for minio 5.1
 // Project: https://github.com/minio/minio-js#readme
 // Definitions by: Barin Britva <https://github.com/barinbritva>
 //                 Lubomir Kaplan <https://github.com/castorw>
