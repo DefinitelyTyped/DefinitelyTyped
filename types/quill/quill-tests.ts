@@ -1,4 +1,18 @@
 import { Quill, Delta, DeltaStatic, RangeStatic, StringMap } from 'quill';
+import {
+    Quill as Quill2,
+    Delta as Delta2,
+    DeltaStatic as DeltaStatic2,
+    RangeStatic as RangeStatic2,
+    StringMap as StringMap2
+} from 'quill/core';
+import {
+    Quill as Quill3,
+    Delta as Delta3,
+    DeltaStatic as DeltaStatic3,
+    RangeStatic as RangeStatic3,
+    StringMap as StringMap3
+} from 'quill/quill';
 import { Blot } from 'parchment/src/blot/abstract/blot';
 
 function test_quill() {
