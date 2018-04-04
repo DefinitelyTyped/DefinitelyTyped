@@ -1,6 +1,9 @@
 // Type definitions for D3JS d3-axis module 1.0
 // Project: https://github.com/d3/d3-axis/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Marco Buttini <https://github.com/borracciaBlu>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>,
+//                 Marco Buttini <https://github.com/borracciaBlu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Last module patch version validated against: 1.0.8
@@ -221,7 +224,7 @@ export interface Axis<Domain> {
     /**
      * Sets the tick format function and returns the axis.
      *
-     * @param format null
+     * @param format string
      */
     tickFormat(format: string): this;
 
