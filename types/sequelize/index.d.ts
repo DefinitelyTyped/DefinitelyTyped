@@ -1200,7 +1200,7 @@ declare namespace sequelize {
          *  Attribute name for the relation
          */
         name?: string;
-
+        unique?: boolean | string;
     }
 
     /**
