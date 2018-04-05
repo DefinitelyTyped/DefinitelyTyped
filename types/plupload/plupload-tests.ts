@@ -9,7 +9,6 @@ import 'plupload';
     uploader.init();
     uploader.start();
 
-
     uploader.bind('FilesAdded', function (up: any, files: any) {
         var html = '';
         plupload.each(files, function (file: any) {
